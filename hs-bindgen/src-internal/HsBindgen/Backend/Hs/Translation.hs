@@ -364,11 +364,10 @@ generateDecs opts haddockConfig moduleName typedefs (C.Decl info kind spec) =
       C.DeclFunction f ->
         let funDeclsWith safety =
               functionDecs safety opts haddockConfig moduleName typedefs info f spec
-            funType  = (C.TypeFun (snd <$> C.functionArgs f) (C.functionRes f))
             -- Declare a function pointer. We can pass this 'FunPtr' to C
             -- functions that take a function pointer of the appropriate type.
             funPtrDecls = fst $
-              addressStubDecs opts haddockConfig moduleName info funType spec
+              addressStubDecs opts haddockConfig moduleName info (Origin.Function f) spec
         in  pure $ withCategory BSafe   (funDeclsWith SHs.Safe)
                 ++ withCategory BUnsafe (funDeclsWith SHs.Unsafe)
                 ++ withCategory BFunPtr  funPtrDecls
@@ -1354,6 +1353,8 @@ functionDecs safety opts haddockConfig moduleName typedefs info f _spec =
     -- An exception to the rules: the foreign import function returns @void@
     -- when @res@ is a heap type, in which case a @const@ or @pure@ attribute
     -- does not make much sense, and so we just return the result in 'IO'.
+    --
+    -- TODO: this function is duplicated in @addressStubDecs@.
     hsIO :: Hs.HsType -> Hs.HsType
     -- | C-pure functions can be safely encapsulated using 'unsafePerformIO' to
     -- create a Haskell-pure functions. We include a comment in the generated
@@ -1474,7 +1475,7 @@ global opts haddockConfig moduleName instsMap typedefs info ty _spec =
     stubDecs :: [Hs.Decl]
     pureStubName :: HsName NsVar
     (stubDecs, pureStubName) =
-      addressStubDecs opts haddockConfig moduleName info ty _spec
+      addressStubDecs opts haddockConfig moduleName info (Origin.Global ty) _spec
 
     getConstGetterOfType :: C.Type -> [Hs.Decl]
     getConstGetterOfType t = constGetter (typ t) instsMap info pureStubName
@@ -1541,12 +1542,12 @@ addressStubDecs ::
   -> HaddockConfig
   -> HsModuleName
   -> C.DeclInfo -- ^ The given declaration
-  -> C.Type -- ^ The type of the given declaration
+  -> Origin.ForeignImport -- ^ The origin of the foreign import, including the type of the given declaration
   -> C.DeclSpec
   -> ( [Hs.Decl]
      , HsName 'NsVar
      )
-addressStubDecs opts haddockConfig moduleName info ty _spec =
+addressStubDecs opts haddockConfig moduleName info orig _spec =
     (foreignImport : runnerDecls, runnerName)
   where
     -- *** Stub (impure) ***
@@ -1558,7 +1559,27 @@ addressStubDecs opts haddockConfig moduleName info ty _spec =
     stubImportName = HsName $ T.pack stubNameMangled
 
     stubImportType :: ResultType HsType
-    stubImportType = NormalResultType $ HsIO $ typ stubType
+    stubImportType = NormalResultType $ HsIO $ hsFunType
+
+    -- | The C type converted to a Haskell type.
+    hsFunType :: Hs.HsType
+    hsFunType = case orig of
+        Origin.Global ty ->  typ (C.TypePointer ty)
+        Origin.Function fun ->
+          let
+            args = snd <$> C.functionArgs fun
+            res = C.functionRes fun
+            -- | Decide based on the function attributes whether to include 'IO' in the
+            -- result type of the foreign import. See the documentation on
+            -- 'C.FunctionPurity'.
+            --
+            -- TODO: this function is duplicated in @functionDecs@.
+            hsIO :: Hs.HsType -> Hs.HsType
+            hsIO = case C.functionPurity (C.functionAttrs fun) of
+              C.HaskellPureFunction -> id
+              C.CPureFunction       -> HsIO
+              C.ImpureFunction      -> HsIO
+          in Hs.HsFunPtr $ foldr (\x y -> Hs.HsFun (typ' CFunArg x) y) (hsIO (typ' CFunRes res)) args
 
     stubNameMangled :: String
     stubNameMangled = unUniqueSymbolId $
@@ -1571,7 +1592,9 @@ addressStubDecs opts haddockConfig moduleName info ty _spec =
     varName = T.unpack (C.getName . C.nameC . C.declId $ info)
 
     stubType :: C.Type
-    stubType = C.TypePointer ty
+    stubType = case orig of
+        Origin.Global ty -> C.TypePointer ty
+        Origin.Function fun -> C.TypePointer (C.TypeFun (snd <$> C.functionArgs fun) (C.functionRes fun))
 
     prettyStub :: String
     prettyStub = concat [
@@ -1600,7 +1623,7 @@ addressStubDecs opts haddockConfig moduleName info ty _spec =
         , foreignImportResultType = stubImportType
         , foreignImportOrigName = T.pack stubNameMangled
         , foreignImportCallConv = CallConvUserlandCAPI userlandCapiWrapper
-        , foreignImportOrigin   = Origin.Global ty
+        , foreignImportOrigin   = orig
         , foreignImportComment  = Nothing
           -- These imports can be unsafe. We're binding to simple address stubs,
           -- so there are no callbacks into Haskell code. Moreover, they are
@@ -1625,7 +1648,7 @@ addressStubDecs opts haddockConfig moduleName info ty _spec =
         }
 
     runnerName = HsName $ getHsIdentifier (C.nameHsIdent (C.declId info)) <> "_ptr"
-    runnerType = SHs.translateType (typ stubType)
+    runnerType = SHs.translateType hsFunType
     runnerExpr = SHs.EGlobal SHs.IO_unsafePerformIO
                 `SHs.EApp` SHs.EFree stubImportName
 

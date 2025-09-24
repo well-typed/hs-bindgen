@@ -1873,8 +1873,13 @@
           capiWrapperDefinition =
           "/* get_by_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_3e566432e1b7bdd8 (void)) (void) { return &by; } ",
           capiWrapperImport = "names.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1899,8 +1904,13 @@
           capiWrapperDefinition =
           "/* get_forall_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_a56841d4692515a9 (void)) (void) { return &forall; } ",
           capiWrapperImport = "names.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1925,8 +1935,13 @@
           capiWrapperDefinition =
           "/* get_mdo_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_4b14baa1fbc8f378 (void)) (void) { return &mdo; } ",
           capiWrapperImport = "names.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1951,8 +1966,13 @@
           capiWrapperDefinition =
           "/* get_pattern_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_b393d3c39de80903 (void)) (void) { return &pattern; } ",
           capiWrapperImport = "names.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1977,8 +1997,13 @@
           capiWrapperDefinition =
           "/* get_proc_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_f73545ae9224ff2d (void)) (void) { return &proc; } ",
           capiWrapperImport = "names.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2003,8 +2028,13 @@
           capiWrapperDefinition =
           "/* get_rec_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_0dd0f0805657312b (void)) (void) { return &rec; } ",
           capiWrapperImport = "names.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2029,8 +2059,13 @@
           capiWrapperDefinition =
           "/* get_using_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_aa3ce68f2bc5f037 (void)) (void) { return &using; } ",
           capiWrapperImport = "names.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2055,8 +2090,13 @@
           capiWrapperDefinition =
           "/* get_anyclass_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_9f90f5dd46a351a4 (void)) (void) { return &anyclass; } ",
           capiWrapperImport = "names.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2081,8 +2121,13 @@
           capiWrapperDefinition =
           "/* get_capi_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_3513093206483c6f (void)) (void) { return &capi; } ",
           capiWrapperImport = "names.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2107,8 +2152,13 @@
           capiWrapperDefinition =
           "/* get_cases_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_af7d0bdd6562f7d9 (void)) (void) { return &cases; } ",
           capiWrapperImport = "names.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2133,8 +2183,13 @@
           capiWrapperDefinition =
           "/* get_ccall_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_79b6583362113331 (void)) (void) { return &ccall; } ",
           capiWrapperImport = "names.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2159,8 +2214,13 @@
           capiWrapperDefinition =
           "/* get_dynamic_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_5c19071f2f4eaf45 (void)) (void) { return &dynamic; } ",
           capiWrapperImport = "names.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2185,8 +2245,13 @@
           capiWrapperDefinition =
           "/* get_export_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_98505ac7a8664e29 (void)) (void) { return &export; } ",
           capiWrapperImport = "names.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2211,8 +2276,13 @@
           capiWrapperDefinition =
           "/* get_family_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_849e77496a12f443 (void)) (void) { return &family; } ",
           capiWrapperImport = "names.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2237,8 +2307,13 @@
           capiWrapperDefinition =
           "/* get_group_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_41e72434cbcfa0d5 (void)) (void) { return &group; } ",
           capiWrapperImport = "names.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2263,8 +2338,13 @@
           capiWrapperDefinition =
           "/* get_interruptible_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_d016728709223884 (void)) (void) { return &interruptible; } ",
           capiWrapperImport = "names.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2289,8 +2369,13 @@
           capiWrapperDefinition =
           "/* get_javascript_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_fa5819996081f2b8 (void)) (void) { return &javascript; } ",
           capiWrapperImport = "names.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2315,8 +2400,13 @@
           capiWrapperDefinition =
           "/* get_label_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_0004d966bf5f8027 (void)) (void) { return &label; } ",
           capiWrapperImport = "names.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2341,8 +2431,13 @@
           capiWrapperDefinition =
           "/* get_prim_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_d9ec78c543d7f0ea (void)) (void) { return &prim; } ",
           capiWrapperImport = "names.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2367,8 +2462,13 @@
           capiWrapperDefinition =
           "/* get_role_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_89449e7f8f90fc97 (void)) (void) { return &role; } ",
           capiWrapperImport = "names.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2393,8 +2493,13 @@
           capiWrapperDefinition =
           "/* get_safe_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_983c057a9645fd29 (void)) (void) { return &safe; } ",
           capiWrapperImport = "names.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2419,8 +2524,13 @@
           capiWrapperDefinition =
           "/* get_stdcall_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_8ea4a9581868a08c (void)) (void) { return &stdcall; } ",
           capiWrapperImport = "names.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2445,8 +2555,13 @@
           capiWrapperDefinition =
           "/* get_stock_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_9d4197174428177d (void)) (void) { return &stock; } ",
           capiWrapperImport = "names.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2471,8 +2586,13 @@
           capiWrapperDefinition =
           "/* get_unsafe_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_6eb48adc74567d6d (void)) (void) { return &unsafe; } ",
           capiWrapperImport = "names.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2497,8 +2617,13 @@
           capiWrapperDefinition =
           "/* get_via_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_64eddb721da8c268 (void)) (void) { return &via; } ",
           capiWrapperImport = "names.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,

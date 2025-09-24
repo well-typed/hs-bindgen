@@ -3436,55 +3436,90 @@
           "/* get_resample_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_spec_examples_46b04422dcd0bbd5 (void)) (int32_T *arg1, cint16_T arg2[30720000], int64_T arg3, int64_T arg4, cint16_T arg5[30720000]) { return &resample; } ",
           capiWrapperImport =
           "spec_examples.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePointer
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name
+                    "res_m_num_valid_samples",
+                  nameHsIdent = HsIdentifier
+                    "res_m_num_valid_samples"})
+              (TypePointer
+                (TypeTypedef
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "int32_T",
+                      nameHsIdent = HsIdentifier
+                        "Int32_T"}))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "res_m_iq_int",
+                  nameHsIdent = HsIdentifier
+                    "res_m_iq_int"})
+              (TypeConstArray
+                30720000
+                (TypeTypedef
+                  (TypedefSquashed
+                    (Name "cint16_T")
+                    (TypeStruct
+                      NamePair {
+                        nameC = Name "cint16_T",
+                        nameHsIdent = HsIdentifier
+                          "Cint16_T"}
+                      (NameOriginGenerated
+                        (AnonId
+                          "spec_examples.h:14:9")))))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "res_m_old_rate",
+                  nameHsIdent = HsIdentifier
+                    "res_m_old_rate"})
               (TypeTypedef
                 (TypedefRegular
                   NamePair {
-                    nameC = Name "int32_T",
+                    nameC = Name "int64_T",
                     nameHsIdent = HsIdentifier
-                      "Int32_T"})),
-            TypeConstArray
-              30720000
-              (TypeTypedef
-                (TypedefSquashed
-                  (Name "cint16_T")
-                  (TypeStruct
-                    NamePair {
-                      nameC = Name "cint16_T",
-                      nameHsIdent = HsIdentifier
-                        "Cint16_T"}
-                    (NameOriginGenerated
-                      (AnonId
-                        "spec_examples.h:14:9"))))),
-            TypeTypedef
-              (TypedefRegular
+                      "Int64_T"})),
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "int64_T",
+                  nameC = Name "res_m_new_rate",
                   nameHsIdent = HsIdentifier
-                    "Int64_T"}),
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "int64_T",
-                  nameHsIdent = HsIdentifier
-                    "Int64_T"}),
-            TypeConstArray
-              30720000
+                    "res_m_new_rate"})
               (TypeTypedef
-                (TypedefSquashed
-                  (Name "cint16_T")
-                  (TypeStruct
-                    NamePair {
-                      nameC = Name "cint16_T",
-                      nameHsIdent = HsIdentifier
-                        "Cint16_T"}
-                    (NameOriginGenerated
-                      (AnonId
-                        "spec_examples.h:14:9")))))]
-          TypeVoid),
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "int64_T",
+                    nameHsIdent = HsIdentifier
+                      "Int64_T"})),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name
+                    "res_m_iq_resampled_int",
+                  nameHsIdent = HsIdentifier
+                    "res_m_iq_resampled_int"})
+              (TypeConstArray
+                30720000
+                (TypeTypedef
+                  (TypedefSquashed
+                    (Name "cint16_T")
+                    (TypeStruct
+                      NamePair {
+                        nameC = Name "cint16_T",
+                        nameHsIdent = HsIdentifier
+                          "Cint16_T"}
+                      (NameOriginGenerated
+                        (AnonId
+                          "spec_examples.h:14:9"))))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,

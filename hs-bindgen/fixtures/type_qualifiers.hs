@@ -196,17 +196,33 @@
           "/* get_list_example_ptr */ __attribute__ ((const)) _Bool (*hs_bindgen_test_type_qualifiers_24b25f22222ce366 (void)) (char const **arg1, size_t arg2) { return &list_example; } ",
           capiWrapperImport =
           "type_qualifiers.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePointer
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "items",
+                  nameHsIdent = HsIdentifier
+                    "items"})
               (TypePointer
-                (TypeConst
-                  (TypePrim
-                    (PrimChar
-                      (PrimSignImplicit Nothing))))),
-            TypePrim PrimSize]
-          (TypePrim PrimBool)),
+                (TypePointer
+                  (TypeConst
+                    (TypePrim
+                      (PrimChar
+                        (PrimSignImplicit Nothing)))))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "count",
+                  nameHsIdent = HsIdentifier
+                    "count"})
+              (TypePrim PrimSize)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            PrimBool},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,

@@ -627,7 +627,7 @@ my_alloc2_ptr :: FunPtr (Size_t -> IO (Ptr Void))
 -}
 my_alloc2_ptr = unsafePerformIO hs_bindgen_test_fun_attributes_17a11fd10dc57357
 foreign import ccall safe "hs_bindgen_test_fun_attributes_c41111f40a04cdc9" hs_bindgen_test_fun_attributes_c41111f40a04cdc9 :: IO (FunPtr (CInt ->
-                                                                                                                                           IO CInt))
+                                                                                                                                           CInt))
 {-# NOINLINE square_ptr #-}
 {-| __C declaration:__ @square@
 
@@ -635,7 +635,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_c41111f40a04cdc9" hs_b
 
     __exported by:__ @fun_attributes.h@
 -}
-square_ptr :: FunPtr (CInt -> IO CInt)
+square_ptr :: FunPtr (CInt -> CInt)
 {-| __C declaration:__ @square@
 
     __defined at:__ @fun_attributes.h:37:5@

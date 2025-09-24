@@ -2360,8 +2360,13 @@
           "/* get_f0_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_a03f2cbeac50b3d3 (void)) (void) { return &f0; } ",
           capiWrapperImport =
           "visibility_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2387,8 +2392,13 @@
           "/* get_f1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_5469bdc0395f86c1 (void)) (void) { return &f1; } ",
           capiWrapperImport =
           "visibility_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2414,8 +2424,13 @@
           "/* get_f2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_490ca7e8c8282a69 (void)) (void) { return &f2; } ",
           capiWrapperImport =
           "visibility_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2441,8 +2456,13 @@
           "/* get_f3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_38506a9ac5626bf2 (void)) (void) { return &f3; } ",
           capiWrapperImport =
           "visibility_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2468,8 +2488,13 @@
           "/* get_f4_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_10e5fac8fefa811b (void)) (void) { return &f4; } ",
           capiWrapperImport =
           "visibility_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2495,8 +2520,13 @@
           "/* get_f5_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_3f137e2ee71fd73b (void)) (void) { return &f5; } ",
           capiWrapperImport =
           "visibility_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2522,8 +2552,13 @@
           "/* get_f6_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_b69720e01b3b7ccd (void)) (void) { return &f6; } ",
           capiWrapperImport =
           "visibility_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2549,8 +2584,13 @@
           "/* get_f7_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_97be5f53b506f3b5 (void)) (void) { return &f7; } ",
           capiWrapperImport =
           "visibility_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2576,8 +2616,13 @@
           "/* get_f8_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_ae7ef3d579d77d0b (void)) (void) { return &f8; } ",
           capiWrapperImport =
           "visibility_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2603,8 +2648,13 @@
           "/* get_f9_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_ef6d611329a20b40 (void)) (void) { return &f9; } ",
           capiWrapperImport =
           "visibility_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2630,8 +2680,13 @@
           "/* get_f10_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_45797238134784ac (void)) (void) { return &f10; } ",
           capiWrapperImport =
           "visibility_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2657,8 +2712,13 @@
           "/* get_f11_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_f09c80553786e039 (void)) (void) { return &f11; } ",
           capiWrapperImport =
           "visibility_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2684,8 +2744,13 @@
           "/* get_f12_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_2e9999eac1cab3da (void)) (void) { return &f12; } ",
           capiWrapperImport =
           "visibility_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2711,8 +2776,13 @@
           "/* get_f13_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_32e5be8a3f3ac037 (void)) (void) { return &f13; } ",
           capiWrapperImport =
           "visibility_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2738,8 +2808,13 @@
           "/* get_f14_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_0b00a23924c6dc70 (void)) (void) { return &f14; } ",
           capiWrapperImport =
           "visibility_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2765,8 +2840,13 @@
           "/* get_f15_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_0d2891732562e5ef (void)) (void) { return &f15; } ",
           capiWrapperImport =
           "visibility_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2792,8 +2872,13 @@
           "/* get_f16_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_f25227febbe8db15 (void)) (void) { return &f16; } ",
           capiWrapperImport =
           "visibility_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2819,8 +2904,13 @@
           "/* get_f17_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_b90b1824c2839fd2 (void)) (void) { return &f17; } ",
           capiWrapperImport =
           "visibility_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2846,8 +2936,13 @@
           "/* get_f18_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_24ba8b98fe453a5c (void)) (void) { return &f18; } ",
           capiWrapperImport =
           "visibility_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2873,8 +2968,13 @@
           "/* get_f19_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_b857c57c0cf79909 (void)) (void) { return &f19; } ",
           capiWrapperImport =
           "visibility_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2900,8 +3000,13 @@
           "/* get_f20_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_d695cc521dd39753 (void)) (void) { return &f20; } ",
           capiWrapperImport =
           "visibility_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2927,8 +3032,13 @@
           "/* get_f21_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_7311dbbdd00abedc (void)) (void) { return &f21; } ",
           capiWrapperImport =
           "visibility_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2954,8 +3064,13 @@
           "/* get_f22_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_4246b9344ad4db0d (void)) (void) { return &f22; } ",
           capiWrapperImport =
           "visibility_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2981,8 +3096,13 @@
           "/* get_f23_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_dcef056ccb5953f9 (void)) (void) { return &f23; } ",
           capiWrapperImport =
           "visibility_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -3008,8 +3128,13 @@
           "/* get_f24_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_9ab6df359be6d370 (void)) (void) { return &f24; } ",
           capiWrapperImport =
           "visibility_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -3035,8 +3160,13 @@
           "/* get_f25_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_80cad6f0afd3f1fc (void)) (void) { return &f25; } ",
           capiWrapperImport =
           "visibility_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -3062,8 +3192,13 @@
           "/* get_f26_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_b1580cdccf30f552 (void)) (void) { return &f26; } ",
           capiWrapperImport =
           "visibility_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -3089,8 +3224,13 @@
           "/* get_f27_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_2e4891a5e2afe0df (void)) (void) { return &f27; } ",
           capiWrapperImport =
           "visibility_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -3116,8 +3256,13 @@
           "/* get_f28_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_e2949a9b7b7cbfc0 (void)) (void) { return &f28; } ",
           capiWrapperImport =
           "visibility_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -3143,8 +3288,13 @@
           "/* get_f29_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_1224b39f0e8e72cd (void)) (void) { return &f29; } ",
           capiWrapperImport =
           "visibility_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,

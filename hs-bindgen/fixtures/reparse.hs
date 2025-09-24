@@ -24667,18 +24667,33 @@
           "/* get_args_char1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_1cbcf8b84924816c (void)) (A arg1, char arg2) { return &args_char1; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypePrim
-              (PrimChar
-                (PrimSignImplicit Nothing))]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePrim
+                (PrimChar
+                  (PrimSignImplicit Nothing)))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -24709,18 +24724,33 @@
           "/* get_args_char2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_ec2d78b82f444fd0 (void)) (A arg1, signed char arg2) { return &args_char2; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypePrim
-              (PrimChar
-                (PrimSignExplicit Signed))]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePrim
+                (PrimChar
+                  (PrimSignExplicit Signed)))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -24751,18 +24781,33 @@
           "/* get_args_char3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_1baa18e723594389 (void)) (A arg1, unsigned char arg2) { return &args_char3; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypePrim
-              (PrimChar
-                (PrimSignExplicit Unsigned))]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePrim
+                (PrimChar
+                  (PrimSignExplicit Unsigned)))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -24793,17 +24838,34 @@
           "/* get_args_short1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_c96cef4ef5f5e180 (void)) (A arg1, signed short arg2) { return &args_short1; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypePrim
-              (PrimIntegral PrimShort Signed)]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePrim
+                (PrimIntegral
+                  PrimShort
+                  Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -24834,17 +24896,34 @@
           "/* get_args_short2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_3a683552d4f772c7 (void)) (A arg1, signed short arg2) { return &args_short2; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypePrim
-              (PrimIntegral PrimShort Signed)]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePrim
+                (PrimIntegral
+                  PrimShort
+                  Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -24875,19 +24954,34 @@
           "/* get_args_short3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_f3284022ac706255 (void)) (A arg1, unsigned short arg2) { return &args_short3; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypePrim
-              (PrimIntegral
-                PrimShort
-                Unsigned)]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePrim
+                (PrimIntegral
+                  PrimShort
+                  Unsigned))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -24918,17 +25012,32 @@
           "/* get_args_int1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_5c4d785286ccca6b (void)) (A arg1, signed int arg2) { return &args_int1; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypePrim
-              (PrimIntegral PrimInt Signed)]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -24959,17 +25068,32 @@
           "/* get_args_int2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_e323b837afe40be7 (void)) (A arg1, signed int arg2) { return &args_int2; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypePrim
-              (PrimIntegral PrimInt Signed)]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -25000,17 +25124,34 @@
           "/* get_args_int3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_eb0e5feb8eb4082d (void)) (A arg1, unsigned int arg2) { return &args_int3; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypePrim
-              (PrimIntegral PrimInt Unsigned)]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Unsigned))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -25041,17 +25182,34 @@
           "/* get_args_long1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_d7d322f23a65f43b (void)) (A arg1, signed long arg2) { return &args_long1; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypePrim
-              (PrimIntegral PrimLong Signed)]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePrim
+                (PrimIntegral
+                  PrimLong
+                  Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -25082,17 +25240,34 @@
           "/* get_args_long2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_378c16768a6f6f21 (void)) (A arg1, signed long arg2) { return &args_long2; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypePrim
-              (PrimIntegral PrimLong Signed)]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePrim
+                (PrimIntegral
+                  PrimLong
+                  Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -25123,19 +25298,34 @@
           "/* get_args_long3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_548dcd4760226ee2 (void)) (A arg1, unsigned long arg2) { return &args_long3; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypePrim
-              (PrimIntegral
-                PrimLong
-                Unsigned)]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePrim
+                (PrimIntegral
+                  PrimLong
+                  Unsigned))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -25166,17 +25356,32 @@
           "/* get_args_float_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_701d01261043851b (void)) (A arg1, float arg2) { return &args_float; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypePrim
-              (PrimFloating PrimFloat)]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePrim
+                (PrimFloating PrimFloat))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -25207,17 +25412,32 @@
           "/* get_args_double_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_ff631e42f704e4cd (void)) (A arg1, double arg2) { return &args_double; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypePrim
-              (PrimFloating PrimDouble)]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePrim
+                (PrimFloating PrimDouble))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -25248,16 +25468,31 @@
           "/* get_args_bool1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_6e289c6cc6d382bf (void)) (A arg1, _Bool arg2) { return &args_bool1; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypePrim PrimBool]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePrim PrimBool)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -25291,21 +25526,36 @@
           "/* get_args_struct_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_26b20c1b89e46b02 (void)) (A arg1, struct some_struct arg2) { return &args_struct; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypeStruct
-              NamePair {
-                nameC = Name "some_struct",
-                nameHsIdent = HsIdentifier
-                  "Some_struct"}
-              NameOriginInSource]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeStruct
+                NamePair {
+                  nameC = Name "some_struct",
+                  nameHsIdent = HsIdentifier
+                    "Some_struct"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -25339,21 +25589,36 @@
           "/* get_args_union_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_cfd37f06f21b8755 (void)) (A arg1, union some_union arg2) { return &args_union; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypeUnion
-              NamePair {
-                nameC = Name "some_union",
-                nameHsIdent = HsIdentifier
-                  "Some_union"}
-              NameOriginInSource]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeUnion
+                NamePair {
+                  nameC = Name "some_union",
+                  nameHsIdent = HsIdentifier
+                    "Some_union"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -25387,21 +25652,36 @@
           "/* get_args_enum_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_69882f8f862fffc2 (void)) (A arg1, enum some_enum arg2) { return &args_enum; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypeEnum
-              NamePair {
-                nameC = Name "some_enum",
-                nameHsIdent = HsIdentifier
-                  "Some_enum"}
-              NameOriginInSource]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeEnum
+                NamePair {
+                  nameC = Name "some_enum",
+                  nameHsIdent = HsIdentifier
+                    "Some_enum"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -25432,18 +25712,35 @@
           "/* get_args_pointer1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_23bde4e97b66c470 (void)) (A arg1, signed int *arg2) { return &args_pointer1; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypePointer
-              (TypePrim
-                (PrimIntegral PrimInt Signed))]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePointer
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -25475,19 +25772,36 @@
           "/* get_args_pointer2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_fceb546239df3c0a (void)) (A arg1, signed int **arg2) { return &args_pointer2; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypePointer
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
               (TypePointer
-                (TypePrim
-                  (PrimIntegral PrimInt Signed)))]
-          TypeVoid),
+                (TypePointer
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -25518,16 +25832,31 @@
           "/* get_args_pointer3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_0cb396fb06dd816a (void)) (A arg1, void *arg2) { return &args_pointer3; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypePointer TypeVoid]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg3",
+                  nameHsIdent = HsIdentifier
+                    "arg3"})
+              (TypePointer TypeVoid)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -25556,14 +25885,17 @@
           "/* get_ret_A_ptr */ __attribute__ ((const)) A (*hs_bindgen_test_reparse_a7564eacf3ad149f (void)) (void) { return &ret_A; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          []
-          (TypeMacroTypedef
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeMacroTypedef
             NamePair {
               nameC = Name "A",
               nameHsIdent = HsIdentifier "A"}
-            NameOriginInSource)),
+            NameOriginInSource},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -25592,17 +25924,26 @@
           "/* get_ret_char1_ptr */ __attribute__ ((const)) char (*hs_bindgen_test_reparse_7b5b646ee4e06777 (void)) (A arg1) { return &ret_char1; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource]
-          (TypePrim
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
             (PrimChar
-              (PrimSignImplicit Nothing)))),
+              (PrimSignImplicit Nothing))},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -25631,17 +25972,26 @@
           "/* get_ret_char2_ptr */ __attribute__ ((const)) signed char (*hs_bindgen_test_reparse_7c05cbccaf1be8b6 (void)) (A arg1) { return &ret_char2; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource]
-          (TypePrim
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
             (PrimChar
-              (PrimSignExplicit Signed)))),
+              (PrimSignExplicit Signed))},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -25670,17 +26020,26 @@
           "/* get_ret_char3_ptr */ __attribute__ ((const)) unsigned char (*hs_bindgen_test_reparse_0fc74f839f906d7e (void)) (A arg1) { return &ret_char3; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource]
-          (TypePrim
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
             (PrimChar
-              (PrimSignExplicit Unsigned)))),
+              (PrimSignExplicit Unsigned))},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -25709,18 +26068,27 @@
           "/* get_ret_short1_ptr */ __attribute__ ((const)) signed short (*hs_bindgen_test_reparse_72ff9f5cb5daaae8 (void)) (A arg1) { return &ret_short1; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource]
-          (TypePrim
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
             (PrimIntegral
               PrimShort
-              Signed))),
+              Signed)},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -25749,18 +26117,27 @@
           "/* get_ret_short2_ptr */ __attribute__ ((const)) signed short (*hs_bindgen_test_reparse_eb5427ff3ea0d96e (void)) (A arg1) { return &ret_short2; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource]
-          (TypePrim
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
             (PrimIntegral
               PrimShort
-              Signed))),
+              Signed)},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -25789,18 +26166,27 @@
           "/* get_ret_short3_ptr */ __attribute__ ((const)) unsigned short (*hs_bindgen_test_reparse_823adc61eed1550c (void)) (A arg1) { return &ret_short3; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource]
-          (TypePrim
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
             (PrimIntegral
               PrimShort
-              Unsigned))),
+              Unsigned)},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -25829,16 +26215,25 @@
           "/* get_ret_int1_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_reparse_79ce8d81113cf766 (void)) (A arg1) { return &ret_int1; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource]
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -25867,16 +26262,25 @@
           "/* get_ret_int2_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_reparse_d369bd4861f00c84 (void)) (A arg1) { return &ret_int2; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource]
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -25905,18 +26309,27 @@
           "/* get_ret_int3_ptr */ __attribute__ ((const)) unsigned int (*hs_bindgen_test_reparse_0336d583fc7b5951 (void)) (A arg1) { return &ret_int3; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource]
-          (TypePrim
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
             (PrimIntegral
               PrimInt
-              Unsigned))),
+              Unsigned)},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -25945,18 +26358,25 @@
           "/* get_ret_long1_ptr */ __attribute__ ((const)) signed long (*hs_bindgen_test_reparse_36845109a4ce7992 (void)) (A arg1) { return &ret_long1; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource]
-          (TypePrim
-            (PrimIntegral
-              PrimLong
-              Signed))),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimLong Signed)},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -25985,18 +26405,25 @@
           "/* get_ret_long2_ptr */ __attribute__ ((const)) signed long (*hs_bindgen_test_reparse_ac32dbc1e79e704e (void)) (A arg1) { return &ret_long2; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource]
-          (TypePrim
-            (PrimIntegral
-              PrimLong
-              Signed))),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimLong Signed)},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -26025,18 +26452,27 @@
           "/* get_ret_long3_ptr */ __attribute__ ((const)) unsigned long (*hs_bindgen_test_reparse_6fba85ecad7d8d4e (void)) (A arg1) { return &ret_long3; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource]
-          (TypePrim
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
             (PrimIntegral
               PrimLong
-              Unsigned))),
+              Unsigned)},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -26065,16 +26501,25 @@
           "/* get_ret_float_ptr */ __attribute__ ((const)) float (*hs_bindgen_test_reparse_e9ac779a7c943add (void)) (A arg1) { return &ret_float; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource]
-          (TypePrim
-            (PrimFloating PrimFloat))),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimFloating PrimFloat)},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -26103,16 +26548,25 @@
           "/* get_ret_double_ptr */ __attribute__ ((const)) double (*hs_bindgen_test_reparse_7095a5f5be3ecc0c (void)) (A arg1) { return &ret_double; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource]
-          (TypePrim
-            (PrimFloating PrimDouble))),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimFloating PrimDouble)},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -26141,15 +26595,25 @@
           "/* get_ret_bool1_ptr */ __attribute__ ((const)) _Bool (*hs_bindgen_test_reparse_c7b5be49f4314899 (void)) (A arg1) { return &ret_bool1; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource]
-          (TypePrim PrimBool)),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            PrimBool},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -26181,20 +26645,29 @@
           "/* get_ret_struct_ptr */ __attribute__ ((const)) struct some_struct (*hs_bindgen_test_reparse_03ec23cf81b62ce3 (void)) (A arg1) { return &ret_struct; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource]
-          (TypeStruct
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeStruct
             NamePair {
               nameC = Name "some_struct",
               nameHsIdent = HsIdentifier
                 "Some_struct"}
-            NameOriginInSource)),
+            NameOriginInSource},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -26226,20 +26699,29 @@
           "/* get_ret_union_ptr */ __attribute__ ((const)) union some_union (*hs_bindgen_test_reparse_5315544d48ea5b07 (void)) (A arg1) { return &ret_union; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource]
-          (TypeUnion
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeUnion
             NamePair {
               nameC = Name "some_union",
               nameHsIdent = HsIdentifier
                 "Some_union"}
-            NameOriginInSource)),
+            NameOriginInSource},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -26271,20 +26753,29 @@
           "/* get_ret_enum_ptr */ __attribute__ ((const)) enum some_enum (*hs_bindgen_test_reparse_9fb7ddbcd84c72f1 (void)) (A arg1) { return &ret_enum; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource]
-          (TypeEnum
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeEnum
             NamePair {
               nameC = Name "some_enum",
               nameHsIdent = HsIdentifier
                 "Some_enum"}
-            NameOriginInSource)),
+            NameOriginInSource},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -26314,19 +26805,26 @@
           "/* get_ret_pointer1_ptr */ __attribute__ ((const)) signed int *(*hs_bindgen_test_reparse_0638bcad8813a303 (void)) (A arg1) { return &ret_pointer1; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource]
-          (TypePointer
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
             (TypePrim
-              (PrimIntegral
-                PrimInt
-                Signed)))),
+              (PrimIntegral PrimInt Signed))},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -26357,20 +26855,29 @@
           "/* get_ret_pointer2_ptr */ __attribute__ ((const)) signed int **(*hs_bindgen_test_reparse_5d9ced9e4887782b (void)) (A arg1) { return &ret_pointer2; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource]
-          (TypePointer
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
             (TypePointer
               (TypePrim
                 (PrimIntegral
                   PrimInt
-                  Signed))))),
+                  Signed)))},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -26400,15 +26907,25 @@
           "/* get_ret_pointer3_ptr */ __attribute__ ((const)) void *(*hs_bindgen_test_reparse_60e99361ec0a4b5b (void)) (A arg1) { return &ret_pointer3; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource]
-          (TypePointer TypeVoid)),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -26437,16 +26954,25 @@
           "/* get_body1_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_reparse_cca1935605a94051 (void)) (A arg1) { return &body1; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource]
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -26475,14 +27001,17 @@
           "/* get_body2_ptr */ __attribute__ ((const)) A (*hs_bindgen_test_reparse_a1900daea7e14e95 (void)) (void) { return &body2; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          []
-          (TypeMacroTypedef
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeMacroTypedef
             NamePair {
               nameC = Name "A",
               nameHsIdent = HsIdentifier "A"}
-            NameOriginInSource)),
+            NameOriginInSource},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -26513,17 +27042,32 @@
           "/* get_args_complex_float_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_c62f1e9d47469a1c (void)) (A arg1, float _Complex arg2) { return &args_complex_float; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypeComplex
-              (PrimFloating PrimFloat)]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeComplex
+                (PrimFloating PrimFloat))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -26554,17 +27098,32 @@
           "/* get_args_complex_double_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_b2ef5ed0a8ed0697 (void)) (A arg1, double _Complex arg2) { return &args_complex_double; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypeComplex
-              (PrimFloating PrimDouble)]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeComplex
+                (PrimFloating PrimDouble))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -26594,16 +27153,25 @@
           "/* get_ret_complex_float_ptr */ __attribute__ ((const)) float _Complex (*hs_bindgen_test_reparse_e2cc2aa2dd12852d (void)) (A arg1) { return &ret_complex_float; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource]
-          (TypeComplex
-            (PrimFloating PrimFloat))),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeComplex
+            (PrimFloating PrimFloat)},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -26633,16 +27201,25 @@
           "/* get_ret_complex_double_ptr */ __attribute__ ((const)) double _Complex (*hs_bindgen_test_reparse_c95961d571f78868 (void)) (A arg1) { return &ret_complex_double; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource]
-          (TypeComplex
-            (PrimFloating PrimDouble))),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeComplex
+            (PrimFloating PrimDouble)},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -26673,16 +27250,31 @@
           "/* get_bespoke_args1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_94c8a2d3574ba283 (void)) (A arg1, _Bool arg2) { return &bespoke_args1; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypePrim PrimBool]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePrim PrimBool)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -26713,16 +27305,31 @@
           "/* get_bespoke_args2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_2165985767a8d24e (void)) (A arg1, size_t arg2) { return &bespoke_args2; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypePrim PrimSize]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePrim PrimSize)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -26751,15 +27358,25 @@
           "/* get_bespoke_ret1_ptr */ __attribute__ ((const)) _Bool (*hs_bindgen_test_reparse_7913bf38675bd912 (void)) (A arg1) { return &bespoke_ret1; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource]
-          (TypePrim PrimBool)),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            PrimBool},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -26788,15 +27405,25 @@
           "/* get_bespoke_ret2_ptr */ __attribute__ ((const)) size_t (*hs_bindgen_test_reparse_07c419cb648cdf65 (void)) (A arg1) { return &bespoke_ret2; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource]
-          (TypePrim PrimSize)),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            PrimSize},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -26826,16 +27453,25 @@
           "/* get_arr_args1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_ed19e51bcac06a9e (void)) (A arg1[]) { return &arr_args1; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeIncompleteArray
-              (TypeMacroTypedef
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "A",
-                  nameHsIdent = HsIdentifier "A"}
-                NameOriginInSource)]
-          TypeVoid),
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeIncompleteArray
+                (TypeMacroTypedef
+                  NamePair {
+                    nameC = Name "A",
+                    nameHsIdent = HsIdentifier "A"}
+                  NameOriginInSource))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -26866,17 +27502,26 @@
           "/* get_arr_args2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_de3931a21a8a71fc (void)) (A *arg1[]) { return &arr_args2; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeIncompleteArray
-              (TypePointer
-                (TypeMacroTypedef
-                  NamePair {
-                    nameC = Name "A",
-                    nameHsIdent = HsIdentifier "A"}
-                  NameOriginInSource))]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeIncompleteArray
+                (TypePointer
+                  (TypeMacroTypedef
+                    NamePair {
+                      nameC = Name "A",
+                      nameHsIdent = HsIdentifier "A"}
+                    NameOriginInSource)))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -26907,17 +27552,26 @@
           "/* get_arr_args3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_2c02effa6288a26b (void)) (A arg1[5]) { return &arr_args3; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeConstArray
-              5
-              (TypeMacroTypedef
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "A",
-                  nameHsIdent = HsIdentifier "A"}
-                NameOriginInSource)]
-          TypeVoid),
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeConstArray
+                5
+                (TypeMacroTypedef
+                  NamePair {
+                    nameC = Name "A",
+                    nameHsIdent = HsIdentifier "A"}
+                  NameOriginInSource))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -26949,18 +27603,27 @@
           "/* get_arr_args4_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_2144e300082f115c (void)) (A *arg1[5]) { return &arr_args4; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeConstArray
-              5
-              (TypePointer
-                (TypeMacroTypedef
-                  NamePair {
-                    nameC = Name "A",
-                    nameHsIdent = HsIdentifier "A"}
-                  NameOriginInSource))]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeConstArray
+                5
+                (TypePointer
+                  (TypeMacroTypedef
+                    NamePair {
+                      nameC = Name "A",
+                      nameHsIdent = HsIdentifier "A"}
+                    NameOriginInSource)))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -26992,17 +27655,32 @@
           "/* get_funptr_args1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_d1645262a53743f6 (void)) (A arg1, void (*arg2) (void)) { return &funptr_args1; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypePointer
-              (TypeFun [] TypeVoid)]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePointer
+                (TypeFun [] TypeVoid))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -27034,20 +27712,37 @@
           "/* get_funptr_args2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_d66507630e4e38e3 (void)) (A arg1, signed int (*arg2) (void)) { return &funptr_args2; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypePointer
-              (TypeFun
-                []
-                (TypePrim
-                  (PrimIntegral PrimInt Signed)))]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePointer
+                (TypeFun
+                  []
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -27081,21 +27776,36 @@
           "/* get_funptr_args3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_3d7907ab53b617cf (void)) (A arg1, void (*arg2) (signed int arg1)) { return &funptr_args3; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypePointer
-              (TypeFun
-                [
-                  TypePrim
-                    (PrimIntegral PrimInt Signed)]
-                TypeVoid)]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePointer
+                (TypeFun
+                  [
+                    TypePrim
+                      (PrimIntegral PrimInt Signed)]
+                  TypeVoid))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -27132,25 +27842,40 @@
           "/* get_funptr_args4_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_e4d15a9c3b04292a (void)) (A arg1, char (*arg2) (signed int arg1, double arg2)) { return &funptr_args4; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypePointer
-              (TypeFun
-                [
-                  TypePrim
-                    (PrimIntegral PrimInt Signed),
-                  TypePrim
-                    (PrimFloating PrimDouble)]
-                (TypePrim
-                  (PrimChar
-                    (PrimSignImplicit Nothing))))]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePointer
+                (TypeFun
+                  [
+                    TypePrim
+                      (PrimIntegral PrimInt Signed),
+                    TypePrim
+                      (PrimFloating PrimDouble)]
+                  (TypePrim
+                    (PrimChar
+                      (PrimSignImplicit Nothing)))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -27188,27 +27913,42 @@
           "/* get_funptr_args5_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_ced7918b6e42102f (void)) (A arg1, signed int *(*arg2) (signed int arg1, double arg2)) { return &funptr_args5; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypePointer
-              (TypeFun
-                [
-                  TypePrim
-                    (PrimIntegral PrimInt Signed),
-                  TypePrim
-                    (PrimFloating PrimDouble)]
-                (TypePointer
-                  (TypePrim
-                    (PrimIntegral
-                      PrimInt
-                      Signed))))]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePointer
+                (TypeFun
+                  [
+                    TypePrim
+                      (PrimIntegral PrimInt Signed),
+                    TypePrim
+                      (PrimFloating PrimDouble)]
+                  (TypePointer
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed)))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -27237,15 +27977,24 @@
           "/* get_comments1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_c90ec05081ef4e64 (void)) (A arg1) { return &comments1; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -27276,19 +28025,34 @@
           "/* get_const_prim_before1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_6ac4b42c66a36448 (void)) (A arg1, char const arg2) { return &const_prim_before1; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypeConst
-              (TypePrim
-                (PrimChar
-                  (PrimSignImplicit Nothing)))]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypePrim
+                  (PrimChar
+                    (PrimSignImplicit Nothing))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -27319,19 +28083,34 @@
           "/* get_const_prim_before2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_f98632ef2e69b003 (void)) (A arg1, signed char const arg2) { return &const_prim_before2; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypeConst
-              (TypePrim
-                (PrimChar
-                  (PrimSignExplicit Signed)))]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypePrim
+                  (PrimChar
+                    (PrimSignExplicit Signed))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -27362,19 +28141,34 @@
           "/* get_const_prim_before3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_cc9db1f6a36b8221 (void)) (A arg1, unsigned char const arg2) { return &const_prim_before3; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypeConst
-              (TypePrim
-                (PrimChar
-                  (PrimSignExplicit Unsigned)))]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypePrim
+                  (PrimChar
+                    (PrimSignExplicit Unsigned))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -27405,19 +28199,34 @@
           "/* get_const_prim_after1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_3e5b7273bf2ecadb (void)) (A arg1, char const arg2) { return &const_prim_after1; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypeConst
-              (TypePrim
-                (PrimChar
-                  (PrimSignImplicit Nothing)))]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypePrim
+                  (PrimChar
+                    (PrimSignImplicit Nothing))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -27448,19 +28257,34 @@
           "/* get_const_prim_after2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_f9b4beeca8253333 (void)) (A arg1, signed char const arg2) { return &const_prim_after2; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypeConst
-              (TypePrim
-                (PrimChar
-                  (PrimSignExplicit Signed)))]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypePrim
+                  (PrimChar
+                    (PrimSignExplicit Signed))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -27491,19 +28315,34 @@
           "/* get_const_prim_after3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_bf14e2fd88b25311 (void)) (A arg1, unsigned char const arg2) { return &const_prim_after3; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypeConst
-              (TypePrim
-                (PrimChar
-                  (PrimSignExplicit Unsigned)))]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypePrim
+                  (PrimChar
+                    (PrimSignExplicit Unsigned))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -27534,18 +28373,33 @@
           "/* get_const_withoutSign_before1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_3649293fcaa1543c (void)) (A arg1, float const arg2) { return &const_withoutSign_before1; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypeConst
-              (TypePrim
-                (PrimFloating PrimFloat))]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypePrim
+                  (PrimFloating PrimFloat)))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -27576,18 +28430,33 @@
           "/* get_const_withoutSign_before2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_ad5903c28e22dd2c (void)) (A arg1, double const arg2) { return &const_withoutSign_before2; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypeConst
-              (TypePrim
-                (PrimFloating PrimDouble))]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypePrim
+                  (PrimFloating PrimDouble)))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -27618,16 +28487,32 @@
           "/* get_const_withoutSign_before3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_e7b9bc011ec1dd8a (void)) (A arg1, _Bool const arg2) { return &const_withoutSign_before3; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypeConst (TypePrim PrimBool)]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypePrim PrimBool))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -27661,22 +28546,37 @@
           "/* get_const_withoutSign_before4_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_4fd66b696848dd98 (void)) (A arg1, struct some_struct const arg2) { return &const_withoutSign_before4; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypeConst
-              (TypeStruct
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "some_struct",
+                  nameC = Name "arg1",
                   nameHsIdent = HsIdentifier
-                    "Some_struct"}
-                NameOriginInSource)]
-          TypeVoid),
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "some_struct",
+                    nameHsIdent = HsIdentifier
+                      "Some_struct"}
+                  NameOriginInSource))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -27710,22 +28610,37 @@
           "/* get_const_withoutSign_before5_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_42582e1882927f7e (void)) (A arg1, union some_union const arg2) { return &const_withoutSign_before5; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypeConst
-              (TypeUnion
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "some_union",
+                  nameC = Name "arg1",
                   nameHsIdent = HsIdentifier
-                    "Some_union"}
-                NameOriginInSource)]
-          TypeVoid),
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypeUnion
+                  NamePair {
+                    nameC = Name "some_union",
+                    nameHsIdent = HsIdentifier
+                      "Some_union"}
+                  NameOriginInSource))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -27759,22 +28674,37 @@
           "/* get_const_withoutSign_before6_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_b6876e53e4b27a98 (void)) (A arg1, enum some_enum const arg2) { return &const_withoutSign_before6; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypeConst
-              (TypeEnum
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "some_enum",
+                  nameC = Name "arg1",
                   nameHsIdent = HsIdentifier
-                    "Some_enum"}
-                NameOriginInSource)]
-          TypeVoid),
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypeEnum
+                  NamePair {
+                    nameC = Name "some_enum",
+                    nameHsIdent = HsIdentifier
+                      "Some_enum"}
+                  NameOriginInSource))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -27805,16 +28735,32 @@
           "/* get_const_withoutSign_before7_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_78763cbecd2b0750 (void)) (A arg1, _Bool const arg2) { return &const_withoutSign_before7; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypeConst (TypePrim PrimBool)]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypePrim PrimBool))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -27845,16 +28791,32 @@
           "/* get_const_withoutSign_before8_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_4098c4a4ccd31d36 (void)) (A arg1, size_t const arg2) { return &const_withoutSign_before8; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypeConst (TypePrim PrimSize)]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypePrim PrimSize))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -27885,18 +28847,33 @@
           "/* get_const_withoutSign_after1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_e9148eb7b8dac901 (void)) (A arg1, float const arg2) { return &const_withoutSign_after1; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypeConst
-              (TypePrim
-                (PrimFloating PrimFloat))]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypePrim
+                  (PrimFloating PrimFloat)))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -27927,18 +28904,33 @@
           "/* get_const_withoutSign_after2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_8663653d89116be9 (void)) (A arg1, double const arg2) { return &const_withoutSign_after2; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypeConst
-              (TypePrim
-                (PrimFloating PrimDouble))]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypePrim
+                  (PrimFloating PrimDouble)))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -27969,16 +28961,32 @@
           "/* get_const_withoutSign_after3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_136dcba145bf241b (void)) (A arg1, _Bool const arg2) { return &const_withoutSign_after3; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypeConst (TypePrim PrimBool)]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypePrim PrimBool))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -28012,22 +29020,37 @@
           "/* get_const_withoutSign_after4_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_380e01acce794cab (void)) (A arg1, struct some_struct const arg2) { return &const_withoutSign_after4; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypeConst
-              (TypeStruct
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "some_struct",
+                  nameC = Name "arg1",
                   nameHsIdent = HsIdentifier
-                    "Some_struct"}
-                NameOriginInSource)]
-          TypeVoid),
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "some_struct",
+                    nameHsIdent = HsIdentifier
+                      "Some_struct"}
+                  NameOriginInSource))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -28061,22 +29084,37 @@
           "/* get_const_withoutSign_after5_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_af0d84d0757f6c2c (void)) (A arg1, union some_union const arg2) { return &const_withoutSign_after5; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypeConst
-              (TypeUnion
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "some_union",
+                  nameC = Name "arg1",
                   nameHsIdent = HsIdentifier
-                    "Some_union"}
-                NameOriginInSource)]
-          TypeVoid),
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypeUnion
+                  NamePair {
+                    nameC = Name "some_union",
+                    nameHsIdent = HsIdentifier
+                      "Some_union"}
+                  NameOriginInSource))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -28110,22 +29148,37 @@
           "/* get_const_withoutSign_after6_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_df92501d07bf6c5f (void)) (A arg1, enum some_enum const arg2) { return &const_withoutSign_after6; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypeConst
-              (TypeEnum
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "some_enum",
+                  nameC = Name "arg1",
                   nameHsIdent = HsIdentifier
-                    "Some_enum"}
-                NameOriginInSource)]
-          TypeVoid),
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypeEnum
+                  NamePair {
+                    nameC = Name "some_enum",
+                    nameHsIdent = HsIdentifier
+                      "Some_enum"}
+                  NameOriginInSource))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -28156,16 +29209,32 @@
           "/* get_const_withoutSign_after7_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_b41148ca40ec8eb5 (void)) (A arg1, _Bool const arg2) { return &const_withoutSign_after7; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypeConst (TypePrim PrimBool)]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypePrim PrimBool))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -28196,16 +29265,32 @@
           "/* get_const_withoutSign_after8_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_560c9dfdb530548b (void)) (A arg1, size_t const arg2) { return &const_withoutSign_after8; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypeConst (TypePrim PrimSize)]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypePrim PrimSize))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -28236,19 +29321,36 @@
           "/* get_const_pointers_args1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_a34d16c099748839 (void)) (A arg1, signed int const *arg2) { return &const_pointers_args1; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypePointer
-              (TypeConst
-                (TypePrim
-                  (PrimIntegral PrimInt Signed)))]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePointer
+                (TypeConst
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -28279,19 +29381,36 @@
           "/* get_const_pointers_args2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_45235edaf5c3b599 (void)) (A arg1, signed int const *arg2) { return &const_pointers_args2; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypePointer
-              (TypeConst
-                (TypePrim
-                  (PrimIntegral PrimInt Signed)))]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePointer
+                (TypeConst
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -28322,19 +29441,36 @@
           "/* get_const_pointers_args3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_3dbcf1c7202f2878 (void)) (A arg1, signed int *const arg2) { return &const_pointers_args3; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypeConst
-              (TypePointer
-                (TypePrim
-                  (PrimIntegral PrimInt Signed)))]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypePointer
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -28365,22 +29501,37 @@
           "/* get_const_pointers_args4_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_a6624f6cc0a062af (void)) (A arg1, signed int const *const arg2) { return &const_pointers_args4; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypeConst
-              (TypePointer
-                (TypeConst
-                  (TypePrim
-                    (PrimIntegral
-                      PrimInt
-                      Signed))))]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypePointer
+                  (TypeConst
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed)))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -28411,22 +29562,37 @@
           "/* get_const_pointers_args5_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_c5f3253c57910315 (void)) (A arg1, signed int const *const arg2) { return &const_pointers_args5; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypeConst
-              (TypePointer
-                (TypeConst
-                  (TypePrim
-                    (PrimIntegral
-                      PrimInt
-                      Signed))))]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypeConst
+                (TypePointer
+                  (TypeConst
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed)))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -28456,20 +29622,29 @@
           "/* get_const_pointers_ret1_ptr */ __attribute__ ((const)) signed int const *(*hs_bindgen_test_reparse_1990ded85ea3850d (void)) (A arg1) { return &const_pointers_ret1; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource]
-          (TypePointer
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
             (TypeConst
               (TypePrim
                 (PrimIntegral
                   PrimInt
-                  Signed))))),
+                  Signed)))},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -28499,20 +29674,29 @@
           "/* get_const_pointers_ret2_ptr */ __attribute__ ((const)) signed int const *(*hs_bindgen_test_reparse_627cc570c3ca7d19 (void)) (A arg1) { return &const_pointers_ret2; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource]
-          (TypePointer
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
             (TypeConst
               (TypePrim
                 (PrimIntegral
                   PrimInt
-                  Signed))))),
+                  Signed)))},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -28542,20 +29726,29 @@
           "/* get_const_pointers_ret3_ptr */ __attribute__ ((const)) signed int *const (*hs_bindgen_test_reparse_2f449708b5a275b1 (void)) (A arg1) { return &const_pointers_ret3; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource]
-          (TypeConst
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeConst
             (TypePointer
               (TypePrim
                 (PrimIntegral
                   PrimInt
-                  Signed))))),
+                  Signed)))},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -28585,21 +29778,30 @@
           "/* get_const_pointers_ret4_ptr */ __attribute__ ((const)) signed int const *const (*hs_bindgen_test_reparse_67662618cd011c8a (void)) (A arg1) { return &const_pointers_ret4; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource]
-          (TypeConst
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeConst
             (TypePointer
               (TypeConst
                 (TypePrim
                   (PrimIntegral
                     PrimInt
-                    Signed)))))),
+                    Signed))))},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -28629,21 +29831,30 @@
           "/* get_const_pointers_ret5_ptr */ __attribute__ ((const)) signed int const *const (*hs_bindgen_test_reparse_fcafd9f8ac329995 (void)) (A arg1) { return &const_pointers_ret5; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource]
-          (TypeConst
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeConst
             (TypePointer
               (TypeConst
                 (TypePrim
                   (PrimIntegral
                     PrimInt
-                    Signed)))))),
+                    Signed))))},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -28673,17 +29884,26 @@
           "/* get_const_array_elem1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_6928906fc9a88dfc (void)) (A const arg1[]) { return &const_array_elem1; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeIncompleteArray
-              (TypeConst
-                (TypeMacroTypedef
-                  NamePair {
-                    nameC = Name "A",
-                    nameHsIdent = HsIdentifier "A"}
-                  NameOriginInSource))]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeIncompleteArray
+                (TypeConst
+                  (TypeMacroTypedef
+                    NamePair {
+                      nameC = Name "A",
+                      nameHsIdent = HsIdentifier "A"}
+                    NameOriginInSource)))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -28714,18 +29934,27 @@
           "/* get_const_array_elem2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_625a37e9c030891a (void)) (A const *arg1[]) { return &const_array_elem2; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeIncompleteArray
-              (TypePointer
-                (TypeConst
-                  (TypeMacroTypedef
-                    NamePair {
-                      nameC = Name "A",
-                      nameHsIdent = HsIdentifier "A"}
-                    NameOriginInSource)))]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeIncompleteArray
+                (TypePointer
+                  (TypeConst
+                    (TypeMacroTypedef
+                      NamePair {
+                        nameC = Name "A",
+                        nameHsIdent = HsIdentifier "A"}
+                      NameOriginInSource))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -28756,18 +29985,27 @@
           "/* get_const_array_elem3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_5e23f87114cf51fb (void)) (A *const arg1[]) { return &const_array_elem3; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeIncompleteArray
-              (TypeConst
-                (TypePointer
-                  (TypeMacroTypedef
-                    NamePair {
-                      nameC = Name "A",
-                      nameHsIdent = HsIdentifier "A"}
-                    NameOriginInSource)))]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeIncompleteArray
+                (TypeConst
+                  (TypePointer
+                    (TypeMacroTypedef
+                      NamePair {
+                        nameC = Name "A",
+                        nameHsIdent = HsIdentifier "A"}
+                      NameOriginInSource))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -28796,14 +30034,17 @@
           "/* get_noParams1_ptr */ __attribute__ ((const)) A (*hs_bindgen_test_reparse_d50620a002265139 (void)) (void) { return &noParams1; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          []
-          (TypeMacroTypedef
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeMacroTypedef
             NamePair {
               nameC = Name "A",
               nameHsIdent = HsIdentifier "A"}
-            NameOriginInSource)),
+            NameOriginInSource},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -28832,14 +30073,17 @@
           "/* get_noParams2_ptr */ __attribute__ ((const)) A (*hs_bindgen_test_reparse_03b0e24786b82ad5 (void)) (void) { return &noParams2; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          []
-          (TypeMacroTypedef
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeMacroTypedef
             NamePair {
               nameC = Name "A",
               nameHsIdent = HsIdentifier "A"}
-            NameOriginInSource)),
+            NameOriginInSource},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -28871,20 +30115,37 @@
           "/* get_noParams3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_36508fd99a0556c5 (void)) (A arg1, signed int (*arg2) (void)) { return &noParams3; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource,
-            TypePointer
-              (TypeFun
-                []
-                (TypePrim
-                  (PrimIntegral PrimInt Signed)))]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg2",
+                  nameHsIdent = HsIdentifier
+                    "arg2"})
+              (TypePointer
+                (TypeFun
+                  []
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -28915,16 +30176,25 @@
           "/* get_funptr_ret1_ptr */ __attribute__ ((const)) void (*(*hs_bindgen_test_reparse_6f83a48dd177c25f (void)) (A arg1)) (void) { return &funptr_ret1; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource]
-          (TypePointer
-            (TypeFun [] TypeVoid))),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            (TypeFun [] TypeVoid)},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -28955,21 +30225,30 @@
           "/* get_funptr_ret2_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_reparse_f12efafd1525ef7f (void)) (A arg1)) (void) { return &funptr_ret2; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource]
-          (TypePointer
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
             (TypeFun
               []
               (TypePrim
                 (PrimIntegral
                   PrimInt
-                  Signed))))),
+                  Signed)))},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -29002,20 +30281,29 @@
           "/* get_funptr_ret3_ptr */ __attribute__ ((const)) void (*(*hs_bindgen_test_reparse_b00baa5b9708b9e7 (void)) (A arg1)) (signed int arg1) { return &funptr_ret3; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource]
-          (TypePointer
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
             (TypeFun
               [
                 TypePrim
                   (PrimIntegral PrimInt Signed)]
-              TypeVoid))),
+              TypeVoid)},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -29051,15 +30339,24 @@
           "/* get_funptr_ret4_ptr */ __attribute__ ((const)) char (*(*hs_bindgen_test_reparse_c51872479ceff42e (void)) (A arg1)) (signed int arg1, double arg2) { return &funptr_ret4; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource]
-          (TypePointer
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
             (TypeFun
               [
                 TypePrim
@@ -29068,7 +30365,7 @@
                   (PrimFloating PrimDouble)]
               (TypePrim
                 (PrimChar
-                  (PrimSignImplicit Nothing)))))),
+                  (PrimSignImplicit Nothing))))},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -29105,15 +30402,24 @@
           "/* get_funptr_ret5_ptr */ __attribute__ ((const)) signed int *(*(*hs_bindgen_test_reparse_3b9b9924b4b4d7ea (void)) (A arg1)) (signed int arg1, double arg2) { return &funptr_ret5; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource]
-          (TypePointer
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
             (TypeFun
               [
                 TypePrim
@@ -29124,7 +30430,7 @@
                 (TypePrim
                   (PrimIntegral
                     PrimInt
-                    Signed)))))),
+                    Signed))))},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -29161,15 +30467,24 @@
           "/* get_funptr_ret6_ptr */ __attribute__ ((const)) signed int const *(*(*hs_bindgen_test_reparse_3df5ab4b0b306845 (void)) (A arg1)) (signed int arg1, double arg2) { return &funptr_ret6; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource]
-          (TypePointer
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
             (TypeFun
               [
                 TypePrim
@@ -29181,7 +30496,7 @@
                   (TypePrim
                     (PrimIntegral
                       PrimInt
-                      Signed))))))),
+                      Signed)))))},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -29218,15 +30533,24 @@
           "/* get_funptr_ret7_ptr */ __attribute__ ((const)) signed int const *(*(*hs_bindgen_test_reparse_2ac4454d93b6f04a (void)) (A arg1)) (signed int arg1, double arg2) { return &funptr_ret7; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource]
-          (TypePointer
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
             (TypeFun
               [
                 TypePrim
@@ -29238,7 +30562,7 @@
                   (TypePrim
                     (PrimIntegral
                       PrimInt
-                      Signed))))))),
+                      Signed)))))},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -29275,15 +30599,24 @@
           "/* get_funptr_ret8_ptr */ __attribute__ ((const)) signed int *const (*(*hs_bindgen_test_reparse_411c5128f18364b3 (void)) (A arg1)) (signed int arg1, double arg2) { return &funptr_ret8; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource]
-          (TypePointer
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
             (TypeFun
               [
                 TypePrim
@@ -29295,7 +30628,7 @@
                   (TypePrim
                     (PrimIntegral
                       PrimInt
-                      Signed))))))),
+                      Signed)))))},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -29332,15 +30665,24 @@
           "/* get_funptr_ret9_ptr */ __attribute__ ((const)) signed int const *const (*(*hs_bindgen_test_reparse_693a8d16e17d0cdc (void)) (A arg1)) (signed int arg1, double arg2) { return &funptr_ret9; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource]
-          (TypePointer
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
             (TypeFun
               [
                 TypePrim
@@ -29353,7 +30695,7 @@
                     (TypePrim
                       (PrimIntegral
                         PrimInt
-                        Signed)))))))),
+                        Signed))))))},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -29390,15 +30732,24 @@
           "/* get_funptr_ret10_ptr */ __attribute__ ((const)) signed int const *const (*(*hs_bindgen_test_reparse_9d2da81bbfe49ab6 (void)) (A arg1)) (signed int arg1, double arg2) { return &funptr_ret10; } ",
           capiWrapperImport =
           "reparse.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "A",
-                nameHsIdent = HsIdentifier "A"}
-              NameOriginInSource]
-          (TypePointer
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg1",
+                  nameHsIdent = HsIdentifier
+                    "arg1"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
             (TypeFun
               [
                 TypePrim
@@ -29411,7 +30762,7 @@
                     (TypePrim
                       (PrimIntegral
                         PrimInt
-                        Signed)))))))),
+                        Signed))))))},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,

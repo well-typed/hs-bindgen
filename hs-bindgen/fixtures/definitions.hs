@@ -778,13 +778,21 @@
           "/* get_foo_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_definitions_32925a42980e81cd (void)) (double arg1) { return &foo; } ",
           capiWrapperImport =
           "definitions.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePrim
-              (PrimFloating PrimDouble)]
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimFloating PrimDouble))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,

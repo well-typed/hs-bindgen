@@ -816,14 +816,27 @@
           capiWrapperDefinition =
           "/* get_new_vector_ptr */ __attribute__ ((const)) vector *(*hs_bindgen_test_vector_7672b9e7f001c998 (void)) (double arg1, double arg2) { return &new_vector; } ",
           capiWrapperImport = "vector.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePrim
-              (PrimFloating PrimDouble),
-            TypePrim
-              (PrimFloating PrimDouble)]
-          (TypePointer
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimFloating PrimDouble)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier "y"})
+              (TypePrim
+                (PrimFloating PrimDouble))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
             (TypeTypedef
               (TypedefSquashed
                 (Name "vector")
@@ -833,7 +846,7 @@
                     nameHsIdent = HsIdentifier
                       "Vector"}
                   (NameOriginGenerated
-                    (AnonId "vector.h:1:9"))))))),
+                    (AnonId "vector.h:1:9")))))},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,

@@ -2204,30 +2204,51 @@
           "/* get_normal_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_decls_in_signature_b040d51578b7b05e (void)) (struct opaque *arg1, struct outside *arg2, struct outside arg3) { return &normal; } ",
           capiWrapperImport =
           "decls_in_signature.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePointer
-              (TypeStruct
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "opaque",
+                  nameC = Name "ptr_to_opaque",
                   nameHsIdent = HsIdentifier
-                    "Opaque"}
-                NameOriginInSource),
-            TypePointer
+                    "ptr_to_opaque"})
+              (TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "opaque",
+                    nameHsIdent = HsIdentifier
+                      "Opaque"}
+                  NameOriginInSource)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "ptr_to_defined",
+                  nameHsIdent = HsIdentifier
+                    "ptr_to_defined"})
+              (TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "outside",
+                    nameHsIdent = HsIdentifier
+                      "Outside"}
+                  NameOriginInSource)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "by_value",
+                  nameHsIdent = HsIdentifier
+                    "by_value"})
               (TypeStruct
                 NamePair {
                   nameC = Name "outside",
                   nameHsIdent = HsIdentifier
                     "Outside"}
-                NameOriginInSource),
-            TypeStruct
-              NamePair {
-                nameC = Name "outside",
-                nameHsIdent = HsIdentifier
-                  "Outside"}
-              NameOriginInSource]
-          TypeVoid),
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2258,16 +2279,25 @@
           "/* get_f1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_decls_in_signature_5469bdc0395f86c1 (void)) (struct named_struct arg1) { return &f1; } ",
           capiWrapperImport =
           "decls_in_signature.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeStruct
-              NamePair {
-                nameC = Name "named_struct",
-                nameHsIdent = HsIdentifier
-                  "Named_struct"}
-              NameOriginInSource]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg",
+                  nameHsIdent = HsIdentifier
+                    "arg"})
+              (TypeStruct
+                NamePair {
+                  nameC = Name "named_struct",
+                  nameHsIdent = HsIdentifier
+                    "Named_struct"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -2298,16 +2328,25 @@
           "/* get_f2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_decls_in_signature_490ca7e8c8282a69 (void)) (union named_union arg1) { return &f2; } ",
           capiWrapperImport =
           "decls_in_signature.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeUnion
-              NamePair {
-                nameC = Name "named_union",
-                nameHsIdent = HsIdentifier
-                  "Named_union"}
-              NameOriginInSource]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg",
+                  nameHsIdent = HsIdentifier
+                    "arg"})
+              (TypeUnion
+                NamePair {
+                  nameC = Name "named_union",
+                  nameHsIdent = HsIdentifier
+                    "Named_union"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,

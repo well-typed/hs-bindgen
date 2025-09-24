@@ -572,12 +572,17 @@
           "/* get_fun2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_skip_over_long_double_d1bf59c1516f6bfa (void)) (signed int arg1) { return &fun2; } ",
           capiWrapperImport =
           "skip_over_long_double.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePrim
-              (PrimIntegral PrimInt Signed)]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              Nothing
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,

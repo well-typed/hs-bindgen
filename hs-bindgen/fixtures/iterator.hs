@@ -1504,15 +1504,25 @@
           "/* get_makeToggle_ptr */ __attribute__ ((const)) Toggle (*hs_bindgen_test_iterator_504a6a44ef649697 (void)) (_Bool arg1) { return &makeToggle; } ",
           capiWrapperImport =
           "iterator.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [TypePrim PrimBool]
-          (TypeTypedef
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "start",
+                  nameHsIdent = HsIdentifier
+                    "start"})
+              (TypePrim PrimBool)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeTypedef
             (TypedefRegular
               NamePair {
                 nameC = Name "Toggle",
                 nameHsIdent = HsIdentifier
-                  "Toggle"}))),
+                  "Toggle"})},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1543,16 +1553,26 @@
           "/* get_toggleNext_ptr */ __attribute__ ((const)) _Bool (*hs_bindgen_test_iterator_ee784d0363e34151 (void)) (Toggle arg1) { return &toggleNext; } ",
           capiWrapperImport =
           "iterator.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeTypedef
-              (TypedefRegular
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "Toggle",
+                  nameC = Name "block",
                   nameHsIdent = HsIdentifier
-                    "Toggle"})]
-          (TypePrim PrimBool)),
+                    "block"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "Toggle",
+                    nameHsIdent = HsIdentifier
+                      "Toggle"}))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            PrimBool},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1583,16 +1603,25 @@
           "/* get_releaseToggle_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_iterator_864850832eaf96b9 (void)) (Toggle arg1) { return &releaseToggle; } ",
           capiWrapperImport =
           "iterator.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeTypedef
-              (TypedefRegular
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "Toggle",
+                  nameC = Name "block",
                   nameHsIdent = HsIdentifier
-                    "Toggle"})]
-          TypeVoid),
+                    "block"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "Toggle",
+                    nameHsIdent = HsIdentifier
+                      "Toggle"}))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1625,19 +1654,34 @@
           "/* get_makeCounter_ptr */ __attribute__ ((const)) Counter (*hs_bindgen_test_iterator_48b98d306e2a8d53 (void)) (signed int arg1, signed int arg2) { return &makeCounter; } ",
           capiWrapperImport =
           "iterator.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePrim
-              (PrimIntegral PrimInt Signed),
-            TypePrim
-              (PrimIntegral PrimInt Signed)]
-          (TypeTypedef
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "start",
+                  nameHsIdent = HsIdentifier
+                    "start"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "increment",
+                  nameHsIdent = HsIdentifier
+                    "increment"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeTypedef
             (TypedefRegular
               NamePair {
                 nameC = Name "Counter",
                 nameHsIdent = HsIdentifier
-                  "Counter"}))),
+                  "Counter"})},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1668,17 +1712,26 @@
           "/* get_counterNext_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_iterator_aeb21db5034e4d66 (void)) (Counter arg1) { return &counterNext; } ",
           capiWrapperImport =
           "iterator.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeTypedef
-              (TypedefRegular
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "Counter",
+                  nameC = Name "block",
                   nameHsIdent = HsIdentifier
-                    "Counter"})]
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
+                    "block"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "Counter",
+                    nameHsIdent = HsIdentifier
+                      "Counter"}))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1709,16 +1762,25 @@
           "/* get_releaseCounter_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_iterator_8e1661e238f6f451 (void)) (Counter arg1) { return &releaseCounter; } ",
           capiWrapperImport =
           "iterator.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeTypedef
-              (TypedefRegular
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "Counter",
+                  nameC = Name "block",
                   nameHsIdent = HsIdentifier
-                    "Counter"})]
-          TypeVoid),
+                    "block"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "Counter",
+                    nameHsIdent = HsIdentifier
+                      "Counter"}))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1749,17 +1811,26 @@
           "/* get_makeVarCounter_ptr */ __attribute__ ((const)) VarCounter (*hs_bindgen_test_iterator_b14e88e9cf7a56b8 (void)) (signed int arg1) { return &makeVarCounter; } ",
           capiWrapperImport =
           "iterator.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePrim
-              (PrimIntegral PrimInt Signed)]
-          (TypeTypedef
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "start",
+                  nameHsIdent = HsIdentifier
+                    "start"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeTypedef
             (TypedefRegular
               NamePair {
                 nameC = Name "VarCounter",
                 nameHsIdent = HsIdentifier
-                  "VarCounter"}))),
+                  "VarCounter"})},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1792,19 +1863,34 @@
           "/* get_varCounterNext_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_iterator_4d10204c4166188d (void)) (VarCounter arg1, signed int arg2) { return &varCounterNext; } ",
           capiWrapperImport =
           "iterator.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeTypedef
-              (TypedefRegular
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "VarCounter",
+                  nameC = Name "block",
                   nameHsIdent = HsIdentifier
-                    "VarCounter"}),
-            TypePrim
-              (PrimIntegral PrimInt Signed)]
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
+                    "block"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "VarCounter",
+                    nameHsIdent = HsIdentifier
+                      "VarCounter"})),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "increment",
+                  nameHsIdent = HsIdentifier
+                    "increment"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1835,16 +1921,25 @@
           "/* get_releaseVarCounter_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_iterator_bde04ef01335be42 (void)) (VarCounter arg1) { return &releaseVarCounter; } ",
           capiWrapperImport =
           "iterator.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeTypedef
-              (TypedefRegular
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "VarCounter",
+                  nameC = Name "block",
                   nameHsIdent = HsIdentifier
-                    "VarCounter"})]
-          TypeVoid),
+                    "block"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "VarCounter",
+                    nameHsIdent = HsIdentifier
+                      "VarCounter"}))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,

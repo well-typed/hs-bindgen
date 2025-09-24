@@ -5,6 +5,10 @@ int square (int x) {
   return (x * x);
 }
 
+__attribute__ ((const)) int cube (int x) {
+  return (x * x * x);
+}
+
 int plus (int x, int y) {
   return (x + y);
 }

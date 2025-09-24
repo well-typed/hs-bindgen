@@ -2993,17 +2993,33 @@
           capiWrapperDefinition =
           "/* get_fun_1_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_3ced2f3b2af806f8 (void)) (signed int arg1, signed int arg2[3]) { return &fun_1; } ",
           capiWrapperImport = "array.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePrim
-              (PrimIntegral PrimInt Signed),
-            TypeConstArray
-              3
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
               (TypePrim
-                (PrimIntegral PrimInt Signed))]
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
+                (PrimIntegral PrimInt Signed)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "xs",
+                  nameHsIdent = HsIdentifier
+                    "xs"})
+              (TypeConstArray
+                3
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -3033,17 +3049,26 @@
           capiWrapperDefinition =
           "/* get_fun_2_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_84966994a8d7df93 (void)) (triplet arg1) { return &fun_2; } ",
           capiWrapperImport = "array.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeTypedef
-              (TypedefRegular
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "triplet",
+                  nameC = Name "xs",
                   nameHsIdent = HsIdentifier
-                    "Triplet"})]
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
+                    "xs"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "triplet",
+                    nameHsIdent = HsIdentifier
+                      "Triplet"}))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -3071,14 +3096,25 @@
           capiWrapperDefinition =
           "/* get_fun_3_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_3e6c940dbd7e5492 (void)) (signed int arg1[]) { return &fun_3; } ",
           capiWrapperImport = "array.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeIncompleteArray
-              (TypePrim
-                (PrimIntegral PrimInt Signed))]
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "xs",
+                  nameHsIdent = HsIdentifier
+                    "xs"})
+              (TypeIncompleteArray
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -3106,17 +3142,26 @@
           capiWrapperDefinition =
           "/* get_fun_4_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_d9f87d3e541b15e5 (void)) (list arg1) { return &fun_4; } ",
           capiWrapperImport = "array.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeTypedef
-              (TypedefRegular
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "list",
+                  nameC = Name "xs",
                   nameHsIdent = HsIdentifier
-                    "List"})]
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
+                    "xs"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "list",
+                    nameHsIdent = HsIdentifier
+                      "List"}))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -3147,17 +3192,28 @@
           capiWrapperDefinition =
           "/* get_fun_5_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_cd41e41992d89300 (void)) (signed int arg1[4][3]) { return &fun_5; } ",
           capiWrapperImport = "array.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeConstArray
-              4
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "xss",
+                  nameHsIdent = HsIdentifier
+                    "xss"})
               (TypeConstArray
-                3
-                (TypePrim
-                  (PrimIntegral PrimInt Signed)))]
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
+                4
+                (TypeConstArray
+                  3
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -3187,17 +3243,26 @@
           capiWrapperDefinition =
           "/* get_fun_6_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_db0e2655437ab8bb (void)) (matrix arg1) { return &fun_6; } ",
           capiWrapperImport = "array.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeTypedef
-              (TypedefRegular
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "matrix",
+                  nameC = Name "xss",
                   nameHsIdent = HsIdentifier
-                    "Matrix"})]
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
+                    "xss"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "matrix",
+                    nameHsIdent = HsIdentifier
+                      "Matrix"}))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -3227,16 +3292,27 @@
           capiWrapperDefinition =
           "/* get_fun_7_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_9ec02aa16b020aa0 (void)) (signed int arg1[][3]) { return &fun_7; } ",
           capiWrapperImport = "array.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeIncompleteArray
-              (TypeConstArray
-                3
-                (TypePrim
-                  (PrimIntegral PrimInt Signed)))]
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "xss",
+                  nameHsIdent = HsIdentifier
+                    "xss"})
+              (TypeIncompleteArray
+                (TypeConstArray
+                  3
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -3266,17 +3342,26 @@
           capiWrapperDefinition =
           "/* get_fun_8_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_a41b8d1332b69b95 (void)) (tripletlist arg1) { return &fun_8; } ",
           capiWrapperImport = "array.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeTypedef
-              (TypedefRegular
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "tripletlist",
+                  nameC = Name "xss",
                   nameHsIdent = HsIdentifier
-                    "Tripletlist"})]
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
+                    "xss"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "tripletlist",
+                    nameHsIdent = HsIdentifier
+                      "Tripletlist"}))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -3304,16 +3389,19 @@
           capiWrapperDefinition =
           "/* get_fun_9_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_array_76f53f330102e743 (void)) (void))[3] { return &fun_9; } ",
           capiWrapperImport = "array.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          []
-          (TypePointer
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
             (TypeConstArray
               3
               (TypePrim
                 (PrimIntegral
                   PrimInt
-                  Signed))))),
+                  Signed)))},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -3342,16 +3430,19 @@
           capiWrapperDefinition =
           "/* get_fun_10_ptr */ __attribute__ ((const)) triplet *(*hs_bindgen_test_array_abcc94f01de77b25 (void)) (void) { return &fun_10; } ",
           capiWrapperImport = "array.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          []
-          (TypePointer
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
             (TypeTypedef
               (TypedefRegular
                 NamePair {
                   nameC = Name "triplet",
                   nameHsIdent = HsIdentifier
-                    "Triplet"})))),
+                    "Triplet"}))},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -3378,15 +3469,18 @@
           capiWrapperDefinition =
           "/* get_fun_11_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_array_6661b46e4a751a85 (void)) (void))[] { return &fun_11; } ",
           capiWrapperImport = "array.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          []
-          (TypePointer
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
             (TypeIncompleteArray
               (TypePrim
                 (PrimIntegral
                   PrimInt
-                  Signed))))),
+                  Signed)))},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -3415,16 +3509,19 @@
           capiWrapperDefinition =
           "/* get_fun_12_ptr */ __attribute__ ((const)) list *(*hs_bindgen_test_array_9c80a9e3300aad15 (void)) (void) { return &fun_12; } ",
           capiWrapperImport = "array.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          []
-          (TypePointer
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
             (TypeTypedef
               (TypedefRegular
                 NamePair {
                   nameC = Name "list",
                   nameHsIdent = HsIdentifier
-                    "List"})))),
+                    "List"}))},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -3454,10 +3551,13 @@
           capiWrapperDefinition =
           "/* get_fun_13_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_array_bb741b7e8c029e7e (void)) (void))[4][3] { return &fun_13; } ",
           capiWrapperImport = "array.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          []
-          (TypePointer
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
             (TypeConstArray
               4
               (TypeConstArray
@@ -3465,7 +3565,7 @@
                 (TypePrim
                   (PrimIntegral
                     PrimInt
-                    Signed)))))),
+                    Signed))))},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -3494,16 +3594,19 @@
           capiWrapperDefinition =
           "/* get_fun_14_ptr */ __attribute__ ((const)) matrix *(*hs_bindgen_test_array_75d83252a55a5c64 (void)) (void) { return &fun_14; } ",
           capiWrapperImport = "array.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          []
-          (TypePointer
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
             (TypeTypedef
               (TypedefRegular
                 NamePair {
                   nameC = Name "matrix",
                   nameHsIdent = HsIdentifier
-                    "Matrix"})))),
+                    "Matrix"}))},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -3532,17 +3635,20 @@
           capiWrapperDefinition =
           "/* get_fun_15_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_array_069ac2d1873f3210 (void)) (void))[][3] { return &fun_15; } ",
           capiWrapperImport = "array.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          []
-          (TypePointer
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
             (TypeIncompleteArray
               (TypeConstArray
                 3
                 (TypePrim
                   (PrimIntegral
                     PrimInt
-                    Signed)))))),
+                    Signed))))},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -3571,16 +3677,19 @@
           capiWrapperDefinition =
           "/* get_fun_16_ptr */ __attribute__ ((const)) tripletlist *(*hs_bindgen_test_array_314971335aaa6db3 (void)) (void) { return &fun_16; } ",
           capiWrapperImport = "array.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          []
-          (TypePointer
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
             (TypeTypedef
               (TypedefRegular
                 NamePair {
                   nameC = Name "tripletlist",
                   nameHsIdent = HsIdentifier
-                    "Tripletlist"})))),
+                    "Tripletlist"}))},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,

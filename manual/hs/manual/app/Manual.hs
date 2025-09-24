@@ -37,6 +37,7 @@ import HsBindgen.Runtime.CEnum (AsCEnum (..), AsSequentialCEnum (..))
 import HsBindgen.Runtime.ConstantArray qualified as CA
 import HsBindgen.Runtime.FlexibleArrayMember qualified as FLAM
 import HsBindgen.Runtime.IncompleteArray qualified as IA
+import HsBindgen.Runtime.FunPtr qualified as FP
 
 import Manual.Tools
 
@@ -329,6 +330,12 @@ main = do
       print =<< FunPtr.apply2 FunPtr.plus_ptr 7 8
       print =<< FunPtr.apply2 FunPtr.plus_ptr 9 10
       print =<< FunPtr.apply2 FunPtr.plus_ptr 11 12
+
+      subsection "Interaction with function attributes"
+      -- Use safe 'FP.castFunPtrSafe'
+      print =<< FunPtr.apply1 (FP.castFunPtrSafe FunPtr.cube_ptr) 13
+      -- Use unsafe 'F.castFunPtr'
+      print =<< FunPtr.apply1 (F.castFunPtr FunPtr.cube_ptr) 14
 
 --------------------------------------------------------------------------------
     section "Complex types"

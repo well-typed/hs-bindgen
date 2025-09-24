@@ -1792,7 +1792,7 @@ hash_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_doxygen_docs_4de9606eb9c5dd01
 
 foreign import ccall unsafe "hs_bindgen_test_doxygen_docs_c41111f40a04cdc9" hs_bindgen_test_doxygen_docs_c41111f40a04cdc9
-  :: IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
+  :: IO (Ptr.FunPtr (FC.CInt -> FC.CInt))
 
 {-# NOINLINE square_ptr #-}
 
@@ -1802,7 +1802,7 @@ foreign import ccall unsafe "hs_bindgen_test_doxygen_docs_c41111f40a04cdc9" hs_b
 
     __exported by:__ @doxygen_docs.h@
 -}
-square_ptr :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
+square_ptr :: Ptr.FunPtr (FC.CInt -> FC.CInt)
 square_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_doxygen_docs_c41111f40a04cdc9
 

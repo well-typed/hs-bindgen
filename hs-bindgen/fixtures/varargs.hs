@@ -96,8 +96,13 @@
           "/* get_h_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_varargs_6344539fe0b25338 (void)) (void) { return &h; } ",
           capiWrapperImport =
           "varargs.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,

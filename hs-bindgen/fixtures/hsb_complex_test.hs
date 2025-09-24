@@ -1198,15 +1198,28 @@
           "/* get_multiply_complex_f_ptr */ __attribute__ ((const)) float _Complex (*hs_bindgen_test_hsb_complex_test_a7d89c01385c8c56 (void)) (float _Complex arg1, float _Complex arg2) { return &multiply_complex_f; } ",
           capiWrapperImport =
           "hsb_complex_test.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeComplex
-              (PrimFloating PrimFloat),
-            TypeComplex
-              (PrimFloating PrimFloat)]
-          (TypeComplex
-            (PrimFloating PrimFloat))),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "a",
+                  nameHsIdent = HsIdentifier "a"})
+              (TypeComplex
+                (PrimFloating PrimFloat)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "b",
+                  nameHsIdent = HsIdentifier "b"})
+              (TypeComplex
+                (PrimFloating PrimFloat))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeComplex
+            (PrimFloating PrimFloat)},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1237,15 +1250,28 @@
           "/* get_add_complex_ptr */ __attribute__ ((const)) double _Complex (*hs_bindgen_test_hsb_complex_test_b6226a5bde741b3f (void)) (double _Complex arg1, double _Complex arg2) { return &add_complex; } ",
           capiWrapperImport =
           "hsb_complex_test.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeComplex
-              (PrimFloating PrimDouble),
-            TypeComplex
-              (PrimFloating PrimDouble)]
-          (TypeComplex
-            (PrimFloating PrimDouble))),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "a",
+                  nameHsIdent = HsIdentifier "a"})
+              (TypeComplex
+                (PrimFloating PrimDouble)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "b",
+                  nameHsIdent = HsIdentifier "b"})
+              (TypeComplex
+                (PrimFloating PrimDouble))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeComplex
+            (PrimFloating PrimDouble)},
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
