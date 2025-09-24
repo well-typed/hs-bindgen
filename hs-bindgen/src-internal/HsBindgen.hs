@@ -26,29 +26,21 @@ import Data.Text qualified as T
 import System.Directory (createDirectoryIfMissing)
 import System.FilePath (takeDirectory, (<.>), (</>))
 
-import Clang.Paths
-
 import Generics.SOP (I (..), NP (..))
 
+import HsBindgen.Artefact
 import HsBindgen.Backend
 import HsBindgen.Backend.Artefact.HsModule.Render
-import HsBindgen.Backend.Artefact.HsModule.Translation
 import HsBindgen.Backend.Artefact.Test (genTests)
-import HsBindgen.Backend.Hs.AST qualified as Hs
-import HsBindgen.Backend.Hs.CallConv (UserlandCapiWrapper)
 import HsBindgen.Backend.SHs.AST
-import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.BindingSpec.Gen
 import HsBindgen.Boot
 import HsBindgen.Config
 import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend
-import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
-import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
-import HsBindgen.Frontend.AST.External qualified as C
-import HsBindgen.Frontend.RootHeader (HashIncludeArg, UncheckedHashIncludeArg)
+import HsBindgen.Frontend.RootHeader (UncheckedHashIncludeArg)
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell (HsModuleName (getHsModuleName))
 import HsBindgen.TraceMsg
@@ -60,14 +52,12 @@ import HsBindgen.Util.Tracer
 -- 'Artefact'.
 hsBindgen ::
      TracerConfig IO Level TraceMsg
-  -> TracerConfig IO SafeLevel BackendMsg
   -> BindgenConfig
   -> [UncheckedHashIncludeArg]
   -> Artefacts as
   -> IO (NP I as)
 hsBindgen
   tracerConfig
-  tracerConfigBackend
   bindgenConfig@BindgenConfig{..}
   uncheckedHashIncludeArgs
   artefacts = do
@@ -85,43 +75,25 @@ hsBindgen
         frontend tracerFrontend bindgenFrontendConfig bootArtefact
       pure (bootArtefact, frontendArtefact)
     (bootArtefact, frontendArtefact) <- either throwIO pure eArtefact
-    withTracerSafe tracerConfigBackend $ \tracer -> do
-      -- 3. Backend.
-      backendArtefact <- backend tracer bindgenBackendConfig frontendArtefact
-      -- 4. Artefacts.
-      let tracerRunArtefact :: Tracer IO RunArtefactMsg
-          tracerRunArtefact = contramap BackendRunArtefact tracer
-      runArtefacts tracerRunArtefact bootArtefact frontendArtefact backendArtefact artefacts
+    -- 3. Backend.
+    backendArtefact <- withTracerSafe tracerConfigSafe $ \tracer -> do
+      backend tracer bindgenBackendConfig frontendArtefact
+    -- 4. Artefacts.
+    withTracerSafe tracerConfigSafe $ \tracer -> do
+      runArtefacts tracer bootArtefact frontendArtefact backendArtefact artefacts
+  where
+    tracerConfigSafe :: TracerConfig IO SafeLevel a
+    tracerConfigSafe = TracerConfig {
+        tVerbosity      = tVerbosity tracerConfig
+      , tOutputConfig   = def
+      , tCustomLogLevel = mempty
+      , tShowTimeStamp  = tShowTimeStamp tracerConfig
+      , tShowCallStack  = tShowCallStack tracerConfig
+      }
+
 {-------------------------------------------------------------------------------
-  Build artefacts
+  Custom build artefacts
 -------------------------------------------------------------------------------}
-
--- | Build artefact.
-data Artefact (a :: Star) where
-  -- * Boot
-  HashIncludeArgs     :: Artefact [HashIncludeArg]
-  -- * Frontend
-  IncludeGraph        :: Artefact (IncludeGraph.Predicate, IncludeGraph.IncludeGraph)
-  DeclIndex           :: Artefact DeclIndex.DeclIndex
-  UseDeclGraph        :: Artefact UseDeclGraph.UseDeclGraph
-  DeclUseGraph        :: Artefact DeclUseGraph.DeclUseGraph
-  ReifiedC            :: Artefact [C.Decl]
-  Dependencies        :: Artefact [SourcePath]
-  -- * Backend
-  HsDecls             :: Artefact (ByCategory [Hs.Decl])
-  FinalDecls          :: Artefact (ByCategory ([UserlandCapiWrapper], [SHs.SDecl]))
-  FinalModuleBaseName :: Artefact HsModuleName
-  FinalModuleSafe     :: Artefact HsModule
-  FinalModuleUnsafe   :: Artefact HsModule
-  FinalModules        :: Artefact (ByCategory HsModule)
-  -- * Lift and sequence
-  Lift                :: Artefacts as -> (Tracer IO RunArtefactMsg -> NP I as -> IO b) -> Artefact b
-
-instance Functor Artefact where
-  fmap f x = Lift (x :* Nil) (\_ (I r :* Nil) -> pure (f r))
-
--- | A list of 'Artefact's.
-type Artefacts as = NP Artefact as
 
 -- | Courtesy of Edsko :-).
 --
@@ -217,52 +189,6 @@ writeTests testDir =
         hsDecls
         moduleBaseName
         testDir
-
-{-------------------------------------------------------------------------------
-  Artefacts
--------------------------------------------------------------------------------}
-
--- | Compute the results of a list of artefacts.
---
--- All top-level artefacts will be cached (this is not true for computed
--- artefacts, using, for example, the 'Functor' interface, or 'Lift').
-runArtefacts ::
-     Tracer IO RunArtefactMsg
-  -> BootArtefact
-  -> FrontendArtefact
-  -> BackendArtefact
-  -> Artefacts as
-  -> IO (NP I as)
-runArtefacts
-  tracer
-  BootArtefact{..}
-  FrontendArtefact{..}
-  BackendArtefact{..} = go
-  where
-    go :: Artefacts as -> IO (NP I as)
-    go Nil       = pure Nil
-    go (a :* as) = (:*) . I <$> runArtefact a <*> go as
-
-    runArtefact :: Artefact a -> IO a
-    runArtefact = \case
-      --Boot.
-      HashIncludeArgs     -> bootHashIncludeArgs
-      -- Frontend.
-      IncludeGraph        -> frontendIncludeGraph
-      DeclIndex           -> frontendIndex
-      UseDeclGraph        -> frontendUseDeclGraph
-      DeclUseGraph        -> frontendDeclUseGraph
-      ReifiedC            -> frontendCDecls
-      Dependencies        -> frontendDependencies
-      -- Backend.
-      HsDecls             -> backendHsDecls
-      FinalDecls          -> backendFinalDecls
-      FinalModuleBaseName -> pure backendFinalModuleBaseName
-      FinalModuleSafe     -> backendFinalModuleSafe
-      FinalModuleUnsafe   -> backendFinalModuleUnsafe
-      FinalModules        -> backendFinalModules
-      -- Lift and sequence.
-      (Lift as' f)        -> go as' >>= f tracer
 
 {-------------------------------------------------------------------------------
   Helpers

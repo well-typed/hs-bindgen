@@ -259,7 +259,6 @@ runTestHsBindgen' report testResources test artefacts = do
     withTestTraceConfig report test $ \traceConfig ->
       hsBindgen
         traceConfig
-        def
         bindgenConfig
         [testInputInclude test]
         artefacts

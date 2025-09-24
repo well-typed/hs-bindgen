@@ -77,6 +77,7 @@ library internal
       Data.DynGraph
       Data.DynGraph.Labelled
       HsBindgen
+      HsBindgen.Artefact
       HsBindgen.Backend
       HsBindgen.Backend.Artefact.HsModule.Names
       HsBindgen.Backend.Artefact.HsModule.Render

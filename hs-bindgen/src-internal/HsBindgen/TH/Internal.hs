@@ -132,7 +132,6 @@ withHsBindgen BindgenOpts{..} hashIncludes = do
     (I deps :* I decls' :* Nil) <- liftIO $
       hsBindgen
         tracerConfigDefTH
-        tracerConfigDefTH
         bindgenConfig
         uncheckedHashIncludeArgs
         artefacts
