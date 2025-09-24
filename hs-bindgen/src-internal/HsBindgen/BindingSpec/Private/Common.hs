@@ -37,7 +37,6 @@ import Data.Aeson qualified as Aeson
 import Data.Aeson.KeyMap qualified as KM
 import Data.Aeson.Types qualified as Aeson
 import Data.List qualified as List
-import Data.Proxy (Proxy (Proxy))
 import Data.Typeable (Typeable, typeRep)
 import Data.Yaml qualified as Yaml
 import Data.Yaml.Internal qualified
@@ -56,15 +55,15 @@ import HsBindgen.Util.Tracer
 
 -- | Load binding specification file trace messages
 data BindingSpecReadMsg =
-    BindingSpecReadAesonError          FilePath String
-  | BindingSpecReadYamlError           FilePath String
-  | BindingSpecReadYamlWarning         FilePath String
-  | BindingSpecReadParseVersion        FilePath Version
-  | BindingSpecReadIncompatibleVersion FilePath Version
-  | BindingSpecReadInvalidCName        FilePath Text
-  | BindingSpecReadConflict            FilePath C.QualName HashIncludeArg
-  | BindingSpecReadHashIncludeArg      FilePath HashIncludeArgMsg
-  | BindingSpecReadConvertVersion      FilePath Version Version
+    BindingSpecReadAesonError FilePath String
+  | BindingSpecReadYamlError FilePath String
+  | BindingSpecReadYamlWarning FilePath String
+  | BindingSpecReadParseVersion FilePath BindingSpecVersion
+  | BindingSpecReadIncompatibleVersion FilePath BindingSpecVersion
+  | BindingSpecReadInvalidCName FilePath Text
+  | BindingSpecReadConflict FilePath C.QualName HashIncludeArg
+  | BindingSpecReadHashIncludeArg FilePath HashIncludeArgMsg
+  | BindingSpecReadConvertVersion FilePath BindingSpecVersion BindingSpecVersion
   deriving stock (Show)
 
 instance IsTrace Level BindingSpecReadMsg where
@@ -240,14 +239,14 @@ getFormat path
     | ".json" `List.isSuffixOf` path = FormatJSON
     | otherwise                      = FormatYAML
 
--- | Function that reads a file and gets the 'Version', which determines how to
--- parse the corresponding 'Aeson.Value'
+-- | Function that reads a file and gets the 'BindingSpecVersion', which
+-- determines how to parse the corresponding 'Aeson.Value'
 type ReadVersionFunction =
      Tracer IO BindingSpecReadMsg
   -> FilePath
-  -> IO (Maybe (Version, Aeson.Value))
+  -> IO (Maybe (BindingSpecVersion, Aeson.Value))
 
--- | Read a binding specification file, returning the 'Version' and
+-- | Read a binding specification file, returning the 'BindingSpecVersion' and
 -- 'Aeson.Value'
 --
 -- The format is determined by the filename extension.
@@ -256,8 +255,8 @@ readVersion tracer path = case getFormat path of
     FormatYAML -> readVersionYaml tracer path
     FormatJSON -> readVersionJson tracer path
 
--- | Read a binding specification JSON file, returning the 'Version' and
--- 'Aeson.Value'
+-- | Read a binding specification JSON file, returning the 'BindingSpecVersion'
+-- and 'Aeson.Value'
 readVersionJson :: ReadVersionFunction
 readVersionJson tracer path = Aeson.eitherDecodeFileStrict' path >>= \case
     Right value -> getVersion tracer path value
@@ -265,8 +264,8 @@ readVersionJson tracer path = Aeson.eitherDecodeFileStrict' path >>= \case
       traceWith tracer $ BindingSpecReadAesonError path err
       return Nothing
 
--- | Read a binding specification YAML file, returning the 'Version' and
--- 'Aeson.Value'
+-- | Read a binding specification YAML file, returning the 'BindingSpecVersion'
+-- and 'Aeson.Value'
 readVersionYaml :: ReadVersionFunction
 readVersionYaml tracer path = Yaml.decodeFileWithWarnings path >>= \case
     Right (warnings, value) -> do
@@ -282,18 +281,18 @@ readVersionYaml tracer path = Yaml.decodeFileWithWarnings path >>= \case
 
 -- | Get the binding specification version
 --
--- The 'Version' and 'Aeson.Value' are returned only if the 'Aeson.Value' is an
--- object with a valid version.
+-- The 'BindingSpecVersion' and 'Aeson.Value' are returned only if the
+-- 'Aeson.Value' is an object with a valid version.
 getVersion ::
      Monad m
   => Tracer m BindingSpecReadMsg
   -> FilePath
   -> Aeson.Value
-  -> m (Maybe (Version, Aeson.Value))
+  -> m (Maybe (BindingSpecVersion, Aeson.Value))
 getVersion tracer path = \case
     value@(Aeson.Object o) -> case KM.lookup "version" o of
-      Just (Aeson.String t) -> case parseVersion t of
-        Right version -> return $ Just (version, value)
+      Just (Aeson.String t) -> case parseBindingSpecVersion t of
+        Right bsVersion -> return $ Just (bsVersion, value)
         Left err -> do
           traceWith tracer . BindingSpecReadAesonError path $
             "invalid version: " ++ err

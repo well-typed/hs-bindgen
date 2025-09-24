@@ -83,8 +83,8 @@ import HsBindgen.Util.Tracer
 -------------------------------------------------------------------------------}
 
 -- | Binding specification version
-version :: Version
-version = $$(constVersion 1 0)
+version :: BindingSpecVersion
+version = $$(constBindingSpecVersion 1 0)
 
 {-------------------------------------------------------------------------------
   Types
@@ -297,12 +297,12 @@ parseValue ::
      Monad m
   => Tracer m BindingSpecReadMsg
   -> FilePath
-  -> Version
+  -> BindingSpecVersion
   -> Aeson.Value
   -> m (Maybe UnresolvedBindingSpec)
-parseValue tracer path version' value
-    | isCompatVersions version' version = do
-        traceWith tracer $ BindingSpecReadParseVersion path version'
+parseValue tracer path bsVersion value
+    | isCompatBindingSpecVersions bsVersion version = do
+        traceWith tracer $ BindingSpecReadParseVersion path bsVersion
         case Aeson.fromJSON value of
           Aeson.Success aspec -> do
             let (errs, spec) = fromABindingSpec path aspec
@@ -311,9 +311,9 @@ parseValue tracer path version' value
           Aeson.Error err -> do
             traceWith tracer $ BindingSpecReadAesonError path err
             return Nothing
-    -- | version' < version -> -- no lower versions
+    -- | bsVersion < version -> -- no lower versions
     | otherwise = do
-        traceWith tracer $ BindingSpecReadIncompatibleVersion path version'
+        traceWith tracer $ BindingSpecReadIncompatibleVersion path bsVersion
         return Nothing
 
 -- | Encode a binding specification as JSON
@@ -463,7 +463,7 @@ resolve tracer injResolveHeader args uSpec = do
 -------------------------------------------------------------------------------}
 
 data ABindingSpec = ABindingSpec {
-      aBindingSpecVersion :: Version
+      aBindingSpecVersion :: BindingSpecVersion
     , aBindingSpecTypes   :: [AOmittable ATypeSpecMapping]
     }
   deriving stock Show
@@ -668,7 +668,7 @@ fromABindingSpec path ABindingSpec{..} =
 toABindingSpec :: UnresolvedBindingSpec -> ABindingSpec
 toABindingSpec BindingSpec{..} = ABindingSpec{..}
   where
-    aBindingSpecVersion :: Version
+    aBindingSpecVersion :: BindingSpecVersion
     aBindingSpecVersion = version
 
     aBindingSpecTypes :: [AOmittable ATypeSpecMapping]
