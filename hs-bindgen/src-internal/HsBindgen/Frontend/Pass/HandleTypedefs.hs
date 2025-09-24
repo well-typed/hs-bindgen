@@ -11,6 +11,7 @@ import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Imports
+import HsBindgen.BindingSpec (defaultTypeSpec)
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -32,7 +33,9 @@ handleTypedefs C.TranslationUnit{..} = (
 
     msgs   :: [Maybe (Msg HandleTypedefs)]
     decls' :: [Maybe (C.Decl HandleTypedefs)]
-    (msgs, decls') = unzip $ map (handleDecl td) unitDecls
+    (msgs, decls') = fmap (mapM concat . sequence)
+                   $ unzip
+                   $ map (handleDecl td) unitDecls
 
 {-------------------------------------------------------------------------------
   Declarations
@@ -41,23 +44,50 @@ handleTypedefs C.TranslationUnit{..} = (
 handleDecl ::
      TypedefAnalysis
   -> C.Decl Select
-  -> (Maybe (Msg HandleTypedefs), Maybe (C.Decl HandleTypedefs))
+  -> (Maybe (Msg HandleTypedefs), Maybe [C.Decl HandleTypedefs])
 handleDecl td decl =
     case declKind of
-      C.DeclTypedef{} ->
-        case Map.lookup curName (TypedefAnalysis.squash td) of
-          Just _ty -> (
-              Just $ HandleTypedefsSquashed declInfo'
-            , Nothing
-            )
-          Nothing -> (
-              Nothing
-            , Just C.Decl{
-                  declInfo = declInfo'
-                , declKind = handleUseSites td declKind
-                , declAnn
+      C.DeclTypedef dtd
+        | C.TypePointer (C.TypeFun args res) <- C.typedefType dtd ->
+          let derefDecl = C.Decl {
+                  declInfo = declInfo' { C.declId = C.DeclId (curName <> "_Deref") (C.NameOriginGenerated (C.AnonId declLoc)) }
+                , declKind = handleUseSites td
+                           $ C.DeclTypedef $ C.Typedef {
+                               typedefType = C.TypeFun args res
+                             , typedefAnn  = NoAnn
+                             }
+                , declAnn  = defaultTypeSpec
                 }
-            )
+              mainDecl = decl {
+                  C.declInfo = declInfo'
+                , C.declKind = C.DeclTypedef $ C.Typedef {
+                    typedefType = C.TypePointer
+                                . C.TypeTypedef
+                                . TypedefRegular
+                                . C.declId
+                                $ C.declInfo derefDecl
+                  , typedefAnn  = NoAnn
+                  }
+                }
+           in ( Nothing
+              , Just [ derefDecl
+                     , mainDecl
+                     ]
+              )
+        | otherwise ->
+          case Map.lookup curName (TypedefAnalysis.squash td) of
+            Just _ty -> (
+                Just $ HandleTypedefsSquashed declInfo'
+              , Nothing
+              )
+            Nothing -> (
+                Nothing
+              , Just [C.Decl{
+                    declInfo = declInfo'
+                  , declKind = handleUseSites td declKind
+                  , declAnn
+                  }]
+              )
       _otherwise ->
         let (mMsg, updatedInfo) =
                case Map.lookup curName (TypedefAnalysis.rename td) of
@@ -70,15 +100,15 @@ handleDecl td decl =
                      }
                    )
         in ( mMsg
-           , Just C.Decl{
+           , Just [C.Decl{
                   declInfo = updatedInfo
                 , declKind = handleUseSites td declKind
                 , declAnn
-               }
+               }]
            )
   where
     C.Decl{
-        declInfo = declInfo@C.DeclInfo{declId = C.DeclId{declIdName = curName}, declComment}
+        declInfo = declInfo@C.DeclInfo{declId = C.DeclId{declIdName = curName}, declComment, declLoc}
       , declKind
       , declAnn
       } = decl
