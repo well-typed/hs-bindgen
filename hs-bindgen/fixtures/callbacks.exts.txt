@@ -1,0 +1,4 @@
+CApiFFI
+TemplateHaskell
+DerivingStrategies
+GeneralizedNewtypeDeriving

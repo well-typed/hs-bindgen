@@ -78,6 +78,7 @@ testCases = [
     , defaultTest "bitfields"
     , defaultTest "bool"
     , defaultTest "data_kind_pragma"
+    , defaultTest "callbacks"
     , defaultTest "distilled_lib_1"
     , defaultTest "enum_cpp_syntax"
     , defaultTest "enums"
@@ -363,6 +364,10 @@ testCases = [
           Just Tolerated
         _otherwise ->
           Nothing
+
+      -- callbacks
+    , defaultFailingTest "callback_by_value"
+
 
       --
       -- Miscellaneous other tests that require special treatment

@@ -32,6 +32,7 @@ import HsBindgen.Backend.Hs.AST.Type (HsPrimType (..), ResultType (..))
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as Hs
 import HsBindgen.Backend.SHs.AST
+import HsBindgen.Backend.SHs.Translation (translateType)
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.RootHeader (HashIncludeArg (..))
 import HsBindgen.Imports
@@ -220,19 +221,20 @@ instance Pretty Hs.CommentBlockContent where
 
 instance Pretty Hs.CommentInlineContent where
   pretty = \case
-    Hs.TextContent{..} -> textToCtxDoc textContent
-    Hs.Monospace{..}   -> "@" >< hsep (map pretty monospaceContent) >< "@"
-    Hs.Emph{..}        -> "/" >< hsep (map pretty emphContent) >< "/"
-    Hs.Bold{..}        -> "__" >< hsep (map pretty boldContent) >< "__"
-    Hs.Module{..}      -> "\"" >< textToCtxDoc moduleContent >< "\""
-    Hs.Identifier{..}  -> "'" >< textToCtxDoc identifierContent >< "'"
-    Hs.Type{..}        -> "t'" >< textToCtxDoc typeContent
-    Hs.Link{..}        -> "[" >< hsep (map pretty linkLabel) >< "]"
-                       >< "(" >< textToCtxDoc linkURL >< ")"
-    Hs.URL{..}         -> "<" >< textToCtxDoc urlContent >< ">"
-    Hs.Anchor{..}      -> "#" >< textToCtxDoc anchorContent >< "#"
-    Hs.Math{..}        -> "\\[" >< vcat (map textToCtxDoc mathContent) >< "\\]"
-    Hs.Metadata{..}    -> pretty metadataContent
+    Hs.TextContent{..}   -> textToCtxDoc textContent
+    Hs.Monospace{..}     -> "@" >< hsep (map pretty monospaceContent) >< "@"
+    Hs.Emph{..}          -> "/" >< hsep (map pretty emphContent) >< "/"
+    Hs.Bold{..}          -> "__" >< hsep (map pretty boldContent) >< "__"
+    Hs.Module{..}        -> "\"" >< textToCtxDoc moduleContent >< "\""
+    Hs.Identifier{..}    -> "'" >< textToCtxDoc identifierContent >< "'"
+    Hs.Type{..}          -> "t'" >< textToCtxDoc typeContent
+    Hs.Link{..}          -> "[" >< hsep (map pretty linkLabel) >< "]"
+                         >< "(" >< textToCtxDoc linkURL >< ")"
+    Hs.URL{..}           -> "<" >< textToCtxDoc urlContent >< ">"
+    Hs.Anchor{..}        -> "#" >< textToCtxDoc anchorContent >< "#"
+    Hs.Math{..}          -> "\\[" >< vcat (map textToCtxDoc mathContent) >< "\\]"
+    Hs.Metadata{..}      -> pretty metadataContent
+    Hs.TypeSignature{..} -> "@" >< prettyType EmptyEnv 0 (translateType typeSignature) >< "@"
 
 instance Pretty Hs.CommentMeta where
   pretty Hs.Since{..} = "@since:" <+> textToCtxDoc sinceContent
@@ -333,7 +335,7 @@ instance Pretty SDecl where
                   string header
                 , string $ Text.unpack foreignImportOrigName
                 ])
-              CallConvGhcCCall style -> ("capi", hcat [
+              CallConvGhcCCall style -> ("ccall", hcat [
                   case style of
                     ImportAsValue -> ""
                     ImportAsPtr   -> "&"
@@ -410,8 +412,11 @@ prettyForeignImportType resultType params =
     _  -> prettyParams params
   where
     prettyParam FunctionParameter{..} =
-         prettyType EmptyEnv 0 functionParameterType
+      case functionParameterType of
+        TFun {} -> prettyType EmptyEnv 1 functionParameterType
+        _       -> prettyType EmptyEnv 0 functionParameterType
       $$ maybe empty (pretty . PartOfDeclarationComment) functionParameterComment
+
 
     prettyResultType = \case
       NormalResultType t -> prettyType EmptyEnv 0 t

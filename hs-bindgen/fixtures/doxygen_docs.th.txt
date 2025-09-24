@@ -223,6 +223,14 @@ newtype Event_callback_t
     deriving newtype Storable
 {-|
 
+  Convert Haskell function @FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt@ to 'Event_callback_t' (C function pointer typedef).
+
+-}
+foreign import ccall safe "wrapper" mkEvent_callback_t :: (CInt ->
+                                                           Ptr Void -> IO CInt) ->
+                                                          IO Event_callback_t
+{-|
+
   Structure with documented fields
 
   This structure demonstrates field documentation.
@@ -838,6 +846,14 @@ newtype Processor_fn_t
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+{-|
+
+  Convert Haskell function @FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt@ to 'Processor_fn_t' (C function pointer typedef).
+
+-}
+foreign import ccall safe "wrapper" mkProcessor_fn_t :: (CInt ->
+                                                         Ptr Void -> IO CInt) ->
+                                                        IO Processor_fn_t
 {-|
 
   > filename_t

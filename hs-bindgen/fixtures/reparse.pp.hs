@@ -247,6 +247,15 @@ newtype Funptr_typedef1 = Funptr_typedef1
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
 
+{-|
+
+  Convert Haskell function @IO A@ to 'Funptr_typedef1' (C function pointer typedef).
+
+-}
+foreign import ccall safe "wrapper" mkFunptr_typedef1
+  :: IO A
+  -> IO Funptr_typedef1
+
 {-| __C declaration:__ @funptr_typedef2@
 
     __defined at:__ @reparse.h:133:16@
@@ -258,6 +267,15 @@ newtype Funptr_typedef2 = Funptr_typedef2
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
+
+{-|
+
+  Convert Haskell function @IO (Ptr.Ptr A)@ to 'Funptr_typedef2' (C function pointer typedef).
+
+-}
+foreign import ccall safe "wrapper" mkFunptr_typedef2
+  :: IO (Ptr.Ptr A)
+  -> IO Funptr_typedef2
 
 {-| __C declaration:__ @funptr_typedef3@
 
@@ -271,6 +289,15 @@ newtype Funptr_typedef3 = Funptr_typedef3
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
 
+{-|
+
+  Convert Haskell function @IO (Ptr.Ptr (Ptr.Ptr A))@ to 'Funptr_typedef3' (C function pointer typedef).
+
+-}
+foreign import ccall safe "wrapper" mkFunptr_typedef3
+  :: IO (Ptr.Ptr (Ptr.Ptr A))
+  -> IO Funptr_typedef3
+
 {-| __C declaration:__ @funptr_typedef4@
 
     __defined at:__ @reparse.h:135:16@
@@ -283,6 +310,15 @@ newtype Funptr_typedef4 = Funptr_typedef4
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
 
+{-|
+
+  Convert Haskell function @FC.CInt -> FC.CDouble -> IO A@ to 'Funptr_typedef4' (C function pointer typedef).
+
+-}
+foreign import ccall safe "wrapper" mkFunptr_typedef4
+  :: (FC.CInt -> FC.CDouble -> IO A)
+  -> IO Funptr_typedef4
+
 {-| __C declaration:__ @funptr_typedef5@
 
     __defined at:__ @reparse.h:136:16@
@@ -294,6 +330,15 @@ newtype Funptr_typedef5 = Funptr_typedef5
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
+
+{-|
+
+  Convert Haskell function @FC.CInt -> FC.CDouble -> IO (Ptr.Ptr A)@ to 'Funptr_typedef5' (C function pointer typedef).
+
+-}
+foreign import ccall safe "wrapper" mkFunptr_typedef5
+  :: (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr A))
+  -> IO Funptr_typedef5
 
 {-| __C declaration:__ @comments2@
 
@@ -549,6 +594,15 @@ newtype Const_funptr1 = Const_funptr1
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
 
+{-|
+
+  Convert Haskell function @FC.CInt -> FC.CDouble -> IO A@ to 'Const_funptr1' (C function pointer typedef).
+
+-}
+foreign import ccall safe "wrapper" mkConst_funptr1
+  :: (FC.CInt -> FC.CDouble -> IO A)
+  -> IO Const_funptr1
+
 {-| __C declaration:__ @const_funptr2@
 
     __defined at:__ @reparse.h:239:27@
@@ -560,6 +614,15 @@ newtype Const_funptr2 = Const_funptr2
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
+
+{-|
+
+  Convert Haskell function @FC.CInt -> FC.CDouble -> IO A@ to 'Const_funptr2' (C function pointer typedef).
+
+-}
+foreign import ccall safe "wrapper" mkConst_funptr2
+  :: (FC.CInt -> FC.CDouble -> IO A)
+  -> IO Const_funptr2
 
 {-| __C declaration:__ @const_funptr3@
 
@@ -573,6 +636,15 @@ newtype Const_funptr3 = Const_funptr3
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
 
+{-|
+
+  Convert Haskell function @FC.CInt -> FC.CDouble -> IO (Ptr.Ptr A)@ to 'Const_funptr3' (C function pointer typedef).
+
+-}
+foreign import ccall safe "wrapper" mkConst_funptr3
+  :: (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr A))
+  -> IO Const_funptr3
+
 {-| __C declaration:__ @const_funptr4@
 
     __defined at:__ @reparse.h:241:27@
@@ -584,6 +656,15 @@ newtype Const_funptr4 = Const_funptr4
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
+
+{-|
+
+  Convert Haskell function @FC.CInt -> FC.CDouble -> IO (Ptr.Ptr A)@ to 'Const_funptr4' (C function pointer typedef).
+
+-}
+foreign import ccall safe "wrapper" mkConst_funptr4
+  :: (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr A))
+  -> IO Const_funptr4
 
 {-| __C declaration:__ @const_funptr5@
 
@@ -597,6 +678,15 @@ newtype Const_funptr5 = Const_funptr5
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
 
+{-|
+
+  Convert Haskell function @FC.CInt -> FC.CDouble -> IO (Ptr.Ptr A)@ to 'Const_funptr5' (C function pointer typedef).
+
+-}
+foreign import ccall safe "wrapper" mkConst_funptr5
+  :: (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr A))
+  -> IO Const_funptr5
+
 {-| __C declaration:__ @const_funptr6@
 
     __defined at:__ @reparse.h:243:27@
@@ -609,6 +699,15 @@ newtype Const_funptr6 = Const_funptr6
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
 
+{-|
+
+  Convert Haskell function @FC.CInt -> FC.CDouble -> IO (Ptr.Ptr A)@ to 'Const_funptr6' (C function pointer typedef).
+
+-}
+foreign import ccall safe "wrapper" mkConst_funptr6
+  :: (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr A))
+  -> IO Const_funptr6
+
 {-| __C declaration:__ @const_funptr7@
 
     __defined at:__ @reparse.h:244:27@
@@ -620,6 +719,15 @@ newtype Const_funptr7 = Const_funptr7
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
+
+{-|
+
+  Convert Haskell function @FC.CInt -> FC.CDouble -> IO (Ptr.Ptr A)@ to 'Const_funptr7' (C function pointer typedef).
+
+-}
+foreign import ccall safe "wrapper" mkConst_funptr7
+  :: (FC.CInt -> FC.CDouble -> IO (Ptr.Ptr A))
+  -> IO Const_funptr7
 
 {-| __C declaration:__ @BOOL@
 
