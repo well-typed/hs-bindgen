@@ -2,11 +2,7 @@ module HsBindgen.Backend
   ( backend
   , BackendArtefact(..)
   , BackendMsg(..)
-  , RunArtefactMsg(..)
   ) where
-
-import Text.SimplePrettyPrint ((<+>))
-import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Backend.Artefact.HsModule.Translation
 import HsBindgen.Backend.Hs.AST qualified as Hs
@@ -82,21 +78,5 @@ data BackendArtefact = BackendArtefact {
 -- Most passes in the frontend have their own set of trace messages.
 data BackendMsg =
     BackendCache       CacheMsg
-  | BackendRunArtefact RunArtefactMsg
   deriving stock    (Show, Generic)
   deriving anyclass (PrettyForTrace, IsTrace SafeLevel)
-
-data RunArtefactMsg = RunArtefactWriteFile String FilePath
-  deriving stock (Show, Generic)
-
-instance PrettyForTrace RunArtefactMsg where
-  prettyForTrace = \case
-    RunArtefactWriteFile what path ->
-      "Writing" <+> PP.showToCtxDoc what <+> "to file" <+> PP.showToCtxDoc path
-
-instance IsTrace SafeLevel RunArtefactMsg where
-  getDefaultLogLevel = \case
-    RunArtefactWriteFile _ _ -> SafeInfo
-  getSource = const HsBindgen
-  getTraceId = \case
-    RunArtefactWriteFile _ _ -> "run-artefact-write-file"

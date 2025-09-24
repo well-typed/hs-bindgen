@@ -59,7 +59,7 @@ exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} = void $ run $ (sequenceArtefacts artefacts) :* Nil
   where
     run :: Artefacts as -> IO (NP I as)
-    run = hsBindgen tracerConfig tracerConfigBackend bindgenConfig inputs
+    run = hsBindgen tracerConfig bindgenConfig inputs
 
     artefacts :: [Artefact ()]
     artefacts =
