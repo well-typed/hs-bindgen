@@ -1163,17 +1163,25 @@
           "/* get_thing_fun_1_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_struct_arg_c5f0c295b311010a (void)) (struct thing arg1) { return &thing_fun_1; } ",
           capiWrapperImport =
           "struct_arg.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeStruct
-              NamePair {
-                nameC = Name "thing",
-                nameHsIdent = HsIdentifier
-                  "Thing"}
-              NameOriginInSource]
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypeStruct
+                NamePair {
+                  nameC = Name "thing",
+                  nameHsIdent = HsIdentifier
+                    "Thing"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -1216,17 +1224,25 @@
           "/* get_thing_fun_2_ptr */ __attribute__ ((const)) struct thing (*hs_bindgen_test_struct_arg_24edf6600396b62a (void)) (signed int arg1) { return &thing_fun_2; } ",
           capiWrapperImport =
           "struct_arg.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePrim
-              (PrimIntegral PrimInt Signed)]
-          (TypeStruct
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeStruct
             NamePair {
               nameC = Name "thing",
               nameHsIdent = HsIdentifier
                 "Thing"}
-            NameOriginInSource)),
+            NameOriginInSource},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -1276,25 +1292,43 @@
           "/* get_thing_fun_3a_ptr */ __attribute__ ((const)) struct thing (*hs_bindgen_test_struct_arg_29a42b48992cd0bf (void)) (signed int arg1, struct thing arg2, double arg3) { return &thing_fun_3a; } ",
           capiWrapperImport =
           "struct_arg.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePrim
-              (PrimIntegral PrimInt Signed),
-            TypeStruct
-              NamePair {
-                nameC = Name "thing",
-                nameHsIdent = HsIdentifier
-                  "Thing"}
-              NameOriginInSource,
-            TypePrim
-              (PrimFloating PrimDouble)]
-          (TypeStruct
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier "y"})
+              (TypeStruct
+                NamePair {
+                  nameC = Name "thing",
+                  nameHsIdent = HsIdentifier
+                    "Thing"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "z",
+                  nameHsIdent = HsIdentifier "z"})
+              (TypePrim
+                (PrimFloating PrimDouble))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeStruct
             NamePair {
               nameC = Name "thing",
               nameHsIdent = HsIdentifier
                 "Thing"}
-            NameOriginInSource)),
+            NameOriginInSource},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -1341,23 +1375,41 @@
           "/* get_thing_fun_3b_ptr */ __attribute__ ((const)) char (*hs_bindgen_test_struct_arg_0d6597dfc03e312f (void)) (signed int arg1, struct thing arg2, double arg3) { return &thing_fun_3b; } ",
           capiWrapperImport =
           "struct_arg.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePrim
-              (PrimIntegral PrimInt Signed),
-            TypeStruct
-              NamePair {
-                nameC = Name "thing",
-                nameHsIdent = HsIdentifier
-                  "Thing"}
-              NameOriginInSource,
-            TypePrim
-              (PrimFloating PrimDouble)]
-          (TypePrim
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier "y"})
+              (TypeStruct
+                NamePair {
+                  nameC = Name "thing",
+                  nameHsIdent = HsIdentifier
+                    "Thing"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "z",
+                  nameHsIdent = HsIdentifier "z"})
+              (TypePrim
+                (PrimFloating PrimDouble))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
             (PrimChar
               (PrimSignImplicit
-                (Just Signed))))),
+                (Just Signed)))},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,

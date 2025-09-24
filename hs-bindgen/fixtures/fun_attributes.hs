@@ -3214,8 +3214,13 @@
           "/* get___f1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_fun_attributes_7003b306f73c174b (void)) (void) { return &__f1; } ",
           capiWrapperImport =
           "fun_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -3253,8 +3258,13 @@
           "/* get_f1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_fun_attributes_5469bdc0395f86c1 (void)) (void) { return &f1; } ",
           capiWrapperImport =
           "fun_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -3303,22 +3313,30 @@
           "/* get_my_memalign_ptr */ __attribute__ ((const)) void *(*hs_bindgen_test_fun_attributes_b3c956e53724162c (void)) (size_t arg1, size_t arg2) { return &my_memalign; } ",
           capiWrapperImport =
           "fun_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
-                    "Size_t"}),
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
-                    "Size_t"})]
-          (TypePointer TypeVoid)),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              Nothing
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "size_t",
+                    nameHsIdent = HsIdentifier
+                      "Size_t"})),
+            _×_
+              Nothing
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "size_t",
+                    nameHsIdent = HsIdentifier
+                      "Size_t"}))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            TypeVoid},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -3368,22 +3386,30 @@
           "/* get_my_calloc_ptr */ __attribute__ ((const)) void *(*hs_bindgen_test_fun_attributes_733646ca96f39979 (void)) (size_t arg1, size_t arg2) { return &my_calloc; } ",
           capiWrapperImport =
           "fun_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
-                    "Size_t"}),
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
-                    "Size_t"})]
-          (TypePointer TypeVoid)),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              Nothing
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "size_t",
+                    nameHsIdent = HsIdentifier
+                      "Size_t"})),
+            _×_
+              Nothing
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "size_t",
+                    nameHsIdent = HsIdentifier
+                      "Size_t"}))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            TypeVoid},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -3430,17 +3456,25 @@
           "/* get_my_realloc_ptr */ __attribute__ ((const)) void *(*hs_bindgen_test_fun_attributes_94e8271f186110fd (void)) (void *arg1, size_t arg2) { return &my_realloc; } ",
           capiWrapperImport =
           "fun_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePointer TypeVoid,
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
-                    "Size_t"})]
-          (TypePointer TypeVoid)),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              Nothing
+              (TypePointer TypeVoid),
+            _×_
+              Nothing
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "size_t",
+                    nameHsIdent = HsIdentifier
+                      "Size_t"}))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            TypeVoid},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -3485,16 +3519,22 @@
           "/* get_my_alloc1_ptr */ __attribute__ ((const)) void *(*hs_bindgen_test_fun_attributes_48d9862d70f58e70 (void)) (size_t arg1) { return &my_alloc1; } ",
           capiWrapperImport =
           "fun_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
-                    "Size_t"})]
-          (TypePointer TypeVoid)),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              Nothing
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "size_t",
+                    nameHsIdent = HsIdentifier
+                      "Size_t"}))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            TypeVoid},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -3539,16 +3579,22 @@
           "/* get_my_alloc2_ptr */ __attribute__ ((const)) void *(*hs_bindgen_test_fun_attributes_17a11fd10dc57357 (void)) (size_t arg1) { return &my_alloc2; } ",
           capiWrapperImport =
           "fun_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
-                    "Size_t"})]
-          (TypePointer TypeVoid)),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              Nothing
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "size_t",
+                    nameHsIdent = HsIdentifier
+                      "Size_t"}))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            TypeVoid},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -3578,8 +3624,7 @@
           (HsFunPtr
             (HsFun
               (HsPrimType HsPrimCInt)
-              (HsIO
-                (HsPrimType HsPrimCInt))))),
+              (HsPrimType HsPrimCInt)))),
       foreignImportOrigName =
       "hs_bindgen_test_fun_attributes_c41111f40a04cdc9",
       foreignImportCallConv =
@@ -3589,13 +3634,18 @@
           "/* get_square_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_c41111f40a04cdc9 (void)) (signed int arg1) { return &square; } ",
           capiWrapperImport =
           "fun_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePrim
-              (PrimIntegral PrimInt Signed)]
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              Nothing
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            HaskellPureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -3633,11 +3683,14 @@
           "/* get_old_fn_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_3add0261fa83e1dd (void)) (void) { return &old_fn; } ",
           capiWrapperImport =
           "fun_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          []
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -3680,25 +3733,40 @@
           "/* get_my_dgettext_ptr */ __attribute__ ((const)) char *(*hs_bindgen_test_fun_attributes_a0be4f488601c252 (void)) (char *arg1, char const *arg2) { return &my_dgettext; } ",
           capiWrapperImport =
           "fun_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePointer
-              (TypePrim
-                (PrimChar
-                  (PrimSignImplicit
-                    (Just Signed)))),
-            TypePointer
-              (TypeConst
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "my_domain",
+                  nameHsIdent = HsIdentifier
+                    "my_domain"})
+              (TypePointer
                 (TypePrim
                   (PrimChar
                     (PrimSignImplicit
-                      (Just Signed)))))]
-          (TypePointer
+                      (Just Signed))))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "my_format",
+                  nameHsIdent = HsIdentifier
+                    "my_format"})
+              (TypePointer
+                (TypeConst
+                  (TypePrim
+                    (PrimChar
+                      (PrimSignImplicit
+                        (Just Signed))))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
             (TypePrim
               (PrimChar
                 (PrimSignImplicit
-                  (Just Signed)))))),
+                  (Just Signed))))},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -3745,18 +3813,25 @@
           "/* get_fdopen_ptr */ __attribute__ ((const)) FILE *(*hs_bindgen_test_fun_attributes_2b987c3b5c01a326 (void)) (signed int arg1, char const *arg2) { return &fdopen; } ",
           capiWrapperImport =
           "fun_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePrim
-              (PrimIntegral PrimInt Signed),
-            TypePointer
-              (TypeConst
-                (TypePrim
-                  (PrimChar
-                    (PrimSignImplicit
-                      (Just Signed)))))]
-          (TypePointer
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              Nothing
+              (TypePrim
+                (PrimIntegral PrimInt Signed)),
+            _×_
+              Nothing
+              (TypePointer
+                (TypeConst
+                  (TypePrim
+                    (PrimChar
+                      (PrimSignImplicit
+                        (Just Signed))))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
             (TypeTypedef
               (TypedefSquashed
                 (Name "FILE")
@@ -3767,7 +3842,7 @@
                       "FILE"}
                   (NameOriginGenerated
                     (AnonId
-                      "fun_attributes.h:7:9"))))))),
+                      "fun_attributes.h:7:9")))))},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -3805,8 +3880,13 @@
           "/* get_f2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_fun_attributes_490ca7e8c8282a69 (void)) (void) { return &f2; } ",
           capiWrapperImport =
           "fun_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -3854,19 +3934,41 @@
           "/* get_my_memcpy_ptr */ __attribute__ ((const)) void *(*hs_bindgen_test_fun_attributes_e2e8b5d5ac435de8 (void)) (void *arg1, void const *arg2, size_t arg3) { return &my_memcpy; } ",
           capiWrapperImport =
           "fun_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePointer TypeVoid,
-            TypePointer
-              (TypeConst TypeVoid),
-            TypeTypedef
-              (TypedefRegular
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "size_t",
+                  nameC = Name "dest",
                   nameHsIdent = HsIdentifier
-                    "Size_t"})]
-          (TypePointer TypeVoid)),
+                    "dest"})
+              (TypePointer TypeVoid),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "src",
+                  nameHsIdent = HsIdentifier
+                    "src"})
+              (TypePointer
+                (TypeConst TypeVoid)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "len",
+                  nameHsIdent = HsIdentifier
+                    "len"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "size_t",
+                    nameHsIdent = HsIdentifier
+                      "Size_t"}))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            TypeVoid},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -3905,8 +4007,13 @@
           "/* get_fatal_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_fun_attributes_ea0bb781f9eca7f5 (void)) (void) { return &fatal; } ",
           capiWrapperImport =
           "fun_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -3946,16 +4053,21 @@
           "/* get_hash_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_4de9606eb9c5dd01 (void)) (char *arg1) { return &hash; } ",
           capiWrapperImport =
           "fun_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePointer
-              (TypePrim
-                (PrimChar
-                  (PrimSignImplicit
-                    (Just Signed))))]
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              Nothing
+              (TypePointer
+                (TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed)))))],
+          functionAttrs =
+          FunctionAttributes
+            CPureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -3999,16 +4111,26 @@
           "/* get_mymalloc_ptr */ __attribute__ ((const)) void *(*hs_bindgen_test_fun_attributes_4ce141c884649d49 (void)) (size_t arg1) { return &mymalloc; } ",
           capiWrapperImport =
           "fun_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeTypedef
-              (TypedefRegular
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "size_t",
+                  nameC = Name "len",
                   nameHsIdent = HsIdentifier
-                    "Size_t"})]
-          (TypePointer TypeVoid)),
+                    "len"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "size_t",
+                    nameHsIdent = HsIdentifier
+                      "Size_t"}))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            TypeVoid},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -4046,8 +4168,13 @@
           "/* get_foobar_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_fun_attributes_5c243ced544ab0aa (void)) (void) { return &foobar; } ",
           capiWrapperImport =
           "fun_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -4085,11 +4212,14 @@
           "/* get_core2_func_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_14ef55245a14f816 (void)) (void) { return &core2_func; } ",
           capiWrapperImport =
           "fun_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          []
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -4128,11 +4258,14 @@
           "/* get_sse3_func_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_72956748bb6eee67 (void)) (void) { return &sse3_func; } ",
           capiWrapperImport =
           "fun_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          []
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -4171,8 +4304,13 @@
           "/* get_f3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_fun_attributes_38506a9ac5626bf2 (void)) (void) { return &f3; } ",
           capiWrapperImport =
           "fun_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -4210,11 +4348,14 @@
           "/* get_fn_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_5929da82079150d1 (void)) (void) { return &fn; } ",
           capiWrapperImport =
           "fun_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          []
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -4252,11 +4393,14 @@
           "/* get_y_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_7bcb4a1873e6ece6 (void)) (void) { return &y; } ",
           capiWrapperImport =
           "fun_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          []
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -4294,11 +4438,14 @@
           "/* get_x1_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_11098262b345351a (void)) (void) { return &x1; } ",
           capiWrapperImport =
           "fun_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          []
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -4336,11 +4483,14 @@
           "/* get_x2_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_0d19f83087f278f9 (void)) (void) { return &x2; } ",
           capiWrapperImport =
           "fun_attributes.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          []
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
