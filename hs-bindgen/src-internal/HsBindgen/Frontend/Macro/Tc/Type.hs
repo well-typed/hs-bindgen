@@ -90,22 +90,33 @@ module HsBindgen.Frontend.Macro.Tc.Type (
   ) where
 
 -- base
-import Data.GADT.Compare (GEq (..), defaultEq)
 import Data.Kind qualified as Hs
 import Data.List.NonEmpty qualified as NE
 import Data.Maybe (fromJust)
-import Data.Text qualified as Text
 import Data.Type.Equality (type (:~:) (..))
-import Data.Type.Nat qualified as Nat (SNatI, eqNat, reflectToNum)
-import Data.Vec.Lazy qualified as Vec
 import Foreign.C.Types
 import Foreign.Ptr qualified as Foreign
 import GHC.Show (showSpace)
 
+-- fin
+import Data.Type.Nat qualified as Nat (SNatI, eqNat, reflectToNum,)
+
+-- some
+import Data.GADT.Compare (GEq (..), defaultEq)
+
+-- text
+import Data.Text qualified as Text
+
+-- vec
+import Data.Vec.Lazy qualified as Vec
+
+-- c-expr
 import C.Type qualified
 
+-- hs-bindgen
+
 import HsBindgen.Frontend.Macro.Pass
-import HsBindgen.Frontend.Naming (Name (..))
+import HsBindgen.Frontend.Naming (Name(..))
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Util.TestEquality (equals2)
