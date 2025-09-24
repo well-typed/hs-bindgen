@@ -28,14 +28,15 @@ runs:
     #
     # This file is needed to run `./manual/generate.sh`, and also to build the
     # manual.
-    - name: Create cabal.project.local in ./manual/hs
+    - name: Create cabal.project and cabal.project.local in ./manual/hs
       shell: bash
       working-directory: ./manual/hs
       run: |
-        echo "Writing cabal.project.local"
-        cat <<EOF > cabal.project.local
-        import: ../../cabal.project.ci.base
+        echo "Copying cabal.project"
+        cp cabal.project.ci cabal.project
 
+        echo "Creating cabal.project.local"
+        cat <<EOF > cabal.project.local
         package manual
           extra-include-dirs:
               ${{ github.workspace }}/manual/c

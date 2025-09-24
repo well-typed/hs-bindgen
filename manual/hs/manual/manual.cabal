@@ -33,6 +33,9 @@ executable run-manual
     -- External.
     , vector
 
+  if impl(ghc < 9.4)
+    build-depends: data-array-byte
+
   other-modules:
       Manual.Tools
       --
