@@ -150,7 +150,7 @@ instance IsTrace Level BuiltinIncDirMsg where
     BuiltinIncDirClangPrintResourceDirUnexpected _ -> Warning
     BuiltinIncDirClangPrintResourceDirIOError _    -> Warning
 
-  getSource = const HsBindgen
+  getSource  = const HsBindgen
 
   getTraceId = const "builtin-include-dir"
 

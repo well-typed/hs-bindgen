@@ -1,4 +1,4 @@
-module HsBindgen.Backend.Artefact.Test.Readme (
+module HsBindgen.Test.Readme (
     genTestsReadme
   ) where
 

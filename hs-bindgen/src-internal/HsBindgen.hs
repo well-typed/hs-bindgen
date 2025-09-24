@@ -20,37 +20,30 @@ module HsBindgen
   , NP (..)
   ) where
 
+import Control.Monad.Trans.Reader (ask)
 import Data.Foldable qualified as Foldable
 import Data.Map qualified as Map
 import Data.Text qualified as T
 import System.Directory (createDirectoryIfMissing)
 import System.FilePath (takeDirectory, (<.>), (</>))
 
-import Clang.Paths
-
 import Generics.SOP (I (..), NP (..))
 
+import HsBindgen.Artefact
 import HsBindgen.Backend
-import HsBindgen.Backend.Artefact.HsModule.Render
-import HsBindgen.Backend.Artefact.HsModule.Translation
-import HsBindgen.Backend.Artefact.Test (genTests)
-import HsBindgen.Backend.Hs.AST qualified as Hs
-import HsBindgen.Backend.Hs.CallConv (UserlandCapiWrapper)
+import HsBindgen.Backend.HsModule.Render
 import HsBindgen.Backend.SHs.AST
-import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.BindingSpec.Gen
 import HsBindgen.Boot
 import HsBindgen.Config
 import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend
-import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
-import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
-import HsBindgen.Frontend.AST.External qualified as C
-import HsBindgen.Frontend.RootHeader (HashIncludeArg, UncheckedHashIncludeArg)
+import HsBindgen.Frontend.RootHeader (UncheckedHashIncludeArg)
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell (HsModuleName (getHsModuleName))
+import HsBindgen.Test (genTests)
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
@@ -84,40 +77,24 @@ hsBindgen
       pure (bootArtefact, frontendArtefact)
     (bootArtefact, frontendArtefact) <- either throwIO pure eArtefact
     -- 3. Backend.
-    backendArtefact <- backend bindgenBackendConfig frontendArtefact
+    backendArtefact <- withTracerSafe tracerConfigSafe $ \tracer -> do
+      backend tracer bindgenBackendConfig frontendArtefact
     -- 4. Artefacts.
-    runArtefacts bootArtefact frontendArtefact backendArtefact artefacts
+    withTracerSafe tracerConfigSafe $ \tracer -> do
+      runArtefacts tracer bootArtefact frontendArtefact backendArtefact artefacts
+  where
+    tracerConfigSafe :: TracerConfig IO SafeLevel a
+    tracerConfigSafe = TracerConfig {
+        tVerbosity      = tVerbosity tracerConfig
+      , tOutputConfig   = def
+      , tCustomLogLevel = mempty
+      , tShowTimeStamp  = tShowTimeStamp tracerConfig
+      , tShowCallStack  = tShowCallStack tracerConfig
+      }
 
 {-------------------------------------------------------------------------------
-  Build artefacts
+  Custom build artefacts
 -------------------------------------------------------------------------------}
-
--- | Build artefact.
-data Artefact (a :: Star) where
-  -- * Boot
-  HashIncludeArgs     :: Artefact [HashIncludeArg]
-  -- * Frontend
-  IncludeGraph        :: Artefact (IncludeGraph.Predicate, IncludeGraph.IncludeGraph)
-  DeclIndex           :: Artefact DeclIndex.DeclIndex
-  UseDeclGraph        :: Artefact UseDeclGraph.UseDeclGraph
-  DeclUseGraph        :: Artefact DeclUseGraph.DeclUseGraph
-  ReifiedC            :: Artefact [C.Decl]
-  Dependencies        :: Artefact [SourcePath]
-  -- * Backend
-  HsDecls             :: Artefact (ByCategory [Hs.Decl])
-  FinalDecls          :: Artefact (ByCategory ([UserlandCapiWrapper], [SHs.SDecl]))
-  FinalModuleBaseName :: Artefact HsModuleName
-  FinalModuleSafe     :: Artefact HsModule
-  FinalModuleUnsafe   :: Artefact HsModule
-  FinalModules        :: Artefact (ByCategory HsModule)
-  -- * Lift and sequence
-  Lift                :: Artefacts as -> (NP I as -> IO b) -> Artefact b
-
-instance Functor Artefact where
-  fmap f x = Lift (x :* Nil) (\(I r :* Nil) -> pure (f r))
-
--- | A list of 'Artefact's.
-type Artefacts as = NP Artefact as
 
 -- | Courtesy of Edsko :-).
 --
@@ -141,20 +118,20 @@ sequenceArtefacts :: [Artefact ()] -> Artefact ()
 sequenceArtefacts = go Nil . reverse
   where
     go :: Artefacts as -> [Artefact ()] -> Artefact ()
-    go acc []     = Lift acc $ \_results -> return ()
+    go acc []     = Lift acc $ \_results -> pure ()
     go acc (a:as) = go (a :* acc) as
 
 -- | Write the include graph to `STDOUT` or a file.
 writeIncludeGraph :: Maybe FilePath -> Artefact ()
 writeIncludeGraph mPath = Lift (IncludeGraph :* Nil) $
     \(I (p, includeGraph) :* Nil) ->
-      write mPath $ IncludeGraph.dumpMermaid p includeGraph
+      write "include graph" mPath $ IncludeGraph.dumpMermaid p includeGraph
 
 -- | Write @use-decl@ graph to file.
 writeUseDeclGraph :: FilePath -> Artefact ()
 writeUseDeclGraph path = Lift (DeclIndex :* UseDeclGraph :* Nil) $
     \(I index :* I useDeclGraph :* Nil) ->
-      writeFile path (UseDeclGraph.dumpMermaid index useDeclGraph)
+      write "use-decl graph" (Just path) (UseDeclGraph.dumpMermaid index useDeclGraph)
 
 -- | Get bindings (single module).
 getBindings :: Safety -> Artefact String
@@ -169,9 +146,9 @@ getBindings safety = Lift (finalModuleArtefact :* Nil) $
 --
 -- If no file is given, print to standard output.
 writeBindings :: Safety -> Maybe FilePath -> Artefact ()
-writeBindings safety path = Lift (getBindings safety :* Nil) $
+writeBindings safety mPath = Lift (getBindings safety :* Nil) $
     \(I bindings :* Nil) ->
-      write path bindings
+      write "bindings" mPath bindings
 
 -- | Get bindings (one module per binding category).
 getBindingsMultiple :: Artefact (ByCategory String)
@@ -187,98 +164,65 @@ getBindingsMultiple = Lift (FinalModules :* Nil) $
 writeBindingsMultiple :: FilePath -> Artefact ()
 writeBindingsMultiple hsOutputDir = Lift (FinalModuleBaseName :* getBindingsMultiple :* Nil) $
     \(I moduleBaseName :* I bindingsByCategory :* Nil) ->
-      writeByCategory hsOutputDir moduleBaseName bindingsByCategory
+      writeByCategory "bindings" hsOutputDir moduleBaseName bindingsByCategory
 
 -- | Write binding specifications to file.
 writeBindingSpec :: FilePath -> Artefact ()
 writeBindingSpec path =
   Lift (FinalModuleBaseName :* HashIncludeArgs :* HsDecls :* Nil) $
-    \(I moduleBaseName :* I hashIncludeArgs :* I hsDecls :* Nil) ->
-      -- Generate binding specification only for declarations of binding
-      -- category 'BType'. If, in the future, we generate binding specifications
-      -- for other binding categories, we need to take care of the final module
-      -- names (e.g., @Generated.Safe@).
-      genBindingSpec moduleBaseName hashIncludeArgs path $
-        fromMaybe (panicPure "binding category BType is missing")
-          (Map.lookup BType $ unByCategory hsDecls)
+    \(I moduleBaseName :* I hashIncludeArgs :* I hsDecls :* Nil) -> do
+      tracer <- artefactTracer <$> ask
+      liftIO $ do
+        traceWith tracer $ RunArtefactWriteFile "binding specifications" path
+        -- Generate binding specification only for declarations of binding
+        -- category 'BType'. If, in the future, we generate binding
+        -- specifications for other binding categories, we need to take care of
+        -- the final module names (e.g., @Generated.Safe@).
+        genBindingSpec moduleBaseName hashIncludeArgs path $
+          fromMaybe (panicPure "binding category BType is missing")
+            (Map.lookup BType $ unByCategory hsDecls)
 
 -- | Create test suite in directory.
 writeTests :: FilePath -> Artefact ()
 writeTests testDir =
   Lift (FinalModuleBaseName :* HashIncludeArgs :* HsDecls :* Nil) $
     \(I moduleBaseName :* I hashIncludeArgs :* I hsDecls :* Nil) ->
-      genTests
+      liftIO $ genTests
         hashIncludeArgs
         hsDecls
         moduleBaseName
         testDir
 
 {-------------------------------------------------------------------------------
-  Artefacts
--------------------------------------------------------------------------------}
-
--- | Compute the results of a list of artefacts.
---
--- All top-level artefacts will be cached (this is not true for computed
--- artefacts, using, for example, the 'Functor' interface, or 'Lift').
-runArtefacts ::
-     BootArtefact
-  -> FrontendArtefact
-  -> BackendArtefact
-  -> Artefacts as
-  -> IO (NP I as)
-runArtefacts
-  BootArtefact{..}
-  FrontendArtefact{..}
-  BackendArtefact{..} = go
-  where
-    go :: Artefacts as -> IO (NP I as)
-    go Nil       = pure Nil
-    go (a :* as) = (:*) . I <$> runArtefact a <*> go as
-
-    runArtefact :: Artefact a -> IO a
-    runArtefact = \case
-      --Boot.
-      HashIncludeArgs     -> bootHashIncludeArgs
-      -- Frontend.
-      IncludeGraph        -> frontendIncludeGraph
-      DeclIndex           -> frontendIndex
-      UseDeclGraph        -> frontendUseDeclGraph
-      DeclUseGraph        -> frontendDeclUseGraph
-      ReifiedC            -> frontendCDecls
-      Dependencies        -> frontendDependencies
-      -- Backend.
-      HsDecls             -> backendHsDecls
-      FinalDecls          -> backendFinalDecls
-      FinalModuleBaseName -> pure backendFinalModuleBaseName
-      FinalModuleSafe     -> backendFinalModuleSafe
-      FinalModuleUnsafe   -> backendFinalModuleUnsafe
-      FinalModules        -> backendFinalModules
-      -- Lift and sequence.
-      (Lift as' f)        -> go as' >>= f
-
-{-------------------------------------------------------------------------------
   Helpers
 -------------------------------------------------------------------------------}
 
-write :: Maybe FilePath -> String -> IO ()
-write Nothing     str = putStrLn str
-write (Just path) str = do
-      createDirectoryIfMissing True $ takeDirectory path
-      writeFile path str
+write :: String -> Maybe FilePath -> String -> ArtefactM ()
+write _    Nothing     str = liftIO $ putStrLn str
+write what (Just path) str = do
+      tracer <- artefactTracer <$> ask
+      liftIO $ do
+        traceWith tracer $ RunArtefactWriteFile what path
+        createDirectoryIfMissing True $ takeDirectory path
+        writeFile path str
 
-writeByCategory :: FilePath -> HsModuleName -> ByCategory String -> IO ()
-writeByCategory hsOutputDir moduleBaseName =
+writeByCategory ::
+     String
+  -> FilePath
+  -> HsModuleName
+  -> ByCategory String
+  -> ArtefactM ()
+writeByCategory what hsOutputDir moduleBaseName =
     mapM_ (uncurry writeCategory) . Map.toList . unByCategory
   where
-    writeCategory :: BindingCategory -> String -> IO ()
+    writeCategory :: BindingCategory -> String -> ArtefactM ()
     writeCategory cat str = do
       let addSubModule = case cat of
             BType    -> id
             otherCat -> (</> displayBindingCategory otherCat)
           path = addSubModule baseFilePath <.> "hs"
-      createDirectoryIfMissing True $ takeDirectory path
-      writeFile path str
+          whatWithCategory = what ++ " (" ++ show cat ++ ")"
+      write whatWithCategory (Just path) str
 
     baseFilePath :: FilePath
     baseFilePath = Foldable.foldl' (</>) "" $

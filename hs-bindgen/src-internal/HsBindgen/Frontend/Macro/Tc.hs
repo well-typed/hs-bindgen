@@ -53,7 +53,6 @@ import Data.List (intercalate)
 import Data.List.NonEmpty qualified as NE
 import Data.Map.Strict qualified as Map
 import Data.Monoid (Endo (..))
-import Data.Proxy (Proxy (..))
 import Data.STRef (newSTRef, readSTRef)
 import Data.Text qualified as Text
 import Data.Traversable (for)

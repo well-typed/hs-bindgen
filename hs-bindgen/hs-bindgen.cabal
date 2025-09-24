@@ -77,16 +77,8 @@ library internal
       Data.DynGraph
       Data.DynGraph.Labelled
       HsBindgen
+      HsBindgen.Artefact
       HsBindgen.Backend
-      HsBindgen.Backend.Artefact.HsModule.Names
-      HsBindgen.Backend.Artefact.HsModule.Render
-      HsBindgen.Backend.Artefact.HsModule.Translation
-      HsBindgen.Backend.Artefact.HsModule.Capi
-      HsBindgen.Backend.Artefact.Test
-      HsBindgen.Backend.Artefact.Test.C
-      HsBindgen.Backend.Artefact.Test.Hs
-      HsBindgen.Backend.Artefact.Test.Internal
-      HsBindgen.Backend.Artefact.Test.Readme
       HsBindgen.Backend.Extensions
       HsBindgen.Backend.Hs.AST
       HsBindgen.Backend.Hs.AST.SigmaType
@@ -98,6 +90,10 @@ library internal
       HsBindgen.Backend.Hs.Haddock.Translation
       HsBindgen.Backend.Hs.Origin
       HsBindgen.Backend.Hs.Translation
+      HsBindgen.Backend.HsModule.Capi
+      HsBindgen.Backend.HsModule.Names
+      HsBindgen.Backend.HsModule.Render
+      HsBindgen.Backend.HsModule.Translation
       HsBindgen.Backend.SHs.AST
       HsBindgen.Backend.SHs.Simplify
       HsBindgen.Backend.SHs.Translation
@@ -180,6 +176,11 @@ library internal
       HsBindgen.Orphans
       HsBindgen.PrettyC
       HsBindgen.Resolve
+      HsBindgen.Test
+      HsBindgen.Test.C
+      HsBindgen.Test.Hs
+      HsBindgen.Test.Internal
+      HsBindgen.Test.Readme
       HsBindgen.TH.Internal
       HsBindgen.TraceMsg
       HsBindgen.Util.Monad

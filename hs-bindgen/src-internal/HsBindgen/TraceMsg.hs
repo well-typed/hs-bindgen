@@ -52,7 +52,7 @@ import HsBindgen.Resolve (ResolveHeaderMsg (..))
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
-  HsBindgen traces
+  HsBindgen boot/frontend traces
 -------------------------------------------------------------------------------}
 
 -- | Traces supported by @hs-bindgen@.

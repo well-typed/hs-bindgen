@@ -24,8 +24,8 @@ import Text.SimplePrettyPrint
 
 import Clang.Version
 
-import HsBindgen.Backend.Artefact.HsModule.Render
 import HsBindgen.Backend.Hs.Haddock.Documentation
+import HsBindgen.Backend.HsModule.Render
 import HsBindgen.Guasi
 import HsBindgen.Imports
 import HsBindgen.TH.Internal

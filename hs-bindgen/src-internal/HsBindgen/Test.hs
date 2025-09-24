@@ -1,4 +1,4 @@
-module HsBindgen.Backend.Artefact.Test (
+module HsBindgen.Test (
     genTests
   ) where
 
@@ -8,14 +8,14 @@ import Data.Text qualified as Text
 import System.Directory qualified as Dir
 import System.FilePath qualified as FilePath
 
-import HsBindgen.Backend.Artefact.Test.C (genTestsC)
-import HsBindgen.Backend.Artefact.Test.Hs (genTestsHs)
-import HsBindgen.Backend.Artefact.Test.Readme (genTestsReadme)
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.SHs.AST (ByCategory)
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell (HsModuleName (getHsModuleName))
+import HsBindgen.Test.C (genTestsC)
+import HsBindgen.Test.Hs (genTestsHs)
+import HsBindgen.Test.Readme (genTestsReadme)
 
 {-------------------------------------------------------------------------------
   Generation

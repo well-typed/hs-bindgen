@@ -1,6 +1,6 @@
 {-# LANGUAGE RecordWildCards #-}
 
-module HsBindgen.Backend.Artefact.HsModule.Translation (
+module HsBindgen.Backend.HsModule.Translation (
     -- * GhcPragma
     GhcPragma (..)
     -- * ImportListItem
@@ -19,12 +19,12 @@ import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 import Data.Text qualified as Text
 
-import HsBindgen.Backend.Artefact.HsModule.Capi (capiImport)
-import HsBindgen.Backend.Artefact.HsModule.Names
 import HsBindgen.Backend.Extensions
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type qualified as Hs
 import HsBindgen.Backend.Hs.CallConv
+import HsBindgen.Backend.HsModule.Capi (capiImport)
+import HsBindgen.Backend.HsModule.Names
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell

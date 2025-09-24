@@ -47,7 +47,7 @@ instance PrettyForTrace CacheMsg where
     CacheMiss mName -> "Cache miss:" <+> prettyForTraceName mName >< "; computing value"
     CacheHit  mName -> "Cache hit: " <+> prettyForTraceName mName
 
-instance IsTrace Level CacheMsg where
-  getDefaultLogLevel = const Debug
+instance IsTrace SafeLevel CacheMsg where
+  getDefaultLogLevel = const SafeDebug
   getSource          = const HsBindgen
   getTraceId         = const "cache"

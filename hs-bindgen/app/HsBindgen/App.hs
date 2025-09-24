@@ -40,12 +40,13 @@ import HsBindgen.Language.Haskell (HsModuleName)
 import HsBindgen.Lib
 
 import Optics (set)
+
 {-------------------------------------------------------------------------------
   Global options
 -------------------------------------------------------------------------------}
 
 data GlobalOpts = GlobalOpts {
-      tracerConfig  :: TracerConfig IO Level TraceMsg
+      tracerConfig        :: TracerConfig IO Level TraceMsg
     }
 
 parseGlobalOpts :: Parser GlobalOpts

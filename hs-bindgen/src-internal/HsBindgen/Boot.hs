@@ -80,7 +80,7 @@ boot tracer bindgenConfig@BindgenConfig{..} uncheckedHashIncludeArgs = do
       pure x
 
     cache :: String -> IO a -> IO (IO a)
-    cache = cacheWith (contramap BootCache tracer) . Just
+    cache = cacheWith (contramap (BootCache . SafeTrace) tracer) . Just
 
 -- | Determine Clang arguments
 getClangArgs :: Tracer IO BootMsg -> ClangArgsConfig -> IO ClangArgs
@@ -143,6 +143,6 @@ data BootMsg =
   | BootExtraClangArgs ExtraClangArgsMsg
   | BootHashIncludeArg HashIncludeArgMsg
   | BootStatus         BootStatusMsg
-  | BootCache          CacheMsg
+  | BootCache          (SafeTrace CacheMsg)
   deriving stock (Show, Generic)
   deriving anyclass (PrettyForTrace, IsTrace Level)
