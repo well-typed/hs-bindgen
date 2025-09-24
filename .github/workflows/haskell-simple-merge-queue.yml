@@ -25,10 +25,10 @@ jobs:
           - runner: 'windows-latest'
             ghc:    '9.4.8'
             llvm:   '14'
-          # # We test the following combination of parameters in Haskell-CI.
-          # - runner: 'ubuntu-latest'
-          #   ghc:    '9.4.8'
-          #   llvm:   '14'
+          # Vary LLVM version from 14 to 20.
+          - runner: 'ubuntu-latest'
+            ghc:    '9.4.8'
+            llvm:   '14'
           - runner: 'ubuntu-latest'
             ghc:    '9.4.8'
             llvm:   '16'
@@ -38,6 +38,22 @@ jobs:
           - runner: 'ubuntu-latest'
             ghc:    '9.4.8'
             llvm:   '20'
+          # Vary GHC version from 9.2 to 9.12.
+          - runner: 'ubuntu-latest'
+            ghc:    '9.2.8'
+            llvm:   '14'
+          - runner: 'ubuntu-latest'
+            ghc:    '9.6.6'
+            llvm:   '14'
+          - runner: 'ubuntu-latest'
+            ghc:    '9.8.2'
+            llvm:   '14'
+          - runner: 'ubuntu-latest'
+            ghc:    '9.10.2'
+            llvm:   '14'
+          - runner: 'ubuntu-latest'
+            ghc:    '9.12.2'
+            llvm:   '14'
       fail-fast: false
     steps:
       - name: Set git to use LF
