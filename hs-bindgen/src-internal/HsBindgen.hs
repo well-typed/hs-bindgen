@@ -29,9 +29,9 @@ import System.FilePath (takeDirectory, (<.>), (</>))
 import Generics.SOP (I (..), NP (..))
 
 import HsBindgen.Artefact
+import HsBindgen.Artefact.Test (genTests)
 import HsBindgen.Backend
-import HsBindgen.Backend.Artefact.HsModule.Render
-import HsBindgen.Backend.Artefact.Test (genTests)
+import HsBindgen.Backend.HsModule.Render
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.BindingSpec.Gen
 import HsBindgen.Boot

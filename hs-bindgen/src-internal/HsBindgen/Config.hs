@@ -11,9 +11,9 @@ module HsBindgen.Config
   , checkBackendConfig
   ) where
 
-import HsBindgen.Backend.Artefact.HsModule.Translation
 import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.Backend.Hs.Translation
+import HsBindgen.Backend.HsModule.Translation
 import HsBindgen.Backend.UniqueId
 import HsBindgen.BindingSpec
 import HsBindgen.Config.ClangArgs

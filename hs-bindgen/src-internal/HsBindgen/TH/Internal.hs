@@ -27,7 +27,7 @@ import System.FilePath ((</>))
 
 import Clang.Paths
 import HsBindgen
-import HsBindgen.Backend.Artefact.HsModule.Translation
+import HsBindgen.Backend.HsModule.Translation
 import HsBindgen.Backend.Extensions
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Translation
