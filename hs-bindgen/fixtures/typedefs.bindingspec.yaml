@@ -3,6 +3,23 @@ version:
   binding_specification: '1.0'
 types:
 - headers: typedefs.h
+  cname: FunctionPointer_Function
+  module: Example
+  identifier: FunctionPointer_Function
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- headers: typedefs.h
+  cname: FunctionPointer_Function_Deref
+  module: Example
+  identifier: FunctionPointer_Function_Deref
+- headers: typedefs.h
+  cname: NonFunctionPointer_Function
+  module: Example
+  identifier: NonFunctionPointer_Function
+- headers: typedefs.h
   cname: intptr
   module: Example
   identifier: Intptr

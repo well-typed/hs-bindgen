@@ -1684,6 +1684,77 @@
     Newtype {
       newtypeName = HsName
         "@NsTypeConstr"
+        "Funptr_typedef1_Deref",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "Funptr_typedef1_Deref",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_Funptr_typedef1_Deref",
+        fieldType = HsIO
+          (HsTypRef
+            (HsName "@NsTypeConstr" "A")),
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "reparse.h:132:16",
+          declId = NamePair {
+            nameC = Name
+              "funptr_typedef1_Deref",
+            nameHsIdent = HsIdentifier
+              "Funptr_typedef1_Deref"},
+          declOrigin = NameOriginGenerated
+            (AnonId "reparse.h:132:16"),
+          declAliases = [],
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["reparse.h"],
+              headerInclude = "reparse.h"},
+          declComment = Nothing},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Funptr_typedef1_Deref",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Funptr_typedef1_Deref"},
+            typedefType = TypeFun
+              []
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
+      newtypeInstances = Set.fromList
+        [],
+      newtypeComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "funptr_typedef1_Deref",
+          commentLocation = Just
+            "reparse.h:132:16",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["reparse.h"],
+              headerInclude = "reparse.h"},
+          commentChildren = []}},
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
         "Funptr_typedef1",
       newtypeConstr = HsName
         "@NsConstr"
@@ -1693,9 +1764,10 @@
           "@NsVar"
           "un_Funptr_typedef1",
         fieldType = HsFunPtr
-          (HsIO
-            (HsTypRef
-              (HsName "@NsTypeConstr" "A"))),
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Funptr_typedef1_Deref")),
         fieldOrigin = GeneratedField,
         fieldComment = Nothing},
       newtypeOrigin = Decl {
@@ -1723,13 +1795,13 @@
                 "@NsVar"
                 "un_Funptr_typedef1"},
             typedefType = TypePointer
-              (TypeFun
-                []
-                (TypeMacroTypedef
+              (TypeTypedef
+                (TypedefRegular
                   NamePair {
-                    nameC = Name "A",
-                    nameHsIdent = HsIdentifier "A"}
-                  NameOriginInSource))},
+                    nameC = Name
+                      "funptr_typedef1_Deref",
+                    nameHsIdent = HsIdentifier
+                      "Funptr_typedef1_Deref"}))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -1795,6 +1867,79 @@
     Newtype {
       newtypeName = HsName
         "@NsTypeConstr"
+        "Funptr_typedef2_Deref",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "Funptr_typedef2_Deref",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_Funptr_typedef2_Deref",
+        fieldType = HsIO
+          (HsPtr
+            (HsTypRef
+              (HsName "@NsTypeConstr" "A"))),
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "reparse.h:133:16",
+          declId = NamePair {
+            nameC = Name
+              "funptr_typedef2_Deref",
+            nameHsIdent = HsIdentifier
+              "Funptr_typedef2_Deref"},
+          declOrigin = NameOriginGenerated
+            (AnonId "reparse.h:133:16"),
+          declAliases = [],
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["reparse.h"],
+              headerInclude = "reparse.h"},
+          declComment = Nothing},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Funptr_typedef2_Deref",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Funptr_typedef2_Deref"},
+            typedefType = TypeFun
+              []
+              (TypePointer
+                (TypeMacroTypedef
+                  NamePair {
+                    nameC = Name "A",
+                    nameHsIdent = HsIdentifier "A"}
+                  NameOriginInSource))},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
+      newtypeInstances = Set.fromList
+        [],
+      newtypeComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "funptr_typedef2_Deref",
+          commentLocation = Just
+            "reparse.h:133:16",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["reparse.h"],
+              headerInclude = "reparse.h"},
+          commentChildren = []}},
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
         "Funptr_typedef2",
       newtypeConstr = HsName
         "@NsConstr"
@@ -1804,10 +1949,10 @@
           "@NsVar"
           "un_Funptr_typedef2",
         fieldType = HsFunPtr
-          (HsIO
-            (HsPtr
-              (HsTypRef
-                (HsName "@NsTypeConstr" "A")))),
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Funptr_typedef2_Deref")),
         fieldOrigin = GeneratedField,
         fieldComment = Nothing},
       newtypeOrigin = Decl {
@@ -1835,14 +1980,13 @@
                 "@NsVar"
                 "un_Funptr_typedef2"},
             typedefType = TypePointer
-              (TypeFun
-                []
-                (TypePointer
-                  (TypeMacroTypedef
-                    NamePair {
-                      nameC = Name "A",
-                      nameHsIdent = HsIdentifier "A"}
-                    NameOriginInSource)))},
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name
+                      "funptr_typedef2_Deref",
+                    nameHsIdent = HsIdentifier
+                      "Funptr_typedef2_Deref"}))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -1908,6 +2052,81 @@
     Newtype {
       newtypeName = HsName
         "@NsTypeConstr"
+        "Funptr_typedef3_Deref",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "Funptr_typedef3_Deref",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_Funptr_typedef3_Deref",
+        fieldType = HsIO
+          (HsPtr
+            (HsPtr
+              (HsTypRef
+                (HsName "@NsTypeConstr" "A")))),
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "reparse.h:134:16",
+          declId = NamePair {
+            nameC = Name
+              "funptr_typedef3_Deref",
+            nameHsIdent = HsIdentifier
+              "Funptr_typedef3_Deref"},
+          declOrigin = NameOriginGenerated
+            (AnonId "reparse.h:134:16"),
+          declAliases = [],
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["reparse.h"],
+              headerInclude = "reparse.h"},
+          declComment = Nothing},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Funptr_typedef3_Deref",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Funptr_typedef3_Deref"},
+            typedefType = TypeFun
+              []
+              (TypePointer
+                (TypePointer
+                  (TypeMacroTypedef
+                    NamePair {
+                      nameC = Name "A",
+                      nameHsIdent = HsIdentifier "A"}
+                    NameOriginInSource)))},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
+      newtypeInstances = Set.fromList
+        [],
+      newtypeComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "funptr_typedef3_Deref",
+          commentLocation = Just
+            "reparse.h:134:16",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["reparse.h"],
+              headerInclude = "reparse.h"},
+          commentChildren = []}},
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
         "Funptr_typedef3",
       newtypeConstr = HsName
         "@NsConstr"
@@ -1917,13 +2136,10 @@
           "@NsVar"
           "un_Funptr_typedef3",
         fieldType = HsFunPtr
-          (HsIO
-            (HsPtr
-              (HsPtr
-                (HsTypRef
-                  (HsName
-                    "@NsTypeConstr"
-                    "A"))))),
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Funptr_typedef3_Deref")),
         fieldOrigin = GeneratedField,
         fieldComment = Nothing},
       newtypeOrigin = Decl {
@@ -1951,15 +2167,13 @@
                 "@NsVar"
                 "un_Funptr_typedef3"},
             typedefType = TypePointer
-              (TypeFun
-                []
-                (TypePointer
-                  (TypePointer
-                    (TypeMacroTypedef
-                      NamePair {
-                        nameC = Name "A",
-                        nameHsIdent = HsIdentifier "A"}
-                      NameOriginInSource))))},
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name
+                      "funptr_typedef3_Deref",
+                    nameHsIdent = HsIdentifier
+                      "Funptr_typedef3_Deref"}))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -2025,6 +2239,85 @@
     Newtype {
       newtypeName = HsName
         "@NsTypeConstr"
+        "Funptr_typedef4_Deref",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "Funptr_typedef4_Deref",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_Funptr_typedef4_Deref",
+        fieldType = HsFun
+          (HsPrimType HsPrimCInt)
+          (HsFun
+            (HsPrimType HsPrimCDouble)
+            (HsIO
+              (HsTypRef
+                (HsName "@NsTypeConstr" "A")))),
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "reparse.h:135:16",
+          declId = NamePair {
+            nameC = Name
+              "funptr_typedef4_Deref",
+            nameHsIdent = HsIdentifier
+              "Funptr_typedef4_Deref"},
+          declOrigin = NameOriginGenerated
+            (AnonId "reparse.h:135:16"),
+          declAliases = [],
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["reparse.h"],
+              headerInclude = "reparse.h"},
+          declComment = Nothing},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Funptr_typedef4_Deref",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Funptr_typedef4_Deref"},
+            typedefType = TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimInt Signed),
+                TypePrim
+                  (PrimFloating PrimDouble)]
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = HsIdentifier "A"}
+                NameOriginInSource)},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
+      newtypeInstances = Set.fromList
+        [],
+      newtypeComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "funptr_typedef4_Deref",
+          commentLocation = Just
+            "reparse.h:135:16",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["reparse.h"],
+              headerInclude = "reparse.h"},
+          commentChildren = []}},
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
         "Funptr_typedef4",
       newtypeConstr = HsName
         "@NsConstr"
@@ -2034,15 +2327,10 @@
           "@NsVar"
           "un_Funptr_typedef4",
         fieldType = HsFunPtr
-          (HsFun
-            (HsPrimType HsPrimCInt)
-            (HsFun
-              (HsPrimType HsPrimCDouble)
-              (HsIO
-                (HsTypRef
-                  (HsName
-                    "@NsTypeConstr"
-                    "A"))))),
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Funptr_typedef4_Deref")),
         fieldOrigin = GeneratedField,
         fieldComment = Nothing},
       newtypeOrigin = Decl {
@@ -2070,17 +2358,13 @@
                 "@NsVar"
                 "un_Funptr_typedef4"},
             typedefType = TypePointer
-              (TypeFun
-                [
-                  TypePrim
-                    (PrimIntegral PrimInt Signed),
-                  TypePrim
-                    (PrimFloating PrimDouble)]
-                (TypeMacroTypedef
+              (TypeTypedef
+                (TypedefRegular
                   NamePair {
-                    nameC = Name "A",
-                    nameHsIdent = HsIdentifier "A"}
-                  NameOriginInSource))},
+                    nameC = Name
+                      "funptr_typedef4_Deref",
+                    nameHsIdent = HsIdentifier
+                      "Funptr_typedef4_Deref"}))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -2146,6 +2430,89 @@
     Newtype {
       newtypeName = HsName
         "@NsTypeConstr"
+        "Funptr_typedef5_Deref",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "Funptr_typedef5_Deref",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_Funptr_typedef5_Deref",
+        fieldType = HsFun
+          (HsPrimType HsPrimCInt)
+          (HsFun
+            (HsPrimType HsPrimCDouble)
+            (HsIO
+              (HsPtr
+                (HsTypRef
+                  (HsName
+                    "@NsTypeConstr"
+                    "A"))))),
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "reparse.h:136:16",
+          declId = NamePair {
+            nameC = Name
+              "funptr_typedef5_Deref",
+            nameHsIdent = HsIdentifier
+              "Funptr_typedef5_Deref"},
+          declOrigin = NameOriginGenerated
+            (AnonId "reparse.h:136:16"),
+          declAliases = [],
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["reparse.h"],
+              headerInclude = "reparse.h"},
+          declComment = Nothing},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Funptr_typedef5_Deref",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Funptr_typedef5_Deref"},
+            typedefType = TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimInt Signed),
+                TypePrim
+                  (PrimFloating PrimDouble)]
+              (TypePointer
+                (TypeMacroTypedef
+                  NamePair {
+                    nameC = Name "A",
+                    nameHsIdent = HsIdentifier "A"}
+                  NameOriginInSource))},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
+      newtypeInstances = Set.fromList
+        [],
+      newtypeComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "funptr_typedef5_Deref",
+          commentLocation = Just
+            "reparse.h:136:16",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["reparse.h"],
+              headerInclude = "reparse.h"},
+          commentChildren = []}},
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
         "Funptr_typedef5",
       newtypeConstr = HsName
         "@NsConstr"
@@ -2155,16 +2522,10 @@
           "@NsVar"
           "un_Funptr_typedef5",
         fieldType = HsFunPtr
-          (HsFun
-            (HsPrimType HsPrimCInt)
-            (HsFun
-              (HsPrimType HsPrimCDouble)
-              (HsIO
-                (HsPtr
-                  (HsTypRef
-                    (HsName
-                      "@NsTypeConstr"
-                      "A")))))),
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Funptr_typedef5_Deref")),
         fieldOrigin = GeneratedField,
         fieldComment = Nothing},
       newtypeOrigin = Decl {
@@ -2192,18 +2553,13 @@
                 "@NsVar"
                 "un_Funptr_typedef5"},
             typedefType = TypePointer
-              (TypeFun
-                [
-                  TypePrim
-                    (PrimIntegral PrimInt Signed),
-                  TypePrim
-                    (PrimFloating PrimDouble)]
-                (TypePointer
-                  (TypeMacroTypedef
-                    NamePair {
-                      nameC = Name "A",
-                      nameHsIdent = HsIdentifier "A"}
-                    NameOriginInSource)))},
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name
+                      "funptr_typedef5_Deref",
+                    nameHsIdent = HsIdentifier
+                      "Funptr_typedef5_Deref"}))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -6194,6 +6550,86 @@
     Newtype {
       newtypeName = HsName
         "@NsTypeConstr"
+        "Const_funptr1_Deref",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "Const_funptr1_Deref",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_Const_funptr1_Deref",
+        fieldType = HsFun
+          (HsPrimType HsPrimCInt)
+          (HsFun
+            (HsPrimType HsPrimCDouble)
+            (HsIO
+              (HsTypRef
+                (HsName "@NsTypeConstr" "A")))),
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "reparse.h:238:27",
+          declId = NamePair {
+            nameC = Name
+              "const_funptr1_Deref",
+            nameHsIdent = HsIdentifier
+              "Const_funptr1_Deref"},
+          declOrigin = NameOriginGenerated
+            (AnonId "reparse.h:238:27"),
+          declAliases = [],
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["reparse.h"],
+              headerInclude = "reparse.h"},
+          declComment = Nothing},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Const_funptr1_Deref",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Const_funptr1_Deref"},
+            typedefType = TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimInt Signed),
+                TypePrim
+                  (PrimFloating PrimDouble)]
+              (TypeConst
+                (TypeMacroTypedef
+                  NamePair {
+                    nameC = Name "A",
+                    nameHsIdent = HsIdentifier "A"}
+                  NameOriginInSource))},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
+      newtypeInstances = Set.fromList
+        [],
+      newtypeComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "const_funptr1_Deref",
+          commentLocation = Just
+            "reparse.h:238:27",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["reparse.h"],
+              headerInclude = "reparse.h"},
+          commentChildren = []}},
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
         "Const_funptr1",
       newtypeConstr = HsName
         "@NsConstr"
@@ -6203,15 +6639,10 @@
           "@NsVar"
           "un_Const_funptr1",
         fieldType = HsFunPtr
-          (HsFun
-            (HsPrimType HsPrimCInt)
-            (HsFun
-              (HsPrimType HsPrimCDouble)
-              (HsIO
-                (HsTypRef
-                  (HsName
-                    "@NsTypeConstr"
-                    "A"))))),
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Const_funptr1_Deref")),
         fieldOrigin = GeneratedField,
         fieldComment = Nothing},
       newtypeOrigin = Decl {
@@ -6239,18 +6670,13 @@
                 "@NsVar"
                 "un_Const_funptr1"},
             typedefType = TypePointer
-              (TypeFun
-                [
-                  TypePrim
-                    (PrimIntegral PrimInt Signed),
-                  TypePrim
-                    (PrimFloating PrimDouble)]
-                (TypeConst
-                  (TypeMacroTypedef
-                    NamePair {
-                      nameC = Name "A",
-                      nameHsIdent = HsIdentifier "A"}
-                    NameOriginInSource)))},
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name
+                      "const_funptr1_Deref",
+                    nameHsIdent = HsIdentifier
+                      "Const_funptr1_Deref"}))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -6316,6 +6742,86 @@
     Newtype {
       newtypeName = HsName
         "@NsTypeConstr"
+        "Const_funptr2_Deref",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "Const_funptr2_Deref",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_Const_funptr2_Deref",
+        fieldType = HsFun
+          (HsPrimType HsPrimCInt)
+          (HsFun
+            (HsPrimType HsPrimCDouble)
+            (HsIO
+              (HsTypRef
+                (HsName "@NsTypeConstr" "A")))),
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "reparse.h:239:27",
+          declId = NamePair {
+            nameC = Name
+              "const_funptr2_Deref",
+            nameHsIdent = HsIdentifier
+              "Const_funptr2_Deref"},
+          declOrigin = NameOriginGenerated
+            (AnonId "reparse.h:239:27"),
+          declAliases = [],
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["reparse.h"],
+              headerInclude = "reparse.h"},
+          declComment = Nothing},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Const_funptr2_Deref",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Const_funptr2_Deref"},
+            typedefType = TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimInt Signed),
+                TypePrim
+                  (PrimFloating PrimDouble)]
+              (TypeConst
+                (TypeMacroTypedef
+                  NamePair {
+                    nameC = Name "A",
+                    nameHsIdent = HsIdentifier "A"}
+                  NameOriginInSource))},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
+      newtypeInstances = Set.fromList
+        [],
+      newtypeComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "const_funptr2_Deref",
+          commentLocation = Just
+            "reparse.h:239:27",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["reparse.h"],
+              headerInclude = "reparse.h"},
+          commentChildren = []}},
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
         "Const_funptr2",
       newtypeConstr = HsName
         "@NsConstr"
@@ -6325,15 +6831,10 @@
           "@NsVar"
           "un_Const_funptr2",
         fieldType = HsFunPtr
-          (HsFun
-            (HsPrimType HsPrimCInt)
-            (HsFun
-              (HsPrimType HsPrimCDouble)
-              (HsIO
-                (HsTypRef
-                  (HsName
-                    "@NsTypeConstr"
-                    "A"))))),
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Const_funptr2_Deref")),
         fieldOrigin = GeneratedField,
         fieldComment = Nothing},
       newtypeOrigin = Decl {
@@ -6361,18 +6862,13 @@
                 "@NsVar"
                 "un_Const_funptr2"},
             typedefType = TypePointer
-              (TypeFun
-                [
-                  TypePrim
-                    (PrimIntegral PrimInt Signed),
-                  TypePrim
-                    (PrimFloating PrimDouble)]
-                (TypeConst
-                  (TypeMacroTypedef
-                    NamePair {
-                      nameC = Name "A",
-                      nameHsIdent = HsIdentifier "A"}
-                    NameOriginInSource)))},
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name
+                      "const_funptr2_Deref",
+                    nameHsIdent = HsIdentifier
+                      "Const_funptr2_Deref"}))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -6438,6 +6934,90 @@
     Newtype {
       newtypeName = HsName
         "@NsTypeConstr"
+        "Const_funptr3_Deref",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "Const_funptr3_Deref",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_Const_funptr3_Deref",
+        fieldType = HsFun
+          (HsPrimType HsPrimCInt)
+          (HsFun
+            (HsPrimType HsPrimCDouble)
+            (HsIO
+              (HsPtr
+                (HsTypRef
+                  (HsName
+                    "@NsTypeConstr"
+                    "A"))))),
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "reparse.h:240:27",
+          declId = NamePair {
+            nameC = Name
+              "const_funptr3_Deref",
+            nameHsIdent = HsIdentifier
+              "Const_funptr3_Deref"},
+          declOrigin = NameOriginGenerated
+            (AnonId "reparse.h:240:27"),
+          declAliases = [],
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["reparse.h"],
+              headerInclude = "reparse.h"},
+          declComment = Nothing},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Const_funptr3_Deref",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Const_funptr3_Deref"},
+            typedefType = TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimInt Signed),
+                TypePrim
+                  (PrimFloating PrimDouble)]
+              (TypePointer
+                (TypeConst
+                  (TypeMacroTypedef
+                    NamePair {
+                      nameC = Name "A",
+                      nameHsIdent = HsIdentifier "A"}
+                    NameOriginInSource)))},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
+      newtypeInstances = Set.fromList
+        [],
+      newtypeComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "const_funptr3_Deref",
+          commentLocation = Just
+            "reparse.h:240:27",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["reparse.h"],
+              headerInclude = "reparse.h"},
+          commentChildren = []}},
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
         "Const_funptr3",
       newtypeConstr = HsName
         "@NsConstr"
@@ -6447,16 +7027,10 @@
           "@NsVar"
           "un_Const_funptr3",
         fieldType = HsFunPtr
-          (HsFun
-            (HsPrimType HsPrimCInt)
-            (HsFun
-              (HsPrimType HsPrimCDouble)
-              (HsIO
-                (HsPtr
-                  (HsTypRef
-                    (HsName
-                      "@NsTypeConstr"
-                      "A")))))),
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Const_funptr3_Deref")),
         fieldOrigin = GeneratedField,
         fieldComment = Nothing},
       newtypeOrigin = Decl {
@@ -6484,19 +7058,13 @@
                 "@NsVar"
                 "un_Const_funptr3"},
             typedefType = TypePointer
-              (TypeFun
-                [
-                  TypePrim
-                    (PrimIntegral PrimInt Signed),
-                  TypePrim
-                    (PrimFloating PrimDouble)]
-                (TypePointer
-                  (TypeConst
-                    (TypeMacroTypedef
-                      NamePair {
-                        nameC = Name "A",
-                        nameHsIdent = HsIdentifier "A"}
-                      NameOriginInSource))))},
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name
+                      "const_funptr3_Deref",
+                    nameHsIdent = HsIdentifier
+                      "Const_funptr3_Deref"}))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -6562,6 +7130,90 @@
     Newtype {
       newtypeName = HsName
         "@NsTypeConstr"
+        "Const_funptr4_Deref",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "Const_funptr4_Deref",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_Const_funptr4_Deref",
+        fieldType = HsFun
+          (HsPrimType HsPrimCInt)
+          (HsFun
+            (HsPrimType HsPrimCDouble)
+            (HsIO
+              (HsPtr
+                (HsTypRef
+                  (HsName
+                    "@NsTypeConstr"
+                    "A"))))),
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "reparse.h:241:27",
+          declId = NamePair {
+            nameC = Name
+              "const_funptr4_Deref",
+            nameHsIdent = HsIdentifier
+              "Const_funptr4_Deref"},
+          declOrigin = NameOriginGenerated
+            (AnonId "reparse.h:241:27"),
+          declAliases = [],
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["reparse.h"],
+              headerInclude = "reparse.h"},
+          declComment = Nothing},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Const_funptr4_Deref",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Const_funptr4_Deref"},
+            typedefType = TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimInt Signed),
+                TypePrim
+                  (PrimFloating PrimDouble)]
+              (TypePointer
+                (TypeConst
+                  (TypeMacroTypedef
+                    NamePair {
+                      nameC = Name "A",
+                      nameHsIdent = HsIdentifier "A"}
+                    NameOriginInSource)))},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
+      newtypeInstances = Set.fromList
+        [],
+      newtypeComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "const_funptr4_Deref",
+          commentLocation = Just
+            "reparse.h:241:27",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["reparse.h"],
+              headerInclude = "reparse.h"},
+          commentChildren = []}},
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
         "Const_funptr4",
       newtypeConstr = HsName
         "@NsConstr"
@@ -6571,16 +7223,10 @@
           "@NsVar"
           "un_Const_funptr4",
         fieldType = HsFunPtr
-          (HsFun
-            (HsPrimType HsPrimCInt)
-            (HsFun
-              (HsPrimType HsPrimCDouble)
-              (HsIO
-                (HsPtr
-                  (HsTypRef
-                    (HsName
-                      "@NsTypeConstr"
-                      "A")))))),
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Const_funptr4_Deref")),
         fieldOrigin = GeneratedField,
         fieldComment = Nothing},
       newtypeOrigin = Decl {
@@ -6608,19 +7254,13 @@
                 "@NsVar"
                 "un_Const_funptr4"},
             typedefType = TypePointer
-              (TypeFun
-                [
-                  TypePrim
-                    (PrimIntegral PrimInt Signed),
-                  TypePrim
-                    (PrimFloating PrimDouble)]
-                (TypePointer
-                  (TypeConst
-                    (TypeMacroTypedef
-                      NamePair {
-                        nameC = Name "A",
-                        nameHsIdent = HsIdentifier "A"}
-                      NameOriginInSource))))},
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name
+                      "const_funptr4_Deref",
+                    nameHsIdent = HsIdentifier
+                      "Const_funptr4_Deref"}))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -6686,6 +7326,90 @@
     Newtype {
       newtypeName = HsName
         "@NsTypeConstr"
+        "Const_funptr5_Deref",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "Const_funptr5_Deref",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_Const_funptr5_Deref",
+        fieldType = HsFun
+          (HsPrimType HsPrimCInt)
+          (HsFun
+            (HsPrimType HsPrimCDouble)
+            (HsIO
+              (HsPtr
+                (HsTypRef
+                  (HsName
+                    "@NsTypeConstr"
+                    "A"))))),
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "reparse.h:242:27",
+          declId = NamePair {
+            nameC = Name
+              "const_funptr5_Deref",
+            nameHsIdent = HsIdentifier
+              "Const_funptr5_Deref"},
+          declOrigin = NameOriginGenerated
+            (AnonId "reparse.h:242:27"),
+          declAliases = [],
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["reparse.h"],
+              headerInclude = "reparse.h"},
+          declComment = Nothing},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Const_funptr5_Deref",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Const_funptr5_Deref"},
+            typedefType = TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimInt Signed),
+                TypePrim
+                  (PrimFloating PrimDouble)]
+              (TypeConst
+                (TypePointer
+                  (TypeMacroTypedef
+                    NamePair {
+                      nameC = Name "A",
+                      nameHsIdent = HsIdentifier "A"}
+                    NameOriginInSource)))},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
+      newtypeInstances = Set.fromList
+        [],
+      newtypeComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "const_funptr5_Deref",
+          commentLocation = Just
+            "reparse.h:242:27",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["reparse.h"],
+              headerInclude = "reparse.h"},
+          commentChildren = []}},
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
         "Const_funptr5",
       newtypeConstr = HsName
         "@NsConstr"
@@ -6695,16 +7419,10 @@
           "@NsVar"
           "un_Const_funptr5",
         fieldType = HsFunPtr
-          (HsFun
-            (HsPrimType HsPrimCInt)
-            (HsFun
-              (HsPrimType HsPrimCDouble)
-              (HsIO
-                (HsPtr
-                  (HsTypRef
-                    (HsName
-                      "@NsTypeConstr"
-                      "A")))))),
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Const_funptr5_Deref")),
         fieldOrigin = GeneratedField,
         fieldComment = Nothing},
       newtypeOrigin = Decl {
@@ -6732,19 +7450,13 @@
                 "@NsVar"
                 "un_Const_funptr5"},
             typedefType = TypePointer
-              (TypeFun
-                [
-                  TypePrim
-                    (PrimIntegral PrimInt Signed),
-                  TypePrim
-                    (PrimFloating PrimDouble)]
-                (TypeConst
-                  (TypePointer
-                    (TypeMacroTypedef
-                      NamePair {
-                        nameC = Name "A",
-                        nameHsIdent = HsIdentifier "A"}
-                      NameOriginInSource))))},
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name
+                      "const_funptr5_Deref",
+                    nameHsIdent = HsIdentifier
+                      "Const_funptr5_Deref"}))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -6810,6 +7522,91 @@
     Newtype {
       newtypeName = HsName
         "@NsTypeConstr"
+        "Const_funptr6_Deref",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "Const_funptr6_Deref",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_Const_funptr6_Deref",
+        fieldType = HsFun
+          (HsPrimType HsPrimCInt)
+          (HsFun
+            (HsPrimType HsPrimCDouble)
+            (HsIO
+              (HsPtr
+                (HsTypRef
+                  (HsName
+                    "@NsTypeConstr"
+                    "A"))))),
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "reparse.h:243:27",
+          declId = NamePair {
+            nameC = Name
+              "const_funptr6_Deref",
+            nameHsIdent = HsIdentifier
+              "Const_funptr6_Deref"},
+          declOrigin = NameOriginGenerated
+            (AnonId "reparse.h:243:27"),
+          declAliases = [],
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["reparse.h"],
+              headerInclude = "reparse.h"},
+          declComment = Nothing},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Const_funptr6_Deref",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Const_funptr6_Deref"},
+            typedefType = TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimInt Signed),
+                TypePrim
+                  (PrimFloating PrimDouble)]
+              (TypeConst
+                (TypePointer
+                  (TypeConst
+                    (TypeMacroTypedef
+                      NamePair {
+                        nameC = Name "A",
+                        nameHsIdent = HsIdentifier "A"}
+                      NameOriginInSource))))},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
+      newtypeInstances = Set.fromList
+        [],
+      newtypeComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "const_funptr6_Deref",
+          commentLocation = Just
+            "reparse.h:243:27",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["reparse.h"],
+              headerInclude = "reparse.h"},
+          commentChildren = []}},
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
         "Const_funptr6",
       newtypeConstr = HsName
         "@NsConstr"
@@ -6819,16 +7616,10 @@
           "@NsVar"
           "un_Const_funptr6",
         fieldType = HsFunPtr
-          (HsFun
-            (HsPrimType HsPrimCInt)
-            (HsFun
-              (HsPrimType HsPrimCDouble)
-              (HsIO
-                (HsPtr
-                  (HsTypRef
-                    (HsName
-                      "@NsTypeConstr"
-                      "A")))))),
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Const_funptr6_Deref")),
         fieldOrigin = GeneratedField,
         fieldComment = Nothing},
       newtypeOrigin = Decl {
@@ -6856,20 +7647,13 @@
                 "@NsVar"
                 "un_Const_funptr6"},
             typedefType = TypePointer
-              (TypeFun
-                [
-                  TypePrim
-                    (PrimIntegral PrimInt Signed),
-                  TypePrim
-                    (PrimFloating PrimDouble)]
-                (TypeConst
-                  (TypePointer
-                    (TypeConst
-                      (TypeMacroTypedef
-                        NamePair {
-                          nameC = Name "A",
-                          nameHsIdent = HsIdentifier "A"}
-                        NameOriginInSource)))))},
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name
+                      "const_funptr6_Deref",
+                    nameHsIdent = HsIdentifier
+                      "Const_funptr6_Deref"}))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -6935,6 +7719,91 @@
     Newtype {
       newtypeName = HsName
         "@NsTypeConstr"
+        "Const_funptr7_Deref",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "Const_funptr7_Deref",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_Const_funptr7_Deref",
+        fieldType = HsFun
+          (HsPrimType HsPrimCInt)
+          (HsFun
+            (HsPrimType HsPrimCDouble)
+            (HsIO
+              (HsPtr
+                (HsTypRef
+                  (HsName
+                    "@NsTypeConstr"
+                    "A"))))),
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "reparse.h:244:27",
+          declId = NamePair {
+            nameC = Name
+              "const_funptr7_Deref",
+            nameHsIdent = HsIdentifier
+              "Const_funptr7_Deref"},
+          declOrigin = NameOriginGenerated
+            (AnonId "reparse.h:244:27"),
+          declAliases = [],
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["reparse.h"],
+              headerInclude = "reparse.h"},
+          declComment = Nothing},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Const_funptr7_Deref",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Const_funptr7_Deref"},
+            typedefType = TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimInt Signed),
+                TypePrim
+                  (PrimFloating PrimDouble)]
+              (TypeConst
+                (TypePointer
+                  (TypeConst
+                    (TypeMacroTypedef
+                      NamePair {
+                        nameC = Name "A",
+                        nameHsIdent = HsIdentifier "A"}
+                      NameOriginInSource))))},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
+      newtypeInstances = Set.fromList
+        [],
+      newtypeComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "const_funptr7_Deref",
+          commentLocation = Just
+            "reparse.h:244:27",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["reparse.h"],
+              headerInclude = "reparse.h"},
+          commentChildren = []}},
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
         "Const_funptr7",
       newtypeConstr = HsName
         "@NsConstr"
@@ -6944,16 +7813,10 @@
           "@NsVar"
           "un_Const_funptr7",
         fieldType = HsFunPtr
-          (HsFun
-            (HsPrimType HsPrimCInt)
-            (HsFun
-              (HsPrimType HsPrimCDouble)
-              (HsIO
-                (HsPtr
-                  (HsTypRef
-                    (HsName
-                      "@NsTypeConstr"
-                      "A")))))),
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Const_funptr7_Deref")),
         fieldOrigin = GeneratedField,
         fieldComment = Nothing},
       newtypeOrigin = Decl {
@@ -6981,20 +7844,13 @@
                 "@NsVar"
                 "un_Const_funptr7"},
             typedefType = TypePointer
-              (TypeFun
-                [
-                  TypePrim
-                    (PrimIntegral PrimInt Signed),
-                  TypePrim
-                    (PrimFloating PrimDouble)]
-                (TypeConst
-                  (TypePointer
-                    (TypeConst
-                      (TypeMacroTypedef
-                        NamePair {
-                          nameC = Name "A",
-                          nameHsIdent = HsIdentifier "A"}
-                        NameOriginInSource)))))},
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name
+                      "const_funptr7_Deref",
+                    nameHsIdent = HsIdentifier
+                      "Const_funptr7_Deref"}))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,

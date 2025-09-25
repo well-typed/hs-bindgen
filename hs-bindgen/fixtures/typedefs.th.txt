@@ -39,3 +39,48 @@ newtype Intptr
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+{-| __C declaration:__ @FunctionPointer_Function_Deref@
+
+    __defined at:__ @typedefs.h:4:16@
+
+    __exported by:__ @typedefs.h@
+-}
+newtype FunctionPointer_Function_Deref
+    = FunctionPointer_Function_Deref {un_FunctionPointer_Function_Deref :: (IO Unit)}
+      {- ^ __C declaration:__ @FunctionPointer_Function_Deref@
+
+           __defined at:__ @typedefs.h:4:16@
+
+           __exported by:__ @typedefs.h@
+      -}
+{-| __C declaration:__ @FunctionPointer_Function@
+
+    __defined at:__ @typedefs.h:4:16@
+
+    __exported by:__ @typedefs.h@
+-}
+newtype FunctionPointer_Function
+    = FunctionPointer_Function {un_FunctionPointer_Function :: (FunPtr FunctionPointer_Function_Deref)}
+      {- ^ __C declaration:__ @FunctionPointer_Function@
+
+           __defined at:__ @typedefs.h:4:16@
+
+           __exported by:__ @typedefs.h@
+      -}
+    deriving stock (Eq, Ord, Show)
+    deriving newtype Storable
+{-| __C declaration:__ @NonFunctionPointer_Function@
+
+    __defined at:__ @typedefs.h:5:14@
+
+    __exported by:__ @typedefs.h@
+-}
+newtype NonFunctionPointer_Function
+    = NonFunctionPointer_Function {un_NonFunctionPointer_Function :: (CInt ->
+                                                                      IO CInt)}
+      {- ^ __C declaration:__ @NonFunctionPointer_Function@
+
+           __defined at:__ @typedefs.h:5:14@
+
+           __exported by:__ @typedefs.h@
+      -}

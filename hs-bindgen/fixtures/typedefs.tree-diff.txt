@@ -64,5 +64,116 @@ TranslationUnit {
           typeSpecModule = Nothing,
           typeSpecIdentifier = Nothing,
           typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "typedefs.h:4:16",
+        declId = NamePair {
+          nameC = Name
+            "FunctionPointer_Function_Deref",
+          nameHsIdent = HsIdentifier
+            "FunctionPointer_Function_Deref"},
+        declOrigin = NameOriginGenerated
+          (AnonId "typedefs.h:4:16"),
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["typedefs.h"],
+            headerInclude = "typedefs.h"},
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "FunctionPointer_Function_Deref",
+            newtypeField = HsName
+              "@NsVar"
+              "un_FunctionPointer_Function_Deref"},
+          typedefType = TypeFun
+            []
+            TypeVoid},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "typedefs.h:4:16",
+        declId = NamePair {
+          nameC = Name
+            "FunctionPointer_Function",
+          nameHsIdent = HsIdentifier
+            "FunctionPointer_Function"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["typedefs.h"],
+            headerInclude = "typedefs.h"},
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "FunctionPointer_Function",
+            newtypeField = HsName
+              "@NsVar"
+              "un_FunctionPointer_Function"},
+          typedefType = TypePointer
+            (TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = Name
+                    "FunctionPointer_Function_Deref",
+                  nameHsIdent = HsIdentifier
+                    "FunctionPointer_Function_Deref"}))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "typedefs.h:5:14",
+        declId = NamePair {
+          nameC = Name
+            "NonFunctionPointer_Function",
+          nameHsIdent = HsIdentifier
+            "NonFunctionPointer_Function"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["typedefs.h"],
+            headerInclude = "typedefs.h"},
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = HsName
+              "@NsConstr"
+              "NonFunctionPointer_Function",
+            newtypeField = HsName
+              "@NsVar"
+              "un_NonFunctionPointer_Function"},
+          typedefType = TypeFun
+            [
+              TypePrim
+                (PrimIntegral PrimInt Signed)]
+            (TypePrim
+              (PrimIntegral PrimInt Signed))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
             []}}],
   unitDeps = ["typedefs"]}

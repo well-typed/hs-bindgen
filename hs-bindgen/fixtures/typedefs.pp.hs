@@ -10,7 +10,7 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import Data.Bits (FiniteBits)
-import Prelude (Bounded, Enum, Eq, Integral, Num, Ord, Read, Real, Show)
+import Prelude (Bounded, Enum, Eq, IO, Integral, Num, Ord, Read, Real, Show)
 
 {-| __C declaration:__ @myint@
 
@@ -35,3 +35,35 @@ newtype Intptr = Intptr
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
+
+{-| __C declaration:__ @FunctionPointer_Function_Deref@
+
+    __defined at:__ @typedefs.h:4:16@
+
+    __exported by:__ @typedefs.h@
+-}
+newtype FunctionPointer_Function_Deref = FunctionPointer_Function_Deref
+  { un_FunctionPointer_Function_Deref :: IO ()
+  }
+
+{-| __C declaration:__ @FunctionPointer_Function@
+
+    __defined at:__ @typedefs.h:4:16@
+
+    __exported by:__ @typedefs.h@
+-}
+newtype FunctionPointer_Function = FunctionPointer_Function
+  { un_FunctionPointer_Function :: Ptr.FunPtr FunctionPointer_Function_Deref
+  }
+  deriving stock (Eq, Ord, Show)
+  deriving newtype (F.Storable)
+
+{-| __C declaration:__ @NonFunctionPointer_Function@
+
+    __defined at:__ @typedefs.h:5:14@
+
+    __exported by:__ @typedefs.h@
+-}
+newtype NonFunctionPointer_Function = NonFunctionPointer_Function
+  { un_NonFunctionPointer_Function :: FC.CInt -> IO FC.CInt
+  }
