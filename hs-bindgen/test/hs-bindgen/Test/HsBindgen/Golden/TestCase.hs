@@ -213,6 +213,7 @@ getTestBootConfig testResources TestCase{..} = do
           }
       , bootBindingSpecConfig = BindingSpecConfig {
             bindingSpecStdlibSpec = testStdlibSpec
+          , bindingSpecCompatibility = BindingSpecStrict
           , bindingSpecExtBindingSpecs = map (root </>) testExtBindingSpecs
           , bindingSpecPrescriptiveBindingSpec = Nothing
           }

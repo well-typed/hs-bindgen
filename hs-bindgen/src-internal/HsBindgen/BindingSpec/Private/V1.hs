@@ -228,10 +228,11 @@ load ::
      -- ^ Are we dealing with external or prescriptive bindings?
   -> ClangArgs
   -> UnresolvedBindingSpec
+  -> BindingSpecCompatibility
   -> [FilePath]
   -> IO (UnresolvedBindingSpec, ResolvedBindingSpec)
-load tracer injResolveHeader args stdSpec paths = do
-    uspecs <- mapM (readFile tracerRead) paths
+load tracer injResolveHeader args stdSpec cmpt paths = do
+    uspecs <- mapM (readFile tracerRead cmpt) paths
     let (mergeMsgs, uspec) = merge (stdSpec : uspecs)
     mapM_ (traceWith tracer . BindingSpecMergeMsg) mergeMsgs
     (uspec,) <$> resolve tracerResolve injResolveHeader args uspec
@@ -265,6 +266,7 @@ lookupTypeSpec cQualName headers =
 -- The format is determined by the filename extension.
 readFile ::
      Tracer IO BindingSpecReadMsg
+  -> BindingSpecCompatibility
   -> FilePath
   -> IO UnresolvedBindingSpec
 readFile = readFileAux readVersion
@@ -272,6 +274,7 @@ readFile = readFileAux readVersion
 -- | Read a binding specification JSON file
 readFileJson ::
      Tracer IO BindingSpecReadMsg
+  -> BindingSpecCompatibility
   -> FilePath
   -> IO UnresolvedBindingSpec
 readFileJson = readFileAux readVersionJson
@@ -279,6 +282,7 @@ readFileJson = readFileAux readVersionJson
 -- | Read a binding specification YAML file
 readFileYaml ::
      Tracer IO BindingSpecReadMsg
+  -> BindingSpecCompatibility
   -> FilePath
   -> IO UnresolvedBindingSpec
 readFileYaml = readFileAux readVersionYaml
@@ -286,22 +290,24 @@ readFileYaml = readFileAux readVersionYaml
 readFileAux ::
      ReadVersionFunction
   -> Tracer IO BindingSpecReadMsg
+  -> BindingSpecCompatibility
   -> FilePath
   -> IO UnresolvedBindingSpec
-readFileAux doRead tracer path = fmap (fromMaybe empty) $
+readFileAux doRead tracer cmpt path = fmap (fromMaybe empty) $
     doRead tracer path >>= \case
-      Just (version', value) -> parseValue tracer path version' value
+      Just (version', value) -> parseValue tracer cmpt path version' value
       Nothing                -> return Nothing
 
 parseValue ::
      Monad m
   => Tracer m BindingSpecReadMsg
+  -> BindingSpecCompatibility
   -> FilePath
   -> AVersion
   -> Aeson.Value
   -> m (Maybe UnresolvedBindingSpec)
-parseValue tracer path aVersion@AVersion{..} value
-    | isCompatBindingSpecVersions aVersionBindingSpecification version = do
+parseValue tracer cmpt path aVersion@AVersion{..} value
+    | isCompatBindingSpecVersions cmpt aVersionBindingSpecification version = do
         traceWith tracer $ BindingSpecReadParseVersion path aVersion
         case Aeson.fromJSON value of
           Aeson.Success aspec -> do

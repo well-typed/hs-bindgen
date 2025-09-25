@@ -14,6 +14,8 @@ module HsBindgen.BindingSpec.Private.Version (
   , BindingSpecVersion
   , constBindingSpecVersion
   , parseBindingSpecVersion
+    -- * Compatibility
+  , BindingSpecCompatibility(..)
   , isCompatBindingSpecVersions
     -- * AVersion
   , AVersion(..)
@@ -104,14 +106,37 @@ parseBindingSpecVersion t =
           _otherwise               -> Left "not in MAJOR.MINOR format"
       _otherwise -> Left "not in MAJOR.MINOR format"
 
+{-------------------------------------------------------------------------------
+  Compatibility
+-------------------------------------------------------------------------------}
+
+-- | Binding specification compatibility
+data BindingSpecCompatibility =
+    -- | Do not allow newer minor versions
+    BindingSpecStrict
+  | -- | Allow newer minor versions
+    BindingSpecAllowNewer
+  deriving stock (Eq, Show)
+
+instance Default BindingSpecCompatibility where
+  def = BindingSpecStrict
+
 -- | Check 'BindingSpecVersion' compatibility
---
--- Compatible binding specifications have the same representation.  Compatible
--- binding specification versions have the same major version.
-isCompatBindingSpecVersions :: BindingSpecVersion -> BindingSpecVersion -> Bool
+isCompatBindingSpecVersions ::
+     BindingSpecCompatibility
+  -> BindingSpecVersion  -- ^ Version of binding specification being read
+  -> BindingSpecVersion  -- ^ Version of binding specification module
+  -> Bool
 isCompatBindingSpecVersions
+  BindingSpecStrict
+  (UnsafeBindingSpecVersion majorL minorL)
+  (UnsafeBindingSpecVersion majorR minorR) =
+    majorL == majorR && minorL <= minorR
+isCompatBindingSpecVersions
+  BindingSpecAllowNewer
   (UnsafeBindingSpecVersion majorL _)
-  (UnsafeBindingSpecVersion majorR _) = majorL == majorR
+  (UnsafeBindingSpecVersion majorR _) =
+    majorL == majorR
 
 {-------------------------------------------------------------------------------
   AVersion

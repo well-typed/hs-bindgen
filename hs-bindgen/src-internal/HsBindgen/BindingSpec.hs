@@ -13,6 +13,7 @@ module HsBindgen.BindingSpec (
     -- ** Configuration
   , EnableStdlibBindingSpec(..)
   , BindingSpecConfig(..)
+  , Version.BindingSpecCompatibility(..)
     -- ** Loading
   , loadExtBindingSpecs
   , loadPrescriptiveBindingSpec
@@ -51,6 +52,7 @@ import Clang.Paths (SourcePath)
 import HsBindgen.BindingSpec.Private.Common qualified as Common
 import HsBindgen.BindingSpec.Private.Stdlib qualified as Stdlib
 import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
+import HsBindgen.BindingSpec.Private.Version qualified as Version
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
@@ -111,15 +113,17 @@ loadExtBindingSpecs ::
      Tracer IO Common.BindingSpecMsg
   -> ClangArgs
   -> EnableStdlibBindingSpec
+  -> Version.BindingSpecCompatibility
   -> [FilePath]
   -> IO BindingSpec
-loadExtBindingSpecs tracer args enableStdlib =
+loadExtBindingSpecs tracer args enableStdlib cmpt =
       fmap (uncurry BindingSpec)
     . BindingSpec.load
         tracer
         Common.BindingSpecResolveExternalHeader
         args
         stdSpec
+        cmpt
   where
     stdSpec :: BindingSpec.UnresolvedBindingSpec
     stdSpec = case enableStdlib of
@@ -136,18 +140,21 @@ loadExtBindingSpecs tracer args enableStdlib =
 loadPrescriptiveBindingSpec ::
      Tracer IO Common.BindingSpecMsg
   -> ClangArgs
+  -> Version.BindingSpecCompatibility
   -> FilePath
   -> IO BindingSpec
-loadPrescriptiveBindingSpec tracer args path = uncurry BindingSpec <$>
+loadPrescriptiveBindingSpec tracer args cmpt path = uncurry BindingSpec <$>
     BindingSpec.load
       tracer
       Common.BindingSpecResolvePrescriptiveHeader
       args
       BindingSpec.empty
+      cmpt
       [path]
 
 data BindingSpecConfig = BindingSpecConfig {
       bindingSpecStdlibSpec              :: EnableStdlibBindingSpec
+    , bindingSpecCompatibility           :: Version.BindingSpecCompatibility
     , bindingSpecExtBindingSpecs         :: [FilePath]
     , bindingSpecPrescriptiveBindingSpec :: Maybe FilePath
     }
@@ -156,6 +163,7 @@ data BindingSpecConfig = BindingSpecConfig {
 instance Default BindingSpecConfig where
   def = BindingSpecConfig {
           bindingSpecStdlibSpec              = EnableStdlibBindingSpec
+        , bindingSpecCompatibility           = def
         , bindingSpecExtBindingSpecs         = []
         , bindingSpecPrescriptiveBindingSpec = Nothing
         }
@@ -167,14 +175,21 @@ loadBindingSpecs ::
   -> BindingSpecConfig
   -> IO (ExternalBindingSpec, PrescriptiveBindingSpec)
 loadBindingSpecs tracer clangArgs BindingSpecConfig{..} = do
-    extSpecs <- loadExtBindingSpecs
-                  tracer
-                  clangArgs
-                  bindingSpecStdlibSpec
-                  bindingSpecExtBindingSpecs
+    extSpecs <-
+      loadExtBindingSpecs
+        tracer
+        clangArgs
+        bindingSpecStdlibSpec
+        bindingSpecCompatibility
+        bindingSpecExtBindingSpecs
     pSpec <- case bindingSpecPrescriptiveBindingSpec of
-               Just path -> loadPrescriptiveBindingSpec tracer clangArgs path
-               Nothing   -> pure emptyBindingSpec
+      Just path ->
+        loadPrescriptiveBindingSpec
+          tracer
+          clangArgs
+          bindingSpecCompatibility
+          path
+      Nothing -> return emptyBindingSpec
     pure (extSpecs, pSpec)
 
 -- | Get the standard library external binding specification
@@ -183,7 +198,12 @@ getStdlibBindingSpec ::
   -> ClangArgs
   -> IO BindingSpec
 getStdlibBindingSpec tracer args =
-    loadExtBindingSpecs tracer args EnableStdlibBindingSpec []
+    loadExtBindingSpecs
+      tracer
+      args
+      EnableStdlibBindingSpec
+      Version.BindingSpecStrict
+      []
 
 -- | Encode a binding specification (JSON format)
 encodeBindingSpecJson :: BindingSpec -> BSL.ByteString
