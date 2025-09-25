@@ -420,13 +420,12 @@
                 "un_FunctionPointer_Function"},
             typedefType = TypePointer
               (TypeTypedef
-                (Full
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name
-                        "FunctionPointer_Function_Deref",
-                      nameHsIdent = HsIdentifier
-                        "FunctionPointer_Function_Deref"})))},
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name
+                      "FunctionPointer_Function_Deref",
+                    nameHsIdent = HsIdentifier
+                      "FunctionPointer_Function_Deref"}))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,

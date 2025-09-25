@@ -147,12 +147,11 @@ TranslationUnit {
                     "cint16_T_re"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
-                (Full
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name "int16_T",
-                      nameHsIdent = HsIdentifier
-                        "Int16_T"})),
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "int16_T",
+                    nameHsIdent = HsIdentifier
+                      "Int16_T"}),
               structFieldOffset = 0,
               structFieldWidth = Nothing},
             StructField {
@@ -165,12 +164,11 @@ TranslationUnit {
                     "cint16_T_im"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
-                (Full
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name "int16_T",
-                      nameHsIdent = HsIdentifier
-                        "Int16_T"})),
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "int16_T",
+                    nameHsIdent = HsIdentifier
+                      "Int16_T"}),
               structFieldOffset = 16,
               structFieldWidth = Nothing}],
           structFlam = Nothing},
@@ -371,12 +369,11 @@ TranslationUnit {
                     "res_m_num_valid_samples"})
               (TypePointer
                 (TypeTypedef
-                  (Full
-                    (TypedefRegular
-                      NamePair {
-                        nameC = Name "int32_T",
-                        nameHsIdent = HsIdentifier
-                          "Int32_T"})))),
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "int32_T",
+                      nameHsIdent = HsIdentifier
+                        "Int32_T"}))),
             _×_
               (Just
                 NamePair {
@@ -386,17 +383,16 @@ TranslationUnit {
               (TypeConstArray
                 30720000
                 (TypeTypedef
-                  (Full
-                    (TypedefSquashed
-                      (Name "cint16_T")
-                      (TypeStruct
-                        NamePair {
-                          nameC = Name "cint16_T",
-                          nameHsIdent = HsIdentifier
-                            "Cint16_T"}
-                        (NameOriginGenerated
-                          (AnonId
-                            "spec_examples.h:14:9"))))))),
+                  (TypedefSquashed
+                    (Name "cint16_T")
+                    (TypeStruct
+                      NamePair {
+                        nameC = Name "cint16_T",
+                        nameHsIdent = HsIdentifier
+                          "Cint16_T"}
+                      (NameOriginGenerated
+                        (AnonId
+                          "spec_examples.h:14:9")))))),
             _×_
               (Just
                 NamePair {
@@ -404,12 +400,11 @@ TranslationUnit {
                   nameHsIdent = HsIdentifier
                     "res_m_old_rate"})
               (TypeTypedef
-                (Full
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name "int64_T",
-                      nameHsIdent = HsIdentifier
-                        "Int64_T"}))),
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "int64_T",
+                    nameHsIdent = HsIdentifier
+                      "Int64_T"})),
             _×_
               (Just
                 NamePair {
@@ -417,12 +412,11 @@ TranslationUnit {
                   nameHsIdent = HsIdentifier
                     "res_m_new_rate"})
               (TypeTypedef
-                (Full
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name "int64_T",
-                      nameHsIdent = HsIdentifier
-                        "Int64_T"}))),
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "int64_T",
+                    nameHsIdent = HsIdentifier
+                      "Int64_T"})),
             _×_
               (Just
                 NamePair {
@@ -433,17 +427,16 @@ TranslationUnit {
               (TypeConstArray
                 30720000
                 (TypeTypedef
-                  (Full
-                    (TypedefSquashed
-                      (Name "cint16_T")
-                      (TypeStruct
-                        NamePair {
-                          nameC = Name "cint16_T",
-                          nameHsIdent = HsIdentifier
-                            "Cint16_T"}
-                        (NameOriginGenerated
-                          (AnonId
-                            "spec_examples.h:14:9")))))))],
+                  (TypedefSquashed
+                    (Name "cint16_T")
+                    (TypeStruct
+                      NamePair {
+                        nameC = Name "cint16_T",
+                        nameHsIdent = HsIdentifier
+                          "Cint16_T"}
+                      (NameOriginGenerated
+                        (AnonId
+                          "spec_examples.h:14:9"))))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,

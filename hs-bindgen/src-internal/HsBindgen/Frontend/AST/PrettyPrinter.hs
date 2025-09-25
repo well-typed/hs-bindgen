@@ -139,15 +139,15 @@ showsType ::
   => (CTypePrecedence -> ShowS)  -- ^ variable name, or function name + arguments
   -> Type
   -> ShowS
-showsType x (TypePrim p)             = C.showsPrimType p . showChar ' ' . x 0
-showsType x (TypeStruct np o)        = showString "struct " . showsName np o . showChar ' ' . x 0
-showsType x (TypeUnion np o)         = showString "union " . showsName np o . showChar ' ' . x 0
-showsType x (TypeEnum np o)          = showString "enum " . showsName np o . showChar ' ' . x 0
-showsType x (TypeTypedef (Full ref)) = showsTypedefName ref . showChar ' ' . x 0
-showsType x (TypeMacroTypedef np o)  = showsName np o . showChar ' ' . x 0
-showsType x (TypePointer t)          = showsType (\d -> showParen (d > arrayPrec) $ showString "*" . x (pointerPrec + 1)) t
-showsType x (TypeConstArray n t)     = showsType (\_d -> x (arrayPrec + 1) . showChar '[' . shows n . showChar ']') t
-showsType x (TypeFun args res)       =
+showsType x (TypePrim p)            = C.showsPrimType p . showChar ' ' . x 0
+showsType x (TypeStruct np o)       = showString "struct " . showsName np o . showChar ' ' . x 0
+showsType x (TypeUnion np o)        = showString "union " . showsName np o . showChar ' ' . x 0
+showsType x (TypeEnum np o)         = showString "enum " . showsName np o . showChar ' ' . x 0
+showsType x (TypeTypedef ref)       = showsTypedefName ref . showChar ' ' . x 0
+showsType x (TypeMacroTypedef np o) = showsName np o . showChar ' ' . x 0
+showsType x (TypePointer t)         = showsType (\d -> showParen (d > arrayPrec) $ showString "*" . x (pointerPrec + 1)) t
+showsType x (TypeConstArray n t)    = showsType (\_d -> x (arrayPrec + 1) . showChar '[' . shows n . showChar ']') t
+showsType x (TypeFun args res)      =
     -- Note: we pass 'ImpureFunction' to 'showsFunctionType' so that no function
     -- attributes are included in the printed string. Function attributes should
     -- not appear inside types, rather only as part of top-level function
@@ -156,10 +156,10 @@ showsType x (TypeFun args res)       =
   where
     named :: Int -> Type -> (ShowS, Type)
     named i t = (showString "arg" . shows i, t)
-showsType x TypeVoid                  = showString "void " . x 0
-showsType x (TypeIncompleteArray t)   = showsType (\_d -> x (arrayPrec + 1) . showString "[]") t
-showsType x (TypeExtBinding ext)      = showCQualName (extCName ext) . showChar ' ' . x 0
-showsType x (TypeBlock t)             = showsType (\_d -> showString "^" . x 0) t
+showsType x TypeVoid                = showString "void " . x 0
+showsType x (TypeIncompleteArray t) = showsType (\_d -> x (arrayPrec + 1) . showString "[]") t
+showsType x (TypeExtBinding ext)    = showCQualName (extCName ext) . showChar ' ' . x 0
+showsType x (TypeBlock t)           = showsType (\_d -> showString "^" . x 0) t
 -- Type qualifiers like @const@ can appear before, and _after_ the type they
 -- refer to. For example,
 --
@@ -193,7 +193,7 @@ showsType x (TypeBlock t)             = showsType (\_d -> showString "^" . x 0) 
 -- constant int" as follows:
 --
 -- > int const * const f();
-showsType x (TypeConst t) = showsType (\_d -> showString "const " . x 0) t
+showsType x (TypeQualified TypeQualifierConst t) = showsType (\_d -> showString "const " . x 0) t
 showsType x (TypeComplex p) = C.showsPrimType p . showChar ' ' . showString "_Complex " . x 0
 
 -- | The precedence of various constructs in C declarations.

@@ -427,12 +427,11 @@ TranslationUnit {
           typedefType = TypeConstArray
             3
             (TypeTypedef
-              (Full
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "triplet",
-                    nameHsIdent = HsIdentifier
-                      "Triplet"})))},
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "triplet",
+                  nameHsIdent = HsIdentifier
+                    "Triplet"}))},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -494,12 +493,11 @@ TranslationUnit {
                     "Array of known size, typedef"]])},
       declKind = DeclGlobal
         (TypeTypedef
-          (Full
-            (TypedefRegular
-              NamePair {
-                nameC = Name "triplet",
-                nameHsIdent = HsIdentifier
-                  "Triplet"}))),
+          (TypedefRegular
+            NamePair {
+              nameC = Name "triplet",
+              nameHsIdent = HsIdentifier
+                "Triplet"})),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -560,12 +558,11 @@ TranslationUnit {
                     "Array of unknown size, typedef"]])},
       declKind = DeclGlobal
         (TypeTypedef
-          (Full
-            (TypedefRegular
-              NamePair {
-                nameC = Name "list",
-                nameHsIdent = HsIdentifier
-                  "List"}))),
+          (TypedefRegular
+            NamePair {
+              nameC = Name "list",
+              nameHsIdent = HsIdentifier
+                "List"})),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -631,12 +628,11 @@ TranslationUnit {
                     "Multi-dimensional array of known size, typedef"]])},
       declKind = DeclGlobal
         (TypeTypedef
-          (Full
-            (TypedefRegular
-              NamePair {
-                nameC = Name "matrix",
-                nameHsIdent = HsIdentifier
-                  "Matrix"}))),
+          (TypedefRegular
+            NamePair {
+              nameC = Name "matrix",
+              nameHsIdent = HsIdentifier
+                "Matrix"})),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -701,12 +697,11 @@ TranslationUnit {
                     "Multi-dimensional array of unknown size, typedef"]])},
       declKind = DeclGlobal
         (TypeTypedef
-          (Full
-            (TypedefRegular
-              NamePair {
-                nameC = Name "tripletlist",
-                nameHsIdent = HsIdentifier
-                  "Tripletlist"}))),
+          (TypedefRegular
+            NamePair {
+              nameC = Name "tripletlist",
+              nameHsIdent = HsIdentifier
+                "Tripletlist"})),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -798,12 +793,11 @@ TranslationUnit {
                   nameHsIdent = HsIdentifier
                     "xs"})
               (TypeTypedef
-                (Full
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name "triplet",
-                      nameHsIdent = HsIdentifier
-                        "Triplet"})))],
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "triplet",
+                    nameHsIdent = HsIdentifier
+                      "Triplet"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -892,12 +886,11 @@ TranslationUnit {
                   nameHsIdent = HsIdentifier
                     "xs"})
               (TypeTypedef
-                (Full
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name "list",
-                      nameHsIdent = HsIdentifier
-                        "List"})))],
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "list",
+                    nameHsIdent = HsIdentifier
+                      "List"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -989,12 +982,11 @@ TranslationUnit {
                   nameHsIdent = HsIdentifier
                     "xss"})
               (TypeTypedef
-                (Full
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name "matrix",
-                      nameHsIdent = HsIdentifier
-                        "Matrix"})))],
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "matrix",
+                    nameHsIdent = HsIdentifier
+                      "Matrix"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1085,12 +1077,11 @@ TranslationUnit {
                   nameHsIdent = HsIdentifier
                     "xss"})
               (TypeTypedef
-                (Full
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name "tripletlist",
-                      nameHsIdent = HsIdentifier
-                        "Tripletlist"})))],
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "tripletlist",
+                    nameHsIdent = HsIdentifier
+                      "Tripletlist"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1133,12 +1124,11 @@ TranslationUnit {
                   nameHsIdent = HsIdentifier
                     "xss"})
               (TypeTypedef
-                (Full
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name "sudoku",
-                      nameHsIdent = HsIdentifier
-                        "Sudoku"})))],
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "sudoku",
+                    nameHsIdent = HsIdentifier
+                      "Sudoku"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1219,12 +1209,11 @@ TranslationUnit {
             ImpureFunction,
           functionRes = TypePointer
             (TypeTypedef
-              (Full
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "triplet",
-                    nameHsIdent = HsIdentifier
-                      "Triplet"})))},
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "triplet",
+                  nameHsIdent = HsIdentifier
+                    "Triplet"}))},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -1299,12 +1288,11 @@ TranslationUnit {
             ImpureFunction,
           functionRes = TypePointer
             (TypeTypedef
-              (Full
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "list",
-                    nameHsIdent = HsIdentifier
-                      "List"})))},
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "list",
+                  nameHsIdent = HsIdentifier
+                    "List"}))},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -1382,12 +1370,11 @@ TranslationUnit {
             ImpureFunction,
           functionRes = TypePointer
             (TypeTypedef
-              (Full
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "matrix",
-                    nameHsIdent = HsIdentifier
-                      "Matrix"})))},
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "matrix",
+                  nameHsIdent = HsIdentifier
+                    "Matrix"}))},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -1464,12 +1451,11 @@ TranslationUnit {
             ImpureFunction,
           functionRes = TypePointer
             (TypeTypedef
-              (Full
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "tripletlist",
-                    nameHsIdent = HsIdentifier
-                      "Tripletlist"})))},
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "tripletlist",
+                  nameHsIdent = HsIdentifier
+                    "Tripletlist"}))},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -1505,12 +1491,11 @@ TranslationUnit {
             ImpureFunction,
           functionRes = TypePointer
             (TypeTypedef
-              (Full
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "sudoku",
-                    nameHsIdent = HsIdentifier
-                      "Sudoku"})))},
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "sudoku",
+                  nameHsIdent = HsIdentifier
+                    "Sudoku"}))},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

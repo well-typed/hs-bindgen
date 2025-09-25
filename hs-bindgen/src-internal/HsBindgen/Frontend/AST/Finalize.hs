@@ -274,7 +274,7 @@ instance Finalize Int.Type where
   finalize (Int.TypeStruct (np, origin))       = Ext.TypeStruct np origin
   finalize (Int.TypeUnion (np, origin))        = Ext.TypeUnion np origin
   finalize (Int.TypeEnum (np, origin))         = Ext.TypeEnum np origin
-  finalize (Int.TypeTypedef ref)               = Ext.TypeTypedef (Ext.Full $ finalize ref)
+  finalize (Int.TypeTypedef ref)               = Ext.TypeTypedef (finalize ref)
   finalize (Int.TypePointer typ)               = Ext.TypePointer (finalize typ)
   finalize (Int.TypeFun args res)              = Ext.TypeFun (map finalize args) (finalize res)
   finalize (Int.TypeVoid)                      = Ext.TypeVoid
@@ -282,7 +282,7 @@ instance Finalize Int.Type where
   finalize (Int.TypeIncompleteArray typ)       = Ext.TypeIncompleteArray (finalize typ)
   finalize (Int.TypeExtBinding ext)            = Ext.TypeExtBinding ext
   finalize (Int.TypeBlock typ)                 = Ext.TypeBlock (finalize typ)
-  finalize (Int.TypeConst typ)                 = Ext.TypeConst (finalize typ)
+  finalize (Int.TypeConst typ)                 = Ext.TypeQualified Ext.TypeQualifierConst (finalize typ)
   finalize (Int.TypeMacroTypedef (np, origin)) = Ext.TypeMacroTypedef np origin
   finalize (Int.TypeComplex prim)              = Ext.TypeComplex prim
 

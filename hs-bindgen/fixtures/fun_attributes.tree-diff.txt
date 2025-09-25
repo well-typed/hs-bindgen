@@ -162,21 +162,19 @@ TranslationUnit {
             _×_
               Nothing
               (TypeTypedef
-                (Full
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name "size_t",
-                      nameHsIdent = HsIdentifier
-                        "Size_t"}))),
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "size_t",
+                    nameHsIdent = HsIdentifier
+                      "Size_t"})),
             _×_
               Nothing
               (TypeTypedef
-                (Full
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name "size_t",
-                      nameHsIdent = HsIdentifier
-                        "Size_t"})))],
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "size_t",
+                    nameHsIdent = HsIdentifier
+                      "Size_t"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -211,21 +209,19 @@ TranslationUnit {
             _×_
               Nothing
               (TypeTypedef
-                (Full
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name "size_t",
-                      nameHsIdent = HsIdentifier
-                        "Size_t"}))),
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "size_t",
+                    nameHsIdent = HsIdentifier
+                      "Size_t"})),
             _×_
               Nothing
               (TypeTypedef
-                (Full
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name "size_t",
-                      nameHsIdent = HsIdentifier
-                        "Size_t"})))],
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "size_t",
+                    nameHsIdent = HsIdentifier
+                      "Size_t"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -263,12 +259,11 @@ TranslationUnit {
             _×_
               Nothing
               (TypeTypedef
-                (Full
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name "size_t",
-                      nameHsIdent = HsIdentifier
-                        "Size_t"})))],
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "size_t",
+                    nameHsIdent = HsIdentifier
+                      "Size_t"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -303,12 +298,11 @@ TranslationUnit {
             _×_
               Nothing
               (TypeTypedef
-                (Full
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name "size_t",
-                      nameHsIdent = HsIdentifier
-                        "Size_t"})))],
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "size_t",
+                    nameHsIdent = HsIdentifier
+                      "Size_t"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -343,12 +337,11 @@ TranslationUnit {
             _×_
               Nothing
               (TypeTypedef
-                (Full
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name "size_t",
-                      nameHsIdent = HsIdentifier
-                        "Size_t"})))],
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "size_t",
+                    nameHsIdent = HsIdentifier
+                      "Size_t"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -464,7 +457,8 @@ TranslationUnit {
                   nameHsIdent = HsIdentifier
                     "my_format"})
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypePrim
                     (PrimChar
                       (PrimSignImplicit
@@ -510,7 +504,8 @@ TranslationUnit {
             _×_
               Nothing
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypePrim
                     (PrimChar
                       (PrimSignImplicit
@@ -520,17 +515,16 @@ TranslationUnit {
             ImpureFunction,
           functionRes = TypePointer
             (TypeTypedef
-              (Full
-                (TypedefSquashed
-                  (Name "FILE")
-                  (TypeStruct
-                    NamePair {
-                      nameC = Name "FILE",
-                      nameHsIdent = HsIdentifier
-                        "FILE"}
-                    (NameOriginGenerated
-                      (AnonId
-                        "fun_attributes.h:7:9"))))))},
+              (TypedefSquashed
+                (Name "FILE")
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "FILE",
+                    nameHsIdent = HsIdentifier
+                      "FILE"}
+                  (NameOriginGenerated
+                    (AnonId
+                      "fun_attributes.h:7:9")))))},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -601,7 +595,9 @@ TranslationUnit {
                   nameHsIdent = HsIdentifier
                     "src"})
               (TypePointer
-                (TypeConst TypeVoid)),
+                (TypeQualified
+                  TypeQualifierConst
+                  TypeVoid)),
             _×_
               (Just
                 NamePair {
@@ -609,12 +605,11 @@ TranslationUnit {
                   nameHsIdent = HsIdentifier
                     "len"})
               (TypeTypedef
-                (Full
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name "size_t",
-                      nameHsIdent = HsIdentifier
-                        "Size_t"})))],
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "size_t",
+                    nameHsIdent = HsIdentifier
+                      "Size_t"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -721,12 +716,11 @@ TranslationUnit {
                   nameHsIdent = HsIdentifier
                     "len"})
               (TypeTypedef
-                (Full
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name "size_t",
-                      nameHsIdent = HsIdentifier
-                        "Size_t"})))],
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "size_t",
+                    nameHsIdent = HsIdentifier
+                      "Size_t"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
