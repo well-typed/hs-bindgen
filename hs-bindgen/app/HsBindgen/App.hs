@@ -176,6 +176,7 @@ parseBindingSpecConfig :: Parser BindingSpecConfig
 parseBindingSpecConfig =
     BindingSpecConfig
       <$> parseEnableStdlibBindingSpec
+      <*> parseBindingSpecAllowNewer
       <*> many parseExtBindingSpec
       <*> optional parsePrescriptiveBindingSpec
 
@@ -184,6 +185,13 @@ parseEnableStdlibBindingSpec =
     flag EnableStdlibBindingSpec DisableStdlibBindingSpec $ mconcat [
         long "no-stdlib"
       , help "Do not automatically use stdlib external binding specification"
+      ]
+
+parseBindingSpecAllowNewer :: Parser BindingSpecCompatibility
+parseBindingSpecAllowNewer =
+    flag BindingSpecStrict BindingSpecAllowNewer $ mconcat [
+        long "binding-spec-allow-newer"
+      , help "Parse binding specifications with newer minor version"
       ]
 
 parseExtBindingSpec :: Parser FilePath

@@ -101,8 +101,10 @@ library internal
       HsBindgen.Backend.UniqueId
       HsBindgen.BindingSpec
       HsBindgen.BindingSpec.Gen
-      HsBindgen.BindingSpec.Private
+      HsBindgen.BindingSpec.Private.Common
       HsBindgen.BindingSpec.Private.Stdlib
+      HsBindgen.BindingSpec.Private.V1
+      HsBindgen.BindingSpec.Private.Version
       HsBindgen.Boot
       HsBindgen.Cache
       HsBindgen.Clang
@@ -188,6 +190,10 @@ library internal
       HsBindgen.Util.TestEquality
       HsBindgen.Util.Tracer
       Text.SimplePrettyPrint
+  other-modules:
+      Paths_hs_bindgen
+  autogen-modules:
+      Paths_hs_bindgen
   other-extensions:
       TemplateHaskellQuotes
   build-depends:

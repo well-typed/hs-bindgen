@@ -14,6 +14,7 @@ import System.Exit (ExitCode, exitFailure)
 import Clang.Version (clang_getClangVersion)
 
 import HsBindgen.App
+import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Cli qualified as Cli
 import HsBindgen.Errors
 import HsBindgen.Imports
@@ -41,6 +42,7 @@ execCliParser = do
     clangVersion <- Text.unpack <$> clang_getClangVersion
     let vers = List.intercalate "\n" [
             "hs-bindgen " ++ showVersion Package.version
+          , "binding specification " ++ show BindingSpec.version
           , clangVersion
           ]
     customExecParser prefs' (opts vers)

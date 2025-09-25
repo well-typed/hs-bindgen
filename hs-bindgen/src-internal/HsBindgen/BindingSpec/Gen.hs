@@ -18,8 +18,9 @@ import Data.Set qualified as Set
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.Origin qualified as HsOrigin
-import HsBindgen.BindingSpec.Private (UnresolvedBindingSpec)
-import HsBindgen.BindingSpec.Private qualified as BindingSpec
+import HsBindgen.BindingSpec.Private.Common
+import HsBindgen.BindingSpec.Private.V1 (UnresolvedBindingSpec)
+import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.RootHeader
@@ -102,7 +103,7 @@ genBindingSpec' hashIncludeArgs hsModuleName = foldr aux BindingSpec.empty
     headers :: Set HashIncludeArg
     headers = Set.fromList hashIncludeArgs
 
-type Spec = (C.QualName, BindingSpec.Omittable BindingSpec.TypeSpec)
+type Spec = (C.QualName, Omittable BindingSpec.TypeSpec)
 
 -- TODO aliases
 getStructSpec :: HsModuleName -> Hs.Struct n -> Spec
@@ -121,7 +122,7 @@ getStructSpec hsModuleName hsStruct = case Hs.structOrigin hsStruct of
                  BindingSpec.typeSpecInstances typeSpec'
                    <> mkInstSpecs (Hs.structInstances hsStruct)
             }
-      in  (cQualName, BindingSpec.Require typeSpec)
+      in  (cQualName, Require typeSpec)
 
 -- TODO aliases
 getEmptyDataSpec :: HsModuleName -> Hs.EmptyData -> Spec
@@ -138,7 +139,7 @@ getEmptyDataSpec hsModuleName edata =
           , typeSpecIdentifier = Just hsIdentifier
           , typeSpecInstances  = Map.empty
           }
-    in  (cQualName, BindingSpec.Require typeSpec)
+    in  (cQualName, Require typeSpec)
 
 -- TODO aliases
 getNewtypeSpec :: HsModuleName -> Hs.Newtype -> Spec
@@ -159,7 +160,7 @@ getNewtypeSpec hsModuleName hsNewtype =
               BindingSpec.typeSpecInstances typeSpec'
                 <> mkInstSpecs (Hs.newtypeInstances hsNewtype)
           }
-    in  (cQualName, BindingSpec.Require typeSpec)
+    in  (cQualName, Require typeSpec)
 
 getCQualName :: C.DeclInfo -> C.NameKind -> C.QualName
 getCQualName declInfo cNameKind = case C.declOrigin declInfo of
@@ -175,11 +176,11 @@ getCQualName declInfo cNameKind = case C.declOrigin declInfo of
 
 mkInstSpecs ::
      Set HsTypeClass
-  -> Map HsTypeClass (BindingSpec.Omittable BindingSpec.InstanceSpec)
+  -> Map HsTypeClass (Omittable BindingSpec.InstanceSpec)
 mkInstSpecs = Map.fromAscList . map (, oInstSpec) . Set.toAscList
   where
-    oInstSpec :: BindingSpec.Omittable BindingSpec.InstanceSpec
-    oInstSpec = BindingSpec.Require BindingSpec.InstanceSpec {
+    oInstSpec :: Omittable BindingSpec.InstanceSpec
+    oInstSpec = Require BindingSpec.InstanceSpec {
         instanceSpecStrategy    = Nothing -- TODO strategy?
       , instanceSpecConstraints = []      -- TODO constraints
       }

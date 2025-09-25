@@ -36,6 +36,7 @@ import HsBindgen.Backend.TH.Translation
 import HsBindgen.Backend.UniqueId
 import HsBindgen.Config
 import HsBindgen.Config.ClangArgs
+import HsBindgen.Errors (failQ)
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Guasi
 import HsBindgen.Imports
@@ -228,7 +229,7 @@ getThDecls deps wrappers decls = do
 checkHsBindgenRuntimePreludeIsInScope :: TH.Q ()
 checkHsBindgenRuntimePreludeIsInScope = do
   maybeTypeName <- TH.lookupTypeName (qualifier ++ "." ++ uniqueTypeName)
-  when (isNothing maybeTypeName) $ fail errMsg
+  when (isNothing maybeTypeName) $ failQ errMsg
   where
     qualifier :: String
     qualifier = "HsBindgen.Runtime.Prelude"
@@ -252,6 +253,6 @@ checkLanguageExtensions requiredExts = do
     let missingExts  = requiredExts `Set.difference` enabledExts
 
     unless (null missingExts) $ do
-      fail $ unlines $
+      failQ $ unlines $
         "Missing language extension(s): " :
           (map (("    - " ++) . show) (toList missingExts))

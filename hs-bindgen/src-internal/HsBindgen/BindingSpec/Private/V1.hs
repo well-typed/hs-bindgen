@@ -1,3 +1,5 @@
+{-# LANGUAGE TemplateHaskell #-}
+
 -- | Binding specification
 --
 -- This /private/ module may only be used by "HsBindgen.BindingSpec" and
@@ -5,24 +7,26 @@
 --
 -- Intended for qualified import.
 --
--- > import HsBindgen.BindingSpec.Private qualified as BindingSpec
-module HsBindgen.BindingSpec.Private (
+-- When defining the current public interface:
+--
+-- > import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
+--
+-- When distinguishing separate versions:
+--
+-- > import HsBindgen.BindingSpec.Private.V1 qualified as V1
+module HsBindgen.BindingSpec.Private.V1 (
+    -- * Version
+    version
     -- * Types
-    BindingSpec(..)
+  , BindingSpec(..)
   , UnresolvedBindingSpec
   , ResolvedBindingSpec
-  , Omittable(..)
   , TypeSpec(..)
   , defaultTypeSpec
     -- ** Instances
   , InstanceSpec(..)
   , StrategySpec(..)
   , ConstraintSpec(..)
-    -- ** Trace messages
-  , BindingSpecReadMsg(..)
-  , BindingSpecResolveMsg(..)
-  , BindingSpecMergeMsg(..)
-  , BindingSpecMsg(..)
     -- * API
   , empty
   , load
@@ -31,6 +35,7 @@ module HsBindgen.BindingSpec.Private (
   , readFile
   , readFileJson
   , readFileYaml
+  , parseValue
   , encodeJson
   , encodeYaml
   , writeFile
@@ -44,7 +49,6 @@ module HsBindgen.BindingSpec.Private (
 
 import Prelude hiding (readFile, writeFile)
 
-import Control.Applicative (asum)
 import Control.Monad ((<=<))
 import Data.Aeson ((.!=), (.:), (.:?), (.=))
 import Data.Aeson qualified as Aeson
@@ -57,15 +61,13 @@ import Data.List qualified as List
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 import Data.Text qualified as Text
-import Data.Typeable (Typeable, typeRep)
-import Data.Yaml qualified as Yaml
-import Data.Yaml.Internal qualified
 import Data.Yaml.Pretty qualified
-import Text.SimplePrettyPrint (hang, hangs', string, textToCtxDoc, (><))
 
 import Clang.Args
 import Clang.Paths
 
+import HsBindgen.BindingSpec.Private.Common
+import HsBindgen.BindingSpec.Private.Version
 import HsBindgen.Errors
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.RootHeader
@@ -75,6 +77,14 @@ import HsBindgen.Orphans ()
 import HsBindgen.Resolve
 import HsBindgen.Util.Monad
 import HsBindgen.Util.Tracer
+
+{-------------------------------------------------------------------------------
+  Version
+-------------------------------------------------------------------------------}
+
+-- | Binding specification version
+version :: BindingSpecVersion
+version = $$(constBindingSpecVersion 1 0)
 
 {-------------------------------------------------------------------------------
   Types
@@ -116,25 +126,6 @@ type UnresolvedBindingSpec = BindingSpec HashIncludeArg
 --
 -- The resolved header is the filesystem path in the current environment.
 type ResolvedBindingSpec = BindingSpec (HashIncludeArg, SourcePath)
-
---------------------------------------------------------------------------------
-
--- | Wrapper for types that may be omitted
---
--- This type is isomorphic with 'Maybe'.
---
--- In general, the following conventions are followed:
---
--- * If something is specified, it is required.  It is an error if @hs-bindgen@
---   is unable to satisfy the requirement.
--- * If something is omitted, then @hs-bindgen@ does /not/ generate the
---   corresponding code.  Use of something that is omitted is an error.
--- * If nothing is specified, @hs-bindgen@ generates code using defaults.  This
---   case is /not/ represented by 'Omittable'.
-data Omittable a =
-    Require a
-  | Omit
-  deriving stock (Show, Eq, Ord, Generic)
 
 --------------------------------------------------------------------------------
 
@@ -219,127 +210,6 @@ data ConstraintSpec = ConstraintSpec {
   deriving stock (Show, Eq, Ord, Generic)
 
 {-------------------------------------------------------------------------------
-  Types: Trace messages
--------------------------------------------------------------------------------}
-
--- | Load binding specification file trace messages
-data BindingSpecReadMsg =
-    -- | Aeson parsing error
-    BindingSpecReadAesonError FilePath String
-  | -- | YAML parsing error
-    BindingSpecReadYamlError FilePath String
-  | -- | YAML parsing warning (which should be treated as an error)
-    BindingSpecReadYamlWarning FilePath String
-  | -- | Invalid C name
-    BindingSpecReadInvalidCName FilePath Text
-  | -- | Multiple entries for the same C type
-    BindingSpecReadConflict FilePath C.QualName HashIncludeArg
-  | -- | @#include@ argument message
-    BindingSpecReadHashIncludeArg FilePath HashIncludeArgMsg
-  deriving stock (Show)
-
-instance IsTrace Level BindingSpecReadMsg where
-  getDefaultLogLevel = \case
-    x@BindingSpecReadHashIncludeArg{} -> getDefaultLogLevel x
-    _otherwise                        -> Error
-  getSource = \case
-    x@BindingSpecReadHashIncludeArg{} -> getSource x
-    _otherwise                        -> HsBindgen
-  getTraceId = const "binding-spec-read"
-
-instance PrettyForTrace BindingSpecReadMsg where
-  prettyForTrace = \case
-    BindingSpecReadAesonError path msg ->
-      "error parsing JSON: " >< string path >< ": " >< string msg
-    BindingSpecReadYamlError path msg ->
-      -- 'lines' is used because the error includes newlines
-      hangs' ("error parsing YAML: " >< string path) 2 $ map string $ lines msg
-    BindingSpecReadYamlWarning path msg ->
-      "error parsing YAML: " >< string path >< ": " >< string msg
-    BindingSpecReadInvalidCName path t ->
-      "invalid C name in " >< string path >< ": " >< textToCtxDoc t
-    BindingSpecReadConflict path cQualName header ->
-      "multiple entries in " >< string path >< " for C type: "
-        >< textToCtxDoc (C.qualNameText cQualName)
-        >< " (" >< string (getHashIncludeArg header) >< ")"
-    BindingSpecReadHashIncludeArg path msg ->
-      prettyForTrace msg >< " in " >< string path
-
---------------------------------------------------------------------------------
-
-data BindingSpecResolveMsg =
-    BindingSpecResolveExternalHeader ResolveHeaderMsg
-  | BindingSpecResolvePrescriptiveHeader ResolveHeaderMsg
-  | BindingSpecResolveTypeDropped C.QualName
-  deriving stock (Show)
-
-instance IsTrace Level BindingSpecResolveMsg where
-  getDefaultLogLevel = \case
-    BindingSpecResolveExternalHeader x
-      -- Any warnings/errors that happen while resolving /external/ headers are
-      -- 'Info' only: the only consequence is that those headers will then not
-      -- match against anything (and we might generate separate warnings/errors
-      -- for that anyway while resolving the binding specification).
-      | lvl > Info -> Info
-      | otherwise  -> lvl
-      where
-        lvl = getDefaultLogLevel x
-    BindingSpecResolvePrescriptiveHeader x ->
-      -- However, any errors that happen during /prescriptive/ binding specs
-      -- truly are errors.
-      getDefaultLogLevel x
-    BindingSpecResolveTypeDropped{} -> Info
-  getSource = \case
-    BindingSpecResolveExternalHeader     x -> getSource x
-    BindingSpecResolvePrescriptiveHeader x -> getSource x
-    BindingSpecResolveTypeDropped{}        -> HsBindgen
-  getTraceId = const "binding-spec-resolve"
-
-instance PrettyForTrace BindingSpecResolveMsg where
-  prettyForTrace = \case
-    BindingSpecResolveExternalHeader x ->
-      hang
-        "during resolution of external binding specification:"
-        2
-        (prettyForTrace x)
-    BindingSpecResolvePrescriptiveHeader x ->
-      hang
-        "during resolution of prescriptive binding specification:"
-        2
-        (prettyForTrace x)
-    BindingSpecResolveTypeDropped cQualName ->
-      "type dropped: " >< textToCtxDoc (C.qualNameText cQualName)
-
---------------------------------------------------------------------------------
-
--- | Merge binding specifications trace messages
-data BindingSpecMergeMsg =
-    -- | Multiple binding specifications for the same C type
-    BindingSpecMergeConflict C.QualName
-  deriving stock (Eq, Show)
-
-instance IsTrace Level BindingSpecMergeMsg where
-  getDefaultLogLevel = const Error
-  getSource          = const HsBindgen
-  getTraceId         = const "binding-spec-merge"
-
-instance PrettyForTrace BindingSpecMergeMsg where
-  prettyForTrace = \case
-    BindingSpecMergeConflict cQualName ->
-      "conflicting binding specifications for C type: "
-        >< textToCtxDoc (C.qualNameText cQualName)
-
---------------------------------------------------------------------------------
-
--- | All binding specification trace messages
-data BindingSpecMsg =
-    BindingSpecReadMsg    BindingSpecReadMsg
-  | BindingSpecResolveMsg BindingSpecResolveMsg
-  | BindingSpecMergeMsg   BindingSpecMergeMsg
-  deriving stock    (Show, Generic)
-  deriving anyclass (IsTrace Level, PrettyForTrace)
-
-{-------------------------------------------------------------------------------
   API
 -------------------------------------------------------------------------------}
 
@@ -358,10 +228,11 @@ load ::
      -- ^ Are we dealing with external or prescriptive bindings?
   -> ClangArgs
   -> UnresolvedBindingSpec
+  -> BindingSpecCompatibility
   -> [FilePath]
   -> IO (UnresolvedBindingSpec, ResolvedBindingSpec)
-load tracer injResolveHeader args stdSpec paths = do
-    uspecs <- mapM (readFile tracerRead) paths
+load tracer injResolveHeader args stdSpec cmpt paths = do
+    uspecs <- mapM (readFile tracerRead cmpt) paths
     let (mergeMsgs, uspec) = merge (stdSpec : uspecs)
     mapM_ (traceWith tracer . BindingSpecMergeMsg) mergeMsgs
     (uspec,) <$> resolve tracerResolve injResolveHeader args uspec
@@ -390,46 +261,66 @@ lookupTypeSpec cQualName headers =
   API: YAML/JSON
 -------------------------------------------------------------------------------}
 
--- | Read a binding specification from a file
+-- | Read a binding specification file
 --
 -- The format is determined by the filename extension.
-readFile :: Tracer IO BindingSpecReadMsg -> FilePath -> IO UnresolvedBindingSpec
-readFile tracer path = case getFormat path of
-    FormatYAML -> readFileYaml tracer path
-    FormatJSON -> readFileJson tracer path
+readFile ::
+     Tracer IO BindingSpecReadMsg
+  -> BindingSpecCompatibility
+  -> FilePath
+  -> IO UnresolvedBindingSpec
+readFile = readFileAux readVersion
 
--- | Read a binding specification from a JSON file
+-- | Read a binding specification JSON file
 readFileJson ::
      Tracer IO BindingSpecReadMsg
+  -> BindingSpecCompatibility
   -> FilePath
   -> IO UnresolvedBindingSpec
-readFileJson tracer path = Aeson.eitherDecodeFileStrict' path >>= \case
-    Right aspec -> do
-      let (errs, spec) = fromABindingSpec path aspec
-      mapM_ (traceWith tracer) errs
-      return spec
-    Left err -> do
-      traceWith tracer $ BindingSpecReadAesonError path err
-      return empty
+readFileJson = readFileAux readVersionJson
 
--- | Read a binding specification from a YAML file
+-- | Read a binding specification YAML file
 readFileYaml ::
      Tracer IO BindingSpecReadMsg
+  -> BindingSpecCompatibility
   -> FilePath
   -> IO UnresolvedBindingSpec
-readFileYaml tracer path = Yaml.decodeFileWithWarnings path >>= \case
-    Right (warnings, aspec) -> do
-      forM_ warnings $ \case
-        Data.Yaml.Internal.DuplicateKey jsonPath -> do
-          let msg = "duplicate key: " ++ Aeson.formatPath jsonPath
-          traceWith tracer $ BindingSpecReadYamlWarning path msg
-      let (errs, spec) = fromABindingSpec path aspec
-      mapM_ (traceWith tracer) errs
-      return spec
-    Left err -> do
-      let msg = Yaml.prettyPrintParseException err
-      traceWith tracer $ BindingSpecReadYamlError path msg
-      return empty
+readFileYaml = readFileAux readVersionYaml
+
+readFileAux ::
+     ReadVersionFunction
+  -> Tracer IO BindingSpecReadMsg
+  -> BindingSpecCompatibility
+  -> FilePath
+  -> IO UnresolvedBindingSpec
+readFileAux doRead tracer cmpt path = fmap (fromMaybe empty) $
+    doRead tracer path >>= \case
+      Just (version', value) -> parseValue tracer cmpt path version' value
+      Nothing                -> return Nothing
+
+parseValue ::
+     Monad m
+  => Tracer m BindingSpecReadMsg
+  -> BindingSpecCompatibility
+  -> FilePath
+  -> AVersion
+  -> Aeson.Value
+  -> m (Maybe UnresolvedBindingSpec)
+parseValue tracer cmpt path aVersion@AVersion{..} value
+    | isCompatBindingSpecVersions cmpt aVersionBindingSpecification version = do
+        traceWith tracer $ BindingSpecReadParseVersion path aVersion
+        case Aeson.fromJSON value of
+          Aeson.Success aspec -> do
+            let (errs, spec) = fromABindingSpec path aspec
+            mapM_ (traceWith tracer) errs
+            return (Just spec)
+          Aeson.Error err -> do
+            traceWith tracer $ BindingSpecReadAesonError path err
+            return Nothing
+    -- | aVersionBindingSpecification < version -> -- no lower versions
+    | otherwise = do
+        traceWith tracer $ BindingSpecReadIncompatibleVersion path aVersion
+        return Nothing
 
 -- | Encode a binding specification as JSON
 encodeJson :: UnresolvedBindingSpec -> BSL.ByteString
@@ -440,20 +331,48 @@ encodeYaml :: UnresolvedBindingSpec -> BSS.ByteString
 encodeYaml = encodeYaml' . toABindingSpec
 
 -- | Write a binding specification to a file
+--
+-- The format is determined by the filename extension.
 writeFile :: FilePath -> UnresolvedBindingSpec -> IO ()
 writeFile path = case getFormat path of
     FormatYAML -> writeFileYaml path
     FormatJSON -> writeFileJson path
 
 -- | Write a binding specification to a JSON file
---
--- The format is determined by the filename extension.
 writeFileJson :: FilePath -> UnresolvedBindingSpec -> IO ()
 writeFileJson path = BSL.writeFile path . encodeJson
 
 -- | Write a binding specification to a YAML file
 writeFileYaml :: FilePath -> UnresolvedBindingSpec -> IO ()
 writeFileYaml path = BSS.writeFile path . encodeYaml
+
+encodeJson' :: ABindingSpec -> BSL.ByteString
+encodeJson' = Aeson.encode
+
+encodeYaml' :: ABindingSpec -> BSS.ByteString
+encodeYaml' = Data.Yaml.Pretty.encodePretty yamlConfig
+  where
+    yamlConfig :: Data.Yaml.Pretty.Config
+    yamlConfig =
+          Data.Yaml.Pretty.setConfCompare (compare `on` keyPosition)
+        $ Data.Yaml.Pretty.defConfig
+
+    keyPosition :: Text -> Int
+    keyPosition = \case
+      "version"               ->  0  -- ABindingSpec:1
+      "hs_bindgen"            ->  1  -- AVersion:1
+      "binding_specification" ->  2  -- AVersion:1
+      "omit"                  ->  3  -- Omittable:1
+      "types"                 ->  4  -- ABindingSpec:2
+      "class"                 ->  5  -- AInstanceSpecMapping:1, AConstraintSpec:1
+      "headers"               ->  6  -- ATypeSpecMapping:1
+      "cname"                 ->  7  -- ATypeSpecMapping:2
+      "module"                ->  8  -- ATypeSpecMapping:3, AConstraintSpec:2
+      "identifier"            ->  9  -- ATypeSpecMapping:4, AConstraintSpec:3
+      "instances"             -> 10  -- ATypeSpecMapping:5
+      "strategy"              -> 11  -- AInstanceSpecMapping:2
+      "constraints"           -> 12  -- AInstanceSpecMapping:3
+      key -> panicPure $ "Unknown key: " ++ show key
 
 {-------------------------------------------------------------------------------
   API: Merging
@@ -542,7 +461,7 @@ resolve tracer injResolveHeader args uSpec = do
 
     bindingSpecTypes <- Map.fromList <$>
       mapMaybeM (uncurry resolveTypes) (Map.toList (bindingSpecTypes uSpec))
-    return BindingSpec {..}
+    return BindingSpec{..}
   where
     allHeaders :: Set HashIncludeArg
     allHeaders = mconcat $ fst <$> concat (Map.elems (bindingSpecTypes uSpec))
@@ -551,50 +470,22 @@ resolve tracer injResolveHeader args uSpec = do
   Auxiliary: Specification files
 -------------------------------------------------------------------------------}
 
--- | Supported specification file formats
-data Format =
-    FormatJSON
-  | FormatYAML
-
--- | Get format based on filename
---
--- YAML is used if the extension is unknown.
-getFormat :: FilePath -> Format
-getFormat path
-    | ".json" `List.isSuffixOf` path = FormatJSON
-    | otherwise                      = FormatYAML
-
---------------------------------------------------------------------------------
-
-data AOmittable a = ARequire a | AOmit a
-  deriving stock Show
-
-instance Aeson.FromJSON a => Aeson.FromJSON (AOmittable a) where
-  parseJSON = \case
-    Aeson.Object o | KM.size o == 1 && KM.member "omit" o ->
-      AOmit <$> o .: "omit"
-    v -> ARequire <$> Aeson.parseJSON v
-
-instance Aeson.ToJSON a => Aeson.ToJSON (AOmittable a) where
-  toJSON = \case
-    ARequire x -> Aeson.toJSON x
-    AOmit    x -> Aeson.object ["omit" .= x]
-
---------------------------------------------------------------------------------
-
-newtype ABindingSpec = ABindingSpec {
-      aBindingSpecTypes :: [AOmittable ATypeSpecMapping]
+data ABindingSpec = ABindingSpec {
+      aBindingSpecVersion :: AVersion
+    , aBindingSpecTypes   :: [AOmittable ATypeSpecMapping]
     }
   deriving stock Show
 
 instance Aeson.FromJSON ABindingSpec where
   parseJSON = Aeson.withObject "ABindingSpec" $ \o -> do
-    aBindingSpecTypes <- o .: "types"
+    aBindingSpecVersion <- o .: "version"
+    aBindingSpecTypes   <- o .: "types"
     return ABindingSpec{..}
 
 instance Aeson.ToJSON ABindingSpec where
   toJSON ABindingSpec{..} = Aeson.object [
-    "types" .= aBindingSpecTypes
+      "version" .= aBindingSpecVersion
+    , "types"   .= aBindingSpecTypes
     ]
 
 --------------------------------------------------------------------------------
@@ -785,6 +676,9 @@ fromABindingSpec path ABindingSpec{..} =
 toABindingSpec :: UnresolvedBindingSpec -> ABindingSpec
 toABindingSpec BindingSpec{..} = ABindingSpec{..}
   where
+    aBindingSpecVersion :: AVersion
+    aBindingSpecVersion = mkAVersion version
+
     aBindingSpecTypes :: [AOmittable ATypeSpecMapping]
     aBindingSpecTypes = [
         case oType of
@@ -821,74 +715,3 @@ toABindingSpec BindingSpec{..} = ABindingSpec{..}
       | (cQualName, xs) <- Map.toAscList bindingSpecTypes
       , (headers, oType) <- xs
       ]
-
-encodeJson' :: ABindingSpec -> BSL.ByteString
-encodeJson' = Aeson.encode
-
-encodeYaml' :: ABindingSpec -> BSS.ByteString
-encodeYaml' = Data.Yaml.Pretty.encodePretty yamlConfig
-  where
-    yamlConfig :: Data.Yaml.Pretty.Config
-    yamlConfig =
-          Data.Yaml.Pretty.setConfCompare (compare `on` keyPosition)
-        $ Data.Yaml.Pretty.defConfig
-
-    keyPosition :: Text -> Int
-    keyPosition = \case
-      "omit"        -> 0  -- Omittable:1
-      "types"       -> 1  -- ABindingSpec:1
-      "class"       -> 2  -- AInstanceSpecMapping:1, AConstraintSpec:1
-      "headers"     -> 3  -- ATypeSpecMapping:1
-      "cname"       -> 4  -- ATypeSpecMapping:2
-      "module"      -> 5  -- ATypeSpecMapping:3, AConstraintSpec:2
-      "identifier"  -> 6  -- ATypeSpecMapping:4, AConstraintSpec:3
-      "instances"   -> 7  -- ATypeSpecMapping:5
-      "strategy"    -> 8  -- AInstanceSpecMapping:2
-      "constraints" -> 9  -- AInstanceSpecMapping:3
-      key -> panicPure $ "Unknown key: " ++ show key
-
-{-------------------------------------------------------------------------------
-  Auxiliary: Aeson helpers
--------------------------------------------------------------------------------}
-
--- | Omit empty lists, for use with 'objectWithOptionalFields' and '(.=?)'
-omitWhenNull :: [a] -> Maybe [a]
-omitWhenNull xs
-    | null xs   = Nothing
-    | otherwise = Just xs
-
--- | Convert list to JSON, with special case for the singleton list
---
--- This results in format that is somewhat more friendly for human consumption.
--- It can however not be used for lists-of-lists.
---
--- See also 'listFromJSON'.
-listToJSON :: Aeson.ToJSON a => [a] -> Aeson.Value
-listToJSON [x] = Aeson.toJSON x
-listToJSON xs  = Aeson.toJSON xs
-
--- | Inverse to 'listToJSON'
-listFromJSON :: forall a.
-     (Aeson.FromJSON a, Typeable a)
-  => Aeson.Value
-  -> Aeson.Parser [a]
-listFromJSON value = asum [
-      Aeson.withArray (show (typeRep (Proxy @[a]))) parseList value
-    , parseSingleton
-    ]
-  where
-    parseList :: Aeson.Array -> Aeson.Parser [a]
-    parseList = mapM Aeson.parseJSON . toList
-
-    parseSingleton :: Aeson.Parser [a]
-    parseSingleton = List.singleton <$> Aeson.parseJSON value
-
--- | 'Aeson.Value' constructor name, for use in error messages
-typeOf :: Aeson.Value -> String
-typeOf = \case
-    Aeson.Object{} -> "Object"
-    Aeson.Array{}  -> "Array"
-    Aeson.String{} -> "String"
-    Aeson.Number{} -> "Number"
-    Aeson.Bool{}   -> "Bool"
-    Aeson.Null     -> "Null"
