@@ -190,6 +190,10 @@ library internal
       HsBindgen.Util.TestEquality
       HsBindgen.Util.Tracer
       Text.SimplePrettyPrint
+  other-modules:
+      Paths_hs_bindgen
+  autogen-modules:
+      Paths_hs_bindgen
   other-extensions:
       TemplateHaskellQuotes
   build-depends:

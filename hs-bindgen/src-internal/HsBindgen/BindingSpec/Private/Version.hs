@@ -7,17 +7,26 @@
 --
 -- Intended for unqualified import.
 module HsBindgen.BindingSpec.Private.Version (
+    -- * HsBindgenVersion
+    HsBindgenVersion
+  , prettyForTraceHsBindgenVersion
     -- * BindingSpecVersion
-    BindingSpecVersion
+  , BindingSpecVersion
   , constBindingSpecVersion
   , parseBindingSpecVersion
   , isCompatBindingSpecVersions
+    -- * AVersion
+  , AVersion(..)
+  , mkAVersion
+  , getAVersion
   ) where
 
+import Data.Aeson ((.:), (.=))
 import Data.Aeson.Types qualified as Aeson
 import Data.Char qualified as Char
 import Data.List qualified as List
 import Data.Text qualified as Text
+import Data.Version qualified
 import Language.Haskell.TH.Syntax qualified as THS
 import Text.Read (readMaybe)
 import Text.SimplePrettyPrint qualified as PP
@@ -25,6 +34,18 @@ import Text.SimplePrettyPrint qualified as PP
 import HsBindgen.Errors (failCode)
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer (PrettyForTrace (prettyForTrace))
+
+import Paths_hs_bindgen qualified as Package
+
+{-------------------------------------------------------------------------------
+  HsBindgenVersion
+-------------------------------------------------------------------------------}
+
+-- | @hs-bindgen@ version
+type HsBindgenVersion = Data.Version.Version
+
+prettyForTraceHsBindgenVersion :: HsBindgenVersion -> PP.CtxDoc
+prettyForTraceHsBindgenVersion = PP.string . Data.Version.showVersion
 
 {-------------------------------------------------------------------------------
   BindingSpecVersion
@@ -91,3 +112,54 @@ isCompatBindingSpecVersions :: BindingSpecVersion -> BindingSpecVersion -> Bool
 isCompatBindingSpecVersions
   (UnsafeBindingSpecVersion majorL _)
   (UnsafeBindingSpecVersion majorR _) = majorL == majorR
+
+{-------------------------------------------------------------------------------
+  AVersion
+-------------------------------------------------------------------------------}
+
+-- | JSON/YAML version information
+data AVersion = AVersion {
+      aVersionHsBindgen            :: HsBindgenVersion
+    , aVersionBindingSpecification :: BindingSpecVersion
+    }
+  deriving stock Show
+
+instance Aeson.FromJSON AVersion where
+  parseJSON = Aeson.withObject "AVersion" $ \o -> do
+    aVersionHsBindgen            <- o .: "hs_bindgen"
+    aVersionBindingSpecification <- o .: "binding_specification"
+    return AVersion{..}
+
+instance Aeson.ToJSON AVersion where
+  toJSON AVersion{..} = Aeson.object [
+      "hs_bindgen"            .= aVersionHsBindgen
+    , "binding_specification" .= aVersionBindingSpecification
+    ]
+
+-- | Construct an 'AVersion' with the current versions
+mkAVersion :: BindingSpecVersion -> AVersion
+mkAVersion aVersionBindingSpecification =
+    let aVersionHsBindgen = Package.version
+    in  AVersion{..}
+
+-- | Internal type used to parse just the version information
+newtype ABindingSpecVersion = ABindingSpecVersion {
+      aVersion :: AVersion
+    }
+  deriving stock Show
+
+instance Aeson.FromJSON ABindingSpecVersion where
+  parseJSON = Aeson.withObject "file" $ \o -> do
+    aVersion <- o .: "version"
+    return ABindingSpecVersion{..}
+
+instance Aeson.ToJSON ABindingSpecVersion where
+  toJSON ABindingSpecVersion{..} = Aeson.object [
+      "version" .= aVersion
+    ]
+
+-- | Parse just the version information
+getAVersion :: Aeson.Value -> Either String AVersion
+getAVersion value = case Aeson.fromJSON value of
+    Aeson.Success ABindingSpecVersion{..} -> Right aVersion
+    Aeson.Error   err                     -> Left  err

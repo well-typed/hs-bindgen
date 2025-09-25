@@ -1,4 +1,6 @@
-version: '1.0'
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
 types:
 - headers: opaque_declaration.h
   cname: struct bar

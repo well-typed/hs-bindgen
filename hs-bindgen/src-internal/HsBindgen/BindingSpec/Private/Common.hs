@@ -58,8 +58,8 @@ data BindingSpecReadMsg =
     BindingSpecReadAesonError FilePath String
   | BindingSpecReadYamlError FilePath String
   | BindingSpecReadYamlWarning FilePath String
-  | BindingSpecReadParseVersion FilePath BindingSpecVersion
-  | BindingSpecReadIncompatibleVersion FilePath BindingSpecVersion
+  | BindingSpecReadParseVersion FilePath AVersion
+  | BindingSpecReadIncompatibleVersion FilePath AVersion
   | BindingSpecReadInvalidCName FilePath Text
   | BindingSpecReadConflict FilePath C.QualName HashIncludeArg
   | BindingSpecReadHashIncludeArg FilePath HashIncludeArgMsg
@@ -93,12 +93,20 @@ instance PrettyForTrace BindingSpecReadMsg where
       hangs' ("error parsing YAML: " >< string path) 2 $ map string $ lines msg
     BindingSpecReadYamlWarning path msg ->
       "error parsing YAML: " >< string path >< ": " >< string msg
-    BindingSpecReadParseVersion path version ->
-      "parsing binding specification: " >< string path
-        >< " (version " >< prettyForTrace version >< ")"
-    BindingSpecReadIncompatibleVersion path version ->
-      "incompatible binding specification version: " >< string path >< ": "
-        >< prettyForTrace version
+    BindingSpecReadParseVersion path AVersion{..} ->
+      hangs' ("parsing binding specification: " >< string path) 2 [
+          "hs-bindgen version: "
+            >< prettyForTraceHsBindgenVersion aVersionHsBindgen
+        , "binding specification version: "
+            >< prettyForTrace aVersionBindingSpecification
+        ]
+    BindingSpecReadIncompatibleVersion path AVersion{..} ->
+      hangs' ("incompatible binding specification version: " >< string path) 2 [
+          "hs-bindgen version: "
+            >< prettyForTraceHsBindgenVersion aVersionHsBindgen
+        , "binding specification version: "
+            >< prettyForTrace aVersionBindingSpecification
+        ]
     BindingSpecReadInvalidCName path t ->
       "invalid C name in " >< string path >< ": " >< textToCtxDoc t
     BindingSpecReadConflict path cQualName header ->
@@ -239,12 +247,12 @@ getFormat path
     | ".json" `List.isSuffixOf` path = FormatJSON
     | otherwise                      = FormatYAML
 
--- | Function that reads a file and gets the 'BindingSpecVersion', which
--- determines how to parse the corresponding 'Aeson.Value'
+-- | Function that reads a file and gets the 'AVersion', which determines how to
+-- parse the corresponding 'Aeson.Value'
 type ReadVersionFunction =
      Tracer IO BindingSpecReadMsg
   -> FilePath
-  -> IO (Maybe (BindingSpecVersion, Aeson.Value))
+  -> IO (Maybe (AVersion, Aeson.Value))
 
 -- | Read a binding specification file, returning the 'BindingSpecVersion' and
 -- 'Aeson.Value'
@@ -259,7 +267,7 @@ readVersion tracer path = case getFormat path of
 -- and 'Aeson.Value'
 readVersionJson :: ReadVersionFunction
 readVersionJson tracer path = Aeson.eitherDecodeFileStrict' path >>= \case
-    Right value -> getVersion tracer path value
+    Right value -> getAVersionM tracer path value
     Left err -> do
       traceWith tracer $ BindingSpecReadAesonError path err
       return Nothing
@@ -273,40 +281,22 @@ readVersionYaml tracer path = Yaml.decodeFileWithWarnings path >>= \case
         Data.Yaml.Internal.DuplicateKey jsonPath -> do
           let msg = "duplicate key: " ++ Aeson.formatPath jsonPath
           traceWith tracer $ BindingSpecReadYamlWarning path msg
-      getVersion tracer path value
+      getAVersionM tracer path value
     Left err -> do
       let msg = Yaml.prettyPrintParseException err
       traceWith tracer $ BindingSpecReadYamlError path msg
       return Nothing
 
--- | Get the binding specification version
---
--- The 'BindingSpecVersion' and 'Aeson.Value' are returned only if the
--- 'Aeson.Value' is an object with a valid version.
-getVersion ::
+getAVersionM ::
      Monad m
   => Tracer m BindingSpecReadMsg
   -> FilePath
   -> Aeson.Value
-  -> m (Maybe (BindingSpecVersion, Aeson.Value))
-getVersion tracer path = \case
-    value@(Aeson.Object o) -> case KM.lookup "version" o of
-      Just (Aeson.String t) -> case parseBindingSpecVersion t of
-        Right bsVersion -> return $ Just (bsVersion, value)
-        Left err -> do
-          traceWith tracer . BindingSpecReadAesonError path $
-            "invalid version: " ++ err
-          return Nothing
-      Just value' -> do
-        traceWith tracer . BindingSpecReadAesonError path $
-          "version: expected String but found " ++ typeOf value'
-        return Nothing
-      Nothing -> do
-        traceWith tracer $ BindingSpecReadAesonError path "version: not found"
-        return Nothing
-    value -> do
-      traceWith tracer . BindingSpecReadAesonError path $
-        "file: expected Object but found " ++ typeOf value
+  -> m (Maybe (AVersion, Aeson.Value))
+getAVersionM tracer path value = case getAVersion value of
+    Right aVersion -> return $ Just (aVersion, value)
+    Left err -> do
+      traceWith tracer $ BindingSpecReadAesonError path err
       return Nothing
 
 {-------------------------------------------------------------------------------

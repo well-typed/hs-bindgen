@@ -297,12 +297,12 @@ parseValue ::
      Monad m
   => Tracer m BindingSpecReadMsg
   -> FilePath
-  -> BindingSpecVersion
+  -> AVersion
   -> Aeson.Value
   -> m (Maybe UnresolvedBindingSpec)
-parseValue tracer path bsVersion value
-    | isCompatBindingSpecVersions bsVersion version = do
-        traceWith tracer $ BindingSpecReadParseVersion path bsVersion
+parseValue tracer path aVersion@AVersion{..} value
+    | isCompatBindingSpecVersions aVersionBindingSpecification version = do
+        traceWith tracer $ BindingSpecReadParseVersion path aVersion
         case Aeson.fromJSON value of
           Aeson.Success aspec -> do
             let (errs, spec) = fromABindingSpec path aspec
@@ -311,9 +311,9 @@ parseValue tracer path bsVersion value
           Aeson.Error err -> do
             traceWith tracer $ BindingSpecReadAesonError path err
             return Nothing
-    -- | bsVersion < version -> -- no lower versions
+    -- | aVersionBindingSpecification < version -> -- no lower versions
     | otherwise = do
-        traceWith tracer $ BindingSpecReadIncompatibleVersion path bsVersion
+        traceWith tracer $ BindingSpecReadIncompatibleVersion path aVersion
         return Nothing
 
 -- | Encode a binding specification as JSON
@@ -353,17 +353,19 @@ encodeYaml' = Data.Yaml.Pretty.encodePretty yamlConfig
 
     keyPosition :: Text -> Int
     keyPosition = \case
-      "version"     ->  0  -- ABindingSpec:1
-      "omit"        ->  1  -- Omittable:1
-      "types"       ->  2  -- ABindingSpec:2
-      "class"       ->  3  -- AInstanceSpecMapping:1, AConstraintSpec:1
-      "headers"     ->  4  -- ATypeSpecMapping:1
-      "cname"       ->  5  -- ATypeSpecMapping:2
-      "module"      ->  6  -- ATypeSpecMapping:3, AConstraintSpec:2
-      "identifier"  ->  7  -- ATypeSpecMapping:4, AConstraintSpec:3
-      "instances"   ->  8  -- ATypeSpecMapping:5
-      "strategy"    ->  9  -- AInstanceSpecMapping:2
-      "constraints" -> 10  -- AInstanceSpecMapping:3
+      "version"               ->  0  -- ABindingSpec:1
+      "hs_bindgen"            ->  1  -- AVersion:1
+      "binding_specification" ->  2  -- AVersion:1
+      "omit"                  ->  3  -- Omittable:1
+      "types"                 ->  4  -- ABindingSpec:2
+      "class"                 ->  5  -- AInstanceSpecMapping:1, AConstraintSpec:1
+      "headers"               ->  6  -- ATypeSpecMapping:1
+      "cname"                 ->  7  -- ATypeSpecMapping:2
+      "module"                ->  8  -- ATypeSpecMapping:3, AConstraintSpec:2
+      "identifier"            ->  9  -- ATypeSpecMapping:4, AConstraintSpec:3
+      "instances"             -> 10  -- ATypeSpecMapping:5
+      "strategy"              -> 11  -- AInstanceSpecMapping:2
+      "constraints"           -> 12  -- AInstanceSpecMapping:3
       key -> panicPure $ "Unknown key: " ++ show key
 
 {-------------------------------------------------------------------------------
@@ -463,7 +465,7 @@ resolve tracer injResolveHeader args uSpec = do
 -------------------------------------------------------------------------------}
 
 data ABindingSpec = ABindingSpec {
-      aBindingSpecVersion :: BindingSpecVersion
+      aBindingSpecVersion :: AVersion
     , aBindingSpecTypes   :: [AOmittable ATypeSpecMapping]
     }
   deriving stock Show
@@ -668,8 +670,8 @@ fromABindingSpec path ABindingSpec{..} =
 toABindingSpec :: UnresolvedBindingSpec -> ABindingSpec
 toABindingSpec BindingSpec{..} = ABindingSpec{..}
   where
-    aBindingSpecVersion :: BindingSpecVersion
-    aBindingSpecVersion = version
+    aBindingSpecVersion :: AVersion
+    aBindingSpecVersion = mkAVersion version
 
     aBindingSpecTypes :: [AOmittable ATypeSpecMapping]
     aBindingSpecTypes = [
