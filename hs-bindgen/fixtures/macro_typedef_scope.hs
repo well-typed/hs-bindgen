@@ -460,12 +460,11 @@
                 "@NsVar"
                 "un_T3"},
             macroType = TypeTypedef
-              (Full
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "T2",
-                    nameHsIdent = Identifier
-                      "T2"}))},
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "T2",
+                  nameHsIdent = Identifier
+                    "T2"})},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,

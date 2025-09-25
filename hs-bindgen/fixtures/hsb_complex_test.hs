@@ -1483,7 +1483,8 @@
           capiWrapperImport =
           "hsb_complex_test.h"},
       foreignImportOrigin = Global
-        (TypeConst
+        (TypeQualified
+          TypeQualifierConst
           (TypeComplex
             (PrimFloating PrimFloat))),
       foreignImportComment = Nothing,
@@ -1513,7 +1514,8 @@
           capiWrapperImport =
           "hsb_complex_test.h"},
       foreignImportOrigin = Global
-        (TypeConst
+        (TypeQualified
+          TypeQualifierConst
           (TypeComplex
             (PrimFloating PrimDouble))),
       foreignImportComment = Nothing,

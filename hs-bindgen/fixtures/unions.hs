@@ -2453,15 +2453,14 @@
                     "dimB_payload"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
-                (Full
-                  (TypedefSquashed
-                    (Name "DimPayloadB")
-                    (TypeUnion
-                      NamePair {
-                        nameC = Name "DimPayloadB",
-                        nameHsIdent = Identifier
-                          "DimPayloadB"}
-                      NameOriginInSource))),
+                (TypedefSquashed
+                  (Name "DimPayloadB")
+                  (TypeUnion
+                    NamePair {
+                      nameC = Name "DimPayloadB",
+                      nameHsIdent = Identifier
+                        "DimPayloadB"}
+                    NameOriginInSource)),
               structFieldOffset = 32,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -2520,15 +2519,14 @@
                         "dimB_payload"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
-                    (Full
-                      (TypedefSquashed
-                        (Name "DimPayloadB")
-                        (TypeUnion
-                          NamePair {
-                            nameC = Name "DimPayloadB",
-                            nameHsIdent = Identifier
-                              "DimPayloadB"}
-                          NameOriginInSource))),
+                    (TypedefSquashed
+                      (Name "DimPayloadB")
+                      (TypeUnion
+                        NamePair {
+                          nameC = Name "DimPayloadB",
+                          nameHsIdent = Identifier
+                            "DimPayloadB"}
+                        NameOriginInSource)),
                   structFieldOffset = 32,
                   structFieldWidth = Nothing}],
               structFlam = Nothing},
@@ -2613,15 +2611,14 @@
                         "dimB_payload"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
-                    (Full
-                      (TypedefSquashed
-                        (Name "DimPayloadB")
-                        (TypeUnion
-                          NamePair {
-                            nameC = Name "DimPayloadB",
-                            nameHsIdent = Identifier
-                              "DimPayloadB"}
-                          NameOriginInSource))),
+                    (TypedefSquashed
+                      (Name "DimPayloadB")
+                      (TypeUnion
+                        NamePair {
+                          nameC = Name "DimPayloadB",
+                          nameHsIdent = Identifier
+                            "DimPayloadB"}
+                        NameOriginInSource)),
                   structFieldOffset = 32,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -2680,15 +2677,14 @@
                             "dimB_payload"},
                         fieldComment = Nothing},
                       structFieldType = TypeTypedef
-                        (Full
-                          (TypedefSquashed
-                            (Name "DimPayloadB")
-                            (TypeUnion
-                              NamePair {
-                                nameC = Name "DimPayloadB",
-                                nameHsIdent = Identifier
-                                  "DimPayloadB"}
-                              NameOriginInSource))),
+                        (TypedefSquashed
+                          (Name "DimPayloadB")
+                          (TypeUnion
+                            NamePair {
+                              nameC = Name "DimPayloadB",
+                              nameHsIdent = Identifier
+                                "DimPayloadB"}
+                            NameOriginInSource)),
                       structFieldOffset = 32,
                       structFieldWidth = Nothing}],
                   structFlam = Nothing},
@@ -2776,15 +2772,14 @@
                                 "dimB_payload"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
-                            (Full
-                              (TypedefSquashed
-                                (Name "DimPayloadB")
-                                (TypeUnion
-                                  NamePair {
-                                    nameC = Name "DimPayloadB",
-                                    nameHsIdent = Identifier
-                                      "DimPayloadB"}
-                                  NameOriginInSource))),
+                            (TypedefSquashed
+                              (Name "DimPayloadB")
+                              (TypeUnion
+                                NamePair {
+                                  nameC = Name "DimPayloadB",
+                                  nameHsIdent = Identifier
+                                    "DimPayloadB"}
+                                NameOriginInSource)),
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -2843,15 +2838,14 @@
                                     "dimB_payload"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
-                                (Full
-                                  (TypedefSquashed
-                                    (Name "DimPayloadB")
-                                    (TypeUnion
-                                      NamePair {
-                                        nameC = Name "DimPayloadB",
-                                        nameHsIdent = Identifier
-                                          "DimPayloadB"}
-                                      NameOriginInSource))),
+                                (TypedefSquashed
+                                  (Name "DimPayloadB")
+                                  (TypeUnion
+                                    NamePair {
+                                      nameC = Name "DimPayloadB",
+                                      nameHsIdent = Identifier
+                                        "DimPayloadB"}
+                                    NameOriginInSource)),
                               structFieldOffset = 32,
                               structFieldWidth = Nothing}],
                           structFlam = Nothing},
@@ -2941,15 +2935,14 @@
                                 "dimB_payload"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
-                            (Full
-                              (TypedefSquashed
-                                (Name "DimPayloadB")
-                                (TypeUnion
-                                  NamePair {
-                                    nameC = Name "DimPayloadB",
-                                    nameHsIdent = Identifier
-                                      "DimPayloadB"}
-                                  NameOriginInSource))),
+                            (TypedefSquashed
+                              (Name "DimPayloadB")
+                              (TypeUnion
+                                NamePair {
+                                  nameC = Name "DimPayloadB",
+                                  nameHsIdent = Identifier
+                                    "DimPayloadB"}
+                                NameOriginInSource)),
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -3008,15 +3001,14 @@
                                     "dimB_payload"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
-                                (Full
-                                  (TypedefSquashed
-                                    (Name "DimPayloadB")
-                                    (TypeUnion
-                                      NamePair {
-                                        nameC = Name "DimPayloadB",
-                                        nameHsIdent = Identifier
-                                          "DimPayloadB"}
-                                      NameOriginInSource))),
+                                (TypedefSquashed
+                                  (Name "DimPayloadB")
+                                  (TypeUnion
+                                    NamePair {
+                                      nameC = Name "DimPayloadB",
+                                      nameHsIdent = Identifier
+                                        "DimPayloadB"}
+                                    NameOriginInSource)),
                               structFieldOffset = 32,
                               structFieldWidth = Nothing}],
                           structFlam = Nothing},

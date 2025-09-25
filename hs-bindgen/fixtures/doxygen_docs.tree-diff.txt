@@ -282,7 +282,8 @@ TranslationUnit {
                     "Version string constant"]}])},
       declKind = DeclGlobal
         (TypePointer
-          (TypeConst
+          (TypeQualified
+            TypeQualifierConst
             (TypePrim
               (PrimChar
                 (PrimSignImplicit
@@ -545,7 +546,8 @@ TranslationUnit {
                   nameHsIdent = Identifier
                     "input_data"})
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -1023,7 +1025,8 @@ TranslationUnit {
                   nameHsIdent = Identifier
                     "filename"})
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypePrim
                     (PrimChar
                       (PrimSignImplicit Nothing)))))],
@@ -1407,7 +1410,8 @@ TranslationUnit {
                     "items"})
               (TypePointer
                 (TypePointer
-                  (TypeConst
+                  (TypeQualified
+                    TypeQualifierConst
                     (TypePrim
                       (PrimChar
                         (PrimSignImplicit Nothing)))))),
@@ -1591,7 +1595,8 @@ TranslationUnit {
                   nameHsIdent = Identifier
                     "input"})
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypePrim
                     (PrimChar
                       (PrimSignImplicit
@@ -1884,13 +1889,12 @@ TranslationUnit {
               "un_Event_callback_t"},
           typedefType = TypePointer
             (TypeTypedef
-              (Full
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name
-                      "event_callback_t_Deref",
-                    nameHsIdent = Identifier
-                      "Event_callback_t_Deref"})))},
+              (TypedefRegular
+                NamePair {
+                  nameC = Name
+                    "event_callback_t_Deref",
+                  nameHsIdent = Identifier
+                    "Event_callback_t_Deref"}))},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -2262,12 +2266,11 @@ TranslationUnit {
                                   "Event_callback_t"})],
                       Paragraph [TextContent ""]])},
               structFieldType = TypeTypedef
-                (Full
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name "event_callback_t",
-                      nameHsIdent = Identifier
-                        "Event_callback_t"})),
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "event_callback_t",
+                    nameHsIdent = Identifier
+                      "Event_callback_t"}),
               structFieldOffset = 576,
               structFieldWidth = Nothing},
             StructField {
@@ -3396,13 +3399,12 @@ TranslationUnit {
               "un_Processor_fn_t"},
           typedefType = TypePointer
             (TypeTypedef
-              (Full
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name
-                      "processor_fn_t_Deref",
-                    nameHsIdent = Identifier
-                      "Processor_fn_t_Deref"})))},
+              (TypedefRegular
+                NamePair {
+                  nameC = Name
+                    "processor_fn_t_Deref",
+                  nameHsIdent = Identifier
+                    "Processor_fn_t_Deref"}))},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -3752,7 +3754,9 @@ TranslationUnit {
                   nameC = Name "src",
                   nameHsIdent = Identifier "src"})
               (TypePointer
-                (TypeConst TypeVoid)),
+                (TypeQualified
+                  TypeQualifierConst
+                  TypeVoid)),
             _×_
               (Just
                 NamePair {
@@ -4376,17 +4380,16 @@ TranslationUnit {
                     "config"})
               (TypePointer
                 (TypeTypedef
-                  (Full
-                    (TypedefSquashed
-                      (Name "config_t")
-                      (TypeStruct
-                        NamePair {
-                          nameC = Name "config_t",
-                          nameHsIdent = Identifier
-                            "Config_t"}
-                        (NameOriginGenerated
-                          (AnonId
-                            "doxygen_docs.h:232:9"))))))),
+                  (TypedefSquashed
+                    (Name "config_t")
+                    (TypeStruct
+                      NamePair {
+                        nameC = Name "config_t",
+                        nameHsIdent = Identifier
+                          "Config_t"}
+                      (NameOriginGenerated
+                        (AnonId
+                          "doxygen_docs.h:232:9")))))),
             _×_
               (Just
                 NamePair {
@@ -4394,7 +4397,8 @@ TranslationUnit {
                   nameHsIdent = Identifier
                     "data'"})
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -4637,17 +4641,16 @@ TranslationUnit {
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeTypedef
-            (Full
-              (TypedefSquashed
-                (Name "status_code_t")
-                (TypeEnum
-                  NamePair {
-                    nameC = Name "status_code_t",
-                    nameHsIdent = Identifier
-                      "Status_code_t"}
-                  (NameOriginGenerated
-                    (AnonId
-                      "doxygen_docs.h:258:9")))))},
+            (TypedefSquashed
+              (Name "status_code_t")
+              (TypeEnum
+                NamePair {
+                  nameC = Name "status_code_t",
+                  nameHsIdent = Identifier
+                    "Status_code_t"}
+                (NameOriginGenerated
+                  (AnonId
+                    "doxygen_docs.h:258:9"))))},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

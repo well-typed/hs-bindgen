@@ -41,15 +41,18 @@ module HsBindgen.Frontend.AST.External (
     -- * Types
   , Type
   , TypeF(..)
+  , TypeQualifier(..)
   , ResolveBindingSpec.ResolvedExtBinding(..)
   , isVoid
+  , isErasedConstQualifiedType
+  , isCanonicalFunctionType
     -- ** Erasure
-  , Full(..)
-  , NoTypedefs
-  , eraseTypedefsRec
-  , eraseTypedefsRecEnvironment
+  , Full
+  , Erased
+  , Canonical
+  , GetErasedType(..)
+  , GetCanonicalType(..)
   , eraseTypedef
-  , weaken
     -- * Names
   , C.Name(..)
   , C.TypeNamespace(..)
@@ -276,21 +279,22 @@ data CheckedMacroType = CheckedMacroType {
   Types
 -------------------------------------------------------------------------------}
 
-type Type = TypeF Full
-
--- | Type use
+-- | C types
 --
 -- For type /declarations/ see 'Decl'.
-data TypeF f =
+type Type = FullType
+
+-- | C types in Trees That Shrink style
+data TypeF p =
     TypePrim C.PrimType
   | TypeStruct NamePair C.NameOrigin
   | TypeUnion NamePair C.NameOrigin
   | TypeEnum NamePair C.NameOrigin
-  | TypeTypedef (f TypedefRef)
+  | TypeTypedef (TypedefRefF p)
   | TypeMacroTypedef NamePair C.NameOrigin
-  | TypePointer (TypeF f)
-  | TypeConstArray Natural (TypeF f)
-  | TypeFun [TypeF f] (TypeF f)
+  | TypePointer (TypeF p)
+  | TypeConstArray Natural (TypeF p)
+  | TypeFun [TypeF p] (TypeF p)
   | TypeVoid
 
     -- | Arrays of unknown size
@@ -307,15 +311,18 @@ data TypeF f =
     -- We treat the FLAM case separately.
     --
     -- See <https://en.cppreference.com/w/c/language/array#Arrays_of_unknown_size>
-  | TypeIncompleteArray (TypeF f)
-  | TypeBlock (TypeF f)
-  | TypeConst (TypeF f)
+  | TypeIncompleteArray (TypeF p)
+  | TypeBlock (TypeF p)
+  | TypeQualified (TypeQualifierF p) (TypeF p)
   | TypeExtBinding ResolveBindingSpec.ResolvedExtBinding
   | TypeComplex C.PrimType
   deriving stock Generic
 
-deriving stock instance (forall a. Show a => Show (f a)) => Show (TypeF f)
-deriving stock instance (forall a. Eq a => Eq (f a)) => Eq (TypeF f)
+deriving stock instance (Show (TypedefRefF p), Show (TypeQualifierF p))  => Show (TypeF p)
+deriving stock instance (Eq (TypedefRefF p), Eq (TypeQualifierF p))  => Eq (TypeF p)
+
+data TypeQualifier = TypeQualifierConst
+  deriving stock (Show, Eq, Generic)
 
 data TypedefRef =
     TypedefRegular NamePair
@@ -326,55 +333,120 @@ isVoid :: Type -> Bool
 isVoid TypeVoid = True
 isVoid _        = False
 
-data Full a = Full a
-  deriving stock (Show, Eq, Generic)
+-- | Is the erased type @const@-qualified?
+isErasedConstQualifiedType :: GetErasedType ctx t => ctx -> t -> Bool
+isErasedConstQualifiedType env ty = case getErasedType env ty of
+    -- Types can be directly @const@-qualified,
+    TypeQualified TypeQualifierConst _ -> True
+    -- but arrays are also @const@-qualified if their element type is,
+    TypeConstArray _ (TypeQualified TypeQualifierConst _) -> True
+    TypeIncompleteArray (TypeQualified TypeQualifierConst _) -> True
+    -- and otherwise, the type is not considered to be @const@-qualified.
+    _ -> False
 
-data NoTypedefs a
+-- | Is the canonical type a function type?
+isCanonicalFunctionType :: GetCanonicalType ctx t => ctx -> t -> Bool
+isCanonicalFunctionType env ty = case getCanonicalType env ty of
+    TypeFun{} -> True
+    _ -> False
 
-weaken :: TypeF NoTypedefs -> Type
-weaken = go
-  where
-    go :: TypeF NoTypedefs -> Type
-    go ty = case ty of
-      TypePrim pt -> TypePrim pt
-      TypeStruct np no -> TypeStruct np no
-      TypeUnion np no -> TypeUnion np no
-      TypeEnum np no -> TypeEnum np no
-      TypeTypedef x -> case x of {}
-      TypeMacroTypedef np no -> TypeEnum np no
-      TypePointer t -> TypePointer $ go t
-      TypeConstArray n t -> TypeConstArray n $ go t
-      TypeFun args res -> TypeFun (go <$> args) (go res)
-      TypeVoid -> TypeVoid
-      TypeIncompleteArray t -> TypeIncompleteArray (go t)
-      TypeBlock t -> TypeBlock (go t)
-      TypeConst t -> TypeConst (go t)
-      TypeExtBinding reb -> TypeExtBinding reb
-      TypeComplex pt -> TypeComplex pt
+{-------------------------------------------------------------------------------
+  Types: Trees That Shrink
 
--- | Erase all typedefs in the given type
-eraseTypedefsRec :: Map C.Name Type -> Type -> TypeF NoTypedefs
-eraseTypedefsRec env = go
-  where
-    go ty = case ty of
-      TypePrim pt -> TypePrim pt
-      TypeStruct np no -> TypeStruct np no
-      TypeUnion np no -> TypeUnion np no
-      TypeEnum np no -> TypeEnum np no
-      TypeTypedef (Full tdr) -> go (eraseTypedef env tdr)
-      TypeMacroTypedef np no -> TypeEnum np no
-      TypePointer t -> TypePointer $ go t
-      TypeConstArray n t -> TypeConstArray n $ go t
-      TypeFun args res -> TypeFun (go <$> args) (go res)
-      TypeVoid -> TypeVoid
-      TypeIncompleteArray t -> TypeIncompleteArray (go t)
-      TypeBlock t -> TypeBlock (go t)
-      TypeConst t -> TypeConst (go t)
-      TypeExtBinding reb -> TypeExtBinding reb
-      TypeComplex pt -> TypeComplex pt
+  Trees That Grow, but used as Trees That Shrink. Setting these type families to
+  'Void' makes it impossible to construct or match on some of the constructors
+  in the 'TypeF' datatype.
+-------------------------------------------------------------------------------}
 
-eraseTypedefsRecEnvironment :: Map C.Name Type -> Map C.Name (TypeF NoTypedefs)
-eraseTypedefsRecEnvironment env = Map.map (eraseTypedefsRec env) env
+type family TypedefRefF p :: Star
+type family TypeQualifierF p :: Star
+
+-- | A full C type includes all C type constructs.
+type FullType = TypeF Full
+data Full
+type instance TypedefRefF Full = TypedefRef
+type instance TypeQualifierF Full = TypeQualifier
+
+-- | An /erased/ C type is a C type without @typedef@s.
+type ErasedType = TypeF Erased
+data Erased
+type instance TypedefRefF Erased = Void
+type instance TypeQualifierF Erased = TypeQualifier
+
+-- | A /canonical/ C type is a C type with all sugar removed, such as @typedef@s
+-- and type qualifiers like @const@.
+type CanonicalType = TypeF Canonical
+data Canonical
+type instance TypedefRefF Canonical = Void
+type instance TypeQualifierF Canonical = Void
+
+-- | Erase @typedef@s
+--
+-- Note: the algorithm to erase @typedef@s is simple. Replace any references to
+-- @typedef@s we find by the definitions of these @typedef@s (if they are in
+-- scope). The @typedef@ definitions that we inline this way can contain
+-- references to other @typedef@s, but they can not construct infinitely long
+-- types, so this algorithm will terminate sooner or later. In practice,
+-- @typedef@ "chains" are probably not that long, so we do not expect this
+-- algorithm to have problematic performance.
+class GetErasedType ctx t where
+  -- | Obtain the /erased/ version of the given type
+  getErasedType :: ctx -> t -> ErasedType
+
+instance GetErasedType ctx ErasedType where
+  getErasedType _ = id
+
+instance GetErasedType (Map C.Name Type) Type where
+  getErasedType env = go
+    where
+      go ty = case ty of
+        TypePrim pt -> TypePrim pt
+        TypeStruct np no -> TypeStruct np no
+        TypeUnion np no -> TypeUnion np no
+        TypeEnum np no -> TypeEnum np no
+        TypeTypedef ref -> go (eraseTypedef env ref)
+        TypeMacroTypedef np no -> TypeMacroTypedef np no
+        TypePointer t -> TypePointer $ go t
+        TypeConstArray n t -> TypeConstArray n $ go t
+        TypeFun args res -> TypeFun (go <$> args) (go res)
+        TypeVoid -> TypeVoid
+        TypeIncompleteArray t -> TypeIncompleteArray (go t)
+        TypeBlock t -> TypeBlock (go t)
+        TypeQualified q t -> TypeQualified q (go t)
+        TypeExtBinding reb -> TypeExtBinding reb
+        TypeComplex pt -> TypeComplex pt
+
+-- | Note: canonicalise types.
+--
+-- The algorithm to canonicalise types performs the same @typedef@ erasure that
+-- we perform in 'GetErasedType'. Along the way, any type qualifiers like
+-- @const@ are also removed.
+class GetCanonicalType ctx t where
+  -- | Obtain the /canonical/ version of the given type
+  getCanonicalType :: ctx -> t -> CanonicalType
+
+instance GetCanonicalType ctx CanonicalType where
+  getCanonicalType _ = id
+
+instance GetCanonicalType (Map C.Name Type) Type where
+  getCanonicalType env = go
+    where
+      go ty = case ty of
+        TypePrim pt -> TypePrim pt
+        TypeStruct np no -> TypeStruct np no
+        TypeUnion np no -> TypeUnion np no
+        TypeEnum np no -> TypeEnum np no
+        TypeTypedef ref -> go (eraseTypedef env ref)
+        TypeMacroTypedef np no -> TypeMacroTypedef np no
+        TypePointer t -> TypePointer $ go t
+        TypeConstArray n t -> TypeConstArray n $ go t
+        TypeFun args res -> TypeFun (go <$> args) (go res)
+        TypeVoid -> TypeVoid
+        TypeIncompleteArray t -> TypeIncompleteArray (go t)
+        TypeBlock t -> TypeBlock (go t)
+        TypeQualified _q t -> go t
+        TypeExtBinding reb -> TypeExtBinding reb
+        TypeComplex pt -> TypeComplex pt
 
 -- | Erase one layer of a typedef
 --

@@ -1090,12 +1090,11 @@
             typedefType = TypeConstArray
               3
               (TypeTypedef
-                (Full
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name "triplet",
-                      nameHsIdent = Identifier
-                        "Triplet"})))},
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "triplet",
+                    nameHsIdent = Identifier
+                      "Triplet"}))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -1271,12 +1270,11 @@
                   nameC = Name "xs",
                   nameHsIdent = Identifier "xs"})
               (TypeTypedef
-                (Full
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name "triplet",
-                      nameHsIdent = Identifier
-                        "Triplet"})))],
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "triplet",
+                    nameHsIdent = Identifier
+                      "Triplet"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1401,12 +1399,11 @@
                   nameC = Name "xs",
                   nameHsIdent = Identifier "xs"})
               (TypeTypedef
-                (Full
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name "list",
-                      nameHsIdent = Identifier
-                        "List"})))],
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "list",
+                    nameHsIdent = Identifier
+                      "List"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1538,12 +1535,11 @@
                   nameC = Name "xss",
                   nameHsIdent = Identifier "xss"})
               (TypeTypedef
-                (Full
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name "matrix",
-                      nameHsIdent = Identifier
-                        "Matrix"})))],
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "matrix",
+                    nameHsIdent = Identifier
+                      "Matrix"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1674,12 +1670,11 @@
                   nameC = Name "xss",
                   nameHsIdent = Identifier "xss"})
               (TypeTypedef
-                (Full
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name "tripletlist",
-                      nameHsIdent = Identifier
-                        "Tripletlist"})))],
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "tripletlist",
+                    nameHsIdent = Identifier
+                      "Tripletlist"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1743,12 +1738,11 @@
                   nameC = Name "xss",
                   nameHsIdent = Identifier "xss"})
               (TypeTypedef
-                (Full
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name "sudoku",
-                      nameHsIdent = Identifier
-                        "Sudoku"})))],
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "sudoku",
+                    nameHsIdent = Identifier
+                      "Sudoku"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1851,12 +1845,11 @@
             ImpureFunction,
           functionRes = TypePointer
             (TypeTypedef
-              (Full
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "triplet",
-                    nameHsIdent = Identifier
-                      "Triplet"})))},
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "triplet",
+                  nameHsIdent = Identifier
+                    "Triplet"}))},
       foreignImportComment = Just
         Comment {
           commentTitle = Just
@@ -1951,12 +1944,11 @@
             ImpureFunction,
           functionRes = TypePointer
             (TypeTypedef
-              (Full
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "list",
-                    nameHsIdent = Identifier
-                      "List"})))},
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "list",
+                  nameHsIdent = Identifier
+                    "List"}))},
       foreignImportComment = Just
         Comment {
           commentTitle = Just
@@ -2057,12 +2049,11 @@
             ImpureFunction,
           functionRes = TypePointer
             (TypeTypedef
-              (Full
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "matrix",
-                    nameHsIdent = Identifier
-                      "Matrix"})))},
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "matrix",
+                  nameHsIdent = Identifier
+                    "Matrix"}))},
       foreignImportComment = Just
         Comment {
           commentTitle = Just
@@ -2161,12 +2152,11 @@
             ImpureFunction,
           functionRes = TypePointer
             (TypeTypedef
-              (Full
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "tripletlist",
-                    nameHsIdent = Identifier
-                      "Tripletlist"})))},
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "tripletlist",
+                  nameHsIdent = Identifier
+                    "Tripletlist"}))},
       foreignImportComment = Just
         Comment {
           commentTitle = Just
@@ -2213,12 +2203,11 @@
             ImpureFunction,
           functionRes = TypePointer
             (TypeTypedef
-              (Full
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "sudoku",
-                    nameHsIdent = Identifier
-                      "Sudoku"})))},
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "sudoku",
+                  nameHsIdent = Identifier
+                    "Sudoku"}))},
       foreignImportComment = Just
         Comment {
           commentTitle = Just
@@ -2357,12 +2346,11 @@
                   nameC = Name "xs",
                   nameHsIdent = Identifier "xs"})
               (TypeTypedef
-                (Full
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name "triplet",
-                      nameHsIdent = Identifier
-                        "Triplet"})))],
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "triplet",
+                    nameHsIdent = Identifier
+                      "Triplet"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -2487,12 +2475,11 @@
                   nameC = Name "xs",
                   nameHsIdent = Identifier "xs"})
               (TypeTypedef
-                (Full
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name "list",
-                      nameHsIdent = Identifier
-                        "List"})))],
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "list",
+                    nameHsIdent = Identifier
+                      "List"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -2624,12 +2611,11 @@
                   nameC = Name "xss",
                   nameHsIdent = Identifier "xss"})
               (TypeTypedef
-                (Full
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name "matrix",
-                      nameHsIdent = Identifier
-                        "Matrix"})))],
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "matrix",
+                    nameHsIdent = Identifier
+                      "Matrix"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -2760,12 +2746,11 @@
                   nameC = Name "xss",
                   nameHsIdent = Identifier "xss"})
               (TypeTypedef
-                (Full
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name "tripletlist",
-                      nameHsIdent = Identifier
-                        "Tripletlist"})))],
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "tripletlist",
+                    nameHsIdent = Identifier
+                      "Tripletlist"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -2829,12 +2814,11 @@
                   nameC = Name "xss",
                   nameHsIdent = Identifier "xss"})
               (TypeTypedef
-                (Full
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name "sudoku",
-                      nameHsIdent = Identifier
-                        "Sudoku"})))],
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "sudoku",
+                    nameHsIdent = Identifier
+                      "Sudoku"}))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -2937,12 +2921,11 @@
             ImpureFunction,
           functionRes = TypePointer
             (TypeTypedef
-              (Full
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "triplet",
-                    nameHsIdent = Identifier
-                      "Triplet"})))},
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "triplet",
+                  nameHsIdent = Identifier
+                    "Triplet"}))},
       foreignImportComment = Just
         Comment {
           commentTitle = Just
@@ -3037,12 +3020,11 @@
             ImpureFunction,
           functionRes = TypePointer
             (TypeTypedef
-              (Full
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "list",
-                    nameHsIdent = Identifier
-                      "List"})))},
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "list",
+                  nameHsIdent = Identifier
+                    "List"}))},
       foreignImportComment = Just
         Comment {
           commentTitle = Just
@@ -3143,12 +3125,11 @@
             ImpureFunction,
           functionRes = TypePointer
             (TypeTypedef
-              (Full
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "matrix",
-                    nameHsIdent = Identifier
-                      "Matrix"})))},
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "matrix",
+                  nameHsIdent = Identifier
+                    "Matrix"}))},
       foreignImportComment = Just
         Comment {
           commentTitle = Just
@@ -3247,12 +3228,11 @@
             ImpureFunction,
           functionRes = TypePointer
             (TypeTypedef
-              (Full
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "tripletlist",
-                    nameHsIdent = Identifier
-                      "Tripletlist"})))},
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "tripletlist",
+                  nameHsIdent = Identifier
+                    "Tripletlist"}))},
       foreignImportComment = Just
         Comment {
           commentTitle = Just
@@ -3299,12 +3279,11 @@
             ImpureFunction,
           functionRes = TypePointer
             (TypeTypedef
-              (Full
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "sudoku",
-                    nameHsIdent = Identifier
-                      "Sudoku"})))},
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "sudoku",
+                  nameHsIdent = Identifier
+                    "Sudoku"}))},
       foreignImportComment = Just
         Comment {
           commentTitle = Just
@@ -3391,12 +3370,11 @@
         (TypeFun
           [
             TypeTypedef
-              (Full
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "triplet",
-                    nameHsIdent = Identifier
-                      "Triplet"}))]
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "triplet",
+                  nameHsIdent = Identifier
+                    "Triplet"})]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       foreignImportComment = Nothing,
@@ -3465,12 +3443,11 @@
         (TypeFun
           [
             TypeTypedef
-              (Full
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "list",
-                    nameHsIdent = Identifier
-                      "List"}))]
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "list",
+                  nameHsIdent = Identifier
+                    "List"})]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       foreignImportComment = Nothing,
@@ -3545,12 +3522,11 @@
         (TypeFun
           [
             TypeTypedef
-              (Full
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "matrix",
-                    nameHsIdent = Identifier
-                      "Matrix"}))]
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "matrix",
+                  nameHsIdent = Identifier
+                    "Matrix"})]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       foreignImportComment = Nothing,
@@ -3625,12 +3601,11 @@
         (TypeFun
           [
             TypeTypedef
-              (Full
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "tripletlist",
-                    nameHsIdent = Identifier
-                      "Tripletlist"}))]
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "tripletlist",
+                  nameHsIdent = Identifier
+                    "Tripletlist"})]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       foreignImportComment = Nothing,
@@ -3664,12 +3639,11 @@
         (TypeFun
           [
             TypeTypedef
-              (Full
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "sudoku",
-                    nameHsIdent = Identifier
-                      "Sudoku"}))]
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "sudoku",
+                  nameHsIdent = Identifier
+                    "Sudoku"})]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       foreignImportComment = Nothing,
@@ -3742,12 +3716,11 @@
           []
           (TypePointer
             (TypeTypedef
-              (Full
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "triplet",
-                    nameHsIdent = Identifier
-                      "Triplet"}))))),
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "triplet",
+                  nameHsIdent = Identifier
+                    "Triplet"})))),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -3816,12 +3789,11 @@
           []
           (TypePointer
             (TypeTypedef
-              (Full
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "list",
-                    nameHsIdent = Identifier
-                      "List"}))))),
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "list",
+                  nameHsIdent = Identifier
+                    "List"})))),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -3896,12 +3868,11 @@
           []
           (TypePointer
             (TypeTypedef
-              (Full
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "matrix",
-                    nameHsIdent = Identifier
-                      "Matrix"}))))),
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "matrix",
+                  nameHsIdent = Identifier
+                    "Matrix"})))),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -3974,12 +3945,11 @@
           []
           (TypePointer
             (TypeTypedef
-              (Full
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "tripletlist",
-                    nameHsIdent = Identifier
-                      "Tripletlist"}))))),
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "tripletlist",
+                  nameHsIdent = Identifier
+                    "Tripletlist"})))),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -4013,12 +3983,11 @@
           []
           (TypePointer
             (TypeTypedef
-              (Full
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "sudoku",
-                    nameHsIdent = Identifier
-                      "Sudoku"}))))),
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "sudoku",
+                  nameHsIdent = Identifier
+                    "Sudoku"})))),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -4255,12 +4224,11 @@
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeTypedef
-          (Full
-            (TypedefRegular
-              NamePair {
-                nameC = Name "triplet",
-                nameHsIdent = Identifier
-                  "Triplet"}))),
+          (TypedefRegular
+            NamePair {
+              nameC = Name "triplet",
+              nameHsIdent = Identifier
+                "Triplet"})),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -4317,12 +4285,11 @@
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeTypedef
-          (Full
-            (TypedefRegular
-              NamePair {
-                nameC = Name "list",
-                nameHsIdent = Identifier
-                  "List"}))),
+          (TypedefRegular
+            NamePair {
+              nameC = Name "list",
+              nameHsIdent = Identifier
+                "List"})),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -4387,12 +4354,11 @@
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeTypedef
-          (Full
-            (TypedefRegular
-              NamePair {
-                nameC = Name "matrix",
-                nameHsIdent = Identifier
-                  "Matrix"}))),
+          (TypedefRegular
+            NamePair {
+              nameC = Name "matrix",
+              nameHsIdent = Identifier
+                "Matrix"})),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -4455,12 +4421,11 @@
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeTypedef
-          (Full
-            (TypedefRegular
-              NamePair {
-                nameC = Name "tripletlist",
-                nameHsIdent = Identifier
-                  "Tripletlist"}))),
+          (TypedefRegular
+            NamePair {
+              nameC = Name "tripletlist",
+              nameHsIdent = Identifier
+                "Tripletlist"})),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,

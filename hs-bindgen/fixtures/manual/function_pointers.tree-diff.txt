@@ -332,7 +332,8 @@ TranslationUnit {
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeConst
+          functionRes = TypeQualified
+            TypeQualifierConst
             (TypePointer
               (TypeFun
                 [
@@ -382,7 +383,8 @@ TranslationUnit {
                   TextContent
                     "A global variable pointing to a function like apply1_nopointer()."]])},
       declKind = DeclGlobal
-        (TypeConst
+        (TypeQualified
+          TypeQualifierConst
           (TypePointer
             (TypeFun
               [
@@ -449,7 +451,8 @@ TranslationUnit {
                   nameHsIdent = Identifier
                     "apply1Struct_apply1_nopointer_struct_field"},
                 fieldComment = Nothing},
-              structFieldType = TypeConst
+              structFieldType = TypeQualified
+                TypeQualifierConst
                 (TypePointer
                   (TypeFun
                     [
@@ -493,7 +496,8 @@ TranslationUnit {
             "manual/function_pointers.h"},
         declComment = Nothing},
       declKind = DeclGlobal
-        (TypeConst
+        (TypeQualified
+          TypeQualifierConst
           (TypeStruct
             NamePair {
               nameC = Name "Apply1Struct",
@@ -553,7 +557,8 @@ TranslationUnit {
                   nameHsIdent = Identifier
                     "apply1Union_apply1_nopointer_union_field"},
                 fieldComment = Nothing},
-              unionFieldType = TypeConst
+              unionFieldType = TypeQualified
+                TypeQualifierConst
                 (TypePointer
                   (TypeFun
                     [
@@ -594,7 +599,8 @@ TranslationUnit {
             "manual/function_pointers.h"},
         declComment = Nothing},
       declKind = DeclGlobal
-        (TypeConst
+        (TypeQualified
+          TypeQualifierConst
           (TypeUnion
             NamePair {
               nameC = Name "Apply1Union",

@@ -1911,13 +1911,12 @@
                 "un_Funptr_typedef1"},
             typedefType = TypePointer
               (TypeTypedef
-                (Full
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name
-                        "funptr_typedef1_Deref",
-                      nameHsIdent = Identifier
-                        "Funptr_typedef1_Deref"})))},
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name
+                      "funptr_typedef1_Deref",
+                    nameHsIdent = Identifier
+                      "Funptr_typedef1_Deref"}))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -2214,13 +2213,12 @@
                 "un_Funptr_typedef2"},
             typedefType = TypePointer
               (TypeTypedef
-                (Full
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name
-                        "funptr_typedef2_Deref",
-                      nameHsIdent = Identifier
-                        "Funptr_typedef2_Deref"})))},
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name
+                      "funptr_typedef2_Deref",
+                    nameHsIdent = Identifier
+                      "Funptr_typedef2_Deref"}))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -2521,13 +2519,12 @@
                 "un_Funptr_typedef3"},
             typedefType = TypePointer
               (TypeTypedef
-                (Full
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name
-                        "funptr_typedef3_Deref",
-                      nameHsIdent = Identifier
-                        "Funptr_typedef3_Deref"})))},
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name
+                      "funptr_typedef3_Deref",
+                    nameHsIdent = Identifier
+                      "Funptr_typedef3_Deref"}))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -2836,13 +2833,12 @@
                 "un_Funptr_typedef4"},
             typedefType = TypePointer
               (TypeTypedef
-                (Full
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name
-                        "funptr_typedef4_Deref",
-                      nameHsIdent = Identifier
-                        "Funptr_typedef4_Deref"})))},
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name
+                      "funptr_typedef4_Deref",
+                    nameHsIdent = Identifier
+                      "Funptr_typedef4_Deref"}))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -3155,13 +3151,12 @@
                 "un_Funptr_typedef5"},
             typedefType = TypePointer
               (TypeTypedef
-                (Full
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name
-                        "funptr_typedef5_Deref",
-                      nameHsIdent = Identifier
-                        "Funptr_typedef5_Deref"})))},
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name
+                      "funptr_typedef5_Deref",
+                    nameHsIdent = Identifier
+                      "Funptr_typedef5_Deref"}))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -4402,7 +4397,8 @@
               newtypeField = Name
                 "@NsVar"
                 "un_Const_typedef1"},
-            typedefType = TypeConst
+            typedefType = TypeQualified
+              TypeQualifierConst
               (TypeMacroTypedef
                 NamePair {
                   nameC = Name "A",
@@ -4613,7 +4609,8 @@
               newtypeField = Name
                 "@NsVar"
                 "un_Const_typedef2"},
-            typedefType = TypeConst
+            typedefType = TypeQualified
+              TypeQualifierConst
               (TypeMacroTypedef
                 NamePair {
                   nameC = Name "A",
@@ -4826,7 +4823,8 @@
                 "@NsVar"
                 "un_Const_typedef3"},
             typedefType = TypePointer
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypeMacroTypedef
                   NamePair {
                     nameC = Name "A",
@@ -4935,7 +4933,8 @@
                 "@NsVar"
                 "un_Const_typedef4"},
             typedefType = TypePointer
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypeMacroTypedef
                   NamePair {
                     nameC = Name "A",
@@ -5043,7 +5042,8 @@
               newtypeField = Name
                 "@NsVar"
                 "un_Const_typedef5"},
-            typedefType = TypeConst
+            typedefType = TypeQualified
+              TypeQualifierConst
               (TypePointer
                 (TypeMacroTypedef
                   NamePair {
@@ -5152,9 +5152,11 @@
               newtypeField = Name
                 "@NsVar"
                 "un_Const_typedef6"},
-            typedefType = TypeConst
+            typedefType = TypeQualified
+              TypeQualifierConst
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypeMacroTypedef
                     NamePair {
                       nameC = Name "A",
@@ -5262,9 +5264,11 @@
               newtypeField = Name
                 "@NsVar"
                 "un_Const_typedef7"},
-            typedefType = TypeConst
+            typedefType = TypeQualified
+              TypeQualifierConst
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypeMacroTypedef
                     NamePair {
                       nameC = Name "A",
@@ -5355,7 +5359,8 @@
                   nameHsIdent = Identifier
                     "example_struct_with_const_const_field1"},
                 fieldComment = Nothing},
-              structFieldType = TypeConst
+              structFieldType = TypeQualified
+                TypeQualifierConst
                 (TypeMacroTypedef
                   NamePair {
                     nameC = Name "A",
@@ -5391,7 +5396,8 @@
                   nameHsIdent = Identifier
                     "example_struct_with_const_const_field2"},
                 fieldComment = Nothing},
-              structFieldType = TypeConst
+              structFieldType = TypeQualified
+                TypeQualifierConst
                 (TypeMacroTypedef
                   NamePair {
                     nameC = Name "A",
@@ -5429,7 +5435,8 @@
                     "example_struct_with_const_const_field3"},
                 fieldComment = Nothing},
               structFieldType = TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypeMacroTypedef
                     NamePair {
                       nameC = Name "A",
@@ -5467,7 +5474,8 @@
                     "example_struct_with_const_const_field4"},
                 fieldComment = Nothing},
               structFieldType = TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypeMacroTypedef
                     NamePair {
                       nameC = Name "A",
@@ -5504,7 +5512,8 @@
                   nameHsIdent = Identifier
                     "example_struct_with_const_const_field5"},
                 fieldComment = Nothing},
-              structFieldType = TypeConst
+              structFieldType = TypeQualified
+                TypeQualifierConst
                 (TypePointer
                   (TypeMacroTypedef
                     NamePair {
@@ -5542,9 +5551,11 @@
                   nameHsIdent = Identifier
                     "example_struct_with_const_const_field6"},
                 fieldComment = Nothing},
-              structFieldType = TypeConst
+              structFieldType = TypeQualified
+                TypeQualifierConst
                 (TypePointer
-                  (TypeConst
+                  (TypeQualified
+                    TypeQualifierConst
                     (TypeMacroTypedef
                       NamePair {
                         nameC = Name "A",
@@ -5581,9 +5592,11 @@
                   nameHsIdent = Identifier
                     "example_struct_with_const_const_field7"},
                 fieldComment = Nothing},
-              structFieldType = TypeConst
+              structFieldType = TypeQualified
+                TypeQualifierConst
                 (TypePointer
-                  (TypeConst
+                  (TypeQualified
+                    TypeQualifierConst
                     (TypeMacroTypedef
                       NamePair {
                         nameC = Name "A",
@@ -5638,7 +5651,8 @@
                       nameHsIdent = Identifier
                         "example_struct_with_const_const_field1"},
                     fieldComment = Nothing},
-                  structFieldType = TypeConst
+                  structFieldType = TypeQualified
+                    TypeQualifierConst
                     (TypeMacroTypedef
                       NamePair {
                         nameC = Name "A",
@@ -5654,7 +5668,8 @@
                       nameHsIdent = Identifier
                         "example_struct_with_const_const_field2"},
                     fieldComment = Nothing},
-                  structFieldType = TypeConst
+                  structFieldType = TypeQualified
+                    TypeQualifierConst
                     (TypeMacroTypedef
                       NamePair {
                         nameC = Name "A",
@@ -5671,7 +5686,8 @@
                         "example_struct_with_const_const_field3"},
                     fieldComment = Nothing},
                   structFieldType = TypePointer
-                    (TypeConst
+                    (TypeQualified
+                      TypeQualifierConst
                       (TypeMacroTypedef
                         NamePair {
                           nameC = Name "A",
@@ -5688,7 +5704,8 @@
                         "example_struct_with_const_const_field4"},
                     fieldComment = Nothing},
                   structFieldType = TypePointer
-                    (TypeConst
+                    (TypeQualified
+                      TypeQualifierConst
                       (TypeMacroTypedef
                         NamePair {
                           nameC = Name "A",
@@ -5704,7 +5721,8 @@
                       nameHsIdent = Identifier
                         "example_struct_with_const_const_field5"},
                     fieldComment = Nothing},
-                  structFieldType = TypeConst
+                  structFieldType = TypeQualified
+                    TypeQualifierConst
                     (TypePointer
                       (TypeMacroTypedef
                         NamePair {
@@ -5721,9 +5739,11 @@
                       nameHsIdent = Identifier
                         "example_struct_with_const_const_field6"},
                     fieldComment = Nothing},
-                  structFieldType = TypeConst
+                  structFieldType = TypeQualified
+                    TypeQualifierConst
                     (TypePointer
-                      (TypeConst
+                      (TypeQualified
+                        TypeQualifierConst
                         (TypeMacroTypedef
                           NamePair {
                             nameC = Name "A",
@@ -5739,9 +5759,11 @@
                       nameHsIdent = Identifier
                         "example_struct_with_const_const_field7"},
                     fieldComment = Nothing},
-                  structFieldType = TypeConst
+                  structFieldType = TypeQualified
+                    TypeQualifierConst
                     (TypePointer
-                      (TypeConst
+                      (TypeQualified
+                        TypeQualifierConst
                         (TypeMacroTypedef
                           NamePair {
                             nameC = Name "A",
@@ -5798,7 +5820,8 @@
                       nameHsIdent = Identifier
                         "example_struct_with_const_const_field1"},
                     fieldComment = Nothing},
-                  structFieldType = TypeConst
+                  structFieldType = TypeQualified
+                    TypeQualifierConst
                     (TypeMacroTypedef
                       NamePair {
                         nameC = Name "A",
@@ -5834,7 +5857,8 @@
                       nameHsIdent = Identifier
                         "example_struct_with_const_const_field2"},
                     fieldComment = Nothing},
-                  structFieldType = TypeConst
+                  structFieldType = TypeQualified
+                    TypeQualifierConst
                     (TypeMacroTypedef
                       NamePair {
                         nameC = Name "A",
@@ -5872,7 +5896,8 @@
                         "example_struct_with_const_const_field3"},
                     fieldComment = Nothing},
                   structFieldType = TypePointer
-                    (TypeConst
+                    (TypeQualified
+                      TypeQualifierConst
                       (TypeMacroTypedef
                         NamePair {
                           nameC = Name "A",
@@ -5910,7 +5935,8 @@
                         "example_struct_with_const_const_field4"},
                     fieldComment = Nothing},
                   structFieldType = TypePointer
-                    (TypeConst
+                    (TypeQualified
+                      TypeQualifierConst
                       (TypeMacroTypedef
                         NamePair {
                           nameC = Name "A",
@@ -5947,7 +5973,8 @@
                       nameHsIdent = Identifier
                         "example_struct_with_const_const_field5"},
                     fieldComment = Nothing},
-                  structFieldType = TypeConst
+                  structFieldType = TypeQualified
+                    TypeQualifierConst
                     (TypePointer
                       (TypeMacroTypedef
                         NamePair {
@@ -5985,9 +6012,11 @@
                       nameHsIdent = Identifier
                         "example_struct_with_const_const_field6"},
                     fieldComment = Nothing},
-                  structFieldType = TypeConst
+                  structFieldType = TypeQualified
+                    TypeQualifierConst
                     (TypePointer
-                      (TypeConst
+                      (TypeQualified
+                        TypeQualifierConst
                         (TypeMacroTypedef
                           NamePair {
                             nameC = Name "A",
@@ -6024,9 +6053,11 @@
                       nameHsIdent = Identifier
                         "example_struct_with_const_const_field7"},
                     fieldComment = Nothing},
-                  structFieldType = TypeConst
+                  structFieldType = TypeQualified
+                    TypeQualifierConst
                     (TypePointer
-                      (TypeConst
+                      (TypeQualified
+                        TypeQualifierConst
                         (TypeMacroTypedef
                           NamePair {
                             nameC = Name "A",
@@ -6081,7 +6112,8 @@
                           nameHsIdent = Identifier
                             "example_struct_with_const_const_field1"},
                         fieldComment = Nothing},
-                      structFieldType = TypeConst
+                      structFieldType = TypeQualified
+                        TypeQualifierConst
                         (TypeMacroTypedef
                           NamePair {
                             nameC = Name "A",
@@ -6097,7 +6129,8 @@
                           nameHsIdent = Identifier
                             "example_struct_with_const_const_field2"},
                         fieldComment = Nothing},
-                      structFieldType = TypeConst
+                      structFieldType = TypeQualified
+                        TypeQualifierConst
                         (TypeMacroTypedef
                           NamePair {
                             nameC = Name "A",
@@ -6114,7 +6147,8 @@
                             "example_struct_with_const_const_field3"},
                         fieldComment = Nothing},
                       structFieldType = TypePointer
-                        (TypeConst
+                        (TypeQualified
+                          TypeQualifierConst
                           (TypeMacroTypedef
                             NamePair {
                               nameC = Name "A",
@@ -6131,7 +6165,8 @@
                             "example_struct_with_const_const_field4"},
                         fieldComment = Nothing},
                       structFieldType = TypePointer
-                        (TypeConst
+                        (TypeQualified
+                          TypeQualifierConst
                           (TypeMacroTypedef
                             NamePair {
                               nameC = Name "A",
@@ -6147,7 +6182,8 @@
                           nameHsIdent = Identifier
                             "example_struct_with_const_const_field5"},
                         fieldComment = Nothing},
-                      structFieldType = TypeConst
+                      structFieldType = TypeQualified
+                        TypeQualifierConst
                         (TypePointer
                           (TypeMacroTypedef
                             NamePair {
@@ -6164,9 +6200,11 @@
                           nameHsIdent = Identifier
                             "example_struct_with_const_const_field6"},
                         fieldComment = Nothing},
-                      structFieldType = TypeConst
+                      structFieldType = TypeQualified
+                        TypeQualifierConst
                         (TypePointer
-                          (TypeConst
+                          (TypeQualified
+                            TypeQualifierConst
                             (TypeMacroTypedef
                               NamePair {
                                 nameC = Name "A",
@@ -6182,9 +6220,11 @@
                           nameHsIdent = Identifier
                             "example_struct_with_const_const_field7"},
                         fieldComment = Nothing},
-                      structFieldType = TypeConst
+                      structFieldType = TypeQualified
+                        TypeQualifierConst
                         (TypePointer
-                          (TypeConst
+                          (TypeQualified
+                            TypeQualifierConst
                             (TypeMacroTypedef
                               NamePair {
                                 nameC = Name "A",
@@ -6244,7 +6284,8 @@
                               nameHsIdent = Identifier
                                 "example_struct_with_const_const_field1"},
                             fieldComment = Nothing},
-                          structFieldType = TypeConst
+                          structFieldType = TypeQualified
+                            TypeQualifierConst
                             (TypeMacroTypedef
                               NamePair {
                                 nameC = Name "A",
@@ -6280,7 +6321,8 @@
                               nameHsIdent = Identifier
                                 "example_struct_with_const_const_field2"},
                             fieldComment = Nothing},
-                          structFieldType = TypeConst
+                          structFieldType = TypeQualified
+                            TypeQualifierConst
                             (TypeMacroTypedef
                               NamePair {
                                 nameC = Name "A",
@@ -6318,7 +6360,8 @@
                                 "example_struct_with_const_const_field3"},
                             fieldComment = Nothing},
                           structFieldType = TypePointer
-                            (TypeConst
+                            (TypeQualified
+                              TypeQualifierConst
                               (TypeMacroTypedef
                                 NamePair {
                                   nameC = Name "A",
@@ -6356,7 +6399,8 @@
                                 "example_struct_with_const_const_field4"},
                             fieldComment = Nothing},
                           structFieldType = TypePointer
-                            (TypeConst
+                            (TypeQualified
+                              TypeQualifierConst
                               (TypeMacroTypedef
                                 NamePair {
                                   nameC = Name "A",
@@ -6393,7 +6437,8 @@
                               nameHsIdent = Identifier
                                 "example_struct_with_const_const_field5"},
                             fieldComment = Nothing},
-                          structFieldType = TypeConst
+                          structFieldType = TypeQualified
+                            TypeQualifierConst
                             (TypePointer
                               (TypeMacroTypedef
                                 NamePair {
@@ -6431,9 +6476,11 @@
                               nameHsIdent = Identifier
                                 "example_struct_with_const_const_field6"},
                             fieldComment = Nothing},
-                          structFieldType = TypeConst
+                          structFieldType = TypeQualified
+                            TypeQualifierConst
                             (TypePointer
-                              (TypeConst
+                              (TypeQualified
+                                TypeQualifierConst
                                 (TypeMacroTypedef
                                   NamePair {
                                     nameC = Name "A",
@@ -6470,9 +6517,11 @@
                               nameHsIdent = Identifier
                                 "example_struct_with_const_const_field7"},
                             fieldComment = Nothing},
-                          structFieldType = TypeConst
+                          structFieldType = TypeQualified
+                            TypeQualifierConst
                             (TypePointer
-                              (TypeConst
+                              (TypeQualified
+                                TypeQualifierConst
                                 (TypeMacroTypedef
                                   NamePair {
                                     nameC = Name "A",
@@ -6527,7 +6576,8 @@
                                   nameHsIdent = Identifier
                                     "example_struct_with_const_const_field1"},
                                 fieldComment = Nothing},
-                              structFieldType = TypeConst
+                              structFieldType = TypeQualified
+                                TypeQualifierConst
                                 (TypeMacroTypedef
                                   NamePair {
                                     nameC = Name "A",
@@ -6543,7 +6593,8 @@
                                   nameHsIdent = Identifier
                                     "example_struct_with_const_const_field2"},
                                 fieldComment = Nothing},
-                              structFieldType = TypeConst
+                              structFieldType = TypeQualified
+                                TypeQualifierConst
                                 (TypeMacroTypedef
                                   NamePair {
                                     nameC = Name "A",
@@ -6560,7 +6611,8 @@
                                     "example_struct_with_const_const_field3"},
                                 fieldComment = Nothing},
                               structFieldType = TypePointer
-                                (TypeConst
+                                (TypeQualified
+                                  TypeQualifierConst
                                   (TypeMacroTypedef
                                     NamePair {
                                       nameC = Name "A",
@@ -6577,7 +6629,8 @@
                                     "example_struct_with_const_const_field4"},
                                 fieldComment = Nothing},
                               structFieldType = TypePointer
-                                (TypeConst
+                                (TypeQualified
+                                  TypeQualifierConst
                                   (TypeMacroTypedef
                                     NamePair {
                                       nameC = Name "A",
@@ -6593,7 +6646,8 @@
                                   nameHsIdent = Identifier
                                     "example_struct_with_const_const_field5"},
                                 fieldComment = Nothing},
-                              structFieldType = TypeConst
+                              structFieldType = TypeQualified
+                                TypeQualifierConst
                                 (TypePointer
                                   (TypeMacroTypedef
                                     NamePair {
@@ -6610,9 +6664,11 @@
                                   nameHsIdent = Identifier
                                     "example_struct_with_const_const_field6"},
                                 fieldComment = Nothing},
-                              structFieldType = TypeConst
+                              structFieldType = TypeQualified
+                                TypeQualifierConst
                                 (TypePointer
-                                  (TypeConst
+                                  (TypeQualified
+                                    TypeQualifierConst
                                     (TypeMacroTypedef
                                       NamePair {
                                         nameC = Name "A",
@@ -6628,9 +6684,11 @@
                                   nameHsIdent = Identifier
                                     "example_struct_with_const_const_field7"},
                                 fieldComment = Nothing},
-                              structFieldType = TypeConst
+                              structFieldType = TypeQualified
+                                TypeQualifierConst
                                 (TypePointer
-                                  (TypeConst
+                                  (TypeQualified
+                                    TypeQualifierConst
                                     (TypeMacroTypedef
                                       NamePair {
                                         nameC = Name "A",
@@ -6697,7 +6755,8 @@
                               nameHsIdent = Identifier
                                 "example_struct_with_const_const_field1"},
                             fieldComment = Nothing},
-                          structFieldType = TypeConst
+                          structFieldType = TypeQualified
+                            TypeQualifierConst
                             (TypeMacroTypedef
                               NamePair {
                                 nameC = Name "A",
@@ -6733,7 +6792,8 @@
                               nameHsIdent = Identifier
                                 "example_struct_with_const_const_field2"},
                             fieldComment = Nothing},
-                          structFieldType = TypeConst
+                          structFieldType = TypeQualified
+                            TypeQualifierConst
                             (TypeMacroTypedef
                               NamePair {
                                 nameC = Name "A",
@@ -6771,7 +6831,8 @@
                                 "example_struct_with_const_const_field3"},
                             fieldComment = Nothing},
                           structFieldType = TypePointer
-                            (TypeConst
+                            (TypeQualified
+                              TypeQualifierConst
                               (TypeMacroTypedef
                                 NamePair {
                                   nameC = Name "A",
@@ -6809,7 +6870,8 @@
                                 "example_struct_with_const_const_field4"},
                             fieldComment = Nothing},
                           structFieldType = TypePointer
-                            (TypeConst
+                            (TypeQualified
+                              TypeQualifierConst
                               (TypeMacroTypedef
                                 NamePair {
                                   nameC = Name "A",
@@ -6846,7 +6908,8 @@
                               nameHsIdent = Identifier
                                 "example_struct_with_const_const_field5"},
                             fieldComment = Nothing},
-                          structFieldType = TypeConst
+                          structFieldType = TypeQualified
+                            TypeQualifierConst
                             (TypePointer
                               (TypeMacroTypedef
                                 NamePair {
@@ -6884,9 +6947,11 @@
                               nameHsIdent = Identifier
                                 "example_struct_with_const_const_field6"},
                             fieldComment = Nothing},
-                          structFieldType = TypeConst
+                          structFieldType = TypeQualified
+                            TypeQualifierConst
                             (TypePointer
-                              (TypeConst
+                              (TypeQualified
+                                TypeQualifierConst
                                 (TypeMacroTypedef
                                   NamePair {
                                     nameC = Name "A",
@@ -6923,9 +6988,11 @@
                               nameHsIdent = Identifier
                                 "example_struct_with_const_const_field7"},
                             fieldComment = Nothing},
-                          structFieldType = TypeConst
+                          structFieldType = TypeQualified
+                            TypeQualifierConst
                             (TypePointer
-                              (TypeConst
+                              (TypeQualified
+                                TypeQualifierConst
                                 (TypeMacroTypedef
                                   NamePair {
                                     nameC = Name "A",
@@ -6980,7 +7047,8 @@
                                   nameHsIdent = Identifier
                                     "example_struct_with_const_const_field1"},
                                 fieldComment = Nothing},
-                              structFieldType = TypeConst
+                              structFieldType = TypeQualified
+                                TypeQualifierConst
                                 (TypeMacroTypedef
                                   NamePair {
                                     nameC = Name "A",
@@ -6996,7 +7064,8 @@
                                   nameHsIdent = Identifier
                                     "example_struct_with_const_const_field2"},
                                 fieldComment = Nothing},
-                              structFieldType = TypeConst
+                              structFieldType = TypeQualified
+                                TypeQualifierConst
                                 (TypeMacroTypedef
                                   NamePair {
                                     nameC = Name "A",
@@ -7013,7 +7082,8 @@
                                     "example_struct_with_const_const_field3"},
                                 fieldComment = Nothing},
                               structFieldType = TypePointer
-                                (TypeConst
+                                (TypeQualified
+                                  TypeQualifierConst
                                   (TypeMacroTypedef
                                     NamePair {
                                       nameC = Name "A",
@@ -7030,7 +7100,8 @@
                                     "example_struct_with_const_const_field4"},
                                 fieldComment = Nothing},
                               structFieldType = TypePointer
-                                (TypeConst
+                                (TypeQualified
+                                  TypeQualifierConst
                                   (TypeMacroTypedef
                                     NamePair {
                                       nameC = Name "A",
@@ -7046,7 +7117,8 @@
                                   nameHsIdent = Identifier
                                     "example_struct_with_const_const_field5"},
                                 fieldComment = Nothing},
-                              structFieldType = TypeConst
+                              structFieldType = TypeQualified
+                                TypeQualifierConst
                                 (TypePointer
                                   (TypeMacroTypedef
                                     NamePair {
@@ -7063,9 +7135,11 @@
                                   nameHsIdent = Identifier
                                     "example_struct_with_const_const_field6"},
                                 fieldComment = Nothing},
-                              structFieldType = TypeConst
+                              structFieldType = TypeQualified
+                                TypeQualifierConst
                                 (TypePointer
-                                  (TypeConst
+                                  (TypeQualified
+                                    TypeQualifierConst
                                     (TypeMacroTypedef
                                       NamePair {
                                         nameC = Name "A",
@@ -7081,9 +7155,11 @@
                                   nameHsIdent = Identifier
                                     "example_struct_with_const_const_field7"},
                                 fieldComment = Nothing},
-                              structFieldType = TypeConst
+                              structFieldType = TypeQualified
+                                TypeQualifierConst
                                 (TypePointer
-                                  (TypeConst
+                                  (TypeQualified
+                                    TypeQualifierConst
                                     (TypeMacroTypedef
                                       NamePair {
                                         nameC = Name "A",
@@ -7213,7 +7289,8 @@
                   (PrimIntegral PrimInt Signed),
                 TypePrim
                   (PrimFloating PrimDouble)]
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypeMacroTypedef
                   NamePair {
                     nameC = Name "A",
@@ -7276,7 +7353,8 @@
               (PrimIntegral PrimInt Signed),
             TypePrim
               (PrimFloating PrimDouble)]
-          (TypeConst
+          (TypeQualified
+            TypeQualifierConst
             (TypeMacroTypedef
               NamePair {
                 nameC = Name "A",
@@ -7316,7 +7394,8 @@
               (PrimIntegral PrimInt Signed),
             TypePrim
               (PrimFloating PrimDouble)]
-          (TypeConst
+          (TypeQualified
+            TypeQualifierConst
             (TypeMacroTypedef
               NamePair {
                 nameC = Name "A",
@@ -7398,13 +7477,12 @@
                 "un_Const_funptr1"},
             typedefType = TypePointer
               (TypeTypedef
-                (Full
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name
-                        "const_funptr1_Deref",
-                      nameHsIdent = Identifier
-                        "Const_funptr1_Deref"})))},
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name
+                      "const_funptr1_Deref",
+                    nameHsIdent = Identifier
+                      "Const_funptr1_Deref"}))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -7531,7 +7609,8 @@
                   (PrimIntegral PrimInt Signed),
                 TypePrim
                   (PrimFloating PrimDouble)]
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypeMacroTypedef
                   NamePair {
                     nameC = Name "A",
@@ -7594,7 +7673,8 @@
               (PrimIntegral PrimInt Signed),
             TypePrim
               (PrimFloating PrimDouble)]
-          (TypeConst
+          (TypeQualified
+            TypeQualifierConst
             (TypeMacroTypedef
               NamePair {
                 nameC = Name "A",
@@ -7634,7 +7714,8 @@
               (PrimIntegral PrimInt Signed),
             TypePrim
               (PrimFloating PrimDouble)]
-          (TypeConst
+          (TypeQualified
+            TypeQualifierConst
             (TypeMacroTypedef
               NamePair {
                 nameC = Name "A",
@@ -7716,13 +7797,12 @@
                 "un_Const_funptr2"},
             typedefType = TypePointer
               (TypeTypedef
-                (Full
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name
-                        "const_funptr2_Deref",
-                      nameHsIdent = Identifier
-                        "Const_funptr2_Deref"})))},
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name
+                      "const_funptr2_Deref",
+                    nameHsIdent = Identifier
+                      "Const_funptr2_Deref"}))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -7851,7 +7931,8 @@
                 TypePrim
                   (PrimFloating PrimDouble)]
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypeMacroTypedef
                     NamePair {
                       nameC = Name "A",
@@ -7915,7 +7996,8 @@
             TypePrim
               (PrimFloating PrimDouble)]
           (TypePointer
-            (TypeConst
+            (TypeQualified
+              TypeQualifierConst
               (TypeMacroTypedef
                 NamePair {
                   nameC = Name "A",
@@ -7956,7 +8038,8 @@
             TypePrim
               (PrimFloating PrimDouble)]
           (TypePointer
-            (TypeConst
+            (TypeQualified
+              TypeQualifierConst
               (TypeMacroTypedef
                 NamePair {
                   nameC = Name "A",
@@ -8038,13 +8121,12 @@
                 "un_Const_funptr3"},
             typedefType = TypePointer
               (TypeTypedef
-                (Full
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name
-                        "const_funptr3_Deref",
-                      nameHsIdent = Identifier
-                        "Const_funptr3_Deref"})))},
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name
+                      "const_funptr3_Deref",
+                    nameHsIdent = Identifier
+                      "Const_funptr3_Deref"}))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -8173,7 +8255,8 @@
                 TypePrim
                   (PrimFloating PrimDouble)]
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypeMacroTypedef
                     NamePair {
                       nameC = Name "A",
@@ -8237,7 +8320,8 @@
             TypePrim
               (PrimFloating PrimDouble)]
           (TypePointer
-            (TypeConst
+            (TypeQualified
+              TypeQualifierConst
               (TypeMacroTypedef
                 NamePair {
                   nameC = Name "A",
@@ -8278,7 +8362,8 @@
             TypePrim
               (PrimFloating PrimDouble)]
           (TypePointer
-            (TypeConst
+            (TypeQualified
+              TypeQualifierConst
               (TypeMacroTypedef
                 NamePair {
                   nameC = Name "A",
@@ -8360,13 +8445,12 @@
                 "un_Const_funptr4"},
             typedefType = TypePointer
               (TypeTypedef
-                (Full
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name
-                        "const_funptr4_Deref",
-                      nameHsIdent = Identifier
-                        "Const_funptr4_Deref"})))},
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name
+                      "const_funptr4_Deref",
+                    nameHsIdent = Identifier
+                      "Const_funptr4_Deref"}))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -8494,7 +8578,8 @@
                   (PrimIntegral PrimInt Signed),
                 TypePrim
                   (PrimFloating PrimDouble)]
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePointer
                   (TypeMacroTypedef
                     NamePair {
@@ -8558,7 +8643,8 @@
               (PrimIntegral PrimInt Signed),
             TypePrim
               (PrimFloating PrimDouble)]
-          (TypeConst
+          (TypeQualified
+            TypeQualifierConst
             (TypePointer
               (TypeMacroTypedef
                 NamePair {
@@ -8599,7 +8685,8 @@
               (PrimIntegral PrimInt Signed),
             TypePrim
               (PrimFloating PrimDouble)]
-          (TypeConst
+          (TypeQualified
+            TypeQualifierConst
             (TypePointer
               (TypeMacroTypedef
                 NamePair {
@@ -8682,13 +8769,12 @@
                 "un_Const_funptr5"},
             typedefType = TypePointer
               (TypeTypedef
-                (Full
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name
-                        "const_funptr5_Deref",
-                      nameHsIdent = Identifier
-                        "Const_funptr5_Deref"})))},
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name
+                      "const_funptr5_Deref",
+                    nameHsIdent = Identifier
+                      "Const_funptr5_Deref"}))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -8816,9 +8902,11 @@
                   (PrimIntegral PrimInt Signed),
                 TypePrim
                   (PrimFloating PrimDouble)]
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePointer
-                  (TypeConst
+                  (TypeQualified
+                    TypeQualifierConst
                     (TypeMacroTypedef
                       NamePair {
                         nameC = Name "A",
@@ -8881,9 +8969,11 @@
               (PrimIntegral PrimInt Signed),
             TypePrim
               (PrimFloating PrimDouble)]
-          (TypeConst
+          (TypeQualified
+            TypeQualifierConst
             (TypePointer
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypeMacroTypedef
                   NamePair {
                     nameC = Name "A",
@@ -8923,9 +9013,11 @@
               (PrimIntegral PrimInt Signed),
             TypePrim
               (PrimFloating PrimDouble)]
-          (TypeConst
+          (TypeQualified
+            TypeQualifierConst
             (TypePointer
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypeMacroTypedef
                   NamePair {
                     nameC = Name "A",
@@ -9007,13 +9099,12 @@
                 "un_Const_funptr6"},
             typedefType = TypePointer
               (TypeTypedef
-                (Full
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name
-                        "const_funptr6_Deref",
-                      nameHsIdent = Identifier
-                        "Const_funptr6_Deref"})))},
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name
+                      "const_funptr6_Deref",
+                    nameHsIdent = Identifier
+                      "Const_funptr6_Deref"}))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -9141,9 +9232,11 @@
                   (PrimIntegral PrimInt Signed),
                 TypePrim
                   (PrimFloating PrimDouble)]
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePointer
-                  (TypeConst
+                  (TypeQualified
+                    TypeQualifierConst
                     (TypeMacroTypedef
                       NamePair {
                         nameC = Name "A",
@@ -9206,9 +9299,11 @@
               (PrimIntegral PrimInt Signed),
             TypePrim
               (PrimFloating PrimDouble)]
-          (TypeConst
+          (TypeQualified
+            TypeQualifierConst
             (TypePointer
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypeMacroTypedef
                   NamePair {
                     nameC = Name "A",
@@ -9248,9 +9343,11 @@
               (PrimIntegral PrimInt Signed),
             TypePrim
               (PrimFloating PrimDouble)]
-          (TypeConst
+          (TypeQualified
+            TypeQualifierConst
             (TypePointer
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypeMacroTypedef
                   NamePair {
                     nameC = Name "A",
@@ -9332,13 +9429,12 @@
                 "un_Const_funptr7"},
             typedefType = TypePointer
               (TypeTypedef
-                (Full
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name
-                        "const_funptr7_Deref",
-                      nameHsIdent = Identifier
-                        "Const_funptr7_Deref"})))},
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name
+                      "const_funptr7_Deref",
+                    nameHsIdent = Identifier
+                      "Const_funptr7_Deref"}))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -9953,9 +10049,11 @@
               newtypeField = Name
                 "@NsVar"
                 "un_INTCP"},
-            macroType = TypeConst
+            macroType = TypeQualified
+              TypeQualifierConst
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypePrim
                     (PrimIntegral
                       PrimInt
@@ -14752,7 +14850,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim
                   (PrimChar
                     (PrimSignImplicit Nothing))))],
@@ -14845,7 +14944,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim
                   (PrimChar
                     (PrimSignExplicit Signed))))],
@@ -14929,7 +15029,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim
                   (PrimChar
                     (PrimSignExplicit Unsigned))))],
@@ -15013,7 +15114,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim
                   (PrimChar
                     (PrimSignImplicit Nothing))))],
@@ -15097,7 +15199,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim
                   (PrimChar
                     (PrimSignExplicit Signed))))],
@@ -15181,7 +15284,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim
                   (PrimChar
                     (PrimSignExplicit Unsigned))))],
@@ -15265,7 +15369,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim
                   (PrimFloating PrimFloat)))],
           functionAttrs =
@@ -15348,7 +15453,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim
                   (PrimFloating PrimDouble)))],
           functionAttrs =
@@ -15431,7 +15537,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim PrimBool))],
           functionAttrs =
           FunctionAttributes
@@ -15515,7 +15622,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypeStruct
                   NamePair {
                     nameC = Name "some_struct",
@@ -15604,7 +15712,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypeUnion
                   NamePair {
                     nameC = Name "some_union",
@@ -15693,7 +15802,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypeEnum
                   NamePair {
                     nameC = Name "some_enum",
@@ -15780,7 +15890,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim PrimBool))],
           functionAttrs =
           FunctionAttributes
@@ -15862,7 +15973,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim PrimSize))],
           functionAttrs =
           FunctionAttributes
@@ -15944,7 +16056,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim
                   (PrimFloating PrimFloat)))],
           functionAttrs =
@@ -16027,7 +16140,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim
                   (PrimFloating PrimDouble)))],
           functionAttrs =
@@ -16110,7 +16224,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim PrimBool))],
           functionAttrs =
           FunctionAttributes
@@ -16194,7 +16309,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypeStruct
                   NamePair {
                     nameC = Name "some_struct",
@@ -16283,7 +16399,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypeUnion
                   NamePair {
                     nameC = Name "some_union",
@@ -16372,7 +16489,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypeEnum
                   NamePair {
                     nameC = Name "some_enum",
@@ -16459,7 +16577,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim PrimBool))],
           functionAttrs =
           FunctionAttributes
@@ -16541,7 +16660,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim PrimSize))],
           functionAttrs =
           FunctionAttributes
@@ -16624,7 +16744,8 @@
                   nameHsIdent = Identifier
                     "arg2"})
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypePrim
                     (PrimIntegral
                       PrimInt
@@ -16710,7 +16831,8 @@
                   nameHsIdent = Identifier
                     "arg2"})
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypePrim
                     (PrimIntegral
                       PrimInt
@@ -16795,7 +16917,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePointer
                   (TypePrim
                     (PrimIntegral
@@ -16881,9 +17004,11 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePointer
-                  (TypeConst
+                  (TypeQualified
+                    TypeQualifierConst
                     (TypePrim
                       (PrimIntegral
                         PrimInt
@@ -16968,9 +17093,11 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePointer
-                  (TypeConst
+                  (TypeQualified
+                    TypeQualifierConst
                     (TypePrim
                       (PrimIntegral
                         PrimInt
@@ -17043,7 +17170,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePointer
-            (TypeConst
+            (TypeQualified
+              TypeQualifierConst
               (TypePrim
                 (PrimIntegral
                   PrimInt
@@ -17112,7 +17240,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePointer
-            (TypeConst
+            (TypeQualified
+              TypeQualifierConst
               (TypePrim
                 (PrimIntegral
                   PrimInt
@@ -17180,7 +17309,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeConst
+          functionRes = TypeQualified
+            TypeQualifierConst
             (TypePointer
               (TypePrim
                 (PrimIntegral
@@ -17249,9 +17379,11 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeConst
+          functionRes = TypeQualified
+            TypeQualifierConst
             (TypePointer
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim
                   (PrimIntegral
                     PrimInt
@@ -17319,9 +17451,11 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeConst
+          functionRes = TypeQualified
+            TypeQualifierConst
             (TypePointer
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim
                   (PrimIntegral
                     PrimInt
@@ -17381,7 +17515,8 @@
                   nameHsIdent = Identifier
                     "arg1"})
               (TypeIncompleteArray
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypeMacroTypedef
                     NamePair {
                       nameC = Name "A",
@@ -17449,7 +17584,8 @@
                     "arg1"})
               (TypeIncompleteArray
                 (TypePointer
-                  (TypeConst
+                  (TypeQualified
+                    TypeQualifierConst
                     (TypeMacroTypedef
                       NamePair {
                         nameC = Name "A",
@@ -17516,7 +17652,8 @@
                   nameHsIdent = Identifier
                     "arg1"})
               (TypeIncompleteArray
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypePointer
                     (TypeMacroTypedef
                       NamePair {
@@ -18153,7 +18290,8 @@
                 TypePrim
                   (PrimFloating PrimDouble)]
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypePrim
                     (PrimIntegral
                       PrimInt
@@ -18235,7 +18373,8 @@
                 TypePrim
                   (PrimFloating PrimDouble)]
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypePrim
                     (PrimIntegral
                       PrimInt
@@ -18316,7 +18455,8 @@
                   (PrimIntegral PrimInt Signed),
                 TypePrim
                   (PrimFloating PrimDouble)]
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePointer
                   (TypePrim
                     (PrimIntegral
@@ -18398,9 +18538,11 @@
                   (PrimIntegral PrimInt Signed),
                 TypePrim
                   (PrimFloating PrimDouble)]
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePointer
-                  (TypeConst
+                  (TypeQualified
+                    TypeQualifierConst
                     (TypePrim
                       (PrimIntegral
                         PrimInt
@@ -18481,9 +18623,11 @@
                   (PrimIntegral PrimInt Signed),
                 TypePrim
                   (PrimFloating PrimDouble)]
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePointer
-                  (TypeConst
+                  (TypeQualified
+                    TypeQualifierConst
                     (TypePrim
                       (PrimIntegral
                         PrimInt
@@ -23234,7 +23378,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim
                   (PrimChar
                     (PrimSignImplicit Nothing))))],
@@ -23327,7 +23472,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim
                   (PrimChar
                     (PrimSignExplicit Signed))))],
@@ -23411,7 +23557,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim
                   (PrimChar
                     (PrimSignExplicit Unsigned))))],
@@ -23495,7 +23642,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim
                   (PrimChar
                     (PrimSignImplicit Nothing))))],
@@ -23579,7 +23727,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim
                   (PrimChar
                     (PrimSignExplicit Signed))))],
@@ -23663,7 +23812,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim
                   (PrimChar
                     (PrimSignExplicit Unsigned))))],
@@ -23747,7 +23897,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim
                   (PrimFloating PrimFloat)))],
           functionAttrs =
@@ -23830,7 +23981,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim
                   (PrimFloating PrimDouble)))],
           functionAttrs =
@@ -23913,7 +24065,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim PrimBool))],
           functionAttrs =
           FunctionAttributes
@@ -23997,7 +24150,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypeStruct
                   NamePair {
                     nameC = Name "some_struct",
@@ -24086,7 +24240,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypeUnion
                   NamePair {
                     nameC = Name "some_union",
@@ -24175,7 +24330,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypeEnum
                   NamePair {
                     nameC = Name "some_enum",
@@ -24262,7 +24418,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim PrimBool))],
           functionAttrs =
           FunctionAttributes
@@ -24344,7 +24501,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim PrimSize))],
           functionAttrs =
           FunctionAttributes
@@ -24426,7 +24584,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim
                   (PrimFloating PrimFloat)))],
           functionAttrs =
@@ -24509,7 +24668,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim
                   (PrimFloating PrimDouble)))],
           functionAttrs =
@@ -24592,7 +24752,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim PrimBool))],
           functionAttrs =
           FunctionAttributes
@@ -24676,7 +24837,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypeStruct
                   NamePair {
                     nameC = Name "some_struct",
@@ -24765,7 +24927,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypeUnion
                   NamePair {
                     nameC = Name "some_union",
@@ -24854,7 +25017,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypeEnum
                   NamePair {
                     nameC = Name "some_enum",
@@ -24941,7 +25105,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim PrimBool))],
           functionAttrs =
           FunctionAttributes
@@ -25023,7 +25188,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim PrimSize))],
           functionAttrs =
           FunctionAttributes
@@ -25106,7 +25272,8 @@
                   nameHsIdent = Identifier
                     "arg2"})
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypePrim
                     (PrimIntegral
                       PrimInt
@@ -25192,7 +25359,8 @@
                   nameHsIdent = Identifier
                     "arg2"})
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypePrim
                     (PrimIntegral
                       PrimInt
@@ -25277,7 +25445,8 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePointer
                   (TypePrim
                     (PrimIntegral
@@ -25363,9 +25532,11 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePointer
-                  (TypeConst
+                  (TypeQualified
+                    TypeQualifierConst
                     (TypePrim
                       (PrimIntegral
                         PrimInt
@@ -25450,9 +25621,11 @@
                   nameC = Name "arg2",
                   nameHsIdent = Identifier
                     "arg2"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePointer
-                  (TypeConst
+                  (TypeQualified
+                    TypeQualifierConst
                     (TypePrim
                       (PrimIntegral
                         PrimInt
@@ -25525,7 +25698,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePointer
-            (TypeConst
+            (TypeQualified
+              TypeQualifierConst
               (TypePrim
                 (PrimIntegral
                   PrimInt
@@ -25594,7 +25768,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePointer
-            (TypeConst
+            (TypeQualified
+              TypeQualifierConst
               (TypePrim
                 (PrimIntegral
                   PrimInt
@@ -25662,7 +25837,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeConst
+          functionRes = TypeQualified
+            TypeQualifierConst
             (TypePointer
               (TypePrim
                 (PrimIntegral
@@ -25731,9 +25907,11 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeConst
+          functionRes = TypeQualified
+            TypeQualifierConst
             (TypePointer
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim
                   (PrimIntegral
                     PrimInt
@@ -25801,9 +25979,11 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeConst
+          functionRes = TypeQualified
+            TypeQualifierConst
             (TypePointer
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim
                   (PrimIntegral
                     PrimInt
@@ -25863,7 +26043,8 @@
                   nameHsIdent = Identifier
                     "arg1"})
               (TypeIncompleteArray
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypeMacroTypedef
                     NamePair {
                       nameC = Name "A",
@@ -25931,7 +26112,8 @@
                     "arg1"})
               (TypeIncompleteArray
                 (TypePointer
-                  (TypeConst
+                  (TypeQualified
+                    TypeQualifierConst
                     (TypeMacroTypedef
                       NamePair {
                         nameC = Name "A",
@@ -25998,7 +26180,8 @@
                   nameHsIdent = Identifier
                     "arg1"})
               (TypeIncompleteArray
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypePointer
                     (TypeMacroTypedef
                       NamePair {
@@ -26635,7 +26818,8 @@
                 TypePrim
                   (PrimFloating PrimDouble)]
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypePrim
                     (PrimIntegral
                       PrimInt
@@ -26717,7 +26901,8 @@
                 TypePrim
                   (PrimFloating PrimDouble)]
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypePrim
                     (PrimIntegral
                       PrimInt
@@ -26798,7 +26983,8 @@
                   (PrimIntegral PrimInt Signed),
                 TypePrim
                   (PrimFloating PrimDouble)]
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePointer
                   (TypePrim
                     (PrimIntegral
@@ -26880,9 +27066,11 @@
                   (PrimIntegral PrimInt Signed),
                 TypePrim
                   (PrimFloating PrimDouble)]
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePointer
-                  (TypeConst
+                  (TypeQualified
+                    TypeQualifierConst
                     (TypePrim
                       (PrimIntegral
                         PrimInt
@@ -26963,9 +27151,11 @@
                   (PrimIntegral PrimInt Signed),
                 TypePrim
                   (PrimFloating PrimDouble)]
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePointer
-                  (TypeConst
+                  (TypeQualified
+                    TypeQualifierConst
                     (TypePrim
                       (PrimIntegral
                         PrimInt
@@ -29623,7 +29813,8 @@
                 nameC = Name "A",
                 nameHsIdent = Identifier "A"}
               NameOriginInSource,
-            TypeConst
+            TypeQualified
+              TypeQualifierConst
               (TypePrim
                 (PrimChar
                   (PrimSignImplicit Nothing)))]
@@ -29666,7 +29857,8 @@
                 nameC = Name "A",
                 nameHsIdent = Identifier "A"}
               NameOriginInSource,
-            TypeConst
+            TypeQualified
+              TypeQualifierConst
               (TypePrim
                 (PrimChar
                   (PrimSignExplicit Signed)))]
@@ -29709,7 +29901,8 @@
                 nameC = Name "A",
                 nameHsIdent = Identifier "A"}
               NameOriginInSource,
-            TypeConst
+            TypeQualified
+              TypeQualifierConst
               (TypePrim
                 (PrimChar
                   (PrimSignExplicit Unsigned)))]
@@ -29752,7 +29945,8 @@
                 nameC = Name "A",
                 nameHsIdent = Identifier "A"}
               NameOriginInSource,
-            TypeConst
+            TypeQualified
+              TypeQualifierConst
               (TypePrim
                 (PrimChar
                   (PrimSignImplicit Nothing)))]
@@ -29795,7 +29989,8 @@
                 nameC = Name "A",
                 nameHsIdent = Identifier "A"}
               NameOriginInSource,
-            TypeConst
+            TypeQualified
+              TypeQualifierConst
               (TypePrim
                 (PrimChar
                   (PrimSignExplicit Signed)))]
@@ -29838,7 +30033,8 @@
                 nameC = Name "A",
                 nameHsIdent = Identifier "A"}
               NameOriginInSource,
-            TypeConst
+            TypeQualified
+              TypeQualifierConst
               (TypePrim
                 (PrimChar
                   (PrimSignExplicit Unsigned)))]
@@ -29881,7 +30077,8 @@
                 nameC = Name "A",
                 nameHsIdent = Identifier "A"}
               NameOriginInSource,
-            TypeConst
+            TypeQualified
+              TypeQualifierConst
               (TypePrim
                 (PrimFloating PrimFloat))]
           TypeVoid),
@@ -29923,7 +30120,8 @@
                 nameC = Name "A",
                 nameHsIdent = Identifier "A"}
               NameOriginInSource,
-            TypeConst
+            TypeQualified
+              TypeQualifierConst
               (TypePrim
                 (PrimFloating PrimDouble))]
           TypeVoid),
@@ -29965,7 +30163,9 @@
                 nameC = Name "A",
                 nameHsIdent = Identifier "A"}
               NameOriginInSource,
-            TypeConst (TypePrim PrimBool)]
+            TypeQualified
+              TypeQualifierConst
+              (TypePrim PrimBool)]
           TypeVoid),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
@@ -30008,7 +30208,8 @@
                 nameC = Name "A",
                 nameHsIdent = Identifier "A"}
               NameOriginInSource,
-            TypeConst
+            TypeQualified
+              TypeQualifierConst
               (TypeStruct
                 NamePair {
                   nameC = Name "some_struct",
@@ -30057,7 +30258,8 @@
                 nameC = Name "A",
                 nameHsIdent = Identifier "A"}
               NameOriginInSource,
-            TypeConst
+            TypeQualified
+              TypeQualifierConst
               (TypeUnion
                 NamePair {
                   nameC = Name "some_union",
@@ -30106,7 +30308,8 @@
                 nameC = Name "A",
                 nameHsIdent = Identifier "A"}
               NameOriginInSource,
-            TypeConst
+            TypeQualified
+              TypeQualifierConst
               (TypeEnum
                 NamePair {
                   nameC = Name "some_enum",
@@ -30152,7 +30355,9 @@
                 nameC = Name "A",
                 nameHsIdent = Identifier "A"}
               NameOriginInSource,
-            TypeConst (TypePrim PrimBool)]
+            TypeQualified
+              TypeQualifierConst
+              (TypePrim PrimBool)]
           TypeVoid),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
@@ -30192,7 +30397,9 @@
                 nameC = Name "A",
                 nameHsIdent = Identifier "A"}
               NameOriginInSource,
-            TypeConst (TypePrim PrimSize)]
+            TypeQualified
+              TypeQualifierConst
+              (TypePrim PrimSize)]
           TypeVoid),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
@@ -30232,7 +30439,8 @@
                 nameC = Name "A",
                 nameHsIdent = Identifier "A"}
               NameOriginInSource,
-            TypeConst
+            TypeQualified
+              TypeQualifierConst
               (TypePrim
                 (PrimFloating PrimFloat))]
           TypeVoid),
@@ -30274,7 +30482,8 @@
                 nameC = Name "A",
                 nameHsIdent = Identifier "A"}
               NameOriginInSource,
-            TypeConst
+            TypeQualified
+              TypeQualifierConst
               (TypePrim
                 (PrimFloating PrimDouble))]
           TypeVoid),
@@ -30316,7 +30525,9 @@
                 nameC = Name "A",
                 nameHsIdent = Identifier "A"}
               NameOriginInSource,
-            TypeConst (TypePrim PrimBool)]
+            TypeQualified
+              TypeQualifierConst
+              (TypePrim PrimBool)]
           TypeVoid),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
@@ -30359,7 +30570,8 @@
                 nameC = Name "A",
                 nameHsIdent = Identifier "A"}
               NameOriginInSource,
-            TypeConst
+            TypeQualified
+              TypeQualifierConst
               (TypeStruct
                 NamePair {
                   nameC = Name "some_struct",
@@ -30408,7 +30620,8 @@
                 nameC = Name "A",
                 nameHsIdent = Identifier "A"}
               NameOriginInSource,
-            TypeConst
+            TypeQualified
+              TypeQualifierConst
               (TypeUnion
                 NamePair {
                   nameC = Name "some_union",
@@ -30457,7 +30670,8 @@
                 nameC = Name "A",
                 nameHsIdent = Identifier "A"}
               NameOriginInSource,
-            TypeConst
+            TypeQualified
+              TypeQualifierConst
               (TypeEnum
                 NamePair {
                   nameC = Name "some_enum",
@@ -30503,7 +30717,9 @@
                 nameC = Name "A",
                 nameHsIdent = Identifier "A"}
               NameOriginInSource,
-            TypeConst (TypePrim PrimBool)]
+            TypeQualified
+              TypeQualifierConst
+              (TypePrim PrimBool)]
           TypeVoid),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
@@ -30543,7 +30759,9 @@
                 nameC = Name "A",
                 nameHsIdent = Identifier "A"}
               NameOriginInSource,
-            TypeConst (TypePrim PrimSize)]
+            TypeQualified
+              TypeQualifierConst
+              (TypePrim PrimSize)]
           TypeVoid),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
@@ -30584,7 +30802,8 @@
                 nameHsIdent = Identifier "A"}
               NameOriginInSource,
             TypePointer
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim
                   (PrimIntegral PrimInt Signed)))]
           TypeVoid),
@@ -30627,7 +30846,8 @@
                 nameHsIdent = Identifier "A"}
               NameOriginInSource,
             TypePointer
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim
                   (PrimIntegral PrimInt Signed)))]
           TypeVoid),
@@ -30669,7 +30889,8 @@
                 nameC = Name "A",
                 nameHsIdent = Identifier "A"}
               NameOriginInSource,
-            TypeConst
+            TypeQualified
+              TypeQualifierConst
               (TypePointer
                 (TypePrim
                   (PrimIntegral PrimInt Signed)))]
@@ -30712,9 +30933,11 @@
                 nameC = Name "A",
                 nameHsIdent = Identifier "A"}
               NameOriginInSource,
-            TypeConst
+            TypeQualified
+              TypeQualifierConst
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypePrim
                     (PrimIntegral
                       PrimInt
@@ -30758,9 +30981,11 @@
                 nameC = Name "A",
                 nameHsIdent = Identifier "A"}
               NameOriginInSource,
-            TypeConst
+            TypeQualified
+              TypeQualifierConst
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypePrim
                     (PrimIntegral
                       PrimInt
@@ -30804,7 +31029,8 @@
                 nameHsIdent = Identifier "A"}
               NameOriginInSource]
           (TypePointer
-            (TypeConst
+            (TypeQualified
+              TypeQualifierConst
               (TypePrim
                 (PrimIntegral
                   PrimInt
@@ -30847,7 +31073,8 @@
                 nameHsIdent = Identifier "A"}
               NameOriginInSource]
           (TypePointer
-            (TypeConst
+            (TypeQualified
+              TypeQualifierConst
               (TypePrim
                 (PrimIntegral
                   PrimInt
@@ -30889,7 +31116,8 @@
                 nameC = Name "A",
                 nameHsIdent = Identifier "A"}
               NameOriginInSource]
-          (TypeConst
+          (TypeQualified
+            TypeQualifierConst
             (TypePointer
               (TypePrim
                 (PrimIntegral
@@ -30932,9 +31160,11 @@
                 nameC = Name "A",
                 nameHsIdent = Identifier "A"}
               NameOriginInSource]
-          (TypeConst
+          (TypeQualified
+            TypeQualifierConst
             (TypePointer
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim
                   (PrimIntegral
                     PrimInt
@@ -30976,9 +31206,11 @@
                 nameC = Name "A",
                 nameHsIdent = Identifier "A"}
               NameOriginInSource]
-          (TypeConst
+          (TypeQualified
+            TypeQualifierConst
             (TypePointer
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim
                   (PrimIntegral
                     PrimInt
@@ -31016,7 +31248,8 @@
         (TypeFun
           [
             TypeIncompleteArray
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypeMacroTypedef
                   NamePair {
                     nameC = Name "A",
@@ -31058,7 +31291,8 @@
           [
             TypeIncompleteArray
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypeMacroTypedef
                     NamePair {
                       nameC = Name "A",
@@ -31099,7 +31333,8 @@
         (TypeFun
           [
             TypeIncompleteArray
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePointer
                   (TypeMacroTypedef
                     NamePair {
@@ -31512,7 +31747,8 @@
                 TypePrim
                   (PrimFloating PrimDouble)]
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypePrim
                     (PrimIntegral
                       PrimInt
@@ -31569,7 +31805,8 @@
                 TypePrim
                   (PrimFloating PrimDouble)]
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypePrim
                     (PrimIntegral
                       PrimInt
@@ -31625,7 +31862,8 @@
                   (PrimIntegral PrimInt Signed),
                 TypePrim
                   (PrimFloating PrimDouble)]
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePointer
                   (TypePrim
                     (PrimIntegral
@@ -31682,9 +31920,11 @@
                   (PrimIntegral PrimInt Signed),
                 TypePrim
                   (PrimFloating PrimDouble)]
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePointer
-                  (TypeConst
+                  (TypeQualified
+                    TypeQualifierConst
                     (TypePrim
                       (PrimIntegral
                         PrimInt
@@ -31740,9 +31980,11 @@
                   (PrimIntegral PrimInt Signed),
                 TypePrim
                   (PrimFloating PrimDouble)]
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePointer
-                  (TypeConst
+                  (TypeQualified
+                    TypeQualifierConst
                     (TypePrim
                       (PrimIntegral
                         PrimInt
