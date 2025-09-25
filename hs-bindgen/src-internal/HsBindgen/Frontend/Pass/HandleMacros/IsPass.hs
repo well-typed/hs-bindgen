@@ -10,11 +10,13 @@ import C.Expr.Typecheck.Expr qualified as CExpr.DSL
 
 import Clang.HighLevel.Types
 
+import HsBindgen.Frontend.AST.Coerce (CoercePass (..))
 import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
 import HsBindgen.Frontend.LanguageC qualified as LanC
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.Sort.IsPass (DeclMeta)
+import HsBindgen.Frontend.Pass.Parse.IsPass (OrigTypedefRef (..))
+import HsBindgen.Frontend.Pass.Sort.IsPass (DeclMeta, Sort)
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
@@ -34,7 +36,7 @@ instance IsPass HandleMacros where
   type Id           HandleMacros = C.PrelimDeclId
   type FieldName    HandleMacros = C.Name
   type ArgumentName HandleMacros = Maybe C.Name
-  type TypedefRef   HandleMacros = C.Name
+  type TypedefRef   HandleMacros = OrigTypedefRef HandleMacros
   type MacroBody    HandleMacros = CheckedMacro HandleMacros
   type ExtBinding   HandleMacros = Void
   type Ann ix       HandleMacros = AnnHandleMacros ix
@@ -102,3 +104,10 @@ instance IsTrace Level HandleMacrosMsg where
   getDefaultLogLevel = const Info
   getSource          = const HsBindgen
   getTraceId         = const "handle-macros"
+
+{-------------------------------------------------------------------------------
+  CoercePass
+-------------------------------------------------------------------------------}
+
+instance CoercePass TypedefRefWrapper Sort HandleMacros where
+  coercePass (TypedefRefWrapper ref) = TypedefRefWrapper (coercePass ref)

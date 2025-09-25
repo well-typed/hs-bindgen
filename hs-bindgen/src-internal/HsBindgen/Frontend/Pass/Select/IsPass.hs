@@ -17,6 +17,7 @@ import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.Analysis.DeclIndex
 import HsBindgen.Frontend.Analysis.DeclUseGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph
+import HsBindgen.Frontend.AST.Coerce (CoercePass (coercePass))
 import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
@@ -44,7 +45,7 @@ instance IsPass Select where
   type Id           Select = C.DeclId
   type FieldName    Select = C.Name
   type ArgumentName Select = Maybe C.Name
-  type TypedefRef   Select = C.Name
+  type TypedefRef   Select = OrigTypedefRef Select
   -- NOTE Using @CheckedMacro Select@ is incompatible with 'CoercePass'
   type MacroBody    Select = CheckedMacro ResolveBindingSpecs
   type ExtBinding   Select = ResolvedExtBinding
@@ -146,3 +147,10 @@ instance IsTrace Level SelectMsg where
     SelectParse  _ x -> "select-parse-"   <> getTraceId x
     SelectFailed _ x -> "select-missed-"  <> getTraceId x
     _else            -> "select"
+
+{-------------------------------------------------------------------------------
+  CoercePass
+-------------------------------------------------------------------------------}
+
+instance CoercePass TypedefRefWrapper ResolveBindingSpecs Select where
+  coercePass (TypedefRefWrapper ref) = TypedefRefWrapper (coercePass ref)

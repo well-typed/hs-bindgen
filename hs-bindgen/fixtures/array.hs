@@ -1094,7 +1094,13 @@
                   NamePair {
                     nameC = Name "triplet",
                     nameHsIdent = Identifier
-                      "Triplet"}))},
+                      "Triplet"}
+                  (TypeConstArray
+                    3
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed)))))},
         declSpec = DeclSpec
           CTypeSpec {
             cTypeSpecModule = Nothing,
@@ -1274,7 +1280,13 @@
                   NamePair {
                     nameC = Name "triplet",
                     nameHsIdent = Identifier
-                      "Triplet"}))],
+                      "Triplet"}
+                  (TypeConstArray
+                    3
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed)))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1402,8 +1414,12 @@
                 (TypedefRegular
                   NamePair {
                     nameC = Name "list",
-                    nameHsIdent = Identifier
-                      "List"}))],
+                    nameHsIdent = Identifier "List"}
+                  (TypeIncompleteArray
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed)))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1539,7 +1555,15 @@
                   NamePair {
                     nameC = Name "matrix",
                     nameHsIdent = Identifier
-                      "Matrix"}))],
+                      "Matrix"}
+                  (TypeConstArray
+                    4
+                    (TypeConstArray
+                      3
+                      (TypePrim
+                        (PrimIntegral
+                          PrimInt
+                          Signed))))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1674,7 +1698,14 @@
                   NamePair {
                     nameC = Name "tripletlist",
                     nameHsIdent = Identifier
-                      "Tripletlist"}))],
+                      "Tripletlist"}
+                  (TypeIncompleteArray
+                    (TypeConstArray
+                      3
+                      (TypePrim
+                        (PrimIntegral
+                          PrimInt
+                          Signed))))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1742,7 +1773,21 @@
                   NamePair {
                     nameC = Name "sudoku",
                     nameHsIdent = Identifier
-                      "Sudoku"}))],
+                      "Sudoku"}
+                  (TypeConstArray
+                    3
+                    (TypeTypedef
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name "triplet",
+                          nameHsIdent = Identifier
+                            "Triplet"}
+                        (TypeConstArray
+                          3
+                          (TypePrim
+                            (PrimIntegral
+                              PrimInt
+                              Signed))))))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1849,7 +1894,13 @@
                 NamePair {
                   nameC = Name "triplet",
                   nameHsIdent = Identifier
-                    "Triplet"}))},
+                    "Triplet"}
+                (TypeConstArray
+                  3
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed)))))},
       foreignImportComment = Just
         Comment {
           commentTitle = Just
@@ -1947,8 +1998,12 @@
               (TypedefRegular
                 NamePair {
                   nameC = Name "list",
-                  nameHsIdent = Identifier
-                    "List"}))},
+                  nameHsIdent = Identifier "List"}
+                (TypeIncompleteArray
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed)))))},
       foreignImportComment = Just
         Comment {
           commentTitle = Just
@@ -2053,7 +2108,15 @@
                 NamePair {
                   nameC = Name "matrix",
                   nameHsIdent = Identifier
-                    "Matrix"}))},
+                    "Matrix"}
+                (TypeConstArray
+                  4
+                  (TypeConstArray
+                    3
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed))))))},
       foreignImportComment = Just
         Comment {
           commentTitle = Just
@@ -2156,7 +2219,14 @@
                 NamePair {
                   nameC = Name "tripletlist",
                   nameHsIdent = Identifier
-                    "Tripletlist"}))},
+                    "Tripletlist"}
+                (TypeIncompleteArray
+                  (TypeConstArray
+                    3
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed))))))},
       foreignImportComment = Just
         Comment {
           commentTitle = Just
@@ -2207,7 +2277,21 @@
                 NamePair {
                   nameC = Name "sudoku",
                   nameHsIdent = Identifier
-                    "Sudoku"}))},
+                    "Sudoku"}
+                (TypeConstArray
+                  3
+                  (TypeTypedef
+                    (TypedefRegular
+                      NamePair {
+                        nameC = Name "triplet",
+                        nameHsIdent = Identifier
+                          "Triplet"}
+                      (TypeConstArray
+                        3
+                        (TypePrim
+                          (PrimIntegral
+                            PrimInt
+                            Signed))))))))},
       foreignImportComment = Just
         Comment {
           commentTitle = Just
@@ -2350,7 +2434,13 @@
                   NamePair {
                     nameC = Name "triplet",
                     nameHsIdent = Identifier
-                      "Triplet"}))],
+                      "Triplet"}
+                  (TypeConstArray
+                    3
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed)))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -2478,8 +2568,12 @@
                 (TypedefRegular
                   NamePair {
                     nameC = Name "list",
-                    nameHsIdent = Identifier
-                      "List"}))],
+                    nameHsIdent = Identifier "List"}
+                  (TypeIncompleteArray
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed)))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -2615,7 +2709,15 @@
                   NamePair {
                     nameC = Name "matrix",
                     nameHsIdent = Identifier
-                      "Matrix"}))],
+                      "Matrix"}
+                  (TypeConstArray
+                    4
+                    (TypeConstArray
+                      3
+                      (TypePrim
+                        (PrimIntegral
+                          PrimInt
+                          Signed))))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -2750,7 +2852,14 @@
                   NamePair {
                     nameC = Name "tripletlist",
                     nameHsIdent = Identifier
-                      "Tripletlist"}))],
+                      "Tripletlist"}
+                  (TypeIncompleteArray
+                    (TypeConstArray
+                      3
+                      (TypePrim
+                        (PrimIntegral
+                          PrimInt
+                          Signed))))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -2818,7 +2927,21 @@
                   NamePair {
                     nameC = Name "sudoku",
                     nameHsIdent = Identifier
-                      "Sudoku"}))],
+                      "Sudoku"}
+                  (TypeConstArray
+                    3
+                    (TypeTypedef
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name "triplet",
+                          nameHsIdent = Identifier
+                            "Triplet"}
+                        (TypeConstArray
+                          3
+                          (TypePrim
+                            (PrimIntegral
+                              PrimInt
+                              Signed))))))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -2925,7 +3048,13 @@
                 NamePair {
                   nameC = Name "triplet",
                   nameHsIdent = Identifier
-                    "Triplet"}))},
+                    "Triplet"}
+                (TypeConstArray
+                  3
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed)))))},
       foreignImportComment = Just
         Comment {
           commentTitle = Just
@@ -3023,8 +3152,12 @@
               (TypedefRegular
                 NamePair {
                   nameC = Name "list",
-                  nameHsIdent = Identifier
-                    "List"}))},
+                  nameHsIdent = Identifier "List"}
+                (TypeIncompleteArray
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed)))))},
       foreignImportComment = Just
         Comment {
           commentTitle = Just
@@ -3129,7 +3262,15 @@
                 NamePair {
                   nameC = Name "matrix",
                   nameHsIdent = Identifier
-                    "Matrix"}))},
+                    "Matrix"}
+                (TypeConstArray
+                  4
+                  (TypeConstArray
+                    3
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed))))))},
       foreignImportComment = Just
         Comment {
           commentTitle = Just
@@ -3232,7 +3373,14 @@
                 NamePair {
                   nameC = Name "tripletlist",
                   nameHsIdent = Identifier
-                    "Tripletlist"}))},
+                    "Tripletlist"}
+                (TypeIncompleteArray
+                  (TypeConstArray
+                    3
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed))))))},
       foreignImportComment = Just
         Comment {
           commentTitle = Just
@@ -3283,7 +3431,21 @@
                 NamePair {
                   nameC = Name "sudoku",
                   nameHsIdent = Identifier
-                    "Sudoku"}))},
+                    "Sudoku"}
+                (TypeConstArray
+                  3
+                  (TypeTypedef
+                    (TypedefRegular
+                      NamePair {
+                        nameC = Name "triplet",
+                        nameHsIdent = Identifier
+                          "Triplet"}
+                      (TypeConstArray
+                        3
+                        (TypePrim
+                          (PrimIntegral
+                            PrimInt
+                            Signed))))))))},
       foreignImportComment = Just
         Comment {
           commentTitle = Just
@@ -3374,7 +3536,13 @@
                 NamePair {
                   nameC = Name "triplet",
                   nameHsIdent = Identifier
-                    "Triplet"})]
+                    "Triplet"}
+                (TypeConstArray
+                  3
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       foreignImportComment = Nothing,
@@ -3446,8 +3614,12 @@
               (TypedefRegular
                 NamePair {
                   nameC = Name "list",
-                  nameHsIdent = Identifier
-                    "List"})]
+                  nameHsIdent = Identifier "List"}
+                (TypeIncompleteArray
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       foreignImportComment = Nothing,
@@ -3526,7 +3698,15 @@
                 NamePair {
                   nameC = Name "matrix",
                   nameHsIdent = Identifier
-                    "Matrix"})]
+                    "Matrix"}
+                (TypeConstArray
+                  4
+                  (TypeConstArray
+                    3
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed)))))]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       foreignImportComment = Nothing,
@@ -3605,7 +3785,14 @@
                 NamePair {
                   nameC = Name "tripletlist",
                   nameHsIdent = Identifier
-                    "Tripletlist"})]
+                    "Tripletlist"}
+                (TypeIncompleteArray
+                  (TypeConstArray
+                    3
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed)))))]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       foreignImportComment = Nothing,
@@ -3643,7 +3830,21 @@
                 NamePair {
                   nameC = Name "sudoku",
                   nameHsIdent = Identifier
-                    "Sudoku"})]
+                    "Sudoku"}
+                (TypeConstArray
+                  3
+                  (TypeTypedef
+                    (TypedefRegular
+                      NamePair {
+                        nameC = Name "triplet",
+                        nameHsIdent = Identifier
+                          "Triplet"}
+                      (TypeConstArray
+                        3
+                        (TypePrim
+                          (PrimIntegral
+                            PrimInt
+                            Signed)))))))]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       foreignImportComment = Nothing,
@@ -3720,7 +3921,13 @@
                 NamePair {
                   nameC = Name "triplet",
                   nameHsIdent = Identifier
-                    "Triplet"})))),
+                    "Triplet"}
+                (TypeConstArray
+                  3
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))))),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -3792,8 +3999,12 @@
               (TypedefRegular
                 NamePair {
                   nameC = Name "list",
-                  nameHsIdent = Identifier
-                    "List"})))),
+                  nameHsIdent = Identifier "List"}
+                (TypeIncompleteArray
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))))),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -3872,7 +4083,15 @@
                 NamePair {
                   nameC = Name "matrix",
                   nameHsIdent = Identifier
-                    "Matrix"})))),
+                    "Matrix"}
+                (TypeConstArray
+                  4
+                  (TypeConstArray
+                    3
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed)))))))),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -3949,7 +4168,14 @@
                 NamePair {
                   nameC = Name "tripletlist",
                   nameHsIdent = Identifier
-                    "Tripletlist"})))),
+                    "Tripletlist"}
+                (TypeIncompleteArray
+                  (TypeConstArray
+                    3
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed)))))))),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -3987,7 +4213,21 @@
                 NamePair {
                   nameC = Name "sudoku",
                   nameHsIdent = Identifier
-                    "Sudoku"})))),
+                    "Sudoku"}
+                (TypeConstArray
+                  3
+                  (TypeTypedef
+                    (TypedefRegular
+                      NamePair {
+                        nameC = Name "triplet",
+                        nameHsIdent = Identifier
+                          "Triplet"}
+                      (TypeConstArray
+                        3
+                        (TypePrim
+                          (PrimIntegral
+                            PrimInt
+                            Signed)))))))))),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -4228,7 +4468,13 @@
             NamePair {
               nameC = Name "triplet",
               nameHsIdent = Identifier
-                "Triplet"})),
+                "Triplet"}
+            (TypeConstArray
+              3
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed))))),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -4288,8 +4534,12 @@
           (TypedefRegular
             NamePair {
               nameC = Name "list",
-              nameHsIdent = Identifier
-                "List"})),
+              nameHsIdent = Identifier "List"}
+            (TypeIncompleteArray
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed))))),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -4358,7 +4608,15 @@
             NamePair {
               nameC = Name "matrix",
               nameHsIdent = Identifier
-                "Matrix"})),
+                "Matrix"}
+            (TypeConstArray
+              4
+              (TypeConstArray
+                3
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))))),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -4425,7 +4683,14 @@
             NamePair {
               nameC = Name "tripletlist",
               nameHsIdent = Identifier
-                "Tripletlist"})),
+                "Tripletlist"}
+            (TypeIncompleteArray
+              (TypeConstArray
+                3
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))))),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,

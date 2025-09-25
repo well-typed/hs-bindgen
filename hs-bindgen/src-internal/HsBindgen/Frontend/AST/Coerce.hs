@@ -201,14 +201,15 @@ instance (
 instance (
       Id p ~ Id p'
     , ArgumentName p ~ ArgumentName p'
-    , TypedefRef p ~ TypedefRef p'
+    , CoercePass TypedefRefWrapper p p'
     , ExtBinding p ~ ExtBinding p'
     ) => CoercePass Type p p' where
   coercePass (TypePrim prim)           = TypePrim prim
   coercePass (TypeStruct uid)          = TypeStruct uid
   coercePass (TypeUnion uid)           = TypeUnion uid
   coercePass (TypeEnum uid)            = TypeEnum uid
-  coercePass (TypeTypedef typedef)     = TypeTypedef typedef
+  coercePass (TypeTypedef typedef)     = TypeTypedef $
+      unTypedefRefWrapper . coercePass @_ @p @p' . TypedefRefWrapper $ typedef
   coercePass (TypeMacroTypedef uid)    = TypeMacroTypedef uid
   coercePass (TypePointer typ)         = TypePointer (coercePass typ)
   coercePass (TypeFun args res)        = TypeFun (map coercePass args) (coercePass res)

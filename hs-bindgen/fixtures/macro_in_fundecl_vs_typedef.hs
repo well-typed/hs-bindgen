@@ -2458,8 +2458,11 @@
                 (TypedefRegular
                   NamePair {
                     nameC = Name "TC",
-                    nameHsIdent = Identifier
-                      "TC"}))],
+                    nameHsIdent = Identifier "TC"}
+                  (TypePrim
+                    (PrimChar
+                      (PrimSignImplicit
+                        (Just Signed))))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -2553,8 +2556,11 @@
             (TypedefRegular
               NamePair {
                 nameC = Name "TC",
-                nameHsIdent = Identifier
-                  "TC"})},
+                nameHsIdent = Identifier "TC"}
+              (TypePrim
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed)))))},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -2636,8 +2642,11 @@
                   (TypedefRegular
                     NamePair {
                       nameC = Name "TC",
-                      nameHsIdent = Identifier
-                        "TC"})))],
+                      nameHsIdent = Identifier "TC"}
+                    (TypePrim
+                      (PrimChar
+                        (PrimSignImplicit
+                          (Just Signed)))))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -2737,8 +2746,11 @@
               (TypedefRegular
                 NamePair {
                   nameC = Name "TC",
-                  nameHsIdent = Identifier
-                    "TC"}))},
+                  nameHsIdent = Identifier "TC"}
+                (TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed))))))},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -2908,7 +2920,13 @@
                     NamePair {
                       nameC = Name "struct3_t",
                       nameHsIdent = Identifier
-                        "Struct3_t"}))),
+                        "Struct3_t"}
+                    (TypeStruct
+                      NamePair {
+                        nameC = Name "struct3",
+                        nameHsIdent = Identifier
+                          "Struct3"}
+                      NameOriginInSource)))),
             _×_
               (Just
                 NamePair {
@@ -3366,8 +3384,11 @@
                 (TypedefRegular
                   NamePair {
                     nameC = Name "TC",
-                    nameHsIdent = Identifier
-                      "TC"}))],
+                    nameHsIdent = Identifier "TC"}
+                  (TypePrim
+                    (PrimChar
+                      (PrimSignImplicit
+                        (Just Signed))))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -3461,8 +3482,11 @@
             (TypedefRegular
               NamePair {
                 nameC = Name "TC",
-                nameHsIdent = Identifier
-                  "TC"})},
+                nameHsIdent = Identifier "TC"}
+              (TypePrim
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed)))))},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -3544,8 +3568,11 @@
                   (TypedefRegular
                     NamePair {
                       nameC = Name "TC",
-                      nameHsIdent = Identifier
-                        "TC"})))],
+                      nameHsIdent = Identifier "TC"}
+                    (TypePrim
+                      (PrimChar
+                        (PrimSignImplicit
+                          (Just Signed)))))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -3645,8 +3672,11 @@
               (TypedefRegular
                 NamePair {
                   nameC = Name "TC",
-                  nameHsIdent = Identifier
-                    "TC"}))},
+                  nameHsIdent = Identifier "TC"}
+                (TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed))))))},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -3816,7 +3846,13 @@
                     NamePair {
                       nameC = Name "struct3_t",
                       nameHsIdent = Identifier
-                        "Struct3_t"}))),
+                        "Struct3_t"}
+                    (TypeStruct
+                      NamePair {
+                        nameC = Name "struct3",
+                        nameHsIdent = Identifier
+                          "Struct3"}
+                      NameOriginInSource)))),
             _×_
               (Just
                 NamePair {
@@ -4249,7 +4285,11 @@
               (TypedefRegular
                 NamePair {
                   nameC = Name "TC",
-                  nameHsIdent = Identifier "TC"})]
+                  nameHsIdent = Identifier "TC"}
+                (TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed)))))]
           (TypePrim
             (PrimChar
               (PrimSignImplicit Nothing)))),
@@ -4301,8 +4341,11 @@
             (TypedefRegular
               NamePair {
                 nameC = Name "TC",
-                nameHsIdent = Identifier
-                  "TC"}))),
+                nameHsIdent = Identifier "TC"}
+              (TypePrim
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))))))),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -4348,8 +4391,11 @@
                 (TypedefRegular
                   NamePair {
                     nameC = Name "TC",
-                    nameHsIdent = Identifier
-                      "TC"}))]
+                    nameHsIdent = Identifier "TC"}
+                  (TypePrim
+                    (PrimChar
+                      (PrimSignImplicit
+                        (Just Signed))))))]
           (TypePointer
             (TypeMacroTypedef
               NamePair {
@@ -4407,8 +4453,11 @@
               (TypedefRegular
                 NamePair {
                   nameC = Name "TC",
-                  nameHsIdent = Identifier
-                    "TC"})))),
+                  nameHsIdent = Identifier "TC"}
+                (TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed)))))))),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -4507,7 +4556,13 @@
                   NamePair {
                     nameC = Name "struct3_t",
                     nameHsIdent = Identifier
-                      "Struct3_t"})),
+                      "Struct3_t"}
+                  (TypeStruct
+                    NamePair {
+                      nameC = Name "struct3",
+                      nameHsIdent = Identifier
+                        "Struct3"}
+                    NameOriginInSource))),
             TypeMacroTypedef
               NamePair {
                 nameC = Name "MC",

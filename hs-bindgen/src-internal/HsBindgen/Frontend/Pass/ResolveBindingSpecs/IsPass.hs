@@ -10,6 +10,7 @@ import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
+import HsBindgen.Frontend.Pass.Parse.IsPass (OrigTypedefRef)
 import HsBindgen.Frontend.Pass.Sort.IsPass (DeclMeta)
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
@@ -41,7 +42,7 @@ instance IsPass ResolveBindingSpecs where
   type Id           ResolveBindingSpecs = C.DeclId
   type FieldName    ResolveBindingSpecs = C.Name
   type ArgumentName ResolveBindingSpecs = Maybe C.Name
-  type TypedefRef   ResolveBindingSpecs = C.Name
+  type TypedefRef   ResolveBindingSpecs = OrigTypedefRef ResolveBindingSpecs
   type MacroBody    ResolveBindingSpecs = CheckedMacro ResolveBindingSpecs
   type ExtBinding   ResolveBindingSpecs = ResolvedExtBinding
   type Ann ix       ResolveBindingSpecs = AnnResolveBindingSpecs ix

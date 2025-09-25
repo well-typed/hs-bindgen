@@ -283,7 +283,8 @@ TranslationUnit {
                     "Version string constant"]}])},
       declKind = DeclGlobal
         (TypePointer
-          (TypeConst
+          (TypeQualified
+            TypeQualifierConst
             (TypePrim
               (PrimChar
                 (PrimSignImplicit
@@ -548,7 +549,8 @@ TranslationUnit {
                   nameHsIdent = Identifier
                     "input_data"})
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -1029,7 +1031,8 @@ TranslationUnit {
                   nameHsIdent = Identifier
                     "filename"})
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypePrim
                     (PrimChar
                       (PrimSignImplicit Nothing)))))],
@@ -1413,7 +1416,8 @@ TranslationUnit {
                     "items"})
               (TypePointer
                 (TypePointer
-                  (TypeConst
+                  (TypeQualified
+                    TypeQualifierConst
                     (TypePrim
                       (PrimChar
                         (PrimSignImplicit Nothing)))))),
@@ -1597,7 +1601,8 @@ TranslationUnit {
                   nameHsIdent = Identifier
                     "input"})
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypePrim
                     (PrimChar
                       (PrimSignImplicit
@@ -1895,7 +1900,16 @@ TranslationUnit {
                   nameC = Name
                     "event_callback_t_Deref",
                   nameHsIdent = Identifier
-                    "Event_callback_t_Deref"}))},
+                    "Event_callback_t_Deref"}
+                (TypeFun
+                  [
+                    TypePrim
+                      (PrimIntegral PrimInt Signed),
+                    TypePointer TypeVoid]
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed)))))},
       declSpec = DeclSpec
         CTypeSpec {
           cTypeSpecModule = Nothing,
@@ -2273,7 +2287,17 @@ TranslationUnit {
                   NamePair {
                     nameC = Name "event_callback_t",
                     nameHsIdent = Identifier
-                      "Event_callback_t"}),
+                      "Event_callback_t"}
+                  (TypePointer
+                    (TypeFun
+                      [
+                        TypePrim
+                          (PrimIntegral PrimInt Signed),
+                        TypePointer TypeVoid]
+                      (TypePrim
+                        (PrimIntegral
+                          PrimInt
+                          Signed))))),
               structFieldOffset = 576,
               structFieldWidth = Nothing},
             StructField {
@@ -3411,7 +3435,16 @@ TranslationUnit {
                   nameC = Name
                     "processor_fn_t_Deref",
                   nameHsIdent = Identifier
-                    "Processor_fn_t_Deref"}))},
+                    "Processor_fn_t_Deref"}
+                (TypeFun
+                  [
+                    TypePrim
+                      (PrimIntegral PrimInt Signed),
+                    TypePointer TypeVoid]
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed)))))},
       declSpec = DeclSpec
         CTypeSpec {
           cTypeSpecModule = Nothing,
@@ -3762,7 +3795,9 @@ TranslationUnit {
                   nameC = Name "src",
                   nameHsIdent = Identifier "src"})
               (TypePointer
-                (TypeConst TypeVoid)),
+                (TypeQualified
+                  TypeQualifierConst
+                  TypeVoid)),
             _×_
               (Just
                 NamePair {
@@ -4405,7 +4440,8 @@ TranslationUnit {
                   nameHsIdent = Identifier
                     "data'"})
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {

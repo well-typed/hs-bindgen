@@ -53,7 +53,8 @@
                     "items"})
               (TypePointer
                 (TypePointer
-                  (TypeConst
+                  (TypeQualified
+                    TypeQualifierConst
                     (TypePrim
                       (PrimChar
                         (PrimSignImplicit Nothing)))))),
@@ -138,7 +139,8 @@
                     "items"})
               (TypePointer
                 (TypePointer
-                  (TypeConst
+                  (TypeQualified
+                    TypeQualifierConst
                     (TypePrim
                       (PrimChar
                         (PrimSignImplicit Nothing)))))),
@@ -201,7 +203,8 @@
           [
             TypePointer
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypePrim
                     (PrimChar
                       (PrimSignImplicit Nothing))))),
@@ -232,7 +235,8 @@
           capiWrapperImport =
           "type_qualifiers.h"},
       foreignImportOrigin = Global
-        (TypeConst
+        (TypeQualified
+          TypeQualifierConst
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       foreignImportComment = Nothing,
@@ -264,7 +268,8 @@
           "type_qualifiers.h"},
       foreignImportOrigin = Global
         (TypePointer
-          (TypeConst
+          (TypeQualified
+            TypeQualifierConst
             (TypePrim
               (PrimIntegral
                 PrimInt
@@ -295,7 +300,8 @@
           capiWrapperImport =
           "type_qualifiers.h"},
       foreignImportOrigin = Global
-        (TypeConst
+        (TypeQualified
+          TypeQualifierConst
           (TypePointer
             (TypePrim
               (PrimIntegral
@@ -329,9 +335,11 @@
           capiWrapperImport =
           "type_qualifiers.h"},
       foreignImportOrigin = Global
-        (TypeConst
+        (TypeQualified
+          TypeQualifierConst
           (TypePointer
-            (TypeConst
+            (TypeQualified
+              TypeQualifierConst
               (TypePrim
                 (PrimIntegral
                   PrimInt

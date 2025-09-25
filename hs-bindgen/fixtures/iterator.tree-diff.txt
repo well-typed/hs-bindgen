@@ -67,7 +67,11 @@ TranslationUnit {
               NamePair {
                 nameC = Name "Toggle",
                 nameHsIdent = Identifier
-                  "Toggle"})},
+                  "Toggle"}
+              (TypeBlock
+                (TypeFun
+                  []
+                  (TypePrim PrimBool))))},
       declSpec = DeclSpec
         CTypeSpec {
           cTypeSpecModule = Nothing,
@@ -103,7 +107,11 @@ TranslationUnit {
                   NamePair {
                     nameC = Name "Toggle",
                     nameHsIdent = Identifier
-                      "Toggle"}))],
+                      "Toggle"}
+                  (TypeBlock
+                    (TypeFun
+                      []
+                      (TypePrim PrimBool)))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -144,7 +152,11 @@ TranslationUnit {
                   NamePair {
                     nameC = Name "Toggle",
                     nameHsIdent = Identifier
-                      "Toggle"}))],
+                      "Toggle"}
+                  (TypeBlock
+                    (TypeFun
+                      []
+                      (TypePrim PrimBool)))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -234,7 +246,14 @@ TranslationUnit {
               NamePair {
                 nameC = Name "Counter",
                 nameHsIdent = Identifier
-                  "Counter"})},
+                  "Counter"}
+              (TypeBlock
+                (TypeFun
+                  []
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed)))))},
       declSpec = DeclSpec
         CTypeSpec {
           cTypeSpecModule = Nothing,
@@ -270,7 +289,14 @@ TranslationUnit {
                   NamePair {
                     nameC = Name "Counter",
                     nameHsIdent = Identifier
-                      "Counter"}))],
+                      "Counter"}
+                  (TypeBlock
+                    (TypeFun
+                      []
+                      (TypePrim
+                        (PrimIntegral
+                          PrimInt
+                          Signed))))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -311,7 +337,14 @@ TranslationUnit {
                   NamePair {
                     nameC = Name "Counter",
                     nameHsIdent = Identifier
-                      "Counter"}))],
+                      "Counter"}
+                  (TypeBlock
+                    (TypeFun
+                      []
+                      (TypePrim
+                        (PrimIntegral
+                          PrimInt
+                          Signed))))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -395,7 +428,16 @@ TranslationUnit {
               NamePair {
                 nameC = Name "VarCounter",
                 nameHsIdent = Identifier
-                  "VarCounter"})},
+                  "VarCounter"}
+              (TypeBlock
+                (TypeFun
+                  [
+                    TypePrim
+                      (PrimIntegral PrimInt Signed)]
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed)))))},
       declSpec = DeclSpec
         CTypeSpec {
           cTypeSpecModule = Nothing,
@@ -431,7 +473,16 @@ TranslationUnit {
                   NamePair {
                     nameC = Name "VarCounter",
                     nameHsIdent = Identifier
-                      "VarCounter"})),
+                      "VarCounter"}
+                  (TypeBlock
+                    (TypeFun
+                      [
+                        TypePrim
+                          (PrimIntegral PrimInt Signed)]
+                      (TypePrim
+                        (PrimIntegral
+                          PrimInt
+                          Signed)))))),
             _×_
               (Just
                 NamePair {
@@ -481,7 +532,16 @@ TranslationUnit {
                   NamePair {
                     nameC = Name "VarCounter",
                     nameHsIdent = Identifier
-                      "VarCounter"}))],
+                      "VarCounter"}
+                  (TypeBlock
+                    (TypeFun
+                      [
+                        TypePrim
+                          (PrimIntegral PrimInt Signed)]
+                      (TypePrim
+                        (PrimIntegral
+                          PrimInt
+                          Signed))))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,

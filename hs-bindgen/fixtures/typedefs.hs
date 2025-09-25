@@ -695,7 +695,8 @@
                     nameC = Name
                       "FunctionPointer_Function_Deref",
                     nameHsIdent = Identifier
-                      "FunctionPointer_Function_Deref"}))},
+                      "FunctionPointer_Function_Deref"}
+                  (TypeFun [] TypeVoid)))},
         declSpec = DeclSpec
           CTypeSpec {
             cTypeSpecModule = Nothing,
@@ -1140,7 +1141,8 @@
                   NamePair {
                     nameC = Name "f1_Deref",
                     nameHsIdent = Identifier
-                      "F1_Deref"}))},
+                      "F1_Deref"}
+                  (TypeFun [] TypeVoid)))},
         declSpec = DeclSpec
           CTypeSpec {
             cTypeSpecModule = Nothing,
@@ -1384,8 +1386,8 @@
                 (TypedefRegular
                   NamePair {
                     nameC = Name "g1",
-                    nameHsIdent = Identifier
-                      "G1"}))},
+                    nameHsIdent = Identifier "G1"}
+                  (TypeFun [] TypeVoid)))},
         declSpec = DeclSpec
           CTypeSpec {
             cTypeSpecModule = Nothing,
@@ -1627,8 +1629,8 @@
               (TypedefRegular
                 NamePair {
                   nameC = Name "h1",
-                  nameHsIdent = Identifier
-                    "H1"})},
+                  nameHsIdent = Identifier "H1"}
+                (TypeFun [] TypeVoid))},
         declSpec = DeclSpec
           CTypeSpec {
             cTypeSpecModule = Nothing,
@@ -1694,8 +1696,13 @@
                 (TypedefRegular
                   NamePair {
                     nameC = Name "h2",
-                    nameHsIdent = Identifier
-                      "H2"}))},
+                    nameHsIdent = Identifier "H2"}
+                  (TypeTypedef
+                    (TypedefRegular
+                      NamePair {
+                        nameC = Name "h1",
+                        nameHsIdent = Identifier "H1"}
+                      (TypeFun [] TypeVoid)))))},
         declSpec = DeclSpec
           CTypeSpec {
             cTypeSpecModule = Nothing,

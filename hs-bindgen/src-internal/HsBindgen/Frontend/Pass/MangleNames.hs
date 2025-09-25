@@ -475,8 +475,13 @@ instance Mangle C.Type where
       C.TypeComplex prim   -> return $ C.TypeComplex prim
 
 instance Mangle RenamedTypedefRef where
-  mangle (TypedefRegular C.DeclId{..}) = TypedefRegular <$>
-    mangleQualName (C.QualName declIdName C.NameKindOrdinary) declIdOrigin
+  mangle (TypedefRegular C.DeclId{..} uTy) = do
+    -- NOTE: it would have been slightly dangerous to recurse into the
+    -- underlying type here if the mangling were stateful. Now we're simply
+    -- applying renamings, so we are fine.
+    uTy' <- mangle uTy
+    flip TypedefRegular uTy' <$>
+      mangleQualName (C.QualName declIdName C.NameKindOrdinary) declIdOrigin
   mangle (TypedefSquashed cName ty) =
     TypedefSquashed cName <$> mangle ty
 

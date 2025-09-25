@@ -1,3 +1,5 @@
+{-# LANGUAGE EmptyCase #-}
+
 -- | The final C AST after the frontend is done
 --
 -- Intended for qualified import.
@@ -37,9 +39,20 @@ module HsBindgen.Frontend.AST.External (
   , Int.FunctionAttributes(..)
   , Int.FunctionPurity(..)
     -- * Types
-  , Type(..)
+  , Type
+  , TypeF(..)
+  , TypeQualifier(..)
   , ResolveBindingSpecs.ResolvedExtBinding(..)
   , isVoid
+  , isErasedConstQualifiedType
+  , isCanonicalFunctionType
+    -- ** Erasure
+  , Full
+  , Erased
+  , Canonical
+  , GetErasedType(..)
+  , GetCanonicalType(..)
+  , eraseTypedef
     -- * Names
   , C.Name(..)
   , C.TagKind(..)
@@ -263,19 +276,25 @@ data CheckedMacroType = CheckedMacroType {
   Types
 -------------------------------------------------------------------------------}
 
--- | Type use
+-- | C types
 --
 -- For type /declarations/ see 'Decl'.
-data Type =
+type Type = FullType
+
+-- | C types in Trees That Shrink style
+data TypeF tag =
     TypePrim C.PrimType
   | TypeStruct Int.NamePair C.NameOrigin
   | TypeUnion Int.NamePair C.NameOrigin
   | TypeEnum Int.NamePair C.NameOrigin
-  | TypeTypedef TypedefRef
+  | TypeTypedef (TypedefRefF tag)
+    -- TODO: macros should get annotations with underlying types just like
+    -- typedefs, so that we can erase the macro types and replace them with
+    -- their underlying type. See issue #1200.
   | TypeMacroTypedef Int.NamePair C.NameOrigin
-  | TypePointer Type
-  | TypeConstArray Natural Type
-  | TypeFun [Type] Type
+  | TypePointer (TypeF tag)
+  | TypeConstArray Natural (TypeF tag)
+  | TypeFun [TypeF tag] (TypeF tag)
   | TypeVoid
 
     -- | Arrays of unknown size
@@ -292,18 +311,156 @@ data Type =
     -- We treat the FLAM case separately.
     --
     -- See <https://en.cppreference.com/w/c/language/array#Arrays_of_unknown_size>
-  | TypeIncompleteArray Type
-  | TypeBlock Type
-  | TypeConst Type
+  | TypeIncompleteArray (TypeF tag)
+  | TypeBlock (TypeF tag)
+  | TypeQualified (TypeQualifierF tag) (TypeF tag)
   | TypeExtBinding ResolveBindingSpecs.ResolvedExtBinding
   | TypeComplex C.PrimType
+  deriving stock Generic
+
+deriving stock instance (Show (TypedefRefF tag), Show (TypeQualifierF tag))  => Show (TypeF tag)
+deriving stock instance (Eq (TypedefRefF tag), Eq (TypeQualifierF tag))  => Eq (TypeF tag)
+
+data TypeQualifier = TypeQualifierConst
   deriving stock (Show, Eq, Generic)
 
 data TypedefRef =
-    TypedefRegular Int.NamePair
+    TypedefRegular
+      -- | Name of the referenced typedef declaration
+      Int.NamePair
+      -- | The underlying type of the referenced typedef declaration
+      --
+      -- NOTE: the underlying type can arbitrarily reference other types,
+      -- including typedefs that we have not parsed. Use the underlying type with
+      -- care!
+      Type
   | TypedefSquashed C.Name Type
   deriving stock (Show, Eq, Generic)
 
 isVoid :: Type -> Bool
 isVoid TypeVoid = True
 isVoid _        = False
+
+-- | Is the erased type @const@-qualified?
+isErasedConstQualifiedType :: GetErasedType t => t -> Bool
+isErasedConstQualifiedType ty = case getErasedType ty of
+    -- Types can be directly @const@-qualified,
+    TypeQualified TypeQualifierConst _ -> True
+    -- but arrays are also @const@-qualified if their element type is,
+    TypeConstArray _ (TypeQualified TypeQualifierConst _) -> True
+    TypeIncompleteArray (TypeQualified TypeQualifierConst _) -> True
+    -- and otherwise, the type is not considered to be @const@-qualified.
+    _ -> False
+
+-- | Is the canonical type a function type?
+isCanonicalFunctionType :: GetCanonicalType t => t -> Bool
+isCanonicalFunctionType ty = case getCanonicalType ty of
+    TypeFun{} -> True
+    _ -> False
+
+{-------------------------------------------------------------------------------
+  Types: Trees That Shrink
+
+  Trees That Grow, but used as Trees That Shrink. Setting these type families to
+  'Void' makes it impossible to construct or match on some of the constructors
+  in the 'TypeF' datatype.
+-------------------------------------------------------------------------------}
+
+type family TypedefRefF tag :: Star
+type family TypeQualifierF tag :: Star
+
+-- | A full C type includes all C type constructs.
+type FullType = TypeF Full
+data Full
+type instance TypedefRefF Full = TypedefRef
+type instance TypeQualifierF Full = TypeQualifier
+
+-- | An /erased/ C type is a C type without @typedef@s.
+type ErasedType = TypeF Erased
+data Erased
+type instance TypedefRefF Erased = Void
+type instance TypeQualifierF Erased = TypeQualifier
+
+-- | A /canonical/ C type is a C type with all sugar removed, such as @typedef@s
+-- and type qualifiers like @const@.
+type CanonicalType = TypeF Canonical
+data Canonical
+type instance TypedefRefF Canonical = Void
+type instance TypeQualifierF Canonical = Void
+
+-- | Erase @typedef@s
+--
+-- Note: the algorithm to erase @typedef@s is simple. Replace any references to
+-- @typedef@s we find by the definitions of these @typedef@s. The @typedef@
+-- definitions that we inline this way can contain references to other
+-- @typedef@s, but they can not construct infinitely long types, so this
+-- algorithm will terminate sooner or later. In practice, @typedef@ "chains" are
+-- probably not that long, so we do not expect this algorithm to have
+-- problematic performance.
+class GetErasedType t where
+  -- | Obtain the /erased/ version of the given type
+  getErasedType :: t -> ErasedType
+
+instance GetErasedType  ErasedType where
+  getErasedType = id
+
+instance GetErasedType Type where
+  getErasedType = go
+    where
+      go ty = case ty of
+        TypePrim pt -> TypePrim pt
+        TypeStruct np no -> TypeStruct np no
+        TypeUnion np no -> TypeUnion np no
+        TypeEnum np no -> TypeEnum np no
+        TypeTypedef ref -> go (eraseTypedef ref)
+        TypeMacroTypedef np no -> TypeMacroTypedef np no
+        TypePointer t -> TypePointer $ go t
+        TypeConstArray n t -> TypeConstArray n $ go t
+        TypeFun args res -> TypeFun (go <$> args) (go res)
+        TypeVoid -> TypeVoid
+        TypeIncompleteArray t -> TypeIncompleteArray (go t)
+        TypeBlock t -> TypeBlock (go t)
+        TypeQualified q t -> TypeQualified q (go t)
+        TypeExtBinding reb -> TypeExtBinding reb
+        TypeComplex pt -> TypeComplex pt
+
+-- | Note: canonicalise types.
+--
+-- The algorithm to canonicalise types performs the same @typedef@ erasure that
+-- we perform in 'GetErasedType'. Along the way, any type qualifiers like
+-- @const@ are also removed.
+class GetCanonicalType t where
+  -- | Obtain the /canonical/ version of the given type
+  getCanonicalType :: t -> CanonicalType
+
+instance GetCanonicalType CanonicalType where
+  getCanonicalType = id
+
+instance GetCanonicalType Type where
+  getCanonicalType = go
+    where
+      go ty = case ty of
+        TypePrim pt -> TypePrim pt
+        TypeStruct np no -> TypeStruct np no
+        TypeUnion np no -> TypeUnion np no
+        TypeEnum np no -> TypeEnum np no
+        TypeTypedef ref -> go (eraseTypedef ref)
+        TypeMacroTypedef np no -> TypeMacroTypedef np no
+        TypePointer t -> TypePointer $ go t
+        TypeConstArray n t -> TypeConstArray n $ go t
+        TypeFun args res -> TypeFun (go <$> args) (go res)
+        TypeVoid -> TypeVoid
+        TypeIncompleteArray t -> TypeIncompleteArray (go t)
+        TypeBlock t -> TypeBlock (go t)
+        TypeQualified _q t -> go t
+        TypeExtBinding reb -> TypeExtBinding reb
+        TypeComplex pt -> TypeComplex pt
+
+-- | Erase one layer of a typedef, replacing it by its underlying type.
+--
+-- NOTE: the underlying type can arbitrarily reference other types, including
+-- typedefs that we have not parsed. Use the underlying type with care!
+eraseTypedef :: TypedefRef -> Type
+eraseTypedef = \case
+      TypedefRegular _ t' -> t'
+      TypedefSquashed _ t' -> t'

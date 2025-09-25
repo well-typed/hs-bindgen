@@ -255,7 +255,18 @@
                   NamePair {
                     nameC = Name "fun_ptr_Deref",
                     nameHsIdent = Identifier
-                      "Fun_ptr_Deref"}))},
+                      "Fun_ptr_Deref"}
+                  (TypeFun
+                    [
+                      TypePointer
+                        (TypeStruct
+                          NamePair {
+                            nameC = Name
+                              "forward_declaration",
+                            nameHsIdent = Identifier
+                              "Forward_declaration"}
+                          NameOriginInSource)]
+                    TypeVoid)))},
         declSpec = DeclSpec
           CTypeSpec {
             cTypeSpecModule = Nothing,
@@ -349,7 +360,19 @@
                   NamePair {
                     nameC = Name "fun_ptr",
                     nameHsIdent = Identifier
-                      "Fun_ptr"}),
+                      "Fun_ptr"}
+                  (TypePointer
+                    (TypeFun
+                      [
+                        TypePointer
+                          (TypeStruct
+                            NamePair {
+                              nameC = Name
+                                "forward_declaration",
+                              nameHsIdent = Identifier
+                                "Forward_declaration"}
+                            NameOriginInSource)]
+                      TypeVoid))),
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -407,7 +430,19 @@
                       NamePair {
                         nameC = Name "fun_ptr",
                         nameHsIdent = Identifier
-                          "Fun_ptr"}),
+                          "Fun_ptr"}
+                      (TypePointer
+                        (TypeFun
+                          [
+                            TypePointer
+                              (TypeStruct
+                                NamePair {
+                                  nameC = Name
+                                    "forward_declaration",
+                                  nameHsIdent = Identifier
+                                    "Forward_declaration"}
+                                NameOriginInSource)]
+                          TypeVoid))),
                   structFieldOffset = 0,
                   structFieldWidth = Nothing}],
               structFlam = Nothing},
@@ -468,7 +503,19 @@
                       NamePair {
                         nameC = Name "fun_ptr",
                         nameHsIdent = Identifier
-                          "Fun_ptr"}),
+                          "Fun_ptr"}
+                      (TypePointer
+                        (TypeFun
+                          [
+                            TypePointer
+                              (TypeStruct
+                                NamePair {
+                                  nameC = Name
+                                    "forward_declaration",
+                                  nameHsIdent = Identifier
+                                    "Forward_declaration"}
+                                NameOriginInSource)]
+                          TypeVoid))),
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -526,7 +573,19 @@
                           NamePair {
                             nameC = Name "fun_ptr",
                             nameHsIdent = Identifier
-                              "Fun_ptr"}),
+                              "Fun_ptr"}
+                          (TypePointer
+                            (TypeFun
+                              [
+                                TypePointer
+                                  (TypeStruct
+                                    NamePair {
+                                      nameC = Name
+                                        "forward_declaration",
+                                      nameHsIdent = Identifier
+                                        "Forward_declaration"}
+                                    NameOriginInSource)]
+                              TypeVoid))),
                       structFieldOffset = 0,
                       structFieldWidth = Nothing}],
                   structFlam = Nothing},
@@ -590,7 +649,19 @@
                               NamePair {
                                 nameC = Name "fun_ptr",
                                 nameHsIdent = Identifier
-                                  "Fun_ptr"}),
+                                  "Fun_ptr"}
+                              (TypePointer
+                                (TypeFun
+                                  [
+                                    TypePointer
+                                      (TypeStruct
+                                        NamePair {
+                                          nameC = Name
+                                            "forward_declaration",
+                                          nameHsIdent = Identifier
+                                            "Forward_declaration"}
+                                        NameOriginInSource)]
+                                  TypeVoid))),
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -648,7 +719,19 @@
                                   NamePair {
                                     nameC = Name "fun_ptr",
                                     nameHsIdent = Identifier
-                                      "Fun_ptr"}),
+                                      "Fun_ptr"}
+                                  (TypePointer
+                                    (TypeFun
+                                      [
+                                        TypePointer
+                                          (TypeStruct
+                                            NamePair {
+                                              nameC = Name
+                                                "forward_declaration",
+                                              nameHsIdent = Identifier
+                                                "Forward_declaration"}
+                                            NameOriginInSource)]
+                                      TypeVoid))),
                               structFieldOffset = 0,
                               structFieldWidth = Nothing}],
                           structFlam = Nothing},
@@ -712,7 +795,19 @@
                               NamePair {
                                 nameC = Name "fun_ptr",
                                 nameHsIdent = Identifier
-                                  "Fun_ptr"}),
+                                  "Fun_ptr"}
+                              (TypePointer
+                                (TypeFun
+                                  [
+                                    TypePointer
+                                      (TypeStruct
+                                        NamePair {
+                                          nameC = Name
+                                            "forward_declaration",
+                                          nameHsIdent = Identifier
+                                            "Forward_declaration"}
+                                        NameOriginInSource)]
+                                  TypeVoid))),
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -770,7 +865,19 @@
                                   NamePair {
                                     nameC = Name "fun_ptr",
                                     nameHsIdent = Identifier
-                                      "Fun_ptr"}),
+                                      "Fun_ptr"}
+                                  (TypePointer
+                                    (TypeFun
+                                      [
+                                        TypePointer
+                                          (TypeStruct
+                                            NamePair {
+                                              nameC = Name
+                                                "forward_declaration",
+                                              nameHsIdent = Identifier
+                                                "Forward_declaration"}
+                                            NameOriginInSource)]
+                                      TypeVoid))),
                               structFieldOffset = 0,
                               structFieldWidth = Nothing}],
                           structFlam = Nothing},

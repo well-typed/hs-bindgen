@@ -1,6 +1,7 @@
 module HsBindgen.Frontend.Pass (
     Pass
   , IsPass(..)
+  , TypedefRefWrapper(..)
   , NoAnn(..)
   , NoConfig(..)
   , NoMsg(..)
@@ -82,6 +83,10 @@ class IsPass (p :: Pass) where
 
   -- | Trace messages possibly emitted by the pass
   type Msg p :: Star
+
+-- | Newtype wrapper intended for class instances and constraints where
+-- partially applied type synonyms are not allowed.
+newtype TypedefRefWrapper p = TypedefRefWrapper { unTypedefRefWrapper :: TypedefRef p }
 
 data NoAnn = NoAnn
   deriving stock (Show, Eq, Ord)

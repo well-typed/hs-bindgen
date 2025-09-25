@@ -431,7 +431,13 @@ TranslationUnit {
                 NamePair {
                   nameC = Name "triplet",
                   nameHsIdent = Identifier
-                    "Triplet"}))},
+                    "Triplet"}
+                (TypeConstArray
+                  3
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed)))))},
       declSpec = DeclSpec
         CTypeSpec {
           cTypeSpecModule = Nothing,
@@ -497,7 +503,13 @@ TranslationUnit {
             NamePair {
               nameC = Name "triplet",
               nameHsIdent = Identifier
-                "Triplet"})),
+                "Triplet"}
+            (TypeConstArray
+              3
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed))))),
       declSpec = DeclSpec
         CTypeSpec {
           cTypeSpecModule = Nothing,
@@ -561,8 +573,12 @@ TranslationUnit {
           (TypedefRegular
             NamePair {
               nameC = Name "list",
-              nameHsIdent = Identifier
-                "List"})),
+              nameHsIdent = Identifier "List"}
+            (TypeIncompleteArray
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed))))),
       declSpec = DeclSpec
         CTypeSpec {
           cTypeSpecModule = Nothing,
@@ -632,7 +648,15 @@ TranslationUnit {
             NamePair {
               nameC = Name "matrix",
               nameHsIdent = Identifier
-                "Matrix"})),
+                "Matrix"}
+            (TypeConstArray
+              4
+              (TypeConstArray
+                3
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))))),
       declSpec = DeclSpec
         CTypeSpec {
           cTypeSpecModule = Nothing,
@@ -701,7 +725,14 @@ TranslationUnit {
             NamePair {
               nameC = Name "tripletlist",
               nameHsIdent = Identifier
-                "Tripletlist"})),
+                "Tripletlist"}
+            (TypeIncompleteArray
+              (TypeConstArray
+                3
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))))),
       declSpec = DeclSpec
         CTypeSpec {
           cTypeSpecModule = Nothing,
@@ -795,7 +826,13 @@ TranslationUnit {
                   NamePair {
                     nameC = Name "triplet",
                     nameHsIdent = Identifier
-                      "Triplet"}))],
+                      "Triplet"}
+                  (TypeConstArray
+                    3
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed)))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -885,8 +922,12 @@ TranslationUnit {
                 (TypedefRegular
                   NamePair {
                     nameC = Name "list",
-                    nameHsIdent = Identifier
-                      "List"}))],
+                    nameHsIdent = Identifier "List"}
+                  (TypeIncompleteArray
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed)))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -980,7 +1021,15 @@ TranslationUnit {
                   NamePair {
                     nameC = Name "matrix",
                     nameHsIdent = Identifier
-                      "Matrix"}))],
+                      "Matrix"}
+                  (TypeConstArray
+                    4
+                    (TypeConstArray
+                      3
+                      (TypePrim
+                        (PrimIntegral
+                          PrimInt
+                          Signed))))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1073,7 +1122,14 @@ TranslationUnit {
                   NamePair {
                     nameC = Name "tripletlist",
                     nameHsIdent = Identifier
-                      "Tripletlist"}))],
+                      "Tripletlist"}
+                  (TypeIncompleteArray
+                    (TypeConstArray
+                      3
+                      (TypePrim
+                        (PrimIntegral
+                          PrimInt
+                          Signed))))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1119,7 +1175,21 @@ TranslationUnit {
                   NamePair {
                     nameC = Name "sudoku",
                     nameHsIdent = Identifier
-                      "Sudoku"}))],
+                      "Sudoku"}
+                  (TypeConstArray
+                    3
+                    (TypeTypedef
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name "triplet",
+                          nameHsIdent = Identifier
+                            "Triplet"}
+                        (TypeConstArray
+                          3
+                          (TypePrim
+                            (PrimIntegral
+                              PrimInt
+                              Signed))))))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1204,7 +1274,13 @@ TranslationUnit {
                 NamePair {
                   nameC = Name "triplet",
                   nameHsIdent = Identifier
-                    "Triplet"}))},
+                    "Triplet"}
+                (TypeConstArray
+                  3
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed)))))},
       declSpec = DeclSpec
         CTypeSpec {
           cTypeSpecModule = Nothing,
@@ -1282,8 +1358,12 @@ TranslationUnit {
               (TypedefRegular
                 NamePair {
                   nameC = Name "list",
-                  nameHsIdent = Identifier
-                    "List"}))},
+                  nameHsIdent = Identifier "List"}
+                (TypeIncompleteArray
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed)))))},
       declSpec = DeclSpec
         CTypeSpec {
           cTypeSpecModule = Nothing,
@@ -1365,7 +1445,15 @@ TranslationUnit {
                 NamePair {
                   nameC = Name "matrix",
                   nameHsIdent = Identifier
-                    "Matrix"}))},
+                    "Matrix"}
+                (TypeConstArray
+                  4
+                  (TypeConstArray
+                    3
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed))))))},
       declSpec = DeclSpec
         CTypeSpec {
           cTypeSpecModule = Nothing,
@@ -1446,7 +1534,14 @@ TranslationUnit {
                 NamePair {
                   nameC = Name "tripletlist",
                   nameHsIdent = Identifier
-                    "Tripletlist"}))},
+                    "Tripletlist"}
+                (TypeIncompleteArray
+                  (TypeConstArray
+                    3
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed))))))},
       declSpec = DeclSpec
         CTypeSpec {
           cTypeSpecModule = Nothing,
@@ -1486,7 +1581,21 @@ TranslationUnit {
                 NamePair {
                   nameC = Name "sudoku",
                   nameHsIdent = Identifier
-                    "Sudoku"}))},
+                    "Sudoku"}
+                (TypeConstArray
+                  3
+                  (TypeTypedef
+                    (TypedefRegular
+                      NamePair {
+                        nameC = Name "triplet",
+                        nameHsIdent = Identifier
+                          "Triplet"}
+                      (TypeConstArray
+                        3
+                        (TypePrim
+                          (PrimIntegral
+                            PrimInt
+                            Signed))))))))},
       declSpec = DeclSpec
         CTypeSpec {
           cTypeSpecModule = Nothing,

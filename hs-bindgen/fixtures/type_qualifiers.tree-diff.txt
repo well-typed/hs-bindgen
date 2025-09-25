@@ -17,7 +17,8 @@ TranslationUnit {
             "type_qualifiers.h"},
         declComment = Nothing},
       declKind = DeclGlobal
-        (TypeConst
+        (TypeQualified
+          TypeQualifierConst
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       declSpec = DeclSpec
@@ -44,7 +45,8 @@ TranslationUnit {
         declComment = Nothing},
       declKind = DeclGlobal
         (TypePointer
-          (TypeConst
+          (TypeQualified
+            TypeQualifierConst
             (TypePrim
               (PrimIntegral
                 PrimInt
@@ -72,7 +74,8 @@ TranslationUnit {
             "type_qualifiers.h"},
         declComment = Nothing},
       declKind = DeclGlobal
-        (TypeConst
+        (TypeQualified
+          TypeQualifierConst
           (TypePointer
             (TypePrim
               (PrimIntegral
@@ -101,9 +104,11 @@ TranslationUnit {
             "type_qualifiers.h"},
         declComment = Nothing},
       declKind = DeclGlobal
-        (TypeConst
+        (TypeQualified
+          TypeQualifierConst
           (TypePointer
-            (TypeConst
+            (TypeQualified
+              TypeQualifierConst
               (TypePrim
                 (PrimIntegral
                   PrimInt
@@ -142,7 +147,8 @@ TranslationUnit {
                     "items"})
               (TypePointer
                 (TypePointer
-                  (TypeConst
+                  (TypeQualified
+                    TypeQualifierConst
                     (TypePrim
                       (PrimChar
                         (PrimSignImplicit Nothing)))))),
