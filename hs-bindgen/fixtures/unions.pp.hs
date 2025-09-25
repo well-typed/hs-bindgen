@@ -312,9 +312,7 @@ instance F.Storable DimB where
                F.pokeByteOff ptr0 (0 :: Int) dimB_tag2
             >> F.pokeByteOff ptr0 (4 :: Int) dimB_payload3
 
-{-| __C declaration:__ @AnonA_xy@
-
-    __defined at:__ @unions.h:35:5@
+{-| __defined at:__ @unions.h:35:5@
 
     __exported by:__ @unions.h@
 -}
@@ -356,9 +354,7 @@ instance F.Storable AnonA_xy where
                F.pokeByteOff ptr0 (0 :: Int) anonA_xy_x2
             >> F.pokeByteOff ptr0 (8 :: Int) anonA_xy_y3
 
-{-| __C declaration:__ @AnonA_polar@
-
-    __defined at:__ @unions.h:36:5@
+{-| __defined at:__ @unions.h:36:5@
 
     __exported by:__ @unions.h@
 -}

@@ -2,17 +2,13 @@
 -- addDependentFile musl-include/x86_64/bits/alltypes.h
 -- addDependentFile musl-include/x86_64/stdint.h
 -- addDependentFile examples/golden/enum_cpp_syntax.h
-{-| __C declaration:__ @foo_enum@
-
-    __defined at:__ @enum_cpp_syntax.h:4:9@
+{-| __defined at:__ @enum_cpp_syntax.h:4:9@
 
     __exported by:__ @enum_cpp_syntax.h@
 -}
 newtype Foo_enum
     = Foo_enum {un_Foo_enum :: HsBindgen.Runtime.Prelude.Word32}
-      {- ^ __C declaration:__ @foo_enum@
-
-           __defined at:__ @enum_cpp_syntax.h:4:9@
+      {- ^ __defined at:__ @enum_cpp_syntax.h:4:9@
 
            __exported by:__ @enum_cpp_syntax.h@
       -}

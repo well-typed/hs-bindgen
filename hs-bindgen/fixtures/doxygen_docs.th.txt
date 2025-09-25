@@ -178,12 +178,75 @@ instance Read Color_enum
     where readPrec = readPrecCEnum
           readList = readListDefault
           readListPrec = readListPrecDefault
+{-| Red color
+
+__C declaration:__ @COLOR_RED@
+
+__defined at:__ @doxygen_docs.h:84:5@
+
+__exported by:__ @doxygen_docs.h@
+-}
 pattern COLOR_RED :: Color_enum
+{-| Red color
+
+__C declaration:__ @COLOR_RED@
+
+__defined at:__ @doxygen_docs.h:84:5@
+
+__exported by:__ @doxygen_docs.h@
+-}
 pattern COLOR_RED = Color_enum 0
+{-| Green color
+
+__C declaration:__ @COLOR_GREEN@
+
+__defined at:__ @doxygen_docs.h:85:5@
+
+__exported by:__ @doxygen_docs.h@
+-}
 pattern COLOR_GREEN :: Color_enum
+{-| Green color
+
+__C declaration:__ @COLOR_GREEN@
+
+__defined at:__ @doxygen_docs.h:85:5@
+
+__exported by:__ @doxygen_docs.h@
+-}
 pattern COLOR_GREEN = Color_enum 1
+{-| Blue color
+
+__C declaration:__ @COLOR_BLUE@
+
+__defined at:__ @doxygen_docs.h:86:5@
+
+__exported by:__ @doxygen_docs.h@
+-}
 pattern COLOR_BLUE :: Color_enum
+{-| Blue color
+
+__C declaration:__ @COLOR_BLUE@
+
+__defined at:__ @doxygen_docs.h:86:5@
+
+__exported by:__ @doxygen_docs.h@
+-}
 pattern COLOR_BLUE = Color_enum 2
+{-| Auxiliary type used by 'Event_callback_t'
+
+__defined at:__ @doxygen_docs.h:225:15@
+
+__exported by:__ @doxygen_docs.h@
+-}
+newtype Event_callback_t_Deref
+    = Event_callback_t_Deref {un_Event_callback_t_Deref :: (CInt ->
+                                                            Ptr Void -> IO CInt)}
+      {- ^ Auxiliary type used by 'Event_callback_t'
+
+      __defined at:__ @doxygen_docs.h:225:15@
+
+      __exported by:__ @doxygen_docs.h@
+      -}
 {-|
 
   Callback function type
@@ -201,8 +264,7 @@ __defined at:__ @doxygen_docs.h:225:15@
 __exported by:__ @doxygen_docs.h@
 -}
 newtype Event_callback_t
-    = Event_callback_t {un_Event_callback_t :: (FunPtr (CInt ->
-                                                        Ptr Void -> IO CInt))}
+    = Event_callback_t {un_Event_callback_t :: (FunPtr Event_callback_t_Deref)}
       {- ^
 
          Callback function type
@@ -226,8 +288,6 @@ newtype Event_callback_t
   Structure with documented fields
 
   This structure demonstrates field documentation.
-
-__C declaration:__ @config_t@
 
 __defined at:__ @doxygen_docs.h:232:9@
 
@@ -297,8 +357,6 @@ data Config_t
 
          This structure demonstrates field documentation.
 
-      __C declaration:__ @config_t@
-
       __defined at:__ @doxygen_docs.h:232:9@
 
       __exported by:__ @doxygen_docs.h@
@@ -320,8 +378,6 @@ instance Storable Config_t
 
   This enum shows different status codes.
 
-__C declaration:__ @status_code_t@
-
 __defined at:__ @doxygen_docs.h:258:9@
 
 __exported by:__ @doxygen_docs.h@
@@ -333,8 +389,6 @@ newtype Status_code_t
          Enumeration with documented values
 
          This enum shows different status codes.
-
-      __C declaration:__ @status_code_t@
 
       __defined at:__ @doxygen_docs.h:258:9@
 
@@ -481,8 +535,6 @@ pattern STATUS_ERROR = Status_code_t (-99)
 
   Allows access to high and low parts separately
 
-__C declaration:__ @data_union_t_as_parts@
-
 __defined at:__ @doxygen_docs.h:290:5@
 
 __exported by:__ @doxygen_docs.h@
@@ -516,8 +568,6 @@ data Data_union_t_as_parts
 
          Allows access to high and low parts separately
 
-      __C declaration:__ @data_union_t_as_parts@
-
       __defined at:__ @doxygen_docs.h:290:5@
 
       __exported by:__ @doxygen_docs.h@
@@ -538,8 +588,6 @@ instance Storable Data_union_t_as_parts
 
   This union demonstrates different data representations.
 
-__C declaration:__ @data_union_t@
-
 __defined at:__ @doxygen_docs.h:281:9@
 
 __exported by:__ @doxygen_docs.h@
@@ -553,8 +601,6 @@ newtype Data_union_t
          Union with documented fields
 
          This union demonstrates different data representations.
-
-      __C declaration:__ @data_union_t@
 
       __defined at:__ @doxygen_docs.h:281:9@
 
@@ -722,8 +768,6 @@ set_data_union_t_as_parts = setUnionPayload
 
   Demonstrates bit field documentation.
 
-__C declaration:__ @bitfield_t@
-
 __defined at:__ @doxygen_docs.h:302:9@
 
 __exported by:__ @doxygen_docs.h@
@@ -781,8 +825,6 @@ data Bitfield_t
 
          Demonstrates bit field documentation.
 
-      __C declaration:__ @bitfield_t@
-
       __defined at:__ @doxygen_docs.h:302:9@
 
       __exported by:__ @doxygen_docs.h@
@@ -797,6 +839,21 @@ instance Storable Bitfield_t
                                               bitfield_t_flag2_4
                                               bitfield_t_counter_5
                                               bitfield_t_reserved_6 -> pokeBitOffWidth ptr_1 (0 :: Int) (1 :: Int) bitfield_t_flag1_3 >> (pokeBitOffWidth ptr_1 (1 :: Int) (1 :: Int) bitfield_t_flag2_4 >> (pokeBitOffWidth ptr_1 (2 :: Int) (6 :: Int) bitfield_t_counter_5 >> pokeBitOffWidth ptr_1 (8 :: Int) (24 :: Int) bitfield_t_reserved_6))
+{-| Auxiliary type used by 'Processor_fn_t'
+
+__defined at:__ @doxygen_docs.h:317:15@
+
+__exported by:__ @doxygen_docs.h@
+-}
+newtype Processor_fn_t_Deref
+    = Processor_fn_t_Deref {un_Processor_fn_t_Deref :: (CInt ->
+                                                        Ptr Void -> IO CInt)}
+      {- ^ Auxiliary type used by 'Processor_fn_t'
+
+      __defined at:__ @doxygen_docs.h:317:15@
+
+      __exported by:__ @doxygen_docs.h@
+      -}
 {-|
 
   > processor_fn_t
@@ -816,8 +873,7 @@ __defined at:__ @doxygen_docs.h:317:15@
 __exported by:__ @doxygen_docs.h@
 -}
 newtype Processor_fn_t
-    = Processor_fn_t {un_Processor_fn_t :: (FunPtr (CInt ->
-                                                    Ptr Void -> IO CInt))}
+    = Processor_fn_t {un_Processor_fn_t :: (FunPtr Processor_fn_t_Deref)}
       {- ^
 
          > processor_fn_t

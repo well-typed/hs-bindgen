@@ -50,9 +50,7 @@ instance HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember FC.CChar P
 
   flexibleArrayMemberOffset = \_ty0 -> 4
 
-{-| __C declaration:__ @foo_bar@
-
-    __defined at:__ @flam.h:10:2@
+{-| __defined at:__ @flam.h:10:2@
 
     __exported by:__ @flam.h@
 -}
@@ -181,6 +179,14 @@ instance HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember FC.CChar D
 
   flexibleArrayMemberOffset = \_ty0 -> 9
 
+{-| The flexible array member is a multi-dimensional array of unknown size. In particular, it is a is an array of unknown size, where each element is of type length-3-array-of-int.
+
+__C declaration:__ @triplets@
+
+__defined at:__ @flam.h:26:8@
+
+__exported by:__ @flam.h@
+-}
 data Triplets = Triplets
   { triplets_len :: FC.CInt
     {- ^ __C declaration:__ @len@

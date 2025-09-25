@@ -2663,7 +2663,7 @@
       structComment = Just
         Comment {
           commentTitle = Nothing,
-          commentOrigin = Just "f",
+          commentOrigin = Nothing,
           commentLocation = Just
             "named_vs_anon.h:35:9",
           commentHeaderInfo = Just
@@ -2722,7 +2722,7 @@
           structComment = Just
             Comment {
               commentTitle = Nothing,
-              commentOrigin = Just "f",
+              commentOrigin = Nothing,
               commentLocation = Just
                 "named_vs_anon.h:35:9",
               commentHeaderInfo = Just
@@ -2784,7 +2784,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just "f",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "named_vs_anon.h:35:9",
                       commentHeaderInfo = Just
@@ -2846,7 +2846,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just "f",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "named_vs_anon.h:35:9",
                       commentHeaderInfo = Just
@@ -2927,7 +2927,7 @@
       structComment = Just
         Comment {
           commentTitle = Nothing,
-          commentOrigin = Just "typedef1",
+          commentOrigin = Nothing,
           commentLocation = Just
             "named_vs_anon.h:36:9",
           commentHeaderInfo = Just
@@ -2987,7 +2987,7 @@
           structComment = Just
             Comment {
               commentTitle = Nothing,
-              commentOrigin = Just "typedef1",
+              commentOrigin = Nothing,
               commentLocation = Just
                 "named_vs_anon.h:36:9",
               commentHeaderInfo = Just
@@ -3050,7 +3050,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just "typedef1",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "named_vs_anon.h:36:9",
                       commentHeaderInfo = Just
@@ -3113,7 +3113,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just "typedef1",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "named_vs_anon.h:36:9",
                       commentHeaderInfo = Just
@@ -3193,7 +3193,7 @@
       structComment = Just
         Comment {
           commentTitle = Nothing,
-          commentOrigin = Just "g",
+          commentOrigin = Nothing,
           commentLocation = Just
             "named_vs_anon.h:39:9",
           commentHeaderInfo = Just
@@ -3252,7 +3252,7 @@
           structComment = Just
             Comment {
               commentTitle = Nothing,
-              commentOrigin = Just "g",
+              commentOrigin = Nothing,
               commentLocation = Just
                 "named_vs_anon.h:39:9",
               commentHeaderInfo = Just
@@ -3314,7 +3314,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just "g",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "named_vs_anon.h:39:9",
                       commentHeaderInfo = Just
@@ -3376,7 +3376,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just "g",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "named_vs_anon.h:39:9",
                       commentHeaderInfo = Just
@@ -3457,7 +3457,7 @@
       structComment = Just
         Comment {
           commentTitle = Nothing,
-          commentOrigin = Just "typedef2",
+          commentOrigin = Nothing,
           commentLocation = Just
             "named_vs_anon.h:40:9",
           commentHeaderInfo = Just
@@ -3517,7 +3517,7 @@
           structComment = Just
             Comment {
               commentTitle = Nothing,
-              commentOrigin = Just "typedef2",
+              commentOrigin = Nothing,
               commentLocation = Just
                 "named_vs_anon.h:40:9",
               commentHeaderInfo = Just
@@ -3580,7 +3580,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just "typedef2",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "named_vs_anon.h:40:9",
                       commentHeaderInfo = Just
@@ -3643,7 +3643,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just "typedef2",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "named_vs_anon.h:40:9",
                       commentHeaderInfo = Just
@@ -3723,7 +3723,7 @@
       structComment = Just
         Comment {
           commentTitle = Nothing,
-          commentOrigin = Just "h",
+          commentOrigin = Nothing,
           commentLocation = Just
             "named_vs_anon.h:43:9",
           commentHeaderInfo = Just
@@ -3782,7 +3782,7 @@
           structComment = Just
             Comment {
               commentTitle = Nothing,
-              commentOrigin = Just "h",
+              commentOrigin = Nothing,
               commentLocation = Just
                 "named_vs_anon.h:43:9",
               commentHeaderInfo = Just
@@ -3844,7 +3844,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just "h",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "named_vs_anon.h:43:9",
                       commentHeaderInfo = Just
@@ -3906,7 +3906,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just "h",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "named_vs_anon.h:43:9",
                       commentHeaderInfo = Just
@@ -3987,7 +3987,7 @@
       structComment = Just
         Comment {
           commentTitle = Nothing,
-          commentOrigin = Just "typedef3",
+          commentOrigin = Nothing,
           commentLocation = Just
             "named_vs_anon.h:44:9",
           commentHeaderInfo = Just
@@ -4047,7 +4047,7 @@
           structComment = Just
             Comment {
               commentTitle = Nothing,
-              commentOrigin = Just "typedef3",
+              commentOrigin = Nothing,
               commentLocation = Just
                 "named_vs_anon.h:44:9",
               commentHeaderInfo = Just
@@ -4110,7 +4110,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just "typedef3",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "named_vs_anon.h:44:9",
                       commentHeaderInfo = Just
@@ -4173,7 +4173,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just "typedef3",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "named_vs_anon.h:44:9",
                       commentHeaderInfo = Just

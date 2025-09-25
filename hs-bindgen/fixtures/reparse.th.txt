@@ -511,8 +511,24 @@ newtype Arr_typedef4
       -}
     deriving stock (Eq, Show)
     deriving newtype Storable
+{-| Typedefs
+
+__C declaration:__ @typedef1@
+
+__defined at:__ @reparse.h:118:14@
+
+__exported by:__ @reparse.h@
+-}
 newtype Typedef1
     = Typedef1 {un_Typedef1 :: A}
+      {- ^ Typedefs
+
+      __C declaration:__ @typedef1@
+
+      __defined at:__ @reparse.h:118:14@
+
+      __exported by:__ @reparse.h@
+      -}
     deriving stock (Eq, Ord, Read, Show)
     deriving newtype (Storable,
                       Bits,
@@ -555,6 +571,20 @@ newtype Typedef3
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+{-| Auxiliary type used by 'Funptr_typedef1'
+
+__defined at:__ @reparse.h:132:16@
+
+__exported by:__ @reparse.h@
+-}
+newtype Funptr_typedef1_Deref
+    = Funptr_typedef1_Deref {un_Funptr_typedef1_Deref :: (IO A)}
+      {- ^ Auxiliary type used by 'Funptr_typedef1'
+
+      __defined at:__ @reparse.h:132:16@
+
+      __exported by:__ @reparse.h@
+      -}
 {-| __C declaration:__ @funptr_typedef1@
 
     __defined at:__ @reparse.h:132:16@
@@ -562,7 +592,7 @@ newtype Typedef3
     __exported by:__ @reparse.h@
 -}
 newtype Funptr_typedef1
-    = Funptr_typedef1 {un_Funptr_typedef1 :: (FunPtr (IO A))}
+    = Funptr_typedef1 {un_Funptr_typedef1 :: (FunPtr Funptr_typedef1_Deref)}
       {- ^ __C declaration:__ @funptr_typedef1@
 
            __defined at:__ @reparse.h:132:16@
@@ -571,6 +601,20 @@ newtype Funptr_typedef1
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+{-| Auxiliary type used by 'Funptr_typedef2'
+
+__defined at:__ @reparse.h:133:16@
+
+__exported by:__ @reparse.h@
+-}
+newtype Funptr_typedef2_Deref
+    = Funptr_typedef2_Deref {un_Funptr_typedef2_Deref :: (IO (Ptr A))}
+      {- ^ Auxiliary type used by 'Funptr_typedef2'
+
+      __defined at:__ @reparse.h:133:16@
+
+      __exported by:__ @reparse.h@
+      -}
 {-| __C declaration:__ @funptr_typedef2@
 
     __defined at:__ @reparse.h:133:16@
@@ -578,7 +622,7 @@ newtype Funptr_typedef1
     __exported by:__ @reparse.h@
 -}
 newtype Funptr_typedef2
-    = Funptr_typedef2 {un_Funptr_typedef2 :: (FunPtr (IO (Ptr A)))}
+    = Funptr_typedef2 {un_Funptr_typedef2 :: (FunPtr Funptr_typedef2_Deref)}
       {- ^ __C declaration:__ @funptr_typedef2@
 
            __defined at:__ @reparse.h:133:16@
@@ -587,6 +631,20 @@ newtype Funptr_typedef2
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+{-| Auxiliary type used by 'Funptr_typedef3'
+
+__defined at:__ @reparse.h:134:16@
+
+__exported by:__ @reparse.h@
+-}
+newtype Funptr_typedef3_Deref
+    = Funptr_typedef3_Deref {un_Funptr_typedef3_Deref :: (IO (Ptr (Ptr A)))}
+      {- ^ Auxiliary type used by 'Funptr_typedef3'
+
+      __defined at:__ @reparse.h:134:16@
+
+      __exported by:__ @reparse.h@
+      -}
 {-| __C declaration:__ @funptr_typedef3@
 
     __defined at:__ @reparse.h:134:16@
@@ -594,7 +652,7 @@ newtype Funptr_typedef2
     __exported by:__ @reparse.h@
 -}
 newtype Funptr_typedef3
-    = Funptr_typedef3 {un_Funptr_typedef3 :: (FunPtr (IO (Ptr (Ptr A))))}
+    = Funptr_typedef3 {un_Funptr_typedef3 :: (FunPtr Funptr_typedef3_Deref)}
       {- ^ __C declaration:__ @funptr_typedef3@
 
            __defined at:__ @reparse.h:134:16@
@@ -603,6 +661,21 @@ newtype Funptr_typedef3
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+{-| Auxiliary type used by 'Funptr_typedef4'
+
+__defined at:__ @reparse.h:135:16@
+
+__exported by:__ @reparse.h@
+-}
+newtype Funptr_typedef4_Deref
+    = Funptr_typedef4_Deref {un_Funptr_typedef4_Deref :: (CInt ->
+                                                          CDouble -> IO A)}
+      {- ^ Auxiliary type used by 'Funptr_typedef4'
+
+      __defined at:__ @reparse.h:135:16@
+
+      __exported by:__ @reparse.h@
+      -}
 {-| __C declaration:__ @funptr_typedef4@
 
     __defined at:__ @reparse.h:135:16@
@@ -610,8 +683,7 @@ newtype Funptr_typedef3
     __exported by:__ @reparse.h@
 -}
 newtype Funptr_typedef4
-    = Funptr_typedef4 {un_Funptr_typedef4 :: (FunPtr (CInt ->
-                                                      CDouble -> IO A))}
+    = Funptr_typedef4 {un_Funptr_typedef4 :: (FunPtr Funptr_typedef4_Deref)}
       {- ^ __C declaration:__ @funptr_typedef4@
 
            __defined at:__ @reparse.h:135:16@
@@ -620,6 +692,21 @@ newtype Funptr_typedef4
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+{-| Auxiliary type used by 'Funptr_typedef5'
+
+__defined at:__ @reparse.h:136:16@
+
+__exported by:__ @reparse.h@
+-}
+newtype Funptr_typedef5_Deref
+    = Funptr_typedef5_Deref {un_Funptr_typedef5_Deref :: (CInt ->
+                                                          CDouble -> IO (Ptr A))}
+      {- ^ Auxiliary type used by 'Funptr_typedef5'
+
+      __defined at:__ @reparse.h:136:16@
+
+      __exported by:__ @reparse.h@
+      -}
 {-| __C declaration:__ @funptr_typedef5@
 
     __defined at:__ @reparse.h:136:16@
@@ -627,8 +714,7 @@ newtype Funptr_typedef4
     __exported by:__ @reparse.h@
 -}
 newtype Funptr_typedef5
-    = Funptr_typedef5 {un_Funptr_typedef5 :: (FunPtr (CInt ->
-                                                      CDouble -> IO (Ptr A)))}
+    = Funptr_typedef5 {un_Funptr_typedef5 :: (FunPtr Funptr_typedef5_Deref)}
       {- ^ __C declaration:__ @funptr_typedef5@
 
            __defined at:__ @reparse.h:136:16@
@@ -661,6 +747,14 @@ newtype Comments2
                       Ix,
                       Num,
                       Real)
+{-| Struct fields
+
+__C declaration:__ @example_struct@
+
+__defined at:__ @reparse.h:151:8@
+
+__exported by:__ @reparse.h@
+-}
 data Example_struct
     = Example_struct {example_struct_field1 :: A
                       {- ^ __C declaration:__ @field1@
@@ -683,6 +777,14 @@ data Example_struct
 
                            __exported by:__ @reparse.h@
                       -}}
+      {- ^ Struct fields
+
+      __C declaration:__ @example_struct@
+
+      __defined at:__ @reparse.h:151:8@
+
+      __exported by:__ @reparse.h@
+      -}
     deriving stock (Eq, Show)
 instance Storable Example_struct
     where sizeOf = \_ -> 24 :: Int
@@ -895,6 +997,21 @@ instance Storable Example_struct_with_const
                                                              example_struct_with_const_const_field5_7
                                                              example_struct_with_const_const_field6_8
                                                              example_struct_with_const_const_field7_9 -> pokeByteOff ptr_1 (0 :: Int) example_struct_with_const_const_field1_3 >> (pokeByteOff ptr_1 (4 :: Int) example_struct_with_const_const_field2_4 >> (pokeByteOff ptr_1 (8 :: Int) example_struct_with_const_const_field3_5 >> (pokeByteOff ptr_1 (16 :: Int) example_struct_with_const_const_field4_6 >> (pokeByteOff ptr_1 (24 :: Int) example_struct_with_const_const_field5_7 >> (pokeByteOff ptr_1 (32 :: Int) example_struct_with_const_const_field6_8 >> pokeByteOff ptr_1 (40 :: Int) example_struct_with_const_const_field7_9)))))
+{-| Auxiliary type used by 'Const_funptr1'
+
+__defined at:__ @reparse.h:238:27@
+
+__exported by:__ @reparse.h@
+-}
+newtype Const_funptr1_Deref
+    = Const_funptr1_Deref {un_Const_funptr1_Deref :: (CInt ->
+                                                      CDouble -> IO A)}
+      {- ^ Auxiliary type used by 'Const_funptr1'
+
+      __defined at:__ @reparse.h:238:27@
+
+      __exported by:__ @reparse.h@
+      -}
 {-| __C declaration:__ @const_funptr1@
 
     __defined at:__ @reparse.h:238:27@
@@ -902,8 +1019,7 @@ instance Storable Example_struct_with_const
     __exported by:__ @reparse.h@
 -}
 newtype Const_funptr1
-    = Const_funptr1 {un_Const_funptr1 :: (FunPtr (CInt ->
-                                                  CDouble -> IO A))}
+    = Const_funptr1 {un_Const_funptr1 :: (FunPtr Const_funptr1_Deref)}
       {- ^ __C declaration:__ @const_funptr1@
 
            __defined at:__ @reparse.h:238:27@
@@ -912,6 +1028,21 @@ newtype Const_funptr1
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+{-| Auxiliary type used by 'Const_funptr2'
+
+__defined at:__ @reparse.h:239:27@
+
+__exported by:__ @reparse.h@
+-}
+newtype Const_funptr2_Deref
+    = Const_funptr2_Deref {un_Const_funptr2_Deref :: (CInt ->
+                                                      CDouble -> IO A)}
+      {- ^ Auxiliary type used by 'Const_funptr2'
+
+      __defined at:__ @reparse.h:239:27@
+
+      __exported by:__ @reparse.h@
+      -}
 {-| __C declaration:__ @const_funptr2@
 
     __defined at:__ @reparse.h:239:27@
@@ -919,8 +1050,7 @@ newtype Const_funptr1
     __exported by:__ @reparse.h@
 -}
 newtype Const_funptr2
-    = Const_funptr2 {un_Const_funptr2 :: (FunPtr (CInt ->
-                                                  CDouble -> IO A))}
+    = Const_funptr2 {un_Const_funptr2 :: (FunPtr Const_funptr2_Deref)}
       {- ^ __C declaration:__ @const_funptr2@
 
            __defined at:__ @reparse.h:239:27@
@@ -929,6 +1059,21 @@ newtype Const_funptr2
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+{-| Auxiliary type used by 'Const_funptr3'
+
+__defined at:__ @reparse.h:240:27@
+
+__exported by:__ @reparse.h@
+-}
+newtype Const_funptr3_Deref
+    = Const_funptr3_Deref {un_Const_funptr3_Deref :: (CInt ->
+                                                      CDouble -> IO (Ptr A))}
+      {- ^ Auxiliary type used by 'Const_funptr3'
+
+      __defined at:__ @reparse.h:240:27@
+
+      __exported by:__ @reparse.h@
+      -}
 {-| __C declaration:__ @const_funptr3@
 
     __defined at:__ @reparse.h:240:27@
@@ -936,8 +1081,7 @@ newtype Const_funptr2
     __exported by:__ @reparse.h@
 -}
 newtype Const_funptr3
-    = Const_funptr3 {un_Const_funptr3 :: (FunPtr (CInt ->
-                                                  CDouble -> IO (Ptr A)))}
+    = Const_funptr3 {un_Const_funptr3 :: (FunPtr Const_funptr3_Deref)}
       {- ^ __C declaration:__ @const_funptr3@
 
            __defined at:__ @reparse.h:240:27@
@@ -946,6 +1090,21 @@ newtype Const_funptr3
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+{-| Auxiliary type used by 'Const_funptr4'
+
+__defined at:__ @reparse.h:241:27@
+
+__exported by:__ @reparse.h@
+-}
+newtype Const_funptr4_Deref
+    = Const_funptr4_Deref {un_Const_funptr4_Deref :: (CInt ->
+                                                      CDouble -> IO (Ptr A))}
+      {- ^ Auxiliary type used by 'Const_funptr4'
+
+      __defined at:__ @reparse.h:241:27@
+
+      __exported by:__ @reparse.h@
+      -}
 {-| __C declaration:__ @const_funptr4@
 
     __defined at:__ @reparse.h:241:27@
@@ -953,8 +1112,7 @@ newtype Const_funptr3
     __exported by:__ @reparse.h@
 -}
 newtype Const_funptr4
-    = Const_funptr4 {un_Const_funptr4 :: (FunPtr (CInt ->
-                                                  CDouble -> IO (Ptr A)))}
+    = Const_funptr4 {un_Const_funptr4 :: (FunPtr Const_funptr4_Deref)}
       {- ^ __C declaration:__ @const_funptr4@
 
            __defined at:__ @reparse.h:241:27@
@@ -963,6 +1121,21 @@ newtype Const_funptr4
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+{-| Auxiliary type used by 'Const_funptr5'
+
+__defined at:__ @reparse.h:242:27@
+
+__exported by:__ @reparse.h@
+-}
+newtype Const_funptr5_Deref
+    = Const_funptr5_Deref {un_Const_funptr5_Deref :: (CInt ->
+                                                      CDouble -> IO (Ptr A))}
+      {- ^ Auxiliary type used by 'Const_funptr5'
+
+      __defined at:__ @reparse.h:242:27@
+
+      __exported by:__ @reparse.h@
+      -}
 {-| __C declaration:__ @const_funptr5@
 
     __defined at:__ @reparse.h:242:27@
@@ -970,8 +1143,7 @@ newtype Const_funptr4
     __exported by:__ @reparse.h@
 -}
 newtype Const_funptr5
-    = Const_funptr5 {un_Const_funptr5 :: (FunPtr (CInt ->
-                                                  CDouble -> IO (Ptr A)))}
+    = Const_funptr5 {un_Const_funptr5 :: (FunPtr Const_funptr5_Deref)}
       {- ^ __C declaration:__ @const_funptr5@
 
            __defined at:__ @reparse.h:242:27@
@@ -980,6 +1152,21 @@ newtype Const_funptr5
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+{-| Auxiliary type used by 'Const_funptr6'
+
+__defined at:__ @reparse.h:243:27@
+
+__exported by:__ @reparse.h@
+-}
+newtype Const_funptr6_Deref
+    = Const_funptr6_Deref {un_Const_funptr6_Deref :: (CInt ->
+                                                      CDouble -> IO (Ptr A))}
+      {- ^ Auxiliary type used by 'Const_funptr6'
+
+      __defined at:__ @reparse.h:243:27@
+
+      __exported by:__ @reparse.h@
+      -}
 {-| __C declaration:__ @const_funptr6@
 
     __defined at:__ @reparse.h:243:27@
@@ -987,8 +1174,7 @@ newtype Const_funptr5
     __exported by:__ @reparse.h@
 -}
 newtype Const_funptr6
-    = Const_funptr6 {un_Const_funptr6 :: (FunPtr (CInt ->
-                                                  CDouble -> IO (Ptr A)))}
+    = Const_funptr6 {un_Const_funptr6 :: (FunPtr Const_funptr6_Deref)}
       {- ^ __C declaration:__ @const_funptr6@
 
            __defined at:__ @reparse.h:243:27@
@@ -997,6 +1183,21 @@ newtype Const_funptr6
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+{-| Auxiliary type used by 'Const_funptr7'
+
+__defined at:__ @reparse.h:244:27@
+
+__exported by:__ @reparse.h@
+-}
+newtype Const_funptr7_Deref
+    = Const_funptr7_Deref {un_Const_funptr7_Deref :: (CInt ->
+                                                      CDouble -> IO (Ptr A))}
+      {- ^ Auxiliary type used by 'Const_funptr7'
+
+      __defined at:__ @reparse.h:244:27@
+
+      __exported by:__ @reparse.h@
+      -}
 {-| __C declaration:__ @const_funptr7@
 
     __defined at:__ @reparse.h:244:27@
@@ -1004,8 +1205,7 @@ newtype Const_funptr6
     __exported by:__ @reparse.h@
 -}
 newtype Const_funptr7
-    = Const_funptr7 {un_Const_funptr7 :: (FunPtr (CInt ->
-                                                  CDouble -> IO (Ptr A)))}
+    = Const_funptr7 {un_Const_funptr7 :: (FunPtr Const_funptr7_Deref)}
       {- ^ __C declaration:__ @const_funptr7@
 
            __defined at:__ @reparse.h:244:27@
@@ -1094,6 +1294,14 @@ newtype INTCP
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+{-| Function declarations
+
+__C declaration:__ @args_char1@
+
+__defined at:__ @reparse.h:17:6@
+
+__exported by:__ @reparse.h@
+-}
 foreign import ccall safe "hs_bindgen_test_reparse_394853579d622671" args_char1 :: A ->
                                                                                    CChar -> IO Unit
 {-| __C declaration:__ @args_char2@
@@ -1640,9 +1848,33 @@ foreign import ccall safe "hs_bindgen_test_reparse_994d22fc993523bf" bespoke_ret
 -}
 foreign import ccall safe "hs_bindgen_test_reparse_c7649a4aa2e14a89" bespoke_ret2 :: A ->
                                                                                      IO CSize
+{-| Arrays
+
+__C declaration:__ @arr_args1@
+
+__defined at:__ @reparse.h:104:6@
+
+__exported by:__ @reparse.h@
+-}
 foreign import ccall safe "hs_bindgen_test_reparse_69045f97d21cfcd3" arr_args1_wrapper :: Ptr A ->
                                                                                           IO Unit
+{-| Arrays
+
+__C declaration:__ @arr_args1@
+
+__defined at:__ @reparse.h:104:6@
+
+__exported by:__ @reparse.h@
+-}
 arr_args1 :: IncompleteArray A -> IO Unit
+{-| Arrays
+
+__C declaration:__ @arr_args1@
+
+__defined at:__ @reparse.h:104:6@
+
+__exported by:__ @reparse.h@
+-}
 arr_args1 = \x_0 -> withPtr x_0 (\ptr_1 -> arr_args1_wrapper ptr_1)
 {-| __C declaration:__ @arr_args2@
 
@@ -1710,6 +1942,14 @@ arr_args4 :: ConstantArray 5 (Ptr A) -> IO Unit
     __exported by:__ @reparse.h@
 -}
 arr_args4 = \x_0 -> withPtr x_0 (\ptr_1 -> arr_args4_wrapper ptr_1)
+{-| Function pointers
+
+__C declaration:__ @funptr_args1@
+
+__defined at:__ @reparse.h:126:6@
+
+__exported by:__ @reparse.h@
+-}
 foreign import ccall safe "hs_bindgen_test_reparse_09ca38f534ba1397" funptr_args1 :: A ->
                                                                                      FunPtr (IO Unit) ->
                                                                                      IO Unit
@@ -2119,6 +2359,14 @@ const_array_elem3 :: IncompleteArray (Ptr A) -> IO Unit
     __exported by:__ @reparse.h@
 -}
 const_array_elem3 = \x_0 -> withPtr x_0 (\ptr_1 -> const_array_elem3_wrapper ptr_1)
+{-| Other examples we reparsed /incorrectly/ before language-c
+
+__C declaration:__ @noParams1@
+
+__defined at:__ @reparse.h:256:3@
+
+__exported by:__ @reparse.h@
+-}
 foreign import ccall safe "hs_bindgen_test_reparse_8ab2f7d7d9185985" noParams1 :: IO A
 {-| __C declaration:__ @noParams2@
 
@@ -2231,6 +2479,14 @@ foreign import ccall safe "hs_bindgen_test_reparse_ca08b018fda612eb" funptr_ret1
                                                                                      IO (FunPtr (CInt ->
                                                                                                  CDouble ->
                                                                                                  IO (Ptr CInt)))
+{-| Function declarations
+
+__C declaration:__ @args_char1@
+
+__defined at:__ @reparse.h:17:6@
+
+__exported by:__ @reparse.h@
+-}
 foreign import ccall safe "hs_bindgen_test_reparse_a10d23a1cebc3f58" args_char1 :: A ->
                                                                                    CChar -> IO Unit
 {-| __C declaration:__ @args_char2@
@@ -2777,9 +3033,33 @@ foreign import ccall safe "hs_bindgen_test_reparse_434418d9d1f41c66" bespoke_ret
 -}
 foreign import ccall safe "hs_bindgen_test_reparse_7a13d4c1ed935df0" bespoke_ret2 :: A ->
                                                                                      IO CSize
+{-| Arrays
+
+__C declaration:__ @arr_args1@
+
+__defined at:__ @reparse.h:104:6@
+
+__exported by:__ @reparse.h@
+-}
 foreign import ccall safe "hs_bindgen_test_reparse_802c66e1efc0f556" arr_args1_wrapper :: Ptr A ->
                                                                                           IO Unit
+{-| Arrays
+
+__C declaration:__ @arr_args1@
+
+__defined at:__ @reparse.h:104:6@
+
+__exported by:__ @reparse.h@
+-}
 arr_args1 :: IncompleteArray A -> IO Unit
+{-| Arrays
+
+__C declaration:__ @arr_args1@
+
+__defined at:__ @reparse.h:104:6@
+
+__exported by:__ @reparse.h@
+-}
 arr_args1 = \x_0 -> withPtr x_0 (\ptr_1 -> arr_args1_wrapper ptr_1)
 {-| __C declaration:__ @arr_args2@
 
@@ -2847,6 +3127,14 @@ arr_args4 :: ConstantArray 5 (Ptr A) -> IO Unit
     __exported by:__ @reparse.h@
 -}
 arr_args4 = \x_0 -> withPtr x_0 (\ptr_1 -> arr_args4_wrapper ptr_1)
+{-| Function pointers
+
+__C declaration:__ @funptr_args1@
+
+__defined at:__ @reparse.h:126:6@
+
+__exported by:__ @reparse.h@
+-}
 foreign import ccall safe "hs_bindgen_test_reparse_91151b594cc92e09" funptr_args1 :: A ->
                                                                                      FunPtr (IO Unit) ->
                                                                                      IO Unit
@@ -3256,6 +3544,14 @@ const_array_elem3 :: IncompleteArray (Ptr A) -> IO Unit
     __exported by:__ @reparse.h@
 -}
 const_array_elem3 = \x_0 -> withPtr x_0 (\ptr_1 -> const_array_elem3_wrapper ptr_1)
+{-| Other examples we reparsed /incorrectly/ before language-c
+
+__C declaration:__ @noParams1@
+
+__defined at:__ @reparse.h:256:3@
+
+__exported by:__ @reparse.h@
+-}
 foreign import ccall safe "hs_bindgen_test_reparse_4c99a8a7824a66d4" noParams1 :: IO A
 {-| __C declaration:__ @noParams2@
 
@@ -3372,7 +3668,23 @@ foreign import ccall safe "hs_bindgen_test_reparse_1cbcf8b84924816c" hs_bindgen_
                                                                                                                              CChar ->
                                                                                                                              IO Unit))
 {-# NOINLINE args_char1_ptr #-}
+{-| Function declarations
+
+__C declaration:__ @args_char1@
+
+__defined at:__ @reparse.h:17:6@
+
+__exported by:__ @reparse.h@
+-}
 args_char1_ptr :: FunPtr (A -> CChar -> IO Unit)
+{-| Function declarations
+
+__C declaration:__ @args_char1@
+
+__defined at:__ @reparse.h:17:6@
+
+__exported by:__ @reparse.h@
+-}
 args_char1_ptr = unsafePerformIO hs_bindgen_test_reparse_1cbcf8b84924816c
 foreign import ccall safe "hs_bindgen_test_reparse_ec2d78b82f444fd0" hs_bindgen_test_reparse_ec2d78b82f444fd0 :: IO (FunPtr (A ->
                                                                                                                              CSChar ->
@@ -4283,7 +4595,23 @@ bespoke_ret2_ptr = unsafePerformIO hs_bindgen_test_reparse_07c419cb648cdf65
 foreign import ccall safe "hs_bindgen_test_reparse_ed19e51bcac06a9e" hs_bindgen_test_reparse_ed19e51bcac06a9e :: IO (FunPtr (IncompleteArray A ->
                                                                                                                              IO Unit))
 {-# NOINLINE arr_args1_ptr #-}
+{-| Arrays
+
+__C declaration:__ @arr_args1@
+
+__defined at:__ @reparse.h:104:6@
+
+__exported by:__ @reparse.h@
+-}
 arr_args1_ptr :: FunPtr (IncompleteArray A -> IO Unit)
+{-| Arrays
+
+__C declaration:__ @arr_args1@
+
+__defined at:__ @reparse.h:104:6@
+
+__exported by:__ @reparse.h@
+-}
 arr_args1_ptr = unsafePerformIO hs_bindgen_test_reparse_ed19e51bcac06a9e
 foreign import ccall safe "hs_bindgen_test_reparse_de3931a21a8a71fc" hs_bindgen_test_reparse_de3931a21a8a71fc :: IO (FunPtr (IncompleteArray (Ptr A) ->
                                                                                                                              IO Unit))
@@ -4342,7 +4670,23 @@ foreign import ccall safe "hs_bindgen_test_reparse_d1645262a53743f6" hs_bindgen_
                                                                                                                              FunPtr (IO Unit) ->
                                                                                                                              IO Unit))
 {-# NOINLINE funptr_args1_ptr #-}
+{-| Function pointers
+
+__C declaration:__ @funptr_args1@
+
+__defined at:__ @reparse.h:126:6@
+
+__exported by:__ @reparse.h@
+-}
 funptr_args1_ptr :: FunPtr (A -> FunPtr (IO Unit) -> IO Unit)
+{-| Function pointers
+
+__C declaration:__ @funptr_args1@
+
+__defined at:__ @reparse.h:126:6@
+
+__exported by:__ @reparse.h@
+-}
 funptr_args1_ptr = unsafePerformIO hs_bindgen_test_reparse_d1645262a53743f6
 foreign import ccall safe "hs_bindgen_test_reparse_d66507630e4e38e3" hs_bindgen_test_reparse_d66507630e4e38e3 :: IO (FunPtr (A ->
                                                                                                                              FunPtr (IO CInt) ->
@@ -5086,7 +5430,23 @@ const_array_elem3_ptr :: FunPtr (IncompleteArray (Ptr A) ->
 const_array_elem3_ptr = unsafePerformIO hs_bindgen_test_reparse_5e23f87114cf51fb
 foreign import ccall safe "hs_bindgen_test_reparse_d50620a002265139" hs_bindgen_test_reparse_d50620a002265139 :: IO (FunPtr (IO A))
 {-# NOINLINE noParams1_ptr #-}
+{-| Other examples we reparsed /incorrectly/ before language-c
+
+__C declaration:__ @noParams1@
+
+__defined at:__ @reparse.h:256:3@
+
+__exported by:__ @reparse.h@
+-}
 noParams1_ptr :: FunPtr (IO A)
+{-| Other examples we reparsed /incorrectly/ before language-c
+
+__C declaration:__ @noParams1@
+
+__defined at:__ @reparse.h:256:3@
+
+__exported by:__ @reparse.h@
+-}
 noParams1_ptr = unsafePerformIO hs_bindgen_test_reparse_d50620a002265139
 foreign import ccall safe "hs_bindgen_test_reparse_03b0e24786b82ad5" hs_bindgen_test_reparse_03b0e24786b82ad5 :: IO (FunPtr (IO A))
 {-# NOINLINE noParams2_ptr #-}

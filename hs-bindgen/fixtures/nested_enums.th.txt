@@ -95,17 +95,13 @@ instance Storable ExA
           peek = \ptr_0 -> pure ExA <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    ExA exA_fieldA1_3 -> pokeByteOff ptr_1 (0 :: Int) exA_fieldA1_3
-{-| __C declaration:__ @exB_fieldB1@
-
-    __defined at:__ @nested_enums.h:9:9@
+{-| __defined at:__ @nested_enums.h:9:9@
 
     __exported by:__ @nested_enums.h@
 -}
 newtype ExB_fieldB1
     = ExB_fieldB1 {un_ExB_fieldB1 :: CUInt}
-      {- ^ __C declaration:__ @exB_fieldB1@
-
-           __defined at:__ @nested_enums.h:9:9@
+      {- ^ __defined at:__ @nested_enums.h:9:9@
 
            __exported by:__ @nested_enums.h@
       -}

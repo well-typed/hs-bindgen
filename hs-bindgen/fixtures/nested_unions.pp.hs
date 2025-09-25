@@ -105,9 +105,7 @@ instance F.Storable ExA where
           ExA exA_fieldA12 ->
             F.pokeByteOff ptr0 (0 :: Int) exA_fieldA12
 
-{-| __C declaration:__ @exB_fieldB1@
-
-    __defined at:__ @nested_unions.h:9:9@
+{-| __defined at:__ @nested_unions.h:9:9@
 
     __exported by:__ @nested_unions.h@
 -}

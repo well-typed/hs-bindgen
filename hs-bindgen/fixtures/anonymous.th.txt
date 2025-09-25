@@ -1,7 +1,5 @@
 -- addDependentFile examples/golden/anonymous.h
-{-| __C declaration:__ @S1_c@
-
-    __defined at:__ @anonymous.h:3:3@
+{-| __defined at:__ @anonymous.h:3:3@
 
     __exported by:__ @anonymous.h@
 -}
@@ -20,9 +18,7 @@ data S1_c
 
                  __exported by:__ @anonymous.h@
             -}}
-      {- ^ __C declaration:__ @S1_c@
-
-           __defined at:__ @anonymous.h:3:3@
+      {- ^ __defined at:__ @anonymous.h:3:3@
 
            __exported by:__ @anonymous.h@
       -}
@@ -69,9 +65,7 @@ instance Storable S1
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    S1 s1_c_3
                                       s1_d_4 -> pokeByteOff ptr_1 (0 :: Int) s1_c_3 >> pokeByteOff ptr_1 (8 :: Int) s1_d_4
-{-| __C declaration:__ @S2_inner_deep@
-
-    __defined at:__ @anonymous.h:15:5@
+{-| __defined at:__ @anonymous.h:15:5@
 
     __exported by:__ @anonymous.h@
 -}
@@ -83,9 +77,7 @@ data S2_inner_deep
 
                           __exported by:__ @anonymous.h@
                      -}}
-      {- ^ __C declaration:__ @S2_inner_deep@
-
-           __defined at:__ @anonymous.h:15:5@
+      {- ^ __defined at:__ @anonymous.h:15:5@
 
            __exported by:__ @anonymous.h@
       -}
@@ -96,9 +88,7 @@ instance Storable S2_inner_deep
           peek = \ptr_0 -> pure S2_inner_deep <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    S2_inner_deep s2_inner_deep_b_3 -> pokeByteOff ptr_1 (0 :: Int) s2_inner_deep_b_3
-{-| __C declaration:__ @S2_inner@
-
-    __defined at:__ @anonymous.h:13:3@
+{-| __defined at:__ @anonymous.h:13:3@
 
     __exported by:__ @anonymous.h@
 -}
@@ -117,9 +107,7 @@ data S2_inner
 
                      __exported by:__ @anonymous.h@
                 -}}
-      {- ^ __C declaration:__ @S2_inner@
-
-           __defined at:__ @anonymous.h:13:3@
+      {- ^ __defined at:__ @anonymous.h:13:3@
 
            __exported by:__ @anonymous.h@
       -}
@@ -166,9 +154,7 @@ instance Storable S2
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    S2 s2_inner_3
                                       s2_d_4 -> pokeByteOff ptr_1 (0 :: Int) s2_inner_3 >> pokeByteOff ptr_1 (8 :: Int) s2_d_4
-{-| __C declaration:__ @S3_c@
-
-    __defined at:__ @anonymous.h:25:3@
+{-| __defined at:__ @anonymous.h:25:3@
 
     __exported by:__ @anonymous.h@
 -}
@@ -187,9 +173,7 @@ data S3_c
 
                  __exported by:__ @anonymous.h@
             -}}
-      {- ^ __C declaration:__ @S3_c@
-
-           __defined at:__ @anonymous.h:25:3@
+      {- ^ __defined at:__ @anonymous.h:25:3@
 
            __exported by:__ @anonymous.h@
       -}

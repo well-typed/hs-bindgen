@@ -8,9 +8,7 @@ import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
-{-| __C declaration:__ @S1_c@
-
-    __defined at:__ @anonymous.h:3:3@
+{-| __defined at:__ @anonymous.h:3:3@
 
     __exported by:__ @anonymous.h@
 -}
@@ -96,9 +94,7 @@ instance F.Storable S1 where
                F.pokeByteOff ptr0 (0 :: Int) s1_c2
             >> F.pokeByteOff ptr0 (8 :: Int) s1_d3
 
-{-| __C declaration:__ @S2_inner_deep@
-
-    __defined at:__ @anonymous.h:15:5@
+{-| __defined at:__ @anonymous.h:15:5@
 
     __exported by:__ @anonymous.h@
 -}
@@ -131,9 +127,7 @@ instance F.Storable S2_inner_deep where
           S2_inner_deep s2_inner_deep_b2 ->
             F.pokeByteOff ptr0 (0 :: Int) s2_inner_deep_b2
 
-{-| __C declaration:__ @S2_inner@
-
-    __defined at:__ @anonymous.h:13:3@
+{-| __defined at:__ @anonymous.h:13:3@
 
     __exported by:__ @anonymous.h@
 -}
@@ -219,9 +213,7 @@ instance F.Storable S2 where
                F.pokeByteOff ptr0 (0 :: Int) s2_inner2
             >> F.pokeByteOff ptr0 (8 :: Int) s2_d3
 
-{-| __C declaration:__ @S3_c@
-
-    __defined at:__ @anonymous.h:25:3@
+{-| __defined at:__ @anonymous.h:25:3@
 
     __exported by:__ @anonymous.h@
 -}

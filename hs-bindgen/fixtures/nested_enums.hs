@@ -931,8 +931,7 @@
       newtypeComment = Just
         Comment {
           commentTitle = Nothing,
-          commentOrigin = Just
-            "exB_fieldB1",
+          commentOrigin = Nothing,
           commentLocation = Just
             "nested_enums.h:9:9",
           commentHeaderInfo = Just

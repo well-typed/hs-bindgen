@@ -2049,7 +2049,7 @@
       newtypeComment = Just
         Comment {
           commentTitle = Nothing,
-          commentOrigin = Just "enumA",
+          commentOrigin = Nothing,
           commentLocation = Just
             "enums.h:30:9",
           commentHeaderInfo = Just

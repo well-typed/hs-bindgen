@@ -188,8 +188,7 @@
       structComment = Just
         Comment {
           commentTitle = Nothing,
-          commentOrigin = Just
-            "complex_object_t",
+          commentOrigin = Nothing,
           commentLocation = Just
             "hsb_complex_test.h:24:9",
           commentHeaderInfo = Just
@@ -391,8 +390,7 @@
           structComment = Just
             Comment {
               commentTitle = Nothing,
-              commentOrigin = Just
-                "complex_object_t",
+              commentOrigin = Nothing,
               commentLocation = Just
                 "hsb_complex_test.h:24:9",
               commentHeaderInfo = Just
@@ -597,8 +595,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just
-                        "complex_object_t",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "hsb_complex_test.h:24:9",
                       commentHeaderInfo = Just
@@ -806,8 +803,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just
-                        "complex_object_t",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "hsb_complex_test.h:24:9",
                       commentHeaderInfo = Just

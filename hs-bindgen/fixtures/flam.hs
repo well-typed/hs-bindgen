@@ -731,7 +731,7 @@
       structComment = Just
         Comment {
           commentTitle = Nothing,
-          commentOrigin = Just "foo_bar",
+          commentOrigin = Nothing,
           commentLocation = Just
             "flam.h:10:2",
           commentHeaderInfo = Just
@@ -874,7 +874,7 @@
           structComment = Just
             Comment {
               commentTitle = Nothing,
-              commentOrigin = Just "foo_bar",
+              commentOrigin = Nothing,
               commentLocation = Just
                 "flam.h:10:2",
               commentHeaderInfo = Just
@@ -1020,7 +1020,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just "foo_bar",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "flam.h:10:2",
                       commentHeaderInfo = Just
@@ -1168,7 +1168,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just "foo_bar",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "flam.h:10:2",
                       commentHeaderInfo = Just

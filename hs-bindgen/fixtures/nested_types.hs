@@ -1461,8 +1461,7 @@
       structComment = Just
         Comment {
           commentTitle = Nothing,
-          commentOrigin = Just
-            "ex3_ex3_struct",
+          commentOrigin = Nothing,
           commentLocation = Just
             "nested_types.h:12:5",
           commentHeaderInfo = Just
@@ -1619,8 +1618,7 @@
           structComment = Just
             Comment {
               commentTitle = Nothing,
-              commentOrigin = Just
-                "ex3_ex3_struct",
+              commentOrigin = Nothing,
               commentLocation = Just
                 "nested_types.h:12:5",
               commentHeaderInfo = Just
@@ -1780,8 +1778,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just
-                        "ex3_ex3_struct",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "nested_types.h:12:5",
                       commentHeaderInfo = Just
@@ -1943,8 +1940,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just
-                        "ex3_ex3_struct",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "nested_types.h:12:5",
                       commentHeaderInfo = Just

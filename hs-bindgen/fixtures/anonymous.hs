@@ -130,7 +130,7 @@
       structComment = Just
         Comment {
           commentTitle = Nothing,
-          commentOrigin = Just "S1_c",
+          commentOrigin = Nothing,
           commentLocation = Just
             "anonymous.h:3:3",
           commentHeaderInfo = Just
@@ -273,7 +273,7 @@
           structComment = Just
             Comment {
               commentTitle = Nothing,
-              commentOrigin = Just "S1_c",
+              commentOrigin = Nothing,
               commentLocation = Just
                 "anonymous.h:3:3",
               commentHeaderInfo = Just
@@ -419,7 +419,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just "S1_c",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "anonymous.h:3:3",
                       commentHeaderInfo = Just
@@ -567,7 +567,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just "S1_c",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "anonymous.h:3:3",
                       commentHeaderInfo = Just
@@ -1327,8 +1327,7 @@
       structComment = Just
         Comment {
           commentTitle = Nothing,
-          commentOrigin = Just
-            "S2_inner_deep",
+          commentOrigin = Nothing,
           commentLocation = Just
             "anonymous.h:15:5",
           commentHeaderInfo = Just
@@ -1430,8 +1429,7 @@
           structComment = Just
             Comment {
               commentTitle = Nothing,
-              commentOrigin = Just
-                "S2_inner_deep",
+              commentOrigin = Nothing,
               commentLocation = Just
                 "anonymous.h:15:5",
               commentHeaderInfo = Just
@@ -1536,8 +1534,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just
-                        "S2_inner_deep",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "anonymous.h:15:5",
                       commentHeaderInfo = Just
@@ -1642,8 +1639,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just
-                        "S2_inner_deep",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "anonymous.h:15:5",
                       commentHeaderInfo = Just
@@ -1824,7 +1820,7 @@
       structComment = Just
         Comment {
           commentTitle = Nothing,
-          commentOrigin = Just "S2_inner",
+          commentOrigin = Nothing,
           commentLocation = Just
             "anonymous.h:13:3",
           commentHeaderInfo = Just
@@ -1979,7 +1975,7 @@
           structComment = Just
             Comment {
               commentTitle = Nothing,
-              commentOrigin = Just "S2_inner",
+              commentOrigin = Nothing,
               commentLocation = Just
                 "anonymous.h:13:3",
               commentHeaderInfo = Just
@@ -2137,7 +2133,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just "S2_inner",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "anonymous.h:13:3",
                       commentHeaderInfo = Just
@@ -2297,7 +2293,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just "S2_inner",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "anonymous.h:13:3",
                       commentHeaderInfo = Just
@@ -3114,7 +3110,7 @@
       structComment = Just
         Comment {
           commentTitle = Nothing,
-          commentOrigin = Just "S3_c",
+          commentOrigin = Nothing,
           commentLocation = Just
             "anonymous.h:25:3",
           commentHeaderInfo = Just
@@ -3257,7 +3253,7 @@
           structComment = Just
             Comment {
               commentTitle = Nothing,
-              commentOrigin = Just "S3_c",
+              commentOrigin = Nothing,
               commentLocation = Just
                 "anonymous.h:25:3",
               commentHeaderInfo = Just
@@ -3403,7 +3399,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just "S3_c",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "anonymous.h:25:3",
                       commentHeaderInfo = Just
@@ -3551,7 +3547,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just "S3_c",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "anonymous.h:25:3",
                       commentHeaderInfo = Just

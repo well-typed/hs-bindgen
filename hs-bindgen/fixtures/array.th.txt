@@ -160,251 +160,1243 @@ instance Storable Example
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Example example_triple_3
                                            example_sudoku_4 -> pokeByteOff ptr_1 (0 :: Int) example_triple_3 >> pokeByteOff ptr_1 (12 :: Int) example_sudoku_4
+{-| Array of known size
+
+__C declaration:__ @fun_1@
+
+__defined at:__ @array.h:87:5@
+
+__exported by:__ @array.h@
+-}
 foreign import ccall safe "hs_bindgen_test_array_5d1be223fd040c3b" fun_1_wrapper :: CInt ->
                                                                                     Ptr CInt ->
                                                                                     IO CInt
+{-| Array of known size
+
+__C declaration:__ @fun_1@
+
+__defined at:__ @array.h:87:5@
+
+__exported by:__ @array.h@
+-}
 fun_1 :: CInt -> ConstantArray 3 CInt -> IO CInt
+{-| Array of known size
+
+__C declaration:__ @fun_1@
+
+__defined at:__ @array.h:87:5@
+
+__exported by:__ @array.h@
+-}
 fun_1 = \x_0 -> \x_1 -> withPtr x_1 (\ptr_2 -> fun_1_wrapper x_0 ptr_2)
+{-| Array of known size, typedef
+
+__C declaration:__ @fun_2@
+
+__defined at:__ @array.h:90:5@
+
+__exported by:__ @array.h@
+-}
 foreign import ccall safe "hs_bindgen_test_array_cabe35537b18e986" fun_2_wrapper :: Ptr CInt ->
                                                                                     IO CInt
+{-| Array of known size, typedef
+
+__C declaration:__ @fun_2@
+
+__defined at:__ @array.h:90:5@
+
+__exported by:__ @array.h@
+-}
 fun_2 :: Triplet -> IO CInt
+{-| Array of known size, typedef
+
+__C declaration:__ @fun_2@
+
+__defined at:__ @array.h:90:5@
+
+__exported by:__ @array.h@
+-}
 fun_2 = \x_0 -> withPtr x_0 (\ptr_1 -> fun_2_wrapper ptr_1)
+{-| Array of unknown size
+
+__C declaration:__ @fun_3@
+
+__defined at:__ @array.h:93:5@
+
+__exported by:__ @array.h@
+-}
 foreign import ccall safe "hs_bindgen_test_array_4cdbf10236e78984" fun_3_wrapper :: Ptr CInt ->
                                                                                     IO CInt
+{-| Array of unknown size
+
+__C declaration:__ @fun_3@
+
+__defined at:__ @array.h:93:5@
+
+__exported by:__ @array.h@
+-}
 fun_3 :: IncompleteArray CInt -> IO CInt
+{-| Array of unknown size
+
+__C declaration:__ @fun_3@
+
+__defined at:__ @array.h:93:5@
+
+__exported by:__ @array.h@
+-}
 fun_3 = \x_0 -> withPtr x_0 (\ptr_1 -> fun_3_wrapper ptr_1)
+{-| Array of unknown size, typedef
+
+__C declaration:__ @fun_4@
+
+__defined at:__ @array.h:96:5@
+
+__exported by:__ @array.h@
+-}
 foreign import ccall safe "hs_bindgen_test_array_e356c5ddb2608063" fun_4_wrapper :: Ptr CInt ->
                                                                                     IO CInt
+{-| Array of unknown size, typedef
+
+__C declaration:__ @fun_4@
+
+__defined at:__ @array.h:96:5@
+
+__exported by:__ @array.h@
+-}
 fun_4 :: List -> IO CInt
+{-| Array of unknown size, typedef
+
+__C declaration:__ @fun_4@
+
+__defined at:__ @array.h:96:5@
+
+__exported by:__ @array.h@
+-}
 fun_4 = \x_0 -> withPtr x_0 (\ptr_1 -> fun_4_wrapper ptr_1)
+{-| Multi-dimensional array of known size
+
+__C declaration:__ @fun_5@
+
+__defined at:__ @array.h:99:5@
+
+__exported by:__ @array.h@
+-}
 foreign import ccall safe "hs_bindgen_test_array_f5ccf2c8d2e60be5" fun_5_wrapper :: Ptr (ConstantArray 3
                                                                                                        CInt) ->
                                                                                     IO CInt
+{-| Multi-dimensional array of known size
+
+__C declaration:__ @fun_5@
+
+__defined at:__ @array.h:99:5@
+
+__exported by:__ @array.h@
+-}
 fun_5 :: ConstantArray 4 (ConstantArray 3 CInt) -> IO CInt
+{-| Multi-dimensional array of known size
+
+__C declaration:__ @fun_5@
+
+__defined at:__ @array.h:99:5@
+
+__exported by:__ @array.h@
+-}
 fun_5 = \x_0 -> withPtr x_0 (\ptr_1 -> fun_5_wrapper ptr_1)
+{-| Multi-dimensional array of known size, typedef
+
+__C declaration:__ @fun_6@
+
+__defined at:__ @array.h:102:5@
+
+__exported by:__ @array.h@
+-}
 foreign import ccall safe "hs_bindgen_test_array_2b3a983697999524" fun_6_wrapper :: Ptr (ConstantArray 3
                                                                                                        CInt) ->
                                                                                     IO CInt
+{-| Multi-dimensional array of known size, typedef
+
+__C declaration:__ @fun_6@
+
+__defined at:__ @array.h:102:5@
+
+__exported by:__ @array.h@
+-}
 fun_6 :: Matrix -> IO CInt
+{-| Multi-dimensional array of known size, typedef
+
+__C declaration:__ @fun_6@
+
+__defined at:__ @array.h:102:5@
+
+__exported by:__ @array.h@
+-}
 fun_6 = \x_0 -> withPtr x_0 (\ptr_1 -> fun_6_wrapper ptr_1)
+{-| Multi-dimensional array of unknown size
+
+__C declaration:__ @fun_7@
+
+__defined at:__ @array.h:105:5@
+
+__exported by:__ @array.h@
+-}
 foreign import ccall safe "hs_bindgen_test_array_72e9371a1b8b8907" fun_7_wrapper :: Ptr (ConstantArray 3
                                                                                                        CInt) ->
                                                                                     IO CInt
+{-| Multi-dimensional array of unknown size
+
+__C declaration:__ @fun_7@
+
+__defined at:__ @array.h:105:5@
+
+__exported by:__ @array.h@
+-}
 fun_7 :: IncompleteArray (ConstantArray 3 CInt) -> IO CInt
+{-| Multi-dimensional array of unknown size
+
+__C declaration:__ @fun_7@
+
+__defined at:__ @array.h:105:5@
+
+__exported by:__ @array.h@
+-}
 fun_7 = \x_0 -> withPtr x_0 (\ptr_1 -> fun_7_wrapper ptr_1)
+{-| Multi-dimensional array of unknown size, typedef
+
+__C declaration:__ @fun_8@
+
+__defined at:__ @array.h:108:5@
+
+__exported by:__ @array.h@
+-}
 foreign import ccall safe "hs_bindgen_test_array_62ad87463d9a75de" fun_8_wrapper :: Ptr (ConstantArray 3
                                                                                                        CInt) ->
                                                                                     IO CInt
+{-| Multi-dimensional array of unknown size, typedef
+
+__C declaration:__ @fun_8@
+
+__defined at:__ @array.h:108:5@
+
+__exported by:__ @array.h@
+-}
 fun_8 :: Tripletlist -> IO CInt
+{-| Multi-dimensional array of unknown size, typedef
+
+__C declaration:__ @fun_8@
+
+__defined at:__ @array.h:108:5@
+
+__exported by:__ @array.h@
+-}
 fun_8 = \x_0 -> withPtr x_0 (\ptr_1 -> fun_8_wrapper ptr_1)
+{-| Array of known size
+
+__C declaration:__ @fun_9@
+
+__defined at:__ @array.h:120:7@
+
+__exported by:__ @array.h@
+-}
 foreign import ccall safe "hs_bindgen_test_array_d4c729a69c884fd4" fun_9 :: IO (Ptr (ConstantArray 3
                                                                                                    CInt))
+{-| Array of known size, typedef
+
+__C declaration:__ @fun_10@
+
+__defined at:__ @array.h:123:10@
+
+__exported by:__ @array.h@
+-}
 foreign import ccall safe "hs_bindgen_test_array_bb92dfded907271e" fun_10 :: IO (Ptr Triplet)
+{-| Array of unknown size
+
+__C declaration:__ @fun_11@
+
+__defined at:__ @array.h:126:7@
+
+__exported by:__ @array.h@
+-}
 foreign import ccall safe "hs_bindgen_test_array_489aaaa59e992ddf" fun_11 :: IO (Ptr (IncompleteArray CInt))
+{-| Array of unknown size, typedef
+
+__C declaration:__ @fun_12@
+
+__defined at:__ @array.h:129:7@
+
+__exported by:__ @array.h@
+-}
 foreign import ccall safe "hs_bindgen_test_array_ee94c35f987d6c50" fun_12 :: IO (Ptr List)
+{-| Multi-dimensional array of known size
+
+__C declaration:__ @fun_13@
+
+__defined at:__ @array.h:132:7@
+
+__exported by:__ @array.h@
+-}
 foreign import ccall safe "hs_bindgen_test_array_ca2c7b60ce85a964" fun_13 :: IO (Ptr (ConstantArray 4
                                                                                                     (ConstantArray 3
                                                                                                                    CInt)))
+{-| Multi-dimensional array of known size, typedef
+
+__C declaration:__ @fun_14@
+
+__defined at:__ @array.h:135:9@
+
+__exported by:__ @array.h@
+-}
 foreign import ccall safe "hs_bindgen_test_array_ab2c533efdae8e41" fun_14 :: IO (Ptr Matrix)
+{-| Multi-dimensional array of unknown size
+
+__C declaration:__ @fun_15@
+
+__defined at:__ @array.h:138:7@
+
+__exported by:__ @array.h@
+-}
 foreign import ccall safe "hs_bindgen_test_array_019bdeb5db79cee1" fun_15 :: IO (Ptr (IncompleteArray (ConstantArray 3
                                                                                                                      CInt)))
+{-| Multi-dimensional array of unknown size, typedef
+
+__C declaration:__ @fun_16@
+
+__defined at:__ @array.h:141:14@
+
+__exported by:__ @array.h@
+-}
 foreign import ccall safe "hs_bindgen_test_array_ca0e7c51654fef12" fun_16 :: IO (Ptr Tripletlist)
+{-| Array of known size
+
+__C declaration:__ @fun_1@
+
+__defined at:__ @array.h:87:5@
+
+__exported by:__ @array.h@
+-}
 foreign import ccall safe "hs_bindgen_test_array_38d1e706888c6509" fun_1_wrapper :: CInt ->
                                                                                     Ptr CInt ->
                                                                                     IO CInt
+{-| Array of known size
+
+__C declaration:__ @fun_1@
+
+__defined at:__ @array.h:87:5@
+
+__exported by:__ @array.h@
+-}
 fun_1 :: CInt -> ConstantArray 3 CInt -> IO CInt
+{-| Array of known size
+
+__C declaration:__ @fun_1@
+
+__defined at:__ @array.h:87:5@
+
+__exported by:__ @array.h@
+-}
 fun_1 = \x_0 -> \x_1 -> withPtr x_1 (\ptr_2 -> fun_1_wrapper x_0 ptr_2)
+{-| Array of known size, typedef
+
+__C declaration:__ @fun_2@
+
+__defined at:__ @array.h:90:5@
+
+__exported by:__ @array.h@
+-}
 foreign import ccall safe "hs_bindgen_test_array_39ee469929b167e2" fun_2_wrapper :: Ptr CInt ->
                                                                                     IO CInt
+{-| Array of known size, typedef
+
+__C declaration:__ @fun_2@
+
+__defined at:__ @array.h:90:5@
+
+__exported by:__ @array.h@
+-}
 fun_2 :: Triplet -> IO CInt
+{-| Array of known size, typedef
+
+__C declaration:__ @fun_2@
+
+__defined at:__ @array.h:90:5@
+
+__exported by:__ @array.h@
+-}
 fun_2 = \x_0 -> withPtr x_0 (\ptr_1 -> fun_2_wrapper ptr_1)
+{-| Array of unknown size
+
+__C declaration:__ @fun_3@
+
+__defined at:__ @array.h:93:5@
+
+__exported by:__ @array.h@
+-}
 foreign import ccall safe "hs_bindgen_test_array_2aa49d73d177f65b" fun_3_wrapper :: Ptr CInt ->
                                                                                     IO CInt
+{-| Array of unknown size
+
+__C declaration:__ @fun_3@
+
+__defined at:__ @array.h:93:5@
+
+__exported by:__ @array.h@
+-}
 fun_3 :: IncompleteArray CInt -> IO CInt
+{-| Array of unknown size
+
+__C declaration:__ @fun_3@
+
+__defined at:__ @array.h:93:5@
+
+__exported by:__ @array.h@
+-}
 fun_3 = \x_0 -> withPtr x_0 (\ptr_1 -> fun_3_wrapper ptr_1)
+{-| Array of unknown size, typedef
+
+__C declaration:__ @fun_4@
+
+__defined at:__ @array.h:96:5@
+
+__exported by:__ @array.h@
+-}
 foreign import ccall safe "hs_bindgen_test_array_c3b2941d43616704" fun_4_wrapper :: Ptr CInt ->
                                                                                     IO CInt
+{-| Array of unknown size, typedef
+
+__C declaration:__ @fun_4@
+
+__defined at:__ @array.h:96:5@
+
+__exported by:__ @array.h@
+-}
 fun_4 :: List -> IO CInt
+{-| Array of unknown size, typedef
+
+__C declaration:__ @fun_4@
+
+__defined at:__ @array.h:96:5@
+
+__exported by:__ @array.h@
+-}
 fun_4 = \x_0 -> withPtr x_0 (\ptr_1 -> fun_4_wrapper ptr_1)
+{-| Multi-dimensional array of known size
+
+__C declaration:__ @fun_5@
+
+__defined at:__ @array.h:99:5@
+
+__exported by:__ @array.h@
+-}
 foreign import ccall safe "hs_bindgen_test_array_69ec2f59c3c40de4" fun_5_wrapper :: Ptr (ConstantArray 3
                                                                                                        CInt) ->
                                                                                     IO CInt
+{-| Multi-dimensional array of known size
+
+__C declaration:__ @fun_5@
+
+__defined at:__ @array.h:99:5@
+
+__exported by:__ @array.h@
+-}
 fun_5 :: ConstantArray 4 (ConstantArray 3 CInt) -> IO CInt
+{-| Multi-dimensional array of known size
+
+__C declaration:__ @fun_5@
+
+__defined at:__ @array.h:99:5@
+
+__exported by:__ @array.h@
+-}
 fun_5 = \x_0 -> withPtr x_0 (\ptr_1 -> fun_5_wrapper ptr_1)
+{-| Multi-dimensional array of known size, typedef
+
+__C declaration:__ @fun_6@
+
+__defined at:__ @array.h:102:5@
+
+__exported by:__ @array.h@
+-}
 foreign import ccall safe "hs_bindgen_test_array_a4600c666e12a07a" fun_6_wrapper :: Ptr (ConstantArray 3
                                                                                                        CInt) ->
                                                                                     IO CInt
+{-| Multi-dimensional array of known size, typedef
+
+__C declaration:__ @fun_6@
+
+__defined at:__ @array.h:102:5@
+
+__exported by:__ @array.h@
+-}
 fun_6 :: Matrix -> IO CInt
+{-| Multi-dimensional array of known size, typedef
+
+__C declaration:__ @fun_6@
+
+__defined at:__ @array.h:102:5@
+
+__exported by:__ @array.h@
+-}
 fun_6 = \x_0 -> withPtr x_0 (\ptr_1 -> fun_6_wrapper ptr_1)
+{-| Multi-dimensional array of unknown size
+
+__C declaration:__ @fun_7@
+
+__defined at:__ @array.h:105:5@
+
+__exported by:__ @array.h@
+-}
 foreign import ccall safe "hs_bindgen_test_array_b903c9d5ebf4f21f" fun_7_wrapper :: Ptr (ConstantArray 3
                                                                                                        CInt) ->
                                                                                     IO CInt
+{-| Multi-dimensional array of unknown size
+
+__C declaration:__ @fun_7@
+
+__defined at:__ @array.h:105:5@
+
+__exported by:__ @array.h@
+-}
 fun_7 :: IncompleteArray (ConstantArray 3 CInt) -> IO CInt
+{-| Multi-dimensional array of unknown size
+
+__C declaration:__ @fun_7@
+
+__defined at:__ @array.h:105:5@
+
+__exported by:__ @array.h@
+-}
 fun_7 = \x_0 -> withPtr x_0 (\ptr_1 -> fun_7_wrapper ptr_1)
+{-| Multi-dimensional array of unknown size, typedef
+
+__C declaration:__ @fun_8@
+
+__defined at:__ @array.h:108:5@
+
+__exported by:__ @array.h@
+-}
 foreign import ccall safe "hs_bindgen_test_array_88af789e5a205473" fun_8_wrapper :: Ptr (ConstantArray 3
                                                                                                        CInt) ->
                                                                                     IO CInt
+{-| Multi-dimensional array of unknown size, typedef
+
+__C declaration:__ @fun_8@
+
+__defined at:__ @array.h:108:5@
+
+__exported by:__ @array.h@
+-}
 fun_8 :: Tripletlist -> IO CInt
+{-| Multi-dimensional array of unknown size, typedef
+
+__C declaration:__ @fun_8@
+
+__defined at:__ @array.h:108:5@
+
+__exported by:__ @array.h@
+-}
 fun_8 = \x_0 -> withPtr x_0 (\ptr_1 -> fun_8_wrapper ptr_1)
+{-| Array of known size
+
+__C declaration:__ @fun_9@
+
+__defined at:__ @array.h:120:7@
+
+__exported by:__ @array.h@
+-}
 foreign import ccall safe "hs_bindgen_test_array_49d4508b43473bd2" fun_9 :: IO (Ptr (ConstantArray 3
                                                                                                    CInt))
+{-| Array of known size, typedef
+
+__C declaration:__ @fun_10@
+
+__defined at:__ @array.h:123:10@
+
+__exported by:__ @array.h@
+-}
 foreign import ccall safe "hs_bindgen_test_array_d1763638472ee039" fun_10 :: IO (Ptr Triplet)
+{-| Array of unknown size
+
+__C declaration:__ @fun_11@
+
+__defined at:__ @array.h:126:7@
+
+__exported by:__ @array.h@
+-}
 foreign import ccall safe "hs_bindgen_test_array_293d2be6d282321b" fun_11 :: IO (Ptr (IncompleteArray CInt))
+{-| Array of unknown size, typedef
+
+__C declaration:__ @fun_12@
+
+__defined at:__ @array.h:129:7@
+
+__exported by:__ @array.h@
+-}
 foreign import ccall safe "hs_bindgen_test_array_fe193d0e0c330960" fun_12 :: IO (Ptr List)
+{-| Multi-dimensional array of known size
+
+__C declaration:__ @fun_13@
+
+__defined at:__ @array.h:132:7@
+
+__exported by:__ @array.h@
+-}
 foreign import ccall safe "hs_bindgen_test_array_f3df0067620bd691" fun_13 :: IO (Ptr (ConstantArray 4
                                                                                                     (ConstantArray 3
                                                                                                                    CInt)))
+{-| Multi-dimensional array of known size, typedef
+
+__C declaration:__ @fun_14@
+
+__defined at:__ @array.h:135:9@
+
+__exported by:__ @array.h@
+-}
 foreign import ccall safe "hs_bindgen_test_array_9d75a740147af339" fun_14 :: IO (Ptr Matrix)
+{-| Multi-dimensional array of unknown size
+
+__C declaration:__ @fun_15@
+
+__defined at:__ @array.h:138:7@
+
+__exported by:__ @array.h@
+-}
 foreign import ccall safe "hs_bindgen_test_array_d49e5e7f4ad3c830" fun_15 :: IO (Ptr (IncompleteArray (ConstantArray 3
                                                                                                                      CInt)))
+{-| Multi-dimensional array of unknown size, typedef
+
+__C declaration:__ @fun_16@
+
+__defined at:__ @array.h:141:14@
+
+__exported by:__ @array.h@
+-}
 foreign import ccall safe "hs_bindgen_test_array_900726612f7787e4" fun_16 :: IO (Ptr Tripletlist)
 foreign import ccall safe "hs_bindgen_test_array_3ced2f3b2af806f8" hs_bindgen_test_array_3ced2f3b2af806f8 :: IO (FunPtr (CInt ->
                                                                                                                          ConstantArray 3
                                                                                                                                        CInt ->
                                                                                                                          IO CInt))
 {-# NOINLINE fun_1_ptr #-}
+{-| Array of known size
+
+__C declaration:__ @fun_1@
+
+__defined at:__ @array.h:87:5@
+
+__exported by:__ @array.h@
+-}
 fun_1_ptr :: FunPtr (CInt -> ConstantArray 3 CInt -> IO CInt)
+{-| Array of known size
+
+__C declaration:__ @fun_1@
+
+__defined at:__ @array.h:87:5@
+
+__exported by:__ @array.h@
+-}
 fun_1_ptr = unsafePerformIO hs_bindgen_test_array_3ced2f3b2af806f8
 foreign import ccall safe "hs_bindgen_test_array_84966994a8d7df93" hs_bindgen_test_array_84966994a8d7df93 :: IO (FunPtr (Triplet ->
                                                                                                                          IO CInt))
 {-# NOINLINE fun_2_ptr #-}
+{-| Array of known size, typedef
+
+__C declaration:__ @fun_2@
+
+__defined at:__ @array.h:90:5@
+
+__exported by:__ @array.h@
+-}
 fun_2_ptr :: FunPtr (Triplet -> IO CInt)
+{-| Array of known size, typedef
+
+__C declaration:__ @fun_2@
+
+__defined at:__ @array.h:90:5@
+
+__exported by:__ @array.h@
+-}
 fun_2_ptr = unsafePerformIO hs_bindgen_test_array_84966994a8d7df93
 foreign import ccall safe "hs_bindgen_test_array_3e6c940dbd7e5492" hs_bindgen_test_array_3e6c940dbd7e5492 :: IO (FunPtr (IncompleteArray CInt ->
                                                                                                                          IO CInt))
 {-# NOINLINE fun_3_ptr #-}
+{-| Array of unknown size
+
+__C declaration:__ @fun_3@
+
+__defined at:__ @array.h:93:5@
+
+__exported by:__ @array.h@
+-}
 fun_3_ptr :: FunPtr (IncompleteArray CInt -> IO CInt)
+{-| Array of unknown size
+
+__C declaration:__ @fun_3@
+
+__defined at:__ @array.h:93:5@
+
+__exported by:__ @array.h@
+-}
 fun_3_ptr = unsafePerformIO hs_bindgen_test_array_3e6c940dbd7e5492
 foreign import ccall safe "hs_bindgen_test_array_d9f87d3e541b15e5" hs_bindgen_test_array_d9f87d3e541b15e5 :: IO (FunPtr (List ->
                                                                                                                          IO CInt))
 {-# NOINLINE fun_4_ptr #-}
+{-| Array of unknown size, typedef
+
+__C declaration:__ @fun_4@
+
+__defined at:__ @array.h:96:5@
+
+__exported by:__ @array.h@
+-}
 fun_4_ptr :: FunPtr (List -> IO CInt)
+{-| Array of unknown size, typedef
+
+__C declaration:__ @fun_4@
+
+__defined at:__ @array.h:96:5@
+
+__exported by:__ @array.h@
+-}
 fun_4_ptr = unsafePerformIO hs_bindgen_test_array_d9f87d3e541b15e5
 foreign import ccall safe "hs_bindgen_test_array_cd41e41992d89300" hs_bindgen_test_array_cd41e41992d89300 :: IO (FunPtr (ConstantArray 4
                                                                                                                                        (ConstantArray 3
                                                                                                                                                       CInt) ->
                                                                                                                          IO CInt))
 {-# NOINLINE fun_5_ptr #-}
+{-| Multi-dimensional array of known size
+
+__C declaration:__ @fun_5@
+
+__defined at:__ @array.h:99:5@
+
+__exported by:__ @array.h@
+-}
 fun_5_ptr :: FunPtr (ConstantArray 4 (ConstantArray 3 CInt) ->
                      IO CInt)
+{-| Multi-dimensional array of known size
+
+__C declaration:__ @fun_5@
+
+__defined at:__ @array.h:99:5@
+
+__exported by:__ @array.h@
+-}
 fun_5_ptr = unsafePerformIO hs_bindgen_test_array_cd41e41992d89300
 foreign import ccall safe "hs_bindgen_test_array_db0e2655437ab8bb" hs_bindgen_test_array_db0e2655437ab8bb :: IO (FunPtr (Matrix ->
                                                                                                                          IO CInt))
 {-# NOINLINE fun_6_ptr #-}
+{-| Multi-dimensional array of known size, typedef
+
+__C declaration:__ @fun_6@
+
+__defined at:__ @array.h:102:5@
+
+__exported by:__ @array.h@
+-}
 fun_6_ptr :: FunPtr (Matrix -> IO CInt)
+{-| Multi-dimensional array of known size, typedef
+
+__C declaration:__ @fun_6@
+
+__defined at:__ @array.h:102:5@
+
+__exported by:__ @array.h@
+-}
 fun_6_ptr = unsafePerformIO hs_bindgen_test_array_db0e2655437ab8bb
 foreign import ccall safe "hs_bindgen_test_array_9ec02aa16b020aa0" hs_bindgen_test_array_9ec02aa16b020aa0 :: IO (FunPtr (IncompleteArray (ConstantArray 3
                                                                                                                                                         CInt) ->
                                                                                                                          IO CInt))
 {-# NOINLINE fun_7_ptr #-}
+{-| Multi-dimensional array of unknown size
+
+__C declaration:__ @fun_7@
+
+__defined at:__ @array.h:105:5@
+
+__exported by:__ @array.h@
+-}
 fun_7_ptr :: FunPtr (IncompleteArray (ConstantArray 3 CInt) ->
                      IO CInt)
+{-| Multi-dimensional array of unknown size
+
+__C declaration:__ @fun_7@
+
+__defined at:__ @array.h:105:5@
+
+__exported by:__ @array.h@
+-}
 fun_7_ptr = unsafePerformIO hs_bindgen_test_array_9ec02aa16b020aa0
 foreign import ccall safe "hs_bindgen_test_array_a41b8d1332b69b95" hs_bindgen_test_array_a41b8d1332b69b95 :: IO (FunPtr (Tripletlist ->
                                                                                                                          IO CInt))
 {-# NOINLINE fun_8_ptr #-}
+{-| Multi-dimensional array of unknown size, typedef
+
+__C declaration:__ @fun_8@
+
+__defined at:__ @array.h:108:5@
+
+__exported by:__ @array.h@
+-}
 fun_8_ptr :: FunPtr (Tripletlist -> IO CInt)
+{-| Multi-dimensional array of unknown size, typedef
+
+__C declaration:__ @fun_8@
+
+__defined at:__ @array.h:108:5@
+
+__exported by:__ @array.h@
+-}
 fun_8_ptr = unsafePerformIO hs_bindgen_test_array_a41b8d1332b69b95
 foreign import ccall safe "hs_bindgen_test_array_76f53f330102e743" hs_bindgen_test_array_76f53f330102e743 :: IO (FunPtr (IO (Ptr (ConstantArray 3
                                                                                                                                                 CInt))))
 {-# NOINLINE fun_9_ptr #-}
+{-| Array of known size
+
+__C declaration:__ @fun_9@
+
+__defined at:__ @array.h:120:7@
+
+__exported by:__ @array.h@
+-}
 fun_9_ptr :: FunPtr (IO (Ptr (ConstantArray 3 CInt)))
+{-| Array of known size
+
+__C declaration:__ @fun_9@
+
+__defined at:__ @array.h:120:7@
+
+__exported by:__ @array.h@
+-}
 fun_9_ptr = unsafePerformIO hs_bindgen_test_array_76f53f330102e743
 foreign import ccall safe "hs_bindgen_test_array_abcc94f01de77b25" hs_bindgen_test_array_abcc94f01de77b25 :: IO (FunPtr (IO (Ptr Triplet)))
 {-# NOINLINE fun_10_ptr #-}
+{-| Array of known size, typedef
+
+__C declaration:__ @fun_10@
+
+__defined at:__ @array.h:123:10@
+
+__exported by:__ @array.h@
+-}
 fun_10_ptr :: FunPtr (IO (Ptr Triplet))
+{-| Array of known size, typedef
+
+__C declaration:__ @fun_10@
+
+__defined at:__ @array.h:123:10@
+
+__exported by:__ @array.h@
+-}
 fun_10_ptr = unsafePerformIO hs_bindgen_test_array_abcc94f01de77b25
 foreign import ccall safe "hs_bindgen_test_array_6661b46e4a751a85" hs_bindgen_test_array_6661b46e4a751a85 :: IO (FunPtr (IO (Ptr (IncompleteArray CInt))))
 {-# NOINLINE fun_11_ptr #-}
+{-| Array of unknown size
+
+__C declaration:__ @fun_11@
+
+__defined at:__ @array.h:126:7@
+
+__exported by:__ @array.h@
+-}
 fun_11_ptr :: FunPtr (IO (Ptr (IncompleteArray CInt)))
+{-| Array of unknown size
+
+__C declaration:__ @fun_11@
+
+__defined at:__ @array.h:126:7@
+
+__exported by:__ @array.h@
+-}
 fun_11_ptr = unsafePerformIO hs_bindgen_test_array_6661b46e4a751a85
 foreign import ccall safe "hs_bindgen_test_array_9c80a9e3300aad15" hs_bindgen_test_array_9c80a9e3300aad15 :: IO (FunPtr (IO (Ptr List)))
 {-# NOINLINE fun_12_ptr #-}
+{-| Array of unknown size, typedef
+
+__C declaration:__ @fun_12@
+
+__defined at:__ @array.h:129:7@
+
+__exported by:__ @array.h@
+-}
 fun_12_ptr :: FunPtr (IO (Ptr List))
+{-| Array of unknown size, typedef
+
+__C declaration:__ @fun_12@
+
+__defined at:__ @array.h:129:7@
+
+__exported by:__ @array.h@
+-}
 fun_12_ptr = unsafePerformIO hs_bindgen_test_array_9c80a9e3300aad15
 foreign import ccall safe "hs_bindgen_test_array_bb741b7e8c029e7e" hs_bindgen_test_array_bb741b7e8c029e7e :: IO (FunPtr (IO (Ptr (ConstantArray 4
                                                                                                                                                 (ConstantArray 3
                                                                                                                                                                CInt)))))
 {-# NOINLINE fun_13_ptr #-}
+{-| Multi-dimensional array of known size
+
+__C declaration:__ @fun_13@
+
+__defined at:__ @array.h:132:7@
+
+__exported by:__ @array.h@
+-}
 fun_13_ptr :: FunPtr (IO (Ptr (ConstantArray 4
                                              (ConstantArray 3 CInt))))
+{-| Multi-dimensional array of known size
+
+__C declaration:__ @fun_13@
+
+__defined at:__ @array.h:132:7@
+
+__exported by:__ @array.h@
+-}
 fun_13_ptr = unsafePerformIO hs_bindgen_test_array_bb741b7e8c029e7e
 foreign import ccall safe "hs_bindgen_test_array_75d83252a55a5c64" hs_bindgen_test_array_75d83252a55a5c64 :: IO (FunPtr (IO (Ptr Matrix)))
 {-# NOINLINE fun_14_ptr #-}
+{-| Multi-dimensional array of known size, typedef
+
+__C declaration:__ @fun_14@
+
+__defined at:__ @array.h:135:9@
+
+__exported by:__ @array.h@
+-}
 fun_14_ptr :: FunPtr (IO (Ptr Matrix))
+{-| Multi-dimensional array of known size, typedef
+
+__C declaration:__ @fun_14@
+
+__defined at:__ @array.h:135:9@
+
+__exported by:__ @array.h@
+-}
 fun_14_ptr = unsafePerformIO hs_bindgen_test_array_75d83252a55a5c64
 foreign import ccall safe "hs_bindgen_test_array_069ac2d1873f3210" hs_bindgen_test_array_069ac2d1873f3210 :: IO (FunPtr (IO (Ptr (IncompleteArray (ConstantArray 3
                                                                                                                                                                  CInt)))))
 {-# NOINLINE fun_15_ptr #-}
+{-| Multi-dimensional array of unknown size
+
+__C declaration:__ @fun_15@
+
+__defined at:__ @array.h:138:7@
+
+__exported by:__ @array.h@
+-}
 fun_15_ptr :: FunPtr (IO (Ptr (IncompleteArray (ConstantArray 3
                                                               CInt))))
+{-| Multi-dimensional array of unknown size
+
+__C declaration:__ @fun_15@
+
+__defined at:__ @array.h:138:7@
+
+__exported by:__ @array.h@
+-}
 fun_15_ptr = unsafePerformIO hs_bindgen_test_array_069ac2d1873f3210
 foreign import ccall safe "hs_bindgen_test_array_314971335aaa6db3" hs_bindgen_test_array_314971335aaa6db3 :: IO (FunPtr (IO (Ptr Tripletlist)))
 {-# NOINLINE fun_16_ptr #-}
+{-| Multi-dimensional array of unknown size, typedef
+
+__C declaration:__ @fun_16@
+
+__defined at:__ @array.h:141:14@
+
+__exported by:__ @array.h@
+-}
 fun_16_ptr :: FunPtr (IO (Ptr Tripletlist))
+{-| Multi-dimensional array of unknown size, typedef
+
+__C declaration:__ @fun_16@
+
+__defined at:__ @array.h:141:14@
+
+__exported by:__ @array.h@
+-}
 fun_16_ptr = unsafePerformIO hs_bindgen_test_array_314971335aaa6db3
 foreign import ccall safe "hs_bindgen_test_array_a6413f4d2092265d" hs_bindgen_test_array_a6413f4d2092265d :: IO (Ptr (ConstantArray 3
                                                                                                                                     CInt))
 {-# NOINLINE arr0_ptr #-}
+{-| Global, complete, not initialised
+
+__C declaration:__ @arr0@
+
+__defined at:__ @array.h:11:5@
+
+__exported by:__ @array.h@
+-}
 arr0_ptr :: Ptr (ConstantArray 3 CInt)
+{-| Global, complete, not initialised
+
+__C declaration:__ @arr0@
+
+__defined at:__ @array.h:11:5@
+
+__exported by:__ @array.h@
+-}
 arr0_ptr = unsafePerformIO hs_bindgen_test_array_a6413f4d2092265d
 foreign import ccall safe "hs_bindgen_test_array_1693226264ba4aeb" hs_bindgen_test_array_1693226264ba4aeb :: IO (Ptr (ConstantArray 3
                                                                                                                                     CInt))
 {-# NOINLINE arr1_ptr #-}
+{-| Global, complete, initialised
+
+__C declaration:__ @arr1@
+
+__defined at:__ @array.h:14:5@
+
+__exported by:__ @array.h@
+-}
 arr1_ptr :: Ptr (ConstantArray 3 CInt)
+{-| Global, complete, initialised
+
+__C declaration:__ @arr1@
+
+__defined at:__ @array.h:14:5@
+
+__exported by:__ @array.h@
+-}
 arr1_ptr = unsafePerformIO hs_bindgen_test_array_1693226264ba4aeb
 foreign import ccall safe "hs_bindgen_test_array_dafcf99a73b93389" hs_bindgen_test_array_dafcf99a73b93389 :: IO (Ptr (ConstantArray 3
                                                                                                                                     CInt))
 {-# NOINLINE arr2_ptr #-}
+{-| Global, extern, complete, not initialised
+
+__C declaration:__ @arr2@
+
+__defined at:__ @array.h:17:12@
+
+__exported by:__ @array.h@
+-}
 arr2_ptr :: Ptr (ConstantArray 3 CInt)
+{-| Global, extern, complete, not initialised
+
+__C declaration:__ @arr2@
+
+__defined at:__ @array.h:17:12@
+
+__exported by:__ @array.h@
+-}
 arr2_ptr = unsafePerformIO hs_bindgen_test_array_dafcf99a73b93389
 foreign import ccall safe "hs_bindgen_test_array_ca1016acc3449dee" hs_bindgen_test_array_ca1016acc3449dee :: IO (Ptr (ConstantArray 3
                                                                                                                                     CInt))
 {-# NOINLINE arr3_ptr #-}
+{-| Global, extern, complete, initialised
+
+__C declaration:__ @arr3@
+
+__defined at:__ @array.h:20:12@
+
+__exported by:__ @array.h@
+-}
 arr3_ptr :: Ptr (ConstantArray 3 CInt)
+{-| Global, extern, complete, initialised
+
+__C declaration:__ @arr3@
+
+__defined at:__ @array.h:20:12@
+
+__exported by:__ @array.h@
+-}
 arr3_ptr = unsafePerformIO hs_bindgen_test_array_ca1016acc3449dee
 foreign import ccall safe "hs_bindgen_test_array_1a8c921160bc99a6" hs_bindgen_test_array_1a8c921160bc99a6 :: IO (Ptr (ConstantArray 1
                                                                                                                                     CInt))
 {-# NOINLINE arr6_ptr #-}
+{-| Global, incomplete
+
+__C declaration:__ @arr6@
+
+__defined at:__ @array.h:29:5@
+
+__exported by:__ @array.h@
+-}
 arr6_ptr :: Ptr (ConstantArray 1 CInt)
+{-| Global, incomplete
+
+__C declaration:__ @arr6@
+
+__defined at:__ @array.h:29:5@
+
+__exported by:__ @array.h@
+-}
 arr6_ptr = unsafePerformIO hs_bindgen_test_array_1a8c921160bc99a6
 foreign import ccall safe "hs_bindgen_test_array_17cf970243739b65" hs_bindgen_test_array_17cf970243739b65 :: IO (Ptr (IncompleteArray CInt))
 {-# NOINLINE arr7_ptr #-}
+{-| Global, extern, incomplete
+
+__C declaration:__ @arr7@
+
+__defined at:__ @array.h:32:12@
+
+__exported by:__ @array.h@
+-}
 arr7_ptr :: Ptr (IncompleteArray CInt)
+{-| Global, extern, incomplete
+
+__C declaration:__ @arr7@
+
+__defined at:__ @array.h:32:12@
+
+__exported by:__ @array.h@
+-}
 arr7_ptr = unsafePerformIO hs_bindgen_test_array_17cf970243739b65
 foreign import ccall safe "hs_bindgen_test_array_85bc33b188037456" hs_bindgen_test_array_85bc33b188037456 :: IO (Ptr (ConstantArray 3
                                                                                                                                     CInt))
 {-# NOINLINE arr_1_ptr #-}
+{-| Array of known size
+
+__C declaration:__ @arr_1@
+
+__defined at:__ @array.h:59:12@
+
+__exported by:__ @array.h@
+-}
 arr_1_ptr :: Ptr (ConstantArray 3 CInt)
+{-| Array of known size
+
+__C declaration:__ @arr_1@
+
+__defined at:__ @array.h:59:12@
+
+__exported by:__ @array.h@
+-}
 arr_1_ptr = unsafePerformIO hs_bindgen_test_array_85bc33b188037456
 foreign import ccall safe "hs_bindgen_test_array_87c784150cd3ff65" hs_bindgen_test_array_87c784150cd3ff65 :: IO (Ptr Triplet)
 {-# NOINLINE arr_2_ptr #-}
+{-| Array of known size, typedef
+
+__C declaration:__ @arr_2@
+
+__defined at:__ @array.h:62:16@
+
+__exported by:__ @array.h@
+-}
 arr_2_ptr :: Ptr Triplet
+{-| Array of known size, typedef
+
+__C declaration:__ @arr_2@
+
+__defined at:__ @array.h:62:16@
+
+__exported by:__ @array.h@
+-}
 arr_2_ptr = unsafePerformIO hs_bindgen_test_array_87c784150cd3ff65
 foreign import ccall safe "hs_bindgen_test_array_e7b0de7633a7a62a" hs_bindgen_test_array_e7b0de7633a7a62a :: IO (Ptr (IncompleteArray CInt))
 {-# NOINLINE arr_3_ptr #-}
+{-| Array of unknown size
+
+__C declaration:__ @arr_3@
+
+__defined at:__ @array.h:65:12@
+
+__exported by:__ @array.h@
+-}
 arr_3_ptr :: Ptr (IncompleteArray CInt)
+{-| Array of unknown size
+
+__C declaration:__ @arr_3@
+
+__defined at:__ @array.h:65:12@
+
+__exported by:__ @array.h@
+-}
 arr_3_ptr = unsafePerformIO hs_bindgen_test_array_e7b0de7633a7a62a
 foreign import ccall safe "hs_bindgen_test_array_8fb64bc6c2bd4c73" hs_bindgen_test_array_8fb64bc6c2bd4c73 :: IO (Ptr List)
 {-# NOINLINE arr_4_ptr #-}
+{-| Array of unknown size, typedef
+
+__C declaration:__ @arr_4@
+
+__defined at:__ @array.h:68:13@
+
+__exported by:__ @array.h@
+-}
 arr_4_ptr :: Ptr List
+{-| Array of unknown size, typedef
+
+__C declaration:__ @arr_4@
+
+__defined at:__ @array.h:68:13@
+
+__exported by:__ @array.h@
+-}
 arr_4_ptr = unsafePerformIO hs_bindgen_test_array_8fb64bc6c2bd4c73
 foreign import ccall safe "hs_bindgen_test_array_7348a94e6adce96e" hs_bindgen_test_array_7348a94e6adce96e :: IO (Ptr (ConstantArray 4
                                                                                                                                     (ConstantArray 3
                                                                                                                                                    CInt)))
 {-# NOINLINE arr_5_ptr #-}
+{-| Multi-dimensional array of known size
+
+__C declaration:__ @arr_5@
+
+__defined at:__ @array.h:71:12@
+
+__exported by:__ @array.h@
+-}
 arr_5_ptr :: Ptr (ConstantArray 4 (ConstantArray 3 CInt))
+{-| Multi-dimensional array of known size
+
+__C declaration:__ @arr_5@
+
+__defined at:__ @array.h:71:12@
+
+__exported by:__ @array.h@
+-}
 arr_5_ptr = unsafePerformIO hs_bindgen_test_array_7348a94e6adce96e
 foreign import ccall safe "hs_bindgen_test_array_1308613140bb4b80" hs_bindgen_test_array_1308613140bb4b80 :: IO (Ptr Matrix)
 {-# NOINLINE arr_6_ptr #-}
+{-| Multi-dimensional array of known size, typedef
+
+__C declaration:__ @arr_6@
+
+__defined at:__ @array.h:74:15@
+
+__exported by:__ @array.h@
+-}
 arr_6_ptr :: Ptr Matrix
+{-| Multi-dimensional array of known size, typedef
+
+__C declaration:__ @arr_6@
+
+__defined at:__ @array.h:74:15@
+
+__exported by:__ @array.h@
+-}
 arr_6_ptr = unsafePerformIO hs_bindgen_test_array_1308613140bb4b80
 foreign import ccall safe "hs_bindgen_test_array_a060984b378ed676" hs_bindgen_test_array_a060984b378ed676 :: IO (Ptr (IncompleteArray (ConstantArray 3
                                                                                                                                                      CInt)))
 {-# NOINLINE arr_7_ptr #-}
+{-| Multi-dimensional array of unknown size
+
+__C declaration:__ @arr_7@
+
+__defined at:__ @array.h:77:12@
+
+__exported by:__ @array.h@
+-}
 arr_7_ptr :: Ptr (IncompleteArray (ConstantArray 3 CInt))
+{-| Multi-dimensional array of unknown size
+
+__C declaration:__ @arr_7@
+
+__defined at:__ @array.h:77:12@
+
+__exported by:__ @array.h@
+-}
 arr_7_ptr = unsafePerformIO hs_bindgen_test_array_a060984b378ed676
 foreign import ccall safe "hs_bindgen_test_array_d82706abb6d8ea04" hs_bindgen_test_array_d82706abb6d8ea04 :: IO (Ptr Tripletlist)
 {-# NOINLINE arr_8_ptr #-}
+{-| Multi-dimensional array of unknown size, typedef
+
+__C declaration:__ @arr_8@
+
+__defined at:__ @array.h:80:20@
+
+__exported by:__ @array.h@
+-}
 arr_8_ptr :: Ptr Tripletlist
+{-| Multi-dimensional array of unknown size, typedef
+
+__C declaration:__ @arr_8@
+
+__defined at:__ @array.h:80:20@
+
+__exported by:__ @array.h@
+-}
 arr_8_ptr = unsafePerformIO hs_bindgen_test_array_d82706abb6d8ea04

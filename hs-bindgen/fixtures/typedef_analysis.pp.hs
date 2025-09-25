@@ -10,6 +10,14 @@ import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import Prelude ((<*>), (>>), Eq, Int, Ord, Show, pure, return)
 
+{-| Examples for the various cases in by `HsBindgen.Frontend.Analysis.Typedefs`
+
+__C declaration:__ @struct1_t@
+
+__defined at:__ @typedef_analysis.h:7:8@
+
+__exported by:__ @typedef_analysis.h@
+-}
 data Struct1_t = Struct1_t
   {}
   deriving stock (Eq, Show)

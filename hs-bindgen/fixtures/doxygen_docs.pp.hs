@@ -166,14 +166,48 @@ instance Read Color_enum where
 
   readListPrec = Text.Read.readListPrecDefault
 
+{-| Red color
+
+__C declaration:__ @COLOR_RED@
+
+__defined at:__ @doxygen_docs.h:84:5@
+
+__exported by:__ @doxygen_docs.h@
+-}
 pattern COLOR_RED :: Color_enum
 pattern COLOR_RED = Color_enum 0
 
+{-| Green color
+
+__C declaration:__ @COLOR_GREEN@
+
+__defined at:__ @doxygen_docs.h:85:5@
+
+__exported by:__ @doxygen_docs.h@
+-}
 pattern COLOR_GREEN :: Color_enum
 pattern COLOR_GREEN = Color_enum 1
 
+{-| Blue color
+
+__C declaration:__ @COLOR_BLUE@
+
+__defined at:__ @doxygen_docs.h:86:5@
+
+__exported by:__ @doxygen_docs.h@
+-}
 pattern COLOR_BLUE :: Color_enum
 pattern COLOR_BLUE = Color_enum 2
+
+{-| Auxiliary type used by 'Event_callback_t'
+
+__defined at:__ @doxygen_docs.h:225:15@
+
+__exported by:__ @doxygen_docs.h@
+-}
+newtype Event_callback_t_Deref = Event_callback_t_Deref
+  { un_Event_callback_t_Deref :: FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt
+  }
 
 {-|
 
@@ -192,7 +226,7 @@ __defined at:__ @doxygen_docs.h:225:15@
 __exported by:__ @doxygen_docs.h@
 -}
 newtype Event_callback_t = Event_callback_t
-  { un_Event_callback_t :: Ptr.FunPtr (FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt)
+  { un_Event_callback_t :: Ptr.FunPtr Event_callback_t_Deref
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
@@ -202,8 +236,6 @@ newtype Event_callback_t = Event_callback_t
   Structure with documented fields
 
   This structure demonstrates field documentation.
-
-__C declaration:__ @config_t@
 
 __defined at:__ @doxygen_docs.h:232:9@
 
@@ -306,8 +338,6 @@ instance F.Storable Config_t where
   Enumeration with documented values
 
   This enum shows different status codes.
-
-__C declaration:__ @status_code_t@
 
 __defined at:__ @doxygen_docs.h:258:9@
 
@@ -442,8 +472,6 @@ pattern STATUS_ERROR = Status_code_t (-99)
 
   Allows access to high and low parts separately
 
-__C declaration:__ @data_union_t_as_parts@
-
 __defined at:__ @doxygen_docs.h:290:5@
 
 __exported by:__ @doxygen_docs.h@
@@ -501,8 +529,6 @@ instance F.Storable Data_union_t_as_parts where
   Union with documented fields
 
   This union demonstrates different data representations.
-
-__C declaration:__ @data_union_t@
 
 __defined at:__ @doxygen_docs.h:281:9@
 
@@ -620,8 +646,6 @@ set_data_union_t_as_parts =
 
   Demonstrates bit field documentation.
 
-__C declaration:__ @bitfield_t@
-
 __defined at:__ @doxygen_docs.h:302:9@
 
 __exported by:__ @doxygen_docs.h@
@@ -702,6 +726,16 @@ instance F.Storable Bitfield_t where
               >> HsBindgen.Runtime.Bitfield.pokeBitOffWidth ptr0 (2 :: Int) (6 :: Int) bitfield_t_counter4
               >> HsBindgen.Runtime.Bitfield.pokeBitOffWidth ptr0 (8 :: Int) (24 :: Int) bitfield_t_reserved5
 
+{-| Auxiliary type used by 'Processor_fn_t'
+
+__defined at:__ @doxygen_docs.h:317:15@
+
+__exported by:__ @doxygen_docs.h@
+-}
+newtype Processor_fn_t_Deref = Processor_fn_t_Deref
+  { un_Processor_fn_t_Deref :: FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt
+  }
+
 {-|
 
   > processor_fn_t
@@ -721,7 +755,7 @@ __defined at:__ @doxygen_docs.h:317:15@
 __exported by:__ @doxygen_docs.h@
 -}
 newtype Processor_fn_t = Processor_fn_t
-  { un_Processor_fn_t :: Ptr.FunPtr (FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt)
+  { un_Processor_fn_t :: Ptr.FunPtr Processor_fn_t_Deref
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)

@@ -309,7 +309,7 @@
       newtypeComment = Just
         Comment {
           commentTitle = Nothing,
-          commentOrigin = Just "foo_enum",
+          commentOrigin = Nothing,
           commentLocation = Just
             "enum_cpp_syntax.h:4:9",
           commentHeaderInfo = Just

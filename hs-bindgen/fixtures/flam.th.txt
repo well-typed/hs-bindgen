@@ -28,9 +28,7 @@ instance Storable Pascal
                                    Pascal pascal_len_3 -> pokeByteOff ptr_1 (0 :: Int) pascal_len_3
 instance HasFlexibleArrayMember CChar Pascal
     where flexibleArrayMemberOffset = \_ty_0 -> 4
-{-| __C declaration:__ @foo_bar@
-
-    __defined at:__ @flam.h:10:2@
+{-| __defined at:__ @flam.h:10:2@
 
     __exported by:__ @flam.h@
 -}
@@ -49,9 +47,7 @@ data Foo_bar
 
                     __exported by:__ @flam.h@
                -}}
-      {- ^ __C declaration:__ @foo_bar@
-
-           __defined at:__ @flam.h:10:2@
+      {- ^ __defined at:__ @flam.h:10:2@
 
            __exported by:__ @flam.h@
       -}
@@ -129,6 +125,14 @@ instance Storable Diff
                                         diff_second_4 -> pokeByteOff ptr_1 (0 :: Int) diff_first_3 >> pokeByteOff ptr_1 (8 :: Int) diff_second_4
 instance HasFlexibleArrayMember CChar Diff
     where flexibleArrayMemberOffset = \_ty_0 -> 9
+{-| The flexible array member is a multi-dimensional array of unknown size. In particular, it is a is an array of unknown size, where each element is of type length-3-array-of-int.
+
+__C declaration:__ @triplets@
+
+__defined at:__ @flam.h:26:8@
+
+__exported by:__ @flam.h@
+-}
 data Triplets
     = Triplets {triplets_len :: CInt
                 {- ^ __C declaration:__ @len@
@@ -137,6 +141,14 @@ data Triplets
 
                      __exported by:__ @flam.h@
                 -}}
+      {- ^ The flexible array member is a multi-dimensional array of unknown size. In particular, it is a is an array of unknown size, where each element is of type length-3-array-of-int.
+
+      __C declaration:__ @triplets@
+
+      __defined at:__ @flam.h:26:8@
+
+      __exported by:__ @flam.h@
+      -}
     deriving stock (Eq, Show)
 instance Storable Triplets
     where sizeOf = \_ -> 4 :: Int

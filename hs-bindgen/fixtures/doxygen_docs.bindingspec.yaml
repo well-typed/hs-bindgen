@@ -52,6 +52,10 @@ types:
   - Show
   - Storable
 - headers: doxygen_docs.h
+  cname: event_callback_t_Deref
+  module: Example
+  identifier: Event_callback_t_Deref
+- headers: doxygen_docs.h
   cname: filename_t
   module: Example
   identifier: Filename_t
@@ -84,6 +88,10 @@ types:
   - Ord
   - Show
   - Storable
+- headers: doxygen_docs.h
+  cname: processor_fn_t_Deref
+  module: Example
+  identifier: Processor_fn_t_Deref
 - headers: doxygen_docs.h
   cname: size_type
   module: Example

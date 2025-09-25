@@ -15,9 +15,7 @@ import Prelude ((<*>), (>>), Eq, IO, Int, Show, pure)
 
 $(HsBindgen.Runtime.Prelude.addCSource "#include <vector.h>\nvector *hs_bindgen_test_vector_c8cd49ec7dbcac25 (double arg1, double arg2) { return new_vector(arg1, arg2); }\n/* get_new_vector_ptr */ __attribute__ ((const)) vector *(*hs_bindgen_test_vector_7672b9e7f001c998 (void)) (double arg1, double arg2) { return &new_vector; } \n")
 
-{-| __C declaration:__ @vector@
-
-    __defined at:__ @vector.h:1:9@
+{-| __defined at:__ @vector.h:1:9@
 
     __exported by:__ @vector.h@
 -}

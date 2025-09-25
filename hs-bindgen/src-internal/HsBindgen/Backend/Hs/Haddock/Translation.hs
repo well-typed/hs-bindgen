@@ -21,11 +21,11 @@ import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.Haddock.Config (HaddockConfig (..), PathStyle (..))
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Errors (panicPure)
+import HsBindgen.Frontend.AST.External (AnonId (..), CommentRef (..),
+                                        DeclInfo (..), FieldInfo (..),
+                                        HeaderInfo (..), Name (..),
+                                        NameOrigin (..), NamePair (..))
 import HsBindgen.Language.Haskell qualified as Hs
-import HsBindgen.Frontend.AST.External (AnonId (..), DeclInfo (..),
-                                        FieldInfo (..), HeaderInfo (..),
-                                        Name (..), NameOrigin (..),
-                                        NamePair (..), CommentRef(..))
 
 -- | Convert a Clang comment to a Haddock comment
 --

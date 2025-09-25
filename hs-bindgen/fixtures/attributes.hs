@@ -1363,7 +1363,7 @@
       structComment = Just
         Comment {
           commentTitle = Nothing,
-          commentOrigin = Just "baz",
+          commentOrigin = Nothing,
           commentLocation = Just
             "attributes.h:22:9",
           commentHeaderInfo = Just
@@ -1509,7 +1509,7 @@
           structComment = Just
             Comment {
               commentTitle = Nothing,
-              commentOrigin = Just "baz",
+              commentOrigin = Nothing,
               commentLocation = Just
                 "attributes.h:22:9",
               commentHeaderInfo = Just
@@ -1658,7 +1658,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just "baz",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "attributes.h:22:9",
                       commentHeaderInfo = Just
@@ -1809,7 +1809,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just "baz",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "attributes.h:22:9",
                       commentHeaderInfo = Just
@@ -1982,7 +1982,7 @@
       structComment = Just
         Comment {
           commentTitle = Nothing,
-          commentOrigin = Just "qux",
+          commentOrigin = Nothing,
           commentLocation = Just
             "attributes.h:28:9",
           commentHeaderInfo = Just
@@ -2128,7 +2128,7 @@
           structComment = Just
             Comment {
               commentTitle = Nothing,
-              commentOrigin = Just "qux",
+              commentOrigin = Nothing,
               commentLocation = Just
                 "attributes.h:28:9",
               commentHeaderInfo = Just
@@ -2277,7 +2277,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just "qux",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "attributes.h:28:9",
                       commentHeaderInfo = Just
@@ -2428,7 +2428,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just "qux",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "attributes.h:28:9",
                       commentHeaderInfo = Just
