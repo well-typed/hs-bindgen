@@ -49,7 +49,8 @@ handleDecl td decl =
     case declKind of
       C.DeclTypedef dtd
         | C.TypePointer (C.TypeFun args res) <- C.typedefType dtd ->
-          let derefDecl = C.Decl {
+          let derefDecl, mainDecl :: C.Decl HandleTypedefs
+              derefDecl = C.Decl {
                   declInfo = declInfo' { C.declId = C.DeclId (curName <> "_Deref") (C.NameOriginGenerated (C.AnonId declLoc)) }
                 , declKind = handleUseSites td
                            $ C.DeclTypedef $ C.Typedef {
@@ -58,7 +59,7 @@ handleDecl td decl =
                              }
                 , declAnn  = defaultTypeSpec
                 }
-              mainDecl = decl {
+              mainDecl = C.Decl {
                   C.declInfo = declInfo'
                 , C.declKind = C.DeclTypedef $ C.Typedef {
                     typedefType = C.TypePointer
@@ -68,6 +69,7 @@ handleDecl td decl =
                                 $ C.declInfo derefDecl
                   , typedefAnn  = NoAnn
                   }
+                , C.declAnn = declAnn
                 }
            in ( Nothing
               , Just [ derefDecl
