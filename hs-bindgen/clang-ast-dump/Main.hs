@@ -94,7 +94,7 @@ clangAstDump opts@Options{..} = do
             (file, _, _)
               | optSameFile && SourcePath file /= src -> foldContinue
               | not optBuiltin && isBuiltIn file      -> foldContinue
-              | otherwise                             -> runFold (foldDecls opts) cursor
+              | otherwise                             -> foldDecls opts cursor
     case eitherRes of
       Left  e  -> throwIO e
       Right _  -> pure ()
@@ -121,8 +121,8 @@ clangAstDump opts@Options{..} = do
     isBuiltIn = (`elem` [T.pack "<built-in>", T.pack "<command line>"])
 
 
-foldDecls :: Options -> Fold IO ()
-foldDecls opts@Options{..} = simpleFold $ \cursor -> do
+foldDecls :: Options -> CXCursor -> IO (Next IO ())
+foldDecls opts@Options{..} = \cursor -> do
     traceU_ 0 =<< clang_getCursorDisplayName cursor
 
     dumpParents cursor
@@ -194,7 +194,7 @@ foldDecls opts@Options{..} = simpleFold $ \cursor -> do
         dumpComment 2 Nothing =<< clang_Cursor_getParsedComment cursor
 
     if isRecurse
-      then foldRecurse (foldDecls opts)
+      then foldRecurse $ simpleFold (foldDecls opts)
       else foldContinue
   where
     dumpParents :: CXCursor -> IO ()

@@ -1,5 +1,5 @@
 -- | Fold declarations
-module HsBindgen.Frontend.Pass.Parse.Decl (foldDecl) where
+module HsBindgen.Frontend.Pass.Parse.Decl (topLevelDecl, parseDecl) where
 
 import Data.Either (partitionEithers)
 import Data.List qualified as List
@@ -29,78 +29,25 @@ import HsBindgen.Imports
   Top-level
 -------------------------------------------------------------------------------}
 
-foldDecl :: Fold ParseDecl [C.Decl Parse]
-foldDecl = foldWithHandler handleTypeException $ \curr -> do
-    info <- getDeclInfo curr
-    let isBuiltin = case C.declId info of
-          C.PrelimDeclIdBuiltin{} -> True
-          _otherwise              -> False
-
-    let parseWith ::
-             (C.DeclInfo Parse -> Fold ParseDecl [C.Decl Parse])
-          -> C.NameKind
-          -> ParseDecl (Next ParseDecl [C.Decl Parse])
-        parseWith parser kind
-          | isBuiltin =
-              -- TODO Support builtin macros (#1087)
-              recordNonParsedDecl info kind >> foldContinue
-          | otherwise = do
-              selected <- evalPredicate info
-              if selected
-                then runFold (parser info) curr
-                else recordNonParsedDecl info kind >> foldContinue
-
-    dispatch curr $ \case
-      -- Ordinary kinds that we parse
-      CXCursor_FunctionDecl    -> parseWith functionDecl    C.NameKindOrdinary
-      CXCursor_VarDecl         -> parseWith varDecl         C.NameKindOrdinary
-      CXCursor_TypedefDecl     -> parseWith typedefDecl     C.NameKindOrdinary
-      CXCursor_MacroDefinition -> parseWith macroDefinition C.NameKindOrdinary
-
-      -- Tagged kinds that we parse
-      CXCursor_StructDecl ->
-        parseWith structDecl (C.NameKindTagged C.TagKindStruct)
-      CXCursor_UnionDecl ->
-        parseWith unionDecl  (C.NameKindTagged C.TagKindUnion)
-      CXCursor_EnumDecl ->
-        parseWith enumDecl   (C.NameKindTagged C.TagKindEnum)
-
-      -- Process macro expansions independent of any selection predicates
-      CXCursor_MacroExpansion -> runFold macroExpansion curr
-
-      -- Kinds that we skip over
-      CXCursor_AlignedAttr        -> foldContinue
-      CXCursor_InclusionDirective -> foldContinue
-      CXCursor_PackedAttr         -> foldContinue
-      CXCursor_UnexposedAttr      -> foldContinue
-      CXCursor_UnexposedDecl      -> foldContinue
-
-      -- Report error for declarations we don't recognize
-      kind -> unknownCursorKind curr kind
-
--- NOTE: The exception handler does not require the cursor anymore. If this
--- continues to be so in the future, the cursor could be removed.
-handleTypeException ::
-     CXCursor
-  -> ParseTypeExceptionInContext ParseTypeExceptionContext
-  -> ParseDecl (Maybe [C.Decl Parse])
-handleTypeException _curr err = do
-    -- TODO https://github.com/well-typed/hs-bindgen/issues/1036: For nested
-    -- structures, the error message contains the info object of the inner
-    -- declaration, while the info object we obtain here refers to the outer
-    -- declaration. (That is, the exception handler receives the cursor of the
-    -- outer object).
-    --
-    -- We should record the trace using the info contained in the error message
-    -- ('contextInfo'). However, if we do so, we completely lose information
-    -- about the outer object. We should treat nested declarations with all
-    -- inner declarations failing in a correct way.
-    info <- getDeclInfo _curr
-    recordTrace info contextNameKind $
-      ParseUnsupportedType info (parseException err)
-    return Nothing
+-- | Top-level declaration
+--
+-- We only attach an exception handler for top-level declarations: if something
+-- goes wrong with a nested declaration, we want to skip the entire outer
+-- declaration.
+topLevelDecl :: Fold ParseDecl [C.Decl Parse]
+topLevelDecl = foldWithHandler handleTypeException parseDecl
   where
-    ParseTypeExceptionContext{..} = parseContext err
+    handleTypeException ::
+         CXCursor
+      -> ParseTypeExceptionInContext ParseTypeExceptionContext
+      -> ParseDecl (Maybe [C.Decl Parse])
+    handleTypeException curr err = do
+        info <- getDeclInfo curr
+        recordTrace info contextNameKind $
+          ParseUnsupportedType info (parseException err)
+        return Nothing
+      where
+        ParseTypeExceptionContext{..} = parseContext err
 
 {-------------------------------------------------------------------------------
   Info that we collect for all declarations
@@ -154,16 +101,66 @@ getReparseInfo = \curr -> do
   Functions for each kind of declaration
 -------------------------------------------------------------------------------}
 
+type Parser = CXCursor -> ParseDecl (Next ParseDecl [C.Decl Parse])
+
+-- | Declarations
+parseDecl :: Parser
+parseDecl = \curr -> do
+    info <- getDeclInfo curr
+    let isBuiltin = case C.declId info of
+          C.PrelimDeclIdBuiltin{} -> True
+          _otherwise              -> False
+
+    let parseWith ::
+             (C.DeclInfo Parse -> Parser)
+          -> C.NameKind
+          -> ParseDecl (Next ParseDecl [C.Decl Parse])
+        parseWith parser kind
+          | isBuiltin =
+              -- TODO Support builtin macros (#1087)
+              recordNonParsedDecl info kind >> foldContinue
+          | otherwise = do
+              selected <- evalPredicate info
+              if selected
+                then parser info curr
+                else recordNonParsedDecl info kind >> foldContinue
+
+    dispatch curr $ \case
+      -- Ordinary kinds that we parse
+      CXCursor_FunctionDecl    -> parseWith functionDecl    C.NameKindOrdinary
+      CXCursor_VarDecl         -> parseWith varDecl         C.NameKindOrdinary
+      CXCursor_TypedefDecl     -> parseWith typedefDecl     C.NameKindOrdinary
+      CXCursor_MacroDefinition -> parseWith macroDefinition C.NameKindOrdinary
+
+      -- Tagged kinds that we parse
+      CXCursor_StructDecl ->
+        parseWith structDecl (C.NameKindTagged C.TagKindStruct)
+      CXCursor_UnionDecl ->
+        parseWith unionDecl  (C.NameKindTagged C.TagKindUnion)
+      CXCursor_EnumDecl ->
+        parseWith enumDecl   (C.NameKindTagged C.TagKindEnum)
+
+      -- Process macro expansions independent of any selection predicates
+      CXCursor_MacroExpansion -> macroExpansion curr
+
+      -- Kinds that we skip over
+      CXCursor_AlignedAttr        -> foldContinue
+      CXCursor_InclusionDirective -> foldContinue
+      CXCursor_PackedAttr         -> foldContinue
+      CXCursor_UnexposedAttr      -> foldContinue
+      CXCursor_UnexposedDecl      -> foldContinue
+
+      -- Report error for declarations we don't recognize
+      kind -> unknownCursorKind curr kind
+
 -- | Macros
 --
 -- In this phase, we return macro declarations simply as a list of tokens. We
 -- will parse them later (after sorting all declarations in the file).
 --
 -- NOTE: We rely on selection to filter out clang internal macro declarations.
-macroDefinition ::
-     HasCallStack
-  => C.DeclInfo Parse -> Fold ParseDecl [C.Decl Parse]
-macroDefinition info = simpleFold $ \curr -> do
+macroDefinition :: HasCallStack => C.DeclInfo Parse -> Parser
+macroDefinition info = \curr -> do
     unit <- getTranslationUnit
     let mkDecl :: UnparsedMacro -> C.Decl Parse
         mkDecl body = C.Decl{
@@ -174,8 +171,8 @@ macroDefinition info = simpleFold $ \curr -> do
     decl <- mkDecl <$> getUnparsedMacro unit curr
     foldContinueWith [decl]
 
-structDecl :: C.DeclInfo Parse -> Fold ParseDecl [C.Decl Parse]
-structDecl info = simpleFold $ \curr -> do
+structDecl :: C.DeclInfo Parse -> Parser
+structDecl info = \curr -> do
     classification <- HighLevel.classifyDeclaration curr
     case classification of
       Definition -> do
@@ -239,8 +236,8 @@ structDecl info = simpleFold $ \curr -> do
       DefinitionElsewhere _ ->
         foldContinue
 
-unionDecl :: C.DeclInfo Parse -> Fold ParseDecl [C.Decl Parse]
-unionDecl info = simpleFold $ \curr -> do
+unionDecl :: C.DeclInfo Parse -> Parser
+unionDecl info = \curr -> do
     classification <- HighLevel.classifyDeclaration curr
     case classification of
       Definition -> do
@@ -312,9 +309,12 @@ declOrFieldDecl fieldDecl = simpleFold $ \curr -> do
     case kind of
       Right CXCursor_FieldDecl -> do
         field <- fieldDecl curr
+        -- Field declarations can have struct declarations as children in the
+        -- clang AST; however, those are duplicates of declarations that appear
+        -- elsewhere, so here we choose not to recurse.
         foldContinueWith $ Right field
       _otherwise -> do
-        fmap Left <$> runFold foldDecl curr
+        fmap Left <$> parseDecl curr
 
 structFieldDecl :: C.DeclInfo Parse -> CXCursor -> ParseDecl (C.StructField Parse)
 structFieldDecl info = \curr -> do
@@ -353,8 +353,8 @@ unionFieldDecl info = \curr -> do
       , unionFieldAnn
       }
 
-typedefDecl :: C.DeclInfo Parse -> Fold ParseDecl [C.Decl Parse]
-typedefDecl info = simpleFold $ \curr -> do
+typedefDecl :: C.DeclInfo Parse -> Parser
+typedefDecl info = \curr -> do
     typedefType <- fromCXType' (ParseTypeExceptionContext info NameKindOrdinary)
                      =<< clang_getTypedefDeclUnderlyingType curr
     typedefAnn  <- getReparseInfo curr
@@ -369,14 +369,14 @@ typedefDecl info = simpleFold $ \curr -> do
           }
     foldContinueWith [decl]
 
-macroExpansion :: Fold ParseDecl [C.Decl Parse]
-macroExpansion = simpleFold $ \curr -> do
+macroExpansion :: Parser
+macroExpansion = \curr -> do
     loc <- multiLocExpansion <$> HighLevel.clang_getCursorLocation curr
     recordMacroExpansionAt loc
     foldContinue
 
-enumDecl :: C.DeclInfo Parse -> Fold ParseDecl [C.Decl Parse]
-enumDecl info = simpleFold $ \curr -> do
+enumDecl :: C.DeclInfo Parse -> Parser
+enumDecl info = \curr -> do
     classification <- HighLevel.classifyDeclaration curr
     case classification of
       Definition -> do
@@ -420,7 +420,7 @@ enumDecl info = simpleFold $ \curr -> do
           kind                      -> unknownCursorKind curr kind
 
 enumConstantDecl :: CXCursor -> ParseDecl (Next ParseDecl (C.EnumConstant Parse))
-enumConstantDecl curr = do
+enumConstantDecl = \curr -> do
     enumConstantInfo  <- getFieldInfo curr
     enumConstantValue <- toInteger <$> clang_getEnumConstantDeclValue curr
     foldContinueWith C.EnumConstant {
@@ -428,8 +428,8 @@ enumConstantDecl curr = do
       , enumConstantValue
       }
 
-functionDecl :: C.DeclInfo Parse -> Fold ParseDecl [C.Decl Parse]
-functionDecl info = simpleFold $ \curr -> do
+functionDecl :: C.DeclInfo Parse -> Parser
+functionDecl info = \curr -> do
     visibility <- getCursorVisibility curr
     linkage    <- getCursorLinkage curr
     declCls    <- HighLevel.classifyDeclaration curr
@@ -508,8 +508,8 @@ functionDecl info = simpleFold $ \curr -> do
             foldRecurseWith nestedDecl (return . concat)
 
           -- Nested declarations
-          Right CXCursor_StructDecl -> fmap (fmap Left) <$> runFold foldDecl curr
-          Right CXCursor_UnionDecl  -> fmap (fmap Left) <$> runFold foldDecl curr
+          Right CXCursor_StructDecl -> fmap (fmap Left) <$> parseDecl curr
+          Right CXCursor_UnionDecl  -> fmap (fmap Left) <$> parseDecl curr
 
           -- Harmless
           Right CXCursor_TypeRef        -> foldContinue
@@ -540,8 +540,8 @@ functionDecl info = simpleFold $ \curr -> do
             panicIO $ "Unexpected " ++ show kind ++ " at " ++ show loc
 
 -- | Global variable declaration
-varDecl :: C.DeclInfo Parse -> Fold ParseDecl [C.Decl Parse]
-varDecl info = simpleFold $ \curr -> do
+varDecl :: C.DeclInfo Parse -> Parser
+varDecl info = \curr -> do
     visibility <- getCursorVisibility curr
     linkage    <- getCursorLinkage curr
     declCls    <- HighLevel.classifyDeclaration curr
@@ -603,8 +603,8 @@ varDecl info = simpleFold $ \curr -> do
           Right CXCursor_TypeRef -> foldContinue
 
           -- Nested /new/ declarations
-          Right CXCursor_StructDecl -> runFold foldDecl curr
-          Right CXCursor_UnionDecl  -> runFold foldDecl curr
+          Right CXCursor_StructDecl -> parseDecl curr
+          Right CXCursor_UnionDecl  -> parseDecl curr
 
           -- Initializers
           --
@@ -803,7 +803,7 @@ data VarClassification =
   deriving stock (Show)
 
 classifyVarDecl :: MonadIO m => CXCursor -> m VarClassification
-classifyVarDecl curr = do
+classifyVarDecl = \curr -> do
     tls <- clang_getCursorTLSKind curr
     case fromSimpleEnum tls of
       Right CXTLS_None -> do
@@ -834,7 +834,7 @@ data Linkage =
 -- | Retrieve the linkage of the entity that the cursor is currently pointing
 -- to.
 getCursorLinkage :: MonadIO m => CXCursor -> m Linkage
-getCursorLinkage curr = do
+getCursorLinkage = \curr -> do
     linkage   <- clang_getCursorLinkage curr
     case fromSimpleEnum linkage of
       Right linkage' -> case linkage' of
@@ -865,7 +865,7 @@ data Visibility =
 -- | Retrieve the visibilty of the entity that the cursor is currently pointing
 -- to.
 getCursorVisibility :: MonadIO m => CXCursor -> m Visibility
-getCursorVisibility curr = do
+getCursorVisibility = \curr -> do
     vis  <- fromSimpleEnum <$> clang_getCursorVisibility curr
     case vis of
       -- See https://clang.llvm.org/doxygen/group__CINDEX__CURSOR__MANIP.html#gaf92fafb489ab66529aceab51818994cb
