@@ -529,8 +529,7 @@
           (HsFunPtr
             (HsFun
               (HsPrimType HsPrimCInt)
-              (HsIO
-                (HsPrimType HsPrimCInt))))),
+              (HsPrimType HsPrimCInt)))),
       foreignImportOrigName =
       "hs_bindgen_test_fun_attributes_conflict_a488b67527d299f8",
       foreignImportCallConv =
@@ -540,13 +539,21 @@
           "/* get_square_cp_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_conflict_a488b67527d299f8 (void)) (signed int arg1) { return &square_cp; } ",
           capiWrapperImport =
           "fun_attributes_conflict.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePrim
-              (PrimIntegral PrimInt Signed)]
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            HaskellPureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
       foreignImportComment =
       Just
         Comment {
@@ -586,8 +593,7 @@
           (HsFunPtr
             (HsFun
               (HsPrimType HsPrimCInt)
-              (HsIO
-                (HsPrimType HsPrimCInt))))),
+              (HsPrimType HsPrimCInt)))),
       foreignImportOrigName =
       "hs_bindgen_test_fun_attributes_conflict_c4cea088a40be2f5",
       foreignImportCallConv =
@@ -597,13 +603,21 @@
           "/* get_square_pc_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_conflict_c4cea088a40be2f5 (void)) (signed int arg1) { return &square_pc; } ",
           capiWrapperImport =
           "fun_attributes_conflict.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePrim
-              (PrimIntegral PrimInt Signed)]
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            HaskellPureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -633,8 +647,7 @@
           (HsFunPtr
             (HsFun
               (HsPrimType HsPrimCInt)
-              (HsIO
-                (HsPrimType HsPrimCInt))))),
+              (HsPrimType HsPrimCInt)))),
       foreignImportOrigName =
       "hs_bindgen_test_fun_attributes_conflict_3bc327fede4fc009",
       foreignImportCallConv =
@@ -644,13 +657,21 @@
           "/* get_square_cc_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_conflict_3bc327fede4fc009 (void)) (signed int arg1) { return &square_cc; } ",
           capiWrapperImport =
           "fun_attributes_conflict.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePrim
-              (PrimIntegral PrimInt Signed)]
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            HaskellPureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -691,13 +712,21 @@
           "/* get_square_pp_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_conflict_dca75c8c02c209b2 (void)) (signed int arg1) { return &square_pp; } ",
           capiWrapperImport =
           "fun_attributes_conflict.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePrim
-              (PrimIntegral PrimInt Signed)]
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            CPureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,

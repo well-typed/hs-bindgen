@@ -658,13 +658,22 @@
           "/* get_erf_ptr */ __attribute__ ((const)) double (*hs_bindgen_test_simple_func_723348151ff43970 (void)) (double arg1) { return &erf; } ",
           capiWrapperImport =
           "simple_func.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePrim
-              (PrimFloating PrimDouble)]
-          (TypePrim
-            (PrimFloating PrimDouble))),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg",
+                  nameHsIdent = HsIdentifier
+                    "arg"})
+              (TypePrim
+                (PrimFloating PrimDouble))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimFloating PrimDouble)},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -709,17 +718,35 @@
           "/* get_bad_fma_ptr */ __attribute__ ((const)) double (*hs_bindgen_test_simple_func_f3190cb919f94cd9 (void)) (double arg1, double arg2, double arg3) { return &bad_fma; } ",
           capiWrapperImport =
           "simple_func.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePrim
-              (PrimFloating PrimDouble),
-            TypePrim
-              (PrimFloating PrimDouble),
-            TypePrim
-              (PrimFloating PrimDouble)]
-          (TypePrim
-            (PrimFloating PrimDouble))),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimFloating PrimDouble)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier "y"})
+              (TypePrim
+                (PrimFloating PrimDouble)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "z",
+                  nameHsIdent = HsIdentifier "z"})
+              (TypePrim
+                (PrimFloating PrimDouble))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimFloating PrimDouble)},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -757,8 +784,13 @@
           "/* get_no_args_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_simple_func_fbdbb067d942094e (void)) (void) { return &no_args; } ",
           capiWrapperImport =
           "simple_func.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -796,8 +828,13 @@
           "/* get_no_args_no_void_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_simple_func_452280b5085b4ccd (void)) (void) { return &no_args_no_void; } ",
           capiWrapperImport =
           "simple_func.h"},
-      foreignImportOrigin = Global
-        (TypeFun [] TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -840,17 +877,30 @@
           "/* get_fun_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_simple_func_b16b846810561073 (void)) (char arg1, double arg2) { return &fun; } ",
           capiWrapperImport =
           "simple_func.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePrim
-              (PrimChar
-                (PrimSignImplicit
-                  (Just Signed))),
-            TypePrim
-              (PrimFloating PrimDouble)]
-          (TypePrim
-            (PrimIntegral PrimInt Signed))),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed)))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier "y"})
+              (TypePrim
+                (PrimFloating PrimDouble))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,

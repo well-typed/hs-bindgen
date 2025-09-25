@@ -3117,20 +3117,33 @@
           "/* get_quux_ptr */ __attribute__ ((const)) char (*hs_bindgen_test_macro_in_fundecl_75296b863af23367 (void)) (F arg1, char arg2) { return &quux; } ",
           capiWrapperImport =
           "macro_in_fundecl.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "F",
-                nameHsIdent = HsIdentifier "F"}
-              NameOriginInSource,
-            TypePrim
-              (PrimChar
-                (PrimSignImplicit Nothing))]
-          (TypePrim
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "F",
+                  nameHsIdent = HsIdentifier "F"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier "y"})
+              (TypePrim
+                (PrimChar
+                  (PrimSignImplicit Nothing)))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
             (PrimChar
-              (PrimSignImplicit Nothing)))),
+              (PrimSignImplicit Nothing))},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -3178,23 +3191,36 @@
           "/* get_wam_ptr */ __attribute__ ((const)) C *(*hs_bindgen_test_macro_in_fundecl_fd1ccca5616729da (void)) (float arg1, C *arg2) { return &wam; } ",
           capiWrapperImport =
           "macro_in_fundecl.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePrim
-              (PrimFloating PrimFloat),
-            TypePointer
-              (TypeMacroTypedef
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "C",
-                  nameHsIdent = HsIdentifier "C"}
-                NameOriginInSource)]
-          (TypePointer
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimFloating PrimFloat)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier "y"})
+              (TypePointer
+                (TypeMacroTypedef
+                  NamePair {
+                    nameC = Name "C",
+                    nameHsIdent = HsIdentifier "C"}
+                  NameOriginInSource))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
             (TypeMacroTypedef
               NamePair {
                 nameC = Name "C",
                 nameHsIdent = HsIdentifier "C"}
-              NameOriginInSource))),
+              NameOriginInSource)},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -3240,23 +3266,38 @@
           "/* get_foo1_ptr */ __attribute__ ((const)) char *(*hs_bindgen_test_macro_in_fundecl_786c8d7bfea481fd (void)) (float arg1, signed int (*arg2) (signed int arg1)) { return &foo1; } ",
           capiWrapperImport =
           "macro_in_fundecl.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePrim
-              (PrimFloating PrimFloat),
-            TypePointer
-              (TypeFun
-                [
-                  TypePrim
-                    (PrimIntegral PrimInt Signed)]
-                (TypePrim
-                  (PrimIntegral PrimInt Signed)))]
-          (TypePointer
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimFloating PrimFloat)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "g",
+                  nameHsIdent = HsIdentifier "g"})
+              (TypePointer
+                (TypeFun
+                  [
+                    TypePrim
+                      (PrimIntegral PrimInt Signed)]
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
             (TypePrim
               (PrimChar
                 (PrimSignImplicit
-                  (Just Signed)))))),
+                  (Just Signed))))},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -3303,25 +3344,40 @@
           "/* get_foo2_ptr */ __attribute__ ((const)) char *(*hs_bindgen_test_macro_in_fundecl_42a47aecc35f5bda (void)) (F arg1, signed int (*arg2) (signed int arg1)) { return &foo2; } ",
           capiWrapperImport =
           "macro_in_fundecl.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "F",
-                nameHsIdent = HsIdentifier "F"}
-              NameOriginInSource,
-            TypePointer
-              (TypeFun
-                [
-                  TypePrim
-                    (PrimIntegral PrimInt Signed)]
-                (TypePrim
-                  (PrimIntegral PrimInt Signed)))]
-          (TypePointer
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "F",
+                  nameHsIdent = HsIdentifier "F"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "g",
+                  nameHsIdent = HsIdentifier "g"})
+              (TypePointer
+                (TypeFun
+                  [
+                    TypePrim
+                      (PrimIntegral PrimInt Signed)]
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
             (TypePrim
               (PrimChar
-                (PrimSignImplicit Nothing))))),
+                (PrimSignImplicit Nothing)))},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -3370,24 +3426,39 @@
           "/* get_foo3_ptr */ __attribute__ ((const)) C *(*hs_bindgen_test_macro_in_fundecl_17760ec60140242e (void)) (float arg1, signed int (*arg2) (signed int arg1)) { return &foo3; } ",
           capiWrapperImport =
           "macro_in_fundecl.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePrim
-              (PrimFloating PrimFloat),
-            TypePointer
-              (TypeFun
-                [
-                  TypePrim
-                    (PrimIntegral PrimInt Signed)]
-                (TypePrim
-                  (PrimIntegral PrimInt Signed)))]
-          (TypePointer
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimFloating PrimFloat)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "g",
+                  nameHsIdent = HsIdentifier "g"})
+              (TypePointer
+                (TypeFun
+                  [
+                    TypePrim
+                      (PrimIntegral PrimInt Signed)]
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
             (TypeMacroTypedef
               NamePair {
                 nameC = Name "C",
                 nameHsIdent = HsIdentifier "C"}
-              NameOriginInSource))),
+              NameOriginInSource)},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -3431,12 +3502,22 @@
           "/* get_bar1_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_macro_in_fundecl_13fa512840072e8d (void)) (signed long arg1)) (signed short arg1) { return &bar1; } ",
           capiWrapperImport =
           "macro_in_fundecl.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePrim
-              (PrimIntegral PrimLong Signed)]
-          (TypePointer
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimIntegral
+                  PrimLong
+                  Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
             (TypeFun
               [
                 TypePrim
@@ -3444,7 +3525,7 @@
               (TypePrim
                 (PrimIntegral
                   PrimInt
-                  Signed))))),
+                  Signed)))},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -3489,15 +3570,23 @@
           "/* get_bar2_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_macro_in_fundecl_0d63f3c4f98f04a3 (void)) (L arg1)) (signed short arg1) { return &bar2; } ",
           capiWrapperImport =
           "macro_in_fundecl.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "L",
-                nameHsIdent = HsIdentifier "L"}
-              NameOriginInSource]
-          (TypePointer
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "L",
+                  nameHsIdent = HsIdentifier "L"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
             (TypeFun
               [
                 TypePrim
@@ -3505,7 +3594,7 @@
               (TypePrim
                 (PrimIntegral
                   PrimInt
-                  Signed))))),
+                  Signed)))},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -3550,12 +3639,22 @@
           "/* get_bar3_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_macro_in_fundecl_8bd44eebdbce7f71 (void)) (signed long arg1)) (S arg1) { return &bar3; } ",
           capiWrapperImport =
           "macro_in_fundecl.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePrim
-              (PrimIntegral PrimLong Signed)]
-          (TypePointer
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimIntegral
+                  PrimLong
+                  Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
             (TypeFun
               [
                 TypeMacroTypedef
@@ -3566,7 +3665,7 @@
               (TypePrim
                 (PrimIntegral
                   PrimInt
-                  Signed))))),
+                  Signed)))},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -3613,12 +3712,22 @@
           "/* get_bar4_ptr */ __attribute__ ((const)) I (*(*hs_bindgen_test_macro_in_fundecl_0515cdde3c6f0f19 (void)) (signed long arg1)) (signed short arg1) { return &bar4; } ",
           capiWrapperImport =
           "macro_in_fundecl.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePrim
-              (PrimIntegral PrimLong Signed)]
-          (TypePointer
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimIntegral
+                  PrimLong
+                  Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
             (TypeFun
               [
                 TypePrim
@@ -3627,7 +3736,7 @@
                 NamePair {
                   nameC = Name "I",
                   nameHsIdent = HsIdentifier "I"}
-                NameOriginInSource)))),
+                NameOriginInSource))},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -3672,13 +3781,23 @@
           "/* get_baz1_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_macro_in_fundecl_8edeef2444de2cee (void)) (signed int const arg1))[2][3] { return &baz1; } ",
           capiWrapperImport =
           "macro_in_fundecl.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeConst
-              (TypePrim
-                (PrimIntegral PrimInt Signed))]
-          (TypePointer
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "i",
+                  nameHsIdent = HsIdentifier "i"})
+              (TypeConst
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
             (TypeConstArray
               2
               (TypeConstArray
@@ -3686,7 +3805,7 @@
                 (TypePrim
                   (PrimIntegral
                     PrimInt
-                    Signed)))))),
+                    Signed))))},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -3732,16 +3851,24 @@
           "/* get_baz2_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_macro_in_fundecl_61853d26cc39ced6 (void)) (I const arg1))[2][3] { return &baz2; } ",
           capiWrapperImport =
           "macro_in_fundecl.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeConst
-              (TypeMacroTypedef
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "I",
-                  nameHsIdent = HsIdentifier "I"}
-                NameOriginInSource)]
-          (TypePointer
+                  nameC = Name "i",
+                  nameHsIdent = HsIdentifier "i"})
+              (TypeConst
+                (TypeMacroTypedef
+                  NamePair {
+                    nameC = Name "I",
+                    nameHsIdent = HsIdentifier "I"}
+                  NameOriginInSource))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
             (TypeConstArray
               2
               (TypeConstArray
@@ -3749,7 +3876,7 @@
                 (TypePrim
                   (PrimIntegral
                     PrimInt
-                    Signed)))))),
+                    Signed))))},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -3797,13 +3924,23 @@
           "/* get_baz3_ptr */ __attribute__ ((const)) I (*(*hs_bindgen_test_macro_in_fundecl_b465262d2f67a146 (void)) (signed int const arg1))[2][3] { return &baz3; } ",
           capiWrapperImport =
           "macro_in_fundecl.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeConst
-              (TypePrim
-                (PrimIntegral PrimInt Signed))]
-          (TypePointer
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "i",
+                  nameHsIdent = HsIdentifier "i"})
+              (TypeConst
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
             (TypeConstArray
               2
               (TypeConstArray
@@ -3812,7 +3949,7 @@
                   NamePair {
                     nameC = Name "I",
                     nameHsIdent = HsIdentifier "I"}
-                  NameOriginInSource))))),
+                  NameOriginInSource)))},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -3853,14 +3990,17 @@
           "/* get_no_args_no_void_ptr */ __attribute__ ((const)) I (*hs_bindgen_test_macro_in_fundecl_452280b5085b4ccd (void)) (void) { return &no_args_no_void; } ",
           capiWrapperImport =
           "macro_in_fundecl.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          []
-          (TypeMacroTypedef
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeMacroTypedef
             NamePair {
               nameC = Name "I",
               nameHsIdent = HsIdentifier "I"}
-            NameOriginInSource)),
+            NameOriginInSource},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,

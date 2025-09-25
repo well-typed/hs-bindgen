@@ -421,11 +421,11 @@ my_alloc2_ptr =
     __exported by:__ @fun_attributes.h@
 -}
 foreign import ccall unsafe "hs_bindgen_test_fun_attributes_c41111f40a04cdc9" hs_bindgen_test_fun_attributes_c41111f40a04cdc9
-  :: IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
+  :: IO (Ptr.FunPtr (FC.CInt -> FC.CInt))
 
 {-# NOINLINE square_ptr #-}
 
-square_ptr :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
+square_ptr :: Ptr.FunPtr (FC.CInt -> FC.CInt)
 square_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_fun_attributes_c41111f40a04cdc9
 

@@ -4247,23 +4247,36 @@
           "/* get_quux1_ptr */ __attribute__ ((const)) char (*hs_bindgen_test_macro_in_fundecl_vs_typedef_7d7a63ab896ed293 (void)) (MC arg1, TC arg2) { return &quux1; } ",
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
-              NameOriginInSource,
-            TypeTypedef
-              (TypedefRegular
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "TC",
-                  nameHsIdent = HsIdentifier
-                    "TC"})]
-          (TypePrim
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "MC",
+                  nameHsIdent = HsIdentifier "MC"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier "y"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "TC",
+                    nameHsIdent = HsIdentifier
+                      "TC"}))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
             (PrimChar
-              (PrimSignImplicit Nothing)))),
+              (PrimSignImplicit Nothing))},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -4310,23 +4323,36 @@
           "/* get_quux2_ptr */ __attribute__ ((const)) TC (*hs_bindgen_test_macro_in_fundecl_vs_typedef_b64c564dd7071f5b (void)) (MC arg1, char arg2) { return &quux2; } ",
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
-              NameOriginInSource,
-            TypePrim
-              (PrimChar
-                (PrimSignImplicit Nothing))]
-          (TypeTypedef
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "MC",
+                  nameHsIdent = HsIdentifier "MC"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier "y"})
+              (TypePrim
+                (PrimChar
+                  (PrimSignImplicit Nothing)))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeTypedef
             (TypedefRegular
               NamePair {
                 nameC = Name "TC",
                 nameHsIdent = HsIdentifier
-                  "TC"}))),
+                  "TC"})},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -4375,24 +4401,37 @@
           "/* get_wam1_ptr */ __attribute__ ((const)) MC *(*hs_bindgen_test_macro_in_fundecl_vs_typedef_aa26b3a0f4d0aefe (void)) (float arg1, TC *arg2) { return &wam1; } ",
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePrim
-              (PrimFloating PrimFloat),
-            TypePointer
-              (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "TC",
-                    nameHsIdent = HsIdentifier
-                      "TC"}))]
-          (TypePointer
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimFloating PrimFloat)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier "y"})
+              (TypePointer
+                (TypeTypedef
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "TC",
+                      nameHsIdent = HsIdentifier
+                        "TC"})))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
             (TypeMacroTypedef
               NamePair {
                 nameC = Name "MC",
                 nameHsIdent = HsIdentifier "MC"}
-              NameOriginInSource))),
+              NameOriginInSource)},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -4441,24 +4480,37 @@
           "/* get_wam2_ptr */ __attribute__ ((const)) TC *(*hs_bindgen_test_macro_in_fundecl_vs_typedef_5cb5ead73c0a3d63 (void)) (float arg1, MC *arg2) { return &wam2; } ",
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePrim
-              (PrimFloating PrimFloat),
-            TypePointer
-              (TypeMacroTypedef
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "MC",
-                  nameHsIdent = HsIdentifier "MC"}
-                NameOriginInSource)]
-          (TypePointer
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypePrim
+                (PrimFloating PrimFloat)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = HsIdentifier "y"})
+              (TypePointer
+                (TypeMacroTypedef
+                  NamePair {
+                    nameC = Name "MC",
+                    nameHsIdent = HsIdentifier "MC"}
+                  NameOriginInSource))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
             (TypeTypedef
               (TypedefRegular
                 NamePair {
                   nameC = Name "TC",
                   nameHsIdent = HsIdentifier
-                    "TC"})))),
+                    "TC"}))},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -4506,27 +4558,40 @@
           "/* get_struct_typedef1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_macro_in_fundecl_vs_typedef_a1aadeb6878a5152 (void)) (struct2 *arg1, MC arg2) { return &struct_typedef1; } ",
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePointer
-              (TypeTypedef
-                (TypedefSquashed
-                  (Name "struct2")
-                  (TypeStruct
-                    NamePair {
-                      nameC = Name "struct2",
-                      nameHsIdent = HsIdentifier
-                        "Struct2"}
-                    (NameOriginGenerated
-                      (AnonId
-                        "macro_in_fundecl_vs_typedef.h:19:9"))))),
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
-              NameOriginInSource]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "s",
+                  nameHsIdent = HsIdentifier "s"})
+              (TypePointer
+                (TypeTypedef
+                  (TypedefSquashed
+                    (Name "struct2")
+                    (TypeStruct
+                      NamePair {
+                        nameC = Name "struct2",
+                        nameHsIdent = HsIdentifier
+                          "Struct2"}
+                      (NameOriginGenerated
+                        (AnonId
+                          "macro_in_fundecl_vs_typedef.h:19:9")))))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "MC",
+                  nameHsIdent = HsIdentifier "MC"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -4575,22 +4640,35 @@
           "/* get_struct_typedef2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_macro_in_fundecl_vs_typedef_e1dac8a006e6b043 (void)) (struct3_t *arg1, MC arg2) { return &struct_typedef2; } ",
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePointer
-              (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "struct3_t",
-                    nameHsIdent = HsIdentifier
-                      "Struct3_t"})),
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
-              NameOriginInSource]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "s",
+                  nameHsIdent = HsIdentifier "s"})
+              (TypePointer
+                (TypeTypedef
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "struct3_t",
+                      nameHsIdent = HsIdentifier
+                        "Struct3_t"}))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "MC",
+                  nameHsIdent = HsIdentifier "MC"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -4639,25 +4717,38 @@
           "/* get_struct_typedef3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_macro_in_fundecl_vs_typedef_078075d0a80d4368 (void)) (struct4 *arg1, MC arg2) { return &struct_typedef3; } ",
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePointer
-              (TypeTypedef
-                (TypedefSquashed
-                  (Name "struct4")
-                  (TypeStruct
-                    NamePair {
-                      nameC = Name "struct4",
-                      nameHsIdent = HsIdentifier
-                        "Struct4"}
-                    NameOriginInSource))),
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
-              NameOriginInSource]
-          TypeVoid),
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "s",
+                  nameHsIdent = HsIdentifier "s"})
+              (TypePointer
+                (TypeTypedef
+                  (TypedefSquashed
+                    (Name "struct4")
+                    (TypeStruct
+                      NamePair {
+                        nameC = Name "struct4",
+                        nameHsIdent = HsIdentifier
+                          "Struct4"}
+                      NameOriginInSource)))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "MC",
+                  nameHsIdent = HsIdentifier "MC"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -4706,22 +4797,35 @@
           "/* get_struct_name1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_macro_in_fundecl_vs_typedef_7574edf86480f042 (void)) (struct struct1 *arg1, MC arg2) { return &struct_name1; } ",
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePointer
-              (TypeStruct
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "struct1",
-                  nameHsIdent = HsIdentifier
-                    "Struct1"}
-                NameOriginInSource),
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
-              NameOriginInSource]
-          TypeVoid),
+                  nameC = Name "s",
+                  nameHsIdent = HsIdentifier "s"})
+              (TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "struct1",
+                    nameHsIdent = HsIdentifier
+                      "Struct1"}
+                  NameOriginInSource)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "MC",
+                  nameHsIdent = HsIdentifier "MC"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -4770,22 +4874,35 @@
           "/* get_struct_name2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_macro_in_fundecl_vs_typedef_e7a8c1f45f8b20c2 (void)) (struct struct3 *arg1, MC arg2) { return &struct_name2; } ",
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePointer
-              (TypeStruct
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "struct3",
-                  nameHsIdent = HsIdentifier
-                    "Struct3"}
-                NameOriginInSource),
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
-              NameOriginInSource]
-          TypeVoid),
+                  nameC = Name "s",
+                  nameHsIdent = HsIdentifier "s"})
+              (TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "struct3",
+                    nameHsIdent = HsIdentifier
+                      "Struct3"}
+                  NameOriginInSource)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "MC",
+                  nameHsIdent = HsIdentifier "MC"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -4834,22 +4951,35 @@
           "/* get_struct_name3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_macro_in_fundecl_vs_typedef_d52310663e8daa5c (void)) (struct struct4 *arg1, MC arg2) { return &struct_name3; } ",
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
-      foreignImportOrigin = Global
-        (TypeFun
-          [
-            TypePointer
-              (TypeStruct
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
                 NamePair {
-                  nameC = Name "struct4",
-                  nameHsIdent = HsIdentifier
-                    "Struct4"}
-                NameOriginInSource),
-            TypeMacroTypedef
-              NamePair {
-                nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
-              NameOriginInSource]
-          TypeVoid),
+                  nameC = Name "s",
+                  nameHsIdent = HsIdentifier "s"})
+              (TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "struct4",
+                    nameHsIdent = HsIdentifier
+                      "Struct4"}
+                  NameOriginInSource)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = HsIdentifier "x"})
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "MC",
+                  nameHsIdent = HsIdentifier "MC"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
