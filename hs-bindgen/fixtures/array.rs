@@ -57,6 +57,8 @@ const _: () = {
         "Offset of field: Example::sudoku",
     ][::std::mem::offset_of!(Example, sudoku) - 12usize];
 };
+///! Typedef-in-typedef
+pub type sudoku = [triplet; 3usize];
 unsafe extern "C" {
     ///! Array of known size
     pub static mut arr_1: [::std::os::raw::c_int; 3usize];
@@ -125,6 +127,10 @@ unsafe extern "C" {
     pub fn fun_8(xss: *mut [::std::os::raw::c_int; 3usize]) -> ::std::os::raw::c_int;
 }
 unsafe extern "C" {
+    ///! Typedef-in-typedef
+    pub fn isSolved(xss: *mut triplet) -> ::std::os::raw::c_int;
+}
+unsafe extern "C" {
     ///! Array of known size
     pub fn fun_9() -> *mut [::std::os::raw::c_int; 3usize];
 }
@@ -155,4 +161,8 @@ unsafe extern "C" {
 unsafe extern "C" {
     ///! Multi-dimensional array of unknown size, typedef
     pub fn fun_16() -> *mut tripletlist;
+}
+unsafe extern "C" {
+    ///! Typedef-in-typedef
+    pub fn solve() -> *mut sudoku;
 }

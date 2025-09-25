@@ -51,6 +51,9 @@ struct Example {
     int sudoku[3][3];
 };
 
+//! Typedef-in-typedef
+typedef triplet sudoku[3];
+
 /*
  * Globals
  */
@@ -107,6 +110,9 @@ int fun_7(int xss[][3]);
 //! Multi-dimensional array of unknown size, typedef
 int fun_8(tripletlist xss);
 
+//! Typedef-in-typedef
+int isSolved(sudoku xss);
+
 /*
  * Function results
  *
@@ -139,3 +145,6 @@ int (*fun_15(void))[][3];
 
 //! Multi-dimensional array of unknown size, typedef
 tripletlist *fun_16(void);
+
+//! Typedef-in-typedef
+sudoku * solve(void);

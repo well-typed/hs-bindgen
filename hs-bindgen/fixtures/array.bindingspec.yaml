@@ -26,6 +26,14 @@ types:
   - Show
   - Storable
 - headers: array.h
+  cname: sudoku
+  module: Example
+  hsname: Sudoku
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: array.h
   cname: triplet
   module: Example
   hsname: Triplet
