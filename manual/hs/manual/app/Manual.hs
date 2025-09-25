@@ -326,9 +326,16 @@ main = do
       print =<< FunPtr.apply1 FunPtr.square_ptr 4
       print =<< FunPtr.apply1 FunPtr.square_ptr 5
       print =<< FunPtr.apply1 FunPtr.square_ptr 6
+
       print =<< FunPtr.apply2 FunPtr.plus_ptr 7 8
       print =<< FunPtr.apply2 FunPtr.plus_ptr 9 10
       print =<< FunPtr.apply2 FunPtr.plus_ptr 11 12
+
+      subsection "Implicit function to pointer conversion"
+      do
+        print =<< FunPtr.apply1 FunPtr.square_ptr 4
+        print =<< FunPtr.apply1 FunPtr.square_ptr 5
+        print =<< FunPtr.apply1 FunPtr.square_ptr 6
 
 --------------------------------------------------------------------------------
     section "Complex types"

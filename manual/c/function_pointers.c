@@ -16,3 +16,7 @@ int apply1 (int (*f)(int), int x) {
 int apply2 (int (*f)(int, int), int x, int y){
   return (*f)(x, y);
 }
+
+int apply1_nopointer (int f(int), int x) {
+  return f(x);
+}
