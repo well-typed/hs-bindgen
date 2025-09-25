@@ -282,7 +282,7 @@ instance Finalize Int.Type where
   finalize (Int.TypeIncompleteArray typ)       = Ext.TypeIncompleteArray (finalize typ)
   finalize (Int.TypeExtBinding ext)            = Ext.TypeExtBinding ext
   finalize (Int.TypeBlock typ)                 = Ext.TypeBlock (finalize typ)
-  finalize (Int.TypeConst typ)                 = Ext.TypeConst (finalize typ)
+  finalize (Int.TypeConst typ)                 = Ext.TypeQualified Ext.TypeQualifierConst (finalize typ)
   finalize (Int.TypeMacroTypedef (np, origin)) = Ext.TypeMacroTypedef np origin
   finalize (Int.TypeComplex prim)              = Ext.TypeComplex prim
 

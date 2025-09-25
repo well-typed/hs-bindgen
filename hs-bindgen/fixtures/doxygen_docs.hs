@@ -16486,7 +16486,8 @@
                   nameHsIdent = HsIdentifier
                     "input_data"})
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -16970,7 +16971,8 @@
                   nameHsIdent = HsIdentifier
                     "filename"})
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypePrim
                     (PrimChar
                       (PrimSignImplicit Nothing)))))],
@@ -17347,7 +17349,8 @@
                     "items"})
               (TypePointer
                 (TypePointer
-                  (TypeConst
+                  (TypeQualified
+                    TypeQualifierConst
                     (TypePrim
                       (PrimChar
                         (PrimSignImplicit Nothing)))))),
@@ -17643,7 +17646,8 @@
                   nameHsIdent = HsIdentifier
                     "input"})
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypePrim
                     (PrimChar
                       (PrimSignImplicit
@@ -18453,7 +18457,9 @@
                   nameHsIdent = HsIdentifier
                     "src"})
               (TypePointer
-                (TypeConst TypeVoid)),
+                (TypeQualified
+                  TypeQualifierConst
+                  TypeVoid)),
             _×_
               (Just
                 NamePair {
@@ -19050,7 +19056,8 @@
                   nameHsIdent = HsIdentifier
                     "data'"})
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -20045,7 +20052,8 @@
                   nameHsIdent = HsIdentifier
                     "input_data"})
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -20529,7 +20537,8 @@
                   nameHsIdent = HsIdentifier
                     "filename"})
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypePrim
                     (PrimChar
                       (PrimSignImplicit Nothing)))))],
@@ -20906,7 +20915,8 @@
                     "items"})
               (TypePointer
                 (TypePointer
-                  (TypeConst
+                  (TypeQualified
+                    TypeQualifierConst
                     (TypePrim
                       (PrimChar
                         (PrimSignImplicit Nothing)))))),
@@ -21202,7 +21212,8 @@
                   nameHsIdent = HsIdentifier
                     "input"})
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypePrim
                     (PrimChar
                       (PrimSignImplicit
@@ -22012,7 +22023,9 @@
                   nameHsIdent = HsIdentifier
                     "src"})
               (TypePointer
-                (TypeConst TypeVoid)),
+                (TypeQualified
+                  TypeQualifierConst
+                  TypeVoid)),
             _×_
               (Just
                 NamePair {
@@ -22609,7 +22622,8 @@
                   nameHsIdent = HsIdentifier
                     "data'"})
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -23539,7 +23553,8 @@
         (TypeFun
           [
             TypePointer
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypeExtBinding
                   ResolvedExtBinding {
                     extCName = QualName {
@@ -23984,7 +23999,8 @@
         (TypeFun
           [
             TypePointer
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim
                   (PrimChar
                     (PrimSignImplicit Nothing))))]
@@ -24242,7 +24258,8 @@
           [
             TypePointer
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypePrim
                     (PrimChar
                       (PrimSignImplicit Nothing))))),
@@ -24480,7 +24497,8 @@
         (TypeFun
           [
             TypePointer
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim
                   (PrimChar
                     (PrimSignImplicit
@@ -25129,7 +25147,9 @@
           [
             TypePointer TypeVoid,
             TypePointer
-              (TypeConst TypeVoid),
+              (TypeQualified
+                TypeQualifierConst
+                TypeVoid),
             TypeExtBinding
               ResolvedExtBinding {
                 extCName = QualName {
@@ -25635,7 +25655,8 @@
                       (AnonId
                         "doxygen_docs.h:232:9"))))),
             TypePointer
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypeExtBinding
                   ResolvedExtBinding {
                     extCName = QualName {
@@ -26232,7 +26253,8 @@
           "doxygen_docs.h"},
       foreignImportOrigin = Global
         (TypePointer
-          (TypeConst
+          (TypeQualified
+            TypeQualifierConst
             (TypePrim
               (PrimChar
                 (PrimSignImplicit

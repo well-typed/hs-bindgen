@@ -24,7 +24,7 @@
             nameHsIdent = HsIdentifier
               "Triplet"},
           declOrigin = NameOriginInSource,
-          declAliases = [],
+          declAliases = [Name "sudoku"],
           declHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1037,6 +1037,117 @@
         "Example",
       deriveInstanceComment =
       Nothing},
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
+        "Sudoku",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "Sudoku",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_Sudoku",
+        fieldType = HsConstArray
+          3
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Triplet")),
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "array.h:55:17",
+          declId = NamePair {
+            nameC = Name "sudoku",
+            nameHsIdent = HsIdentifier
+              "Sudoku"},
+          declOrigin = NameOriginInSource,
+          declAliases = [],
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          declComment = Just
+            (Comment
+              [
+                Paragraph
+                  [
+                    TextContent
+                      "Typedef-in-typedef"]])},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Sudoku",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Sudoku"},
+            typedefType = TypeConstArray
+              3
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "triplet",
+                    nameHsIdent = HsIdentifier
+                      "Triplet"}))},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
+      newtypeInstances = Set.fromList
+        [Eq, Show, Storable],
+      newtypeComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Typedef-in-typedef"],
+          commentOrigin = Just "sudoku",
+          commentLocation = Just
+            "array.h:55:17",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []}},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Storable,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Sudoku",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Eq,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Sudoku",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Show,
+      deriveInstanceName = HsName
+        "@NsTypeConstr"
+        "Sudoku",
+      deriveInstanceComment =
+      Nothing},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = HsName
@@ -1113,7 +1224,7 @@
                 "Array of known size"],
           commentOrigin = Just "fun_1",
           commentLocation = Just
-            "array.h:87:5",
+            "array.h:90:5",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1179,7 +1290,7 @@
                 "Array of known size, typedef"],
           commentOrigin = Just "fun_2",
           commentLocation = Just
-            "array.h:90:5",
+            "array.h:93:5",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1244,7 +1355,7 @@
                 "Array of unknown size"],
           commentOrigin = Just "fun_3",
           commentLocation = Just
-            "array.h:93:5",
+            "array.h:96:5",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1310,7 +1421,7 @@
                 "Array of unknown size, typedef"],
           commentOrigin = Just "fun_4",
           commentLocation = Just
-            "array.h:96:5",
+            "array.h:99:5",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1380,7 +1491,7 @@
                 "Multi-dimensional array of known size"],
           commentOrigin = Just "fun_5",
           commentLocation = Just
-            "array.h:99:5",
+            "array.h:102:5",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1448,7 +1559,7 @@
                 "Multi-dimensional array of known size, typedef"],
           commentOrigin = Just "fun_6",
           commentLocation = Just
-            "array.h:102:5",
+            "array.h:105:5",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1517,7 +1628,7 @@
                 "Multi-dimensional array of unknown size"],
           commentOrigin = Just "fun_7",
           commentLocation = Just
-            "array.h:105:5",
+            "array.h:108:5",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1585,7 +1696,76 @@
                 "Multi-dimensional array of unknown size, typedef"],
           commentOrigin = Just "fun_8",
           commentLocation = Just
-            "array.h:108:5",
+            "array.h:111:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Safe},
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "isSolved_wrapper",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "xss"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Triplet")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "xss",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCInt)),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_2280ecc4c152a73f",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int hs_bindgen_test_array_2280ecc4c152a73f (triplet *arg1) { return isSolved(arg1); }",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "xss",
+                  nameHsIdent = HsIdentifier
+                    "xss"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "sudoku",
+                    nameHsIdent = HsIdentifier
+                      "Sudoku"}))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Typedef-in-typedef"],
+          commentOrigin = Just "isSolved",
+          commentLocation = Just
+            "array.h:114:5",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1636,7 +1816,7 @@
                 "Array of known size"],
           commentOrigin = Just "fun_9",
           commentLocation = Just
-            "array.h:120:7",
+            "array.h:126:7",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1687,7 +1867,7 @@
                 "Array of known size, typedef"],
           commentOrigin = Just "fun_10",
           commentLocation = Just
-            "array.h:123:10",
+            "array.h:129:10",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1735,7 +1915,7 @@
                 "Array of unknown size"],
           commentOrigin = Just "fun_11",
           commentLocation = Just
-            "array.h:126:7",
+            "array.h:132:7",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1786,7 +1966,7 @@
                 "Array of unknown size, typedef"],
           commentOrigin = Just "fun_12",
           commentLocation = Just
-            "array.h:129:7",
+            "array.h:135:7",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1840,7 +2020,7 @@
                 "Multi-dimensional array of known size"],
           commentOrigin = Just "fun_13",
           commentLocation = Just
-            "array.h:132:7",
+            "array.h:138:7",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1891,7 +2071,7 @@
                 "Multi-dimensional array of known size, typedef"],
           commentOrigin = Just "fun_14",
           commentLocation = Just
-            "array.h:135:9",
+            "array.h:141:9",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1943,7 +2123,7 @@
                 "Multi-dimensional array of unknown size"],
           commentOrigin = Just "fun_15",
           commentLocation = Just
-            "array.h:138:7",
+            "array.h:144:7",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1994,7 +2174,58 @@
                 "Multi-dimensional array of unknown size, typedef"],
           commentOrigin = Just "fun_16",
           commentLocation = Just
-            "array.h:141:14",
+            "array.h:147:14",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Safe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "solve",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Sudoku")))),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_f6b66497ee1685b0",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "sudoku *hs_bindgen_test_array_f6b66497ee1685b0 (void) { return solve(); }",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            (TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "sudoku",
+                  nameHsIdent = HsIdentifier
+                    "Sudoku"}))},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Typedef-in-typedef"],
+          commentOrigin = Just "solve",
+          commentLocation = Just
+            "array.h:150:10",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -2078,7 +2309,7 @@
                 "Array of known size"],
           commentOrigin = Just "fun_1",
           commentLocation = Just
-            "array.h:87:5",
+            "array.h:90:5",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -2144,7 +2375,7 @@
                 "Array of known size, typedef"],
           commentOrigin = Just "fun_2",
           commentLocation = Just
-            "array.h:90:5",
+            "array.h:93:5",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -2209,7 +2440,7 @@
                 "Array of unknown size"],
           commentOrigin = Just "fun_3",
           commentLocation = Just
-            "array.h:93:5",
+            "array.h:96:5",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -2275,7 +2506,7 @@
                 "Array of unknown size, typedef"],
           commentOrigin = Just "fun_4",
           commentLocation = Just
-            "array.h:96:5",
+            "array.h:99:5",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -2345,7 +2576,7 @@
                 "Multi-dimensional array of known size"],
           commentOrigin = Just "fun_5",
           commentLocation = Just
-            "array.h:99:5",
+            "array.h:102:5",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -2413,7 +2644,7 @@
                 "Multi-dimensional array of known size, typedef"],
           commentOrigin = Just "fun_6",
           commentLocation = Just
-            "array.h:102:5",
+            "array.h:105:5",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -2482,7 +2713,7 @@
                 "Multi-dimensional array of unknown size"],
           commentOrigin = Just "fun_7",
           commentLocation = Just
-            "array.h:105:5",
+            "array.h:108:5",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -2550,7 +2781,76 @@
                 "Multi-dimensional array of unknown size, typedef"],
           commentOrigin = Just "fun_8",
           commentLocation = Just
-            "array.h:108:5",
+            "array.h:111:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "isSolved_wrapper",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (HsName "@NsVar" "xss"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Triplet")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "xss",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimCInt)),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_617bd1cd5514ea45",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "signed int hs_bindgen_test_array_617bd1cd5514ea45 (triplet *arg1) { return isSolved(arg1); }",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "xss",
+                  nameHsIdent = HsIdentifier
+                    "xss"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "sudoku",
+                    nameHsIdent = HsIdentifier
+                      "Sudoku"}))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Typedef-in-typedef"],
+          commentOrigin = Just "isSolved",
+          commentLocation = Just
+            "array.h:114:5",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -2601,7 +2901,7 @@
                 "Array of known size"],
           commentOrigin = Just "fun_9",
           commentLocation = Just
-            "array.h:120:7",
+            "array.h:126:7",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -2652,7 +2952,7 @@
                 "Array of known size, typedef"],
           commentOrigin = Just "fun_10",
           commentLocation = Just
-            "array.h:123:10",
+            "array.h:129:10",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -2700,7 +3000,7 @@
                 "Array of unknown size"],
           commentOrigin = Just "fun_11",
           commentLocation = Just
-            "array.h:126:7",
+            "array.h:132:7",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -2751,7 +3051,7 @@
                 "Array of unknown size, typedef"],
           commentOrigin = Just "fun_12",
           commentLocation = Just
-            "array.h:129:7",
+            "array.h:135:7",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -2805,7 +3105,7 @@
                 "Multi-dimensional array of known size"],
           commentOrigin = Just "fun_13",
           commentLocation = Just
-            "array.h:132:7",
+            "array.h:138:7",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -2856,7 +3156,7 @@
                 "Multi-dimensional array of known size, typedef"],
           commentOrigin = Just "fun_14",
           commentLocation = Just
-            "array.h:135:9",
+            "array.h:141:9",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -2908,7 +3208,7 @@
                 "Multi-dimensional array of unknown size"],
           commentOrigin = Just "fun_15",
           commentLocation = Just
-            "array.h:138:7",
+            "array.h:144:7",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -2959,7 +3259,58 @@
                 "Multi-dimensional array of unknown size, typedef"],
           commentOrigin = Just "fun_16",
           commentLocation = Just
-            "array.h:141:14",
+            "array.h:147:14",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "solve",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsPtr
+            (HsTypRef
+              (HsName
+                "@NsTypeConstr"
+                "Sudoku")))),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_ede6133d23ed3248",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "sudoku *hs_bindgen_test_array_ede6133d23ed3248 (void) { return solve(); }",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            (TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "sudoku",
+                  nameHsIdent = HsIdentifier
+                    "Sudoku"}))},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Typedef-in-typedef"],
+          commentOrigin = Just "solve",
+          commentLocation = Just
+            "array.h:150:10",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -3012,7 +3363,7 @@
                 "Array of known size"],
           commentOrigin = Just "fun_1",
           commentLocation = Just
-            "array.h:87:5",
+            "array.h:90:5",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -3066,7 +3417,7 @@
                 "Array of known size, typedef"],
           commentOrigin = Just "fun_2",
           commentLocation = Just
-            "array.h:90:5",
+            "array.h:93:5",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -3115,7 +3466,7 @@
                 "Array of unknown size"],
           commentOrigin = Just "fun_3",
           commentLocation = Just
-            "array.h:93:5",
+            "array.h:96:5",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -3167,7 +3518,7 @@
                 "Array of unknown size, typedef"],
           commentOrigin = Just "fun_4",
           commentLocation = Just
-            "array.h:96:5",
+            "array.h:99:5",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -3222,7 +3573,7 @@
                 "Multi-dimensional array of known size"],
           commentOrigin = Just "fun_5",
           commentLocation = Just
-            "array.h:99:5",
+            "array.h:102:5",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -3276,7 +3627,7 @@
                 "Multi-dimensional array of known size, typedef"],
           commentOrigin = Just "fun_6",
           commentLocation = Just
-            "array.h:102:5",
+            "array.h:105:5",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -3329,7 +3680,7 @@
                 "Multi-dimensional array of unknown size"],
           commentOrigin = Just "fun_7",
           commentLocation = Just
-            "array.h:105:5",
+            "array.h:108:5",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -3383,7 +3734,61 @@
                 "Multi-dimensional array of unknown size, typedef"],
           commentOrigin = Just "fun_8",
           commentLocation = Just
-            "array.h:108:5",
+            "array.h:111:5",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_array_bdf2a6a8a3dd5b04",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsTypRef
+                (HsName
+                  "@NsTypeConstr"
+                  "Sudoku"))
+              (HsIO
+                (HsPrimType HsPrimCInt))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_bdf2a6a8a3dd5b04",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_isSolved_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_bdf2a6a8a3dd5b04 (void)) (sudoku arg1) { return &isSolved; } ",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "sudoku",
+                  nameHsIdent = HsIdentifier
+                    "Sudoku"})]
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Typedef-in-typedef"],
+          commentOrigin = Just "isSolved",
+          commentLocation = Just
+            "array.h:114:5",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -3434,7 +3839,7 @@
                 "Array of known size"],
           commentOrigin = Just "fun_9",
           commentLocation = Just
-            "array.h:120:7",
+            "array.h:126:7",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -3486,7 +3891,7 @@
                 "Array of known size, typedef"],
           commentOrigin = Just "fun_10",
           commentLocation = Just
-            "array.h:123:10",
+            "array.h:129:10",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -3535,7 +3940,7 @@
                 "Array of unknown size"],
           commentOrigin = Just "fun_11",
           commentLocation = Just
-            "array.h:126:7",
+            "array.h:132:7",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -3587,7 +3992,7 @@
                 "Array of unknown size, typedef"],
           commentOrigin = Just "fun_12",
           commentLocation = Just
-            "array.h:129:7",
+            "array.h:135:7",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -3642,7 +4047,7 @@
                 "Multi-dimensional array of known size"],
           commentOrigin = Just "fun_13",
           commentLocation = Just
-            "array.h:132:7",
+            "array.h:138:7",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -3694,7 +4099,7 @@
                 "Multi-dimensional array of known size, typedef"],
           commentOrigin = Just "fun_14",
           commentLocation = Just
-            "array.h:135:9",
+            "array.h:141:9",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -3747,7 +4152,7 @@
                 "Multi-dimensional array of unknown size"],
           commentOrigin = Just "fun_15",
           commentLocation = Just
-            "array.h:138:7",
+            "array.h:144:7",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -3799,7 +4204,59 @@
                 "Multi-dimensional array of unknown size, typedef"],
           commentOrigin = Just "fun_16",
           commentLocation = Just
-            "array.h:141:14",
+            "array.h:147:14",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["array.h"],
+              headerInclude = "array.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = HsName
+        "@NsVar"
+        "hs_bindgen_test_array_9a62b5848be64bd4",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsIO
+              (HsPtr
+                (HsTypRef
+                  (HsName
+                    "@NsTypeConstr"
+                    "Sudoku")))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_array_9a62b5848be64bd4",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_solve_ptr */ __attribute__ ((const)) sudoku *(*hs_bindgen_test_array_9a62b5848be64bd4 (void)) (void) { return &solve; } ",
+          capiWrapperImport = "array.h"},
+      foreignImportOrigin = Global
+        (TypeFun
+          []
+          (TypePointer
+            (TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "sudoku",
+                  nameHsIdent = HsIdentifier
+                    "Sudoku"})))),
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Typedef-in-typedef"],
+          commentOrigin = Just "solve",
+          commentLocation = Just
+            "array.h:150:10",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -4105,7 +4562,7 @@
                 "Array of known size"],
           commentOrigin = Just "arr_1",
           commentLocation = Just
-            "array.h:59:12",
+            "array.h:62:12",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -4152,7 +4609,7 @@
                 "Array of known size, typedef"],
           commentOrigin = Just "arr_2",
           commentLocation = Just
-            "array.h:62:16",
+            "array.h:65:16",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -4194,7 +4651,7 @@
                 "Array of unknown size"],
           commentOrigin = Just "arr_3",
           commentLocation = Just
-            "array.h:65:12",
+            "array.h:68:12",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -4241,7 +4698,7 @@
                 "Array of unknown size, typedef"],
           commentOrigin = Just "arr_4",
           commentLocation = Just
-            "array.h:68:13",
+            "array.h:71:13",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -4291,7 +4748,7 @@
                 "Multi-dimensional array of known size"],
           commentOrigin = Just "arr_5",
           commentLocation = Just
-            "array.h:71:12",
+            "array.h:74:12",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -4338,7 +4795,7 @@
                 "Multi-dimensional array of known size, typedef"],
           commentOrigin = Just "arr_6",
           commentLocation = Just
-            "array.h:74:15",
+            "array.h:77:15",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -4386,7 +4843,7 @@
                 "Multi-dimensional array of unknown size"],
           commentOrigin = Just "arr_7",
           commentLocation = Just
-            "array.h:77:12",
+            "array.h:80:12",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -4433,7 +4890,7 @@
                 "Multi-dimensional array of unknown size, typedef"],
           commentOrigin = Just "arr_8",
           commentLocation = Just
-            "array.h:80:20",
+            "array.h:83:20",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList

@@ -664,7 +664,8 @@ TranslationUnit {
                 NamePair {
                   nameC = Name "i",
                   nameHsIdent = HsIdentifier "i"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim
                   (PrimIntegral
                     PrimInt
@@ -712,7 +713,8 @@ TranslationUnit {
                 NamePair {
                   nameC = Name "i",
                   nameHsIdent = HsIdentifier "i"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypeMacroTypedef
                   NamePair {
                     nameC = Name "I",
@@ -761,7 +763,8 @@ TranslationUnit {
                 NamePair {
                   nameC = Name "i",
                   nameHsIdent = HsIdentifier "i"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim
                   (PrimIntegral
                     PrimInt

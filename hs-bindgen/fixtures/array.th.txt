@@ -8,6 +8,7 @@
 -- signed int hs_bindgen_test_array_2b3a983697999524 (signed int (*arg1)[3]) { return fun_6(arg1); }
 -- signed int hs_bindgen_test_array_72e9371a1b8b8907 (signed int (*arg1)[3]) { return fun_7(arg1); }
 -- signed int hs_bindgen_test_array_62ad87463d9a75de (signed int (*arg1)[3]) { return fun_8(arg1); }
+-- signed int hs_bindgen_test_array_2280ecc4c152a73f (triplet *arg1) { return isSolved(arg1); }
 -- signed int (*hs_bindgen_test_array_d4c729a69c884fd4 (void))[3] { return fun_9(); }
 -- triplet *hs_bindgen_test_array_bb92dfded907271e (void) { return fun_10(); }
 -- signed int (*hs_bindgen_test_array_489aaaa59e992ddf (void))[] { return fun_11(); }
@@ -16,6 +17,7 @@
 -- matrix *hs_bindgen_test_array_ab2c533efdae8e41 (void) { return fun_14(); }
 -- signed int (*hs_bindgen_test_array_019bdeb5db79cee1 (void))[][3] { return fun_15(); }
 -- tripletlist *hs_bindgen_test_array_ca0e7c51654fef12 (void) { return fun_16(); }
+-- sudoku *hs_bindgen_test_array_f6b66497ee1685b0 (void) { return solve(); }
 -- signed int hs_bindgen_test_array_38d1e706888c6509 (signed int arg1, signed int *arg2) { return fun_1(arg1, arg2); }
 -- signed int hs_bindgen_test_array_39ee469929b167e2 (signed int *arg1) { return fun_2(arg1); }
 -- signed int hs_bindgen_test_array_2aa49d73d177f65b (signed int *arg1) { return fun_3(arg1); }
@@ -24,6 +26,7 @@
 -- signed int hs_bindgen_test_array_a4600c666e12a07a (signed int (*arg1)[3]) { return fun_6(arg1); }
 -- signed int hs_bindgen_test_array_b903c9d5ebf4f21f (signed int (*arg1)[3]) { return fun_7(arg1); }
 -- signed int hs_bindgen_test_array_88af789e5a205473 (signed int (*arg1)[3]) { return fun_8(arg1); }
+-- signed int hs_bindgen_test_array_617bd1cd5514ea45 (triplet *arg1) { return isSolved(arg1); }
 -- signed int (*hs_bindgen_test_array_49d4508b43473bd2 (void))[3] { return fun_9(); }
 -- triplet *hs_bindgen_test_array_d1763638472ee039 (void) { return fun_10(); }
 -- signed int (*hs_bindgen_test_array_293d2be6d282321b (void))[] { return fun_11(); }
@@ -32,6 +35,7 @@
 -- matrix *hs_bindgen_test_array_9d75a740147af339 (void) { return fun_14(); }
 -- signed int (*hs_bindgen_test_array_d49e5e7f4ad3c830 (void))[][3] { return fun_15(); }
 -- tripletlist *hs_bindgen_test_array_900726612f7787e4 (void) { return fun_16(); }
+-- sudoku *hs_bindgen_test_array_ede6133d23ed3248 (void) { return solve(); }
 -- /* get_fun_1_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_3ced2f3b2af806f8 (void)) (signed int arg1, signed int arg2[3]) { return &fun_1; } 
 -- /* get_fun_2_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_84966994a8d7df93 (void)) (triplet arg1) { return &fun_2; } 
 -- /* get_fun_3_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_3e6c940dbd7e5492 (void)) (signed int arg1[]) { return &fun_3; } 
@@ -40,6 +44,7 @@
 -- /* get_fun_6_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_db0e2655437ab8bb (void)) (matrix arg1) { return &fun_6; } 
 -- /* get_fun_7_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_9ec02aa16b020aa0 (void)) (signed int arg1[][3]) { return &fun_7; } 
 -- /* get_fun_8_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_a41b8d1332b69b95 (void)) (tripletlist arg1) { return &fun_8; } 
+-- /* get_isSolved_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_bdf2a6a8a3dd5b04 (void)) (sudoku arg1) { return &isSolved; } 
 -- /* get_fun_9_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_array_76f53f330102e743 (void)) (void))[3] { return &fun_9; } 
 -- /* get_fun_10_ptr */ __attribute__ ((const)) triplet *(*hs_bindgen_test_array_abcc94f01de77b25 (void)) (void) { return &fun_10; } 
 -- /* get_fun_11_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_array_6661b46e4a751a85 (void)) (void))[] { return &fun_11; } 
@@ -48,6 +53,7 @@
 -- /* get_fun_14_ptr */ __attribute__ ((const)) matrix *(*hs_bindgen_test_array_75d83252a55a5c64 (void)) (void) { return &fun_14; } 
 -- /* get_fun_15_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_array_069ac2d1873f3210 (void)) (void))[][3] { return &fun_15; } 
 -- /* get_fun_16_ptr */ __attribute__ ((const)) tripletlist *(*hs_bindgen_test_array_314971335aaa6db3 (void)) (void) { return &fun_16; } 
+-- /* get_solve_ptr */ __attribute__ ((const)) sudoku *(*hs_bindgen_test_array_9a62b5848be64bd4 (void)) (void) { return &solve; } 
 -- /* get_arr0_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_a6413f4d2092265d (void))[3] { return &arr0; } 
 -- /* get_arr1_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_1693226264ba4aeb (void))[3] { return &arr1; } 
 -- /* get_arr2_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_dafcf99a73b93389 (void))[3] { return &arr2; } 
@@ -160,6 +166,10 @@ instance Storable Example
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Example example_triple_3
                                            example_sudoku_4 -> pokeByteOff ptr_1 (0 :: Int) example_triple_3 >> pokeByteOff ptr_1 (12 :: Int) example_sudoku_4
+newtype Sudoku
+    = Sudoku {un_Sudoku :: (ConstantArray 3 Triplet)}
+    deriving stock (Eq, Show)
+    deriving newtype Storable
 foreign import ccall safe "hs_bindgen_test_array_5d1be223fd040c3b" fun_1_wrapper :: CInt ->
                                                                                     Ptr CInt ->
                                                                                     IO CInt
@@ -197,6 +207,10 @@ foreign import ccall safe "hs_bindgen_test_array_62ad87463d9a75de" fun_8_wrapper
                                                                                     IO CInt
 fun_8 :: Tripletlist -> IO CInt
 fun_8 = \x_0 -> withPtr x_0 (\ptr_1 -> fun_8_wrapper ptr_1)
+foreign import ccall safe "hs_bindgen_test_array_2280ecc4c152a73f" isSolved_wrapper :: Ptr Triplet ->
+                                                                                       IO CInt
+isSolved :: Sudoku -> IO CInt
+isSolved = \x_0 -> withPtr x_0 (\ptr_1 -> isSolved_wrapper ptr_1)
 foreign import ccall safe "hs_bindgen_test_array_d4c729a69c884fd4" fun_9 :: IO (Ptr (ConstantArray 3
                                                                                                    CInt))
 foreign import ccall safe "hs_bindgen_test_array_bb92dfded907271e" fun_10 :: IO (Ptr Triplet)
@@ -209,6 +223,7 @@ foreign import ccall safe "hs_bindgen_test_array_ab2c533efdae8e41" fun_14 :: IO 
 foreign import ccall safe "hs_bindgen_test_array_019bdeb5db79cee1" fun_15 :: IO (Ptr (IncompleteArray (ConstantArray 3
                                                                                                                      CInt)))
 foreign import ccall safe "hs_bindgen_test_array_ca0e7c51654fef12" fun_16 :: IO (Ptr Tripletlist)
+foreign import ccall safe "hs_bindgen_test_array_f6b66497ee1685b0" solve :: IO (Ptr Sudoku)
 foreign import ccall safe "hs_bindgen_test_array_38d1e706888c6509" fun_1_wrapper :: CInt ->
                                                                                     Ptr CInt ->
                                                                                     IO CInt
@@ -246,6 +261,10 @@ foreign import ccall safe "hs_bindgen_test_array_88af789e5a205473" fun_8_wrapper
                                                                                     IO CInt
 fun_8 :: Tripletlist -> IO CInt
 fun_8 = \x_0 -> withPtr x_0 (\ptr_1 -> fun_8_wrapper ptr_1)
+foreign import ccall safe "hs_bindgen_test_array_617bd1cd5514ea45" isSolved_wrapper :: Ptr Triplet ->
+                                                                                       IO CInt
+isSolved :: Sudoku -> IO CInt
+isSolved = \x_0 -> withPtr x_0 (\ptr_1 -> isSolved_wrapper ptr_1)
 foreign import ccall safe "hs_bindgen_test_array_49d4508b43473bd2" fun_9 :: IO (Ptr (ConstantArray 3
                                                                                                    CInt))
 foreign import ccall safe "hs_bindgen_test_array_d1763638472ee039" fun_10 :: IO (Ptr Triplet)
@@ -258,6 +277,7 @@ foreign import ccall safe "hs_bindgen_test_array_9d75a740147af339" fun_14 :: IO 
 foreign import ccall safe "hs_bindgen_test_array_d49e5e7f4ad3c830" fun_15 :: IO (Ptr (IncompleteArray (ConstantArray 3
                                                                                                                      CInt)))
 foreign import ccall safe "hs_bindgen_test_array_900726612f7787e4" fun_16 :: IO (Ptr Tripletlist)
+foreign import ccall safe "hs_bindgen_test_array_ede6133d23ed3248" solve :: IO (Ptr Sudoku)
 foreign import ccall safe "hs_bindgen_test_array_3ced2f3b2af806f8" hs_bindgen_test_array_3ced2f3b2af806f8 :: IO (FunPtr (CInt ->
                                                                                                                          ConstantArray 3
                                                                                                                                        CInt ->
@@ -305,6 +325,11 @@ foreign import ccall safe "hs_bindgen_test_array_a41b8d1332b69b95" hs_bindgen_te
 {-# NOINLINE fun_8_ptr #-}
 fun_8_ptr :: FunPtr (Tripletlist -> IO CInt)
 fun_8_ptr = unsafePerformIO hs_bindgen_test_array_a41b8d1332b69b95
+foreign import ccall safe "hs_bindgen_test_array_bdf2a6a8a3dd5b04" hs_bindgen_test_array_bdf2a6a8a3dd5b04 :: IO (FunPtr (Sudoku ->
+                                                                                                                         IO CInt))
+{-# NOINLINE isSolved_ptr #-}
+isSolved_ptr :: FunPtr (Sudoku -> IO CInt)
+isSolved_ptr = unsafePerformIO hs_bindgen_test_array_bdf2a6a8a3dd5b04
 foreign import ccall safe "hs_bindgen_test_array_76f53f330102e743" hs_bindgen_test_array_76f53f330102e743 :: IO (FunPtr (IO (Ptr (ConstantArray 3
                                                                                                                                                 CInt))))
 {-# NOINLINE fun_9_ptr #-}
@@ -343,6 +368,10 @@ foreign import ccall safe "hs_bindgen_test_array_314971335aaa6db3" hs_bindgen_te
 {-# NOINLINE fun_16_ptr #-}
 fun_16_ptr :: FunPtr (IO (Ptr Tripletlist))
 fun_16_ptr = unsafePerformIO hs_bindgen_test_array_314971335aaa6db3
+foreign import ccall safe "hs_bindgen_test_array_9a62b5848be64bd4" hs_bindgen_test_array_9a62b5848be64bd4 :: IO (FunPtr (IO (Ptr Sudoku)))
+{-# NOINLINE solve_ptr #-}
+solve_ptr :: FunPtr (IO (Ptr Sudoku))
+solve_ptr = unsafePerformIO hs_bindgen_test_array_9a62b5848be64bd4
 foreign import ccall safe "hs_bindgen_test_array_a6413f4d2092265d" hs_bindgen_test_array_a6413f4d2092265d :: IO (Ptr (ConstantArray 3
                                                                                                                                     CInt))
 {-# NOINLINE arr0_ptr #-}

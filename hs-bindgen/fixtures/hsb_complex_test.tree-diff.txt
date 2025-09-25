@@ -235,7 +235,8 @@ TranslationUnit {
             "hsb_complex_test.h"},
         declComment = Nothing},
       declKind = DeclGlobal
-        (TypeConst
+        (TypeQualified
+          TypeQualifierConst
           (TypeComplex
             (PrimFloating PrimFloat))),
       declSpec = DeclSpec
@@ -263,7 +264,8 @@ TranslationUnit {
             "hsb_complex_test.h"},
         declComment = Nothing},
       declKind = DeclGlobal
-        (TypeConst
+        (TypeQualified
+          TypeQualifierConst
           (TypeComplex
             (PrimFloating PrimDouble))),
       declSpec = DeclSpec

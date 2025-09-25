@@ -904,22 +904,6 @@ typedefDecs opts haddockConfig typedefs info typedef spec = do
           , clss `Set.member` insts
           ]
 
--- | Recursively unwrap the underlying type of a typedef.
---
--- TODO https://github.com/well-typed/hs-bindgen/issues/1050: Should we panic on
--- unbound typedefs?
-getUnderlyingType :: Map C.Name C.Type -> C.Type -> C.Type
-getUnderlyingType typedefs = go
-  where
-    go (C.TypeTypedef ref) = case ref of
-      C.TypedefRegular n ->
-        let err = panicPure $ "Unbound typedef " ++ show n
-            t'  = Map.findWithDefault err (C.nameC n) typedefs
-        in  go t'
-      C.TypedefSquashed _ t' ->
-        go t'
-    go t = t
-
 {-------------------------------------------------------------------------------
   Macros
 -------------------------------------------------------------------------------}
@@ -1052,13 +1036,14 @@ typ' ctx typedefs = go ctx
         Hs.HsPrimType (goVoid c)
     go _ (C.TypePrim p) =
         Hs.HsPrimType (goPrim p)
-    go _ (C.TypePointer t) = case t of
-        C.TypeTypedef (C.TypedefRegular C.NamePair { nameC })
-          | Just C.TypeFun{} <- Map.lookup nameC typedefs
-                      -> Hs.HsFunPtr (go CPtrArg t)
-          | otherwise -> Hs.HsPtr (go CPtrArg t)
-        C.TypeFun {}  -> Hs.HsFunPtr (go CPtrArg t)
-        _             -> Hs.HsPtr (go CPtrArg t)
+    go _ (C.TypePointer t)
+      -- Use a 'FunPtr' if the type is a function type. We inspect the
+      -- /canonical/ type because we want to see through typedefs and type
+      -- qualifiers like @const@.
+      | C.isCanonicalFunctionType typedefs t
+      = Hs.HsFunPtr (go CPtrArg t)
+      | otherwise
+      = Hs.HsPtr (go CPtrArg t)
     go _ (C.TypeConstArray n ty) =
         Hs.HsConstArray n $ go CTop ty
     go _ (C.TypeIncompleteArray ty) =
@@ -1069,7 +1054,7 @@ typ' ctx typedefs = go ctx
         HsBlock $ go CTop ty
     go _ (C.TypeExtBinding ext) =
         Hs.HsExtBinding (C.extHsRef ext) (C.extHsSpec ext)
-    go c (C.TypeConst ty) =
+    go c (C.TypeQualified C.TypeQualifierConst ty) =
         go c ty
     go _ (C.TypeComplex p) =
         Hs.HsComplexType (goPrim p)
@@ -1340,7 +1325,13 @@ functionDecs safety opts haddockConfig moduleName typedefs info f _spec =
           C.TypeComplex {}            -> HeapType ty
           (C.TypeConstArray n ty')    -> CAType   ty n ty'
           (C.TypeIncompleteArray ty') -> AType    ty ty'
-          (C.TypeTypedef _)           -> go $ getUnderlyingType typedefs ty
+          -- Note: we're only interested in finding the first non-typedef type
+          -- to determine which method of wrapping to use (.e.g, heap type or
+          -- primitive type or array type). As such, we erase typedefs only one
+          -- at a time. If we used 'C.getErasedType' we would erroneously remove
+          -- typedefs in other places as well, such as in the element types of
+          -- arrays. We want to keep typedefs there!
+          (C.TypeTypedef ref)         -> go $ C.eraseTypedef typedefs ref
           _                           -> WrapType ty
 
     resType :: ResultType HsType
@@ -1470,14 +1461,12 @@ global ::
   -> C.Type
   -> C.DeclSpec
   -> [Hs.Decl]
-global opts haddockConfig moduleName instsMap typedefs info ty _spec =
-  let underlyingType = case ty of
-        C.TypeConstArray _ ty' -> ty'
-        otherType -> getUnderlyingType typedefs otherType
-  in case underlyingType of
-    -- Generate getter if the underlying type is @const@.
-    C.TypeConst _ -> stubDecs ++ getConstGetterOfType ty
-    _             -> stubDecs
+global opts haddockConfig moduleName instsMap typedefs info ty _spec
+    -- Generate getter if the type is @const@-qualified. We inspect the /erased/
+    -- type because we want to see through newtypes as well.
+    | C.isErasedConstQualifiedType typedefs ty = stubDecs ++ getConstGetterOfType ty
+      -- Otherwise, do not generate a getter
+    | otherwise = stubDecs
   where
     -- *** Stub ***
     stubDecs :: [Hs.Decl]
