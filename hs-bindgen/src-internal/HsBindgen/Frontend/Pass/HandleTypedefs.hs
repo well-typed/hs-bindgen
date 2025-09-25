@@ -33,7 +33,7 @@ handleTypedefs C.TranslationUnit{..} = (
 
     msgs   :: [Maybe (Msg HandleTypedefs)]
     decls' :: [Maybe (C.Decl HandleTypedefs)]
-    (msgs, decls') = fmap (mapM concat . sequence)
+    (msgs, decls') = second (concatMap sequence)
                    $ unzip
                    $ map (handleDecl td) unitDecls
 
