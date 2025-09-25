@@ -216,12 +216,13 @@
                 "un_FileOpenedNotification"},
             typedefType = TypePointer
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name
-                      "FileOpenedNotification_Deref",
-                    nameHsIdent = Identifier
-                      "FileOpenedNotification_Deref"}))},
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name
+                        "FileOpenedNotification_Deref",
+                      nameHsIdent = Identifier
+                        "FileOpenedNotification_Deref"})))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -508,12 +509,13 @@
                 "un_ProgressUpdate"},
             typedefType = TypePointer
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name
-                      "ProgressUpdate_Deref",
-                    nameHsIdent = Identifier
-                      "ProgressUpdate_Deref"}))},
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name
+                        "ProgressUpdate_Deref",
+                      nameHsIdent = Identifier
+                        "ProgressUpdate_Deref"})))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -803,12 +805,13 @@
                 "un_DataValidator"},
             typedefType = TypePointer
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name
-                      "DataValidator_Deref",
-                    nameHsIdent = Identifier
-                      "DataValidator_Deref"}))},
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name
+                        "DataValidator_Deref",
+                      nameHsIdent = Identifier
+                        "DataValidator_Deref"})))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -1736,12 +1739,13 @@
                 "un_MeasurementReceived"},
             typedefType = TypePointer
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name
-                      "MeasurementReceived_Deref",
-                    nameHsIdent = Identifier
-                      "MeasurementReceived_Deref"}))},
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name
+                        "MeasurementReceived_Deref",
+                      nameHsIdent = Identifier
+                        "MeasurementReceived_Deref"})))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -1942,12 +1946,13 @@
                 "un_MeasurementReceived2"},
             typedefType = TypePointer
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name
-                      "MeasurementReceived2_Deref",
-                    nameHsIdent = Identifier
-                      "MeasurementReceived2_Deref"}))},
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name
+                        "MeasurementReceived2_Deref",
+                      nameHsIdent = Identifier
+                        "MeasurementReceived2_Deref"})))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -2142,12 +2147,13 @@
                 "un_SampleBufferFull"},
             typedefType = TypePointer
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name
-                      "SampleBufferFull_Deref",
-                    nameHsIdent = Identifier
-                      "SampleBufferFull_Deref"}))},
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name
+                        "SampleBufferFull_Deref",
+                      nameHsIdent = Identifier
+                        "SampleBufferFull_Deref"})))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -2424,12 +2430,13 @@
                   nameHsIdent = Identifier
                     "notify"})
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name
-                      "FileOpenedNotification",
-                    nameHsIdent = Identifier
-                      "FileOpenedNotification"}))],
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name
+                        "FileOpenedNotification",
+                      nameHsIdent = Identifier
+                        "FileOpenedNotification"})))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -2490,11 +2497,12 @@
                   nameHsIdent = Identifier
                     "update"})
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "ProgressUpdate",
-                    nameHsIdent = Identifier
-                      "ProgressUpdate"}))],
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "ProgressUpdate",
+                      nameHsIdent = Identifier
+                        "ProgressUpdate"})))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -2568,11 +2576,12 @@
                   nameHsIdent = Identifier
                     "validator"})
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "DataValidator",
-                    nameHsIdent = Identifier
-                      "DataValidator"})),
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "DataValidator",
+                      nameHsIdent = Identifier
+                        "DataValidator"}))),
             _×_
               (Just
                 NamePair {
@@ -2642,12 +2651,13 @@
                   nameHsIdent = Identifier
                     "handler"})
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name
-                      "MeasurementReceived",
-                    nameHsIdent = Identifier
-                      "MeasurementReceived"}))],
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name
+                        "MeasurementReceived",
+                      nameHsIdent = Identifier
+                        "MeasurementReceived"})))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -2708,12 +2718,13 @@
                   nameHsIdent = Identifier
                     "handler"})
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name
-                      "MeasurementReceived2",
-                    nameHsIdent = Identifier
-                      "MeasurementReceived2"}))],
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name
+                        "MeasurementReceived2",
+                      nameHsIdent = Identifier
+                        "MeasurementReceived2"})))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -2774,11 +2785,12 @@
                   nameHsIdent = Identifier
                     "handler"})
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "SampleBufferFull",
-                    nameHsIdent = Identifier
-                      "SampleBufferFull"}))],
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "SampleBufferFull",
+                      nameHsIdent = Identifier
+                        "SampleBufferFull"})))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -3012,12 +3024,13 @@
                   nameHsIdent = Identifier
                     "notify"})
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name
-                      "FileOpenedNotification",
-                    nameHsIdent = Identifier
-                      "FileOpenedNotification"}))],
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name
+                        "FileOpenedNotification",
+                      nameHsIdent = Identifier
+                        "FileOpenedNotification"})))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -3078,11 +3091,12 @@
                   nameHsIdent = Identifier
                     "update"})
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "ProgressUpdate",
-                    nameHsIdent = Identifier
-                      "ProgressUpdate"}))],
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "ProgressUpdate",
+                      nameHsIdent = Identifier
+                        "ProgressUpdate"})))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -3156,11 +3170,12 @@
                   nameHsIdent = Identifier
                     "validator"})
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "DataValidator",
-                    nameHsIdent = Identifier
-                      "DataValidator"})),
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "DataValidator",
+                      nameHsIdent = Identifier
+                        "DataValidator"}))),
             _×_
               (Just
                 NamePair {
@@ -3230,12 +3245,13 @@
                   nameHsIdent = Identifier
                     "handler"})
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name
-                      "MeasurementReceived",
-                    nameHsIdent = Identifier
-                      "MeasurementReceived"}))],
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name
+                        "MeasurementReceived",
+                      nameHsIdent = Identifier
+                        "MeasurementReceived"})))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -3296,12 +3312,13 @@
                   nameHsIdent = Identifier
                     "handler"})
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name
-                      "MeasurementReceived2",
-                    nameHsIdent = Identifier
-                      "MeasurementReceived2"}))],
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name
+                        "MeasurementReceived2",
+                      nameHsIdent = Identifier
+                        "MeasurementReceived2"})))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -3362,11 +3379,12 @@
                   nameHsIdent = Identifier
                     "handler"})
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "SampleBufferFull",
-                    nameHsIdent = Identifier
-                      "SampleBufferFull"}))],
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "SampleBufferFull",
+                      nameHsIdent = Identifier
+                        "SampleBufferFull"})))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -3504,12 +3522,13 @@
         (TypeFun
           [
             TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name
-                    "FileOpenedNotification",
-                  nameHsIdent = Identifier
-                    "FileOpenedNotification"})]
+              (Full
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name
+                      "FileOpenedNotification",
+                    nameHsIdent = Identifier
+                      "FileOpenedNotification"}))]
           TypeVoid),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
@@ -3545,11 +3564,12 @@
         (TypeFun
           [
             TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "ProgressUpdate",
-                  nameHsIdent = Identifier
-                    "ProgressUpdate"})]
+              (Full
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "ProgressUpdate",
+                    nameHsIdent = Identifier
+                      "ProgressUpdate"}))]
           TypeVoid),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
@@ -3587,11 +3607,12 @@
         (TypeFun
           [
             TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "DataValidator",
-                  nameHsIdent = Identifier
-                    "DataValidator"}),
+              (Full
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "DataValidator",
+                    nameHsIdent = Identifier
+                      "DataValidator"})),
             TypePrim
               (PrimIntegral PrimInt Signed)]
           (TypePrim
@@ -3630,12 +3651,13 @@
         (TypeFun
           [
             TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name
-                    "MeasurementReceived",
-                  nameHsIdent = Identifier
-                    "MeasurementReceived"})]
+              (Full
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name
+                      "MeasurementReceived",
+                    nameHsIdent = Identifier
+                      "MeasurementReceived"}))]
           TypeVoid),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
@@ -3671,12 +3693,13 @@
         (TypeFun
           [
             TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name
-                    "MeasurementReceived2",
-                  nameHsIdent = Identifier
-                    "MeasurementReceived2"})]
+              (Full
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name
+                      "MeasurementReceived2",
+                    nameHsIdent = Identifier
+                      "MeasurementReceived2"}))]
           TypeVoid),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
@@ -3712,11 +3735,12 @@
         (TypeFun
           [
             TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "SampleBufferFull",
-                  nameHsIdent = Identifier
-                    "SampleBufferFull"})]
+              (Full
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "SampleBufferFull",
+                    nameHsIdent = Identifier
+                      "SampleBufferFull"}))]
           TypeVoid),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},

@@ -1911,12 +1911,13 @@
                 "un_Funptr_typedef1"},
             typedefType = TypePointer
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name
-                      "funptr_typedef1_Deref",
-                    nameHsIdent = Identifier
-                      "Funptr_typedef1_Deref"}))},
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name
+                        "funptr_typedef1_Deref",
+                      nameHsIdent = Identifier
+                        "Funptr_typedef1_Deref"})))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -2213,12 +2214,13 @@
                 "un_Funptr_typedef2"},
             typedefType = TypePointer
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name
-                      "funptr_typedef2_Deref",
-                    nameHsIdent = Identifier
-                      "Funptr_typedef2_Deref"}))},
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name
+                        "funptr_typedef2_Deref",
+                      nameHsIdent = Identifier
+                        "Funptr_typedef2_Deref"})))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -2519,12 +2521,13 @@
                 "un_Funptr_typedef3"},
             typedefType = TypePointer
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name
-                      "funptr_typedef3_Deref",
-                    nameHsIdent = Identifier
-                      "Funptr_typedef3_Deref"}))},
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name
+                        "funptr_typedef3_Deref",
+                      nameHsIdent = Identifier
+                        "Funptr_typedef3_Deref"})))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -2833,12 +2836,13 @@
                 "un_Funptr_typedef4"},
             typedefType = TypePointer
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name
-                      "funptr_typedef4_Deref",
-                    nameHsIdent = Identifier
-                      "Funptr_typedef4_Deref"}))},
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name
+                        "funptr_typedef4_Deref",
+                      nameHsIdent = Identifier
+                        "Funptr_typedef4_Deref"})))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -3151,12 +3155,13 @@
                 "un_Funptr_typedef5"},
             typedefType = TypePointer
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name
-                      "funptr_typedef5_Deref",
-                    nameHsIdent = Identifier
-                      "Funptr_typedef5_Deref"}))},
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name
+                        "funptr_typedef5_Deref",
+                      nameHsIdent = Identifier
+                        "Funptr_typedef5_Deref"})))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -7393,12 +7398,13 @@
                 "un_Const_funptr1"},
             typedefType = TypePointer
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name
-                      "const_funptr1_Deref",
-                    nameHsIdent = Identifier
-                      "Const_funptr1_Deref"}))},
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name
+                        "const_funptr1_Deref",
+                      nameHsIdent = Identifier
+                        "Const_funptr1_Deref"})))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -7710,12 +7716,13 @@
                 "un_Const_funptr2"},
             typedefType = TypePointer
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name
-                      "const_funptr2_Deref",
-                    nameHsIdent = Identifier
-                      "Const_funptr2_Deref"}))},
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name
+                        "const_funptr2_Deref",
+                      nameHsIdent = Identifier
+                        "Const_funptr2_Deref"})))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -8031,12 +8038,13 @@
                 "un_Const_funptr3"},
             typedefType = TypePointer
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name
-                      "const_funptr3_Deref",
-                    nameHsIdent = Identifier
-                      "Const_funptr3_Deref"}))},
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name
+                        "const_funptr3_Deref",
+                      nameHsIdent = Identifier
+                        "Const_funptr3_Deref"})))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -8352,12 +8360,13 @@
                 "un_Const_funptr4"},
             typedefType = TypePointer
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name
-                      "const_funptr4_Deref",
-                    nameHsIdent = Identifier
-                      "Const_funptr4_Deref"}))},
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name
+                        "const_funptr4_Deref",
+                      nameHsIdent = Identifier
+                        "Const_funptr4_Deref"})))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -8673,12 +8682,13 @@
                 "un_Const_funptr5"},
             typedefType = TypePointer
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name
-                      "const_funptr5_Deref",
-                    nameHsIdent = Identifier
-                      "Const_funptr5_Deref"}))},
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name
+                        "const_funptr5_Deref",
+                      nameHsIdent = Identifier
+                        "Const_funptr5_Deref"})))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -8997,12 +9007,13 @@
                 "un_Const_funptr6"},
             typedefType = TypePointer
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name
-                      "const_funptr6_Deref",
-                    nameHsIdent = Identifier
-                      "Const_funptr6_Deref"}))},
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name
+                        "const_funptr6_Deref",
+                      nameHsIdent = Identifier
+                        "Const_funptr6_Deref"})))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -9321,12 +9332,13 @@
                 "un_Const_funptr7"},
             typedefType = TypePointer
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name
-                      "const_funptr7_Deref",
-                    nameHsIdent = Identifier
-                      "Const_funptr7_Deref"}))},
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name
+                        "const_funptr7_Deref",
+                      nameHsIdent = Identifier
+                        "Const_funptr7_Deref"})))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,

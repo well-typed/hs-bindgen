@@ -2419,18 +2419,19 @@
                     "a_typedef_struct_t_field_4"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
-                (TypedefSquashed
-                  (Name
-                    "another_typedef_struct_t")
-                  (TypeStruct
-                    NamePair {
-                      nameC = Name
-                        "another_typedef_struct_t",
-                      nameHsIdent = Identifier
-                        "Another_typedef_struct_t"}
-                    (NameOriginGenerated
-                      (AnonId
-                        "distilled_lib_1.h:9:9")))),
+                (Full
+                  (TypedefSquashed
+                    (Name
+                      "another_typedef_struct_t")
+                    (TypeStruct
+                      NamePair {
+                        nameC = Name
+                          "another_typedef_struct_t",
+                        nameHsIdent = Identifier
+                          "Another_typedef_struct_t"}
+                      (NameOriginGenerated
+                        (AnonId
+                          "distilled_lib_1.h:9:9"))))),
               structFieldOffset = 64,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -2467,18 +2468,19 @@
                 fieldComment = Nothing},
               structFieldType = TypePointer
                 (TypeTypedef
-                  (TypedefSquashed
-                    (Name
-                      "another_typedef_struct_t")
-                    (TypeStruct
-                      NamePair {
-                        nameC = Name
-                          "another_typedef_struct_t",
-                        nameHsIdent = Identifier
-                          "Another_typedef_struct_t"}
-                      (NameOriginGenerated
-                        (AnonId
-                          "distilled_lib_1.h:9:9"))))),
+                  (Full
+                    (TypedefSquashed
+                      (Name
+                        "another_typedef_struct_t")
+                      (TypeStruct
+                        NamePair {
+                          nameC = Name
+                            "another_typedef_struct_t",
+                          nameHsIdent = Identifier
+                            "Another_typedef_struct_t"}
+                        (NameOriginGenerated
+                          (AnonId
+                            "distilled_lib_1.h:9:9")))))),
               structFieldOffset = 128,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -2806,17 +2808,18 @@
                     "a_typedef_struct_t_field_8"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
-                (TypedefSquashed
-                  (Name "another_typedef_enum_e")
-                  (TypeEnum
-                    NamePair {
-                      nameC = Name
-                        "another_typedef_enum_e",
-                      nameHsIdent = Identifier
-                        "Another_typedef_enum_e"}
-                    (NameOriginGenerated
-                      (AnonId
-                        "distilled_lib_1.h:10:9")))),
+                (Full
+                  (TypedefSquashed
+                    (Name "another_typedef_enum_e")
+                    (TypeEnum
+                      NamePair {
+                        nameC = Name
+                          "another_typedef_enum_e",
+                        nameHsIdent = Identifier
+                          "Another_typedef_enum_e"}
+                      (NameOriginGenerated
+                        (AnonId
+                          "distilled_lib_1.h:10:9"))))),
               structFieldOffset = 480,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -2855,17 +2858,18 @@
               structFieldType = TypeConstArray
                 4
                 (TypeTypedef
-                  (TypedefSquashed
-                    (Name "another_typedef_enum_e")
-                    (TypeEnum
-                      NamePair {
-                        nameC = Name
-                          "another_typedef_enum_e",
-                        nameHsIdent = Identifier
-                          "Another_typedef_enum_e"}
-                      (NameOriginGenerated
-                        (AnonId
-                          "distilled_lib_1.h:10:9"))))),
+                  (Full
+                    (TypedefSquashed
+                      (Name "another_typedef_enum_e")
+                      (TypeEnum
+                        NamePair {
+                          nameC = Name
+                            "another_typedef_enum_e",
+                          nameHsIdent = Identifier
+                            "Another_typedef_enum_e"}
+                        (NameOriginGenerated
+                          (AnonId
+                            "distilled_lib_1.h:10:9")))))),
               structFieldOffset = 512,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -2908,17 +2912,18 @@
                 (TypeConstArray
                   3
                   (TypeTypedef
-                    (TypedefSquashed
-                      (Name "another_typedef_enum_e")
-                      (TypeEnum
-                        NamePair {
-                          nameC = Name
-                            "another_typedef_enum_e",
-                          nameHsIdent = Identifier
-                            "Another_typedef_enum_e"}
-                        (NameOriginGenerated
-                          (AnonId
-                            "distilled_lib_1.h:10:9")))))),
+                    (Full
+                      (TypedefSquashed
+                        (Name "another_typedef_enum_e")
+                        (TypeEnum
+                          NamePair {
+                            nameC = Name
+                              "another_typedef_enum_e",
+                            nameHsIdent = Identifier
+                              "Another_typedef_enum_e"}
+                          (NameOriginGenerated
+                            (AnonId
+                              "distilled_lib_1.h:10:9"))))))),
               structFieldOffset = 640,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -3369,18 +3374,19 @@
                         "a_typedef_struct_t_field_4"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
-                    (TypedefSquashed
-                      (Name
-                        "another_typedef_struct_t")
-                      (TypeStruct
-                        NamePair {
-                          nameC = Name
-                            "another_typedef_struct_t",
-                          nameHsIdent = Identifier
-                            "Another_typedef_struct_t"}
-                        (NameOriginGenerated
-                          (AnonId
-                            "distilled_lib_1.h:9:9")))),
+                    (Full
+                      (TypedefSquashed
+                        (Name
+                          "another_typedef_struct_t")
+                        (TypeStruct
+                          NamePair {
+                            nameC = Name
+                              "another_typedef_struct_t",
+                            nameHsIdent = Identifier
+                              "Another_typedef_struct_t"}
+                          (NameOriginGenerated
+                            (AnonId
+                              "distilled_lib_1.h:9:9"))))),
                   structFieldOffset = 64,
                   structFieldWidth = Nothing},
                 StructField {
@@ -3394,18 +3400,19 @@
                     fieldComment = Nothing},
                   structFieldType = TypePointer
                     (TypeTypedef
-                      (TypedefSquashed
-                        (Name
-                          "another_typedef_struct_t")
-                        (TypeStruct
-                          NamePair {
-                            nameC = Name
-                              "another_typedef_struct_t",
-                            nameHsIdent = Identifier
-                              "Another_typedef_struct_t"}
-                          (NameOriginGenerated
-                            (AnonId
-                              "distilled_lib_1.h:9:9"))))),
+                      (Full
+                        (TypedefSquashed
+                          (Name
+                            "another_typedef_struct_t")
+                          (TypeStruct
+                            NamePair {
+                              nameC = Name
+                                "another_typedef_struct_t",
+                              nameHsIdent = Identifier
+                                "Another_typedef_struct_t"}
+                            (NameOriginGenerated
+                              (AnonId
+                                "distilled_lib_1.h:9:9")))))),
                   structFieldOffset = 128,
                   structFieldWidth = Nothing},
                 StructField {
@@ -3560,17 +3567,18 @@
                         "a_typedef_struct_t_field_8"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
-                    (TypedefSquashed
-                      (Name "another_typedef_enum_e")
-                      (TypeEnum
-                        NamePair {
-                          nameC = Name
-                            "another_typedef_enum_e",
-                          nameHsIdent = Identifier
-                            "Another_typedef_enum_e"}
-                        (NameOriginGenerated
-                          (AnonId
-                            "distilled_lib_1.h:10:9")))),
+                    (Full
+                      (TypedefSquashed
+                        (Name "another_typedef_enum_e")
+                        (TypeEnum
+                          NamePair {
+                            nameC = Name
+                              "another_typedef_enum_e",
+                            nameHsIdent = Identifier
+                              "Another_typedef_enum_e"}
+                          (NameOriginGenerated
+                            (AnonId
+                              "distilled_lib_1.h:10:9"))))),
                   structFieldOffset = 480,
                   structFieldWidth = Nothing},
                 StructField {
@@ -3585,17 +3593,18 @@
                   structFieldType = TypeConstArray
                     4
                     (TypeTypedef
-                      (TypedefSquashed
-                        (Name "another_typedef_enum_e")
-                        (TypeEnum
-                          NamePair {
-                            nameC = Name
-                              "another_typedef_enum_e",
-                            nameHsIdent = Identifier
-                              "Another_typedef_enum_e"}
-                          (NameOriginGenerated
-                            (AnonId
-                              "distilled_lib_1.h:10:9"))))),
+                      (Full
+                        (TypedefSquashed
+                          (Name "another_typedef_enum_e")
+                          (TypeEnum
+                            NamePair {
+                              nameC = Name
+                                "another_typedef_enum_e",
+                              nameHsIdent = Identifier
+                                "Another_typedef_enum_e"}
+                            (NameOriginGenerated
+                              (AnonId
+                                "distilled_lib_1.h:10:9")))))),
                   structFieldOffset = 512,
                   structFieldWidth = Nothing},
                 StructField {
@@ -3612,17 +3621,18 @@
                     (TypeConstArray
                       3
                       (TypeTypedef
-                        (TypedefSquashed
-                          (Name "another_typedef_enum_e")
-                          (TypeEnum
-                            NamePair {
-                              nameC = Name
-                                "another_typedef_enum_e",
-                              nameHsIdent = Identifier
-                                "Another_typedef_enum_e"}
-                            (NameOriginGenerated
-                              (AnonId
-                                "distilled_lib_1.h:10:9")))))),
+                        (Full
+                          (TypedefSquashed
+                            (Name "another_typedef_enum_e")
+                            (TypeEnum
+                              NamePair {
+                                nameC = Name
+                                  "another_typedef_enum_e",
+                                nameHsIdent = Identifier
+                                  "Another_typedef_enum_e"}
+                              (NameOriginGenerated
+                                (AnonId
+                                  "distilled_lib_1.h:10:9"))))))),
                   structFieldOffset = 640,
                   structFieldWidth = Nothing}],
               structFlam = Nothing},
@@ -4480,18 +4490,19 @@
                         "a_typedef_struct_t_field_4"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
-                    (TypedefSquashed
-                      (Name
-                        "another_typedef_struct_t")
-                      (TypeStruct
-                        NamePair {
-                          nameC = Name
-                            "another_typedef_struct_t",
-                          nameHsIdent = Identifier
-                            "Another_typedef_struct_t"}
-                        (NameOriginGenerated
-                          (AnonId
-                            "distilled_lib_1.h:9:9")))),
+                    (Full
+                      (TypedefSquashed
+                        (Name
+                          "another_typedef_struct_t")
+                        (TypeStruct
+                          NamePair {
+                            nameC = Name
+                              "another_typedef_struct_t",
+                            nameHsIdent = Identifier
+                              "Another_typedef_struct_t"}
+                          (NameOriginGenerated
+                            (AnonId
+                              "distilled_lib_1.h:9:9"))))),
                   structFieldOffset = 64,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -4528,18 +4539,19 @@
                     fieldComment = Nothing},
                   structFieldType = TypePointer
                     (TypeTypedef
-                      (TypedefSquashed
-                        (Name
-                          "another_typedef_struct_t")
-                        (TypeStruct
-                          NamePair {
-                            nameC = Name
-                              "another_typedef_struct_t",
-                            nameHsIdent = Identifier
-                              "Another_typedef_struct_t"}
-                          (NameOriginGenerated
-                            (AnonId
-                              "distilled_lib_1.h:9:9"))))),
+                      (Full
+                        (TypedefSquashed
+                          (Name
+                            "another_typedef_struct_t")
+                          (TypeStruct
+                            NamePair {
+                              nameC = Name
+                                "another_typedef_struct_t",
+                              nameHsIdent = Identifier
+                                "Another_typedef_struct_t"}
+                            (NameOriginGenerated
+                              (AnonId
+                                "distilled_lib_1.h:9:9")))))),
                   structFieldOffset = 128,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -4867,17 +4879,18 @@
                         "a_typedef_struct_t_field_8"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
-                    (TypedefSquashed
-                      (Name "another_typedef_enum_e")
-                      (TypeEnum
-                        NamePair {
-                          nameC = Name
-                            "another_typedef_enum_e",
-                          nameHsIdent = Identifier
-                            "Another_typedef_enum_e"}
-                        (NameOriginGenerated
-                          (AnonId
-                            "distilled_lib_1.h:10:9")))),
+                    (Full
+                      (TypedefSquashed
+                        (Name "another_typedef_enum_e")
+                        (TypeEnum
+                          NamePair {
+                            nameC = Name
+                              "another_typedef_enum_e",
+                            nameHsIdent = Identifier
+                              "Another_typedef_enum_e"}
+                          (NameOriginGenerated
+                            (AnonId
+                              "distilled_lib_1.h:10:9"))))),
                   structFieldOffset = 480,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -4916,17 +4929,18 @@
                   structFieldType = TypeConstArray
                     4
                     (TypeTypedef
-                      (TypedefSquashed
-                        (Name "another_typedef_enum_e")
-                        (TypeEnum
-                          NamePair {
-                            nameC = Name
-                              "another_typedef_enum_e",
-                            nameHsIdent = Identifier
-                              "Another_typedef_enum_e"}
-                          (NameOriginGenerated
-                            (AnonId
-                              "distilled_lib_1.h:10:9"))))),
+                      (Full
+                        (TypedefSquashed
+                          (Name "another_typedef_enum_e")
+                          (TypeEnum
+                            NamePair {
+                              nameC = Name
+                                "another_typedef_enum_e",
+                              nameHsIdent = Identifier
+                                "Another_typedef_enum_e"}
+                            (NameOriginGenerated
+                              (AnonId
+                                "distilled_lib_1.h:10:9")))))),
                   structFieldOffset = 512,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -4969,17 +4983,18 @@
                     (TypeConstArray
                       3
                       (TypeTypedef
-                        (TypedefSquashed
-                          (Name "another_typedef_enum_e")
-                          (TypeEnum
-                            NamePair {
-                              nameC = Name
-                                "another_typedef_enum_e",
-                              nameHsIdent = Identifier
-                                "Another_typedef_enum_e"}
-                            (NameOriginGenerated
-                              (AnonId
-                                "distilled_lib_1.h:10:9")))))),
+                        (Full
+                          (TypedefSquashed
+                            (Name "another_typedef_enum_e")
+                            (TypeEnum
+                              NamePair {
+                                nameC = Name
+                                  "another_typedef_enum_e",
+                                nameHsIdent = Identifier
+                                  "Another_typedef_enum_e"}
+                              (NameOriginGenerated
+                                (AnonId
+                                  "distilled_lib_1.h:10:9"))))))),
                   structFieldOffset = 640,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -5430,18 +5445,19 @@
                             "a_typedef_struct_t_field_4"},
                         fieldComment = Nothing},
                       structFieldType = TypeTypedef
-                        (TypedefSquashed
-                          (Name
-                            "another_typedef_struct_t")
-                          (TypeStruct
-                            NamePair {
-                              nameC = Name
-                                "another_typedef_struct_t",
-                              nameHsIdent = Identifier
-                                "Another_typedef_struct_t"}
-                            (NameOriginGenerated
-                              (AnonId
-                                "distilled_lib_1.h:9:9")))),
+                        (Full
+                          (TypedefSquashed
+                            (Name
+                              "another_typedef_struct_t")
+                            (TypeStruct
+                              NamePair {
+                                nameC = Name
+                                  "another_typedef_struct_t",
+                                nameHsIdent = Identifier
+                                  "Another_typedef_struct_t"}
+                              (NameOriginGenerated
+                                (AnonId
+                                  "distilled_lib_1.h:9:9"))))),
                       structFieldOffset = 64,
                       structFieldWidth = Nothing},
                     StructField {
@@ -5455,18 +5471,19 @@
                         fieldComment = Nothing},
                       structFieldType = TypePointer
                         (TypeTypedef
-                          (TypedefSquashed
-                            (Name
-                              "another_typedef_struct_t")
-                            (TypeStruct
-                              NamePair {
-                                nameC = Name
-                                  "another_typedef_struct_t",
-                                nameHsIdent = Identifier
-                                  "Another_typedef_struct_t"}
-                              (NameOriginGenerated
-                                (AnonId
-                                  "distilled_lib_1.h:9:9"))))),
+                          (Full
+                            (TypedefSquashed
+                              (Name
+                                "another_typedef_struct_t")
+                              (TypeStruct
+                                NamePair {
+                                  nameC = Name
+                                    "another_typedef_struct_t",
+                                  nameHsIdent = Identifier
+                                    "Another_typedef_struct_t"}
+                                (NameOriginGenerated
+                                  (AnonId
+                                    "distilled_lib_1.h:9:9")))))),
                       structFieldOffset = 128,
                       structFieldWidth = Nothing},
                     StructField {
@@ -5621,17 +5638,18 @@
                             "a_typedef_struct_t_field_8"},
                         fieldComment = Nothing},
                       structFieldType = TypeTypedef
-                        (TypedefSquashed
-                          (Name "another_typedef_enum_e")
-                          (TypeEnum
-                            NamePair {
-                              nameC = Name
-                                "another_typedef_enum_e",
-                              nameHsIdent = Identifier
-                                "Another_typedef_enum_e"}
-                            (NameOriginGenerated
-                              (AnonId
-                                "distilled_lib_1.h:10:9")))),
+                        (Full
+                          (TypedefSquashed
+                            (Name "another_typedef_enum_e")
+                            (TypeEnum
+                              NamePair {
+                                nameC = Name
+                                  "another_typedef_enum_e",
+                                nameHsIdent = Identifier
+                                  "Another_typedef_enum_e"}
+                              (NameOriginGenerated
+                                (AnonId
+                                  "distilled_lib_1.h:10:9"))))),
                       structFieldOffset = 480,
                       structFieldWidth = Nothing},
                     StructField {
@@ -5646,17 +5664,18 @@
                       structFieldType = TypeConstArray
                         4
                         (TypeTypedef
-                          (TypedefSquashed
-                            (Name "another_typedef_enum_e")
-                            (TypeEnum
-                              NamePair {
-                                nameC = Name
-                                  "another_typedef_enum_e",
-                                nameHsIdent = Identifier
-                                  "Another_typedef_enum_e"}
-                              (NameOriginGenerated
-                                (AnonId
-                                  "distilled_lib_1.h:10:9"))))),
+                          (Full
+                            (TypedefSquashed
+                              (Name "another_typedef_enum_e")
+                              (TypeEnum
+                                NamePair {
+                                  nameC = Name
+                                    "another_typedef_enum_e",
+                                  nameHsIdent = Identifier
+                                    "Another_typedef_enum_e"}
+                                (NameOriginGenerated
+                                  (AnonId
+                                    "distilled_lib_1.h:10:9")))))),
                       structFieldOffset = 512,
                       structFieldWidth = Nothing},
                     StructField {
@@ -5673,17 +5692,18 @@
                         (TypeConstArray
                           3
                           (TypeTypedef
-                            (TypedefSquashed
-                              (Name "another_typedef_enum_e")
-                              (TypeEnum
-                                NamePair {
-                                  nameC = Name
-                                    "another_typedef_enum_e",
-                                  nameHsIdent = Identifier
-                                    "Another_typedef_enum_e"}
-                                (NameOriginGenerated
-                                  (AnonId
-                                    "distilled_lib_1.h:10:9")))))),
+                            (Full
+                              (TypedefSquashed
+                                (Name "another_typedef_enum_e")
+                                (TypeEnum
+                                  NamePair {
+                                    nameC = Name
+                                      "another_typedef_enum_e",
+                                    nameHsIdent = Identifier
+                                      "Another_typedef_enum_e"}
+                                  (NameOriginGenerated
+                                    (AnonId
+                                      "distilled_lib_1.h:10:9"))))))),
                       structFieldOffset = 640,
                       structFieldWidth = Nothing}],
                   structFlam = Nothing},
@@ -6544,18 +6564,19 @@
                                 "a_typedef_struct_t_field_4"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
-                            (TypedefSquashed
-                              (Name
-                                "another_typedef_struct_t")
-                              (TypeStruct
-                                NamePair {
-                                  nameC = Name
-                                    "another_typedef_struct_t",
-                                  nameHsIdent = Identifier
-                                    "Another_typedef_struct_t"}
-                                (NameOriginGenerated
-                                  (AnonId
-                                    "distilled_lib_1.h:9:9")))),
+                            (Full
+                              (TypedefSquashed
+                                (Name
+                                  "another_typedef_struct_t")
+                                (TypeStruct
+                                  NamePair {
+                                    nameC = Name
+                                      "another_typedef_struct_t",
+                                    nameHsIdent = Identifier
+                                      "Another_typedef_struct_t"}
+                                  (NameOriginGenerated
+                                    (AnonId
+                                      "distilled_lib_1.h:9:9"))))),
                           structFieldOffset = 64,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -6592,18 +6613,19 @@
                             fieldComment = Nothing},
                           structFieldType = TypePointer
                             (TypeTypedef
-                              (TypedefSquashed
-                                (Name
-                                  "another_typedef_struct_t")
-                                (TypeStruct
-                                  NamePair {
-                                    nameC = Name
-                                      "another_typedef_struct_t",
-                                    nameHsIdent = Identifier
-                                      "Another_typedef_struct_t"}
-                                  (NameOriginGenerated
-                                    (AnonId
-                                      "distilled_lib_1.h:9:9"))))),
+                              (Full
+                                (TypedefSquashed
+                                  (Name
+                                    "another_typedef_struct_t")
+                                  (TypeStruct
+                                    NamePair {
+                                      nameC = Name
+                                        "another_typedef_struct_t",
+                                      nameHsIdent = Identifier
+                                        "Another_typedef_struct_t"}
+                                    (NameOriginGenerated
+                                      (AnonId
+                                        "distilled_lib_1.h:9:9")))))),
                           structFieldOffset = 128,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -6931,17 +6953,18 @@
                                 "a_typedef_struct_t_field_8"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
-                            (TypedefSquashed
-                              (Name "another_typedef_enum_e")
-                              (TypeEnum
-                                NamePair {
-                                  nameC = Name
-                                    "another_typedef_enum_e",
-                                  nameHsIdent = Identifier
-                                    "Another_typedef_enum_e"}
-                                (NameOriginGenerated
-                                  (AnonId
-                                    "distilled_lib_1.h:10:9")))),
+                            (Full
+                              (TypedefSquashed
+                                (Name "another_typedef_enum_e")
+                                (TypeEnum
+                                  NamePair {
+                                    nameC = Name
+                                      "another_typedef_enum_e",
+                                    nameHsIdent = Identifier
+                                      "Another_typedef_enum_e"}
+                                  (NameOriginGenerated
+                                    (AnonId
+                                      "distilled_lib_1.h:10:9"))))),
                           structFieldOffset = 480,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -6980,17 +7003,18 @@
                           structFieldType = TypeConstArray
                             4
                             (TypeTypedef
-                              (TypedefSquashed
-                                (Name "another_typedef_enum_e")
-                                (TypeEnum
-                                  NamePair {
-                                    nameC = Name
-                                      "another_typedef_enum_e",
-                                    nameHsIdent = Identifier
-                                      "Another_typedef_enum_e"}
-                                  (NameOriginGenerated
-                                    (AnonId
-                                      "distilled_lib_1.h:10:9"))))),
+                              (Full
+                                (TypedefSquashed
+                                  (Name "another_typedef_enum_e")
+                                  (TypeEnum
+                                    NamePair {
+                                      nameC = Name
+                                        "another_typedef_enum_e",
+                                      nameHsIdent = Identifier
+                                        "Another_typedef_enum_e"}
+                                    (NameOriginGenerated
+                                      (AnonId
+                                        "distilled_lib_1.h:10:9")))))),
                           structFieldOffset = 512,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -7033,17 +7057,18 @@
                             (TypeConstArray
                               3
                               (TypeTypedef
-                                (TypedefSquashed
-                                  (Name "another_typedef_enum_e")
-                                  (TypeEnum
-                                    NamePair {
-                                      nameC = Name
-                                        "another_typedef_enum_e",
-                                      nameHsIdent = Identifier
-                                        "Another_typedef_enum_e"}
-                                    (NameOriginGenerated
-                                      (AnonId
-                                        "distilled_lib_1.h:10:9")))))),
+                                (Full
+                                  (TypedefSquashed
+                                    (Name "another_typedef_enum_e")
+                                    (TypeEnum
+                                      NamePair {
+                                        nameC = Name
+                                          "another_typedef_enum_e",
+                                        nameHsIdent = Identifier
+                                          "Another_typedef_enum_e"}
+                                      (NameOriginGenerated
+                                        (AnonId
+                                          "distilled_lib_1.h:10:9"))))))),
                           structFieldOffset = 640,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -7494,18 +7519,19 @@
                                     "a_typedef_struct_t_field_4"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
-                                (TypedefSquashed
-                                  (Name
-                                    "another_typedef_struct_t")
-                                  (TypeStruct
-                                    NamePair {
-                                      nameC = Name
-                                        "another_typedef_struct_t",
-                                      nameHsIdent = Identifier
-                                        "Another_typedef_struct_t"}
-                                    (NameOriginGenerated
-                                      (AnonId
-                                        "distilled_lib_1.h:9:9")))),
+                                (Full
+                                  (TypedefSquashed
+                                    (Name
+                                      "another_typedef_struct_t")
+                                    (TypeStruct
+                                      NamePair {
+                                        nameC = Name
+                                          "another_typedef_struct_t",
+                                        nameHsIdent = Identifier
+                                          "Another_typedef_struct_t"}
+                                      (NameOriginGenerated
+                                        (AnonId
+                                          "distilled_lib_1.h:9:9"))))),
                               structFieldOffset = 64,
                               structFieldWidth = Nothing},
                             StructField {
@@ -7519,18 +7545,19 @@
                                 fieldComment = Nothing},
                               structFieldType = TypePointer
                                 (TypeTypedef
-                                  (TypedefSquashed
-                                    (Name
-                                      "another_typedef_struct_t")
-                                    (TypeStruct
-                                      NamePair {
-                                        nameC = Name
-                                          "another_typedef_struct_t",
-                                        nameHsIdent = Identifier
-                                          "Another_typedef_struct_t"}
-                                      (NameOriginGenerated
-                                        (AnonId
-                                          "distilled_lib_1.h:9:9"))))),
+                                  (Full
+                                    (TypedefSquashed
+                                      (Name
+                                        "another_typedef_struct_t")
+                                      (TypeStruct
+                                        NamePair {
+                                          nameC = Name
+                                            "another_typedef_struct_t",
+                                          nameHsIdent = Identifier
+                                            "Another_typedef_struct_t"}
+                                        (NameOriginGenerated
+                                          (AnonId
+                                            "distilled_lib_1.h:9:9")))))),
                               structFieldOffset = 128,
                               structFieldWidth = Nothing},
                             StructField {
@@ -7685,17 +7712,18 @@
                                     "a_typedef_struct_t_field_8"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
-                                (TypedefSquashed
-                                  (Name "another_typedef_enum_e")
-                                  (TypeEnum
-                                    NamePair {
-                                      nameC = Name
-                                        "another_typedef_enum_e",
-                                      nameHsIdent = Identifier
-                                        "Another_typedef_enum_e"}
-                                    (NameOriginGenerated
-                                      (AnonId
-                                        "distilled_lib_1.h:10:9")))),
+                                (Full
+                                  (TypedefSquashed
+                                    (Name "another_typedef_enum_e")
+                                    (TypeEnum
+                                      NamePair {
+                                        nameC = Name
+                                          "another_typedef_enum_e",
+                                        nameHsIdent = Identifier
+                                          "Another_typedef_enum_e"}
+                                      (NameOriginGenerated
+                                        (AnonId
+                                          "distilled_lib_1.h:10:9"))))),
                               structFieldOffset = 480,
                               structFieldWidth = Nothing},
                             StructField {
@@ -7710,17 +7738,18 @@
                               structFieldType = TypeConstArray
                                 4
                                 (TypeTypedef
-                                  (TypedefSquashed
-                                    (Name "another_typedef_enum_e")
-                                    (TypeEnum
-                                      NamePair {
-                                        nameC = Name
-                                          "another_typedef_enum_e",
-                                        nameHsIdent = Identifier
-                                          "Another_typedef_enum_e"}
-                                      (NameOriginGenerated
-                                        (AnonId
-                                          "distilled_lib_1.h:10:9"))))),
+                                  (Full
+                                    (TypedefSquashed
+                                      (Name "another_typedef_enum_e")
+                                      (TypeEnum
+                                        NamePair {
+                                          nameC = Name
+                                            "another_typedef_enum_e",
+                                          nameHsIdent = Identifier
+                                            "Another_typedef_enum_e"}
+                                        (NameOriginGenerated
+                                          (AnonId
+                                            "distilled_lib_1.h:10:9")))))),
                               structFieldOffset = 512,
                               structFieldWidth = Nothing},
                             StructField {
@@ -7737,17 +7766,18 @@
                                 (TypeConstArray
                                   3
                                   (TypeTypedef
-                                    (TypedefSquashed
-                                      (Name "another_typedef_enum_e")
-                                      (TypeEnum
-                                        NamePair {
-                                          nameC = Name
-                                            "another_typedef_enum_e",
-                                          nameHsIdent = Identifier
-                                            "Another_typedef_enum_e"}
-                                        (NameOriginGenerated
-                                          (AnonId
-                                            "distilled_lib_1.h:10:9")))))),
+                                    (Full
+                                      (TypedefSquashed
+                                        (Name "another_typedef_enum_e")
+                                        (TypeEnum
+                                          NamePair {
+                                            nameC = Name
+                                              "another_typedef_enum_e",
+                                            nameHsIdent = Identifier
+                                              "Another_typedef_enum_e"}
+                                          (NameOriginGenerated
+                                            (AnonId
+                                              "distilled_lib_1.h:10:9"))))))),
                               structFieldOffset = 640,
                               structFieldWidth = Nothing}],
                           structFlam = Nothing},
@@ -8619,18 +8649,19 @@
                                 "a_typedef_struct_t_field_4"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
-                            (TypedefSquashed
-                              (Name
-                                "another_typedef_struct_t")
-                              (TypeStruct
-                                NamePair {
-                                  nameC = Name
-                                    "another_typedef_struct_t",
-                                  nameHsIdent = Identifier
-                                    "Another_typedef_struct_t"}
-                                (NameOriginGenerated
-                                  (AnonId
-                                    "distilled_lib_1.h:9:9")))),
+                            (Full
+                              (TypedefSquashed
+                                (Name
+                                  "another_typedef_struct_t")
+                                (TypeStruct
+                                  NamePair {
+                                    nameC = Name
+                                      "another_typedef_struct_t",
+                                    nameHsIdent = Identifier
+                                      "Another_typedef_struct_t"}
+                                  (NameOriginGenerated
+                                    (AnonId
+                                      "distilled_lib_1.h:9:9"))))),
                           structFieldOffset = 64,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -8667,18 +8698,19 @@
                             fieldComment = Nothing},
                           structFieldType = TypePointer
                             (TypeTypedef
-                              (TypedefSquashed
-                                (Name
-                                  "another_typedef_struct_t")
-                                (TypeStruct
-                                  NamePair {
-                                    nameC = Name
-                                      "another_typedef_struct_t",
-                                    nameHsIdent = Identifier
-                                      "Another_typedef_struct_t"}
-                                  (NameOriginGenerated
-                                    (AnonId
-                                      "distilled_lib_1.h:9:9"))))),
+                              (Full
+                                (TypedefSquashed
+                                  (Name
+                                    "another_typedef_struct_t")
+                                  (TypeStruct
+                                    NamePair {
+                                      nameC = Name
+                                        "another_typedef_struct_t",
+                                      nameHsIdent = Identifier
+                                        "Another_typedef_struct_t"}
+                                    (NameOriginGenerated
+                                      (AnonId
+                                        "distilled_lib_1.h:9:9")))))),
                           structFieldOffset = 128,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -9006,17 +9038,18 @@
                                 "a_typedef_struct_t_field_8"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
-                            (TypedefSquashed
-                              (Name "another_typedef_enum_e")
-                              (TypeEnum
-                                NamePair {
-                                  nameC = Name
-                                    "another_typedef_enum_e",
-                                  nameHsIdent = Identifier
-                                    "Another_typedef_enum_e"}
-                                (NameOriginGenerated
-                                  (AnonId
-                                    "distilled_lib_1.h:10:9")))),
+                            (Full
+                              (TypedefSquashed
+                                (Name "another_typedef_enum_e")
+                                (TypeEnum
+                                  NamePair {
+                                    nameC = Name
+                                      "another_typedef_enum_e",
+                                    nameHsIdent = Identifier
+                                      "Another_typedef_enum_e"}
+                                  (NameOriginGenerated
+                                    (AnonId
+                                      "distilled_lib_1.h:10:9"))))),
                           structFieldOffset = 480,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -9055,17 +9088,18 @@
                           structFieldType = TypeConstArray
                             4
                             (TypeTypedef
-                              (TypedefSquashed
-                                (Name "another_typedef_enum_e")
-                                (TypeEnum
-                                  NamePair {
-                                    nameC = Name
-                                      "another_typedef_enum_e",
-                                    nameHsIdent = Identifier
-                                      "Another_typedef_enum_e"}
-                                  (NameOriginGenerated
-                                    (AnonId
-                                      "distilled_lib_1.h:10:9"))))),
+                              (Full
+                                (TypedefSquashed
+                                  (Name "another_typedef_enum_e")
+                                  (TypeEnum
+                                    NamePair {
+                                      nameC = Name
+                                        "another_typedef_enum_e",
+                                      nameHsIdent = Identifier
+                                        "Another_typedef_enum_e"}
+                                    (NameOriginGenerated
+                                      (AnonId
+                                        "distilled_lib_1.h:10:9")))))),
                           structFieldOffset = 512,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -9108,17 +9142,18 @@
                             (TypeConstArray
                               3
                               (TypeTypedef
-                                (TypedefSquashed
-                                  (Name "another_typedef_enum_e")
-                                  (TypeEnum
-                                    NamePair {
-                                      nameC = Name
-                                        "another_typedef_enum_e",
-                                      nameHsIdent = Identifier
-                                        "Another_typedef_enum_e"}
-                                    (NameOriginGenerated
-                                      (AnonId
-                                        "distilled_lib_1.h:10:9")))))),
+                                (Full
+                                  (TypedefSquashed
+                                    (Name "another_typedef_enum_e")
+                                    (TypeEnum
+                                      NamePair {
+                                        nameC = Name
+                                          "another_typedef_enum_e",
+                                        nameHsIdent = Identifier
+                                          "Another_typedef_enum_e"}
+                                      (NameOriginGenerated
+                                        (AnonId
+                                          "distilled_lib_1.h:10:9"))))))),
                           structFieldOffset = 640,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -9569,18 +9604,19 @@
                                     "a_typedef_struct_t_field_4"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
-                                (TypedefSquashed
-                                  (Name
-                                    "another_typedef_struct_t")
-                                  (TypeStruct
-                                    NamePair {
-                                      nameC = Name
-                                        "another_typedef_struct_t",
-                                      nameHsIdent = Identifier
-                                        "Another_typedef_struct_t"}
-                                    (NameOriginGenerated
-                                      (AnonId
-                                        "distilled_lib_1.h:9:9")))),
+                                (Full
+                                  (TypedefSquashed
+                                    (Name
+                                      "another_typedef_struct_t")
+                                    (TypeStruct
+                                      NamePair {
+                                        nameC = Name
+                                          "another_typedef_struct_t",
+                                        nameHsIdent = Identifier
+                                          "Another_typedef_struct_t"}
+                                      (NameOriginGenerated
+                                        (AnonId
+                                          "distilled_lib_1.h:9:9"))))),
                               structFieldOffset = 64,
                               structFieldWidth = Nothing},
                             StructField {
@@ -9594,18 +9630,19 @@
                                 fieldComment = Nothing},
                               structFieldType = TypePointer
                                 (TypeTypedef
-                                  (TypedefSquashed
-                                    (Name
-                                      "another_typedef_struct_t")
-                                    (TypeStruct
-                                      NamePair {
-                                        nameC = Name
-                                          "another_typedef_struct_t",
-                                        nameHsIdent = Identifier
-                                          "Another_typedef_struct_t"}
-                                      (NameOriginGenerated
-                                        (AnonId
-                                          "distilled_lib_1.h:9:9"))))),
+                                  (Full
+                                    (TypedefSquashed
+                                      (Name
+                                        "another_typedef_struct_t")
+                                      (TypeStruct
+                                        NamePair {
+                                          nameC = Name
+                                            "another_typedef_struct_t",
+                                          nameHsIdent = Identifier
+                                            "Another_typedef_struct_t"}
+                                        (NameOriginGenerated
+                                          (AnonId
+                                            "distilled_lib_1.h:9:9")))))),
                               structFieldOffset = 128,
                               structFieldWidth = Nothing},
                             StructField {
@@ -9760,17 +9797,18 @@
                                     "a_typedef_struct_t_field_8"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
-                                (TypedefSquashed
-                                  (Name "another_typedef_enum_e")
-                                  (TypeEnum
-                                    NamePair {
-                                      nameC = Name
-                                        "another_typedef_enum_e",
-                                      nameHsIdent = Identifier
-                                        "Another_typedef_enum_e"}
-                                    (NameOriginGenerated
-                                      (AnonId
-                                        "distilled_lib_1.h:10:9")))),
+                                (Full
+                                  (TypedefSquashed
+                                    (Name "another_typedef_enum_e")
+                                    (TypeEnum
+                                      NamePair {
+                                        nameC = Name
+                                          "another_typedef_enum_e",
+                                        nameHsIdent = Identifier
+                                          "Another_typedef_enum_e"}
+                                      (NameOriginGenerated
+                                        (AnonId
+                                          "distilled_lib_1.h:10:9"))))),
                               structFieldOffset = 480,
                               structFieldWidth = Nothing},
                             StructField {
@@ -9785,17 +9823,18 @@
                               structFieldType = TypeConstArray
                                 4
                                 (TypeTypedef
-                                  (TypedefSquashed
-                                    (Name "another_typedef_enum_e")
-                                    (TypeEnum
-                                      NamePair {
-                                        nameC = Name
-                                          "another_typedef_enum_e",
-                                        nameHsIdent = Identifier
-                                          "Another_typedef_enum_e"}
-                                      (NameOriginGenerated
-                                        (AnonId
-                                          "distilled_lib_1.h:10:9"))))),
+                                  (Full
+                                    (TypedefSquashed
+                                      (Name "another_typedef_enum_e")
+                                      (TypeEnum
+                                        NamePair {
+                                          nameC = Name
+                                            "another_typedef_enum_e",
+                                          nameHsIdent = Identifier
+                                            "Another_typedef_enum_e"}
+                                        (NameOriginGenerated
+                                          (AnonId
+                                            "distilled_lib_1.h:10:9")))))),
                               structFieldOffset = 512,
                               structFieldWidth = Nothing},
                             StructField {
@@ -9812,17 +9851,18 @@
                                 (TypeConstArray
                                   3
                                   (TypeTypedef
-                                    (TypedefSquashed
-                                      (Name "another_typedef_enum_e")
-                                      (TypeEnum
-                                        NamePair {
-                                          nameC = Name
-                                            "another_typedef_enum_e",
-                                          nameHsIdent = Identifier
-                                            "Another_typedef_enum_e"}
-                                        (NameOriginGenerated
-                                          (AnonId
-                                            "distilled_lib_1.h:10:9")))))),
+                                    (Full
+                                      (TypedefSquashed
+                                        (Name "another_typedef_enum_e")
+                                        (TypeEnum
+                                          NamePair {
+                                            nameC = Name
+                                              "another_typedef_enum_e",
+                                            nameHsIdent = Identifier
+                                              "Another_typedef_enum_e"}
+                                          (NameOriginGenerated
+                                            (AnonId
+                                              "distilled_lib_1.h:10:9"))))))),
                               structFieldOffset = 640,
                               structFieldWidth = Nothing}],
                           structFlam = Nothing},
@@ -11700,11 +11740,12 @@
                 "un_Callback_t"},
             typedefType = TypePointer
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "callback_t_Deref",
-                    nameHsIdent = Identifier
-                      "Callback_t_Deref"}))},
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "callback_t_Deref",
+                      nameHsIdent = Identifier
+                        "Callback_t_Deref"})))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -12165,11 +12206,12 @@
                   nameHsIdent = Identifier "i"})
               (TypePointer
                 (TypeTypedef
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name "a_type_t",
-                      nameHsIdent = Identifier
-                        "A_type_t"}))),
+                  (Full
+                    (TypedefRegular
+                      NamePair {
+                        nameC = Name "a_type_t",
+                        nameHsIdent = Identifier
+                          "A_type_t"})))),
             _×_
               (Just
                 NamePair {
@@ -12945,11 +12987,12 @@
                   nameHsIdent = Identifier "i"})
               (TypePointer
                 (TypeTypedef
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name "a_type_t",
-                      nameHsIdent = Identifier
-                        "A_type_t"}))),
+                  (Full
+                    (TypedefRegular
+                      NamePair {
+                        nameC = Name "a_type_t",
+                        nameHsIdent = Identifier
+                          "A_type_t"})))),
             _×_
               (Just
                 NamePair {
@@ -13694,11 +13737,12 @@
           [
             TypePointer
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "a_type_t",
-                    nameHsIdent = Identifier
-                      "A_type_t"})),
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "a_type_t",
+                      nameHsIdent = Identifier
+                        "A_type_t"}))),
             TypeExtBinding
               ResolvedExtBinding {
                 extCName = QualName {
@@ -14077,11 +14121,12 @@
           "distilled_lib_1.h"},
       foreignImportOrigin = Global
         (TypeTypedef
-          (TypedefRegular
-            NamePair {
-              nameC = Name "var_t",
-              nameHsIdent = Identifier
-                "Var_t"})),
+          (Full
+            (TypedefRegular
+              NamePair {
+                nameC = Name "var_t",
+                nameHsIdent = Identifier
+                  "Var_t"}))),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,

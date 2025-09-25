@@ -119,14 +119,15 @@ TranslationUnit {
                 fieldComment = Nothing},
               structFieldType = TypePointer
                 (TypeTypedef
-                  (TypedefSquashed
-                    (Name "linked_list_B_t")
-                    (TypeStruct
-                      NamePair {
-                        nameC = Name "linked_list_B_t",
-                        nameHsIdent = Identifier
-                          "Linked_list_B_t"}
-                      NameOriginInSource))),
+                  (Full
+                    (TypedefSquashed
+                      (Name "linked_list_B_t")
+                      (TypeStruct
+                        NamePair {
+                          nameC = Name "linked_list_B_t",
+                          nameHsIdent = Identifier
+                            "Linked_list_B_t"}
+                        NameOriginInSource)))),
               structFieldOffset = 64,
               structFieldWidth = Nothing}],
           structFlam = Nothing},

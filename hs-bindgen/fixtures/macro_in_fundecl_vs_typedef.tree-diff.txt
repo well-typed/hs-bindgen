@@ -109,11 +109,12 @@ TranslationUnit {
                   nameC = Name "y",
                   nameHsIdent = Identifier "y"})
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "TC",
-                    nameHsIdent = Identifier
-                      "TC"}))],
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "TC",
+                      nameHsIdent = Identifier
+                        "TC"})))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -169,11 +170,12 @@ TranslationUnit {
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeTypedef
-            (TypedefRegular
-              NamePair {
-                nameC = Name "TC",
-                nameHsIdent = Identifier
-                  "TC"})},
+            (Full
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "TC",
+                  nameHsIdent = Identifier
+                    "TC"}))},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -215,11 +217,12 @@ TranslationUnit {
                   nameHsIdent = Identifier "y"})
               (TypePointer
                 (TypeTypedef
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name "TC",
-                      nameHsIdent = Identifier
-                        "TC"})))],
+                  (Full
+                    (TypedefRegular
+                      NamePair {
+                        nameC = Name "TC",
+                        nameHsIdent = Identifier
+                          "TC"}))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -279,11 +282,12 @@ TranslationUnit {
             ImpureFunction,
           functionRes = TypePointer
             (TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "TC",
-                  nameHsIdent = Identifier
-                    "TC"}))},
+              (Full
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "TC",
+                    nameHsIdent = Identifier
+                      "TC"})))},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -540,16 +544,17 @@ TranslationUnit {
                   nameHsIdent = Identifier "s"})
               (TypePointer
                 (TypeTypedef
-                  (TypedefSquashed
-                    (Name "struct2")
-                    (TypeStruct
-                      NamePair {
-                        nameC = Name "struct2",
-                        nameHsIdent = Identifier
-                          "Struct2"}
-                      (NameOriginGenerated
-                        (AnonId
-                          "macro_in_fundecl_vs_typedef.h:19:9")))))),
+                  (Full
+                    (TypedefSquashed
+                      (Name "struct2")
+                      (TypeStruct
+                        NamePair {
+                          nameC = Name "struct2",
+                          nameHsIdent = Identifier
+                            "Struct2"}
+                        (NameOriginGenerated
+                          (AnonId
+                            "macro_in_fundecl_vs_typedef.h:19:9"))))))),
             _×_
               (Just
                 NamePair {
@@ -598,11 +603,12 @@ TranslationUnit {
                   nameHsIdent = Identifier "s"})
               (TypePointer
                 (TypeTypedef
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name "struct3_t",
-                      nameHsIdent = Identifier
-                        "Struct3_t"}))),
+                  (Full
+                    (TypedefRegular
+                      NamePair {
+                        nameC = Name "struct3_t",
+                        nameHsIdent = Identifier
+                          "Struct3_t"})))),
             _×_
               (Just
                 NamePair {
@@ -651,14 +657,15 @@ TranslationUnit {
                   nameHsIdent = Identifier "s"})
               (TypePointer
                 (TypeTypedef
-                  (TypedefSquashed
-                    (Name "struct4")
-                    (TypeStruct
-                      NamePair {
-                        nameC = Name "struct4",
-                        nameHsIdent = Identifier
-                          "Struct4"}
-                      NameOriginInSource)))),
+                  (Full
+                    (TypedefSquashed
+                      (Name "struct4")
+                      (TypeStruct
+                        NamePair {
+                          nameC = Name "struct4",
+                          nameHsIdent = Identifier
+                            "Struct4"}
+                        NameOriginInSource))))),
             _×_
               (Just
                 NamePair {

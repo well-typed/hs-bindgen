@@ -139,15 +139,15 @@ showsType ::
   => (CTypePrecedence -> ShowS)  -- ^ variable name, or function name + arguments
   -> Type
   -> ShowS
-showsType x (TypePrim p)            = C.showsPrimType p . showChar ' ' . x 0
-showsType x (TypeStruct np o)       = showString "struct " . showsName np o . showChar ' ' . x 0
-showsType x (TypeUnion np o)        = showString "union " . showsName np o . showChar ' ' . x 0
-showsType x (TypeEnum np o)         = showString "enum " . showsName np o . showChar ' ' . x 0
-showsType x (TypeTypedef ref)       = showsTypedefName ref . showChar ' ' . x 0
-showsType x (TypeMacroTypedef np o) = showsName np o . showChar ' ' . x 0
-showsType x (TypePointer t)         = showsType (\d -> showParen (d > arrayPrec) $ showString "*" . x (pointerPrec + 1)) t
-showsType x (TypeConstArray n t)    = showsType (\_d -> x (arrayPrec + 1) . showChar '[' . shows n . showChar ']') t
-showsType x (TypeFun args res)      =
+showsType x (TypePrim p)             = C.showsPrimType p . showChar ' ' . x 0
+showsType x (TypeStruct np o)        = showString "struct " . showsName np o . showChar ' ' . x 0
+showsType x (TypeUnion np o)         = showString "union " . showsName np o . showChar ' ' . x 0
+showsType x (TypeEnum np o)          = showString "enum " . showsName np o . showChar ' ' . x 0
+showsType x (TypeTypedef (Full ref)) = showsTypedefName ref . showChar ' ' . x 0
+showsType x (TypeMacroTypedef np o)  = showsName np o . showChar ' ' . x 0
+showsType x (TypePointer t)          = showsType (\d -> showParen (d > arrayPrec) $ showString "*" . x (pointerPrec + 1)) t
+showsType x (TypeConstArray n t)     = showsType (\_d -> x (arrayPrec + 1) . showChar '[' . shows n . showChar ']') t
+showsType x (TypeFun args res)       =
     -- Note: we pass 'ImpureFunction' to 'showsFunctionType' so that no function
     -- attributes are included in the printed string. Function attributes should
     -- not appear inside types, rather only as part of top-level function

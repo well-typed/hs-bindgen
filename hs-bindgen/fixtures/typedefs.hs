@@ -690,12 +690,13 @@
                 "un_FunctionPointer_Function"},
             typedefType = TypePointer
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name
-                      "FunctionPointer_Function_Deref",
-                    nameHsIdent = Identifier
-                      "FunctionPointer_Function_Deref"}))},
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name
+                        "FunctionPointer_Function_Deref",
+                      nameHsIdent = Identifier
+                        "FunctionPointer_Function_Deref"})))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -1136,11 +1137,12 @@
                 "un_F1"},
             typedefType = TypePointer
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "f1_Deref",
-                    nameHsIdent = Identifier
-                      "F1_Deref"}))},
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "f1_Deref",
+                      nameHsIdent = Identifier
+                        "F1_Deref"})))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -1381,11 +1383,12 @@
                 "un_G2"},
             typedefType = TypePointer
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "g1",
-                    nameHsIdent = Identifier
-                      "G1"}))},
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "g1",
+                      nameHsIdent = Identifier
+                        "G1"})))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -1624,11 +1627,12 @@
                 "@NsVar"
                 "un_H2"},
             typedefType = TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "h1",
-                  nameHsIdent = Identifier
-                    "H1"})},
+              (Full
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "h1",
+                    nameHsIdent = Identifier
+                      "H1"}))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -1691,11 +1695,12 @@
                 "un_H3"},
             typedefType = TypePointer
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "h2",
-                    nameHsIdent = Identifier
-                      "H2"}))},
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "h2",
+                      nameHsIdent = Identifier
+                        "H2"})))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,

@@ -2455,11 +2455,12 @@
                   nameC = Name "y",
                   nameHsIdent = Identifier "y"})
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "TC",
-                    nameHsIdent = Identifier
-                      "TC"}))],
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "TC",
+                      nameHsIdent = Identifier
+                        "TC"})))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -2550,11 +2551,12 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeTypedef
-            (TypedefRegular
-              NamePair {
-                nameC = Name "TC",
-                nameHsIdent = Identifier
-                  "TC"})},
+            (Full
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "TC",
+                  nameHsIdent = Identifier
+                    "TC"}))},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -2633,11 +2635,12 @@
                   nameHsIdent = Identifier "y"})
               (TypePointer
                 (TypeTypedef
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name "TC",
-                      nameHsIdent = Identifier
-                        "TC"})))],
+                  (Full
+                    (TypedefRegular
+                      NamePair {
+                        nameC = Name "TC",
+                        nameHsIdent = Identifier
+                          "TC"}))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -2734,11 +2737,12 @@
             ImpureFunction,
           functionRes = TypePointer
             (TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "TC",
-                  nameHsIdent = Identifier
-                    "TC"}))},
+              (Full
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "TC",
+                    nameHsIdent = Identifier
+                      "TC"})))},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -2809,16 +2813,17 @@
                   nameHsIdent = Identifier "s"})
               (TypePointer
                 (TypeTypedef
-                  (TypedefSquashed
-                    (Name "struct2")
-                    (TypeStruct
-                      NamePair {
-                        nameC = Name "struct2",
-                        nameHsIdent = Identifier
-                          "Struct2"}
-                      (NameOriginGenerated
-                        (AnonId
-                          "macro_in_fundecl_vs_typedef.h:19:9")))))),
+                  (Full
+                    (TypedefSquashed
+                      (Name "struct2")
+                      (TypeStruct
+                        NamePair {
+                          nameC = Name "struct2",
+                          nameHsIdent = Identifier
+                            "Struct2"}
+                        (NameOriginGenerated
+                          (AnonId
+                            "macro_in_fundecl_vs_typedef.h:19:9"))))))),
             _×_
               (Just
                 NamePair {
@@ -2904,11 +2909,12 @@
                   nameHsIdent = Identifier "s"})
               (TypePointer
                 (TypeTypedef
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name "struct3_t",
-                      nameHsIdent = Identifier
-                        "Struct3_t"}))),
+                  (Full
+                    (TypedefRegular
+                      NamePair {
+                        nameC = Name "struct3_t",
+                        nameHsIdent = Identifier
+                          "Struct3_t"})))),
             _×_
               (Just
                 NamePair {
@@ -2994,14 +3000,15 @@
                   nameHsIdent = Identifier "s"})
               (TypePointer
                 (TypeTypedef
-                  (TypedefSquashed
-                    (Name "struct4")
-                    (TypeStruct
-                      NamePair {
-                        nameC = Name "struct4",
-                        nameHsIdent = Identifier
-                          "Struct4"}
-                      NameOriginInSource)))),
+                  (Full
+                    (TypedefSquashed
+                      (Name "struct4")
+                      (TypeStruct
+                        NamePair {
+                          nameC = Name "struct4",
+                          nameHsIdent = Identifier
+                            "Struct4"}
+                        NameOriginInSource))))),
             _×_
               (Just
                 NamePair {
@@ -3363,11 +3370,12 @@
                   nameC = Name "y",
                   nameHsIdent = Identifier "y"})
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "TC",
-                    nameHsIdent = Identifier
-                      "TC"}))],
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "TC",
+                      nameHsIdent = Identifier
+                        "TC"})))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -3458,11 +3466,12 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeTypedef
-            (TypedefRegular
-              NamePair {
-                nameC = Name "TC",
-                nameHsIdent = Identifier
-                  "TC"})},
+            (Full
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "TC",
+                  nameHsIdent = Identifier
+                    "TC"}))},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -3541,11 +3550,12 @@
                   nameHsIdent = Identifier "y"})
               (TypePointer
                 (TypeTypedef
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name "TC",
-                      nameHsIdent = Identifier
-                        "TC"})))],
+                  (Full
+                    (TypedefRegular
+                      NamePair {
+                        nameC = Name "TC",
+                        nameHsIdent = Identifier
+                          "TC"}))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -3642,11 +3652,12 @@
             ImpureFunction,
           functionRes = TypePointer
             (TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "TC",
-                  nameHsIdent = Identifier
-                    "TC"}))},
+              (Full
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "TC",
+                    nameHsIdent = Identifier
+                      "TC"})))},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -3717,16 +3728,17 @@
                   nameHsIdent = Identifier "s"})
               (TypePointer
                 (TypeTypedef
-                  (TypedefSquashed
-                    (Name "struct2")
-                    (TypeStruct
-                      NamePair {
-                        nameC = Name "struct2",
-                        nameHsIdent = Identifier
-                          "Struct2"}
-                      (NameOriginGenerated
-                        (AnonId
-                          "macro_in_fundecl_vs_typedef.h:19:9")))))),
+                  (Full
+                    (TypedefSquashed
+                      (Name "struct2")
+                      (TypeStruct
+                        NamePair {
+                          nameC = Name "struct2",
+                          nameHsIdent = Identifier
+                            "Struct2"}
+                        (NameOriginGenerated
+                          (AnonId
+                            "macro_in_fundecl_vs_typedef.h:19:9"))))))),
             _×_
               (Just
                 NamePair {
@@ -3812,11 +3824,12 @@
                   nameHsIdent = Identifier "s"})
               (TypePointer
                 (TypeTypedef
-                  (TypedefRegular
-                    NamePair {
-                      nameC = Name "struct3_t",
-                      nameHsIdent = Identifier
-                        "Struct3_t"}))),
+                  (Full
+                    (TypedefRegular
+                      NamePair {
+                        nameC = Name "struct3_t",
+                        nameHsIdent = Identifier
+                          "Struct3_t"})))),
             _×_
               (Just
                 NamePair {
@@ -3902,14 +3915,15 @@
                   nameHsIdent = Identifier "s"})
               (TypePointer
                 (TypeTypedef
-                  (TypedefSquashed
-                    (Name "struct4")
-                    (TypeStruct
-                      NamePair {
-                        nameC = Name "struct4",
-                        nameHsIdent = Identifier
-                          "Struct4"}
-                      NameOriginInSource)))),
+                  (Full
+                    (TypedefSquashed
+                      (Name "struct4")
+                      (TypeStruct
+                        NamePair {
+                          nameC = Name "struct4",
+                          nameHsIdent = Identifier
+                            "Struct4"}
+                        NameOriginInSource))))),
             _×_
               (Just
                 NamePair {
@@ -4246,10 +4260,12 @@
                 nameHsIdent = Identifier "MC"}
               NameOriginInSource,
             TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "TC",
-                  nameHsIdent = Identifier "TC"})]
+              (Full
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "TC",
+                    nameHsIdent = Identifier
+                      "TC"}))]
           (TypePrim
             (PrimChar
               (PrimSignImplicit Nothing)))),
@@ -4298,11 +4314,12 @@
               (PrimChar
                 (PrimSignImplicit Nothing))]
           (TypeTypedef
-            (TypedefRegular
-              NamePair {
-                nameC = Name "TC",
-                nameHsIdent = Identifier
-                  "TC"}))),
+            (Full
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "TC",
+                  nameHsIdent = Identifier
+                    "TC"})))),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -4345,11 +4362,12 @@
               (PrimFloating PrimFloat),
             TypePointer
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "TC",
-                    nameHsIdent = Identifier
-                      "TC"}))]
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "TC",
+                      nameHsIdent = Identifier
+                        "TC"})))]
           (TypePointer
             (TypeMacroTypedef
               NamePair {
@@ -4404,11 +4422,12 @@
                 NameOriginInSource)]
           (TypePointer
             (TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "TC",
-                  nameHsIdent = Identifier
-                    "TC"})))),
+              (Full
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "TC",
+                    nameHsIdent = Identifier
+                      "TC"}))))),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -4448,16 +4467,17 @@
           [
             TypePointer
               (TypeTypedef
-                (TypedefSquashed
-                  (Name "struct2")
-                  (TypeStruct
-                    NamePair {
-                      nameC = Name "struct2",
-                      nameHsIdent = Identifier
-                        "Struct2"}
-                    (NameOriginGenerated
-                      (AnonId
-                        "macro_in_fundecl_vs_typedef.h:19:9"))))),
+                (Full
+                  (TypedefSquashed
+                    (Name "struct2")
+                    (TypeStruct
+                      NamePair {
+                        nameC = Name "struct2",
+                        nameHsIdent = Identifier
+                          "Struct2"}
+                      (NameOriginGenerated
+                        (AnonId
+                          "macro_in_fundecl_vs_typedef.h:19:9")))))),
             TypeMacroTypedef
               NamePair {
                 nameC = Name "MC",
@@ -4503,11 +4523,12 @@
           [
             TypePointer
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "struct3_t",
-                    nameHsIdent = Identifier
-                      "Struct3_t"})),
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "struct3_t",
+                      nameHsIdent = Identifier
+                        "Struct3_t"}))),
             TypeMacroTypedef
               NamePair {
                 nameC = Name "MC",
@@ -4553,14 +4574,15 @@
           [
             TypePointer
               (TypeTypedef
-                (TypedefSquashed
-                  (Name "struct4")
-                  (TypeStruct
-                    NamePair {
-                      nameC = Name "struct4",
-                      nameHsIdent = Identifier
-                        "Struct4"}
-                    NameOriginInSource))),
+                (Full
+                  (TypedefSquashed
+                    (Name "struct4")
+                    (TypeStruct
+                      NamePair {
+                        nameC = Name "struct4",
+                        nameHsIdent = Identifier
+                          "Struct4"}
+                      NameOriginInSource)))),
             TypeMacroTypedef
               NamePair {
                 nameC = Name "MC",

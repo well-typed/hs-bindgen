@@ -63,11 +63,12 @@ TranslationUnit {
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeTypedef
-            (TypedefRegular
-              NamePair {
-                nameC = Name "Toggle",
-                nameHsIdent = Identifier
-                  "Toggle"})},
+            (Full
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "Toggle",
+                  nameHsIdent = Identifier
+                    "Toggle"}))},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -99,11 +100,12 @@ TranslationUnit {
                   nameHsIdent = Identifier
                     "block"})
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "Toggle",
-                    nameHsIdent = Identifier
-                      "Toggle"}))],
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "Toggle",
+                      nameHsIdent = Identifier
+                        "Toggle"})))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -140,11 +142,12 @@ TranslationUnit {
                   nameHsIdent = Identifier
                     "block"})
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "Toggle",
-                    nameHsIdent = Identifier
-                      "Toggle"}))],
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "Toggle",
+                      nameHsIdent = Identifier
+                        "Toggle"})))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -230,11 +233,12 @@ TranslationUnit {
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeTypedef
-            (TypedefRegular
-              NamePair {
-                nameC = Name "Counter",
-                nameHsIdent = Identifier
-                  "Counter"})},
+            (Full
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "Counter",
+                  nameHsIdent = Identifier
+                    "Counter"}))},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -266,11 +270,12 @@ TranslationUnit {
                   nameHsIdent = Identifier
                     "block"})
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "Counter",
-                    nameHsIdent = Identifier
-                      "Counter"}))],
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "Counter",
+                      nameHsIdent = Identifier
+                        "Counter"})))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -307,11 +312,12 @@ TranslationUnit {
                   nameHsIdent = Identifier
                     "block"})
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "Counter",
-                    nameHsIdent = Identifier
-                      "Counter"}))],
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "Counter",
+                      nameHsIdent = Identifier
+                        "Counter"})))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -391,11 +397,12 @@ TranslationUnit {
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeTypedef
-            (TypedefRegular
-              NamePair {
-                nameC = Name "VarCounter",
-                nameHsIdent = Identifier
-                  "VarCounter"})},
+            (Full
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "VarCounter",
+                  nameHsIdent = Identifier
+                    "VarCounter"}))},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -427,11 +434,12 @@ TranslationUnit {
                   nameHsIdent = Identifier
                     "block"})
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "VarCounter",
-                    nameHsIdent = Identifier
-                      "VarCounter"})),
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "VarCounter",
+                      nameHsIdent = Identifier
+                        "VarCounter"}))),
             _×_
               (Just
                 NamePair {
@@ -477,11 +485,12 @@ TranslationUnit {
                   nameHsIdent = Identifier
                     "block"})
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "VarCounter",
-                    nameHsIdent = Identifier
-                      "VarCounter"}))],
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "VarCounter",
+                      nameHsIdent = Identifier
+                        "VarCounter"})))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
