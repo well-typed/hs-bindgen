@@ -2,3 +2,13 @@
 
 pub type myint = ::std::os::raw::c_int;
 pub type intptr = *mut ::std::os::raw::c_int;
+pub type FunctionPointer_Function = ::std::option::Option<unsafe extern "C" fn()>;
+pub type NonFunctionPointer_Function = ::std::option::Option<
+    unsafe extern "C" fn(value: ::std::os::raw::c_int) -> ::std::os::raw::c_int,
+>;
+pub type f1 = ::std::option::Option<unsafe extern "C" fn()>;
+pub type g1 = ::std::option::Option<unsafe extern "C" fn()>;
+pub type g2 = g1;
+pub type h1 = ::std::option::Option<unsafe extern "C" fn()>;
+pub type h2 = h1;
+pub type h3 = h2;

@@ -1110,6 +1110,153 @@
     Newtype {
       newtypeName = HsName
         "@NsTypeConstr"
+        "Event_callback_t_Deref",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "Event_callback_t_Deref",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_Event_callback_t_Deref",
+        fieldType = HsFun
+          (HsPrimType HsPrimCInt)
+          (HsFun
+            (HsPtr (HsPrimType HsPrimVoid))
+            (HsIO (HsPrimType HsPrimCInt))),
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "doxygen_docs.h:225:15",
+          declId = NamePair {
+            nameC = Name
+              "event_callback_t_Deref",
+            nameHsIdent = HsIdentifier
+              "Event_callback_t_Deref"},
+          declOrigin = NameOriginGenerated
+            (AnonId
+              "doxygen_docs.h:225:15"),
+          declAliases = [],
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          declComment = Just
+            (Comment
+              [
+                Paragraph [TextContent ""],
+                BlockCommand {
+                  blockCommandName = "brief",
+                  blockCommandArgs = [],
+                  blockCommandParagraph = [
+                    TextContent
+                      "Callback function type"]},
+                Paragraph [TextContent ""],
+                ParamCommand {
+                  paramCommandName = "event_type",
+                  paramCommandIndex = Just 0,
+                  paramCommandDirection = Just
+                    CXCommentParamPassDirection_In,
+                  paramCommandIsDirectionExplicit =
+                  False,
+                  paramCommandContent = [
+                    Paragraph
+                      [
+                        TextContent "Type of event",
+                        TextContent ""]]},
+                ParamCommand {
+                  paramCommandName = "user_data",
+                  paramCommandIndex = Just 1,
+                  paramCommandDirection = Just
+                    CXCommentParamPassDirection_In,
+                  paramCommandIsDirectionExplicit =
+                  False,
+                  paramCommandContent = [
+                    Paragraph
+                      [
+                        TextContent
+                          "User-provided data",
+                        TextContent ""]]},
+                BlockCommand {
+                  blockCommandName = "return",
+                  blockCommandArgs = [],
+                  blockCommandParagraph = [
+                    TextContent
+                      "Handling result"]}])},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Event_callback_t_Deref",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Event_callback_t_Deref"},
+            typedefType = TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimInt Signed),
+                TypePointer TypeVoid]
+              (TypePrim
+                (PrimIntegral PrimInt Signed))},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
+      newtypeInstances = Set.fromList
+        [],
+      newtypeComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "event_callback_t_Deref",
+          commentLocation = Just
+            "doxygen_docs.h:225:15",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren = [
+            Paragraph
+              [
+                TextContent
+                  "Callback function type"],
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace
+                    [TextContent "event_type"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [TextContent "Type of event"]]},
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace
+                    [TextContent "user_data"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "User-provided data"]]},
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                TextContent
+                  "Handling result"]]}},
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
         "Event_callback_t",
       newtypeConstr = HsName
         "@NsConstr"
@@ -1119,12 +1266,10 @@
           "@NsVar"
           "un_Event_callback_t",
         fieldType = HsFunPtr
-          (HsFun
-            (HsPrimType HsPrimCInt)
-            (HsFun
-              (HsPtr (HsPrimType HsPrimVoid))
-              (HsIO
-                (HsPrimType HsPrimCInt)))),
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Event_callback_t_Deref")),
         fieldOrigin = GeneratedField,
         fieldComment = Nothing},
       newtypeOrigin = Decl {
@@ -1195,15 +1340,13 @@
                 "@NsVar"
                 "un_Event_callback_t"},
             typedefType = TypePointer
-              (TypeFun
-                [
-                  TypePrim
-                    (PrimIntegral PrimInt Signed),
-                  TypePointer TypeVoid]
-                (TypePrim
-                  (PrimIntegral
-                    PrimInt
-                    Signed)))},
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name
+                      "event_callback_t_Deref",
+                    nameHsIdent = HsIdentifier
+                      "Event_callback_t_Deref"}))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -12746,6 +12889,154 @@
     Newtype {
       newtypeName = HsName
         "@NsTypeConstr"
+        "Processor_fn_t_Deref",
+      newtypeConstr = HsName
+        "@NsConstr"
+        "Processor_fn_t_Deref",
+      newtypeField = Field {
+        fieldName = HsName
+          "@NsVar"
+          "un_Processor_fn_t_Deref",
+        fieldType = HsFun
+          (HsPrimType HsPrimCInt)
+          (HsFun
+            (HsPtr (HsPrimType HsPrimVoid))
+            (HsIO (HsPrimType HsPrimCInt))),
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "doxygen_docs.h:317:15",
+          declId = NamePair {
+            nameC = Name
+              "processor_fn_t_Deref",
+            nameHsIdent = HsIdentifier
+              "Processor_fn_t_Deref"},
+          declOrigin = NameOriginGenerated
+            (AnonId
+              "doxygen_docs.h:317:15"),
+          declAliases = [],
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          declComment = Just
+            (Comment
+              [
+                Paragraph [TextContent ""],
+                VerbatimLine "processor_fn_t",
+                Paragraph [TextContent ""],
+                BlockCommand {
+                  blockCommandName = "brief",
+                  blockCommandArgs = [],
+                  blockCommandParagraph = [
+                    TextContent
+                      "Function pointer typedef"]},
+                Paragraph [TextContent ""],
+                ParamCommand {
+                  paramCommandName = "input",
+                  paramCommandIndex = Just 0,
+                  paramCommandDirection = Just
+                    CXCommentParamPassDirection_In,
+                  paramCommandIsDirectionExplicit =
+                  False,
+                  paramCommandContent = [
+                    Paragraph
+                      [
+                        TextContent "Input value",
+                        TextContent ""]]},
+                ParamCommand {
+                  paramCommandName = "context",
+                  paramCommandIndex = Just 1,
+                  paramCommandDirection = Just
+                    CXCommentParamPassDirection_In,
+                  paramCommandIsDirectionExplicit =
+                  False,
+                  paramCommandContent = [
+                    Paragraph
+                      [
+                        TextContent "Context pointer",
+                        TextContent ""]]},
+                BlockCommand {
+                  blockCommandName = "return",
+                  blockCommandArgs = [],
+                  blockCommandParagraph = [
+                    TextContent
+                      "Processed value"]}])},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = HsName
+                "@NsConstr"
+                "Processor_fn_t_Deref",
+              newtypeField = HsName
+                "@NsVar"
+                "un_Processor_fn_t_Deref"},
+            typedefType = TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimInt Signed),
+                TypePointer TypeVoid]
+              (TypePrim
+                (PrimIntegral PrimInt Signed))},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
+      newtypeInstances = Set.fromList
+        [],
+      newtypeComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "processor_fn_t_Deref",
+          commentLocation = Just
+            "doxygen_docs.h:317:15",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren = [
+            Verbatim "processor_fn_t",
+            Paragraph
+              [
+                TextContent
+                  "Function pointer typedef"],
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace [TextContent "input"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [TextContent "Input value"]]},
+            DefinitionList {
+              definitionListTerm = Bold
+                [
+                  Monospace
+                    [TextContent "context"],
+                  Emph [TextContent "(input)"]],
+              definitionListContent = [
+                Paragraph
+                  [
+                    TextContent
+                      "Context pointer"]]},
+            Paragraph
+              [
+                Bold [TextContent "returns:"],
+                TextContent
+                  "Processed value"]]}},
+  DeclNewtype
+    Newtype {
+      newtypeName = HsName
+        "@NsTypeConstr"
         "Processor_fn_t",
       newtypeConstr = HsName
         "@NsConstr"
@@ -12755,12 +13046,10 @@
           "@NsVar"
           "un_Processor_fn_t",
         fieldType = HsFunPtr
-          (HsFun
-            (HsPrimType HsPrimCInt)
-            (HsFun
-              (HsPtr (HsPrimType HsPrimVoid))
-              (HsIO
-                (HsPrimType HsPrimCInt)))),
+          (HsTypRef
+            (HsName
+              "@NsTypeConstr"
+              "Processor_fn_t_Deref")),
         fieldOrigin = GeneratedField,
         fieldComment = Nothing},
       newtypeOrigin = Decl {
@@ -12832,15 +13121,13 @@
                 "@NsVar"
                 "un_Processor_fn_t"},
             typedefType = TypePointer
-              (TypeFun
-                [
-                  TypePrim
-                    (PrimIntegral PrimInt Signed),
-                  TypePointer TypeVoid]
-                (TypePrim
-                  (PrimIntegral
-                    PrimInt
-                    Signed)))},
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name
+                      "processor_fn_t_Deref",
+                    nameHsIdent = HsIdentifier
+                      "Processor_fn_t_Deref"}))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,

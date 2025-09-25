@@ -104,12 +104,6 @@ newtype Struct5_t = Struct5_t
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
 
-{-| __C declaration:__ @struct6_Deref@
-
-    __defined at:__ @typedef_analysis.h:25:16@
-
-    __exported by:__ @typedef_analysis.h@
--}
 data Struct6_Deref = Struct6_Deref
   {}
   deriving stock (Eq, Show)

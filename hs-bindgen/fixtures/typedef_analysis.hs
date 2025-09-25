@@ -1147,20 +1147,7 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "struct6_Deref",
-          commentLocation = Just
-            "typedef_analysis.h:25:16",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["typedef_analysis.h"],
-              headerInclude =
-              "typedef_analysis.h"},
-          commentChildren = []}},
+      structComment = Nothing},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -1211,20 +1198,7 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just
-                "struct6_Deref",
-              commentLocation = Just
-                "typedef_analysis.h:25:16",
-              commentHeaderInfo = Just
-                HeaderInfo {
-                  headerMainHeaders = NE.fromList
-                    ["typedef_analysis.h"],
-                  headerInclude =
-                  "typedef_analysis.h"},
-              commentChildren = []}}
+          structComment = Nothing}
         StorableInstance {
           storableSizeOf = 0,
           storableAlignment = 1,
@@ -1278,20 +1252,7 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Just
-                    Comment {
-                      commentTitle = Nothing,
-                      commentOrigin = Just
-                        "struct6_Deref",
-                      commentLocation = Just
-                        "typedef_analysis.h:25:16",
-                      commentHeaderInfo = Just
-                        HeaderInfo {
-                          headerMainHeaders = NE.fromList
-                            ["typedef_analysis.h"],
-                          headerInclude =
-                          "typedef_analysis.h"},
-                      commentChildren = []}})
+                  structComment = Nothing})
               []),
           storablePoke = Lambda
             (NameHint "ptr")
@@ -1345,20 +1306,7 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Just
-                    Comment {
-                      commentTitle = Nothing,
-                      commentOrigin = Just
-                        "struct6_Deref",
-                      commentLocation = Just
-                        "typedef_analysis.h:25:16",
-                      commentHeaderInfo = Just
-                        HeaderInfo {
-                          headerMainHeaders = NE.fromList
-                            ["typedef_analysis.h"],
-                          headerInclude =
-                          "typedef_analysis.h"},
-                      commentChildren = []}}
+                  structComment = Nothing}
                 (Add 0)
                 (Seq [])))},
       defineInstanceComment =

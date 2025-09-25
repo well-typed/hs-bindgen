@@ -132,6 +132,10 @@ types:
   - Show
   - Storable
 - headers: reparse.h
+  cname: const_funptr1_Deref
+  module: Example
+  identifier: Const_funptr1_Deref
+- headers: reparse.h
   cname: const_funptr2
   module: Example
   identifier: Const_funptr2
@@ -140,6 +144,10 @@ types:
   - Ord
   - Show
   - Storable
+- headers: reparse.h
+  cname: const_funptr2_Deref
+  module: Example
+  identifier: Const_funptr2_Deref
 - headers: reparse.h
   cname: const_funptr3
   module: Example
@@ -150,6 +158,10 @@ types:
   - Show
   - Storable
 - headers: reparse.h
+  cname: const_funptr3_Deref
+  module: Example
+  identifier: Const_funptr3_Deref
+- headers: reparse.h
   cname: const_funptr4
   module: Example
   identifier: Const_funptr4
@@ -158,6 +170,10 @@ types:
   - Ord
   - Show
   - Storable
+- headers: reparse.h
+  cname: const_funptr4_Deref
+  module: Example
+  identifier: Const_funptr4_Deref
 - headers: reparse.h
   cname: const_funptr5
   module: Example
@@ -168,6 +184,10 @@ types:
   - Show
   - Storable
 - headers: reparse.h
+  cname: const_funptr5_Deref
+  module: Example
+  identifier: Const_funptr5_Deref
+- headers: reparse.h
   cname: const_funptr6
   module: Example
   identifier: Const_funptr6
@@ -177,6 +197,10 @@ types:
   - Show
   - Storable
 - headers: reparse.h
+  cname: const_funptr6_Deref
+  module: Example
+  identifier: Const_funptr6_Deref
+- headers: reparse.h
   cname: const_funptr7
   module: Example
   identifier: Const_funptr7
@@ -185,6 +209,10 @@ types:
   - Ord
   - Show
   - Storable
+- headers: reparse.h
+  cname: const_funptr7_Deref
+  module: Example
+  identifier: Const_funptr7_Deref
 - headers: reparse.h
   cname: const_typedef1
   module: Example
@@ -292,6 +320,10 @@ types:
   - Show
   - Storable
 - headers: reparse.h
+  cname: funptr_typedef1_Deref
+  module: Example
+  identifier: Funptr_typedef1_Deref
+- headers: reparse.h
   cname: funptr_typedef2
   module: Example
   identifier: Funptr_typedef2
@@ -300,6 +332,10 @@ types:
   - Ord
   - Show
   - Storable
+- headers: reparse.h
+  cname: funptr_typedef2_Deref
+  module: Example
+  identifier: Funptr_typedef2_Deref
 - headers: reparse.h
   cname: funptr_typedef3
   module: Example
@@ -310,6 +346,10 @@ types:
   - Show
   - Storable
 - headers: reparse.h
+  cname: funptr_typedef3_Deref
+  module: Example
+  identifier: Funptr_typedef3_Deref
+- headers: reparse.h
   cname: funptr_typedef4
   module: Example
   identifier: Funptr_typedef4
@@ -319,6 +359,10 @@ types:
   - Show
   - Storable
 - headers: reparse.h
+  cname: funptr_typedef4_Deref
+  module: Example
+  identifier: Funptr_typedef4_Deref
+- headers: reparse.h
   cname: funptr_typedef5
   module: Example
   identifier: Funptr_typedef5
@@ -327,6 +371,10 @@ types:
   - Ord
   - Show
   - Storable
+- headers: reparse.h
+  cname: funptr_typedef5_Deref
+  module: Example
+  identifier: Funptr_typedef5_Deref
 - headers: reparse.h
   cname: enum some_enum
   module: Example
