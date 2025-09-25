@@ -674,15 +674,16 @@
             ImpureFunction,
           functionRes = TypePointer
             (TypeTypedef
-              (TypedefSquashed
-                (Name "vector")
-                (TypeStruct
-                  NamePair {
-                    nameC = Name "vector",
-                    nameHsIdent = HsIdentifier
-                      "Vector"}
-                  (NameOriginGenerated
-                    (AnonId "vector.h:1:9")))))},
+              (Full
+                (TypedefSquashed
+                  (Name "vector")
+                  (TypeStruct
+                    NamePair {
+                      nameC = Name "vector",
+                      nameHsIdent = HsIdentifier
+                        "Vector"}
+                    (NameOriginGenerated
+                      (AnonId "vector.h:1:9"))))))},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -765,15 +766,16 @@
             ImpureFunction,
           functionRes = TypePointer
             (TypeTypedef
-              (TypedefSquashed
-                (Name "vector")
-                (TypeStruct
-                  NamePair {
-                    nameC = Name "vector",
-                    nameHsIdent = HsIdentifier
-                      "Vector"}
-                  (NameOriginGenerated
-                    (AnonId "vector.h:1:9")))))},
+              (Full
+                (TypedefSquashed
+                  (Name "vector")
+                  (TypeStruct
+                    NamePair {
+                      nameC = Name "vector",
+                      nameHsIdent = HsIdentifier
+                        "Vector"}
+                    (NameOriginGenerated
+                      (AnonId "vector.h:1:9"))))))},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -825,15 +827,16 @@
               (PrimFloating PrimDouble)]
           (TypePointer
             (TypeTypedef
-              (TypedefSquashed
-                (Name "vector")
-                (TypeStruct
-                  NamePair {
-                    nameC = Name "vector",
-                    nameHsIdent = HsIdentifier
-                      "Vector"}
-                  (NameOriginGenerated
-                    (AnonId "vector.h:1:9"))))))),
+              (Full
+                (TypedefSquashed
+                  (Name "vector")
+                  (TypeStruct
+                    NamePair {
+                      nameC = Name "vector",
+                      nameHsIdent = HsIdentifier
+                        "Vector"}
+                    (NameOriginGenerated
+                      (AnonId "vector.h:1:9")))))))),
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,

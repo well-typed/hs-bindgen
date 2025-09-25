@@ -2650,14 +2650,15 @@
                 "@NsVar"
                 "un_Struct9_t"},
             typedefType = TypeTypedef
-              (TypedefSquashed
-                (Name "struct9")
-                (TypeStruct
-                  NamePair {
-                    nameC = Name "struct9",
-                    nameHsIdent = HsIdentifier
-                      "Struct9"}
-                  NameOriginInSource))},
+              (Full
+                (TypedefSquashed
+                  (Name "struct9")
+                  (TypeStruct
+                    NamePair {
+                      nameC = Name "struct9",
+                      nameHsIdent = HsIdentifier
+                        "Struct9"}
+                    NameOriginInSource)))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -3042,15 +3043,16 @@
                 "@NsVar"
                 "un_Struct10_t_t"},
             typedefType = TypeTypedef
-              (TypedefSquashed
-                (Name "struct10_t")
-                (TypeStruct
-                  NamePair {
-                    nameC = Name "struct10_t",
-                    nameHsIdent = HsIdentifier
-                      "Struct10_t"}
-                  (NameOriginRenamedFrom
-                    (Name "struct10"))))},
+              (Full
+                (TypedefSquashed
+                  (Name "struct10_t")
+                  (TypeStruct
+                    NamePair {
+                      nameC = Name "struct10_t",
+                      nameHsIdent = HsIdentifier
+                        "Struct10_t"}
+                    (NameOriginRenamedFrom
+                      (Name "struct10")))))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -3889,15 +3891,16 @@
                 fieldComment = Nothing},
               structFieldType = TypePointer
                 (TypeTypedef
-                  (TypedefSquashed
-                    (Name "struct12_t")
-                    (TypeStruct
-                      NamePair {
-                        nameC = Name "struct12_t",
-                        nameHsIdent = HsIdentifier
-                          "Struct12_t"}
-                      (NameOriginRenamedFrom
-                        (Name "struct12"))))),
+                  (Full
+                    (TypedefSquashed
+                      (Name "struct12_t")
+                      (TypeStruct
+                        NamePair {
+                          nameC = Name "struct12_t",
+                          nameHsIdent = HsIdentifier
+                            "Struct12_t"}
+                        (NameOriginRenamedFrom
+                          (Name "struct12")))))),
               structFieldOffset = 64,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -3967,15 +3970,16 @@
                     fieldComment = Nothing},
                   structFieldType = TypePointer
                     (TypeTypedef
-                      (TypedefSquashed
-                        (Name "struct12_t")
-                        (TypeStruct
-                          NamePair {
-                            nameC = Name "struct12_t",
-                            nameHsIdent = HsIdentifier
-                              "Struct12_t"}
-                          (NameOriginRenamedFrom
-                            (Name "struct12"))))),
+                      (Full
+                        (TypedefSquashed
+                          (Name "struct12_t")
+                          (TypeStruct
+                            NamePair {
+                              nameC = Name "struct12_t",
+                              nameHsIdent = HsIdentifier
+                                "Struct12_t"}
+                            (NameOriginRenamedFrom
+                              (Name "struct12")))))),
                   structFieldOffset = 64,
                   structFieldWidth = Nothing}],
               structFlam = Nothing},
@@ -4067,15 +4071,16 @@
                     fieldComment = Nothing},
                   structFieldType = TypePointer
                     (TypeTypedef
-                      (TypedefSquashed
-                        (Name "struct12_t")
-                        (TypeStruct
-                          NamePair {
-                            nameC = Name "struct12_t",
-                            nameHsIdent = HsIdentifier
-                              "Struct12_t"}
-                          (NameOriginRenamedFrom
-                            (Name "struct12"))))),
+                      (Full
+                        (TypedefSquashed
+                          (Name "struct12_t")
+                          (TypeStruct
+                            NamePair {
+                              nameC = Name "struct12_t",
+                              nameHsIdent = HsIdentifier
+                                "Struct12_t"}
+                            (NameOriginRenamedFrom
+                              (Name "struct12")))))),
                   structFieldOffset = 64,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -4145,15 +4150,16 @@
                         fieldComment = Nothing},
                       structFieldType = TypePointer
                         (TypeTypedef
-                          (TypedefSquashed
-                            (Name "struct12_t")
-                            (TypeStruct
-                              NamePair {
-                                nameC = Name "struct12_t",
-                                nameHsIdent = HsIdentifier
-                                  "Struct12_t"}
-                              (NameOriginRenamedFrom
-                                (Name "struct12"))))),
+                          (Full
+                            (TypedefSquashed
+                              (Name "struct12_t")
+                              (TypeStruct
+                                NamePair {
+                                  nameC = Name "struct12_t",
+                                  nameHsIdent = HsIdentifier
+                                    "Struct12_t"}
+                                (NameOriginRenamedFrom
+                                  (Name "struct12")))))),
                       structFieldOffset = 64,
                       structFieldWidth = Nothing}],
                   structFlam = Nothing},
@@ -4248,15 +4254,16 @@
                             fieldComment = Nothing},
                           structFieldType = TypePointer
                             (TypeTypedef
-                              (TypedefSquashed
-                                (Name "struct12_t")
-                                (TypeStruct
-                                  NamePair {
-                                    nameC = Name "struct12_t",
-                                    nameHsIdent = HsIdentifier
-                                      "Struct12_t"}
-                                  (NameOriginRenamedFrom
-                                    (Name "struct12"))))),
+                              (Full
+                                (TypedefSquashed
+                                  (Name "struct12_t")
+                                  (TypeStruct
+                                    NamePair {
+                                      nameC = Name "struct12_t",
+                                      nameHsIdent = HsIdentifier
+                                        "Struct12_t"}
+                                    (NameOriginRenamedFrom
+                                      (Name "struct12")))))),
                           structFieldOffset = 64,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -4326,15 +4333,16 @@
                                 fieldComment = Nothing},
                               structFieldType = TypePointer
                                 (TypeTypedef
-                                  (TypedefSquashed
-                                    (Name "struct12_t")
-                                    (TypeStruct
-                                      NamePair {
-                                        nameC = Name "struct12_t",
-                                        nameHsIdent = HsIdentifier
-                                          "Struct12_t"}
-                                      (NameOriginRenamedFrom
-                                        (Name "struct12"))))),
+                                  (Full
+                                    (TypedefSquashed
+                                      (Name "struct12_t")
+                                      (TypeStruct
+                                        NamePair {
+                                          nameC = Name "struct12_t",
+                                          nameHsIdent = HsIdentifier
+                                            "Struct12_t"}
+                                        (NameOriginRenamedFrom
+                                          (Name "struct12")))))),
                               structFieldOffset = 64,
                               structFieldWidth = Nothing}],
                           structFlam = Nothing},
@@ -4431,15 +4439,16 @@
                             fieldComment = Nothing},
                           structFieldType = TypePointer
                             (TypeTypedef
-                              (TypedefSquashed
-                                (Name "struct12_t")
-                                (TypeStruct
-                                  NamePair {
-                                    nameC = Name "struct12_t",
-                                    nameHsIdent = HsIdentifier
-                                      "Struct12_t"}
-                                  (NameOriginRenamedFrom
-                                    (Name "struct12"))))),
+                              (Full
+                                (TypedefSquashed
+                                  (Name "struct12_t")
+                                  (TypeStruct
+                                    NamePair {
+                                      nameC = Name "struct12_t",
+                                      nameHsIdent = HsIdentifier
+                                        "Struct12_t"}
+                                    (NameOriginRenamedFrom
+                                      (Name "struct12")))))),
                           structFieldOffset = 64,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -4509,15 +4518,16 @@
                                 fieldComment = Nothing},
                               structFieldType = TypePointer
                                 (TypeTypedef
-                                  (TypedefSquashed
-                                    (Name "struct12_t")
-                                    (TypeStruct
-                                      NamePair {
-                                        nameC = Name "struct12_t",
-                                        nameHsIdent = HsIdentifier
-                                          "Struct12_t"}
-                                      (NameOriginRenamedFrom
-                                        (Name "struct12"))))),
+                                  (Full
+                                    (TypedefSquashed
+                                      (Name "struct12_t")
+                                      (TypeStruct
+                                        NamePair {
+                                          nameC = Name "struct12_t",
+                                          nameHsIdent = HsIdentifier
+                                            "Struct12_t"}
+                                        (NameOriginRenamedFrom
+                                          (Name "struct12")))))),
                               structFieldOffset = 64,
                               structFieldWidth = Nothing}],
                           structFlam = Nothing},
@@ -4602,15 +4612,16 @@
                     "use_sites_useTypedef_struct1_t"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
-                (TypedefSquashed
-                  (Name "struct1_t")
-                  (TypeStruct
-                    NamePair {
-                      nameC = Name "struct1_t",
-                      nameHsIdent = HsIdentifier
-                        "Struct1_t"}
-                    (NameOriginRenamedFrom
-                      (Name "struct1")))),
+                (Full
+                  (TypedefSquashed
+                    (Name "struct1_t")
+                    (TypeStruct
+                      NamePair {
+                        nameC = Name "struct1_t",
+                        nameHsIdent = HsIdentifier
+                          "Struct1_t"}
+                      (NameOriginRenamedFrom
+                        (Name "struct1"))))),
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -4647,15 +4658,16 @@
                     "use_sites_useTypedef_struct2_t"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
-                (TypedefSquashed
-                  (Name "struct2_t")
-                  (TypeStruct
-                    NamePair {
-                      nameC = Name "struct2_t",
-                      nameHsIdent = HsIdentifier
-                        "Struct2_t"}
-                    (NameOriginRenamedFrom
-                      (Name "struct2")))),
+                (Full
+                  (TypedefSquashed
+                    (Name "struct2_t")
+                    (TypeStruct
+                      NamePair {
+                        nameC = Name "struct2_t",
+                        nameHsIdent = HsIdentifier
+                          "Struct2_t"}
+                      (NameOriginRenamedFrom
+                        (Name "struct2"))))),
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -4694,15 +4706,16 @@
                 fieldComment = Nothing},
               structFieldType = TypePointer
                 (TypeTypedef
-                  (TypedefSquashed
-                    (Name "struct3_t")
-                    (TypeStruct
-                      NamePair {
-                        nameC = Name "struct3_t",
-                        nameHsIdent = HsIdentifier
-                          "Struct3_t"}
-                      (NameOriginRenamedFrom
-                        (Name "struct3"))))),
+                  (Full
+                    (TypedefSquashed
+                      (Name "struct3_t")
+                      (TypeStruct
+                        NamePair {
+                          nameC = Name "struct3_t",
+                          nameHsIdent = HsIdentifier
+                            "Struct3_t"}
+                        (NameOriginRenamedFrom
+                          (Name "struct3")))))),
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -4741,15 +4754,16 @@
                 fieldComment = Nothing},
               structFieldType = TypePointer
                 (TypeTypedef
-                  (TypedefSquashed
-                    (Name "struct4_t")
-                    (TypeStruct
-                      NamePair {
-                        nameC = Name "struct4_t",
-                        nameHsIdent = HsIdentifier
-                          "Struct4_t"}
-                      (NameOriginRenamedFrom
-                        (Name "struct4"))))),
+                  (Full
+                    (TypedefSquashed
+                      (Name "struct4_t")
+                      (TypeStruct
+                        NamePair {
+                          nameC = Name "struct4_t",
+                          nameHsIdent = HsIdentifier
+                            "Struct4_t"}
+                        (NameOriginRenamedFrom
+                          (Name "struct4")))))),
               structFieldOffset = 64,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -4827,11 +4841,12 @@
                     "use_sites_useTypedef_struct5_t"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "struct5_t",
-                    nameHsIdent = HsIdentifier
-                      "Struct5_t"}),
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "struct5_t",
+                      nameHsIdent = HsIdentifier
+                        "Struct5_t"})),
               structFieldOffset = 128,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -4910,11 +4925,12 @@
                     "use_sites_useTypedef_struct6"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "struct6",
-                    nameHsIdent = HsIdentifier
-                      "Struct6"}),
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "struct6",
+                      nameHsIdent = HsIdentifier
+                        "Struct6"})),
               structFieldOffset = 192,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -4951,11 +4967,12 @@
                     "use_sites_useTypedef_struct7a"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "struct7a",
-                    nameHsIdent = HsIdentifier
-                      "Struct7a"}),
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "struct7a",
+                      nameHsIdent = HsIdentifier
+                        "Struct7a"})),
               structFieldOffset = 256,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -4992,11 +5009,12 @@
                     "use_sites_useTypedef_struct7b"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "struct7b",
-                    nameHsIdent = HsIdentifier
-                      "Struct7b"}),
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "struct7b",
+                      nameHsIdent = HsIdentifier
+                        "Struct7b"})),
               structFieldOffset = 256,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -5033,14 +5051,15 @@
                     "use_sites_useTypedef_struct8"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
-                (TypedefSquashed
-                  (Name "struct8")
-                  (TypeStruct
-                    NamePair {
-                      nameC = Name "struct8",
-                      nameHsIdent = HsIdentifier
-                        "Struct8"}
-                    NameOriginInSource)),
+                (Full
+                  (TypedefSquashed
+                    (Name "struct8")
+                    (TypeStruct
+                      NamePair {
+                        nameC = Name "struct8",
+                        nameHsIdent = HsIdentifier
+                          "Struct8"}
+                      NameOriginInSource))),
               structFieldOffset = 256,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -5077,11 +5096,12 @@
                     "use_sites_useTypedef_struct8b"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "struct8b",
-                    nameHsIdent = HsIdentifier
-                      "Struct8b"}),
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "struct8b",
+                      nameHsIdent = HsIdentifier
+                        "Struct8b"})),
               structFieldOffset = 256,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -5118,14 +5138,15 @@
                     "use_sites_useTypedef_struct9"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
-                (TypedefSquashed
-                  (Name "struct9")
-                  (TypeStruct
-                    NamePair {
-                      nameC = Name "struct9",
-                      nameHsIdent = HsIdentifier
-                        "Struct9"}
-                    NameOriginInSource)),
+                (Full
+                  (TypedefSquashed
+                    (Name "struct9")
+                    (TypeStruct
+                      NamePair {
+                        nameC = Name "struct9",
+                        nameHsIdent = HsIdentifier
+                          "Struct9"}
+                      NameOriginInSource))),
               structFieldOffset = 256,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -5162,11 +5183,12 @@
                     "use_sites_useTypedef_struct9_t"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "struct9_t",
-                    nameHsIdent = HsIdentifier
-                      "Struct9_t"}),
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "struct9_t",
+                      nameHsIdent = HsIdentifier
+                        "Struct9_t"})),
               structFieldOffset = 256,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -5203,15 +5225,16 @@
                     "use_sites_useTypedef_struct10_t"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
-                (TypedefSquashed
-                  (Name "struct10_t")
-                  (TypeStruct
-                    NamePair {
-                      nameC = Name "struct10_t",
-                      nameHsIdent = HsIdentifier
-                        "Struct10_t"}
-                    (NameOriginRenamedFrom
-                      (Name "struct10")))),
+                (Full
+                  (TypedefSquashed
+                    (Name "struct10_t")
+                    (TypeStruct
+                      NamePair {
+                        nameC = Name "struct10_t",
+                        nameHsIdent = HsIdentifier
+                          "Struct10_t"}
+                      (NameOriginRenamedFrom
+                        (Name "struct10"))))),
               structFieldOffset = 256,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -5248,11 +5271,12 @@
                     "use_sites_useTypedef_struct10_t_t"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "struct10_t_t",
-                    nameHsIdent = HsIdentifier
-                      "Struct10_t_t"}),
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "struct10_t_t",
+                      nameHsIdent = HsIdentifier
+                        "Struct10_t_t"})),
               structFieldOffset = 256,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -5289,15 +5313,16 @@
                     "use_sites_useTypedef_struct11_t"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
-                (TypedefSquashed
-                  (Name "struct11_t")
-                  (TypeStruct
-                    NamePair {
-                      nameC = Name "struct11_t",
-                      nameHsIdent = HsIdentifier
-                        "Struct11_t"}
-                    (NameOriginRenamedFrom
-                      (Name "struct11")))),
+                (Full
+                  (TypedefSquashed
+                    (Name "struct11_t")
+                    (TypeStruct
+                      NamePair {
+                        nameC = Name "struct11_t",
+                        nameHsIdent = HsIdentifier
+                          "Struct11_t"}
+                      (NameOriginRenamedFrom
+                        (Name "struct11"))))),
               structFieldOffset = 256,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -5334,15 +5359,16 @@
                     "use_sites_useTypedef_struct12_t"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
-                (TypedefSquashed
-                  (Name "struct12_t")
-                  (TypeStruct
-                    NamePair {
-                      nameC = Name "struct12_t",
-                      nameHsIdent = HsIdentifier
-                        "Struct12_t"}
-                    (NameOriginRenamedFrom
-                      (Name "struct12")))),
+                (Full
+                  (TypedefSquashed
+                    (Name "struct12_t")
+                    (TypeStruct
+                      NamePair {
+                        nameC = Name "struct12_t",
+                        nameHsIdent = HsIdentifier
+                          "Struct12_t"}
+                      (NameOriginRenamedFrom
+                        (Name "struct12"))))),
               structFieldOffset = 384,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -5397,15 +5423,16 @@
                         "use_sites_useTypedef_struct1_t"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
-                    (TypedefSquashed
-                      (Name "struct1_t")
-                      (TypeStruct
-                        NamePair {
-                          nameC = Name "struct1_t",
-                          nameHsIdent = HsIdentifier
-                            "Struct1_t"}
-                        (NameOriginRenamedFrom
-                          (Name "struct1")))),
+                    (Full
+                      (TypedefSquashed
+                        (Name "struct1_t")
+                        (TypeStruct
+                          NamePair {
+                            nameC = Name "struct1_t",
+                            nameHsIdent = HsIdentifier
+                              "Struct1_t"}
+                          (NameOriginRenamedFrom
+                            (Name "struct1"))))),
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
                 StructField {
@@ -5419,15 +5446,16 @@
                         "use_sites_useTypedef_struct2_t"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
-                    (TypedefSquashed
-                      (Name "struct2_t")
-                      (TypeStruct
-                        NamePair {
-                          nameC = Name "struct2_t",
-                          nameHsIdent = HsIdentifier
-                            "Struct2_t"}
-                        (NameOriginRenamedFrom
-                          (Name "struct2")))),
+                    (Full
+                      (TypedefSquashed
+                        (Name "struct2_t")
+                        (TypeStruct
+                          NamePair {
+                            nameC = Name "struct2_t",
+                            nameHsIdent = HsIdentifier
+                              "Struct2_t"}
+                          (NameOriginRenamedFrom
+                            (Name "struct2"))))),
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
                 StructField {
@@ -5442,15 +5470,16 @@
                     fieldComment = Nothing},
                   structFieldType = TypePointer
                     (TypeTypedef
-                      (TypedefSquashed
-                        (Name "struct3_t")
-                        (TypeStruct
-                          NamePair {
-                            nameC = Name "struct3_t",
-                            nameHsIdent = HsIdentifier
-                              "Struct3_t"}
-                          (NameOriginRenamedFrom
-                            (Name "struct3"))))),
+                      (Full
+                        (TypedefSquashed
+                          (Name "struct3_t")
+                          (TypeStruct
+                            NamePair {
+                              nameC = Name "struct3_t",
+                              nameHsIdent = HsIdentifier
+                                "Struct3_t"}
+                            (NameOriginRenamedFrom
+                              (Name "struct3")))))),
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
                 StructField {
@@ -5465,15 +5494,16 @@
                     fieldComment = Nothing},
                   structFieldType = TypePointer
                     (TypeTypedef
-                      (TypedefSquashed
-                        (Name "struct4_t")
-                        (TypeStruct
-                          NamePair {
-                            nameC = Name "struct4_t",
-                            nameHsIdent = HsIdentifier
-                              "Struct4_t"}
-                          (NameOriginRenamedFrom
-                            (Name "struct4"))))),
+                      (Full
+                        (TypedefSquashed
+                          (Name "struct4_t")
+                          (TypeStruct
+                            NamePair {
+                              nameC = Name "struct4_t",
+                              nameHsIdent = HsIdentifier
+                                "Struct4_t"}
+                            (NameOriginRenamedFrom
+                              (Name "struct4")))))),
                   structFieldOffset = 64,
                   structFieldWidth = Nothing},
                 StructField {
@@ -5505,11 +5535,12 @@
                         "use_sites_useTypedef_struct5_t"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
-                    (TypedefRegular
-                      NamePair {
-                        nameC = Name "struct5_t",
-                        nameHsIdent = HsIdentifier
-                          "Struct5_t"}),
+                    (Full
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name "struct5_t",
+                          nameHsIdent = HsIdentifier
+                            "Struct5_t"})),
                   structFieldOffset = 128,
                   structFieldWidth = Nothing},
                 StructField {
@@ -5542,11 +5573,12 @@
                         "use_sites_useTypedef_struct6"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
-                    (TypedefRegular
-                      NamePair {
-                        nameC = Name "struct6",
-                        nameHsIdent = HsIdentifier
-                          "Struct6"}),
+                    (Full
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name "struct6",
+                          nameHsIdent = HsIdentifier
+                            "Struct6"})),
                   structFieldOffset = 192,
                   structFieldWidth = Nothing},
                 StructField {
@@ -5560,11 +5592,12 @@
                         "use_sites_useTypedef_struct7a"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
-                    (TypedefRegular
-                      NamePair {
-                        nameC = Name "struct7a",
-                        nameHsIdent = HsIdentifier
-                          "Struct7a"}),
+                    (Full
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name "struct7a",
+                          nameHsIdent = HsIdentifier
+                            "Struct7a"})),
                   structFieldOffset = 256,
                   structFieldWidth = Nothing},
                 StructField {
@@ -5578,11 +5611,12 @@
                         "use_sites_useTypedef_struct7b"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
-                    (TypedefRegular
-                      NamePair {
-                        nameC = Name "struct7b",
-                        nameHsIdent = HsIdentifier
-                          "Struct7b"}),
+                    (Full
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name "struct7b",
+                          nameHsIdent = HsIdentifier
+                            "Struct7b"})),
                   structFieldOffset = 256,
                   structFieldWidth = Nothing},
                 StructField {
@@ -5596,14 +5630,15 @@
                         "use_sites_useTypedef_struct8"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
-                    (TypedefSquashed
-                      (Name "struct8")
-                      (TypeStruct
-                        NamePair {
-                          nameC = Name "struct8",
-                          nameHsIdent = HsIdentifier
-                            "Struct8"}
-                        NameOriginInSource)),
+                    (Full
+                      (TypedefSquashed
+                        (Name "struct8")
+                        (TypeStruct
+                          NamePair {
+                            nameC = Name "struct8",
+                            nameHsIdent = HsIdentifier
+                              "Struct8"}
+                          NameOriginInSource))),
                   structFieldOffset = 256,
                   structFieldWidth = Nothing},
                 StructField {
@@ -5617,11 +5652,12 @@
                         "use_sites_useTypedef_struct8b"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
-                    (TypedefRegular
-                      NamePair {
-                        nameC = Name "struct8b",
-                        nameHsIdent = HsIdentifier
-                          "Struct8b"}),
+                    (Full
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name "struct8b",
+                          nameHsIdent = HsIdentifier
+                            "Struct8b"})),
                   structFieldOffset = 256,
                   structFieldWidth = Nothing},
                 StructField {
@@ -5635,14 +5671,15 @@
                         "use_sites_useTypedef_struct9"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
-                    (TypedefSquashed
-                      (Name "struct9")
-                      (TypeStruct
-                        NamePair {
-                          nameC = Name "struct9",
-                          nameHsIdent = HsIdentifier
-                            "Struct9"}
-                        NameOriginInSource)),
+                    (Full
+                      (TypedefSquashed
+                        (Name "struct9")
+                        (TypeStruct
+                          NamePair {
+                            nameC = Name "struct9",
+                            nameHsIdent = HsIdentifier
+                              "Struct9"}
+                          NameOriginInSource))),
                   structFieldOffset = 256,
                   structFieldWidth = Nothing},
                 StructField {
@@ -5656,11 +5693,12 @@
                         "use_sites_useTypedef_struct9_t"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
-                    (TypedefRegular
-                      NamePair {
-                        nameC = Name "struct9_t",
-                        nameHsIdent = HsIdentifier
-                          "Struct9_t"}),
+                    (Full
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name "struct9_t",
+                          nameHsIdent = HsIdentifier
+                            "Struct9_t"})),
                   structFieldOffset = 256,
                   structFieldWidth = Nothing},
                 StructField {
@@ -5674,15 +5712,16 @@
                         "use_sites_useTypedef_struct10_t"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
-                    (TypedefSquashed
-                      (Name "struct10_t")
-                      (TypeStruct
-                        NamePair {
-                          nameC = Name "struct10_t",
-                          nameHsIdent = HsIdentifier
-                            "Struct10_t"}
-                        (NameOriginRenamedFrom
-                          (Name "struct10")))),
+                    (Full
+                      (TypedefSquashed
+                        (Name "struct10_t")
+                        (TypeStruct
+                          NamePair {
+                            nameC = Name "struct10_t",
+                            nameHsIdent = HsIdentifier
+                              "Struct10_t"}
+                          (NameOriginRenamedFrom
+                            (Name "struct10"))))),
                   structFieldOffset = 256,
                   structFieldWidth = Nothing},
                 StructField {
@@ -5696,11 +5735,12 @@
                         "use_sites_useTypedef_struct10_t_t"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
-                    (TypedefRegular
-                      NamePair {
-                        nameC = Name "struct10_t_t",
-                        nameHsIdent = HsIdentifier
-                          "Struct10_t_t"}),
+                    (Full
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name "struct10_t_t",
+                          nameHsIdent = HsIdentifier
+                            "Struct10_t_t"})),
                   structFieldOffset = 256,
                   structFieldWidth = Nothing},
                 StructField {
@@ -5714,15 +5754,16 @@
                         "use_sites_useTypedef_struct11_t"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
-                    (TypedefSquashed
-                      (Name "struct11_t")
-                      (TypeStruct
-                        NamePair {
-                          nameC = Name "struct11_t",
-                          nameHsIdent = HsIdentifier
-                            "Struct11_t"}
-                        (NameOriginRenamedFrom
-                          (Name "struct11")))),
+                    (Full
+                      (TypedefSquashed
+                        (Name "struct11_t")
+                        (TypeStruct
+                          NamePair {
+                            nameC = Name "struct11_t",
+                            nameHsIdent = HsIdentifier
+                              "Struct11_t"}
+                          (NameOriginRenamedFrom
+                            (Name "struct11"))))),
                   structFieldOffset = 256,
                   structFieldWidth = Nothing},
                 StructField {
@@ -5736,15 +5777,16 @@
                         "use_sites_useTypedef_struct12_t"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
-                    (TypedefSquashed
-                      (Name "struct12_t")
-                      (TypeStruct
-                        NamePair {
-                          nameC = Name "struct12_t",
-                          nameHsIdent = HsIdentifier
-                            "Struct12_t"}
-                        (NameOriginRenamedFrom
-                          (Name "struct12")))),
+                    (Full
+                      (TypedefSquashed
+                        (Name "struct12_t")
+                        (TypeStruct
+                          NamePair {
+                            nameC = Name "struct12_t",
+                            nameHsIdent = HsIdentifier
+                              "Struct12_t"}
+                          (NameOriginRenamedFrom
+                            (Name "struct12"))))),
                   structFieldOffset = 384,
                   structFieldWidth = Nothing}],
               structFlam = Nothing},
@@ -5802,15 +5844,16 @@
                         "use_sites_useTypedef_struct1_t"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
-                    (TypedefSquashed
-                      (Name "struct1_t")
-                      (TypeStruct
-                        NamePair {
-                          nameC = Name "struct1_t",
-                          nameHsIdent = HsIdentifier
-                            "Struct1_t"}
-                        (NameOriginRenamedFrom
-                          (Name "struct1")))),
+                    (Full
+                      (TypedefSquashed
+                        (Name "struct1_t")
+                        (TypeStruct
+                          NamePair {
+                            nameC = Name "struct1_t",
+                            nameHsIdent = HsIdentifier
+                              "Struct1_t"}
+                          (NameOriginRenamedFrom
+                            (Name "struct1"))))),
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -5847,15 +5890,16 @@
                         "use_sites_useTypedef_struct2_t"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
-                    (TypedefSquashed
-                      (Name "struct2_t")
-                      (TypeStruct
-                        NamePair {
-                          nameC = Name "struct2_t",
-                          nameHsIdent = HsIdentifier
-                            "Struct2_t"}
-                        (NameOriginRenamedFrom
-                          (Name "struct2")))),
+                    (Full
+                      (TypedefSquashed
+                        (Name "struct2_t")
+                        (TypeStruct
+                          NamePair {
+                            nameC = Name "struct2_t",
+                            nameHsIdent = HsIdentifier
+                              "Struct2_t"}
+                          (NameOriginRenamedFrom
+                            (Name "struct2"))))),
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -5894,15 +5938,16 @@
                     fieldComment = Nothing},
                   structFieldType = TypePointer
                     (TypeTypedef
-                      (TypedefSquashed
-                        (Name "struct3_t")
-                        (TypeStruct
-                          NamePair {
-                            nameC = Name "struct3_t",
-                            nameHsIdent = HsIdentifier
-                              "Struct3_t"}
-                          (NameOriginRenamedFrom
-                            (Name "struct3"))))),
+                      (Full
+                        (TypedefSquashed
+                          (Name "struct3_t")
+                          (TypeStruct
+                            NamePair {
+                              nameC = Name "struct3_t",
+                              nameHsIdent = HsIdentifier
+                                "Struct3_t"}
+                            (NameOriginRenamedFrom
+                              (Name "struct3")))))),
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -5941,15 +5986,16 @@
                     fieldComment = Nothing},
                   structFieldType = TypePointer
                     (TypeTypedef
-                      (TypedefSquashed
-                        (Name "struct4_t")
-                        (TypeStruct
-                          NamePair {
-                            nameC = Name "struct4_t",
-                            nameHsIdent = HsIdentifier
-                              "Struct4_t"}
-                          (NameOriginRenamedFrom
-                            (Name "struct4"))))),
+                      (Full
+                        (TypedefSquashed
+                          (Name "struct4_t")
+                          (TypeStruct
+                            NamePair {
+                              nameC = Name "struct4_t",
+                              nameHsIdent = HsIdentifier
+                                "Struct4_t"}
+                            (NameOriginRenamedFrom
+                              (Name "struct4")))))),
                   structFieldOffset = 64,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -6027,11 +6073,12 @@
                         "use_sites_useTypedef_struct5_t"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
-                    (TypedefRegular
-                      NamePair {
-                        nameC = Name "struct5_t",
-                        nameHsIdent = HsIdentifier
-                          "Struct5_t"}),
+                    (Full
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name "struct5_t",
+                          nameHsIdent = HsIdentifier
+                            "Struct5_t"})),
                   structFieldOffset = 128,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -6110,11 +6157,12 @@
                         "use_sites_useTypedef_struct6"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
-                    (TypedefRegular
-                      NamePair {
-                        nameC = Name "struct6",
-                        nameHsIdent = HsIdentifier
-                          "Struct6"}),
+                    (Full
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name "struct6",
+                          nameHsIdent = HsIdentifier
+                            "Struct6"})),
                   structFieldOffset = 192,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -6151,11 +6199,12 @@
                         "use_sites_useTypedef_struct7a"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
-                    (TypedefRegular
-                      NamePair {
-                        nameC = Name "struct7a",
-                        nameHsIdent = HsIdentifier
-                          "Struct7a"}),
+                    (Full
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name "struct7a",
+                          nameHsIdent = HsIdentifier
+                            "Struct7a"})),
                   structFieldOffset = 256,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -6192,11 +6241,12 @@
                         "use_sites_useTypedef_struct7b"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
-                    (TypedefRegular
-                      NamePair {
-                        nameC = Name "struct7b",
-                        nameHsIdent = HsIdentifier
-                          "Struct7b"}),
+                    (Full
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name "struct7b",
+                          nameHsIdent = HsIdentifier
+                            "Struct7b"})),
                   structFieldOffset = 256,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -6233,14 +6283,15 @@
                         "use_sites_useTypedef_struct8"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
-                    (TypedefSquashed
-                      (Name "struct8")
-                      (TypeStruct
-                        NamePair {
-                          nameC = Name "struct8",
-                          nameHsIdent = HsIdentifier
-                            "Struct8"}
-                        NameOriginInSource)),
+                    (Full
+                      (TypedefSquashed
+                        (Name "struct8")
+                        (TypeStruct
+                          NamePair {
+                            nameC = Name "struct8",
+                            nameHsIdent = HsIdentifier
+                              "Struct8"}
+                          NameOriginInSource))),
                   structFieldOffset = 256,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -6277,11 +6328,12 @@
                         "use_sites_useTypedef_struct8b"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
-                    (TypedefRegular
-                      NamePair {
-                        nameC = Name "struct8b",
-                        nameHsIdent = HsIdentifier
-                          "Struct8b"}),
+                    (Full
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name "struct8b",
+                          nameHsIdent = HsIdentifier
+                            "Struct8b"})),
                   structFieldOffset = 256,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -6318,14 +6370,15 @@
                         "use_sites_useTypedef_struct9"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
-                    (TypedefSquashed
-                      (Name "struct9")
-                      (TypeStruct
-                        NamePair {
-                          nameC = Name "struct9",
-                          nameHsIdent = HsIdentifier
-                            "Struct9"}
-                        NameOriginInSource)),
+                    (Full
+                      (TypedefSquashed
+                        (Name "struct9")
+                        (TypeStruct
+                          NamePair {
+                            nameC = Name "struct9",
+                            nameHsIdent = HsIdentifier
+                              "Struct9"}
+                          NameOriginInSource))),
                   structFieldOffset = 256,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -6362,11 +6415,12 @@
                         "use_sites_useTypedef_struct9_t"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
-                    (TypedefRegular
-                      NamePair {
-                        nameC = Name "struct9_t",
-                        nameHsIdent = HsIdentifier
-                          "Struct9_t"}),
+                    (Full
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name "struct9_t",
+                          nameHsIdent = HsIdentifier
+                            "Struct9_t"})),
                   structFieldOffset = 256,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -6403,15 +6457,16 @@
                         "use_sites_useTypedef_struct10_t"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
-                    (TypedefSquashed
-                      (Name "struct10_t")
-                      (TypeStruct
-                        NamePair {
-                          nameC = Name "struct10_t",
-                          nameHsIdent = HsIdentifier
-                            "Struct10_t"}
-                        (NameOriginRenamedFrom
-                          (Name "struct10")))),
+                    (Full
+                      (TypedefSquashed
+                        (Name "struct10_t")
+                        (TypeStruct
+                          NamePair {
+                            nameC = Name "struct10_t",
+                            nameHsIdent = HsIdentifier
+                              "Struct10_t"}
+                          (NameOriginRenamedFrom
+                            (Name "struct10"))))),
                   structFieldOffset = 256,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -6448,11 +6503,12 @@
                         "use_sites_useTypedef_struct10_t_t"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
-                    (TypedefRegular
-                      NamePair {
-                        nameC = Name "struct10_t_t",
-                        nameHsIdent = HsIdentifier
-                          "Struct10_t_t"}),
+                    (Full
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name "struct10_t_t",
+                          nameHsIdent = HsIdentifier
+                            "Struct10_t_t"})),
                   structFieldOffset = 256,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -6489,15 +6545,16 @@
                         "use_sites_useTypedef_struct11_t"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
-                    (TypedefSquashed
-                      (Name "struct11_t")
-                      (TypeStruct
-                        NamePair {
-                          nameC = Name "struct11_t",
-                          nameHsIdent = HsIdentifier
-                            "Struct11_t"}
-                        (NameOriginRenamedFrom
-                          (Name "struct11")))),
+                    (Full
+                      (TypedefSquashed
+                        (Name "struct11_t")
+                        (TypeStruct
+                          NamePair {
+                            nameC = Name "struct11_t",
+                            nameHsIdent = HsIdentifier
+                              "Struct11_t"}
+                          (NameOriginRenamedFrom
+                            (Name "struct11"))))),
                   structFieldOffset = 256,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -6534,15 +6591,16 @@
                         "use_sites_useTypedef_struct12_t"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
-                    (TypedefSquashed
-                      (Name "struct12_t")
-                      (TypeStruct
-                        NamePair {
-                          nameC = Name "struct12_t",
-                          nameHsIdent = HsIdentifier
-                            "Struct12_t"}
-                        (NameOriginRenamedFrom
-                          (Name "struct12")))),
+                    (Full
+                      (TypedefSquashed
+                        (Name "struct12_t")
+                        (TypeStruct
+                          NamePair {
+                            nameC = Name "struct12_t",
+                            nameHsIdent = HsIdentifier
+                              "Struct12_t"}
+                          (NameOriginRenamedFrom
+                            (Name "struct12"))))),
                   structFieldOffset = 384,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -6597,15 +6655,16 @@
                             "use_sites_useTypedef_struct1_t"},
                         fieldComment = Nothing},
                       structFieldType = TypeTypedef
-                        (TypedefSquashed
-                          (Name "struct1_t")
-                          (TypeStruct
-                            NamePair {
-                              nameC = Name "struct1_t",
-                              nameHsIdent = HsIdentifier
-                                "Struct1_t"}
-                            (NameOriginRenamedFrom
-                              (Name "struct1")))),
+                        (Full
+                          (TypedefSquashed
+                            (Name "struct1_t")
+                            (TypeStruct
+                              NamePair {
+                                nameC = Name "struct1_t",
+                                nameHsIdent = HsIdentifier
+                                  "Struct1_t"}
+                              (NameOriginRenamedFrom
+                                (Name "struct1"))))),
                       structFieldOffset = 0,
                       structFieldWidth = Nothing},
                     StructField {
@@ -6619,15 +6678,16 @@
                             "use_sites_useTypedef_struct2_t"},
                         fieldComment = Nothing},
                       structFieldType = TypeTypedef
-                        (TypedefSquashed
-                          (Name "struct2_t")
-                          (TypeStruct
-                            NamePair {
-                              nameC = Name "struct2_t",
-                              nameHsIdent = HsIdentifier
-                                "Struct2_t"}
-                            (NameOriginRenamedFrom
-                              (Name "struct2")))),
+                        (Full
+                          (TypedefSquashed
+                            (Name "struct2_t")
+                            (TypeStruct
+                              NamePair {
+                                nameC = Name "struct2_t",
+                                nameHsIdent = HsIdentifier
+                                  "Struct2_t"}
+                              (NameOriginRenamedFrom
+                                (Name "struct2"))))),
                       structFieldOffset = 0,
                       structFieldWidth = Nothing},
                     StructField {
@@ -6642,15 +6702,16 @@
                         fieldComment = Nothing},
                       structFieldType = TypePointer
                         (TypeTypedef
-                          (TypedefSquashed
-                            (Name "struct3_t")
-                            (TypeStruct
-                              NamePair {
-                                nameC = Name "struct3_t",
-                                nameHsIdent = HsIdentifier
-                                  "Struct3_t"}
-                              (NameOriginRenamedFrom
-                                (Name "struct3"))))),
+                          (Full
+                            (TypedefSquashed
+                              (Name "struct3_t")
+                              (TypeStruct
+                                NamePair {
+                                  nameC = Name "struct3_t",
+                                  nameHsIdent = HsIdentifier
+                                    "Struct3_t"}
+                                (NameOriginRenamedFrom
+                                  (Name "struct3")))))),
                       structFieldOffset = 0,
                       structFieldWidth = Nothing},
                     StructField {
@@ -6665,15 +6726,16 @@
                         fieldComment = Nothing},
                       structFieldType = TypePointer
                         (TypeTypedef
-                          (TypedefSquashed
-                            (Name "struct4_t")
-                            (TypeStruct
-                              NamePair {
-                                nameC = Name "struct4_t",
-                                nameHsIdent = HsIdentifier
-                                  "Struct4_t"}
-                              (NameOriginRenamedFrom
-                                (Name "struct4"))))),
+                          (Full
+                            (TypedefSquashed
+                              (Name "struct4_t")
+                              (TypeStruct
+                                NamePair {
+                                  nameC = Name "struct4_t",
+                                  nameHsIdent = HsIdentifier
+                                    "Struct4_t"}
+                                (NameOriginRenamedFrom
+                                  (Name "struct4")))))),
                       structFieldOffset = 64,
                       structFieldWidth = Nothing},
                     StructField {
@@ -6705,11 +6767,12 @@
                             "use_sites_useTypedef_struct5_t"},
                         fieldComment = Nothing},
                       structFieldType = TypeTypedef
-                        (TypedefRegular
-                          NamePair {
-                            nameC = Name "struct5_t",
-                            nameHsIdent = HsIdentifier
-                              "Struct5_t"}),
+                        (Full
+                          (TypedefRegular
+                            NamePair {
+                              nameC = Name "struct5_t",
+                              nameHsIdent = HsIdentifier
+                                "Struct5_t"})),
                       structFieldOffset = 128,
                       structFieldWidth = Nothing},
                     StructField {
@@ -6742,11 +6805,12 @@
                             "use_sites_useTypedef_struct6"},
                         fieldComment = Nothing},
                       structFieldType = TypeTypedef
-                        (TypedefRegular
-                          NamePair {
-                            nameC = Name "struct6",
-                            nameHsIdent = HsIdentifier
-                              "Struct6"}),
+                        (Full
+                          (TypedefRegular
+                            NamePair {
+                              nameC = Name "struct6",
+                              nameHsIdent = HsIdentifier
+                                "Struct6"})),
                       structFieldOffset = 192,
                       structFieldWidth = Nothing},
                     StructField {
@@ -6760,11 +6824,12 @@
                             "use_sites_useTypedef_struct7a"},
                         fieldComment = Nothing},
                       structFieldType = TypeTypedef
-                        (TypedefRegular
-                          NamePair {
-                            nameC = Name "struct7a",
-                            nameHsIdent = HsIdentifier
-                              "Struct7a"}),
+                        (Full
+                          (TypedefRegular
+                            NamePair {
+                              nameC = Name "struct7a",
+                              nameHsIdent = HsIdentifier
+                                "Struct7a"})),
                       structFieldOffset = 256,
                       structFieldWidth = Nothing},
                     StructField {
@@ -6778,11 +6843,12 @@
                             "use_sites_useTypedef_struct7b"},
                         fieldComment = Nothing},
                       structFieldType = TypeTypedef
-                        (TypedefRegular
-                          NamePair {
-                            nameC = Name "struct7b",
-                            nameHsIdent = HsIdentifier
-                              "Struct7b"}),
+                        (Full
+                          (TypedefRegular
+                            NamePair {
+                              nameC = Name "struct7b",
+                              nameHsIdent = HsIdentifier
+                                "Struct7b"})),
                       structFieldOffset = 256,
                       structFieldWidth = Nothing},
                     StructField {
@@ -6796,14 +6862,15 @@
                             "use_sites_useTypedef_struct8"},
                         fieldComment = Nothing},
                       structFieldType = TypeTypedef
-                        (TypedefSquashed
-                          (Name "struct8")
-                          (TypeStruct
-                            NamePair {
-                              nameC = Name "struct8",
-                              nameHsIdent = HsIdentifier
-                                "Struct8"}
-                            NameOriginInSource)),
+                        (Full
+                          (TypedefSquashed
+                            (Name "struct8")
+                            (TypeStruct
+                              NamePair {
+                                nameC = Name "struct8",
+                                nameHsIdent = HsIdentifier
+                                  "Struct8"}
+                              NameOriginInSource))),
                       structFieldOffset = 256,
                       structFieldWidth = Nothing},
                     StructField {
@@ -6817,11 +6884,12 @@
                             "use_sites_useTypedef_struct8b"},
                         fieldComment = Nothing},
                       structFieldType = TypeTypedef
-                        (TypedefRegular
-                          NamePair {
-                            nameC = Name "struct8b",
-                            nameHsIdent = HsIdentifier
-                              "Struct8b"}),
+                        (Full
+                          (TypedefRegular
+                            NamePair {
+                              nameC = Name "struct8b",
+                              nameHsIdent = HsIdentifier
+                                "Struct8b"})),
                       structFieldOffset = 256,
                       structFieldWidth = Nothing},
                     StructField {
@@ -6835,14 +6903,15 @@
                             "use_sites_useTypedef_struct9"},
                         fieldComment = Nothing},
                       structFieldType = TypeTypedef
-                        (TypedefSquashed
-                          (Name "struct9")
-                          (TypeStruct
-                            NamePair {
-                              nameC = Name "struct9",
-                              nameHsIdent = HsIdentifier
-                                "Struct9"}
-                            NameOriginInSource)),
+                        (Full
+                          (TypedefSquashed
+                            (Name "struct9")
+                            (TypeStruct
+                              NamePair {
+                                nameC = Name "struct9",
+                                nameHsIdent = HsIdentifier
+                                  "Struct9"}
+                              NameOriginInSource))),
                       structFieldOffset = 256,
                       structFieldWidth = Nothing},
                     StructField {
@@ -6856,11 +6925,12 @@
                             "use_sites_useTypedef_struct9_t"},
                         fieldComment = Nothing},
                       structFieldType = TypeTypedef
-                        (TypedefRegular
-                          NamePair {
-                            nameC = Name "struct9_t",
-                            nameHsIdent = HsIdentifier
-                              "Struct9_t"}),
+                        (Full
+                          (TypedefRegular
+                            NamePair {
+                              nameC = Name "struct9_t",
+                              nameHsIdent = HsIdentifier
+                                "Struct9_t"})),
                       structFieldOffset = 256,
                       structFieldWidth = Nothing},
                     StructField {
@@ -6874,15 +6944,16 @@
                             "use_sites_useTypedef_struct10_t"},
                         fieldComment = Nothing},
                       structFieldType = TypeTypedef
-                        (TypedefSquashed
-                          (Name "struct10_t")
-                          (TypeStruct
-                            NamePair {
-                              nameC = Name "struct10_t",
-                              nameHsIdent = HsIdentifier
-                                "Struct10_t"}
-                            (NameOriginRenamedFrom
-                              (Name "struct10")))),
+                        (Full
+                          (TypedefSquashed
+                            (Name "struct10_t")
+                            (TypeStruct
+                              NamePair {
+                                nameC = Name "struct10_t",
+                                nameHsIdent = HsIdentifier
+                                  "Struct10_t"}
+                              (NameOriginRenamedFrom
+                                (Name "struct10"))))),
                       structFieldOffset = 256,
                       structFieldWidth = Nothing},
                     StructField {
@@ -6896,11 +6967,12 @@
                             "use_sites_useTypedef_struct10_t_t"},
                         fieldComment = Nothing},
                       structFieldType = TypeTypedef
-                        (TypedefRegular
-                          NamePair {
-                            nameC = Name "struct10_t_t",
-                            nameHsIdent = HsIdentifier
-                              "Struct10_t_t"}),
+                        (Full
+                          (TypedefRegular
+                            NamePair {
+                              nameC = Name "struct10_t_t",
+                              nameHsIdent = HsIdentifier
+                                "Struct10_t_t"})),
                       structFieldOffset = 256,
                       structFieldWidth = Nothing},
                     StructField {
@@ -6914,15 +6986,16 @@
                             "use_sites_useTypedef_struct11_t"},
                         fieldComment = Nothing},
                       structFieldType = TypeTypedef
-                        (TypedefSquashed
-                          (Name "struct11_t")
-                          (TypeStruct
-                            NamePair {
-                              nameC = Name "struct11_t",
-                              nameHsIdent = HsIdentifier
-                                "Struct11_t"}
-                            (NameOriginRenamedFrom
-                              (Name "struct11")))),
+                        (Full
+                          (TypedefSquashed
+                            (Name "struct11_t")
+                            (TypeStruct
+                              NamePair {
+                                nameC = Name "struct11_t",
+                                nameHsIdent = HsIdentifier
+                                  "Struct11_t"}
+                              (NameOriginRenamedFrom
+                                (Name "struct11"))))),
                       structFieldOffset = 256,
                       structFieldWidth = Nothing},
                     StructField {
@@ -6936,15 +7009,16 @@
                             "use_sites_useTypedef_struct12_t"},
                         fieldComment = Nothing},
                       structFieldType = TypeTypedef
-                        (TypedefSquashed
-                          (Name "struct12_t")
-                          (TypeStruct
-                            NamePair {
-                              nameC = Name "struct12_t",
-                              nameHsIdent = HsIdentifier
-                                "Struct12_t"}
-                            (NameOriginRenamedFrom
-                              (Name "struct12")))),
+                        (Full
+                          (TypedefSquashed
+                            (Name "struct12_t")
+                            (TypeStruct
+                              NamePair {
+                                nameC = Name "struct12_t",
+                                nameHsIdent = HsIdentifier
+                                  "Struct12_t"}
+                              (NameOriginRenamedFrom
+                                (Name "struct12"))))),
                       structFieldOffset = 384,
                       structFieldWidth = Nothing}],
                   structFlam = Nothing},
@@ -7005,15 +7079,16 @@
                                 "use_sites_useTypedef_struct1_t"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
-                            (TypedefSquashed
-                              (Name "struct1_t")
-                              (TypeStruct
-                                NamePair {
-                                  nameC = Name "struct1_t",
-                                  nameHsIdent = HsIdentifier
-                                    "Struct1_t"}
-                                (NameOriginRenamedFrom
-                                  (Name "struct1")))),
+                            (Full
+                              (TypedefSquashed
+                                (Name "struct1_t")
+                                (TypeStruct
+                                  NamePair {
+                                    nameC = Name "struct1_t",
+                                    nameHsIdent = HsIdentifier
+                                      "Struct1_t"}
+                                  (NameOriginRenamedFrom
+                                    (Name "struct1"))))),
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -7050,15 +7125,16 @@
                                 "use_sites_useTypedef_struct2_t"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
-                            (TypedefSquashed
-                              (Name "struct2_t")
-                              (TypeStruct
-                                NamePair {
-                                  nameC = Name "struct2_t",
-                                  nameHsIdent = HsIdentifier
-                                    "Struct2_t"}
-                                (NameOriginRenamedFrom
-                                  (Name "struct2")))),
+                            (Full
+                              (TypedefSquashed
+                                (Name "struct2_t")
+                                (TypeStruct
+                                  NamePair {
+                                    nameC = Name "struct2_t",
+                                    nameHsIdent = HsIdentifier
+                                      "Struct2_t"}
+                                  (NameOriginRenamedFrom
+                                    (Name "struct2"))))),
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -7097,15 +7173,16 @@
                             fieldComment = Nothing},
                           structFieldType = TypePointer
                             (TypeTypedef
-                              (TypedefSquashed
-                                (Name "struct3_t")
-                                (TypeStruct
-                                  NamePair {
-                                    nameC = Name "struct3_t",
-                                    nameHsIdent = HsIdentifier
-                                      "Struct3_t"}
-                                  (NameOriginRenamedFrom
-                                    (Name "struct3"))))),
+                              (Full
+                                (TypedefSquashed
+                                  (Name "struct3_t")
+                                  (TypeStruct
+                                    NamePair {
+                                      nameC = Name "struct3_t",
+                                      nameHsIdent = HsIdentifier
+                                        "Struct3_t"}
+                                    (NameOriginRenamedFrom
+                                      (Name "struct3")))))),
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -7144,15 +7221,16 @@
                             fieldComment = Nothing},
                           structFieldType = TypePointer
                             (TypeTypedef
-                              (TypedefSquashed
-                                (Name "struct4_t")
-                                (TypeStruct
-                                  NamePair {
-                                    nameC = Name "struct4_t",
-                                    nameHsIdent = HsIdentifier
-                                      "Struct4_t"}
-                                  (NameOriginRenamedFrom
-                                    (Name "struct4"))))),
+                              (Full
+                                (TypedefSquashed
+                                  (Name "struct4_t")
+                                  (TypeStruct
+                                    NamePair {
+                                      nameC = Name "struct4_t",
+                                      nameHsIdent = HsIdentifier
+                                        "Struct4_t"}
+                                    (NameOriginRenamedFrom
+                                      (Name "struct4")))))),
                           structFieldOffset = 64,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -7230,11 +7308,12 @@
                                 "use_sites_useTypedef_struct5_t"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
-                            (TypedefRegular
-                              NamePair {
-                                nameC = Name "struct5_t",
-                                nameHsIdent = HsIdentifier
-                                  "Struct5_t"}),
+                            (Full
+                              (TypedefRegular
+                                NamePair {
+                                  nameC = Name "struct5_t",
+                                  nameHsIdent = HsIdentifier
+                                    "Struct5_t"})),
                           structFieldOffset = 128,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -7313,11 +7392,12 @@
                                 "use_sites_useTypedef_struct6"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
-                            (TypedefRegular
-                              NamePair {
-                                nameC = Name "struct6",
-                                nameHsIdent = HsIdentifier
-                                  "Struct6"}),
+                            (Full
+                              (TypedefRegular
+                                NamePair {
+                                  nameC = Name "struct6",
+                                  nameHsIdent = HsIdentifier
+                                    "Struct6"})),
                           structFieldOffset = 192,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -7354,11 +7434,12 @@
                                 "use_sites_useTypedef_struct7a"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
-                            (TypedefRegular
-                              NamePair {
-                                nameC = Name "struct7a",
-                                nameHsIdent = HsIdentifier
-                                  "Struct7a"}),
+                            (Full
+                              (TypedefRegular
+                                NamePair {
+                                  nameC = Name "struct7a",
+                                  nameHsIdent = HsIdentifier
+                                    "Struct7a"})),
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -7395,11 +7476,12 @@
                                 "use_sites_useTypedef_struct7b"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
-                            (TypedefRegular
-                              NamePair {
-                                nameC = Name "struct7b",
-                                nameHsIdent = HsIdentifier
-                                  "Struct7b"}),
+                            (Full
+                              (TypedefRegular
+                                NamePair {
+                                  nameC = Name "struct7b",
+                                  nameHsIdent = HsIdentifier
+                                    "Struct7b"})),
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -7436,14 +7518,15 @@
                                 "use_sites_useTypedef_struct8"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
-                            (TypedefSquashed
-                              (Name "struct8")
-                              (TypeStruct
-                                NamePair {
-                                  nameC = Name "struct8",
-                                  nameHsIdent = HsIdentifier
-                                    "Struct8"}
-                                NameOriginInSource)),
+                            (Full
+                              (TypedefSquashed
+                                (Name "struct8")
+                                (TypeStruct
+                                  NamePair {
+                                    nameC = Name "struct8",
+                                    nameHsIdent = HsIdentifier
+                                      "Struct8"}
+                                  NameOriginInSource))),
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -7480,11 +7563,12 @@
                                 "use_sites_useTypedef_struct8b"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
-                            (TypedefRegular
-                              NamePair {
-                                nameC = Name "struct8b",
-                                nameHsIdent = HsIdentifier
-                                  "Struct8b"}),
+                            (Full
+                              (TypedefRegular
+                                NamePair {
+                                  nameC = Name "struct8b",
+                                  nameHsIdent = HsIdentifier
+                                    "Struct8b"})),
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -7521,14 +7605,15 @@
                                 "use_sites_useTypedef_struct9"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
-                            (TypedefSquashed
-                              (Name "struct9")
-                              (TypeStruct
-                                NamePair {
-                                  nameC = Name "struct9",
-                                  nameHsIdent = HsIdentifier
-                                    "Struct9"}
-                                NameOriginInSource)),
+                            (Full
+                              (TypedefSquashed
+                                (Name "struct9")
+                                (TypeStruct
+                                  NamePair {
+                                    nameC = Name "struct9",
+                                    nameHsIdent = HsIdentifier
+                                      "Struct9"}
+                                  NameOriginInSource))),
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -7565,11 +7650,12 @@
                                 "use_sites_useTypedef_struct9_t"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
-                            (TypedefRegular
-                              NamePair {
-                                nameC = Name "struct9_t",
-                                nameHsIdent = HsIdentifier
-                                  "Struct9_t"}),
+                            (Full
+                              (TypedefRegular
+                                NamePair {
+                                  nameC = Name "struct9_t",
+                                  nameHsIdent = HsIdentifier
+                                    "Struct9_t"})),
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -7606,15 +7692,16 @@
                                 "use_sites_useTypedef_struct10_t"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
-                            (TypedefSquashed
-                              (Name "struct10_t")
-                              (TypeStruct
-                                NamePair {
-                                  nameC = Name "struct10_t",
-                                  nameHsIdent = HsIdentifier
-                                    "Struct10_t"}
-                                (NameOriginRenamedFrom
-                                  (Name "struct10")))),
+                            (Full
+                              (TypedefSquashed
+                                (Name "struct10_t")
+                                (TypeStruct
+                                  NamePair {
+                                    nameC = Name "struct10_t",
+                                    nameHsIdent = HsIdentifier
+                                      "Struct10_t"}
+                                  (NameOriginRenamedFrom
+                                    (Name "struct10"))))),
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -7651,11 +7738,12 @@
                                 "use_sites_useTypedef_struct10_t_t"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
-                            (TypedefRegular
-                              NamePair {
-                                nameC = Name "struct10_t_t",
-                                nameHsIdent = HsIdentifier
-                                  "Struct10_t_t"}),
+                            (Full
+                              (TypedefRegular
+                                NamePair {
+                                  nameC = Name "struct10_t_t",
+                                  nameHsIdent = HsIdentifier
+                                    "Struct10_t_t"})),
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -7692,15 +7780,16 @@
                                 "use_sites_useTypedef_struct11_t"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
-                            (TypedefSquashed
-                              (Name "struct11_t")
-                              (TypeStruct
-                                NamePair {
-                                  nameC = Name "struct11_t",
-                                  nameHsIdent = HsIdentifier
-                                    "Struct11_t"}
-                                (NameOriginRenamedFrom
-                                  (Name "struct11")))),
+                            (Full
+                              (TypedefSquashed
+                                (Name "struct11_t")
+                                (TypeStruct
+                                  NamePair {
+                                    nameC = Name "struct11_t",
+                                    nameHsIdent = HsIdentifier
+                                      "Struct11_t"}
+                                  (NameOriginRenamedFrom
+                                    (Name "struct11"))))),
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -7737,15 +7826,16 @@
                                 "use_sites_useTypedef_struct12_t"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
-                            (TypedefSquashed
-                              (Name "struct12_t")
-                              (TypeStruct
-                                NamePair {
-                                  nameC = Name "struct12_t",
-                                  nameHsIdent = HsIdentifier
-                                    "Struct12_t"}
-                                (NameOriginRenamedFrom
-                                  (Name "struct12")))),
+                            (Full
+                              (TypedefSquashed
+                                (Name "struct12_t")
+                                (TypeStruct
+                                  NamePair {
+                                    nameC = Name "struct12_t",
+                                    nameHsIdent = HsIdentifier
+                                      "Struct12_t"}
+                                  (NameOriginRenamedFrom
+                                    (Name "struct12"))))),
                           structFieldOffset = 384,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -7800,15 +7890,16 @@
                                     "use_sites_useTypedef_struct1_t"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
-                                (TypedefSquashed
-                                  (Name "struct1_t")
-                                  (TypeStruct
-                                    NamePair {
-                                      nameC = Name "struct1_t",
-                                      nameHsIdent = HsIdentifier
-                                        "Struct1_t"}
-                                    (NameOriginRenamedFrom
-                                      (Name "struct1")))),
+                                (Full
+                                  (TypedefSquashed
+                                    (Name "struct1_t")
+                                    (TypeStruct
+                                      NamePair {
+                                        nameC = Name "struct1_t",
+                                        nameHsIdent = HsIdentifier
+                                          "Struct1_t"}
+                                      (NameOriginRenamedFrom
+                                        (Name "struct1"))))),
                               structFieldOffset = 0,
                               structFieldWidth = Nothing},
                             StructField {
@@ -7822,15 +7913,16 @@
                                     "use_sites_useTypedef_struct2_t"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
-                                (TypedefSquashed
-                                  (Name "struct2_t")
-                                  (TypeStruct
-                                    NamePair {
-                                      nameC = Name "struct2_t",
-                                      nameHsIdent = HsIdentifier
-                                        "Struct2_t"}
-                                    (NameOriginRenamedFrom
-                                      (Name "struct2")))),
+                                (Full
+                                  (TypedefSquashed
+                                    (Name "struct2_t")
+                                    (TypeStruct
+                                      NamePair {
+                                        nameC = Name "struct2_t",
+                                        nameHsIdent = HsIdentifier
+                                          "Struct2_t"}
+                                      (NameOriginRenamedFrom
+                                        (Name "struct2"))))),
                               structFieldOffset = 0,
                               structFieldWidth = Nothing},
                             StructField {
@@ -7845,15 +7937,16 @@
                                 fieldComment = Nothing},
                               structFieldType = TypePointer
                                 (TypeTypedef
-                                  (TypedefSquashed
-                                    (Name "struct3_t")
-                                    (TypeStruct
-                                      NamePair {
-                                        nameC = Name "struct3_t",
-                                        nameHsIdent = HsIdentifier
-                                          "Struct3_t"}
-                                      (NameOriginRenamedFrom
-                                        (Name "struct3"))))),
+                                  (Full
+                                    (TypedefSquashed
+                                      (Name "struct3_t")
+                                      (TypeStruct
+                                        NamePair {
+                                          nameC = Name "struct3_t",
+                                          nameHsIdent = HsIdentifier
+                                            "Struct3_t"}
+                                        (NameOriginRenamedFrom
+                                          (Name "struct3")))))),
                               structFieldOffset = 0,
                               structFieldWidth = Nothing},
                             StructField {
@@ -7868,15 +7961,16 @@
                                 fieldComment = Nothing},
                               structFieldType = TypePointer
                                 (TypeTypedef
-                                  (TypedefSquashed
-                                    (Name "struct4_t")
-                                    (TypeStruct
-                                      NamePair {
-                                        nameC = Name "struct4_t",
-                                        nameHsIdent = HsIdentifier
-                                          "Struct4_t"}
-                                      (NameOriginRenamedFrom
-                                        (Name "struct4"))))),
+                                  (Full
+                                    (TypedefSquashed
+                                      (Name "struct4_t")
+                                      (TypeStruct
+                                        NamePair {
+                                          nameC = Name "struct4_t",
+                                          nameHsIdent = HsIdentifier
+                                            "Struct4_t"}
+                                        (NameOriginRenamedFrom
+                                          (Name "struct4")))))),
                               structFieldOffset = 64,
                               structFieldWidth = Nothing},
                             StructField {
@@ -7908,11 +8002,12 @@
                                     "use_sites_useTypedef_struct5_t"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
-                                (TypedefRegular
-                                  NamePair {
-                                    nameC = Name "struct5_t",
-                                    nameHsIdent = HsIdentifier
-                                      "Struct5_t"}),
+                                (Full
+                                  (TypedefRegular
+                                    NamePair {
+                                      nameC = Name "struct5_t",
+                                      nameHsIdent = HsIdentifier
+                                        "Struct5_t"})),
                               structFieldOffset = 128,
                               structFieldWidth = Nothing},
                             StructField {
@@ -7945,11 +8040,12 @@
                                     "use_sites_useTypedef_struct6"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
-                                (TypedefRegular
-                                  NamePair {
-                                    nameC = Name "struct6",
-                                    nameHsIdent = HsIdentifier
-                                      "Struct6"}),
+                                (Full
+                                  (TypedefRegular
+                                    NamePair {
+                                      nameC = Name "struct6",
+                                      nameHsIdent = HsIdentifier
+                                        "Struct6"})),
                               structFieldOffset = 192,
                               structFieldWidth = Nothing},
                             StructField {
@@ -7963,11 +8059,12 @@
                                     "use_sites_useTypedef_struct7a"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
-                                (TypedefRegular
-                                  NamePair {
-                                    nameC = Name "struct7a",
-                                    nameHsIdent = HsIdentifier
-                                      "Struct7a"}),
+                                (Full
+                                  (TypedefRegular
+                                    NamePair {
+                                      nameC = Name "struct7a",
+                                      nameHsIdent = HsIdentifier
+                                        "Struct7a"})),
                               structFieldOffset = 256,
                               structFieldWidth = Nothing},
                             StructField {
@@ -7981,11 +8078,12 @@
                                     "use_sites_useTypedef_struct7b"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
-                                (TypedefRegular
-                                  NamePair {
-                                    nameC = Name "struct7b",
-                                    nameHsIdent = HsIdentifier
-                                      "Struct7b"}),
+                                (Full
+                                  (TypedefRegular
+                                    NamePair {
+                                      nameC = Name "struct7b",
+                                      nameHsIdent = HsIdentifier
+                                        "Struct7b"})),
                               structFieldOffset = 256,
                               structFieldWidth = Nothing},
                             StructField {
@@ -7999,14 +8097,15 @@
                                     "use_sites_useTypedef_struct8"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
-                                (TypedefSquashed
-                                  (Name "struct8")
-                                  (TypeStruct
-                                    NamePair {
-                                      nameC = Name "struct8",
-                                      nameHsIdent = HsIdentifier
-                                        "Struct8"}
-                                    NameOriginInSource)),
+                                (Full
+                                  (TypedefSquashed
+                                    (Name "struct8")
+                                    (TypeStruct
+                                      NamePair {
+                                        nameC = Name "struct8",
+                                        nameHsIdent = HsIdentifier
+                                          "Struct8"}
+                                      NameOriginInSource))),
                               structFieldOffset = 256,
                               structFieldWidth = Nothing},
                             StructField {
@@ -8020,11 +8119,12 @@
                                     "use_sites_useTypedef_struct8b"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
-                                (TypedefRegular
-                                  NamePair {
-                                    nameC = Name "struct8b",
-                                    nameHsIdent = HsIdentifier
-                                      "Struct8b"}),
+                                (Full
+                                  (TypedefRegular
+                                    NamePair {
+                                      nameC = Name "struct8b",
+                                      nameHsIdent = HsIdentifier
+                                        "Struct8b"})),
                               structFieldOffset = 256,
                               structFieldWidth = Nothing},
                             StructField {
@@ -8038,14 +8138,15 @@
                                     "use_sites_useTypedef_struct9"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
-                                (TypedefSquashed
-                                  (Name "struct9")
-                                  (TypeStruct
-                                    NamePair {
-                                      nameC = Name "struct9",
-                                      nameHsIdent = HsIdentifier
-                                        "Struct9"}
-                                    NameOriginInSource)),
+                                (Full
+                                  (TypedefSquashed
+                                    (Name "struct9")
+                                    (TypeStruct
+                                      NamePair {
+                                        nameC = Name "struct9",
+                                        nameHsIdent = HsIdentifier
+                                          "Struct9"}
+                                      NameOriginInSource))),
                               structFieldOffset = 256,
                               structFieldWidth = Nothing},
                             StructField {
@@ -8059,11 +8160,12 @@
                                     "use_sites_useTypedef_struct9_t"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
-                                (TypedefRegular
-                                  NamePair {
-                                    nameC = Name "struct9_t",
-                                    nameHsIdent = HsIdentifier
-                                      "Struct9_t"}),
+                                (Full
+                                  (TypedefRegular
+                                    NamePair {
+                                      nameC = Name "struct9_t",
+                                      nameHsIdent = HsIdentifier
+                                        "Struct9_t"})),
                               structFieldOffset = 256,
                               structFieldWidth = Nothing},
                             StructField {
@@ -8077,15 +8179,16 @@
                                     "use_sites_useTypedef_struct10_t"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
-                                (TypedefSquashed
-                                  (Name "struct10_t")
-                                  (TypeStruct
-                                    NamePair {
-                                      nameC = Name "struct10_t",
-                                      nameHsIdent = HsIdentifier
-                                        "Struct10_t"}
-                                    (NameOriginRenamedFrom
-                                      (Name "struct10")))),
+                                (Full
+                                  (TypedefSquashed
+                                    (Name "struct10_t")
+                                    (TypeStruct
+                                      NamePair {
+                                        nameC = Name "struct10_t",
+                                        nameHsIdent = HsIdentifier
+                                          "Struct10_t"}
+                                      (NameOriginRenamedFrom
+                                        (Name "struct10"))))),
                               structFieldOffset = 256,
                               structFieldWidth = Nothing},
                             StructField {
@@ -8099,11 +8202,12 @@
                                     "use_sites_useTypedef_struct10_t_t"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
-                                (TypedefRegular
-                                  NamePair {
-                                    nameC = Name "struct10_t_t",
-                                    nameHsIdent = HsIdentifier
-                                      "Struct10_t_t"}),
+                                (Full
+                                  (TypedefRegular
+                                    NamePair {
+                                      nameC = Name "struct10_t_t",
+                                      nameHsIdent = HsIdentifier
+                                        "Struct10_t_t"})),
                               structFieldOffset = 256,
                               structFieldWidth = Nothing},
                             StructField {
@@ -8117,15 +8221,16 @@
                                     "use_sites_useTypedef_struct11_t"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
-                                (TypedefSquashed
-                                  (Name "struct11_t")
-                                  (TypeStruct
-                                    NamePair {
-                                      nameC = Name "struct11_t",
-                                      nameHsIdent = HsIdentifier
-                                        "Struct11_t"}
-                                    (NameOriginRenamedFrom
-                                      (Name "struct11")))),
+                                (Full
+                                  (TypedefSquashed
+                                    (Name "struct11_t")
+                                    (TypeStruct
+                                      NamePair {
+                                        nameC = Name "struct11_t",
+                                        nameHsIdent = HsIdentifier
+                                          "Struct11_t"}
+                                      (NameOriginRenamedFrom
+                                        (Name "struct11"))))),
                               structFieldOffset = 256,
                               structFieldWidth = Nothing},
                             StructField {
@@ -8139,15 +8244,16 @@
                                     "use_sites_useTypedef_struct12_t"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
-                                (TypedefSquashed
-                                  (Name "struct12_t")
-                                  (TypeStruct
-                                    NamePair {
-                                      nameC = Name "struct12_t",
-                                      nameHsIdent = HsIdentifier
-                                        "Struct12_t"}
-                                    (NameOriginRenamedFrom
-                                      (Name "struct12")))),
+                                (Full
+                                  (TypedefSquashed
+                                    (Name "struct12_t")
+                                    (TypeStruct
+                                      NamePair {
+                                        nameC = Name "struct12_t",
+                                        nameHsIdent = HsIdentifier
+                                          "Struct12_t"}
+                                      (NameOriginRenamedFrom
+                                        (Name "struct12"))))),
                               structFieldOffset = 384,
                               structFieldWidth = Nothing}],
                           structFlam = Nothing},
@@ -8226,15 +8332,16 @@
                                 "use_sites_useTypedef_struct1_t"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
-                            (TypedefSquashed
-                              (Name "struct1_t")
-                              (TypeStruct
-                                NamePair {
-                                  nameC = Name "struct1_t",
-                                  nameHsIdent = HsIdentifier
-                                    "Struct1_t"}
-                                (NameOriginRenamedFrom
-                                  (Name "struct1")))),
+                            (Full
+                              (TypedefSquashed
+                                (Name "struct1_t")
+                                (TypeStruct
+                                  NamePair {
+                                    nameC = Name "struct1_t",
+                                    nameHsIdent = HsIdentifier
+                                      "Struct1_t"}
+                                  (NameOriginRenamedFrom
+                                    (Name "struct1"))))),
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -8271,15 +8378,16 @@
                                 "use_sites_useTypedef_struct2_t"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
-                            (TypedefSquashed
-                              (Name "struct2_t")
-                              (TypeStruct
-                                NamePair {
-                                  nameC = Name "struct2_t",
-                                  nameHsIdent = HsIdentifier
-                                    "Struct2_t"}
-                                (NameOriginRenamedFrom
-                                  (Name "struct2")))),
+                            (Full
+                              (TypedefSquashed
+                                (Name "struct2_t")
+                                (TypeStruct
+                                  NamePair {
+                                    nameC = Name "struct2_t",
+                                    nameHsIdent = HsIdentifier
+                                      "Struct2_t"}
+                                  (NameOriginRenamedFrom
+                                    (Name "struct2"))))),
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -8318,15 +8426,16 @@
                             fieldComment = Nothing},
                           structFieldType = TypePointer
                             (TypeTypedef
-                              (TypedefSquashed
-                                (Name "struct3_t")
-                                (TypeStruct
-                                  NamePair {
-                                    nameC = Name "struct3_t",
-                                    nameHsIdent = HsIdentifier
-                                      "Struct3_t"}
-                                  (NameOriginRenamedFrom
-                                    (Name "struct3"))))),
+                              (Full
+                                (TypedefSquashed
+                                  (Name "struct3_t")
+                                  (TypeStruct
+                                    NamePair {
+                                      nameC = Name "struct3_t",
+                                      nameHsIdent = HsIdentifier
+                                        "Struct3_t"}
+                                    (NameOriginRenamedFrom
+                                      (Name "struct3")))))),
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -8365,15 +8474,16 @@
                             fieldComment = Nothing},
                           structFieldType = TypePointer
                             (TypeTypedef
-                              (TypedefSquashed
-                                (Name "struct4_t")
-                                (TypeStruct
-                                  NamePair {
-                                    nameC = Name "struct4_t",
-                                    nameHsIdent = HsIdentifier
-                                      "Struct4_t"}
-                                  (NameOriginRenamedFrom
-                                    (Name "struct4"))))),
+                              (Full
+                                (TypedefSquashed
+                                  (Name "struct4_t")
+                                  (TypeStruct
+                                    NamePair {
+                                      nameC = Name "struct4_t",
+                                      nameHsIdent = HsIdentifier
+                                        "Struct4_t"}
+                                    (NameOriginRenamedFrom
+                                      (Name "struct4")))))),
                           structFieldOffset = 64,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -8451,11 +8561,12 @@
                                 "use_sites_useTypedef_struct5_t"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
-                            (TypedefRegular
-                              NamePair {
-                                nameC = Name "struct5_t",
-                                nameHsIdent = HsIdentifier
-                                  "Struct5_t"}),
+                            (Full
+                              (TypedefRegular
+                                NamePair {
+                                  nameC = Name "struct5_t",
+                                  nameHsIdent = HsIdentifier
+                                    "Struct5_t"})),
                           structFieldOffset = 128,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -8534,11 +8645,12 @@
                                 "use_sites_useTypedef_struct6"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
-                            (TypedefRegular
-                              NamePair {
-                                nameC = Name "struct6",
-                                nameHsIdent = HsIdentifier
-                                  "Struct6"}),
+                            (Full
+                              (TypedefRegular
+                                NamePair {
+                                  nameC = Name "struct6",
+                                  nameHsIdent = HsIdentifier
+                                    "Struct6"})),
                           structFieldOffset = 192,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -8575,11 +8687,12 @@
                                 "use_sites_useTypedef_struct7a"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
-                            (TypedefRegular
-                              NamePair {
-                                nameC = Name "struct7a",
-                                nameHsIdent = HsIdentifier
-                                  "Struct7a"}),
+                            (Full
+                              (TypedefRegular
+                                NamePair {
+                                  nameC = Name "struct7a",
+                                  nameHsIdent = HsIdentifier
+                                    "Struct7a"})),
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -8616,11 +8729,12 @@
                                 "use_sites_useTypedef_struct7b"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
-                            (TypedefRegular
-                              NamePair {
-                                nameC = Name "struct7b",
-                                nameHsIdent = HsIdentifier
-                                  "Struct7b"}),
+                            (Full
+                              (TypedefRegular
+                                NamePair {
+                                  nameC = Name "struct7b",
+                                  nameHsIdent = HsIdentifier
+                                    "Struct7b"})),
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -8657,14 +8771,15 @@
                                 "use_sites_useTypedef_struct8"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
-                            (TypedefSquashed
-                              (Name "struct8")
-                              (TypeStruct
-                                NamePair {
-                                  nameC = Name "struct8",
-                                  nameHsIdent = HsIdentifier
-                                    "Struct8"}
-                                NameOriginInSource)),
+                            (Full
+                              (TypedefSquashed
+                                (Name "struct8")
+                                (TypeStruct
+                                  NamePair {
+                                    nameC = Name "struct8",
+                                    nameHsIdent = HsIdentifier
+                                      "Struct8"}
+                                  NameOriginInSource))),
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -8701,11 +8816,12 @@
                                 "use_sites_useTypedef_struct8b"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
-                            (TypedefRegular
-                              NamePair {
-                                nameC = Name "struct8b",
-                                nameHsIdent = HsIdentifier
-                                  "Struct8b"}),
+                            (Full
+                              (TypedefRegular
+                                NamePair {
+                                  nameC = Name "struct8b",
+                                  nameHsIdent = HsIdentifier
+                                    "Struct8b"})),
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -8742,14 +8858,15 @@
                                 "use_sites_useTypedef_struct9"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
-                            (TypedefSquashed
-                              (Name "struct9")
-                              (TypeStruct
-                                NamePair {
-                                  nameC = Name "struct9",
-                                  nameHsIdent = HsIdentifier
-                                    "Struct9"}
-                                NameOriginInSource)),
+                            (Full
+                              (TypedefSquashed
+                                (Name "struct9")
+                                (TypeStruct
+                                  NamePair {
+                                    nameC = Name "struct9",
+                                    nameHsIdent = HsIdentifier
+                                      "Struct9"}
+                                  NameOriginInSource))),
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -8786,11 +8903,12 @@
                                 "use_sites_useTypedef_struct9_t"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
-                            (TypedefRegular
-                              NamePair {
-                                nameC = Name "struct9_t",
-                                nameHsIdent = HsIdentifier
-                                  "Struct9_t"}),
+                            (Full
+                              (TypedefRegular
+                                NamePair {
+                                  nameC = Name "struct9_t",
+                                  nameHsIdent = HsIdentifier
+                                    "Struct9_t"})),
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -8827,15 +8945,16 @@
                                 "use_sites_useTypedef_struct10_t"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
-                            (TypedefSquashed
-                              (Name "struct10_t")
-                              (TypeStruct
-                                NamePair {
-                                  nameC = Name "struct10_t",
-                                  nameHsIdent = HsIdentifier
-                                    "Struct10_t"}
-                                (NameOriginRenamedFrom
-                                  (Name "struct10")))),
+                            (Full
+                              (TypedefSquashed
+                                (Name "struct10_t")
+                                (TypeStruct
+                                  NamePair {
+                                    nameC = Name "struct10_t",
+                                    nameHsIdent = HsIdentifier
+                                      "Struct10_t"}
+                                  (NameOriginRenamedFrom
+                                    (Name "struct10"))))),
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -8872,11 +8991,12 @@
                                 "use_sites_useTypedef_struct10_t_t"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
-                            (TypedefRegular
-                              NamePair {
-                                nameC = Name "struct10_t_t",
-                                nameHsIdent = HsIdentifier
-                                  "Struct10_t_t"}),
+                            (Full
+                              (TypedefRegular
+                                NamePair {
+                                  nameC = Name "struct10_t_t",
+                                  nameHsIdent = HsIdentifier
+                                    "Struct10_t_t"})),
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -8913,15 +9033,16 @@
                                 "use_sites_useTypedef_struct11_t"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
-                            (TypedefSquashed
-                              (Name "struct11_t")
-                              (TypeStruct
-                                NamePair {
-                                  nameC = Name "struct11_t",
-                                  nameHsIdent = HsIdentifier
-                                    "Struct11_t"}
-                                (NameOriginRenamedFrom
-                                  (Name "struct11")))),
+                            (Full
+                              (TypedefSquashed
+                                (Name "struct11_t")
+                                (TypeStruct
+                                  NamePair {
+                                    nameC = Name "struct11_t",
+                                    nameHsIdent = HsIdentifier
+                                      "Struct11_t"}
+                                  (NameOriginRenamedFrom
+                                    (Name "struct11"))))),
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -8958,15 +9079,16 @@
                                 "use_sites_useTypedef_struct12_t"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
-                            (TypedefSquashed
-                              (Name "struct12_t")
-                              (TypeStruct
-                                NamePair {
-                                  nameC = Name "struct12_t",
-                                  nameHsIdent = HsIdentifier
-                                    "Struct12_t"}
-                                (NameOriginRenamedFrom
-                                  (Name "struct12")))),
+                            (Full
+                              (TypedefSquashed
+                                (Name "struct12_t")
+                                (TypeStruct
+                                  NamePair {
+                                    nameC = Name "struct12_t",
+                                    nameHsIdent = HsIdentifier
+                                      "Struct12_t"}
+                                  (NameOriginRenamedFrom
+                                    (Name "struct12"))))),
                           structFieldOffset = 384,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -9021,15 +9143,16 @@
                                     "use_sites_useTypedef_struct1_t"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
-                                (TypedefSquashed
-                                  (Name "struct1_t")
-                                  (TypeStruct
-                                    NamePair {
-                                      nameC = Name "struct1_t",
-                                      nameHsIdent = HsIdentifier
-                                        "Struct1_t"}
-                                    (NameOriginRenamedFrom
-                                      (Name "struct1")))),
+                                (Full
+                                  (TypedefSquashed
+                                    (Name "struct1_t")
+                                    (TypeStruct
+                                      NamePair {
+                                        nameC = Name "struct1_t",
+                                        nameHsIdent = HsIdentifier
+                                          "Struct1_t"}
+                                      (NameOriginRenamedFrom
+                                        (Name "struct1"))))),
                               structFieldOffset = 0,
                               structFieldWidth = Nothing},
                             StructField {
@@ -9043,15 +9166,16 @@
                                     "use_sites_useTypedef_struct2_t"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
-                                (TypedefSquashed
-                                  (Name "struct2_t")
-                                  (TypeStruct
-                                    NamePair {
-                                      nameC = Name "struct2_t",
-                                      nameHsIdent = HsIdentifier
-                                        "Struct2_t"}
-                                    (NameOriginRenamedFrom
-                                      (Name "struct2")))),
+                                (Full
+                                  (TypedefSquashed
+                                    (Name "struct2_t")
+                                    (TypeStruct
+                                      NamePair {
+                                        nameC = Name "struct2_t",
+                                        nameHsIdent = HsIdentifier
+                                          "Struct2_t"}
+                                      (NameOriginRenamedFrom
+                                        (Name "struct2"))))),
                               structFieldOffset = 0,
                               structFieldWidth = Nothing},
                             StructField {
@@ -9066,15 +9190,16 @@
                                 fieldComment = Nothing},
                               structFieldType = TypePointer
                                 (TypeTypedef
-                                  (TypedefSquashed
-                                    (Name "struct3_t")
-                                    (TypeStruct
-                                      NamePair {
-                                        nameC = Name "struct3_t",
-                                        nameHsIdent = HsIdentifier
-                                          "Struct3_t"}
-                                      (NameOriginRenamedFrom
-                                        (Name "struct3"))))),
+                                  (Full
+                                    (TypedefSquashed
+                                      (Name "struct3_t")
+                                      (TypeStruct
+                                        NamePair {
+                                          nameC = Name "struct3_t",
+                                          nameHsIdent = HsIdentifier
+                                            "Struct3_t"}
+                                        (NameOriginRenamedFrom
+                                          (Name "struct3")))))),
                               structFieldOffset = 0,
                               structFieldWidth = Nothing},
                             StructField {
@@ -9089,15 +9214,16 @@
                                 fieldComment = Nothing},
                               structFieldType = TypePointer
                                 (TypeTypedef
-                                  (TypedefSquashed
-                                    (Name "struct4_t")
-                                    (TypeStruct
-                                      NamePair {
-                                        nameC = Name "struct4_t",
-                                        nameHsIdent = HsIdentifier
-                                          "Struct4_t"}
-                                      (NameOriginRenamedFrom
-                                        (Name "struct4"))))),
+                                  (Full
+                                    (TypedefSquashed
+                                      (Name "struct4_t")
+                                      (TypeStruct
+                                        NamePair {
+                                          nameC = Name "struct4_t",
+                                          nameHsIdent = HsIdentifier
+                                            "Struct4_t"}
+                                        (NameOriginRenamedFrom
+                                          (Name "struct4")))))),
                               structFieldOffset = 64,
                               structFieldWidth = Nothing},
                             StructField {
@@ -9129,11 +9255,12 @@
                                     "use_sites_useTypedef_struct5_t"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
-                                (TypedefRegular
-                                  NamePair {
-                                    nameC = Name "struct5_t",
-                                    nameHsIdent = HsIdentifier
-                                      "Struct5_t"}),
+                                (Full
+                                  (TypedefRegular
+                                    NamePair {
+                                      nameC = Name "struct5_t",
+                                      nameHsIdent = HsIdentifier
+                                        "Struct5_t"})),
                               structFieldOffset = 128,
                               structFieldWidth = Nothing},
                             StructField {
@@ -9166,11 +9293,12 @@
                                     "use_sites_useTypedef_struct6"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
-                                (TypedefRegular
-                                  NamePair {
-                                    nameC = Name "struct6",
-                                    nameHsIdent = HsIdentifier
-                                      "Struct6"}),
+                                (Full
+                                  (TypedefRegular
+                                    NamePair {
+                                      nameC = Name "struct6",
+                                      nameHsIdent = HsIdentifier
+                                        "Struct6"})),
                               structFieldOffset = 192,
                               structFieldWidth = Nothing},
                             StructField {
@@ -9184,11 +9312,12 @@
                                     "use_sites_useTypedef_struct7a"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
-                                (TypedefRegular
-                                  NamePair {
-                                    nameC = Name "struct7a",
-                                    nameHsIdent = HsIdentifier
-                                      "Struct7a"}),
+                                (Full
+                                  (TypedefRegular
+                                    NamePair {
+                                      nameC = Name "struct7a",
+                                      nameHsIdent = HsIdentifier
+                                        "Struct7a"})),
                               structFieldOffset = 256,
                               structFieldWidth = Nothing},
                             StructField {
@@ -9202,11 +9331,12 @@
                                     "use_sites_useTypedef_struct7b"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
-                                (TypedefRegular
-                                  NamePair {
-                                    nameC = Name "struct7b",
-                                    nameHsIdent = HsIdentifier
-                                      "Struct7b"}),
+                                (Full
+                                  (TypedefRegular
+                                    NamePair {
+                                      nameC = Name "struct7b",
+                                      nameHsIdent = HsIdentifier
+                                        "Struct7b"})),
                               structFieldOffset = 256,
                               structFieldWidth = Nothing},
                             StructField {
@@ -9220,14 +9350,15 @@
                                     "use_sites_useTypedef_struct8"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
-                                (TypedefSquashed
-                                  (Name "struct8")
-                                  (TypeStruct
-                                    NamePair {
-                                      nameC = Name "struct8",
-                                      nameHsIdent = HsIdentifier
-                                        "Struct8"}
-                                    NameOriginInSource)),
+                                (Full
+                                  (TypedefSquashed
+                                    (Name "struct8")
+                                    (TypeStruct
+                                      NamePair {
+                                        nameC = Name "struct8",
+                                        nameHsIdent = HsIdentifier
+                                          "Struct8"}
+                                      NameOriginInSource))),
                               structFieldOffset = 256,
                               structFieldWidth = Nothing},
                             StructField {
@@ -9241,11 +9372,12 @@
                                     "use_sites_useTypedef_struct8b"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
-                                (TypedefRegular
-                                  NamePair {
-                                    nameC = Name "struct8b",
-                                    nameHsIdent = HsIdentifier
-                                      "Struct8b"}),
+                                (Full
+                                  (TypedefRegular
+                                    NamePair {
+                                      nameC = Name "struct8b",
+                                      nameHsIdent = HsIdentifier
+                                        "Struct8b"})),
                               structFieldOffset = 256,
                               structFieldWidth = Nothing},
                             StructField {
@@ -9259,14 +9391,15 @@
                                     "use_sites_useTypedef_struct9"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
-                                (TypedefSquashed
-                                  (Name "struct9")
-                                  (TypeStruct
-                                    NamePair {
-                                      nameC = Name "struct9",
-                                      nameHsIdent = HsIdentifier
-                                        "Struct9"}
-                                    NameOriginInSource)),
+                                (Full
+                                  (TypedefSquashed
+                                    (Name "struct9")
+                                    (TypeStruct
+                                      NamePair {
+                                        nameC = Name "struct9",
+                                        nameHsIdent = HsIdentifier
+                                          "Struct9"}
+                                      NameOriginInSource))),
                               structFieldOffset = 256,
                               structFieldWidth = Nothing},
                             StructField {
@@ -9280,11 +9413,12 @@
                                     "use_sites_useTypedef_struct9_t"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
-                                (TypedefRegular
-                                  NamePair {
-                                    nameC = Name "struct9_t",
-                                    nameHsIdent = HsIdentifier
-                                      "Struct9_t"}),
+                                (Full
+                                  (TypedefRegular
+                                    NamePair {
+                                      nameC = Name "struct9_t",
+                                      nameHsIdent = HsIdentifier
+                                        "Struct9_t"})),
                               structFieldOffset = 256,
                               structFieldWidth = Nothing},
                             StructField {
@@ -9298,15 +9432,16 @@
                                     "use_sites_useTypedef_struct10_t"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
-                                (TypedefSquashed
-                                  (Name "struct10_t")
-                                  (TypeStruct
-                                    NamePair {
-                                      nameC = Name "struct10_t",
-                                      nameHsIdent = HsIdentifier
-                                        "Struct10_t"}
-                                    (NameOriginRenamedFrom
-                                      (Name "struct10")))),
+                                (Full
+                                  (TypedefSquashed
+                                    (Name "struct10_t")
+                                    (TypeStruct
+                                      NamePair {
+                                        nameC = Name "struct10_t",
+                                        nameHsIdent = HsIdentifier
+                                          "Struct10_t"}
+                                      (NameOriginRenamedFrom
+                                        (Name "struct10"))))),
                               structFieldOffset = 256,
                               structFieldWidth = Nothing},
                             StructField {
@@ -9320,11 +9455,12 @@
                                     "use_sites_useTypedef_struct10_t_t"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
-                                (TypedefRegular
-                                  NamePair {
-                                    nameC = Name "struct10_t_t",
-                                    nameHsIdent = HsIdentifier
-                                      "Struct10_t_t"}),
+                                (Full
+                                  (TypedefRegular
+                                    NamePair {
+                                      nameC = Name "struct10_t_t",
+                                      nameHsIdent = HsIdentifier
+                                        "Struct10_t_t"})),
                               structFieldOffset = 256,
                               structFieldWidth = Nothing},
                             StructField {
@@ -9338,15 +9474,16 @@
                                     "use_sites_useTypedef_struct11_t"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
-                                (TypedefSquashed
-                                  (Name "struct11_t")
-                                  (TypeStruct
-                                    NamePair {
-                                      nameC = Name "struct11_t",
-                                      nameHsIdent = HsIdentifier
-                                        "Struct11_t"}
-                                    (NameOriginRenamedFrom
-                                      (Name "struct11")))),
+                                (Full
+                                  (TypedefSquashed
+                                    (Name "struct11_t")
+                                    (TypeStruct
+                                      NamePair {
+                                        nameC = Name "struct11_t",
+                                        nameHsIdent = HsIdentifier
+                                          "Struct11_t"}
+                                      (NameOriginRenamedFrom
+                                        (Name "struct11"))))),
                               structFieldOffset = 256,
                               structFieldWidth = Nothing},
                             StructField {
@@ -9360,15 +9497,16 @@
                                     "use_sites_useTypedef_struct12_t"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
-                                (TypedefSquashed
-                                  (Name "struct12_t")
-                                  (TypeStruct
-                                    NamePair {
-                                      nameC = Name "struct12_t",
-                                      nameHsIdent = HsIdentifier
-                                        "Struct12_t"}
-                                    (NameOriginRenamedFrom
-                                      (Name "struct12")))),
+                                (Full
+                                  (TypedefSquashed
+                                    (Name "struct12_t")
+                                    (TypeStruct
+                                      NamePair {
+                                        nameC = Name "struct12_t",
+                                        nameHsIdent = HsIdentifier
+                                          "Struct12_t"}
+                                      (NameOriginRenamedFrom
+                                        (Name "struct12"))))),
                               structFieldOffset = 384,
                               structFieldWidth = Nothing}],
                           structFlam = Nothing},

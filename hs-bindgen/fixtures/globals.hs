@@ -6370,15 +6370,16 @@
                     "struct1_t_version"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
-                (TypedefSquashed
-                  (Name "version_t")
-                  (TypeStruct
-                    NamePair {
-                      nameC = Name "version_t",
-                      nameHsIdent = HsIdentifier
-                        "Version_t"}
-                    (NameOriginGenerated
-                      (AnonId "globals.h:406:9")))),
+                (Full
+                  (TypedefSquashed
+                    (Name "version_t")
+                    (TypeStruct
+                      NamePair {
+                        nameC = Name "version_t",
+                        nameHsIdent = HsIdentifier
+                          "Version_t"}
+                      (NameOriginGenerated
+                        (AnonId "globals.h:406:9"))))),
               structFieldOffset = 32,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -6567,15 +6568,16 @@
                         "struct1_t_version"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
-                    (TypedefSquashed
-                      (Name "version_t")
-                      (TypeStruct
-                        NamePair {
-                          nameC = Name "version_t",
-                          nameHsIdent = HsIdentifier
-                            "Version_t"}
-                        (NameOriginGenerated
-                          (AnonId "globals.h:406:9")))),
+                    (Full
+                      (TypedefSquashed
+                        (Name "version_t")
+                        (TypeStruct
+                          NamePair {
+                            nameC = Name "version_t",
+                            nameHsIdent = HsIdentifier
+                              "Version_t"}
+                          (NameOriginGenerated
+                            (AnonId "globals.h:406:9"))))),
                   structFieldOffset = 32,
                   structFieldWidth = Nothing}],
               structFlam = Nothing},
@@ -6915,15 +6917,16 @@
                         "struct1_t_version"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
-                    (TypedefSquashed
-                      (Name "version_t")
-                      (TypeStruct
-                        NamePair {
-                          nameC = Name "version_t",
-                          nameHsIdent = HsIdentifier
-                            "Version_t"}
-                        (NameOriginGenerated
-                          (AnonId "globals.h:406:9")))),
+                    (Full
+                      (TypedefSquashed
+                        (Name "version_t")
+                        (TypeStruct
+                          NamePair {
+                            nameC = Name "version_t",
+                            nameHsIdent = HsIdentifier
+                              "Version_t"}
+                          (NameOriginGenerated
+                            (AnonId "globals.h:406:9"))))),
                   structFieldOffset = 32,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -7112,15 +7115,16 @@
                             "struct1_t_version"},
                         fieldComment = Nothing},
                       structFieldType = TypeTypedef
-                        (TypedefSquashed
-                          (Name "version_t")
-                          (TypeStruct
-                            NamePair {
-                              nameC = Name "version_t",
-                              nameHsIdent = HsIdentifier
-                                "Version_t"}
-                            (NameOriginGenerated
-                              (AnonId "globals.h:406:9")))),
+                        (Full
+                          (TypedefSquashed
+                            (Name "version_t")
+                            (TypeStruct
+                              NamePair {
+                                nameC = Name "version_t",
+                                nameHsIdent = HsIdentifier
+                                  "Version_t"}
+                              (NameOriginGenerated
+                                (AnonId "globals.h:406:9"))))),
                       structFieldOffset = 32,
                       structFieldWidth = Nothing}],
                   structFlam = Nothing},
@@ -7463,15 +7467,16 @@
                                 "struct1_t_version"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
-                            (TypedefSquashed
-                              (Name "version_t")
-                              (TypeStruct
-                                NamePair {
-                                  nameC = Name "version_t",
-                                  nameHsIdent = HsIdentifier
-                                    "Version_t"}
-                                (NameOriginGenerated
-                                  (AnonId "globals.h:406:9")))),
+                            (Full
+                              (TypedefSquashed
+                                (Name "version_t")
+                                (TypeStruct
+                                  NamePair {
+                                    nameC = Name "version_t",
+                                    nameHsIdent = HsIdentifier
+                                      "Version_t"}
+                                  (NameOriginGenerated
+                                    (AnonId "globals.h:406:9"))))),
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -7660,15 +7665,16 @@
                                     "struct1_t_version"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
-                                (TypedefSquashed
-                                  (Name "version_t")
-                                  (TypeStruct
-                                    NamePair {
-                                      nameC = Name "version_t",
-                                      nameHsIdent = HsIdentifier
-                                        "Version_t"}
-                                    (NameOriginGenerated
-                                      (AnonId "globals.h:406:9")))),
+                                (Full
+                                  (TypedefSquashed
+                                    (Name "version_t")
+                                    (TypeStruct
+                                      NamePair {
+                                        nameC = Name "version_t",
+                                        nameHsIdent = HsIdentifier
+                                          "Version_t"}
+                                      (NameOriginGenerated
+                                        (AnonId "globals.h:406:9"))))),
                               structFieldOffset = 32,
                               structFieldWidth = Nothing}],
                           structFlam = Nothing},
@@ -8014,15 +8020,16 @@
                                 "struct1_t_version"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
-                            (TypedefSquashed
-                              (Name "version_t")
-                              (TypeStruct
-                                NamePair {
-                                  nameC = Name "version_t",
-                                  nameHsIdent = HsIdentifier
-                                    "Version_t"}
-                                (NameOriginGenerated
-                                  (AnonId "globals.h:406:9")))),
+                            (Full
+                              (TypedefSquashed
+                                (Name "version_t")
+                                (TypeStruct
+                                  NamePair {
+                                    nameC = Name "version_t",
+                                    nameHsIdent = HsIdentifier
+                                      "Version_t"}
+                                  (NameOriginGenerated
+                                    (AnonId "globals.h:406:9"))))),
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -8211,15 +8218,16 @@
                                     "struct1_t_version"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
-                                (TypedefSquashed
-                                  (Name "version_t")
-                                  (TypeStruct
-                                    NamePair {
-                                      nameC = Name "version_t",
-                                      nameHsIdent = HsIdentifier
-                                        "Version_t"}
-                                    (NameOriginGenerated
-                                      (AnonId "globals.h:406:9")))),
+                                (Full
+                                  (TypedefSquashed
+                                    (Name "version_t")
+                                    (TypeStruct
+                                      NamePair {
+                                        nameC = Name "version_t",
+                                        nameHsIdent = HsIdentifier
+                                          "Version_t"}
+                                      (NameOriginGenerated
+                                        (AnonId "globals.h:406:9"))))),
                               structFieldOffset = 32,
                               structFieldWidth = Nothing}],
                           structFlam = Nothing},
@@ -8302,15 +8310,16 @@
                     "struct2_t_field1"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
-                (TypedefSquashed
-                  (Name "struct1_t")
-                  (TypeStruct
-                    NamePair {
-                      nameC = Name "struct1_t",
-                      nameHsIdent = HsIdentifier
-                        "Struct1_t"}
-                    (NameOriginGenerated
-                      (AnonId "globals.h:413:9")))),
+                (Full
+                  (TypedefSquashed
+                    (Name "struct1_t")
+                    (TypeStruct
+                      NamePair {
+                        nameC = Name "struct1_t",
+                        nameHsIdent = HsIdentifier
+                          "Struct1_t"}
+                      (NameOriginGenerated
+                        (AnonId "globals.h:413:9"))))),
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -8361,15 +8370,16 @@
                         "struct2_t_field1"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
-                    (TypedefSquashed
-                      (Name "struct1_t")
-                      (TypeStruct
-                        NamePair {
-                          nameC = Name "struct1_t",
-                          nameHsIdent = HsIdentifier
-                            "Struct1_t"}
-                        (NameOriginGenerated
-                          (AnonId "globals.h:413:9")))),
+                    (Full
+                      (TypedefSquashed
+                        (Name "struct1_t")
+                        (TypeStruct
+                          NamePair {
+                            nameC = Name "struct1_t",
+                            nameHsIdent = HsIdentifier
+                              "Struct1_t"}
+                          (NameOriginGenerated
+                            (AnonId "globals.h:413:9"))))),
                   structFieldOffset = 0,
                   structFieldWidth = Nothing}],
               structFlam = Nothing},
@@ -8424,15 +8434,16 @@
                         "struct2_t_field1"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
-                    (TypedefSquashed
-                      (Name "struct1_t")
-                      (TypeStruct
-                        NamePair {
-                          nameC = Name "struct1_t",
-                          nameHsIdent = HsIdentifier
-                            "Struct1_t"}
-                        (NameOriginGenerated
-                          (AnonId "globals.h:413:9")))),
+                    (Full
+                      (TypedefSquashed
+                        (Name "struct1_t")
+                        (TypeStruct
+                          NamePair {
+                            nameC = Name "struct1_t",
+                            nameHsIdent = HsIdentifier
+                              "Struct1_t"}
+                          (NameOriginGenerated
+                            (AnonId "globals.h:413:9"))))),
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -8483,15 +8494,16 @@
                             "struct2_t_field1"},
                         fieldComment = Nothing},
                       structFieldType = TypeTypedef
-                        (TypedefSquashed
-                          (Name "struct1_t")
-                          (TypeStruct
-                            NamePair {
-                              nameC = Name "struct1_t",
-                              nameHsIdent = HsIdentifier
-                                "Struct1_t"}
-                            (NameOriginGenerated
-                              (AnonId "globals.h:413:9")))),
+                        (Full
+                          (TypedefSquashed
+                            (Name "struct1_t")
+                            (TypeStruct
+                              NamePair {
+                                nameC = Name "struct1_t",
+                                nameHsIdent = HsIdentifier
+                                  "Struct1_t"}
+                              (NameOriginGenerated
+                                (AnonId "globals.h:413:9"))))),
                       structFieldOffset = 0,
                       structFieldWidth = Nothing}],
                   structFlam = Nothing},
@@ -8549,15 +8561,16 @@
                                 "struct2_t_field1"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
-                            (TypedefSquashed
-                              (Name "struct1_t")
-                              (TypeStruct
-                                NamePair {
-                                  nameC = Name "struct1_t",
-                                  nameHsIdent = HsIdentifier
-                                    "Struct1_t"}
-                                (NameOriginGenerated
-                                  (AnonId "globals.h:413:9")))),
+                            (Full
+                              (TypedefSquashed
+                                (Name "struct1_t")
+                                (TypeStruct
+                                  NamePair {
+                                    nameC = Name "struct1_t",
+                                    nameHsIdent = HsIdentifier
+                                      "Struct1_t"}
+                                  (NameOriginGenerated
+                                    (AnonId "globals.h:413:9"))))),
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -8608,15 +8621,16 @@
                                     "struct2_t_field1"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
-                                (TypedefSquashed
-                                  (Name "struct1_t")
-                                  (TypeStruct
-                                    NamePair {
-                                      nameC = Name "struct1_t",
-                                      nameHsIdent = HsIdentifier
-                                        "Struct1_t"}
-                                    (NameOriginGenerated
-                                      (AnonId "globals.h:413:9")))),
+                                (Full
+                                  (TypedefSquashed
+                                    (Name "struct1_t")
+                                    (TypeStruct
+                                      NamePair {
+                                        nameC = Name "struct1_t",
+                                        nameHsIdent = HsIdentifier
+                                          "Struct1_t"}
+                                      (NameOriginGenerated
+                                        (AnonId "globals.h:413:9"))))),
                               structFieldOffset = 0,
                               structFieldWidth = Nothing}],
                           structFlam = Nothing},
@@ -8674,15 +8688,16 @@
                                 "struct2_t_field1"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
-                            (TypedefSquashed
-                              (Name "struct1_t")
-                              (TypeStruct
-                                NamePair {
-                                  nameC = Name "struct1_t",
-                                  nameHsIdent = HsIdentifier
-                                    "Struct1_t"}
-                                (NameOriginGenerated
-                                  (AnonId "globals.h:413:9")))),
+                            (Full
+                              (TypedefSquashed
+                                (Name "struct1_t")
+                                (TypeStruct
+                                  NamePair {
+                                    nameC = Name "struct1_t",
+                                    nameHsIdent = HsIdentifier
+                                      "Struct1_t"}
+                                  (NameOriginGenerated
+                                    (AnonId "globals.h:413:9"))))),
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -8733,15 +8748,16 @@
                                     "struct2_t_field1"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
-                                (TypedefSquashed
-                                  (Name "struct1_t")
-                                  (TypeStruct
-                                    NamePair {
-                                      nameC = Name "struct1_t",
-                                      nameHsIdent = HsIdentifier
-                                        "Struct1_t"}
-                                    (NameOriginGenerated
-                                      (AnonId "globals.h:413:9")))),
+                                (Full
+                                  (TypedefSquashed
+                                    (Name "struct1_t")
+                                    (TypeStruct
+                                      NamePair {
+                                        nameC = Name "struct1_t",
+                                        nameHsIdent = HsIdentifier
+                                          "Struct1_t"}
+                                      (NameOriginGenerated
+                                        (AnonId "globals.h:413:9"))))),
                               structFieldOffset = 0,
                               structFieldWidth = Nothing}],
                           structFlam = Nothing},
@@ -11200,15 +11216,16 @@
           "globals.h"},
       foreignImportOrigin = Global
         (TypeTypedef
-          (TypedefSquashed
-            (Name "struct2_t")
-            (TypeStruct
-              NamePair {
-                nameC = Name "struct2_t",
-                nameHsIdent = HsIdentifier
-                  "Struct2_t"}
-              (NameOriginGenerated
-                (AnonId "globals.h:420:9"))))),
+          (Full
+            (TypedefSquashed
+              (Name "struct2_t")
+              (TypeStruct
+                NamePair {
+                  nameC = Name "struct2_t",
+                  nameHsIdent = HsIdentifier
+                    "Struct2_t"}
+                (NameOriginGenerated
+                  (AnonId "globals.h:420:9")))))),
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -11300,11 +11317,12 @@
           "globals.h"},
       foreignImportOrigin = Global
         (TypeTypedef
-          (TypedefRegular
-            NamePair {
-              nameC = Name "ConstInt",
-              nameHsIdent = HsIdentifier
-                "ConstInt"})),
+          (Full
+            (TypedefRegular
+              NamePair {
+                nameC = Name "ConstInt",
+                nameHsIdent = HsIdentifier
+                  "ConstInt"}))),
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -11495,11 +11513,12 @@
           "globals.h"},
       foreignImportOrigin = Global
         (TypeTypedef
-          (TypedefRegular
-            NamePair {
-              nameC = Name "ConstIntArray",
-              nameHsIdent = HsIdentifier
-                "ConstIntArray"})),
+          (Full
+            (TypedefRegular
+              NamePair {
+                nameC = Name "ConstIntArray",
+                nameHsIdent = HsIdentifier
+                  "ConstIntArray"}))),
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,

@@ -1,3 +1,5 @@
+{-# LANGUAGE EmptyCase #-}
+
 -- | The final C AST after the frontend is done
 --
 -- Intended for qualified import.
@@ -36,9 +38,17 @@ module HsBindgen.Frontend.AST.External (
   , Int.FunctionAttributes(..)
   , Int.FunctionPurity(..)
     -- * Types
-  , Type(..)
+  , Type
+  , TypeF(..)
   , ResolveBindingSpec.ResolvedExtBinding(..)
   , isVoid
+    -- ** Erasure
+  , Full(..)
+  , NoTypedefs
+  , eraseTypedefsRec
+  , eraseTypedefsRecEnvironment
+  , eraseTypedef
+  , weaken
     -- * Names
   , C.Name(..)
   , C.TypeNamespace(..)
@@ -61,11 +71,14 @@ module HsBindgen.Frontend.AST.External (
 
 import Prelude hiding (Enum)
 
+import Data.Map.Strict qualified as Map
+
 import Clang.HighLevel.Documentation
 import Clang.HighLevel.Types
 import Clang.Paths
 
 import HsBindgen.BindingSpec qualified as BindingSpec
+import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend.AST.Internal qualified as Int
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass qualified as ResolveBindingSpec
@@ -262,19 +275,21 @@ data CheckedMacroType = CheckedMacroType {
   Types
 -------------------------------------------------------------------------------}
 
+type Type = TypeF Full
+
 -- | Type use
 --
 -- For type /declarations/ see 'Decl'.
-data Type =
+data TypeF f =
     TypePrim C.PrimType
   | TypeStruct NamePair C.NameOrigin
   | TypeUnion NamePair C.NameOrigin
   | TypeEnum NamePair C.NameOrigin
-  | TypeTypedef TypedefRef
+  | TypeTypedef (f TypedefRef)
   | TypeMacroTypedef NamePair C.NameOrigin
-  | TypePointer Type
-  | TypeConstArray Natural Type
-  | TypeFun [Type] Type
+  | TypePointer (TypeF f)
+  | TypeConstArray Natural (TypeF f)
+  | TypeFun [TypeF f] (TypeF f)
   | TypeVoid
 
     -- | Arrays of unknown size
@@ -291,12 +306,15 @@ data Type =
     -- We treat the FLAM case separately.
     --
     -- See <https://en.cppreference.com/w/c/language/array#Arrays_of_unknown_size>
-  | TypeIncompleteArray Type
-  | TypeBlock Type
-  | TypeConst Type
+  | TypeIncompleteArray (TypeF f)
+  | TypeBlock (TypeF f)
+  | TypeConst (TypeF f)
   | TypeExtBinding ResolveBindingSpec.ResolvedExtBinding
   | TypeComplex C.PrimType
-  deriving stock (Show, Eq, Generic)
+  deriving stock Generic
+
+deriving stock instance (forall a. Show a => Show (f a)) => Show (TypeF f)
+deriving stock instance (forall a. Eq a => Eq (f a)) => Eq (TypeF f)
 
 data TypedefRef =
     TypedefRegular NamePair
@@ -306,6 +324,67 @@ data TypedefRef =
 isVoid :: Type -> Bool
 isVoid TypeVoid = True
 isVoid _        = False
+
+data Full a = Full a
+  deriving stock (Show, Eq, Generic)
+
+data NoTypedefs a
+
+weaken :: TypeF NoTypedefs -> Type
+weaken = go
+  where
+    go :: TypeF NoTypedefs -> Type
+    go ty = case ty of
+      TypePrim pt -> TypePrim pt
+      TypeStruct np no -> TypeStruct np no
+      TypeUnion np no -> TypeUnion np no
+      TypeEnum np no -> TypeEnum np no
+      TypeTypedef x -> case x of {}
+      TypeMacroTypedef np no -> TypeEnum np no
+      TypePointer t -> TypePointer $ go t
+      TypeConstArray n t -> TypeConstArray n $ go t
+      TypeFun args res -> TypeFun (go <$> args) (go res)
+      TypeVoid -> TypeVoid
+      TypeIncompleteArray t -> TypeIncompleteArray (go t)
+      TypeBlock t -> TypeBlock (go t)
+      TypeConst t -> TypeConst (go t)
+      TypeExtBinding reb -> TypeExtBinding reb
+      TypeComplex pt -> TypeComplex pt
+
+-- | Erase all typedefs in the given type
+eraseTypedefsRec :: Map C.Name Type -> Type -> TypeF NoTypedefs
+eraseTypedefsRec env = go
+  where
+    go ty = case ty of
+      TypePrim pt -> TypePrim pt
+      TypeStruct np no -> TypeStruct np no
+      TypeUnion np no -> TypeUnion np no
+      TypeEnum np no -> TypeEnum np no
+      TypeTypedef (Full tdr) -> go (eraseTypedef env tdr)
+      TypeMacroTypedef np no -> TypeEnum np no
+      TypePointer t -> TypePointer $ go t
+      TypeConstArray n t -> TypeConstArray n $ go t
+      TypeFun args res -> TypeFun (go <$> args) (go res)
+      TypeVoid -> TypeVoid
+      TypeIncompleteArray t -> TypeIncompleteArray (go t)
+      TypeBlock t -> TypeBlock (go t)
+      TypeConst t -> TypeConst (go t)
+      TypeExtBinding reb -> TypeExtBinding reb
+      TypeComplex pt -> TypeComplex pt
+
+eraseTypedefsRecEnvironment :: Map C.Name Type -> Map C.Name (TypeF NoTypedefs)
+eraseTypedefsRecEnvironment env = Map.map (eraseTypedefsRec env) env
+
+-- | Erase one layer of a typedef
+--
+-- TODO https://github.com/well-typed/hs-bindgen/issues/1050: Should we panic on
+-- unbound typedefs?
+eraseTypedef :: Map C.Name Type -> TypedefRef -> Type
+eraseTypedef env = \case
+      TypedefRegular n ->
+        let err = panicPure $ "Unbound typedef " ++ show n
+        in  Map.findWithDefault err (nameC n) env
+      TypedefSquashed _ t' -> t'
 
 {-------------------------------------------------------------------------------
   Identifiers

@@ -904,22 +904,6 @@ typedefDecs opts haddockConfig typedefs info typedef spec = do
           , clss `Set.member` insts
           ]
 
--- | Recursively unwrap the underlying type of a typedef.
---
--- TODO https://github.com/well-typed/hs-bindgen/issues/1050: Should we panic on
--- unbound typedefs?
-getUnderlyingType :: Map C.Name C.Type -> C.Type -> C.Type
-getUnderlyingType typedefs = go
-  where
-    go (C.TypeTypedef ref) = case ref of
-      C.TypedefRegular n ->
-        let err = panicPure $ "Unbound typedef " ++ show n
-            t'  = Map.findWithDefault err (C.nameC n) typedefs
-        in  go t'
-      C.TypedefSquashed _ t' ->
-        go t'
-    go t = t
-
 {-------------------------------------------------------------------------------
   Macros
 -------------------------------------------------------------------------------}
@@ -1036,9 +1020,9 @@ typ' :: HasCallStack => TypeContext -> Map C.Name C.Type -> C.Type -> Hs.HsType
 typ' ctx typedefs = go ctx
   where
     go :: TypeContext -> C.Type -> Hs.HsType
-    go _ (C.TypeTypedef (C.TypedefRegular name)) =
+    go _ (C.TypeTypedef (C.Full (C.TypedefRegular name))) =
         Hs.HsTypRef (C.nameHs name)
-    go c (C.TypeTypedef (C.TypedefSquashed _name ty)) =
+    go c (C.TypeTypedef (C.Full (C.TypedefSquashed _name ty))) =
         go c ty
     go _ (C.TypeStruct name _origin) =
         Hs.HsTypRef (C.nameHs name)
@@ -1052,13 +1036,9 @@ typ' ctx typedefs = go ctx
         Hs.HsPrimType (goVoid c)
     go _ (C.TypePrim p) =
         Hs.HsPrimType (goPrim p)
-    go _ (C.TypePointer t) = case t of
-        C.TypeTypedef (C.TypedefRegular C.NamePair { nameC })
-          | Just C.TypeFun{} <- Map.lookup nameC typedefs
-                      -> Hs.HsFunPtr (go CPtrArg t)
-          | otherwise -> Hs.HsPtr (go CPtrArg t)
-        C.TypeFun {}  -> Hs.HsFunPtr (go CPtrArg t)
-        _             -> Hs.HsPtr (go CPtrArg t)
+    go _ (C.TypePointer t) = case C.eraseTypedefsRec typedefs t of
+        C.TypeFun{} -> Hs.HsFunPtr (go CPtrArg t)
+        _ -> Hs.HsPtr (go CPtrArg t)
     go _ (C.TypeConstArray n ty) =
         Hs.HsConstArray n $ go CTop ty
     go _ (C.TypeIncompleteArray ty) =
@@ -1335,13 +1315,13 @@ functionDecs safety opts haddockConfig moduleName typedefs info f _spec =
     wrapType ty = go ty
       where
         go = \case
-          C.TypeStruct {}             -> HeapType ty
-          C.TypeUnion {}              -> HeapType ty
-          C.TypeComplex {}            -> HeapType ty
-          (C.TypeConstArray n ty')    -> CAType   ty n ty'
-          (C.TypeIncompleteArray ty') -> AType    ty ty'
-          (C.TypeTypedef _)           -> go $ getUnderlyingType typedefs ty
-          _                           -> WrapType ty
+          C.TypeStruct {}              -> HeapType ty
+          C.TypeUnion {}               -> HeapType ty
+          C.TypeComplex {}             -> HeapType ty
+          (C.TypeConstArray n ty')     -> CAType   ty n ty'
+          (C.TypeIncompleteArray ty')  -> AType    ty ty'
+          (C.TypeTypedef (C.Full ref)) -> go $ C.eraseTypedef typedefs ref
+          _                            -> WrapType ty
 
     resType :: ResultType HsType
     resType =
@@ -1471,13 +1451,14 @@ global ::
   -> C.DeclSpec
   -> [Hs.Decl]
 global opts haddockConfig moduleName instsMap typedefs info ty _spec =
-  let underlyingType = case ty of
-        C.TypeConstArray _ ty' -> ty'
-        otherType -> getUnderlyingType typedefs otherType
-  in case underlyingType of
-    -- Generate getter if the underlying type is @const@.
-    C.TypeConst _ -> stubDecs ++ getConstGetterOfType ty
-    _             -> stubDecs
+    case C.eraseTypedefsRec typedefs ty of
+      -- Generate getter if the erased type is @const@-qualified.
+      C.TypeConst _ -> stubDecs ++ getConstGetterOfType ty
+      -- Generate getter if the erased type of array elements is @const-qualified@
+      C.TypeConstArray _ (C.TypeConst _) -> stubDecs ++ getConstGetterOfType ty
+      C.TypeIncompleteArray (C.TypeConst _) -> stubDecs ++ getConstGetterOfType ty
+      -- Otherwise, do not generate a getter
+      _ -> stubDecs
   where
     -- *** Stub ***
     stubDecs :: [Hs.Decl]

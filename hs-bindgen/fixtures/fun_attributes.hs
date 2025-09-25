@@ -685,19 +685,21 @@
             _×_
               Nothing
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "size_t",
-                    nameHsIdent = HsIdentifier
-                      "Size_t"})),
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "size_t",
+                      nameHsIdent = HsIdentifier
+                        "Size_t"}))),
             _×_
               Nothing
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "size_t",
-                    nameHsIdent = HsIdentifier
-                      "Size_t"}))],
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "size_t",
+                      nameHsIdent = HsIdentifier
+                        "Size_t"})))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -760,19 +762,21 @@
             _×_
               Nothing
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "size_t",
-                    nameHsIdent = HsIdentifier
-                      "Size_t"})),
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "size_t",
+                      nameHsIdent = HsIdentifier
+                        "Size_t"}))),
             _×_
               Nothing
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "size_t",
-                    nameHsIdent = HsIdentifier
-                      "Size_t"}))],
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "size_t",
+                      nameHsIdent = HsIdentifier
+                        "Size_t"})))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -836,11 +840,12 @@
             _×_
               Nothing
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "size_t",
-                    nameHsIdent = HsIdentifier
-                      "Size_t"}))],
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "size_t",
+                      nameHsIdent = HsIdentifier
+                        "Size_t"})))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -895,11 +900,12 @@
             _×_
               Nothing
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "size_t",
-                    nameHsIdent = HsIdentifier
-                      "Size_t"}))],
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "size_t",
+                      nameHsIdent = HsIdentifier
+                        "Size_t"})))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -954,11 +960,12 @@
             _×_
               Nothing
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "size_t",
-                    nameHsIdent = HsIdentifier
-                      "Size_t"}))],
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "size_t",
+                      nameHsIdent = HsIdentifier
+                        "Size_t"})))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1219,16 +1226,17 @@
             ImpureFunction,
           functionRes = TypePointer
             (TypeTypedef
-              (TypedefSquashed
-                (Name "FILE")
-                (TypeStruct
-                  NamePair {
-                    nameC = Name "FILE",
-                    nameHsIdent = HsIdentifier
-                      "FILE"}
-                  (NameOriginGenerated
-                    (AnonId
-                      "fun_attributes.h:7:9")))))},
+              (Full
+                (TypedefSquashed
+                  (Name "FILE")
+                  (TypeStruct
+                    NamePair {
+                      nameC = Name "FILE",
+                      nameHsIdent = HsIdentifier
+                        "FILE"}
+                    (NameOriginGenerated
+                      (AnonId
+                        "fun_attributes.h:7:9"))))))},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -1365,11 +1373,12 @@
                   nameHsIdent = HsIdentifier
                     "len"})
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "size_t",
-                    nameHsIdent = HsIdentifier
-                      "Size_t"}))],
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "size_t",
+                      nameHsIdent = HsIdentifier
+                        "Size_t"})))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1535,11 +1544,12 @@
                   nameHsIdent = HsIdentifier
                     "len"})
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "size_t",
-                    nameHsIdent = HsIdentifier
-                      "Size_t"}))],
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "size_t",
+                      nameHsIdent = HsIdentifier
+                        "Size_t"})))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1999,19 +2009,21 @@
             _×_
               Nothing
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "size_t",
-                    nameHsIdent = HsIdentifier
-                      "Size_t"})),
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "size_t",
+                      nameHsIdent = HsIdentifier
+                        "Size_t"}))),
             _×_
               Nothing
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "size_t",
-                    nameHsIdent = HsIdentifier
-                      "Size_t"}))],
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "size_t",
+                      nameHsIdent = HsIdentifier
+                        "Size_t"})))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -2074,19 +2086,21 @@
             _×_
               Nothing
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "size_t",
-                    nameHsIdent = HsIdentifier
-                      "Size_t"})),
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "size_t",
+                      nameHsIdent = HsIdentifier
+                        "Size_t"}))),
             _×_
               Nothing
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "size_t",
-                    nameHsIdent = HsIdentifier
-                      "Size_t"}))],
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "size_t",
+                      nameHsIdent = HsIdentifier
+                        "Size_t"})))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -2150,11 +2164,12 @@
             _×_
               Nothing
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "size_t",
-                    nameHsIdent = HsIdentifier
-                      "Size_t"}))],
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "size_t",
+                      nameHsIdent = HsIdentifier
+                        "Size_t"})))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -2209,11 +2224,12 @@
             _×_
               Nothing
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "size_t",
-                    nameHsIdent = HsIdentifier
-                      "Size_t"}))],
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "size_t",
+                      nameHsIdent = HsIdentifier
+                        "Size_t"})))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -2268,11 +2284,12 @@
             _×_
               Nothing
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "size_t",
-                    nameHsIdent = HsIdentifier
-                      "Size_t"}))],
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "size_t",
+                      nameHsIdent = HsIdentifier
+                        "Size_t"})))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -2533,16 +2550,17 @@
             ImpureFunction,
           functionRes = TypePointer
             (TypeTypedef
-              (TypedefSquashed
-                (Name "FILE")
-                (TypeStruct
-                  NamePair {
-                    nameC = Name "FILE",
-                    nameHsIdent = HsIdentifier
-                      "FILE"}
-                  (NameOriginGenerated
-                    (AnonId
-                      "fun_attributes.h:7:9")))))},
+              (Full
+                (TypedefSquashed
+                  (Name "FILE")
+                  (TypeStruct
+                    NamePair {
+                      nameC = Name "FILE",
+                      nameHsIdent = HsIdentifier
+                        "FILE"}
+                    (NameOriginGenerated
+                      (AnonId
+                        "fun_attributes.h:7:9"))))))},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -2679,11 +2697,12 @@
                   nameHsIdent = HsIdentifier
                     "len"})
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "size_t",
-                    nameHsIdent = HsIdentifier
-                      "Size_t"}))],
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "size_t",
+                      nameHsIdent = HsIdentifier
+                        "Size_t"})))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -2849,11 +2868,12 @@
                   nameHsIdent = HsIdentifier
                     "len"})
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "size_t",
-                    nameHsIdent = HsIdentifier
-                      "Size_t"}))],
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "size_t",
+                      nameHsIdent = HsIdentifier
+                        "Size_t"})))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -3307,17 +3327,19 @@
         (TypeFun
           [
             TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
-                    "Size_t"}),
+              (Full
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "size_t",
+                    nameHsIdent = HsIdentifier
+                      "Size_t"})),
             TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
-                    "Size_t"})]
+              (Full
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "size_t",
+                    nameHsIdent = HsIdentifier
+                      "Size_t"}))]
           (TypePointer TypeVoid)),
       foreignImportComment = Just
         Comment {
@@ -3372,17 +3394,19 @@
         (TypeFun
           [
             TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
-                    "Size_t"}),
+              (Full
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "size_t",
+                    nameHsIdent = HsIdentifier
+                      "Size_t"})),
             TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
-                    "Size_t"})]
+              (Full
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "size_t",
+                    nameHsIdent = HsIdentifier
+                      "Size_t"}))]
           (TypePointer TypeVoid)),
       foreignImportComment = Just
         Comment {
@@ -3435,11 +3459,12 @@
           [
             TypePointer TypeVoid,
             TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
-                    "Size_t"})]
+              (Full
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "size_t",
+                    nameHsIdent = HsIdentifier
+                      "Size_t"}))]
           (TypePointer TypeVoid)),
       foreignImportComment = Just
         Comment {
@@ -3489,11 +3514,12 @@
         (TypeFun
           [
             TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
-                    "Size_t"})]
+              (Full
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "size_t",
+                    nameHsIdent = HsIdentifier
+                      "Size_t"}))]
           (TypePointer TypeVoid)),
       foreignImportComment = Just
         Comment {
@@ -3543,11 +3569,12 @@
         (TypeFun
           [
             TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
-                    "Size_t"})]
+              (Full
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "size_t",
+                    nameHsIdent = HsIdentifier
+                      "Size_t"}))]
           (TypePointer TypeVoid)),
       foreignImportComment = Just
         Comment {
@@ -3758,16 +3785,17 @@
                       (Just Signed)))))]
           (TypePointer
             (TypeTypedef
-              (TypedefSquashed
-                (Name "FILE")
-                (TypeStruct
-                  NamePair {
-                    nameC = Name "FILE",
-                    nameHsIdent = HsIdentifier
-                      "FILE"}
-                  (NameOriginGenerated
-                    (AnonId
-                      "fun_attributes.h:7:9"))))))),
+              (Full
+                (TypedefSquashed
+                  (Name "FILE")
+                  (TypeStruct
+                    NamePair {
+                      nameC = Name "FILE",
+                      nameHsIdent = HsIdentifier
+                        "FILE"}
+                    (NameOriginGenerated
+                      (AnonId
+                        "fun_attributes.h:7:9")))))))),
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -3861,11 +3889,12 @@
             TypePointer
               (TypeConst TypeVoid),
             TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
-                    "Size_t"})]
+              (Full
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "size_t",
+                    nameHsIdent = HsIdentifier
+                      "Size_t"}))]
           (TypePointer TypeVoid)),
       foreignImportComment = Just
         Comment {
@@ -4003,11 +4032,12 @@
         (TypeFun
           [
             TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
-                    "Size_t"})]
+              (Full
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "size_t",
+                    nameHsIdent = HsIdentifier
+                      "Size_t"}))]
           (TypePointer TypeVoid)),
       foreignImportComment = Just
         Comment {

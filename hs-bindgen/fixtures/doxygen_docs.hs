@@ -1341,12 +1341,13 @@
                 "un_Event_callback_t"},
             typedefType = TypePointer
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name
-                      "event_callback_t_Deref",
-                    nameHsIdent = HsIdentifier
-                      "Event_callback_t_Deref"}))},
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name
+                        "event_callback_t_Deref",
+                      nameHsIdent = HsIdentifier
+                        "Event_callback_t_Deref"})))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -2074,11 +2075,12 @@
                                   "Event_callback_t"})],
                       Paragraph [TextContent ""]])},
               structFieldType = TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "event_callback_t",
-                    nameHsIdent = HsIdentifier
-                      "Event_callback_t"}),
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "event_callback_t",
+                      nameHsIdent = HsIdentifier
+                        "Event_callback_t"})),
               structFieldOffset = 576,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -2516,11 +2518,12 @@
                                       "Event_callback_t"})],
                           Paragraph [TextContent ""]])},
                   structFieldType = TypeTypedef
-                    (TypedefRegular
-                      NamePair {
-                        nameC = Name "event_callback_t",
-                        nameHsIdent = HsIdentifier
-                          "Event_callback_t"}),
+                    (Full
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name "event_callback_t",
+                          nameHsIdent = HsIdentifier
+                            "Event_callback_t"})),
                   structFieldOffset = 576,
                   structFieldWidth = Nothing},
                 StructField {
@@ -3214,11 +3217,12 @@
                                       "Event_callback_t"})],
                           Paragraph [TextContent ""]])},
                   structFieldType = TypeTypedef
-                    (TypedefRegular
-                      NamePair {
-                        nameC = Name "event_callback_t",
-                        nameHsIdent = HsIdentifier
-                          "Event_callback_t"}),
+                    (Full
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name "event_callback_t",
+                          nameHsIdent = HsIdentifier
+                            "Event_callback_t"})),
                   structFieldOffset = 576,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -3659,11 +3663,12 @@
                                           "Event_callback_t"})],
                               Paragraph [TextContent ""]])},
                       structFieldType = TypeTypedef
-                        (TypedefRegular
-                          NamePair {
-                            nameC = Name "event_callback_t",
-                            nameHsIdent = HsIdentifier
-                              "Event_callback_t"}),
+                        (Full
+                          (TypedefRegular
+                            NamePair {
+                              nameC = Name "event_callback_t",
+                              nameHsIdent = HsIdentifier
+                                "Event_callback_t"})),
                       structFieldOffset = 576,
                       structFieldWidth = Nothing},
                     StructField {
@@ -4361,11 +4366,12 @@
                                               "Event_callback_t"})],
                                   Paragraph [TextContent ""]])},
                           structFieldType = TypeTypedef
-                            (TypedefRegular
-                              NamePair {
-                                nameC = Name "event_callback_t",
-                                nameHsIdent = HsIdentifier
-                                  "Event_callback_t"}),
+                            (Full
+                              (TypedefRegular
+                                NamePair {
+                                  nameC = Name "event_callback_t",
+                                  nameHsIdent = HsIdentifier
+                                    "Event_callback_t"})),
                           structFieldOffset = 576,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -4806,11 +4812,12 @@
                                                   "Event_callback_t"})],
                                       Paragraph [TextContent ""]])},
                               structFieldType = TypeTypedef
-                                (TypedefRegular
-                                  NamePair {
-                                    nameC = Name "event_callback_t",
-                                    nameHsIdent = HsIdentifier
-                                      "Event_callback_t"}),
+                                (Full
+                                  (TypedefRegular
+                                    NamePair {
+                                      nameC = Name "event_callback_t",
+                                      nameHsIdent = HsIdentifier
+                                        "Event_callback_t"})),
                               structFieldOffset = 576,
                               structFieldWidth = Nothing},
                             StructField {
@@ -5515,11 +5522,12 @@
                                               "Event_callback_t"})],
                                   Paragraph [TextContent ""]])},
                           structFieldType = TypeTypedef
-                            (TypedefRegular
-                              NamePair {
-                                nameC = Name "event_callback_t",
-                                nameHsIdent = HsIdentifier
-                                  "Event_callback_t"}),
+                            (Full
+                              (TypedefRegular
+                                NamePair {
+                                  nameC = Name "event_callback_t",
+                                  nameHsIdent = HsIdentifier
+                                    "Event_callback_t"})),
                           structFieldOffset = 576,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -5960,11 +5968,12 @@
                                                   "Event_callback_t"})],
                                       Paragraph [TextContent ""]])},
                               structFieldType = TypeTypedef
-                                (TypedefRegular
-                                  NamePair {
-                                    nameC = Name "event_callback_t",
-                                    nameHsIdent = HsIdentifier
-                                      "Event_callback_t"}),
+                                (Full
+                                  (TypedefRegular
+                                    NamePair {
+                                      nameC = Name "event_callback_t",
+                                      nameHsIdent = HsIdentifier
+                                        "Event_callback_t"})),
                               structFieldOffset = 576,
                               structFieldWidth = Nothing},
                             StructField {
@@ -13122,12 +13131,13 @@
                 "un_Processor_fn_t"},
             typedefType = TypePointer
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name
-                      "processor_fn_t_Deref",
-                    nameHsIdent = HsIdentifier
-                      "Processor_fn_t_Deref"}))},
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name
+                        "processor_fn_t_Deref",
+                      nameHsIdent = HsIdentifier
+                        "Processor_fn_t_Deref"})))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -19033,16 +19043,17 @@
                     "config"})
               (TypePointer
                 (TypeTypedef
-                  (TypedefSquashed
-                    (Name "config_t")
-                    (TypeStruct
-                      NamePair {
-                        nameC = Name "config_t",
-                        nameHsIdent = HsIdentifier
-                          "Config_t"}
-                      (NameOriginGenerated
-                        (AnonId
-                          "doxygen_docs.h:232:9")))))),
+                  (Full
+                    (TypedefSquashed
+                      (Name "config_t")
+                      (TypeStruct
+                        NamePair {
+                          nameC = Name "config_t",
+                          nameHsIdent = HsIdentifier
+                            "Config_t"}
+                        (NameOriginGenerated
+                          (AnonId
+                            "doxygen_docs.h:232:9"))))))),
             _×_
               (Just
                 NamePair {
@@ -19293,16 +19304,17 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeTypedef
-            (TypedefSquashed
-              (Name "status_code_t")
-              (TypeEnum
-                NamePair {
-                  nameC = Name "status_code_t",
-                  nameHsIdent = HsIdentifier
-                    "Status_code_t"}
-                (NameOriginGenerated
-                  (AnonId
-                    "doxygen_docs.h:258:9"))))},
+            (Full
+              (TypedefSquashed
+                (Name "status_code_t")
+                (TypeEnum
+                  NamePair {
+                    nameC = Name "status_code_t",
+                    nameHsIdent = HsIdentifier
+                      "Status_code_t"}
+                  (NameOriginGenerated
+                    (AnonId
+                      "doxygen_docs.h:258:9")))))},
       foreignImportComment =
       Just
         Comment {
@@ -22592,16 +22604,17 @@
                     "config"})
               (TypePointer
                 (TypeTypedef
-                  (TypedefSquashed
-                    (Name "config_t")
-                    (TypeStruct
-                      NamePair {
-                        nameC = Name "config_t",
-                        nameHsIdent = HsIdentifier
-                          "Config_t"}
-                      (NameOriginGenerated
-                        (AnonId
-                          "doxygen_docs.h:232:9")))))),
+                  (Full
+                    (TypedefSquashed
+                      (Name "config_t")
+                      (TypeStruct
+                        NamePair {
+                          nameC = Name "config_t",
+                          nameHsIdent = HsIdentifier
+                            "Config_t"}
+                        (NameOriginGenerated
+                          (AnonId
+                            "doxygen_docs.h:232:9"))))))),
             _×_
               (Just
                 NamePair {
@@ -22852,16 +22865,17 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeTypedef
-            (TypedefSquashed
-              (Name "status_code_t")
-              (TypeEnum
-                NamePair {
-                  nameC = Name "status_code_t",
-                  nameHsIdent = HsIdentifier
-                    "Status_code_t"}
-                (NameOriginGenerated
-                  (AnonId
-                    "doxygen_docs.h:258:9"))))},
+            (Full
+              (TypedefSquashed
+                (Name "status_code_t")
+                (TypeEnum
+                  NamePair {
+                    nameC = Name "status_code_t",
+                    nameHsIdent = HsIdentifier
+                      "Status_code_t"}
+                  (NameOriginGenerated
+                    (AnonId
+                      "doxygen_docs.h:258:9")))))},
       foreignImportComment =
       Just
         Comment {
@@ -25624,16 +25638,17 @@
           [
             TypePointer
               (TypeTypedef
-                (TypedefSquashed
-                  (Name "config_t")
-                  (TypeStruct
-                    NamePair {
-                      nameC = Name "config_t",
-                      nameHsIdent = HsIdentifier
-                        "Config_t"}
-                    (NameOriginGenerated
-                      (AnonId
-                        "doxygen_docs.h:232:9"))))),
+                (Full
+                  (TypedefSquashed
+                    (Name "config_t")
+                    (TypeStruct
+                      NamePair {
+                        nameC = Name "config_t",
+                        nameHsIdent = HsIdentifier
+                          "Config_t"}
+                      (NameOriginGenerated
+                        (AnonId
+                          "doxygen_docs.h:232:9")))))),
             TypePointer
               (TypeConst
                 (TypeExtBinding
@@ -25869,16 +25884,17 @@
                             instanceSpecConstraints = [
                               ]})]}}]
           (TypeTypedef
-            (TypedefSquashed
-              (Name "status_code_t")
-              (TypeEnum
-                NamePair {
-                  nameC = Name "status_code_t",
-                  nameHsIdent = HsIdentifier
-                    "Status_code_t"}
-                (NameOriginGenerated
-                  (AnonId
-                    "doxygen_docs.h:258:9")))))),
+            (Full
+              (TypedefSquashed
+                (Name "status_code_t")
+                (TypeEnum
+                  NamePair {
+                    nameC = Name "status_code_t",
+                    nameHsIdent = HsIdentifier
+                      "Status_code_t"}
+                  (NameOriginGenerated
+                    (AnonId
+                      "doxygen_docs.h:258:9"))))))),
       foreignImportComment =
       Just
         Comment {

@@ -785,14 +785,15 @@
                 fieldComment = Nothing},
               structFieldType = TypePointer
                 (TypeTypedef
-                  (TypedefSquashed
-                    (Name "linked_list_B_t")
-                    (TypeStruct
-                      NamePair {
-                        nameC = Name "linked_list_B_t",
-                        nameHsIdent = HsIdentifier
-                          "Linked_list_B_t"}
-                      NameOriginInSource))),
+                  (Full
+                    (TypedefSquashed
+                      (Name "linked_list_B_t")
+                      (TypeStruct
+                        NamePair {
+                          nameC = Name "linked_list_B_t",
+                          nameHsIdent = HsIdentifier
+                            "Linked_list_B_t"}
+                        NameOriginInSource)))),
               structFieldOffset = 64,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -860,14 +861,15 @@
                     fieldComment = Nothing},
                   structFieldType = TypePointer
                     (TypeTypedef
-                      (TypedefSquashed
-                        (Name "linked_list_B_t")
-                        (TypeStruct
-                          NamePair {
-                            nameC = Name "linked_list_B_t",
-                            nameHsIdent = HsIdentifier
-                              "Linked_list_B_t"}
-                          NameOriginInSource))),
+                      (Full
+                        (TypedefSquashed
+                          (Name "linked_list_B_t")
+                          (TypeStruct
+                            NamePair {
+                              nameC = Name "linked_list_B_t",
+                              nameHsIdent = HsIdentifier
+                                "Linked_list_B_t"}
+                            NameOriginInSource)))),
                   structFieldOffset = 64,
                   structFieldWidth = Nothing}],
               structFlam = Nothing},
@@ -959,14 +961,15 @@
                     fieldComment = Nothing},
                   structFieldType = TypePointer
                     (TypeTypedef
-                      (TypedefSquashed
-                        (Name "linked_list_B_t")
-                        (TypeStruct
-                          NamePair {
-                            nameC = Name "linked_list_B_t",
-                            nameHsIdent = HsIdentifier
-                              "Linked_list_B_t"}
-                          NameOriginInSource))),
+                      (Full
+                        (TypedefSquashed
+                          (Name "linked_list_B_t")
+                          (TypeStruct
+                            NamePair {
+                              nameC = Name "linked_list_B_t",
+                              nameHsIdent = HsIdentifier
+                                "Linked_list_B_t"}
+                            NameOriginInSource)))),
                   structFieldOffset = 64,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -1034,14 +1037,15 @@
                         fieldComment = Nothing},
                       structFieldType = TypePointer
                         (TypeTypedef
-                          (TypedefSquashed
-                            (Name "linked_list_B_t")
-                            (TypeStruct
-                              NamePair {
-                                nameC = Name "linked_list_B_t",
-                                nameHsIdent = HsIdentifier
-                                  "Linked_list_B_t"}
-                              NameOriginInSource))),
+                          (Full
+                            (TypedefSquashed
+                              (Name "linked_list_B_t")
+                              (TypeStruct
+                                NamePair {
+                                  nameC = Name "linked_list_B_t",
+                                  nameHsIdent = HsIdentifier
+                                    "Linked_list_B_t"}
+                                NameOriginInSource)))),
                       structFieldOffset = 64,
                       structFieldWidth = Nothing}],
                   structFlam = Nothing},
@@ -1136,14 +1140,15 @@
                             fieldComment = Nothing},
                           structFieldType = TypePointer
                             (TypeTypedef
-                              (TypedefSquashed
-                                (Name "linked_list_B_t")
-                                (TypeStruct
-                                  NamePair {
-                                    nameC = Name "linked_list_B_t",
-                                    nameHsIdent = HsIdentifier
-                                      "Linked_list_B_t"}
-                                  NameOriginInSource))),
+                              (Full
+                                (TypedefSquashed
+                                  (Name "linked_list_B_t")
+                                  (TypeStruct
+                                    NamePair {
+                                      nameC = Name "linked_list_B_t",
+                                      nameHsIdent = HsIdentifier
+                                        "Linked_list_B_t"}
+                                    NameOriginInSource)))),
                           structFieldOffset = 64,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -1211,14 +1216,15 @@
                                 fieldComment = Nothing},
                               structFieldType = TypePointer
                                 (TypeTypedef
-                                  (TypedefSquashed
-                                    (Name "linked_list_B_t")
-                                    (TypeStruct
-                                      NamePair {
-                                        nameC = Name "linked_list_B_t",
-                                        nameHsIdent = HsIdentifier
-                                          "Linked_list_B_t"}
-                                      NameOriginInSource))),
+                                  (Full
+                                    (TypedefSquashed
+                                      (Name "linked_list_B_t")
+                                      (TypeStruct
+                                        NamePair {
+                                          nameC = Name "linked_list_B_t",
+                                          nameHsIdent = HsIdentifier
+                                            "Linked_list_B_t"}
+                                        NameOriginInSource)))),
                               structFieldOffset = 64,
                               structFieldWidth = Nothing}],
                           structFlam = Nothing},
@@ -1315,14 +1321,15 @@
                             fieldComment = Nothing},
                           structFieldType = TypePointer
                             (TypeTypedef
-                              (TypedefSquashed
-                                (Name "linked_list_B_t")
-                                (TypeStruct
-                                  NamePair {
-                                    nameC = Name "linked_list_B_t",
-                                    nameHsIdent = HsIdentifier
-                                      "Linked_list_B_t"}
-                                  NameOriginInSource))),
+                              (Full
+                                (TypedefSquashed
+                                  (Name "linked_list_B_t")
+                                  (TypeStruct
+                                    NamePair {
+                                      nameC = Name "linked_list_B_t",
+                                      nameHsIdent = HsIdentifier
+                                        "Linked_list_B_t"}
+                                    NameOriginInSource)))),
                           structFieldOffset = 64,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -1390,14 +1397,15 @@
                                 fieldComment = Nothing},
                               structFieldType = TypePointer
                                 (TypeTypedef
-                                  (TypedefSquashed
-                                    (Name "linked_list_B_t")
-                                    (TypeStruct
-                                      NamePair {
-                                        nameC = Name "linked_list_B_t",
-                                        nameHsIdent = HsIdentifier
-                                          "Linked_list_B_t"}
-                                      NameOriginInSource))),
+                                  (Full
+                                    (TypedefSquashed
+                                      (Name "linked_list_B_t")
+                                      (TypeStruct
+                                        NamePair {
+                                          nameC = Name "linked_list_B_t",
+                                          nameHsIdent = HsIdentifier
+                                            "Linked_list_B_t"}
+                                        NameOriginInSource)))),
                               structFieldOffset = 64,
                               structFieldWidth = Nothing}],
                           structFlam = Nothing},

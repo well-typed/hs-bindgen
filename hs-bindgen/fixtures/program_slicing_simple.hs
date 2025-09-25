@@ -459,11 +459,12 @@
                     "foo_thirty_two"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "uint32_t",
-                    nameHsIdent = HsIdentifier
-                      "Uint32_t"}),
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "uint32_t",
+                      nameHsIdent = HsIdentifier
+                        "Uint32_t"})),
               structFieldOffset = 64,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -623,11 +624,12 @@
                         "foo_thirty_two"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
-                    (TypedefRegular
-                      NamePair {
-                        nameC = Name "uint32_t",
-                        nameHsIdent = HsIdentifier
-                          "Uint32_t"}),
+                    (Full
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name "uint32_t",
+                          nameHsIdent = HsIdentifier
+                            "Uint32_t"})),
                   structFieldOffset = 64,
                   structFieldWidth = Nothing}],
               structFlam = Nothing},
@@ -902,11 +904,12 @@
                         "foo_thirty_two"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
-                    (TypedefRegular
-                      NamePair {
-                        nameC = Name "uint32_t",
-                        nameHsIdent = HsIdentifier
-                          "Uint32_t"}),
+                    (Full
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name "uint32_t",
+                          nameHsIdent = HsIdentifier
+                            "Uint32_t"})),
                   structFieldOffset = 64,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -1066,11 +1069,12 @@
                             "foo_thirty_two"},
                         fieldComment = Nothing},
                       structFieldType = TypeTypedef
-                        (TypedefRegular
-                          NamePair {
-                            nameC = Name "uint32_t",
-                            nameHsIdent = HsIdentifier
-                              "Uint32_t"}),
+                        (Full
+                          (TypedefRegular
+                            NamePair {
+                              nameC = Name "uint32_t",
+                              nameHsIdent = HsIdentifier
+                                "Uint32_t"})),
                       structFieldOffset = 64,
                       structFieldWidth = Nothing}],
                   structFlam = Nothing},
@@ -1348,11 +1352,12 @@
                                 "foo_thirty_two"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
-                            (TypedefRegular
-                              NamePair {
-                                nameC = Name "uint32_t",
-                                nameHsIdent = HsIdentifier
-                                  "Uint32_t"}),
+                            (Full
+                              (TypedefRegular
+                                NamePair {
+                                  nameC = Name "uint32_t",
+                                  nameHsIdent = HsIdentifier
+                                    "Uint32_t"})),
                           structFieldOffset = 64,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -1512,11 +1517,12 @@
                                     "foo_thirty_two"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
-                                (TypedefRegular
-                                  NamePair {
-                                    nameC = Name "uint32_t",
-                                    nameHsIdent = HsIdentifier
-                                      "Uint32_t"}),
+                                (Full
+                                  (TypedefRegular
+                                    NamePair {
+                                      nameC = Name "uint32_t",
+                                      nameHsIdent = HsIdentifier
+                                        "Uint32_t"})),
                               structFieldOffset = 64,
                               structFieldWidth = Nothing}],
                           structFlam = Nothing},
@@ -1796,11 +1802,12 @@
                                 "foo_thirty_two"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
-                            (TypedefRegular
-                              NamePair {
-                                nameC = Name "uint32_t",
-                                nameHsIdent = HsIdentifier
-                                  "Uint32_t"}),
+                            (Full
+                              (TypedefRegular
+                                NamePair {
+                                  nameC = Name "uint32_t",
+                                  nameHsIdent = HsIdentifier
+                                    "Uint32_t"})),
                           structFieldOffset = 64,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -1960,11 +1967,12 @@
                                     "foo_thirty_two"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
-                                (TypedefRegular
-                                  NamePair {
-                                    nameC = Name "uint32_t",
-                                    nameHsIdent = HsIdentifier
-                                      "Uint32_t"}),
+                                (Full
+                                  (TypedefRegular
+                                    NamePair {
+                                      nameC = Name "uint32_t",
+                                      nameHsIdent = HsIdentifier
+                                        "Uint32_t"})),
                               structFieldOffset = 64,
                               structFieldWidth = Nothing}],
                           structFlam = Nothing},

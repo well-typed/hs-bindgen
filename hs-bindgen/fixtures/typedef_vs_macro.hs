@@ -970,11 +970,12 @@
                     "exampleStruct_t1"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "T1",
-                    nameHsIdent = HsIdentifier
-                      "T1"}),
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "T1",
+                      nameHsIdent = HsIdentifier
+                        "T1"})),
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -1007,11 +1008,12 @@
                     "exampleStruct_t2"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "T2",
-                    nameHsIdent = HsIdentifier
-                      "T2"}),
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "T2",
+                      nameHsIdent = HsIdentifier
+                        "T2"})),
               structFieldOffset = 32,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -1138,11 +1140,12 @@
                         "exampleStruct_t1"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
-                    (TypedefRegular
-                      NamePair {
-                        nameC = Name "T1",
-                        nameHsIdent = HsIdentifier
-                          "T1"}),
+                    (Full
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name "T1",
+                          nameHsIdent = HsIdentifier
+                            "T1"})),
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
                 StructField {
@@ -1155,11 +1158,12 @@
                         "exampleStruct_t2"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
-                    (TypedefRegular
-                      NamePair {
-                        nameC = Name "T2",
-                        nameHsIdent = HsIdentifier
-                          "T2"}),
+                    (Full
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name "T2",
+                          nameHsIdent = HsIdentifier
+                            "T2"})),
                   structFieldOffset = 32,
                   structFieldWidth = Nothing},
                 StructField {
@@ -1248,11 +1252,12 @@
                         "exampleStruct_t1"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
-                    (TypedefRegular
-                      NamePair {
-                        nameC = Name "T1",
-                        nameHsIdent = HsIdentifier
-                          "T1"}),
+                    (Full
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name "T1",
+                          nameHsIdent = HsIdentifier
+                            "T1"})),
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -1285,11 +1290,12 @@
                         "exampleStruct_t2"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
-                    (TypedefRegular
-                      NamePair {
-                        nameC = Name "T2",
-                        nameHsIdent = HsIdentifier
-                          "T2"}),
+                    (Full
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name "T2",
+                          nameHsIdent = HsIdentifier
+                            "T2"})),
                   structFieldOffset = 32,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -1416,11 +1422,12 @@
                             "exampleStruct_t1"},
                         fieldComment = Nothing},
                       structFieldType = TypeTypedef
-                        (TypedefRegular
-                          NamePair {
-                            nameC = Name "T1",
-                            nameHsIdent = HsIdentifier
-                              "T1"}),
+                        (Full
+                          (TypedefRegular
+                            NamePair {
+                              nameC = Name "T1",
+                              nameHsIdent = HsIdentifier
+                                "T1"})),
                       structFieldOffset = 0,
                       structFieldWidth = Nothing},
                     StructField {
@@ -1433,11 +1440,12 @@
                             "exampleStruct_t2"},
                         fieldComment = Nothing},
                       structFieldType = TypeTypedef
-                        (TypedefRegular
-                          NamePair {
-                            nameC = Name "T2",
-                            nameHsIdent = HsIdentifier
-                              "T2"}),
+                        (Full
+                          (TypedefRegular
+                            NamePair {
+                              nameC = Name "T2",
+                              nameHsIdent = HsIdentifier
+                                "T2"})),
                       structFieldOffset = 32,
                       structFieldWidth = Nothing},
                     StructField {
@@ -1529,11 +1537,12 @@
                                 "exampleStruct_t1"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
-                            (TypedefRegular
-                              NamePair {
-                                nameC = Name "T1",
-                                nameHsIdent = HsIdentifier
-                                  "T1"}),
+                            (Full
+                              (TypedefRegular
+                                NamePair {
+                                  nameC = Name "T1",
+                                  nameHsIdent = HsIdentifier
+                                    "T1"})),
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -1566,11 +1575,12 @@
                                 "exampleStruct_t2"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
-                            (TypedefRegular
-                              NamePair {
-                                nameC = Name "T2",
-                                nameHsIdent = HsIdentifier
-                                  "T2"}),
+                            (Full
+                              (TypedefRegular
+                                NamePair {
+                                  nameC = Name "T2",
+                                  nameHsIdent = HsIdentifier
+                                    "T2"})),
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -1697,11 +1707,12 @@
                                     "exampleStruct_t1"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
-                                (TypedefRegular
-                                  NamePair {
-                                    nameC = Name "T1",
-                                    nameHsIdent = HsIdentifier
-                                      "T1"}),
+                                (Full
+                                  (TypedefRegular
+                                    NamePair {
+                                      nameC = Name "T1",
+                                      nameHsIdent = HsIdentifier
+                                        "T1"})),
                               structFieldOffset = 0,
                               structFieldWidth = Nothing},
                             StructField {
@@ -1714,11 +1725,12 @@
                                     "exampleStruct_t2"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
-                                (TypedefRegular
-                                  NamePair {
-                                    nameC = Name "T2",
-                                    nameHsIdent = HsIdentifier
-                                      "T2"}),
+                                (Full
+                                  (TypedefRegular
+                                    NamePair {
+                                      nameC = Name "T2",
+                                      nameHsIdent = HsIdentifier
+                                        "T2"})),
                               structFieldOffset = 32,
                               structFieldWidth = Nothing},
                             StructField {
@@ -1814,11 +1826,12 @@
                                 "exampleStruct_t1"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
-                            (TypedefRegular
-                              NamePair {
-                                nameC = Name "T1",
-                                nameHsIdent = HsIdentifier
-                                  "T1"}),
+                            (Full
+                              (TypedefRegular
+                                NamePair {
+                                  nameC = Name "T1",
+                                  nameHsIdent = HsIdentifier
+                                    "T1"})),
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -1851,11 +1864,12 @@
                                 "exampleStruct_t2"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
-                            (TypedefRegular
-                              NamePair {
-                                nameC = Name "T2",
-                                nameHsIdent = HsIdentifier
-                                  "T2"}),
+                            (Full
+                              (TypedefRegular
+                                NamePair {
+                                  nameC = Name "T2",
+                                  nameHsIdent = HsIdentifier
+                                    "T2"})),
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -1982,11 +1996,12 @@
                                     "exampleStruct_t1"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
-                                (TypedefRegular
-                                  NamePair {
-                                    nameC = Name "T1",
-                                    nameHsIdent = HsIdentifier
-                                      "T1"}),
+                                (Full
+                                  (TypedefRegular
+                                    NamePair {
+                                      nameC = Name "T1",
+                                      nameHsIdent = HsIdentifier
+                                        "T1"})),
                               structFieldOffset = 0,
                               structFieldWidth = Nothing},
                             StructField {
@@ -1999,11 +2014,12 @@
                                     "exampleStruct_t2"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
-                                (TypedefRegular
-                                  NamePair {
-                                    nameC = Name "T2",
-                                    nameHsIdent = HsIdentifier
-                                      "T2"}),
+                                (Full
+                                  (TypedefRegular
+                                    NamePair {
+                                      nameC = Name "T2",
+                                      nameHsIdent = HsIdentifier
+                                        "T2"})),
                               structFieldOffset = 32,
                               structFieldWidth = Nothing},
                             StructField {

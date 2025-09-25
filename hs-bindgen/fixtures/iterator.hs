@@ -250,11 +250,12 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeTypedef
-            (TypedefRegular
-              NamePair {
-                nameC = Name "Toggle",
-                nameHsIdent = HsIdentifier
-                  "Toggle"})},
+            (Full
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "Toggle",
+                  nameHsIdent = HsIdentifier
+                    "Toggle"}))},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -311,11 +312,12 @@
                   nameHsIdent = HsIdentifier
                     "block"})
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "Toggle",
-                    nameHsIdent = HsIdentifier
-                      "Toggle"}))],
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "Toggle",
+                      nameHsIdent = HsIdentifier
+                        "Toggle"})))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -377,11 +379,12 @@
                   nameHsIdent = HsIdentifier
                     "block"})
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "Toggle",
-                    nameHsIdent = HsIdentifier
-                      "Toggle"}))],
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "Toggle",
+                      nameHsIdent = HsIdentifier
+                        "Toggle"})))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -470,11 +473,12 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeTypedef
-            (TypedefRegular
-              NamePair {
-                nameC = Name "Counter",
-                nameHsIdent = HsIdentifier
-                  "Counter"})},
+            (Full
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "Counter",
+                  nameHsIdent = HsIdentifier
+                    "Counter"}))},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -531,11 +535,12 @@
                   nameHsIdent = HsIdentifier
                     "block"})
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "Counter",
-                    nameHsIdent = HsIdentifier
-                      "Counter"}))],
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "Counter",
+                      nameHsIdent = HsIdentifier
+                        "Counter"})))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -597,11 +602,12 @@
                   nameHsIdent = HsIdentifier
                     "block"})
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "Counter",
-                    nameHsIdent = HsIdentifier
-                      "Counter"}))],
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "Counter",
+                      nameHsIdent = HsIdentifier
+                        "Counter"})))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -669,11 +675,12 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeTypedef
-            (TypedefRegular
-              NamePair {
-                nameC = Name "VarCounter",
-                nameHsIdent = HsIdentifier
-                  "VarCounter"})},
+            (Full
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "VarCounter",
+                  nameHsIdent = HsIdentifier
+                    "VarCounter"}))},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -743,11 +750,12 @@
                   nameHsIdent = HsIdentifier
                     "block"})
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "VarCounter",
-                    nameHsIdent = HsIdentifier
-                      "VarCounter"})),
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "VarCounter",
+                      nameHsIdent = HsIdentifier
+                        "VarCounter"}))),
             _×_
               (Just
                 NamePair {
@@ -817,11 +825,12 @@
                   nameHsIdent = HsIdentifier
                     "block"})
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "VarCounter",
-                    nameHsIdent = HsIdentifier
-                      "VarCounter"}))],
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "VarCounter",
+                      nameHsIdent = HsIdentifier
+                        "VarCounter"})))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -888,11 +897,12 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeTypedef
-            (TypedefRegular
-              NamePair {
-                nameC = Name "Toggle",
-                nameHsIdent = HsIdentifier
-                  "Toggle"})},
+            (Full
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "Toggle",
+                  nameHsIdent = HsIdentifier
+                    "Toggle"}))},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -949,11 +959,12 @@
                   nameHsIdent = HsIdentifier
                     "block"})
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "Toggle",
-                    nameHsIdent = HsIdentifier
-                      "Toggle"}))],
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "Toggle",
+                      nameHsIdent = HsIdentifier
+                        "Toggle"})))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1015,11 +1026,12 @@
                   nameHsIdent = HsIdentifier
                     "block"})
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "Toggle",
-                    nameHsIdent = HsIdentifier
-                      "Toggle"}))],
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "Toggle",
+                      nameHsIdent = HsIdentifier
+                        "Toggle"})))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1108,11 +1120,12 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeTypedef
-            (TypedefRegular
-              NamePair {
-                nameC = Name "Counter",
-                nameHsIdent = HsIdentifier
-                  "Counter"})},
+            (Full
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "Counter",
+                  nameHsIdent = HsIdentifier
+                    "Counter"}))},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -1169,11 +1182,12 @@
                   nameHsIdent = HsIdentifier
                     "block"})
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "Counter",
-                    nameHsIdent = HsIdentifier
-                      "Counter"}))],
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "Counter",
+                      nameHsIdent = HsIdentifier
+                        "Counter"})))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1235,11 +1249,12 @@
                   nameHsIdent = HsIdentifier
                     "block"})
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "Counter",
-                    nameHsIdent = HsIdentifier
-                      "Counter"}))],
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "Counter",
+                      nameHsIdent = HsIdentifier
+                        "Counter"})))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1307,11 +1322,12 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeTypedef
-            (TypedefRegular
-              NamePair {
-                nameC = Name "VarCounter",
-                nameHsIdent = HsIdentifier
-                  "VarCounter"})},
+            (Full
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "VarCounter",
+                  nameHsIdent = HsIdentifier
+                    "VarCounter"}))},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -1381,11 +1397,12 @@
                   nameHsIdent = HsIdentifier
                     "block"})
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "VarCounter",
-                    nameHsIdent = HsIdentifier
-                      "VarCounter"})),
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "VarCounter",
+                      nameHsIdent = HsIdentifier
+                        "VarCounter"}))),
             _×_
               (Just
                 NamePair {
@@ -1455,11 +1472,12 @@
                   nameHsIdent = HsIdentifier
                     "block"})
               (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "VarCounter",
-                    nameHsIdent = HsIdentifier
-                      "VarCounter"}))],
+                (Full
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "VarCounter",
+                      nameHsIdent = HsIdentifier
+                        "VarCounter"})))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1508,11 +1526,12 @@
         (TypeFun
           [TypePrim PrimBool]
           (TypeTypedef
-            (TypedefRegular
-              NamePair {
-                nameC = Name "Toggle",
-                nameHsIdent = HsIdentifier
-                  "Toggle"}))),
+            (Full
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "Toggle",
+                  nameHsIdent = HsIdentifier
+                    "Toggle"})))),
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -1559,11 +1578,12 @@
         (TypeFun
           [
             TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "Toggle",
-                  nameHsIdent = HsIdentifier
-                    "Toggle"})]
+              (Full
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "Toggle",
+                    nameHsIdent = HsIdentifier
+                      "Toggle"}))]
           (TypePrim PrimBool)),
       foreignImportComment = Just
         Comment {
@@ -1611,11 +1631,12 @@
         (TypeFun
           [
             TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "Toggle",
-                  nameHsIdent = HsIdentifier
-                    "Toggle"})]
+              (Full
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "Toggle",
+                    nameHsIdent = HsIdentifier
+                      "Toggle"}))]
           TypeVoid),
       foreignImportComment = Just
         Comment {
@@ -1669,11 +1690,12 @@
             TypePrim
               (PrimIntegral PrimInt Signed)]
           (TypeTypedef
-            (TypedefRegular
-              NamePair {
-                nameC = Name "Counter",
-                nameHsIdent = HsIdentifier
-                  "Counter"}))),
+            (Full
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "Counter",
+                  nameHsIdent = HsIdentifier
+                    "Counter"})))),
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -1720,11 +1742,12 @@
         (TypeFun
           [
             TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "Counter",
-                  nameHsIdent = HsIdentifier
-                    "Counter"})]
+              (Full
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "Counter",
+                    nameHsIdent = HsIdentifier
+                      "Counter"}))]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       foreignImportComment = Just
@@ -1773,11 +1796,12 @@
         (TypeFun
           [
             TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "Counter",
-                  nameHsIdent = HsIdentifier
-                    "Counter"})]
+              (Full
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "Counter",
+                    nameHsIdent = HsIdentifier
+                      "Counter"}))]
           TypeVoid),
       foreignImportComment = Just
         Comment {
@@ -1827,11 +1851,12 @@
             TypePrim
               (PrimIntegral PrimInt Signed)]
           (TypeTypedef
-            (TypedefRegular
-              NamePair {
-                nameC = Name "VarCounter",
-                nameHsIdent = HsIdentifier
-                  "VarCounter"}))),
+            (Full
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "VarCounter",
+                  nameHsIdent = HsIdentifier
+                    "VarCounter"})))),
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -1880,11 +1905,12 @@
         (TypeFun
           [
             TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "VarCounter",
-                  nameHsIdent = HsIdentifier
-                    "VarCounter"}),
+              (Full
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "VarCounter",
+                    nameHsIdent = HsIdentifier
+                      "VarCounter"})),
             TypePrim
               (PrimIntegral PrimInt Signed)]
           (TypePrim
@@ -1935,11 +1961,12 @@
         (TypeFun
           [
             TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "VarCounter",
-                  nameHsIdent = HsIdentifier
-                    "VarCounter"})]
+              (Full
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "VarCounter",
+                    nameHsIdent = HsIdentifier
+                      "VarCounter"}))]
           TypeVoid),
       foreignImportComment = Just
         Comment {
