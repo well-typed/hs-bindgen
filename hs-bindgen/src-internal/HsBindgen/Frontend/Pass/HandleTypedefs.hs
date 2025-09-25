@@ -2,6 +2,7 @@ module HsBindgen.Frontend.Pass.HandleTypedefs (handleTypedefs) where
 
 import Data.Map.Strict qualified as Map
 
+import HsBindgen.BindingSpec (defaultTypeSpec)
 import HsBindgen.Frontend.Analysis.Typedefs (TypedefAnalysis)
 import HsBindgen.Frontend.Analysis.Typedefs qualified as TypedefAnalysis
 import HsBindgen.Frontend.AST.Coerce
@@ -11,7 +12,6 @@ import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Imports
-import HsBindgen.BindingSpec (defaultTypeSpec)
 
 {-------------------------------------------------------------------------------
   Top-level
