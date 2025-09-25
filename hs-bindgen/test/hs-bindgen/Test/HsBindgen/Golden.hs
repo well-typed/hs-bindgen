@@ -161,6 +161,17 @@ testCases = [
           Just $ Expected (C.declId info)
         _otherwise ->
           Nothing
+    , let declsWithMsgs :: [C.NsPrelimDeclId]
+          declsWithMsgs = [
+                C.NsPrelimDeclIdNamed "stdin" C.TypeNamespaceOrdinary
+              , C.NsPrelimDeclIdNamed "stdout" C.TypeNamespaceOrdinary
+              , C.NsPrelimDeclIdNamed "stderr" C.TypeNamespaceOrdinary
+              ]
+      in testTraceCustom "macro_redefines_global" declsWithMsgs $ \case
+        TraceFrontend (FrontendSort (SortErrorDeclIndex (Redeclaration {redeclarationId = x}))) ->
+          Just $ Expected x
+        _otherwise ->
+          Nothing
     , testTraceCustom "skip_over_long_double" ["fun1", "struct1"] $ \case
         TraceFrontend (FrontendSelect (SelectedButFailed (ParseUnsupportedType info UnsupportedLongDouble))) ->
           Just $ Expected $ C.declId info
