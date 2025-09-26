@@ -64,20 +64,25 @@ generateHaddocksWithParams ::
   -> Maybe (C.Comment Reference)
   -> [Hs.FunctionParameter]
   -> (Maybe Hs.Comment, [Hs.FunctionParameter])
-generateHaddocksWithParams HaddockConfig{..} declLoc mHeaderInfo declId Nothing params =
-  -- If there's no C.Comment to associate with any function parameter we make
-  -- sure to at least add a comment that will show the function parameter name
-  -- if it exists.
-  --
-  ( Just
-     Hs.Comment {
-       Hs.commentTitle      = Nothing
-     , Hs.commentOrigin     = Just (getName (nameC declId))
-     , Hs.commentLocation   = Just (updateSingleLoc pathStyle declLoc)
-     , Hs.commentHeaderInfo = mHeaderInfo
-     , Hs.commentChildren   = []
-     }
-  , map addFunctionParameterComment params)
+generateHaddocksWithParams HaddockConfig{..} declLoc mHeaderInfo declId Nothing params
+    -- If it is a dereferenced newtype we should not include any comment to it
+    --
+  | Text.isSuffixOf "Deref" (getName (nameC declId)) =
+    (Nothing, map addFunctionParameterComment params)
+  | otherwise =
+    -- If there's no C.Comment to associate with any function parameter we make
+    -- sure to at least add a comment that will show the function parameter name
+    -- if it exists.
+    --
+    ( Just
+       Hs.Comment {
+         Hs.commentTitle      = Nothing
+       , Hs.commentOrigin     = Just (getName (nameC declId))
+       , Hs.commentLocation   = Just (updateSingleLoc pathStyle declLoc)
+       , Hs.commentHeaderInfo = mHeaderInfo
+       , Hs.commentChildren   = []
+       }
+    , map addFunctionParameterComment params)
 generateHaddocksWithParams HaddockConfig{..} declLoc mHeaderInfo declId (Just C.Comment{..}) params =
   let (commentTitle, commentChildren') =
         case commentChildren of

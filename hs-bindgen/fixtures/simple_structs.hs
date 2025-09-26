@@ -4281,20 +4281,7 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "S7a_Deref",
-          commentLocation = Just
-            "simple_structs.h:34:9",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["simple_structs.h"],
-              headerInclude =
-              "simple_structs.h"},
-          commentChildren = []}},
+      structComment = Nothing},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -4441,20 +4428,7 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just
-                "S7a_Deref",
-              commentLocation = Just
-                "simple_structs.h:34:9",
-              commentHeaderInfo = Just
-                HeaderInfo {
-                  headerMainHeaders = NE.fromList
-                    ["simple_structs.h"],
-                  headerInclude =
-                  "simple_structs.h"},
-              commentChildren = []}}
+          structComment = Nothing}
         StorableInstance {
           storableSizeOf = 8,
           storableAlignment = 4,
@@ -4604,20 +4578,7 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Just
-                    Comment {
-                      commentTitle = Nothing,
-                      commentOrigin = Just
-                        "S7a_Deref",
-                      commentLocation = Just
-                        "simple_structs.h:34:9",
-                      commentHeaderInfo = Just
-                        HeaderInfo {
-                          headerMainHeaders = NE.fromList
-                            ["simple_structs.h"],
-                          headerInclude =
-                          "simple_structs.h"},
-                      commentChildren = []}})
+                  structComment = Nothing})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 4]),
@@ -4769,20 +4730,7 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Just
-                    Comment {
-                      commentTitle = Nothing,
-                      commentOrigin = Just
-                        "S7a_Deref",
-                      commentLocation = Just
-                        "simple_structs.h:34:9",
-                      commentHeaderInfo = Just
-                        HeaderInfo {
-                          headerMainHeaders = NE.fromList
-                            ["simple_structs.h"],
-                          headerInclude =
-                          "simple_structs.h"},
-                      commentChildren = []}}
+                  structComment = Nothing}
                 (Add 2)
                 (Seq
                   [
@@ -5071,20 +5019,7 @@
                 []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
-      structComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "S7b_Deref",
-          commentLocation = Just
-            "simple_structs.h:35:9",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["simple_structs.h"],
-              headerInclude =
-              "simple_structs.h"},
-          commentChildren = []}},
+      structComment = Nothing},
   DeclInstance
     DefineInstance {
       defineInstanceDeclarations =
@@ -5231,20 +5166,7 @@
                     []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
-          structComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just
-                "S7b_Deref",
-              commentLocation = Just
-                "simple_structs.h:35:9",
-              commentHeaderInfo = Just
-                HeaderInfo {
-                  headerMainHeaders = NE.fromList
-                    ["simple_structs.h"],
-                  headerInclude =
-                  "simple_structs.h"},
-              commentChildren = []}}
+          structComment = Nothing}
         StorableInstance {
           storableSizeOf = 8,
           storableAlignment = 4,
@@ -5394,20 +5316,7 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Just
-                    Comment {
-                      commentTitle = Nothing,
-                      commentOrigin = Just
-                        "S7b_Deref",
-                      commentLocation = Just
-                        "simple_structs.h:35:9",
-                      commentHeaderInfo = Just
-                        HeaderInfo {
-                          headerMainHeaders = NE.fromList
-                            ["simple_structs.h"],
-                          headerInclude =
-                          "simple_structs.h"},
-                      commentChildren = []}})
+                  structComment = Nothing})
               [
                 PeekByteOff (Idx 0) 0,
                 PeekByteOff (Idx 0) 4]),
@@ -5559,20 +5468,7 @@
                             []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
-                  structComment = Just
-                    Comment {
-                      commentTitle = Nothing,
-                      commentOrigin = Just
-                        "S7b_Deref",
-                      commentLocation = Just
-                        "simple_structs.h:35:9",
-                      commentHeaderInfo = Just
-                        HeaderInfo {
-                          headerMainHeaders = NE.fromList
-                            ["simple_structs.h"],
-                          headerInclude =
-                          "simple_structs.h"},
-                      commentChildren = []}}
+                  structComment = Nothing}
                 (Add 2)
                 (Seq
                   [

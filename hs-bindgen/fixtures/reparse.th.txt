@@ -555,6 +555,8 @@ newtype Typedef3
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+newtype Funptr_typedef1_Deref
+    = Funptr_typedef1_Deref {un_Funptr_typedef1_Deref :: (IO A)}
 {-| __C declaration:__ @funptr_typedef1@
 
     __defined at:__ @reparse.h:132:16@
@@ -562,7 +564,7 @@ newtype Typedef3
     __exported by:__ @reparse.h@
 -}
 newtype Funptr_typedef1
-    = Funptr_typedef1 {un_Funptr_typedef1 :: (FunPtr (IO A))}
+    = Funptr_typedef1 {un_Funptr_typedef1 :: (FunPtr Funptr_typedef1_Deref)}
       {- ^ __C declaration:__ @funptr_typedef1@
 
            __defined at:__ @reparse.h:132:16@
@@ -571,6 +573,8 @@ newtype Funptr_typedef1
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+newtype Funptr_typedef2_Deref
+    = Funptr_typedef2_Deref {un_Funptr_typedef2_Deref :: (IO (Ptr A))}
 {-| __C declaration:__ @funptr_typedef2@
 
     __defined at:__ @reparse.h:133:16@
@@ -578,7 +582,7 @@ newtype Funptr_typedef1
     __exported by:__ @reparse.h@
 -}
 newtype Funptr_typedef2
-    = Funptr_typedef2 {un_Funptr_typedef2 :: (FunPtr (IO (Ptr A)))}
+    = Funptr_typedef2 {un_Funptr_typedef2 :: (FunPtr Funptr_typedef2_Deref)}
       {- ^ __C declaration:__ @funptr_typedef2@
 
            __defined at:__ @reparse.h:133:16@
@@ -587,6 +591,8 @@ newtype Funptr_typedef2
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+newtype Funptr_typedef3_Deref
+    = Funptr_typedef3_Deref {un_Funptr_typedef3_Deref :: (IO (Ptr (Ptr A)))}
 {-| __C declaration:__ @funptr_typedef3@
 
     __defined at:__ @reparse.h:134:16@
@@ -594,7 +600,7 @@ newtype Funptr_typedef2
     __exported by:__ @reparse.h@
 -}
 newtype Funptr_typedef3
-    = Funptr_typedef3 {un_Funptr_typedef3 :: (FunPtr (IO (Ptr (Ptr A))))}
+    = Funptr_typedef3 {un_Funptr_typedef3 :: (FunPtr Funptr_typedef3_Deref)}
       {- ^ __C declaration:__ @funptr_typedef3@
 
            __defined at:__ @reparse.h:134:16@
@@ -603,6 +609,9 @@ newtype Funptr_typedef3
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+newtype Funptr_typedef4_Deref
+    = Funptr_typedef4_Deref {un_Funptr_typedef4_Deref :: (CInt ->
+                                                          CDouble -> IO A)}
 {-| __C declaration:__ @funptr_typedef4@
 
     __defined at:__ @reparse.h:135:16@
@@ -610,8 +619,7 @@ newtype Funptr_typedef3
     __exported by:__ @reparse.h@
 -}
 newtype Funptr_typedef4
-    = Funptr_typedef4 {un_Funptr_typedef4 :: (FunPtr (CInt ->
-                                                      CDouble -> IO A))}
+    = Funptr_typedef4 {un_Funptr_typedef4 :: (FunPtr Funptr_typedef4_Deref)}
       {- ^ __C declaration:__ @funptr_typedef4@
 
            __defined at:__ @reparse.h:135:16@
@@ -620,6 +628,9 @@ newtype Funptr_typedef4
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+newtype Funptr_typedef5_Deref
+    = Funptr_typedef5_Deref {un_Funptr_typedef5_Deref :: (CInt ->
+                                                          CDouble -> IO (Ptr A))}
 {-| __C declaration:__ @funptr_typedef5@
 
     __defined at:__ @reparse.h:136:16@
@@ -627,8 +638,7 @@ newtype Funptr_typedef4
     __exported by:__ @reparse.h@
 -}
 newtype Funptr_typedef5
-    = Funptr_typedef5 {un_Funptr_typedef5 :: (FunPtr (CInt ->
-                                                      CDouble -> IO (Ptr A)))}
+    = Funptr_typedef5 {un_Funptr_typedef5 :: (FunPtr Funptr_typedef5_Deref)}
       {- ^ __C declaration:__ @funptr_typedef5@
 
            __defined at:__ @reparse.h:136:16@
@@ -895,6 +905,9 @@ instance Storable Example_struct_with_const
                                                              example_struct_with_const_const_field5_7
                                                              example_struct_with_const_const_field6_8
                                                              example_struct_with_const_const_field7_9 -> pokeByteOff ptr_1 (0 :: Int) example_struct_with_const_const_field1_3 >> (pokeByteOff ptr_1 (4 :: Int) example_struct_with_const_const_field2_4 >> (pokeByteOff ptr_1 (8 :: Int) example_struct_with_const_const_field3_5 >> (pokeByteOff ptr_1 (16 :: Int) example_struct_with_const_const_field4_6 >> (pokeByteOff ptr_1 (24 :: Int) example_struct_with_const_const_field5_7 >> (pokeByteOff ptr_1 (32 :: Int) example_struct_with_const_const_field6_8 >> pokeByteOff ptr_1 (40 :: Int) example_struct_with_const_const_field7_9)))))
+newtype Const_funptr1_Deref
+    = Const_funptr1_Deref {un_Const_funptr1_Deref :: (CInt ->
+                                                      CDouble -> IO A)}
 {-| __C declaration:__ @const_funptr1@
 
     __defined at:__ @reparse.h:238:27@
@@ -902,8 +915,7 @@ instance Storable Example_struct_with_const
     __exported by:__ @reparse.h@
 -}
 newtype Const_funptr1
-    = Const_funptr1 {un_Const_funptr1 :: (FunPtr (CInt ->
-                                                  CDouble -> IO A))}
+    = Const_funptr1 {un_Const_funptr1 :: (FunPtr Const_funptr1_Deref)}
       {- ^ __C declaration:__ @const_funptr1@
 
            __defined at:__ @reparse.h:238:27@
@@ -912,6 +924,9 @@ newtype Const_funptr1
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+newtype Const_funptr2_Deref
+    = Const_funptr2_Deref {un_Const_funptr2_Deref :: (CInt ->
+                                                      CDouble -> IO A)}
 {-| __C declaration:__ @const_funptr2@
 
     __defined at:__ @reparse.h:239:27@
@@ -919,8 +934,7 @@ newtype Const_funptr1
     __exported by:__ @reparse.h@
 -}
 newtype Const_funptr2
-    = Const_funptr2 {un_Const_funptr2 :: (FunPtr (CInt ->
-                                                  CDouble -> IO A))}
+    = Const_funptr2 {un_Const_funptr2 :: (FunPtr Const_funptr2_Deref)}
       {- ^ __C declaration:__ @const_funptr2@
 
            __defined at:__ @reparse.h:239:27@
@@ -929,6 +943,9 @@ newtype Const_funptr2
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+newtype Const_funptr3_Deref
+    = Const_funptr3_Deref {un_Const_funptr3_Deref :: (CInt ->
+                                                      CDouble -> IO (Ptr A))}
 {-| __C declaration:__ @const_funptr3@
 
     __defined at:__ @reparse.h:240:27@
@@ -936,8 +953,7 @@ newtype Const_funptr2
     __exported by:__ @reparse.h@
 -}
 newtype Const_funptr3
-    = Const_funptr3 {un_Const_funptr3 :: (FunPtr (CInt ->
-                                                  CDouble -> IO (Ptr A)))}
+    = Const_funptr3 {un_Const_funptr3 :: (FunPtr Const_funptr3_Deref)}
       {- ^ __C declaration:__ @const_funptr3@
 
            __defined at:__ @reparse.h:240:27@
@@ -946,6 +962,9 @@ newtype Const_funptr3
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+newtype Const_funptr4_Deref
+    = Const_funptr4_Deref {un_Const_funptr4_Deref :: (CInt ->
+                                                      CDouble -> IO (Ptr A))}
 {-| __C declaration:__ @const_funptr4@
 
     __defined at:__ @reparse.h:241:27@
@@ -953,8 +972,7 @@ newtype Const_funptr3
     __exported by:__ @reparse.h@
 -}
 newtype Const_funptr4
-    = Const_funptr4 {un_Const_funptr4 :: (FunPtr (CInt ->
-                                                  CDouble -> IO (Ptr A)))}
+    = Const_funptr4 {un_Const_funptr4 :: (FunPtr Const_funptr4_Deref)}
       {- ^ __C declaration:__ @const_funptr4@
 
            __defined at:__ @reparse.h:241:27@
@@ -963,6 +981,9 @@ newtype Const_funptr4
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+newtype Const_funptr5_Deref
+    = Const_funptr5_Deref {un_Const_funptr5_Deref :: (CInt ->
+                                                      CDouble -> IO (Ptr A))}
 {-| __C declaration:__ @const_funptr5@
 
     __defined at:__ @reparse.h:242:27@
@@ -970,8 +991,7 @@ newtype Const_funptr4
     __exported by:__ @reparse.h@
 -}
 newtype Const_funptr5
-    = Const_funptr5 {un_Const_funptr5 :: (FunPtr (CInt ->
-                                                  CDouble -> IO (Ptr A)))}
+    = Const_funptr5 {un_Const_funptr5 :: (FunPtr Const_funptr5_Deref)}
       {- ^ __C declaration:__ @const_funptr5@
 
            __defined at:__ @reparse.h:242:27@
@@ -980,6 +1000,9 @@ newtype Const_funptr5
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+newtype Const_funptr6_Deref
+    = Const_funptr6_Deref {un_Const_funptr6_Deref :: (CInt ->
+                                                      CDouble -> IO (Ptr A))}
 {-| __C declaration:__ @const_funptr6@
 
     __defined at:__ @reparse.h:243:27@
@@ -987,8 +1010,7 @@ newtype Const_funptr5
     __exported by:__ @reparse.h@
 -}
 newtype Const_funptr6
-    = Const_funptr6 {un_Const_funptr6 :: (FunPtr (CInt ->
-                                                  CDouble -> IO (Ptr A)))}
+    = Const_funptr6 {un_Const_funptr6 :: (FunPtr Const_funptr6_Deref)}
       {- ^ __C declaration:__ @const_funptr6@
 
            __defined at:__ @reparse.h:243:27@
@@ -997,6 +1019,9 @@ newtype Const_funptr6
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+newtype Const_funptr7_Deref
+    = Const_funptr7_Deref {un_Const_funptr7_Deref :: (CInt ->
+                                                      CDouble -> IO (Ptr A))}
 {-| __C declaration:__ @const_funptr7@
 
     __defined at:__ @reparse.h:244:27@
@@ -1004,8 +1029,7 @@ newtype Const_funptr6
     __exported by:__ @reparse.h@
 -}
 newtype Const_funptr7
-    = Const_funptr7 {un_Const_funptr7 :: (FunPtr (CInt ->
-                                                  CDouble -> IO (Ptr A)))}
+    = Const_funptr7 {un_Const_funptr7 :: (FunPtr Const_funptr7_Deref)}
       {- ^ __C declaration:__ @const_funptr7@
 
            __defined at:__ @reparse.h:244:27@

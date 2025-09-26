@@ -78,21 +78,7 @@ newtype Struct5_t
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
-{-| __C declaration:__ @struct6_Deref@
-
-    __defined at:__ @typedef_analysis.h:25:16@
-
-    __exported by:__ @typedef_analysis.h@
--}
-data Struct6_Deref
-    = Struct6_Deref {}
-      {- ^ __C declaration:__ @struct6_Deref@
-
-           __defined at:__ @typedef_analysis.h:25:16@
-
-           __exported by:__ @typedef_analysis.h@
-      -}
-    deriving stock (Eq, Show)
+data Struct6_Deref = Struct6_Deref {} deriving stock (Eq, Show)
 instance Storable Struct6_Deref
     where sizeOf = \_ -> 0 :: Int
           alignment = \_ -> 1 :: Int

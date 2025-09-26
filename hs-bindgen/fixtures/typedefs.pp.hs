@@ -10,7 +10,7 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import Data.Bits (FiniteBits)
-import Prelude (Bounded, Enum, Eq, Integral, Num, Ord, Read, Real, Show)
+import Prelude (Bounded, Enum, Eq, IO, Integral, Num, Ord, Read, Real, Show)
 
 {-| __C declaration:__ @myint@
 
@@ -32,6 +32,102 @@ newtype Myint = Myint
 -}
 newtype Intptr = Intptr
   { un_Intptr :: Ptr.Ptr FC.CInt
+  }
+  deriving stock (Eq, Ord, Show)
+  deriving newtype (F.Storable)
+
+newtype FunctionPointer_Function_Deref = FunctionPointer_Function_Deref
+  { un_FunctionPointer_Function_Deref :: IO ()
+  }
+
+{-| __C declaration:__ @FunctionPointer_Function@
+
+    __defined at:__ @typedefs.h:4:16@
+
+    __exported by:__ @typedefs.h@
+-}
+newtype FunctionPointer_Function = FunctionPointer_Function
+  { un_FunctionPointer_Function :: Ptr.FunPtr FunctionPointer_Function_Deref
+  }
+  deriving stock (Eq, Ord, Show)
+  deriving newtype (F.Storable)
+
+{-| __C declaration:__ @NonFunctionPointer_Function@
+
+    __defined at:__ @typedefs.h:5:14@
+
+    __exported by:__ @typedefs.h@
+-}
+newtype NonFunctionPointer_Function = NonFunctionPointer_Function
+  { un_NonFunctionPointer_Function :: FC.CInt -> IO FC.CInt
+  }
+
+newtype F1_Deref = F1_Deref
+  { un_F1_Deref :: IO ()
+  }
+
+{-| __C declaration:__ @f1@
+
+    __defined at:__ @typedefs.h:7:16@
+
+    __exported by:__ @typedefs.h@
+-}
+newtype F1 = F1
+  { un_F1 :: Ptr.FunPtr F1_Deref
+  }
+  deriving stock (Eq, Ord, Show)
+  deriving newtype (F.Storable)
+
+{-| __C declaration:__ @g1@
+
+    __defined at:__ @typedefs.h:9:14@
+
+    __exported by:__ @typedefs.h@
+-}
+newtype G1 = G1
+  { un_G1 :: IO ()
+  }
+
+{-| __C declaration:__ @g2@
+
+    __defined at:__ @typedefs.h:10:14@
+
+    __exported by:__ @typedefs.h@
+-}
+newtype G2 = G2
+  { un_G2 :: Ptr.FunPtr G1
+  }
+  deriving stock (Eq, Ord, Show)
+  deriving newtype (F.Storable)
+
+{-| __C declaration:__ @h1@
+
+    __defined at:__ @typedefs.h:12:14@
+
+    __exported by:__ @typedefs.h@
+-}
+newtype H1 = H1
+  { un_H1 :: IO ()
+  }
+
+{-| __C declaration:__ @h2@
+
+    __defined at:__ @typedefs.h:13:12@
+
+    __exported by:__ @typedefs.h@
+-}
+newtype H2 = H2
+  { un_H2 :: H1
+  }
+
+{-| __C declaration:__ @h3@
+
+    __defined at:__ @typedefs.h:14:14@
+
+    __exported by:__ @typedefs.h@
+-}
+newtype H3 = H3
+  { un_H3 :: Ptr.FunPtr H2
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)

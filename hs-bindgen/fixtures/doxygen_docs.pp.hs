@@ -184,6 +184,26 @@ pattern COLOR_BLUE = Color_enum 2
 
   __returns:__ Handling result
 
+__C declaration:__ @event_callback_t_Deref@
+
+__defined at:__ @doxygen_docs.h:225:15@
+
+__exported by:__ @doxygen_docs.h@
+-}
+newtype Event_callback_t_Deref = Event_callback_t_Deref
+  { un_Event_callback_t_Deref :: FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt
+  }
+
+{-|
+
+  Callback function type
+
+  [__@event_type@ /(input)/__]: Type of event
+
+  [__@user_data@ /(input)/__]: User-provided data
+
+  __returns:__ Handling result
+
 __C declaration:__ @event_callback_t@
 
 __defined at:__ @doxygen_docs.h:225:15@
@@ -191,7 +211,7 @@ __defined at:__ @doxygen_docs.h:225:15@
 __exported by:__ @doxygen_docs.h@
 -}
 newtype Event_callback_t = Event_callback_t
-  { un_Event_callback_t :: Ptr.FunPtr (FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt)
+  { un_Event_callback_t :: Ptr.FunPtr Event_callback_t_Deref
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
@@ -713,6 +733,28 @@ instance F.Storable Bitfield_t where
 
   __returns:__ Processed value
 
+__C declaration:__ @processor_fn_t_Deref@
+
+__defined at:__ @doxygen_docs.h:317:15@
+
+__exported by:__ @doxygen_docs.h@
+-}
+newtype Processor_fn_t_Deref = Processor_fn_t_Deref
+  { un_Processor_fn_t_Deref :: FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt
+  }
+
+{-|
+
+  > processor_fn_t
+
+  Function pointer typedef
+
+  [__@input@ /(input)/__]: Input value
+
+  [__@context@ /(input)/__]: Context pointer
+
+  __returns:__ Processed value
+
 __C declaration:__ @processor_fn_t@
 
 __defined at:__ @doxygen_docs.h:317:15@
@@ -720,7 +762,7 @@ __defined at:__ @doxygen_docs.h:317:15@
 __exported by:__ @doxygen_docs.h@
 -}
 newtype Processor_fn_t = Processor_fn_t
-  { un_Processor_fn_t :: Ptr.FunPtr (FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt)
+  { un_Processor_fn_t :: Ptr.FunPtr Processor_fn_t_Deref
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)

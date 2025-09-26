@@ -495,6 +495,10 @@ pattern ENUM_CASE_2 = A_typedef_enum_e 2
 pattern ENUM_CASE_3 :: A_typedef_enum_e
 pattern ENUM_CASE_3 = A_typedef_enum_e 3
 
+newtype Callback_t_Deref = Callback_t_Deref
+  { un_Callback_t_Deref :: (Ptr.Ptr Void) -> HsBindgen.Runtime.Prelude.Word32 -> IO HsBindgen.Runtime.Prelude.Word32
+  }
+
 {-| __C declaration:__ @callback_t@
 
     __defined at:__ @distilled_lib_1.h:77:19@
@@ -502,7 +506,7 @@ pattern ENUM_CASE_3 = A_typedef_enum_e 3
     __exported by:__ @distilled_lib_1.h@
 -}
 newtype Callback_t = Callback_t
-  { un_Callback_t :: Ptr.FunPtr ((Ptr.Ptr Void) -> HsBindgen.Runtime.Prelude.Word32 -> IO HsBindgen.Runtime.Prelude.Word32)
+  { un_Callback_t :: Ptr.FunPtr Callback_t_Deref
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
