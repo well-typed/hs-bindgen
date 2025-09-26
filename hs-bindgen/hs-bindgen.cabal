@@ -187,6 +187,7 @@ library internal
       HsBindgen.Util.Monad
       HsBindgen.Util.Parsec
       HsBindgen.Util.TestEquality
+      HsBindgen.Util.TH
       HsBindgen.Util.Tracer
       Text.SimplePrettyPrint
   other-modules:

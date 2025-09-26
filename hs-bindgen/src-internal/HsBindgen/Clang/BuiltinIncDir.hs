@@ -229,7 +229,7 @@ applyBuiltinIncDir ::
 applyBuiltinIncDir mBuiltinIncDir config = case mBuiltinIncDir of
     Nothing            -> config
     Just builtinIncDir -> config{
-        clangArgsAfter = clangArgsAfter config ++ ["-isystem", builtinIncDir]
+        argsAfter = argsAfter config ++ ["-isystem", builtinIncDir]
       }
 
 {-------------------------------------------------------------------------------

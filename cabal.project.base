@@ -4,9 +4,6 @@ source-repository-package
     location: https://github.com/well-typed/libclang
     tag: 8105e5e7bd30223a755185ee9fb6ec3727f8360b
 
-tests: True
-benchmarks: True
-
 package clang
   flags: +dev
 

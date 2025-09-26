@@ -75,7 +75,7 @@ getExtraClangArgs tracer = aux
 -- When configured, extra clang arguments are appended to 'clangArgsInner'.
 applyExtraClangArgs :: [String] -> ClangArgsConfig path -> ClangArgsConfig path
 applyExtraClangArgs args config = config {
-      clangArgsInner = clangArgsInner config ++ args
+      argsInner = argsInner config ++ args
     }
 
 {-------------------------------------------------------------------------------

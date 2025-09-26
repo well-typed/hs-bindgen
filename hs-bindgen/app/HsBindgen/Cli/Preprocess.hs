@@ -38,7 +38,7 @@ info = progDesc "Generate Haskell module from C headers"
 -------------------------------------------------------------------------------}
 
 data Opts = Opts {
-      config            :: Config FilePath
+      config            :: Config
     , configPP          :: ConfigPP
     , hsOutputDir       :: FilePath
     , outputBindingSpec :: Maybe FilePath

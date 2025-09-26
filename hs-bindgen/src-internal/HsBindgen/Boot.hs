@@ -86,9 +86,9 @@ boot tracer bindgenConfig@BindgenConfig{..} uncheckedHashIncludeArgs = do
 getClangArgs :: Tracer IO BootMsg -> ClangArgsConfig FilePath -> IO ClangArgs
 getClangArgs tracer config = do
     extraClangArgs <- getExtraClangArgs (contramap BootExtraClangArgs tracer) $
-      fst <$> ClangArgs.clangTarget config
+      fst <$> ClangArgs.target config
     mBuiltinIncDir <- getBuiltinIncDir (contramap BootBuiltinIncDir tracer) $
-      ClangArgs.clangBuiltinIncDir config
+      ClangArgs.builtinIncDir config
     either throwIO return
       . ClangArgs.getClangArgs
       . applyExtraClangArgs extraClangArgs

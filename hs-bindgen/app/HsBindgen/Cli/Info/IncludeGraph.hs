@@ -34,7 +34,7 @@ info = progDesc "Output the include graph"
 -------------------------------------------------------------------------------}
 
 data Opts = Opts {
-      config   :: Config FilePath
+      config   :: Config
     , configPP :: ConfigPP
     , output   :: Maybe FilePath
     , inputs   :: [UncheckedHashIncludeArg]

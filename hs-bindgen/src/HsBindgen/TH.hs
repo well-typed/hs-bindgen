@@ -12,7 +12,8 @@ module HsBindgen.TH (
   , TH.hashInclude
 
     -- * Configuration
-  , Config.Config(..)
+  , TH.Config
+  , Config.Config_(..)
   , Config.ConfigTH(..)
 
     -- ** Clang arguments

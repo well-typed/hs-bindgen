@@ -33,7 +33,7 @@ info = progDesc "Parse C headers (all Frontend passes)"
 -------------------------------------------------------------------------------}
 
 data Opts = Opts {
-      config   :: Config FilePath
+      config   :: Config
     , configPP :: ConfigPP
     , inputs   :: [UncheckedHashIncludeArg]
     }

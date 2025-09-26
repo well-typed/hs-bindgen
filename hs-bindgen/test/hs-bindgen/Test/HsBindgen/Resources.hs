@@ -77,11 +77,11 @@ getTestPackageRoot = fmap testPackageRoot
 
 mkTestClangArgsConfig :: FilePath -> ClangArgsConfig FilePath
 mkTestClangArgsConfig packageRoot = def {
-      clangTarget = Just $
+      target = Just $
         (Target_Linux_X86_64, TargetEnvOverride "gnu")
-    , clangCStandard = Just $
+    , cStandard = Just $
         C23
-    , clangExtraIncludeDirs = [
+    , extraIncludeDirs = [
           packageRoot </> "musl-include/x86_64"
         ]
     }
@@ -90,18 +90,18 @@ getTestDefaultClangArgsConfig ::
      IO TestResources
   -> [FilePath]
   -> IO (ClangArgsConfig FilePath)
-getTestDefaultClangArgsConfig testResources extraIncludeDirs =
+getTestDefaultClangArgsConfig testResources extraIncludeDirs' =
     aux <$> testResources
   where
     aux :: TestResources -> ClangArgsConfig FilePath
     aux TestResources{..} = testClangArgsConfig{
-          clangExtraIncludeDirs =
+          extraIncludeDirs =
                -- NOTE: The include search path is traversed from left to right.
                -- That is, earlier flags overrule later flags, and so, the
                -- test-specific include directories must come before the default
                -- include directories.
-               map ((</>) testPackageRoot) extraIncludeDirs
-            <> clangExtraIncludeDirs testClangArgsConfig
+               map ((</>) testPackageRoot) extraIncludeDirs'
+            <> extraIncludeDirs testClangArgsConfig
         }
 
 {-------------------------------------------------------------------------------

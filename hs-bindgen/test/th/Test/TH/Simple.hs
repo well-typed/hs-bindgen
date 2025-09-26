@@ -10,11 +10,12 @@ module Test.TH.Simple where
 import HsBindgen.Runtime.Prelude qualified
 import HsBindgen.TH
 
-import Optics (set, (%), (&))
+import Optics ((%), (&), (.~))
 
-let cfg :: Config IncludeDir
-    cfg = def & set ( #configClangArgsConfig % #clangExtraIncludeDirs )
-            [ RelativeToPkgRoot "examples" ]
+let cfg :: Config
+    cfg = def & #clang % #extraIncludeDirs .~ [
+              Pkg "examples"
+            ]
  in withHsBindgen cfg def $ hashInclude "simple.h"
 
 x :: Simple

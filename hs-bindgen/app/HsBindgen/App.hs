@@ -9,6 +9,7 @@ module HsBindgen.App (
 
     -- * Argument/option parsers
     -- ** Bindgen configuration
+  , Config
   , parseConfig
   , parseConfigPP
   , toBindgenConfigPP
@@ -149,13 +150,12 @@ parseShowCallStack = flag DisableCallStack EnableCallStack $ mconcat [
   Configuration
 -------------------------------------------------------------------------------}
 
-parseConfig :: Parser (Config FilePath)
+type Config = Config_ FilePath
+
+parseConfig :: Parser Config
 parseConfig = Config
     <$> parseClangArgsConfig
-    <*> parseEnableStdlibBindingSpec
-    <*> parseBindingSpecAllowNewer
-    <*> many parseExtBindingSpec
-    <*> optional parsePrescriptiveBindingSpec
+    <*> parseBindingSpec
     <*> parseParsePredicate
     <*> parseSelectPredicate
     <*> parseProgramSlicing
@@ -166,39 +166,41 @@ parseConfigPP = ConfigPP
     <$> optional parseUniqueId
     <*> parseHsModuleName
 
-toBindgenConfigPP :: Config FilePath -> ConfigPP -> BindgenConfig
+toBindgenConfigPP :: Config -> ConfigPP -> BindgenConfig
 toBindgenConfigPP Config{..} ConfigPP{..} =
   BindgenConfig bootConfig frontendConfig backendConfig
   where
     bootConfig = BootConfig {
-        bootClangArgsConfig = configClangArgsConfig
-      , bootBindingSpecConfig = BindingSpecConfig {
-              bindingSpecStdlibSpec              = configStdlibSpec
-            , bindingSpecCompatibility           = configCompatibility
-            , bindingSpecExtBindingSpecs         = configExtBindingSpecs
-            , bindingSpecPrescriptiveBindingSpec = configPrescriptiveBindingSpec
-          }
+        bootClangArgsConfig   = clang
+      , bootBindingSpecConfig = bindingSpec
       }
     frontendConfig = FrontendConfig {
-          frontendParsePredicate  = configParsePredicate
-        , frontendSelectPredicate = configSelectPredicate
-        , frontendProgramSlicing  = configProgramSlicing
+          frontendParsePredicate  = parsePredicate
+        , frontendSelectPredicate = selectPredicate
+        , frontendProgramSlicing  = programSlicing
       }
     backendConfig = BackendConfig {
         backendTranslationOpts = def {
-            translationUniqueId = fromMaybe def configPPUniqueId
+            translationUniqueId = fromMaybe def uniqueId
           }
       , backendHsModuleOpts = HsModuleOpts {
-            hsModuleOptsBaseName = configPPModuleName
+            hsModuleOptsBaseName = moduleName
           }
       , backendHaddockConfig = HaddockConfig {
-            pathStyle = configHaddockPathStyle
+            pathStyle = haddockPathStyle
           }
       }
 
 {-------------------------------------------------------------------------------
   Binding specifications
 -------------------------------------------------------------------------------}
+
+parseBindingSpec :: Parser BindingSpecConfig
+parseBindingSpec = BindingSpecConfig
+  <$> parseEnableStdlibBindingSpec
+  <*> parseBindingSpecAllowNewer
+  <*> many parseExtBindingSpec
+  <*> optional parsePrescriptiveBindingSpec
 
 parseEnableStdlibBindingSpec :: Parser EnableStdlibBindingSpec
 parseEnableStdlibBindingSpec =
@@ -262,16 +264,16 @@ parseClangArgsConfig = do
     -- ApplicativeDo to be able to reorder arguments for --help, and to use
     -- record construction (i.e., to avoid bool or string/path blindness)
     -- instead of positional one.
-    clangTarget           <- optional parseTarget
-    clangCStandard        <- Just <$> parseCStandard
-    clangGnu              <- parseGnu
-    clangEnableBlocks     <- parseEnableBlocks
-    clangBuiltinIncDir    <- parseBuiltinIncDirConfig
-    clangExtraIncludeDirs <- many parseIncludeDir
-    clangDefineMacros     <- many parseDefineMacro
-    clangArgsBefore       <- many parseClangOptionBefore
-    clangArgsInner        <- many parseClangOptionInner
-    clangArgsAfter        <- many parseClangOptionAfter
+    target           <- optional parseTarget
+    cStandard        <- Just <$> parseCStandard
+    gnu              <- parseGnu
+    enableBlocks     <- parseEnableBlocks
+    builtinIncDir    <- parseBuiltinIncDirConfig
+    extraIncludeDirs <- many parseIncludeDir
+    defineMacros     <- many parseDefineMacro
+    argsBefore       <- many parseClangOptionBefore
+    argsInner        <- many parseClangOptionInner
+    argsAfter        <- many parseClangOptionAfter
     pure $ ClangArgsConfig {..}
 
 parseTarget :: Parser (Target, TargetEnv)

@@ -2,7 +2,7 @@
 
 -- NOTE: This is stable public API.
 module HsBindgen.Config (
-    Config(..)
+    Config_(..)
 
     -- * Preprocessor
   , ConfigPP(..)
@@ -29,22 +29,19 @@ import HsBindgen.Language.Haskell
 -- | Configuration shared between preprocessor and Template-Haskell modes.
 --
 -- Stable public API.
-data Config path = Config {
+data Config_ path = Config {
     -- * Boot
-    configClangArgsConfig         :: ClangArgsConfig path
-  , configStdlibSpec              :: EnableStdlibBindingSpec
-  , configCompatibility           :: BindingSpecCompatibility
-  , configExtBindingSpecs         :: [path]
-  , configPrescriptiveBindingSpec :: Maybe path
+    clang       :: ClangArgsConfig path
+  , bindingSpec :: BindingSpecConfig
 
     -- * Frontend
-  , configParsePredicate  :: ParsePredicate
-  , configSelectPredicate :: SelectPredicate
-  , configProgramSlicing  :: ProgramSlicing
+  , parsePredicate  :: ParsePredicate
+  , selectPredicate :: SelectPredicate
+  , programSlicing  :: ProgramSlicing
 
     -- * Backend
     -- | Path style used in Haddock comments.
-  , configHaddockPathStyle :: PathStyle
+  , haddockPathStyle :: PathStyle
   }
   deriving stock (Show, Eq, Generic)
   deriving stock (Functor, Foldable, Traversable)
@@ -56,8 +53,8 @@ data Config path = Config {
 
 -- | Configuration specific to preprocessor mode.
 data ConfigPP = ConfigPP {
-    configPPUniqueId   :: Maybe UniqueId
-  , configPPModuleName :: HsModuleName
+    uniqueId   :: Maybe UniqueId
+  , moduleName :: HsModuleName
   }
   deriving stock (Show, Eq, Generic)
   deriving anyclass (Default)
@@ -69,7 +66,7 @@ data ConfigPP = ConfigPP {
 -- | Configuration specific to Template-Haskell mode.
 data ConfigTH = ConfigTH {
     -- | Foreign import safety.
-    configTHSafety :: Safety
+    safety :: Safety
   }
   deriving stock (Show, Eq, Generic)
   deriving anyclass (Default)

@@ -71,7 +71,7 @@ parseOpts = do
 
 data Lit = Lit {
       globalOpts :: GlobalOpts
-    , config     :: Config FilePath
+    , config     :: Config
     , configPP   :: ConfigPP
     , safety     :: Safety
     , inputs     :: [UncheckedHashIncludeArg]

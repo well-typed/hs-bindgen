@@ -34,7 +34,7 @@ info = progDesc "Generate tests for generated Haskell code"
 -------------------------------------------------------------------------------}
 
 data Opts = Opts {
-      config   :: Config FilePath
+      config   :: Config
     , configPP :: ConfigPP
     , output   :: FilePath
     , inputs   :: [UncheckedHashIncludeArg]

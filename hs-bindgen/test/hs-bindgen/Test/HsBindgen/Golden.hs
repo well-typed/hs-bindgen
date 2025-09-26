@@ -419,7 +419,7 @@ testCases = [
     , (defaultTest "asm") {
           testOnBootConfig = \cfg -> cfg {
               bootClangArgsConfig = (bootClangArgsConfig cfg) {
-                  clangGnu = EnableGnu
+                  gnu = EnableGnu
                 }
             }
         }
@@ -502,7 +502,7 @@ testCases = [
           testClangVersion     = Just (>= (15, 0, 0))
         , testOnBootConfig = \cfg -> cfg{
               bootClangArgsConfig = (bootClangArgsConfig cfg) {
-                  clangEnableBlocks = True
+                  enableBlocks = True
                 }
             }
         }

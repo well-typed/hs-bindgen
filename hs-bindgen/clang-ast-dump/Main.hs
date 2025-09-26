@@ -106,8 +106,8 @@ clangAstDump opts@Options{..} = do
 
     cArgsConfig :: ClangArgsConfig FilePath
     cArgsConfig = def {
-        clangExtraIncludeDirs = optIncludePath
-      , clangArgsInner        = optClangArgsInner
+        extraIncludeDirs = optIncludePath
+      , argsInner        = optClangArgsInner
       }
 
     cOpts :: BitfieldEnum CXTranslationUnit_Flags

@@ -1,9 +1,9 @@
-{-# LANGUAGE CPP #-}
 {-# LANGUAGE OverloadedLabels #-}
 
 module HsBindgen.TH.Internal (
     -- * Template Haskell API
-    IncludeDir(..)
+    Config
+  , IncludeDir(..)
   , withHsBindgen
   , hashInclude
 
@@ -18,7 +18,7 @@ import Language.Haskell.TH qualified as TH
 import System.FilePath ((</>))
 
 import Clang.Paths
-import HsBindgen
+
 import HsBindgen.Backend.Extensions
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Config
@@ -27,32 +27,30 @@ import HsBindgen.Backend.HsModule.Translation
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.TH.Translation
 import HsBindgen.Backend.UniqueId
-import HsBindgen.BindingSpec
 import HsBindgen.Config
 import HsBindgen.Config.Internal
 import HsBindgen.Errors
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Guasi
 import HsBindgen.Imports
+import HsBindgen.Util.TH
 import HsBindgen.Util.Tracer
 
-#ifdef MIN_VERSION_th_compat
-import Language.Haskell.TH.Syntax.Compat (getPackageRoot)
-#else
-import Language.Haskell.TH.Syntax (getPackageRoot)
-#endif
+import HsBindgen
 
 {-------------------------------------------------------------------------------
   Template Haskell API
 -------------------------------------------------------------------------------}
 
+type Config = Config_ IncludeDir
+
 -- | Project-specific C include directory.
 --
 -- Will be added either to the C include search path.
 data IncludeDir =
-    IncludeDir        FilePath
+    Dir FilePath
     -- | Include directory relative to package root.
-  | RelativeToPkgRoot FilePath
+  | Pkg FilePath
   deriving stock (Eq, Show, Generic)
 
 -- | Generate bindings for given C headers at compile-time.
@@ -64,7 +62,7 @@ data IncludeDir =
 -- > withHsBindgen def $ do
 -- >   hashInclude "a.h"
 -- >   hashInclude "b.h"
-withHsBindgen :: Config IncludeDir -> ConfigTH -> Bindgen () -> TH.Q [TH.Dec]
+withHsBindgen :: Config -> ConfigTH -> Bindgen () -> TH.Q [TH.Dec]
 withHsBindgen config ConfigTH{..} hashIncludes = do
     checkHsBindgenRuntimePreludeIsInScope
 
@@ -87,7 +85,7 @@ withHsBindgen config ConfigTH{..} hashIncludes = do
         bindgenConfig
         uncheckedHashIncludeArgs
         artefacts
-    let decls = mergeDecls configTHSafety decls'
+    let decls = mergeDecls safety decls'
         requiredExts = uncurry getExtensions $ decls
     checkLanguageExtensions requiredExts
     uncurry (getThDecls deps) decls
@@ -197,7 +195,7 @@ checkLanguageExtensions requiredExts = do
           (map (("    - " ++) . show) (toList missingExts))
 
 
-toBindgenConfigTH :: Config IncludeDir -> TH.Q BindgenConfig
+toBindgenConfigTH :: Config -> TH.Q BindgenConfig
 toBindgenConfigTH config = do
     packageRoot <- getPackageRoot
     let Config{..} = toFilePath packageRoot <$> config
@@ -205,18 +203,13 @@ toBindgenConfigTH config = do
     uniqueId <- getUniqueId
 
     let bootConfig = BootConfig {
-            bootClangArgsConfig   = configClangArgsConfig
-          , bootBindingSpecConfig = BindingSpecConfig {
-                bindingSpecStdlibSpec              = configStdlibSpec
-              , bindingSpecCompatibility           = configCompatibility
-              , bindingSpecExtBindingSpecs         = configExtBindingSpecs
-              , bindingSpecPrescriptiveBindingSpec = configPrescriptiveBindingSpec
-              }
+            bootClangArgsConfig   = clang
+          , bootBindingSpecConfig = bindingSpec
           }
         frontendConfig = FrontendConfig {
-            frontendParsePredicate  = configParsePredicate
-          , frontendSelectPredicate = configSelectPredicate
-          , frontendProgramSlicing  = configProgramSlicing
+            frontendParsePredicate  = parsePredicate
+          , frontendSelectPredicate = selectPredicate
+          , frontendProgramSlicing  = programSlicing
           }
         backendConfig = BackendConfig {
             backendTranslationOpts = def {
@@ -224,15 +217,15 @@ toBindgenConfigTH config = do
               }
           , backendHsModuleOpts = def
           , backendHaddockConfig = HaddockConfig {
-                pathStyle = configHaddockPathStyle
+                pathStyle = haddockPathStyle
               }
           }
 
     pure $ BindgenConfig bootConfig frontendConfig backendConfig
   where
     toFilePath :: FilePath -> IncludeDir -> FilePath
-    toFilePath root (RelativeToPkgRoot x) = root </> x
-    toFilePath _    (IncludeDir        x) = x
+    toFilePath root (Pkg x) = root </> x
+    toFilePath _    (Dir x) = x
 
     getUniqueId :: TH.Q UniqueId
     getUniqueId = UniqueId . TH.loc_package <$> TH.location
