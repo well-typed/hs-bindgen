@@ -17,7 +17,7 @@ module HsBindgen.Frontend.LanguageC.PartialAST (
 import HsBindgen.Frontend.AST.Internal
 import HsBindgen.Frontend.Naming
 import HsBindgen.Imports
-import HsBindgen.Language.C.Prim
+import HsBindgen.Language.C
 
 {-------------------------------------------------------------------------------
   Definition

@@ -30,7 +30,7 @@ module HsBindgen.Backend.SHs.AST (
 
 import Data.Map qualified as Map
 
-import C.Char qualified
+import C.Char qualified as CExpr.Runtime
 
 import HsBindgen.Backend.Hs.AST.Strategy qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
@@ -212,7 +212,7 @@ data SExpr ctx =
   | EIntegral Integer (Maybe HsPrimType)
   | EFloat Float HsPrimType -- ^ Type annotation to distinguish Float/CFLoat
   | EDouble Double HsPrimType
-  | EChar C.Char.CharValue
+  | EChar CExpr.Runtime.CharValue
   | EString String
   | ECString ByteArray
   | EApp (SExpr ctx) (SExpr ctx)

@@ -17,16 +17,19 @@ module HsBindgen.TraceMsg (
   , NameAnonMsg(..)
   , ParseMsg(..)
   , ParseTypeException(..)
-  , MacroParseError(..)
+  , CExpr.DSL.MacroParseError(..)
   , ResolveBindingSpecMsg(..)
   , ResolveHeaderMsg(..)
   , SelectMsg(..)
   , SortMsg(..)
-  , MacroTcError(..)
+  , CExpr.DSL.MacroTcError(..)
   -- * Log level customization
   , CustomLogLevelSetting (..)
   , getCustomLogLevel
   ) where
+
+import C.Expr.Parse.Infra qualified as CExpr.DSL
+import C.Expr.Typecheck.Expr qualified as CExpr.DSL
 
 import Clang.HighLevel.Types (Diagnostic (..))
 
@@ -36,7 +39,6 @@ import HsBindgen.Clang (ClangMsg (..))
 import HsBindgen.Clang.BuiltinIncDir (BuiltinIncDirMsg (..))
 import HsBindgen.Frontend (FrontendMsg (..))
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndexError (..))
-import HsBindgen.Frontend.Macro (MacroParseError (..), MacroTcError (..))
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass (HandleMacrosMsg (..))
 import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass (HandleTypedefsMsg (..))
 import HsBindgen.Frontend.Pass.MangleNames.IsPass (MangleNamesMsg (..))

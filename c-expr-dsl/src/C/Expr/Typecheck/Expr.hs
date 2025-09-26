@@ -4,7 +4,7 @@
 {-# LANGUAGE ParallelListComp #-}
 
 -- | Type inference for simple function-like C macros.
-module HsBindgen.Frontend.Macro.Tc
+module C.Expr.Typecheck.Expr
   (
     -- * Typechecking macros
     tcMacro
@@ -32,7 +32,8 @@ module HsBindgen.Frontend.Macro.Tc
   )
   where
 
--- base
+import Control.Applicative (liftA2)
+import Control.Monad
 import Control.Monad.Except (ExceptT)
 import Control.Monad.Except qualified as Except
 import Control.Monad.ST (ST, runST)
@@ -41,40 +42,47 @@ import Control.Monad.State.Strict qualified as State
 import Control.Monad.Trans (lift)
 import Control.Monad.Writer (WriterT)
 import Control.Monad.Writer qualified as Writer
+import Data.Bifunctor
 import Data.Either (partitionEithers)
 import Data.Fin (Fin)
 import Data.Fin qualified as Fin (toNatural)
-import Data.Foldable (for_)
+import Data.Foldable qualified as Foldable
 import Data.Functor ((<&>))
+import Data.IntMap (IntMap)
 import Data.IntMap.Strict qualified as IntMap
+import Data.IntSet (IntSet)
 import Data.IntSet qualified as IntSet
 import Data.Kind qualified as Hs
 import Data.List (intercalate)
 import Data.List.NonEmpty qualified as NE
+import Data.Map (Map)
 import Data.Map.Strict qualified as Map
+import Data.Maybe (fromMaybe, mapMaybe)
 import Data.Monoid (Endo (..))
+import Data.Nat (Nat (..))
+import Data.Proxy
 import Data.STRef (newSTRef, readSTRef)
+import Data.Text (Text)
 import Data.Text qualified as Text
 import Data.Traversable (for)
 import Data.Type.Equality (type (:~:) (..))
 import Data.Type.Nat qualified as Nat (SNatI, eqNat, reflectToNum)
 import Data.Typeable (Typeable, eqT)
+import Data.Vec.Lazy (Vec (..))
 import Data.Vec.Lazy qualified as Vec
+import Debug.Trace (traceM)
 import Foreign.C.Types
 import GHC.Exts (Int (I#), dataToTag#)
+import GHC.Generics (Generic)
+import GHC.Stack
+import Numeric.Natural
 
-import C.Expr.HostPlatform qualified as C.Expr
-import C.Operators qualified as C.Op
-import C.Type qualified
-
-import HsBindgen.Errors
-import HsBindgen.Frontend.Macro.Pass
-import HsBindgen.Frontend.Macro.Syntax
-import HsBindgen.Frontend.Macro.Tc.Type
-import HsBindgen.Frontend.Naming (Name (..))
-import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
-import HsBindgen.Util.TestEquality (equals2)
+import C.Expr.HostPlatform qualified as Runtime
+import C.Expr.Syntax
+import C.Expr.Typecheck.Type
+import C.Expr.Util.TestEquality (equals2)
+import C.Operators qualified as Runtime
+import C.Type qualified as Runtime
 
 {-------------------------------------------------------------------------------
   Free type variables and substitution
@@ -122,7 +130,7 @@ freeTyVarsOfType = \case
         Just argTys -> goFunTy          argTys resTy
 
 freeTyVarsOfTypes :: Traversable t => t ( Type ki ) -> State FVs ()
-freeTyVarsOfTypes = traverse_ freeTyVarsOfType
+freeTyVarsOfTypes = Foldable.traverse_ freeTyVarsOfType
 {-# INLINEABLE freeTyVarsOfType #-}
 
 newtype Subst tv = Subst ( IntMap ( tv, Type Ty ) )
@@ -163,7 +171,7 @@ mkSubst = Subst
 
 substClashErr :: ( Show a, HasCallStack ) => String -> Int -> a -> a -> a
 substClashErr str i ty1 ty2 =
-  panicPure $
+  error $
     unlines
       [ str ++ ": incoherent substitution"
       , "TyVar with unique " ++ show ( Unique i ) ++ " mapped to two different types"
@@ -315,7 +323,7 @@ data TcEnv s =
 data TcGblEnv s
   = TcGblEnv
       { tcTypeEnv  :: !TypeEnv
-      , tcPlatform :: !C.Type.Platform
+      , tcPlatform :: !Runtime.Platform
       }
 
 -- TODO: implement source span to improve error reporting
@@ -343,7 +351,7 @@ instance Monad TcPureM where
     case f a of
       TcPureM g -> g env
 
-runTcM :: C.Type.Platform -> TypeEnv -> TcPureM a -> ( a, [ ( TcError, SrcSpan ) ] )
+runTcM :: Runtime.Platform -> TypeEnv -> TcPureM a -> ( a, [ ( TcError, SrcSpan ) ] )
 runTcM plat initTyEnv ( TcPureM f ) = runST do
   tcErrs    <- newSTRef []
   let
@@ -358,7 +366,7 @@ getSrcSpan =
   TcPureM \ ( TcEnv _gbl ( TcLclEnv { tcSrcSpan } ) ) ->
     return tcSrcSpan
 
-getPlatform :: TcPureM C.Type.Platform
+getPlatform :: TcPureM Runtime.Platform
 getPlatform =
   TcPureM \ ( TcEnv ( TcGblEnv { tcPlatform = plat } ) _ ) ->
     pure plat
@@ -605,7 +613,7 @@ couldNotUnify rea orig swapped ty1 ty2 = do
 -------------------------------------------------------------------------------}
 
 -- | Normalise a type by reducing reducible type-family applications.
-normaliseType :: C.Type.Platform -> Type ki -> Type ki
+normaliseType :: Runtime.Platform -> Type ki -> Type ki
 normaliseType plat ty =
   case ty of
     TyVarTy {} -> ty
@@ -624,54 +632,54 @@ normaliseType plat ty =
           GenerativeTyCon {} ->
             tcApp'
 
-reduceTyFamApp :: C.Type.Platform -> FamilyTyCon n -> Vec n ( Type Ty ) -> Maybe ( Type Ty )
+reduceTyFamApp :: Runtime.Platform -> FamilyTyCon n -> Vec n ( Type Ty ) -> Maybe ( Type Ty )
 reduceTyFamApp platform = \case
-  PlusResTyCon       -> adapt $ C.Op.opResType platform $ C.Op.UnaryOp  C.Op.UnaryPlus
-  MinusResTyCon      -> adapt $ C.Op.opResType platform $ C.Op.UnaryOp  C.Op.UnaryMinus
-  AddResTyCon        -> adapt $ C.Op.opResType platform $ C.Op.BinaryOp C.Op.Add
-  SubResTyCon        -> adapt $ C.Op.opResType platform $ C.Op.BinaryOp C.Op.Sub
-  MultResTyCon       -> adapt $ C.Op.opResType platform $ C.Op.BinaryOp C.Op.Mult
-  DivResTyCon        -> adapt $ C.Op.opResType platform $ C.Op.BinaryOp C.Op.Div
-  RemResTyCon        -> adapt $ C.Op.opResType platform $ C.Op.BinaryOp C.Op.Rem
-  ComplementResTyCon -> adapt $ C.Op.opResType platform $ C.Op.UnaryOp  C.Op.BitwiseNot
-  BitsResTyCon       -> adapt $ C.Op.opResType platform $ C.Op.BinaryOp C.Op.BitwiseAnd
+  PlusResTyCon       -> adapt $ Runtime.opResType platform $ Runtime.UnaryOp  Runtime.UnaryPlus
+  MinusResTyCon      -> adapt $ Runtime.opResType platform $ Runtime.UnaryOp  Runtime.UnaryMinus
+  AddResTyCon        -> adapt $ Runtime.opResType platform $ Runtime.BinaryOp Runtime.Add
+  SubResTyCon        -> adapt $ Runtime.opResType platform $ Runtime.BinaryOp Runtime.Sub
+  MultResTyCon       -> adapt $ Runtime.opResType platform $ Runtime.BinaryOp Runtime.Mult
+  DivResTyCon        -> adapt $ Runtime.opResType platform $ Runtime.BinaryOp Runtime.Div
+  RemResTyCon        -> adapt $ Runtime.opResType platform $ Runtime.BinaryOp Runtime.Rem
+  ComplementResTyCon -> adapt $ Runtime.opResType platform $ Runtime.UnaryOp  Runtime.BitwiseNot
+  BitsResTyCon       -> adapt $ Runtime.opResType platform $ Runtime.BinaryOp Runtime.BitwiseAnd
   ShiftResTyCon      -> adapt $ \ ( ty ::: VNil ) ->
                           -- NB: need to adapt to the fact that bit shift operators
                           -- are binary, but the result type family only cases on
                           -- the first argument (the shiftee) and not the
                           -- second argument (the shift amount).
-                                C.Op.opResType platform ( C.Op.BinaryOp C.Op.ShiftLeft )
+                                Runtime.opResType platform ( Runtime.BinaryOp Runtime.ShiftLeft )
                                   ( ty ::: cIntTy ::: VNil )
 
   where
-    cIntTy :: C.Type.Type CType
-    cIntTy = C.Type.Arithmetic ( C.Type.Integral $ C.Type.IntLike $ C.Type.Int C.Type.Signed )
-    adapt :: ( Vec n ( C.Type.Type CType ) -> Maybe ( C.Type.Type CType ) )
+    cIntTy :: Runtime.Type CType
+    cIntTy = Runtime.Arithmetic ( Runtime.Integral $ Runtime.IntLike $ Runtime.Int Runtime.Signed )
+    adapt :: ( Vec n ( Runtime.Type CType ) -> Maybe ( Runtime.Type CType ) )
           -> Vec n ( Type Ty ) -> Maybe ( Type Ty )
     adapt f args = do
       args' <- traverse fromMacroType args
       res   <- f args'
       toMacroType res
 
--- | A recursive newtype, which instantiates the v'C.Type.Ptr' constructor of
--- t'C.Type.Type' to t'C.Type.Type' itself.
-newtype CType = CType ( C.Type.Type CType )
+-- | A recursive newtype, which instantiates the v'Runtime.Ptr' constructor of
+-- t'Runtime.Type' to t'Runtime.Type' itself.
+newtype CType = CType ( Runtime.Type CType )
   deriving stock Eq
 
-toMacroType :: C.Type.Type CType -> Maybe ( Type Ty )
+toMacroType :: Runtime.Type CType -> Maybe ( Type Ty )
 toMacroType = \case
   -- TODO: the below should probably be throwPure_TODO,
   -- but I can't figure a way to trigger this codepath; maybe it isn't possible yet.
   -- Explicit casts would be one way to introduce `void`, but they don't work (yet).
   -- https://github.com/well-typed/hs-bindgen/issues/441
-  C.Type.Void          -> panicPure "C macro typechecker does not support 'void' (yet)"
-  C.Type.Arithmetic a  ->
+  Runtime.Void          -> error "C macro typechecker does not support 'void' (yet)"
+  Runtime.Arithmetic a  ->
     case a of
-      C.Type.Integral  i -> Just $ IntLike   $ PrimIntInfoTy   $ CIntegralType i
-      C.Type.FloatLike f -> Just $ FloatLike $ PrimFloatInfoTy f
-  C.Type.Ptr ( CType a ) -> Ptr <$> toMacroType a
+      Runtime.Integral  i -> Just $ IntLike   $ PrimIntInfoTy   $ CIntegralType i
+      Runtime.FloatLike f -> Just $ FloatLike $ PrimFloatInfoTy f
+  Runtime.Ptr ( CType a ) -> Ptr <$> toMacroType a
 
-fromMacroType :: Type Ty -> Maybe ( C.Type.Type CType )
+fromMacroType :: Type Ty -> Maybe ( Runtime.Type CType )
 fromMacroType = \case
   TyVarTy {} -> Nothing
   FunTy {} -> Nothing
@@ -681,31 +689,31 @@ fromMacroType = \case
       GenerativeTyCon ( DataTyCon dat ) ->
         case dat of
           TupleTyCon {} -> Nothing
-          VoidTyCon -> Just $ C.Type.Void
+          VoidTyCon -> Just $ Runtime.Void
           CharLitTyCon -> Nothing
           IntLikeTyCon ->
             case args of
               ( a ::: VNil ) ->
                 case a of
                   PrimIntInfoTy (CIntegralType inty) ->
-                    Just $ C.Type.Arithmetic $ C.Type.Integral inty
+                    Just $ Runtime.Arithmetic $ Runtime.Integral inty
                   _ -> Nothing
           FloatLikeTyCon ->
             case args of
               ( a ::: VNil ) ->
                 case a of
                   PrimFloatInfoTy floaty ->
-                    Just $ C.Type.Arithmetic $ C.Type.FloatLike floaty
+                    Just $ Runtime.Arithmetic $ Runtime.FloatLike floaty
                   _ -> Nothing
           PtrTyCon       ->
             case args of
               ( a ::: VNil ) ->
-                C.Type.Ptr . CType <$> fromMacroType a
+                Runtime.Ptr . CType <$> fromMacroType a
 
-          PrimIntInfoTyCon {} -> panicPure "fromMacroType: 'PrimIntInfoTyCon'"
-          PrimFloatInfoTyCon {} -> panicPure "fromMacroType: 'PrimFloatInfoTyCon'"
+          PrimIntInfoTyCon {} -> error "fromMacroType: 'PrimIntInfoTyCon'"
+          PrimFloatInfoTyCon {} -> error "fromMacroType: 'PrimFloatInfoTyCon'"
 
-applySubstNormalise :: C.Type.Platform -> Subst tv -> Type ki -> Type ki
+applySubstNormalise :: Runtime.Platform -> Subst tv -> Type ki -> Type ki
 applySubstNormalise plat subst = normaliseType plat . applySubst subst
 
 {-------------------------------------------------------------------------------
@@ -757,12 +765,12 @@ inferExpr = \case
 
 inferTerm :: MTerm Ps -> TcGenM ( Type Ty, MTerm Tc )
 inferTerm = \case
-  MInt lit@( C.IntegerLiteral { integerLiteralType = intyTy } ) ->
+  MInt lit@( IntegerLiteral { integerLiteralType = intyTy } ) ->
     return $
-      ( IntLike $ PrimIntInfoTy $ CIntegralType $ C.Type.IntLike intyTy
+      ( IntLike $ PrimIntInfoTy $ CIntegralType $ Runtime.IntLike intyTy
       , MInt lit
       )
-  MFloat lit@( C.FloatingLiteral { floatingLiteralType = floatyTy }) ->
+  MFloat lit@( FloatingLiteral { floatingLiteralType = floatyTy }) ->
     return
       ( FloatLike $ PrimFloatInfoTy floatyTy
       , MFloat lit
@@ -848,7 +856,7 @@ inferLam funNm argNms@( _ ::: _ ) body = do
   argTys <-
     for ( Vec.zipWith (,) is argNms ) \ ( i, argNm@( Name argStr ) ) ->
       newMetaTyVarTy ( FunArg funNm ( argNm, i ) ) ( "ty_" <> argStr )
-  liftBaseTcM ( declareLocalVars ( Map.fromList $ toList $ Vec.zipWith (,) argNms argTys ) ) $ do
+  liftBaseTcM ( declareLocalVars ( Map.fromList $ Foldable.toList $ Vec.zipWith (,) argNms argTys ) ) $ do
     ( bodyTy, body' ) <- inferExpr body
     return ( body', ( argTys, bodyTy ) )
 
@@ -876,49 +884,49 @@ inferMFun fun = case fun of
 
 
   -- Logical operators
-  MLogicalNot -> q1 \ a   -> QuantTyBody [Not  a]      ( unaryFun  $ \ ty      f -> f (C.Expr.singNot ty)     , mkFunTy [a]   IntTy )
-  MLogicalAnd -> q2 \ a b -> QuantTyBody [Logical a b] ( binaryFun $ \ ty1 ty2 f -> f (C.Expr.singAnd ty1 ty2), mkFunTy [a,b] IntTy )
-  MLogicalOr  -> q2 \ a b -> QuantTyBody [Logical a b] ( binaryFun $ \ ty1 ty2 f -> f (C.Expr.singOr  ty1 ty2), mkFunTy [a,b] IntTy )
+  MLogicalNot -> q1 \ a   -> QuantTyBody [Not  a]      ( unaryFun  $ \ ty      f -> f (Runtime.singNot ty)     , mkFunTy [a]   IntTy )
+  MLogicalAnd -> q2 \ a b -> QuantTyBody [Logical a b] ( binaryFun $ \ ty1 ty2 f -> f (Runtime.singAnd ty1 ty2), mkFunTy [a,b] IntTy )
+  MLogicalOr  -> q2 \ a b -> QuantTyBody [Logical a b] ( binaryFun $ \ ty1 ty2 f -> f (Runtime.singOr  ty1 ty2), mkFunTy [a,b] IntTy )
 
   -- Comparison operators
-  MRelEQ      -> q2 \ a b -> QuantTyBody [RelEq a b]    ( binaryFun $ \ ty1 ty2 f -> f (C.Expr.singEq  ty1 ty2), mkFunTy [a,b] IntTy )
-  MRelNE      -> q2 \ a b -> QuantTyBody [RelEq a b]    ( binaryFun $ \ ty1 ty2 f -> f (C.Expr.singNEq ty1 ty2), mkFunTy [a,b] IntTy )
-  MRelLT      -> q2 \ a b -> QuantTyBody [RelOrd a b]   ( binaryFun $ \ ty1 ty2 f -> f (C.Expr.singLT  ty1 ty2), mkFunTy [a,b] IntTy )
-  MRelLE      -> q2 \ a b -> QuantTyBody [RelOrd a b]   ( binaryFun $ \ ty1 ty2 f -> f (C.Expr.singLTE ty1 ty2), mkFunTy [a,b] IntTy )
-  MRelGT      -> q2 \ a b -> QuantTyBody [RelOrd a b]   ( binaryFun $ \ ty1 ty2 f -> f (C.Expr.singGT  ty1 ty2), mkFunTy [a,b] IntTy )
-  MRelGE      -> q2 \ a b -> QuantTyBody [RelOrd a b]   ( binaryFun $ \ ty1 ty2 f -> f (C.Expr.singGTE ty1 ty2), mkFunTy [a,b] IntTy )
+  MRelEQ      -> q2 \ a b -> QuantTyBody [RelEq a b]    ( binaryFun $ \ ty1 ty2 f -> f (Runtime.singEq  ty1 ty2), mkFunTy [a,b] IntTy )
+  MRelNE      -> q2 \ a b -> QuantTyBody [RelEq a b]    ( binaryFun $ \ ty1 ty2 f -> f (Runtime.singNEq ty1 ty2), mkFunTy [a,b] IntTy )
+  MRelLT      -> q2 \ a b -> QuantTyBody [RelOrd a b]   ( binaryFun $ \ ty1 ty2 f -> f (Runtime.singLT  ty1 ty2), mkFunTy [a,b] IntTy )
+  MRelLE      -> q2 \ a b -> QuantTyBody [RelOrd a b]   ( binaryFun $ \ ty1 ty2 f -> f (Runtime.singLTE ty1 ty2), mkFunTy [a,b] IntTy )
+  MRelGT      -> q2 \ a b -> QuantTyBody [RelOrd a b]   ( binaryFun $ \ ty1 ty2 f -> f (Runtime.singGT  ty1 ty2), mkFunTy [a,b] IntTy )
+  MRelGE      -> q2 \ a b -> QuantTyBody [RelOrd a b]   ( binaryFun $ \ ty1 ty2 f -> f (Runtime.singGTE ty1 ty2), mkFunTy [a,b] IntTy )
 
   -- Arithmetic operators
 
     -- Unary
-  MUnaryPlus  -> q1 \ a   -> QuantTyBody [Plus  a] ( unaryFun  $ \ ty      f -> f (C.Expr.singPlus   ty), mkFunTy [a] ( PlusRes a ) )
-  MUnaryMinus -> q1 \ a   -> QuantTyBody [Minus a] ( unaryFun  $ \ ty      f -> f (C.Expr.singNegate ty), mkFunTy [a] ( MinusRes a ) )
+  MUnaryPlus  -> q1 \ a   -> QuantTyBody [Plus  a] ( unaryFun  $ \ ty      f -> f (Runtime.singPlus   ty), mkFunTy [a] ( PlusRes a ) )
+  MUnaryMinus -> q1 \ a   -> QuantTyBody [Minus a] ( unaryFun  $ \ ty      f -> f (Runtime.singNegate ty), mkFunTy [a] ( MinusRes a ) )
 
     -- Additive
-  MAdd        -> q2 \ a b -> QuantTyBody [Add a b] ( binaryFun $ \ ty1 ty2 f -> f (C.Expr.singAdd ty1 ty2), mkFunTy [a,b] ( AddRes a b ) )
-  MSub        -> q2 \ a b -> QuantTyBody [Sub a b] ( binaryFun $ \ ty1 ty2 f -> f (C.Expr.singSub ty1 ty2), mkFunTy [a,b] ( SubRes a b ) )
+  MAdd        -> q2 \ a b -> QuantTyBody [Add a b] ( binaryFun $ \ ty1 ty2 f -> f (Runtime.singAdd ty1 ty2), mkFunTy [a,b] ( AddRes a b ) )
+  MSub        -> q2 \ a b -> QuantTyBody [Sub a b] ( binaryFun $ \ ty1 ty2 f -> f (Runtime.singSub ty1 ty2), mkFunTy [a,b] ( SubRes a b ) )
 
     -- Multiplicative
-  MMult       -> q2 \ a b -> QuantTyBody [Mult a b] ( binaryFun $ \ ty1 ty2 f -> f (C.Expr.singMult ty1 ty2), mkFunTy [a,b] ( MultRes a b ) )
-  MDiv        -> q2 \ a b -> QuantTyBody [Div  a b] ( binaryFun $ \ ty1 ty2 f -> f (C.Expr.singDiv  ty1 ty2), mkFunTy [a,b] ( DivRes  a b ) )
-  MRem        -> q2 \ a b -> QuantTyBody [Rem  a b] ( binaryFun $ \ ty1 ty2 f -> f (C.Expr.singRem  ty1 ty2),  mkFunTy [a,b] ( RemRes  a b ) )
+  MMult       -> q2 \ a b -> QuantTyBody [Mult a b] ( binaryFun $ \ ty1 ty2 f -> f (Runtime.singMult ty1 ty2), mkFunTy [a,b] ( MultRes a b ) )
+  MDiv        -> q2 \ a b -> QuantTyBody [Div  a b] ( binaryFun $ \ ty1 ty2 f -> f (Runtime.singDiv  ty1 ty2), mkFunTy [a,b] ( DivRes  a b ) )
+  MRem        -> q2 \ a b -> QuantTyBody [Rem  a b] ( binaryFun $ \ ty1 ty2 f -> f (Runtime.singRem  ty1 ty2),  mkFunTy [a,b] ( RemRes  a b ) )
 
     -- Bitwise logical operators
-  MBitwiseNot -> q1 \ a   -> QuantTyBody [Complement a] ( unaryFun  $ \ ty      f -> f (C.Expr.singComplement ty) , mkFunTy [a]   ( ComplementRes a ) )
-  MBitwiseAnd -> q2 \ a b -> QuantTyBody [Bitwise a b]  ( binaryFun $ \ ty1 ty2 f -> f (C.Expr.singBitAnd ty1 ty2), mkFunTy [a,b] ( BitsRes a b ) )
-  MBitwiseXor -> q2 \ a b -> QuantTyBody [Bitwise a b]  ( binaryFun $ \ ty1 ty2 f -> f (C.Expr.singBitXor ty1 ty2), mkFunTy [a,b] ( BitsRes a b ) )
-  MBitwiseOr  -> q2 \ a b -> QuantTyBody [Bitwise a b]  ( binaryFun $ \ ty1 ty2 f -> f (C.Expr.singBitOr  ty1 ty2), mkFunTy [a,b] ( BitsRes a b ) )
+  MBitwiseNot -> q1 \ a   -> QuantTyBody [Complement a] ( unaryFun  $ \ ty      f -> f (Runtime.singComplement ty) , mkFunTy [a]   ( ComplementRes a ) )
+  MBitwiseAnd -> q2 \ a b -> QuantTyBody [Bitwise a b]  ( binaryFun $ \ ty1 ty2 f -> f (Runtime.singBitAnd ty1 ty2), mkFunTy [a,b] ( BitsRes a b ) )
+  MBitwiseXor -> q2 \ a b -> QuantTyBody [Bitwise a b]  ( binaryFun $ \ ty1 ty2 f -> f (Runtime.singBitXor ty1 ty2), mkFunTy [a,b] ( BitsRes a b ) )
+  MBitwiseOr  -> q2 \ a b -> QuantTyBody [Bitwise a b]  ( binaryFun $ \ ty1 ty2 f -> f (Runtime.singBitOr  ty1 ty2), mkFunTy [a,b] ( BitsRes a b ) )
 
     -- Bit shift
-  MShiftLeft  -> q2 \ a i -> QuantTyBody [Shift a i] ( binaryFun $ \ ty1 ty2 f -> f (C.Expr.singShiftL ty1 ty2), mkFunTy [a,i] ( ShiftRes a ) )
-  MShiftRight -> q2 \ a i -> QuantTyBody [Shift a i] ( binaryFun $ \ ty1 ty2 f -> f (C.Expr.singShiftR ty1 ty2), mkFunTy [a,i] ( ShiftRes a ) )
+  MShiftLeft  -> q2 \ a i -> QuantTyBody [Shift a i] ( binaryFun $ \ ty1 ty2 f -> f (Runtime.singShiftL ty1 ty2), mkFunTy [a,i] ( ShiftRes a ) )
+  MShiftRight -> q2 \ a i -> QuantTyBody [Shift a i] ( binaryFun $ \ ty1 ty2 f -> f (Runtime.singShiftR ty1 ty2), mkFunTy [a,i] ( ShiftRes a ) )
   where
     q1 body = Quant @( S Z )       \ (a ::: VNil) -> body a
     q2 body = Quant @( S ( S Z ) ) \ (a ::: i ::: VNil) -> body a i
 
     -- For explanation of this type signature see Note [Abstracting over instance lookup functions].
-    unaryFun :: ( forall ty r. C.Type.SType ValSType ty
-                  -> ( forall res. ( C.Type.SType ValSType res, ty -> res ) -> r ) -> r )
+    unaryFun :: ( forall ty r. Runtime.SType ValSType ty
+                  -> ( forall res. ( Runtime.SType ValSType res, ty -> res ) -> r ) -> r )
              -> FunValue
     unaryFun proveFn =
       FunValue @( S Z ) ( Text.pack ( show fun ) ) $ \ ( a ::: VNil ) ->
@@ -929,8 +937,8 @@ inferMFun fun = case fun of
            -> NoValue
 
     -- For explanation of this type signature see Note [Abstracting over instance lookup functions].
-    binaryFun :: ( forall ty1 ty2 r. C.Type.SType ValSType ty1 -> C.Type.SType ValSType ty2
-                   -> ( forall res. ( C.Type.SType ValSType res, ty1 -> ty2 -> res ) -> r ) -> r )
+    binaryFun :: ( forall ty1 ty2 r. Runtime.SType ValSType ty1 -> Runtime.SType ValSType ty2
+                   -> ( forall res. ( Runtime.SType ValSType res, ty1 -> ty2 -> res ) -> r ) -> r )
                -> FunValue
     binaryFun proveFn =
       FunValue @( S ( S Z ) ) ( Text.pack ( show fun ) ) $ \ ( a ::: b ::: VNil ) ->
@@ -1071,7 +1079,7 @@ isEmptyTrie :: TrieMap k a -> Bool
 isEmptyTrie ( Trie vs cs ) = null vs && null cs
 
 trieFromList :: Ord k => [ ( [ Maybe k ], v ) ] -> TrieMap k v
-trieFromList = foldl' ( \ t ( k, v ) -> insertTrie k v t ) mempty
+trieFromList = Foldable.foldl' ( \ t ( k, v ) -> insertTrie k v t ) mempty
 
 mapMaybeATrie :: ( Ord k, Applicative f ) => ( a -> f ( Maybe b ) ) -> TrieMap k a -> f ( TrieMap k b )
 mapMaybeATrie f ( Trie vs cs ) =
@@ -1087,7 +1095,7 @@ instanceKey ( Instance { instanceQuantTy = qty } ) =
   map typeHead $ Vec.toList $ quantTyBody ( mkQuantTyBody ( Quant qty ) )
 
 argsTypeHeads :: Vec n ( Type Ty ) -> [ Maybe TypeHead ]
-argsTypeHeads = toList . fmap typeHead
+argsTypeHeads = Foldable.toList . fmap typeHead
 
 typeHead :: Type Ty -> Maybe TypeHead
 typeHead = \case
@@ -1147,8 +1155,8 @@ classInstancesWithDefaults cls =
       ShiftTyCon      -> [ii2] -- TODO: default two arguments separately
   where
 
-    primIntTy    = PrimIntInfoTy $ CIntegralType $ C.Type.IntLike $ C.Type.Int C.Type.Signed
-    primDoubleTy = PrimFloatInfoTy C.Type.DoubleType
+    primIntTy    = PrimIntInfoTy $ CIntegralType $ Runtime.IntLike $ Runtime.Int Runtime.Signed
+    primDoubleTy = PrimFloatInfoTy Runtime.DoubleType
 
     dfltToInt, dfltToDouble :: DefaultingProposal ( S Z )
     dfltToInt    ( a ::: VNil ) = NE.singleton ( a, primIntTy    )
@@ -1237,7 +1245,7 @@ modifyingInerts f =
 
 inertCts :: InertSet -> ( Cts, Cts )
 inertCts ( InertSet { inertDicts = dicts, inertEqs = eqs } ) =
-  partitionEithers ( concatMap ( fmap classify . toList ) $ dicts )
+  partitionEithers ( concatMap ( fmap classify . Foldable.toList ) $ dicts )
     <>
   partitionEithers ( map classify eqs )
   where
@@ -1337,7 +1345,7 @@ solvingLoop solveOne = loop 1
     loop :: Int -> TcSolveM ()
     loop !iter = do
       mbWorkItem <- nextWorkItem
-      for_ mbWorkItem \ workItem -> do
+      Foldable.for_ mbWorkItem \ workItem -> do
         debugTraceM $
           unlines
             [ "solvingLoop: iteration #" ++ show iter
@@ -1457,7 +1465,7 @@ kickOut subst =
       State.put $
         st { solverInerts = okInerts, solverWorkList = wl0 ++ kickedInerts }
   where
-    mbKickOut :: C.Type.Platform -> Type Ct -> Maybe ( Type Ct )
+    mbKickOut :: Runtime.Platform -> Type Ct -> Maybe ( Type Ct )
     mbKickOut plat ct =
       let
         ctFVs = getFVs noBoundVars $ freeTyVarsOfType ct
@@ -1658,7 +1666,7 @@ matchOneInst ctOrig cls
     return $
       mapMaybeA ( tryDefault ctOrig matchSubst . ( $ instBndrs ) ) mbDflt
   | otherwise
-  = panicPure $ unlines
+  = error $ unlines
       [ "matchOneInst: incorrect class arity"
       , "class: " ++ show cls
       ]
@@ -1679,7 +1687,7 @@ simplifyAndDefault :: IntSet -> Cts -> TcTopM ( Subst TyVar, Cts )
 simplifyAndDefault quantTvs cts =
   do
     ( (), ( subst, ( insols, inerts ) ) ) <- lift $ runTcSolveM cts $ solvingLoop solveOne
-    for_ ( NE.nonEmpty insols ) \ errs ->
+    Foldable.for_ ( NE.nonEmpty insols ) \ errs ->
       Except.throwError ( TcInconsistentConstraints $ NE.singleton ( NE.toList errs ) )
     return ( subst, inerts )
 
@@ -1821,25 +1829,25 @@ evaluateExpr argVals tyEnv = \case
 evaluateTerm :: Map Name Value -> TypeEnv -> MTerm Tc -> Value
 evaluateTerm argVals tyEnv = \case
   MInt lit ->
-    let i = C.integerLiteralValue lit
-        ty = C.integerLiteralType lit
+    let i = integerLiteralValue lit
+        ty = integerLiteralType lit
     in
-      C.Type.promoteIntLikeType ty $ \ sTy ->
+      Runtime.promoteIntLikeType ty $ \ sTy ->
         Value
-          ( ValSType $ C.Type.SArithmetic $ C.Type.SIntegral $ C.Type.SIntLike sTy )
+          ( ValSType $ Runtime.SArithmetic $ Runtime.SIntegral $ Runtime.SIntLike sTy )
           ( fromInteger i )
   MFloat lit ->
-    let ty = C.floatingLiteralType lit
+    let ty = floatingLiteralType lit
     in
-      C.Type.promoteFloatingType ty $ \ case
-        sTy@C.Type.SFloatType ->
+      Runtime.promoteFloatingType ty $ \ case
+        sTy@Runtime.SFloatType ->
           Value
-            ( ValSType $ C.Type.SArithmetic $ C.Type.SFloatLike sTy )
-            ( CFloat  $ C.floatingLiteralFloatValue  lit )
-        sTy@C.Type.SDoubleType ->
+            ( ValSType $ Runtime.SArithmetic $ Runtime.SFloatLike sTy )
+            ( CFloat  $ floatingLiteralFloatValue  lit )
+        sTy@Runtime.SDoubleType ->
           Value
-            ( ValSType $ C.Type.SArithmetic $ C.Type.SFloatLike sTy )
-            ( CDouble $ C.floatingLiteralDoubleValue lit )
+            ( ValSType $ Runtime.SArithmetic $ Runtime.SFloatLike sTy )
+            ( CDouble $ floatingLiteralDoubleValue lit )
   MVar ( XVarTc ( FunValue @n _ fn ) ) nm args
     -- Is this an argument to the macro, e.g. @X@ in @#define AddOne(X) X+1@?
     | [] <- args
@@ -1849,7 +1857,7 @@ evaluateTerm argVals tyEnv = \case
     -> Vec.reifyList args $ \ ( argsVec :: Vec m ( MExpr Tc ) ) ->
         case Nat.eqNat @n @m of
           Nothing ->
-            panicPure $ unlines
+            error $ unlines
               [ "Mismatched arity in evaluation of macro function call"
               , "function: " ++ show nm
               , "expected number of arguments: " ++ show ( Nat.reflectToNum @n Proxy :: Int )
@@ -1869,8 +1877,8 @@ evaluateTerm argVals tyEnv = \case
 naturalMaybe :: ValSType ty -> ty -> Maybe Natural
 naturalMaybe ( ValSType ty ) i =
   case ty of
-    C.Type.SArithmetic ( C.Type.SIntegral iTy ) ->
-      C.Type.witnessIntegralType @Integral iTy $
+    Runtime.SArithmetic ( Runtime.SIntegral iTy ) ->
+      Runtime.witnessIntegralType @Integral iTy $
         let j = toInteger i
         in if j < 0
            then Nothing
@@ -1888,12 +1896,12 @@ tcMacro :: TypeEnv
         -> MExpr Ps          -- ^ macro body
         -> Either MacroTcError ( Quant ( FunValue, Type Ty ) )
 tcMacro tyEnv macroNm args body =
-  let plat = C.Type.hostPlatform in
+  let plat = Runtime.hostPlatform in
   throwErrors $ runTcM plat tyEnv $ ( `State.evalStateT` Unique 0 ) $ Except.runExceptT do
 
     -- Step 1: infer the type.
     ( ( ( body', ( argTys, bodyTy ) ), ctsOrigs ), mbErrs ) <- lift $ inferTop macroNm args body
-    traverse_ ( Except.throwError . TcErrors ) ( NE.nonEmpty mbErrs )
+    Foldable.traverse_ ( Except.throwError . TcErrors ) ( NE.nonEmpty mbErrs )
 
     -- Step 2: compute the set of metavariables that are candidates for quantification.
     let
@@ -1929,7 +1937,7 @@ tcMacro tyEnv macroNm args body =
     -- in the argument/result type, i.e. ambiguous type variables.
     -- These should have been defaulted away.
     unless (IntSet.null ambigs) $
-      panicPure $
+      error $
         unlines
           [ "tcMacro: ambiguous type variables"
           , "ambigs: " ++ show ambigs
@@ -1947,7 +1955,7 @@ tcMacro tyEnv macroNm args body =
                         ]
 
     unless allAtomic $
-      panicPure $
+      error $
         unlines
           [ "tcMacro computed a non-atomic type"
           , "qtvs: " ++ show qtvsList
@@ -1959,7 +1967,7 @@ tcMacro tyEnv macroNm args body =
     return $
       Vec.reifyList qtvsList \ qtvs ->
         Quant \ tys ->
-          let quantSubst = mkSubst $ toList $ Vec.zipWith (,) qtvs tys
+          let quantSubst = mkSubst $ Foldable.toList $ Vec.zipWith (,) qtvs tys
               finalSubst = quantSubst <> ctSubst
               norm :: Type ki -> Type ki
               norm = applySubstNormalise plat finalSubst

@@ -5,10 +5,13 @@ module HsBindgen.Frontend.Pass.HandleMacros.IsPass (
 
 import Text.SimplePrettyPrint qualified as PP
 
+import C.Expr.Parse.Infra qualified as CExpr.DSL
+import C.Expr.Typecheck.Expr qualified as CExpr.DSL
+
+import Clang.HighLevel.Types
+
 import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
 import HsBindgen.Frontend.LanguageC qualified as LanC
-import HsBindgen.Frontend.Macro (MacroParseError (..), MacroTcError (..))
-import HsBindgen.Frontend.Macro qualified as Macro
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Sort.IsPass (DeclMeta)
@@ -50,10 +53,10 @@ data HandleMacrosMsg =
     --
     -- When this happens, we get /two/ parse errors: one for trying to parse the
     -- macro as a type, and one for trying to parse the macro as an expression.
-  | HandleMacrosErrorParse LanC.Error MacroParseError
+  | HandleMacrosErrorParse LanC.Error CExpr.DSL.MacroParseError
 
     -- | We could not type-check the macro
-  | HandleMacrosErrorTc MacroTcError
+  | HandleMacrosErrorTc CExpr.DSL.MacroTcError
 
     -- | Macro that defines an unsupported type
     -- TODO: Do we still use this?
@@ -70,14 +73,29 @@ instance PrettyForTrace HandleMacrosMsg where
           "Could not parse macro as type:"
         , PP.nest 2 $ prettyForTrace errType
         , "nor as expression:"
-        , PP.nest 2 $ prettyForTrace errExpr
+        , PP.nest 2 $ prettyParseError errExpr
         ]
       HandleMacrosErrorTc x ->
-          PP.textToCtxDoc $ Macro.pprTcMacroError x
+          PP.textToCtxDoc $ CExpr.DSL.pprTcMacroError x
       HandleMacrosErrorUnsupportedType err -> PP.hsep [
           "Unsupported type: "
         , PP.string err
         ]
+
+prettyParseError :: CExpr.DSL.MacroParseError -> PP.CtxDoc
+prettyParseError err = PP.vcat [
+      PP.hsep [
+          "Reparse error: "
+        , fromString reparseError
+        ]
+    , PP.hsep . map (PP.textToCtxDoc . getTokenSpelling . tokenSpelling) $
+        reparseErrorTokens
+    ]
+  where
+    CExpr.DSL.MacroParseError{
+        reparseError
+      , reparseErrorTokens
+      } = err
 
 -- | Default log level
 instance IsTrace Level HandleMacrosMsg where

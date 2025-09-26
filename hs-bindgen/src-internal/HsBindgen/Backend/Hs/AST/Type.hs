@@ -7,7 +7,7 @@ module HsBindgen.Backend.Hs.AST.Type (
   hsPrimFloatTy
 ) where
 
-import C.Type qualified
+import C.Type qualified as CExpr.Runtime
 
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Imports
@@ -89,36 +89,36 @@ extractResultType :: ResultType a -> a
 extractResultType (NormalResultType t) = t
 extractResultType (HeapResultType t)   = t
 
-hsPrimIntTy :: C.Type.IntegralType -> HsPrimType
+hsPrimIntTy :: CExpr.Runtime.IntegralType -> HsPrimType
 hsPrimIntTy = \case
-  C.Type.Bool -> HsPrimCBool
-  C.Type.CharLike c ->
+  CExpr.Runtime.Bool -> HsPrimCBool
+  CExpr.Runtime.CharLike c ->
     case c of
-      C.Type.Char  -> HsPrimCChar
-      C.Type.SChar -> HsPrimCSChar
-      C.Type.UChar -> HsPrimCUChar
-  C.Type.IntLike i ->
+      CExpr.Runtime.Char  -> HsPrimCChar
+      CExpr.Runtime.SChar -> HsPrimCSChar
+      CExpr.Runtime.UChar -> HsPrimCUChar
+  CExpr.Runtime.IntLike i ->
     case i of
-      C.Type.Short    s ->
+      CExpr.Runtime.Short    s ->
         case s of
-          C.Type.Signed   -> HsPrimCShort
-          C.Type.Unsigned -> HsPrimCUShort
-      C.Type.Int      s ->
+          CExpr.Runtime.Signed   -> HsPrimCShort
+          CExpr.Runtime.Unsigned -> HsPrimCUShort
+      CExpr.Runtime.Int      s ->
         case s of
-          C.Type.Signed   -> HsPrimCInt
-          C.Type.Unsigned -> HsPrimCUInt
-      C.Type.Long     s ->
+          CExpr.Runtime.Signed   -> HsPrimCInt
+          CExpr.Runtime.Unsigned -> HsPrimCUInt
+      CExpr.Runtime.Long     s ->
         case s of
-          C.Type.Signed   -> HsPrimCLong
-          C.Type.Unsigned -> HsPrimCULong
-      C.Type.LongLong s ->
+          CExpr.Runtime.Signed   -> HsPrimCLong
+          CExpr.Runtime.Unsigned -> HsPrimCULong
+      CExpr.Runtime.LongLong s ->
         case s of
-          C.Type.Signed   -> HsPrimCLLong
-          C.Type.Unsigned -> HsPrimCULLong
-      C.Type.PtrDiff    -> HsPrimCPtrDiff
-      C.Type.Size       -> HsPrimCSize
+          CExpr.Runtime.Signed   -> HsPrimCLLong
+          CExpr.Runtime.Unsigned -> HsPrimCULLong
+      CExpr.Runtime.PtrDiff    -> HsPrimCPtrDiff
+      CExpr.Runtime.Size       -> HsPrimCSize
 
-hsPrimFloatTy :: C.Type.FloatingType -> HsPrimType
+hsPrimFloatTy :: CExpr.Runtime.FloatingType -> HsPrimType
 hsPrimFloatTy = \case
-  C.Type.FloatType  -> HsPrimCFloat
-  C.Type.DoubleType -> HsPrimCDouble
+  CExpr.Runtime.FloatType  -> HsPrimCFloat
+  CExpr.Runtime.DoubleType -> HsPrimCDouble

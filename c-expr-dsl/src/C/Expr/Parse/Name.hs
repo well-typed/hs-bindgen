@@ -1,16 +1,17 @@
 -- | Names
-module HsBindgen.Frontend.Macro.Parse.Name (
+module C.Expr.Parse.Name (
     parseName
   , parseLocName
   ) where
 
+import Control.Monad
+
+import C.Expr.Parse.Infra
+import C.Expr.Syntax.Name
+
 import Clang.Enum.Simple
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
-
-import HsBindgen.Frontend.Macro.Parse.Infra
-import HsBindgen.Frontend.Naming (Name(..))
-import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
   Identifiers

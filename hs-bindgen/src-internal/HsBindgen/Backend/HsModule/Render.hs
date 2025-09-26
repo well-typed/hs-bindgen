@@ -20,7 +20,8 @@ import GHC.Exts qualified as IsList (IsList (..))
 import GHC.Float (castDoubleToWord64, castFloatToWord32)
 import Text.SimplePrettyPrint
 
-import C.Char (CharValue (..))
+import C.Char qualified as CExpr.Runtime
+import C.Expr.Syntax qualified as CExpr.DSL
 
 import Clang.HighLevel.Types
 
@@ -35,7 +36,6 @@ import HsBindgen.Backend.SHs.AST
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.RootHeader (HashIncludeArg (..))
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
 import HsBindgen.NameHint
 
@@ -476,7 +476,7 @@ prettyExpr env prec = \case
     EIntegral i Nothing -> parensWhen (prec > 0 && i < 0) (showToCtxDoc i)
     EIntegral i (Just t) ->
       parens $ hcat [showToCtxDoc i, " :: ", prettyPrimType t]
-    EChar (CharValue { charValue = ba, unicodeCodePoint = mbUnicode }) ->
+    EChar (CExpr.Runtime.CharValue { charValue = ba, unicodeCodePoint = mbUnicode }) ->
       prettyExpr env 0 (EGlobal CharValue_fromAddr)
         <+> string str
         <+> string (show len)
@@ -495,7 +495,7 @@ prettyExpr env prec = \case
         ]
 
     EFloat f t -> parens $ hcat [
-        if C.canBeRepresentedAsRational f then
+        if CExpr.DSL.canBeRepresentedAsRational f then
           showToCtxDoc f
         else
           prettyExpr env prec $
@@ -506,7 +506,7 @@ prettyExpr env prec = \case
       , prettyPrimType t
       ]
     EDouble f t -> parens $ hcat [
-        if C.canBeRepresentedAsRational f then
+        if CExpr.DSL.canBeRepresentedAsRational f then
           showToCtxDoc f
         else
           prettyExpr env  prec $

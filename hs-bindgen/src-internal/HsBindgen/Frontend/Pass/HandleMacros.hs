@@ -3,16 +3,24 @@ module HsBindgen.Frontend.Pass.HandleMacros (
   ) where
 
 import Control.Monad.State
+import Data.Char (toUpper)
 import Data.Map qualified as Map
 import Data.Vec.Lazy qualified as Vec
+import System.FilePath (takeBaseName)
+
+import C.Expr.Parse.Expr qualified as CExpr.DSL
+import C.Expr.Parse.Infra qualified as CExpr.DSL
+import C.Expr.Syntax qualified as CExpr.DSL
+import C.Expr.Typecheck.Expr qualified as CExpr.DSL
+import C.Expr.Typecheck.Type qualified as CExpr.DSL
 
 import Clang.HighLevel.Types
+import Clang.Paths
 
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.LanguageC qualified as LanC
-import HsBindgen.Frontend.Macro qualified as Macro
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
@@ -350,7 +358,7 @@ data MacroState = MacroState {
       stateErrors :: [HandleMacrosMsg]  -- ^ Stored in reverse order
 
       -- | Types of macro expressions
-    , stateMacroEnv :: Macro.TypeEnv
+    , stateMacroEnv :: CExpr.DSL.TypeEnv
 
       -- | Newtypes and macro-defined types in scope
     , stateReparseEnv :: LanC.ReparseEnv HandleMacros
@@ -386,17 +394,17 @@ parseMacro name tokens = state $ \st ->
         , st{stateReparseEnv = updateReparseEnv (stateReparseEnv st)}
         )
       Left errType ->
-        case Macro.runParser (Macro.parseExpr (stateMacroEnv st)) tokens of
-          Right Macro.Macro{macroName, macroArgs, macroBody} ->
+        case CExpr.DSL.runParser CExpr.DSL.parseExpr tokens of
+          Right CExpr.DSL.Macro{macroName, macroArgs, macroBody} ->
             Vec.reifyList macroArgs $ \args -> do
-              case Macro.tcMacro (stateMacroEnv st) macroName args macroBody of
+              case CExpr.DSL.tcMacro (stateMacroEnv st) macroName args macroBody of
                 Right inf -> (
                     Just $ C.MacroExpr $ C.CheckedMacroExpr{
                         macroExprArgs = macroArgs
                       , macroExprBody = macroBody
                       , macroExprType = dropEval inf
                       }
-                  , st{stateMacroEnv = Map.insert name inf (stateMacroEnv st)}
+                  , st{stateMacroEnv = Map.insert macroName inf (stateMacroEnv st)}
                   )
                 Left errTc -> (
                     Nothing
@@ -418,8 +426,8 @@ parseMacro name tokens = state $ \st ->
         Map.insert name (C.TypeMacroTypedef $ C.PrelimDeclIdNamed name)
 
     dropEval ::
-         Macro.Quant (Macro.FunValue, Macro.Type 'Macro.Ty)
-      -> Macro.Quant (Macro.Type 'Macro.Ty)
+         CExpr.DSL.Quant (CExpr.DSL.FunValue, CExpr.DSL.Type 'CExpr.DSL.Ty)
+      -> CExpr.DSL.Quant (CExpr.DSL.Type 'CExpr.DSL.Ty)
     dropEval = fmap snd
 
 -- | Run reparser
@@ -438,3 +446,38 @@ reparseWith p tokens onFailure onSuccess = state $ \st ->
       Left  e -> runState (unwrapM $ onFailure  ) st{
             stateErrors = HandleMacrosErrorReparse e : stateErrors st
           }
+
+{-------------------------------------------------------------------------------
+  Include guards
+
+  Include guards are macros used to prevent headers from being included more
+  than once, but they are a convention only. Therfore 'isIncludeGuard' can only
+  implement some heuristics.
+-------------------------------------------------------------------------------}
+
+_isIncludeGuard :: CExpr.DSL.Macro p -> Bool
+_isIncludeGuard CExpr.DSL.Macro{macroLoc, macroName, macroArgs, macroBody} =
+    and [
+        macroName `elem` includeGuards
+      , null macroArgs
+      , case macroBody of
+          CExpr.DSL.MTerm (CExpr.DSL.MInt CExpr.DSL.IntegerLiteral { integerLiteralValue = 1 })
+            -> True
+          _otherwise
+            -> False
+      ]
+  where
+    sourcePath :: FilePath
+    sourcePath = getSourcePath . singleLocPath $ multiLocExpansion macroLoc
+
+    includeGuards :: [CExpr.DSL.Name]
+    includeGuards = possibleIncludeGuards (takeBaseName sourcePath)
+
+    -- | Possible names for include guards, given the file (base) name
+    possibleIncludeGuards :: String -> [CExpr.DSL.Name]
+    possibleIncludeGuards baseName = map fromString $ [
+                 map toUpper baseName ++ "_H"
+        , "_" ++ map toUpper baseName ++ "_H" -- this would be a reserved name
+        ,        map toUpper baseName ++ "_INCLUDED"
+        ]
+

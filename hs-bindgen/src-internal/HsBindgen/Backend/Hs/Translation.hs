@@ -20,8 +20,10 @@ import Data.Vec.Lazy qualified as Vec
 import GHC.Exts qualified as IsList (IsList (..))
 import GHC.Unicode (isDigit)
 
-import C.Char qualified
-import C.Type qualified (FloatingType (..), IntegralType (IntLike))
+import C.Char qualified as CExpr.Runtime
+import C.Expr.Syntax qualified as CExpr.DSL
+import C.Expr.Typecheck.Type qualified as CExpr.DSL
+import C.Type qualified as CExpr.Runtime
 
 import Crypto.Hash.SHA256 (hash)
 
@@ -41,7 +43,6 @@ import HsBindgen.Config.FixCandidate (FixCandidate)
 import HsBindgen.Config.FixCandidate qualified as FixCandidate
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.External qualified as C
-import HsBindgen.Frontend.Macro qualified as Macro
 import HsBindgen.Frontend.RootHeader (HashIncludeArg)
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
@@ -1645,47 +1646,47 @@ macroVarDecs haddockConfig info macroExpr = [
     | hsBody <- toList $ macroLamHsExpr macroExprArgs macroExprBody
     ]
   where
-    macroExprArgs :: [C.Name]
-    macroExprBody :: Macro.MExpr Macro.Ps
-    macroExprType :: Macro.Quant (Macro.Type Macro.Ty)
+    macroExprArgs :: [CExpr.DSL.Name]
+    macroExprBody :: CExpr.DSL.MExpr CExpr.DSL.Ps
+    macroExprType :: CExpr.DSL.Quant (CExpr.DSL.Type CExpr.DSL.Ty)
     C.CheckedMacroExpr{macroExprArgs, macroExprBody, macroExprType} = macroExpr
 
     hsVarName :: HsName NsVar
     hsVarName = C.nameHs (C.declId info)
 
-quantTyHsTy :: Macro.Quant ( Macro.Type Macro.Ty ) -> Hs.SigmaType
-quantTyHsTy qty@(Macro.Quant @kis _) =
-  case Macro.mkQuantTyBody qty of
-    Macro.QuantTyBody { quantTyQuant = cts, quantTyBody = ty } -> do
-      goForallTy (Macro.tyVarNames @kis) cts ty
+quantTyHsTy :: CExpr.DSL.Quant ( CExpr.DSL.Type CExpr.DSL.Ty ) -> Hs.SigmaType
+quantTyHsTy qty@(CExpr.DSL.Quant @kis _) =
+  case CExpr.DSL.mkQuantTyBody qty of
+    CExpr.DSL.QuantTyBody { quantTyQuant = cts, quantTyBody = ty } -> do
+      goForallTy (CExpr.DSL.tyVarNames @kis) cts ty
   where
 
-    goCt :: Map Text (Idx ctx) -> Macro.Type Macro.Ct -> Hs.PredType ctx
-    goCt env (Macro.TyConAppTy cls as) =
+    goCt :: Map Text (Idx ctx) -> CExpr.DSL.Type CExpr.DSL.Ct -> Hs.PredType ctx
+    goCt env (CExpr.DSL.TyConAppTy cls as) =
       Hs.DictTy (Hs.AClass cls) (goTys env as)
-    goCt env (Macro.NomEqPred a b) =
+    goCt env (CExpr.DSL.NomEqPred a b) =
       Hs.NomEqTy (goTy env a) (goTy env b)
 
-    goTy :: Map Text (Idx ctx) -> Macro.Type Macro.Ty -> Hs.TauType ctx
-    goTy env (Macro.TyVarTy tv) =
-      case Map.lookup (Macro.tyVarName tv) env of
+    goTy :: Map Text (Idx ctx) -> CExpr.DSL.Type CExpr.DSL.Ty -> Hs.TauType ctx
+    goTy env (CExpr.DSL.TyVarTy tv) =
+      case Map.lookup (CExpr.DSL.tyVarName tv) env of
         Just hsTv ->
           Hs.TyVarTy hsTv
         Nothing ->
           panicPure $ unlines
             [ "quantTyHsTy: unbound type variable " ++ show tv
             , "env: " ++ show env
-            , "macro: " ++ show (Macro.mkQuantTyBody qty)
+            , "macro: " ++ show (CExpr.DSL.mkQuantTyBody qty)
             ]
-    goTy env (Macro.FunTy as r) =
+    goTy env (CExpr.DSL.FunTy as r) =
       foldr (Hs.FunTy . goTy env) (goTy env r) as
-    goTy env (Macro.TyConAppTy tc as) =
+    goTy env (CExpr.DSL.TyConAppTy tc as) =
       Hs.TyConAppTy (Hs.ATyCon tc) (goTys env as)
 
-    goTys :: Map Text (Idx ctx) -> Vec n ( Macro.Type Macro.Ty ) -> [ Hs.TauType ctx ]
+    goTys :: Map Text (Idx ctx) -> Vec n ( CExpr.DSL.Type CExpr.DSL.Ty ) -> [ Hs.TauType ctx ]
     goTys env as = toList $ fmap (goTy env) as
 
-    goForallTy :: forall n. SNatI n => Vec n (Int, Text) -> [ Macro.Type Macro.Ct ] -> Macro.Type Macro.Ty -> Hs.SigmaType
+    goForallTy :: forall n. SNatI n => Vec n (Int, Text) -> [ CExpr.DSL.Type CExpr.DSL.Ct ] -> CExpr.DSL.Type CExpr.DSL.Ty -> Hs.SigmaType
     goForallTy args cts body =
         let
           env :: Map Text (Idx n)
@@ -1704,77 +1705,77 @@ quantTyHsTy qty@(Macro.Quant @kis _) =
 newtype U n = U { unU :: Vec n (Idx n) }
 
 macroLamHsExpr ::
-     [C.Name]
-  -> Macro.MExpr p
+     [CExpr.DSL.Name]
+  -> CExpr.DSL.MExpr p
   -> Maybe (Hs.VarDeclRHS EmptyCtx)
 macroLamHsExpr macroArgs expr =
     makeNames macroArgs Map.empty
   where
-    makeNames :: [C.Name] -> Map C.Name (Idx ctx) -> Maybe (Hs.VarDeclRHS ctx)
+    makeNames :: [CExpr.DSL.Name] -> Map CExpr.DSL.Name (Idx ctx) -> Maybe (Hs.VarDeclRHS ctx)
     makeNames []     env = macroExprHsExpr env expr
     makeNames (n:ns) env = Hs.VarDeclLambda . Hs.Lambda (cnameToHint n) <$> makeNames ns (Map.insert n IZ (fmap IS env))
 
-cnameToHint :: C.Name -> NameHint
-cnameToHint (C.Name t) = fromString (T.unpack t)
+cnameToHint :: CExpr.DSL.Name -> NameHint
+cnameToHint (CExpr.DSL.Name t) = fromString (T.unpack t)
 
 macroExprHsExpr ::
-     Map C.Name (Idx ctx)
-  -> Macro.MExpr p
+     Map CExpr.DSL.Name (Idx ctx)
+  -> CExpr.DSL.MExpr p
   -> Maybe (Hs.VarDeclRHS ctx)
 macroExprHsExpr = goExpr where
-    goExpr :: Map C.Name (Idx ctx) -> Macro.MExpr p -> Maybe (Hs.VarDeclRHS ctx)
+    goExpr :: Map CExpr.DSL.Name (Idx ctx) -> CExpr.DSL.MExpr p -> Maybe (Hs.VarDeclRHS ctx)
     goExpr env = \case
-      Macro.MTerm tm -> goTerm env tm
-      Macro.MApp _xapp fun args ->
+      CExpr.DSL.MTerm tm -> goTerm env tm
+      CExpr.DSL.MApp _xapp fun args ->
         goApp env (Hs.InfixAppHead fun) (toList args)
 
-    goTerm :: Map C.Name (Idx ctx) -> Macro.MTerm p -> Maybe (Hs.VarDeclRHS ctx)
+    goTerm :: Map CExpr.DSL.Name (Idx ctx) -> CExpr.DSL.MTerm p -> Maybe (Hs.VarDeclRHS ctx)
     goTerm env = \case
-      Macro.MInt i -> goInt i
-      Macro.MFloat f -> goFloat f
-      Macro.MChar c -> goChar c
-      Macro.MString s -> goString s
-      Macro.MVar _xvar cname args ->
+      CExpr.DSL.MInt i -> goInt i
+      CExpr.DSL.MFloat f -> goFloat f
+      CExpr.DSL.MChar c -> goChar c
+      CExpr.DSL.MString s -> goString s
+      CExpr.DSL.MVar _xvar cname args ->
         --  TODO: removed the macro argument used as a function check.
         case Map.lookup cname env of
           Just i  -> return (Hs.VarDeclVar i)
           Nothing ->
             let hsVar = macroName cname -- mangle nm $ NameVar cname
             in  goApp env (Hs.VarAppHead hsVar) args
-      Macro.MStringize {} -> Nothing
-      Macro.MConcat {} -> Nothing
+      CExpr.DSL.MStringize {} -> Nothing
+      CExpr.DSL.MConcat {} -> Nothing
 
-    goApp :: Map C.Name (Idx ctx) -> Hs.VarDeclRHSAppHead -> [Macro.MExpr p] -> Maybe (Hs.VarDeclRHS ctx)
+    goApp :: Map CExpr.DSL.Name (Idx ctx) -> Hs.VarDeclRHSAppHead -> [CExpr.DSL.MExpr p] -> Maybe (Hs.VarDeclRHS ctx)
     goApp env appHead args = do
       args' <- traverse (goExpr env) args
       return $ Hs.VarDeclApp appHead args'
 
-    goInt :: C.IntegerLiteral -> Maybe (Hs.VarDeclRHS ctx)
-    goInt (C.IntegerLiteral { integerLiteralType = intyTy, integerLiteralValue = i }) =
+    goInt :: CExpr.DSL.IntegerLiteral -> Maybe (Hs.VarDeclRHS ctx)
+    goInt (CExpr.DSL.IntegerLiteral { integerLiteralType = intyTy, integerLiteralValue = i }) =
       Just $ Hs.VarDeclIntegral i $
-        hsPrimIntTy $ C.Type.IntLike intyTy
+        hsPrimIntTy $ CExpr.Runtime.IntLike intyTy
 
-    goChar :: C.CharLiteral -> Maybe (Hs.VarDeclRHS ctx)
-    goChar (C.CharLiteral { charLiteralValue = c }) =
+    goChar :: CExpr.DSL.CharLiteral -> Maybe (Hs.VarDeclRHS ctx)
+    goChar (CExpr.DSL.CharLiteral { charLiteralValue = c }) =
       return $ Hs.VarDeclChar c
 
-    goString :: C.StringLiteral -> Maybe (Hs.VarDeclRHS ctx)
-    goString (C.StringLiteral { stringLiteralValue = s }) = do
-      let bytes = concatMap (IsList.toList . C.Char.charValue) s
+    goString :: CExpr.DSL.StringLiteral -> Maybe (Hs.VarDeclRHS ctx)
+    goString (CExpr.DSL.StringLiteral { stringLiteralValue = s }) = do
+      let bytes = concatMap (IsList.toList . CExpr.Runtime.charValue) s
       return $
         Hs.VarDeclString (IsList.fromList bytes)
 
-    goFloat :: C.FloatingLiteral -> Maybe (Hs.VarDeclRHS ctx)
-    goFloat flt@(C.FloatingLiteral { floatingLiteralType = fty }) =
+    goFloat :: CExpr.DSL.FloatingLiteral -> Maybe (Hs.VarDeclRHS ctx)
+    goFloat flt@(CExpr.DSL.FloatingLiteral { floatingLiteralType = fty }) =
       case fty of
-        C.Type.FloatType  -> Just $ Hs.VarDeclFloat (C.floatingLiteralFloatValue flt)
-        C.Type.DoubleType -> Just $ Hs.VarDeclDouble (C.floatingLiteralDoubleValue flt)
+        CExpr.Runtime.FloatType  -> Just $ Hs.VarDeclFloat (CExpr.DSL.floatingLiteralFloatValue flt)
+        CExpr.Runtime.DoubleType -> Just $ Hs.VarDeclDouble (CExpr.DSL.floatingLiteralDoubleValue flt)
 
 -- | Construct Haskell name for macro
 --
 -- TODO: This should be done as part of the NameMangler frontend pass.
-macroName :: C.Name -> HsName NsVar
-macroName (C.Name cName) =
+macroName :: CExpr.DSL.Name -> HsName NsVar
+macroName (CExpr.DSL.Name cName) =
     case FixCandidate.fixCandidate fix cName of
       Just hsName -> hsName
       Nothing     ->

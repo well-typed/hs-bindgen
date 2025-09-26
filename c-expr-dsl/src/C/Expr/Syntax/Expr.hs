@@ -1,60 +1,32 @@
--- | The syntax for macros recognized by hs-bindgen
---
--- Intended for unqualified import.
-module HsBindgen.Frontend.Macro.Syntax (
-    -- * Definition
-    Macro(..)
+module C.Expr.Syntax.Expr (
     -- ** Expressions
-  , MExpr(..)
+    MExpr(..)
   , MFun(..)
   , MTerm(..)
-    -- * Classification
-  , isIncludeGuard
   ) where
 
-import Data.Char (toUpper)
 import Data.GADT.Compare (GEq (geq))
-import Data.Kind qualified as Hs
+import Data.Kind
 import Data.Nat (Nat (..))
 import Data.Proxy
-import Data.String
 import Data.Type.Equality (type (:~:) (..))
 import Data.Type.Nat (SNatI)
 import Data.Type.Nat qualified as Nat
 import Data.Vec.Lazy (Vec (..))
 import Data.Vec.Lazy qualified as Vec
 import GHC.Generics (Generic)
-import System.FilePath (takeBaseName)
 
-import Clang.HighLevel.Types
-import Clang.Paths
-
-import HsBindgen.Frontend.Macro.Pass
-import HsBindgen.Frontend.Naming qualified as C
-import HsBindgen.Language.C qualified as C
-import HsBindgen.Util.TestEquality (equals1)
-
-{-------------------------------------------------------------------------------
-  Top-level
--------------------------------------------------------------------------------}
-
-type Macro :: Pass -> Hs.Type
-data Macro p = Macro {
-      macroLoc  :: MultiLoc
-    , macroName :: C.Name
-    , macroArgs :: [C.Name]
-    , macroBody :: MExpr p
-    }
-  deriving stock Generic
-deriving stock instance ( Eq ( XApp p ), Eq ( XVar p ) ) => Eq ( Macro p )
-deriving stock instance ( Show ( XApp p ), Show ( XVar p ) ) => Show ( Macro p )
+import C.Expr.Syntax.Literals
+import C.Expr.Syntax.Name
+import C.Expr.Syntax.TTG
+import C.Expr.Util.TestEquality
 
 {-------------------------------------------------------------------------------
   Expressions
 -------------------------------------------------------------------------------}
 
 -- | Macro expression
-type MExpr :: Pass -> Hs.Type
+type MExpr :: Pass -> Type
 data MExpr p
   -- | A term that is not a function application.
   = MTerm ( MTerm p )
@@ -80,6 +52,10 @@ instance ( Ord ( XApp p ), Ord ( XVar p ) ) => Ord ( MExpr p ) where
         compare ( Nat.reflect @( S n1 ) Proxy ) ( Nat.reflect @( S n2 ) Proxy )
   compare (MTerm {}) (MApp {}) = LT
   compare (MApp {}) (MTerm {}) = GT
+
+{-------------------------------------------------------------------------------
+  Functions
+-------------------------------------------------------------------------------}
 
 data MFun arity where
   -- | @+@
@@ -164,25 +140,29 @@ instance GEq MFun where
     = Just Refl
   geq _           _           = Nothing
 
-type MTerm :: Pass -> Hs.Type
+{-------------------------------------------------------------------------------
+  Terms
+-------------------------------------------------------------------------------}
+
+type MTerm :: Pass -> Type
 data MTerm p =
 
     -- | Integer literal
-    MInt C.IntegerLiteral
+    MInt IntegerLiteral
 
     -- | Floating-point literal
-  | MFloat C.FloatingLiteral
+  | MFloat FloatingLiteral
 
     -- | Character literal
-  | MChar C.CharLiteral
+  | MChar CharLiteral
 
     -- | String literal
-  | MString C.StringLiteral
+  | MString StringLiteral
 
     -- | Variable or function/macro call
     --
     -- This might be a macro argument, or another macro.
-  | MVar ( XVar p ) C.Name [MExpr p]
+  | MVar ( XVar p ) Name [MExpr p]
 
     -- | Stringizing
     --
@@ -190,7 +170,7 @@ data MTerm p =
     --
     -- * Section 6.10.3.2, "The # operator" of the spec
     -- * <https://gcc.gnu.org/onlinedocs/cpp/Stringizing.html>
-  | MStringize C.Name
+  | MStringize Name
 
     -- | Concatenation
     --
@@ -203,34 +183,3 @@ data MTerm p =
 deriving stock instance ( Eq ( XApp p ), Eq ( XVar p ) ) => Eq ( MTerm p )
 deriving stock instance ( Ord ( XApp p ), Ord ( XVar p ) ) => Ord ( MTerm p )
 deriving stock instance ( Show ( XApp p ), Show ( XVar p ) ) => Show ( MTerm p )
-
-{-------------------------------------------------------------------------------
-  Classification
--------------------------------------------------------------------------------}
-
-isIncludeGuard :: Macro p -> Bool
-isIncludeGuard Macro{macroLoc, macroName, macroArgs, macroBody} =
-    and [
-        macroName `elem` includeGuards
-      , null macroArgs
-      , case macroBody of
-          MTerm (MInt C.IntegerLiteral { integerLiteralValue = 1 })
-            -> True
-          _otherwise
-            -> False
-      ]
-  where
-    sourcePath :: FilePath
-    sourcePath = getSourcePath . singleLocPath $ multiLocExpansion macroLoc
-
-    includeGuards :: [C.Name]
-    includeGuards = possibleIncludeGuards (takeBaseName sourcePath)
-
-    -- | Possible names for include guards, given the file (base) name
-    possibleIncludeGuards :: String -> [C.Name]
-    possibleIncludeGuards baseName = map fromString $ [
-                 map toUpper baseName ++ "_H"
-        , "_" ++ map toUpper baseName ++ "_H" -- this would be a reserved name
-        ,        map toUpper baseName ++ "_INCLUDED"
-        ]
-

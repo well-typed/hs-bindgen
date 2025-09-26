@@ -1,4 +1,4 @@
-module HsBindgen.Frontend.Macro.Parse.Literal (
+module C.Expr.Parse.Literal (
     IntSuffix(..)
   , parseLiteralInteger
   , parseLiteralFloating
@@ -6,19 +6,20 @@ module HsBindgen.Frontend.Macro.Parse.Literal (
   , parseLiteralString
   ) where
 
-import Control.Monad (replicateM)
+import Control.Monad
 import Data.Char
+import Data.Maybe (catMaybes, fromMaybe, mapMaybe)
 import Data.Scientific qualified as Scientific
 import GHC.Exts qualified as IsList (IsList (..))
+import GHC.Generics
+import Numeric.Natural
 import Text.Parsec
 import Text.Parsec.Pos (updatePosChar)
 
-import C.Char qualified
-import C.Type qualified
-
-import HsBindgen.Frontend.Macro.Parse.Infra
-import HsBindgen.Imports
-import HsBindgen.Util.Parsec
+import C.Char qualified as Runtime
+import C.Expr.Parse.Infra
+import C.Expr.Util.Parsec
+import C.Type qualified as Runtime
 
 {-------------------------------------------------------------------------------
   Parser for integer literals
@@ -41,27 +42,27 @@ intSuffix = choice [
     , IntSuffixSize     <$ caseInsensitive' "z"
     ]
 
-parseLiteralInteger :: TokenParser (Integer, C.Type.IntLikeType)
+parseLiteralInteger :: TokenParser (Integer, Runtime.IntLikeType)
 parseLiteralInteger = do
     (b, ds, suffixes) <- aux
 
     let val = readInBase b ds
 
         ty = case suffixes of
-          [] -> C.Type.Int C.Type.Signed
+          [] -> Runtime.Int Runtime.Signed
           _  ->
             let sign = if any ( == IntSuffixUnsigned ) suffixes
-                       then C.Type.Unsigned
-                       else C.Type.Signed
+                       then Runtime.Unsigned
+                       else Runtime.Signed
                 long     = any ( == IntSuffixLong ) suffixes
                 longlong = any ( == IntSuffixLongLong ) suffixes
              in
                 if | longlong
-                   -> C.Type.LongLong sign
+                   -> Runtime.LongLong sign
                    | long
-                   -> C.Type.Long sign
+                   -> Runtime.Long sign
                    | otherwise
-                   -> C.Type.Int sign
+                   -> Runtime.Int sign
 
     return (fromIntegral val, ty)
   where
@@ -85,7 +86,7 @@ readInBase b ds =
   Reference: <https://en.cppreference.com/w/cpp/language/floating_literal>
 -------------------------------------------------------------------------------}
 
-parseLiteralFloating :: TokenParser (Float, Double, C.Type.FloatingType)
+parseLiteralFloating :: TokenParser (Float, Double, Runtime.FloatingType)
 parseLiteralFloating = do
 
   b     <- option BaseDec (BaseHex <$ caseInsensitive' "0x")
@@ -106,11 +107,11 @@ parseLiteralFloating = do
     -> unexpected $ "cannot parse floating-point value without any digits"
     | otherwise
     -> do ty <- choice
-            [ C.Type.FloatType <$ caseInsensitive' "f"
+            [ Runtime.FloatType <$ caseInsensitive' "f"
             , do { void $ caseInsensitive' "l"
                  ; unexpected "no support for long double literals"
                  }
-            , pure C.Type.DoubleType
+            , pure Runtime.DoubleType
             ]
           let m :: Natural
               m = readInBase b (as ++ fromMaybe [] mbXs)
@@ -228,7 +229,7 @@ digitChar Separator = Nothing
 -- | Re-parse a character literal.
 --
 -- Note that, in C, character literals have type @int@, **not** @char@!
-parseLiteralChar :: TokenParser C.Char.CharValue
+parseLiteralChar :: TokenParser Runtime.CharValue
 parseLiteralChar = do
   let forbidden = [ '\'' ]
   prefix <- parseCharPrefix
@@ -254,7 +255,7 @@ parseLiteralChar = do
           -- in the constant initialize successive bytes of the resulting integer, in big-endian
           -- zero-padded right-adjusted order, e.g. the value of '\1' is 0x00000001
           -- and the value of '\1\2\3\4' is 0x01020304.
-          case traverse C.Char.utf8SingleByteCodeUnit chars of
+          case traverse Runtime.utf8SingleByteCodeUnit chars of
             Nothing ->
               unexpected "multi-character literal contains a character wider than a byte"
             Just bs
@@ -262,9 +263,9 @@ parseLiteralChar = do
               -> unexpected "multi-character literal contains more than 4 characters"
               | otherwise
               -> return $
-                   C.Char.CharValue
-                     { C.Char.charValue = IsList.fromList bs
-                     , C.Char.unicodeCodePoint = Nothing
+                   Runtime.CharValue
+                     { Runtime.charValue = IsList.fromList bs
+                     , Runtime.unicodeCodePoint = Nothing
                      }
 
 charPrefixAllowsSequence :: Maybe CharPrefix -> Bool
@@ -277,9 +278,9 @@ charPrefixAllowsSequence = \case
       Prefix_U  -> False -- removed in C23
       Prefix_L  -> True
 
-nonEscapedChar :: [Char] -> TokenParser C.Char.CharValue
+nonEscapedChar :: [Char] -> TokenParser Runtime.CharValue
 nonEscapedChar forbidden =
-  C.Char.fromHaskellChar <$>
+  Runtime.fromHaskellChar <$>
     satisfy ( not . ( `elem` '\n' : '\\' : forbidden ) )
 
 data CharPrefix = Prefix_u8 | Prefix_u | Prefix_U | Prefix_L
@@ -295,7 +296,7 @@ parseCharPrefix = choice
   where
     c = void . char
 
-escapedChar :: TokenParser C.Char.CharValue
+escapedChar :: TokenParser Runtime.CharValue
 escapedChar = do
   void $ char '\\'
   choice
@@ -305,9 +306,9 @@ escapedChar = do
     , universalEscapedChar
     ]
 
-basicEscapedChar :: TokenParser C.Char.CharValue
+basicEscapedChar :: TokenParser Runtime.CharValue
 basicEscapedChar =
-  C.Char.fromHaskellChar <$>
+  Runtime.fromHaskellChar <$>
     satisfyM ( `lookup` ( basicSourceEscapedChars ++ executionEscapedChars ) )
 
 -- | Like 'satisfy' but takes a @Char -> Maybe a@ predicate.
@@ -344,12 +345,12 @@ executionEscapedChars =
   , ( 'r', '\r'   ) -- carriage return
   ]
 
-hexCodeUnitChar, octalCodeUnitChar :: TokenParser C.Char.CharValue
+hexCodeUnitChar, octalCodeUnitChar :: TokenParser Runtime.CharValue
 hexCodeUnitChar = do
   void $ char 'x'
   digs <- many1 (digitInBase False BaseHex)
   let codeUnit = readInBase BaseHex digs
-  return $ C.Char.charValueFromCodeUnit codeUnit
+  return $ Runtime.charValueFromCodeUnit codeUnit
 octalCodeUnitChar = do
   -- NB (https://en.cppreference.com/w/c/language/escape):
   --
@@ -363,9 +364,9 @@ octalCodeUnitChar = do
     digs :: [Digit]
     digs = dig1 : catMaybes [dig2, dig3]
     codeUnit = readInBase BaseOct digs
-  return $ C.Char.charValueFromCodeUnit codeUnit
+  return $ Runtime.charValueFromCodeUnit codeUnit
 
-universalEscapedChar :: TokenParser C.Char.CharValue
+universalEscapedChar :: TokenParser Runtime.CharValue
 universalEscapedChar = do
   nbChars <- choice [4 <$ char 'u', 8 <$ char 'U']
   digs <- replicateM nbChars (digitInBase False BaseHex)
@@ -380,7 +381,7 @@ universalEscapedChar = do
      | codePoint >= 0x10FFFF
      -> unexpected $ "universal character name is not a valid Unicode code point (" ++ showCodePoint ++ ")"
      | otherwise
-     -> return $ C.Char.charValueFromCodePoint codePoint
+     -> return $ Runtime.charValueFromCodePoint codePoint
 
 {-------------------------------------------------------------------------------
   Parser for string literals
@@ -389,7 +390,7 @@ universalEscapedChar = do
 -------------------------------------------------------------------------------}
 
 -- | Re-parse a string literal.
-parseLiteralString :: TokenParser [C.Char.CharValue]
+parseLiteralString :: TokenParser [Runtime.CharValue]
 parseLiteralString = do
   let forbidden = [ '\"' ]
   prefix <- parseCharPrefix
