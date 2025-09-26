@@ -40,6 +40,7 @@
 - ignore: {name: "Use const"}
 - ignore: {name: "Avoid lambda using `infix`"}
 - ignore: {name: "Redundant <$>"}
+- ignore: {name: "Avoid restricted alias"}
 
 # Specify additional command line arguments
 #

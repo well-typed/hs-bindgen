@@ -1,4 +1,4 @@
-module HsBindgen.Util.Parsec (
+module C.Expr.Util.Parsec (
     -- * Character streams
     caseInsensitive'
   , foldCharTokens

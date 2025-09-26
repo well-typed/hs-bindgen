@@ -1,0 +1,91 @@
+cabal-version:      3.0
+name:               c-expr-dsl
+version:            0.1.0.0
+license:            BSD-3-Clause
+license-file:       LICENSE
+author:             sheaf
+maintainer:         Well-Typed LLP
+category:           System
+build-type:         Simple
+extra-doc-files:    CHANGELOG.md
+tested-with:      , GHC==9.2.8
+                  , GHC==9.4.8
+                  , GHC==9.6.6
+                  , GHC==9.8.2
+                  , GHC==9.10.2
+                  , GHC==9.12.2
+synopsis: DSL for the language support by c-expr-runtime
+
+common lang
+  build-depends:    base >= 4.16 && < 4.22
+  default-language: GHC2021
+
+  default-extensions:
+      DataKinds
+      DeriveAnyClass
+      DerivingStrategies
+      LambdaCase
+      MultiWayIf
+      PatternSynonyms
+      QuantifiedConstraints
+      TypeFamilies
+      UndecidableInstances
+  other-extensions:
+      CPP
+      MagicHash
+  ghc-options:
+     -Wall
+     -Wunused-packages
+     -Wno-unticked-promoted-constructors
+     -Wprepositive-qualified-module
+
+library
+  import:         lang
+  hs-source-dirs: src
+
+  exposed-modules:
+      C.Expr.Syntax
+
+      -- TODO: Make sure we only need to expose .Parse itself
+      C.Expr.Parse
+      C.Expr.Parse.Expr
+
+      -- TODO: Cleanup the export list from .Typecheck, and possibly re-export
+      -- some stuff (MacroParseError, MacroTcError)
+      C.Expr.Parse.Infra
+      C.Expr.Typecheck
+      C.Expr.Typecheck.Expr
+
+      -- TODO: Think about what we should expose and what we should hide here
+      -- (perhaps nothing, if we move SigmaType here)
+      C.Expr.Typecheck.Type
+
+      -- TODO: This should not be exposed at all
+      C.Expr.Util.TestEquality
+
+  other-modules:
+      C.Expr.Parse.Literal
+      C.Expr.Parse.Name
+      C.Expr.Syntax.Expr
+      C.Expr.Syntax.Literals
+      C.Expr.Syntax.Name
+      C.Expr.Syntax.TTG
+      C.Expr.Syntax.TTG.Parse
+      C.Expr.Syntax.TTG.Typecheck
+      C.Expr.Util.Parsec
+
+  build-depends:
+      -- internal dependencies
+    , c-expr-runtime
+    , libclang-bindings
+
+  build-depends:
+      -- external dependencies
+    , containers >= 0.6.5.1 && < 0.8
+    , fin        >= 0.3.2   && < 0.4
+    , mtl        >= 2.2     && < 2.4
+    , parsec     >= 3.1     && < 3.2
+    , scientific >= 0.3.7   && < 0.4
+    , some       >= 1.0.6   && < 1.1
+    , text       >= 1.2     && < 2.2
+    , vec        >= 0.5     && < 0.6

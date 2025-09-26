@@ -3,6 +3,7 @@ import: ./cabal.project.base
 packages:
   ansi-diff
   c-expr-runtime
+  c-expr-dsl
   hs-bindgen
   hs-bindgen-runtime
   hs-bindgen-test-runtime

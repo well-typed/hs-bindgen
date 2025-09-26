@@ -1,5 +1,7 @@
+{-# LANGUAGE OverloadedStrings #-}
+
 -- | Infrastructure for reparsing
-module HsBindgen.Frontend.Macro.Parse.Infra (
+module C.Expr.Parse.Infra (
     -- * Parser type
     Parser
   , runParser
@@ -16,8 +18,14 @@ module HsBindgen.Frontend.Macro.Parse.Infra (
   , parseTokenOfKind
   ) where
 
+import Control.Exception
+import Control.Monad
+import Data.Bifunctor
+import Data.Text (Text)
 import Data.Text qualified as Text
-import Text.Parsec hiding (token, tokens, runParser)
+import GHC.Generics
+import GHC.Stack
+import Text.Parsec hiding (runParser, token, tokens)
 import Text.Parsec qualified as Parsec
 import Text.Parsec.Pos
 
@@ -25,11 +33,6 @@ import Clang.Enum.Simple
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
-
-import HsBindgen.Errors
-import HsBindgen.Imports
-import HsBindgen.Util.Tracer (PrettyForTrace (..))
-import Text.SimplePrettyPrint (hsep, textToCtxDoc, vcat, (><))
 
 {-------------------------------------------------------------------------------
   Parser type
@@ -42,8 +45,9 @@ data ParserState = ParserState
 initParserState :: ParserState
 initParserState = ParserState
 
-runParser :: HasCallStack =>
-     Parser a
+runParser ::
+     HasCallStack
+  => Parser a
   -> [Token TokenSpelling]
   -> Either MacroParseError a
 runParser p tokens =
@@ -52,7 +56,7 @@ runParser p tokens =
     sourcePath :: FilePath
     sourcePath =
         case tokens of
-          []  -> panicPure "reparseWith: empty list"
+          []  -> error "reparseWith: empty list"
           t:_ -> getSourcePath $ singleLocPath start
             where
               start :: SingleLoc
@@ -74,15 +78,6 @@ data MacroParseError = MacroParseError {
     }
   deriving stock (Show, Eq, Generic)
   deriving anyclass (Exception)
-
-instance PrettyForTrace MacroParseError where
-  prettyForTrace MacroParseError{
-          reparseError
-        , reparseErrorTokens
-        } = vcat [
-        "Reparse error: " >< fromString reparseError
-      , hsep $ map (textToCtxDoc . getTokenSpelling . tokenSpelling) reparseErrorTokens
-      ]
 
 {-------------------------------------------------------------------------------
   Dealing with individual tokens

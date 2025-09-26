@@ -60,7 +60,8 @@ module HsBindgen.Backend.Hs.AST (
 import Data.Type.Nat (SNat, SNatI, snat)
 import Data.Type.Nat qualified as Nat
 
-import C.Char qualified
+import C.Char qualified as CExpr.Runtime
+import C.Expr.Syntax qualified as CExpr.DSL
 
 import HsBindgen.Backend.Hs.AST.SigmaType
 import HsBindgen.Backend.Hs.AST.Strategy
@@ -69,7 +70,6 @@ import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation (Comment)
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.SHs.AST qualified as SHs
-import HsBindgen.Frontend.Macro qualified as Macro
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell
 import HsBindgen.NameHint
@@ -247,7 +247,7 @@ data VarDeclRHS ctx
   = VarDeclIntegral Integer HsPrimType
   | VarDeclFloat Float
   | VarDeclDouble Double
-  | VarDeclChar   C.Char.CharValue
+  | VarDeclChar   CExpr.Runtime.CharValue
   | VarDeclString ByteArray
   | VarDeclLambda (Lambda VarDeclRHS ctx)
   | VarDeclApp VarDeclRHSAppHead [VarDeclRHS ctx]
@@ -258,7 +258,7 @@ data VarDeclRHS ctx
 -- of a C macro.
 data VarDeclRHSAppHead
   -- | The translation of a built-in C infix function such as @*@ or @&&@.
-  = forall arity. InfixAppHead (Macro.MFun arity)
+  = forall arity. InfixAppHead (CExpr.DSL.MFun arity)
   -- | A function name, or the name of a function-like macro.
   | VarAppHead (HsName NsVar)
 

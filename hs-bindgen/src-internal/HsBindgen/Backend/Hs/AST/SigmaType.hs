@@ -10,10 +10,11 @@ module HsBindgen.Backend.Hs.AST.SigmaType (
     AClass(..),
 ) where
 
-import HsBindgen.Frontend.Macro qualified as Macro
+import C.Expr.Typecheck.Type qualified as CExpr.DSL
+import C.Expr.Util.TestEquality qualified as CExpr.DSL
+
 import HsBindgen.Imports
 import HsBindgen.NameHint
-import HsBindgen.Util.TestEquality
 
 import DeBruijn (Ctx, Idx (..))
 
@@ -60,19 +61,19 @@ instance Eq (PredType ctx) where
   _ == _ = False
 
 data ATyCon where
-  ATyCon :: Macro.TyCon args Macro.Ty -> ATyCon
+  ATyCon :: CExpr.DSL.TyCon args CExpr.DSL.Ty -> ATyCon
 instance Show ATyCon where
   show ( ATyCon tc ) = show tc
 instance Eq ATyCon where
   ATyCon tc1 == ATyCon tc2 =
-    isJust $ equals2 tc1 tc2
+    isJust $ CExpr.DSL.equals2 tc1 tc2
 
 data AClass where
-  AClass :: Macro.TyCon args Macro.Ct -> AClass
+  AClass :: CExpr.DSL.TyCon args CExpr.DSL.Ct -> AClass
 instance Show AClass where
   show ( AClass tc ) = show tc
 instance Eq AClass where
-  AClass ( Macro.GenerativeTyCon ( Macro.ClassTyCon cls1 ) )
+  AClass ( CExpr.DSL.GenerativeTyCon ( CExpr.DSL.ClassTyCon cls1 ) )
     ==
-    AClass ( Macro.GenerativeTyCon ( Macro.ClassTyCon cls2 ) ) =
-      isJust $ equals1 cls1 cls2
+    AClass ( CExpr.DSL.GenerativeTyCon ( CExpr.DSL.ClassTyCon cls2 ) ) =
+      isJust $ CExpr.DSL.equals1 cls1 cls2

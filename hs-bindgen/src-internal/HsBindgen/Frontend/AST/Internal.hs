@@ -45,11 +45,13 @@ module HsBindgen.Frontend.AST.Internal (
 
 import Prelude hiding (Enum)
 
+import C.Expr.Syntax qualified as CExpr.DSL
+import C.Expr.Typecheck.Type qualified as CExpr.DSL
+
 import Clang.HighLevel.Documentation qualified as C
 import Clang.HighLevel.Types
 
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
-import HsBindgen.Frontend.Macro qualified as Macro
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.RootHeader
@@ -328,11 +330,11 @@ data CheckedMacroType p = CheckedMacroType{
 -- | Checked expression (function) macro
 --
 -- TODO: This is wrong, it does not allow name mangling to do its job. To fix
--- that we'd have to change 'Macro.MExpr'.
+-- that we'd have to change 'CExpr.DSL.MExpr'.
 data CheckedMacroExpr = CheckedMacroExpr{
-      macroExprArgs :: [C.Name]
-    , macroExprBody :: Macro.MExpr Macro.Ps
-    , macroExprType :: Macro.Quant (Macro.Type Macro.Ty)
+      macroExprArgs :: [CExpr.DSL.Name]
+    , macroExprBody :: CExpr.DSL.MExpr CExpr.DSL.Ps
+    , macroExprType :: CExpr.DSL.Quant (CExpr.DSL.Type CExpr.DSL.Ty)
     }
   deriving stock (Show, Eq, Generic)
 

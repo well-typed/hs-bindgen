@@ -1,7 +1,8 @@
-{-# LANGUAGE MagicHash #-}
+{-# LANGUAGE MagicHash         #-}
+{-# LANGUAGE OverloadedStrings #-}
 
 -- | Macro types: the types that we infer for macros.
-module HsBindgen.Frontend.Macro.Tc.Type (
+module C.Expr.Typecheck.Type (
     -- * Names
     VarName
   , FunName
@@ -89,37 +90,29 @@ module HsBindgen.Frontend.Macro.Tc.Type (
   , FunValue(..)
   ) where
 
--- base
+import Data.Foldable qualified as Foldable
+import Data.GADT.Compare
 import Data.Kind qualified as Hs
 import Data.List.NonEmpty qualified as NE
+import Data.Map (Map)
 import Data.Maybe (fromJust)
-import Data.Type.Equality (type (:~:) (..))
+import Data.Nat (Nat (..))
+import Data.Proxy
+import Data.Text (Text)
+import Data.Text qualified as Text
+import Data.Type.Equality
+import Data.Type.Nat (SNatI)
+import Data.Type.Nat qualified as Nat
+import Data.Vec.Lazy (Vec (..))
+import Data.Vec.Lazy qualified as Vec
 import Foreign.C.Types
 import Foreign.Ptr qualified as Foreign
+import GHC.Generics (Generic)
 import GHC.Show (showSpace)
 
--- fin
-import Data.Type.Nat qualified as Nat (SNatI, eqNat, reflectToNum,)
-
--- some
-import Data.GADT.Compare (GEq (..), defaultEq)
-
--- text
-import Data.Text qualified as Text
-
--- vec
-import Data.Vec.Lazy qualified as Vec
-
--- c-expr
-import C.Type qualified
-
--- hs-bindgen
-
-import HsBindgen.Frontend.Macro.Pass
-import HsBindgen.Frontend.Naming (Name(..))
-import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
-import HsBindgen.Util.TestEquality (equals2)
+import C.Expr.Syntax
+import C.Expr.Util.TestEquality (equals2)
+import C.Type qualified as Runtime
 
 {-------------------------------------------------------------------------------
   Type system for macros
@@ -149,7 +142,7 @@ data Type ki where
   NomEqPred :: !( Type Ty ) -> !( Type Ty ) -> Type Ct
 
 mkFunTy :: Foldable f => f ( Type Ty ) -> Type Ty -> Type Ty
-mkFunTy args = case toList args of
+mkFunTy args = case Foldable.toList args of
   [] -> id
   ( a : as ) -> \ res -> FunTy ( a NE.:| as ) res
 
@@ -158,7 +151,7 @@ type Quant :: Hs.Type -> Hs.Type
 data Quant res where
   Quant
     :: forall nbBinders res
-    .  ( Nat.SNatI nbBinders )
+    .  ( SNatI nbBinders )
     => { quantTyBodyFn :: !( Vec nbBinders ( Type Ty ) -> QuantTyBody res ) }
     -> Quant res
 deriving stock instance Functor Quant
@@ -226,10 +219,10 @@ instance Show body => Show ( Quant body ) where
       . showsPrec 0 body
     where
       qtvs :: [ ( Int, Text ) ]
-      qtvs = toList $ tyVarNames @nbBinders
+      qtvs = Foldable.toList $ tyVarNames @nbBinders
       QuantTyBody cts body = mkQuantTyBody quantTy
 
-tyVarNames :: forall nbVars. Nat.SNatI nbVars => Vec nbVars ( Int, Text )
+tyVarNames :: forall nbVars. SNatI nbVars => Vec nbVars ( Int, Text )
 tyVarNames = fromJust $ Vec.fromListPrefix nms
   where
     n = Nat.reflectToNum @nbVars Proxy
@@ -323,10 +316,10 @@ data DataTyCon nbArgs where
   -- | Family of nullary type constructors for arguments to 'IntLikeTyCon'.
   PrimIntInfoTyCon   :: !IntegralType -> DataTyCon Z
   -- | Family of nullary type constructors for arguments to 'FloatLikeTyCon'.
-  PrimFloatInfoTyCon :: !C.Type.FloatingType -> DataTyCon Z
+  PrimFloatInfoTyCon :: !Runtime.FloatingType -> DataTyCon Z
 
 data IntegralType
-  = CIntegralType !C.Type.IntegralType
+  = CIntegralType !Runtime.IntegralType
   | HsIntType
   deriving stock ( Eq, Ord, Show, Generic )
 
@@ -465,8 +458,8 @@ data instance XVar Tc = XVarTc FunValue
   deriving stock ( Eq, Show, Generic )
 
 -- | A singleton for the type of a value, for use in evaluation of macros.
-newtype ValSType ty = ValSType ( C.Type.SType ValSType ty )
-  -- NB: this type ties the recursive knot of the open C.Type.SType type.
+newtype ValSType ty = ValSType ( Runtime.SType ValSType ty )
+  -- NB: this type ties the recursive knot of the open Runtime.SType type.
   --
   -- This type is defined here because it is tied to macro evaluation.
   -- In particular, if we decide to add support for evaluation macro tuples,
@@ -498,11 +491,11 @@ witnessValSType
     , c CSize, c CBool, c CFloat, c CDouble, c () )
   => ValSType ty -> ( c ty => r ) -> r
 witnessValSType ( ValSType ty ) f =
-  C.Type.witnessType @c ( witnessValSType @c ) ty f
+  Runtime.witnessType @c ( witnessValSType @c ) ty f
 
 -- | A Haskell function that evaluates a macro function.
 data FunValue where
-  FunValue :: Nat.SNatI n => FunName -> ( Vec n Value -> Value ) -> FunValue
+  FunValue :: SNatI n => FunName -> ( Vec n Value -> Value ) -> FunValue
 instance Eq FunValue where
   FunValue f1 _ == FunValue f2 _ = f1 == f2
 instance Show FunValue where
@@ -545,8 +538,8 @@ data MetaOrigin
   | ExpectedVarTy !Name
   | Inst { instOrigin :: !InstOrigin, instPos :: !Int }
   | FunArg !Name !( Name, Int )
-  | IntLitMeta !C.IntegerLiteral
-  | FloatLitMeta !C.FloatingLiteral
+  | IntLitMeta !IntegerLiteral
+  | FloatLitMeta !FloatingLiteral
   deriving stock ( Generic, Show )
 
 data InstOrigin
@@ -647,7 +640,7 @@ pattern Shift a b = Class ShiftTyCon ( a ::: b ::: VNil )
 
 pattern PrimIntInfoTy :: IntegralType -> Type Ty
 pattern PrimIntInfoTy inty = Data (PrimIntInfoTyCon inty) VNil
-pattern PrimFloatInfoTy :: C.Type.FloatingType -> Type Ty
+pattern PrimFloatInfoTy :: Runtime.FloatingType -> Type Ty
 pattern PrimFloatInfoTy floaty = Data (PrimFloatInfoTyCon floaty) VNil
 pattern IntLike :: Type Ty -> Type Ty
 pattern IntLike intLike = Data IntLikeTyCon (intLike ::: VNil)
@@ -684,11 +677,11 @@ pattern ShiftRes a = FamApp ShiftResTyCon ( a ::: VNil )
 
 
 pattern IntTy :: Type Ty
-pattern IntTy = IntLike ( PrimIntInfoTy ( CIntegralType ( C.Type.IntLike ( C.Type.Int C.Type.Signed ) ) ) )
+pattern IntTy = IntLike ( PrimIntInfoTy ( CIntegralType ( Runtime.IntLike ( Runtime.Int Runtime.Signed ) ) ) )
 pattern HsIntTy :: Type Ty
 pattern HsIntTy = IntLike ( PrimIntInfoTy ( HsIntType ) )
 pattern CharTy :: Type Ty
-pattern CharTy = IntLike ( PrimIntInfoTy ( CIntegralType ( C.Type.CharLike C.Type.Char ) ) )
+pattern CharTy = IntLike ( PrimIntInfoTy ( CIntegralType ( Runtime.CharLike Runtime.Char ) ) )
 
 pattern CharLitTy :: Type Ty
 pattern CharLitTy = Data CharLitTyCon VNil

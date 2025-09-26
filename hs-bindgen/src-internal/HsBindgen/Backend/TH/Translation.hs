@@ -29,8 +29,9 @@ import Language.Haskell.TH.Syntax qualified as TH
 import System.IO.Unsafe qualified
 import Text.Read qualified
 
-import C.Char (CharValue (..), charValueFromAddr)
-import C.Expr.HostPlatform qualified as C
+import C.Char qualified as CExpr.Runtime
+import C.Expr.HostPlatform qualified as CExpr.Runtime
+import C.Expr.Syntax qualified as CExpr.DSL
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
@@ -40,7 +41,6 @@ import HsBindgen.Backend.SHs.AST
 import HsBindgen.Errors
 import HsBindgen.Guasi
 import HsBindgen.Imports
-import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell
 import HsBindgen.NameHint
 import HsBindgen.Runtime.Bitfield qualified
@@ -88,9 +88,9 @@ mkGlobal = \case
       HasFlexibleArrayMember_offset -> 'HsBindgen.Runtime.FlexibleArrayMember.flexibleArrayMemberOffset
       Bitfield_peekBitOffWidth -> 'HsBindgen.Runtime.Bitfield.peekBitOffWidth
       Bitfield_pokeBitOffWidth -> 'HsBindgen.Runtime.Bitfield.pokeBitOffWidth
-      CharValue_tycon        -> ''C.Char.CharValue
-      CharValue_constructor  -> 'C.Char.CharValue
-      CharValue_fromAddr    -> 'C.Char.charValueFromAddr
+      CharValue_tycon        -> ''CExpr.Runtime.CharValue
+      CharValue_constructor  -> 'CExpr.Runtime.CharValue
+      CharValue_fromAddr    -> 'CExpr.Runtime.charValueFromAddr
       CAPI_with             -> 'Foreign.with
       CAPI_allocaAndPeek    -> 'HsBindgen.Runtime.CAPI.allocaAndPeek
       ConstantArray_withPtr -> 'HsBindgen.Runtime.ConstantArray.withPtr
@@ -123,52 +123,52 @@ mkGlobal = \case
 
       NomEq_class -> ''(~)
 
-      Not_class             -> ''C.Not
-      Not_not               ->  'C.not
-      Logical_class         -> ''C.Logical
-      Logical_and           -> '(C.&&)
-      Logical_or            -> '(C.||)
-      RelEq_class           -> ''C.RelEq
-      RelEq_eq              -> '(C.==)
-      RelEq_uneq            -> '(C.!=)
-      RelOrd_class          -> ''C.RelOrd
-      RelOrd_lt             -> '(C.<)
-      RelOrd_le             -> '(C.<=)
-      RelOrd_gt             -> '(C.>)
-      RelOrd_ge             -> '(C.>=)
-      Plus_class            -> ''C.Plus
-      Plus_resTyCon         -> ''C.PlusRes
-      Plus_plus             ->  'C.plus
-      Minus_class           -> ''C.Minus
-      Minus_resTyCon        -> ''C.MinusRes
-      Minus_negate          ->  'C.negate
-      Add_class             -> ''C.Add
-      Add_resTyCon          -> ''C.AddRes
-      Add_add               -> '(C.+)
-      Sub_class             -> ''C.Sub
-      Sub_resTyCon          -> ''C.SubRes
-      Sub_minus             -> '(C.-)
-      Mult_class            -> ''C.Mult
-      Mult_resTyCon         -> ''C.MultRes
-      Mult_mult             -> '(C.*)
-      Div_class             -> ''C.Div
-      Div_resTyCon          -> ''C.DivRes
-      Div_div               -> '(C./)
-      Rem_class             -> ''C.Rem
-      Rem_resTyCon          -> ''C.RemRes
-      Rem_rem               -> '(C.%)
-      Complement_class      -> ''C.Complement
-      Complement_resTyCon   -> ''C.ComplementRes
-      Complement_complement -> '(C..~)
-      Bitwise_class         -> ''C.Bitwise
-      Bitwise_resTyCon      -> ''C.BitsRes
-      Bitwise_and           -> '(C..&.)
-      Bitwise_or            -> '(C..|.)
-      Bitwise_xor           -> '(C..^.)
-      Shift_class           -> ''C.Shift
-      Shift_resTyCon        -> ''C.ShiftRes
-      Shift_shiftL          -> '(C.<<)
-      Shift_shiftR          -> '(C.>>)
+      Not_class             -> ''CExpr.Runtime.Not
+      Not_not               ->  'CExpr.Runtime.not
+      Logical_class         -> ''CExpr.Runtime.Logical
+      Logical_and           -> '(CExpr.Runtime.&&)
+      Logical_or            -> '(CExpr.Runtime.||)
+      RelEq_class           -> ''CExpr.Runtime.RelEq
+      RelEq_eq              -> '(CExpr.Runtime.==)
+      RelEq_uneq            -> '(CExpr.Runtime.!=)
+      RelOrd_class          -> ''CExpr.Runtime.RelOrd
+      RelOrd_lt             -> '(CExpr.Runtime.<)
+      RelOrd_le             -> '(CExpr.Runtime.<=)
+      RelOrd_gt             -> '(CExpr.Runtime.>)
+      RelOrd_ge             -> '(CExpr.Runtime.>=)
+      Plus_class            -> ''CExpr.Runtime.Plus
+      Plus_resTyCon         -> ''CExpr.Runtime.PlusRes
+      Plus_plus             ->  'CExpr.Runtime.plus
+      Minus_class           -> ''CExpr.Runtime.Minus
+      Minus_resTyCon        -> ''CExpr.Runtime.MinusRes
+      Minus_negate          ->  'CExpr.Runtime.negate
+      Add_class             -> ''CExpr.Runtime.Add
+      Add_resTyCon          -> ''CExpr.Runtime.AddRes
+      Add_add               -> '(CExpr.Runtime.+)
+      Sub_class             -> ''CExpr.Runtime.Sub
+      Sub_resTyCon          -> ''CExpr.Runtime.SubRes
+      Sub_minus             -> '(CExpr.Runtime.-)
+      Mult_class            -> ''CExpr.Runtime.Mult
+      Mult_resTyCon         -> ''CExpr.Runtime.MultRes
+      Mult_mult             -> '(CExpr.Runtime.*)
+      Div_class             -> ''CExpr.Runtime.Div
+      Div_resTyCon          -> ''CExpr.Runtime.DivRes
+      Div_div               -> '(CExpr.Runtime./)
+      Rem_class             -> ''CExpr.Runtime.Rem
+      Rem_resTyCon          -> ''CExpr.Runtime.RemRes
+      Rem_rem               -> '(CExpr.Runtime.%)
+      Complement_class      -> ''CExpr.Runtime.Complement
+      Complement_resTyCon   -> ''CExpr.Runtime.ComplementRes
+      Complement_complement -> '(CExpr.Runtime..~)
+      Bitwise_class         -> ''CExpr.Runtime.Bitwise
+      Bitwise_resTyCon      -> ''CExpr.Runtime.BitsRes
+      Bitwise_and           -> '(CExpr.Runtime..&.)
+      Bitwise_or            -> '(CExpr.Runtime..|.)
+      Bitwise_xor           -> '(CExpr.Runtime..^.)
+      Shift_class           -> ''CExpr.Runtime.Shift
+      Shift_resTyCon        -> ''CExpr.Runtime.ShiftRes
+      Shift_shiftL          -> '(CExpr.Runtime.<<)
+      Shift_shiftR          -> '(CExpr.Runtime.>>)
 
       GHC_Float_castWord32ToFloat  -> 'GHC.Float.castWord32ToFloat
       GHC_Float_castWord64ToDouble -> 'GHC.Float.castWord64ToDouble
@@ -420,14 +420,14 @@ mkExpr env = \case
       -- Word32/Word64 and then cast back.
       EFloat f t ->
         TH.sigE
-          ( if C.canBeRepresentedAsRational f
+          ( if CExpr.DSL.canBeRepresentedAsRational f
               then [| f |]
               else [| Foreign.C.Types.CFloat $ castWord32ToFloat  $( TH.lift $ castFloatToWord32  f ) |]
           )
           (mkPrimType t)
       EDouble d t ->
         TH.sigE
-          ( if C.canBeRepresentedAsRational d
+          ( if CExpr.DSL.canBeRepresentedAsRational d
               then [| d |]
               else [| Foreign.C.Types.CDouble $ castWord64ToDouble $( TH.lift $ castDoubleToWord64 d ) |]
           )

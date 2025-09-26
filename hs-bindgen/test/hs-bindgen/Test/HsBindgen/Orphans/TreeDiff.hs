@@ -11,8 +11,10 @@ import Data.Vec.Lazy qualified as Vec
 import Foreign.C
 import System.FilePath qualified as FilePath
 
-import C.Char qualified as CExpr
-import C.Type qualified as CExpr
+import C.Char qualified as CExpr.Runtime
+import C.Expr.Syntax qualified as CExpr.DSL
+import C.Expr.Typecheck.Expr qualified as CExpr.DSL
+import C.Type qualified as CExpr.Runtime
 
 import Clang.Enum.Simple
 import Clang.HighLevel.Documentation qualified as C
@@ -27,7 +29,6 @@ import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.AST.External qualified as C
-import HsBindgen.Frontend.Macro qualified as Macro
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
@@ -103,12 +104,12 @@ instance ToExpr BindingSpec.StrategySpec
 instance ToExpr BindingSpec.ConstraintSpec
 instance ToExpr a => ToExpr (BindingSpec.Omittable a)
 
-instance ToExpr CExpr.CharValue
+instance ToExpr CExpr.Runtime.CharValue
 
-instance ToExpr C.IntegerLiteral
-instance ToExpr C.FloatingLiteral
-instance ToExpr C.CharLiteral
-instance ToExpr C.StringLiteral
+instance ToExpr CExpr.DSL.IntegerLiteral
+instance ToExpr CExpr.DSL.FloatingLiteral
+instance ToExpr CExpr.DSL.CharLiteral
+instance ToExpr CExpr.DSL.StringLiteral
 
 -- do not use record syntax, as it's very verbose
 instance ToExpr C.SingleLoc where
@@ -134,11 +135,11 @@ instance ToExpr Hs.CommentInlineContent
 instance ToExpr Hs.CommentMeta
 
 
-instance ToExpr CExpr.IntegralType where
-instance ToExpr CExpr.CharLikeType where
-instance ToExpr CExpr.IntLikeType where
-instance ToExpr CExpr.Sign where
-instance ToExpr CExpr.FloatingType where
+instance ToExpr CExpr.Runtime.IntegralType where
+instance ToExpr CExpr.Runtime.CharLikeType where
+instance ToExpr CExpr.Runtime.IntLikeType where
+instance ToExpr CExpr.Runtime.Sign where
+instance ToExpr CExpr.Runtime.FloatingType where
 
 instance ToExpr HsType.HsType
 instance ToExpr HsType.HsPrimType
@@ -277,74 +278,75 @@ instance ToExpr (SimpleEnum hs)
   Macro expressions
 -------------------------------------------------------------------------------}
 
-instance ToExpr (Macro.MTerm Macro.Ps)
-instance ToExpr (Macro.XVar Macro.Ps)
+instance ToExpr CExpr.DSL.Name
+instance ToExpr (CExpr.DSL.MTerm CExpr.DSL.Ps)
+instance ToExpr (CExpr.DSL.XVar CExpr.DSL.Ps)
 
-instance ToExpr (Macro.MExpr Macro.Ps) where
+instance ToExpr (CExpr.DSL.MExpr CExpr.DSL.Ps) where
   toExpr = \case
-    Macro.MTerm tm ->
+    CExpr.DSL.MTerm tm ->
       Expr.App "MTerm" [toExpr tm]
-    Macro.MApp _xapp fun args ->
+    CExpr.DSL.MApp _xapp fun args ->
       Expr.App "MApp" [toExpr fun, toExpr (toList args)]
 
-instance ToExpr ( Macro.MFun arity ) where
+instance ToExpr ( CExpr.DSL.MFun arity ) where
   toExpr f = Expr.App (show f) []
 
-instance Show e => ToExpr ( Macro.Quant e ) where
+instance Show e => ToExpr ( CExpr.DSL.Quant e ) where
   toExpr quantTy = toExpr $ show quantTy
 
-instance ToExpr (Macro.ClassTyCon arity) where
+instance ToExpr (CExpr.DSL.ClassTyCon arity) where
   toExpr = \case
-    Macro.NotTyCon        -> Expr.App "NotTyCon"        []
-    Macro.LogicalTyCon    -> Expr.App "LogicalTyCon"    []
-    Macro.RelEqTyCon      -> Expr.App "RelEqTyCon"      []
-    Macro.RelOrdTyCon     -> Expr.App "RelOrdTyCon"     []
-    Macro.PlusTyCon       -> Expr.App "PlusTyCon"       []
-    Macro.MinusTyCon      -> Expr.App "MinusTyCon"      []
-    Macro.AddTyCon        -> Expr.App "AddTyCon"        []
-    Macro.SubTyCon        -> Expr.App "SubTyCon"        []
-    Macro.MultTyCon       -> Expr.App "MultTyCon"       []
-    Macro.DivTyCon        -> Expr.App "DivTyCon"        []
-    Macro.RemTyCon        -> Expr.App "RemTyCon"        []
-    Macro.ComplementTyCon -> Expr.App "ComplementTyCon" []
-    Macro.BitwiseTyCon    -> Expr.App "BitwiseTyCon"    []
-    Macro.ShiftTyCon      -> Expr.App "ShiftTyCon"      []
+    CExpr.DSL.NotTyCon        -> Expr.App "NotTyCon"        []
+    CExpr.DSL.LogicalTyCon    -> Expr.App "LogicalTyCon"    []
+    CExpr.DSL.RelEqTyCon      -> Expr.App "RelEqTyCon"      []
+    CExpr.DSL.RelOrdTyCon     -> Expr.App "RelOrdTyCon"     []
+    CExpr.DSL.PlusTyCon       -> Expr.App "PlusTyCon"       []
+    CExpr.DSL.MinusTyCon      -> Expr.App "MinusTyCon"      []
+    CExpr.DSL.AddTyCon        -> Expr.App "AddTyCon"        []
+    CExpr.DSL.SubTyCon        -> Expr.App "SubTyCon"        []
+    CExpr.DSL.MultTyCon       -> Expr.App "MultTyCon"       []
+    CExpr.DSL.DivTyCon        -> Expr.App "DivTyCon"        []
+    CExpr.DSL.RemTyCon        -> Expr.App "RemTyCon"        []
+    CExpr.DSL.ComplementTyCon -> Expr.App "ComplementTyCon" []
+    CExpr.DSL.BitwiseTyCon    -> Expr.App "BitwiseTyCon"    []
+    CExpr.DSL.ShiftTyCon      -> Expr.App "ShiftTyCon"      []
 
-instance ToExpr (Macro.TyCon args resKi) where
+instance ToExpr (CExpr.DSL.TyCon args resKi) where
   toExpr = \case
-    Macro.GenerativeTyCon tc  -> Expr.App "GenerativeTyCon" [toExpr tc]
-    Macro.FamilyTyCon     fam -> Expr.App "FamilyTyCon"     [toExpr fam]
+    CExpr.DSL.GenerativeTyCon tc  -> Expr.App "GenerativeTyCon" [toExpr tc]
+    CExpr.DSL.FamilyTyCon     fam -> Expr.App "FamilyTyCon"     [toExpr fam]
 
-instance ToExpr (Macro.GenerativeTyCon args resKi) where
+instance ToExpr (CExpr.DSL.GenerativeTyCon args resKi) where
   toExpr = \case
-    Macro.DataTyCon  dc  -> Expr.App "DataTyCon"  [toExpr dc]
-    Macro.ClassTyCon cls -> Expr.App "ClassTyCon" [toExpr cls]
+    CExpr.DSL.DataTyCon  dc  -> Expr.App "DataTyCon"  [toExpr dc]
+    CExpr.DSL.ClassTyCon cls -> Expr.App "ClassTyCon" [toExpr cls]
 
-instance ToExpr (Macro.DataTyCon n) where
+instance ToExpr (CExpr.DSL.DataTyCon n) where
   toExpr = \case
-    Macro.TupleTyCon n            -> Expr.App "TupleTyCon"     [toExpr n]
-    Macro.VoidTyCon               -> Expr.App "VoidTyCon"      []
-    Macro.PtrTyCon                -> Expr.App "PtrTyCon"       []
-    Macro.CharLitTyCon            -> Expr.App "CharLitTyCon"   []
-    Macro.IntLikeTyCon            -> Expr.App "IntLikeTyCon"   []
-    Macro.FloatLikeTyCon          -> Expr.App "FloatLikeTyCon" []
-    Macro.PrimIntInfoTyCon   info -> Expr.App "IntLikeTyCon"   [toExpr info]
-    Macro.PrimFloatInfoTyCon info -> Expr.App "FloatLikeTyCon" [toExpr info]
+    CExpr.DSL.TupleTyCon n            -> Expr.App "TupleTyCon"     [toExpr n]
+    CExpr.DSL.VoidTyCon               -> Expr.App "VoidTyCon"      []
+    CExpr.DSL.PtrTyCon                -> Expr.App "PtrTyCon"       []
+    CExpr.DSL.CharLitTyCon            -> Expr.App "CharLitTyCon"   []
+    CExpr.DSL.IntLikeTyCon            -> Expr.App "IntLikeTyCon"   []
+    CExpr.DSL.FloatLikeTyCon          -> Expr.App "FloatLikeTyCon" []
+    CExpr.DSL.PrimIntInfoTyCon   info -> Expr.App "IntLikeTyCon"   [toExpr info]
+    CExpr.DSL.PrimFloatInfoTyCon info -> Expr.App "FloatLikeTyCon" [toExpr info]
 
-instance ToExpr Macro.IntegralType -- Note: different from CExpr.IntegralType
+instance ToExpr CExpr.DSL.IntegralType -- Note: different from CExpr.IntegralType
 
-instance ToExpr (Macro.FamilyTyCon n) where
+instance ToExpr (CExpr.DSL.FamilyTyCon n) where
   toExpr = \case
-    Macro.PlusResTyCon       -> Expr.App "PlusResTyCon"       []
-    Macro.MinusResTyCon      -> Expr.App "MinusResTyCon"      []
-    Macro.AddResTyCon        -> Expr.App "AddResTyCon"        []
-    Macro.SubResTyCon        -> Expr.App "SubResTyCon"        []
-    Macro.MultResTyCon       -> Expr.App "MultResTyCon"       []
-    Macro.DivResTyCon        -> Expr.App "DivResTyCon"        []
-    Macro.RemResTyCon        -> Expr.App "RemResTyCon"        []
-    Macro.ComplementResTyCon -> Expr.App "ComplementResTyCon" []
-    Macro.BitsResTyCon       -> Expr.App "BitsResTyCon"       []
-    Macro.ShiftResTyCon      -> Expr.App "ShiftResTyCon"      []
+    CExpr.DSL.PlusResTyCon       -> Expr.App "PlusResTyCon"       []
+    CExpr.DSL.MinusResTyCon      -> Expr.App "MinusResTyCon"      []
+    CExpr.DSL.AddResTyCon        -> Expr.App "AddResTyCon"        []
+    CExpr.DSL.SubResTyCon        -> Expr.App "SubResTyCon"        []
+    CExpr.DSL.MultResTyCon       -> Expr.App "MultResTyCon"       []
+    CExpr.DSL.DivResTyCon        -> Expr.App "DivResTyCon"        []
+    CExpr.DSL.RemResTyCon        -> Expr.App "RemResTyCon"        []
+    CExpr.DSL.ComplementResTyCon -> Expr.App "ComplementResTyCon" []
+    CExpr.DSL.BitsResTyCon       -> Expr.App "BitsResTyCon"       []
+    CExpr.DSL.ShiftResTyCon      -> Expr.App "ShiftResTyCon"      []
 
 {-------------------------------------------------------------------------------
   DeBruijn

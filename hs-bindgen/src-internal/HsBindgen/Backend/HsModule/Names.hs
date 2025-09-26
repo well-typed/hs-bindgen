@@ -30,8 +30,8 @@ import Language.Haskell.TH.Syntax qualified as TH
 import System.IO.Unsafe qualified
 import Text.Read qualified
 
-import C.Char (CharValue (..), charValueFromAddr)
-import C.Expr.HostPlatform qualified
+import C.Char qualified as CExpr.Runtime
+import C.Expr.HostPlatform qualified as CExpr.Runtime
 
 import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.SHs.AST
@@ -223,9 +223,9 @@ resolveGlobal = \case
     HasFlexibleArrayMember_offset -> importQ 'HsBindgen.Runtime.FlexibleArrayMember.flexibleArrayMemberOffset
     Bitfield_peekBitOffWidth      -> importQ 'HsBindgen.Runtime.Bitfield.peekBitOffWidth
     Bitfield_pokeBitOffWidth      -> importQ 'HsBindgen.Runtime.Bitfield.pokeBitOffWidth
-    CharValue_tycon               -> importQ ''C.Char.CharValue
-    CharValue_constructor         -> importQ 'C.Char.CharValue
-    CharValue_fromAddr            -> importQ 'C.Char.charValueFromAddr
+    CharValue_tycon               -> importQ ''CExpr.Runtime.CharValue
+    CharValue_constructor         -> importQ 'CExpr.Runtime.CharValue
+    CharValue_fromAddr            -> importQ 'CExpr.Runtime.charValueFromAddr
     CAPI_with                     -> importQ 'Foreign.with
     CAPI_allocaAndPeek            -> importQ 'HsBindgen.Runtime.CAPI.allocaAndPeek
     ConstantArray_withPtr         -> importQ 'HsBindgen.Runtime.ConstantArray.withPtr
@@ -264,52 +264,52 @@ resolveGlobal = \case
     -- So for now code using ~ will not work with preprocessor setup on GHC-9.2.
     NomEq_class -> ResolvedName "~" OperatorName (Just (UnqualifiedHsImport iPrelude))
 
-    Not_class             -> importQ ''C.Expr.HostPlatform.Not
-    Not_not               -> importQ 'C.Expr.HostPlatform.not
-    Logical_class         -> importQ ''C.Expr.HostPlatform.Logical
-    Logical_and           -> importQ '(C.Expr.HostPlatform.&&)
-    Logical_or            -> importQ '(C.Expr.HostPlatform.||)
-    RelEq_class           -> importQ ''C.Expr.HostPlatform.RelEq
-    RelEq_eq              -> importQ '(C.Expr.HostPlatform.==)
-    RelEq_uneq            -> importQ '(C.Expr.HostPlatform.!=)
-    RelOrd_class          -> importQ ''C.Expr.HostPlatform.RelOrd
-    RelOrd_lt             -> importQ '(C.Expr.HostPlatform.<)
-    RelOrd_le             -> importQ '(C.Expr.HostPlatform.<=)
-    RelOrd_gt             -> importQ '(C.Expr.HostPlatform.>)
-    RelOrd_ge             -> importQ '(C.Expr.HostPlatform.>=)
-    Plus_class            -> importQ ''C.Expr.HostPlatform.Plus
-    Plus_resTyCon         -> importQ ''C.Expr.HostPlatform.PlusRes
-    Plus_plus             -> importQ 'C.Expr.HostPlatform.plus
-    Minus_class           -> importQ ''C.Expr.HostPlatform.Minus
-    Minus_resTyCon        -> importQ ''C.Expr.HostPlatform.MinusRes
-    Minus_negate          -> importQ 'C.Expr.HostPlatform.negate
-    Add_class             -> importQ ''C.Expr.HostPlatform.Add
-    Add_resTyCon          -> importQ ''C.Expr.HostPlatform.AddRes
-    Add_add               -> importQ '(C.Expr.HostPlatform.+)
-    Sub_class             -> importQ ''C.Expr.HostPlatform.Sub
-    Sub_resTyCon          -> importQ ''C.Expr.HostPlatform.SubRes
-    Sub_minus             -> importQ '(C.Expr.HostPlatform.-)
-    Mult_class            -> importQ ''C.Expr.HostPlatform.Mult
-    Mult_resTyCon         -> importQ ''C.Expr.HostPlatform.MultRes
-    Mult_mult             -> importQ '(C.Expr.HostPlatform.*)
-    Div_class             -> importQ ''C.Expr.HostPlatform.Div
-    Div_resTyCon          -> importQ ''C.Expr.HostPlatform.DivRes
-    Div_div               -> importQ '(C.Expr.HostPlatform./)
-    Rem_class             -> importQ ''C.Expr.HostPlatform.Rem
-    Rem_resTyCon          -> importQ ''C.Expr.HostPlatform.RemRes
-    Rem_rem               -> importQ '(C.Expr.HostPlatform.%)
-    Complement_class      -> importQ ''C.Expr.HostPlatform.Complement
-    Complement_resTyCon   -> importQ ''C.Expr.HostPlatform.ComplementRes
-    Complement_complement -> importQ '(C.Expr.HostPlatform..~)
-    Bitwise_class         -> importQ ''C.Expr.HostPlatform.Bitwise
-    Bitwise_resTyCon      -> importQ ''C.Expr.HostPlatform.BitsRes
-    Bitwise_and           -> importQ '(C.Expr.HostPlatform..&.)
-    Bitwise_or            -> importQ '(C.Expr.HostPlatform..|.)
-    Bitwise_xor           -> importQ '(C.Expr.HostPlatform..^.)
-    Shift_class           -> importQ ''C.Expr.HostPlatform.Shift
-    Shift_resTyCon        -> importQ ''C.Expr.HostPlatform.ShiftRes
-    Shift_shiftL          -> importQ '(C.Expr.HostPlatform.<<)
-    Shift_shiftR          -> importQ '(C.Expr.HostPlatform.>>)
+    Not_class             -> importQ ''CExpr.Runtime.Not
+    Not_not               -> importQ 'CExpr.Runtime.not
+    Logical_class         -> importQ ''CExpr.Runtime.Logical
+    Logical_and           -> importQ '(CExpr.Runtime.&&)
+    Logical_or            -> importQ '(CExpr.Runtime.||)
+    RelEq_class           -> importQ ''CExpr.Runtime.RelEq
+    RelEq_eq              -> importQ '(CExpr.Runtime.==)
+    RelEq_uneq            -> importQ '(CExpr.Runtime.!=)
+    RelOrd_class          -> importQ ''CExpr.Runtime.RelOrd
+    RelOrd_lt             -> importQ '(CExpr.Runtime.<)
+    RelOrd_le             -> importQ '(CExpr.Runtime.<=)
+    RelOrd_gt             -> importQ '(CExpr.Runtime.>)
+    RelOrd_ge             -> importQ '(CExpr.Runtime.>=)
+    Plus_class            -> importQ ''CExpr.Runtime.Plus
+    Plus_resTyCon         -> importQ ''CExpr.Runtime.PlusRes
+    Plus_plus             -> importQ 'CExpr.Runtime.plus
+    Minus_class           -> importQ ''CExpr.Runtime.Minus
+    Minus_resTyCon        -> importQ ''CExpr.Runtime.MinusRes
+    Minus_negate          -> importQ 'CExpr.Runtime.negate
+    Add_class             -> importQ ''CExpr.Runtime.Add
+    Add_resTyCon          -> importQ ''CExpr.Runtime.AddRes
+    Add_add               -> importQ '(CExpr.Runtime.+)
+    Sub_class             -> importQ ''CExpr.Runtime.Sub
+    Sub_resTyCon          -> importQ ''CExpr.Runtime.SubRes
+    Sub_minus             -> importQ '(CExpr.Runtime.-)
+    Mult_class            -> importQ ''CExpr.Runtime.Mult
+    Mult_resTyCon         -> importQ ''CExpr.Runtime.MultRes
+    Mult_mult             -> importQ '(CExpr.Runtime.*)
+    Div_class             -> importQ ''CExpr.Runtime.Div
+    Div_resTyCon          -> importQ ''CExpr.Runtime.DivRes
+    Div_div               -> importQ '(CExpr.Runtime./)
+    Rem_class             -> importQ ''CExpr.Runtime.Rem
+    Rem_resTyCon          -> importQ ''CExpr.Runtime.RemRes
+    Rem_rem               -> importQ '(CExpr.Runtime.%)
+    Complement_class      -> importQ ''CExpr.Runtime.Complement
+    Complement_resTyCon   -> importQ ''CExpr.Runtime.ComplementRes
+    Complement_complement -> importQ '(CExpr.Runtime..~)
+    Bitwise_class         -> importQ ''CExpr.Runtime.Bitwise
+    Bitwise_resTyCon      -> importQ ''CExpr.Runtime.BitsRes
+    Bitwise_and           -> importQ '(CExpr.Runtime..&.)
+    Bitwise_or            -> importQ '(CExpr.Runtime..|.)
+    Bitwise_xor           -> importQ '(CExpr.Runtime..^.)
+    Shift_class           -> importQ ''CExpr.Runtime.Shift
+    Shift_resTyCon        -> importQ ''CExpr.Runtime.ShiftRes
+    Shift_shiftL          -> importQ '(CExpr.Runtime.<<)
+    Shift_shiftR          -> importQ '(CExpr.Runtime.>>)
 
     GHC_Float_castWord32ToFloat  -> importQ 'GHC.Float.castWord32ToFloat
     GHC_Float_castWord64ToDouble -> importQ 'GHC.Float.castWord64ToDouble

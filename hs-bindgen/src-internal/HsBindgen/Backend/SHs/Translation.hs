@@ -13,13 +13,15 @@ import Data.Type.Nat qualified as Fin
 import Data.Vec.Lazy qualified as Vec
 import DeBruijn.Internal.Size (Size (UnsafeSize))
 
+import C.Expr.Syntax qualified as CExpr.DSL
+import C.Expr.Typecheck.Type qualified as CExpr.DSL
+
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation (Comment)
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Errors
-import HsBindgen.Frontend.Macro qualified as Macro
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell
 import HsBindgen.NameHint
@@ -253,102 +255,102 @@ translateTau = \case
 -- a skolem type variable @a@, because this type has no Haskell counterpart.
 --
 -- See 'HsBindgen.C.Tc.Macro.isAtomicType'.
-simpleTyConApp :: Macro.TyCon args Macro.Ty -> [Hs.TauType ctx] -> Maybe (SType ctx)
+simpleTyConApp :: CExpr.DSL.TyCon args CExpr.DSL.Ty -> [Hs.TauType ctx] -> Maybe (SType ctx)
 simpleTyConApp
-  (Macro.GenerativeTyCon (Macro.DataTyCon Macro.IntLikeTyCon))
-  [Hs.TyConAppTy (Hs.ATyCon (Macro.GenerativeTyCon (Macro.DataTyCon (Macro.PrimIntInfoTyCon inty)))) []]
+  (CExpr.DSL.GenerativeTyCon (CExpr.DSL.DataTyCon CExpr.DSL.IntLikeTyCon))
+  [Hs.TyConAppTy (Hs.ATyCon (CExpr.DSL.GenerativeTyCon (CExpr.DSL.DataTyCon (CExpr.DSL.PrimIntInfoTyCon inty)))) []]
     = Just $ TGlobal $ PrimType $
         case inty of
-          Macro.HsIntType -> HsPrimInt
-          Macro.CIntegralType primIntTy -> hsPrimIntTy primIntTy
+          CExpr.DSL.HsIntType -> HsPrimInt
+          CExpr.DSL.CIntegralType primIntTy -> hsPrimIntTy primIntTy
 simpleTyConApp
-  (Macro.GenerativeTyCon (Macro.DataTyCon Macro.FloatLikeTyCon))
-  [Hs.TyConAppTy (Hs.ATyCon (Macro.GenerativeTyCon (Macro.DataTyCon (Macro.PrimFloatInfoTyCon floaty)))) []]
+  (CExpr.DSL.GenerativeTyCon (CExpr.DSL.DataTyCon CExpr.DSL.FloatLikeTyCon))
+  [Hs.TyConAppTy (Hs.ATyCon (CExpr.DSL.GenerativeTyCon (CExpr.DSL.DataTyCon (CExpr.DSL.PrimFloatInfoTyCon floaty)))) []]
     = Just $ TGlobal $ PrimType $ hsPrimFloatTy floaty
 simpleTyConApp _ _ = Nothing
 
-tyConGlobal :: Macro.TyCon args res -> SType ctx
+tyConGlobal :: CExpr.DSL.TyCon args res -> SType ctx
 tyConGlobal = \case
-  Macro.GenerativeTyCon tc ->
+  CExpr.DSL.GenerativeTyCon tc ->
     case tc of
-      Macro.DataTyCon dc ->
+      CExpr.DSL.DataTyCon dc ->
         case dc of
-          Macro.TupleTyCon n ->
+          CExpr.DSL.TupleTyCon n ->
             TGlobal $ Tuple_type n
-          Macro.VoidTyCon ->
+          CExpr.DSL.VoidTyCon ->
             TGlobal $ PrimType HsPrimVoid
-          Macro.PrimIntInfoTyCon inty ->
+          CExpr.DSL.PrimIntInfoTyCon inty ->
             TGlobal $ PrimType $
               case inty of
-                Macro.CIntegralType primIntTy -> hsPrimIntTy primIntTy
-                Macro.HsIntType -> HsPrimInt
-          Macro.PrimFloatInfoTyCon floaty ->
+                CExpr.DSL.CIntegralType primIntTy -> hsPrimIntTy primIntTy
+                CExpr.DSL.HsIntType -> HsPrimInt
+          CExpr.DSL.PrimFloatInfoTyCon floaty ->
             TGlobal $ PrimType $ hsPrimFloatTy floaty
-          Macro.PtrTyCon ->
+          CExpr.DSL.PtrTyCon ->
             TGlobal Foreign_Ptr
-          Macro.CharLitTyCon ->
+          CExpr.DSL.CharLitTyCon ->
             TGlobal CharValue_tycon
 
           -- These two TyCons are handled by 'simpleTyConApp'.
-          Macro.IntLikeTyCon   ->
+          CExpr.DSL.IntLikeTyCon   ->
             panicPure "tyConGlobal IntLikeTyCon"
-          Macro.FloatLikeTyCon ->
+          CExpr.DSL.FloatLikeTyCon ->
             panicPure "tyConGlobal FloatLikeTyCon"
 
-      Macro.ClassTyCon cls -> TGlobal $
+      CExpr.DSL.ClassTyCon cls -> TGlobal $
         case cls of
-          Macro.NotTyCon        -> Not_class
-          Macro.LogicalTyCon    -> Logical_class
-          Macro.RelEqTyCon      -> RelEq_class
-          Macro.RelOrdTyCon     -> RelOrd_class
-          Macro.PlusTyCon       -> Plus_class
-          Macro.MinusTyCon      -> Minus_class
-          Macro.AddTyCon        -> Add_class
-          Macro.SubTyCon        -> Sub_class
-          Macro.MultTyCon       -> Mult_class
-          Macro.DivTyCon        -> Div_class
-          Macro.RemTyCon        -> Rem_class
-          Macro.ComplementTyCon -> Complement_class
-          Macro.BitwiseTyCon    -> Bitwise_class
-          Macro.ShiftTyCon      -> Shift_class
-  Macro.FamilyTyCon tc -> TGlobal $
+          CExpr.DSL.NotTyCon        -> Not_class
+          CExpr.DSL.LogicalTyCon    -> Logical_class
+          CExpr.DSL.RelEqTyCon      -> RelEq_class
+          CExpr.DSL.RelOrdTyCon     -> RelOrd_class
+          CExpr.DSL.PlusTyCon       -> Plus_class
+          CExpr.DSL.MinusTyCon      -> Minus_class
+          CExpr.DSL.AddTyCon        -> Add_class
+          CExpr.DSL.SubTyCon        -> Sub_class
+          CExpr.DSL.MultTyCon       -> Mult_class
+          CExpr.DSL.DivTyCon        -> Div_class
+          CExpr.DSL.RemTyCon        -> Rem_class
+          CExpr.DSL.ComplementTyCon -> Complement_class
+          CExpr.DSL.BitwiseTyCon    -> Bitwise_class
+          CExpr.DSL.ShiftTyCon      -> Shift_class
+  CExpr.DSL.FamilyTyCon tc -> TGlobal $
     case tc of
-      Macro.PlusResTyCon       -> Plus_resTyCon
-      Macro.MinusResTyCon      -> Minus_resTyCon
-      Macro.AddResTyCon        -> Add_resTyCon
-      Macro.SubResTyCon        -> Sub_resTyCon
-      Macro.MultResTyCon       -> Mult_resTyCon
-      Macro.DivResTyCon        -> Div_resTyCon
-      Macro.RemResTyCon        -> Rem_resTyCon
-      Macro.ComplementResTyCon -> Complement_resTyCon
-      Macro.BitsResTyCon       -> Bitwise_resTyCon
-      Macro.ShiftResTyCon      -> Shift_resTyCon
+      CExpr.DSL.PlusResTyCon       -> Plus_resTyCon
+      CExpr.DSL.MinusResTyCon      -> Minus_resTyCon
+      CExpr.DSL.AddResTyCon        -> Add_resTyCon
+      CExpr.DSL.SubResTyCon        -> Sub_resTyCon
+      CExpr.DSL.MultResTyCon       -> Mult_resTyCon
+      CExpr.DSL.DivResTyCon        -> Div_resTyCon
+      CExpr.DSL.RemResTyCon        -> Rem_resTyCon
+      CExpr.DSL.ComplementResTyCon -> Complement_resTyCon
+      CExpr.DSL.BitsResTyCon       -> Bitwise_resTyCon
+      CExpr.DSL.ShiftResTyCon      -> Shift_resTyCon
 
-mfunGlobal :: Macro.MFun arity -> Global
+mfunGlobal :: CExpr.DSL.MFun arity -> Global
 mfunGlobal = \case
-  Macro.MUnaryPlus  -> Plus_plus
-  Macro.MUnaryMinus -> Minus_negate
-  Macro.MLogicalNot -> Not_not
-  Macro.MBitwiseNot -> Complement_complement
-  Macro.MMult       -> Mult_mult
-  Macro.MDiv        -> Div_div
-  Macro.MRem        -> Rem_rem
-  Macro.MAdd        -> Add_add
-  Macro.MSub        -> Sub_minus
-  Macro.MShiftLeft  -> Shift_shiftL
-  Macro.MShiftRight -> Shift_shiftR
-  Macro.MRelLT      -> RelOrd_lt
-  Macro.MRelLE      -> RelOrd_le
-  Macro.MRelGT      -> RelOrd_gt
-  Macro.MRelGE      -> RelOrd_ge
-  Macro.MRelEQ      -> RelEq_eq
-  Macro.MRelNE      -> RelEq_uneq
-  Macro.MBitwiseAnd -> Bitwise_and
-  Macro.MBitwiseXor -> Bitwise_xor
-  Macro.MBitwiseOr  -> Bitwise_or
-  Macro.MLogicalAnd -> Logical_and
-  Macro.MLogicalOr  -> Logical_or
-  Macro.MTuple @n   -> Tuple_constructor $ 2 + Fin.reflectToNum @n Proxy
+  CExpr.DSL.MUnaryPlus  -> Plus_plus
+  CExpr.DSL.MUnaryMinus -> Minus_negate
+  CExpr.DSL.MLogicalNot -> Not_not
+  CExpr.DSL.MBitwiseNot -> Complement_complement
+  CExpr.DSL.MMult       -> Mult_mult
+  CExpr.DSL.MDiv        -> Div_div
+  CExpr.DSL.MRem        -> Rem_rem
+  CExpr.DSL.MAdd        -> Add_add
+  CExpr.DSL.MSub        -> Sub_minus
+  CExpr.DSL.MShiftLeft  -> Shift_shiftL
+  CExpr.DSL.MShiftRight -> Shift_shiftR
+  CExpr.DSL.MRelLT      -> RelOrd_lt
+  CExpr.DSL.MRelLE      -> RelOrd_le
+  CExpr.DSL.MRelGT      -> RelOrd_gt
+  CExpr.DSL.MRelGE      -> RelOrd_ge
+  CExpr.DSL.MRelEQ      -> RelEq_eq
+  CExpr.DSL.MRelNE      -> RelEq_uneq
+  CExpr.DSL.MBitwiseAnd -> Bitwise_and
+  CExpr.DSL.MBitwiseXor -> Bitwise_xor
+  CExpr.DSL.MBitwiseOr  -> Bitwise_or
+  CExpr.DSL.MLogicalAnd -> Logical_and
+  CExpr.DSL.MLogicalOr  -> Logical_or
+  CExpr.DSL.MTuple @n   -> Tuple_constructor $ 2 + Fin.reflectToNum @n Proxy
 
 {-------------------------------------------------------------------------------
  VarDeclRHS

@@ -1,13 +1,11 @@
-module HsBindgen.Frontend.Macro.Pass (
+module C.Expr.Syntax.TTG (
     Pass
-  , Ps
     -- * TTG-style type families
-  , XApp(..)
-  , XVar(..)
+  , XApp
+  , XVar
   ) where
 
 import Data.Kind
-import GHC.Generics (Generic)
 
 {-------------------------------------------------------------------------------
   Definition
@@ -33,15 +31,3 @@ type XVar :: Pass -> Type
 
 data family XApp p
 data family XVar p
-
-{-------------------------------------------------------------------------------
-  First pass: parser
--------------------------------------------------------------------------------}
-
-type Ps :: Pass
-data Ps a
-
-data instance XApp Ps = NoXApp
-  deriving stock ( Eq, Ord, Show, Generic )
-data instance XVar Ps = NoXVar
-  deriving stock ( Eq, Ord, Show, Generic )

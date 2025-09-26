@@ -1,34 +1,27 @@
-{-# LANGUAGE CPP #-}
+{-# LANGUAGE CPP       #-}
 {-# LANGUAGE MagicHash #-}
-{-# LANGUAGE PolyKinds #-}
 
-module HsBindgen.Util.TestEquality
-  ( equals1, equals2, ApEq(..) )
-  where
-
--- base
-import Data.Type.Equality
-  ( (:~:)(..) )
-import GHC.Exts
-  ( (==#), dataToTag#, isTrue#
-#if MIN_VERSION_base(4,20,0)
-  , DataToTag
-#endif
-  )
-import Unsafe.Coerce
-  ( unsafeCoerce )
+-- | Utilities for writing 'Eq' instances for GADTs
+module C.Expr.Util.TestEquality (
+    equals1
+  , equals2
+  ) where
 
 import Data.GADT.Compare
-  ( GEq(geq) )
-
-import HsBindgen.Imports
+import Data.Kind
+import Data.Type.Equality
+import GHC.Exts
+import Unsafe.Coerce (unsafeCoerce)
 
 -- $setup
 -- >>> :seti -XDataKinds -XGADTs
 
---------------------------------------------------------------------------------
+{-------------------------------------------------------------------------------
+  Utilities for writing 'Eq' instances for GADTs
+-------------------------------------------------------------------------------}
 
 infixr 4 `equals1`
+infixr 4 `equals2`
 
 -- | Check whether two GADT values of type @k ->Type@ are equal.
 --
@@ -94,10 +87,12 @@ equals2 k1 k2
   | otherwise
   = Nothing
 
---------------------------------------------------------------------------------
+{-------------------------------------------------------------------------------
+  Internal auxiliary
+-------------------------------------------------------------------------------}
 
 -- | Wrapper that provides a 'GEq' instance definition using 'equals1'
-type ApEq :: ( k -> Star ) -> k -> Star
+type ApEq :: ( k -> Type ) -> k -> Type
 newtype ApEq f a = ApEq ( f a )
 
 instance forall f.
@@ -107,6 +102,3 @@ instance forall f.
 #endif
   ) => GEq ( ApEq f ) where
   geq ( ApEq k1 ) ( ApEq k2 ) = equals1 k1 k2
-infixr 4 `equals2`
-
---------------------------------------------------------------------------------

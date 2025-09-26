@@ -23,7 +23,7 @@ import HsBindgen.Frontend.LanguageC.PartialAST
 import HsBindgen.Frontend.LanguageC.PartialAST.ToBindgen
 import HsBindgen.Frontend.Naming
 import HsBindgen.Frontend.Pass
-import HsBindgen.Language.C.Prim
+import HsBindgen.Language.C
 
 {-------------------------------------------------------------------------------
   Top-level: construct the partial AST

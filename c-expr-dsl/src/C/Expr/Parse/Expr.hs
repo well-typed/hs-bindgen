@@ -1,4 +1,6 @@
-module HsBindgen.Frontend.Macro.Parse.Expr (parseExpr) where
+{-# LANGUAGE OverloadedStrings #-}
+
+module C.Expr.Parse.Expr (parseExpr) where
 
 import Control.Monad
 import Data.Type.Nat
@@ -6,15 +8,12 @@ import Data.Vec.Lazy
 import Text.Parsec
 import Text.Parsec.Expr
 
+import C.Expr.Parse.Infra
+import C.Expr.Parse.Literal
+import C.Expr.Parse.Name
+import C.Expr.Syntax
+
 import Clang.LowLevel.Core
-import HsBindgen.Frontend.Macro.Parse.Infra
-import HsBindgen.Frontend.Macro.Parse.Literal
-import HsBindgen.Frontend.Macro.Parse.Name
-import HsBindgen.Frontend.Macro.Pass
-import HsBindgen.Frontend.Macro.Syntax
-import HsBindgen.Frontend.Macro.Tc (TypeEnv)
-import HsBindgen.Frontend.Naming (Name)
-import HsBindgen.Language.C qualified as C
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -29,8 +28,8 @@ import HsBindgen.Language.C qualified as C
     <https://en.cppreference.com/w/c/language/operator_precedence>
 -------------------------------------------------------------------------------}
 
-parseExpr :: TypeEnv -> Parser (Macro Ps)
-parseExpr macroTys = do
+parseExpr :: Parser (Macro Ps)
+parseExpr = do
     (macroLoc, macroName) <- parseLocName
     (args, res) <-
       choice [
@@ -43,7 +42,7 @@ parseExpr macroTys = do
     return $ Macro macroLoc macroName args res
   where
     body :: Parser (MExpr Ps)
-    body = mExprTuple macroTys
+    body = mExprTuple
 
     functionLike, objectLike :: Parser ([Name], MExpr Ps)
     functionLike = (,) <$> formalArgs <*> body
@@ -59,8 +58,8 @@ formalArg = parseName
   Simple expressions
 -------------------------------------------------------------------------------}
 
-mTerm :: TypeEnv -> Parser (MTerm Ps)
-mTerm macroTys =
+mTerm :: Parser (MTerm Ps)
+mTerm =
     buildExpressionParser ops term <?> "simple expression"
   where
     term :: Parser (MTerm Ps)
@@ -69,7 +68,7 @@ mTerm macroTys =
       , MFloat      <$> literalFloat
       , MChar       <$> literalChar
       , MString     <$> literalString
-      , MVar NoXVar <$> var <*> option [] (actualArgs macroTys)
+      , MVar NoXVar <$> var <*> option [] actualArgs
       , MStringize  <$  punctuation "#" <*> var
       ]
 
@@ -79,24 +78,24 @@ var :: Parser Name
 var = parseName
 
 -- | Parse integer literal
-literalInteger :: Parser C.IntegerLiteral
+literalInteger :: Parser IntegerLiteral
 literalInteger = do
   (txt, (val, ty)) <-
     parseTokenOfKind CXToken_Literal parseLiteralInteger
   return $
-    C.IntegerLiteral
+    IntegerLiteral
       { integerLiteralText  = txt
       , integerLiteralType  = ty
       , integerLiteralValue = val
       }
 
 -- | Parse floating point literal
-literalFloat :: Parser C.FloatingLiteral
+literalFloat :: Parser FloatingLiteral
 literalFloat = do
   (txt, (fltVal, dblVal, ty)) <-
     parseTokenOfKind CXToken_Literal parseLiteralFloating
   return $
-    C.FloatingLiteral
+    FloatingLiteral
       { floatingLiteralText = txt
       , floatingLiteralType = ty
       , floatingLiteralFloatValue = fltVal
@@ -104,29 +103,29 @@ literalFloat = do
       }
 
 -- | Parse character literal
-literalChar :: Parser C.CharLiteral
+literalChar :: Parser CharLiteral
 literalChar = do
   (txt, val) <-
     parseTokenOfKind CXToken_Literal parseLiteralChar
   return $
-    C.CharLiteral
+    CharLiteral
       { charLiteralText  = txt
       , charLiteralValue = val
       }
 
 -- | Parse string literal
-literalString :: Parser C.StringLiteral
+literalString :: Parser StringLiteral
 literalString = do
   (txt, val) <-
     parseTokenOfKind CXToken_Literal parseLiteralString
   return $
-    C.StringLiteral
+    StringLiteral
       { stringLiteralText  = txt
       , stringLiteralValue = val
       }
 
-actualArgs :: TypeEnv -> Parser [MExpr Ps]
-actualArgs macroTys = parens $ mExpr macroTys `sepBy` comma
+actualArgs :: Parser [MExpr Ps]
+actualArgs = parens $ mExpr `sepBy` comma
 
 {-------------------------------------------------------------------------------
   Expressions
@@ -136,12 +135,12 @@ actualArgs macroTys = parens $ mExpr macroTys `sepBy` comma
   follow the same structure.
 -------------------------------------------------------------------------------}
 
-mExprTuple :: TypeEnv -> Parser (MExpr Ps)
-mExprTuple macroTys = try tuple <|> mExpr macroTys
+mExprTuple :: Parser (MExpr Ps)
+mExprTuple = try tuple <|> mExpr
   where
     tuple = do
       openParen <- optionMaybe $ punctuation "("
-      (e1, e2, es) <- mExpr macroTys `sepBy2` comma
+      (e1, e2, es) <- mExpr `sepBy2` comma
       case openParen of
         Nothing -> return ()
         Just {} -> punctuation ")"
@@ -149,14 +148,14 @@ mExprTuple macroTys = try tuple <|> mExpr macroTys
         reifyList es $ \es' ->
            MApp NoXApp MTuple ( e1 ::: e2 ::: es' )
 
-mExpr :: TypeEnv -> Parser (MExpr Ps)
-mExpr macroTys = buildExpressionParser ops term <?> "expression"
+mExpr :: Parser (MExpr Ps)
+mExpr = buildExpressionParser ops term <?> "expression"
   where
 
     term :: Parser (MExpr Ps)
     term = choice [
-          parens ( mExpr macroTys )
-        , MTerm <$> mTerm macroTys
+          parens mExpr
+        , MTerm <$> mTerm
         ]
 
     -- 'OperatorTable' expects the list in descending precedence

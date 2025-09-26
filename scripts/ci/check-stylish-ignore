@@ -8,3 +8,4 @@ hs-bindgen/fixtures/*.hs
 hs-bindgen/src-internal/HsBindgen/Frontend/Macro/**/*
 manual/**/*.hs
 c-expr-runtime/**/*.hs
+c-expr-dsl/**/*.hs
