@@ -1,6 +1,7 @@
 {-# LANGUAGE CApiFFI #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
+{-# OPTIONS_HADDOCK prune #-}
 
 module Example where
 
@@ -68,6 +69,11 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_conflict_3dd09f52296e7
      -}
   -> IO FC.CInt
 
+foreign import ccall unsafe "hs_bindgen_test_fun_attributes_conflict_a488b67527d299f8" hs_bindgen_test_fun_attributes_conflict_a488b67527d299f8
+  :: IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
+
+{-# NOINLINE square_cp_ptr #-}
+
 {-| Conflicting attributes on functions for llvm/clang versions 18 and up
 
   Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html
@@ -78,14 +84,14 @@ __defined at:__ @fun_attributes_conflict.h:9:5@
 
 __exported by:__ @fun_attributes_conflict.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_fun_attributes_conflict_a488b67527d299f8" hs_bindgen_test_fun_attributes_conflict_a488b67527d299f8
-  :: IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
-
-{-# NOINLINE square_cp_ptr #-}
-
 square_cp_ptr :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
 square_cp_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_fun_attributes_conflict_a488b67527d299f8
+
+foreign import ccall unsafe "hs_bindgen_test_fun_attributes_conflict_c4cea088a40be2f5" hs_bindgen_test_fun_attributes_conflict_c4cea088a40be2f5
+  :: IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
+
+{-# NOINLINE square_pc_ptr #-}
 
 {-| __C declaration:__ @square_pc@
 
@@ -93,14 +99,14 @@ square_cp_ptr =
 
     __exported by:__ @fun_attributes_conflict.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_fun_attributes_conflict_c4cea088a40be2f5" hs_bindgen_test_fun_attributes_conflict_c4cea088a40be2f5
-  :: IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
-
-{-# NOINLINE square_pc_ptr #-}
-
 square_pc_ptr :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
 square_pc_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_fun_attributes_conflict_c4cea088a40be2f5
+
+foreign import ccall unsafe "hs_bindgen_test_fun_attributes_conflict_3bc327fede4fc009" hs_bindgen_test_fun_attributes_conflict_3bc327fede4fc009
+  :: IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
+
+{-# NOINLINE square_cc_ptr #-}
 
 {-| __C declaration:__ @square_cc@
 
@@ -108,14 +114,14 @@ square_pc_ptr =
 
     __exported by:__ @fun_attributes_conflict.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_fun_attributes_conflict_3bc327fede4fc009" hs_bindgen_test_fun_attributes_conflict_3bc327fede4fc009
-  :: IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
-
-{-# NOINLINE square_cc_ptr #-}
-
 square_cc_ptr :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
 square_cc_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_fun_attributes_conflict_3bc327fede4fc009
+
+foreign import ccall unsafe "hs_bindgen_test_fun_attributes_conflict_dca75c8c02c209b2" hs_bindgen_test_fun_attributes_conflict_dca75c8c02c209b2
+  :: IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
+
+{-# NOINLINE square_pp_ptr #-}
 
 {-| __C declaration:__ @square_pp@
 
@@ -123,11 +129,6 @@ square_cc_ptr =
 
     __exported by:__ @fun_attributes_conflict.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_fun_attributes_conflict_dca75c8c02c209b2" hs_bindgen_test_fun_attributes_conflict_dca75c8c02c209b2
-  :: IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
-
-{-# NOINLINE square_pp_ptr #-}
-
 square_pp_ptr :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
 square_pp_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_fun_attributes_conflict_dca75c8c02c209b2

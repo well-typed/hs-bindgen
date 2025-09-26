@@ -2,6 +2,7 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
+{-# OPTIONS_HADDOCK prune #-}
 
 module Example where
 
@@ -59,17 +60,17 @@ foreign import ccall safe "hs_bindgen_test_skip_over_long_double_fb32cb593bc1f7b
   :: FC.CInt
   -> IO ()
 
+foreign import ccall unsafe "hs_bindgen_test_skip_over_long_double_d1bf59c1516f6bfa" hs_bindgen_test_skip_over_long_double_d1bf59c1516f6bfa
+  :: IO (Ptr.FunPtr (FC.CInt -> IO ()))
+
+{-# NOINLINE fun2_ptr #-}
+
 {-| __C declaration:__ @fun2@
 
     __defined at:__ @skip_over_long_double.h:7:6@
 
     __exported by:__ @skip_over_long_double.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_skip_over_long_double_d1bf59c1516f6bfa" hs_bindgen_test_skip_over_long_double_d1bf59c1516f6bfa
-  :: IO (Ptr.FunPtr (FC.CInt -> IO ()))
-
-{-# NOINLINE fun2_ptr #-}
-
 fun2_ptr :: Ptr.FunPtr (FC.CInt -> IO ())
 fun2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_skip_over_long_double_d1bf59c1516f6bfa

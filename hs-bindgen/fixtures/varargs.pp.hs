@@ -1,6 +1,7 @@
 {-# LANGUAGE CApiFFI #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
+{-# OPTIONS_HADDOCK prune #-}
 
 module Example where
 
@@ -20,17 +21,17 @@ $(HsBindgen.Runtime.Prelude.addCSource "#include <varargs.h>\nvoid hs_bindgen_te
 foreign import ccall safe "hs_bindgen_test_varargs_a17c4f0272bbe42a" h
   :: IO ()
 
+foreign import ccall unsafe "hs_bindgen_test_varargs_6344539fe0b25338" hs_bindgen_test_varargs_6344539fe0b25338
+  :: IO (Ptr.FunPtr (IO ()))
+
+{-# NOINLINE h_ptr #-}
+
 {-| __C declaration:__ @h@
 
     __defined at:__ @varargs.h:8:6@
 
     __exported by:__ @varargs.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_varargs_6344539fe0b25338" hs_bindgen_test_varargs_6344539fe0b25338
-  :: IO (Ptr.FunPtr (IO ()))
-
-{-# NOINLINE h_ptr #-}
-
 h_ptr :: Ptr.FunPtr (IO ())
 h_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_varargs_6344539fe0b25338

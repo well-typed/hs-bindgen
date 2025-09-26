@@ -7,6 +7,7 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TemplateHaskell #-}
+{-# OPTIONS_HADDOCK prune #-}
 
 module Example where
 
@@ -133,17 +134,17 @@ get_y_o = HsBindgen.Runtime.ByteArray.getUnionPayload
 set_y_o :: FC.CInt -> Y
 set_y_o = HsBindgen.Runtime.ByteArray.setUnionPayload
 
+foreign import ccall unsafe "hs_bindgen_test_redeclaration_10b125673bf2041b" hs_bindgen_test_redeclaration_10b125673bf2041b
+  :: IO (Ptr.Ptr FC.CInt)
+
+{-# NOINLINE x_ptr #-}
+
 {-| __C declaration:__ @x@
 
     __defined at:__ @redeclaration.h:11:5@
 
     __exported by:__ @redeclaration.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_redeclaration_10b125673bf2041b" hs_bindgen_test_redeclaration_10b125673bf2041b
-  :: IO (Ptr.Ptr FC.CInt)
-
-{-# NOINLINE x_ptr #-}
-
 x_ptr :: Ptr.Ptr FC.CInt
 x_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_redeclaration_10b125673bf2041b

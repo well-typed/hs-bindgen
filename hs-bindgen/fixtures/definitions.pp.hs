@@ -5,6 +5,7 @@
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
 {-# LANGUAGE TemplateHaskell #-}
+{-# OPTIONS_HADDOCK prune #-}
 
 module Example where
 
@@ -120,20 +121,25 @@ foreign import ccall safe "hs_bindgen_test_definitions_5a514c66396155ff" foo
      -}
   -> IO FC.CInt
 
+foreign import ccall unsafe "hs_bindgen_test_definitions_32925a42980e81cd" hs_bindgen_test_definitions_32925a42980e81cd
+  :: IO (Ptr.FunPtr (FC.CDouble -> IO FC.CInt))
+
+{-# NOINLINE foo_ptr #-}
+
 {-| __C declaration:__ @foo@
 
     __defined at:__ @definitions.h:13:5@
 
     __exported by:__ @definitions.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_definitions_32925a42980e81cd" hs_bindgen_test_definitions_32925a42980e81cd
-  :: IO (Ptr.FunPtr (FC.CDouble -> IO FC.CInt))
-
-{-# NOINLINE foo_ptr #-}
-
 foo_ptr :: Ptr.FunPtr (FC.CDouble -> IO FC.CInt)
 foo_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_definitions_32925a42980e81cd
+
+foreign import ccall unsafe "hs_bindgen_test_definitions_cfec0f95f22bb37c" hs_bindgen_test_definitions_cfec0f95f22bb37c
+  :: IO (Ptr.Ptr FC.CInt)
+
+{-# NOINLINE n_ptr #-}
 
 {-| __C declaration:__ @n@
 
@@ -141,11 +147,6 @@ foo_ptr =
 
     __exported by:__ @definitions.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_definitions_cfec0f95f22bb37c" hs_bindgen_test_definitions_cfec0f95f22bb37c
-  :: IO (Ptr.Ptr FC.CInt)
-
-{-# NOINLINE n_ptr #-}
-
 n_ptr :: Ptr.Ptr FC.CInt
 n_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_definitions_cfec0f95f22bb37c

@@ -14,7 +14,7 @@ import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, R
 
 {-| __C declaration:__ @uint32_t@
 
-    __defined at:__ @bits/alltypes.h:131:25@
+    __defined at:__ @bits\/alltypes.h:131:25@
 
     __exported by:__ @program_slicing_simple.h@
 -}

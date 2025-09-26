@@ -1513,19 +1513,7 @@
                 nameC = Name "Toggle",
                 nameHsIdent = HsIdentifier
                   "Toggle"}))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "makeToggle",
-          commentLocation = Just
-            "iterator.h:4:8",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["iterator.h"],
-              headerInclude = "iterator.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1565,19 +1553,7 @@
                   nameHsIdent = HsIdentifier
                     "Toggle"})]
           (TypePrim PrimBool)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "toggleNext",
-          commentLocation = Just
-            "iterator.h:5:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["iterator.h"],
-              headerInclude = "iterator.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1617,19 +1593,7 @@
                   nameHsIdent = HsIdentifier
                     "Toggle"})]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "releaseToggle",
-          commentLocation = Just
-            "iterator.h:6:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["iterator.h"],
-              headerInclude = "iterator.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1674,19 +1638,7 @@
                 nameC = Name "Counter",
                 nameHsIdent = HsIdentifier
                   "Counter"}))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "makeCounter",
-          commentLocation = Just
-            "iterator.h:11:9",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["iterator.h"],
-              headerInclude = "iterator.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1727,19 +1679,7 @@
                     "Counter"})]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "counterNext",
-          commentLocation = Just
-            "iterator.h:12:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["iterator.h"],
-              headerInclude = "iterator.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1779,19 +1719,7 @@
                   nameHsIdent = HsIdentifier
                     "Counter"})]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "releaseCounter",
-          commentLocation = Just
-            "iterator.h:13:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["iterator.h"],
-              headerInclude = "iterator.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1832,19 +1760,7 @@
                 nameC = Name "VarCounter",
                 nameHsIdent = HsIdentifier
                   "VarCounter"}))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "makeVarCounter",
-          commentLocation = Just
-            "iterator.h:18:12",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["iterator.h"],
-              headerInclude = "iterator.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1889,19 +1805,7 @@
               (PrimIntegral PrimInt Signed)]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "varCounterNext",
-          commentLocation = Just
-            "iterator.h:19:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["iterator.h"],
-              headerInclude = "iterator.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1941,19 +1845,7 @@
                   nameHsIdent = HsIdentifier
                     "VarCounter"})]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "releaseVarCounter",
-          commentLocation = Just
-            "iterator.h:20:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["iterator.h"],
-              headerInclude = "iterator.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple]

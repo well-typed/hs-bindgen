@@ -578,19 +578,7 @@
             TypePrim
               (PrimIntegral PrimInt Signed)]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "fun2",
-          commentLocation = Just
-            "skip_over_long_double.h:7:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["skip_over_long_double.h"],
-              headerInclude =
-              "skip_over_long_double.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple]

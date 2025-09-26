@@ -21,18 +21,7 @@
           "bool_c23.h"},
       foreignImportOrigin = Global
         (TypePrim PrimBool),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "b",
-          commentLocation = Just
-            "bool_c23.h:3:13",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["bool_c23.h"],
-              headerInclude = "bool_c23.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple]

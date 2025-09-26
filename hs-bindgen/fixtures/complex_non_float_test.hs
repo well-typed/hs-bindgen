@@ -24,20 +24,7 @@
           (PrimIntegral
             PrimShort
             Unsigned)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "global_complex_unsigned_short",
-          commentLocation = Just
-            "complex_non_float_test.h:3:32",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["complex_non_float_test.h"],
-              headerInclude =
-              "complex_non_float_test.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -66,20 +53,7 @@
           (PrimIntegral
             PrimShort
             Signed)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "global_complex_short",
-          commentLocation = Just
-            "complex_non_float_test.h:4:32",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["complex_non_float_test.h"],
-              headerInclude =
-              "complex_non_float_test.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -108,20 +82,7 @@
           (PrimIntegral
             PrimInt
             Unsigned)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "global_complex_unsigned_int",
-          commentLocation = Just
-            "complex_non_float_test.h:5:32",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["complex_non_float_test.h"],
-              headerInclude =
-              "complex_non_float_test.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -148,20 +109,7 @@
       foreignImportOrigin = Global
         (TypeComplex
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "global_complex_int",
-          commentLocation = Just
-            "complex_non_float_test.h:6:32",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["complex_non_float_test.h"],
-              headerInclude =
-              "complex_non_float_test.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -190,20 +138,7 @@
           (PrimChar
             (PrimSignImplicit
               (Just Signed)))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "global_complex_char",
-          commentLocation = Just
-            "complex_non_float_test.h:7:32",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["complex_non_float_test.h"],
-              headerInclude =
-              "complex_non_float_test.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple]

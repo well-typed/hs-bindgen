@@ -1207,20 +1207,7 @@
               (PrimFloating PrimFloat)]
           (TypeComplex
             (PrimFloating PrimFloat))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "multiply_complex_f",
-          commentLocation = Just
-            "hsb_complex_test.h:21:16",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["hsb_complex_test.h"],
-              headerInclude =
-              "hsb_complex_test.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1259,20 +1246,7 @@
               (PrimFloating PrimDouble)]
           (TypeComplex
             (PrimFloating PrimDouble))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "add_complex",
-          commentLocation = Just
-            "hsb_complex_test.h:22:16",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["hsb_complex_test.h"],
-              headerInclude =
-              "hsb_complex_test.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1299,20 +1273,7 @@
       foreignImportOrigin = Global
         (TypeComplex
           (PrimFloating PrimFloat)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "global_complex_float",
-          commentLocation = Just
-            "hsb_complex_test.h:3:23",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["hsb_complex_test.h"],
-              headerInclude =
-              "hsb_complex_test.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1339,20 +1300,7 @@
       foreignImportOrigin = Global
         (TypeComplex
           (PrimFloating PrimDouble)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "global_complex_double",
-          commentLocation = Just
-            "hsb_complex_test.h:4:23",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["hsb_complex_test.h"],
-              headerInclude =
-              "hsb_complex_test.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1379,20 +1327,7 @@
       foreignImportOrigin = Global
         (TypeComplex
           (PrimFloating PrimFloat)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "global_complex_float_flipped",
-          commentLocation = Just
-            "hsb_complex_test.h:6:23",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["hsb_complex_test.h"],
-              headerInclude =
-              "hsb_complex_test.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1419,20 +1354,7 @@
       foreignImportOrigin = Global
         (TypeComplex
           (PrimFloating PrimDouble)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "global_complex_double_flipped",
-          commentLocation = Just
-            "hsb_complex_test.h:7:23",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["hsb_complex_test.h"],
-              headerInclude =
-              "hsb_complex_test.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1459,20 +1381,7 @@
       foreignImportOrigin = Global
         (TypeComplex
           (PrimFloating PrimFloat)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "global_Complex_float",
-          commentLocation = Just
-            "hsb_complex_test.h:9:24",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["hsb_complex_test.h"],
-              headerInclude =
-              "hsb_complex_test.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1499,20 +1408,7 @@
       foreignImportOrigin = Global
         (TypeComplex
           (PrimFloating PrimDouble)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "global_Complex_double",
-          commentLocation = Just
-            "hsb_complex_test.h:10:24",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["hsb_complex_test.h"],
-              headerInclude =
-              "hsb_complex_test.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1539,20 +1435,7 @@
       foreignImportOrigin = Global
         (TypeComplex
           (PrimFloating PrimFloat)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "global_Complex_float_flipped",
-          commentLocation = Just
-            "hsb_complex_test.h:12:24",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["hsb_complex_test.h"],
-              headerInclude =
-              "hsb_complex_test.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1579,20 +1462,7 @@
       foreignImportOrigin = Global
         (TypeComplex
           (PrimFloating PrimDouble)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "global_Complex_double_flipped",
-          commentLocation = Just
-            "hsb_complex_test.h:13:24",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["hsb_complex_test.h"],
-              headerInclude =
-              "hsb_complex_test.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1620,20 +1490,7 @@
         (TypeConst
           (TypeComplex
             (PrimFloating PrimFloat))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "const_complex_float",
-          commentLocation = Just
-            "hsb_complex_test.h:15:29",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["hsb_complex_test.h"],
-              headerInclude =
-              "hsb_complex_test.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1663,20 +1520,7 @@
         (TypeConst
           (TypeComplex
             (PrimFloating PrimDouble))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "const_complex_double",
-          commentLocation = Just
-            "hsb_complex_test.h:16:29",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["hsb_complex_test.h"],
-              headerInclude =
-              "hsb_complex_test.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1705,20 +1549,7 @@
       foreignImportOrigin = Global
         (TypeComplex
           (PrimFloating PrimFloat)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "volatile_complex_float",
-          commentLocation = Just
-            "hsb_complex_test.h:18:23",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["hsb_complex_test.h"],
-              headerInclude =
-              "hsb_complex_test.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1745,20 +1576,7 @@
       foreignImportOrigin = Global
         (TypeComplex
           (PrimFloating PrimDouble)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "volatile_complex_double",
-          commentLocation = Just
-            "hsb_complex_test.h:19:23",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["hsb_complex_test.h"],
-              headerInclude =
-              "hsb_complex_test.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1789,20 +1607,7 @@
           10
           (TypeComplex
             (PrimFloating PrimFloat))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "complex_float_array",
-          commentLocation = Just
-            "hsb_complex_test.h:30:23",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["hsb_complex_test.h"],
-              headerInclude =
-              "hsb_complex_test.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1834,20 +1639,7 @@
           10
           (TypeComplex
             (PrimFloating PrimDouble))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "complex_double_array",
-          commentLocation = Just
-            "hsb_complex_test.h:31:23",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["hsb_complex_test.h"],
-              headerInclude =
-              "hsb_complex_test.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple]

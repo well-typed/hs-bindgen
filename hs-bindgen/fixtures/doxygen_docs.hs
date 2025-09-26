@@ -23605,68 +23605,7 @@
                                 ]})]}})]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment =
-      Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "process_data",
-          commentLocation = Just
-            "doxygen_docs.h:105:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["doxygen_docs.h"],
-              headerInclude =
-              "doxygen_docs.h"},
-          commentChildren =
-          [
-            Paragraph
-              [
-                TextContent
-                  "Function with detailed parameter documentation"],
-            Paragraph
-              [
-                TextContent
-                  "This function shows different parameter directions and types."],
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace
-                    [TextContent "input_data"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Input data buffer"]]},
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace
-                    [TextContent "output_data"],
-                  Emph [TextContent "(output)"]],
-              definitionListContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Output data buffer"]]},
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace [TextContent "size"],
-                  Emph
-                    [TextContent "(input,output)"]],
-              definitionListContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Size of data, updated on return"]]},
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                TextContent
-                  "Status code (0 = success, -1 = error)"]]},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -23702,58 +23641,7 @@
                   (PrimChar
                     (PrimSignImplicit Nothing))))]
           (TypePrim PrimBool)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "process_file",
-          commentLocation = Just
-            "doxygen_docs.h:116:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["doxygen_docs.h"],
-              headerInclude =
-              "doxygen_docs.h"},
-          commentChildren = [
-            Paragraph
-              [
-                TextContent
-                  "Function with inline commands and formatting"],
-            Paragraph
-              [
-                TextContent
-                  "This function uses",
-                Monospace
-                  [TextContent "inline"],
-                Monospace [TextContent "code"],
-                TextContent "formatting and",
-                Bold [TextContent "bold"],
-                TextContent "text.",
-                TextContent
-                  "It also demonstrates",
-                Emph [TextContent "emphasized"],
-                TextContent "text."],
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace
-                    [TextContent "filename"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [
-                    TextContent "The",
-                    Monospace [TextContent "char*"],
-                    TextContent
-                      "filename to process"]]},
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                Monospace [TextContent "true"],
-                TextContent "if successful,",
-                Monospace [TextContent "false"],
-                TextContent "otherwise"]]},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -23791,54 +23679,7 @@
               (PrimIntegral PrimInt Signed)]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "calculate_value",
-          commentLocation = Just
-            "doxygen_docs.h:131:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["doxygen_docs.h"],
-              headerInclude =
-              "doxygen_docs.h"},
-          commentChildren = [
-            Paragraph
-              [
-                TextContent
-                  "Function with verbatim code blocks"],
-            Paragraph
-              [TextContent "Example usage:"],
-            CodeBlock
-              [
-                "int result = calculate_value(10, 20);",
-                "printf(\"Result: %d@n\", result);"],
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace [TextContent "base"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [TextContent "Base value"]]},
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace
-                    [TextContent "multiplier"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Multiplier value"]]},
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                TextContent
-                  "Calculated result"]]},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -23871,55 +23712,7 @@
             TypePrim
               (PrimIntegral PrimInt Signed)]
           (TypePrim PrimBool)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "html_example",
-          commentLocation = Just
-            "doxygen_docs.h:148:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["doxygen_docs.h"],
-              headerInclude =
-              "doxygen_docs.h"},
-          commentChildren = [
-            Paragraph
-              [
-                TextContent
-                  "Function with HTML formatting"],
-            Paragraph
-              [
-                TextContent
-                  "This function demonstrates",
-                TextContent "HTML bold",
-                TextContent "and",
-                TextContent "italic",
-                TextContent "text.",
-                TextContent "It also shows",
-                TextContent "HTML code",
-                TextContent "formatting."],
-            Paragraph
-              [
-                TextContent "Input",
-                TextContent "Output",
-                TextContent "0",
-                TextContent "false",
-                TextContent "1",
-                TextContent "true"],
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace [TextContent "value"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [TextContent "Input value"]]},
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                TextContent "Boolean result"]]},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -23961,128 +23754,7 @@
                       (PrimSignImplicit Nothing))))),
             TypePrim PrimSize]
           (TypePrim PrimBool)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "list_example",
-          commentLocation = Just
-            "doxygen_docs.h:174:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["doxygen_docs.h"],
-              headerInclude =
-              "doxygen_docs.h"},
-          commentChildren = [
-            Paragraph
-              [
-                TextContent
-                  "Function with lists and special formatting"],
-            Paragraph
-              [
-                TextContent
-                  "This function demonstrates:"],
-            ListItem {
-              listItemType = BulletList,
-              listItemContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Bullet point lists"]]},
-            ListItem {
-              listItemType = BulletList,
-              listItemContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Nested list item 1"]]},
-            ListItem {
-              listItemType = BulletList,
-              listItemContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Nested list item 2"]]},
-            ListItem {
-              listItemType = BulletList,
-              listItemContent = [
-                Paragraph
-                  [
-                    TextContent "Multiple items"]]},
-            ListItem {
-              listItemType = BulletList,
-              listItemContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Nested formatting"]]},
-            Paragraph
-              [TextContent "Numbered list:"],
-            ListItem {
-              listItemType = NumberedList 1,
-              listItemContent = [
-                Paragraph
-                  [
-                    TextContent "First",
-                    Monospace
-                      [TextContent "item"]]]},
-            ListItem {
-              listItemType = NumberedList 1,
-              listItemContent = [
-                Paragraph
-                  [TextContent "item"]]},
-            ListItem {
-              listItemType = NumberedList 2,
-              listItemContent = [
-                Paragraph
-                  [
-                    TextContent "Second",
-                    Bold [TextContent "item"]]]},
-            ListItem {
-              listItemType = NumberedList 3,
-              listItemContent = [
-                Paragraph
-                  [TextContent "Third item"]]},
-            Paragraph
-              [
-                TextContent
-                  "Other numbered list:"],
-            ListItem {
-              listItemType = NumberedList 1,
-              listItemContent = [
-                Paragraph [TextContent "A"]]},
-            ListItem {
-              listItemType = NumberedList 2,
-              listItemContent = [
-                Paragraph [TextContent "B"]]},
-            ListItem {
-              listItemType = NumberedList 3,
-              listItemContent = [
-                Paragraph [TextContent "C"]]},
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace [TextContent "items"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [
-                    TextContent "Array of items"]]},
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace [TextContent "count"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Number of items"]]},
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                TextContent "Success status"]]},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -24114,55 +23786,7 @@
         (TypeFun
           [TypePointer TypeVoid]
           (TypePointer TypeVoid)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "dangerous_function",
-          commentLocation = Just
-            "doxygen_docs.h:186:7",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["doxygen_docs.h"],
-              headerInclude =
-              "doxygen_docs.h"},
-          commentChildren = [
-            Paragraph
-              [
-                TextContent
-                  "Function with warnings and notes"],
-            Paragraph
-              [
-                Bold
-                  [Emph [TextContent "WARNING:"]],
-                TextContent
-                  "This function may cause side effects"],
-            Paragraph
-              [
-                Bold [TextContent "Note:"],
-                TextContent
-                  "Use with caution in multithreaded environments"],
-            Paragraph
-              [
-                Bold [TextContent "see:"],
-                TextContent
-                  "related_function() for similar functionality"],
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace [TextContent "ptr"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Pointer to data"]]},
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                TextContent
-                  "Modified pointer"]]},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -24200,54 +23824,7 @@
                       (Just Signed)))))]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "detailed_return_codes",
-          commentLocation = Just
-            "doxygen_docs.h:197:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["doxygen_docs.h"],
-              headerInclude =
-              "doxygen_docs.h"},
-          commentChildren = [
-            Paragraph
-              [
-                TextContent
-                  "Function with return value details"],
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace [TextContent "input"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [TextContent "Input string"]]},
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                TextContent "0",
-                TextContent "Success"],
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                TextContent "-1",
-                TextContent "Invalid input"],
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                TextContent "-2",
-                TextContent
-                  "Memory allocation failed"],
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                TextContent "-3",
-                TextContent
-                  "Processing error"]]},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -24281,45 +23858,7 @@
               (PrimIntegral PrimInt Signed)]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "old_function",
-          commentLocation = Just
-            "doxygen_docs.h:206:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["doxygen_docs.h"],
-              headerInclude =
-              "doxygen_docs.h"},
-          commentChildren = [
-            Paragraph
-              [
-                TextContent
-                  "Function with deprecated annotation"],
-            Paragraph
-              [
-                Bold
-                  [TextContent "deprecated:"],
-                TextContent
-                  "Use new_function() instead"],
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace
-                    [TextContent "old_param"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Legacy parameter"]]},
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                TextContent "Legacy result"]]},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -24353,38 +23892,7 @@
               (PrimIntegral PrimInt Signed)]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "versioned_function",
-          commentLocation = Just
-            "doxygen_docs.h:216:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["doxygen_docs.h"],
-              headerInclude =
-              "doxygen_docs.h"},
-          commentChildren = [
-            Paragraph
-              [
-                TextContent
-                  "Function with version information"],
-            Paragraph
-              [Metadata (Since " 1.0")],
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace [TextContent "data"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [TextContent "Input data"]]},
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                TextContent "Processed data"]]},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -24652,50 +24160,7 @@
                               ]})]}}]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "process_buffer",
-          commentLocation = Just
-            "doxygen_docs.h:332:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["doxygen_docs.h"],
-              headerInclude =
-              "doxygen_docs.h"},
-          commentChildren = [
-            Paragraph
-              [
-                TextContent
-                  "Static array parameter"],
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace
-                    [TextContent "buffer"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Buffer with minimum size"]]},
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace [TextContent "size"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Actual buffer size"]]},
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                TextContent
-                  "Number of bytes written"]]},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -24960,59 +24425,7 @@
                             instanceSpecConstraints = [
                               ]})]}}]
           (TypePointer TypeVoid)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "my_memcpy",
-          commentLocation = Just
-            "doxygen_docs.h:342:7",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["doxygen_docs.h"],
-              headerInclude =
-              "doxygen_docs.h"},
-          commentChildren = [
-            Paragraph
-              [
-                TextContent
-                  "Function with restrict pointers"],
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace [TextContent "dest"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Destination buffer (restrict)"]]},
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace [TextContent "src"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Source buffer (restrict)"]]},
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace [TextContent "n"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Number of bytes"]]},
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                TextContent
-                  "Destination pointer"]]},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -25046,34 +24459,7 @@
               (PrimIntegral PrimInt Signed)]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "double_value",
-          commentLocation = Just
-            "doxygen_docs.h:350:19",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["doxygen_docs.h"],
-              headerInclude =
-              "doxygen_docs.h"},
-          commentChildren = [
-            Paragraph
-              [TextContent "Inline function"],
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace [TextContent "x"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [TextContent "Input value"]]},
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                TextContent "Doubled value"]]},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -25592,188 +24978,7 @@
                 (NameOriginGenerated
                   (AnonId
                     "doxygen_docs.h:258:9")))))),
-      foreignImportComment =
-      Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "complex_function",
-          commentLocation = Just
-            "doxygen_docs.h:423:15",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["doxygen_docs.h"],
-              headerInclude =
-              "doxygen_docs.h"},
-          commentChildren =
-          [
-            Paragraph
-              [
-                TextContent
-                  "Function with complex documentation"],
-            Paragraph
-              [
-                TextContent
-                  "This function demonstrates multiple documentation features:"],
-            Paragraph
-              [
-                Bold
-                  [TextContent "Description:"]],
-            Paragraph
-              [
-                TextContent
-                  "Performs complex data processing with multiple steps."],
-            Paragraph
-              [
-                Bold
-                  [TextContent "Algorithm:"]],
-            ListItem {
-              listItemType = NumberedList 10,
-              listItemContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Validate input parameters"]]},
-            ListItem {
-              listItemType = NumberedList 200,
-              listItemContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Allocate temporary buffers"]]},
-            ListItem {
-              listItemType = NumberedList
-                3000,
-              listItemContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Process data in chunks"]]},
-            ListItem {
-              listItemType = NumberedList
-                41235,
-              listItemContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Clean up resources"]]},
-            Paragraph
-              [
-                Bold
-                  [TextContent "Algorithm2:"]],
-            ListItem {
-              listItemType = BulletList,
-              listItemContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Validate input parameters"]]},
-            ListItem {
-              listItemType = BulletList,
-              listItemContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Allocate temporary buffers"]]},
-            ListItem {
-              listItemType = BulletList,
-              listItemContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Process data in chunks"]]},
-            ListItem {
-              listItemType = BulletList,
-              listItemContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Clean up resources"]]},
-            Paragraph
-              [Bold [TextContent "Example:"]],
-            CodeBlock
-              [
-                "config_t cfg = {",
-                ".id = 1,",
-                ".name = \"test\",",
-                ".flags = 0,",
-                ".callback = my_callback,",
-                ".user_data = NULL",
-                "};",
-                "",
-                "status_code_t result = complex_function(&cfg, data, size);",
-                "if (result != STATUS_OK) {",
-                "handle_error(result);",
-                "}"],
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace
-                    [TextContent "config"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Configuration structure (see",
-                    Identifier "Config_t",
-                    TextContent ")"]]},
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace [TextContent "data"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Input data buffer"]]},
-            DefinitionList {
-              definitionListTerm = Bold
-                [
-                  Monospace [TextContent "size"],
-                  Emph [TextContent "(input)"]],
-              definitionListContent = [
-                Paragraph
-                  [
-                    TextContent
-                      "Size of input data"]]},
-            Paragraph
-              [
-                Bold [TextContent "returns:"],
-                TextContent
-                  "Status code indicating success or failure"],
-            Paragraph
-              [
-                Bold
-                  [TextContent "pre condition:"],
-                TextContent
-                  "config must not be NULL"],
-            Paragraph
-              [
-                Bold
-                  [TextContent "pre condition:"],
-                TextContent
-                  "data must not be NULL if size > 0"],
-            Paragraph
-              [
-                Bold
-                  [TextContent "post condition:"],
-                TextContent
-                  "Output data is written to config->user_data"],
-            Paragraph
-              [
-                Bold
-                  [Emph [TextContent "WARNING:"]],
-                TextContent
-                  "May return NULL if memory allocation fails"],
-            Paragraph
-              [
-                Bold
-                  [Emph [TextContent "WARNING:"]],
-                TextContent
-                  "Sets errno to EINVAL if parameters are invalid"]]},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -25810,19 +25015,7 @@
                     (Just Signed))))]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "hash",
-          commentLocation = Just
-            "doxygen_docs.h:427:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["doxygen_docs.h"],
-              headerInclude =
-              "doxygen_docs.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -25856,19 +25049,7 @@
               (PrimIntegral PrimInt Signed)]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "square",
-          commentLocation = Just
-            "doxygen_docs.h:429:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["doxygen_docs.h"],
-              headerInclude =
-              "doxygen_docs.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -25895,30 +25076,7 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "global_counter",
-          commentLocation = Just
-            "doxygen_docs.h:61:12",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["doxygen_docs.h"],
-              headerInclude =
-              "doxygen_docs.h"},
-          commentChildren = [
-            Verbatim
-              "extern int global_counter",
-            Paragraph
-              [
-                TextContent
-                  "Global counter variable"],
-            Paragraph
-              [
-                TextContent
-                  "This variable tracks the number of operations performed."]]},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -25950,26 +25108,7 @@
               (PrimChar
                 (PrimSignImplicit
                   (Just Signed)))))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "version_string",
-          commentLocation = Just
-            "doxygen_docs.h:67:20",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["doxygen_docs.h"],
-              headerInclude =
-              "doxygen_docs.h"},
-          commentChildren = [
-            Verbatim
-              "extern const char* version_string",
-            Paragraph
-              [
-                TextContent
-                  "Version string constant"]]},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple]

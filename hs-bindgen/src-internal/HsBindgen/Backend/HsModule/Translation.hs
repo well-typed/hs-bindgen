@@ -126,7 +126,7 @@ translateModule' mcat moduleBaseName hsModuleUserlandCapiWrappers hsModuleDecls 
 
 resolvePragmas :: [UserlandCapiWrapper] -> [SDecl] -> [GhcPragma]
 resolvePragmas wrappers ds =
-    Set.toAscList . mconcat $ userlandCapiPragmas : constPragmas : map resolveDeclPragmas ds
+    Set.toAscList . mconcat $ haddockPrunePragmas : userlandCapiPragmas : constPragmas : map resolveDeclPragmas ds
   where
     constPragmas :: Set GhcPragma
     constPragmas = Set.singleton "LANGUAGE NoImplicitPrelude"
@@ -135,6 +135,11 @@ resolvePragmas wrappers ds =
     userlandCapiPragmas = case wrappers of
       []  -> Set.empty
       _xs -> Set.singleton "LANGUAGE TemplateHaskell"
+
+    haddockPrunePragmas :: Set GhcPragma
+    haddockPrunePragmas = case wrappers of
+      []  -> Set.empty
+      _xs -> Set.singleton "OPTIONS_HADDOCK prune"
 
 resolveDeclPragmas :: SDecl -> Set GhcPragma
 resolveDeclPragmas decl =

@@ -1174,19 +1174,7 @@
               NameOriginInSource]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "thing_fun_1",
-          commentLocation = Just
-            "struct_arg.h:6:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["struct_arg.h"],
-              headerInclude = "struct_arg.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1227,19 +1215,7 @@
               nameHsIdent = HsIdentifier
                 "Thing"}
             NameOriginInSource)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "thing_fun_2",
-          commentLocation = Just
-            "struct_arg.h:7:14",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["struct_arg.h"],
-              headerInclude = "struct_arg.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1295,19 +1271,7 @@
               nameHsIdent = HsIdentifier
                 "Thing"}
             NameOriginInSource)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "thing_fun_3a",
-          commentLocation = Just
-            "struct_arg.h:9:14",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["struct_arg.h"],
-              headerInclude = "struct_arg.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1358,19 +1322,7 @@
             (PrimChar
               (PrimSignImplicit
                 (Just Signed))))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "thing_fun_3b",
-          commentLocation = Just
-            "struct_arg.h:10:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["struct_arg.h"],
-              headerInclude = "struct_arg.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple]

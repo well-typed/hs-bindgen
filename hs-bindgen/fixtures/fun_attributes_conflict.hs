@@ -547,30 +547,7 @@
               (PrimIntegral PrimInt Signed)]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment =
-      Just
-        Comment {
-          commentTitle =
-          Just
-            [
-              TextContent
-                "Conflicting attributes on functions for llvm/clang versions 18 and up"],
-          commentOrigin = Just
-            "square_cp",
-          commentLocation = Just
-            "fun_attributes_conflict.h:9:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["fun_attributes_conflict.h"],
-              headerInclude =
-              "fun_attributes_conflict.h"},
-          commentChildren =
-          [
-            Paragraph
-              [
-                TextContent
-                  "Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html"]]},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -604,20 +581,7 @@
               (PrimIntegral PrimInt Signed)]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "square_pc",
-          commentLocation = Just
-            "fun_attributes_conflict.h:11:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["fun_attributes_conflict.h"],
-              headerInclude =
-              "fun_attributes_conflict.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -651,20 +615,7 @@
               (PrimIntegral PrimInt Signed)]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "square_cc",
-          commentLocation = Just
-            "fun_attributes_conflict.h:13:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["fun_attributes_conflict.h"],
-              headerInclude =
-              "fun_attributes_conflict.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -698,20 +649,7 @@
               (PrimIntegral PrimInt Signed)]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "square_pp",
-          commentLocation = Just
-            "fun_attributes_conflict.h:15:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["fun_attributes_conflict.h"],
-              headerInclude =
-              "fun_attributes_conflict.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple]

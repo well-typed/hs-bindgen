@@ -661,18 +661,7 @@
           capiWrapperImport = "adios.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "\978",
-          commentLocation = Just
-            "adios.h:18:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["adios.h"],
-              headerInclude = "adios.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -698,19 +687,7 @@
           capiWrapperImport = "adios.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "\25308\25308",
-          commentLocation = Just
-            "adios.h:27:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["adios.h"],
-              headerInclude = "adios.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -736,19 +713,7 @@
           capiWrapperImport = "adios.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "Say\25308\25308",
-          commentLocation = Just
-            "adios.h:31:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["adios.h"],
-              headerInclude = "adios.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -774,18 +739,7 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "\978\978",
-          commentLocation = Just
-            "adios.h:21:12",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["adios.h"],
-              headerInclude = "adios.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -812,19 +766,7 @@
         (TypeConst
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "\978\978\978",
-          commentLocation = Just
-            "adios.h:24:18",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["adios.h"],
-              headerInclude = "adios.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,

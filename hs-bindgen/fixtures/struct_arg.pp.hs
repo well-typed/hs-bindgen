@@ -2,6 +2,7 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
+{-# OPTIONS_HADDOCK prune #-}
 
 module Example where
 
@@ -62,6 +63,12 @@ foreign import ccall safe "hs_bindgen_test_struct_arg_61dfa2c4506feb8f" thing_fu
      -}
   -> IO FC.CInt
 
+{-| __C declaration:__ @thing_fun_1@
+
+    __defined at:__ @struct_arg.h:6:5@
+
+    __exported by:__ @struct_arg.h@
+-}
 thing_fun_1 :: Thing -> IO FC.CInt
 thing_fun_1 =
   \x0 -> F.with x0 (\y1 -> thing_fun_1_wrapper y1)
@@ -79,6 +86,12 @@ foreign import ccall safe "hs_bindgen_test_struct_arg_022cc8107f565c95" thing_fu
   -> Ptr.Ptr Thing
   -> IO ()
 
+{-| __C declaration:__ @thing_fun_2@
+
+    __defined at:__ @struct_arg.h:7:14@
+
+    __exported by:__ @struct_arg.h@
+-}
 thing_fun_2 :: FC.CInt -> IO Thing
 thing_fun_2 =
   \x0 ->
@@ -104,6 +117,12 @@ foreign import ccall safe "hs_bindgen_test_struct_arg_4d9304280cca3098" thing_fu
   -> Ptr.Ptr Thing
   -> IO ()
 
+{-| __C declaration:__ @thing_fun_3a@
+
+    __defined at:__ @struct_arg.h:9:14@
+
+    __exported by:__ @struct_arg.h@
+-}
 thing_fun_3a :: FC.CInt -> Thing -> FC.CDouble -> IO Thing
 thing_fun_3a =
   \x0 ->
@@ -131,6 +150,12 @@ foreign import ccall safe "hs_bindgen_test_struct_arg_f39687b254852452" thing_fu
      -}
   -> IO FC.CChar
 
+{-| __C declaration:__ @thing_fun_3b@
+
+    __defined at:__ @struct_arg.h:10:6@
+
+    __exported by:__ @struct_arg.h@
+-}
 thing_fun_3b :: FC.CInt -> Thing -> FC.CDouble -> IO FC.CChar
 thing_fun_3b =
   \x0 ->
@@ -138,20 +163,25 @@ thing_fun_3b =
       \x2 ->
         F.with x1 (\y3 -> thing_fun_3b_wrapper x0 y3 x2)
 
+foreign import ccall unsafe "hs_bindgen_test_struct_arg_c5f0c295b311010a" hs_bindgen_test_struct_arg_c5f0c295b311010a
+  :: IO (Ptr.FunPtr (Thing -> IO FC.CInt))
+
+{-# NOINLINE thing_fun_1_ptr #-}
+
 {-| __C declaration:__ @thing_fun_1@
 
     __defined at:__ @struct_arg.h:6:5@
 
     __exported by:__ @struct_arg.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_struct_arg_c5f0c295b311010a" hs_bindgen_test_struct_arg_c5f0c295b311010a
-  :: IO (Ptr.FunPtr (Thing -> IO FC.CInt))
-
-{-# NOINLINE thing_fun_1_ptr #-}
-
 thing_fun_1_ptr :: Ptr.FunPtr (Thing -> IO FC.CInt)
 thing_fun_1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_struct_arg_c5f0c295b311010a
+
+foreign import ccall unsafe "hs_bindgen_test_struct_arg_24edf6600396b62a" hs_bindgen_test_struct_arg_24edf6600396b62a
+  :: IO (Ptr.FunPtr (FC.CInt -> IO Thing))
+
+{-# NOINLINE thing_fun_2_ptr #-}
 
 {-| __C declaration:__ @thing_fun_2@
 
@@ -159,14 +189,14 @@ thing_fun_1_ptr =
 
     __exported by:__ @struct_arg.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_struct_arg_24edf6600396b62a" hs_bindgen_test_struct_arg_24edf6600396b62a
-  :: IO (Ptr.FunPtr (FC.CInt -> IO Thing))
-
-{-# NOINLINE thing_fun_2_ptr #-}
-
 thing_fun_2_ptr :: Ptr.FunPtr (FC.CInt -> IO Thing)
 thing_fun_2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_struct_arg_24edf6600396b62a
+
+foreign import ccall unsafe "hs_bindgen_test_struct_arg_29a42b48992cd0bf" hs_bindgen_test_struct_arg_29a42b48992cd0bf
+  :: IO (Ptr.FunPtr (FC.CInt -> Thing -> FC.CDouble -> IO Thing))
+
+{-# NOINLINE thing_fun_3a_ptr #-}
 
 {-| __C declaration:__ @thing_fun_3a@
 
@@ -174,14 +204,14 @@ thing_fun_2_ptr =
 
     __exported by:__ @struct_arg.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_struct_arg_29a42b48992cd0bf" hs_bindgen_test_struct_arg_29a42b48992cd0bf
-  :: IO (Ptr.FunPtr (FC.CInt -> Thing -> FC.CDouble -> IO Thing))
-
-{-# NOINLINE thing_fun_3a_ptr #-}
-
 thing_fun_3a_ptr :: Ptr.FunPtr (FC.CInt -> Thing -> FC.CDouble -> IO Thing)
 thing_fun_3a_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_struct_arg_29a42b48992cd0bf
+
+foreign import ccall unsafe "hs_bindgen_test_struct_arg_0d6597dfc03e312f" hs_bindgen_test_struct_arg_0d6597dfc03e312f
+  :: IO (Ptr.FunPtr (FC.CInt -> Thing -> FC.CDouble -> IO FC.CChar))
+
+{-# NOINLINE thing_fun_3b_ptr #-}
 
 {-| __C declaration:__ @thing_fun_3b@
 
@@ -189,11 +219,6 @@ thing_fun_3a_ptr =
 
     __exported by:__ @struct_arg.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_struct_arg_0d6597dfc03e312f" hs_bindgen_test_struct_arg_0d6597dfc03e312f
-  :: IO (Ptr.FunPtr (FC.CInt -> Thing -> FC.CDouble -> IO FC.CChar))
-
-{-# NOINLINE thing_fun_3b_ptr #-}
-
 thing_fun_3b_ptr :: Ptr.FunPtr (FC.CInt -> Thing -> FC.CDouble -> IO FC.CChar)
 thing_fun_3b_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_struct_arg_0d6597dfc03e312f

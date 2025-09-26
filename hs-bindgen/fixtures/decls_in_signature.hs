@@ -2228,19 +2228,7 @@
                   "Outside"}
               NameOriginInSource]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "normal",
-          commentLocation = Just
-            "decls_in_signature.h:7:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["decls_in_signature.h"],
-              headerInclude =
-              "decls_in_signature.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -2280,28 +2268,7 @@
                   "Named_struct"}
               NameOriginInSource]
           TypeVoid),
-      foreignImportComment =
-      Just
-        Comment {
-          commentTitle = Just
-            [TextContent "Error cases"],
-          commentOrigin = Just "f1",
-          commentLocation = Just
-            "decls_in_signature.h:17:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["decls_in_signature.h"],
-              headerInclude =
-              "decls_in_signature.h"},
-          commentChildren =
-          [
-            Paragraph
-              [
-                TextContent
-                  "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
-                TextContent
-                  "and the edge cases below)."]]},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -2341,19 +2308,7 @@
                   "Named_union"}
               NameOriginInSource]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "f2",
-          commentLocation = Just
-            "decls_in_signature.h:20:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["decls_in_signature.h"],
-              headerInclude =
-              "decls_in_signature.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple]
