@@ -12,7 +12,6 @@ module HsBindgen.App (
   , Config
   , parseConfig
   , parseConfigPP
-  , toBindgenConfigPP
     -- ** Clang arguments
   , parseClangArgsConfig
     -- ** Output options
@@ -31,18 +30,16 @@ import Data.Char qualified as Char
 import Data.Default (Default (..))
 import Data.Either (partitionEithers)
 import Data.List qualified as List
-import Data.Maybe (catMaybes, fromMaybe)
+import Data.Maybe (catMaybes)
 import Options.Applicative
 import Options.Applicative.Extra (helperWith)
 
 import HsBindgen.Backend.Hs.Haddock.Config
-import HsBindgen.Backend.Hs.Translation
 import HsBindgen.Backend.HsModule.Translation
 import HsBindgen.Backend.UniqueId
 import HsBindgen.BindingSpec
 import HsBindgen.Config
 import HsBindgen.Config.ClangArgs
-import HsBindgen.Config.Internal
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.RootHeader (UncheckedHashIncludeArg)
@@ -165,31 +162,6 @@ parseConfigPP :: Parser ConfigPP
 parseConfigPP = ConfigPP
     <$> optional parseUniqueId
     <*> parseHsModuleName
-
-toBindgenConfigPP :: Config -> ConfigPP -> BindgenConfig
-toBindgenConfigPP Config{..} ConfigPP{..} =
-  BindgenConfig bootConfig frontendConfig backendConfig
-  where
-    bootConfig = BootConfig {
-        bootClangArgsConfig   = clang
-      , bootBindingSpecConfig = bindingSpec
-      }
-    frontendConfig = FrontendConfig {
-          frontendParsePredicate  = parsePredicate
-        , frontendSelectPredicate = selectPredicate
-        , frontendProgramSlicing  = programSlicing
-      }
-    backendConfig = BackendConfig {
-        backendTranslationOpts = def {
-            translationUniqueId = fromMaybe def uniqueId
-          }
-      , backendHsModuleOpts = HsModuleOpts {
-            hsModuleOptsBaseName = moduleName
-          }
-      , backendHaddockConfig = HaddockConfig {
-            pathStyle = haddockPathStyle
-          }
-      }
 
 {-------------------------------------------------------------------------------
   Binding specifications

@@ -15,13 +15,13 @@ module HsBindgen.TH.Internal (
 import Control.Monad.State (State, execState, modify)
 import Data.Set qualified as Set
 import Language.Haskell.TH qualified as TH
+import Optics.Core ((%), (&), (.~))
 import System.FilePath ((</>))
 
 import Clang.Paths
 
 import HsBindgen.Backend.Extensions
 import HsBindgen.Backend.Hs.CallConv
-import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.Backend.Hs.Translation
 import HsBindgen.Backend.HsModule.Translation
 import HsBindgen.Backend.SHs.AST qualified as SHs
@@ -194,34 +194,14 @@ checkLanguageExtensions requiredExts = do
         "Missing language extension(s): " :
           (map (("    - " ++) . show) (toList missingExts))
 
-
 toBindgenConfigTH :: Config -> TH.Q BindgenConfig
 toBindgenConfigTH config = do
     packageRoot <- getPackageRoot
-    let Config{..} = toFilePath packageRoot <$> config
-
+    let bindgenConfig :: BindgenConfig
+        bindgenConfig =
+          toBindgenConfig $ toFilePath packageRoot <$> config
     uniqueId <- getUniqueId
-
-    let bootConfig = BootConfig {
-            bootClangArgsConfig   = clang
-          , bootBindingSpecConfig = bindingSpec
-          }
-        frontendConfig = FrontendConfig {
-            frontendParsePredicate  = parsePredicate
-          , frontendSelectPredicate = selectPredicate
-          , frontendProgramSlicing  = programSlicing
-          }
-        backendConfig = BackendConfig {
-            backendTranslationOpts = def {
-                translationUniqueId = uniqueId
-              }
-          , backendHsModuleOpts = def
-          , backendHaddockConfig = HaddockConfig {
-                pathStyle = haddockPathStyle
-              }
-          }
-
-    pure $ BindgenConfig bootConfig frontendConfig backendConfig
+    pure $ bindgenConfig & setUniqueId uniqueId
   where
     toFilePath :: FilePath -> IncludeDir -> FilePath
     toFilePath root (Pkg x) = root </> x
@@ -229,3 +209,8 @@ toBindgenConfigTH config = do
 
     getUniqueId :: TH.Q UniqueId
     getUniqueId = UniqueId . TH.loc_package <$> TH.location
+
+    setUniqueId :: UniqueId -> BindgenConfig -> BindgenConfig
+    setUniqueId uniqueId =
+      #bindgenBackendConfig % #backendTranslationOpts % #translationUniqueId
+        .~ uniqueId

@@ -1,22 +1,29 @@
--- | Configuration of @hs-bindgen@.
+{-# LANGUAGE OverloadedLabels #-}
 
--- NOTE: This is stable public API.
+-- | Configuration of @hs-bindgen@.
 module HsBindgen.Config (
     Config_(..)
+  , toBindgenConfig
 
     -- * Preprocessor
   , ConfigPP(..)
+  , toBindgenConfigPP
 
     -- * Template Haskell
   , ConfigTH(..)
   )
 where
 
+import Optics.Core ((%), (&), (.~))
+
 import HsBindgen.Backend.Hs.Haddock.Config
+import HsBindgen.Backend.Hs.Translation
+import HsBindgen.Backend.HsModule.Translation
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.UniqueId
 import HsBindgen.BindingSpec
 import HsBindgen.Config.ClangArgs
+import HsBindgen.Config.Internal
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
@@ -26,9 +33,9 @@ import HsBindgen.Language.Haskell
   Common
 -------------------------------------------------------------------------------}
 
+-- NOTE: Stable public API.
+
 -- | Configuration shared between preprocessor and Template-Haskell modes.
---
--- Stable public API.
 data Config_ path = Config {
     -- * Boot
     clang       :: ClangArgsConfig path
@@ -47,9 +54,30 @@ data Config_ path = Config {
   deriving stock (Functor, Foldable, Traversable)
   deriving anyclass (Default)
 
+toBindgenConfig :: Config_ FilePath -> BindgenConfig
+toBindgenConfig Config{..} = BindgenConfig bootConfig frontendConfig backendConfig
+  where
+    bootConfig = BootConfig {
+        bootClangArgsConfig   = clang
+      , bootBindingSpecConfig = bindingSpec
+      }
+    frontendConfig = FrontendConfig {
+          frontendParsePredicate  = parsePredicate
+        , frontendSelectPredicate = selectPredicate
+        , frontendProgramSlicing  = programSlicing
+      }
+    backendConfig :: BackendConfig
+    backendConfig = def {
+        backendHaddockConfig = HaddockConfig {
+            pathStyle = haddockPathStyle
+          }
+      }
+
 {-------------------------------------------------------------------------------
   Preprocessor
 -------------------------------------------------------------------------------}
+
+-- NOTE: Stable public API.
 
 -- | Configuration specific to preprocessor mode.
 data ConfigPP = ConfigPP {
@@ -59,9 +87,23 @@ data ConfigPP = ConfigPP {
   deriving stock (Show, Eq, Generic)
   deriving anyclass (Default)
 
+toBindgenConfigPP :: Config_ FilePath -> ConfigPP -> BindgenConfig
+toBindgenConfigPP config ConfigPP{..} =
+    bindgenConfig & setUniqueId & setModuleName
+  where
+    bindgenConfig = toBindgenConfig config
+    setUniqueId =
+      #bindgenBackendConfig % #backendTranslationOpts % #translationUniqueId
+        .~ (fromMaybe def uniqueId)
+    setModuleName =
+      #bindgenBackendConfig % #backendHsModuleOpts % #hsModuleOptsBaseName
+        .~ moduleName
+
 {-------------------------------------------------------------------------------
   Template Haskell
 -------------------------------------------------------------------------------}
+
+-- NOTE: Stable public API.
 
 -- | Configuration specific to Template-Haskell mode.
 data ConfigTH = ConfigTH {

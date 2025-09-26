@@ -1,5 +1,3 @@
-{-# LANGUAGE CPP #-}
-
 -- | Main entry point for using @hs-bindgen@ in Template-Haskell mode.
 --
 -- Intended for unqualified import.
