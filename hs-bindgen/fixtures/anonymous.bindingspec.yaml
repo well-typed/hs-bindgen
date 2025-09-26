@@ -27,7 +27,7 @@ types:
   - Show
   - Storable
 - headers: anonymous.h
-  cname: '@S1_c'
+  cname: struct @S1_c
   module: Example
   identifier: S1_c
   instances:
@@ -35,7 +35,7 @@ types:
   - Show
   - Storable
 - headers: anonymous.h
-  cname: '@S2_inner'
+  cname: struct @S2_inner
   module: Example
   identifier: S2_inner
   instances:
@@ -43,7 +43,7 @@ types:
   - Show
   - Storable
 - headers: anonymous.h
-  cname: '@S2_inner_deep'
+  cname: struct @S2_inner_deep
   module: Example
   identifier: S2_inner_deep
   instances:
@@ -51,7 +51,7 @@ types:
   - Show
   - Storable
 - headers: anonymous.h
-  cname: '@S3_c'
+  cname: struct @S3_c
   module: Example
   identifier: S3_c
   instances:

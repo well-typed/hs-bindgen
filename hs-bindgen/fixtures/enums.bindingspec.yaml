@@ -83,7 +83,7 @@ types:
   - Show
   - Storable
 - headers: enums.h
-  cname: '@enumA'
+  cname: enum @enumA
   module: Example
   identifier: EnumA
   instances:

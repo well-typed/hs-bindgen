@@ -304,10 +304,13 @@ instance MangleDecl C.DeclKind where
 instance Mangle C.CommentRef where
   mangle (C.ById C.DeclId{..}) = do
     nm <- asks envNameMap
-    let lookupResults =
-          catMaybes [ Map.lookup (C.QualName declIdName nameKind) nm
-                    | nameKind <- [minBound .. maxBound]
-                    ]
+    let lookupResults = catMaybes $
+          [ Map.lookup (C.QualName declIdName nameKind) nm
+          | nameKind <- [minBound .. maxBound]
+          ] ++
+          [ Map.lookup (C.QualNameAnon declIdName tagKind) nm
+          | tagKind <- [minBound .. maxBound]
+          ]
     case lookupResults of
       (hsName:_) -> return $ C.ById (NamePair declIdName hsName, declIdOrigin)
       []         -> do

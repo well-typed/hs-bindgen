@@ -3,7 +3,7 @@ version:
   binding_specification: '1.0'
 types:
 - headers: hsb_complex_test.h
-  cname: complex_object_t
+  cname: struct @complex_object_t
   module: Example
   identifier: Complex_object_t
   instances:

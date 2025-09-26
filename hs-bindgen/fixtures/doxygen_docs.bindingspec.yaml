@@ -73,7 +73,7 @@ types:
   - Real
   - Storable
 - headers: doxygen_docs.h
-  cname: '@bitfield_t'
+  cname: struct @bitfield_t
   module: Example
   identifier: Bitfield_t
   instances:
@@ -81,7 +81,7 @@ types:
   - Show
   - Storable
 - headers: doxygen_docs.h
-  cname: '@config_t'
+  cname: struct @config_t
   module: Example
   identifier: Config_t
   instances:
@@ -89,13 +89,13 @@ types:
   - Show
   - Storable
 - headers: doxygen_docs.h
-  cname: '@data_union_t'
+  cname: union @data_union_t
   module: Example
   identifier: Data_union_t
   instances:
   - Storable
 - headers: doxygen_docs.h
-  cname: '@data_union_t_as_parts'
+  cname: struct @data_union_t_as_parts
   module: Example
   identifier: Data_union_t_as_parts
   instances:
@@ -103,7 +103,7 @@ types:
   - Show
   - Storable
 - headers: doxygen_docs.h
-  cname: '@status_code_t'
+  cname: enum @status_code_t
   module: Example
   identifier: Status_code_t
   instances:

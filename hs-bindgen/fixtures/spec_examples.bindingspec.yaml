@@ -77,7 +77,7 @@ types:
   - Real
   - Storable
 - headers: spec_examples.h
-  cname: '@cint16_T'
+  cname: struct @cint16_T
   module: Example
   identifier: Cint16_T
   instances:

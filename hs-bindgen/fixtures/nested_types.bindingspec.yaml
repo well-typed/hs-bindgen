@@ -43,7 +43,7 @@ types:
   - Show
   - Storable
 - headers: nested_types.h
-  cname: '@ex3_ex3_struct'
+  cname: struct @ex3_ex3_struct
   module: Example
   identifier: Ex3_ex3_struct
   instances:

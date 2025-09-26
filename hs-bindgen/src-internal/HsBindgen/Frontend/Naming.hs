@@ -154,7 +154,7 @@ data TagKind =
 
     -- | @enum@ tag kind
   | TagKindEnum
-  deriving stock (Show, Eq, Ord, Generic)
+  deriving stock (Show, Eq, Ord, Bounded, Enum, Generic)
 
 instance PrettyForTrace TagKind where
   prettyForTrace = PP.showToCtxDoc
@@ -233,9 +233,11 @@ data QualName =
 
     -- | Generated name for an anonymous C type
     --
-    -- Syntax: @\@foo@ references an anonymous C type with generated name @foo@.
+    -- Syntax: @struct \@foo@ references an anonymous C @struct@ type with
+    -- generated name @foo@.
   | QualNameAnon {
         qualNameAnonGeneratedName :: Name
+      , qualNameAnonTagKind       :: TagKind
       }
   deriving stock (Eq, Generic, Ord, Show)
 
@@ -244,20 +246,29 @@ instance PrettyForTrace QualName where
 
 qualNameText :: QualName -> Text
 qualNameText = \case
-    QualName{..}     -> case nameKindPrefix qualNameKind of
+    QualName{..} -> case nameKindPrefix qualNameKind of
       Nothing     -> getName qualNameName
       Just prefix -> Text.unwords [prefix, getName qualNameName]
-    QualNameAnon{..} -> "@" <> getName qualNameAnonGeneratedName
+    QualNameAnon{..} -> Text.concat [
+        tagKindPrefix qualNameAnonTagKind
+      , " @"
+      , getName qualNameAnonGeneratedName
+      ]
 
 parseQualName :: Text -> Maybe QualName
-parseQualName t = case Text.stripPrefix "@" t of
-    Nothing -> case Text.words t of
-      [n]           -> Just $ QualName (Name n) NameKindOrdinary
-      ["struct", n] -> Just $ QualName (Name n) (NameKindTagged TagKindStruct)
-      ["union",  n] -> Just $ QualName (Name n) (NameKindTagged TagKindUnion)
-      ["enum",   n] -> Just $ QualName (Name n) (NameKindTagged TagKindEnum)
-      _otherwise    -> Nothing
-    Just n  -> Just $ QualNameAnon (Name n)
+parseQualName t = case Text.words t of
+    [n] -> case Text.stripPrefix "@" n of
+      Nothing     -> Just $ QualName (Name n) NameKindOrdinary
+      Just{}      -> Nothing
+    ["struct", n] -> Just $ aux n TagKindStruct
+    ["union",  n] -> Just $ aux n TagKindUnion
+    ["enum",   n] -> Just $ aux n TagKindEnum
+    _otherwise    -> Nothing
+  where
+    aux :: Text -> TagKind -> QualName
+    aux n tag = case Text.stripPrefix "@" n of
+      Nothing -> QualName (Name n) (NameKindTagged tag)
+      Just n' -> QualNameAnon (Name n') tag
 
 {-------------------------------------------------------------------------------
   AnonId
@@ -489,8 +500,12 @@ qualDeclId DeclId{..} nameKind = QualDeclId {
 
 qualDeclIdQualName :: QualDeclId -> QualName
 qualDeclIdQualName QualDeclId{..} = case qualDeclIdOrigin of
-    NameOriginGenerated{} -> QualNameAnon qualDeclIdName
-    _otherwise            -> QualName qualDeclIdName qualDeclIdKind
+    NameOriginGenerated{} -> QualNameAnon qualDeclIdName $
+      case qualDeclIdKind of
+        NameKindTagged tagKind -> tagKind
+        -- TODO Refactor C AST IDs (#1146)
+        NameKindOrdinary -> panicPure "qualDeclIdQualName namespace mismatch"
+    _otherwise -> QualName qualDeclIdName qualDeclIdKind
 
 qualDeclIdText :: QualDeclId -> Text
 qualDeclIdText = qualNameText . qualDeclIdQualName

@@ -83,7 +83,7 @@ types:
   - Show
   - Storable
 - headers: named_vs_anon.h
-  cname: '@f'
+  cname: struct @f
   module: Example
   identifier: F
   instances:
@@ -91,7 +91,7 @@ types:
   - Show
   - Storable
 - headers: named_vs_anon.h
-  cname: '@g'
+  cname: struct @g
   module: Example
   identifier: G
   instances:
@@ -99,7 +99,7 @@ types:
   - Show
   - Storable
 - headers: named_vs_anon.h
-  cname: '@h'
+  cname: struct @h
   module: Example
   identifier: H
   instances:
@@ -107,7 +107,7 @@ types:
   - Show
   - Storable
 - headers: named_vs_anon.h
-  cname: '@typedef1'
+  cname: struct @typedef1
   module: Example
   identifier: Typedef1
   instances:
@@ -115,7 +115,7 @@ types:
   - Show
   - Storable
 - headers: named_vs_anon.h
-  cname: '@typedef2'
+  cname: struct @typedef2
   module: Example
   identifier: Typedef2
   instances:
@@ -123,7 +123,7 @@ types:
   - Show
   - Storable
 - headers: named_vs_anon.h
-  cname: '@typedef3'
+  cname: struct @typedef3
   module: Example
   identifier: Typedef3
   instances:
