@@ -1,4 +1,5 @@
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE OverloadedLabels #-}
 {-# LANGUAGE TemplateHaskell    #-}
 
 module Test.TH.Test02 where
@@ -6,7 +7,10 @@ module Test.TH.Test02 where
 import HsBindgen.Runtime.Prelude qualified
 import HsBindgen.TH
 
-let opts = def {
-      extraIncludeDirs = [ RelativeToPkgRoot "examples"]
-    }
- in withHsBindgen opts $ hashInclude "test_02.h"
+import Optics ((%), (&), (.~))
+
+let cfg :: Config
+    cfg = def & #clang % #extraIncludeDirs .~ [
+              Pkg "examples"
+            ]
+ in withHsBindgen cfg def $ hashInclude "test_02.h"

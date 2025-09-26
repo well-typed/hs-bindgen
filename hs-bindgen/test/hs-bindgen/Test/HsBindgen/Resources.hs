@@ -21,14 +21,13 @@ import Test.HsBindgen.Resources.Rust
 import Test.Tasty
 
 import Clang.Args
-import Clang.Paths
 
 import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.Backend.Hs.Translation
 import HsBindgen.Backend.HsModule.Translation
 import HsBindgen.Backend.UniqueId
-import HsBindgen.Config
 import HsBindgen.Config.ClangArgs
+import HsBindgen.Config.Internal
 
 {-------------------------------------------------------------------------------
   Definition
@@ -41,7 +40,7 @@ data TestResources = TestResources {
       -- | Clang arguments configuration we use when running the tests
       --
       -- NOTE: Individual tests will need to add their required include dirs.
-    , testClangArgsConfig :: ClangArgsConfig
+    , testClangArgsConfig :: ClangArgsConfig FilePath
 
       -- | Path to @rust-bindgen@, if available
     , testRustBindgen :: RustBindgen
@@ -76,33 +75,33 @@ getTestPackageRoot = fmap testPackageRoot
   Clang arguments
 -------------------------------------------------------------------------------}
 
-mkTestClangArgsConfig :: FilePath -> ClangArgsConfig
+mkTestClangArgsConfig :: FilePath -> ClangArgsConfig FilePath
 mkTestClangArgsConfig packageRoot = def {
-      clangTarget = Just $
+      target = Just $
         (Target_Linux_X86_64, TargetEnvOverride "gnu")
-    , clangCStandard = Just $
+    , cStandard = Just $
         C23
-    , clangExtraIncludeDirs = [
-          CIncludeDir (packageRoot </> "musl-include/x86_64")
+    , extraIncludeDirs = [
+          packageRoot </> "musl-include/x86_64"
         ]
     }
 
 getTestDefaultClangArgsConfig ::
      IO TestResources
   -> [FilePath]
-  -> IO ClangArgsConfig
-getTestDefaultClangArgsConfig testResources extraIncludeDirs =
+  -> IO (ClangArgsConfig FilePath)
+getTestDefaultClangArgsConfig testResources extraIncludeDirs' =
     aux <$> testResources
   where
-    aux :: TestResources -> ClangArgsConfig
+    aux :: TestResources -> ClangArgsConfig FilePath
     aux TestResources{..} = testClangArgsConfig{
-          clangExtraIncludeDirs =
+          extraIncludeDirs =
                -- NOTE: The include search path is traversed from left to right.
                -- That is, earlier flags overrule later flags, and so, the
                -- test-specific include directories must come before the default
                -- include directories.
-               map (CIncludeDir . (</>) testPackageRoot) extraIncludeDirs
-            <> clangExtraIncludeDirs testClangArgsConfig
+               map ((</>) testPackageRoot) extraIncludeDirs'
+            <> extraIncludeDirs testClangArgsConfig
         }
 
 {-------------------------------------------------------------------------------
@@ -131,7 +130,7 @@ data RustBindgenResult =
 
 callRustBindgen ::
      IO TestResources
-  -> ClangArgsConfig
+  -> ClangArgsConfig FilePath
      -- ^ Clang arguments configuration
      --
      -- We take this as an explicit argument rather than calling

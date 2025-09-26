@@ -50,6 +50,9 @@ newtype HsModuleName = HsModuleName { getHsModuleName :: Text }
   -- 'Show' instance valid due to 'IsString' instance
   deriving newtype (Aeson.FromJSON, Aeson.ToJSON, Eq, IsString, Ord, Show)
 
+instance Default HsModuleName where
+  def = "Generated"
+
 -- | Haskell identifier
 --
 -- Example: @CTm@

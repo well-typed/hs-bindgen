@@ -4,7 +4,12 @@ module HsBindgen.Artefact (
   , ArtefactM
   , ArtefactEnv(..)
   , runArtefacts
+  , sequenceArtefacts
   , ArtefactMsg(..)
+
+    -- * Re-exports
+  , I (..)
+  , NP (..)
   )
 where
 
@@ -124,6 +129,31 @@ runArtefacts
       FinalModules        -> liftIO backendFinalModules
       -- Lift and sequence.
       (Lift as' f)        -> go as' >>= f
+
+-- | Courtesy of Edsko :-).
+--
+-- Another implementation for `sequenceArtefacts` which has the drawback of
+-- creating deeply nested @(Lift .. (Lift .. ( .. )))@ structures.
+--
+-- @
+-- import Data.Semigroup (Semigroup (..))
+-- import Generics.SOP (unI)
+--
+-- instance Semigroup a => Semigroup (Artefact a) where
+--   l <> r = Lift (l :* r :* Nil) (\(r1 :* r2 :* Nil) -> pure (unI r1 <> unI r2))
+--
+-- instance Monoid a => Monoid (Artefact a) where
+--   mempty = Lift Nil (\_result -> return mempty)
+--
+-- sequenceArtefacts' :: [Artefact ()] -> Artefact ()
+-- sequenceArtefacts' = mconcat
+-- @
+sequenceArtefacts :: [Artefact ()] -> Artefact ()
+sequenceArtefacts = go Nil . reverse
+  where
+    go :: Artefacts as -> [Artefact ()] -> Artefact ()
+    go acc []     = Lift acc $ \_results -> pure ()
+    go acc (a:as) = go (a :* acc) as
 
 {-------------------------------------------------------------------------------
   Traces

@@ -391,6 +391,9 @@ data ForeignImport = ForeignImport
 data Safety = Safe | Unsafe
   deriving stock (Show, Eq, Generic)
 
+instance Default Safety where
+  def = Safe
+
 data FunctionParameter = FunctionParameter
   { functionParameterName    :: Maybe (HsName NsVar)
   , functionParameterType    :: ClosedType

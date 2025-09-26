@@ -23,8 +23,8 @@ import Clang.LowLevel.Core
 import Clang.Version
 
 import HsBindgen.BindingSpec qualified as BindingSpec
-import HsBindgen.Config
 import HsBindgen.Config.ClangArgs
+import HsBindgen.Config.Internal
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass.Select.IsPass
@@ -419,7 +419,7 @@ testCases = [
     , (defaultTest "asm") {
           testOnBootConfig = \cfg -> cfg {
               bootClangArgsConfig = (bootClangArgsConfig cfg) {
-                  clangGnu = EnableGnu
+                  gnu = EnableGnu
                 }
             }
         }
@@ -502,7 +502,7 @@ testCases = [
           testClangVersion     = Just (>= (15, 0, 0))
         , testOnBootConfig = \cfg -> cfg{
               bootClangArgsConfig = (bootClangArgsConfig cfg) {
-                  clangEnableBlocks = True
+                  enableBlocks = True
                 }
             }
         }

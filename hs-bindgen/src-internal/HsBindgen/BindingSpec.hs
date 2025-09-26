@@ -102,6 +102,9 @@ data EnableStdlibBindingSpec =
   | DisableStdlibBindingSpec
   deriving stock (Show, Eq)
 
+instance Default EnableStdlibBindingSpec where
+  def = EnableStdlibBindingSpec
+
 -- | Load external binding specifications
 --
 -- The format is determined by filename extension.  The following formats are
@@ -153,19 +156,19 @@ loadPrescriptiveBindingSpec tracer args cmpt path = uncurry BindingSpec <$>
       [path]
 
 data BindingSpecConfig = BindingSpecConfig {
-      bindingSpecStdlibSpec              :: EnableStdlibBindingSpec
-    , bindingSpecCompatibility           :: Version.BindingSpecCompatibility
-    , bindingSpecExtBindingSpecs         :: [FilePath]
-    , bindingSpecPrescriptiveBindingSpec :: Maybe FilePath
+      stdlibSpec              :: EnableStdlibBindingSpec
+    , compatibility           :: Version.BindingSpecCompatibility
+    , extBindingSpecs         :: [FilePath]
+    , prescriptiveBindingSpec :: Maybe FilePath
     }
   deriving stock (Show, Eq, Generic)
 
 instance Default BindingSpecConfig where
   def = BindingSpecConfig {
-          bindingSpecStdlibSpec              = EnableStdlibBindingSpec
-        , bindingSpecCompatibility           = def
-        , bindingSpecExtBindingSpecs         = []
-        , bindingSpecPrescriptiveBindingSpec = Nothing
+          stdlibSpec              = EnableStdlibBindingSpec
+        , compatibility           = def
+        , extBindingSpecs         = []
+        , prescriptiveBindingSpec = Nothing
         }
 
 -- | A combination of 'loadExtBindingSpecs' and 'loadPrescriptiveBindingSpec'.
@@ -179,15 +182,15 @@ loadBindingSpecs tracer clangArgs BindingSpecConfig{..} = do
       loadExtBindingSpecs
         tracer
         clangArgs
-        bindingSpecStdlibSpec
-        bindingSpecCompatibility
-        bindingSpecExtBindingSpecs
-    pSpec <- case bindingSpecPrescriptiveBindingSpec of
+        stdlibSpec
+        compatibility
+        extBindingSpecs
+    pSpec <- case prescriptiveBindingSpec of
       Just path ->
         loadPrescriptiveBindingSpec
           tracer
           clangArgs
-          bindingSpecCompatibility
+          compatibility
           path
       Nothing -> return emptyBindingSpec
     pure (extSpecs, pSpec)

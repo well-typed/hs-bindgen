@@ -2,8 +2,6 @@ index-state: 2025-09-16T04:55:58Z
 
 import: ./cabal.project.base
 
-benchmarks: false
-
 package ansi-diff
   ghc-options: -Werror
 

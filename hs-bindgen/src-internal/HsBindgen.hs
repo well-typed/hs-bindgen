@@ -4,8 +4,7 @@ module HsBindgen
   ( hsBindgen
 
     -- * Artefacts
-  , Artefact (..)
-  , sequenceArtefacts
+  , Artefact(..)
   , Artefacts
   , writeIncludeGraph
   , writeUseDeclGraph
@@ -27,15 +26,13 @@ import Data.Text qualified as T
 import System.Directory (createDirectoryIfMissing)
 import System.FilePath (takeDirectory, (<.>), (</>))
 
-import Generics.SOP (I (..), NP (..))
-
 import HsBindgen.Artefact
 import HsBindgen.Backend
 import HsBindgen.Backend.HsModule.Render
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.BindingSpec.Gen
 import HsBindgen.Boot
-import HsBindgen.Config
+import HsBindgen.Config.Internal
 import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
@@ -95,31 +92,6 @@ hsBindgen
 {-------------------------------------------------------------------------------
   Custom build artefacts
 -------------------------------------------------------------------------------}
-
--- | Courtesy of Edsko :-).
---
--- Another implementation for `sequenceArtefacts` which has the drawback of
--- creating deeply nested @(Lift .. (Lift .. ( .. )))@ structures.
---
--- @
--- import Data.Semigroup (Semigroup (..))
--- import Generics.SOP (unI)
---
--- instance Semigroup a => Semigroup (Artefact a) where
---   l <> r = Lift (l :* r :* Nil) (\(r1 :* r2 :* Nil) -> pure (unI r1 <> unI r2))
---
--- instance Monoid a => Monoid (Artefact a) where
---   mempty = Lift Nil (\_result -> return mempty)
---
--- sequenceArtefacts' :: [Artefact ()] -> Artefact ()
--- sequenceArtefacts' = mconcat
--- @
-sequenceArtefacts :: [Artefact ()] -> Artefact ()
-sequenceArtefacts = go Nil . reverse
-  where
-    go :: Artefacts as -> [Artefact ()] -> Artefact ()
-    go acc []     = Lift acc $ \_results -> pure ()
-    go acc (a:as) = go (a :* acc) as
 
 -- | Write the include graph to `STDOUT` or a file.
 writeIncludeGraph :: Maybe FilePath -> Artefact ()

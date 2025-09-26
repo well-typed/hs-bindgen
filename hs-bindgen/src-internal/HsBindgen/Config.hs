@@ -1,96 +1,114 @@
-module HsBindgen.Config
-  ( -- * Bindgen
-    BindgenConfig (..)
-    -- * Boot
-  , BootConfig (..)
-    -- * Frontend
-  , FrontendConfig (..)
-    -- * Backend
-  , BackendConfig (..)
-  , BackendConfigMsg (..)
-  , checkBackendConfig
-  ) where
+{-# LANGUAGE OverloadedLabels #-}
+
+-- | Configuration of @hs-bindgen@.
+module HsBindgen.Config (
+    Config_(..)
+  , toBindgenConfig
+
+    -- * Preprocessor
+  , ConfigPP(..)
+  , toBindgenConfigPP
+
+    -- * Template Haskell
+  , ConfigTH(..)
+  )
+where
+
+import Optics.Core ((%), (&), (.~))
 
 import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.Backend.Hs.Translation
 import HsBindgen.Backend.HsModule.Translation
+import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.UniqueId
 import HsBindgen.BindingSpec
 import HsBindgen.Config.ClangArgs
-import HsBindgen.Frontend.Pass.Select.IsPass (ProgramSlicing)
-import HsBindgen.Frontend.Predicate (ParsePredicate, SelectPredicate)
+import HsBindgen.Config.Internal
+import HsBindgen.Frontend.Pass.Select.IsPass
+import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
-import HsBindgen.Util.Tracer
-
--- | Configuration of @hs-bindgen@.
---
--- 'BindgenConfig' combines all configurable settings of @hs-bindgen@.
---
--- NOTE: Configuration types determine the "how", not the "what". For example,
--- it should state how we process a header file, but not state which headers we
--- want to process.
---
--- NOTE: Configuration types should contain user-provided data, not
--- @hs-bindgen@-provided data. @hs-bindgen@ provides data in the form of
--- artefacts.
-data BindgenConfig = BindgenConfig {
-      bindgenBootConfig     :: BootConfig
-    , bindgenFrontendConfig :: FrontendConfig
-    , bindgenBackendConfig  :: BackendConfig
-    }
-  deriving stock (Show, Eq, Generic)
-  deriving anyclass Default
+import HsBindgen.Language.Haskell
 
 {-------------------------------------------------------------------------------
-  Boot configuration
+  Common
 -------------------------------------------------------------------------------}
 
-data BootConfig = BootConfig {
-      bootClangArgsConfig     :: ClangArgsConfig
-    , bootBindingSpecConfig   :: BindingSpecConfig
-    }
+-- NOTE: Stable public API.
+
+-- | Configuration shared between preprocessor and Template-Haskell modes.
+data Config_ path = Config {
+    -- * Boot
+    clang       :: ClangArgsConfig path
+  , bindingSpec :: BindingSpecConfig
+
+    -- * Frontend
+  , parsePredicate  :: ParsePredicate
+  , selectPredicate :: SelectPredicate
+  , programSlicing  :: ProgramSlicing
+
+    -- * Backend
+    -- | Path style used in Haddock comments.
+  , haddockPathStyle :: PathStyle
+  }
   deriving stock (Show, Eq, Generic)
-  deriving anyclass Default
+  deriving stock (Functor, Foldable, Traversable)
+  deriving anyclass (Default)
 
-{-------------------------------------------------------------------------------
-  Frontend configuration
--------------------------------------------------------------------------------}
-
--- | Configuration of frontend of @hs-bindgen@.
---
--- The frontend parses the C code and reifies the C declarations.
-data FrontendConfig = FrontendConfig {
-      frontendParsePredicate  :: ParsePredicate
-    , frontendSelectPredicate :: SelectPredicate
-    , frontendProgramSlicing  :: ProgramSlicing
-    }
-  deriving stock (Show, Eq, Generic)
-  deriving anyclass Default
-
-{-------------------------------------------------------------------------------
-  Backend configuration
--------------------------------------------------------------------------------}
-
--- | Configuration of backend of @hs-bindgen@.
---
--- The backend translates the reified C declarations to Haskell declarations.
---
--- See also the notes at 'FrontendConfig'.
-data BackendConfig = BackendConfig {
-      backendTranslationOpts :: TranslationOpts
-    , backendHsModuleOpts    :: HsModuleOpts
-    , backendHaddockConfig   :: HaddockConfig
-    }
-  deriving stock (Show, Eq, Generic)
-  deriving anyclass Default
-
-checkBackendConfig :: Tracer IO BackendConfigMsg -> BackendConfig -> IO ()
-checkBackendConfig tracer backendConfig =
-    checkUniqueId (contramap BackendConfigUniqueId tracer) uniqueId
+toBindgenConfig :: Config_ FilePath -> BindgenConfig
+toBindgenConfig Config{..} = BindgenConfig bootConfig frontendConfig backendConfig
   where
-    uniqueId :: UniqueId
-    uniqueId = translationUniqueId $ backendTranslationOpts backendConfig
+    bootConfig = BootConfig {
+        bootClangArgsConfig   = clang
+      , bootBindingSpecConfig = bindingSpec
+      }
+    frontendConfig = FrontendConfig {
+          frontendParsePredicate  = parsePredicate
+        , frontendSelectPredicate = selectPredicate
+        , frontendProgramSlicing  = programSlicing
+      }
+    backendConfig :: BackendConfig
+    backendConfig = def {
+        backendHaddockConfig = HaddockConfig {
+            pathStyle = haddockPathStyle
+          }
+      }
 
-data BackendConfigMsg = BackendConfigUniqueId UniqueIdMsg
-  deriving stock (Show, Generic)
-  deriving anyclass (PrettyForTrace, IsTrace Level)
+{-------------------------------------------------------------------------------
+  Preprocessor
+-------------------------------------------------------------------------------}
+
+-- NOTE: Stable public API.
+
+-- | Configuration specific to preprocessor mode.
+data ConfigPP = ConfigPP {
+    uniqueId   :: Maybe UniqueId
+  , moduleName :: HsModuleName
+  }
+  deriving stock (Show, Eq, Generic)
+  deriving anyclass (Default)
+
+toBindgenConfigPP :: Config_ FilePath -> ConfigPP -> BindgenConfig
+toBindgenConfigPP config ConfigPP{..} =
+    bindgenConfig & setUniqueId & setModuleName
+  where
+    bindgenConfig = toBindgenConfig config
+    setUniqueId =
+      #bindgenBackendConfig % #backendTranslationOpts % #translationUniqueId
+        .~ (fromMaybe def uniqueId)
+    setModuleName =
+      #bindgenBackendConfig % #backendHsModuleOpts % #hsModuleOptsBaseName
+        .~ moduleName
+
+{-------------------------------------------------------------------------------
+  Template Haskell
+-------------------------------------------------------------------------------}
+
+-- NOTE: Stable public API.
+
+-- | Configuration specific to Template-Haskell mode.
+data ConfigTH = ConfigTH {
+    -- | Foreign import safety.
+    safety :: Safety
+  }
+  deriving stock (Show, Eq, Generic)
+  deriving anyclass (Default)

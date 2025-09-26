@@ -16,9 +16,9 @@ import Clang.Version (clang_getClangVersion)
 import HsBindgen.App
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Cli qualified as Cli
+import HsBindgen.Config.ClangArgs
 import HsBindgen.Errors
 import HsBindgen.Imports
-import HsBindgen.Lib
 
 import Paths_hs_bindgen qualified as Package
 

@@ -26,7 +26,9 @@ import HsBindgen.App
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Config
 import HsBindgen.Errors
-import HsBindgen.Lib
+import HsBindgen.Frontend.RootHeader
+
+import HsBindgen
 
 {-------------------------------------------------------------------------------
   CLI help
@@ -68,16 +70,18 @@ parseOpts = do
 -------------------------------------------------------------------------------}
 
 data Lit = Lit {
-      globalOpts    :: GlobalOpts
-    , bindgenConfig :: BindgenConfig
-    , safety        :: Safety
-    , inputs        :: [UncheckedHashIncludeArg]
+      globalOpts :: GlobalOpts
+    , config     :: Config
+    , configPP   :: ConfigPP
+    , safety     :: Safety
+    , inputs     :: [UncheckedHashIncludeArg]
     }
 
 parseLit :: Parser Lit
 parseLit = Lit
   <$> parseGlobalOpts
-  <*> parseBindgenConfig
+  <*> parseConfig
+  <*> parseConfigPP
   <*> parseSafety
   <*> parseInputs
 
@@ -105,6 +109,7 @@ exec literateOpts = do
     Lit{..} <- maybe (throwIO' "cannot parse arguments in literate file") return $
       pureParseLit args
     let GlobalOpts{..} = globalOpts
+        bindgenConfig = toBindgenConfigPP config configPP
     void $ hsBindgen tracerConfig bindgenConfig inputs $
       writeBindings safety (Just literateOpts.output) :* Nil
   where

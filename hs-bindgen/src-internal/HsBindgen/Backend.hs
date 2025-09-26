@@ -12,7 +12,7 @@ import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.SHs.Simplify qualified as SHs
 import HsBindgen.Backend.SHs.Translation qualified as SHs
 import HsBindgen.Cache
-import HsBindgen.Config
+import HsBindgen.Config.Internal
 import HsBindgen.Frontend
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell

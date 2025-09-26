@@ -19,7 +19,6 @@ module HsBindgen.Config.ClangArgs (
 import Data.List qualified as List
 
 import Clang.Args
-import Clang.Paths
 
 import HsBindgen.Imports
 
@@ -34,26 +33,26 @@ import HsBindgen.Imports
 --
 -- This is not intended to be complete; we have added the arguments that are
 -- most relevant to @hs-bindgen@.
-data ClangArgsConfig = ClangArgsConfig {
+data ClangArgsConfig path = ClangArgsConfig {
       -- | Target architecture ('Nothing' to compile for the host architecture)
       --
       -- The environment can be overriden separately, if necessary.
-      clangTarget :: Maybe (Target, TargetEnv)
+      target :: Maybe (Target, TargetEnv)
 
       -- | C standard
-    , clangCStandard :: Maybe CStandard
+    , cStandard :: Maybe CStandard
 
       -- | Enable GNU extensions?
-    , clangGnu :: Gnu
+    , gnu :: Gnu
 
       -- | Builtin include directory configuration
-    , clangBuiltinIncDir :: BuiltinIncDirConfig
+    , builtinIncDir :: BuiltinIncDirConfig
 
       -- | Directories that will be added to the include search path
       --
       -- This corresponds to the @-I@ clang argument.  See
       -- <https://clang.llvm.org/docs/ClangCommandLineReference.html#include-path-management>.
-    , clangExtraIncludeDirs :: [CIncludeDir]
+    , extraIncludeDirs :: [path]
 
       -- | Preprocessor macro definitions
       --
@@ -63,7 +62,7 @@ data ClangArgsConfig = ClangArgsConfig {
       --
       -- This corresponds to the @-D@ clang argument.  See
       -- <https://clang.llvm.org/docs/ClangCommandLineReference.html#preprocessor-options>.
-    , clangDefineMacros :: [String]
+    , defineMacros :: [String]
 
       -- | Enable block support
       --
@@ -71,12 +70,12 @@ data ClangArgsConfig = ClangArgsConfig {
       -- is not always installed with clang; for example, on Ubuntu this is a
       -- separate package @libblocksruntime-dev@. This package also provides the
       -- @Block.h@ header.
-    , clangEnableBlocks :: Bool
+    , enableBlocks :: Bool
 
       -- | Arguments to prepend when calling @libclang@
       --
-      -- See 'clangArgsInner'.
-    , clangArgsBefore :: [String]
+      -- See 'argsInner'.
+    , argsBefore :: [String]
 
       -- | Arguments passed to @libclang@
       --
@@ -84,37 +83,37 @@ data ClangArgsConfig = ClangArgsConfig {
       --
       -- @
       -- concat [
-      --     'clangArgsBefore'
-      --   , clangArgsInternal  -- other ClangArgsConfig options
-      --   , 'clangArgsInner'
-      --   , clangArgsExtra     -- BINDGEN_EXTRA_CLANG_ARGS
-      --   , 'clangArgsAfter'
-      --   , clangArgsBuiltin   -- builtin include directory
+      --     'argsBefore'
+      --   ,  argsInternal  -- other ClangArgsConfig options
+      --   , 'argsInner'
+      --   ,  argsExtra     -- BINDGEN_EXTRA_CLANG_ARGS
+      --   , 'argsAfter'
+      --   ,  argsBuiltin   -- builtin include directory
       --   ]
       -- @
       --
       -- See https://clang.llvm.org/docs/ClangCommandLineReference.html
-    , clangArgsInner :: [String]
+    , argsInner :: [String]
 
       -- | Arguments to append when calling @libclang@
       --
-      -- See 'clangArgsInner'.
-    , clangArgsAfter :: [String]
+      -- See 'argsInner'.
+    , argsAfter :: [String]
     }
-  deriving stock (Show, Eq)
+  deriving stock (Show, Eq, Generic, Functor, Foldable, Traversable)
 
-instance Default ClangArgsConfig where
+instance Default (ClangArgsConfig path) where
  def = ClangArgsConfig {
-      clangTarget           = Nothing
-    , clangCStandard        = Nothing
-    , clangGnu              = DisableGnu
-    , clangBuiltinIncDir    = def
-    , clangExtraIncludeDirs = []
-    , clangDefineMacros     = []
-    , clangEnableBlocks     = False
-    , clangArgsBefore       = []
-    , clangArgsInner        = []
-    , clangArgsAfter        = []
+      target           = Nothing
+    , cStandard        = Nothing
+    , gnu              = DisableGnu
+    , builtinIncDir    = def
+    , extraIncludeDirs = []
+    , defineMacros     = []
+    , enableBlocks     = False
+    , argsBefore       = []
+    , argsInner        = []
+    , argsAfter        = []
     }
 
 {-------------------------------------------------------------------------------
@@ -243,36 +242,36 @@ instance Default BuiltinIncDirConfig where
   Translation
 -------------------------------------------------------------------------------}
 
-getClangArgs :: ClangArgsConfig -> Either InvalidClangArgs ClangArgs
+getClangArgs :: ClangArgsConfig FilePath -> Either InvalidClangArgs ClangArgs
 getClangArgs config = do
-    clangArgsInternal <- getClangArgsInternal config
+    argsInternal <- getClangArgsInternal config
     return . ClangArgs $ concat [
-        clangArgsBefore   config
-      , clangArgsInternal
-      , clangArgsInner    config
-      , clangArgsAfter    config
+        argsBefore   config
+      , argsInternal
+      , argsInner    config
+      , argsAfter    config
       ]
 
-getClangArgsInternal :: ClangArgsConfig -> Either InvalidClangArgs [String]
+getClangArgsInternal :: ClangArgsConfig FilePath -> Either InvalidClangArgs [String]
 getClangArgsInternal ClangArgsConfig{..} = concat <$> sequence [
-      ifGiven (uncurry targetTriple <$> clangTarget) $ \target ->
-        return ["-target", target]
+      ifGiven (uncurry targetTriple <$> target) $ \t ->
+        return ["-target", t]
 
-    , ifGiven clangCStandard $ \cStandard ->
-        List.singleton <$> getStdClangArg cStandard clangGnu
+    , ifGiven cStandard $ \std ->
+        List.singleton <$> getStdClangArg std gnu
 
     , return $ concat $ [
-          [ "-fblocks" | clangEnableBlocks ]
+          [ "-fblocks" | enableBlocks ]
         ]
 
     , return $ concat [
-          ["-I", getCIncludeDir path]
-        | path <- clangExtraIncludeDirs
+          ["-I", path]
+        | path <- extraIncludeDirs
         ]
 
     , return $ concat [
           ["-D" ++ defn]
-        | defn <- clangDefineMacros
+        | defn <- defineMacros
         ]
     ]
   where

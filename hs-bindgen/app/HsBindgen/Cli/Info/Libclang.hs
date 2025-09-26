@@ -17,10 +17,12 @@ import Options.Applicative hiding (info)
 import Prettyprinter.Util qualified as PP
 
 import HsBindgen.App
-import HsBindgen.Boot (getClangArgs)
+import HsBindgen.Boot
 import HsBindgen.Clang
+import HsBindgen.Config.ClangArgs hiding (getClangArgs)
 import HsBindgen.Imports
-import HsBindgen.Lib
+import HsBindgen.TraceMsg
+import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
   CLI help
@@ -42,7 +44,7 @@ info = mconcat [
 -------------------------------------------------------------------------------}
 
 newtype Opts = Opts {
-      clangArgsConfig :: ClangArgsConfig
+      clangArgsConfig :: ClangArgsConfig FilePath
     }
 
 parseOpts :: Parser Opts

@@ -35,8 +35,8 @@ import Clang.HighLevel.Types qualified as Clang
 
 import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.BindingSpec
-import HsBindgen.Config
 import HsBindgen.Config.ClangArgs
+import HsBindgen.Config.Internal
 import HsBindgen.Frontend
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
@@ -209,13 +209,13 @@ getTestBootConfig testResources TestCase{..} = do
     clangArgsConfig <- getTestDefaultClangArgsConfig testResources [testDir]
     return $ testOnBootConfig BootConfig {
         bootClangArgsConfig = clangArgsConfig {
-            clangBuiltinIncDir = BuiltinIncDirDisable
+            builtinIncDir = BuiltinIncDirDisable
           }
       , bootBindingSpecConfig = BindingSpecConfig {
-            bindingSpecStdlibSpec = testStdlibSpec
-          , bindingSpecCompatibility = BindingSpecStrict
-          , bindingSpecExtBindingSpecs = map (root </>) testExtBindingSpecs
-          , bindingSpecPrescriptiveBindingSpec = Nothing
+            stdlibSpec              = testStdlibSpec
+          , compatibility           = BindingSpecStrict
+          , extBindingSpecs         = map (root </>) testExtBindingSpecs
+          , prescriptiveBindingSpec = Nothing
           }
       }
 

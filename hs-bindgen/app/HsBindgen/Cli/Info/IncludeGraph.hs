@@ -16,10 +16,11 @@ module HsBindgen.Cli.Info.IncludeGraph (
 import Options.Applicative hiding (info)
 
 import HsBindgen.App
+import HsBindgen.Config
+import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
-import HsBindgen.Lib
 
-import HsBindgen (writeIncludeGraph)
+import HsBindgen
 
 {-------------------------------------------------------------------------------
   CLI help
@@ -33,15 +34,17 @@ info = progDesc "Output the include graph"
 -------------------------------------------------------------------------------}
 
 data Opts = Opts {
-      bindgenConfig :: BindgenConfig
-    , output        :: Maybe FilePath
-    , inputs        :: [UncheckedHashIncludeArg]
+      config   :: Config
+    , configPP :: ConfigPP
+    , output   :: Maybe FilePath
+    , inputs   :: [UncheckedHashIncludeArg]
     }
 
 parseOpts :: Parser Opts
 parseOpts =
     Opts
-      <$> parseBindgenConfig
+      <$> parseConfig
+      <*> parseConfigPP
       <*> optional parseOutput'
       <*> parseInputs
 
@@ -60,4 +63,5 @@ parseOutput' = strOption $ mconcat [
 exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} = do
     let artefacts = writeIncludeGraph output :* Nil
+        bindgenConfig = toBindgenConfigPP config configPP
     void $ hsBindgen tracerConfig bindgenConfig inputs artefacts
