@@ -3,7 +3,7 @@ version:
   binding_specification: '1.0'
 types:
 - headers: enum_cpp_syntax.h
-  cname: '@foo_enum'
+  cname: enum @foo_enum
   module: Example
   identifier: Foo_enum
   instances:

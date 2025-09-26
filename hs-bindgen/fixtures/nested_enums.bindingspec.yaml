@@ -29,7 +29,7 @@ types:
   - Show
   - Storable
 - headers: nested_enums.h
-  cname: '@exB_fieldB1'
+  cname: enum @exB_fieldB1
   module: Example
   identifier: ExB_fieldB1
   instances:

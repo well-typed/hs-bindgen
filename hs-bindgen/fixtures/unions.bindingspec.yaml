@@ -49,7 +49,7 @@ types:
   instances:
   - Storable
 - headers: unions.h
-  cname: '@AnonA_polar'
+  cname: struct @AnonA_polar
   module: Example
   identifier: AnonA_polar
   instances:
@@ -57,7 +57,7 @@ types:
   - Show
   - Storable
 - headers: unions.h
-  cname: '@AnonA_xy'
+  cname: struct @AnonA_xy
   module: Example
   identifier: AnonA_xy
   instances:

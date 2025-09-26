@@ -71,7 +71,7 @@ types:
   - Show
   - Storable
 - headers: macro_in_fundecl_vs_typedef.h
-  cname: '@struct2'
+  cname: struct @struct2
   module: Example
   identifier: Struct2
   instances:

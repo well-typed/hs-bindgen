@@ -21,7 +21,7 @@ types:
   - Real
   - Storable
 - headers: fun_attributes.h
-  cname: '@FILE'
+  cname: struct @FILE
   module: Example
   identifier: FILE
   instances:

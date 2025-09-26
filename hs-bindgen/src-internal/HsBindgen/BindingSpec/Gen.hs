@@ -164,7 +164,11 @@ getNewtypeSpec hsModuleName hsNewtype =
 getCQualName :: C.DeclInfo -> C.NameKind -> C.QualName
 getCQualName declInfo cNameKind = case C.declOrigin declInfo of
     C.NameOriginInSource              -> C.QualName cName cNameKind
-    C.NameOriginGenerated{}           -> C.QualNameAnon cName
+    C.NameOriginGenerated{}           -> C.QualNameAnon cName $
+      case cNameKind of
+        C.NameKindTagged tagKind -> tagKind
+        -- TODO Refactor C AST IDs (#1146)
+        C.NameKindOrdinary -> panicPure "getCQualName namespace mismatch"
     C.NameOriginRenamedFrom fromCName -> C.QualName fromCName cNameKind
     C.NameOriginBuiltin               -> C.QualName cName C.NameKindOrdinary
   where

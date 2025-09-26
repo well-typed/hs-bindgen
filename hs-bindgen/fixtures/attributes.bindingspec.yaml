@@ -27,7 +27,7 @@ types:
   - Show
   - Storable
 - headers: attributes.h
-  cname: '@baz'
+  cname: struct @baz
   module: Example
   identifier: Baz
   instances:
@@ -35,7 +35,7 @@ types:
   - Show
   - Storable
 - headers: attributes.h
-  cname: '@qux'
+  cname: struct @qux
   module: Example
   identifier: Qux
   instances:
