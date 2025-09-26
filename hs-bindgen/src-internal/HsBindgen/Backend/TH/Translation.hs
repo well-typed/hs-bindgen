@@ -5,6 +5,7 @@ module HsBindgen.Backend.TH.Translation (
     mkDecl,
 ) where
 
+import Control.Exception (Exception (displayException))
 import Control.Monad (liftM2)
 import Data.Bits qualified
 import Data.Complex qualified
@@ -255,164 +256,185 @@ mkGlobalP HsPrimCSize      = ''Foreign.C.Types.CSize
 mkGlobalP HsPrimCStringLen = ''Foreign.C.String.CStringLen
 mkGlobalP HsPrimInt        = ''Int
 
--- | Construct an 'TH.Exp' for a 'Global'
 mkGlobalExpr :: Quote q => Global -> q TH.Exp
-mkGlobalExpr n = case n of -- in definition order, no wildcards
-    Tuple_type{}          -> panicPure "type in expression"
-    Tuple_constructor{}   -> TH.conE name
-    Applicative_pure      -> TH.varE name
-    Applicative_seq       -> TH.varE name
-    Monad_return          -> TH.varE name
-    Monad_seq             -> TH.varE name
-    StaticSize_class      -> panicPure "class in expression"
-    ReadRaw_class         -> panicPure "class in expression"
-    WriteRaw_class        -> panicPure "class in expression"
-    ToFunPtr_class        -> panicPure "class in expression"
-    ToFunPtr_toFunPtr     -> TH.varE name
-    FromFunPtr_class      -> panicPure "class in expression"
-    FromFunPtr_fromFunPtr -> TH.varE name
-    Storable_class        -> panicPure "class in expression"
-    Storable_sizeOf       -> TH.varE name
-    Storable_alignment    -> TH.varE name
-    Storable_peekByteOff  -> TH.varE name
-    Storable_pokeByteOff  -> TH.varE name
-    Storable_peek         -> TH.varE name
-    Storable_poke         -> TH.varE name
-    Foreign_Ptr           -> panicPure "type in expression"
-    Ptr_constructor       -> TH.conE name
-    Foreign_FunPtr        -> panicPure "type in expression"
-    ConstantArray         -> panicPure "type in expression"
-    IncompleteArray       -> panicPure "type in expression"
-    IO_type               -> panicPure "type in expression"
-    HasFlexibleArrayMember_class -> panicPure "class in expression"
-    HasFlexibleArrayMember_offset -> TH.varE name
-    Bitfield_peekBitOffWidth -> TH.varE name
-    Bitfield_pokeBitOffWidth -> TH.varE name
-    CharValue_tycon      -> panicPure "type in expression"
-    CharValue_constructor -> TH.conE name
-    CharValue_fromAddr   -> TH.varE name
-    ByteArray_setUnionPayload -> TH.varE name
-    ByteArray_getUnionPayload -> TH.varE name
-    CAPI_with             -> TH.varE name
-    CAPI_allocaAndPeek    -> TH.varE name
-    ConstantArray_withPtr -> TH.varE name
-    IncompleteArray_withPtr -> TH.varE name
-
-    -- Unsafe
-    IO_unsafePerformIO -> TH.varE name
-
-    -- Other type classes
-    Bits_class        -> panicPure "class in expression"
-    Bounded_class     -> panicPure "class in expression"
-    Enum_class        -> panicPure "class in expression"
-    Eq_class          -> panicPure "class in expression"
-    FiniteBits_class  -> panicPure "class in expression"
-    Floating_class    -> panicPure "class in expression"
-    Fractional_class  -> panicPure "class in expression"
-    Integral_class    -> panicPure "class in expression"
-    Ix_class          -> panicPure "class in expression"
-    Num_class         -> panicPure "class in expression"
-    Ord_class         -> panicPure "class in expression"
-    Read_class        -> panicPure "class in expression"
-    Read_readPrec     -> TH.varE name
-    Read_readList     -> TH.varE name
-    Read_readListPrec -> TH.varE name
-    Real_class        -> panicPure "class in expression"
-    RealFloat_class   -> panicPure "class in expression"
-    RealFrac_class    -> panicPure "class in expression"
-    Show_class        -> panicPure "class in expression"
-    Show_showsPrec    -> TH.varE name
-
-    NomEq_class -> panicPure "class in expression"
-
-    Not_class             -> panicPure "class in expression"
-    Not_not               -> TH.varE name
-    Logical_class         -> panicPure "class in expression"
-    Logical_and           -> TH.varE name
-    Logical_or            -> TH.varE name
-    RelEq_class           -> panicPure "class in expression"
-    RelEq_eq              -> TH.varE name
-    RelEq_uneq            -> TH.varE name
-    RelOrd_class          -> panicPure "class in expression"
-    RelOrd_lt             -> TH.varE name
-    RelOrd_le             -> TH.varE name
-    RelOrd_gt             -> TH.varE name
-    RelOrd_ge             -> TH.varE name
-    Plus_class            -> panicPure "class in expression"
-    Plus_resTyCon         -> TH.varE name
-    Plus_plus             -> TH.varE name
-    Minus_class           -> panicPure "class in expression"
-    Minus_resTyCon        -> TH.varE name
-    Minus_negate          -> TH.varE name
-    Add_class             -> panicPure "class in expression"
-    Add_resTyCon          -> TH.varE name
-    Add_add               -> TH.varE name
-    Sub_class             -> panicPure "class in expression"
-    Sub_resTyCon          -> TH.varE name
-    Sub_minus             -> TH.varE name
-    Mult_class            -> panicPure "class in expression"
-    Mult_resTyCon         -> TH.varE name
-    Mult_mult             -> TH.varE name
-    Div_class             -> panicPure "class in expression"
-    Div_div               -> TH.varE name
-    Div_resTyCon          -> TH.varE name
-    Rem_class             -> panicPure "class in expression"
-    Rem_resTyCon          -> TH.varE name
-    Rem_rem               -> TH.varE name
-    Complement_class      -> panicPure "class in expression"
-    Complement_resTyCon   -> TH.varE name
-    Complement_complement -> TH.varE name
-    Bitwise_class         -> panicPure "class in expression"
-    Bitwise_resTyCon      -> TH.varE name
-    Bitwise_and           -> TH.varE name
-    Bitwise_or            -> TH.varE name
-    Bitwise_xor           -> TH.varE name
-    Shift_class           -> panicPure "class in expression"
-    Shift_resTyCon        -> TH.varE name
-    Shift_shiftL          -> TH.varE name
-    Shift_shiftR          -> TH.varE name
-
-    CFloat_constructor           -> TH.conE name
-    CDouble_constructor          -> TH.conE name
-    GHC_Float_castWord32ToFloat  -> TH.varE name
-    GHC_Float_castWord64ToDouble -> TH.varE name
-
-    NonEmpty_constructor     -> TH.conE name
-    NonEmpty_singleton       -> TH.varE name
-    Map_fromList             -> TH.varE name
-    Read_readListDefault     -> TH.varE name
-    Read_readListPrecDefault -> TH.varE name
-
-    CEnum_class                      -> panicPure "class in expression"
-    CEnumZ_tycon                     -> TH.conE name
-    CEnum_toCEnum                    -> TH.varE name
-    CEnum_fromCEnum                  -> TH.varE name
-    CEnum_declaredValues             -> TH.varE name
-    CEnum_showsUndeclared            -> TH.varE name
-    CEnum_readPrecUndeclared         -> TH.varE name
-    CEnum_isDeclared                 -> TH.varE name
-    CEnum_mkDeclared                 -> TH.varE name
-    SequentialCEnum_class            -> panicPure "class in expression"
-    SequentialCEnum_minDeclaredValue -> TH.varE name
-    SequentialCEnum_maxDeclaredValue -> TH.varE name
-    CEnum_declaredValuesFromList     -> TH.varE name
-    CEnum_showsCEnum                 -> TH.varE name
-    CEnum_showsWrappedUndeclared     -> TH.varE name
-    CEnum_readPrecCEnum              -> TH.varE name
-    CEnum_readPrecWrappedUndeclared  -> TH.varE name
-    CEnum_seqIsDeclared              -> TH.varE name
-    CEnum_seqMkDeclared              -> TH.varE name
-    AsCEnum_type                     -> panicPure "type in expression"
-    AsSequentialCEnum_type           -> panicPure "type in expression"
-
-    ByteArray_type      -> panicPure "type in expression"
-    SizedByteArray_type -> panicPure "type in expression"
-    Block_type          -> panicPure "type in expression"
-    PrimType{}          -> panicPure "type in expression"
-    ComplexType{}       -> panicPure "type in expression"
+mkGlobalExpr n = case mkGlobalExpr' n of
+  Left  err   -> panicPure $ displayException err
+  Right mkExp -> mkExp name
   where
     name :: TH.Name
     name = mkGlobal n
+
+data NoExpression =
+    NoExpressionButType  Global
+  | NoExpressionButClass Global
+  deriving stock (Show)
+
+instance Exception NoExpression where
+  displayException = \case
+    NoExpressionButType  g -> "Expected expression, but got type "  <> show g
+    NoExpressionButClass g -> "Expected expression, but got class " <> show g
+
+-- | Construct an 'TH.Exp' for a 'Global'
+mkGlobalExpr' :: Quote q => Global -> Either NoExpression (TH.Name -> q TH.Exp)
+mkGlobalExpr' n = case n of -- in definition order, no wildcards
+    Tuple_type{}                  -> errType
+    Tuple_constructor{}           -> con
+    Applicative_pure              -> var
+    Applicative_seq               -> var
+    Monad_return                  -> var
+    Monad_seq                     -> var
+    StaticSize_class              -> errClass
+    ReadRaw_class                 -> errClass
+    WriteRaw_class                -> errClass
+    ToFunPtr_class                -> errClass
+    ToFunPtr_toFunPtr             -> var
+    FromFunPtr_class              -> errClass
+    FromFunPtr_fromFunPtr         -> var
+    Storable_class                -> errClass
+    Storable_sizeOf               -> var
+    Storable_alignment            -> var
+    Storable_peekByteOff          -> var
+    Storable_pokeByteOff          -> var
+    Storable_peek                 -> var
+    Storable_poke                 -> var
+    Foreign_Ptr                   -> errType
+    Ptr_constructor               -> con
+    Foreign_FunPtr                -> errType
+    ConstantArray                 -> errType
+    IncompleteArray               -> errType
+    IO_type                       -> errType
+    HasFlexibleArrayMember_class  -> errClass
+    HasFlexibleArrayMember_offset -> var
+    Bitfield_peekBitOffWidth      -> var
+    Bitfield_pokeBitOffWidth      -> var
+    CharValue_tycon               -> errType
+    CharValue_constructor         -> con
+    CharValue_fromAddr            -> var
+    ByteArray_setUnionPayload     -> var
+    ByteArray_getUnionPayload     -> var
+    CAPI_with                     -> var
+    CAPI_allocaAndPeek            -> var
+    ConstantArray_withPtr         -> var
+    IncompleteArray_withPtr       -> var
+
+    -- Unsafe
+    IO_unsafePerformIO -> var
+
+    -- Other type classes
+    Bits_class        -> errClass
+    Bounded_class     -> errClass
+    Enum_class        -> errClass
+    Eq_class          -> errClass
+    FiniteBits_class  -> errClass
+    Floating_class    -> errClass
+    Fractional_class  -> errClass
+    Integral_class    -> errClass
+    Ix_class          -> errClass
+    Num_class         -> errClass
+    Ord_class         -> errClass
+    Read_class        -> errClass
+    Read_readPrec     -> var
+    Read_readList     -> var
+    Read_readListPrec -> var
+    Real_class        -> errClass
+    RealFloat_class   -> errClass
+    RealFrac_class    -> errClass
+    Show_class        -> errClass
+    Show_showsPrec    -> var
+
+    NomEq_class -> errClass
+
+    Not_class             -> errClass
+    Not_not               -> var
+    Logical_class         -> errClass
+    Logical_and           -> var
+    Logical_or            -> var
+    RelEq_class           -> errClass
+    RelEq_eq              -> var
+    RelEq_uneq            -> var
+    RelOrd_class          -> errClass
+    RelOrd_lt             -> var
+    RelOrd_le             -> var
+    RelOrd_gt             -> var
+    RelOrd_ge             -> var
+    Plus_class            -> errClass
+    Plus_resTyCon         -> var
+    Plus_plus             -> var
+    Minus_class           -> errClass
+    Minus_resTyCon        -> var
+    Minus_negate          -> var
+    Add_class             -> errClass
+    Add_resTyCon          -> var
+    Add_add               -> var
+    Sub_class             -> errClass
+    Sub_resTyCon          -> var
+    Sub_minus             -> var
+    Mult_class            -> errClass
+    Mult_resTyCon         -> var
+    Mult_mult             -> var
+    Div_class             -> errClass
+    Div_div               -> var
+    Div_resTyCon          -> var
+    Rem_class             -> errClass
+    Rem_resTyCon          -> var
+    Rem_rem               -> var
+    Complement_class      -> errClass
+    Complement_resTyCon   -> var
+    Complement_complement -> var
+    Bitwise_class         -> errClass
+    Bitwise_resTyCon      -> var
+    Bitwise_and           -> var
+    Bitwise_or            -> var
+    Bitwise_xor           -> var
+    Shift_class           -> errClass
+    Shift_resTyCon        -> var
+    Shift_shiftL          -> var
+    Shift_shiftR          -> var
+
+    CFloat_constructor           -> con
+    CDouble_constructor          -> con
+    GHC_Float_castWord32ToFloat  -> var
+    GHC_Float_castWord64ToDouble -> var
+
+    NonEmpty_constructor     -> con
+    NonEmpty_singleton       -> var
+    Map_fromList             -> var
+    Read_readListDefault     -> var
+    Read_readListPrecDefault -> var
+
+    CEnum_class                      -> errClass
+    CEnumZ_tycon                     -> con
+    CEnum_toCEnum                    -> var
+    CEnum_fromCEnum                  -> var
+    CEnum_declaredValues             -> var
+    CEnum_showsUndeclared            -> var
+    CEnum_readPrecUndeclared         -> var
+    CEnum_isDeclared                 -> var
+    CEnum_mkDeclared                 -> var
+    SequentialCEnum_class            -> errClass
+    SequentialCEnum_minDeclaredValue -> var
+    SequentialCEnum_maxDeclaredValue -> var
+    CEnum_declaredValuesFromList     -> var
+    CEnum_showsCEnum                 -> var
+    CEnum_showsWrappedUndeclared     -> var
+    CEnum_readPrecCEnum              -> var
+    CEnum_readPrecWrappedUndeclared  -> var
+    CEnum_seqIsDeclared              -> var
+    CEnum_seqMkDeclared              -> var
+    AsCEnum_type                     -> errType
+    AsSequentialCEnum_type           -> errType
+
+    ByteArray_type      -> errType
+    SizedByteArray_type -> errType
+    Block_type          -> errType
+    PrimType{}          -> errType
+    ComplexType{}       -> errType
+  where
+    errType  = Left $ NoExpressionButType  n
+    errClass = Left $ NoExpressionButClass n
+
+    var = Right TH.varE
+    con = Right TH.conE
 
 mkExpr :: Quote q => Env ctx TH.Name -> SExpr ctx -> q TH.Exp
 mkExpr env = \case
