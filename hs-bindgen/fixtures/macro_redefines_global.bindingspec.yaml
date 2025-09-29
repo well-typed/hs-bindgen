@@ -1,0 +1,22 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+types:
+- headers: macro_redefines_global.h
+  cname: FILE
+  module: Example
+  identifier: FILE
+  instances:
+  - Eq
+  - Ord
+  - Enum
+  - Ix
+  - Bounded
+  - Read
+  - Show
+  - Bits
+  - FiniteBits
+  - Integral
+  - Num
+  - Real
+  - Storable
