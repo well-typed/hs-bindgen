@@ -5,6 +5,9 @@ import: ./cabal.project.base
 package ansi-diff
   ghc-options: -Werror
 
+package c-expr-dsl
+  ghc-options: -Werror
+
 package hs-bindgen
   ghc-options: -Werror
 

@@ -1,5 +1,10 @@
+{-# LANGUAGE CPP #-}
 {-# LANGUAGE MagicHash         #-}
 {-# LANGUAGE OverloadedStrings #-}
+
+#if __GLASGOW_HASKELL__ >=908
+{-# LANGUAGE TypeAbstractions #-}
+#endif
 
 -- | Macro types: the types that we infer for macros.
 module C.Expr.Typecheck.Type (
