@@ -3004,21 +3004,7 @@
                 (PrimIntegral PrimInt Signed))]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Array of known size"],
-          commentOrigin = Just "fun_1",
-          commentLocation = Just
-            "array.h:87:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3058,21 +3044,7 @@
                     "Triplet"})]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Array of known size, typedef"],
-          commentOrigin = Just "fun_2",
-          commentLocation = Just
-            "array.h:90:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3107,21 +3079,7 @@
                 (PrimIntegral PrimInt Signed))]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Array of unknown size"],
-          commentOrigin = Just "fun_3",
-          commentLocation = Just
-            "array.h:93:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3159,21 +3117,7 @@
                     "List"})]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Array of unknown size, typedef"],
-          commentOrigin = Just "fun_4",
-          commentLocation = Just
-            "array.h:96:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3214,21 +3158,7 @@
                   (PrimIntegral PrimInt Signed)))]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Multi-dimensional array of known size"],
-          commentOrigin = Just "fun_5",
-          commentLocation = Just
-            "array.h:99:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3268,21 +3198,7 @@
                     "Matrix"})]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Multi-dimensional array of known size, typedef"],
-          commentOrigin = Just "fun_6",
-          commentLocation = Just
-            "array.h:102:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3321,21 +3237,7 @@
                   (PrimIntegral PrimInt Signed)))]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Multi-dimensional array of unknown size"],
-          commentOrigin = Just "fun_7",
-          commentLocation = Just
-            "array.h:105:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3375,21 +3277,7 @@
                     "Tripletlist"})]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Multi-dimensional array of unknown size, typedef"],
-          commentOrigin = Just "fun_8",
-          commentLocation = Just
-            "array.h:108:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3426,21 +3314,7 @@
                 (PrimIntegral
                   PrimInt
                   Signed))))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Array of known size"],
-          commentOrigin = Just "fun_9",
-          commentLocation = Just
-            "array.h:120:7",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3478,21 +3352,7 @@
                   nameC = Name "triplet",
                   nameHsIdent = HsIdentifier
                     "Triplet"})))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Array of known size, typedef"],
-          commentOrigin = Just "fun_10",
-          commentLocation = Just
-            "array.h:123:10",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3527,21 +3387,7 @@
                 (PrimIntegral
                   PrimInt
                   Signed))))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Array of unknown size"],
-          commentOrigin = Just "fun_11",
-          commentLocation = Just
-            "array.h:126:7",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3579,21 +3425,7 @@
                   nameC = Name "list",
                   nameHsIdent = HsIdentifier
                     "List"})))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Array of unknown size, typedef"],
-          commentOrigin = Just "fun_12",
-          commentLocation = Just
-            "array.h:129:7",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3634,21 +3466,7 @@
                   (PrimIntegral
                     PrimInt
                     Signed)))))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Multi-dimensional array of known size"],
-          commentOrigin = Just "fun_13",
-          commentLocation = Just
-            "array.h:132:7",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3686,21 +3504,7 @@
                   nameC = Name "matrix",
                   nameHsIdent = HsIdentifier
                     "Matrix"})))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Multi-dimensional array of known size, typedef"],
-          commentOrigin = Just "fun_14",
-          commentLocation = Just
-            "array.h:135:9",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3739,21 +3543,7 @@
                   (PrimIntegral
                     PrimInt
                     Signed)))))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Multi-dimensional array of unknown size"],
-          commentOrigin = Just "fun_15",
-          commentLocation = Just
-            "array.h:138:7",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3791,21 +3581,7 @@
                   nameC = Name "tripletlist",
                   nameHsIdent = HsIdentifier
                     "Tripletlist"})))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Multi-dimensional array of unknown size, typedef"],
-          commentOrigin = Just "fun_16",
-          commentLocation = Just
-            "array.h:141:14",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3835,21 +3611,7 @@
           3
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Global, complete, not initialised"],
-          commentOrigin = Just "arr0",
-          commentLocation = Just
-            "array.h:11:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3879,21 +3641,7 @@
           3
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Global, complete, initialised"],
-          commentOrigin = Just "arr1",
-          commentLocation = Just
-            "array.h:14:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3923,21 +3671,7 @@
           3
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Global, extern, complete, not initialised"],
-          commentOrigin = Just "arr2",
-          commentLocation = Just
-            "array.h:17:12",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3967,21 +3701,7 @@
           3
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Global, extern, complete, initialised"],
-          commentOrigin = Just "arr3",
-          commentLocation = Just
-            "array.h:20:12",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -4011,21 +3731,7 @@
           1
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Global, incomplete"],
-          commentOrigin = Just "arr6",
-          commentLocation = Just
-            "array.h:29:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -4053,21 +3759,7 @@
         (TypeIncompleteArray
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Global, extern, incomplete"],
-          commentOrigin = Just "arr7",
-          commentLocation = Just
-            "array.h:32:12",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -4097,21 +3789,7 @@
           3
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Array of known size"],
-          commentOrigin = Just "arr_1",
-          commentLocation = Just
-            "array.h:59:12",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -4144,21 +3822,7 @@
               nameC = Name "triplet",
               nameHsIdent = HsIdentifier
                 "Triplet"})),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Array of known size, typedef"],
-          commentOrigin = Just "arr_2",
-          commentLocation = Just
-            "array.h:62:16",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -4186,21 +3850,7 @@
         (TypeIncompleteArray
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Array of unknown size"],
-          commentOrigin = Just "arr_3",
-          commentLocation = Just
-            "array.h:65:12",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -4233,21 +3883,7 @@
               nameC = Name "list",
               nameHsIdent = HsIdentifier
                 "List"})),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Array of unknown size, typedef"],
-          commentOrigin = Just "arr_4",
-          commentLocation = Just
-            "array.h:68:13",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -4283,21 +3919,7 @@
               (PrimIntegral
                 PrimInt
                 Signed)))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Multi-dimensional array of known size"],
-          commentOrigin = Just "arr_5",
-          commentLocation = Just
-            "array.h:71:12",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -4330,21 +3952,7 @@
               nameC = Name "matrix",
               nameHsIdent = HsIdentifier
                 "Matrix"})),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Multi-dimensional array of known size, typedef"],
-          commentOrigin = Just "arr_6",
-          commentLocation = Just
-            "array.h:74:15",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -4378,21 +3986,7 @@
               (PrimIntegral
                 PrimInt
                 Signed)))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Multi-dimensional array of unknown size"],
-          commentOrigin = Just "arr_7",
-          commentLocation = Just
-            "array.h:77:12",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -4425,21 +4019,7 @@
               nameC = Name "tripletlist",
               nameHsIdent = HsIdentifier
                 "Tripletlist"})),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Multi-dimensional array of unknown size, typedef"],
-          commentOrigin = Just "arr_8",
-          commentLocation = Just
-            "array.h:80:20",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["array.h"],
-              headerInclude = "array.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple]

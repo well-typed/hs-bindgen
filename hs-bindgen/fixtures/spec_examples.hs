@@ -3485,19 +3485,7 @@
                       (AnonId
                         "spec_examples.h:14:9")))))]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "resample",
-          commentLocation = Just
-            "spec_examples.h:31:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["spec_examples.h"],
-              headerInclude =
-              "spec_examples.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple]

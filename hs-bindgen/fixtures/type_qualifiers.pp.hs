@@ -1,6 +1,7 @@
 {-# LANGUAGE CApiFFI #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
+{-# OPTIONS_HADDOCK prune #-}
 
 module Example where
 
@@ -28,20 +29,25 @@ foreign import ccall safe "hs_bindgen_test_type_qualifiers_b42fb41209c21d6e" lis
      -}
   -> IO FC.CBool
 
+foreign import ccall unsafe "hs_bindgen_test_type_qualifiers_24b25f22222ce366" hs_bindgen_test_type_qualifiers_24b25f22222ce366
+  :: IO (Ptr.FunPtr ((Ptr.Ptr (Ptr.Ptr FC.CChar)) -> FC.CSize -> IO FC.CBool))
+
+{-# NOINLINE list_example_ptr #-}
+
 {-| __C declaration:__ @list_example@
 
     __defined at:__ @type_qualifiers.h:14:6@
 
     __exported by:__ @type_qualifiers.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_type_qualifiers_24b25f22222ce366" hs_bindgen_test_type_qualifiers_24b25f22222ce366
-  :: IO (Ptr.FunPtr ((Ptr.Ptr (Ptr.Ptr FC.CChar)) -> FC.CSize -> IO FC.CBool))
-
-{-# NOINLINE list_example_ptr #-}
-
 list_example_ptr :: Ptr.FunPtr ((Ptr.Ptr (Ptr.Ptr FC.CChar)) -> FC.CSize -> IO FC.CBool)
 list_example_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_type_qualifiers_24b25f22222ce366
+
+foreign import ccall unsafe "hs_bindgen_test_type_qualifiers_3afcbd8536cf21bd" hs_bindgen_test_type_qualifiers_3afcbd8536cf21bd
+  :: IO (Ptr.Ptr FC.CInt)
+
+{-# NOINLINE a_ptr #-}
 
 {-| __C declaration:__ @a@
 
@@ -49,11 +55,6 @@ list_example_ptr =
 
     __exported by:__ @type_qualifiers.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_type_qualifiers_3afcbd8536cf21bd" hs_bindgen_test_type_qualifiers_3afcbd8536cf21bd
-  :: IO (Ptr.Ptr FC.CInt)
-
-{-# NOINLINE a_ptr #-}
-
 a_ptr :: Ptr.Ptr FC.CInt
 a_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_type_qualifiers_3afcbd8536cf21bd
@@ -63,20 +64,25 @@ a_ptr =
 a :: FC.CInt
 a = GHC.IO.Unsafe.unsafePerformIO (F.peek a_ptr)
 
+foreign import ccall unsafe "hs_bindgen_test_type_qualifiers_fcd0c984d664f6ee" hs_bindgen_test_type_qualifiers_fcd0c984d664f6ee
+  :: IO (Ptr.Ptr (Ptr.Ptr FC.CInt))
+
+{-# NOINLINE b_ptr #-}
+
 {-| __C declaration:__ @b@
 
     __defined at:__ @type_qualifiers.h:7:19@
 
     __exported by:__ @type_qualifiers.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_type_qualifiers_fcd0c984d664f6ee" hs_bindgen_test_type_qualifiers_fcd0c984d664f6ee
-  :: IO (Ptr.Ptr (Ptr.Ptr FC.CInt))
-
-{-# NOINLINE b_ptr #-}
-
 b_ptr :: Ptr.Ptr (Ptr.Ptr FC.CInt)
 b_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_type_qualifiers_fcd0c984d664f6ee
+
+foreign import ccall unsafe "hs_bindgen_test_type_qualifiers_d61ea07e27589aef" hs_bindgen_test_type_qualifiers_d61ea07e27589aef
+  :: IO (Ptr.Ptr (Ptr.Ptr FC.CInt))
+
+{-# NOINLINE c_ptr #-}
 
 {-| __C declaration:__ @c@
 
@@ -84,11 +90,6 @@ b_ptr =
 
     __exported by:__ @type_qualifiers.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_type_qualifiers_d61ea07e27589aef" hs_bindgen_test_type_qualifiers_d61ea07e27589aef
-  :: IO (Ptr.Ptr (Ptr.Ptr FC.CInt))
-
-{-# NOINLINE c_ptr #-}
-
 c_ptr :: Ptr.Ptr (Ptr.Ptr FC.CInt)
 c_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_type_qualifiers_d61ea07e27589aef
@@ -98,17 +99,17 @@ c_ptr =
 c :: Ptr.Ptr FC.CInt
 c = GHC.IO.Unsafe.unsafePerformIO (F.peek c_ptr)
 
+foreign import ccall unsafe "hs_bindgen_test_type_qualifiers_d1d6489b06a70107" hs_bindgen_test_type_qualifiers_d1d6489b06a70107
+  :: IO (Ptr.Ptr (Ptr.Ptr FC.CInt))
+
+{-# NOINLINE d_ptr #-}
+
 {-| __C declaration:__ @d@
 
     __defined at:__ @type_qualifiers.h:11:25@
 
     __exported by:__ @type_qualifiers.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_type_qualifiers_d1d6489b06a70107" hs_bindgen_test_type_qualifiers_d1d6489b06a70107
-  :: IO (Ptr.Ptr (Ptr.Ptr FC.CInt))
-
-{-# NOINLINE d_ptr #-}
-
 d_ptr :: Ptr.Ptr (Ptr.Ptr FC.CInt)
 d_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_type_qualifiers_d1d6489b06a70107

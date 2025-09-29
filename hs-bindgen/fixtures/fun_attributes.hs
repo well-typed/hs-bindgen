@@ -3216,19 +3216,7 @@
           "fun_attributes.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "__f1",
-          commentLocation = Just
-            "fun_attributes.h:16:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["fun_attributes.h"],
-              headerInclude =
-              "fun_attributes.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3255,19 +3243,7 @@
           "fun_attributes.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "f1",
-          commentLocation = Just
-            "fun_attributes.h:17:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["fun_attributes.h"],
-              headerInclude =
-              "fun_attributes.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3319,20 +3295,7 @@
                   nameHsIdent = HsIdentifier
                     "Size_t"})]
           (TypePointer TypeVoid)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "my_memalign",
-          commentLocation = Just
-            "fun_attributes.h:21:7",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["fun_attributes.h"],
-              headerInclude =
-              "fun_attributes.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3384,20 +3347,7 @@
                   nameHsIdent = HsIdentifier
                     "Size_t"})]
           (TypePointer TypeVoid)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "my_calloc",
-          commentLocation = Just
-            "fun_attributes.h:26:7",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["fun_attributes.h"],
-              headerInclude =
-              "fun_attributes.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3441,20 +3391,7 @@
                   nameHsIdent = HsIdentifier
                     "Size_t"})]
           (TypePointer TypeVoid)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "my_realloc",
-          commentLocation = Just
-            "fun_attributes.h:27:7",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["fun_attributes.h"],
-              headerInclude =
-              "fun_attributes.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3495,20 +3432,7 @@
                   nameHsIdent = HsIdentifier
                     "Size_t"})]
           (TypePointer TypeVoid)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "my_alloc1",
-          commentLocation = Just
-            "fun_attributes.h:32:7",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["fun_attributes.h"],
-              headerInclude =
-              "fun_attributes.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3549,20 +3473,7 @@
                   nameHsIdent = HsIdentifier
                     "Size_t"})]
           (TypePointer TypeVoid)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "my_alloc2",
-          commentLocation = Just
-            "fun_attributes.h:33:7",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["fun_attributes.h"],
-              headerInclude =
-              "fun_attributes.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3596,19 +3507,7 @@
               (PrimIntegral PrimInt Signed)]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "square",
-          commentLocation = Just
-            "fun_attributes.h:37:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["fun_attributes.h"],
-              headerInclude =
-              "fun_attributes.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3638,19 +3537,7 @@
           []
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "old_fn",
-          commentLocation = Just
-            "fun_attributes.h:46:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["fun_attributes.h"],
-              headerInclude =
-              "fun_attributes.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3699,20 +3586,7 @@
               (PrimChar
                 (PrimSignImplicit
                   (Just Signed)))))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "my_dgettext",
-          commentLocation = Just
-            "fun_attributes.h:57:1",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["fun_attributes.h"],
-              headerInclude =
-              "fun_attributes.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3768,19 +3642,7 @@
                   (NameOriginGenerated
                     (AnonId
                       "fun_attributes.h:7:9"))))))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "fdopen",
-          commentLocation = Just
-            "fun_attributes.h:68:9",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["fun_attributes.h"],
-              headerInclude =
-              "fun_attributes.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3807,19 +3669,7 @@
           "fun_attributes.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "f2",
-          commentLocation = Just
-            "fun_attributes.h:72:65",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["fun_attributes.h"],
-              headerInclude =
-              "fun_attributes.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3867,20 +3717,7 @@
                   nameHsIdent = HsIdentifier
                     "Size_t"})]
           (TypePointer TypeVoid)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "my_memcpy",
-          commentLocation = Just
-            "fun_attributes.h:78:1",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["fun_attributes.h"],
-              headerInclude =
-              "fun_attributes.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3907,19 +3744,7 @@
           "fun_attributes.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "fatal",
-          commentLocation = Just
-            "fun_attributes.h:95:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["fun_attributes.h"],
-              headerInclude =
-              "fun_attributes.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -3956,19 +3781,7 @@
                     (Just Signed))))]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "hash",
-          commentLocation = Just
-            "fun_attributes.h:103:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["fun_attributes.h"],
-              headerInclude =
-              "fun_attributes.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -4009,19 +3822,7 @@
                   nameHsIdent = HsIdentifier
                     "Size_t"})]
           (TypePointer TypeVoid)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "mymalloc",
-          commentLocation = Just
-            "fun_attributes.h:108:1",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["fun_attributes.h"],
-              headerInclude =
-              "fun_attributes.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -4048,19 +3849,7 @@
           "fun_attributes.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "foobar",
-          commentLocation = Just
-            "fun_attributes.h:112:13",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["fun_attributes.h"],
-              headerInclude =
-              "fun_attributes.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -4090,20 +3879,7 @@
           []
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "core2_func",
-          commentLocation = Just
-            "fun_attributes.h:119:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["fun_attributes.h"],
-              headerInclude =
-              "fun_attributes.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -4133,20 +3909,7 @@
           []
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "sse3_func",
-          commentLocation = Just
-            "fun_attributes.h:120:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["fun_attributes.h"],
-              headerInclude =
-              "fun_attributes.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -4173,19 +3936,7 @@
           "fun_attributes.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "f3",
-          commentLocation = Just
-            "fun_attributes.h:124:49",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["fun_attributes.h"],
-              headerInclude =
-              "fun_attributes.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -4215,19 +3966,7 @@
           []
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "fn",
-          commentLocation = Just
-            "fun_attributes.h:129:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["fun_attributes.h"],
-              headerInclude =
-              "fun_attributes.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -4257,19 +3996,7 @@
           []
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "y",
-          commentLocation = Just
-            "fun_attributes.h:135:12",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["fun_attributes.h"],
-              headerInclude =
-              "fun_attributes.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -4299,19 +4026,7 @@
           []
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "x1",
-          commentLocation = Just
-            "fun_attributes.h:138:12",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["fun_attributes.h"],
-              headerInclude =
-              "fun_attributes.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -4341,19 +4056,7 @@
           []
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "x2",
-          commentLocation = Just
-            "fun_attributes.h:141:12",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["fun_attributes.h"],
-              headerInclude =
-              "fun_attributes.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -4380,19 +4083,7 @@
       foreignImportOrigin = Global
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "i",
-          commentLocation = Just
-            "fun_attributes.h:125:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["fun_attributes.h"],
-              headerInclude =
-              "fun_attributes.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple]

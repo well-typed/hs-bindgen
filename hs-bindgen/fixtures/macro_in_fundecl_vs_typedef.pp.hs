@@ -3,6 +3,7 @@
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
+{-# OPTIONS_HADDOCK prune #-}
 
 module Example where
 
@@ -344,20 +345,25 @@ foreign import ccall safe "hs_bindgen_test_macro_in_fundecl_vs_typedef_9eadc4888
      -}
   -> IO ()
 
+foreign import ccall unsafe "hs_bindgen_test_macro_in_fundecl_vs_typedef_7d7a63ab896ed293" hs_bindgen_test_macro_in_fundecl_vs_typedef_7d7a63ab896ed293
+  :: IO (Ptr.FunPtr (MC -> TC -> IO FC.CChar))
+
+{-# NOINLINE quux1_ptr #-}
+
 {-| __C declaration:__ @quux1@
 
     __defined at:__ @macro_in_fundecl_vs_typedef.h:8:6@
 
     __exported by:__ @macro_in_fundecl_vs_typedef.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_macro_in_fundecl_vs_typedef_7d7a63ab896ed293" hs_bindgen_test_macro_in_fundecl_vs_typedef_7d7a63ab896ed293
-  :: IO (Ptr.FunPtr (MC -> TC -> IO FC.CChar))
-
-{-# NOINLINE quux1_ptr #-}
-
 quux1_ptr :: Ptr.FunPtr (MC -> TC -> IO FC.CChar)
 quux1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_macro_in_fundecl_vs_typedef_7d7a63ab896ed293
+
+foreign import ccall unsafe "hs_bindgen_test_macro_in_fundecl_vs_typedef_b64c564dd7071f5b" hs_bindgen_test_macro_in_fundecl_vs_typedef_b64c564dd7071f5b
+  :: IO (Ptr.FunPtr (MC -> FC.CChar -> IO TC))
+
+{-# NOINLINE quux2_ptr #-}
 
 {-| __C declaration:__ @quux2@
 
@@ -365,14 +371,14 @@ quux1_ptr =
 
     __exported by:__ @macro_in_fundecl_vs_typedef.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_macro_in_fundecl_vs_typedef_b64c564dd7071f5b" hs_bindgen_test_macro_in_fundecl_vs_typedef_b64c564dd7071f5b
-  :: IO (Ptr.FunPtr (MC -> FC.CChar -> IO TC))
-
-{-# NOINLINE quux2_ptr #-}
-
 quux2_ptr :: Ptr.FunPtr (MC -> FC.CChar -> IO TC)
 quux2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_macro_in_fundecl_vs_typedef_b64c564dd7071f5b
+
+foreign import ccall unsafe "hs_bindgen_test_macro_in_fundecl_vs_typedef_aa26b3a0f4d0aefe" hs_bindgen_test_macro_in_fundecl_vs_typedef_aa26b3a0f4d0aefe
+  :: IO (Ptr.FunPtr (FC.CFloat -> (Ptr.Ptr TC) -> IO (Ptr.Ptr MC)))
+
+{-# NOINLINE wam1_ptr #-}
 
 {-| __C declaration:__ @wam1@
 
@@ -380,14 +386,14 @@ quux2_ptr =
 
     __exported by:__ @macro_in_fundecl_vs_typedef.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_macro_in_fundecl_vs_typedef_aa26b3a0f4d0aefe" hs_bindgen_test_macro_in_fundecl_vs_typedef_aa26b3a0f4d0aefe
-  :: IO (Ptr.FunPtr (FC.CFloat -> (Ptr.Ptr TC) -> IO (Ptr.Ptr MC)))
-
-{-# NOINLINE wam1_ptr #-}
-
 wam1_ptr :: Ptr.FunPtr (FC.CFloat -> (Ptr.Ptr TC) -> IO (Ptr.Ptr MC))
 wam1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_macro_in_fundecl_vs_typedef_aa26b3a0f4d0aefe
+
+foreign import ccall unsafe "hs_bindgen_test_macro_in_fundecl_vs_typedef_5cb5ead73c0a3d63" hs_bindgen_test_macro_in_fundecl_vs_typedef_5cb5ead73c0a3d63
+  :: IO (Ptr.FunPtr (FC.CFloat -> (Ptr.Ptr MC) -> IO (Ptr.Ptr TC)))
+
+{-# NOINLINE wam2_ptr #-}
 
 {-| __C declaration:__ @wam2@
 
@@ -395,14 +401,14 @@ wam1_ptr =
 
     __exported by:__ @macro_in_fundecl_vs_typedef.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_macro_in_fundecl_vs_typedef_5cb5ead73c0a3d63" hs_bindgen_test_macro_in_fundecl_vs_typedef_5cb5ead73c0a3d63
-  :: IO (Ptr.FunPtr (FC.CFloat -> (Ptr.Ptr MC) -> IO (Ptr.Ptr TC)))
-
-{-# NOINLINE wam2_ptr #-}
-
 wam2_ptr :: Ptr.FunPtr (FC.CFloat -> (Ptr.Ptr MC) -> IO (Ptr.Ptr TC))
 wam2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_macro_in_fundecl_vs_typedef_5cb5ead73c0a3d63
+
+foreign import ccall unsafe "hs_bindgen_test_macro_in_fundecl_vs_typedef_a1aadeb6878a5152" hs_bindgen_test_macro_in_fundecl_vs_typedef_a1aadeb6878a5152
+  :: IO (Ptr.FunPtr ((Ptr.Ptr Struct2) -> MC -> IO ()))
+
+{-# NOINLINE struct_typedef1_ptr #-}
 
 {-| __C declaration:__ @struct_typedef1@
 
@@ -410,14 +416,14 @@ wam2_ptr =
 
     __exported by:__ @macro_in_fundecl_vs_typedef.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_macro_in_fundecl_vs_typedef_a1aadeb6878a5152" hs_bindgen_test_macro_in_fundecl_vs_typedef_a1aadeb6878a5152
-  :: IO (Ptr.FunPtr ((Ptr.Ptr Struct2) -> MC -> IO ()))
-
-{-# NOINLINE struct_typedef1_ptr #-}
-
 struct_typedef1_ptr :: Ptr.FunPtr ((Ptr.Ptr Struct2) -> MC -> IO ())
 struct_typedef1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_macro_in_fundecl_vs_typedef_a1aadeb6878a5152
+
+foreign import ccall unsafe "hs_bindgen_test_macro_in_fundecl_vs_typedef_e1dac8a006e6b043" hs_bindgen_test_macro_in_fundecl_vs_typedef_e1dac8a006e6b043
+  :: IO (Ptr.FunPtr ((Ptr.Ptr Struct3_t) -> MC -> IO ()))
+
+{-# NOINLINE struct_typedef2_ptr #-}
 
 {-| __C declaration:__ @struct_typedef2@
 
@@ -425,14 +431,14 @@ struct_typedef1_ptr =
 
     __exported by:__ @macro_in_fundecl_vs_typedef.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_macro_in_fundecl_vs_typedef_e1dac8a006e6b043" hs_bindgen_test_macro_in_fundecl_vs_typedef_e1dac8a006e6b043
-  :: IO (Ptr.FunPtr ((Ptr.Ptr Struct3_t) -> MC -> IO ()))
-
-{-# NOINLINE struct_typedef2_ptr #-}
-
 struct_typedef2_ptr :: Ptr.FunPtr ((Ptr.Ptr Struct3_t) -> MC -> IO ())
 struct_typedef2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_macro_in_fundecl_vs_typedef_e1dac8a006e6b043
+
+foreign import ccall unsafe "hs_bindgen_test_macro_in_fundecl_vs_typedef_078075d0a80d4368" hs_bindgen_test_macro_in_fundecl_vs_typedef_078075d0a80d4368
+  :: IO (Ptr.FunPtr ((Ptr.Ptr Struct4) -> MC -> IO ()))
+
+{-# NOINLINE struct_typedef3_ptr #-}
 
 {-| __C declaration:__ @struct_typedef3@
 
@@ -440,14 +446,14 @@ struct_typedef2_ptr =
 
     __exported by:__ @macro_in_fundecl_vs_typedef.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_macro_in_fundecl_vs_typedef_078075d0a80d4368" hs_bindgen_test_macro_in_fundecl_vs_typedef_078075d0a80d4368
-  :: IO (Ptr.FunPtr ((Ptr.Ptr Struct4) -> MC -> IO ()))
-
-{-# NOINLINE struct_typedef3_ptr #-}
-
 struct_typedef3_ptr :: Ptr.FunPtr ((Ptr.Ptr Struct4) -> MC -> IO ())
 struct_typedef3_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_macro_in_fundecl_vs_typedef_078075d0a80d4368
+
+foreign import ccall unsafe "hs_bindgen_test_macro_in_fundecl_vs_typedef_7574edf86480f042" hs_bindgen_test_macro_in_fundecl_vs_typedef_7574edf86480f042
+  :: IO (Ptr.FunPtr ((Ptr.Ptr Struct1) -> MC -> IO ()))
+
+{-# NOINLINE struct_name1_ptr #-}
 
 {-| __C declaration:__ @struct_name1@
 
@@ -455,14 +461,14 @@ struct_typedef3_ptr =
 
     __exported by:__ @macro_in_fundecl_vs_typedef.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_macro_in_fundecl_vs_typedef_7574edf86480f042" hs_bindgen_test_macro_in_fundecl_vs_typedef_7574edf86480f042
-  :: IO (Ptr.FunPtr ((Ptr.Ptr Struct1) -> MC -> IO ()))
-
-{-# NOINLINE struct_name1_ptr #-}
-
 struct_name1_ptr :: Ptr.FunPtr ((Ptr.Ptr Struct1) -> MC -> IO ())
 struct_name1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_macro_in_fundecl_vs_typedef_7574edf86480f042
+
+foreign import ccall unsafe "hs_bindgen_test_macro_in_fundecl_vs_typedef_e7a8c1f45f8b20c2" hs_bindgen_test_macro_in_fundecl_vs_typedef_e7a8c1f45f8b20c2
+  :: IO (Ptr.FunPtr ((Ptr.Ptr Struct3) -> MC -> IO ()))
+
+{-# NOINLINE struct_name2_ptr #-}
 
 {-| __C declaration:__ @struct_name2@
 
@@ -470,14 +476,14 @@ struct_name1_ptr =
 
     __exported by:__ @macro_in_fundecl_vs_typedef.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_macro_in_fundecl_vs_typedef_e7a8c1f45f8b20c2" hs_bindgen_test_macro_in_fundecl_vs_typedef_e7a8c1f45f8b20c2
-  :: IO (Ptr.FunPtr ((Ptr.Ptr Struct3) -> MC -> IO ()))
-
-{-# NOINLINE struct_name2_ptr #-}
-
 struct_name2_ptr :: Ptr.FunPtr ((Ptr.Ptr Struct3) -> MC -> IO ())
 struct_name2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_macro_in_fundecl_vs_typedef_e7a8c1f45f8b20c2
+
+foreign import ccall unsafe "hs_bindgen_test_macro_in_fundecl_vs_typedef_d52310663e8daa5c" hs_bindgen_test_macro_in_fundecl_vs_typedef_d52310663e8daa5c
+  :: IO (Ptr.FunPtr ((Ptr.Ptr Struct4) -> MC -> IO ()))
+
+{-# NOINLINE struct_name3_ptr #-}
 
 {-| __C declaration:__ @struct_name3@
 
@@ -485,11 +491,6 @@ struct_name2_ptr =
 
     __exported by:__ @macro_in_fundecl_vs_typedef.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_macro_in_fundecl_vs_typedef_d52310663e8daa5c" hs_bindgen_test_macro_in_fundecl_vs_typedef_d52310663e8daa5c
-  :: IO (Ptr.FunPtr ((Ptr.Ptr Struct4) -> MC -> IO ()))
-
-{-# NOINLINE struct_name3_ptr #-}
-
 struct_name3_ptr :: Ptr.FunPtr ((Ptr.Ptr Struct4) -> MC -> IO ())
 struct_name3_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_macro_in_fundecl_vs_typedef_d52310663e8daa5c

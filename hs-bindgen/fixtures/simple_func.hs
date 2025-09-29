@@ -665,19 +665,7 @@
               (PrimFloating PrimDouble)]
           (TypePrim
             (PrimFloating PrimDouble))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "erf",
-          commentLocation = Just
-            "simple_func.h:1:8",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["simple_func.h"],
-              headerInclude =
-              "simple_func.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -720,19 +708,7 @@
               (PrimFloating PrimDouble)]
           (TypePrim
             (PrimFloating PrimDouble))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "bad_fma",
-          commentLocation = Just
-            "simple_func.h:3:22",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["simple_func.h"],
-              headerInclude =
-              "simple_func.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -759,19 +735,7 @@
           "simple_func.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "no_args",
-          commentLocation = Just
-            "simple_func.h:7:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["simple_func.h"],
-              headerInclude =
-              "simple_func.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -798,20 +762,7 @@
           "simple_func.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "no_args_no_void",
-          commentLocation = Just
-            "simple_func.h:9:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["simple_func.h"],
-              headerInclude =
-              "simple_func.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -851,19 +802,7 @@
               (PrimFloating PrimDouble)]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "fun",
-          commentLocation = Just
-            "simple_func.h:11:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["simple_func.h"],
-              headerInclude =
-              "simple_func.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple]

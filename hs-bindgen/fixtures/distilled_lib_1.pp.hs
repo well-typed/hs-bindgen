@@ -7,6 +7,7 @@
 {-# LANGUAGE PatternSynonyms #-}
 {-# LANGUAGE TemplateHaskell #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# OPTIONS_HADDOCK prune #-}
 
 module Example where
 
@@ -525,6 +526,12 @@ foreign import ccall safe "hs_bindgen_test_distilled_lib_1_29c178c31334688f" som
      -}
   -> IO HsBindgen.Runtime.Prelude.Int32
 
+{-| __C declaration:__ @some_fun@
+
+    __defined at:__ @distilled_lib_1.h:72:9@
+
+    __exported by:__ @distilled_lib_1.h@
+-}
 some_fun :: (Ptr.Ptr A_type_t) -> HsBindgen.Runtime.Prelude.Word32 -> (HsBindgen.Runtime.IncompleteArray.IncompleteArray HsBindgen.Runtime.Prelude.Word8) -> IO HsBindgen.Runtime.Prelude.Int32
 some_fun =
   \x0 ->
@@ -533,20 +540,25 @@ some_fun =
         HsBindgen.Runtime.IncompleteArray.withPtr x2 (\ptr3 ->
                                                         some_fun_wrapper x0 x1 ptr3)
 
+foreign import ccall unsafe "hs_bindgen_test_distilled_lib_1_969c7d0305e0614c" hs_bindgen_test_distilled_lib_1_969c7d0305e0614c
+  :: IO (Ptr.FunPtr ((Ptr.Ptr A_type_t) -> HsBindgen.Runtime.Prelude.Word32 -> (HsBindgen.Runtime.IncompleteArray.IncompleteArray HsBindgen.Runtime.Prelude.Word8) -> IO HsBindgen.Runtime.Prelude.Int32))
+
+{-# NOINLINE some_fun_ptr #-}
+
 {-| __C declaration:__ @some_fun@
 
     __defined at:__ @distilled_lib_1.h:72:9@
 
     __exported by:__ @distilled_lib_1.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_distilled_lib_1_969c7d0305e0614c" hs_bindgen_test_distilled_lib_1_969c7d0305e0614c
-  :: IO (Ptr.FunPtr ((Ptr.Ptr A_type_t) -> HsBindgen.Runtime.Prelude.Word32 -> (HsBindgen.Runtime.IncompleteArray.IncompleteArray HsBindgen.Runtime.Prelude.Word8) -> IO HsBindgen.Runtime.Prelude.Int32))
-
-{-# NOINLINE some_fun_ptr #-}
-
 some_fun_ptr :: Ptr.FunPtr ((Ptr.Ptr A_type_t) -> HsBindgen.Runtime.Prelude.Word32 -> (HsBindgen.Runtime.IncompleteArray.IncompleteArray HsBindgen.Runtime.Prelude.Word8) -> IO HsBindgen.Runtime.Prelude.Int32)
 some_fun_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_distilled_lib_1_969c7d0305e0614c
+
+foreign import ccall unsafe "hs_bindgen_test_distilled_lib_1_b9e65c51f976c6f6" hs_bindgen_test_distilled_lib_1_b9e65c51f976c6f6
+  :: IO (Ptr.Ptr Var_t)
+
+{-# NOINLINE v_ptr #-}
 
 {-| __C declaration:__ @v@
 
@@ -554,11 +566,6 @@ some_fun_ptr =
 
     __exported by:__ @distilled_lib_1.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_distilled_lib_1_b9e65c51f976c6f6" hs_bindgen_test_distilled_lib_1_b9e65c51f976c6f6
-  :: IO (Ptr.Ptr Var_t)
-
-{-# NOINLINE v_ptr #-}
-
 v_ptr :: Ptr.Ptr Var_t
 v_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_distilled_lib_1_b9e65c51f976c6f6

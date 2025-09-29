@@ -1166,15 +1166,16 @@ hsWrapperDecl
     -> HsName NsVar   -- ^ low-level import name
     -> WrappedType    -- ^ result type
     -> [WrappedType]  -- ^ arguments
+    -> Maybe Hs.Comment
     -> SHs.SDecl
-hsWrapperDecl hiName loName res args = case res of
+hsWrapperDecl hiName loName res args mbComment = case res of
   HeapType {} ->
     SHs.DVar
       SHs.Var {
         varName    = hiName
       , varType    = SHs.translateType hsty
       , varExpr    = goA EmptyEnv args
-      , varComment = Nothing
+      , varComment = mbComment
       }
 
   WrapType {} ->
@@ -1183,7 +1184,7 @@ hsWrapperDecl hiName loName res args = case res of
         varName    = hiName
       , varType    = SHs.translateType hsty
       , varExpr    = goB EmptyEnv args
-      , varComment = Nothing
+      , varComment = mbComment
       }
 
   CAType {} ->
@@ -1267,7 +1268,7 @@ functionDecs ::
   -> [Hs.Decl]
 functionDecs safety opts haddockConfig moduleName typedefs info f _spec =
     funDecl : [
-        Hs.DeclSimple $ hsWrapperDecl highlevelName importName res wrappedArgTypes
+        Hs.DeclSimple $ hsWrapperDecl highlevelName importName res wrappedArgTypes mbFIComment
       | anyFancy
       ]
   where
@@ -1590,6 +1591,8 @@ addressStubDecs opts haddockConfig moduleName info ty _spec =
         , capiWrapperImport = getMainHashIncludeArg info
         }
 
+    mbComment = generateHaddocksWithInfo haddockConfig info
+
     foreignImport :: Hs.Decl
     foreignImport = Hs.DeclForeignImport $ Hs.ForeignImportDecl
         { foreignImportName     = stubImportName
@@ -1598,7 +1601,7 @@ addressStubDecs opts haddockConfig moduleName info ty _spec =
         , foreignImportOrigName = T.pack stubNameMangled
         , foreignImportCallConv = CallConvUserlandCAPI userlandCapiWrapper
         , foreignImportOrigin   = Origin.Global ty
-        , foreignImportComment  = generateHaddocksWithInfo haddockConfig info
+        , foreignImportComment  = Nothing
           -- These imports can be unsafe. We're binding to simple address stubs,
           -- so there are no callbacks into Haskell code. Moreover, they are
           -- short running code.
@@ -1618,7 +1621,7 @@ addressStubDecs opts haddockConfig moduleName info ty _spec =
           varName    = runnerName
         , varType    = runnerType
         , varExpr    = runnerExpr
-        , varComment = Nothing
+        , varComment = mbComment
         }
 
     runnerName = HsName $ getHsIdentifier (C.nameHsIdent (C.declId info)) <> "_ptr"

@@ -3652,20 +3652,7 @@
               nameHsIdent = HsIdentifier
                 "FileOperationStatus"}
             NameOriginInSource)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "read_file_chunk",
-          commentLocation = Just
-            "program_slicing_selection.h:21:26",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["program_slicing_selection.h"],
-              headerInclude =
-              "program_slicing_selection.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple]

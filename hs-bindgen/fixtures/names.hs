@@ -1875,18 +1875,7 @@
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "by",
-          commentLocation = Just
-            "names.h:3:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["names.h"],
-              headerInclude = "names.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1912,18 +1901,7 @@
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "forall",
-          commentLocation = Just
-            "names.h:4:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["names.h"],
-              headerInclude = "names.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1949,18 +1927,7 @@
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "mdo",
-          commentLocation = Just
-            "names.h:5:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["names.h"],
-              headerInclude = "names.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -1986,18 +1953,7 @@
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "pattern",
-          commentLocation = Just
-            "names.h:6:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["names.h"],
-              headerInclude = "names.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -2023,18 +1979,7 @@
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "proc",
-          commentLocation = Just
-            "names.h:7:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["names.h"],
-              headerInclude = "names.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -2060,18 +2005,7 @@
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "rec",
-          commentLocation = Just
-            "names.h:8:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["names.h"],
-              headerInclude = "names.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -2097,18 +2031,7 @@
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "using",
-          commentLocation = Just
-            "names.h:9:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["names.h"],
-              headerInclude = "names.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -2134,18 +2057,7 @@
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "anyclass",
-          commentLocation = Just
-            "names.h:12:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["names.h"],
-              headerInclude = "names.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -2171,18 +2083,7 @@
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "capi",
-          commentLocation = Just
-            "names.h:13:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["names.h"],
-              headerInclude = "names.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -2208,18 +2109,7 @@
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "cases",
-          commentLocation = Just
-            "names.h:14:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["names.h"],
-              headerInclude = "names.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -2245,18 +2135,7 @@
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "ccall",
-          commentLocation = Just
-            "names.h:15:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["names.h"],
-              headerInclude = "names.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -2282,18 +2161,7 @@
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "dynamic",
-          commentLocation = Just
-            "names.h:16:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["names.h"],
-              headerInclude = "names.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -2319,18 +2187,7 @@
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "export",
-          commentLocation = Just
-            "names.h:17:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["names.h"],
-              headerInclude = "names.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -2356,18 +2213,7 @@
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "family",
-          commentLocation = Just
-            "names.h:18:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["names.h"],
-              headerInclude = "names.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -2393,18 +2239,7 @@
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "group",
-          commentLocation = Just
-            "names.h:19:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["names.h"],
-              headerInclude = "names.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -2430,19 +2265,7 @@
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "interruptible",
-          commentLocation = Just
-            "names.h:20:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["names.h"],
-              headerInclude = "names.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -2468,19 +2291,7 @@
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "javascript",
-          commentLocation = Just
-            "names.h:21:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["names.h"],
-              headerInclude = "names.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -2506,18 +2317,7 @@
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "label",
-          commentLocation = Just
-            "names.h:22:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["names.h"],
-              headerInclude = "names.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -2543,18 +2343,7 @@
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "prim",
-          commentLocation = Just
-            "names.h:23:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["names.h"],
-              headerInclude = "names.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -2580,18 +2369,7 @@
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "role",
-          commentLocation = Just
-            "names.h:24:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["names.h"],
-              headerInclude = "names.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -2617,18 +2395,7 @@
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "safe",
-          commentLocation = Just
-            "names.h:25:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["names.h"],
-              headerInclude = "names.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -2654,18 +2421,7 @@
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "stdcall",
-          commentLocation = Just
-            "names.h:26:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["names.h"],
-              headerInclude = "names.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -2691,18 +2447,7 @@
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "stock",
-          commentLocation = Just
-            "names.h:27:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["names.h"],
-              headerInclude = "names.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -2728,18 +2473,7 @@
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "unsafe",
-          commentLocation = Just
-            "names.h:28:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["names.h"],
-              headerInclude = "names.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -2765,18 +2499,7 @@
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "via",
-          commentLocation = Just
-            "names.h:29:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["names.h"],
-              headerInclude = "names.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple]

@@ -271,26 +271,40 @@ foreign import ccall safe "hs_bindgen_test_globals_454b1c1a1b7d5b60" hs_bindgen_
 {-# NOINLINE simpleGlobal_ptr #-}
 simpleGlobal_ptr :: Ptr CInt
 simpleGlobal_ptr = unsafePerformIO hs_bindgen_test_globals_454b1c1a1b7d5b60
+foreign import ccall safe "hs_bindgen_test_globals_89495849c6dfe834" hs_bindgen_test_globals_89495849c6dfe834 :: IO (Ptr Config)
+{-# NOINLINE compoundGlobal1_ptr #-}
 {-| __C declaration:__ @compoundGlobal1@
 
     __defined at:__ @globals.h:16:22@
 
     __exported by:__ @globals.h@
 -}
-foreign import ccall safe "hs_bindgen_test_globals_89495849c6dfe834" hs_bindgen_test_globals_89495849c6dfe834 :: IO (Ptr Config)
-{-# NOINLINE compoundGlobal1_ptr #-}
 compoundGlobal1_ptr :: Ptr Config
+{-| __C declaration:__ @compoundGlobal1@
+
+    __defined at:__ @globals.h:16:22@
+
+    __exported by:__ @globals.h@
+-}
 compoundGlobal1_ptr = unsafePerformIO hs_bindgen_test_globals_89495849c6dfe834
+foreign import ccall safe "hs_bindgen_test_globals_4b79fc96cf429b3a" hs_bindgen_test_globals_4b79fc96cf429b3a :: IO (Ptr Inline_struct)
+{-# NOINLINE compoundGlobal2_ptr #-}
 {-| __C declaration:__ @compoundGlobal2@
 
     __defined at:__ @globals.h:19:47@
 
     __exported by:__ @globals.h@
 -}
-foreign import ccall safe "hs_bindgen_test_globals_4b79fc96cf429b3a" hs_bindgen_test_globals_4b79fc96cf429b3a :: IO (Ptr Inline_struct)
-{-# NOINLINE compoundGlobal2_ptr #-}
 compoundGlobal2_ptr :: Ptr Inline_struct
+{-| __C declaration:__ @compoundGlobal2@
+
+    __defined at:__ @globals.h:19:47@
+
+    __exported by:__ @globals.h@
+-}
 compoundGlobal2_ptr = unsafePerformIO hs_bindgen_test_globals_4b79fc96cf429b3a
+foreign import ccall safe "hs_bindgen_test_globals_e408a99291c13956" hs_bindgen_test_globals_e408a99291c13956 :: IO (Ptr CInt)
+{-# NOINLINE nesInteger_ptr #-}
 {-| Non-extern non-static global variables
 
   These kinds of variables need to be treated with care, to avoid duplicate symbols, but do exist in the wild.
@@ -305,133 +319,220 @@ __defined at:__ @globals.h:35:9@
 
 __exported by:__ @globals.h@
 -}
-foreign import ccall safe "hs_bindgen_test_globals_e408a99291c13956" hs_bindgen_test_globals_e408a99291c13956 :: IO (Ptr CInt)
-{-# NOINLINE nesInteger_ptr #-}
 nesInteger_ptr :: Ptr CInt
+{-| Non-extern non-static global variables
+
+  These kinds of variables need to be treated with care, to avoid duplicate symbols, but do exist in the wild.
+
+  We test with various kinds of initializers as we must explicitly ignore them in our parser. The list here roughly follows the definition of `CXCursor` [1], starting at `CXCursor_IntegerLiteral`; see also definition of 'varDecl' in `HsBindgen.Frontend.Pass.Parse.Decl`.
+
+  [1]: https://clang.llvm.org/doxygen/group__CINDEX.html#gaaccc432245b4cd9f2d470913f9ef0013
+
+__C declaration:__ @nesInteger@
+
+__defined at:__ @globals.h:35:9@
+
+__exported by:__ @globals.h@
+-}
 nesInteger_ptr = unsafePerformIO hs_bindgen_test_globals_e408a99291c13956
+foreign import ccall safe "hs_bindgen_test_globals_572819a2ae538f9e" hs_bindgen_test_globals_572819a2ae538f9e :: IO (Ptr CFloat)
+{-# NOINLINE nesFloating_ptr #-}
 {-| __C declaration:__ @nesFloating@
 
     __defined at:__ @globals.h:36:9@
 
     __exported by:__ @globals.h@
 -}
-foreign import ccall safe "hs_bindgen_test_globals_572819a2ae538f9e" hs_bindgen_test_globals_572819a2ae538f9e :: IO (Ptr CFloat)
-{-# NOINLINE nesFloating_ptr #-}
 nesFloating_ptr :: Ptr CFloat
+{-| __C declaration:__ @nesFloating@
+
+    __defined at:__ @globals.h:36:9@
+
+    __exported by:__ @globals.h@
+-}
 nesFloating_ptr = unsafePerformIO hs_bindgen_test_globals_572819a2ae538f9e
+foreign import ccall safe "hs_bindgen_test_globals_b9c5b2253881699a" hs_bindgen_test_globals_b9c5b2253881699a :: IO (Ptr (Ptr CChar))
+{-# NOINLINE nesString1_ptr #-}
 {-| __C declaration:__ @nesString1@
 
     __defined at:__ @globals.h:38:9@
 
     __exported by:__ @globals.h@
 -}
-foreign import ccall safe "hs_bindgen_test_globals_b9c5b2253881699a" hs_bindgen_test_globals_b9c5b2253881699a :: IO (Ptr (Ptr CChar))
-{-# NOINLINE nesString1_ptr #-}
 nesString1_ptr :: Ptr (Ptr CChar)
+{-| __C declaration:__ @nesString1@
+
+    __defined at:__ @globals.h:38:9@
+
+    __exported by:__ @globals.h@
+-}
 nesString1_ptr = unsafePerformIO hs_bindgen_test_globals_b9c5b2253881699a
+foreign import ccall safe "hs_bindgen_test_globals_cea7b6d95dd81460" hs_bindgen_test_globals_cea7b6d95dd81460 :: IO (Ptr (ConstantArray 3
+                                                                                                                                        CChar))
+{-# NOINLINE nesString2_ptr #-}
 {-| __C declaration:__ @nesString2@
 
     __defined at:__ @globals.h:39:9@
 
     __exported by:__ @globals.h@
 -}
-foreign import ccall safe "hs_bindgen_test_globals_cea7b6d95dd81460" hs_bindgen_test_globals_cea7b6d95dd81460 :: IO (Ptr (ConstantArray 3
-                                                                                                                                        CChar))
-{-# NOINLINE nesString2_ptr #-}
 nesString2_ptr :: Ptr (ConstantArray 3 CChar)
+{-| __C declaration:__ @nesString2@
+
+    __defined at:__ @globals.h:39:9@
+
+    __exported by:__ @globals.h@
+-}
 nesString2_ptr = unsafePerformIO hs_bindgen_test_globals_cea7b6d95dd81460
+foreign import ccall safe "hs_bindgen_test_globals_1e474dd7b5a92e6a" hs_bindgen_test_globals_1e474dd7b5a92e6a :: IO (Ptr CChar)
+{-# NOINLINE nesCharacter_ptr #-}
 {-| __C declaration:__ @nesCharacter@
 
     __defined at:__ @globals.h:40:9@
 
     __exported by:__ @globals.h@
 -}
-foreign import ccall safe "hs_bindgen_test_globals_1e474dd7b5a92e6a" hs_bindgen_test_globals_1e474dd7b5a92e6a :: IO (Ptr CChar)
-{-# NOINLINE nesCharacter_ptr #-}
 nesCharacter_ptr :: Ptr CChar
+{-| __C declaration:__ @nesCharacter@
+
+    __defined at:__ @globals.h:40:9@
+
+    __exported by:__ @globals.h@
+-}
 nesCharacter_ptr = unsafePerformIO hs_bindgen_test_globals_1e474dd7b5a92e6a
+foreign import ccall safe "hs_bindgen_test_globals_5e7165450285240d" hs_bindgen_test_globals_5e7165450285240d :: IO (Ptr CInt)
+{-# NOINLINE nesParen_ptr #-}
 {-| __C declaration:__ @nesParen@
 
     __defined at:__ @globals.h:41:9@
 
     __exported by:__ @globals.h@
 -}
-foreign import ccall safe "hs_bindgen_test_globals_5e7165450285240d" hs_bindgen_test_globals_5e7165450285240d :: IO (Ptr CInt)
-{-# NOINLINE nesParen_ptr #-}
 nesParen_ptr :: Ptr CInt
+{-| __C declaration:__ @nesParen@
+
+    __defined at:__ @globals.h:41:9@
+
+    __exported by:__ @globals.h@
+-}
 nesParen_ptr = unsafePerformIO hs_bindgen_test_globals_5e7165450285240d
+foreign import ccall safe "hs_bindgen_test_globals_f00692845b6c8efd" hs_bindgen_test_globals_f00692845b6c8efd :: IO (Ptr CInt)
+{-# NOINLINE nesUnary_ptr #-}
 {-| __C declaration:__ @nesUnary@
 
     __defined at:__ @globals.h:42:9@
 
     __exported by:__ @globals.h@
 -}
-foreign import ccall safe "hs_bindgen_test_globals_f00692845b6c8efd" hs_bindgen_test_globals_f00692845b6c8efd :: IO (Ptr CInt)
-{-# NOINLINE nesUnary_ptr #-}
 nesUnary_ptr :: Ptr CInt
+{-| __C declaration:__ @nesUnary@
+
+    __defined at:__ @globals.h:42:9@
+
+    __exported by:__ @globals.h@
+-}
 nesUnary_ptr = unsafePerformIO hs_bindgen_test_globals_f00692845b6c8efd
+foreign import ccall safe "hs_bindgen_test_globals_d737cdc355737c2b" hs_bindgen_test_globals_d737cdc355737c2b :: IO (Ptr CInt)
+{-# NOINLINE nesBinary_ptr #-}
 {-| __C declaration:__ @nesBinary@
 
     __defined at:__ @globals.h:43:9@
 
     __exported by:__ @globals.h@
 -}
-foreign import ccall safe "hs_bindgen_test_globals_d737cdc355737c2b" hs_bindgen_test_globals_d737cdc355737c2b :: IO (Ptr CInt)
-{-# NOINLINE nesBinary_ptr #-}
 nesBinary_ptr :: Ptr CInt
+{-| __C declaration:__ @nesBinary@
+
+    __defined at:__ @globals.h:43:9@
+
+    __exported by:__ @globals.h@
+-}
 nesBinary_ptr = unsafePerformIO hs_bindgen_test_globals_d737cdc355737c2b
+foreign import ccall safe "hs_bindgen_test_globals_a8a7382ba67a6c7d" hs_bindgen_test_globals_a8a7382ba67a6c7d :: IO (Ptr CInt)
+{-# NOINLINE nesConditional_ptr #-}
 {-| __C declaration:__ @nesConditional@
 
     __defined at:__ @globals.h:44:9@
 
     __exported by:__ @globals.h@
 -}
-foreign import ccall safe "hs_bindgen_test_globals_a8a7382ba67a6c7d" hs_bindgen_test_globals_a8a7382ba67a6c7d :: IO (Ptr CInt)
-{-# NOINLINE nesConditional_ptr #-}
 nesConditional_ptr :: Ptr CInt
+{-| __C declaration:__ @nesConditional@
+
+    __defined at:__ @globals.h:44:9@
+
+    __exported by:__ @globals.h@
+-}
 nesConditional_ptr = unsafePerformIO hs_bindgen_test_globals_a8a7382ba67a6c7d
+foreign import ccall safe "hs_bindgen_test_globals_ea6b1f97253ae23c" hs_bindgen_test_globals_ea6b1f97253ae23c :: IO (Ptr CFloat)
+{-# NOINLINE nesCast_ptr #-}
 {-| __C declaration:__ @nesCast@
 
     __defined at:__ @globals.h:45:9@
 
     __exported by:__ @globals.h@
 -}
-foreign import ccall safe "hs_bindgen_test_globals_ea6b1f97253ae23c" hs_bindgen_test_globals_ea6b1f97253ae23c :: IO (Ptr CFloat)
-{-# NOINLINE nesCast_ptr #-}
 nesCast_ptr :: Ptr CFloat
+{-| __C declaration:__ @nesCast@
+
+    __defined at:__ @globals.h:45:9@
+
+    __exported by:__ @globals.h@
+-}
 nesCast_ptr = unsafePerformIO hs_bindgen_test_globals_ea6b1f97253ae23c
+foreign import ccall safe "hs_bindgen_test_globals_34ed05675f69bccd" hs_bindgen_test_globals_34ed05675f69bccd :: IO (Ptr (Ptr CInt))
+{-# NOINLINE nesCompound_ptr #-}
 {-| __C declaration:__ @nesCompound@
 
     __defined at:__ @globals.h:46:9@
 
     __exported by:__ @globals.h@
 -}
-foreign import ccall safe "hs_bindgen_test_globals_34ed05675f69bccd" hs_bindgen_test_globals_34ed05675f69bccd :: IO (Ptr (Ptr CInt))
-{-# NOINLINE nesCompound_ptr #-}
 nesCompound_ptr :: Ptr (Ptr CInt)
+{-| __C declaration:__ @nesCompound@
+
+    __defined at:__ @globals.h:46:9@
+
+    __exported by:__ @globals.h@
+-}
 nesCompound_ptr = unsafePerformIO hs_bindgen_test_globals_34ed05675f69bccd
+foreign import ccall safe "hs_bindgen_test_globals_9e7c70b133f8e175" hs_bindgen_test_globals_9e7c70b133f8e175 :: IO (Ptr (ConstantArray 4
+                                                                                                                                        HsBindgen.Runtime.Prelude.Word8))
+{-# NOINLINE nesInitList_ptr #-}
 {-| __C declaration:__ @nesInitList@
 
     __defined at:__ @globals.h:47:9@
 
     __exported by:__ @globals.h@
 -}
-foreign import ccall safe "hs_bindgen_test_globals_9e7c70b133f8e175" hs_bindgen_test_globals_9e7c70b133f8e175 :: IO (Ptr (ConstantArray 4
-                                                                                                                                        HsBindgen.Runtime.Prelude.Word8))
-{-# NOINLINE nesInitList_ptr #-}
 nesInitList_ptr :: Ptr (ConstantArray 4
                                       HsBindgen.Runtime.Prelude.Word8)
+{-| __C declaration:__ @nesInitList@
+
+    __defined at:__ @globals.h:47:9@
+
+    __exported by:__ @globals.h@
+-}
 nesInitList_ptr = unsafePerformIO hs_bindgen_test_globals_9e7c70b133f8e175
+foreign import ccall safe "hs_bindgen_test_globals_bd8b34eff62c9b12" hs_bindgen_test_globals_bd8b34eff62c9b12 :: IO (Ptr CBool)
+{-# NOINLINE nesBool_ptr #-}
 {-| __C declaration:__ @nesBool@
 
     __defined at:__ @globals.h:48:9@
 
     __exported by:__ @globals.h@
 -}
-foreign import ccall safe "hs_bindgen_test_globals_bd8b34eff62c9b12" hs_bindgen_test_globals_bd8b34eff62c9b12 :: IO (Ptr CBool)
-{-# NOINLINE nesBool_ptr #-}
 nesBool_ptr :: Ptr CBool
+{-| __C declaration:__ @nesBool@
+
+    __defined at:__ @globals.h:48:9@
+
+    __exported by:__ @globals.h@
+-}
 nesBool_ptr = unsafePerformIO hs_bindgen_test_globals_bd8b34eff62c9b12
+foreign import ccall safe "hs_bindgen_test_globals_235c0c54701b0df5" hs_bindgen_test_globals_235c0c54701b0df5 :: IO (Ptr (ConstantArray 4096
+                                                                                                                                        HsBindgen.Runtime.Prelude.Word8))
+{-# NOINLINE streamBinary_ptr #-}
 {-| Additional examples of global variables, abstracted from real examples
 
   The `streamBinary`/`streamBinary_len` example comes from [1], and is an example of a non-extern non-static global (indeed, the header does not even use  once @ or similar).
@@ -444,32 +545,55 @@ __defined at:__ @globals.h:60:9@
 
 __exported by:__ @globals.h@
 -}
-foreign import ccall safe "hs_bindgen_test_globals_235c0c54701b0df5" hs_bindgen_test_globals_235c0c54701b0df5 :: IO (Ptr (ConstantArray 4096
-                                                                                                                                        HsBindgen.Runtime.Prelude.Word8))
-{-# NOINLINE streamBinary_ptr #-}
 streamBinary_ptr :: Ptr (ConstantArray 4096
                                        HsBindgen.Runtime.Prelude.Word8)
+{-| Additional examples of global variables, abstracted from real examples
+
+  The `streamBinary`/`streamBinary_len` example comes from [1], and is an example of a non-extern non-static global (indeed, the header does not even use  once @ or similar).
+
+  [1]: https://github.com/analogdevicesinc/no-OS/blob/855c4b3c34f2297865e448661ba4fcc0931bf430/drivers/rf-transceiver/talise/firmware/talise_stream_binary.h#L322-L325
+
+__C declaration:__ @streamBinary@
+
+__defined at:__ @globals.h:60:9@
+
+__exported by:__ @globals.h@
+-}
 streamBinary_ptr = unsafePerformIO hs_bindgen_test_globals_235c0c54701b0df5
+foreign import ccall safe "hs_bindgen_test_globals_b1ee511251d335dd" hs_bindgen_test_globals_b1ee511251d335dd :: IO (Ptr HsBindgen.Runtime.Prelude.Word32)
+{-# NOINLINE streamBinary_len_ptr #-}
 {-| __C declaration:__ @streamBinary_len@
 
     __defined at:__ @globals.h:404:10@
 
     __exported by:__ @globals.h@
 -}
-foreign import ccall safe "hs_bindgen_test_globals_b1ee511251d335dd" hs_bindgen_test_globals_b1ee511251d335dd :: IO (Ptr HsBindgen.Runtime.Prelude.Word32)
-{-# NOINLINE streamBinary_len_ptr #-}
 streamBinary_len_ptr :: Ptr HsBindgen.Runtime.Prelude.Word32
+{-| __C declaration:__ @streamBinary_len@
+
+    __defined at:__ @globals.h:404:10@
+
+    __exported by:__ @globals.h@
+-}
 streamBinary_len_ptr = unsafePerformIO hs_bindgen_test_globals_b1ee511251d335dd
+foreign import ccall safe "hs_bindgen_test_globals_6a47eaca372272ae" hs_bindgen_test_globals_6a47eaca372272ae :: IO (Ptr Struct2_t)
+{-# NOINLINE some_global_struct_ptr #-}
 {-| __C declaration:__ @some_global_struct@
 
     __defined at:__ @globals.h:425:11@
 
     __exported by:__ @globals.h@
 -}
-foreign import ccall safe "hs_bindgen_test_globals_6a47eaca372272ae" hs_bindgen_test_globals_6a47eaca372272ae :: IO (Ptr Struct2_t)
-{-# NOINLINE some_global_struct_ptr #-}
 some_global_struct_ptr :: Ptr Struct2_t
+{-| __C declaration:__ @some_global_struct@
+
+    __defined at:__ @globals.h:425:11@
+
+    __exported by:__ @globals.h@
+-}
 some_global_struct_ptr = unsafePerformIO hs_bindgen_test_globals_6a47eaca372272ae
+foreign import ccall safe "hs_bindgen_test_globals_b8fe2f6ed308e786" hs_bindgen_test_globals_b8fe2f6ed308e786 :: IO (Ptr CInt)
+{-# NOINLINE globalConstant_ptr #-}
 {-| Constant
 
   Although this is a constant, we don't expect an initializer (since it's `extern`).
@@ -480,26 +604,42 @@ __defined at:__ @globals.h:445:18@
 
 __exported by:__ @globals.h@
 -}
-foreign import ccall safe "hs_bindgen_test_globals_b8fe2f6ed308e786" hs_bindgen_test_globals_b8fe2f6ed308e786 :: IO (Ptr CInt)
-{-# NOINLINE globalConstant_ptr #-}
 globalConstant_ptr :: Ptr CInt
+{-| Constant
+
+  Although this is a constant, we don't expect an initializer (since it's `extern`).
+
+__C declaration:__ @globalConstant@
+
+__defined at:__ @globals.h:445:18@
+
+__exported by:__ @globals.h@
+-}
 globalConstant_ptr = unsafePerformIO hs_bindgen_test_globals_b8fe2f6ed308e786
 {-# NOINLINE globalConstant #-}
 globalConstant :: CInt
 globalConstant = unsafePerformIO (peek globalConstant_ptr)
+foreign import ccall safe "hs_bindgen_test_globals_3f4a524bb162b165" hs_bindgen_test_globals_3f4a524bb162b165 :: IO (Ptr ConstInt)
+{-# NOINLINE anotherGlobalConstant_ptr #-}
 {-| __C declaration:__ @anotherGlobalConstant@
 
     __defined at:__ @globals.h:449:17@
 
     __exported by:__ @globals.h@
 -}
-foreign import ccall safe "hs_bindgen_test_globals_3f4a524bb162b165" hs_bindgen_test_globals_3f4a524bb162b165 :: IO (Ptr ConstInt)
-{-# NOINLINE anotherGlobalConstant_ptr #-}
 anotherGlobalConstant_ptr :: Ptr ConstInt
+{-| __C declaration:__ @anotherGlobalConstant@
+
+    __defined at:__ @globals.h:449:17@
+
+    __exported by:__ @globals.h@
+-}
 anotherGlobalConstant_ptr = unsafePerformIO hs_bindgen_test_globals_3f4a524bb162b165
 {-# NOINLINE anotherGlobalConstant #-}
 anotherGlobalConstant :: ConstInt
 anotherGlobalConstant = unsafePerformIO (peek anotherGlobalConstant_ptr)
+foreign import ccall safe "hs_bindgen_test_globals_834271d76b418960" hs_bindgen_test_globals_834271d76b418960 :: IO (Ptr CInt)
+{-# NOINLINE staticConst_ptr #-}
 {-| Constant, but local to the file
 
   Unlike with `extern`, in this we _do_ expect an initializer.
@@ -510,9 +650,17 @@ __defined at:__ @globals.h:454:18@
 
 __exported by:__ @globals.h@
 -}
-foreign import ccall safe "hs_bindgen_test_globals_834271d76b418960" hs_bindgen_test_globals_834271d76b418960 :: IO (Ptr CInt)
-{-# NOINLINE staticConst_ptr #-}
 staticConst_ptr :: Ptr CInt
+{-| Constant, but local to the file
+
+  Unlike with `extern`, in this we _do_ expect an initializer.
+
+__C declaration:__ @staticConst@
+
+__defined at:__ @globals.h:454:18@
+
+__exported by:__ @globals.h@
+-}
 staticConst_ptr = unsafePerformIO hs_bindgen_test_globals_834271d76b418960
 {-# NOINLINE staticConst #-}
 staticConst :: CInt
@@ -532,15 +680,21 @@ constArray1_ptr = unsafePerformIO hs_bindgen_test_globals_e7a61097e2415261
 {-# NOINLINE constArray1 #-}
 constArray1 :: ConstantArray 4 CInt
 constArray1 = unsafePerformIO (peek constArray1_ptr)
+foreign import ccall safe "hs_bindgen_test_globals_5e76637230135838" hs_bindgen_test_globals_5e76637230135838 :: IO (Ptr ConstIntArray)
+{-# NOINLINE constArray2_ptr #-}
 {-| __C declaration:__ @constArray2@
 
     __defined at:__ @globals.h:464:22@
 
     __exported by:__ @globals.h@
 -}
-foreign import ccall safe "hs_bindgen_test_globals_5e76637230135838" hs_bindgen_test_globals_5e76637230135838 :: IO (Ptr ConstIntArray)
-{-# NOINLINE constArray2_ptr #-}
 constArray2_ptr :: Ptr ConstIntArray
+{-| __C declaration:__ @constArray2@
+
+    __defined at:__ @globals.h:464:22@
+
+    __exported by:__ @globals.h@
+-}
 constArray2_ptr = unsafePerformIO hs_bindgen_test_globals_5e76637230135838
 foreign import ccall safe "hs_bindgen_test_globals_c7d3a2347092dfe0" hs_bindgen_test_globals_c7d3a2347092dfe0 :: IO (Ptr Tuple)
 {-# NOINLINE constTuple_ptr #-}

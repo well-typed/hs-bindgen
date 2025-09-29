@@ -24679,22 +24679,7 @@
               (PrimChar
                 (PrimSignImplicit Nothing))]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Function declarations"],
-          commentOrigin = Just
-            "args_char1",
-          commentLocation = Just
-            "reparse.h:17:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -24736,19 +24721,7 @@
               (PrimChar
                 (PrimSignExplicit Signed))]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "args_char2",
-          commentLocation = Just
-            "reparse.h:18:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -24790,19 +24763,7 @@
               (PrimChar
                 (PrimSignExplicit Unsigned))]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "args_char3",
-          commentLocation = Just
-            "reparse.h:19:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -24843,19 +24804,7 @@
             TypePrim
               (PrimIntegral PrimShort Signed)]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "args_short1",
-          commentLocation = Just
-            "reparse.h:21:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -24896,19 +24845,7 @@
             TypePrim
               (PrimIntegral PrimShort Signed)]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "args_short2",
-          commentLocation = Just
-            "reparse.h:22:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -24951,19 +24888,7 @@
                 PrimShort
                 Unsigned)]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "args_short3",
-          commentLocation = Just
-            "reparse.h:23:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -25004,19 +24929,7 @@
             TypePrim
               (PrimIntegral PrimInt Signed)]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "args_int1",
-          commentLocation = Just
-            "reparse.h:25:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -25057,19 +24970,7 @@
             TypePrim
               (PrimIntegral PrimInt Signed)]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "args_int2",
-          commentLocation = Just
-            "reparse.h:26:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -25110,19 +25011,7 @@
             TypePrim
               (PrimIntegral PrimInt Unsigned)]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "args_int3",
-          commentLocation = Just
-            "reparse.h:27:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -25163,19 +25052,7 @@
             TypePrim
               (PrimIntegral PrimLong Signed)]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "args_long1",
-          commentLocation = Just
-            "reparse.h:29:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -25216,19 +25093,7 @@
             TypePrim
               (PrimIntegral PrimLong Signed)]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "args_long2",
-          commentLocation = Just
-            "reparse.h:30:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -25271,19 +25136,7 @@
                 PrimLong
                 Unsigned)]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "args_long3",
-          commentLocation = Just
-            "reparse.h:31:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -25324,19 +25177,7 @@
             TypePrim
               (PrimFloating PrimFloat)]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "args_float",
-          commentLocation = Just
-            "reparse.h:33:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -25377,19 +25218,7 @@
             TypePrim
               (PrimFloating PrimDouble)]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "args_double",
-          commentLocation = Just
-            "reparse.h:34:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -25429,19 +25258,7 @@
               NameOriginInSource,
             TypePrim PrimBool]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "args_bool1",
-          commentLocation = Just
-            "reparse.h:35:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -25489,19 +25306,7 @@
                   "Some_struct"}
               NameOriginInSource]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "args_struct",
-          commentLocation = Just
-            "reparse.h:37:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -25549,19 +25354,7 @@
                   "Some_union"}
               NameOriginInSource]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "args_union",
-          commentLocation = Just
-            "reparse.h:38:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -25609,19 +25402,7 @@
                   "Some_enum"}
               NameOriginInSource]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "args_enum",
-          commentLocation = Just
-            "reparse.h:39:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -25663,19 +25444,7 @@
               (TypePrim
                 (PrimIntegral PrimInt Signed))]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "args_pointer1",
-          commentLocation = Just
-            "reparse.h:41:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -25719,19 +25488,7 @@
                 (TypePrim
                   (PrimIntegral PrimInt Signed)))]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "args_pointer2",
-          commentLocation = Just
-            "reparse.h:42:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -25771,19 +25528,7 @@
               NameOriginInSource,
             TypePointer TypeVoid]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "args_pointer3",
-          commentLocation = Just
-            "reparse.h:43:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -25819,18 +25564,7 @@
               nameC = Name "A",
               nameHsIdent = HsIdentifier "A"}
             NameOriginInSource)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "ret_A",
-          commentLocation = Just
-            "reparse.h:47:3",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -25869,19 +25603,7 @@
           (TypePrim
             (PrimChar
               (PrimSignImplicit Nothing)))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "ret_char1",
-          commentLocation = Just
-            "reparse.h:49:20",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -25920,19 +25642,7 @@
           (TypePrim
             (PrimChar
               (PrimSignExplicit Signed)))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "ret_char2",
-          commentLocation = Just
-            "reparse.h:50:20",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -25971,19 +25681,7 @@
           (TypePrim
             (PrimChar
               (PrimSignExplicit Unsigned)))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "ret_char3",
-          commentLocation = Just
-            "reparse.h:51:20",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -26023,19 +25721,7 @@
             (PrimIntegral
               PrimShort
               Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "ret_short1",
-          commentLocation = Just
-            "reparse.h:53:20",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -26075,19 +25761,7 @@
             (PrimIntegral
               PrimShort
               Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "ret_short2",
-          commentLocation = Just
-            "reparse.h:54:20",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -26127,19 +25801,7 @@
             (PrimIntegral
               PrimShort
               Unsigned))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "ret_short3",
-          commentLocation = Just
-            "reparse.h:55:20",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -26177,18 +25839,7 @@
               NameOriginInSource]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "ret_int1",
-          commentLocation = Just
-            "reparse.h:57:20",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -26226,18 +25877,7 @@
               NameOriginInSource]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "ret_int2",
-          commentLocation = Just
-            "reparse.h:58:20",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -26277,18 +25917,7 @@
             (PrimIntegral
               PrimInt
               Unsigned))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "ret_int3",
-          commentLocation = Just
-            "reparse.h:59:20",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -26328,19 +25957,7 @@
             (PrimIntegral
               PrimLong
               Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "ret_long1",
-          commentLocation = Just
-            "reparse.h:61:20",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -26380,19 +25997,7 @@
             (PrimIntegral
               PrimLong
               Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "ret_long2",
-          commentLocation = Just
-            "reparse.h:62:20",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -26432,19 +26037,7 @@
             (PrimIntegral
               PrimLong
               Unsigned))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "ret_long3",
-          commentLocation = Just
-            "reparse.h:63:20",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -26482,19 +26075,7 @@
               NameOriginInSource]
           (TypePrim
             (PrimFloating PrimFloat))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "ret_float",
-          commentLocation = Just
-            "reparse.h:65:20",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -26532,19 +26113,7 @@
               NameOriginInSource]
           (TypePrim
             (PrimFloating PrimDouble))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "ret_double",
-          commentLocation = Just
-            "reparse.h:66:20",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -26581,19 +26150,7 @@
                 nameHsIdent = HsIdentifier "A"}
               NameOriginInSource]
           (TypePrim PrimBool)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "ret_bool1",
-          commentLocation = Just
-            "reparse.h:67:20",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -26638,19 +26195,7 @@
               nameHsIdent = HsIdentifier
                 "Some_struct"}
             NameOriginInSource)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "ret_struct",
-          commentLocation = Just
-            "reparse.h:69:20",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -26695,19 +26240,7 @@
               nameHsIdent = HsIdentifier
                 "Some_union"}
             NameOriginInSource)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "ret_union",
-          commentLocation = Just
-            "reparse.h:70:20",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -26752,18 +26285,7 @@
               nameHsIdent = HsIdentifier
                 "Some_enum"}
             NameOriginInSource)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "ret_enum",
-          commentLocation = Just
-            "reparse.h:71:20",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -26805,19 +26327,7 @@
               (PrimIntegral
                 PrimInt
                 Signed)))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "ret_pointer1",
-          commentLocation = Just
-            "reparse.h:73:20",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -26861,19 +26371,7 @@
                 (PrimIntegral
                   PrimInt
                   Signed))))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "ret_pointer2",
-          commentLocation = Just
-            "reparse.h:74:20",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -26911,19 +26409,7 @@
                 nameHsIdent = HsIdentifier "A"}
               NameOriginInSource]
           (TypePointer TypeVoid)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "ret_pointer3",
-          commentLocation = Just
-            "reparse.h:75:20",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -26961,18 +26447,7 @@
               NameOriginInSource]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "body1",
-          commentLocation = Just
-            "reparse.h:79:5",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -27008,18 +26483,7 @@
               nameC = Name "A",
               nameHsIdent = HsIdentifier "A"}
             NameOriginInSource)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "body2",
-          commentLocation = Just
-            "reparse.h:80:3",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -27060,19 +26524,7 @@
             TypeComplex
               (PrimFloating PrimFloat)]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "args_complex_float",
-          commentLocation = Just
-            "reparse.h:84:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -27113,19 +26565,7 @@
             TypeComplex
               (PrimFloating PrimDouble)]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "args_complex_double",
-          commentLocation = Just
-            "reparse.h:85:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -27164,19 +26604,7 @@
               NameOriginInSource]
           (TypeComplex
             (PrimFloating PrimFloat))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "ret_complex_float",
-          commentLocation = Just
-            "reparse.h:86:17",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -27215,19 +26643,7 @@
               NameOriginInSource]
           (TypeComplex
             (PrimFloating PrimDouble))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "ret_complex_double",
-          commentLocation = Just
-            "reparse.h:87:17",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -27267,19 +26683,7 @@
               NameOriginInSource,
             TypePrim PrimBool]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "bespoke_args1",
-          commentLocation = Just
-            "reparse.h:94:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -27319,19 +26723,7 @@
               NameOriginInSource,
             TypePrim PrimSize]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "bespoke_args2",
-          commentLocation = Just
-            "reparse.h:95:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -27368,19 +26760,7 @@
                 nameHsIdent = HsIdentifier "A"}
               NameOriginInSource]
           (TypePrim PrimBool)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "bespoke_ret1",
-          commentLocation = Just
-            "reparse.h:97:8",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -27417,19 +26797,7 @@
                 nameHsIdent = HsIdentifier "A"}
               NameOriginInSource]
           (TypePrim PrimSize)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "bespoke_ret2",
-          commentLocation = Just
-            "reparse.h:98:8",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -27468,20 +26836,7 @@
                   nameHsIdent = HsIdentifier "A"}
                 NameOriginInSource)]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [TextContent "Arrays"],
-          commentOrigin = Just
-            "arr_args1",
-          commentLocation = Just
-            "reparse.h:104:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -27522,19 +26877,7 @@
                     nameHsIdent = HsIdentifier "A"}
                   NameOriginInSource))]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "arr_args2",
-          commentLocation = Just
-            "reparse.h:105:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -27575,19 +26918,7 @@
                   nameHsIdent = HsIdentifier "A"}
                 NameOriginInSource)]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "arr_args3",
-          commentLocation = Just
-            "reparse.h:106:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -27630,19 +26961,7 @@
                     nameHsIdent = HsIdentifier "A"}
                   NameOriginInSource))]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "arr_args4",
-          commentLocation = Just
-            "reparse.h:107:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -27684,22 +27003,7 @@
             TypePointer
               (TypeFun [] TypeVoid)]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Function pointers"],
-          commentOrigin = Just
-            "funptr_args1",
-          commentLocation = Just
-            "reparse.h:126:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -27744,19 +27048,7 @@
                 (TypePrim
                   (PrimIntegral PrimInt Signed)))]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "funptr_args2",
-          commentLocation = Just
-            "reparse.h:127:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -27804,19 +27096,7 @@
                     (PrimIntegral PrimInt Signed)]
                 TypeVoid)]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "funptr_args3",
-          commentLocation = Just
-            "reparse.h:128:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -27871,19 +27151,7 @@
                   (PrimChar
                     (PrimSignImplicit Nothing))))]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "funptr_args4",
-          commentLocation = Just
-            "reparse.h:129:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -27941,19 +27209,7 @@
                       PrimInt
                       Signed))))]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "funptr_args5",
-          commentLocation = Just
-            "reparse.h:130:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -27990,26 +27246,7 @@
                 nameHsIdent = HsIdentifier "A"}
               NameOriginInSource]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Comments in awkward places"],
-          commentOrigin = Just
-            "comments1",
-          commentLocation = Just
-            "reparse.h:144:25",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = [
-            Paragraph
-              [
-                TextContent
-                  "(Prior to language-c we failed to parse there.)"]]},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -28052,28 +27289,7 @@
                 (PrimChar
                   (PrimSignImplicit Nothing)))]
           TypeVoid),
-      foreignImportComment =
-      Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "`const` qualifier"],
-          commentOrigin = Just
-            "const_prim_before1",
-          commentLocation = Just
-            "reparse.h:179:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren =
-          [
-            Paragraph
-              [
-                TextContent
-                  "NOTE: These were not parsed correctly prior to the switch to language-c."]]},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -28116,19 +27332,7 @@
                 (PrimChar
                   (PrimSignExplicit Signed)))]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "const_prim_before2",
-          commentLocation = Just
-            "reparse.h:180:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -28171,19 +27375,7 @@
                 (PrimChar
                   (PrimSignExplicit Unsigned)))]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "const_prim_before3",
-          commentLocation = Just
-            "reparse.h:181:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -28226,19 +27418,7 @@
                 (PrimChar
                   (PrimSignImplicit Nothing)))]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "const_prim_after1",
-          commentLocation = Just
-            "reparse.h:182:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -28281,19 +27461,7 @@
                 (PrimChar
                   (PrimSignExplicit Signed)))]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "const_prim_after2",
-          commentLocation = Just
-            "reparse.h:183:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -28336,19 +27504,7 @@
                 (PrimChar
                   (PrimSignExplicit Unsigned)))]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "const_prim_after3",
-          commentLocation = Just
-            "reparse.h:184:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -28390,19 +27546,7 @@
               (TypePrim
                 (PrimFloating PrimFloat))]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "const_withoutSign_before1",
-          commentLocation = Just
-            "reparse.h:188:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -28444,19 +27588,7 @@
               (TypePrim
                 (PrimFloating PrimDouble))]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "const_withoutSign_before2",
-          commentLocation = Just
-            "reparse.h:189:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -28496,19 +27628,7 @@
               NameOriginInSource,
             TypeConst (TypePrim PrimBool)]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "const_withoutSign_before3",
-          commentLocation = Just
-            "reparse.h:190:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -28557,19 +27677,7 @@
                     "Some_struct"}
                 NameOriginInSource)]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "const_withoutSign_before4",
-          commentLocation = Just
-            "reparse.h:191:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -28618,19 +27726,7 @@
                     "Some_union"}
                 NameOriginInSource)]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "const_withoutSign_before5",
-          commentLocation = Just
-            "reparse.h:192:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -28679,19 +27775,7 @@
                     "Some_enum"}
                 NameOriginInSource)]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "const_withoutSign_before6",
-          commentLocation = Just
-            "reparse.h:193:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -28731,19 +27815,7 @@
               NameOriginInSource,
             TypeConst (TypePrim PrimBool)]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "const_withoutSign_before7",
-          commentLocation = Just
-            "reparse.h:194:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -28783,19 +27855,7 @@
               NameOriginInSource,
             TypeConst (TypePrim PrimSize)]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "const_withoutSign_before8",
-          commentLocation = Just
-            "reparse.h:195:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -28837,19 +27897,7 @@
               (TypePrim
                 (PrimFloating PrimFloat))]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "const_withoutSign_after1",
-          commentLocation = Just
-            "reparse.h:197:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -28891,19 +27939,7 @@
               (TypePrim
                 (PrimFloating PrimDouble))]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "const_withoutSign_after2",
-          commentLocation = Just
-            "reparse.h:198:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -28943,19 +27979,7 @@
               NameOriginInSource,
             TypeConst (TypePrim PrimBool)]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "const_withoutSign_after3",
-          commentLocation = Just
-            "reparse.h:199:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -29004,19 +28028,7 @@
                     "Some_struct"}
                 NameOriginInSource)]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "const_withoutSign_after4",
-          commentLocation = Just
-            "reparse.h:200:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -29065,19 +28077,7 @@
                     "Some_union"}
                 NameOriginInSource)]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "const_withoutSign_after5",
-          commentLocation = Just
-            "reparse.h:201:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -29126,19 +28126,7 @@
                     "Some_enum"}
                 NameOriginInSource)]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "const_withoutSign_after6",
-          commentLocation = Just
-            "reparse.h:202:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -29178,19 +28166,7 @@
               NameOriginInSource,
             TypeConst (TypePrim PrimBool)]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "const_withoutSign_after7",
-          commentLocation = Just
-            "reparse.h:203:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -29230,19 +28206,7 @@
               NameOriginInSource,
             TypeConst (TypePrim PrimSize)]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "const_withoutSign_after8",
-          commentLocation = Just
-            "reparse.h:204:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -29285,19 +28249,7 @@
                 (TypePrim
                   (PrimIntegral PrimInt Signed)))]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "const_pointers_args1",
-          commentLocation = Just
-            "reparse.h:208:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -29340,19 +28292,7 @@
                 (TypePrim
                   (PrimIntegral PrimInt Signed)))]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "const_pointers_args2",
-          commentLocation = Just
-            "reparse.h:209:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -29395,19 +28335,7 @@
                 (TypePrim
                   (PrimIntegral PrimInt Signed)))]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "const_pointers_args3",
-          commentLocation = Just
-            "reparse.h:210:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -29453,19 +28381,7 @@
                       PrimInt
                       Signed))))]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "const_pointers_args4",
-          commentLocation = Just
-            "reparse.h:211:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -29511,19 +28427,7 @@
                       PrimInt
                       Signed))))]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "const_pointers_args5",
-          commentLocation = Just
-            "reparse.h:212:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -29566,19 +28470,7 @@
                 (PrimIntegral
                   PrimInt
                   Signed))))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "const_pointers_ret1",
-          commentLocation = Just
-            "reparse.h:214:19",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -29621,19 +28513,7 @@
                 (PrimIntegral
                   PrimInt
                   Signed))))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "const_pointers_ret2",
-          commentLocation = Just
-            "reparse.h:215:19",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -29676,19 +28556,7 @@
                 (PrimIntegral
                   PrimInt
                   Signed))))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "const_pointers_ret3",
-          commentLocation = Just
-            "reparse.h:216:19",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -29732,19 +28600,7 @@
                   (PrimIntegral
                     PrimInt
                     Signed)))))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "const_pointers_ret4",
-          commentLocation = Just
-            "reparse.h:217:19",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -29788,19 +28644,7 @@
                   (PrimIntegral
                     PrimInt
                     Signed)))))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "const_pointers_ret5",
-          commentLocation = Just
-            "reparse.h:218:19",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -29840,19 +28684,7 @@
                     nameHsIdent = HsIdentifier "A"}
                   NameOriginInSource))]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "const_array_elem1",
-          commentLocation = Just
-            "reparse.h:246:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -29894,19 +28726,7 @@
                       nameHsIdent = HsIdentifier "A"}
                     NameOriginInSource)))]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "const_array_elem2",
-          commentLocation = Just
-            "reparse.h:247:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -29948,19 +28768,7 @@
                       nameHsIdent = HsIdentifier "A"}
                     NameOriginInSource)))]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "const_array_elem3",
-          commentLocation = Just
-            "reparse.h:248:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -29996,22 +28804,7 @@
               nameC = Name "A",
               nameHsIdent = HsIdentifier "A"}
             NameOriginInSource)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Just
-            [
-              TextContent
-                "Other examples we reparsed /incorrectly/ before language-c"],
-          commentOrigin = Just
-            "noParams1",
-          commentLocation = Just
-            "reparse.h:256:3",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -30047,19 +28840,7 @@
               nameC = Name "A",
               nameHsIdent = HsIdentifier "A"}
             NameOriginInSource)),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "noParams2",
-          commentLocation = Just
-            "reparse.h:257:3",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -30104,19 +28885,7 @@
                 (TypePrim
                   (PrimIntegral PrimInt Signed)))]
           TypeVoid),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "noParams3",
-          commentLocation = Just
-            "reparse.h:258:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -30156,19 +28925,7 @@
               NameOriginInSource]
           (TypePointer
             (TypeFun [] TypeVoid))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "funptr_ret1",
-          commentLocation = Just
-            "reparse.h:262:8",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -30213,19 +28970,7 @@
                 (PrimIntegral
                   PrimInt
                   Signed))))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "funptr_ret2",
-          commentLocation = Just
-            "reparse.h:263:8",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -30271,19 +29016,7 @@
                 TypePrim
                   (PrimIntegral PrimInt Signed)]
               TypeVoid))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "funptr_ret3",
-          commentLocation = Just
-            "reparse.h:264:8",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -30336,19 +29069,7 @@
               (TypePrim
                 (PrimChar
                   (PrimSignImplicit Nothing)))))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "funptr_ret4",
-          commentLocation = Just
-            "reparse.h:265:8",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -30404,19 +29125,7 @@
                   (PrimIntegral
                     PrimInt
                     Signed)))))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "funptr_ret5",
-          commentLocation = Just
-            "reparse.h:269:20",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -30473,19 +29182,7 @@
                     (PrimIntegral
                       PrimInt
                       Signed))))))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "funptr_ret6",
-          commentLocation = Just
-            "reparse.h:270:20",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -30542,19 +29239,7 @@
                     (PrimIntegral
                       PrimInt
                       Signed))))))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "funptr_ret7",
-          commentLocation = Just
-            "reparse.h:271:20",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -30611,19 +29296,7 @@
                     (PrimIntegral
                       PrimInt
                       Signed))))))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "funptr_ret8",
-          commentLocation = Just
-            "reparse.h:272:20",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -30681,19 +29354,7 @@
                       (PrimIntegral
                         PrimInt
                         Signed)))))))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "funptr_ret9",
-          commentLocation = Just
-            "reparse.h:273:20",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
@@ -30751,19 +29412,7 @@
                       (PrimIntegral
                         PrimInt
                         Signed)))))))),
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "funptr_ret10",
-          commentLocation = Just
-            "reparse.h:274:20",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["reparse.h"],
-              headerInclude = "reparse.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple]

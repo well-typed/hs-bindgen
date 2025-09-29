@@ -2,6 +2,7 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE TemplateHaskell #-}
+{-# OPTIONS_HADDOCK prune #-}
 
 module Example where
 
@@ -73,17 +74,17 @@ foreign import ccall safe "hs_bindgen_test_vector_c8cd49ec7dbcac25" new_vector
      -}
   -> IO (Ptr.Ptr Vector)
 
+foreign import ccall unsafe "hs_bindgen_test_vector_7672b9e7f001c998" hs_bindgen_test_vector_7672b9e7f001c998
+  :: IO (Ptr.FunPtr (FC.CDouble -> FC.CDouble -> IO (Ptr.Ptr Vector)))
+
+{-# NOINLINE new_vector_ptr #-}
+
 {-| __C declaration:__ @new_vector@
 
     __defined at:__ @vector.h:6:9@
 
     __exported by:__ @vector.h@
 -}
-foreign import ccall unsafe "hs_bindgen_test_vector_7672b9e7f001c998" hs_bindgen_test_vector_7672b9e7f001c998
-  :: IO (Ptr.FunPtr (FC.CDouble -> FC.CDouble -> IO (Ptr.Ptr Vector)))
-
-{-# NOINLINE new_vector_ptr #-}
-
 new_vector_ptr :: Ptr.FunPtr (FC.CDouble -> FC.CDouble -> IO (Ptr.Ptr Vector))
 new_vector_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_vector_7672b9e7f001c998
