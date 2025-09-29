@@ -86,4 +86,4 @@ test-suite test-runtime
     , tasty             ^>=1.5
     , tasty-expected-failure ^>= 0.12.3
     , tasty-hunit       ^>=0.10.2
-    , tasty-quickcheck  ^>=0.11.1
+    , tasty-quickcheck  ^>=0.11

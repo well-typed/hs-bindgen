@@ -42,7 +42,7 @@ library
   build-depends:
     , ansi-terminal
     , base
-    , Diff           ^>=1.0.1.1
+    , Diff           >=0.5 &&  < 2.0
     , primitive
     , transformers
     , edit-distance ^>=0.2.2.1
@@ -56,7 +56,7 @@ benchmark ansi-diff-bench
     , ansi-diff
     , bytestring
     , deepseq
-    , Diff           ^>=1.0.1.1
+    , Diff
     , directory
     , edit-distance
     , filepath

@@ -1,7 +1,6 @@
 module HsBindgen.Backend.Hs.Haddock.Config where
 
-import Data.Default (Default)
-import GHC.Generics (Generic)
+import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
   Haddock configuration
@@ -16,4 +15,6 @@ data HaddockConfig = HaddockConfig {
 data PathStyle = Short
                | Full
   deriving stock (Show, Eq, Generic)
-  deriving anyclass Default
+
+instance Default PathStyle where
+  def = Short
