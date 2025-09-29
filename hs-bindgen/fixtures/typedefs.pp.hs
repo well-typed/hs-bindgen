@@ -10,7 +10,7 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import Data.Bits (FiniteBits)
-import Prelude (Bounded, Enum, Eq, Integral, Num, Ord, Read, Real, Show)
+import Prelude (Bounded, Enum, Eq, IO, Integral, Num, Ord, Read, Real, Show)
 
 {-| __C declaration:__ @myint@
 
@@ -35,3 +35,13 @@ newtype Intptr = Intptr
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
+
+{-| __C declaration:__ @int2int@
+
+    __defined at:__ @typedefs.h:5:13@
+
+    __exported by:__ @typedefs.h@
+-}
+newtype Int2int = Int2int
+  { un_Int2int :: FC.CInt -> IO FC.CInt
+  }

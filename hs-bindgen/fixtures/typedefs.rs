@@ -2,3 +2,9 @@
 
 pub type myint = ::std::os::raw::c_int;
 pub type intptr = *mut ::std::os::raw::c_int;
+pub type int2int = ::std::option::Option<
+    unsafe extern "C" fn(arg1: ::std::os::raw::c_int) -> ::std::os::raw::c_int,
+>;
+unsafe extern "C" {
+    pub fn foo(arg1: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+}
