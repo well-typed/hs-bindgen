@@ -123,7 +123,7 @@ peekBitOffWidth ptr off width
 
     | (0x3f .&. off) + width <= 64 = do
         w <- peekByteOff ptr (complement 0x3f .&. off) :: IO Word64
-        return $! extend (fromIntegral (unsafeShiftR w (0x3f .&. off) .&. loMask width)) width
+        return $! extend (unsafeShiftR w (0x3f .&. off) .&. loMask width) width
 
     | otherwise = fail $ "peekBitOffWidth _ " ++ show off ++ " " ++ show ptr ++ ": too wide"
 
@@ -174,7 +174,7 @@ pokeBitOffWidth ptr off width x
 
     | (0x3f .&. off) + width <= 64 = do
         w <- peekByteOff ptr (complement 0x3f .&. off) :: IO Word64
-        let x' = fromIntegral (narrow x width) :: Word64
+        let x' = narrow x width :: Word64
         let mask = unsafeShiftL (loMask width) (0x3f .&. off)
             x''  = unsafeShiftL x'             (0x3f .&. off)
 

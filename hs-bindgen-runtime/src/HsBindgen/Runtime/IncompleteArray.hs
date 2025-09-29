@@ -49,6 +49,13 @@ isIncompleteArray ::
   => Ptr a
   -> Ptr arrayLike
 isIncompleteArray = castPtr
+  where
+    -- The 'Coercible' constraint is unused but that is intentional, so we
+    -- circumvent the @-Wredundant-constraints@ warning by defining @_unused@.
+    --
+    -- Why is it intentional? The constraint adds a little bit of type safety to
+    -- the use of 'castPtr', which can normally cast pointers arbitrarily.
+    _unused = coerce @arrayLike @(IncompleteArray a)
 
 -- | Use a pointer to a whole array as a pointer to the first element of said
 -- array.
@@ -60,6 +67,13 @@ isFirstElem ::
   => Ptr arrayLike
   -> Ptr a
 isFirstElem ptr = castPtr ptr
+  where
+    -- The 'Coercible' constraint is unused but that is intentional, so we
+    -- circumvent the @-Wredundant-constraints@ warning by defining @_unused@.
+    --
+    -- Why is it intentional? The constraint adds a little bit of type safety to
+    -- the use of 'castPtr', which can normally cast pointers arbitrarily.
+    _unused = coerce @arrayLike @(IncompleteArray a)
 
 -- | Peek a number of elements from a pointer to an incomplete array.
 --

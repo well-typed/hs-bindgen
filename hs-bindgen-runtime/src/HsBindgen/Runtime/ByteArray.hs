@@ -60,7 +60,6 @@ setUnionPayload = coerce . pokeToByteArray (sizeOf (undefined :: union))
 
 getUnionPayload :: forall payload union.
      ( Storable payload
-     , Storable union
      , Coercible union ByteArray
      )
   => union -> payload

@@ -8,10 +8,14 @@ maintainer:    edsko@well-typed.com
 build-type:    Simple
 
 common lang
+  ghc-options:
+    -Wall
+    -Widentities
+    -Wredundant-constraints
+    -Wunused-packages
+    -Wno-unticked-promoted-constructors
   default-language: GHC2021
   build-depends:    base >= 4.16 && < 5
-  ghc-options:      -Wall
-
   default-extensions:
       DerivingVia
       LambdaCase

@@ -21,7 +21,7 @@ import HsBindgen.Runtime.CEnum (AsCEnum (..), AsSequentialCEnum (..),
                                 SequentialCEnum)
 import HsBindgen.Runtime.CEnum qualified as CEnum
 
-read_show_prop :: forall a. (CEnum a, Show a, Read a, Eq a) => a -> Property
+read_show_prop :: forall a. (Show a, Read a, Eq a) => a -> Property
 read_show_prop x = read (show x) === x
 
 newtype Precedence = MkPrecedence Int
@@ -31,7 +31,7 @@ instance Arbitrary Precedence where
   arbitrary = MkPrecedence <$> chooseInt (minPrec, appPrec1)
 
 readsPrec_showsPrec_prop
-  :: forall a. (CEnum a, Show a, Read a, Eq a)
+  :: forall a. (Show a, Read a, Eq a)
   => a -> Precedence -> Property
 readsPrec_showsPrec_prop x (MkPrecedence d) = counterexample errMsg isElem
   where

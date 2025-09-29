@@ -19,6 +19,11 @@ tested-with:      , GHC==9.2.8
 common lang
   ghc-options:
       -Wall
+      -Widentities
+      -Wprepositive-qualified-module
+      -Wredundant-constraints
+      -Wunused-packages
+      -Wno-unticked-promoted-constructors
   build-depends:
       base >= 4.16 && < 4.22
   default-language:

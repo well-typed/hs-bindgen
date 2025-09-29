@@ -12,7 +12,7 @@ import Test.Tasty.HUnit (Assertion, (@=?))
 -------------------------------------------------------------------------------}
 
 (@=?!) ::
-     (Eq a, Eq e, Exception e, HasCallStack, Show a, Show e)
+     (Eq a, Eq e, Exception e, HasCallStack, Show a)
   => e
   -> a
   -> Assertion
