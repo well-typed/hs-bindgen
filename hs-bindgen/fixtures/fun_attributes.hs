@@ -3535,7 +3535,8 @@
           (HsFunPtr
             (HsFun
               (HsPrimType HsPrimCInt)
-              (HsPrimType HsPrimCInt)))),
+              (HsPure
+                (HsPrimType HsPrimCInt))))),
       foreignImportOrigName =
       "hs_bindgen_test_fun_attributes_c41111f40a04cdc9",
       foreignImportCallConv =

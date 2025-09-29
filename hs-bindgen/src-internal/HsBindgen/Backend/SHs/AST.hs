@@ -68,6 +68,7 @@ data Global =
   | Foreign_Ptr
   | Ptr_constructor
   | Foreign_FunPtr
+  | Pure_type
   | ConstantArray
   | IncompleteArray
   | IO_type

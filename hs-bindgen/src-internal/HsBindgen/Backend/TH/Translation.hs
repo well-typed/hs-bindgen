@@ -50,6 +50,7 @@ import HsBindgen.Runtime.CAPI qualified
 import HsBindgen.Runtime.CEnum qualified
 import HsBindgen.Runtime.ConstantArray qualified
 import HsBindgen.Runtime.FlexibleArrayMember qualified
+import HsBindgen.Runtime.FunPtr qualified
 import HsBindgen.Runtime.IncompleteArray qualified
 import HsBindgen.Runtime.Marshal qualified
 import HsBindgen.Runtime.SizedByteArray qualified
@@ -81,6 +82,7 @@ mkGlobal = \case
       Foreign_Ptr          -> ''Foreign.Ptr.Ptr
       Ptr_constructor      -> 'GHC.Ptr.Ptr
       Foreign_FunPtr       -> ''Foreign.Ptr.FunPtr
+      Pure_type            -> ''HsBindgen.Runtime.FunPtr.Pure
       ConstantArray        -> ''HsBindgen.Runtime.ConstantArray.ConstantArray
       IncompleteArray      -> ''HsBindgen.Runtime.IncompleteArray.IncompleteArray
       IO_type              -> ''IO
@@ -272,6 +274,7 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     Foreign_Ptr          -> panicPure "type in expression"
     Ptr_constructor      -> TH.conE name
     Foreign_FunPtr       -> panicPure "type in expression"
+    Pure_type            -> panicPure "type in expression"
     ConstantArray        -> panicPure "type in expression"
     IncompleteArray      -> panicPure "type in expression"
     IO_type              -> panicPure "type in expression"

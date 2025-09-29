@@ -61,6 +61,7 @@ data HsType =
   | HsIncompleteArray HsType
   | HsPtr HsType
   | HsFunPtr HsType
+  | HsPure HsType
   | HsIO HsType
   | HsFun HsType HsType
   | HsExtBinding ExtHsRef BindingSpec.TypeSpec

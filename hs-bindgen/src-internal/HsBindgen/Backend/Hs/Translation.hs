@@ -206,6 +206,7 @@ getInstances instanceMap name = aux
             aux (acc /\ arrayInsts) $ hsType' : hsTypes
           HsPtr{} -> aux (acc /\ ptrInsts) hsTypes
           HsFunPtr{} -> aux (acc /\ ptrInsts) hsTypes
+          HsPure{} -> Set.empty
           HsIO{} -> Set.empty
           HsFun{} -> Set.empty
           HsExtBinding _ref typeSpec ->
@@ -1576,7 +1577,7 @@ addressStubDecs opts haddockConfig moduleName info orig _spec =
             -- TODO: this function is duplicated in @functionDecs@.
             hsIO :: Hs.HsType -> Hs.HsType
             hsIO = case C.functionPurity (C.functionAttrs fun) of
-              C.HaskellPureFunction -> id
+              C.HaskellPureFunction -> HsPure
               C.CPureFunction       -> HsIO
               C.ImpureFunction      -> HsIO
           in Hs.HsFunPtr $ foldr (\x y -> Hs.HsFun (typ' CFunArg x) y) (hsIO (typ' CFunRes res)) args

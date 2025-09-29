@@ -2450,7 +2450,7 @@ hash_ptr :: FunPtr (Ptr CChar -> IO CInt)
 -}
 hash_ptr = unsafePerformIO hs_bindgen_test_doxygen_docs_4de9606eb9c5dd01
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_c41111f40a04cdc9" hs_bindgen_test_doxygen_docs_c41111f40a04cdc9 :: IO (FunPtr (CInt ->
-                                                                                                                                       CInt))
+                                                                                                                                       Pure CInt))
 {-# NOINLINE square_ptr #-}
 {-| __C declaration:__ @square@
 
@@ -2458,7 +2458,7 @@ foreign import ccall safe "hs_bindgen_test_doxygen_docs_c41111f40a04cdc9" hs_bin
 
     __exported by:__ @doxygen_docs.h@
 -}
-square_ptr :: FunPtr (CInt -> CInt)
+square_ptr :: FunPtr (CInt -> Pure CInt)
 {-| __C declaration:__ @square@
 
     __defined at:__ @doxygen_docs.h:429:5@

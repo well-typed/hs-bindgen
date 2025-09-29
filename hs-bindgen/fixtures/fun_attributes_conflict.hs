@@ -529,7 +529,8 @@
           (HsFunPtr
             (HsFun
               (HsPrimType HsPrimCInt)
-              (HsPrimType HsPrimCInt)))),
+              (HsPure
+                (HsPrimType HsPrimCInt))))),
       foreignImportOrigName =
       "hs_bindgen_test_fun_attributes_conflict_a488b67527d299f8",
       foreignImportCallConv =
@@ -570,7 +571,8 @@
           (HsFunPtr
             (HsFun
               (HsPrimType HsPrimCInt)
-              (HsPrimType HsPrimCInt)))),
+              (HsPure
+                (HsPrimType HsPrimCInt))))),
       foreignImportOrigName =
       "hs_bindgen_test_fun_attributes_conflict_c4cea088a40be2f5",
       foreignImportCallConv =
@@ -611,7 +613,8 @@
           (HsFunPtr
             (HsFun
               (HsPrimType HsPrimCInt)
-              (HsPrimType HsPrimCInt)))),
+              (HsPure
+                (HsPrimType HsPrimCInt))))),
       foreignImportOrigName =
       "hs_bindgen_test_fun_attributes_conflict_3bc327fede4fc009",
       foreignImportCallConv =

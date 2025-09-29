@@ -8,6 +8,7 @@ module Example where
 import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
+import qualified HsBindgen.Runtime.FunPtr
 import qualified HsBindgen.Runtime.Prelude
 import Prelude (IO)
 
@@ -70,7 +71,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_conflict_3dd09f52296e7
   -> IO FC.CInt
 
 foreign import ccall unsafe "hs_bindgen_test_fun_attributes_conflict_a488b67527d299f8" hs_bindgen_test_fun_attributes_conflict_a488b67527d299f8
-  :: IO (Ptr.FunPtr (FC.CInt -> FC.CInt))
+  :: IO (Ptr.FunPtr (FC.CInt -> HsBindgen.Runtime.FunPtr.Pure FC.CInt))
 
 {-# NOINLINE square_cp_ptr #-}
 
@@ -84,12 +85,12 @@ __defined at:__ @fun_attributes_conflict.h:9:5@
 
 __exported by:__ @fun_attributes_conflict.h@
 -}
-square_cp_ptr :: Ptr.FunPtr (FC.CInt -> FC.CInt)
+square_cp_ptr :: Ptr.FunPtr (FC.CInt -> HsBindgen.Runtime.FunPtr.Pure FC.CInt)
 square_cp_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_fun_attributes_conflict_a488b67527d299f8
 
 foreign import ccall unsafe "hs_bindgen_test_fun_attributes_conflict_c4cea088a40be2f5" hs_bindgen_test_fun_attributes_conflict_c4cea088a40be2f5
-  :: IO (Ptr.FunPtr (FC.CInt -> FC.CInt))
+  :: IO (Ptr.FunPtr (FC.CInt -> HsBindgen.Runtime.FunPtr.Pure FC.CInt))
 
 {-# NOINLINE square_pc_ptr #-}
 
@@ -99,12 +100,12 @@ foreign import ccall unsafe "hs_bindgen_test_fun_attributes_conflict_c4cea088a40
 
     __exported by:__ @fun_attributes_conflict.h@
 -}
-square_pc_ptr :: Ptr.FunPtr (FC.CInt -> FC.CInt)
+square_pc_ptr :: Ptr.FunPtr (FC.CInt -> HsBindgen.Runtime.FunPtr.Pure FC.CInt)
 square_pc_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_fun_attributes_conflict_c4cea088a40be2f5
 
 foreign import ccall unsafe "hs_bindgen_test_fun_attributes_conflict_3bc327fede4fc009" hs_bindgen_test_fun_attributes_conflict_3bc327fede4fc009
-  :: IO (Ptr.FunPtr (FC.CInt -> FC.CInt))
+  :: IO (Ptr.FunPtr (FC.CInt -> HsBindgen.Runtime.FunPtr.Pure FC.CInt))
 
 {-# NOINLINE square_cc_ptr #-}
 
@@ -114,7 +115,7 @@ foreign import ccall unsafe "hs_bindgen_test_fun_attributes_conflict_3bc327fede4
 
     __exported by:__ @fun_attributes_conflict.h@
 -}
-square_cc_ptr :: Ptr.FunPtr (FC.CInt -> FC.CInt)
+square_cc_ptr :: Ptr.FunPtr (FC.CInt -> HsBindgen.Runtime.FunPtr.Pure FC.CInt)
 square_cc_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_fun_attributes_conflict_3bc327fede4fc009
 

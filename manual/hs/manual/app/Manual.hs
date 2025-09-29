@@ -39,6 +39,8 @@ import HsBindgen.Runtime.FlexibleArrayMember qualified as FLAM
 import HsBindgen.Runtime.IncompleteArray qualified as IA
 import HsBindgen.Runtime.FunPtr qualified as FP
 
+import Data.Coerce
+
 import Manual.Tools
 
 import Structs.Safe

@@ -211,6 +211,7 @@ translateType = \case
     Hs.HsTypRef r           -> TCon r
     Hs.HsPtr t              -> TApp (TGlobal Foreign_Ptr) (translateType t)
     Hs.HsFunPtr t           -> TApp (TGlobal Foreign_FunPtr) (translateType t)
+    Hs.HsPure t             -> TApp (TGlobal Pure_type) (translateType t)
     Hs.HsConstArray n t     -> TGlobal ConstantArray `TApp` TLit n `TApp` (translateType t)
     Hs.HsIncompleteArray t  -> TGlobal IncompleteArray `TApp` (translateType t)
     Hs.HsIO t               -> TApp (TGlobal IO_type) (translateType t)

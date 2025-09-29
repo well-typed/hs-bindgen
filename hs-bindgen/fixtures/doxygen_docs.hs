@@ -25214,7 +25214,8 @@
           (HsFunPtr
             (HsFun
               (HsPrimType HsPrimCInt)
-              (HsPrimType HsPrimCInt)))),
+              (HsPure
+                (HsPrimType HsPrimCInt))))),
       foreignImportOrigName =
       "hs_bindgen_test_doxygen_docs_c41111f40a04cdc9",
       foreignImportCallConv =

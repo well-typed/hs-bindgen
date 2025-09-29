@@ -43,6 +43,7 @@ import HsBindgen.Runtime.CAPI qualified
 import HsBindgen.Runtime.CEnum qualified
 import HsBindgen.Runtime.ConstantArray qualified
 import HsBindgen.Runtime.FlexibleArrayMember qualified
+import HsBindgen.Runtime.FunPtr qualified
 import HsBindgen.Runtime.IncompleteArray qualified
 import HsBindgen.Runtime.Marshal qualified
 import HsBindgen.Runtime.SizedByteArray qualified
@@ -215,6 +216,7 @@ resolveGlobal = \case
     Storable_poke                 -> importQ 'Foreign.poke
     Foreign_Ptr                   -> importQ ''Foreign.Ptr
     Foreign_FunPtr                -> importQ ''Foreign.FunPtr
+    Pure_type                     -> importQ ''HsBindgen.Runtime.FunPtr.Pure
     Ptr_constructor               -> importQ ''GHC.Ptr.Ptr
     ConstantArray                 -> importQ ''HsBindgen.Runtime.ConstantArray.ConstantArray
     IncompleteArray               -> importQ ''HsBindgen.Runtime.IncompleteArray.IncompleteArray
