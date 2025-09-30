@@ -49,9 +49,6 @@ newtype ModuleName = ModuleName { getModuleName :: Text }
   -- 'Show' instance valid due to 'IsString' instance
   deriving newtype (Aeson.FromJSON, Aeson.ToJSON, Eq, IsString, Ord, Show)
 
-instance Default ModuleName where
-  def = "Generated"
-
 -- | External reference
 --
 -- An external reference specifies the 'ModuleName' and 'Identifier'

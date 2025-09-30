@@ -85,7 +85,12 @@ data ConfigPP = ConfigPP {
   , moduleName :: Hs.ModuleName
   }
   deriving stock (Show, Eq, Generic)
-  deriving anyclass (Default)
+
+instance Default ConfigPP where
+  def = ConfigPP {
+      uniqueId   = def
+    , moduleName = defModuleName
+    }
 
 toBindgenConfigPP :: Config_ FilePath -> ConfigPP -> BindgenConfig
 toBindgenConfigPP config ConfigPP{..} =
