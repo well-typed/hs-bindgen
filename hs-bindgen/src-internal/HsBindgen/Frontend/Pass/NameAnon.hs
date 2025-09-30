@@ -161,7 +161,7 @@ instance NameUseSites C.FieldInfo where
     , ..
     }
 
-instance NameUseSites C.Reference where
+instance NameUseSites C.CommentRef where
   nameUseSites _ (C.ById t) = C.ById (nameUseSite t)
     where
       nameUseSite :: C.PrelimDeclId -> C.DeclId

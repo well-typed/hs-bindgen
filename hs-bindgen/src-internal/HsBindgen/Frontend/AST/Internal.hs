@@ -25,7 +25,7 @@ module HsBindgen.Frontend.AST.Internal (
   , decideFunctionPurity
     -- ** Comments
   , Comment(..)
-  , Reference(..)
+  , CommentRef(..)
     -- ** Macros
   , CheckedMacro(..)
   , CheckedMacroType(..)
@@ -305,14 +305,14 @@ decideFunctionPurity = foldr prefer ImpureFunction
 
 newtype Comment p =
   Comment
-    { unComment :: CDoc.Comment (Reference p) }
+    { unComment :: CDoc.Comment (CommentRef p) }
 
 -- | Needed for cross referencing identifiers when translating to Haddocks.
 -- When parsing a referencing command, e.g. \\ref, we need an identifier that
 -- passes through all the name mangling passes so that in the end we have
 -- access to the right name to reference.
 --
-newtype Reference p = ById (Id p)
+newtype CommentRef p = ById (Id p)
 
 {-------------------------------------------------------------------------------
   Macros
@@ -467,7 +467,7 @@ deriving stock instance ValidPass p => Show (Typedef          p)
 deriving stock instance ValidPass p => Show (Union            p)
 deriving stock instance ValidPass p => Show (UnionField       p)
 deriving stock instance ValidPass p => Show (Comment          p)
-deriving stock instance ValidPass p => Show (Reference        p)
+deriving stock instance ValidPass p => Show (CommentRef       p)
 
 deriving stock instance ValidPass p => Eq (CheckedMacro     p)
 deriving stock instance ValidPass p => Eq (CheckedMacroType p)
@@ -477,7 +477,7 @@ deriving stock instance ValidPass p => Eq (Enum             p)
 deriving stock instance ValidPass p => Eq (EnumConstant     p)
 deriving stock instance ValidPass p => Eq (FieldInfo        p)
 deriving stock instance ValidPass p => Eq (Function         p)
-deriving stock instance ValidPass p => Eq (Reference        p)
+deriving stock instance ValidPass p => Eq (CommentRef       p)
 deriving stock instance ValidPass p => Eq (Struct           p)
 deriving stock instance ValidPass p => Eq (StructField      p)
 deriving stock instance ValidPass p => Eq (Type             p)

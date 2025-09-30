@@ -63,6 +63,7 @@ instance ToExpr ref => ToExpr (CDoc.CommentInlineContent ref)
 instance ToExpr CDoc.CXCommentInlineCommandRenderKind
 instance ToExpr ref => ToExpr (CDoc.CommentBlockContent ref)
 instance ToExpr ref => ToExpr (CDoc.Comment ref)
+instance ToExpr C.CommentRef
 instance ToExpr C.Decl
 instance ToExpr C.DeclInfo
 instance ToExpr C.FieldInfo
@@ -87,7 +88,6 @@ instance ToExpr C.PrimType
 instance ToExpr C.QualName
 instance ToExpr C.RecordNames
 instance ToExpr C.ResolvedExtBinding
-instance ToExpr C.Reference
 instance ToExpr C.Struct
 instance ToExpr C.StructField
 instance ToExpr C.TagKind

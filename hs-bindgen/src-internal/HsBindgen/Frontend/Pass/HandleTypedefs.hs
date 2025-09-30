@@ -113,7 +113,7 @@ instance HandleUseSites C.FieldInfo where
     , ..
     }
 
-instance HandleUseSites C.Reference where
+instance HandleUseSites C.CommentRef where
   handleUseSites _ (C.ById i)   = C.ById i
 
 instance HandleUseSites C.Comment where

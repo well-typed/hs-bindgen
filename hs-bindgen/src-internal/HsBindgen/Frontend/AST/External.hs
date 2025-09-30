@@ -26,7 +26,7 @@ module HsBindgen.Frontend.AST.External (
   , Typedef(..)
   , TypedefRef(..)
     -- ** Comment
-  , Reference(..)
+  , CommentRef(..)
     -- ** Macros
   , CheckedMacro(..)
   , CheckedMacroType(..)
@@ -104,14 +104,14 @@ data DeclInfo = DeclInfo {
     , declOrigin     :: C.NameOrigin
     , declAliases    :: [C.Name]
     , declHeaderInfo :: Maybe Int.HeaderInfo
-    , declComment    :: Maybe (CDoc.Comment Reference)
+    , declComment    :: Maybe (CDoc.Comment CommentRef)
     }
   deriving stock (Show, Eq, Generic)
 
 data FieldInfo = FieldInfo {
       fieldLoc     :: SingleLoc
     , fieldName    :: NamePair
-    , fieldComment :: Maybe (CDoc.Comment Reference)
+    , fieldComment :: Maybe (CDoc.Comment CommentRef)
     }
   deriving stock (Show, Eq, Generic)
 
@@ -240,7 +240,7 @@ data Function = Function {
 -- passes through all the name mangling passes so that in the end we have
 -- access to the right name to reference.
 --
-newtype Reference = ById NamePair
+newtype CommentRef = ById NamePair
   deriving stock (Show, Eq, Generic)
 
 {-------------------------------------------------------------------------------

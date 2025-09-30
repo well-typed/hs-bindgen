@@ -21,9 +21,9 @@ import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.Haddock.Config (HaddockConfig (..), PathStyle (..))
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Errors (panicPure)
-import HsBindgen.Frontend.AST.External (DeclInfo (..), FieldInfo (..),
-                                        HeaderInfo (..), Name (..),
-                                        NamePair (..), Reference (..))
+import HsBindgen.Frontend.AST.External (CommentRef (..), DeclInfo (..),
+                                        FieldInfo (..), HeaderInfo (..),
+                                        Name (..), NamePair (..))
 import HsBindgen.Language.Haskell qualified as Hs
 
 -- | Convert a Clang comment to a Haddock comment
@@ -61,7 +61,7 @@ generateHaddocksWithParams ::
   -> C.SingleLoc
   -> Maybe HeaderInfo
   -> NamePair
-  -> Maybe (CDoc.Comment Reference)
+  -> Maybe (CDoc.Comment CommentRef)
   -> [Hs.FunctionParameter]
   -> (Maybe HsDoc.Comment, [Hs.FunctionParameter])
 generateHaddocksWithParams HaddockConfig{..} declLoc mHeaderInfo declId Nothing params =
@@ -130,7 +130,7 @@ generateHaddocksWithParams HaddockConfig{..} declLoc mHeaderInfo declId (Just CD
       , updatedParams
       )
   where
-    filterParamCommands :: [CDoc.CommentBlockContent Reference]
+    filterParamCommands :: [CDoc.CommentBlockContent CommentRef]
                         -> [(HsDoc.Comment, Maybe CDoc.CXCommentParamPassDirection)]
     filterParamCommands = \case
       [] -> []
@@ -211,7 +211,7 @@ addFunctionParameterComment fp@Hs.FunctionParameter {..} =
 --
 -- For now only \dir, \link and \see  are naively supported.
 --
-convertBlockContent :: CDoc.CommentBlockContent Reference
+convertBlockContent :: CDoc.CommentBlockContent CommentRef
                     -> [HsDoc.CommentBlockContent]
 convertBlockContent = \case
   CDoc.Paragraph{..} ->
@@ -343,7 +343,7 @@ convertBlockContent = \case
 
 -- | Convert inline content
 --
-convertInlineContent :: CDoc.CommentInlineContent Reference
+convertInlineContent :: CDoc.CommentInlineContent CommentRef
                      -> [HsDoc.CommentInlineContent]
 convertInlineContent = \case
   CDoc.TextContent{..}
@@ -405,7 +405,7 @@ extractTextLines = filter (not . Text.null)
 -- since we have information about whitespaces and indentation. TODO: See issue
 -- #949.
 --
-formatParagraphContent :: [CDoc.CommentInlineContent Reference]
+formatParagraphContent :: [CDoc.CommentInlineContent CommentRef]
                        -> [HsDoc.CommentBlockContent]
 formatParagraphContent = processGroups 1 []
                        . groupListParagraphs
@@ -421,8 +421,8 @@ formatParagraphContent = processGroups 1 []
     -- If the paragraphs contains list items, each list item and its content
     -- will be in a separate group. Otherwise, returns a singleton list.
     --
-    groupListParagraphs :: [CDoc.CommentInlineContent Reference]
-                        -> [[CDoc.CommentInlineContent Reference]]
+    groupListParagraphs :: [CDoc.CommentInlineContent CommentRef]
+                        -> [[CDoc.CommentInlineContent CommentRef]]
     groupListParagraphs [] = []
     -- Check if first item is a list marker
     groupListParagraphs (h : rest)
@@ -438,7 +438,7 @@ formatParagraphContent = processGroups 1 []
 
     processGroups :: Natural
                   -> [HsDoc.CommentBlockContent]
-                  -> [[CDoc.CommentInlineContent Reference]]
+                  -> [[CDoc.CommentInlineContent CommentRef]]
                   -> [HsDoc.CommentBlockContent]
     processGroups _ acc [] = reverse acc
     processGroups n acc (group:rest) =
@@ -462,7 +462,7 @@ formatParagraphContent = processGroups 1 []
         _ -> processGroups n (HsDoc.Paragraph (concatMap convertInlineContent group) : acc) rest
 
     -- | Check if text starts with a list marker
-    isListMarker :: CDoc.CommentInlineContent Reference -> Bool
+    isListMarker :: CDoc.CommentInlineContent CommentRef -> Bool
     isListMarker (CDoc.TextContent t) = isJust $ detectListMarker 0 t
     isListMarker _                 = False
 

@@ -291,7 +291,7 @@ instance MangleDecl C.DeclKind where
   mangleDecl _ (C.DeclGlobal ty) =
       C.DeclGlobal <$> mangle ty
 
-instance Mangle C.Reference where
+instance Mangle C.CommentRef where
   mangle (C.ById C.DeclId{..}) = do
     nm <- asks envNameMap
     let lookupResults =

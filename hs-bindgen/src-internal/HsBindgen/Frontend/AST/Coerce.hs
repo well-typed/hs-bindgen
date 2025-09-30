@@ -28,16 +28,16 @@ instance (
 
 instance (
       Id p ~ Id p'
-    ) => CoercePass Reference p p' where
+    ) => CoercePass CommentRef p p' where
   coercePass (ById t) = ById t
 
 instance (
       Id p ~ Id p'
-    ) => CoercePass CDoc.Comment (Reference p) (Reference p') where
+    ) => CoercePass CDoc.Comment (CommentRef p) (CommentRef p') where
   coercePass comment = fmap coercePass comment
 
 instance (
-      CoercePass CDoc.Comment (Reference p) (Reference p')
+      CoercePass CDoc.Comment (CommentRef p) (CommentRef p')
     ) => CoercePass Comment p p' where
   coercePass (Comment c) =
     Comment (coercePass c)
@@ -166,7 +166,7 @@ instance (
 
 instance (
       FieldName p ~ FieldName p'
-    , CoercePass CDoc.Comment (Reference p) (Reference p')
+    , CoercePass CDoc.Comment (CommentRef p) (CommentRef p')
     ) => CoercePass EnumConstant p p' where
   coercePass EnumConstant{..} = EnumConstant {
         enumConstantInfo = coercePass enumConstantInfo
