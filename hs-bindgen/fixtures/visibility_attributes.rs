@@ -84,3 +84,6 @@ pub const i26: ::std::os::raw::c_int = 26;
 pub const i27: ::std::os::raw::c_int = 27;
 pub const i28: ::std::os::raw::c_int = 28;
 pub const i29: ::std::os::raw::c_int = 29;
+unsafe extern "C" {
+    pub fn deprecated_function();
+}

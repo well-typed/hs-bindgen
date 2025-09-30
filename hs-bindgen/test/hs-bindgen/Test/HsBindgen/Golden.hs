@@ -246,7 +246,10 @@ testCases = manualTestCases ++ [
             , "i25", "i26", "i27", "i28", "i29"
             ]
       in (defaultTest "visibility_attributes") {
-          testTracePredicate = customTracePredicate' declsWithWarnings $ \case
+          testOnFrontendConfig = \cfg -> cfg{
+              frontendSelectPredicate = PNot (PIf (Right DeclDeprecated))
+            }
+        , testTracePredicate = customTracePredicate' declsWithWarnings $ \case
             TraceFrontend (FrontendParse (ParsePotentialDuplicateSymbol info _isPublic)) ->
               Just $ Expected (C.declId info)
             TraceFrontend (FrontendParse (ParseNonPublicVisibility info)) ->

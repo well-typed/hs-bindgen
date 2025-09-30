@@ -115,6 +115,7 @@ data DeclInfo p = DeclInfo{
       -- This is 'Nothing' when the declaration is a builtin, as builtin
       -- declarations have no source location.
     , declHeaderInfo :: Maybe HeaderInfo
+    , declAvailability :: Availability
 
     , declComment :: Maybe (Comment p)
     }

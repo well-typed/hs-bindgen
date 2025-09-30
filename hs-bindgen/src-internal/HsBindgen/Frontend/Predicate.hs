@@ -29,6 +29,7 @@ import System.FilePath qualified as FilePath
 import Text.Regex.PCRE qualified as PCRE
 import Text.Regex.PCRE.Text ()
 
+import Clang.HighLevel.Types
 import Clang.Paths
 
 import HsBindgen.Frontend.AST.External qualified as C
@@ -75,9 +76,12 @@ data HeaderPathPredicate =
 
 -- | Predicate that determines which declarations should be kept, based on the
 -- declarations themselves
-newtype DeclPredicate =
+data DeclPredicate =
     -- | Match declaration name against regex
     DeclNameMatches Regex
+    -- | Match deprecated declarations taking current target platform into
+    -- account; see 'Availability'
+  | DeclDeprecated
   deriving (Show, Eq)
 
 -- | Predicates for the @Parse@ pass select based on header file paths
@@ -159,10 +163,13 @@ matchSelect ::
   -> IsInMainHeaderDir
   -> SourcePath
   -> C.QualDeclId
+  -> Availability
   -> SelectPredicate
   -> Bool
-matchSelect isMainHeader isInMainHeaderDir path qid = eval $
-    either (matchHeaderPath isMainHeader isInMainHeaderDir path) (matchDecl qid)
+matchSelect isMainHeader isInMainHeaderDir path qid availability = eval $
+    either
+      (matchHeaderPath isMainHeader isInMainHeaderDir path)
+      (matchDecl qid availability)
 
 {-------------------------------------------------------------------------------
   Merging
@@ -237,9 +244,14 @@ matchHeaderPath isMainHeader isInMainHeaderDir path@(SourcePath pathT) = \case
     HeaderPathMatches re -> matchTest re pathT
 
 -- | Match 'DeclPredicate' predicates
-matchDecl :: C.QualDeclId -> DeclPredicate -> Bool
-matchDecl qid = \case
+matchDecl :: C.QualDeclId -> Availability -> DeclPredicate -> Bool
+matchDecl qid availability = \case
     DeclNameMatches re -> matchTest re $ C.qualDeclIdText qid
+    DeclDeprecated     -> isDeprecated
+  where
+    isDeprecated = case availability of
+      Deprecated -> True
+      _          -> False
 
 {-------------------------------------------------------------------------------
   Internal auxiliary: regexs

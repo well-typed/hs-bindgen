@@ -112,27 +112,31 @@ selectDecls isMainHeader isInMainHeaderDir SelectConfig{..} unitRBS =
     useDeclGraph :: UseDeclGraph
     useDeclGraph = declUseDecl ann
 
-    match :: SingleLoc -> C.QualDeclId -> Bool
-    match loc qualDeclId =
+    match :: SingleLoc -> C.QualDeclId -> Availability -> Bool
+    match loc qualDeclId availability =
       Predicate.matchSelect
         isMainHeader
         isInMainHeaderDir
         (singleLocPath loc)
         qualDeclId
+        availability
         selectConfigPredicate
 
     matchDecl :: C.Decl Select -> Bool
     matchDecl decl =
-      match (C.declLoc $ C.declInfo decl) (C.declQualDeclId decl)
+      match
+        (C.declLoc $ C.declInfo decl)
+        (C.declQualDeclId decl)
+        (C.declAvailability $ C.declInfo decl)
 
     matchKey :: Key -> Bool
-    matchKey (ParseMsgKey loc declId declKind) =
+    matchKey (ParseMsgKey loc declId declKind declAvailability) =
       let qualDeclId = C.QualDeclId {
             qualDeclIdName   = C.declIdName declId
           , qualDeclIdOrigin = C.declIdOrigin declId
           , qualDeclIdKind   = declKind
           }
-      in match loc qualDeclId
+      in match loc qualDeclId declAvailability
 
     getParseMsgs' :: [C.Decl Select] -> ([Msg Parse], [Msg Select])
     getParseMsgs' = getParseMsgs ann matchKey
@@ -198,6 +202,7 @@ getParseMsgs meta match decls =
         (C.declLoc declInfo)
         (C.declId declInfo)
         (C.declKindNameKind declKind)
+        (C.declAvailability declInfo)
 
     selectedKeys :: Set Key
     selectedKeys = Set.fromList $ map declToKey decls

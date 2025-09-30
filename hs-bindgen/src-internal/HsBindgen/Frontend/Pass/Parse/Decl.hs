@@ -55,16 +55,18 @@ topLevelDecl = foldWithHandler handleTypeException parseDecl
 
 getDeclInfo :: CXCursor -> ParseDecl (C.DeclInfo Parse)
 getDeclInfo = \curr -> do
-    declId         <- C.getPrelimDeclId curr
-    declLoc        <- HighLevel.clang_getCursorLocation' curr
-    declHeaderInfo <- getHeaderInfo (singleLocPath declLoc)
-    declComment    <- fmap parseCommentReferences <$> CDoc.clang_getComment curr
+    declId           <- C.getPrelimDeclId curr
+    declLoc          <- HighLevel.clang_getCursorLocation' curr
+    declHeaderInfo   <- getHeaderInfo (singleLocPath declLoc)
+    declAvailability <- HighLevel.clang_getCursorAvailability curr
+    declComment      <- fmap parseCommentReferences <$> CDoc.clang_getComment curr
     -- TODO: We might want a NameOriginBuiltin
     return C.DeclInfo{
         declId
       , declLoc
       , declAliases = []
       , declHeaderInfo
+      , declAvailability
       , declComment
       }
 

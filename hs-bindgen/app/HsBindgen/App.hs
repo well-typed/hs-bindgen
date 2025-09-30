@@ -430,7 +430,11 @@ parseSelectPredicate = fmap aux . many . asum $ [
     , fmap (Left . PIf . Right . DeclNameMatches) $ strOption $ mconcat [
           long "select-except-by-decl-name"
         , metavar "PCRE"
-        , help "Select except declarations with C names that match PCRE"
+        , help "Select except (i.e., do not select) declarations with C names that match PCRE"
+        ]
+    , flag' (Left $ PIf $ Right DeclDeprecated) $ mconcat [
+          long "select-except-deprecated"
+        , help "Select except (i.e., do not select) deprecated declarations"
         ]
     ]
   where

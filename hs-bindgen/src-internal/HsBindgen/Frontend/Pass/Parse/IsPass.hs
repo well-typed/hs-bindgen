@@ -324,16 +324,17 @@ newtype ParseMsgs p = ParseMsgs { unParseMsgs :: Map (ParseMsgKey p) [ParseMsg] 
 deriving instance Show (Id p) => Show (ParseMsgs p)
 
 data ParseMsgKey p = ParseMsgKey {
-      parseMsgDeclLoc  :: SingleLoc
-    , parseMsgDeclId   :: Id p
-    , parseMsgDeclKind :: NameKind
+      parseMsgDeclLoc          :: SingleLoc
+    , parseMsgDeclId           :: Id p
+    , parseMsgDeclKind         :: NameKind
+    , parseMsgDeclAvailability :: Availability
     }
 deriving stock instance Show (Id p) => Show (ParseMsgKey p)
 deriving stock instance Eq (Id p)   => Eq (ParseMsgKey p)
 deriving stock instance Ord (Id p)  => Ord (ParseMsgKey p)
 
 instance (Id p ~ Id p') => CoercePass ParseMsgKey p p' where
-  coercePass (ParseMsgKey l i k) = ParseMsgKey l i k
+  coercePass (ParseMsgKey l i k a) = ParseMsgKey l i k a
 
 emptyParseMsgs :: ParseMsgs p
 emptyParseMsgs = ParseMsgs $ Map.empty
@@ -354,7 +355,7 @@ recordParseMsg info kind trace =
    ParseMsgs . Map.alter (Just <$> add trace) key . unParseMsgs
   where
     key :: ParseMsgKey p
-    key = ParseMsgKey (C.declLoc info) (C.declId info) kind
+    key = ParseMsgKey (C.declLoc info) (C.declId info) kind (C.declAvailability info)
 
     add x Nothing   = [x]
     add x (Just xs) = x:xs

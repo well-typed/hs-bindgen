@@ -61,7 +61,7 @@ instance (
                             , ..
                             }
     where
-      DeclInfo{declLoc, declId, declAliases, declHeaderInfo, declComment} = info
+      DeclInfo{..} = info
 
 instance (
       CoercePass Comment p p'
