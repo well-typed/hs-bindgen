@@ -16,8 +16,11 @@ extra-source-files: fixtures/*.txt
 
 common lang
   ghc-options:
-    -Wall -Widentities -Wprepositive-qualified-module
-    -Wredundant-constraints -Wunused-packages
+    -Wall
+    -Widentities
+    -Wprepositive-qualified-module
+    -Wredundant-constraints
+    -Wunused-packages
     -Wno-unticked-promoted-constructors
 
   build-depends:      base >=4.16 && <4.22

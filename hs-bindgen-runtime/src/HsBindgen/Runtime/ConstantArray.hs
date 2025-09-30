@@ -55,6 +55,13 @@ isConstantArray ::
   -> Ptr a
   -> Ptr arrayLike
 isConstantArray _ = castPtr
+  where
+    -- The 'Coercible' constraint is unused but that is intentional, so we
+    -- circumvent the @-Wredundant-constraints@ warning by defining @_unused@.
+    --
+    -- Why is it intentional? The constraint adds a little bit of type safety to
+    -- the use of 'castPtr', which can normally cast pointers arbitrarily.
+    _unused = coerce @arrayLike @(ConstantArray n a)
 
 -- | Use a pointer to a whole array as a pointer to the first element of said
 -- array.
@@ -66,6 +73,13 @@ isFirstElem ::
   => Ptr arrayLike
   -> (Proxy n, Ptr a)
 isFirstElem ptr = (Proxy @n, castPtr ptr)
+  where
+    -- The 'Coercible' constraint is unused but that is intentional, so we
+    -- circumvent the @-Wredundant-constraints@ warning by defining @_unused@.
+    --
+    -- Why is it intentional? The constraint adds a little bit of type safety to
+    -- the use of 'castPtr', which can normally cast pointers arbitrarily.
+    _unused = coerce @arrayLike @(ConstantArray n a)
 
 instance (Storable a, KnownNat n) => Storable (ConstantArray n a) where
     sizeOf _ = intVal (Proxy @n) * sizeOf (undefined :: a)

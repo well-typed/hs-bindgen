@@ -108,7 +108,7 @@ class Integral (CEnumZ a) => CEnum a where
   -- >   error $ "Unexpected value " ++ show x ++ " for type Foo"
   showsUndeclared :: proxy a -> Int -> CEnumZ a -> ShowS
   default showsUndeclared ::
-               (Show (CEnumZ a), Num a)
+               Show (CEnumZ a)
             => proxy a -> Int -> CEnumZ a -> ShowS
   showsUndeclared _ = showsPrec
 
@@ -226,7 +226,7 @@ showsCEnum prec x =
 -- > (readEitherCEnum "StatusOK" :: StatusCode) == Right StatusOK
 --
 -- > (readEitherCEnum "StatusCode 123" :: StatusCode) == Right (StatusCode 123)
-readEitherCEnum :: forall a. (CEnum a, Read (CEnumZ a)) => String -> Either String a
+readEitherCEnum :: forall a. CEnum a => String -> Either String a
 readEitherCEnum s =
   case [ x | (x,"") <- ReadPrec.readPrec_to_S read' minPrec s ] of
     [x] -> Right x
@@ -243,7 +243,7 @@ readEitherCEnum s =
 -- This helper can be used in the case where @a@ is a newtype wrapper around
 -- the underlying @CEnumZ a@.
 showsWrappedUndeclared ::
-     (CEnum a, Show (CEnumZ a))
+     Show (CEnumZ a)
   => String -> proxy a -> Int -> CEnumZ a -> ShowS
 showsWrappedUndeclared constructorName _ p x = showParen (p >= appPrec1) $
      showString constructorName
@@ -272,7 +272,7 @@ readPrecWrappedUndeclared constructorName = Read.parens $ ReadPrec.prec appPrec 
 --
 -- This function may be used in the definition of a 'Read' instance for a
 -- @newtype@ representation of a C enumeration.
-readPrecCEnum :: forall a. (CEnum a, Read (CEnumZ a)) => ReadPrec a
+readPrecCEnum :: forall a. CEnum a => ReadPrec a
 readPrecCEnum = readPrecDeclaredValue (Proxy :: Proxy a) +++ readPrecUndeclared
 
 -- | Determine if the specified value is declared
