@@ -2,6 +2,9 @@ module HsBindgen.Frontend.Pass.HandleTypedefs (handleTypedefs) where
 
 import Data.Map.Strict qualified as Map
 
+import Clang.HighLevel.Documentation qualified as Clang
+
+import HsBindgen.BindingSpec (defaultTypeSpec)
 import HsBindgen.Frontend.Analysis.Typedefs (TypedefAnalysis)
 import HsBindgen.Frontend.Analysis.Typedefs qualified as TypedefAnalysis
 import HsBindgen.Frontend.AST.Coerce
@@ -11,7 +14,6 @@ import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Imports
-import HsBindgen.BindingSpec (defaultTypeSpec)
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -51,7 +53,16 @@ handleDecl td decl =
         | C.TypePointer (C.TypeFun args res) <- C.typedefType dtd ->
           let derefDecl, mainDecl :: C.Decl HandleTypedefs
               derefDecl = C.Decl {
-                  declInfo = declInfo' { C.declId = C.DeclId (curName <> "_Deref") (C.NameOriginGenerated (C.AnonId declLoc)) }
+                  declInfo = declInfo' { C.declId = C.DeclId (curName <> "_Deref") (C.NameOriginGenerated (C.AnonId declLoc))
+                                       , C.declComment = Just
+                                                       $ C.Comment
+                                                       $ Clang.Comment
+                                                       [ Clang.Paragraph
+                                                         [ Clang.TextContent "Auxiliary type used by "
+                                                         , Clang.InlineRefCommand (C.ById dId)
+                                                         ]
+                                                       ]
+                                       }
                 , declKind = handleUseSites td
                            $ C.DeclTypedef $ C.Typedef {
                                typedefType = C.TypeFun args res
@@ -110,7 +121,7 @@ handleDecl td decl =
            )
   where
     C.Decl{
-        declInfo = declInfo@C.DeclInfo{declId = C.DeclId{declIdName = curName}, declComment, declLoc}
+        declInfo = declInfo@C.DeclInfo{declId = dId@C.DeclId{declIdName = curName}, declComment, declLoc}
       , declKind
       , declAnn
       } = decl
