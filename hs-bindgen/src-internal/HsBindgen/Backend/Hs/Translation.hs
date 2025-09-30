@@ -863,20 +863,50 @@ typedefDecs opts haddockConfig typedefs info typedef spec = do
         -- function types that receive data types not supported by Haskell's
         -- FFI (i.e. structs, unions by value).
         --
-        ctype@(C.TypePointer (C.TypeFun args res))
-          | not (any hasUnsupportedType (res:args)) ->
-          let highlevelName = "mk" <> C.nameHs (C.declId info)
-          in [Hs.DeclForeignImport Hs.ForeignImportDecl
-              { foreignImportName       = highlevelName
-              , foreignImportResultType = NormalResultType $ HsIO $ HsTypRef newtypeName
-              , foreignImportParameters = [wrapperParam (HsTypRef newtypeName)]
-              , foreignImportOrigName   = T.pack "wrapper"
-              , foreignImportCallConv   = CallConvGhcCCall ImportAsValue
-              , foreignImportOrigin     = Origin.ToFunPtr ctype
-              , foreignImportComment    = Just wrapperComment
-              , foreignImportSafety     = SHs.Safe
-              }
-             ]
+        C.TypePointer t@(C.TypeTypedef (C.TypedefRegular n))
+          | C.TypeFun args res <- getUnderlyingType typedefs t
+          , not (any hasUnsupportedType (res:args)) ->
+            let lowlevelNewtypeName = C.nameHs n
+                lowlevelNameTo      = "to" <> C.nameHs n
+                lowlevelNameFrom    = "from" <> C.nameHs n
+
+            in [ Hs.DeclForeignImport Hs.ForeignImportDecl
+                 { foreignImportName       = lowlevelNameTo
+                 , foreignImportResultType = NormalResultType $ HsIO $ HsFunPtr $ HsTypRef lowlevelNewtypeName
+                 , foreignImportParameters = [wrapperParam (HsTypRef lowlevelNewtypeName)]
+                 , foreignImportOrigName   = "wrapper"
+                 , foreignImportCallConv   = CallConvGhcCCall ImportAsValue
+                 , foreignImportOrigin     = Origin.ToFunPtr t
+                 , foreignImportComment    = Just wrapperComment
+                 , foreignImportSafety     = SHs.Safe
+                 }
+               , Hs.DeclForeignImport Hs.ForeignImportDecl
+                 { foreignImportName       = lowlevelNameFrom
+                 , foreignImportResultType = NormalResultType $ HsTypRef lowlevelNewtypeName
+                 , foreignImportParameters = [wrapperParam (HsFunPtr $ HsTypRef lowlevelNewtypeName)]
+                 , foreignImportOrigName   = "dynamic"
+                 , foreignImportCallConv   = CallConvGhcCCall ImportAsValue
+                 , foreignImportOrigin     = Origin.FromFunPtr t
+                 , foreignImportComment    = Just wrapperComment
+                 , foreignImportSafety     = SHs.Safe
+                 }
+               , Hs.DeclDefineInstance $ Hs.DefineInstance
+                 { defineInstanceDeclarations = Hs.InstanceToFunPtr
+                   Hs.ToFunPtrInstance
+                   { toFunPtrInstanceType    = HsTypRef lowlevelNewtypeName
+                   , toFunPtrInstanceWrapper = lowlevelNameTo
+                   }
+                 , defineInstanceComment = Nothing
+                 }
+               , Hs.DeclDefineInstance $ Hs.DefineInstance
+                 { defineInstanceDeclarations = Hs.InstanceFromFunPtr
+                   Hs.FromFunPtrInstance
+                   { fromFunPtrInstanceType    = HsTypRef lowlevelNewtypeName
+                   , fromFunPtrInstanceWrapper = lowlevelNameFrom
+                   }
+                 , defineInstanceComment = Nothing
+                 }
+               ]
         C.TypePointer (C.TypeFun _ _)
           -- TODO: We should issue a warning here but we can't until #1132 is
           -- done.

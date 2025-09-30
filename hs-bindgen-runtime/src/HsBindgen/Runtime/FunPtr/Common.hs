@@ -53,7 +53,6 @@ class FromFunPtr a where
   -- | Convert C function pointer into a Haskell function.
   fromFunPtr :: F.FunPtr a -> a
 
-
 -- | Get primitive marshallable types
 --
 allPrimTypes :: [Q Type]

@@ -58,6 +58,10 @@ data Global =
   | StaticSize_class
   | ReadRaw_class
   | WriteRaw_class
+  | ToFunPtr_class
+  | ToFunPtr_toFunPtr
+  | FromFunPtr_class
+  | FromFunPtr_fromFunPtr
   | Storable_class
   | Storable_sizeOf
   | Storable_alignment

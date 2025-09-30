@@ -55,6 +55,7 @@ import HsBindgen.Runtime.Marshal qualified
 import HsBindgen.Runtime.SizedByteArray qualified
 
 import DeBruijn (Add (..), EmptyCtx, Env (..), lookupEnv)
+import HsBindgen.Runtime.FunPtr.Common qualified
 
 {-------------------------------------------------------------------------------
   Backend definition
@@ -62,28 +63,32 @@ import DeBruijn (Add (..), EmptyCtx, Env (..), lookupEnv)
 
 mkGlobal :: Global -> TH.Name
 mkGlobal = \case
-      Tuple_type i         -> tupleTypeName $ fromIntegral i
-      Tuple_constructor i  -> TH.tupleDataName $ fromIntegral i
-      Applicative_pure     -> 'pure
-      Applicative_seq      -> '(<*>)
-      Monad_return         -> 'return
-      Monad_seq            -> '(>>)
-      StaticSize_class     -> ''HsBindgen.Runtime.Marshal.StaticSize
-      ReadRaw_class        -> ''HsBindgen.Runtime.Marshal.ReadRaw
-      WriteRaw_class       -> ''HsBindgen.Runtime.Marshal.WriteRaw
-      Storable_class       -> ''Foreign.Storable.Storable
-      Storable_sizeOf      -> 'Foreign.Storable.sizeOf
-      Storable_alignment   -> 'Foreign.Storable.alignment
-      Storable_peekByteOff -> 'Foreign.Storable.peekByteOff
-      Storable_pokeByteOff -> 'Foreign.Storable.pokeByteOff
-      Storable_peek        -> 'Foreign.Storable.peek
-      Storable_poke        -> 'Foreign.Storable.poke
-      Foreign_Ptr          -> ''Foreign.Ptr.Ptr
-      Ptr_constructor      -> 'GHC.Ptr.Ptr
-      Foreign_FunPtr       -> ''Foreign.Ptr.FunPtr
-      ConstantArray        -> ''HsBindgen.Runtime.ConstantArray.ConstantArray
-      IncompleteArray      -> ''HsBindgen.Runtime.IncompleteArray.IncompleteArray
-      IO_type              -> ''IO
+      Tuple_type i          -> tupleTypeName $ fromIntegral i
+      Tuple_constructor i   -> TH.tupleDataName $ fromIntegral i
+      Applicative_pure      -> 'pure
+      Applicative_seq       -> '(<*>)
+      Monad_return          -> 'return
+      Monad_seq             -> '(>>)
+      StaticSize_class      -> ''HsBindgen.Runtime.Marshal.StaticSize
+      ReadRaw_class         -> ''HsBindgen.Runtime.Marshal.ReadRaw
+      WriteRaw_class        -> ''HsBindgen.Runtime.Marshal.WriteRaw
+      ToFunPtr_class        -> ''HsBindgen.Runtime.FunPtr.Common.ToFunPtr
+      ToFunPtr_toFunPtr     -> 'HsBindgen.Runtime.FunPtr.Common.toFunPtr
+      FromFunPtr_class      -> ''HsBindgen.Runtime.FunPtr.Common.FromFunPtr
+      FromFunPtr_fromFunPtr -> 'HsBindgen.Runtime.FunPtr.Common.fromFunPtr
+      Storable_class        -> ''Foreign.Storable.Storable
+      Storable_sizeOf       -> 'Foreign.Storable.sizeOf
+      Storable_alignment    -> 'Foreign.Storable.alignment
+      Storable_peekByteOff  -> 'Foreign.Storable.peekByteOff
+      Storable_pokeByteOff  -> 'Foreign.Storable.pokeByteOff
+      Storable_peek         -> 'Foreign.Storable.peek
+      Storable_poke         -> 'Foreign.Storable.poke
+      Foreign_Ptr           -> ''Foreign.Ptr.Ptr
+      Ptr_constructor       -> 'GHC.Ptr.Ptr
+      Foreign_FunPtr        -> ''Foreign.Ptr.FunPtr
+      ConstantArray         -> ''HsBindgen.Runtime.ConstantArray.ConstantArray
+      IncompleteArray       -> ''HsBindgen.Runtime.IncompleteArray.IncompleteArray
+      IO_type               -> ''IO
       HasFlexibleArrayMember_class -> ''HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember
       HasFlexibleArrayMember_offset -> 'HsBindgen.Runtime.FlexibleArrayMember.flexibleArrayMemberOffset
       Bitfield_peekBitOffWidth -> 'HsBindgen.Runtime.Bitfield.peekBitOffWidth
@@ -253,28 +258,32 @@ mkGlobalP HsPrimInt        = ''Int
 -- | Construct an 'TH.Exp' for a 'Global'
 mkGlobalExpr :: Quote q => Global -> q TH.Exp
 mkGlobalExpr n = case n of -- in definition order, no wildcards
-    Tuple_type{}         -> panicPure "type in expression"
-    Tuple_constructor{}  -> TH.conE name
-    Applicative_pure     -> TH.varE name
-    Applicative_seq      -> TH.varE name
-    Monad_return         -> TH.varE name
-    Monad_seq            -> TH.varE name
-    StaticSize_class     -> panicPure "class in expression"
-    ReadRaw_class        -> panicPure "class in expression"
-    WriteRaw_class       -> panicPure "class in expression"
-    Storable_class       -> panicPure "class in expression"
-    Storable_sizeOf      -> TH.varE name
-    Storable_alignment   -> TH.varE name
-    Storable_peekByteOff -> TH.varE name
-    Storable_pokeByteOff -> TH.varE name
-    Storable_peek        -> TH.varE name
-    Storable_poke        -> TH.varE name
-    Foreign_Ptr          -> panicPure "type in expression"
-    Ptr_constructor      -> TH.conE name
-    Foreign_FunPtr       -> panicPure "type in expression"
-    ConstantArray        -> panicPure "type in expression"
-    IncompleteArray      -> panicPure "type in expression"
-    IO_type              -> panicPure "type in expression"
+    Tuple_type{}          -> panicPure "type in expression"
+    Tuple_constructor{}   -> TH.conE name
+    Applicative_pure      -> TH.varE name
+    Applicative_seq       -> TH.varE name
+    Monad_return          -> TH.varE name
+    Monad_seq             -> TH.varE name
+    StaticSize_class      -> panicPure "class in expression"
+    ReadRaw_class         -> panicPure "class in expression"
+    WriteRaw_class        -> panicPure "class in expression"
+    ToFunPtr_class        -> panicPure "class in expression"
+    ToFunPtr_toFunPtr     -> TH.varE name
+    FromFunPtr_class      -> panicPure "class in expression"
+    FromFunPtr_fromFunPtr -> TH.varE name
+    Storable_class        -> panicPure "class in expression"
+    Storable_sizeOf       -> TH.varE name
+    Storable_alignment    -> TH.varE name
+    Storable_peekByteOff  -> TH.varE name
+    Storable_pokeByteOff  -> TH.varE name
+    Storable_peek         -> TH.varE name
+    Storable_poke         -> TH.varE name
+    Foreign_Ptr           -> panicPure "type in expression"
+    Ptr_constructor       -> TH.conE name
+    Foreign_FunPtr        -> panicPure "type in expression"
+    ConstantArray         -> panicPure "type in expression"
+    IncompleteArray       -> panicPure "type in expression"
+    IO_type               -> panicPure "type in expression"
     HasFlexibleArrayMember_class -> panicPure "class in expression"
     HasFlexibleArrayMember_offset -> TH.varE name
     Bitfield_peekBitOffWidth -> TH.varE name

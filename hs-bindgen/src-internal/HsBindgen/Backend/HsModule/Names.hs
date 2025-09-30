@@ -46,6 +46,7 @@ import HsBindgen.Runtime.FlexibleArrayMember qualified
 import HsBindgen.Runtime.IncompleteArray qualified
 import HsBindgen.Runtime.Marshal qualified
 import HsBindgen.Runtime.SizedByteArray qualified
+import HsBindgen.Runtime.FunPtr.Common qualified
 
 {-------------------------------------------------------------------------------
   Imports
@@ -206,6 +207,10 @@ resolveGlobal = \case
     StaticSize_class              -> importQ ''HsBindgen.Runtime.Marshal.StaticSize
     ReadRaw_class                 -> importQ ''HsBindgen.Runtime.Marshal.ReadRaw
     WriteRaw_class                -> importQ ''HsBindgen.Runtime.Marshal.WriteRaw
+    ToFunPtr_class                -> importQ ''HsBindgen.Runtime.FunPtr.Common.ToFunPtr
+    ToFunPtr_toFunPtr             -> importQ 'HsBindgen.Runtime.FunPtr.Common.toFunPtr
+    FromFunPtr_class              -> importQ ''HsBindgen.Runtime.FunPtr.Common.FromFunPtr
+    FromFunPtr_fromFunPtr         -> importQ 'HsBindgen.Runtime.FunPtr.Common.fromFunPtr
     Storable_class                -> importQ ''Foreign.Storable
     Storable_sizeOf               -> importQ 'Foreign.sizeOf
     Storable_alignment            -> importQ 'Foreign.alignment

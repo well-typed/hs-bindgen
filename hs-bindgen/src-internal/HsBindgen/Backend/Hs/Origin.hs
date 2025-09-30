@@ -58,6 +58,7 @@ data ForeignImport =
     Function C.Function
   | Global C.Type
   | ToFunPtr C.Type
+  | FromFunPtr C.Type
   deriving stock (Generic, Show)
 
 newtype PatSyn =
