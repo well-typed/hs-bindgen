@@ -1,7 +1,12 @@
 {-# LANGUAGE BlockArguments #-}
+{-# LANGUAGE CPP #-}
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE ParallelListComp #-}
+
+#if __GLASGOW_HASKELL__ >=908
+{-# LANGUAGE TypeAbstractions #-}
+#endif
 
 -- | Type inference for simple function-like C macros.
 module C.Expr.Typecheck.Expr
@@ -32,7 +37,7 @@ module C.Expr.Typecheck.Expr
   )
   where
 
-import Control.Applicative (liftA2)
+import Control.Applicative qualified as Applicative
 import Control.Monad
 import Control.Monad.Except (ExceptT)
 import Control.Monad.Except qualified as Except
@@ -2014,7 +2019,7 @@ pprTcMacroError tcMacroErr =
 
 mapMaybeA :: Applicative m => ( a -> m ( Maybe b ) ) -> [ a ] -> m [ b ]
 mapMaybeA f =
-  foldr ( liftA2 ( maybe id (:) ) . f ) ( pure [] )
+  foldr ( Applicative.liftA2 ( maybe id (:) ) . f ) ( pure [] )
 {-# INLINEABLE mapMaybeA #-}
 
 guarded :: ( m -> Bool ) -> m -> Maybe m

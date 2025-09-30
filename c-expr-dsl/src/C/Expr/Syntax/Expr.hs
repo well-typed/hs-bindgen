@@ -1,3 +1,9 @@
+{-# LANGUAGE CPP #-}
+
+#if __GLASGOW_HASKELL__ >=908
+{-# LANGUAGE TypeAbstractions #-}
+#endif
+
 module C.Expr.Syntax.Expr (
     -- ** Expressions
     MExpr(..)
