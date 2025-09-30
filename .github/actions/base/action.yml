@@ -84,10 +84,12 @@ runs:
     - name: Restore cache
       id: cache-cabal-restore
       uses: actions/cache/restore@v4
+      env:
+        key: build-and-test-${{ inputs.runner }}-ghc-${{ steps.setup-haskell.outputs.ghc-version }}-cabal-${{ steps.setup-haskell.outputs.cabal-version }}-llvm-${{ inputs.llvm}}
       with:
         path: ${{ steps.setup-haskell.outputs.cabal-store }}
-        key: ${{ inputs.runner }}-${{ inputs.ghc }}-${{ inputs.llvm}}-${{ hashFiles('dist-newstyle/cache/plan.json') }}
-        restore-keys: ${{ inputs.runner }}-${{ inputs.ghc }}-
+        key: ${{ env.key }}-plan-${{ hashFiles('dist-newstyle/cache/plan.json') }}
+        restore-keys: ${{ env.key }}-
 
     - name: Dependencies
       shell: bash
