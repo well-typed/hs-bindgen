@@ -7,6 +7,11 @@ on:
   pull_request:
   merge_group:
 
+env:
+  # Fix the index state. It rarely has to change unless we want to use a new
+  # version of stylish-haskell.
+  hackage-index-state: "2025-09-29T00:00:00Z"
+
 jobs:
   stylish-haskell:
     name: Stylish Haskell
@@ -23,35 +28,30 @@ jobs:
         ghc-version: 9.12.2
         cabal-version: 3.16
 
-    - name: cabal.project
-      run: cp cabal.project.ci cabal.project
-
-    - name: Dry build (for cache key)
-      run: cabal build all --dry-run
-
     - name: Restore cache
       id: cache-cabal-restore
       uses: actions/cache/restore@v4
+      env:
+        key: stylish-haskell-ghc-${{ steps.setup-haskell.outputs.ghc-version }}-cabal-${{ steps.setup-haskell.outputs.cabal-version }}
       with:
         path: ${{ steps.setup-haskell.outputs.cabal-store }}
-        key: ${{ steps.setup-haskell.outputs.ghc-version }}-${{ hashFiles('dist-newstyle/cache/plan.json') }}
-        restore-keys: ${{ steps.setup-haskell.outputs.ghc-version }}-
+        key: ${{ env.key }}-input-state-${{ env.hackage-index-state }}
+        restore-keys: ${{ env.key }}-
 
+    # Ignores the project file, since installing stylish-haskell does not have
+    # to use the same configuration as the rest of the hs-bindgen project.
     - name: Install stylish-haskell
       run: |
-        cabal update
-        cabal install stylish-haskell
+        cabal install stylish-haskell --ignore-project --index-state=${{ env.hackage-index-state }}
+
+    - name: Save cache
+      uses: actions/cache/save@v4
+      if: ${{ steps.cache-cabal-restore.outputs.cache-hit == 'false' }}
+      with:
+        path: ${{ steps.setup-haskell.outputs.cabal-store }}
+        key: ${{ steps.cache-cabal-restore.outputs.cache-primary-key }}
 
     - name: Check import formatting
       run: |
         chmod +x scripts/ci/run-stylish-haskell.sh
         scripts/ci/run-stylish-haskell.sh -c
-
-    - name: Save cache
-      uses: actions/cache/save@v4
-      # Even save the cache, even when a previous job failed. Do not save the
-      # cache when the job gets canceled.
-      if: ${{ !cancelled() }}
-      with:
-        path: ${{ steps.setup-haskell.outputs.cabal-store }}
-        key: ${{ steps.cache-cabal-restore.outputs.cache-primary-key }}
