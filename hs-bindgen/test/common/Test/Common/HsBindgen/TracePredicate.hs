@@ -201,6 +201,10 @@ instance (IsTrace l a, Show a) => WrongCountMsg a String where
 instance (IsTrace l a, Show a) => WrongCountMsg a C.PrelimDeclId where
   wrongCount = wrongCount . prettyForTrace
 
+-- | It is often useful to check for warnings/errors for specific declarations
+instance (IsTrace l a, Show a) => WrongCountMsg a C.NsPrelimDeclId where
+  wrongCount = wrongCount . prettyForTrace
+
 -- | The most common case: traces with just one outcome
 instance (IsTrace l a, Show a) => WrongCountMsg a () where
   wrongCount _ 1 n _      = case compare n 1 of

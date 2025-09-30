@@ -100,6 +100,18 @@ fromDecls decls =
                 -- Redeclaration with a /different/ value. This is only legal
                 -- for macros; for other kinds of declarations, clang will have
                 -- reported an error already.
+                --
+                -- TODO: there are cases where one declaration is an actual C
+                -- construct like a variable declaration, but the new
+                -- declaration is a macro of the same name that simply defers to
+                -- the C construct. This is apparently a valid pattern, which
+                -- for example occurs in @stdio.h@:
+                --
+                -- > typedef int FILE;
+                -- > extern FILE *const stdin;
+                -- > #define stdin  (stdin)
+                --
+                -- See issue #1155.
                 failure $ Redeclaration{
                     redeclarationId  = C.declNsPrelimDeclId new
                   , redeclarationOld = C.declLoc $ C.declInfo old
