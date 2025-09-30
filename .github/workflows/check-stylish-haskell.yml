@@ -50,7 +50,7 @@ jobs:
 
     - name: Save cache
       uses: actions/cache/save@v4
-      if: ${{ steps.cache-cabal-restore.outputs.cache-hit == 'false' }}
+      if: ${{ steps.cache-cabal-restore.outputs.cache-hit != 'true' }}
       with:
         path: ${{ steps.setup-haskell.outputs.cabal-store }}
         key: ${{ steps.cache-cabal-restore.outputs.cache-primary-key }}
