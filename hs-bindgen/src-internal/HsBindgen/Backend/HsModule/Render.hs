@@ -28,7 +28,7 @@ import Clang.HighLevel.Types
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type (HsPrimType (..), ResultType (..))
 import HsBindgen.Backend.Hs.CallConv
-import HsBindgen.Backend.Hs.Haddock.Documentation qualified as Hs
+import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.HsModule.Capi (renderCapiWrapper)
 import HsBindgen.Backend.HsModule.Names
 import HsBindgen.Backend.HsModule.Translation
@@ -36,7 +36,7 @@ import HsBindgen.Backend.SHs.AST
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.RootHeader (HashIncludeArg (..))
 import HsBindgen.Imports
-import HsBindgen.Language.Haskell
+import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint
 
 import DeBruijn (Add (..), EmptyCtx, Env (..), lookupEnv)
@@ -125,18 +125,18 @@ instance Pretty ImportListItem where
 -- these two.
 --
 data CommentKind
-  = TopLevelComment Hs.Comment
+  = TopLevelComment HsDoc.Comment
     -- ^ Comments that will beging with \"{-|\" for top level declarations
-  | PartOfDeclarationComment Hs.Comment
+  | PartOfDeclarationComment HsDoc.Comment
     -- ^ Comments that will beging with \"{-^\" for fields and part of
     -- declarations
-  | THComment Hs.Comment
+  | THComment HsDoc.Comment
     -- ^ Comments that will not begin with any specific documentation string
     -- since they will be taken care of by Template Haskell
 
 instance Pretty CommentKind where
   pretty commentKind =
-    let (commentStart, commentEnd, Hs.Comment {..}) =
+    let (commentStart, commentEnd, HsDoc.Comment {..}) =
           case commentKind of
             TopLevelComment c          -> ("{-|", "-}", c)
             PartOfDeclarationComment c -> ("{- ^", "-}", c)
@@ -198,50 +198,50 @@ escapePaths []       = []
 escapePaths ('/':ss) = "\\/" ++ escapePaths ss
 escapePaths (s:ss)   = s : escapePaths ss
 
-instance Pretty Hs.CommentBlockContent where
+instance Pretty HsDoc.CommentBlockContent where
   pretty = \case
-    Hs.Paragraph{..}      -> hsep
-                           . map pretty
-                           $ paragraphContent
-    Hs.CodeBlock{..}      -> vcat
-                           $ ["@"]
-                          ++ map textToCtxDoc codeBlockLines
-                          ++ ["@"]
-    Hs.Verbatim{..}       -> ">" <+> textToCtxDoc verbatimContent
-    Hs.Example{..}        -> ">>>" <+> textToCtxDoc exampleContent
-    Hs.Property{..}       -> "prop>" <+> textToCtxDoc propertyContent
-    Hs.ListItem{..}       ->
+    HsDoc.Paragraph{..}      -> hsep
+                              . map pretty
+                              $ paragraphContent
+    HsDoc.CodeBlock{..}      -> vcat
+                              $ ["@"]
+                             ++ map textToCtxDoc codeBlockLines
+                             ++ ["@"]
+    HsDoc.Verbatim{..}       -> ">" <+> textToCtxDoc verbatimContent
+    HsDoc.Example{..}        -> ">>>" <+> textToCtxDoc exampleContent
+    HsDoc.Property{..}       -> "prop>" <+> textToCtxDoc propertyContent
+    HsDoc.ListItem{..}       ->
       let listMarker =
             case listItemType of
-              Hs.BulletList -> "*"
-              Hs.NumberedList n -> showToCtxDoc n >< "."
+              HsDoc.BulletList -> "*"
+              HsDoc.NumberedList n -> showToCtxDoc n >< "."
        in listMarker <+> vcat (map pretty listItemContent)
-    Hs.DefinitionList{..} -> "["
-                          >< pretty definitionListTerm
-                          >< "]:"
-                         <+> vcat (map pretty definitionListContent)
-    Hs.Header{..}         -> string (replicate (fromEnum headerLevel) '=')
-                         <+> (hsep $ map pretty headerContent)
+    HsDoc.DefinitionList{..} -> "["
+                             >< pretty definitionListTerm
+                             >< "]:"
+                            <+> vcat (map pretty definitionListContent)
+    HsDoc.Header{..}         -> string (replicate (fromEnum headerLevel) '=')
+                            <+> (hsep $ map pretty headerContent)
 
 
-instance Pretty Hs.CommentInlineContent where
+instance Pretty HsDoc.CommentInlineContent where
   pretty = \case
-    Hs.TextContent{..} -> textToCtxDoc textContent
-    Hs.Monospace{..}   -> "@" >< hsep (map pretty monospaceContent) >< "@"
-    Hs.Emph{..}        -> "/" >< hsep (map pretty emphContent) >< "/"
-    Hs.Bold{..}        -> "__" >< hsep (map pretty boldContent) >< "__"
-    Hs.Module{..}      -> "\"" >< textToCtxDoc moduleContent >< "\""
-    Hs.Identifier{..}  -> "'" >< textToCtxDoc identifierContent >< "'"
-    Hs.Type{..}        -> "t'" >< textToCtxDoc typeContent
-    Hs.Link{..}        -> "[" >< hsep (map pretty linkLabel) >< "]"
-                       >< "(" >< textToCtxDoc linkURL >< ")"
-    Hs.URL{..}         -> "<" >< textToCtxDoc urlContent >< ">"
-    Hs.Anchor{..}      -> "#" >< textToCtxDoc anchorContent >< "#"
-    Hs.Math{..}        -> "\\[" >< vcat (map textToCtxDoc mathContent) >< "\\]"
-    Hs.Metadata{..}    -> pretty metadataContent
+    HsDoc.TextContent{..} -> textToCtxDoc textContent
+    HsDoc.Monospace{..}   -> "@" >< hsep (map pretty monospaceContent) >< "@"
+    HsDoc.Emph{..}        -> "/" >< hsep (map pretty emphContent) >< "/"
+    HsDoc.Bold{..}        -> "__" >< hsep (map pretty boldContent) >< "__"
+    HsDoc.Module{..}      -> "\"" >< textToCtxDoc moduleContent >< "\""
+    HsDoc.Identifier{..}  -> "'" >< textToCtxDoc identifierContent >< "'"
+    HsDoc.Type{..}        -> "t'" >< textToCtxDoc typeContent
+    HsDoc.Link{..}        -> "[" >< hsep (map pretty linkLabel) >< "]"
+                          >< "(" >< textToCtxDoc linkURL >< ")"
+    HsDoc.URL{..}         -> "<" >< textToCtxDoc urlContent >< ">"
+    HsDoc.Anchor{..}      -> "#" >< textToCtxDoc anchorContent >< "#"
+    HsDoc.Math{..}        -> "\\[" >< vcat (map textToCtxDoc mathContent) >< "\\]"
+    HsDoc.Metadata{..}    -> pretty metadataContent
 
-instance Pretty Hs.CommentMeta where
-  pretty Hs.Since{..} = "@since:" <+> textToCtxDoc sinceContent
+instance Pretty HsDoc.CommentMeta where
+  pretty HsDoc.Since{..} = "@since:" <+> textToCtxDoc sinceContent
 
 {-------------------------------------------------------------------------------
   Declaration pretty-printing
@@ -673,11 +673,11 @@ getInfixSpecialCase env = \case
       string . flip List.replicate ' ' . length . renderCtxDoc defaultContext
 
 {-------------------------------------------------------------------------------
-  HsName pretty-printing
+  Hs.Name pretty-printing
 -------------------------------------------------------------------------------}
 
-instance Pretty (HsName ns) where
-  pretty = string . Text.unpack . getHsName
+instance Pretty (Hs.Name ns) where
+  pretty = string . Text.unpack . Hs.getName
 
 {-------------------------------------------------------------------------------
   ResolvedName pretty-printing
@@ -742,15 +742,15 @@ ppInfixBackendName = \case
   ExtIdentifier pretty-printing
 -------------------------------------------------------------------------------}
 
-instance Pretty HsModuleName where
-  pretty = string . Text.unpack . getHsModuleName
+instance Pretty Hs.ModuleName where
+  pretty = string . Text.unpack . Hs.getModuleName
 
-instance Pretty HsIdentifier where
-  pretty = string . Text.unpack . getHsIdentifier
+instance Pretty Hs.Identifier where
+  pretty = string . Text.unpack . Hs.getIdentifier
 
-instance Pretty ExtHsRef where
-  pretty ExtHsRef{..} =
-    hcat [pretty extHsRefModule, char '.', pretty extHsRefIdentifier]
+instance Pretty Hs.ExtRef where
+  pretty Hs.ExtRef{..} =
+    hcat [pretty extRefModule, char '.', pretty extRefIdentifier]
 
 {-------------------------------------------------------------------------------
   Auxiliary Functions

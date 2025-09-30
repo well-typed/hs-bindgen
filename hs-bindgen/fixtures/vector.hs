@@ -1,15 +1,15 @@
 [
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "Vector",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "Vector",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "vector_x",
           fieldType = HsPrimType
@@ -20,7 +20,7 @@
                 fieldLoc = "vector.h:2:12",
                 fieldName = NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "vector_x"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -40,7 +40,7 @@
                   headerInclude = "vector.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "vector_y",
           fieldType = HsPrimType
@@ -51,7 +51,7 @@
                 fieldLoc = "vector.h:3:12",
                 fieldName = NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "vector_y"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -76,7 +76,7 @@
             declLoc = "vector.h:1:9",
             declId = NamePair {
               nameC = Name "vector",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Vector"},
             declOrigin = NameOriginGenerated
               (AnonId "vector.h:1:9"),
@@ -90,7 +90,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "Vector"),
+                (Name "@NsConstr" "Vector"),
               structSizeof = 16,
               structAlignment = 8,
               structFields = [
@@ -99,7 +99,7 @@
                     fieldLoc = "vector.h:2:12",
                     fieldName = NamePair {
                       nameC = Name "x",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "vector_x"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -111,7 +111,7 @@
                     fieldLoc = "vector.h:3:12",
                     fieldName = NamePair {
                       nameC = Name "y",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "vector_y"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -144,15 +144,15 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Vector",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Vector",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "vector_x",
               fieldType = HsPrimType
@@ -163,7 +163,7 @@
                     fieldLoc = "vector.h:2:12",
                     fieldName = NamePair {
                       nameC = Name "x",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "vector_x"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -183,7 +183,7 @@
                       headerInclude = "vector.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "vector_y",
               fieldType = HsPrimType
@@ -194,7 +194,7 @@
                     fieldLoc = "vector.h:3:12",
                     fieldName = NamePair {
                       nameC = Name "y",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "vector_y"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -219,7 +219,7 @@
                 declLoc = "vector.h:1:9",
                 declId = NamePair {
                   nameC = Name "vector",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Vector"},
                 declOrigin = NameOriginGenerated
                   (AnonId "vector.h:1:9"),
@@ -233,7 +233,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "Vector"),
+                    (Name "@NsConstr" "Vector"),
                   structSizeof = 16,
                   structAlignment = 8,
                   structFields = [
@@ -242,7 +242,7 @@
                         fieldLoc = "vector.h:2:12",
                         fieldName = NamePair {
                           nameC = Name "x",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "vector_x"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -254,7 +254,7 @@
                         fieldLoc = "vector.h:3:12",
                         fieldName = NamePair {
                           nameC = Name "y",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "vector_y"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -290,15 +290,15 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Vector",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Vector",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "vector_x",
                       fieldType = HsPrimType
@@ -309,7 +309,7 @@
                             fieldLoc = "vector.h:2:12",
                             fieldName = NamePair {
                               nameC = Name "x",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "vector_x"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -329,7 +329,7 @@
                               headerInclude = "vector.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "vector_y",
                       fieldType = HsPrimType
@@ -340,7 +340,7 @@
                             fieldLoc = "vector.h:3:12",
                             fieldName = NamePair {
                               nameC = Name "y",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "vector_y"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -365,7 +365,7 @@
                         declLoc = "vector.h:1:9",
                         declId = NamePair {
                           nameC = Name "vector",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Vector"},
                         declOrigin = NameOriginGenerated
                           (AnonId "vector.h:1:9"),
@@ -379,7 +379,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Vector"),
+                            (Name "@NsConstr" "Vector"),
                           structSizeof = 16,
                           structAlignment = 8,
                           structFields = [
@@ -388,7 +388,7 @@
                                 fieldLoc = "vector.h:2:12",
                                 fieldName = NamePair {
                                   nameC = Name "x",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "vector_x"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -400,7 +400,7 @@
                                 fieldLoc = "vector.h:3:12",
                                 fieldName = NamePair {
                                   nameC = Name "y",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "vector_y"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -438,15 +438,15 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Vector",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Vector",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "vector_x",
                       fieldType = HsPrimType
@@ -457,7 +457,7 @@
                             fieldLoc = "vector.h:2:12",
                             fieldName = NamePair {
                               nameC = Name "x",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "vector_x"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -477,7 +477,7 @@
                               headerInclude = "vector.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "vector_y",
                       fieldType = HsPrimType
@@ -488,7 +488,7 @@
                             fieldLoc = "vector.h:3:12",
                             fieldName = NamePair {
                               nameC = Name "y",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "vector_y"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -513,7 +513,7 @@
                         declLoc = "vector.h:1:9",
                         declId = NamePair {
                           nameC = Name "vector",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Vector"},
                         declOrigin = NameOriginGenerated
                           (AnonId "vector.h:1:9"),
@@ -527,7 +527,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Vector"),
+                            (Name "@NsConstr" "Vector"),
                           structSizeof = 16,
                           structAlignment = 8,
                           structFields = [
@@ -536,7 +536,7 @@
                                 fieldLoc = "vector.h:2:12",
                                 fieldName = NamePair {
                                   nameC = Name "x",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "vector_x"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -548,7 +548,7 @@
                                 fieldLoc = "vector.h:3:12",
                                 fieldName = NamePair {
                                   nameC = Name "y",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "vector_y"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -591,7 +591,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Vector",
       deriveInstanceComment =
@@ -601,20 +601,20 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Vector",
       deriveInstanceComment =
       Nothing},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "new_vector",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "x"),
+            (Name "@NsVar" "x"),
           functionParameterType =
           HsPrimType HsPrimCDouble,
           functionParameterComment = Just
@@ -626,7 +626,7 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "y"),
+            (Name "@NsVar" "y"),
           functionParameterType =
           HsPrimType HsPrimCDouble,
           functionParameterComment = Just
@@ -641,7 +641,7 @@
         (HsIO
           (HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "Vector")))),
       foreignImportOrigName =
@@ -659,14 +659,14 @@
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypePrim
                 (PrimFloating PrimDouble)),
             _×_
               (Just
                 NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier "y"})
+                  nameHsIdent = Identifier "y"})
               (TypePrim
                 (PrimFloating PrimDouble))],
           functionAttrs =
@@ -679,7 +679,7 @@
                 (TypeStruct
                   NamePair {
                     nameC = Name "vector",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Vector"}
                   (NameOriginGenerated
                     (AnonId "vector.h:1:9")))))},
@@ -699,13 +699,13 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "new_vector",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "x"),
+            (Name "@NsVar" "x"),
           functionParameterType =
           HsPrimType HsPrimCDouble,
           functionParameterComment = Just
@@ -717,7 +717,7 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "y"),
+            (Name "@NsVar" "y"),
           functionParameterType =
           HsPrimType HsPrimCDouble,
           functionParameterComment = Just
@@ -732,7 +732,7 @@
         (HsIO
           (HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "Vector")))),
       foreignImportOrigName =
@@ -750,14 +750,14 @@
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypePrim
                 (PrimFloating PrimDouble)),
             _×_
               (Just
                 NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier "y"})
+                  nameHsIdent = Identifier "y"})
               (TypePrim
                 (PrimFloating PrimDouble))],
           functionAttrs =
@@ -770,7 +770,7 @@
                 (TypeStruct
                   NamePair {
                     nameC = Name "vector",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Vector"}
                   (NameOriginGenerated
                     (AnonId "vector.h:1:9")))))},
@@ -790,7 +790,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_vector_7672b9e7f001c998",
       foreignImportParameters = [],
@@ -805,7 +805,7 @@
                 (HsIO
                   (HsPtr
                     (HsTypRef
-                      (HsName
+                      (Name
                         "@NsTypeConstr"
                         "Vector")))))))),
       foreignImportOrigName =
@@ -830,7 +830,7 @@
                 (TypeStruct
                   NamePair {
                     nameC = Name "vector",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Vector"}
                   (NameOriginGenerated
                     (AnonId "vector.h:1:9"))))))),

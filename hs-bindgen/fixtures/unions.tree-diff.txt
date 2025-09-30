@@ -5,7 +5,7 @@ TranslationUnit {
         declLoc = "unions.h:1:8",
         declId = NamePair {
           nameC = Name "Dim2",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Dim2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -18,7 +18,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "Dim2"),
+            (Name "@NsConstr" "Dim2"),
           structSizeof = 8,
           structAlignment = 4,
           structFields = [
@@ -27,7 +27,7 @@ TranslationUnit {
                 fieldLoc = "unions.h:2:9",
                 fieldName = NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "dim2_x"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -39,7 +39,7 @@ TranslationUnit {
                 fieldLoc = "unions.h:3:9",
                 fieldName = NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "dim2_y"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -58,7 +58,7 @@ TranslationUnit {
         declLoc = "unions.h:6:8",
         declId = NamePair {
           nameC = Name "Dim3",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Dim3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -71,7 +71,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "Dim3"),
+            (Name "@NsConstr" "Dim3"),
           structSizeof = 12,
           structAlignment = 4,
           structFields = [
@@ -80,7 +80,7 @@ TranslationUnit {
                 fieldLoc = "unions.h:7:9",
                 fieldName = NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "dim3_x"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -92,7 +92,7 @@ TranslationUnit {
                 fieldLoc = "unions.h:8:9",
                 fieldName = NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "dim3_y"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -104,7 +104,7 @@ TranslationUnit {
                 fieldLoc = "unions.h:9:9",
                 fieldName = NamePair {
                   nameC = Name "z",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "dim3_z"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -123,7 +123,7 @@ TranslationUnit {
         declLoc = "unions.h:12:7",
         declId = NamePair {
           nameC = Name "DimPayload",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "DimPayload"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -136,10 +136,10 @@ TranslationUnit {
       declKind = DeclUnion
         Union {
           unionNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "DimPayload",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_DimPayload"},
           unionSizeof = 8,
@@ -150,28 +150,26 @@ TranslationUnit {
                 fieldLoc = "unions.h:13:17",
                 fieldName = NamePair {
                   nameC = Name "dim2",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "dimPayload_dim2"},
                 fieldComment = Nothing},
               unionFieldType = TypeStruct
                 NamePair {
                   nameC = Name "Dim2",
-                  nameHsIdent = HsIdentifier
-                    "Dim2"}
+                  nameHsIdent = Identifier "Dim2"}
                 NameOriginInSource},
             UnionField {
               unionFieldInfo = FieldInfo {
                 fieldLoc = "unions.h:14:17",
                 fieldName = NamePair {
                   nameC = Name "dim3",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "dimPayload_dim3"},
                 fieldComment = Nothing},
               unionFieldType = TypeStruct
                 NamePair {
                   nameC = Name "Dim2",
-                  nameHsIdent = HsIdentifier
-                    "Dim2"}
+                  nameHsIdent = Identifier "Dim2"}
                 NameOriginInSource}]},
       declSpec = DeclSpec
         TypeSpec {
@@ -184,8 +182,7 @@ TranslationUnit {
         declLoc = "unions.h:17:8",
         declId = NamePair {
           nameC = Name "Dim",
-          nameHsIdent = HsIdentifier
-            "Dim"},
+          nameHsIdent = Identifier "Dim"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -197,7 +194,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "Dim"),
+            (Name "@NsConstr" "Dim"),
           structSizeof = 12,
           structAlignment = 4,
           structFields = [
@@ -206,7 +203,7 @@ TranslationUnit {
                 fieldLoc = "unions.h:18:9",
                 fieldName = NamePair {
                   nameC = Name "tag",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "dim_tag"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -218,13 +215,13 @@ TranslationUnit {
                 fieldLoc = "unions.h:19:22",
                 fieldName = NamePair {
                   nameC = Name "payload",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "dim_payload"},
                 fieldComment = Nothing},
               structFieldType = TypeUnion
                 NamePair {
                   nameC = Name "DimPayload",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "DimPayload"}
                 NameOriginInSource,
               structFieldOffset = 32,
@@ -241,7 +238,7 @@ TranslationUnit {
         declLoc = "unions.h:23:15",
         declId = NamePair {
           nameC = Name "DimPayloadB",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "DimPayloadB"},
         declOrigin = NameOriginInSource,
         declAliases = [
@@ -255,10 +252,10 @@ TranslationUnit {
       declKind = DeclUnion
         Union {
           unionNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "DimPayloadB",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_DimPayloadB"},
           unionSizeof = 8,
@@ -269,28 +266,26 @@ TranslationUnit {
                 fieldLoc = "unions.h:24:17",
                 fieldName = NamePair {
                   nameC = Name "dim2",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "dimPayloadB_dim2"},
                 fieldComment = Nothing},
               unionFieldType = TypeStruct
                 NamePair {
                   nameC = Name "Dim2",
-                  nameHsIdent = HsIdentifier
-                    "Dim2"}
+                  nameHsIdent = Identifier "Dim2"}
                 NameOriginInSource},
             UnionField {
               unionFieldInfo = FieldInfo {
                 fieldLoc = "unions.h:25:17",
                 fieldName = NamePair {
                   nameC = Name "dim3",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "dimPayloadB_dim3"},
                 fieldComment = Nothing},
               unionFieldType = TypeStruct
                 NamePair {
                   nameC = Name "Dim2",
-                  nameHsIdent = HsIdentifier
-                    "Dim2"}
+                  nameHsIdent = Identifier "Dim2"}
                 NameOriginInSource}]},
       declSpec = DeclSpec
         TypeSpec {
@@ -303,7 +298,7 @@ TranslationUnit {
         declLoc = "unions.h:28:8",
         declId = NamePair {
           nameC = Name "DimB",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "DimB"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -316,7 +311,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "DimB"),
+            (Name "@NsConstr" "DimB"),
           structSizeof = 12,
           structAlignment = 4,
           structFields = [
@@ -325,7 +320,7 @@ TranslationUnit {
                 fieldLoc = "unions.h:29:9",
                 fieldName = NamePair {
                   nameC = Name "tag",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "dimB_tag"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -337,7 +332,7 @@ TranslationUnit {
                 fieldLoc = "unions.h:30:17",
                 fieldName = NamePair {
                   nameC = Name "payload",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "dimB_payload"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
@@ -346,7 +341,7 @@ TranslationUnit {
                   (TypeUnion
                     NamePair {
                       nameC = Name "DimPayloadB",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "DimPayloadB"}
                     NameOriginInSource)),
               structFieldOffset = 32,
@@ -363,7 +358,7 @@ TranslationUnit {
         declLoc = "unions.h:35:5",
         declId = NamePair {
           nameC = Name "AnonA_xy",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "AnonA_xy"},
         declOrigin = NameOriginGenerated
           (AnonId "unions.h:35:5"),
@@ -377,7 +372,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "AnonA_xy"),
+            (Name "@NsConstr" "AnonA_xy"),
           structSizeof = 16,
           structAlignment = 8,
           structFields = [
@@ -386,7 +381,7 @@ TranslationUnit {
                 fieldLoc = "unions.h:35:21",
                 fieldName = NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "anonA_xy_x"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -398,7 +393,7 @@ TranslationUnit {
                 fieldLoc = "unions.h:35:31",
                 fieldName = NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "anonA_xy_y"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -417,7 +412,7 @@ TranslationUnit {
         declLoc = "unions.h:36:5",
         declId = NamePair {
           nameC = Name "AnonA_polar",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "AnonA_polar"},
         declOrigin = NameOriginGenerated
           (AnonId "unions.h:36:5"),
@@ -431,7 +426,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName
+            (Name
               "@NsConstr"
               "AnonA_polar"),
           structSizeof = 16,
@@ -442,7 +437,7 @@ TranslationUnit {
                 fieldLoc = "unions.h:36:21",
                 fieldName = NamePair {
                   nameC = Name "r",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "anonA_polar_r"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -454,7 +449,7 @@ TranslationUnit {
                 fieldLoc = "unions.h:36:31",
                 fieldName = NamePair {
                   nameC = Name "p",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "anonA_polar_p"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -473,7 +468,7 @@ TranslationUnit {
         declLoc = "unions.h:34:7",
         declId = NamePair {
           nameC = Name "AnonA",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "AnonA"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -486,10 +481,10 @@ TranslationUnit {
       declKind = DeclUnion
         Union {
           unionNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "AnonA",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_AnonA"},
           unionSizeof = 16,
@@ -500,13 +495,13 @@ TranslationUnit {
                 fieldLoc = "unions.h:35:36",
                 fieldName = NamePair {
                   nameC = Name "xy",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "anonA_xy"},
                 fieldComment = Nothing},
               unionFieldType = TypeStruct
                 NamePair {
                   nameC = Name "AnonA_xy",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "AnonA_xy"}
                 (NameOriginGenerated
                   (AnonId "unions.h:35:5"))},
@@ -515,13 +510,13 @@ TranslationUnit {
                 fieldLoc = "unions.h:36:36",
                 fieldName = NamePair {
                   nameC = Name "polar",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "anonA_polar"},
                 fieldComment = Nothing},
               unionFieldType = TypeStruct
                 NamePair {
                   nameC = Name "AnonA_polar",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "AnonA_polar"}
                 (NameOriginGenerated
                   (AnonId "unions.h:36:5"))}]},

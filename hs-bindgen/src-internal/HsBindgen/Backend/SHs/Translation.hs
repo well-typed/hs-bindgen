@@ -19,11 +19,11 @@ import C.Expr.Typecheck.Type qualified as CExpr.DSL
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.CallConv
-import HsBindgen.Backend.Hs.Haddock.Documentation (Comment)
+import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Errors
 import HsBindgen.Imports
-import HsBindgen.Language.Haskell
+import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint
 
 import DeBruijn (rzeroAdd)
@@ -141,7 +141,7 @@ translateDeriveInstance Hs.DeriveInstance{..} = DDerivingInstance
       , derivingInstanceComment  = deriveInstanceComment
       }
 
-translateTypeClass :: HsTypeClass -> ClosedType
+translateTypeClass :: Hs.TypeClass -> ClosedType
 translateTypeClass Hs.Bits       = TGlobal Bits_class
 translateTypeClass Hs.Bounded    = TGlobal Bounded_class
 translateTypeClass Hs.Enum       = TGlobal Enum_class
@@ -377,7 +377,11 @@ translateAppHead = \case
   'Storable'
 -------------------------------------------------------------------------------}
 
-translateStorableInstance :: Hs.Struct n -> Hs.StorableInstance -> Maybe Comment -> Instance
+translateStorableInstance ::
+     Hs.Struct n
+  -> Hs.StorableInstance
+  -> Maybe HsDoc.Comment
+  -> Instance
 translateStorableInstance struct Hs.StorableInstance{..} mbComment = do
     let peek = lambda (idiom structCon translatePeekByteOff) storablePeek
     let poke = lambda (lambda (translateElimStruct (doAll translatePokeByteOff))) storablePoke
@@ -413,8 +417,8 @@ translateElimStruct f (Hs.ElimStruct x struct add k) = ECase
   where
     hints = fmap (toNameHint . Hs.fieldName) $ Hs.structFields struct
 
-toNameHint :: HsName 'NsVar -> NameHint
-toNameHint (HsName t) = NameHint (T.unpack t)
+toNameHint :: Hs.Name 'Hs.NsVar -> NameHint
+toNameHint (Hs.Name t) = NameHint (T.unpack t)
 
 {-------------------------------------------------------------------------------
   Unions
@@ -445,7 +449,7 @@ translateCEnumInstance ::
   -> HsType
   -> Map Integer (NonEmpty String)
   -> Bool
-  -> Maybe Comment
+  -> Maybe HsDoc.Comment
   -> Instance
 translateCEnumInstance struct fTyp vMap isSequential mbComment = Instance {
       instanceClass = CEnum_class
@@ -465,9 +469,9 @@ translateCEnumInstance struct fTyp vMap isSequential mbComment = Instance {
     tcon = TCon $ Hs.structName struct
 
     dconStrE :: SExpr ctx
-    dconStrE = EString . T.unpack $ getHsName (Hs.structConstr struct)
+    dconStrE = EString . T.unpack $ Hs.getName (Hs.structConstr struct)
 
-    fname :: HsName NsVar
+    fname :: Hs.Name Hs.NsVar
     fname = Hs.fieldName $
       NonEmpty.head (Vec.toNonEmpty (Hs.structFields struct))
 
@@ -496,9 +500,9 @@ translateCEnumInstance struct fTyp vMap isSequential mbComment = Instance {
 
 translateSequentialCEnum ::
      Hs.Struct (S Z)
-  -> HsName NsConstr
-  -> HsName NsConstr
-  -> Maybe Comment
+  -> Hs.Name Hs.NsConstr
+  -> Hs.Name Hs.NsConstr
+  -> Maybe HsDoc.Comment
   -> Instance
 translateSequentialCEnum struct nameMin nameMax mbComment = Instance {
       instanceClass = SequentialCEnum_class
@@ -516,7 +520,7 @@ translateSequentialCEnum struct nameMin nameMax mbComment = Instance {
 
 translateCEnumInstanceShow ::
      Hs.Struct (S Z)
-  -> Maybe Comment
+  -> Maybe HsDoc.Comment
   -> Instance
 translateCEnumInstanceShow struct mbComment = Instance {
       instanceClass = Show_class
@@ -533,7 +537,7 @@ translateCEnumInstanceShow struct mbComment = Instance {
 
 translateCEnumInstanceRead ::
      Hs.Struct (S Z)
-  -> Maybe Comment
+  -> Maybe HsDoc.Comment
   -> Instance
 translateCEnumInstanceRead struct mbComment = Instance {
       instanceClass = Read_class

@@ -1,10 +1,10 @@
 [
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "FILE",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "FILE",
       structFields = [],
@@ -17,7 +17,7 @@
             "fun_attributes.h:7:9",
             declId = NamePair {
               nameC = Name "FILE",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "FILE"},
             declOrigin = NameOriginGenerated
               (AnonId "fun_attributes.h:7:9"),
@@ -43,7 +43,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "FILE"),
+                (Name "@NsConstr" "FILE"),
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
@@ -83,10 +83,10 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "FILE",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "FILE",
           structFields = [],
@@ -99,7 +99,7 @@
                 "fun_attributes.h:7:9",
                 declId = NamePair {
                   nameC = Name "FILE",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "FILE"},
                 declOrigin = NameOriginGenerated
                   (AnonId "fun_attributes.h:7:9"),
@@ -125,7 +125,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "FILE"),
+                    (Name "@NsConstr" "FILE"),
                   structSizeof = 0,
                   structAlignment = 1,
                   structFields = [],
@@ -169,10 +169,10 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "FILE",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "FILE",
                   structFields = [],
@@ -185,7 +185,7 @@
                         "fun_attributes.h:7:9",
                         declId = NamePair {
                           nameC = Name "FILE",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "FILE"},
                         declOrigin = NameOriginGenerated
                           (AnonId "fun_attributes.h:7:9"),
@@ -211,7 +211,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "FILE"),
+                            (Name "@NsConstr" "FILE"),
                           structSizeof = 0,
                           structAlignment = 1,
                           structFields = [],
@@ -255,10 +255,10 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "FILE",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "FILE",
                   structFields = [],
@@ -271,7 +271,7 @@
                         "fun_attributes.h:7:9",
                         declId = NamePair {
                           nameC = Name "FILE",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "FILE"},
                         declOrigin = NameOriginGenerated
                           (AnonId "fun_attributes.h:7:9"),
@@ -297,7 +297,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "FILE"),
+                            (Name "@NsConstr" "FILE"),
                           structSizeof = 0,
                           structAlignment = 1,
                           structFields = [],
@@ -341,7 +341,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "FILE",
       deriveInstanceComment =
@@ -351,21 +351,21 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "FILE",
       deriveInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "Size_t",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "Size_t",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_Size_t",
         fieldType = HsPrimType
@@ -378,7 +378,7 @@
           "fun_attributes.h:8:13",
           declId = NamePair {
             nameC = Name "size_t",
-            nameHsIdent = HsIdentifier
+            nameHsIdent = Identifier
               "Size_t"},
           declOrigin = NameOriginInSource,
           declAliases = [],
@@ -392,10 +392,10 @@
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "Size_t",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_Size_t"},
             typedefType = TypePrim
@@ -439,7 +439,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Storable,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Size_t",
       deriveInstanceComment =
@@ -449,7 +449,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Size_t",
       deriveInstanceComment =
@@ -459,7 +459,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Ord,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Size_t",
       deriveInstanceComment =
@@ -469,7 +469,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Read,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Size_t",
       deriveInstanceComment =
@@ -479,7 +479,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Size_t",
       deriveInstanceComment =
@@ -489,7 +489,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Enum,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Size_t",
       deriveInstanceComment =
@@ -499,7 +499,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Ix,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Size_t",
       deriveInstanceComment =
@@ -509,7 +509,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bounded,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Size_t",
       deriveInstanceComment =
@@ -519,7 +519,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Size_t",
       deriveInstanceComment =
@@ -530,7 +530,7 @@
       DeriveNewtype,
       deriveInstanceClass =
       FiniteBits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Size_t",
       deriveInstanceComment =
@@ -540,7 +540,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Integral,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Size_t",
       deriveInstanceComment =
@@ -550,7 +550,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Num,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Size_t",
       deriveInstanceComment =
@@ -560,14 +560,14 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Real,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Size_t",
       deriveInstanceComment =
       Nothing},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "__f1",
       foreignImportParameters = [],
@@ -606,7 +606,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f1",
       foreignImportParameters = [],
@@ -645,24 +645,20 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "my_memalign",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Nothing,
           functionParameterType = HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Size_t"),
+            (Name "@NsTypeConstr" "Size_t"),
           functionParameterComment =
           Nothing},
         FunctionParameter {
           functionParameterName = Nothing,
           functionParameterType = HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Size_t"),
+            (Name "@NsTypeConstr" "Size_t"),
           functionParameterComment =
           Nothing}],
       foreignImportResultType =
@@ -688,7 +684,7 @@
                 (TypedefRegular
                   NamePair {
                     nameC = Name "size_t",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Size_t"})),
             _×_
               Nothing
@@ -696,7 +692,7 @@
                 (TypedefRegular
                   NamePair {
                     nameC = Name "size_t",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Size_t"}))],
           functionAttrs =
           FunctionAttributes
@@ -720,24 +716,20 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "my_calloc",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Nothing,
           functionParameterType = HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Size_t"),
+            (Name "@NsTypeConstr" "Size_t"),
           functionParameterComment =
           Nothing},
         FunctionParameter {
           functionParameterName = Nothing,
           functionParameterType = HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Size_t"),
+            (Name "@NsTypeConstr" "Size_t"),
           functionParameterComment =
           Nothing}],
       foreignImportResultType =
@@ -763,7 +755,7 @@
                 (TypedefRegular
                   NamePair {
                     nameC = Name "size_t",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Size_t"})),
             _×_
               Nothing
@@ -771,7 +763,7 @@
                 (TypedefRegular
                   NamePair {
                     nameC = Name "size_t",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Size_t"}))],
           functionAttrs =
           FunctionAttributes
@@ -795,7 +787,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "my_realloc",
       foreignImportParameters = [
@@ -808,9 +800,7 @@
         FunctionParameter {
           functionParameterName = Nothing,
           functionParameterType = HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Size_t"),
+            (Name "@NsTypeConstr" "Size_t"),
           functionParameterComment =
           Nothing}],
       foreignImportResultType =
@@ -839,7 +829,7 @@
                 (TypedefRegular
                   NamePair {
                     nameC = Name "size_t",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Size_t"}))],
           functionAttrs =
           FunctionAttributes
@@ -863,16 +853,14 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "my_alloc1",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Nothing,
           functionParameterType = HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Size_t"),
+            (Name "@NsTypeConstr" "Size_t"),
           functionParameterComment =
           Nothing}],
       foreignImportResultType =
@@ -898,7 +886,7 @@
                 (TypedefRegular
                   NamePair {
                     nameC = Name "size_t",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Size_t"}))],
           functionAttrs =
           FunctionAttributes
@@ -922,16 +910,14 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "my_alloc2",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Nothing,
           functionParameterType = HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Size_t"),
+            (Name "@NsTypeConstr" "Size_t"),
           functionParameterComment =
           Nothing}],
       foreignImportResultType =
@@ -957,7 +943,7 @@
                 (TypedefRegular
                   NamePair {
                     nameC = Name "size_t",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Size_t"}))],
           functionAttrs =
           FunctionAttributes
@@ -981,7 +967,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "square",
       foreignImportParameters = [
@@ -1031,7 +1017,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "old_fn",
       foreignImportParameters = [],
@@ -1071,13 +1057,13 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "my_dgettext",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "my_domain"),
+            (Name "@NsVar" "my_domain"),
           functionParameterType = HsPtr
             (HsPrimType HsPrimCChar),
           functionParameterComment = Just
@@ -1090,7 +1076,7 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "my_format"),
+            (Name "@NsVar" "my_format"),
           functionParameterType = HsPtr
             (HsPrimType HsPrimCChar),
           functionParameterComment = Just
@@ -1122,7 +1108,7 @@
               (Just
                 NamePair {
                   nameC = Name "my_domain",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "my_domain"})
               (TypePointer
                 (TypePrim
@@ -1133,7 +1119,7 @@
               (Just
                 NamePair {
                   nameC = Name "my_format",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "my_format"})
               (TypePointer
                 (TypeConst
@@ -1166,7 +1152,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "fdopen",
       foreignImportParameters = [
@@ -1187,7 +1173,7 @@
         (HsIO
           (HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "FILE")))),
       foreignImportOrigName =
@@ -1224,8 +1210,7 @@
                 (TypeStruct
                   NamePair {
                     nameC = Name "FILE",
-                    nameHsIdent = HsIdentifier
-                      "FILE"}
+                    nameHsIdent = Identifier "FILE"}
                   (NameOriginGenerated
                     (AnonId
                       "fun_attributes.h:7:9")))))},
@@ -1245,7 +1230,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f2",
       foreignImportParameters = [],
@@ -1284,13 +1269,13 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "my_memcpy",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "dest"),
+            (Name "@NsVar" "dest"),
           functionParameterType = HsPtr
             (HsPrimType HsPrimVoid),
           functionParameterComment = Just
@@ -1302,7 +1287,7 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "src"),
+            (Name "@NsVar" "src"),
           functionParameterType = HsPtr
             (HsPrimType HsPrimVoid),
           functionParameterComment = Just
@@ -1314,11 +1299,9 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "len"),
+            (Name "@NsVar" "len"),
           functionParameterType = HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Size_t"),
+            (Name "@NsTypeConstr" "Size_t"),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -1347,28 +1330,26 @@
               (Just
                 NamePair {
                   nameC = Name "dest",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "dest"})
               (TypePointer TypeVoid),
             _×_
               (Just
                 NamePair {
                   nameC = Name "src",
-                  nameHsIdent = HsIdentifier
-                    "src"})
+                  nameHsIdent = Identifier "src"})
               (TypePointer
                 (TypeConst TypeVoid)),
             _×_
               (Just
                 NamePair {
                   nameC = Name "len",
-                  nameHsIdent = HsIdentifier
-                    "len"})
+                  nameHsIdent = Identifier "len"})
               (TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "size_t",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Size_t"}))],
           functionAttrs =
           FunctionAttributes
@@ -1392,7 +1373,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "fatal",
       foreignImportParameters = [],
@@ -1431,7 +1412,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hash",
       foreignImportParameters = [
@@ -1493,17 +1474,15 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "mymalloc",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "len"),
+            (Name "@NsVar" "len"),
           functionParameterType = HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Size_t"),
+            (Name "@NsTypeConstr" "Size_t"),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -1532,13 +1511,12 @@
               (Just
                 NamePair {
                   nameC = Name "len",
-                  nameHsIdent = HsIdentifier
-                    "len"})
+                  nameHsIdent = Identifier "len"})
               (TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "size_t",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Size_t"}))],
           functionAttrs =
           FunctionAttributes
@@ -1561,7 +1539,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "foobar",
       foreignImportParameters = [],
@@ -1600,7 +1578,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "core2_func",
       foreignImportParameters = [],
@@ -1641,7 +1619,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "sse3_func",
       foreignImportParameters = [],
@@ -1682,7 +1660,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f3",
       foreignImportParameters = [],
@@ -1721,7 +1699,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "fn",
       foreignImportParameters = [],
@@ -1761,7 +1739,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "y",
       foreignImportParameters = [],
@@ -1801,7 +1779,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "x1",
       foreignImportParameters = [],
@@ -1841,7 +1819,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "x2",
       foreignImportParameters = [],
@@ -1881,7 +1859,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "__f1",
       foreignImportParameters = [],
@@ -1920,7 +1898,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f1",
       foreignImportParameters = [],
@@ -1959,24 +1937,20 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "my_memalign",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Nothing,
           functionParameterType = HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Size_t"),
+            (Name "@NsTypeConstr" "Size_t"),
           functionParameterComment =
           Nothing},
         FunctionParameter {
           functionParameterName = Nothing,
           functionParameterType = HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Size_t"),
+            (Name "@NsTypeConstr" "Size_t"),
           functionParameterComment =
           Nothing}],
       foreignImportResultType =
@@ -2002,7 +1976,7 @@
                 (TypedefRegular
                   NamePair {
                     nameC = Name "size_t",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Size_t"})),
             _×_
               Nothing
@@ -2010,7 +1984,7 @@
                 (TypedefRegular
                   NamePair {
                     nameC = Name "size_t",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Size_t"}))],
           functionAttrs =
           FunctionAttributes
@@ -2034,24 +2008,20 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "my_calloc",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Nothing,
           functionParameterType = HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Size_t"),
+            (Name "@NsTypeConstr" "Size_t"),
           functionParameterComment =
           Nothing},
         FunctionParameter {
           functionParameterName = Nothing,
           functionParameterType = HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Size_t"),
+            (Name "@NsTypeConstr" "Size_t"),
           functionParameterComment =
           Nothing}],
       foreignImportResultType =
@@ -2077,7 +2047,7 @@
                 (TypedefRegular
                   NamePair {
                     nameC = Name "size_t",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Size_t"})),
             _×_
               Nothing
@@ -2085,7 +2055,7 @@
                 (TypedefRegular
                   NamePair {
                     nameC = Name "size_t",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Size_t"}))],
           functionAttrs =
           FunctionAttributes
@@ -2109,7 +2079,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "my_realloc",
       foreignImportParameters = [
@@ -2122,9 +2092,7 @@
         FunctionParameter {
           functionParameterName = Nothing,
           functionParameterType = HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Size_t"),
+            (Name "@NsTypeConstr" "Size_t"),
           functionParameterComment =
           Nothing}],
       foreignImportResultType =
@@ -2153,7 +2121,7 @@
                 (TypedefRegular
                   NamePair {
                     nameC = Name "size_t",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Size_t"}))],
           functionAttrs =
           FunctionAttributes
@@ -2177,16 +2145,14 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "my_alloc1",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Nothing,
           functionParameterType = HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Size_t"),
+            (Name "@NsTypeConstr" "Size_t"),
           functionParameterComment =
           Nothing}],
       foreignImportResultType =
@@ -2212,7 +2178,7 @@
                 (TypedefRegular
                   NamePair {
                     nameC = Name "size_t",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Size_t"}))],
           functionAttrs =
           FunctionAttributes
@@ -2236,16 +2202,14 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "my_alloc2",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Nothing,
           functionParameterType = HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Size_t"),
+            (Name "@NsTypeConstr" "Size_t"),
           functionParameterComment =
           Nothing}],
       foreignImportResultType =
@@ -2271,7 +2235,7 @@
                 (TypedefRegular
                   NamePair {
                     nameC = Name "size_t",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Size_t"}))],
           functionAttrs =
           FunctionAttributes
@@ -2295,7 +2259,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "square",
       foreignImportParameters = [
@@ -2345,7 +2309,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "old_fn",
       foreignImportParameters = [],
@@ -2385,13 +2349,13 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "my_dgettext",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "my_domain"),
+            (Name "@NsVar" "my_domain"),
           functionParameterType = HsPtr
             (HsPrimType HsPrimCChar),
           functionParameterComment = Just
@@ -2404,7 +2368,7 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "my_format"),
+            (Name "@NsVar" "my_format"),
           functionParameterType = HsPtr
             (HsPrimType HsPrimCChar),
           functionParameterComment = Just
@@ -2436,7 +2400,7 @@
               (Just
                 NamePair {
                   nameC = Name "my_domain",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "my_domain"})
               (TypePointer
                 (TypePrim
@@ -2447,7 +2411,7 @@
               (Just
                 NamePair {
                   nameC = Name "my_format",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "my_format"})
               (TypePointer
                 (TypeConst
@@ -2480,7 +2444,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "fdopen",
       foreignImportParameters = [
@@ -2501,7 +2465,7 @@
         (HsIO
           (HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "FILE")))),
       foreignImportOrigName =
@@ -2538,8 +2502,7 @@
                 (TypeStruct
                   NamePair {
                     nameC = Name "FILE",
-                    nameHsIdent = HsIdentifier
-                      "FILE"}
+                    nameHsIdent = Identifier "FILE"}
                   (NameOriginGenerated
                     (AnonId
                       "fun_attributes.h:7:9")))))},
@@ -2559,7 +2522,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f2",
       foreignImportParameters = [],
@@ -2598,13 +2561,13 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "my_memcpy",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "dest"),
+            (Name "@NsVar" "dest"),
           functionParameterType = HsPtr
             (HsPrimType HsPrimVoid),
           functionParameterComment = Just
@@ -2616,7 +2579,7 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "src"),
+            (Name "@NsVar" "src"),
           functionParameterType = HsPtr
             (HsPrimType HsPrimVoid),
           functionParameterComment = Just
@@ -2628,11 +2591,9 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "len"),
+            (Name "@NsVar" "len"),
           functionParameterType = HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Size_t"),
+            (Name "@NsTypeConstr" "Size_t"),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -2661,28 +2622,26 @@
               (Just
                 NamePair {
                   nameC = Name "dest",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "dest"})
               (TypePointer TypeVoid),
             _×_
               (Just
                 NamePair {
                   nameC = Name "src",
-                  nameHsIdent = HsIdentifier
-                    "src"})
+                  nameHsIdent = Identifier "src"})
               (TypePointer
                 (TypeConst TypeVoid)),
             _×_
               (Just
                 NamePair {
                   nameC = Name "len",
-                  nameHsIdent = HsIdentifier
-                    "len"})
+                  nameHsIdent = Identifier "len"})
               (TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "size_t",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Size_t"}))],
           functionAttrs =
           FunctionAttributes
@@ -2706,7 +2665,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "fatal",
       foreignImportParameters = [],
@@ -2745,7 +2704,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hash",
       foreignImportParameters = [
@@ -2807,17 +2766,15 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "mymalloc",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "len"),
+            (Name "@NsVar" "len"),
           functionParameterType = HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Size_t"),
+            (Name "@NsTypeConstr" "Size_t"),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -2846,13 +2803,12 @@
               (Just
                 NamePair {
                   nameC = Name "len",
-                  nameHsIdent = HsIdentifier
-                    "len"})
+                  nameHsIdent = Identifier "len"})
               (TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "size_t",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Size_t"}))],
           functionAttrs =
           FunctionAttributes
@@ -2875,7 +2831,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "foobar",
       foreignImportParameters = [],
@@ -2914,7 +2870,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "core2_func",
       foreignImportParameters = [],
@@ -2955,7 +2911,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "sse3_func",
       foreignImportParameters = [],
@@ -2996,7 +2952,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f3",
       foreignImportParameters = [],
@@ -3035,7 +2991,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "fn",
       foreignImportParameters = [],
@@ -3075,7 +3031,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "y",
       foreignImportParameters = [],
@@ -3115,7 +3071,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "x1",
       foreignImportParameters = [],
@@ -3155,7 +3111,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "x2",
       foreignImportParameters = [],
@@ -3195,7 +3151,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_fun_attributes_7003b306f73c174b",
       foreignImportParameters = [],
@@ -3222,7 +3178,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_fun_attributes_5469bdc0395f86c1",
       foreignImportParameters = [],
@@ -3249,7 +3205,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_fun_attributes_b3c956e53724162c",
       foreignImportParameters = [],
@@ -3259,14 +3215,10 @@
           (HsFunPtr
             (HsFun
               (HsTypRef
-                (HsName
-                  "@NsTypeConstr"
-                  "Size_t"))
+                (Name "@NsTypeConstr" "Size_t"))
               (HsFun
                 (HsTypRef
-                  (HsName
-                    "@NsTypeConstr"
-                    "Size_t"))
+                  (Name "@NsTypeConstr" "Size_t"))
                 (HsIO
                   (HsPtr
                     (HsPrimType HsPrimVoid))))))),
@@ -3286,13 +3238,13 @@
               (TypedefRegular
                 NamePair {
                   nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Size_t"}),
             TypeTypedef
               (TypedefRegular
                 NamePair {
                   nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Size_t"})]
           (TypePointer TypeVoid)),
       foreignImportComment = Nothing,
@@ -3301,7 +3253,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_fun_attributes_733646ca96f39979",
       foreignImportParameters = [],
@@ -3311,14 +3263,10 @@
           (HsFunPtr
             (HsFun
               (HsTypRef
-                (HsName
-                  "@NsTypeConstr"
-                  "Size_t"))
+                (Name "@NsTypeConstr" "Size_t"))
               (HsFun
                 (HsTypRef
-                  (HsName
-                    "@NsTypeConstr"
-                    "Size_t"))
+                  (Name "@NsTypeConstr" "Size_t"))
                 (HsIO
                   (HsPtr
                     (HsPrimType HsPrimVoid))))))),
@@ -3338,13 +3286,13 @@
               (TypedefRegular
                 NamePair {
                   nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Size_t"}),
             TypeTypedef
               (TypedefRegular
                 NamePair {
                   nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Size_t"})]
           (TypePointer TypeVoid)),
       foreignImportComment = Nothing,
@@ -3353,7 +3301,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_fun_attributes_94e8271f186110fd",
       foreignImportParameters = [],
@@ -3365,9 +3313,7 @@
               (HsPtr (HsPrimType HsPrimVoid))
               (HsFun
                 (HsTypRef
-                  (HsName
-                    "@NsTypeConstr"
-                    "Size_t"))
+                  (Name "@NsTypeConstr" "Size_t"))
                 (HsIO
                   (HsPtr
                     (HsPrimType HsPrimVoid))))))),
@@ -3388,7 +3334,7 @@
               (TypedefRegular
                 NamePair {
                   nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Size_t"})]
           (TypePointer TypeVoid)),
       foreignImportComment = Nothing,
@@ -3397,7 +3343,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_fun_attributes_48d9862d70f58e70",
       foreignImportParameters = [],
@@ -3407,9 +3353,7 @@
           (HsFunPtr
             (HsFun
               (HsTypRef
-                (HsName
-                  "@NsTypeConstr"
-                  "Size_t"))
+                (Name "@NsTypeConstr" "Size_t"))
               (HsIO
                 (HsPtr
                   (HsPrimType HsPrimVoid)))))),
@@ -3429,7 +3373,7 @@
               (TypedefRegular
                 NamePair {
                   nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Size_t"})]
           (TypePointer TypeVoid)),
       foreignImportComment = Nothing,
@@ -3438,7 +3382,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_fun_attributes_17a11fd10dc57357",
       foreignImportParameters = [],
@@ -3448,9 +3392,7 @@
           (HsFunPtr
             (HsFun
               (HsTypRef
-                (HsName
-                  "@NsTypeConstr"
-                  "Size_t"))
+                (Name "@NsTypeConstr" "Size_t"))
               (HsIO
                 (HsPtr
                   (HsPrimType HsPrimVoid)))))),
@@ -3470,7 +3412,7 @@
               (TypedefRegular
                 NamePair {
                   nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Size_t"})]
           (TypePointer TypeVoid)),
       foreignImportComment = Nothing,
@@ -3479,7 +3421,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_fun_attributes_c41111f40a04cdc9",
       foreignImportParameters = [],
@@ -3513,7 +3455,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_fun_attributes_3add0261fa83e1dd",
       foreignImportParameters = [],
@@ -3543,7 +3485,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_fun_attributes_a0be4f488601c252",
       foreignImportParameters = [],
@@ -3592,7 +3534,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_fun_attributes_2b987c3b5c01a326",
       foreignImportParameters = [],
@@ -3607,7 +3549,7 @@
                 (HsIO
                   (HsPtr
                     (HsTypRef
-                      (HsName
+                      (Name
                         "@NsTypeConstr"
                         "FILE")))))))),
       foreignImportOrigName =
@@ -3637,8 +3579,7 @@
                 (TypeStruct
                   NamePair {
                     nameC = Name "FILE",
-                    nameHsIdent = HsIdentifier
-                      "FILE"}
+                    nameHsIdent = Identifier "FILE"}
                   (NameOriginGenerated
                     (AnonId
                       "fun_attributes.h:7:9"))))))),
@@ -3648,7 +3589,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_fun_attributes_490ca7e8c8282a69",
       foreignImportParameters = [],
@@ -3675,7 +3616,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_fun_attributes_e2e8b5d5ac435de8",
       foreignImportParameters = [],
@@ -3689,9 +3630,7 @@
                 (HsPtr (HsPrimType HsPrimVoid))
                 (HsFun
                   (HsTypRef
-                    (HsName
-                      "@NsTypeConstr"
-                      "Size_t"))
+                    (Name "@NsTypeConstr" "Size_t"))
                   (HsIO
                     (HsPtr
                       (HsPrimType HsPrimVoid)))))))),
@@ -3714,7 +3653,7 @@
               (TypedefRegular
                 NamePair {
                   nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Size_t"})]
           (TypePointer TypeVoid)),
       foreignImportComment = Nothing,
@@ -3723,7 +3662,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_fun_attributes_ea0bb781f9eca7f5",
       foreignImportParameters = [],
@@ -3750,7 +3689,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_fun_attributes_4de9606eb9c5dd01",
       foreignImportParameters = [],
@@ -3787,7 +3726,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_fun_attributes_4ce141c884649d49",
       foreignImportParameters = [],
@@ -3797,9 +3736,7 @@
           (HsFunPtr
             (HsFun
               (HsTypRef
-                (HsName
-                  "@NsTypeConstr"
-                  "Size_t"))
+                (Name "@NsTypeConstr" "Size_t"))
               (HsIO
                 (HsPtr
                   (HsPrimType HsPrimVoid)))))),
@@ -3819,7 +3756,7 @@
               (TypedefRegular
                 NamePair {
                   nameC = Name "size_t",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Size_t"})]
           (TypePointer TypeVoid)),
       foreignImportComment = Nothing,
@@ -3828,7 +3765,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_fun_attributes_5c243ced544ab0aa",
       foreignImportParameters = [],
@@ -3855,7 +3792,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_fun_attributes_14ef55245a14f816",
       foreignImportParameters = [],
@@ -3885,7 +3822,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_fun_attributes_72956748bb6eee67",
       foreignImportParameters = [],
@@ -3915,7 +3852,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_fun_attributes_38506a9ac5626bf2",
       foreignImportParameters = [],
@@ -3942,7 +3879,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_fun_attributes_5929da82079150d1",
       foreignImportParameters = [],
@@ -3972,7 +3909,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_fun_attributes_7bcb4a1873e6ece6",
       foreignImportParameters = [],
@@ -4002,7 +3939,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_fun_attributes_11098262b345351a",
       foreignImportParameters = [],
@@ -4032,7 +3969,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_fun_attributes_0d19f83087f278f9",
       foreignImportParameters = [],
@@ -4062,7 +3999,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_fun_attributes_cdc30ae5fb72cd6e",
       foreignImportParameters = [],

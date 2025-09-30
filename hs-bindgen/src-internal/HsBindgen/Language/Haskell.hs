@@ -1,18 +1,22 @@
 -- | General Haskell language types
+--
+-- Intended for qualified import.
+--
+-- > import HsBindgen.Language.Haskell qualified as Hs
 module HsBindgen.Language.Haskell (
     -- * References
-    HsRef(..)
-  , ExtHsRef(..)
-  , HsModuleName(..)
-  , HsIdentifier(..)
+    Identifier(..)
+  , ModuleName(..)
+  , ExtRef(..)
+  , Ref(..)
     -- * Namespaced names
   , Namespace(..)
   , SNamespace(..)
   , namespaceOf
   , SingNamespace(..)
-  , HsName(..)
+  , Name(..)
     -- * Instances
-  , HsTypeClass(..)
+  , TypeClass(..)
   ) where
 
 import Data.Aeson qualified as Aeson
@@ -26,43 +30,42 @@ import HsBindgen.Imports
   References
 -------------------------------------------------------------------------------}
 
--- | Haskell reference
-data HsRef =
-    -- | Reference to an identifier in the local scope
-    HsRefLocal HsIdentifier
-
-  | -- | Reference to an identifier in a different module
-    HsRefExt ExtHsRef
-  deriving stock (Eq, Show)
-
--- | External Haskell reference
-data ExtHsRef = ExtHsRef {
-      extHsRefModule     :: HsModuleName
-    , extHsRefIdentifier :: HsIdentifier
-    }
-  deriving stock (Show, Eq, Ord, Generic)
+-- | Haskell identifier
+--
+-- Example: @Tm@
+--
+-- This type is used to reference Haskell types, constructors, fields, etc.  It
+-- does /not/ specify a 'Namespace' like the 'Name' type below.
+newtype Identifier = Identifier { getIdentifier :: Text }
+  deriving stock (Generic)
+  -- 'Show' instance valid due to 'IsString' instance
+  deriving newtype (Aeson.FromJSON, Aeson.ToJSON, Eq, IsString, Ord, Show)
 
 -- | Haskell module name
 --
 -- Example: @HsBindgen.Runtime.LibC@
-newtype HsModuleName = HsModuleName { getHsModuleName :: Text }
+newtype ModuleName = ModuleName { getModuleName :: Text }
   deriving stock (Generic)
   -- 'Show' instance valid due to 'IsString' instance
   deriving newtype (Aeson.FromJSON, Aeson.ToJSON, Eq, IsString, Ord, Show)
 
-instance Default HsModuleName where
-  def = "Generated"
+-- | External reference
+--
+-- An external reference specifies the 'ModuleName' and 'Identifier'
+data ExtRef = ExtRef {
+      extRefModule     :: ModuleName
+    , extRefIdentifier :: Identifier
+    }
+  deriving stock (Eq, Generic, Ord, Show)
 
--- | Haskell identifier
---
--- Example: @CTm@
---
--- This type is different from 'HsBindgen.Backend.Hs.AST.HsName' in that it does not
--- specify a 'HsBindgen.Backend.Hs.AST.Namespace'.
-newtype HsIdentifier = HsIdentifier { getHsIdentifier :: Text }
-  deriving stock (Generic)
-  -- 'Show' instance valid due to 'IsString' instance
-  deriving newtype (Aeson.FromJSON, Aeson.ToJSON, Eq, IsString, Ord, Show)
+-- | Reference
+data Ref =
+    -- | Reference to an identifier in the local scope
+    RefLocal Identifier
+
+  | -- | Reference to an identifier in a different module
+    RefExt ExtRef
+  deriving stock (Eq, Show)
 
 {-------------------------------------------------------------------------------
   Namespaced names
@@ -100,16 +103,16 @@ instance SingNamespace 'NsConstr     where singNamespace = SNsConstr
 instance SingNamespace 'NsVar        where singNamespace = SNsVar
 
 -- | Haskell name in namespace @ns@
-newtype HsName (ns :: Namespace) = HsName { getHsName :: Text }
+newtype Name (ns :: Namespace) = Name { getName :: Text }
   -- 'Show' instance valid due to 'IsString' instance
-  deriving newtype (Show, Eq, Ord, IsString, Semigroup)
+  deriving newtype (Eq, IsString, Ord, Semigroup, Show)
 
 {-------------------------------------------------------------------------------
   Instances
 -------------------------------------------------------------------------------}
 
 -- | Type class
-data HsTypeClass =
+data TypeClass =
     -- Haskell98 derivable classes
     -- <https://downloads.haskell.org/ghc/latest/docs/users_guide/exts/deriving.html>
     Eq
@@ -138,12 +141,12 @@ data HsTypeClass =
   | Storable
   deriving stock (Eq, Generic, Ord, Read, Show)
 
-instance Aeson.FromJSON HsTypeClass where
-  parseJSON = Aeson.withText "HsTypeClass" $ \t ->
+instance Aeson.FromJSON TypeClass where
+  parseJSON = Aeson.withText "TypeClass" $ \t ->
     let s = Text.unpack t
     in  case readMaybe s of
           Just clss -> return clss
           Nothing   -> Aeson.parseFail $ "unknown type class: " ++ s
 
-instance Aeson.ToJSON HsTypeClass where
+instance Aeson.ToJSON TypeClass where
   toJSON = Aeson.String . Text.pack . show

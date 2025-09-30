@@ -6,7 +6,7 @@ TranslationUnit {
         "spec_examples.h:10:15",
         declId = NamePair {
           nameC = Name "int16_T",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Int16_T"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -26,10 +26,10 @@ TranslationUnit {
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "Int16_T",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_Int16_T"},
           typedefType = TypePrim
@@ -48,7 +48,7 @@ TranslationUnit {
         "spec_examples.h:11:13",
         declId = NamePair {
           nameC = Name "int32_T",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Int32_T"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -62,10 +62,10 @@ TranslationUnit {
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "Int32_T",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_Int32_T"},
           typedefType = TypePrim
@@ -82,7 +82,7 @@ TranslationUnit {
         "spec_examples.h:12:19",
         declId = NamePair {
           nameC = Name "int64_T",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Int64_T"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -96,10 +96,10 @@ TranslationUnit {
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "Int64_T",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_Int64_T"},
           typedefType = TypePrim
@@ -118,7 +118,7 @@ TranslationUnit {
         "spec_examples.h:14:9",
         declId = NamePair {
           nameC = Name "cint16_T",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Cint16_T"},
         declOrigin = NameOriginGenerated
           (AnonId "spec_examples.h:14:9"),
@@ -133,7 +133,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "Cint16_T"),
+            (Name "@NsConstr" "Cint16_T"),
           structSizeof = 4,
           structAlignment = 2,
           structFields = [
@@ -143,14 +143,14 @@ TranslationUnit {
                 "spec_examples.h:15:11",
                 fieldName = NamePair {
                   nameC = Name "re",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "cint16_T_re"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "int16_T",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Int16_T"}),
               structFieldOffset = 0,
               structFieldWidth = Nothing},
@@ -160,14 +160,14 @@ TranslationUnit {
                 "spec_examples.h:16:11",
                 fieldName = NamePair {
                   nameC = Name "im",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "cint16_T_im"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "int16_T",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Int16_T"}),
               structFieldOffset = 16,
               structFieldWidth = Nothing}],
@@ -184,7 +184,7 @@ TranslationUnit {
         "spec_examples.h:19:8",
         declId = NamePair {
           nameC = Name "B",
-          nameHsIdent = HsIdentifier "B"},
+          nameHsIdent = Identifier "B"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -197,7 +197,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "B"),
+            (Name "@NsConstr" "B"),
           structSizeof = 0,
           structAlignment = 1,
           structFields = [],
@@ -214,7 +214,7 @@ TranslationUnit {
         "spec_examples.h:28:10",
         declId = NamePair {
           nameC = Name "C",
-          nameHsIdent = HsIdentifier "C"},
+          nameHsIdent = Identifier "C"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -237,7 +237,7 @@ TranslationUnit {
         "spec_examples.h:23:8",
         declId = NamePair {
           nameC = Name "A",
-          nameHsIdent = HsIdentifier "A"},
+          nameHsIdent = Identifier "A"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -250,7 +250,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "A"),
+            (Name "@NsConstr" "A"),
           structSizeof = 152,
           structAlignment = 8,
           structFields = [
@@ -260,8 +260,7 @@ TranslationUnit {
                 "spec_examples.h:24:10",
                 fieldName = NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier
-                    "a_x"},
+                  nameHsIdent = Identifier "a_x"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimFloating PrimDouble),
@@ -273,7 +272,7 @@ TranslationUnit {
                 "spec_examples.h:25:9",
                 fieldName = NamePair {
                   nameC = Name "label",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "a_label"},
                 fieldComment = Nothing},
               structFieldType = TypePointer
@@ -289,7 +288,7 @@ TranslationUnit {
                 "spec_examples.h:26:8",
                 fieldName = NamePair {
                   nameC = Name "samples",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "a_samples"},
                 fieldComment = Nothing},
               structFieldType = TypeConstArray
@@ -306,13 +305,12 @@ TranslationUnit {
                 "spec_examples.h:27:12",
                 fieldName = NamePair {
                   nameC = Name "b",
-                  nameHsIdent = HsIdentifier
-                    "a_b"},
+                  nameHsIdent = Identifier "a_b"},
                 fieldComment = Nothing},
               structFieldType = TypeStruct
                 NamePair {
                   nameC = Name "B",
-                  nameHsIdent = HsIdentifier "B"}
+                  nameHsIdent = Identifier "B"}
                 NameOriginInSource,
               structFieldOffset = 1152,
               structFieldWidth = Nothing},
@@ -322,14 +320,13 @@ TranslationUnit {
                 "spec_examples.h:28:13",
                 fieldName = NamePair {
                   nameC = Name "c",
-                  nameHsIdent = HsIdentifier
-                    "a_c"},
+                  nameHsIdent = Identifier "a_c"},
                 fieldComment = Nothing},
               structFieldType = TypePointer
                 (TypeStruct
                   NamePair {
                     nameC = Name "C",
-                    nameHsIdent = HsIdentifier "C"}
+                    nameHsIdent = Identifier "C"}
                   NameOriginInSource),
               structFieldOffset = 1152,
               structFieldWidth = Nothing}],
@@ -346,7 +343,7 @@ TranslationUnit {
         "spec_examples.h:31:6",
         declId = NamePair {
           nameC = Name "resample",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "resample"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -365,20 +362,20 @@ TranslationUnit {
                 NamePair {
                   nameC = Name
                     "res_m_num_valid_samples",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "res_m_num_valid_samples"})
               (TypePointer
                 (TypeTypedef
                   (TypedefRegular
                     NamePair {
                       nameC = Name "int32_T",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "Int32_T"}))),
             _×_
               (Just
                 NamePair {
                   nameC = Name "res_m_iq_int",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "res_m_iq_int"})
               (TypeConstArray
                 30720000
@@ -388,7 +385,7 @@ TranslationUnit {
                     (TypeStruct
                       NamePair {
                         nameC = Name "cint16_T",
-                        nameHsIdent = HsIdentifier
+                        nameHsIdent = Identifier
                           "Cint16_T"}
                       (NameOriginGenerated
                         (AnonId
@@ -397,32 +394,32 @@ TranslationUnit {
               (Just
                 NamePair {
                   nameC = Name "res_m_old_rate",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "res_m_old_rate"})
               (TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "int64_T",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Int64_T"})),
             _×_
               (Just
                 NamePair {
                   nameC = Name "res_m_new_rate",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "res_m_new_rate"})
               (TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "int64_T",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Int64_T"})),
             _×_
               (Just
                 NamePair {
                   nameC = Name
                     "res_m_iq_resampled_int",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "res_m_iq_resampled_int"})
               (TypeConstArray
                 30720000
@@ -432,7 +429,7 @@ TranslationUnit {
                     (TypeStruct
                       NamePair {
                         nameC = Name "cint16_T",
-                        nameHsIdent = HsIdentifier
+                        nameHsIdent = Identifier
                           "Cint16_T"}
                       (NameOriginGenerated
                         (AnonId

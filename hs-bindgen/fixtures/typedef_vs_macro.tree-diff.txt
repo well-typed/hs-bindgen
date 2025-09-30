@@ -6,8 +6,7 @@ TranslationUnit {
         "typedef_vs_macro.h:1:13",
         declId = NamePair {
           nameC = Name "T1",
-          nameHsIdent = HsIdentifier
-            "T1"},
+          nameHsIdent = Identifier "T1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -20,10 +19,10 @@ TranslationUnit {
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "T1",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_T1"},
           typedefType = TypePrim
@@ -40,8 +39,7 @@ TranslationUnit {
         "typedef_vs_macro.h:2:14",
         declId = NamePair {
           nameC = Name "T2",
-          nameHsIdent = HsIdentifier
-            "T2"},
+          nameHsIdent = Identifier "T2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -54,10 +52,10 @@ TranslationUnit {
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "T2",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_T2"},
           typedefType = TypePrim
@@ -76,8 +74,7 @@ TranslationUnit {
         "typedef_vs_macro.h:4:9",
         declId = NamePair {
           nameC = Name "M1",
-          nameHsIdent = HsIdentifier
-            "M1"},
+          nameHsIdent = Identifier "M1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -91,10 +88,10 @@ TranslationUnit {
         (MacroType
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "M1",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_M1"},
             macroType = TypePrim
@@ -111,8 +108,7 @@ TranslationUnit {
         "typedef_vs_macro.h:5:9",
         declId = NamePair {
           nameC = Name "M2",
-          nameHsIdent = HsIdentifier
-            "M2"},
+          nameHsIdent = Identifier "M2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -126,10 +122,10 @@ TranslationUnit {
         (MacroType
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "M2",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_M2"},
             macroType = TypePrim
@@ -147,8 +143,7 @@ TranslationUnit {
         "typedef_vs_macro.h:6:9",
         declId = NamePair {
           nameC = Name "M3",
-          nameHsIdent = HsIdentifier
-            "M3"},
+          nameHsIdent = Identifier "M3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -162,10 +157,10 @@ TranslationUnit {
         (MacroType
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "M3",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_M3"},
             macroType = TypePointer
@@ -185,7 +180,7 @@ TranslationUnit {
         "typedef_vs_macro.h:8:8",
         declId = NamePair {
           nameC = Name "ExampleStruct",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "ExampleStruct"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -199,7 +194,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName
+            (Name
               "@NsConstr"
               "ExampleStruct"),
           structSizeof = 16,
@@ -211,15 +206,14 @@ TranslationUnit {
                 "typedef_vs_macro.h:9:6",
                 fieldName = NamePair {
                   nameC = Name "t1",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "exampleStruct_t1"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "T1",
-                    nameHsIdent = HsIdentifier
-                      "T1"}),
+                    nameHsIdent = Identifier "T1"}),
               structFieldOffset = 0,
               structFieldWidth = Nothing},
             StructField {
@@ -228,15 +222,14 @@ TranslationUnit {
                 "typedef_vs_macro.h:10:6",
                 fieldName = NamePair {
                   nameC = Name "t2",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "exampleStruct_t2"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "T2",
-                    nameHsIdent = HsIdentifier
-                      "T2"}),
+                    nameHsIdent = Identifier "T2"}),
               structFieldOffset = 32,
               structFieldWidth = Nothing},
             StructField {
@@ -245,14 +238,14 @@ TranslationUnit {
                 "typedef_vs_macro.h:11:6",
                 fieldName = NamePair {
                   nameC = Name "m1",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "exampleStruct_m1"},
                 fieldComment = Nothing},
               structFieldType =
               TypeMacroTypedef
                 NamePair {
                   nameC = Name "M1",
-                  nameHsIdent = HsIdentifier "M1"}
+                  nameHsIdent = Identifier "M1"}
                 NameOriginInSource,
               structFieldOffset = 64,
               structFieldWidth = Nothing},
@@ -262,14 +255,14 @@ TranslationUnit {
                 "typedef_vs_macro.h:12:6",
                 fieldName = NamePair {
                   nameC = Name "m2",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "exampleStruct_m2"},
                 fieldComment = Nothing},
               structFieldType =
               TypeMacroTypedef
                 NamePair {
                   nameC = Name "M2",
-                  nameHsIdent = HsIdentifier "M2"}
+                  nameHsIdent = Identifier "M2"}
                 NameOriginInSource,
               structFieldOffset = 96,
               structFieldWidth = Nothing}],
@@ -286,7 +279,7 @@ TranslationUnit {
         "typedef_vs_macro.h:15:9",
         declId = NamePair {
           nameC = Name "uint64_t",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Uint64_t"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -301,10 +294,10 @@ TranslationUnit {
         (MacroType
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "Uint64_t",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_Uint64_t"},
             macroType = TypePrim
@@ -321,8 +314,7 @@ TranslationUnit {
         "typedef_vs_macro.h:17:8",
         declId = NamePair {
           nameC = Name "foo",
-          nameHsIdent = HsIdentifier
-            "Foo"},
+          nameHsIdent = Identifier "Foo"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -335,7 +327,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "Foo"),
+            (Name "@NsConstr" "Foo"),
           structSizeof = 8,
           structAlignment = 8,
           structFields = [
@@ -345,14 +337,14 @@ TranslationUnit {
                 "typedef_vs_macro.h:18:13",
                 fieldName = NamePair {
                   nameC = Name "a",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "foo_a"},
                 fieldComment = Nothing},
               structFieldType = TypePointer
                 (TypeMacroTypedef
                   NamePair {
                     nameC = Name "uint64_t",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Uint64_t"}
                   NameOriginInSource),
               structFieldOffset = 0,

@@ -7,7 +7,7 @@ TranslationUnit {
         "macro_functions.h:1:9",
         declId = NamePair {
           nameC = Name "INCR",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "iNCR"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -48,8 +48,7 @@ TranslationUnit {
         "macro_functions.h:2:9",
         declId = NamePair {
           nameC = Name "ADD",
-          nameHsIdent = HsIdentifier
-            "aDD"},
+          nameHsIdent = Identifier "aDD"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -86,8 +85,7 @@ TranslationUnit {
         "macro_functions.h:4:9",
         declId = NamePair {
           nameC = Name "ID",
-          nameHsIdent = HsIdentifier
-            "iD"},
+          nameHsIdent = Identifier "iD"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -117,7 +115,7 @@ TranslationUnit {
         "macro_functions.h:5:9",
         declId = NamePair {
           nameC = Name "CONST",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "cONST"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -150,8 +148,7 @@ TranslationUnit {
         "macro_functions.h:7:9",
         declId = NamePair {
           nameC = Name "CMP",
-          nameHsIdent = HsIdentifier
-            "cMP"},
+          nameHsIdent = Identifier "cMP"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -189,7 +186,7 @@ TranslationUnit {
         "macro_functions.h:8:9",
         declId = NamePair {
           nameC = Name "FUN1",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "fUN1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -238,7 +235,7 @@ TranslationUnit {
         "macro_functions.h:9:9",
         declId = NamePair {
           nameC = Name "FUN2",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "fUN2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -287,7 +284,7 @@ TranslationUnit {
         "macro_functions.h:11:9",
         declId = NamePair {
           nameC = Name "G",
-          nameHsIdent = HsIdentifier "g"},
+          nameHsIdent = Identifier "g"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -337,7 +334,7 @@ TranslationUnit {
         "macro_functions.h:13:9",
         declId = NamePair {
           nameC = Name "DIV1",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "dIV1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -386,7 +383,7 @@ TranslationUnit {
         "macro_functions.h:14:9",
         declId = NamePair {
           nameC = Name "DIV2",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "dIV2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -437,7 +434,7 @@ TranslationUnit {
         "macro_functions.h:18:9",
         declId = NamePair {
           nameC = Name "SWAP32",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "sWAP32"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -511,7 +508,7 @@ TranslationUnit {
         "macro_functions.h:19:9",
         declId = NamePair {
           nameC = Name "AV_VERSION_INT",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "aV_VERSION_INT"},
         declOrigin = NameOriginInSource,
         declAliases = [],

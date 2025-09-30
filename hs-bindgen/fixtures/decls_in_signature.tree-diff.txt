@@ -7,7 +7,7 @@ TranslationUnit {
         "decls_in_signature.h:2:8",
         declId = NamePair {
           nameC = Name "opaque",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Opaque"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -31,7 +31,7 @@ TranslationUnit {
         "decls_in_signature.h:3:8",
         declId = NamePair {
           nameC = Name "outside",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Outside"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -45,7 +45,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "Outside"),
+            (Name "@NsConstr" "Outside"),
           structSizeof = 8,
           structAlignment = 4,
           structFields = [
@@ -55,7 +55,7 @@ TranslationUnit {
                 "decls_in_signature.h:4:7",
                 fieldName = NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "outside_x"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -68,7 +68,7 @@ TranslationUnit {
                 "decls_in_signature.h:5:7",
                 fieldName = NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "outside_y"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -88,7 +88,7 @@ TranslationUnit {
         "decls_in_signature.h:7:6",
         declId = NamePair {
           nameC = Name "normal",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "normal"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -106,38 +106,38 @@ TranslationUnit {
               (Just
                 NamePair {
                   nameC = Name "ptr_to_opaque",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "ptr_to_opaque"})
               (TypePointer
                 (TypeStruct
                   NamePair {
                     nameC = Name "opaque",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Opaque"}
                   NameOriginInSource)),
             _×_
               (Just
                 NamePair {
                   nameC = Name "ptr_to_defined",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "ptr_to_defined"})
               (TypePointer
                 (TypeStruct
                   NamePair {
                     nameC = Name "outside",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Outside"}
                   NameOriginInSource)),
             _×_
               (Just
                 NamePair {
                   nameC = Name "by_value",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "by_value"})
               (TypeStruct
                 NamePair {
                   nameC = Name "outside",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Outside"}
                 NameOriginInSource)],
           functionAttrs =
@@ -157,7 +157,7 @@ TranslationUnit {
         "decls_in_signature.h:17:16",
         declId = NamePair {
           nameC = Name "named_struct",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Named_struct"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -182,7 +182,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName
+            (Name
               "@NsConstr"
               "Named_struct"),
           structSizeof = 8,
@@ -194,7 +194,7 @@ TranslationUnit {
                 "decls_in_signature.h:17:35",
                 fieldName = NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "named_struct_x"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -207,7 +207,7 @@ TranslationUnit {
                 "decls_in_signature.h:17:42",
                 fieldName = NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "named_struct_y"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -228,8 +228,7 @@ TranslationUnit {
         "decls_in_signature.h:17:6",
         declId = NamePair {
           nameC = Name "f1",
-          nameHsIdent = HsIdentifier
-            "f1"},
+          nameHsIdent = Identifier "f1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -257,12 +256,11 @@ TranslationUnit {
               (Just
                 NamePair {
                   nameC = Name "arg",
-                  nameHsIdent = HsIdentifier
-                    "arg"})
+                  nameHsIdent = Identifier "arg"})
               (TypeStruct
                 NamePair {
                   nameC = Name "named_struct",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Named_struct"}
                 NameOriginInSource)],
           functionAttrs =
@@ -281,7 +279,7 @@ TranslationUnit {
         "decls_in_signature.h:20:15",
         declId = NamePair {
           nameC = Name "named_union",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Named_union"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -295,10 +293,10 @@ TranslationUnit {
       declKind = DeclUnion
         Union {
           unionNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "Named_union",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_Named_union"},
           unionSizeof = 4,
@@ -310,7 +308,7 @@ TranslationUnit {
                 "decls_in_signature.h:20:33",
                 fieldName = NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "named_union_x"},
                 fieldComment = Nothing},
               unionFieldType = TypePrim
@@ -321,7 +319,7 @@ TranslationUnit {
                 "decls_in_signature.h:20:41",
                 fieldName = NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "named_union_y"},
                 fieldComment = Nothing},
               unionFieldType = TypePrim
@@ -340,8 +338,7 @@ TranslationUnit {
         "decls_in_signature.h:20:6",
         declId = NamePair {
           nameC = Name "f2",
-          nameHsIdent = HsIdentifier
-            "f2"},
+          nameHsIdent = Identifier "f2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -358,12 +355,11 @@ TranslationUnit {
               (Just
                 NamePair {
                   nameC = Name "arg",
-                  nameHsIdent = HsIdentifier
-                    "arg"})
+                  nameHsIdent = Identifier "arg"})
               (TypeUnion
                 NamePair {
                   nameC = Name "named_union",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Named_union"}
                 NameOriginInSource)],
           functionAttrs =

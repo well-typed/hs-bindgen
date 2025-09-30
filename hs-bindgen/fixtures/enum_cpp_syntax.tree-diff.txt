@@ -6,7 +6,7 @@ TranslationUnit {
         "enum_cpp_syntax.h:4:9",
         declId = NamePair {
           nameC = Name "foo_enum",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Foo_enum"},
         declOrigin = NameOriginGenerated
           (AnonId
@@ -22,10 +22,10 @@ TranslationUnit {
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "Foo_enum",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_Foo_enum"},
           enumType = TypeExtBinding
@@ -34,17 +34,17 @@ TranslationUnit {
                 qualNameName = Name "uint32_t",
                 qualNameKind =
                 NameKindOrdinary},
-              extHsRef = ExtHsRef {
-                extHsRefModule = HsModuleName
+              extHsRef = ExtRef {
+                extRefModule = ModuleName
                   "HsBindgen.Runtime.Prelude",
-                extHsRefIdentifier =
-                HsIdentifier "Word32"},
+                extRefIdentifier = Identifier
+                  "Word32"},
               extHsSpec = TypeSpec {
                 typeSpecModule = Just
-                  (HsModuleName
+                  (ModuleName
                     "HsBindgen.Runtime.Prelude"),
                 typeSpecIdentifier = Just
-                  (HsIdentifier "Word32"),
+                  (Identifier "Word32"),
                 typeSpecInstances = Map.fromList
                   [
                     _×_
@@ -153,7 +153,7 @@ TranslationUnit {
                 "enum_cpp_syntax.h:4:27",
                 fieldName = NamePair {
                   nameC = Name "A",
-                  nameHsIdent = HsIdentifier "A"},
+                  nameHsIdent = Identifier "A"},
                 fieldComment = Nothing},
               enumConstantValue = 0},
             EnumConstant {
@@ -162,7 +162,7 @@ TranslationUnit {
                 "enum_cpp_syntax.h:4:30",
                 fieldName = NamePair {
                   nameC = Name "B",
-                  nameHsIdent = HsIdentifier "B"},
+                  nameHsIdent = Identifier "B"},
                 fieldComment = Nothing},
               enumConstantValue = 1},
             EnumConstant {
@@ -171,7 +171,7 @@ TranslationUnit {
                 "enum_cpp_syntax.h:4:33",
                 fieldName = NamePair {
                   nameC = Name "C",
-                  nameHsIdent = HsIdentifier "C"},
+                  nameHsIdent = Identifier "C"},
                 fieldComment = Nothing},
               enumConstantValue = 2}]},
       declSpec = DeclSpec

@@ -6,7 +6,7 @@ TranslationUnit {
         "macro_in_fundecl.h:5:9",
         declId = NamePair {
           nameC = Name "I",
-          nameHsIdent = HsIdentifier "I"},
+          nameHsIdent = Identifier "I"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -20,10 +20,10 @@ TranslationUnit {
         (MacroType
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "I",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_I"},
             macroType = TypePrim
@@ -40,7 +40,7 @@ TranslationUnit {
         "macro_in_fundecl.h:6:9",
         declId = NamePair {
           nameC = Name "C",
-          nameHsIdent = HsIdentifier "C"},
+          nameHsIdent = Identifier "C"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -54,10 +54,10 @@ TranslationUnit {
         (MacroType
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "C",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_C"},
             macroType = TypePrim
@@ -75,7 +75,7 @@ TranslationUnit {
         "macro_in_fundecl.h:7:9",
         declId = NamePair {
           nameC = Name "F",
-          nameHsIdent = HsIdentifier "F"},
+          nameHsIdent = Identifier "F"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -89,10 +89,10 @@ TranslationUnit {
         (MacroType
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "F",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_F"},
             macroType = TypePrim
@@ -109,7 +109,7 @@ TranslationUnit {
         "macro_in_fundecl.h:8:9",
         declId = NamePair {
           nameC = Name "L",
-          nameHsIdent = HsIdentifier "L"},
+          nameHsIdent = Identifier "L"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -123,10 +123,10 @@ TranslationUnit {
         (MacroType
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "L",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_L"},
             macroType = TypePrim
@@ -145,7 +145,7 @@ TranslationUnit {
         "macro_in_fundecl.h:9:9",
         declId = NamePair {
           nameC = Name "S",
-          nameHsIdent = HsIdentifier "S"},
+          nameHsIdent = Identifier "S"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -159,10 +159,10 @@ TranslationUnit {
         (MacroType
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "S",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_S"},
             macroType = TypePrim
@@ -181,7 +181,7 @@ TranslationUnit {
         "macro_in_fundecl.h:12:6",
         declId = NamePair {
           nameC = Name "quux",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "quux"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -199,17 +199,17 @@ TranslationUnit {
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypeMacroTypedef
                 NamePair {
                   nameC = Name "F",
-                  nameHsIdent = HsIdentifier "F"}
+                  nameHsIdent = Identifier "F"}
                 NameOriginInSource),
             _×_
               (Just
                 NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier "y"})
+                  nameHsIdent = Identifier "y"})
               (TypePrim
                 (PrimChar
                   (PrimSignImplicit Nothing)))],
@@ -231,8 +231,7 @@ TranslationUnit {
         "macro_in_fundecl.h:13:4",
         declId = NamePair {
           nameC = Name "wam",
-          nameHsIdent = HsIdentifier
-            "wam"},
+          nameHsIdent = Identifier "wam"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -249,19 +248,19 @@ TranslationUnit {
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypePrim
                 (PrimFloating PrimFloat)),
             _×_
               (Just
                 NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier "y"})
+                  nameHsIdent = Identifier "y"})
               (TypePointer
                 (TypeMacroTypedef
                   NamePair {
                     nameC = Name "C",
-                    nameHsIdent = HsIdentifier "C"}
+                    nameHsIdent = Identifier "C"}
                   NameOriginInSource))],
           functionAttrs =
           FunctionAttributes
@@ -270,7 +269,7 @@ TranslationUnit {
             (TypeMacroTypedef
               NamePair {
                 nameC = Name "C",
-                nameHsIdent = HsIdentifier "C"}
+                nameHsIdent = Identifier "C"}
               NameOriginInSource)},
       declSpec = DeclSpec
         TypeSpec {
@@ -284,7 +283,7 @@ TranslationUnit {
         "macro_in_fundecl.h:16:7",
         declId = NamePair {
           nameC = Name "foo1",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "foo1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -302,14 +301,14 @@ TranslationUnit {
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypePrim
                 (PrimFloating PrimFloat)),
             _×_
               (Just
                 NamePair {
                   nameC = Name "g",
-                  nameHsIdent = HsIdentifier "g"})
+                  nameHsIdent = Identifier "g"})
               (TypePointer
                 (TypeFun
                   [
@@ -339,7 +338,7 @@ TranslationUnit {
         "macro_in_fundecl.h:17:7",
         declId = NamePair {
           nameC = Name "foo2",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "foo2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -357,17 +356,17 @@ TranslationUnit {
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypeMacroTypedef
                 NamePair {
                   nameC = Name "F",
-                  nameHsIdent = HsIdentifier "F"}
+                  nameHsIdent = Identifier "F"}
                 NameOriginInSource),
             _×_
               (Just
                 NamePair {
                   nameC = Name "g",
-                  nameHsIdent = HsIdentifier "g"})
+                  nameHsIdent = Identifier "g"})
               (TypePointer
                 (TypeFun
                   [
@@ -396,7 +395,7 @@ TranslationUnit {
         "macro_in_fundecl.h:18:4",
         declId = NamePair {
           nameC = Name "foo3",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "foo3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -414,14 +413,14 @@ TranslationUnit {
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypePrim
                 (PrimFloating PrimFloat)),
             _×_
               (Just
                 NamePair {
                   nameC = Name "g",
-                  nameHsIdent = HsIdentifier "g"})
+                  nameHsIdent = Identifier "g"})
               (TypePointer
                 (TypeFun
                   [
@@ -438,7 +437,7 @@ TranslationUnit {
             (TypeMacroTypedef
               NamePair {
                 nameC = Name "C",
-                nameHsIdent = HsIdentifier "C"}
+                nameHsIdent = Identifier "C"}
               NameOriginInSource)},
       declSpec = DeclSpec
         TypeSpec {
@@ -452,7 +451,7 @@ TranslationUnit {
         "macro_in_fundecl.h:21:7",
         declId = NamePair {
           nameC = Name "bar1",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "bar1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -470,7 +469,7 @@ TranslationUnit {
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypePrim
                 (PrimIntegral
                   PrimLong
@@ -499,7 +498,7 @@ TranslationUnit {
         "macro_in_fundecl.h:22:7",
         declId = NamePair {
           nameC = Name "bar2",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "bar2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -517,11 +516,11 @@ TranslationUnit {
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypeMacroTypedef
                 NamePair {
                   nameC = Name "L",
-                  nameHsIdent = HsIdentifier "L"}
+                  nameHsIdent = Identifier "L"}
                 NameOriginInSource)],
           functionAttrs =
           FunctionAttributes
@@ -547,7 +546,7 @@ TranslationUnit {
         "macro_in_fundecl.h:23:7",
         declId = NamePair {
           nameC = Name "bar3",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "bar3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -565,7 +564,7 @@ TranslationUnit {
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypePrim
                 (PrimIntegral
                   PrimLong
@@ -579,7 +578,7 @@ TranslationUnit {
                 TypeMacroTypedef
                   NamePair {
                     nameC = Name "S",
-                    nameHsIdent = HsIdentifier "S"}
+                    nameHsIdent = Identifier "S"}
                   NameOriginInSource]
               (TypePrim
                 (PrimIntegral
@@ -597,7 +596,7 @@ TranslationUnit {
         "macro_in_fundecl.h:24:5",
         declId = NamePair {
           nameC = Name "bar4",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "bar4"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -615,7 +614,7 @@ TranslationUnit {
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypePrim
                 (PrimIntegral
                   PrimLong
@@ -631,7 +630,7 @@ TranslationUnit {
               (TypeMacroTypedef
                 NamePair {
                   nameC = Name "I",
-                  nameHsIdent = HsIdentifier "I"}
+                  nameHsIdent = Identifier "I"}
                 NameOriginInSource))},
       declSpec = DeclSpec
         TypeSpec {
@@ -645,7 +644,7 @@ TranslationUnit {
         "macro_in_fundecl.h:27:7",
         declId = NamePair {
           nameC = Name "baz1",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "baz1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -663,7 +662,7 @@ TranslationUnit {
               (Just
                 NamePair {
                   nameC = Name "i",
-                  nameHsIdent = HsIdentifier "i"})
+                  nameHsIdent = Identifier "i"})
               (TypeConst
                 (TypePrim
                   (PrimIntegral
@@ -693,7 +692,7 @@ TranslationUnit {
         "macro_in_fundecl.h:35:7",
         declId = NamePair {
           nameC = Name "baz2",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "baz2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -711,12 +710,12 @@ TranslationUnit {
               (Just
                 NamePair {
                   nameC = Name "i",
-                  nameHsIdent = HsIdentifier "i"})
+                  nameHsIdent = Identifier "i"})
               (TypeConst
                 (TypeMacroTypedef
                   NamePair {
                     nameC = Name "I",
-                    nameHsIdent = HsIdentifier "I"}
+                    nameHsIdent = Identifier "I"}
                   NameOriginInSource))],
           functionAttrs =
           FunctionAttributes
@@ -742,7 +741,7 @@ TranslationUnit {
         "macro_in_fundecl.h:43:5",
         declId = NamePair {
           nameC = Name "baz3",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "baz3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -760,7 +759,7 @@ TranslationUnit {
               (Just
                 NamePair {
                   nameC = Name "i",
-                  nameHsIdent = HsIdentifier "i"})
+                  nameHsIdent = Identifier "i"})
               (TypeConst
                 (TypePrim
                   (PrimIntegral
@@ -777,7 +776,7 @@ TranslationUnit {
                 (TypeMacroTypedef
                   NamePair {
                     nameC = Name "I",
-                    nameHsIdent = HsIdentifier "I"}
+                    nameHsIdent = Identifier "I"}
                   NameOriginInSource)))},
       declSpec = DeclSpec
         TypeSpec {
@@ -791,7 +790,7 @@ TranslationUnit {
         "macro_in_fundecl.h:53:3",
         declId = NamePair {
           nameC = Name "no_args_no_void",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "no_args_no_void"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -811,7 +810,7 @@ TranslationUnit {
           functionRes = TypeMacroTypedef
             NamePair {
               nameC = Name "I",
-              nameHsIdent = HsIdentifier "I"}
+              nameHsIdent = Identifier "I"}
             NameOriginInSource},
       declSpec = DeclSpec
         TypeSpec {

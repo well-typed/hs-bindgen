@@ -6,7 +6,7 @@ TranslationUnit {
         declLoc = "globals.h:9:12",
         declId = NamePair {
           nameC = Name "simpleGlobal",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "simpleGlobal"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -36,7 +36,7 @@ TranslationUnit {
         declLoc = "globals.h:12:8",
         declId = NamePair {
           nameC = Name "config",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Config"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -49,7 +49,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "Config"),
+            (Name "@NsConstr" "Config"),
           structSizeof = 8,
           structAlignment = 4,
           structFields = [
@@ -58,7 +58,7 @@ TranslationUnit {
                 fieldLoc = "globals.h:13:7",
                 fieldName = NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "config_x"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -70,7 +70,7 @@ TranslationUnit {
                 fieldLoc = "globals.h:14:7",
                 fieldName = NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "config_y"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -89,7 +89,7 @@ TranslationUnit {
         declLoc = "globals.h:16:22",
         declId = NamePair {
           nameC = Name "compoundGlobal1",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "compoundGlobal1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -103,7 +103,7 @@ TranslationUnit {
         (TypeStruct
           NamePair {
             nameC = Name "config",
-            nameHsIdent = HsIdentifier
+            nameHsIdent = Identifier
               "Config"}
           NameOriginInSource),
       declSpec = DeclSpec
@@ -117,7 +117,7 @@ TranslationUnit {
         declLoc = "globals.h:19:15",
         declId = NamePair {
           nameC = Name "inline_struct",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Inline_struct"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -130,7 +130,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName
+            (Name
               "@NsConstr"
               "Inline_struct"),
           structSizeof = 8,
@@ -141,7 +141,7 @@ TranslationUnit {
                 fieldLoc = "globals.h:19:35",
                 fieldName = NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "inline_struct_x"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -153,7 +153,7 @@ TranslationUnit {
                 fieldLoc = "globals.h:19:42",
                 fieldName = NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "inline_struct_y"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -172,7 +172,7 @@ TranslationUnit {
         declLoc = "globals.h:19:47",
         declId = NamePair {
           nameC = Name "compoundGlobal2",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "compoundGlobal2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -186,7 +186,7 @@ TranslationUnit {
         (TypeStruct
           NamePair {
             nameC = Name "inline_struct",
-            nameHsIdent = HsIdentifier
+            nameHsIdent = Identifier
               "Inline_struct"}
           NameOriginInSource),
       declSpec = DeclSpec
@@ -201,7 +201,7 @@ TranslationUnit {
         declLoc = "globals.h:35:9",
         declId = NamePair {
           nameC = Name "nesInteger",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "nesInteger"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -252,7 +252,7 @@ TranslationUnit {
         declLoc = "globals.h:36:9",
         declId = NamePair {
           nameC = Name "nesFloating",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "nesFloating"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -276,7 +276,7 @@ TranslationUnit {
         declLoc = "globals.h:38:9",
         declId = NamePair {
           nameC = Name "nesString1",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "nesString1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -303,7 +303,7 @@ TranslationUnit {
         declLoc = "globals.h:39:9",
         declId = NamePair {
           nameC = Name "nesString2",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "nesString2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -331,7 +331,7 @@ TranslationUnit {
         declLoc = "globals.h:40:9",
         declId = NamePair {
           nameC = Name "nesCharacter",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "nesCharacter"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -357,7 +357,7 @@ TranslationUnit {
         declLoc = "globals.h:41:9",
         declId = NamePair {
           nameC = Name "nesParen",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "nesParen"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -381,7 +381,7 @@ TranslationUnit {
         declLoc = "globals.h:42:9",
         declId = NamePair {
           nameC = Name "nesUnary",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "nesUnary"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -405,7 +405,7 @@ TranslationUnit {
         declLoc = "globals.h:43:9",
         declId = NamePair {
           nameC = Name "nesBinary",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "nesBinary"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -429,7 +429,7 @@ TranslationUnit {
         declLoc = "globals.h:44:9",
         declId = NamePair {
           nameC = Name "nesConditional",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "nesConditional"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -453,7 +453,7 @@ TranslationUnit {
         declLoc = "globals.h:45:9",
         declId = NamePair {
           nameC = Name "nesCast",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "nesCast"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -477,7 +477,7 @@ TranslationUnit {
         declLoc = "globals.h:46:9",
         declId = NamePair {
           nameC = Name "nesCompound",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "nesCompound"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -502,7 +502,7 @@ TranslationUnit {
         declLoc = "globals.h:47:9",
         declId = NamePair {
           nameC = Name "nesInitList",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "nesInitList"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -521,17 +521,17 @@ TranslationUnit {
                 qualNameName = Name "uint8_t",
                 qualNameKind =
                 NameKindOrdinary},
-              extHsRef = ExtHsRef {
-                extHsRefModule = HsModuleName
+              extHsRef = ExtRef {
+                extRefModule = ModuleName
                   "HsBindgen.Runtime.Prelude",
-                extHsRefIdentifier =
-                HsIdentifier "Word8"},
+                extRefIdentifier = Identifier
+                  "Word8"},
               extHsSpec = TypeSpec {
                 typeSpecModule = Just
-                  (HsModuleName
+                  (ModuleName
                     "HsBindgen.Runtime.Prelude"),
                 typeSpecIdentifier = Just
-                  (HsIdentifier "Word8"),
+                  (Identifier "Word8"),
                 typeSpecInstances = Map.fromList
                   [
                     _×_
@@ -642,7 +642,7 @@ TranslationUnit {
         declLoc = "globals.h:48:9",
         declId = NamePair {
           nameC = Name "nesBool",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "nesBool"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -666,7 +666,7 @@ TranslationUnit {
         declLoc = "globals.h:60:9",
         declId = NamePair {
           nameC = Name "streamBinary",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "streamBinary"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -711,17 +711,17 @@ TranslationUnit {
                 qualNameName = Name "uint8_t",
                 qualNameKind =
                 NameKindOrdinary},
-              extHsRef = ExtHsRef {
-                extHsRefModule = HsModuleName
+              extHsRef = ExtRef {
+                extRefModule = ModuleName
                   "HsBindgen.Runtime.Prelude",
-                extHsRefIdentifier =
-                HsIdentifier "Word8"},
+                extRefIdentifier = Identifier
+                  "Word8"},
               extHsSpec = TypeSpec {
                 typeSpecModule = Just
-                  (HsModuleName
+                  (ModuleName
                     "HsBindgen.Runtime.Prelude"),
                 typeSpecIdentifier = Just
-                  (HsIdentifier "Word8"),
+                  (Identifier "Word8"),
                 typeSpecInstances = Map.fromList
                   [
                     _×_
@@ -832,7 +832,7 @@ TranslationUnit {
         declLoc = "globals.h:404:10",
         declId = NamePair {
           nameC = Name "streamBinary_len",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "streamBinary_len"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -849,17 +849,17 @@ TranslationUnit {
               qualNameName = Name "uint32_t",
               qualNameKind =
               NameKindOrdinary},
-            extHsRef = ExtHsRef {
-              extHsRefModule = HsModuleName
+            extHsRef = ExtRef {
+              extRefModule = ModuleName
                 "HsBindgen.Runtime.Prelude",
-              extHsRefIdentifier =
-              HsIdentifier "Word32"},
+              extRefIdentifier = Identifier
+                "Word32"},
             extHsSpec = TypeSpec {
               typeSpecModule = Just
-                (HsModuleName
+                (ModuleName
                   "HsBindgen.Runtime.Prelude"),
               typeSpecIdentifier = Just
-                (HsIdentifier "Word32"),
+                (Identifier "Word32"),
               typeSpecInstances = Map.fromList
                 [
                   _×_
@@ -970,7 +970,7 @@ TranslationUnit {
         declLoc = "globals.h:406:9",
         declId = NamePair {
           nameC = Name "version_t",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Version_t"},
         declOrigin = NameOriginGenerated
           (AnonId "globals.h:406:9"),
@@ -985,9 +985,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName
-              "@NsConstr"
-              "Version_t"),
+            (Name "@NsConstr" "Version_t"),
           structSizeof = 6,
           structAlignment = 2,
           structFields = [
@@ -996,7 +994,7 @@ TranslationUnit {
                 fieldLoc = "globals.h:408:12",
                 fieldName = NamePair {
                   nameC = Name "major",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "version_t_major"},
                 fieldComment = Nothing},
               structFieldType = TypeExtBinding
@@ -1005,17 +1003,17 @@ TranslationUnit {
                     qualNameName = Name "uint8_t",
                     qualNameKind =
                     NameKindOrdinary},
-                  extHsRef = ExtHsRef {
-                    extHsRefModule = HsModuleName
+                  extHsRef = ExtRef {
+                    extRefModule = ModuleName
                       "HsBindgen.Runtime.Prelude",
-                    extHsRefIdentifier =
-                    HsIdentifier "Word8"},
+                    extRefIdentifier = Identifier
+                      "Word8"},
                   extHsSpec = TypeSpec {
                     typeSpecModule = Just
-                      (HsModuleName
+                      (ModuleName
                         "HsBindgen.Runtime.Prelude"),
                     typeSpecIdentifier = Just
-                      (HsIdentifier "Word8"),
+                      (Identifier "Word8"),
                     typeSpecInstances = Map.fromList
                       [
                         _×_
@@ -1122,7 +1120,7 @@ TranslationUnit {
                 fieldLoc = "globals.h:409:12",
                 fieldName = NamePair {
                   nameC = Name "minor",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "version_t_minor"},
                 fieldComment = Nothing},
               structFieldType = TypeExtBinding
@@ -1131,17 +1129,17 @@ TranslationUnit {
                     qualNameName = Name "uint16_t",
                     qualNameKind =
                     NameKindOrdinary},
-                  extHsRef = ExtHsRef {
-                    extHsRefModule = HsModuleName
+                  extHsRef = ExtRef {
+                    extRefModule = ModuleName
                       "HsBindgen.Runtime.Prelude",
-                    extHsRefIdentifier =
-                    HsIdentifier "Word16"},
+                    extRefIdentifier = Identifier
+                      "Word16"},
                   extHsSpec = TypeSpec {
                     typeSpecModule = Just
-                      (HsModuleName
+                      (ModuleName
                         "HsBindgen.Runtime.Prelude"),
                     typeSpecIdentifier = Just
-                      (HsIdentifier "Word16"),
+                      (Identifier "Word16"),
                     typeSpecInstances = Map.fromList
                       [
                         _×_
@@ -1248,7 +1246,7 @@ TranslationUnit {
                 fieldLoc = "globals.h:410:12",
                 fieldName = NamePair {
                   nameC = Name "patch",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "version_t_patch"},
                 fieldComment = Nothing},
               structFieldType = TypeExtBinding
@@ -1257,17 +1255,17 @@ TranslationUnit {
                     qualNameName = Name "uint8_t",
                     qualNameKind =
                     NameKindOrdinary},
-                  extHsRef = ExtHsRef {
-                    extHsRefModule = HsModuleName
+                  extHsRef = ExtRef {
+                    extRefModule = ModuleName
                       "HsBindgen.Runtime.Prelude",
-                    extHsRefIdentifier =
-                    HsIdentifier "Word8"},
+                    extRefIdentifier = Identifier
+                      "Word8"},
                   extHsSpec = TypeSpec {
                     typeSpecModule = Just
-                      (HsModuleName
+                      (ModuleName
                         "HsBindgen.Runtime.Prelude"),
                     typeSpecIdentifier = Just
-                      (HsIdentifier "Word8"),
+                      (Identifier "Word8"),
                     typeSpecInstances = Map.fromList
                       [
                         _×_
@@ -1381,7 +1379,7 @@ TranslationUnit {
         declLoc = "globals.h:413:9",
         declId = NamePair {
           nameC = Name "struct1_t",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Struct1_t"},
         declOrigin = NameOriginGenerated
           (AnonId "globals.h:413:9"),
@@ -1396,9 +1394,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName
-              "@NsConstr"
-              "Struct1_t"),
+            (Name "@NsConstr" "Struct1_t"),
           structSizeof = 10,
           structAlignment = 2,
           structFields = [
@@ -1407,7 +1403,7 @@ TranslationUnit {
                 fieldLoc = "globals.h:415:13",
                 fieldName = NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "struct1_t_x"},
                 fieldComment = Nothing},
               structFieldType = TypeExtBinding
@@ -1416,17 +1412,17 @@ TranslationUnit {
                     qualNameName = Name "uint16_t",
                     qualNameKind =
                     NameKindOrdinary},
-                  extHsRef = ExtHsRef {
-                    extHsRefModule = HsModuleName
+                  extHsRef = ExtRef {
+                    extRefModule = ModuleName
                       "HsBindgen.Runtime.Prelude",
-                    extHsRefIdentifier =
-                    HsIdentifier "Word16"},
+                    extRefIdentifier = Identifier
+                      "Word16"},
                   extHsSpec = TypeSpec {
                     typeSpecModule = Just
-                      (HsModuleName
+                      (ModuleName
                         "HsBindgen.Runtime.Prelude"),
                     typeSpecIdentifier = Just
-                      (HsIdentifier "Word16"),
+                      (Identifier "Word16"),
                     typeSpecInstances = Map.fromList
                       [
                         _×_
@@ -1533,7 +1529,7 @@ TranslationUnit {
                 fieldLoc = "globals.h:416:13",
                 fieldName = NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "struct1_t_y"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -1545,7 +1541,7 @@ TranslationUnit {
                 fieldLoc = "globals.h:417:13",
                 fieldName = NamePair {
                   nameC = Name "version",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "struct1_t_version"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
@@ -1554,7 +1550,7 @@ TranslationUnit {
                   (TypeStruct
                     NamePair {
                       nameC = Name "version_t",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "Version_t"}
                     (NameOriginGenerated
                       (AnonId "globals.h:406:9")))),
@@ -1572,7 +1568,7 @@ TranslationUnit {
         declLoc = "globals.h:420:9",
         declId = NamePair {
           nameC = Name "struct2_t",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Struct2_t"},
         declOrigin = NameOriginGenerated
           (AnonId "globals.h:420:9"),
@@ -1587,9 +1583,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName
-              "@NsConstr"
-              "Struct2_t"),
+            (Name "@NsConstr" "Struct2_t"),
           structSizeof = 10,
           structAlignment = 2,
           structFields = [
@@ -1598,7 +1592,7 @@ TranslationUnit {
                 fieldLoc = "globals.h:422:13",
                 fieldName = NamePair {
                   nameC = Name "field1",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "struct2_t_field1"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
@@ -1607,7 +1601,7 @@ TranslationUnit {
                   (TypeStruct
                     NamePair {
                       nameC = Name "struct1_t",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "Struct1_t"}
                     (NameOriginGenerated
                       (AnonId "globals.h:413:9")))),
@@ -1626,7 +1620,7 @@ TranslationUnit {
         declId = NamePair {
           nameC = Name
             "some_global_struct",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "some_global_struct"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -1643,7 +1637,7 @@ TranslationUnit {
             (TypeStruct
               NamePair {
                 nameC = Name "struct2_t",
-                nameHsIdent = HsIdentifier
+                nameHsIdent = Identifier
                   "Struct2_t"}
               (NameOriginGenerated
                 (AnonId "globals.h:420:9"))))),
@@ -1659,7 +1653,7 @@ TranslationUnit {
         declLoc = "globals.h:445:18",
         declId = NamePair {
           nameC = Name "globalConstant",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "globalConstant"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -1694,7 +1688,7 @@ TranslationUnit {
         declLoc = "globals.h:448:19",
         declId = NamePair {
           nameC = Name "ConstInt",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "ConstInt"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -1713,10 +1707,10 @@ TranslationUnit {
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "ConstInt",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_ConstInt"},
           typedefType = TypeConst
@@ -1734,7 +1728,7 @@ TranslationUnit {
         declId = NamePair {
           nameC = Name
             "anotherGlobalConstant",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "anotherGlobalConstant"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -1749,7 +1743,7 @@ TranslationUnit {
           (TypedefRegular
             NamePair {
               nameC = Name "ConstInt",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "ConstInt"})),
       declSpec = DeclSpec
         TypeSpec {
@@ -1763,7 +1757,7 @@ TranslationUnit {
         declLoc = "globals.h:454:18",
         declId = NamePair {
           nameC = Name "staticConst",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "staticConst"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -1799,7 +1793,7 @@ TranslationUnit {
         declLoc = "globals.h:457:11",
         declId = NamePair {
           nameC = Name "classless",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "classless"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -1830,7 +1824,7 @@ TranslationUnit {
         declLoc = "globals.h:460:18",
         declId = NamePair {
           nameC = Name "constArray1",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "constArray1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -1865,7 +1859,7 @@ TranslationUnit {
         declLoc = "globals.h:463:19",
         declId = NamePair {
           nameC = Name "ConstIntArray",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "ConstIntArray"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -1884,10 +1878,10 @@ TranslationUnit {
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "ConstIntArray",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_ConstIntArray"},
           typedefType =
@@ -1908,7 +1902,7 @@ TranslationUnit {
         declLoc = "globals.h:464:22",
         declId = NamePair {
           nameC = Name "constArray2",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "constArray2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -1923,7 +1917,7 @@ TranslationUnit {
           (TypedefRegular
             NamePair {
               nameC = Name "ConstIntArray",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "ConstIntArray"})),
       declSpec = DeclSpec
         TypeSpec {
@@ -1936,7 +1930,7 @@ TranslationUnit {
         declLoc = "globals.h:466:8",
         declId = NamePair {
           nameC = Name "tuple",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Tuple"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -1949,7 +1943,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "Tuple"),
+            (Name "@NsConstr" "Tuple"),
           structSizeof = 8,
           structAlignment = 4,
           structFields = [
@@ -1958,7 +1952,7 @@ TranslationUnit {
                 fieldLoc = "globals.h:466:20",
                 fieldName = NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "tuple_x"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -1970,7 +1964,7 @@ TranslationUnit {
                 fieldLoc = "globals.h:466:33",
                 fieldName = NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "tuple_y"},
                 fieldComment = Nothing},
               structFieldType = TypeConst
@@ -1990,7 +1984,7 @@ TranslationUnit {
         declLoc = "globals.h:468:27",
         declId = NamePair {
           nameC = Name "constTuple",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "constTuple"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -2011,7 +2005,7 @@ TranslationUnit {
           (TypeStruct
             NamePair {
               nameC = Name "tuple",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Tuple"}
             NameOriginInSource)),
       declSpec = DeclSpec
@@ -2025,7 +2019,7 @@ TranslationUnit {
         declLoc = "globals.h:470:21",
         declId = NamePair {
           nameC = Name "nonConstTuple",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "nonConstTuple"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -2045,7 +2039,7 @@ TranslationUnit {
         (TypeStruct
           NamePair {
             nameC = Name "tuple",
-            nameHsIdent = HsIdentifier
+            nameHsIdent = Identifier
               "Tuple"}
           NameOriginInSource),
       declSpec = DeclSpec
@@ -2059,7 +2053,7 @@ TranslationUnit {
         declLoc = "globals.h:473:20",
         declId = NamePair {
           nameC = Name "ptrToConstInt",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "ptrToConstInt"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -2093,7 +2087,7 @@ TranslationUnit {
         declLoc = "globals.h:475:20",
         declId = NamePair {
           nameC = Name "constPtrToInt",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "constPtrToInt"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -2128,7 +2122,7 @@ TranslationUnit {
         declId = NamePair {
           nameC = Name
             "constPtrToConstInt",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "constPtrToConstInt"},
         declOrigin = NameOriginInSource,
         declAliases = [],

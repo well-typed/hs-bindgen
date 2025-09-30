@@ -6,7 +6,7 @@ TranslationUnit {
         "recursive_struct.h:1:16",
         declId = NamePair {
           nameC = Name "linked_list_A_t",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Linked_list_A_t"},
         declOrigin =
         NameOriginRenamedFrom
@@ -23,7 +23,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName
+            (Name
               "@NsConstr"
               "Linked_list_A_t"),
           structSizeof = 16,
@@ -35,7 +35,7 @@ TranslationUnit {
                 "recursive_struct.h:2:7",
                 fieldName = NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "linked_list_A_t_x"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -48,14 +48,14 @@ TranslationUnit {
                 "recursive_struct.h:3:27",
                 fieldName = NamePair {
                   nameC = Name "next",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "linked_list_A_t_next"},
                 fieldComment = Nothing},
               structFieldType = TypePointer
                 (TypeStruct
                   NamePair {
                     nameC = Name "linked_list_A_t",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Linked_list_A_t"}
                   (NameOriginRenamedFrom
                     (Name "linked_list_A_s"))),
@@ -74,7 +74,7 @@ TranslationUnit {
         "recursive_struct.h:9:8",
         declId = NamePair {
           nameC = Name "linked_list_B_t",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Linked_list_B_t"},
         declOrigin = NameOriginInSource,
         declAliases = [
@@ -89,7 +89,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName
+            (Name
               "@NsConstr"
               "Linked_list_B_t"),
           structSizeof = 16,
@@ -101,7 +101,7 @@ TranslationUnit {
                 "recursive_struct.h:10:7",
                 fieldName = NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "linked_list_B_t_x"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -114,7 +114,7 @@ TranslationUnit {
                 "recursive_struct.h:11:20",
                 fieldName = NamePair {
                   nameC = Name "next",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "linked_list_B_t_next"},
                 fieldComment = Nothing},
               structFieldType = TypePointer
@@ -124,7 +124,7 @@ TranslationUnit {
                     (TypeStruct
                       NamePair {
                         nameC = Name "linked_list_B_t",
-                        nameHsIdent = HsIdentifier
+                        nameHsIdent = Identifier
                           "Linked_list_B_t"}
                       NameOriginInSource))),
               structFieldOffset = 64,

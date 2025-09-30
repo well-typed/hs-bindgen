@@ -5,8 +5,7 @@ TranslationUnit {
         declLoc = "nested_types.h:1:8",
         declId = NamePair {
           nameC = Name "foo",
-          nameHsIdent = HsIdentifier
-            "Foo"},
+          nameHsIdent = Identifier "Foo"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -19,7 +18,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "Foo"),
+            (Name "@NsConstr" "Foo"),
           structSizeof = 8,
           structAlignment = 4,
           structFields = [
@@ -28,7 +27,7 @@ TranslationUnit {
                 fieldLoc = "nested_types.h:2:9",
                 fieldName = NamePair {
                   nameC = Name "i",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "foo_i"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -41,7 +40,7 @@ TranslationUnit {
                 "nested_types.h:3:10",
                 fieldName = NamePair {
                   nameC = Name "c",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "foo_c"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -62,8 +61,7 @@ TranslationUnit {
         declLoc = "nested_types.h:6:8",
         declId = NamePair {
           nameC = Name "bar",
-          nameHsIdent = HsIdentifier
-            "Bar"},
+          nameHsIdent = Identifier "Bar"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -76,7 +74,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "Bar"),
+            (Name "@NsConstr" "Bar"),
           structSizeof = 16,
           structAlignment = 4,
           structFields = [
@@ -86,14 +84,13 @@ TranslationUnit {
                 "nested_types.h:7:16",
                 fieldName = NamePair {
                   nameC = Name "foo1",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "bar_foo1"},
                 fieldComment = Nothing},
               structFieldType = TypeStruct
                 NamePair {
                   nameC = Name "foo",
-                  nameHsIdent = HsIdentifier
-                    "Foo"}
+                  nameHsIdent = Identifier "Foo"}
                 NameOriginInSource,
               structFieldOffset = 0,
               structFieldWidth = Nothing},
@@ -103,14 +100,13 @@ TranslationUnit {
                 "nested_types.h:8:16",
                 fieldName = NamePair {
                   nameC = Name "foo2",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "bar_foo2"},
                 fieldComment = Nothing},
               structFieldType = TypeStruct
                 NamePair {
                   nameC = Name "foo",
-                  nameHsIdent = HsIdentifier
-                    "Foo"}
+                  nameHsIdent = Identifier "Foo"}
                 NameOriginInSource,
               structFieldOffset = 64,
               structFieldWidth = Nothing}],
@@ -126,7 +122,7 @@ TranslationUnit {
         declLoc = "nested_types.h:12:5",
         declId = NamePair {
           nameC = Name "ex3_ex3_struct",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Ex3_ex3_struct"},
         declOrigin = NameOriginGenerated
           (AnonId "nested_types.h:12:5"),
@@ -141,7 +137,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName
+            (Name
               "@NsConstr"
               "Ex3_ex3_struct"),
           structSizeof = 8,
@@ -153,7 +149,7 @@ TranslationUnit {
                 "nested_types.h:13:13",
                 fieldName = NamePair {
                   nameC = Name "ex3_a",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "ex3_ex3_struct_ex3_a"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -166,7 +162,7 @@ TranslationUnit {
                 "nested_types.h:14:14",
                 fieldName = NamePair {
                   nameC = Name "ex3_b",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "ex3_ex3_struct_ex3_b"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -187,8 +183,7 @@ TranslationUnit {
         declLoc = "nested_types.h:11:8",
         declId = NamePair {
           nameC = Name "ex3",
-          nameHsIdent = HsIdentifier
-            "Ex3"},
+          nameHsIdent = Identifier "Ex3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -201,7 +196,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "Ex3"),
+            (Name "@NsConstr" "Ex3"),
           structSizeof = 12,
           structAlignment = 4,
           structFields = [
@@ -211,13 +206,13 @@ TranslationUnit {
                 "nested_types.h:15:7",
                 fieldName = NamePair {
                   nameC = Name "ex3_struct",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "ex3_ex3_struct"},
                 fieldComment = Nothing},
               structFieldType = TypeStruct
                 NamePair {
                   nameC = Name "ex3_ex3_struct",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Ex3_ex3_struct"}
                 (NameOriginGenerated
                   (AnonId "nested_types.h:12:5")),
@@ -229,7 +224,7 @@ TranslationUnit {
                 "nested_types.h:16:11",
                 fieldName = NamePair {
                   nameC = Name "ex3_c",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "ex3_ex3_c"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -249,7 +244,7 @@ TranslationUnit {
         "nested_types.h:24:12",
         declId = NamePair {
           nameC = Name "ex4_even",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Ex4_even"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -263,7 +258,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "Ex4_even"),
+            (Name "@NsConstr" "Ex4_even"),
           structSizeof = 16,
           structAlignment = 8,
           structFields = [
@@ -273,7 +268,7 @@ TranslationUnit {
                 "nested_types.h:25:16",
                 fieldName = NamePair {
                   nameC = Name "value",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "ex4_even_value"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -286,14 +281,14 @@ TranslationUnit {
                 "nested_types.h:26:25",
                 fieldName = NamePair {
                   nameC = Name "next",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "ex4_even_next"},
                 fieldComment = Nothing},
               structFieldType = TypePointer
                 (TypeStruct
                   NamePair {
                     nameC = Name "ex4_odd",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Ex4_odd"}
                   NameOriginInSource),
               structFieldOffset = 64,
@@ -310,7 +305,7 @@ TranslationUnit {
         declLoc = "nested_types.h:22:8",
         declId = NamePair {
           nameC = Name "ex4_odd",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Ex4_odd"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -324,7 +319,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "Ex4_odd"),
+            (Name "@NsConstr" "Ex4_odd"),
           structSizeof = 16,
           structAlignment = 8,
           structFields = [
@@ -334,7 +329,7 @@ TranslationUnit {
                 "nested_types.h:23:9",
                 fieldName = NamePair {
                   nameC = Name "value",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "ex4_odd_value"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -347,14 +342,14 @@ TranslationUnit {
                 "nested_types.h:27:8",
                 fieldName = NamePair {
                   nameC = Name "next",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "ex4_odd_next"},
                 fieldComment = Nothing},
               structFieldType = TypePointer
                 (TypeStruct
                   NamePair {
                     nameC = Name "ex4_even",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Ex4_even"}
                   NameOriginInSource),
               structFieldOffset = 64,

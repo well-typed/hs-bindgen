@@ -5,7 +5,7 @@ TranslationUnit {
         declLoc = "iterator.h:3:16",
         declId = NamePair {
           nameC = Name "Toggle",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Toggle"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -18,10 +18,10 @@ TranslationUnit {
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "Toggle",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_Toggle"},
           typedefType = TypeBlock
@@ -39,7 +39,7 @@ TranslationUnit {
         declLoc = "iterator.h:4:8",
         declId = NamePair {
           nameC = Name "makeToggle",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "makeToggle"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -56,7 +56,7 @@ TranslationUnit {
               (Just
                 NamePair {
                   nameC = Name "start",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "start"})
               (TypePrim PrimBool)],
           functionAttrs =
@@ -66,7 +66,7 @@ TranslationUnit {
             (TypedefRegular
               NamePair {
                 nameC = Name "Toggle",
-                nameHsIdent = HsIdentifier
+                nameHsIdent = Identifier
                   "Toggle"})},
       declSpec = DeclSpec
         TypeSpec {
@@ -79,7 +79,7 @@ TranslationUnit {
         declLoc = "iterator.h:5:6",
         declId = NamePair {
           nameC = Name "toggleNext",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "toggleNext"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -96,13 +96,13 @@ TranslationUnit {
               (Just
                 NamePair {
                   nameC = Name "block",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "block"})
               (TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "Toggle",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Toggle"}))],
           functionAttrs =
           FunctionAttributes
@@ -120,7 +120,7 @@ TranslationUnit {
         declLoc = "iterator.h:6:6",
         declId = NamePair {
           nameC = Name "releaseToggle",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "releaseToggle"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -137,13 +137,13 @@ TranslationUnit {
               (Just
                 NamePair {
                   nameC = Name "block",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "block"})
               (TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "Toggle",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Toggle"}))],
           functionAttrs =
           FunctionAttributes
@@ -160,7 +160,7 @@ TranslationUnit {
         declLoc = "iterator.h:10:14",
         declId = NamePair {
           nameC = Name "Counter",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Counter"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -173,10 +173,10 @@ TranslationUnit {
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "Counter",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_Counter"},
           typedefType = TypeBlock
@@ -197,7 +197,7 @@ TranslationUnit {
         declLoc = "iterator.h:11:9",
         declId = NamePair {
           nameC = Name "makeCounter",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "makeCounter"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -214,7 +214,7 @@ TranslationUnit {
               (Just
                 NamePair {
                   nameC = Name "start",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "start"})
               (TypePrim
                 (PrimIntegral PrimInt Signed)),
@@ -222,7 +222,7 @@ TranslationUnit {
               (Just
                 NamePair {
                   nameC = Name "increment",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "increment"})
               (TypePrim
                 (PrimIntegral PrimInt Signed))],
@@ -233,7 +233,7 @@ TranslationUnit {
             (TypedefRegular
               NamePair {
                 nameC = Name "Counter",
-                nameHsIdent = HsIdentifier
+                nameHsIdent = Identifier
                   "Counter"})},
       declSpec = DeclSpec
         TypeSpec {
@@ -246,7 +246,7 @@ TranslationUnit {
         declLoc = "iterator.h:12:5",
         declId = NamePair {
           nameC = Name "counterNext",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "counterNext"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -263,13 +263,13 @@ TranslationUnit {
               (Just
                 NamePair {
                   nameC = Name "block",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "block"})
               (TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "Counter",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Counter"}))],
           functionAttrs =
           FunctionAttributes
@@ -287,7 +287,7 @@ TranslationUnit {
         declLoc = "iterator.h:13:6",
         declId = NamePair {
           nameC = Name "releaseCounter",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "releaseCounter"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -304,13 +304,13 @@ TranslationUnit {
               (Just
                 NamePair {
                   nameC = Name "block",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "block"})
               (TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "Counter",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Counter"}))],
           functionAttrs =
           FunctionAttributes
@@ -327,7 +327,7 @@ TranslationUnit {
         declLoc = "iterator.h:17:14",
         declId = NamePair {
           nameC = Name "VarCounter",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "VarCounter"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -340,10 +340,10 @@ TranslationUnit {
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "VarCounter",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_VarCounter"},
           typedefType = TypeBlock
@@ -366,7 +366,7 @@ TranslationUnit {
         declLoc = "iterator.h:18:12",
         declId = NamePair {
           nameC = Name "makeVarCounter",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "makeVarCounter"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -383,7 +383,7 @@ TranslationUnit {
               (Just
                 NamePair {
                   nameC = Name "start",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "start"})
               (TypePrim
                 (PrimIntegral PrimInt Signed))],
@@ -394,7 +394,7 @@ TranslationUnit {
             (TypedefRegular
               NamePair {
                 nameC = Name "VarCounter",
-                nameHsIdent = HsIdentifier
+                nameHsIdent = Identifier
                   "VarCounter"})},
       declSpec = DeclSpec
         TypeSpec {
@@ -407,7 +407,7 @@ TranslationUnit {
         declLoc = "iterator.h:19:5",
         declId = NamePair {
           nameC = Name "varCounterNext",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "varCounterNext"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -424,19 +424,19 @@ TranslationUnit {
               (Just
                 NamePair {
                   nameC = Name "block",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "block"})
               (TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "VarCounter",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "VarCounter"})),
             _×_
               (Just
                 NamePair {
                   nameC = Name "increment",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "increment"})
               (TypePrim
                 (PrimIntegral PrimInt Signed))],
@@ -457,7 +457,7 @@ TranslationUnit {
         declId = NamePair {
           nameC = Name
             "releaseVarCounter",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "releaseVarCounter"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -474,13 +474,13 @@ TranslationUnit {
               (Just
                 NamePair {
                   nameC = Name "block",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "block"})
               (TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "VarCounter",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "VarCounter"}))],
           functionAttrs =
           FunctionAttributes

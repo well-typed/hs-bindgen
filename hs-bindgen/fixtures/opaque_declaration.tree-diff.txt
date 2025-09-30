@@ -6,8 +6,7 @@ TranslationUnit {
         "opaque_declaration.h:1:8",
         declId = NamePair {
           nameC = Name "foo",
-          nameHsIdent = HsIdentifier
-            "Foo"},
+          nameHsIdent = Identifier "Foo"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -30,8 +29,7 @@ TranslationUnit {
         "opaque_declaration.h:4:8",
         declId = NamePair {
           nameC = Name "bar",
-          nameHsIdent = HsIdentifier
-            "Bar"},
+          nameHsIdent = Identifier "Bar"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -44,7 +42,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "Bar"),
+            (Name "@NsConstr" "Bar"),
           structSizeof = 16,
           structAlignment = 8,
           structFields = [
@@ -54,15 +52,14 @@ TranslationUnit {
                 "opaque_declaration.h:5:17",
                 fieldName = NamePair {
                   nameC = Name "ptrA",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "bar_ptrA"},
                 fieldComment = Nothing},
               structFieldType = TypePointer
                 (TypeStruct
                   NamePair {
                     nameC = Name "foo",
-                    nameHsIdent = HsIdentifier
-                      "Foo"}
+                    nameHsIdent = Identifier "Foo"}
                   NameOriginInSource),
               structFieldOffset = 0,
               structFieldWidth = Nothing},
@@ -72,15 +69,14 @@ TranslationUnit {
                 "opaque_declaration.h:6:17",
                 fieldName = NamePair {
                   nameC = Name "ptrB",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "bar_ptrB"},
                 fieldComment = Nothing},
               structFieldType = TypePointer
                 (TypeStruct
                   NamePair {
                     nameC = Name "bar",
-                    nameHsIdent = HsIdentifier
-                      "Bar"}
+                    nameHsIdent = Identifier "Bar"}
                   NameOriginInSource),
               structFieldOffset = 64,
               structFieldWidth = Nothing}],
@@ -97,8 +93,7 @@ TranslationUnit {
         "opaque_declaration.h:9:8",
         declId = NamePair {
           nameC = Name "baz",
-          nameHsIdent = HsIdentifier
-            "Baz"},
+          nameHsIdent = Identifier "Baz"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -111,7 +106,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "Baz"),
+            (Name "@NsConstr" "Baz"),
           structSizeof = 0,
           structAlignment = 1,
           structFields = [],
@@ -128,8 +123,7 @@ TranslationUnit {
         "opaque_declaration.h:11:6",
         declId = NamePair {
           nameC = Name "quu",
-          nameHsIdent = HsIdentifier
-            "Quu"},
+          nameHsIdent = Identifier "Quu"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -152,7 +146,7 @@ TranslationUnit {
         "opaque_declaration.h:13:7",
         declId = NamePair {
           nameC = Name "opaque_union",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Opaque_union"},
         declOrigin = NameOriginInSource,
         declAliases = [],

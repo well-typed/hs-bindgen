@@ -6,7 +6,7 @@ TranslationUnit {
         "data_kind_pragma.h:3:13",
         declId = NamePair {
           nameC = Name "triplet",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Triplet"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -20,10 +20,10 @@ TranslationUnit {
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "Triplet",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_Triplet"},
           typedefType = TypeConstArray

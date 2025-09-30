@@ -39,7 +39,7 @@ import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.RootHeader (UncheckedHashIncludeArg)
 import HsBindgen.Imports
-import HsBindgen.Language.Haskell (HsModuleName (getHsModuleName))
+import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Test (genTests)
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
@@ -181,7 +181,7 @@ write what (Just path) str = do
 writeByCategory ::
      String
   -> FilePath
-  -> HsModuleName
+  -> Hs.ModuleName
   -> ByCategory String
   -> ArtefactM ()
 writeByCategory what hsOutputDir moduleBaseName =
@@ -198,4 +198,4 @@ writeByCategory what hsOutputDir moduleBaseName =
 
     baseFilePath :: FilePath
     baseFilePath = Foldable.foldl' (</>) "" $
-      hsOutputDir : map T.unpack (T.splitOn "." (getHsModuleName moduleBaseName))
+      hsOutputDir : map T.unpack (T.splitOn "." (Hs.getModuleName moduleBaseName))

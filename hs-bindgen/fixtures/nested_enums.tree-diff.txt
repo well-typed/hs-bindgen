@@ -5,7 +5,7 @@ TranslationUnit {
         declLoc = "nested_enums.h:2:14",
         declId = NamePair {
           nameC = Name "enumA",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "EnumA"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -19,10 +19,10 @@ TranslationUnit {
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "EnumA",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_EnumA"},
           enumType = TypePrim
@@ -36,7 +36,7 @@ TranslationUnit {
                 "nested_enums.h:3:17",
                 fieldName = NamePair {
                   nameC = Name "VALA_1",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "VALA_1"},
                 fieldComment = Nothing},
               enumConstantValue = 0},
@@ -46,7 +46,7 @@ TranslationUnit {
                 "nested_enums.h:4:17",
                 fieldName = NamePair {
                   nameC = Name "VALA_2",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "VALA_2"},
                 fieldComment = Nothing},
               enumConstantValue = 1}]},
@@ -61,8 +61,7 @@ TranslationUnit {
         declLoc = "nested_enums.h:1:8",
         declId = NamePair {
           nameC = Name "exA",
-          nameHsIdent = HsIdentifier
-            "ExA"},
+          nameHsIdent = Identifier "ExA"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -75,7 +74,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "ExA"),
+            (Name "@NsConstr" "ExA"),
           structSizeof = 4,
           structAlignment = 4,
           structFields = [
@@ -85,13 +84,13 @@ TranslationUnit {
                 "nested_enums.h:5:11",
                 fieldName = NamePair {
                   nameC = Name "fieldA1",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "exA_fieldA1"},
                 fieldComment = Nothing},
               structFieldType = TypeEnum
                 NamePair {
                   nameC = Name "enumA",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "EnumA"}
                 NameOriginInSource,
               structFieldOffset = 0,
@@ -108,7 +107,7 @@ TranslationUnit {
         declLoc = "nested_enums.h:9:9",
         declId = NamePair {
           nameC = Name "exB_fieldB1",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "ExB_fieldB1"},
         declOrigin = NameOriginGenerated
           (AnonId "nested_enums.h:9:9"),
@@ -123,10 +122,10 @@ TranslationUnit {
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "ExB_fieldB1",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_ExB_fieldB1"},
           enumType = TypePrim
@@ -140,7 +139,7 @@ TranslationUnit {
                 "nested_enums.h:10:17",
                 fieldName = NamePair {
                   nameC = Name "VALB_1",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "VALB_1"},
                 fieldComment = Nothing},
               enumConstantValue = 0},
@@ -150,7 +149,7 @@ TranslationUnit {
                 "nested_enums.h:11:17",
                 fieldName = NamePair {
                   nameC = Name "VALB_2",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "VALB_2"},
                 fieldComment = Nothing},
               enumConstantValue = 1}]},
@@ -165,8 +164,7 @@ TranslationUnit {
         declLoc = "nested_enums.h:8:8",
         declId = NamePair {
           nameC = Name "exB",
-          nameHsIdent = HsIdentifier
-            "ExB"},
+          nameHsIdent = Identifier "ExB"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -179,7 +177,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "ExB"),
+            (Name "@NsConstr" "ExB"),
           structSizeof = 4,
           structAlignment = 4,
           structFields = [
@@ -189,13 +187,13 @@ TranslationUnit {
                 "nested_enums.h:12:11",
                 fieldName = NamePair {
                   nameC = Name "fieldB1",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "exB_fieldB1"},
                 fieldComment = Nothing},
               structFieldType = TypeEnum
                 NamePair {
                   nameC = Name "exB_fieldB1",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "ExB_fieldB1"}
                 (NameOriginGenerated
                   (AnonId "nested_enums.h:9:9")),

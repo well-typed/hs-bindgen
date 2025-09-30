@@ -36,12 +36,12 @@ import C.Expr.Syntax qualified as CExpr.DSL
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.CallConv
-import HsBindgen.Backend.Hs.Haddock.Documentation (Comment)
+import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Errors
 import HsBindgen.Guasi
 import HsBindgen.Imports
-import HsBindgen.Language.Haskell
+import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint
 import HsBindgen.Runtime.Bitfield qualified
 import HsBindgen.Runtime.Block qualified
@@ -487,11 +487,11 @@ mkType env = \case
             (map bndr xs)
             (traverse (mkType env') ctxt)
             (mkType env' body)
-    TExt ExtHsRef{..} _typeSpec ->
+    TExt Hs.ExtRef{..} _typeSpec ->
         TH.conT . TH.mkName $ concat [
-              Text.unpack (getHsModuleName extHsRefModule)
+              Text.unpack (Hs.getModuleName extRefModule)
             , "."
-            , Text.unpack (getHsIdentifier extHsRefIdentifier)
+            , Text.unpack (Hs.getIdentifier extRefIdentifier)
             ]
 
 mkPrimType :: Quote q => HsPrimType -> q TH.Type
@@ -526,7 +526,7 @@ mkDecl = \case
                            ++ map (\(x, f) -> simpleDecl (mkGlobal x) f) (instanceDecs i)
                          )
       DRecord d -> do
-        let _fieldsAndDocs :: ([q TH.VarBangType], [(TH.DocLoc, Maybe Comment)])
+        let _fieldsAndDocs :: ([q TH.VarBangType], [(TH.DocLoc, Maybe HsDoc.Comment)])
             _fieldsAndDocs@(fields, docs) = unzip
               [ ( TH.varBangType thFieldName $
                     TH.bangType
@@ -693,20 +693,20 @@ strategy (Hs.DeriveVia ty) = TH.ViaStrategy <$> mkType EmptyEnv ty
 appsT :: Quote q => q TH.Type -> [q TH.Type] -> q TH.Type
 appsT = foldl' TH.appT
 
-hsConE :: Quote m => HsName NsConstr -> m TH.Exp
+hsConE :: Quote m => Hs.Name Hs.NsConstr -> m TH.Exp
 hsConE = TH.conE . hsNameToTH
 
-hsConP :: Quote m => HsName NsConstr -> [m TH.Pat] -> m TH.Pat
+hsConP :: Quote m => Hs.Name Hs.NsConstr -> [m TH.Pat] -> m TH.Pat
 hsConP = TH.conP . hsNameToTH
 
-hsConT :: Quote m => HsName NsTypeConstr -> m TH.Type
+hsConT :: Quote m => Hs.Name Hs.NsTypeConstr -> m TH.Type
 hsConT = TH.conT . hsNameToTH
 
-hsVarE :: Quote m => HsName NsVar -> m TH.Exp
+hsVarE :: Quote m => Hs.Name Hs.NsVar -> m TH.Exp
 hsVarE = TH.varE . hsNameToTH
 
-hsNameToTH :: HsName ns -> TH.Name
-hsNameToTH = TH.mkName . Text.unpack  . getHsName
+hsNameToTH :: Hs.Name ns -> TH.Name
+hsNameToTH = TH.mkName . Text.unpack  . Hs.getName
 
 newNames :: Quote q => Env ctx TH.Name -> Add n ctx ctx' -> Vec n NameHint -> q ([TH.Name], Env ctx' TH.Name)
 newNames env AZ _ = return ([], env)

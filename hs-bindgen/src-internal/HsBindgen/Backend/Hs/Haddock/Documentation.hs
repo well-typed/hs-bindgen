@@ -1,3 +1,8 @@
+-- | Haddock documentation
+--
+-- Intended for qualified import.
+--
+-- > import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 module HsBindgen.Backend.Hs.Haddock.Documentation where
 
 import Data.Semigroup (First (..))

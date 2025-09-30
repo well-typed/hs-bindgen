@@ -1,15 +1,15 @@
 [
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "Pascal",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "Pascal",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "pascal_len",
           fieldType = HsPrimType
@@ -20,7 +20,7 @@
                 fieldLoc = "flam.h:3:9",
                 fieldName = NamePair {
                   nameC = Name "len",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "pascal_len"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -45,7 +45,7 @@
             declLoc = "flam.h:2:8",
             declId = NamePair {
               nameC = Name "pascal",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Pascal"},
             declOrigin = NameOriginInSource,
             declAliases = [],
@@ -58,7 +58,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "Pascal"),
+                (Name "@NsConstr" "Pascal"),
               structSizeof = 4,
               structAlignment = 4,
               structFields = [
@@ -67,7 +67,7 @@
                     fieldLoc = "flam.h:3:9",
                     fieldName = NamePair {
                       nameC = Name "len",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "pascal_len"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -80,7 +80,7 @@
                     fieldLoc = "flam.h:4:10",
                     fieldName = NamePair {
                       nameC = Name "data",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "pascal_data"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -114,15 +114,15 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Pascal",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Pascal",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "pascal_len",
               fieldType = HsPrimType
@@ -133,7 +133,7 @@
                     fieldLoc = "flam.h:3:9",
                     fieldName = NamePair {
                       nameC = Name "len",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "pascal_len"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -158,7 +158,7 @@
                 declLoc = "flam.h:2:8",
                 declId = NamePair {
                   nameC = Name "pascal",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Pascal"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
@@ -171,7 +171,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "Pascal"),
+                    (Name "@NsConstr" "Pascal"),
                   structSizeof = 4,
                   structAlignment = 4,
                   structFields = [
@@ -180,7 +180,7 @@
                         fieldLoc = "flam.h:3:9",
                         fieldName = NamePair {
                           nameC = Name "len",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "pascal_len"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -193,7 +193,7 @@
                         fieldLoc = "flam.h:4:10",
                         fieldName = NamePair {
                           nameC = Name "data",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "pascal_data"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -230,15 +230,15 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Pascal",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Pascal",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "pascal_len",
                       fieldType = HsPrimType
@@ -249,7 +249,7 @@
                             fieldLoc = "flam.h:3:9",
                             fieldName = NamePair {
                               nameC = Name "len",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "pascal_len"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -274,7 +274,7 @@
                         declLoc = "flam.h:2:8",
                         declId = NamePair {
                           nameC = Name "pascal",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Pascal"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -287,7 +287,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Pascal"),
+                            (Name "@NsConstr" "Pascal"),
                           structSizeof = 4,
                           structAlignment = 4,
                           structFields = [
@@ -296,7 +296,7 @@
                                 fieldLoc = "flam.h:3:9",
                                 fieldName = NamePair {
                                   nameC = Name "len",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "pascal_len"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -309,7 +309,7 @@
                                 fieldLoc = "flam.h:4:10",
                                 fieldName = NamePair {
                                   nameC = Name "data",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "pascal_data"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -346,15 +346,15 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Pascal",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Pascal",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "pascal_len",
                       fieldType = HsPrimType
@@ -365,7 +365,7 @@
                             fieldLoc = "flam.h:3:9",
                             fieldName = NamePair {
                               nameC = Name "len",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "pascal_len"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -390,7 +390,7 @@
                         declLoc = "flam.h:2:8",
                         declId = NamePair {
                           nameC = Name "pascal",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Pascal"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -403,7 +403,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Pascal"),
+                            (Name "@NsConstr" "Pascal"),
                           structSizeof = 4,
                           structAlignment = 4,
                           structFields = [
@@ -412,7 +412,7 @@
                                 fieldLoc = "flam.h:3:9",
                                 fieldName = NamePair {
                                   nameC = Name "len",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "pascal_len"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -425,7 +425,7 @@
                                 fieldLoc = "flam.h:4:10",
                                 fieldName = NamePair {
                                   nameC = Name "data",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "pascal_data"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -468,7 +468,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Pascal",
       deriveInstanceComment =
@@ -478,7 +478,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Pascal",
       deriveInstanceComment =
@@ -488,15 +488,15 @@
       defineInstanceDeclarations =
       InstanceHasFLAM
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Pascal",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Pascal",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "pascal_len",
               fieldType = HsPrimType
@@ -507,7 +507,7 @@
                     fieldLoc = "flam.h:3:9",
                     fieldName = NamePair {
                       nameC = Name "len",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "pascal_len"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -532,7 +532,7 @@
                 declLoc = "flam.h:2:8",
                 declId = NamePair {
                   nameC = Name "pascal",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Pascal"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
@@ -545,7 +545,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "Pascal"),
+                    (Name "@NsConstr" "Pascal"),
                   structSizeof = 4,
                   structAlignment = 4,
                   structFields = [
@@ -554,7 +554,7 @@
                         fieldLoc = "flam.h:3:9",
                         fieldName = NamePair {
                           nameC = Name "len",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "pascal_len"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -567,7 +567,7 @@
                         fieldLoc = "flam.h:4:10",
                         fieldName = NamePair {
                           nameC = Name "data",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "pascal_data"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -602,15 +602,15 @@
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "Foo_bar",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "Foo_bar",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "foo_bar_x",
           fieldType = HsPrimType
@@ -621,7 +621,7 @@
                 fieldLoc = "flam.h:11:7",
                 fieldName = NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "foo_bar_x"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -641,7 +641,7 @@
                   headerInclude = "flam.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "foo_bar_y",
           fieldType = HsPrimType
@@ -652,7 +652,7 @@
                 fieldLoc = "flam.h:12:7",
                 fieldName = NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "foo_bar_y"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -677,7 +677,7 @@
             declLoc = "flam.h:10:2",
             declId = NamePair {
               nameC = Name "foo_bar",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Foo_bar"},
             declOrigin = NameOriginGenerated
               (AnonId "flam.h:10:2"),
@@ -691,7 +691,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "Foo_bar"),
+                (Name "@NsConstr" "Foo_bar"),
               structSizeof = 8,
               structAlignment = 4,
               structFields = [
@@ -700,7 +700,7 @@
                     fieldLoc = "flam.h:11:7",
                     fieldName = NamePair {
                       nameC = Name "x",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "foo_bar_x"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -712,7 +712,7 @@
                     fieldLoc = "flam.h:12:7",
                     fieldName = NamePair {
                       nameC = Name "y",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "foo_bar_y"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -745,15 +745,15 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Foo_bar",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Foo_bar",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "foo_bar_x",
               fieldType = HsPrimType
@@ -764,7 +764,7 @@
                     fieldLoc = "flam.h:11:7",
                     fieldName = NamePair {
                       nameC = Name "x",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "foo_bar_x"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -784,7 +784,7 @@
                       headerInclude = "flam.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "foo_bar_y",
               fieldType = HsPrimType
@@ -795,7 +795,7 @@
                     fieldLoc = "flam.h:12:7",
                     fieldName = NamePair {
                       nameC = Name "y",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "foo_bar_y"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -820,7 +820,7 @@
                 declLoc = "flam.h:10:2",
                 declId = NamePair {
                   nameC = Name "foo_bar",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Foo_bar"},
                 declOrigin = NameOriginGenerated
                   (AnonId "flam.h:10:2"),
@@ -834,7 +834,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "Foo_bar"),
+                    (Name "@NsConstr" "Foo_bar"),
                   structSizeof = 8,
                   structAlignment = 4,
                   structFields = [
@@ -843,7 +843,7 @@
                         fieldLoc = "flam.h:11:7",
                         fieldName = NamePair {
                           nameC = Name "x",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "foo_bar_x"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -855,7 +855,7 @@
                         fieldLoc = "flam.h:12:7",
                         fieldName = NamePair {
                           nameC = Name "y",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "foo_bar_y"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -891,15 +891,15 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Foo_bar",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Foo_bar",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "foo_bar_x",
                       fieldType = HsPrimType
@@ -910,7 +910,7 @@
                             fieldLoc = "flam.h:11:7",
                             fieldName = NamePair {
                               nameC = Name "x",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "foo_bar_x"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -930,7 +930,7 @@
                               headerInclude = "flam.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "foo_bar_y",
                       fieldType = HsPrimType
@@ -941,7 +941,7 @@
                             fieldLoc = "flam.h:12:7",
                             fieldName = NamePair {
                               nameC = Name "y",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "foo_bar_y"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -966,7 +966,7 @@
                         declLoc = "flam.h:10:2",
                         declId = NamePair {
                           nameC = Name "foo_bar",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Foo_bar"},
                         declOrigin = NameOriginGenerated
                           (AnonId "flam.h:10:2"),
@@ -980,7 +980,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Foo_bar"),
+                            (Name "@NsConstr" "Foo_bar"),
                           structSizeof = 8,
                           structAlignment = 4,
                           structFields = [
@@ -989,7 +989,7 @@
                                 fieldLoc = "flam.h:11:7",
                                 fieldName = NamePair {
                                   nameC = Name "x",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "foo_bar_x"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -1001,7 +1001,7 @@
                                 fieldLoc = "flam.h:12:7",
                                 fieldName = NamePair {
                                   nameC = Name "y",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "foo_bar_y"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -1039,15 +1039,15 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Foo_bar",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Foo_bar",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "foo_bar_x",
                       fieldType = HsPrimType
@@ -1058,7 +1058,7 @@
                             fieldLoc = "flam.h:11:7",
                             fieldName = NamePair {
                               nameC = Name "x",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "foo_bar_x"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -1078,7 +1078,7 @@
                               headerInclude = "flam.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "foo_bar_y",
                       fieldType = HsPrimType
@@ -1089,7 +1089,7 @@
                             fieldLoc = "flam.h:12:7",
                             fieldName = NamePair {
                               nameC = Name "y",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "foo_bar_y"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -1114,7 +1114,7 @@
                         declLoc = "flam.h:10:2",
                         declId = NamePair {
                           nameC = Name "foo_bar",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Foo_bar"},
                         declOrigin = NameOriginGenerated
                           (AnonId "flam.h:10:2"),
@@ -1128,7 +1128,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Foo_bar"),
+                            (Name "@NsConstr" "Foo_bar"),
                           structSizeof = 8,
                           structAlignment = 4,
                           structFields = [
@@ -1137,7 +1137,7 @@
                                 fieldLoc = "flam.h:11:7",
                                 fieldName = NamePair {
                                   nameC = Name "x",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "foo_bar_x"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -1149,7 +1149,7 @@
                                 fieldLoc = "flam.h:12:7",
                                 fieldName = NamePair {
                                   nameC = Name "y",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "foo_bar_y"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -1192,7 +1192,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Foo_bar",
       deriveInstanceComment =
@@ -1202,22 +1202,22 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Foo_bar",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "Foo",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "Foo",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "foo_len",
           fieldType = HsPrimType
@@ -1228,7 +1228,7 @@
                 fieldLoc = "flam.h:9:6",
                 fieldName = NamePair {
                   nameC = Name "len",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "foo_len"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -1253,8 +1253,7 @@
             declLoc = "flam.h:8:8",
             declId = NamePair {
               nameC = Name "foo",
-              nameHsIdent = HsIdentifier
-                "Foo"},
+              nameHsIdent = Identifier "Foo"},
             declOrigin = NameOriginInSource,
             declAliases = [],
             declHeaderInfo = Just
@@ -1266,7 +1265,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "Foo"),
+                (Name "@NsConstr" "Foo"),
               structSizeof = 4,
               structAlignment = 4,
               structFields = [
@@ -1275,7 +1274,7 @@
                     fieldLoc = "flam.h:9:6",
                     fieldName = NamePair {
                       nameC = Name "len",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "foo_len"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1288,13 +1287,13 @@
                     fieldLoc = "flam.h:13:4",
                     fieldName = NamePair {
                       nameC = Name "bar",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "foo_bar"},
                     fieldComment = Nothing},
                   structFieldType = TypeStruct
                     NamePair {
                       nameC = Name "foo_bar",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "Foo_bar"}
                     (NameOriginGenerated
                       (AnonId "flam.h:10:2")),
@@ -1325,15 +1324,15 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Foo",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Foo",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "foo_len",
               fieldType = HsPrimType
@@ -1344,7 +1343,7 @@
                     fieldLoc = "flam.h:9:6",
                     fieldName = NamePair {
                       nameC = Name "len",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "foo_len"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1369,8 +1368,7 @@
                 declLoc = "flam.h:8:8",
                 declId = NamePair {
                   nameC = Name "foo",
-                  nameHsIdent = HsIdentifier
-                    "Foo"},
+                  nameHsIdent = Identifier "Foo"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
                 declHeaderInfo = Just
@@ -1382,7 +1380,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "Foo"),
+                    (Name "@NsConstr" "Foo"),
                   structSizeof = 4,
                   structAlignment = 4,
                   structFields = [
@@ -1391,7 +1389,7 @@
                         fieldLoc = "flam.h:9:6",
                         fieldName = NamePair {
                           nameC = Name "len",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "foo_len"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -1404,13 +1402,13 @@
                         fieldLoc = "flam.h:13:4",
                         fieldName = NamePair {
                           nameC = Name "bar",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "foo_bar"},
                         fieldComment = Nothing},
                       structFieldType = TypeStruct
                         NamePair {
                           nameC = Name "foo_bar",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Foo_bar"}
                         (NameOriginGenerated
                           (AnonId "flam.h:10:2")),
@@ -1444,15 +1442,15 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Foo",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Foo",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "foo_len",
                       fieldType = HsPrimType
@@ -1463,7 +1461,7 @@
                             fieldLoc = "flam.h:9:6",
                             fieldName = NamePair {
                               nameC = Name "len",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "foo_len"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -1488,8 +1486,7 @@
                         declLoc = "flam.h:8:8",
                         declId = NamePair {
                           nameC = Name "foo",
-                          nameHsIdent = HsIdentifier
-                            "Foo"},
+                          nameHsIdent = Identifier "Foo"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
                         declHeaderInfo = Just
@@ -1501,7 +1498,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Foo"),
+                            (Name "@NsConstr" "Foo"),
                           structSizeof = 4,
                           structAlignment = 4,
                           structFields = [
@@ -1510,7 +1507,7 @@
                                 fieldLoc = "flam.h:9:6",
                                 fieldName = NamePair {
                                   nameC = Name "len",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "foo_len"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -1523,13 +1520,13 @@
                                 fieldLoc = "flam.h:13:4",
                                 fieldName = NamePair {
                                   nameC = Name "bar",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "foo_bar"},
                                 fieldComment = Nothing},
                               structFieldType = TypeStruct
                                 NamePair {
                                   nameC = Name "foo_bar",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "Foo_bar"}
                                 (NameOriginGenerated
                                   (AnonId "flam.h:10:2")),
@@ -1563,15 +1560,15 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Foo",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Foo",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "foo_len",
                       fieldType = HsPrimType
@@ -1582,7 +1579,7 @@
                             fieldLoc = "flam.h:9:6",
                             fieldName = NamePair {
                               nameC = Name "len",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "foo_len"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -1607,8 +1604,7 @@
                         declLoc = "flam.h:8:8",
                         declId = NamePair {
                           nameC = Name "foo",
-                          nameHsIdent = HsIdentifier
-                            "Foo"},
+                          nameHsIdent = Identifier "Foo"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
                         declHeaderInfo = Just
@@ -1620,7 +1616,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Foo"),
+                            (Name "@NsConstr" "Foo"),
                           structSizeof = 4,
                           structAlignment = 4,
                           structFields = [
@@ -1629,7 +1625,7 @@
                                 fieldLoc = "flam.h:9:6",
                                 fieldName = NamePair {
                                   nameC = Name "len",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "foo_len"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -1642,13 +1638,13 @@
                                 fieldLoc = "flam.h:13:4",
                                 fieldName = NamePair {
                                   nameC = Name "bar",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "foo_bar"},
                                 fieldComment = Nothing},
                               structFieldType = TypeStruct
                                 NamePair {
                                   nameC = Name "foo_bar",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "Foo_bar"}
                                 (NameOriginGenerated
                                   (AnonId "flam.h:10:2")),
@@ -1688,7 +1684,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Foo",
       deriveInstanceComment =
@@ -1698,7 +1694,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Foo",
       deriveInstanceComment =
@@ -1708,15 +1704,15 @@
       defineInstanceDeclarations =
       InstanceHasFLAM
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Foo",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Foo",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "foo_len",
               fieldType = HsPrimType
@@ -1727,7 +1723,7 @@
                     fieldLoc = "flam.h:9:6",
                     fieldName = NamePair {
                       nameC = Name "len",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "foo_len"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1752,8 +1748,7 @@
                 declLoc = "flam.h:8:8",
                 declId = NamePair {
                   nameC = Name "foo",
-                  nameHsIdent = HsIdentifier
-                    "Foo"},
+                  nameHsIdent = Identifier "Foo"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
                 declHeaderInfo = Just
@@ -1765,7 +1760,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "Foo"),
+                    (Name "@NsConstr" "Foo"),
                   structSizeof = 4,
                   structAlignment = 4,
                   structFields = [
@@ -1774,7 +1769,7 @@
                         fieldLoc = "flam.h:9:6",
                         fieldName = NamePair {
                           nameC = Name "len",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "foo_len"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -1787,13 +1782,13 @@
                         fieldLoc = "flam.h:13:4",
                         fieldName = NamePair {
                           nameC = Name "bar",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "foo_bar"},
                         fieldComment = Nothing},
                       structFieldType = TypeStruct
                         NamePair {
                           nameC = Name "foo_bar",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Foo_bar"}
                         (NameOriginGenerated
                           (AnonId "flam.h:10:2")),
@@ -1820,7 +1815,7 @@
                   headerInclude = "flam.h"},
               commentChildren = []}}
         (HsTypRef
-          (HsName
+          (Name
             "@NsTypeConstr"
             "Foo_bar"))
         4,
@@ -1828,15 +1823,15 @@
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "Diff",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "Diff",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "diff_first",
           fieldType = HsPrimType
@@ -1847,7 +1842,7 @@
                 fieldLoc = "flam.h:18:7",
                 fieldName = NamePair {
                   nameC = Name "first",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "diff_first"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -1867,7 +1862,7 @@
                   headerInclude = "flam.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "diff_second",
           fieldType = HsPrimType
@@ -1878,7 +1873,7 @@
                 fieldLoc = "flam.h:19:7",
                 fieldName = NamePair {
                   nameC = Name "second",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "diff_second"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -1905,7 +1900,7 @@
             declLoc = "flam.h:17:8",
             declId = NamePair {
               nameC = Name "diff",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Diff"},
             declOrigin = NameOriginInSource,
             declAliases = [],
@@ -1918,7 +1913,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "Diff"),
+                (Name "@NsConstr" "Diff"),
               structSizeof = 16,
               structAlignment = 8,
               structFields = [
@@ -1927,7 +1922,7 @@
                     fieldLoc = "flam.h:18:7",
                     fieldName = NamePair {
                       nameC = Name "first",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "diff_first"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1939,7 +1934,7 @@
                     fieldLoc = "flam.h:19:7",
                     fieldName = NamePair {
                       nameC = Name "second",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "diff_second"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1954,7 +1949,7 @@
                     fieldLoc = "flam.h:20:7",
                     fieldName = NamePair {
                       nameC = Name "flam",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "diff_flam"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1988,15 +1983,15 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Diff",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Diff",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "diff_first",
               fieldType = HsPrimType
@@ -2007,7 +2002,7 @@
                     fieldLoc = "flam.h:18:7",
                     fieldName = NamePair {
                       nameC = Name "first",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "diff_first"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -2027,7 +2022,7 @@
                       headerInclude = "flam.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "diff_second",
               fieldType = HsPrimType
@@ -2038,7 +2033,7 @@
                     fieldLoc = "flam.h:19:7",
                     fieldName = NamePair {
                       nameC = Name "second",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "diff_second"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -2065,7 +2060,7 @@
                 declLoc = "flam.h:17:8",
                 declId = NamePair {
                   nameC = Name "diff",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Diff"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
@@ -2078,7 +2073,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "Diff"),
+                    (Name "@NsConstr" "Diff"),
                   structSizeof = 16,
                   structAlignment = 8,
                   structFields = [
@@ -2087,7 +2082,7 @@
                         fieldLoc = "flam.h:18:7",
                         fieldName = NamePair {
                           nameC = Name "first",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "diff_first"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -2099,7 +2094,7 @@
                         fieldLoc = "flam.h:19:7",
                         fieldName = NamePair {
                           nameC = Name "second",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "diff_second"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -2114,7 +2109,7 @@
                         fieldLoc = "flam.h:20:7",
                         fieldName = NamePair {
                           nameC = Name "flam",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "diff_flam"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -2151,15 +2146,15 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Diff",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Diff",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "diff_first",
                       fieldType = HsPrimType
@@ -2170,7 +2165,7 @@
                             fieldLoc = "flam.h:18:7",
                             fieldName = NamePair {
                               nameC = Name "first",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "diff_first"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -2190,7 +2185,7 @@
                               headerInclude = "flam.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "diff_second",
                       fieldType = HsPrimType
@@ -2201,7 +2196,7 @@
                             fieldLoc = "flam.h:19:7",
                             fieldName = NamePair {
                               nameC = Name "second",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "diff_second"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -2228,7 +2223,7 @@
                         declLoc = "flam.h:17:8",
                         declId = NamePair {
                           nameC = Name "diff",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Diff"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -2241,7 +2236,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Diff"),
+                            (Name "@NsConstr" "Diff"),
                           structSizeof = 16,
                           structAlignment = 8,
                           structFields = [
@@ -2250,7 +2245,7 @@
                                 fieldLoc = "flam.h:18:7",
                                 fieldName = NamePair {
                                   nameC = Name "first",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "diff_first"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -2262,7 +2257,7 @@
                                 fieldLoc = "flam.h:19:7",
                                 fieldName = NamePair {
                                   nameC = Name "second",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "diff_second"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -2277,7 +2272,7 @@
                                 fieldLoc = "flam.h:20:7",
                                 fieldName = NamePair {
                                   nameC = Name "flam",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "diff_flam"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -2316,15 +2311,15 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Diff",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Diff",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "diff_first",
                       fieldType = HsPrimType
@@ -2335,7 +2330,7 @@
                             fieldLoc = "flam.h:18:7",
                             fieldName = NamePair {
                               nameC = Name "first",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "diff_first"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -2355,7 +2350,7 @@
                               headerInclude = "flam.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "diff_second",
                       fieldType = HsPrimType
@@ -2366,7 +2361,7 @@
                             fieldLoc = "flam.h:19:7",
                             fieldName = NamePair {
                               nameC = Name "second",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "diff_second"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -2393,7 +2388,7 @@
                         declLoc = "flam.h:17:8",
                         declId = NamePair {
                           nameC = Name "diff",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Diff"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -2406,7 +2401,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Diff"),
+                            (Name "@NsConstr" "Diff"),
                           structSizeof = 16,
                           structAlignment = 8,
                           structFields = [
@@ -2415,7 +2410,7 @@
                                 fieldLoc = "flam.h:18:7",
                                 fieldName = NamePair {
                                   nameC = Name "first",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "diff_first"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -2427,7 +2422,7 @@
                                 fieldLoc = "flam.h:19:7",
                                 fieldName = NamePair {
                                   nameC = Name "second",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "diff_second"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -2442,7 +2437,7 @@
                                 fieldLoc = "flam.h:20:7",
                                 fieldName = NamePair {
                                   nameC = Name "flam",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "diff_flam"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -2486,7 +2481,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Diff",
       deriveInstanceComment =
@@ -2496,7 +2491,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Diff",
       deriveInstanceComment =
@@ -2506,15 +2501,15 @@
       defineInstanceDeclarations =
       InstanceHasFLAM
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Diff",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Diff",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "diff_first",
               fieldType = HsPrimType
@@ -2525,7 +2520,7 @@
                     fieldLoc = "flam.h:18:7",
                     fieldName = NamePair {
                       nameC = Name "first",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "diff_first"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -2545,7 +2540,7 @@
                       headerInclude = "flam.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "diff_second",
               fieldType = HsPrimType
@@ -2556,7 +2551,7 @@
                     fieldLoc = "flam.h:19:7",
                     fieldName = NamePair {
                       nameC = Name "second",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "diff_second"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -2583,7 +2578,7 @@
                 declLoc = "flam.h:17:8",
                 declId = NamePair {
                   nameC = Name "diff",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Diff"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
@@ -2596,7 +2591,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "Diff"),
+                    (Name "@NsConstr" "Diff"),
                   structSizeof = 16,
                   structAlignment = 8,
                   structFields = [
@@ -2605,7 +2600,7 @@
                         fieldLoc = "flam.h:18:7",
                         fieldName = NamePair {
                           nameC = Name "first",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "diff_first"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -2617,7 +2612,7 @@
                         fieldLoc = "flam.h:19:7",
                         fieldName = NamePair {
                           nameC = Name "second",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "diff_second"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -2632,7 +2627,7 @@
                         fieldLoc = "flam.h:20:7",
                         fieldName = NamePair {
                           nameC = Name "flam",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "diff_flam"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -2667,15 +2662,15 @@
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "Triplets",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "Triplets",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "triplets_len",
           fieldType = HsPrimType
@@ -2686,7 +2681,7 @@
                 fieldLoc = "flam.h:27:7",
                 fieldName = NamePair {
                   nameC = Name "len",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "triplets_len"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -2713,7 +2708,7 @@
             declLoc = "flam.h:26:8",
             declId = NamePair {
               nameC = Name "triplets",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Triplets"},
             declOrigin = NameOriginInSource,
             declAliases = [],
@@ -2737,7 +2732,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "Triplets"),
+                (Name "@NsConstr" "Triplets"),
               structSizeof = 4,
               structAlignment = 4,
               structFields = [
@@ -2746,7 +2741,7 @@
                     fieldLoc = "flam.h:27:7",
                     fieldName = NamePair {
                       nameC = Name "len",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "triplets_len"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -2759,7 +2754,7 @@
                     fieldLoc = "flam.h:28:7",
                     fieldName = NamePair {
                       nameC = Name "flam",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "triplets_flam"},
                     fieldComment = Nothing},
                   structFieldType = TypeConstArray
@@ -2802,15 +2797,15 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Triplets",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Triplets",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "triplets_len",
               fieldType = HsPrimType
@@ -2821,7 +2816,7 @@
                     fieldLoc = "flam.h:27:7",
                     fieldName = NamePair {
                       nameC = Name "len",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "triplets_len"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -2848,7 +2843,7 @@
                 declLoc = "flam.h:26:8",
                 declId = NamePair {
                   nameC = Name "triplets",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Triplets"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
@@ -2872,7 +2867,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "Triplets"),
+                    (Name "@NsConstr" "Triplets"),
                   structSizeof = 4,
                   structAlignment = 4,
                   structFields = [
@@ -2881,7 +2876,7 @@
                         fieldLoc = "flam.h:27:7",
                         fieldName = NamePair {
                           nameC = Name "len",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "triplets_len"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -2894,7 +2889,7 @@
                         fieldLoc = "flam.h:28:7",
                         fieldName = NamePair {
                           nameC = Name "flam",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "triplets_flam"},
                         fieldComment = Nothing},
                       structFieldType = TypeConstArray
@@ -2941,15 +2936,15 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Triplets",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Triplets",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "triplets_len",
                       fieldType = HsPrimType
@@ -2960,7 +2955,7 @@
                             fieldLoc = "flam.h:27:7",
                             fieldName = NamePair {
                               nameC = Name "len",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "triplets_len"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -2987,7 +2982,7 @@
                         declLoc = "flam.h:26:8",
                         declId = NamePair {
                           nameC = Name "triplets",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Triplets"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -3011,7 +3006,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Triplets"),
+                            (Name "@NsConstr" "Triplets"),
                           structSizeof = 4,
                           structAlignment = 4,
                           structFields = [
@@ -3020,7 +3015,7 @@
                                 fieldLoc = "flam.h:27:7",
                                 fieldName = NamePair {
                                   nameC = Name "len",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "triplets_len"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -3033,7 +3028,7 @@
                                 fieldLoc = "flam.h:28:7",
                                 fieldName = NamePair {
                                   nameC = Name "flam",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "triplets_flam"},
                                 fieldComment = Nothing},
                               structFieldType = TypeConstArray
@@ -3080,15 +3075,15 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Triplets",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Triplets",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "triplets_len",
                       fieldType = HsPrimType
@@ -3099,7 +3094,7 @@
                             fieldLoc = "flam.h:27:7",
                             fieldName = NamePair {
                               nameC = Name "len",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "triplets_len"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -3126,7 +3121,7 @@
                         declLoc = "flam.h:26:8",
                         declId = NamePair {
                           nameC = Name "triplets",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Triplets"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -3150,7 +3145,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Triplets"),
+                            (Name "@NsConstr" "Triplets"),
                           structSizeof = 4,
                           structAlignment = 4,
                           structFields = [
@@ -3159,7 +3154,7 @@
                                 fieldLoc = "flam.h:27:7",
                                 fieldName = NamePair {
                                   nameC = Name "len",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "triplets_len"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -3172,7 +3167,7 @@
                                 fieldLoc = "flam.h:28:7",
                                 fieldName = NamePair {
                                   nameC = Name "flam",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "triplets_flam"},
                                 fieldComment = Nothing},
                               structFieldType = TypeConstArray
@@ -3224,7 +3219,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Triplets",
       deriveInstanceComment =
@@ -3234,7 +3229,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Triplets",
       deriveInstanceComment =
@@ -3244,15 +3239,15 @@
       defineInstanceDeclarations =
       InstanceHasFLAM
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Triplets",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Triplets",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "triplets_len",
               fieldType = HsPrimType
@@ -3263,7 +3258,7 @@
                     fieldLoc = "flam.h:27:7",
                     fieldName = NamePair {
                       nameC = Name "len",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "triplets_len"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -3290,7 +3285,7 @@
                 declLoc = "flam.h:26:8",
                 declId = NamePair {
                   nameC = Name "triplets",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Triplets"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
@@ -3314,7 +3309,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "Triplets"),
+                    (Name "@NsConstr" "Triplets"),
                   structSizeof = 4,
                   structAlignment = 4,
                   structFields = [
@@ -3323,7 +3318,7 @@
                         fieldLoc = "flam.h:27:7",
                         fieldName = NamePair {
                           nameC = Name "len",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "triplets_len"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -3336,7 +3331,7 @@
                         fieldLoc = "flam.h:28:7",
                         fieldName = NamePair {
                           nameC = Name "flam",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "triplets_flam"},
                         fieldComment = Nothing},
                       structFieldType = TypeConstArray

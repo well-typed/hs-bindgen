@@ -6,7 +6,7 @@ TranslationUnit {
         "type_qualifiers.h:5:18",
         declId = NamePair {
           nameC = Name "a",
-          nameHsIdent = HsIdentifier "a"},
+          nameHsIdent = Identifier "a"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -32,7 +32,7 @@ TranslationUnit {
         "type_qualifiers.h:7:19",
         declId = NamePair {
           nameC = Name "b",
-          nameHsIdent = HsIdentifier "b"},
+          nameHsIdent = Identifier "b"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -61,7 +61,7 @@ TranslationUnit {
         "type_qualifiers.h:9:19",
         declId = NamePair {
           nameC = Name "c",
-          nameHsIdent = HsIdentifier "c"},
+          nameHsIdent = Identifier "c"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -90,7 +90,7 @@ TranslationUnit {
         "type_qualifiers.h:11:25",
         declId = NamePair {
           nameC = Name "d",
-          nameHsIdent = HsIdentifier "d"},
+          nameHsIdent = Identifier "d"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -120,7 +120,7 @@ TranslationUnit {
         "type_qualifiers.h:14:6",
         declId = NamePair {
           nameC = Name "list_example",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "list_example"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -138,7 +138,7 @@ TranslationUnit {
               (Just
                 NamePair {
                   nameC = Name "items",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "items"})
               (TypePointer
                 (TypePointer
@@ -150,7 +150,7 @@ TranslationUnit {
               (Just
                 NamePair {
                   nameC = Name "count",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "count"})
               (TypePrim PrimSize)],
           functionAttrs =

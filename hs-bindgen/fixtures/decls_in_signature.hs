@@ -1,7 +1,7 @@
 [
   DeclEmpty
     EmptyData {
-      emptyDataName = HsName
+      emptyDataName = Name
         "@NsTypeConstr"
         "Opaque",
       emptyDataOrigin = Decl {
@@ -10,7 +10,7 @@
           "decls_in_signature.h:2:8",
           declId = NamePair {
             nameC = Name "opaque",
-            nameHsIdent = HsIdentifier
+            nameHsIdent = Identifier
               "Opaque"},
           declOrigin = NameOriginInSource,
           declAliases = [],
@@ -43,15 +43,15 @@
           commentChildren = []}},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "Outside",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "Outside",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "outside_x",
           fieldType = HsPrimType
@@ -63,7 +63,7 @@
                 "decls_in_signature.h:4:7",
                 fieldName = NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "outside_x"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -84,7 +84,7 @@
                   "decls_in_signature.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "outside_y",
           fieldType = HsPrimType
@@ -96,7 +96,7 @@
                 "decls_in_signature.h:5:7",
                 fieldName = NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "outside_y"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -123,7 +123,7 @@
             "decls_in_signature.h:3:8",
             declId = NamePair {
               nameC = Name "outside",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Outside"},
             declOrigin = NameOriginInSource,
             declAliases = [],
@@ -137,7 +137,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "Outside"),
+                (Name "@NsConstr" "Outside"),
               structSizeof = 8,
               structAlignment = 4,
               structFields = [
@@ -147,7 +147,7 @@
                     "decls_in_signature.h:4:7",
                     fieldName = NamePair {
                       nameC = Name "x",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "outside_x"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -160,7 +160,7 @@
                     "decls_in_signature.h:5:7",
                     fieldName = NamePair {
                       nameC = Name "y",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "outside_y"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -194,15 +194,15 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Outside",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Outside",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "outside_x",
               fieldType = HsPrimType
@@ -214,7 +214,7 @@
                     "decls_in_signature.h:4:7",
                     fieldName = NamePair {
                       nameC = Name "x",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "outside_x"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -235,7 +235,7 @@
                       "decls_in_signature.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "outside_y",
               fieldType = HsPrimType
@@ -247,7 +247,7 @@
                     "decls_in_signature.h:5:7",
                     fieldName = NamePair {
                       nameC = Name "y",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "outside_y"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -274,7 +274,7 @@
                 "decls_in_signature.h:3:8",
                 declId = NamePair {
                   nameC = Name "outside",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Outside"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
@@ -288,7 +288,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "Outside"),
+                    (Name "@NsConstr" "Outside"),
                   structSizeof = 8,
                   structAlignment = 4,
                   structFields = [
@@ -298,7 +298,7 @@
                         "decls_in_signature.h:4:7",
                         fieldName = NamePair {
                           nameC = Name "x",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "outside_x"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -311,7 +311,7 @@
                         "decls_in_signature.h:5:7",
                         fieldName = NamePair {
                           nameC = Name "y",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "outside_y"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -348,15 +348,15 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Outside",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Outside",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "outside_x",
                       fieldType = HsPrimType
@@ -368,7 +368,7 @@
                             "decls_in_signature.h:4:7",
                             fieldName = NamePair {
                               nameC = Name "x",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "outside_x"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -389,7 +389,7 @@
                               "decls_in_signature.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "outside_y",
                       fieldType = HsPrimType
@@ -401,7 +401,7 @@
                             "decls_in_signature.h:5:7",
                             fieldName = NamePair {
                               nameC = Name "y",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "outside_y"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -428,7 +428,7 @@
                         "decls_in_signature.h:3:8",
                         declId = NamePair {
                           nameC = Name "outside",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Outside"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -442,7 +442,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Outside"),
+                            (Name "@NsConstr" "Outside"),
                           structSizeof = 8,
                           structAlignment = 4,
                           structFields = [
@@ -452,7 +452,7 @@
                                 "decls_in_signature.h:4:7",
                                 fieldName = NamePair {
                                   nameC = Name "x",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "outside_x"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -465,7 +465,7 @@
                                 "decls_in_signature.h:5:7",
                                 fieldName = NamePair {
                                   nameC = Name "y",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "outside_y"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -504,15 +504,15 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Outside",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Outside",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "outside_x",
                       fieldType = HsPrimType
@@ -524,7 +524,7 @@
                             "decls_in_signature.h:4:7",
                             fieldName = NamePair {
                               nameC = Name "x",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "outside_x"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -545,7 +545,7 @@
                               "decls_in_signature.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "outside_y",
                       fieldType = HsPrimType
@@ -557,7 +557,7 @@
                             "decls_in_signature.h:5:7",
                             fieldName = NamePair {
                               nameC = Name "y",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "outside_y"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -584,7 +584,7 @@
                         "decls_in_signature.h:3:8",
                         declId = NamePair {
                           nameC = Name "outside",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Outside"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -598,7 +598,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Outside"),
+                            (Name "@NsConstr" "Outside"),
                           structSizeof = 8,
                           structAlignment = 4,
                           structFields = [
@@ -608,7 +608,7 @@
                                 "decls_in_signature.h:4:7",
                                 fieldName = NamePair {
                                   nameC = Name "x",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "outside_x"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -621,7 +621,7 @@
                                 "decls_in_signature.h:5:7",
                                 fieldName = NamePair {
                                   nameC = Name "y",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "outside_y"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -665,7 +665,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Outside",
       deriveInstanceComment =
@@ -675,22 +675,22 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Outside",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "Named_struct",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "Named_struct",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "named_struct_x",
           fieldType = HsPrimType
@@ -702,7 +702,7 @@
                 "decls_in_signature.h:17:35",
                 fieldName = NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "named_struct_x"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -723,7 +723,7 @@
                   "decls_in_signature.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "named_struct_y",
           fieldType = HsPrimType
@@ -735,7 +735,7 @@
                 "decls_in_signature.h:17:42",
                 fieldName = NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "named_struct_y"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -764,7 +764,7 @@
             "decls_in_signature.h:17:16",
             declId = NamePair {
               nameC = Name "named_struct",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Named_struct"},
             declOrigin = NameOriginInSource,
             declAliases = [],
@@ -789,7 +789,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName
+                (Name
                   "@NsConstr"
                   "Named_struct"),
               structSizeof = 8,
@@ -801,7 +801,7 @@
                     "decls_in_signature.h:17:35",
                     fieldName = NamePair {
                       nameC = Name "x",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "named_struct_x"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -814,7 +814,7 @@
                     "decls_in_signature.h:17:42",
                     fieldName = NamePair {
                       nameC = Name "y",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "named_struct_y"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -858,15 +858,15 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Named_struct",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Named_struct",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "named_struct_x",
               fieldType = HsPrimType
@@ -878,7 +878,7 @@
                     "decls_in_signature.h:17:35",
                     fieldName = NamePair {
                       nameC = Name "x",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "named_struct_x"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -899,7 +899,7 @@
                       "decls_in_signature.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "named_struct_y",
               fieldType = HsPrimType
@@ -911,7 +911,7 @@
                     "decls_in_signature.h:17:42",
                     fieldName = NamePair {
                       nameC = Name "y",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "named_struct_y"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -940,7 +940,7 @@
                 "decls_in_signature.h:17:16",
                 declId = NamePair {
                   nameC = Name "named_struct",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Named_struct"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
@@ -965,7 +965,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName
+                    (Name
                       "@NsConstr"
                       "Named_struct"),
                   structSizeof = 8,
@@ -977,7 +977,7 @@
                         "decls_in_signature.h:17:35",
                         fieldName = NamePair {
                           nameC = Name "x",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "named_struct_x"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -990,7 +990,7 @@
                         "decls_in_signature.h:17:42",
                         fieldName = NamePair {
                           nameC = Name "y",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "named_struct_y"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -1038,15 +1038,15 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Named_struct",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Named_struct",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "named_struct_x",
                       fieldType = HsPrimType
@@ -1058,7 +1058,7 @@
                             "decls_in_signature.h:17:35",
                             fieldName = NamePair {
                               nameC = Name "x",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "named_struct_x"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -1079,7 +1079,7 @@
                               "decls_in_signature.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "named_struct_y",
                       fieldType = HsPrimType
@@ -1091,7 +1091,7 @@
                             "decls_in_signature.h:17:42",
                             fieldName = NamePair {
                               nameC = Name "y",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "named_struct_y"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -1120,7 +1120,7 @@
                         "decls_in_signature.h:17:16",
                         declId = NamePair {
                           nameC = Name "named_struct",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Named_struct"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -1145,7 +1145,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName
+                            (Name
                               "@NsConstr"
                               "Named_struct"),
                           structSizeof = 8,
@@ -1157,7 +1157,7 @@
                                 "decls_in_signature.h:17:35",
                                 fieldName = NamePair {
                                   nameC = Name "x",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "named_struct_x"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -1170,7 +1170,7 @@
                                 "decls_in_signature.h:17:42",
                                 fieldName = NamePair {
                                   nameC = Name "y",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "named_struct_y"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -1220,15 +1220,15 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Named_struct",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Named_struct",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "named_struct_x",
                       fieldType = HsPrimType
@@ -1240,7 +1240,7 @@
                             "decls_in_signature.h:17:35",
                             fieldName = NamePair {
                               nameC = Name "x",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "named_struct_x"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -1261,7 +1261,7 @@
                               "decls_in_signature.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "named_struct_y",
                       fieldType = HsPrimType
@@ -1273,7 +1273,7 @@
                             "decls_in_signature.h:17:42",
                             fieldName = NamePair {
                               nameC = Name "y",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "named_struct_y"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -1302,7 +1302,7 @@
                         "decls_in_signature.h:17:16",
                         declId = NamePair {
                           nameC = Name "named_struct",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Named_struct"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -1327,7 +1327,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName
+                            (Name
                               "@NsConstr"
                               "Named_struct"),
                           structSizeof = 8,
@@ -1339,7 +1339,7 @@
                                 "decls_in_signature.h:17:35",
                                 fieldName = NamePair {
                                   nameC = Name "x",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "named_struct_x"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -1352,7 +1352,7 @@
                                 "decls_in_signature.h:17:42",
                                 fieldName = NamePair {
                                   nameC = Name "y",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "named_struct_y"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -1406,7 +1406,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Named_struct",
       deriveInstanceComment =
@@ -1416,21 +1416,21 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Named_struct",
       deriveInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "Named_union",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "Named_union",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_Named_union",
         fieldType = HsByteArray,
@@ -1442,7 +1442,7 @@
           "decls_in_signature.h:20:15",
           declId = NamePair {
             nameC = Name "named_union",
-            nameHsIdent = HsIdentifier
+            nameHsIdent = Identifier
               "Named_union"},
           declOrigin = NameOriginInSource,
           declAliases = [],
@@ -1456,10 +1456,10 @@
         declKind = Union
           Union {
             unionNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "Named_union",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_Named_union"},
             unionSizeof = 4,
@@ -1471,7 +1471,7 @@
                   "decls_in_signature.h:20:33",
                   fieldName = NamePair {
                     nameC = Name "x",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "named_union_x"},
                   fieldComment = Nothing},
                 unionFieldType = TypePrim
@@ -1482,7 +1482,7 @@
                   "decls_in_signature.h:20:41",
                   fieldName = NamePair {
                     nameC = Name "y",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "named_union_y"},
                   fieldComment = Nothing},
                 unionFieldType = TypePrim
@@ -1517,19 +1517,19 @@
       DeriveVia
         (HsSizedByteArray 4 4),
       deriveInstanceClass = Storable,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Named_union",
       deriveInstanceComment =
       Nothing},
   DeclUnionGetter
     UnionGetter {
-      unionGetterName = HsName
+      unionGetterName = Name
         "@NsVar"
         "get_named_union_x",
       unionGetterType = HsPrimType
         HsPrimCInt,
-      unionGetterConstr = HsName
+      unionGetterConstr = Name
         "@NsTypeConstr"
         "Named_union",
       unionGetterComment = Just
@@ -1552,12 +1552,12 @@
                   "set_named_union_x"]]}},
   DeclUnionSetter
     UnionSetter {
-      unionSetterName = HsName
+      unionSetterName = Name
         "@NsVar"
         "set_named_union_x",
       unionSetterType = HsPrimType
         HsPrimCInt,
-      unionSetterConstr = HsName
+      unionSetterConstr = Name
         "@NsTypeConstr"
         "Named_union",
       unionSetterComment = Just
@@ -1574,12 +1574,12 @@
                   "get_named_union_x"]]}},
   DeclUnionGetter
     UnionGetter {
-      unionGetterName = HsName
+      unionGetterName = Name
         "@NsVar"
         "get_named_union_y",
       unionGetterType = HsPrimType
         HsPrimCChar,
-      unionGetterConstr = HsName
+      unionGetterConstr = Name
         "@NsTypeConstr"
         "Named_union",
       unionGetterComment = Just
@@ -1602,12 +1602,12 @@
                   "set_named_union_y"]]}},
   DeclUnionSetter
     UnionSetter {
-      unionSetterName = HsName
+      unionSetterName = Name
         "@NsVar"
         "set_named_union_y",
       unionSetterType = HsPrimType
         HsPrimCChar,
-      unionSetterConstr = HsName
+      unionSetterConstr = Name
         "@NsTypeConstr"
         "Named_union",
       unionSetterComment = Just
@@ -1624,18 +1624,16 @@
                   "get_named_union_y"]]}},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "normal_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName
-              "@NsVar"
-              "ptr_to_opaque"),
+            (Name "@NsVar" "ptr_to_opaque"),
           functionParameterType = HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "Opaque")),
           functionParameterComment = Just
@@ -1648,12 +1646,12 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName
+            (Name
               "@NsVar"
               "ptr_to_defined"),
           functionParameterType = HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "Outside")),
           functionParameterComment = Just
@@ -1666,10 +1664,10 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "by_value"),
+            (Name "@NsVar" "by_value"),
           functionParameterType = HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "Outside")),
           functionParameterComment = Just
@@ -1698,38 +1696,38 @@
               (Just
                 NamePair {
                   nameC = Name "ptr_to_opaque",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "ptr_to_opaque"})
               (TypePointer
                 (TypeStruct
                   NamePair {
                     nameC = Name "opaque",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Opaque"}
                   NameOriginInSource)),
             _×_
               (Just
                 NamePair {
                   nameC = Name "ptr_to_defined",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "ptr_to_defined"})
               (TypePointer
                 (TypeStruct
                   NamePair {
                     nameC = Name "outside",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Outside"}
                   NameOriginInSource)),
             _×_
               (Just
                 NamePair {
                   nameC = Name "by_value",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "by_value"})
               (TypeStruct
                 NamePair {
                   nameC = Name "outside",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Outside"}
                 NameOriginInSource)],
           functionAttrs =
@@ -1753,16 +1751,16 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f1_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "arg"),
+            (Name "@NsVar" "arg"),
           functionParameterType = HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "Named_struct")),
           functionParameterComment = Just
@@ -1791,12 +1789,11 @@
               (Just
                 NamePair {
                   nameC = Name "arg",
-                  nameHsIdent = HsIdentifier
-                    "arg"})
+                  nameHsIdent = Identifier "arg"})
               (TypeStruct
                 NamePair {
                   nameC = Name "named_struct",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Named_struct"}
                 NameOriginInSource)],
           functionAttrs =
@@ -1829,16 +1826,16 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f2_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "arg"),
+            (Name "@NsVar" "arg"),
           functionParameterType = HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "Named_union")),
           functionParameterComment = Just
@@ -1867,12 +1864,11 @@
               (Just
                 NamePair {
                   nameC = Name "arg",
-                  nameHsIdent = HsIdentifier
-                    "arg"})
+                  nameHsIdent = Identifier "arg"})
               (TypeUnion
                 NamePair {
                   nameC = Name "named_union",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Named_union"}
                 NameOriginInSource)],
           functionAttrs =
@@ -1896,18 +1892,16 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "normal_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName
-              "@NsVar"
-              "ptr_to_opaque"),
+            (Name "@NsVar" "ptr_to_opaque"),
           functionParameterType = HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "Opaque")),
           functionParameterComment = Just
@@ -1920,12 +1914,12 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName
+            (Name
               "@NsVar"
               "ptr_to_defined"),
           functionParameterType = HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "Outside")),
           functionParameterComment = Just
@@ -1938,10 +1932,10 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "by_value"),
+            (Name "@NsVar" "by_value"),
           functionParameterType = HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "Outside")),
           functionParameterComment = Just
@@ -1970,38 +1964,38 @@
               (Just
                 NamePair {
                   nameC = Name "ptr_to_opaque",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "ptr_to_opaque"})
               (TypePointer
                 (TypeStruct
                   NamePair {
                     nameC = Name "opaque",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Opaque"}
                   NameOriginInSource)),
             _×_
               (Just
                 NamePair {
                   nameC = Name "ptr_to_defined",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "ptr_to_defined"})
               (TypePointer
                 (TypeStruct
                   NamePair {
                     nameC = Name "outside",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Outside"}
                   NameOriginInSource)),
             _×_
               (Just
                 NamePair {
                   nameC = Name "by_value",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "by_value"})
               (TypeStruct
                 NamePair {
                   nameC = Name "outside",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Outside"}
                 NameOriginInSource)],
           functionAttrs =
@@ -2025,16 +2019,16 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f1_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "arg"),
+            (Name "@NsVar" "arg"),
           functionParameterType = HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "Named_struct")),
           functionParameterComment = Just
@@ -2063,12 +2057,11 @@
               (Just
                 NamePair {
                   nameC = Name "arg",
-                  nameHsIdent = HsIdentifier
-                    "arg"})
+                  nameHsIdent = Identifier "arg"})
               (TypeStruct
                 NamePair {
                   nameC = Name "named_struct",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Named_struct"}
                 NameOriginInSource)],
           functionAttrs =
@@ -2101,16 +2094,16 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f2_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "arg"),
+            (Name "@NsVar" "arg"),
           functionParameterType = HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "Named_union")),
           functionParameterComment = Just
@@ -2139,12 +2132,11 @@
               (Just
                 NamePair {
                   nameC = Name "arg",
-                  nameHsIdent = HsIdentifier
-                    "arg"})
+                  nameHsIdent = Identifier "arg"})
               (TypeUnion
                 NamePair {
                   nameC = Name "named_union",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Named_union"}
                 NameOriginInSource)],
           functionAttrs =
@@ -2168,7 +2160,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_decls_in_signature_b040d51578b7b05e",
       foreignImportParameters = [],
@@ -2179,18 +2171,18 @@
             (HsFun
               (HsPtr
                 (HsTypRef
-                  (HsName
+                  (Name
                     "@NsTypeConstr"
                     "Opaque")))
               (HsFun
                 (HsPtr
                   (HsTypRef
-                    (HsName
+                    (Name
                       "@NsTypeConstr"
                       "Outside")))
                 (HsFun
                   (HsTypRef
-                    (HsName
+                    (Name
                       "@NsTypeConstr"
                       "Outside"))
                   (HsIO
@@ -2211,20 +2203,20 @@
               (TypeStruct
                 NamePair {
                   nameC = Name "opaque",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Opaque"}
                 NameOriginInSource),
             TypePointer
               (TypeStruct
                 NamePair {
                   nameC = Name "outside",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Outside"}
                 NameOriginInSource),
             TypeStruct
               NamePair {
                 nameC = Name "outside",
-                nameHsIdent = HsIdentifier
+                nameHsIdent = Identifier
                   "Outside"}
               NameOriginInSource]
           TypeVoid),
@@ -2234,7 +2226,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_decls_in_signature_5469bdc0395f86c1",
       foreignImportParameters = [],
@@ -2244,7 +2236,7 @@
           (HsFunPtr
             (HsFun
               (HsTypRef
-                (HsName
+                (Name
                   "@NsTypeConstr"
                   "Named_struct"))
               (HsIO
@@ -2264,7 +2256,7 @@
             TypeStruct
               NamePair {
                 nameC = Name "named_struct",
-                nameHsIdent = HsIdentifier
+                nameHsIdent = Identifier
                   "Named_struct"}
               NameOriginInSource]
           TypeVoid),
@@ -2274,7 +2266,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_decls_in_signature_490ca7e8c8282a69",
       foreignImportParameters = [],
@@ -2284,7 +2276,7 @@
           (HsFunPtr
             (HsFun
               (HsTypRef
-                (HsName
+                (Name
                   "@NsTypeConstr"
                   "Named_union"))
               (HsIO
@@ -2304,7 +2296,7 @@
             TypeUnion
               NamePair {
                 nameC = Name "named_union",
-                nameHsIdent = HsIdentifier
+                nameHsIdent = Identifier
                   "Named_union"}
               NameOriginInSource]
           TypeVoid),

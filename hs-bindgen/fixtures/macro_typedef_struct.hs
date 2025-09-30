@@ -1,14 +1,14 @@
 [
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "MY_TYPE",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "MY_TYPE",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_MY_TYPE",
         fieldType = HsPrimType
@@ -21,7 +21,7 @@
           "macro_typedef_struct.h:1:9",
           declId = NamePair {
             nameC = Name "MY_TYPE",
-            nameHsIdent = HsIdentifier
+            nameHsIdent = Identifier
               "MY_TYPE"},
           declOrigin = NameOriginInSource,
           declAliases = [],
@@ -35,10 +35,10 @@
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "MY_TYPE",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_MY_TYPE"},
             macroType = TypePrim
@@ -82,7 +82,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Storable,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "MY_TYPE",
       deriveInstanceComment =
@@ -92,7 +92,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "MY_TYPE",
       deriveInstanceComment =
@@ -102,7 +102,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Ord,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "MY_TYPE",
       deriveInstanceComment =
@@ -112,7 +112,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Read,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "MY_TYPE",
       deriveInstanceComment =
@@ -122,7 +122,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "MY_TYPE",
       deriveInstanceComment =
@@ -132,7 +132,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Enum,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "MY_TYPE",
       deriveInstanceComment =
@@ -142,7 +142,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Ix,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "MY_TYPE",
       deriveInstanceComment =
@@ -152,7 +152,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bounded,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "MY_TYPE",
       deriveInstanceComment =
@@ -162,7 +162,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "MY_TYPE",
       deriveInstanceComment =
@@ -173,7 +173,7 @@
       DeriveNewtype,
       deriveInstanceClass =
       FiniteBits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "MY_TYPE",
       deriveInstanceComment =
@@ -183,7 +183,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Integral,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "MY_TYPE",
       deriveInstanceComment =
@@ -193,7 +193,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Num,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "MY_TYPE",
       deriveInstanceComment =
@@ -203,22 +203,22 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Real,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "MY_TYPE",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "Bar",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "Bar",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "bar_x",
           fieldType = HsPrimType
@@ -230,7 +230,7 @@
                 "macro_typedef_struct.h:4:7",
                 fieldName = NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "bar_x"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -251,11 +251,11 @@
                   "macro_typedef_struct.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "bar_y",
           fieldType = HsTypRef
-            (HsName
+            (Name
               "@NsTypeConstr"
               "MY_TYPE"),
           fieldOrigin = StructField
@@ -265,14 +265,14 @@
                 "macro_typedef_struct.h:5:11",
                 fieldName = NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "bar_y"},
                 fieldComment = Nothing},
               structFieldType =
               TypeMacroTypedef
                 NamePair {
                   nameC = Name "MY_TYPE",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "MY_TYPE"}
                 NameOriginInSource,
               structFieldOffset = 32,
@@ -297,8 +297,7 @@
             "macro_typedef_struct.h:3:9",
             declId = NamePair {
               nameC = Name "bar",
-              nameHsIdent = HsIdentifier
-                "Bar"},
+              nameHsIdent = Identifier "Bar"},
             declOrigin = NameOriginGenerated
               (AnonId
                 "macro_typedef_struct.h:3:9"),
@@ -313,7 +312,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "Bar"),
+                (Name "@NsConstr" "Bar"),
               structSizeof = 8,
               structAlignment = 4,
               structFields = [
@@ -323,7 +322,7 @@
                     "macro_typedef_struct.h:4:7",
                     fieldName = NamePair {
                       nameC = Name "x",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "bar_x"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -336,14 +335,14 @@
                     "macro_typedef_struct.h:5:11",
                     fieldName = NamePair {
                       nameC = Name "y",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "bar_y"},
                     fieldComment = Nothing},
                   structFieldType =
                   TypeMacroTypedef
                     NamePair {
                       nameC = Name "MY_TYPE",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "MY_TYPE"}
                     NameOriginInSource,
                   structFieldOffset = 32,
@@ -375,15 +374,15 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Bar",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Bar",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "bar_x",
               fieldType = HsPrimType
@@ -395,7 +394,7 @@
                     "macro_typedef_struct.h:4:7",
                     fieldName = NamePair {
                       nameC = Name "x",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "bar_x"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -416,11 +415,11 @@
                       "macro_typedef_struct.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "bar_y",
               fieldType = HsTypRef
-                (HsName
+                (Name
                   "@NsTypeConstr"
                   "MY_TYPE"),
               fieldOrigin = StructField
@@ -430,14 +429,14 @@
                     "macro_typedef_struct.h:5:11",
                     fieldName = NamePair {
                       nameC = Name "y",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "bar_y"},
                     fieldComment = Nothing},
                   structFieldType =
                   TypeMacroTypedef
                     NamePair {
                       nameC = Name "MY_TYPE",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "MY_TYPE"}
                     NameOriginInSource,
                   structFieldOffset = 32,
@@ -462,8 +461,7 @@
                 "macro_typedef_struct.h:3:9",
                 declId = NamePair {
                   nameC = Name "bar",
-                  nameHsIdent = HsIdentifier
-                    "Bar"},
+                  nameHsIdent = Identifier "Bar"},
                 declOrigin = NameOriginGenerated
                   (AnonId
                     "macro_typedef_struct.h:3:9"),
@@ -478,7 +476,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "Bar"),
+                    (Name "@NsConstr" "Bar"),
                   structSizeof = 8,
                   structAlignment = 4,
                   structFields = [
@@ -488,7 +486,7 @@
                         "macro_typedef_struct.h:4:7",
                         fieldName = NamePair {
                           nameC = Name "x",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "bar_x"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -501,14 +499,14 @@
                         "macro_typedef_struct.h:5:11",
                         fieldName = NamePair {
                           nameC = Name "y",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "bar_y"},
                         fieldComment = Nothing},
                       structFieldType =
                       TypeMacroTypedef
                         NamePair {
                           nameC = Name "MY_TYPE",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "MY_TYPE"}
                         NameOriginInSource,
                       structFieldOffset = 32,
@@ -543,15 +541,15 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Bar",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Bar",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "bar_x",
                       fieldType = HsPrimType
@@ -563,7 +561,7 @@
                             "macro_typedef_struct.h:4:7",
                             fieldName = NamePair {
                               nameC = Name "x",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "bar_x"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -584,11 +582,11 @@
                               "macro_typedef_struct.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "bar_y",
                       fieldType = HsTypRef
-                        (HsName
+                        (Name
                           "@NsTypeConstr"
                           "MY_TYPE"),
                       fieldOrigin = StructField
@@ -598,14 +596,14 @@
                             "macro_typedef_struct.h:5:11",
                             fieldName = NamePair {
                               nameC = Name "y",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "bar_y"},
                             fieldComment = Nothing},
                           structFieldType =
                           TypeMacroTypedef
                             NamePair {
                               nameC = Name "MY_TYPE",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "MY_TYPE"}
                             NameOriginInSource,
                           structFieldOffset = 32,
@@ -630,8 +628,7 @@
                         "macro_typedef_struct.h:3:9",
                         declId = NamePair {
                           nameC = Name "bar",
-                          nameHsIdent = HsIdentifier
-                            "Bar"},
+                          nameHsIdent = Identifier "Bar"},
                         declOrigin = NameOriginGenerated
                           (AnonId
                             "macro_typedef_struct.h:3:9"),
@@ -646,7 +643,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Bar"),
+                            (Name "@NsConstr" "Bar"),
                           structSizeof = 8,
                           structAlignment = 4,
                           structFields = [
@@ -656,7 +653,7 @@
                                 "macro_typedef_struct.h:4:7",
                                 fieldName = NamePair {
                                   nameC = Name "x",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "bar_x"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -669,14 +666,14 @@
                                 "macro_typedef_struct.h:5:11",
                                 fieldName = NamePair {
                                   nameC = Name "y",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "bar_y"},
                                 fieldComment = Nothing},
                               structFieldType =
                               TypeMacroTypedef
                                 NamePair {
                                   nameC = Name "MY_TYPE",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "MY_TYPE"}
                                 NameOriginInSource,
                               structFieldOffset = 32,
@@ -713,15 +710,15 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Bar",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Bar",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "bar_x",
                       fieldType = HsPrimType
@@ -733,7 +730,7 @@
                             "macro_typedef_struct.h:4:7",
                             fieldName = NamePair {
                               nameC = Name "x",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "bar_x"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -754,11 +751,11 @@
                               "macro_typedef_struct.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "bar_y",
                       fieldType = HsTypRef
-                        (HsName
+                        (Name
                           "@NsTypeConstr"
                           "MY_TYPE"),
                       fieldOrigin = StructField
@@ -768,14 +765,14 @@
                             "macro_typedef_struct.h:5:11",
                             fieldName = NamePair {
                               nameC = Name "y",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "bar_y"},
                             fieldComment = Nothing},
                           structFieldType =
                           TypeMacroTypedef
                             NamePair {
                               nameC = Name "MY_TYPE",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "MY_TYPE"}
                             NameOriginInSource,
                           structFieldOffset = 32,
@@ -800,8 +797,7 @@
                         "macro_typedef_struct.h:3:9",
                         declId = NamePair {
                           nameC = Name "bar",
-                          nameHsIdent = HsIdentifier
-                            "Bar"},
+                          nameHsIdent = Identifier "Bar"},
                         declOrigin = NameOriginGenerated
                           (AnonId
                             "macro_typedef_struct.h:3:9"),
@@ -816,7 +812,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Bar"),
+                            (Name "@NsConstr" "Bar"),
                           structSizeof = 8,
                           structAlignment = 4,
                           structFields = [
@@ -826,7 +822,7 @@
                                 "macro_typedef_struct.h:4:7",
                                 fieldName = NamePair {
                                   nameC = Name "x",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "bar_x"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -839,14 +835,14 @@
                                 "macro_typedef_struct.h:5:11",
                                 fieldName = NamePair {
                                   nameC = Name "y",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "bar_y"},
                                 fieldComment = Nothing},
                               structFieldType =
                               TypeMacroTypedef
                                 NamePair {
                                   nameC = Name "MY_TYPE",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "MY_TYPE"}
                                 NameOriginInSource,
                               structFieldOffset = 32,
@@ -888,7 +884,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Bar",
       deriveInstanceComment =
@@ -898,7 +894,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Bar",
       deriveInstanceComment =

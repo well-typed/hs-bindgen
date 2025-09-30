@@ -5,7 +5,7 @@ TranslationUnit {
         declLoc = "uses_utf8.h:4:6",
         declId = NamePair {
           nameC = Name "MyEnum",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "MyEnum"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -18,10 +18,10 @@ TranslationUnit {
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "MyEnum",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_MyEnum"},
           enumType = TypePrim
@@ -34,7 +34,7 @@ TranslationUnit {
                 fieldLoc = "uses_utf8.h:5:9",
                 fieldName = NamePair {
                   nameC = Name "Say\20320\22909",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Say\20320\22909"},
                 fieldComment = Nothing},
               enumConstantValue = 0},
@@ -43,7 +43,7 @@ TranslationUnit {
                 fieldLoc = "uses_utf8.h:6:9",
                 fieldName = NamePair {
                   nameC = Name "Say\25308\25308",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Say\25308\25308"},
                 fieldComment = Nothing},
               enumConstantValue = 1}]},

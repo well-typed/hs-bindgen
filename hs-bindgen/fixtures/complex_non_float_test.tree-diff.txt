@@ -7,7 +7,7 @@ TranslationUnit {
         declId = NamePair {
           nameC = Name
             "global_complex_unsigned_short",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "global_complex_unsigned_short"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -36,7 +36,7 @@ TranslationUnit {
         declId = NamePair {
           nameC = Name
             "global_complex_short",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "global_complex_short"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -65,7 +65,7 @@ TranslationUnit {
         declId = NamePair {
           nameC = Name
             "global_complex_unsigned_int",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "global_complex_unsigned_int"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -94,7 +94,7 @@ TranslationUnit {
         declId = NamePair {
           nameC = Name
             "global_complex_int",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "global_complex_int"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -121,7 +121,7 @@ TranslationUnit {
         declId = NamePair {
           nameC = Name
             "global_complex_char",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "global_complex_char"},
         declOrigin = NameOriginInSource,
         declAliases = [],

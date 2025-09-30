@@ -5,7 +5,7 @@ TranslationUnit {
         declLoc = "bool_c23.h:3:13",
         declId = NamePair {
           nameC = Name "b",
-          nameHsIdent = HsIdentifier "b"},
+          nameHsIdent = Identifier "b"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just

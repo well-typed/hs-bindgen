@@ -5,7 +5,7 @@ TranslationUnit {
         declLoc = "bitfields.h:1:8",
         declId = NamePair {
           nameC = Name "flags",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Flags"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -18,7 +18,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "Flags"),
+            (Name "@NsConstr" "Flags"),
           structSizeof = 4,
           structAlignment = 4,
           structFields = [
@@ -27,7 +27,7 @@ TranslationUnit {
                 fieldLoc = "bitfields.h:2:10",
                 fieldName = NamePair {
                   nameC = Name "fieldX",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "flags_fieldX"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -41,7 +41,7 @@ TranslationUnit {
                 fieldLoc = "bitfields.h:3:9",
                 fieldName = NamePair {
                   nameC = Name "flagA",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "flags_flagA"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -53,7 +53,7 @@ TranslationUnit {
                 fieldLoc = "bitfields.h:4:9",
                 fieldName = NamePair {
                   nameC = Name "flagB",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "flags_flagB"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -65,7 +65,7 @@ TranslationUnit {
                 fieldLoc = "bitfields.h:5:9",
                 fieldName = NamePair {
                   nameC = Name "flagC",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "flags_flagC"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -77,7 +77,7 @@ TranslationUnit {
                 fieldLoc = "bitfields.h:6:10",
                 fieldName = NamePair {
                   nameC = Name "fieldY",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "flags_fieldY"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -91,7 +91,7 @@ TranslationUnit {
                 fieldLoc = "bitfields.h:7:9",
                 fieldName = NamePair {
                   nameC = Name "bits",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "flags_bits"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -110,7 +110,7 @@ TranslationUnit {
         declLoc = "bitfields.h:12:8",
         declId = NamePair {
           nameC = Name "overflow32",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Overflow32"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -123,9 +123,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName
-              "@NsConstr"
-              "Overflow32"),
+            (Name "@NsConstr" "Overflow32"),
           structSizeof = 12,
           structAlignment = 4,
           structFields = [
@@ -134,7 +132,7 @@ TranslationUnit {
                 fieldLoc = "bitfields.h:13:9",
                 fieldName = NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "overflow32_x"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -146,7 +144,7 @@ TranslationUnit {
                 fieldLoc = "bitfields.h:14:9",
                 fieldName = NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "overflow32_y"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -158,7 +156,7 @@ TranslationUnit {
                 fieldLoc = "bitfields.h:15:9",
                 fieldName = NamePair {
                   nameC = Name "z",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "overflow32_z"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -177,7 +175,7 @@ TranslationUnit {
         declLoc = "bitfields.h:18:8",
         declId = NamePair {
           nameC = Name "overflow32b",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Overflow32b"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -190,7 +188,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName
+            (Name
               "@NsConstr"
               "Overflow32b"),
           structSizeof = 8,
@@ -201,7 +199,7 @@ TranslationUnit {
                 fieldLoc = "bitfields.h:19:10",
                 fieldName = NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "overflow32b_x"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -213,7 +211,7 @@ TranslationUnit {
                 fieldLoc = "bitfields.h:20:10",
                 fieldName = NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "overflow32b_y"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -225,7 +223,7 @@ TranslationUnit {
                 fieldLoc = "bitfields.h:21:10",
                 fieldName = NamePair {
                   nameC = Name "z",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "overflow32b_z"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -244,7 +242,7 @@ TranslationUnit {
         declLoc = "bitfields.h:24:8",
         declId = NamePair {
           nameC = Name "overflow32c",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Overflow32c"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -257,7 +255,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName
+            (Name
               "@NsConstr"
               "Overflow32c"),
           structSizeof = 16,
@@ -268,7 +266,7 @@ TranslationUnit {
                 fieldLoc = "bitfields.h:25:10",
                 fieldName = NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "overflow32c_x"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -280,7 +278,7 @@ TranslationUnit {
                 fieldLoc = "bitfields.h:26:10",
                 fieldName = NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "overflow32c_y"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -292,7 +290,7 @@ TranslationUnit {
                 fieldLoc = "bitfields.h:27:10",
                 fieldName = NamePair {
                   nameC = Name "z",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "overflow32c_z"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -311,7 +309,7 @@ TranslationUnit {
         declLoc = "bitfields.h:30:8",
         declId = NamePair {
           nameC = Name "overflow64",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Overflow64"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -324,9 +322,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName
-              "@NsConstr"
-              "Overflow64"),
+            (Name "@NsConstr" "Overflow64"),
           structSizeof = 16,
           structAlignment = 8,
           structFields = [
@@ -335,7 +331,7 @@ TranslationUnit {
                 fieldLoc = "bitfields.h:31:10",
                 fieldName = NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "overflow64_x"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -347,7 +343,7 @@ TranslationUnit {
                 fieldLoc = "bitfields.h:32:10",
                 fieldName = NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "overflow64_y"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -366,7 +362,7 @@ TranslationUnit {
         declLoc = "bitfields.h:36:8",
         declId = NamePair {
           nameC = Name "alignA",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "AlignA"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -379,7 +375,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "AlignA"),
+            (Name "@NsConstr" "AlignA"),
           structSizeof = 4,
           structAlignment = 4,
           structFields = [
@@ -388,7 +384,7 @@ TranslationUnit {
                 fieldLoc = "bitfields.h:37:16",
                 fieldName = NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "alignA_x"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -401,7 +397,7 @@ TranslationUnit {
                 fieldLoc = "bitfields.h:38:6",
                 fieldName = NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "alignA_y"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -420,7 +416,7 @@ TranslationUnit {
         declLoc = "bitfields.h:41:8",
         declId = NamePair {
           nameC = Name "alignB",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "AlignB"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -433,7 +429,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "AlignB"),
+            (Name "@NsConstr" "AlignB"),
           structSizeof = 8,
           structAlignment = 4,
           structFields = [
@@ -442,7 +438,7 @@ TranslationUnit {
                 fieldLoc = "bitfields.h:42:16",
                 fieldName = NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "alignB_x"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -455,7 +451,7 @@ TranslationUnit {
                 fieldLoc = "bitfields.h:43:6",
                 fieldName = NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "alignB_y"},
                 fieldComment = Nothing},
               structFieldType = TypePrim

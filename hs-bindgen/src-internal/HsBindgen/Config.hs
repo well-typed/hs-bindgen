@@ -27,7 +27,7 @@ import HsBindgen.Config.Internal
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
-import HsBindgen.Language.Haskell
+import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
   Common
@@ -82,10 +82,15 @@ toBindgenConfig Config{..} = BindgenConfig bootConfig frontendConfig backendConf
 -- | Configuration specific to preprocessor mode.
 data ConfigPP = ConfigPP {
     uniqueId   :: Maybe UniqueId
-  , moduleName :: HsModuleName
+  , moduleName :: Hs.ModuleName
   }
   deriving stock (Show, Eq, Generic)
-  deriving anyclass (Default)
+
+instance Default ConfigPP where
+  def = ConfigPP {
+      uniqueId   = def
+    , moduleName = defModuleName
+    }
 
 toBindgenConfigPP :: Config_ FilePath -> ConfigPP -> BindgenConfig
 toBindgenConfigPP config ConfigPP{..} =

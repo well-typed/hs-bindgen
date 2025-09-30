@@ -1,7 +1,7 @@
 [
   DeclEmpty
     EmptyData {
-      emptyDataName = HsName
+      emptyDataName = Name
         "@NsTypeConstr"
         "Foo",
       emptyDataOrigin = Decl {
@@ -10,8 +10,7 @@
           "opaque_declaration.h:1:8",
           declId = NamePair {
             nameC = Name "foo",
-            nameHsIdent = HsIdentifier
-              "Foo"},
+            nameHsIdent = Identifier "Foo"},
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeaderInfo = Just
@@ -43,20 +42,20 @@
           commentChildren = []}},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "Bar",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "Bar",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "bar_ptrA",
           fieldType = HsPtr
             (HsTypRef
-              (HsName "@NsTypeConstr" "Foo")),
+              (Name "@NsTypeConstr" "Foo")),
           fieldOrigin = StructField
             StructField {
               structFieldInfo = FieldInfo {
@@ -64,15 +63,14 @@
                 "opaque_declaration.h:5:17",
                 fieldName = NamePair {
                   nameC = Name "ptrA",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "bar_ptrA"},
                 fieldComment = Nothing},
               structFieldType = TypePointer
                 (TypeStruct
                   NamePair {
                     nameC = Name "foo",
-                    nameHsIdent = HsIdentifier
-                      "Foo"}
+                    nameHsIdent = Identifier "Foo"}
                   NameOriginInSource),
               structFieldOffset = 0,
               structFieldWidth = Nothing},
@@ -90,12 +88,12 @@
                   "opaque_declaration.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "bar_ptrB",
           fieldType = HsPtr
             (HsTypRef
-              (HsName "@NsTypeConstr" "Bar")),
+              (Name "@NsTypeConstr" "Bar")),
           fieldOrigin = StructField
             StructField {
               structFieldInfo = FieldInfo {
@@ -103,15 +101,14 @@
                 "opaque_declaration.h:6:17",
                 fieldName = NamePair {
                   nameC = Name "ptrB",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "bar_ptrB"},
                 fieldComment = Nothing},
               structFieldType = TypePointer
                 (TypeStruct
                   NamePair {
                     nameC = Name "bar",
-                    nameHsIdent = HsIdentifier
-                      "Bar"}
+                    nameHsIdent = Identifier "Bar"}
                   NameOriginInSource),
               structFieldOffset = 64,
               structFieldWidth = Nothing},
@@ -135,8 +132,7 @@
             "opaque_declaration.h:4:8",
             declId = NamePair {
               nameC = Name "bar",
-              nameHsIdent = HsIdentifier
-                "Bar"},
+              nameHsIdent = Identifier "Bar"},
             declOrigin = NameOriginInSource,
             declAliases = [],
             declHeaderInfo = Just
@@ -149,7 +145,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "Bar"),
+                (Name "@NsConstr" "Bar"),
               structSizeof = 16,
               structAlignment = 8,
               structFields = [
@@ -159,15 +155,14 @@
                     "opaque_declaration.h:5:17",
                     fieldName = NamePair {
                       nameC = Name "ptrA",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "bar_ptrA"},
                     fieldComment = Nothing},
                   structFieldType = TypePointer
                     (TypeStruct
                       NamePair {
                         nameC = Name "foo",
-                        nameHsIdent = HsIdentifier
-                          "Foo"}
+                        nameHsIdent = Identifier "Foo"}
                       NameOriginInSource),
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
@@ -177,15 +172,14 @@
                     "opaque_declaration.h:6:17",
                     fieldName = NamePair {
                       nameC = Name "ptrB",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "bar_ptrB"},
                     fieldComment = Nothing},
                   structFieldType = TypePointer
                     (TypeStruct
                       NamePair {
                         nameC = Name "bar",
-                        nameHsIdent = HsIdentifier
-                          "Bar"}
+                        nameHsIdent = Identifier "Bar"}
                       NameOriginInSource),
                   structFieldOffset = 64,
                   structFieldWidth = Nothing}],
@@ -216,20 +210,20 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Bar",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Bar",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "bar_ptrA",
               fieldType = HsPtr
                 (HsTypRef
-                  (HsName "@NsTypeConstr" "Foo")),
+                  (Name "@NsTypeConstr" "Foo")),
               fieldOrigin = StructField
                 StructField {
                   structFieldInfo = FieldInfo {
@@ -237,15 +231,14 @@
                     "opaque_declaration.h:5:17",
                     fieldName = NamePair {
                       nameC = Name "ptrA",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "bar_ptrA"},
                     fieldComment = Nothing},
                   structFieldType = TypePointer
                     (TypeStruct
                       NamePair {
                         nameC = Name "foo",
-                        nameHsIdent = HsIdentifier
-                          "Foo"}
+                        nameHsIdent = Identifier "Foo"}
                       NameOriginInSource),
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
@@ -263,12 +256,12 @@
                       "opaque_declaration.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "bar_ptrB",
               fieldType = HsPtr
                 (HsTypRef
-                  (HsName "@NsTypeConstr" "Bar")),
+                  (Name "@NsTypeConstr" "Bar")),
               fieldOrigin = StructField
                 StructField {
                   structFieldInfo = FieldInfo {
@@ -276,15 +269,14 @@
                     "opaque_declaration.h:6:17",
                     fieldName = NamePair {
                       nameC = Name "ptrB",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "bar_ptrB"},
                     fieldComment = Nothing},
                   structFieldType = TypePointer
                     (TypeStruct
                       NamePair {
                         nameC = Name "bar",
-                        nameHsIdent = HsIdentifier
-                          "Bar"}
+                        nameHsIdent = Identifier "Bar"}
                       NameOriginInSource),
                   structFieldOffset = 64,
                   structFieldWidth = Nothing},
@@ -308,8 +300,7 @@
                 "opaque_declaration.h:4:8",
                 declId = NamePair {
                   nameC = Name "bar",
-                  nameHsIdent = HsIdentifier
-                    "Bar"},
+                  nameHsIdent = Identifier "Bar"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
                 declHeaderInfo = Just
@@ -322,7 +313,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "Bar"),
+                    (Name "@NsConstr" "Bar"),
                   structSizeof = 16,
                   structAlignment = 8,
                   structFields = [
@@ -332,15 +323,14 @@
                         "opaque_declaration.h:5:17",
                         fieldName = NamePair {
                           nameC = Name "ptrA",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "bar_ptrA"},
                         fieldComment = Nothing},
                       structFieldType = TypePointer
                         (TypeStruct
                           NamePair {
                             nameC = Name "foo",
-                            nameHsIdent = HsIdentifier
-                              "Foo"}
+                            nameHsIdent = Identifier "Foo"}
                           NameOriginInSource),
                       structFieldOffset = 0,
                       structFieldWidth = Nothing},
@@ -350,15 +340,14 @@
                         "opaque_declaration.h:6:17",
                         fieldName = NamePair {
                           nameC = Name "ptrB",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "bar_ptrB"},
                         fieldComment = Nothing},
                       structFieldType = TypePointer
                         (TypeStruct
                           NamePair {
                             nameC = Name "bar",
-                            nameHsIdent = HsIdentifier
-                              "Bar"}
+                            nameHsIdent = Identifier "Bar"}
                           NameOriginInSource),
                       structFieldOffset = 64,
                       structFieldWidth = Nothing}],
@@ -392,20 +381,20 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Bar",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Bar",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "bar_ptrA",
                       fieldType = HsPtr
                         (HsTypRef
-                          (HsName "@NsTypeConstr" "Foo")),
+                          (Name "@NsTypeConstr" "Foo")),
                       fieldOrigin = StructField
                         StructField {
                           structFieldInfo = FieldInfo {
@@ -413,15 +402,14 @@
                             "opaque_declaration.h:5:17",
                             fieldName = NamePair {
                               nameC = Name "ptrA",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "bar_ptrA"},
                             fieldComment = Nothing},
                           structFieldType = TypePointer
                             (TypeStruct
                               NamePair {
                                 nameC = Name "foo",
-                                nameHsIdent = HsIdentifier
-                                  "Foo"}
+                                nameHsIdent = Identifier "Foo"}
                               NameOriginInSource),
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
@@ -439,12 +427,12 @@
                               "opaque_declaration.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "bar_ptrB",
                       fieldType = HsPtr
                         (HsTypRef
-                          (HsName "@NsTypeConstr" "Bar")),
+                          (Name "@NsTypeConstr" "Bar")),
                       fieldOrigin = StructField
                         StructField {
                           structFieldInfo = FieldInfo {
@@ -452,15 +440,14 @@
                             "opaque_declaration.h:6:17",
                             fieldName = NamePair {
                               nameC = Name "ptrB",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "bar_ptrB"},
                             fieldComment = Nothing},
                           structFieldType = TypePointer
                             (TypeStruct
                               NamePair {
                                 nameC = Name "bar",
-                                nameHsIdent = HsIdentifier
-                                  "Bar"}
+                                nameHsIdent = Identifier "Bar"}
                               NameOriginInSource),
                           structFieldOffset = 64,
                           structFieldWidth = Nothing},
@@ -484,8 +471,7 @@
                         "opaque_declaration.h:4:8",
                         declId = NamePair {
                           nameC = Name "bar",
-                          nameHsIdent = HsIdentifier
-                            "Bar"},
+                          nameHsIdent = Identifier "Bar"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
                         declHeaderInfo = Just
@@ -498,7 +484,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Bar"),
+                            (Name "@NsConstr" "Bar"),
                           structSizeof = 16,
                           structAlignment = 8,
                           structFields = [
@@ -508,15 +494,14 @@
                                 "opaque_declaration.h:5:17",
                                 fieldName = NamePair {
                                   nameC = Name "ptrA",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "bar_ptrA"},
                                 fieldComment = Nothing},
                               structFieldType = TypePointer
                                 (TypeStruct
                                   NamePair {
                                     nameC = Name "foo",
-                                    nameHsIdent = HsIdentifier
-                                      "Foo"}
+                                    nameHsIdent = Identifier "Foo"}
                                   NameOriginInSource),
                               structFieldOffset = 0,
                               structFieldWidth = Nothing},
@@ -526,15 +511,14 @@
                                 "opaque_declaration.h:6:17",
                                 fieldName = NamePair {
                                   nameC = Name "ptrB",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "bar_ptrB"},
                                 fieldComment = Nothing},
                               structFieldType = TypePointer
                                 (TypeStruct
                                   NamePair {
                                     nameC = Name "bar",
-                                    nameHsIdent = HsIdentifier
-                                      "Bar"}
+                                    nameHsIdent = Identifier "Bar"}
                                   NameOriginInSource),
                               structFieldOffset = 64,
                               structFieldWidth = Nothing}],
@@ -570,20 +554,20 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Bar",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Bar",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "bar_ptrA",
                       fieldType = HsPtr
                         (HsTypRef
-                          (HsName "@NsTypeConstr" "Foo")),
+                          (Name "@NsTypeConstr" "Foo")),
                       fieldOrigin = StructField
                         StructField {
                           structFieldInfo = FieldInfo {
@@ -591,15 +575,14 @@
                             "opaque_declaration.h:5:17",
                             fieldName = NamePair {
                               nameC = Name "ptrA",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "bar_ptrA"},
                             fieldComment = Nothing},
                           structFieldType = TypePointer
                             (TypeStruct
                               NamePair {
                                 nameC = Name "foo",
-                                nameHsIdent = HsIdentifier
-                                  "Foo"}
+                                nameHsIdent = Identifier "Foo"}
                               NameOriginInSource),
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
@@ -617,12 +600,12 @@
                               "opaque_declaration.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "bar_ptrB",
                       fieldType = HsPtr
                         (HsTypRef
-                          (HsName "@NsTypeConstr" "Bar")),
+                          (Name "@NsTypeConstr" "Bar")),
                       fieldOrigin = StructField
                         StructField {
                           structFieldInfo = FieldInfo {
@@ -630,15 +613,14 @@
                             "opaque_declaration.h:6:17",
                             fieldName = NamePair {
                               nameC = Name "ptrB",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "bar_ptrB"},
                             fieldComment = Nothing},
                           structFieldType = TypePointer
                             (TypeStruct
                               NamePair {
                                 nameC = Name "bar",
-                                nameHsIdent = HsIdentifier
-                                  "Bar"}
+                                nameHsIdent = Identifier "Bar"}
                               NameOriginInSource),
                           structFieldOffset = 64,
                           structFieldWidth = Nothing},
@@ -662,8 +644,7 @@
                         "opaque_declaration.h:4:8",
                         declId = NamePair {
                           nameC = Name "bar",
-                          nameHsIdent = HsIdentifier
-                            "Bar"},
+                          nameHsIdent = Identifier "Bar"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
                         declHeaderInfo = Just
@@ -676,7 +657,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Bar"),
+                            (Name "@NsConstr" "Bar"),
                           structSizeof = 16,
                           structAlignment = 8,
                           structFields = [
@@ -686,15 +667,14 @@
                                 "opaque_declaration.h:5:17",
                                 fieldName = NamePair {
                                   nameC = Name "ptrA",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "bar_ptrA"},
                                 fieldComment = Nothing},
                               structFieldType = TypePointer
                                 (TypeStruct
                                   NamePair {
                                     nameC = Name "foo",
-                                    nameHsIdent = HsIdentifier
-                                      "Foo"}
+                                    nameHsIdent = Identifier "Foo"}
                                   NameOriginInSource),
                               structFieldOffset = 0,
                               structFieldWidth = Nothing},
@@ -704,15 +684,14 @@
                                 "opaque_declaration.h:6:17",
                                 fieldName = NamePair {
                                   nameC = Name "ptrB",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "bar_ptrB"},
                                 fieldComment = Nothing},
                               structFieldType = TypePointer
                                 (TypeStruct
                                   NamePair {
                                     nameC = Name "bar",
-                                    nameHsIdent = HsIdentifier
-                                      "Bar"}
+                                    nameHsIdent = Identifier "Bar"}
                                   NameOriginInSource),
                               structFieldOffset = 64,
                               structFieldWidth = Nothing}],
@@ -753,7 +732,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Bar",
       deriveInstanceComment =
@@ -763,17 +742,17 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Bar",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "Baz",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "Baz",
       structFields = [],
@@ -784,8 +763,7 @@
             "opaque_declaration.h:9:8",
             declId = NamePair {
               nameC = Name "baz",
-              nameHsIdent = HsIdentifier
-                "Baz"},
+              nameHsIdent = Identifier "Baz"},
             declOrigin = NameOriginInSource,
             declAliases = [],
             declHeaderInfo = Just
@@ -798,7 +776,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "Baz"),
+                (Name "@NsConstr" "Baz"),
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
@@ -829,10 +807,10 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Baz",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Baz",
           structFields = [],
@@ -843,8 +821,7 @@
                 "opaque_declaration.h:9:8",
                 declId = NamePair {
                   nameC = Name "baz",
-                  nameHsIdent = HsIdentifier
-                    "Baz"},
+                  nameHsIdent = Identifier "Baz"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
                 declHeaderInfo = Just
@@ -857,7 +834,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "Baz"),
+                    (Name "@NsConstr" "Baz"),
                   structSizeof = 0,
                   structAlignment = 1,
                   structFields = [],
@@ -891,10 +868,10 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Baz",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Baz",
                   structFields = [],
@@ -905,8 +882,7 @@
                         "opaque_declaration.h:9:8",
                         declId = NamePair {
                           nameC = Name "baz",
-                          nameHsIdent = HsIdentifier
-                            "Baz"},
+                          nameHsIdent = Identifier "Baz"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
                         declHeaderInfo = Just
@@ -919,7 +895,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Baz"),
+                            (Name "@NsConstr" "Baz"),
                           structSizeof = 0,
                           structAlignment = 1,
                           structFields = [],
@@ -953,10 +929,10 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Baz",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Baz",
                   structFields = [],
@@ -967,8 +943,7 @@
                         "opaque_declaration.h:9:8",
                         declId = NamePair {
                           nameC = Name "baz",
-                          nameHsIdent = HsIdentifier
-                            "Baz"},
+                          nameHsIdent = Identifier "Baz"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
                         declHeaderInfo = Just
@@ -981,7 +956,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Baz"),
+                            (Name "@NsConstr" "Baz"),
                           structSizeof = 0,
                           structAlignment = 1,
                           structFields = [],
@@ -1016,7 +991,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Baz",
       deriveInstanceComment =
@@ -1026,14 +1001,14 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Baz",
       deriveInstanceComment =
       Nothing},
   DeclEmpty
     EmptyData {
-      emptyDataName = HsName
+      emptyDataName = Name
         "@NsTypeConstr"
         "Quu",
       emptyDataOrigin = Decl {
@@ -1042,8 +1017,7 @@
           "opaque_declaration.h:11:6",
           declId = NamePair {
             nameC = Name "quu",
-            nameHsIdent = HsIdentifier
-              "Quu"},
+            nameHsIdent = Identifier "Quu"},
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeaderInfo = Just
@@ -1075,7 +1049,7 @@
           commentChildren = []}},
   DeclEmpty
     EmptyData {
-      emptyDataName = HsName
+      emptyDataName = Name
         "@NsTypeConstr"
         "Opaque_union",
       emptyDataOrigin = Decl {
@@ -1084,7 +1058,7 @@
           "opaque_declaration.h:13:7",
           declId = NamePair {
             nameC = Name "opaque_union",
-            nameHsIdent = HsIdentifier
+            nameHsIdent = Identifier
               "Opaque_union"},
           declOrigin = NameOriginInSource,
           declAliases = [],

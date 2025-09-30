@@ -29,7 +29,7 @@ import Data.Text qualified as Text
 
 import HsBindgen.Config.FixCandidate.ReservedNames (allReservedNames)
 import HsBindgen.Imports
-import HsBindgen.Language.Haskell
+import HsBindgen.Language.Haskell qualified as Hs
 
 import Numeric (showHex)
 
@@ -53,7 +53,7 @@ data FixCandidate m = FixCandidate {
       -- | Make the name conform to the name rule set
       --
       --See 'modifyFirstLetter'
-    , applyRuleSet :: forall ns. SingNamespace ns => Text -> m (HsName ns)
+    , applyRuleSet :: forall ns. Hs.SingNamespace ns => Text -> m (Hs.Name ns)
 
       -- | Reserved names
     , reservedNames :: Set Text
@@ -89,8 +89,8 @@ fixCandidateHaskell = fixCandidateDefault {
 -------------------------------------------------------------------------------}
 
 fixCandidate :: forall ns m.
-     (Monad m, SingNamespace ns)
-  => FixCandidate m -> Text -> m (HsName ns)
+     (Monad m, Hs.SingNamespace ns)
+  => FixCandidate m -> Text -> m (Hs.Name ns)
 fixCandidate FixCandidate{
                 onInvalidChar
               , applyRuleSet
@@ -117,10 +117,10 @@ fixCandidate FixCandidate{
         isValidChar :: Char -> Bool
         isValidChar c = Char.isAlphaNum c || c == '_' || c == '\''
 
-    handleReservedNames :: HsName ns -> m (HsName ns)
-    handleReservedNames name@(HsName t) = return $
+    handleReservedNames :: Hs.Name ns -> m (Hs.Name ns)
+    handleReservedNames name@(Hs.Name t) = return $
         if t `Set.member` reservedNames
-          then HsName $ onReservedName t
+          then Hs.Name $ onReservedName t
           else name
 
 {-------------------------------------------------------------------------------
@@ -151,23 +151,23 @@ data NameRuleSet =
     -- | Constructors, type constructors, type classes and module names
   | NameRuleSetOther
 
-type family NamespaceRuleSet (ns :: Namespace) :: NameRuleSet where
-  NamespaceRuleSet NsTypeConstr = NameRuleSetOther
-  NamespaceRuleSet NsConstr     = NameRuleSetOther
-  NamespaceRuleSet NsVar        = NameRuleSetVar
+type family NamespaceRuleSet (ns :: Hs.Namespace) :: NameRuleSet where
+  NamespaceRuleSet Hs.NsTypeConstr = NameRuleSetOther
+  NamespaceRuleSet Hs.NsConstr     = NameRuleSetOther
+  NamespaceRuleSet Hs.NsVar        = NameRuleSetVar
 
 data SNameRuleSet :: NameRuleSet -> Star where
   SNameRuleSetVar   :: SNameRuleSet NameRuleSetVar
   SNameRuleSetOther :: SNameRuleSet NameRuleSetOther
 
 singNameRuleSet :: forall ns.
-     SingNamespace ns
+     Hs.SingNamespace ns
   => Proxy ns -> SNameRuleSet (NamespaceRuleSet ns)
 singNameRuleSet _ =
-    case singNamespace @ns of
-      SNsTypeConstr -> SNameRuleSetOther
-      SNsConstr     -> SNameRuleSetOther
-      SNsVar        -> SNameRuleSetVar
+    case Hs.singNamespace @ns of
+      Hs.SNsTypeConstr -> SNameRuleSetOther
+      Hs.SNsConstr     -> SNameRuleSetOther
+      Hs.SNsVar        -> SNameRuleSetVar
 
 {-------------------------------------------------------------------------------
   Applying name rule sets
@@ -218,20 +218,20 @@ data CannotApplyRuleset ns = CannotApplyRuleset{
 --    When this happens, we call the supplied function with the unusable prefix
 --    and the remainder of the identifier.
 modifyFirstLetter :: forall ns.
-     SingNamespace ns
-  => (CannotApplyRuleset ns -> Maybe (HsName ns))
+     Hs.SingNamespace ns
+  => (CannotApplyRuleset ns -> Maybe (Hs.Name ns))
      -- ^ @onInvalidFirst@ (see 'prefixInvalidFirst' and 'dropInvalidFirst')
-  -> Text -> Maybe (HsName ns)
+  -> Text -> Maybe (Hs.Name ns)
 modifyFirstLetter onInvalidFirst =
     aux (singNameRuleSet (Proxy @ns))
   where
-    aux :: SNameRuleSet (NamespaceRuleSet ns) -> Text -> Maybe (HsName ns)
+    aux :: SNameRuleSet (NamespaceRuleSet ns) -> Text -> Maybe (Hs.Name ns)
     aux ruleset = \t -> do
         (firstChar, rest) <- Text.uncons t
         if | matchesRule firstChar ->
-               Just . HsName $ Text.cons firstChar rest
+               Just . Hs.Name $ Text.cons firstChar rest
            | matchesRule (adjustForRule firstChar) ->
-               Just . HsName $ Text.cons (adjustForRule firstChar) rest
+               Just . Hs.Name $ Text.cons (adjustForRule firstChar) rest
            | otherwise -> do
                let unhandledPrefix, afterUnhandled :: Text
                    (unhandledPrefix, afterUnhandled) = Text.span unusable t
@@ -267,13 +267,13 @@ modifyFirstLetter onInvalidFirst =
 prefixInvalidFirst ::
      Text  -- ^ Prefix for 'SNameRuleSetOther'
   -> Text  -- ^ Prefix for 'SNameRuleSetVar' (rarely needed)
-  -> CannotApplyRuleset ns -> HsName ns
+  -> CannotApplyRuleset ns -> Hs.Name ns
 prefixInvalidFirst prefixOther prefixVar cannotApply =
      let prefix :: Text
          prefix = case cannotApplyRuleset of
                SNameRuleSetOther -> prefixOther
                SNameRuleSetVar   -> prefixVar
-     in HsName $ prefix <> unhandledPrefix <> aux usableSuffix
+     in Hs.Name $ prefix <> unhandledPrefix <> aux usableSuffix
   where
     CannotApplyRuleset{
         cannotApplyRuleset
@@ -284,12 +284,12 @@ prefixInvalidFirst prefixOther prefixVar cannotApply =
     aux Nothing           = ""
     aux (Just (_, c, cs)) = Text.cons c cs
 
-dropInvalidFirst :: CannotApplyRuleset ns -> Maybe (HsName ns)
+dropInvalidFirst :: CannotApplyRuleset ns -> Maybe (Hs.Name ns)
 dropInvalidFirst CannotApplyRuleset{usableSuffix} =
     aux <$> usableSuffix
   where
-    aux :: (Char, Char, Text) -> HsName ns
-    aux (_, c, cs) = HsName $ Text.cons c cs
+    aux :: (Char, Char, Text) -> Hs.Name ns
+    aux (_, c, cs) = Hs.Name $ Text.cons c cs
 
 {-------------------------------------------------------------------------------
   Reserved names

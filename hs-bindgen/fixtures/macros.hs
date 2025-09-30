@@ -1,7 +1,7 @@
 [
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "oBJECTLIKE1",
       varDeclType = ForallTy {
@@ -39,7 +39,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "oBJECTLIKE2",
       varDeclType = ForallTy {
@@ -77,7 +77,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "oBJECTLIKE3",
       varDeclType = ForallTy {
@@ -117,7 +117,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "oBJECTLIKE4",
       varDeclType = ForallTy {
@@ -157,7 +157,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "mEANING_OF_LIFE1",
       varDeclType = ForallTy {
@@ -195,7 +195,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "mEANING_OF_LIFE2",
       varDeclType = ForallTy {
@@ -233,7 +233,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "mEANING_OF_LIFE3",
       varDeclType = ForallTy {
@@ -271,7 +271,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "mEANING_OF_LIFE4",
       varDeclType = ForallTy {
@@ -309,7 +309,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "mEANING_OF_LIFE5",
       varDeclType = ForallTy {
@@ -347,7 +347,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "lONG_INT_TOKEN1",
       varDeclType = ForallTy {
@@ -386,7 +386,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "lONG_INT_TOKEN2",
       varDeclType = ForallTy {
@@ -425,7 +425,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "lONG_INT_TOKEN3",
       varDeclType = ForallTy {
@@ -464,7 +464,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "lONG_INT_TOKEN4",
       varDeclType = ForallTy {
@@ -503,7 +503,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "tUPLE1",
       varDeclType = ForallTy {
@@ -560,7 +560,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "tUPLE2",
       varDeclType = ForallTy {
@@ -617,7 +617,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "tUPLE3",
       varDeclType = ForallTy {
@@ -674,7 +674,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "fLT1_1",
       varDeclType = ForallTy {
@@ -708,7 +708,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "fLT1_2",
       varDeclType = ForallTy {
@@ -742,7 +742,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "fLT1_3",
       varDeclType = ForallTy {
@@ -776,7 +776,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "fLT2_1",
       varDeclType = ForallTy {
@@ -810,7 +810,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "fLT2_2",
       varDeclType = ForallTy {
@@ -844,7 +844,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "fLT2_3",
       varDeclType = ForallTy {
@@ -877,7 +877,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "fLT3_1",
       varDeclType = ForallTy {
@@ -911,7 +911,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "fLT3_2",
       varDeclType = ForallTy {
@@ -945,7 +945,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "fLT3_3",
       varDeclType = ForallTy {
@@ -979,7 +979,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "fLT3_4",
       varDeclType = ForallTy {
@@ -1013,7 +1013,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "fLT4_1",
       varDeclType = ForallTy {
@@ -1047,7 +1047,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "fLT4_2",
       varDeclType = ForallTy {
@@ -1081,7 +1081,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "fLT4_3",
       varDeclType = ForallTy {
@@ -1115,7 +1115,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "fLT5_1",
       varDeclType = ForallTy {
@@ -1149,7 +1149,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "fLT5_2",
       varDeclType = ForallTy {
@@ -1182,7 +1182,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "fLT6_1",
       varDeclType = ForallTy {
@@ -1216,7 +1216,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "fLT6_2",
       varDeclType = ForallTy {
@@ -1250,7 +1250,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "fLT6_3",
       varDeclType = ForallTy {
@@ -1284,7 +1284,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "bAD1",
       varDeclType = ForallTy {
@@ -1321,7 +1321,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "bAD2",
       varDeclType = ForallTy {

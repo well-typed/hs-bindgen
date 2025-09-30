@@ -6,8 +6,7 @@ TranslationUnit {
         declLoc = "macro_strings.h:4:9",
         declId = NamePair {
           nameC = Name "C1",
-          nameHsIdent = HsIdentifier
-            "c1"},
+          nameHsIdent = Identifier "c1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -41,8 +40,7 @@ TranslationUnit {
         declLoc = "macro_strings.h:5:9",
         declId = NamePair {
           nameC = Name "C2",
-          nameHsIdent = HsIdentifier
-            "c2"},
+          nameHsIdent = Identifier "c2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -77,8 +75,7 @@ TranslationUnit {
         declLoc = "macro_strings.h:6:9",
         declId = NamePair {
           nameC = Name "C3",
-          nameHsIdent = HsIdentifier
-            "c3"},
+          nameHsIdent = Identifier "c3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -112,8 +109,7 @@ TranslationUnit {
         declLoc = "macro_strings.h:7:9",
         declId = NamePair {
           nameC = Name "C4",
-          nameHsIdent = HsIdentifier
-            "c4"},
+          nameHsIdent = Identifier "c4"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -148,8 +144,7 @@ TranslationUnit {
         declLoc = "macro_strings.h:8:9",
         declId = NamePair {
           nameC = Name "C5",
-          nameHsIdent = HsIdentifier
-            "c5"},
+          nameHsIdent = Identifier "c5"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -183,8 +178,7 @@ TranslationUnit {
         declLoc = "macro_strings.h:9:9",
         declId = NamePair {
           nameC = Name "C6",
-          nameHsIdent = HsIdentifier
-            "c6"},
+          nameHsIdent = Identifier "c6"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -219,8 +213,7 @@ TranslationUnit {
         "macro_strings.h:10:9",
         declId = NamePair {
           nameC = Name "C7",
-          nameHsIdent = HsIdentifier
-            "c7"},
+          nameHsIdent = Identifier "c7"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -255,8 +248,7 @@ TranslationUnit {
         "macro_strings.h:11:9",
         declId = NamePair {
           nameC = Name "C8",
-          nameHsIdent = HsIdentifier
-            "c8"},
+          nameHsIdent = Identifier "c8"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -291,7 +283,7 @@ TranslationUnit {
         "macro_strings.h:13:9",
         declId = NamePair {
           nameC = Name "D",
-          nameHsIdent = HsIdentifier "d"},
+          nameHsIdent = Identifier "d"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -326,8 +318,7 @@ TranslationUnit {
         "macro_strings.h:15:9",
         declId = NamePair {
           nameC = Name "J1",
-          nameHsIdent = HsIdentifier
-            "j1"},
+          nameHsIdent = Identifier "j1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -364,8 +355,7 @@ TranslationUnit {
         "macro_strings.h:16:9",
         declId = NamePair {
           nameC = Name "J2",
-          nameHsIdent = HsIdentifier
-            "j2"},
+          nameHsIdent = Identifier "j2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -402,8 +392,7 @@ TranslationUnit {
         "macro_strings.h:17:9",
         declId = NamePair {
           nameC = Name "J3",
-          nameHsIdent = HsIdentifier
-            "j3"},
+          nameHsIdent = Identifier "j3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -440,8 +429,7 @@ TranslationUnit {
         "macro_strings.h:20:9",
         declId = NamePair {
           nameC = Name "S1",
-          nameHsIdent = HsIdentifier
-            "s1"},
+          nameHsIdent = Identifier "s1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -479,8 +467,7 @@ TranslationUnit {
         "macro_strings.h:21:9",
         declId = NamePair {
           nameC = Name "S2",
-          nameHsIdent = HsIdentifier
-            "s2"},
+          nameHsIdent = Identifier "s2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -519,8 +506,7 @@ TranslationUnit {
         "macro_strings.h:22:9",
         declId = NamePair {
           nameC = Name "S3",
-          nameHsIdent = HsIdentifier
-            "s3"},
+          nameHsIdent = Identifier "s3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -559,8 +545,7 @@ TranslationUnit {
         "macro_strings.h:23:9",
         declId = NamePair {
           nameC = Name "S4",
-          nameHsIdent = HsIdentifier
-            "s4"},
+          nameHsIdent = Identifier "s4"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -599,8 +584,7 @@ TranslationUnit {
         "macro_strings.h:24:9",
         declId = NamePair {
           nameC = Name "S5",
-          nameHsIdent = HsIdentifier
-            "s5"},
+          nameHsIdent = Identifier "s5"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -639,8 +623,7 @@ TranslationUnit {
         "macro_strings.h:25:9",
         declId = NamePair {
           nameC = Name "S6",
-          nameHsIdent = HsIdentifier
-            "s6"},
+          nameHsIdent = Identifier "s6"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -678,8 +661,7 @@ TranslationUnit {
         "macro_strings.h:26:9",
         declId = NamePair {
           nameC = Name "S7",
-          nameHsIdent = HsIdentifier
-            "s7"},
+          nameHsIdent = Identifier "s7"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -717,8 +699,7 @@ TranslationUnit {
         "macro_strings.h:27:9",
         declId = NamePair {
           nameC = Name "S8",
-          nameHsIdent = HsIdentifier
-            "s8"},
+          nameHsIdent = Identifier "s8"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -756,8 +737,7 @@ TranslationUnit {
         "macro_strings.h:29:9",
         declId = NamePair {
           nameC = Name "T1",
-          nameHsIdent = HsIdentifier
-            "t1"},
+          nameHsIdent = Identifier "t1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -798,8 +778,7 @@ TranslationUnit {
         "macro_strings.h:30:9",
         declId = NamePair {
           nameC = Name "T2",
-          nameHsIdent = HsIdentifier
-            "t2"},
+          nameHsIdent = Identifier "t2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -840,8 +819,7 @@ TranslationUnit {
         "macro_strings.h:31:9",
         declId = NamePair {
           nameC = Name "T3",
-          nameHsIdent = HsIdentifier
-            "t3"},
+          nameHsIdent = Identifier "t3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -888,7 +866,7 @@ TranslationUnit {
         "macro_strings.h:33:9",
         declId = NamePair {
           nameC = Name "U",
-          nameHsIdent = HsIdentifier "u"},
+          nameHsIdent = Identifier "u"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -939,7 +917,7 @@ TranslationUnit {
         "macro_strings.h:34:9",
         declId = NamePair {
           nameC = Name "V",
-          nameHsIdent = HsIdentifier "v"},
+          nameHsIdent = Identifier "v"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -998,8 +976,7 @@ TranslationUnit {
         "macro_strings.h:36:9",
         declId = NamePair {
           nameC = Name "W1",
-          nameHsIdent = HsIdentifier
-            "w1"},
+          nameHsIdent = Identifier "w1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -1051,8 +1028,7 @@ TranslationUnit {
         "macro_strings.h:37:9",
         declId = NamePair {
           nameC = Name "W2",
-          nameHsIdent = HsIdentifier
-            "w2"},
+          nameHsIdent = Identifier "w2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just

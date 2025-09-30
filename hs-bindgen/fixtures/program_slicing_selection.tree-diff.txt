@@ -7,7 +7,7 @@ TranslationUnit {
         declId = NamePair {
           nameC = Name
             "FileOperationStatus",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "FileOperationStatus"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -21,10 +21,10 @@ TranslationUnit {
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "FileOperationStatus",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_FileOperationStatus"},
           enumType = TypePrim
@@ -38,7 +38,7 @@ TranslationUnit {
                 "program_slicing_selection.h:8:3",
                 fieldName = NamePair {
                   nameC = Name "SUCCESS",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "SUCCESS"},
                 fieldComment = Nothing},
               enumConstantValue = 0},
@@ -48,7 +48,7 @@ TranslationUnit {
                 "program_slicing_selection.h:9:3",
                 fieldName = NamePair {
                   nameC = Name "NOT_FOUND",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "NOT_FOUND"},
                 fieldComment = Nothing},
               enumConstantValue = 2},
@@ -59,7 +59,7 @@ TranslationUnit {
                 fieldName = NamePair {
                   nameC = Name
                     "PERMISSION_DENIED",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "PERMISSION_DENIED"},
                 fieldComment = Nothing},
               enumConstantValue = 13},
@@ -69,7 +69,7 @@ TranslationUnit {
                 "program_slicing_selection.h:11:3",
                 fieldName = NamePair {
                   nameC = Name "INVALID_ARGUMENT",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "INVALID_ARGUMENT"},
                 fieldComment = Nothing},
               enumConstantValue = 22},
@@ -79,7 +79,7 @@ TranslationUnit {
                 "program_slicing_selection.h:12:3",
                 fieldName = NamePair {
                   nameC = Name "OUT_OF_MEMORY",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "OUT_OF_MEMORY"},
                 fieldComment = Nothing},
               enumConstantValue = 12},
@@ -90,7 +90,7 @@ TranslationUnit {
                 fieldName = NamePair {
                   nameC = Name
                     "CUSTOM_ERROR_OTHER",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "CUSTOM_ERROR_OTHER"},
                 fieldComment = Nothing},
               enumConstantValue = `-1`}]},
@@ -107,7 +107,7 @@ TranslationUnit {
         declId = NamePair {
           nameC = Name
             "FileOperationRecord",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "FileOperationRecord"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -121,7 +121,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName
+            (Name
               "@NsConstr"
               "FileOperationRecord"),
           structSizeof = 16,
@@ -133,14 +133,14 @@ TranslationUnit {
                 "program_slicing_selection.h:17:28",
                 fieldName = NamePair {
                   nameC = Name "status",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "fileOperationRecord_status"},
                 fieldComment = Nothing},
               structFieldType = TypeEnum
                 NamePair {
                   nameC = Name
                     "FileOperationStatus",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "FileOperationStatus"}
                 NameOriginInSource,
               structFieldOffset = 0,
@@ -151,7 +151,7 @@ TranslationUnit {
                 "program_slicing_selection.h:18:10",
                 fieldName = NamePair {
                   nameC = Name "bytes_processed",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "fileOperationRecord_bytes_processed"},
                 fieldComment = Nothing},
               structFieldType = TypeExtBinding
@@ -160,17 +160,17 @@ TranslationUnit {
                     qualNameName = Name "size_t",
                     qualNameKind =
                     NameKindOrdinary},
-                  extHsRef = ExtHsRef {
-                    extHsRefModule = HsModuleName
+                  extHsRef = ExtRef {
+                    extRefModule = ModuleName
                       "HsBindgen.Runtime.Prelude",
-                    extHsRefIdentifier =
-                    HsIdentifier "CSize"},
+                    extRefIdentifier = Identifier
+                      "CSize"},
                   extHsSpec = TypeSpec {
                     typeSpecModule = Just
-                      (HsModuleName
+                      (ModuleName
                         "HsBindgen.Runtime.Prelude"),
                     typeSpecIdentifier = Just
-                      (HsIdentifier "CSize"),
+                      (Identifier "CSize"),
                     typeSpecInstances = Map.fromList
                       [
                         _×_
@@ -285,7 +285,7 @@ TranslationUnit {
         "program_slicing_selection.h:21:26",
         declId = NamePair {
           nameC = Name "read_file_chunk",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "read_file_chunk"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -303,7 +303,7 @@ TranslationUnit {
               (Just
                 NamePair {
                   nameC = Name "file_ptr",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "file_ptr"})
               (TypePointer
                 (TypeExtBinding
@@ -312,31 +312,31 @@ TranslationUnit {
                       qualNameName = Name "FILE",
                       qualNameKind =
                       NameKindOrdinary},
-                    extHsRef = ExtHsRef {
-                      extHsRefModule = HsModuleName
+                    extHsRef = ExtRef {
+                      extRefModule = ModuleName
                         "HsBindgen.Runtime.Prelude",
-                      extHsRefIdentifier =
-                      HsIdentifier "CFile"},
+                      extRefIdentifier = Identifier
+                        "CFile"},
                     extHsSpec = TypeSpec {
                       typeSpecModule = Just
-                        (HsModuleName
+                        (ModuleName
                           "HsBindgen.Runtime.Prelude"),
                       typeSpecIdentifier = Just
-                        (HsIdentifier "CFile"),
+                        (Identifier "CFile"),
                       typeSpecInstances = Map.fromList
                         []}})),
             _×_
               (Just
                 NamePair {
                   nameC = Name "buffer",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "buffer"})
               (TypePointer TypeVoid),
             _×_
               (Just
                 NamePair {
                   nameC = Name "bytes_to_read",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "bytes_to_read"})
               (TypeExtBinding
                 ResolvedExtBinding {
@@ -344,17 +344,17 @@ TranslationUnit {
                     qualNameName = Name "size_t",
                     qualNameKind =
                     NameKindOrdinary},
-                  extHsRef = ExtHsRef {
-                    extHsRefModule = HsModuleName
+                  extHsRef = ExtRef {
+                    extRefModule = ModuleName
                       "HsBindgen.Runtime.Prelude",
-                    extHsRefIdentifier =
-                    HsIdentifier "CSize"},
+                    extRefIdentifier = Identifier
+                      "CSize"},
                   extHsSpec = TypeSpec {
                     typeSpecModule = Just
-                      (HsModuleName
+                      (ModuleName
                         "HsBindgen.Runtime.Prelude"),
                     typeSpecIdentifier = Just
-                      (HsIdentifier "CSize"),
+                      (Identifier "CSize"),
                     typeSpecInstances = Map.fromList
                       [
                         _×_
@@ -461,7 +461,7 @@ TranslationUnit {
             NamePair {
               nameC = Name
                 "FileOperationStatus",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "FileOperationStatus"}
             NameOriginInSource},
       declSpec = DeclSpec

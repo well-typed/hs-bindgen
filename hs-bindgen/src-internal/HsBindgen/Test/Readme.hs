@@ -5,18 +5,18 @@ module HsBindgen.Test.Readme (
 import Data.Text qualified as Text
 import System.FilePath qualified as FilePath
 
-import HsBindgen.Language.Haskell
+import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
   Generation
 -------------------------------------------------------------------------------}
 
 genTestsReadme ::
-     FilePath     -- ^ README path
-  -> HsModuleName -- ^ Module name (example: @Acme.Foo@)
-  -> FilePath     -- ^ Test suite directory path
-  -> FilePath     -- ^ C header path
-  -> FilePath     -- ^ C source path
+     FilePath      -- ^ README path
+  -> Hs.ModuleName -- ^ Module name (example: @Acme.Foo@)
+  -> FilePath      -- ^ Test suite directory path
+  -> FilePath      -- ^ C header path
+  -> FilePath      -- ^ C source path
   -> IO ()
 genTestsReadme readmePath moduleName testSuitePath cHeaderPath cSourcePath =
     writeFile readmePath $ unlines
@@ -61,4 +61,4 @@ genTestsReadme readmePath moduleName testSuitePath cHeaderPath cSourcePath =
     testSuite = FilePath.takeFileName testSuitePath
 
     moduleNameStr :: String
-    moduleNameStr = Text.unpack $ getHsModuleName moduleName
+    moduleNameStr = Text.unpack $ Hs.getModuleName moduleName

@@ -1,14 +1,14 @@
 [
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "T1",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "T1",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_T1",
         fieldType = HsPrimType
@@ -21,8 +21,7 @@
           "macro_typedef_scope.h:4:9",
           declId = NamePair {
             nameC = Name "T1",
-            nameHsIdent = HsIdentifier
-              "T1"},
+            nameHsIdent = Identifier "T1"},
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeaderInfo = Just
@@ -35,10 +34,10 @@
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "T1",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_T1"},
             macroType = TypePrim
@@ -82,7 +81,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Storable,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T1",
       deriveInstanceComment =
@@ -92,7 +91,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T1",
       deriveInstanceComment =
@@ -102,7 +101,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Ord,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T1",
       deriveInstanceComment =
@@ -112,7 +111,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Read,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T1",
       deriveInstanceComment =
@@ -122,7 +121,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T1",
       deriveInstanceComment =
@@ -132,7 +131,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Enum,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T1",
       deriveInstanceComment =
@@ -142,7 +141,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Ix,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T1",
       deriveInstanceComment =
@@ -152,7 +151,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bounded,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T1",
       deriveInstanceComment =
@@ -162,7 +161,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T1",
       deriveInstanceComment =
@@ -173,7 +172,7 @@
       DeriveNewtype,
       deriveInstanceClass =
       FiniteBits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T1",
       deriveInstanceComment =
@@ -183,7 +182,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Integral,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T1",
       deriveInstanceComment =
@@ -193,7 +192,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Num,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T1",
       deriveInstanceComment =
@@ -203,25 +202,25 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Real,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T1",
       deriveInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "T2",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "T2",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_T2",
         fieldType = HsTypRef
-          (HsName "@NsTypeConstr" "T1"),
+          (Name "@NsTypeConstr" "T1"),
         fieldOrigin = GeneratedField,
         fieldComment = Nothing},
       newtypeOrigin = Decl {
@@ -230,8 +229,7 @@
           "macro_typedef_scope.h:5:12",
           declId = NamePair {
             nameC = Name "T2",
-            nameHsIdent = HsIdentifier
-              "T2"},
+            nameHsIdent = Identifier "T2"},
           declOrigin = NameOriginInSource,
           declAliases = [Name "T4"],
           declHeaderInfo = Just
@@ -244,16 +242,16 @@
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "T2",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_T2"},
             typedefType = TypeMacroTypedef
               NamePair {
                 nameC = Name "T1",
-                nameHsIdent = HsIdentifier "T1"}
+                nameHsIdent = Identifier "T1"}
               NameOriginInSource},
         declSpec = DeclSpec
           TypeSpec {
@@ -294,7 +292,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Storable,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T2",
       deriveInstanceComment =
@@ -304,7 +302,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T2",
       deriveInstanceComment =
@@ -314,7 +312,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Ord,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T2",
       deriveInstanceComment =
@@ -324,7 +322,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Read,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T2",
       deriveInstanceComment =
@@ -334,7 +332,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T2",
       deriveInstanceComment =
@@ -344,7 +342,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Enum,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T2",
       deriveInstanceComment =
@@ -354,7 +352,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Ix,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T2",
       deriveInstanceComment =
@@ -364,7 +362,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bounded,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T2",
       deriveInstanceComment =
@@ -374,7 +372,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T2",
       deriveInstanceComment =
@@ -385,7 +383,7 @@
       DeriveNewtype,
       deriveInstanceClass =
       FiniteBits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T2",
       deriveInstanceComment =
@@ -395,7 +393,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Integral,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T2",
       deriveInstanceComment =
@@ -405,7 +403,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Num,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T2",
       deriveInstanceComment =
@@ -415,25 +413,25 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Real,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T2",
       deriveInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "T3",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "T3",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_T3",
         fieldType = HsTypRef
-          (HsName "@NsTypeConstr" "T2"),
+          (Name "@NsTypeConstr" "T2"),
         fieldOrigin = GeneratedField,
         fieldComment = Nothing},
       newtypeOrigin = Decl {
@@ -442,8 +440,7 @@
           "macro_typedef_scope.h:6:9",
           declId = NamePair {
             nameC = Name "T3",
-            nameHsIdent = HsIdentifier
-              "T3"},
+            nameHsIdent = Identifier "T3"},
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeaderInfo = Just
@@ -456,17 +453,17 @@
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "T3",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_T3"},
             macroType = TypeTypedef
               (TypedefRegular
                 NamePair {
                   nameC = Name "T2",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "T2"})},
         declSpec = DeclSpec
           TypeSpec {
@@ -507,7 +504,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Storable,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T3",
       deriveInstanceComment =
@@ -517,7 +514,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T3",
       deriveInstanceComment =
@@ -527,7 +524,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Ord,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T3",
       deriveInstanceComment =
@@ -537,7 +534,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Read,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T3",
       deriveInstanceComment =
@@ -547,7 +544,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T3",
       deriveInstanceComment =
@@ -557,7 +554,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Enum,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T3",
       deriveInstanceComment =
@@ -567,7 +564,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Ix,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T3",
       deriveInstanceComment =
@@ -577,7 +574,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bounded,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T3",
       deriveInstanceComment =
@@ -587,7 +584,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T3",
       deriveInstanceComment =
@@ -598,7 +595,7 @@
       DeriveNewtype,
       deriveInstanceClass =
       FiniteBits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T3",
       deriveInstanceComment =
@@ -608,7 +605,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Integral,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T3",
       deriveInstanceComment =
@@ -618,7 +615,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Num,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T3",
       deriveInstanceComment =
@@ -628,25 +625,25 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Real,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T3",
       deriveInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "T4",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "T4",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_T4",
         fieldType = HsTypRef
-          (HsName "@NsTypeConstr" "T3"),
+          (Name "@NsTypeConstr" "T3"),
         fieldOrigin = GeneratedField,
         fieldComment = Nothing},
       newtypeOrigin = Decl {
@@ -655,8 +652,7 @@
           "macro_typedef_scope.h:7:12",
           declId = NamePair {
             nameC = Name "T4",
-            nameHsIdent = HsIdentifier
-              "T4"},
+            nameHsIdent = Identifier "T4"},
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeaderInfo = Just
@@ -669,16 +665,16 @@
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "T4",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_T4"},
             typedefType = TypeMacroTypedef
               NamePair {
                 nameC = Name "T3",
-                nameHsIdent = HsIdentifier "T3"}
+                nameHsIdent = Identifier "T3"}
               NameOriginInSource},
         declSpec = DeclSpec
           TypeSpec {
@@ -719,7 +715,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Storable,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T4",
       deriveInstanceComment =
@@ -729,7 +725,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T4",
       deriveInstanceComment =
@@ -739,7 +735,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Ord,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T4",
       deriveInstanceComment =
@@ -749,7 +745,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Read,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T4",
       deriveInstanceComment =
@@ -759,7 +755,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T4",
       deriveInstanceComment =
@@ -769,7 +765,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Enum,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T4",
       deriveInstanceComment =
@@ -779,7 +775,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Ix,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T4",
       deriveInstanceComment =
@@ -789,7 +785,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bounded,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T4",
       deriveInstanceComment =
@@ -799,7 +795,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T4",
       deriveInstanceComment =
@@ -810,7 +806,7 @@
       DeriveNewtype,
       deriveInstanceClass =
       FiniteBits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T4",
       deriveInstanceComment =
@@ -820,7 +816,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Integral,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T4",
       deriveInstanceComment =
@@ -830,7 +826,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Num,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T4",
       deriveInstanceComment =
@@ -840,7 +836,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Real,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T4",
       deriveInstanceComment =

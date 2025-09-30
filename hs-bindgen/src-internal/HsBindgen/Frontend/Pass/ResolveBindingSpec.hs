@@ -27,7 +27,7 @@ import HsBindgen.Frontend.Pass.NameAnon.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass
 import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Imports
-import HsBindgen.Language.Haskell
+import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Monad (mapMaybeM)
 
 {-------------------------------------------------------------------------------
@@ -448,7 +448,7 @@ resolveExtBinding cQualName declPaths  = do
     MEnv{envExtSpec} <- RWS.ask
     case BindingSpec.lookupTypeSpec cQualName declPaths envExtSpec of
       Just (BindingSpec.Require typeSpec) ->
-        case getExtHsRef cQualName typeSpec of
+        case getHsExtRef cQualName typeSpec of
           Right ref -> do
             let resolved = ResolvedExtBinding {
                     extCName  = cQualName
@@ -467,15 +467,15 @@ resolveExtBinding cQualName declPaths  = do
       Nothing ->
         return Nothing
 
-getExtHsRef ::
+getHsExtRef ::
      C.QualName
   -> BindingSpec.TypeSpec
-  -> Either (Msg ResolveBindingSpec) ExtHsRef
-getExtHsRef cQualName typeSpec = do
-    extHsRefModule <-
+  -> Either (Msg ResolveBindingSpec) Hs.ExtRef
+getHsExtRef cQualName typeSpec = do
+    extRefModule <-
       maybe (Left (ResolveBindingSpecExtHsRefNoModule cQualName)) Right $
         BindingSpec.typeSpecModule typeSpec
-    extHsRefIdentifier <-
+    extRefIdentifier <-
       maybe (Left (ResolveBindingSpecExtHsRefNoIdentifier cQualName)) Right $
         BindingSpec.typeSpecIdentifier typeSpec
-    return ExtHsRef{extHsRefModule, extHsRefIdentifier}
+    return Hs.ExtRef{extRefModule, extRefIdentifier}

@@ -6,7 +6,7 @@ TranslationUnit {
         declLoc = "flam.h:2:8",
         declId = NamePair {
           nameC = Name "pascal",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Pascal"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -19,7 +19,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "Pascal"),
+            (Name "@NsConstr" "Pascal"),
           structSizeof = 4,
           structAlignment = 4,
           structFields = [
@@ -28,7 +28,7 @@ TranslationUnit {
                 fieldLoc = "flam.h:3:9",
                 fieldName = NamePair {
                   nameC = Name "len",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "pascal_len"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -41,7 +41,7 @@ TranslationUnit {
                 fieldLoc = "flam.h:4:10",
                 fieldName = NamePair {
                   nameC = Name "data",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "pascal_data"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -61,7 +61,7 @@ TranslationUnit {
         declLoc = "flam.h:10:2",
         declId = NamePair {
           nameC = Name "foo_bar",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Foo_bar"},
         declOrigin = NameOriginGenerated
           (AnonId "flam.h:10:2"),
@@ -75,7 +75,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "Foo_bar"),
+            (Name "@NsConstr" "Foo_bar"),
           structSizeof = 8,
           structAlignment = 4,
           structFields = [
@@ -84,7 +84,7 @@ TranslationUnit {
                 fieldLoc = "flam.h:11:7",
                 fieldName = NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "foo_bar_x"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -96,7 +96,7 @@ TranslationUnit {
                 fieldLoc = "flam.h:12:7",
                 fieldName = NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "foo_bar_y"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -115,8 +115,7 @@ TranslationUnit {
         declLoc = "flam.h:8:8",
         declId = NamePair {
           nameC = Name "foo",
-          nameHsIdent = HsIdentifier
-            "Foo"},
+          nameHsIdent = Identifier "Foo"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -128,7 +127,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "Foo"),
+            (Name "@NsConstr" "Foo"),
           structSizeof = 4,
           structAlignment = 4,
           structFields = [
@@ -137,7 +136,7 @@ TranslationUnit {
                 fieldLoc = "flam.h:9:6",
                 fieldName = NamePair {
                   nameC = Name "len",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "foo_len"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -150,13 +149,13 @@ TranslationUnit {
                 fieldLoc = "flam.h:13:4",
                 fieldName = NamePair {
                   nameC = Name "bar",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "foo_bar"},
                 fieldComment = Nothing},
               structFieldType = TypeStruct
                 NamePair {
                   nameC = Name "foo_bar",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Foo_bar"}
                 (NameOriginGenerated
                   (AnonId "flam.h:10:2")),
@@ -173,7 +172,7 @@ TranslationUnit {
         declLoc = "flam.h:17:8",
         declId = NamePair {
           nameC = Name "diff",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Diff"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -186,7 +185,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "Diff"),
+            (Name "@NsConstr" "Diff"),
           structSizeof = 16,
           structAlignment = 8,
           structFields = [
@@ -195,7 +194,7 @@ TranslationUnit {
                 fieldLoc = "flam.h:18:7",
                 fieldName = NamePair {
                   nameC = Name "first",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "diff_first"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -207,7 +206,7 @@ TranslationUnit {
                 fieldLoc = "flam.h:19:7",
                 fieldName = NamePair {
                   nameC = Name "second",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "diff_second"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -222,7 +221,7 @@ TranslationUnit {
                 fieldLoc = "flam.h:20:7",
                 fieldName = NamePair {
                   nameC = Name "flam",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "diff_flam"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -243,7 +242,7 @@ TranslationUnit {
         declLoc = "flam.h:26:8",
         declId = NamePair {
           nameC = Name "triplets",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Triplets"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -267,7 +266,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "Triplets"),
+            (Name "@NsConstr" "Triplets"),
           structSizeof = 4,
           structAlignment = 4,
           structFields = [
@@ -276,7 +275,7 @@ TranslationUnit {
                 fieldLoc = "flam.h:27:7",
                 fieldName = NamePair {
                   nameC = Name "len",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "triplets_len"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -289,7 +288,7 @@ TranslationUnit {
                 fieldLoc = "flam.h:28:7",
                 fieldName = NamePair {
                   nameC = Name "flam",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "triplets_flam"},
                 fieldComment = Nothing},
               structFieldType = TypeConstArray

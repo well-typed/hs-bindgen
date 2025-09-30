@@ -5,7 +5,7 @@ TranslationUnit {
         declLoc = "typedefs.h:1:13",
         declId = NamePair {
           nameC = Name "myint",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Myint"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -18,10 +18,10 @@ TranslationUnit {
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "Myint",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_Myint"},
           typedefType = TypePrim
@@ -37,7 +37,7 @@ TranslationUnit {
         declLoc = "typedefs.h:2:15",
         declId = NamePair {
           nameC = Name "intptr",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Intptr"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -50,10 +50,10 @@ TranslationUnit {
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "Intptr",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_Intptr"},
           typedefType = TypePointer

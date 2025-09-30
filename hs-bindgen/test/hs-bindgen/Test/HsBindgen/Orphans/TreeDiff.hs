@@ -17,14 +17,14 @@ import C.Expr.Typecheck.Expr qualified as CExpr.DSL
 import C.Type qualified as CExpr.Runtime
 
 import Clang.Enum.Simple
-import Clang.HighLevel.Documentation qualified as C
+import Clang.HighLevel.Documentation qualified as CDoc
 import Clang.HighLevel.Types qualified as C
 import Clang.Paths qualified as Paths
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type qualified as HsType
 import HsBindgen.Backend.Hs.CallConv qualified as Hs
-import HsBindgen.Backend.Hs.Haddock.Documentation qualified as Hs
+import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.BindingSpec qualified as BindingSpec
@@ -58,11 +58,12 @@ instance ToExpr C.AnonId
 instance ToExpr C.CheckedMacro
 instance ToExpr C.CheckedMacroExpr
 instance ToExpr C.CheckedMacroType
-instance ToExpr C.CXCommentParamPassDirection
-instance ToExpr ref => ToExpr (C.CommentInlineContent ref)
-instance ToExpr C.CXCommentInlineCommandRenderKind
-instance ToExpr ref => ToExpr (C.CommentBlockContent ref)
-instance ToExpr ref => ToExpr (C.Comment ref)
+instance ToExpr CDoc.CXCommentParamPassDirection
+instance ToExpr ref => ToExpr (CDoc.CommentInlineContent ref)
+instance ToExpr CDoc.CXCommentInlineCommandRenderKind
+instance ToExpr ref => ToExpr (CDoc.CommentBlockContent ref)
+instance ToExpr ref => ToExpr (CDoc.Comment ref)
+instance ToExpr C.CommentRef
 instance ToExpr C.Decl
 instance ToExpr C.DeclInfo
 instance ToExpr C.FieldInfo
@@ -87,7 +88,6 @@ instance ToExpr C.PrimType
 instance ToExpr C.QualName
 instance ToExpr C.RecordNames
 instance ToExpr C.ResolvedExtBinding
-instance ToExpr C.Reference
 instance ToExpr C.Struct
 instance ToExpr C.StructField
 instance ToExpr C.TagKind
@@ -117,23 +117,22 @@ instance ToExpr C.SingleLoc where
     let filename = FilePath.takeFileName $ Paths.getSourcePath path
     in  filename ++ ":" ++ show line ++ ":" ++ show column
 
-instance ToExpr Hs.HsModuleName
-instance ToExpr Hs.HsIdentifier
-instance ToExpr Hs.HsTypeClass
-instance ToExpr Hs.ExtHsRef
+instance ToExpr Hs.ExtRef
+instance ToExpr Hs.Identifier
+instance ToExpr Hs.ModuleName
+instance ToExpr Hs.TypeClass
 
 instance ToExpr Hs.UserlandCapiWrapper
 instance ToExpr Hs.CallConv
 instance ToExpr Hs.ImportStyle
 
-instance ToExpr Hs.Comment where
+instance ToExpr HsDoc.Comment where
 
-instance ToExpr Hs.ListType
-instance ToExpr Hs.HeaderLevel
-instance ToExpr Hs.CommentBlockContent
-instance ToExpr Hs.CommentInlineContent
-instance ToExpr Hs.CommentMeta
-
+instance ToExpr HsDoc.ListType
+instance ToExpr HsDoc.HeaderLevel
+instance ToExpr HsDoc.CommentBlockContent
+instance ToExpr HsDoc.CommentInlineContent
+instance ToExpr HsDoc.CommentMeta
 
 instance ToExpr CExpr.Runtime.IntegralType where
 instance ToExpr CExpr.Runtime.CharLikeType where
@@ -204,10 +203,10 @@ instance ToExpr Hs.Decl where
 instance ToExpr a => ToExpr (Vec n a) where
   toExpr = Expr.Lst . map toExpr . Vec.toList
 
-instance Hs.SingNamespace ns => ToExpr (Hs.HsName ns) where
-  toExpr name = Expr.App "HsName" [
+instance Hs.SingNamespace ns => ToExpr (Hs.Name ns) where
+  toExpr name = Expr.App "Name" [
       toExpr ('@' : show (Hs.namespaceOf (Hs.singNamespace @ns)))
-    , toExpr (Hs.getHsName name)
+    , toExpr (Hs.getName name)
     ]
 
 instance ToExpr Hs.InstanceDecl where

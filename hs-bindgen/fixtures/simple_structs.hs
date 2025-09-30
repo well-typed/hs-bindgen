@@ -1,15 +1,15 @@
 [
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "S1",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "S1",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "s1_a",
           fieldType = HsPrimType
@@ -21,7 +21,7 @@
                 "simple_structs.h:3:9",
                 fieldName = NamePair {
                   nameC = Name "a",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "s1_a"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -42,7 +42,7 @@
                   "simple_structs.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "s1_b",
           fieldType = HsPrimType
@@ -54,7 +54,7 @@
                 "simple_structs.h:4:10",
                 fieldName = NamePair {
                   nameC = Name "b",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "s1_b"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -83,8 +83,7 @@
             "simple_structs.h:2:8",
             declId = NamePair {
               nameC = Name "S1",
-              nameHsIdent = HsIdentifier
-                "S1"},
+              nameHsIdent = Identifier "S1"},
             declOrigin = NameOriginInSource,
             declAliases = [],
             declHeaderInfo = Just
@@ -97,7 +96,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "S1"),
+                (Name "@NsConstr" "S1"),
               structSizeof = 8,
               structAlignment = 4,
               structFields = [
@@ -107,7 +106,7 @@
                     "simple_structs.h:3:9",
                     fieldName = NamePair {
                       nameC = Name "a",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "s1_a"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -120,7 +119,7 @@
                     "simple_structs.h:4:10",
                     fieldName = NamePair {
                       nameC = Name "b",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "s1_b"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -156,15 +155,15 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "S1",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "S1",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "s1_a",
               fieldType = HsPrimType
@@ -176,7 +175,7 @@
                     "simple_structs.h:3:9",
                     fieldName = NamePair {
                       nameC = Name "a",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "s1_a"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -197,7 +196,7 @@
                       "simple_structs.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "s1_b",
               fieldType = HsPrimType
@@ -209,7 +208,7 @@
                     "simple_structs.h:4:10",
                     fieldName = NamePair {
                       nameC = Name "b",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "s1_b"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -238,8 +237,7 @@
                 "simple_structs.h:2:8",
                 declId = NamePair {
                   nameC = Name "S1",
-                  nameHsIdent = HsIdentifier
-                    "S1"},
+                  nameHsIdent = Identifier "S1"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
                 declHeaderInfo = Just
@@ -252,7 +250,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "S1"),
+                    (Name "@NsConstr" "S1"),
                   structSizeof = 8,
                   structAlignment = 4,
                   structFields = [
@@ -262,7 +260,7 @@
                         "simple_structs.h:3:9",
                         fieldName = NamePair {
                           nameC = Name "a",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "s1_a"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -275,7 +273,7 @@
                         "simple_structs.h:4:10",
                         fieldName = NamePair {
                           nameC = Name "b",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "s1_b"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -314,15 +312,15 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "S1",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "S1",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "s1_a",
                       fieldType = HsPrimType
@@ -334,7 +332,7 @@
                             "simple_structs.h:3:9",
                             fieldName = NamePair {
                               nameC = Name "a",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "s1_a"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -355,7 +353,7 @@
                               "simple_structs.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "s1_b",
                       fieldType = HsPrimType
@@ -367,7 +365,7 @@
                             "simple_structs.h:4:10",
                             fieldName = NamePair {
                               nameC = Name "b",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "s1_b"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -396,8 +394,7 @@
                         "simple_structs.h:2:8",
                         declId = NamePair {
                           nameC = Name "S1",
-                          nameHsIdent = HsIdentifier
-                            "S1"},
+                          nameHsIdent = Identifier "S1"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
                         declHeaderInfo = Just
@@ -410,7 +407,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "S1"),
+                            (Name "@NsConstr" "S1"),
                           structSizeof = 8,
                           structAlignment = 4,
                           structFields = [
@@ -420,7 +417,7 @@
                                 "simple_structs.h:3:9",
                                 fieldName = NamePair {
                                   nameC = Name "a",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "s1_a"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -433,7 +430,7 @@
                                 "simple_structs.h:4:10",
                                 fieldName = NamePair {
                                   nameC = Name "b",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "s1_b"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -474,15 +471,15 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "S1",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "S1",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "s1_a",
                       fieldType = HsPrimType
@@ -494,7 +491,7 @@
                             "simple_structs.h:3:9",
                             fieldName = NamePair {
                               nameC = Name "a",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "s1_a"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -515,7 +512,7 @@
                               "simple_structs.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "s1_b",
                       fieldType = HsPrimType
@@ -527,7 +524,7 @@
                             "simple_structs.h:4:10",
                             fieldName = NamePair {
                               nameC = Name "b",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "s1_b"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -556,8 +553,7 @@
                         "simple_structs.h:2:8",
                         declId = NamePair {
                           nameC = Name "S1",
-                          nameHsIdent = HsIdentifier
-                            "S1"},
+                          nameHsIdent = Identifier "S1"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
                         declHeaderInfo = Just
@@ -570,7 +566,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "S1"),
+                            (Name "@NsConstr" "S1"),
                           structSizeof = 8,
                           structAlignment = 4,
                           structFields = [
@@ -580,7 +576,7 @@
                                 "simple_structs.h:3:9",
                                 fieldName = NamePair {
                                   nameC = Name "a",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "s1_a"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -593,7 +589,7 @@
                                 "simple_structs.h:4:10",
                                 fieldName = NamePair {
                                   nameC = Name "b",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "s1_b"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -639,7 +635,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "S1",
       deriveInstanceComment =
@@ -649,22 +645,22 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "S1",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "S2_t",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "S2_t",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "s2_t_a",
           fieldType = HsPrimType
@@ -676,7 +672,7 @@
                 "simple_structs.h:9:10",
                 fieldName = NamePair {
                   nameC = Name "a",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "s2_t_a"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -699,7 +695,7 @@
                   "simple_structs.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "s2_t_b",
           fieldType = HsPrimType
@@ -711,7 +707,7 @@
                 "simple_structs.h:10:9",
                 fieldName = NamePair {
                   nameC = Name "b",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "s2_t_b"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -732,7 +728,7 @@
                   "simple_structs.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "s2_t_c",
           fieldType = HsPrimType
@@ -744,7 +740,7 @@
                 "simple_structs.h:11:11",
                 fieldName = NamePair {
                   nameC = Name "c",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "s2_t_c"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -771,7 +767,7 @@
             "simple_structs.h:8:16",
             declId = NamePair {
               nameC = Name "S2_t",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "S2_t"},
             declOrigin =
             NameOriginRenamedFrom
@@ -787,7 +783,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "S2_t"),
+                (Name "@NsConstr" "S2_t"),
               structSizeof = 12,
               structAlignment = 4,
               structFields = [
@@ -797,7 +793,7 @@
                     "simple_structs.h:9:10",
                     fieldName = NamePair {
                       nameC = Name "a",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "s2_t_a"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -812,7 +808,7 @@
                     "simple_structs.h:10:9",
                     fieldName = NamePair {
                       nameC = Name "b",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "s2_t_b"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -825,7 +821,7 @@
                     "simple_structs.h:11:11",
                     fieldName = NamePair {
                       nameC = Name "c",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "s2_t_c"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -859,15 +855,15 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "S2_t",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "S2_t",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "s2_t_a",
               fieldType = HsPrimType
@@ -879,7 +875,7 @@
                     "simple_structs.h:9:10",
                     fieldName = NamePair {
                       nameC = Name "a",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "s2_t_a"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -902,7 +898,7 @@
                       "simple_structs.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "s2_t_b",
               fieldType = HsPrimType
@@ -914,7 +910,7 @@
                     "simple_structs.h:10:9",
                     fieldName = NamePair {
                       nameC = Name "b",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "s2_t_b"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -935,7 +931,7 @@
                       "simple_structs.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "s2_t_c",
               fieldType = HsPrimType
@@ -947,7 +943,7 @@
                     "simple_structs.h:11:11",
                     fieldName = NamePair {
                       nameC = Name "c",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "s2_t_c"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -974,7 +970,7 @@
                 "simple_structs.h:8:16",
                 declId = NamePair {
                   nameC = Name "S2_t",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "S2_t"},
                 declOrigin =
                 NameOriginRenamedFrom
@@ -990,7 +986,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "S2_t"),
+                    (Name "@NsConstr" "S2_t"),
                   structSizeof = 12,
                   structAlignment = 4,
                   structFields = [
@@ -1000,7 +996,7 @@
                         "simple_structs.h:9:10",
                         fieldName = NamePair {
                           nameC = Name "a",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "s2_t_a"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -1015,7 +1011,7 @@
                         "simple_structs.h:10:9",
                         fieldName = NamePair {
                           nameC = Name "b",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "s2_t_b"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -1028,7 +1024,7 @@
                         "simple_structs.h:11:11",
                         fieldName = NamePair {
                           nameC = Name "c",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "s2_t_c"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -1065,15 +1061,15 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "S2_t",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "S2_t",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "s2_t_a",
                       fieldType = HsPrimType
@@ -1085,7 +1081,7 @@
                             "simple_structs.h:9:10",
                             fieldName = NamePair {
                               nameC = Name "a",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "s2_t_a"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -1108,7 +1104,7 @@
                               "simple_structs.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "s2_t_b",
                       fieldType = HsPrimType
@@ -1120,7 +1116,7 @@
                             "simple_structs.h:10:9",
                             fieldName = NamePair {
                               nameC = Name "b",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "s2_t_b"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -1141,7 +1137,7 @@
                               "simple_structs.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "s2_t_c",
                       fieldType = HsPrimType
@@ -1153,7 +1149,7 @@
                             "simple_structs.h:11:11",
                             fieldName = NamePair {
                               nameC = Name "c",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "s2_t_c"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -1180,7 +1176,7 @@
                         "simple_structs.h:8:16",
                         declId = NamePair {
                           nameC = Name "S2_t",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "S2_t"},
                         declOrigin =
                         NameOriginRenamedFrom
@@ -1196,7 +1192,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "S2_t"),
+                            (Name "@NsConstr" "S2_t"),
                           structSizeof = 12,
                           structAlignment = 4,
                           structFields = [
@@ -1206,7 +1202,7 @@
                                 "simple_structs.h:9:10",
                                 fieldName = NamePair {
                                   nameC = Name "a",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "s2_t_a"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -1221,7 +1217,7 @@
                                 "simple_structs.h:10:9",
                                 fieldName = NamePair {
                                   nameC = Name "b",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "s2_t_b"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -1234,7 +1230,7 @@
                                 "simple_structs.h:11:11",
                                 fieldName = NamePair {
                                   nameC = Name "c",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "s2_t_c"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -1274,15 +1270,15 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "S2_t",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "S2_t",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "s2_t_a",
                       fieldType = HsPrimType
@@ -1294,7 +1290,7 @@
                             "simple_structs.h:9:10",
                             fieldName = NamePair {
                               nameC = Name "a",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "s2_t_a"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -1317,7 +1313,7 @@
                               "simple_structs.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "s2_t_b",
                       fieldType = HsPrimType
@@ -1329,7 +1325,7 @@
                             "simple_structs.h:10:9",
                             fieldName = NamePair {
                               nameC = Name "b",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "s2_t_b"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -1350,7 +1346,7 @@
                               "simple_structs.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "s2_t_c",
                       fieldType = HsPrimType
@@ -1362,7 +1358,7 @@
                             "simple_structs.h:11:11",
                             fieldName = NamePair {
                               nameC = Name "c",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "s2_t_c"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -1389,7 +1385,7 @@
                         "simple_structs.h:8:16",
                         declId = NamePair {
                           nameC = Name "S2_t",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "S2_t"},
                         declOrigin =
                         NameOriginRenamedFrom
@@ -1405,7 +1401,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "S2_t"),
+                            (Name "@NsConstr" "S2_t"),
                           structSizeof = 12,
                           structAlignment = 4,
                           structFields = [
@@ -1415,7 +1411,7 @@
                                 "simple_structs.h:9:10",
                                 fieldName = NamePair {
                                   nameC = Name "a",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "s2_t_a"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -1430,7 +1426,7 @@
                                 "simple_structs.h:10:9",
                                 fieldName = NamePair {
                                   nameC = Name "b",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "s2_t_b"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -1443,7 +1439,7 @@
                                 "simple_structs.h:11:11",
                                 fieldName = NamePair {
                                   nameC = Name "c",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "s2_t_c"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -1488,7 +1484,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "S2_t",
       deriveInstanceComment =
@@ -1498,22 +1494,22 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "S2_t",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "S3_t",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "S3_t",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "s3_t_a",
           fieldType = HsPrimType
@@ -1525,7 +1521,7 @@
                 "simple_structs.h:16:10",
                 fieldName = NamePair {
                   nameC = Name "a",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "s3_t_a"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -1554,7 +1550,7 @@
             "simple_structs.h:15:9",
             declId = NamePair {
               nameC = Name "S3_t",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "S3_t"},
             declOrigin = NameOriginGenerated
               (AnonId
@@ -1570,7 +1566,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "S3_t"),
+                (Name "@NsConstr" "S3_t"),
               structSizeof = 1,
               structAlignment = 1,
               structFields = [
@@ -1580,7 +1576,7 @@
                     "simple_structs.h:16:10",
                     fieldName = NamePair {
                       nameC = Name "a",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "s3_t_a"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1616,15 +1612,15 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "S3_t",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "S3_t",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "s3_t_a",
               fieldType = HsPrimType
@@ -1636,7 +1632,7 @@
                     "simple_structs.h:16:10",
                     fieldName = NamePair {
                       nameC = Name "a",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "s3_t_a"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1665,7 +1661,7 @@
                 "simple_structs.h:15:9",
                 declId = NamePair {
                   nameC = Name "S3_t",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "S3_t"},
                 declOrigin = NameOriginGenerated
                   (AnonId
@@ -1681,7 +1677,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "S3_t"),
+                    (Name "@NsConstr" "S3_t"),
                   structSizeof = 1,
                   structAlignment = 1,
                   structFields = [
@@ -1691,7 +1687,7 @@
                         "simple_structs.h:16:10",
                         fieldName = NamePair {
                           nameC = Name "a",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "s3_t_a"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -1730,15 +1726,15 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "S3_t",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "S3_t",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "s3_t_a",
                       fieldType = HsPrimType
@@ -1750,7 +1746,7 @@
                             "simple_structs.h:16:10",
                             fieldName = NamePair {
                               nameC = Name "a",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "s3_t_a"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -1779,7 +1775,7 @@
                         "simple_structs.h:15:9",
                         declId = NamePair {
                           nameC = Name "S3_t",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "S3_t"},
                         declOrigin = NameOriginGenerated
                           (AnonId
@@ -1795,7 +1791,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "S3_t"),
+                            (Name "@NsConstr" "S3_t"),
                           structSizeof = 1,
                           structAlignment = 1,
                           structFields = [
@@ -1805,7 +1801,7 @@
                                 "simple_structs.h:16:10",
                                 fieldName = NamePair {
                                   nameC = Name "a",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "s3_t_a"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -1844,15 +1840,15 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "S3_t",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "S3_t",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "s3_t_a",
                       fieldType = HsPrimType
@@ -1864,7 +1860,7 @@
                             "simple_structs.h:16:10",
                             fieldName = NamePair {
                               nameC = Name "a",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "s3_t_a"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -1893,7 +1889,7 @@
                         "simple_structs.h:15:9",
                         declId = NamePair {
                           nameC = Name "S3_t",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "S3_t"},
                         declOrigin = NameOriginGenerated
                           (AnonId
@@ -1909,7 +1905,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "S3_t"),
+                            (Name "@NsConstr" "S3_t"),
                           structSizeof = 1,
                           structAlignment = 1,
                           structFields = [
@@ -1919,7 +1915,7 @@
                                 "simple_structs.h:16:10",
                                 fieldName = NamePair {
                                   nameC = Name "a",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "s3_t_a"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -1964,7 +1960,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "S3_t",
       deriveInstanceComment =
@@ -1974,22 +1970,22 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "S3_t",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "S4",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "S4",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "s4_b",
           fieldType = HsPrimType
@@ -2001,7 +1997,7 @@
                 "simple_structs.h:20:10",
                 fieldName = NamePair {
                   nameC = Name "b",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "s4_b"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -2024,7 +2020,7 @@
                   "simple_structs.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "s4_a",
           fieldType = HsPrimType
@@ -2036,7 +2032,7 @@
                 "simple_structs.h:21:9",
                 fieldName = NamePair {
                   nameC = Name "a",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "s4_a"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -2057,7 +2053,7 @@
                   "simple_structs.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "s4_c",
           fieldType = HsPtr
@@ -2069,7 +2065,7 @@
                 "simple_structs.h:22:10",
                 fieldName = NamePair {
                   nameC = Name "c",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "s4_c"},
                 fieldComment = Nothing},
               structFieldType = TypePointer
@@ -2097,8 +2093,7 @@
             "simple_structs.h:19:8",
             declId = NamePair {
               nameC = Name "S4",
-              nameHsIdent = HsIdentifier
-                "S4"},
+              nameHsIdent = Identifier "S4"},
             declOrigin = NameOriginInSource,
             declAliases = [],
             declHeaderInfo = Just
@@ -2111,7 +2106,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "S4"),
+                (Name "@NsConstr" "S4"),
               structSizeof = 16,
               structAlignment = 8,
               structFields = [
@@ -2121,7 +2116,7 @@
                     "simple_structs.h:20:10",
                     fieldName = NamePair {
                       nameC = Name "b",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "s4_b"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -2136,7 +2131,7 @@
                     "simple_structs.h:21:9",
                     fieldName = NamePair {
                       nameC = Name "a",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "s4_a"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -2149,7 +2144,7 @@
                     "simple_structs.h:22:10",
                     fieldName = NamePair {
                       nameC = Name "c",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "s4_c"},
                     fieldComment = Nothing},
                   structFieldType = TypePointer
@@ -2184,15 +2179,15 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "S4",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "S4",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "s4_b",
               fieldType = HsPrimType
@@ -2204,7 +2199,7 @@
                     "simple_structs.h:20:10",
                     fieldName = NamePair {
                       nameC = Name "b",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "s4_b"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -2227,7 +2222,7 @@
                       "simple_structs.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "s4_a",
               fieldType = HsPrimType
@@ -2239,7 +2234,7 @@
                     "simple_structs.h:21:9",
                     fieldName = NamePair {
                       nameC = Name "a",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "s4_a"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -2260,7 +2255,7 @@
                       "simple_structs.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "s4_c",
               fieldType = HsPtr
@@ -2272,7 +2267,7 @@
                     "simple_structs.h:22:10",
                     fieldName = NamePair {
                       nameC = Name "c",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "s4_c"},
                     fieldComment = Nothing},
                   structFieldType = TypePointer
@@ -2300,8 +2295,7 @@
                 "simple_structs.h:19:8",
                 declId = NamePair {
                   nameC = Name "S4",
-                  nameHsIdent = HsIdentifier
-                    "S4"},
+                  nameHsIdent = Identifier "S4"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
                 declHeaderInfo = Just
@@ -2314,7 +2308,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "S4"),
+                    (Name "@NsConstr" "S4"),
                   structSizeof = 16,
                   structAlignment = 8,
                   structFields = [
@@ -2324,7 +2318,7 @@
                         "simple_structs.h:20:10",
                         fieldName = NamePair {
                           nameC = Name "b",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "s4_b"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -2339,7 +2333,7 @@
                         "simple_structs.h:21:9",
                         fieldName = NamePair {
                           nameC = Name "a",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "s4_a"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -2352,7 +2346,7 @@
                         "simple_structs.h:22:10",
                         fieldName = NamePair {
                           nameC = Name "c",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "s4_c"},
                         fieldComment = Nothing},
                       structFieldType = TypePointer
@@ -2390,15 +2384,15 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "S4",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "S4",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "s4_b",
                       fieldType = HsPrimType
@@ -2410,7 +2404,7 @@
                             "simple_structs.h:20:10",
                             fieldName = NamePair {
                               nameC = Name "b",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "s4_b"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -2433,7 +2427,7 @@
                               "simple_structs.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "s4_a",
                       fieldType = HsPrimType
@@ -2445,7 +2439,7 @@
                             "simple_structs.h:21:9",
                             fieldName = NamePair {
                               nameC = Name "a",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "s4_a"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -2466,7 +2460,7 @@
                               "simple_structs.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "s4_c",
                       fieldType = HsPtr
@@ -2478,7 +2472,7 @@
                             "simple_structs.h:22:10",
                             fieldName = NamePair {
                               nameC = Name "c",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "s4_c"},
                             fieldComment = Nothing},
                           structFieldType = TypePointer
@@ -2506,8 +2500,7 @@
                         "simple_structs.h:19:8",
                         declId = NamePair {
                           nameC = Name "S4",
-                          nameHsIdent = HsIdentifier
-                            "S4"},
+                          nameHsIdent = Identifier "S4"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
                         declHeaderInfo = Just
@@ -2520,7 +2513,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "S4"),
+                            (Name "@NsConstr" "S4"),
                           structSizeof = 16,
                           structAlignment = 8,
                           structFields = [
@@ -2530,7 +2523,7 @@
                                 "simple_structs.h:20:10",
                                 fieldName = NamePair {
                                   nameC = Name "b",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "s4_b"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -2545,7 +2538,7 @@
                                 "simple_structs.h:21:9",
                                 fieldName = NamePair {
                                   nameC = Name "a",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "s4_a"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -2558,7 +2551,7 @@
                                 "simple_structs.h:22:10",
                                 fieldName = NamePair {
                                   nameC = Name "c",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "s4_c"},
                                 fieldComment = Nothing},
                               structFieldType = TypePointer
@@ -2599,15 +2592,15 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "S4",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "S4",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "s4_b",
                       fieldType = HsPrimType
@@ -2619,7 +2612,7 @@
                             "simple_structs.h:20:10",
                             fieldName = NamePair {
                               nameC = Name "b",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "s4_b"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -2642,7 +2635,7 @@
                               "simple_structs.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "s4_a",
                       fieldType = HsPrimType
@@ -2654,7 +2647,7 @@
                             "simple_structs.h:21:9",
                             fieldName = NamePair {
                               nameC = Name "a",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "s4_a"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -2675,7 +2668,7 @@
                               "simple_structs.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "s4_c",
                       fieldType = HsPtr
@@ -2687,7 +2680,7 @@
                             "simple_structs.h:22:10",
                             fieldName = NamePair {
                               nameC = Name "c",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "s4_c"},
                             fieldComment = Nothing},
                           structFieldType = TypePointer
@@ -2715,8 +2708,7 @@
                         "simple_structs.h:19:8",
                         declId = NamePair {
                           nameC = Name "S4",
-                          nameHsIdent = HsIdentifier
-                            "S4"},
+                          nameHsIdent = Identifier "S4"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
                         declHeaderInfo = Just
@@ -2729,7 +2721,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "S4"),
+                            (Name "@NsConstr" "S4"),
                           structSizeof = 16,
                           structAlignment = 8,
                           structFields = [
@@ -2739,7 +2731,7 @@
                                 "simple_structs.h:20:10",
                                 fieldName = NamePair {
                                   nameC = Name "b",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "s4_b"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -2754,7 +2746,7 @@
                                 "simple_structs.h:21:9",
                                 fieldName = NamePair {
                                   nameC = Name "a",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "s4_a"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -2767,7 +2759,7 @@
                                 "simple_structs.h:22:10",
                                 fieldName = NamePair {
                                   nameC = Name "c",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "s4_c"},
                                 fieldComment = Nothing},
                               structFieldType = TypePointer
@@ -2813,7 +2805,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "S4",
       deriveInstanceComment =
@@ -2823,22 +2815,22 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "S4",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "S5",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "S5",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "s5_a",
           fieldType = HsPrimType
@@ -2850,7 +2842,7 @@
                 "simple_structs.h:27:10",
                 fieldName = NamePair {
                   nameC = Name "a",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "s5_a"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -2873,7 +2865,7 @@
                   "simple_structs.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "s5_b",
           fieldType = HsPrimType
@@ -2885,7 +2877,7 @@
                 "simple_structs.h:28:9",
                 fieldName = NamePair {
                   nameC = Name "b",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "s5_b"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -2912,8 +2904,7 @@
             "simple_structs.h:26:16",
             declId = NamePair {
               nameC = Name "S5",
-              nameHsIdent = HsIdentifier
-                "S5"},
+              nameHsIdent = Identifier "S5"},
             declOrigin = NameOriginInSource,
             declAliases = [Name "S5"],
             declHeaderInfo = Just
@@ -2926,7 +2917,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "S5"),
+                (Name "@NsConstr" "S5"),
               structSizeof = 8,
               structAlignment = 4,
               structFields = [
@@ -2936,7 +2927,7 @@
                     "simple_structs.h:27:10",
                     fieldName = NamePair {
                       nameC = Name "a",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "s5_a"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -2951,7 +2942,7 @@
                     "simple_structs.h:28:9",
                     fieldName = NamePair {
                       nameC = Name "b",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "s5_b"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -2985,15 +2976,15 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "S5",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "S5",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "s5_a",
               fieldType = HsPrimType
@@ -3005,7 +2996,7 @@
                     "simple_structs.h:27:10",
                     fieldName = NamePair {
                       nameC = Name "a",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "s5_a"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -3028,7 +3019,7 @@
                       "simple_structs.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "s5_b",
               fieldType = HsPrimType
@@ -3040,7 +3031,7 @@
                     "simple_structs.h:28:9",
                     fieldName = NamePair {
                       nameC = Name "b",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "s5_b"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -3067,8 +3058,7 @@
                 "simple_structs.h:26:16",
                 declId = NamePair {
                   nameC = Name "S5",
-                  nameHsIdent = HsIdentifier
-                    "S5"},
+                  nameHsIdent = Identifier "S5"},
                 declOrigin = NameOriginInSource,
                 declAliases = [Name "S5"],
                 declHeaderInfo = Just
@@ -3081,7 +3071,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "S5"),
+                    (Name "@NsConstr" "S5"),
                   structSizeof = 8,
                   structAlignment = 4,
                   structFields = [
@@ -3091,7 +3081,7 @@
                         "simple_structs.h:27:10",
                         fieldName = NamePair {
                           nameC = Name "a",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "s5_a"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -3106,7 +3096,7 @@
                         "simple_structs.h:28:9",
                         fieldName = NamePair {
                           nameC = Name "b",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "s5_b"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -3143,15 +3133,15 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "S5",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "S5",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "s5_a",
                       fieldType = HsPrimType
@@ -3163,7 +3153,7 @@
                             "simple_structs.h:27:10",
                             fieldName = NamePair {
                               nameC = Name "a",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "s5_a"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -3186,7 +3176,7 @@
                               "simple_structs.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "s5_b",
                       fieldType = HsPrimType
@@ -3198,7 +3188,7 @@
                             "simple_structs.h:28:9",
                             fieldName = NamePair {
                               nameC = Name "b",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "s5_b"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -3225,8 +3215,7 @@
                         "simple_structs.h:26:16",
                         declId = NamePair {
                           nameC = Name "S5",
-                          nameHsIdent = HsIdentifier
-                            "S5"},
+                          nameHsIdent = Identifier "S5"},
                         declOrigin = NameOriginInSource,
                         declAliases = [Name "S5"],
                         declHeaderInfo = Just
@@ -3239,7 +3228,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "S5"),
+                            (Name "@NsConstr" "S5"),
                           structSizeof = 8,
                           structAlignment = 4,
                           structFields = [
@@ -3249,7 +3238,7 @@
                                 "simple_structs.h:27:10",
                                 fieldName = NamePair {
                                   nameC = Name "a",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "s5_a"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -3264,7 +3253,7 @@
                                 "simple_structs.h:28:9",
                                 fieldName = NamePair {
                                   nameC = Name "b",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "s5_b"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -3303,15 +3292,15 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "S5",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "S5",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "s5_a",
                       fieldType = HsPrimType
@@ -3323,7 +3312,7 @@
                             "simple_structs.h:27:10",
                             fieldName = NamePair {
                               nameC = Name "a",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "s5_a"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -3346,7 +3335,7 @@
                               "simple_structs.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "s5_b",
                       fieldType = HsPrimType
@@ -3358,7 +3347,7 @@
                             "simple_structs.h:28:9",
                             fieldName = NamePair {
                               nameC = Name "b",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "s5_b"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -3385,8 +3374,7 @@
                         "simple_structs.h:26:16",
                         declId = NamePair {
                           nameC = Name "S5",
-                          nameHsIdent = HsIdentifier
-                            "S5"},
+                          nameHsIdent = Identifier "S5"},
                         declOrigin = NameOriginInSource,
                         declAliases = [Name "S5"],
                         declHeaderInfo = Just
@@ -3399,7 +3387,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "S5"),
+                            (Name "@NsConstr" "S5"),
                           structSizeof = 8,
                           structAlignment = 4,
                           structFields = [
@@ -3409,7 +3397,7 @@
                                 "simple_structs.h:27:10",
                                 fieldName = NamePair {
                                   nameC = Name "a",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "s5_a"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -3424,7 +3412,7 @@
                                 "simple_structs.h:28:9",
                                 fieldName = NamePair {
                                   nameC = Name "b",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "s5_b"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -3468,7 +3456,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "S5",
       deriveInstanceComment =
@@ -3478,22 +3466,22 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "S5",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "S6",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "S6",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "s6_a",
           fieldType = HsPrimType
@@ -3505,7 +3493,7 @@
                 "simple_structs.h:31:18",
                 fieldName = NamePair {
                   nameC = Name "a",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "s6_a"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -3528,7 +3516,7 @@
                   "simple_structs.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "s6_b",
           fieldType = HsPrimType
@@ -3540,7 +3528,7 @@
                 "simple_structs.h:31:25",
                 fieldName = NamePair {
                   nameC = Name "b",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "s6_b"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -3567,8 +3555,7 @@
             "simple_structs.h:31:8",
             declId = NamePair {
               nameC = Name "S6",
-              nameHsIdent = HsIdentifier
-                "S6"},
+              nameHsIdent = Identifier "S6"},
             declOrigin = NameOriginInSource,
             declAliases = [Name "S6"],
             declHeaderInfo = Just
@@ -3581,7 +3568,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "S6"),
+                (Name "@NsConstr" "S6"),
               structSizeof = 8,
               structAlignment = 4,
               structFields = [
@@ -3591,7 +3578,7 @@
                     "simple_structs.h:31:18",
                     fieldName = NamePair {
                       nameC = Name "a",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "s6_a"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -3606,7 +3593,7 @@
                     "simple_structs.h:31:25",
                     fieldName = NamePair {
                       nameC = Name "b",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "s6_b"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -3640,15 +3627,15 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "S6",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "S6",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "s6_a",
               fieldType = HsPrimType
@@ -3660,7 +3647,7 @@
                     "simple_structs.h:31:18",
                     fieldName = NamePair {
                       nameC = Name "a",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "s6_a"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -3683,7 +3670,7 @@
                       "simple_structs.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "s6_b",
               fieldType = HsPrimType
@@ -3695,7 +3682,7 @@
                     "simple_structs.h:31:25",
                     fieldName = NamePair {
                       nameC = Name "b",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "s6_b"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -3722,8 +3709,7 @@
                 "simple_structs.h:31:8",
                 declId = NamePair {
                   nameC = Name "S6",
-                  nameHsIdent = HsIdentifier
-                    "S6"},
+                  nameHsIdent = Identifier "S6"},
                 declOrigin = NameOriginInSource,
                 declAliases = [Name "S6"],
                 declHeaderInfo = Just
@@ -3736,7 +3722,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "S6"),
+                    (Name "@NsConstr" "S6"),
                   structSizeof = 8,
                   structAlignment = 4,
                   structFields = [
@@ -3746,7 +3732,7 @@
                         "simple_structs.h:31:18",
                         fieldName = NamePair {
                           nameC = Name "a",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "s6_a"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -3761,7 +3747,7 @@
                         "simple_structs.h:31:25",
                         fieldName = NamePair {
                           nameC = Name "b",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "s6_b"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -3798,15 +3784,15 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "S6",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "S6",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "s6_a",
                       fieldType = HsPrimType
@@ -3818,7 +3804,7 @@
                             "simple_structs.h:31:18",
                             fieldName = NamePair {
                               nameC = Name "a",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "s6_a"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -3841,7 +3827,7 @@
                               "simple_structs.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "s6_b",
                       fieldType = HsPrimType
@@ -3853,7 +3839,7 @@
                             "simple_structs.h:31:25",
                             fieldName = NamePair {
                               nameC = Name "b",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "s6_b"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -3880,8 +3866,7 @@
                         "simple_structs.h:31:8",
                         declId = NamePair {
                           nameC = Name "S6",
-                          nameHsIdent = HsIdentifier
-                            "S6"},
+                          nameHsIdent = Identifier "S6"},
                         declOrigin = NameOriginInSource,
                         declAliases = [Name "S6"],
                         declHeaderInfo = Just
@@ -3894,7 +3879,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "S6"),
+                            (Name "@NsConstr" "S6"),
                           structSizeof = 8,
                           structAlignment = 4,
                           structFields = [
@@ -3904,7 +3889,7 @@
                                 "simple_structs.h:31:18",
                                 fieldName = NamePair {
                                   nameC = Name "a",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "s6_a"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -3919,7 +3904,7 @@
                                 "simple_structs.h:31:25",
                                 fieldName = NamePair {
                                   nameC = Name "b",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "s6_b"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -3958,15 +3943,15 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "S6",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "S6",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "s6_a",
                       fieldType = HsPrimType
@@ -3978,7 +3963,7 @@
                             "simple_structs.h:31:18",
                             fieldName = NamePair {
                               nameC = Name "a",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "s6_a"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -4001,7 +3986,7 @@
                               "simple_structs.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "s6_b",
                       fieldType = HsPrimType
@@ -4013,7 +3998,7 @@
                             "simple_structs.h:31:25",
                             fieldName = NamePair {
                               nameC = Name "b",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "s6_b"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -4040,8 +4025,7 @@
                         "simple_structs.h:31:8",
                         declId = NamePair {
                           nameC = Name "S6",
-                          nameHsIdent = HsIdentifier
-                            "S6"},
+                          nameHsIdent = Identifier "S6"},
                         declOrigin = NameOriginInSource,
                         declAliases = [Name "S6"],
                         declHeaderInfo = Just
@@ -4054,7 +4038,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "S6"),
+                            (Name "@NsConstr" "S6"),
                           structSizeof = 8,
                           structAlignment = 4,
                           structFields = [
@@ -4064,7 +4048,7 @@
                                 "simple_structs.h:31:18",
                                 fieldName = NamePair {
                                   nameC = Name "a",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "s6_a"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -4079,7 +4063,7 @@
                                 "simple_structs.h:31:25",
                                 fieldName = NamePair {
                                   nameC = Name "b",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "s6_b"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -4123,7 +4107,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "S6",
       deriveInstanceComment =
@@ -4133,22 +4117,22 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "S6",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "S7a_Deref",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "S7a_Deref",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "s7a_Deref_a",
           fieldType = HsPrimType
@@ -4160,7 +4144,7 @@
                 "simple_structs.h:34:23",
                 fieldName = NamePair {
                   nameC = Name "a",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "s7a_Deref_a"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -4183,7 +4167,7 @@
                   "simple_structs.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "s7a_Deref_b",
           fieldType = HsPrimType
@@ -4195,7 +4179,7 @@
                 "simple_structs.h:34:30",
                 fieldName = NamePair {
                   nameC = Name "b",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "s7a_Deref_b"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -4222,7 +4206,7 @@
             "simple_structs.h:34:9",
             declId = NamePair {
               nameC = Name "S7a_Deref",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "S7a_Deref"},
             declOrigin = NameOriginGenerated
               (AnonId
@@ -4238,9 +4222,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName
-                  "@NsConstr"
-                  "S7a_Deref"),
+                (Name "@NsConstr" "S7a_Deref"),
               structSizeof = 8,
               structAlignment = 4,
               structFields = [
@@ -4250,7 +4232,7 @@
                     "simple_structs.h:34:23",
                     fieldName = NamePair {
                       nameC = Name "a",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "s7a_Deref_a"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -4265,7 +4247,7 @@
                     "simple_structs.h:34:30",
                     fieldName = NamePair {
                       nameC = Name "b",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "s7a_Deref_b"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -4300,15 +4282,15 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "S7a_Deref",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "S7a_Deref",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "s7a_Deref_a",
               fieldType = HsPrimType
@@ -4320,7 +4302,7 @@
                     "simple_structs.h:34:23",
                     fieldName = NamePair {
                       nameC = Name "a",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "s7a_Deref_a"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -4343,7 +4325,7 @@
                       "simple_structs.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "s7a_Deref_b",
               fieldType = HsPrimType
@@ -4355,7 +4337,7 @@
                     "simple_structs.h:34:30",
                     fieldName = NamePair {
                       nameC = Name "b",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "s7a_Deref_b"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -4382,7 +4364,7 @@
                 "simple_structs.h:34:9",
                 declId = NamePair {
                   nameC = Name "S7a_Deref",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "S7a_Deref"},
                 declOrigin = NameOriginGenerated
                   (AnonId
@@ -4398,9 +4380,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName
-                      "@NsConstr"
-                      "S7a_Deref"),
+                    (Name "@NsConstr" "S7a_Deref"),
                   structSizeof = 8,
                   structAlignment = 4,
                   structFields = [
@@ -4410,7 +4390,7 @@
                         "simple_structs.h:34:23",
                         fieldName = NamePair {
                           nameC = Name "a",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "s7a_Deref_a"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -4425,7 +4405,7 @@
                         "simple_structs.h:34:30",
                         fieldName = NamePair {
                           nameC = Name "b",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "s7a_Deref_b"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -4463,15 +4443,15 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "S7a_Deref",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "S7a_Deref",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "s7a_Deref_a",
                       fieldType = HsPrimType
@@ -4483,7 +4463,7 @@
                             "simple_structs.h:34:23",
                             fieldName = NamePair {
                               nameC = Name "a",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "s7a_Deref_a"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -4506,7 +4486,7 @@
                               "simple_structs.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "s7a_Deref_b",
                       fieldType = HsPrimType
@@ -4518,7 +4498,7 @@
                             "simple_structs.h:34:30",
                             fieldName = NamePair {
                               nameC = Name "b",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "s7a_Deref_b"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -4545,7 +4525,7 @@
                         "simple_structs.h:34:9",
                         declId = NamePair {
                           nameC = Name "S7a_Deref",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "S7a_Deref"},
                         declOrigin = NameOriginGenerated
                           (AnonId
@@ -4561,9 +4541,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName
-                              "@NsConstr"
-                              "S7a_Deref"),
+                            (Name "@NsConstr" "S7a_Deref"),
                           structSizeof = 8,
                           structAlignment = 4,
                           structFields = [
@@ -4573,7 +4551,7 @@
                                 "simple_structs.h:34:23",
                                 fieldName = NamePair {
                                   nameC = Name "a",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "s7a_Deref_a"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -4588,7 +4566,7 @@
                                 "simple_structs.h:34:30",
                                 fieldName = NamePair {
                                   nameC = Name "b",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "s7a_Deref_b"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -4628,15 +4606,15 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "S7a_Deref",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "S7a_Deref",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "s7a_Deref_a",
                       fieldType = HsPrimType
@@ -4648,7 +4626,7 @@
                             "simple_structs.h:34:23",
                             fieldName = NamePair {
                               nameC = Name "a",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "s7a_Deref_a"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -4671,7 +4649,7 @@
                               "simple_structs.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "s7a_Deref_b",
                       fieldType = HsPrimType
@@ -4683,7 +4661,7 @@
                             "simple_structs.h:34:30",
                             fieldName = NamePair {
                               nameC = Name "b",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "s7a_Deref_b"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -4710,7 +4688,7 @@
                         "simple_structs.h:34:9",
                         declId = NamePair {
                           nameC = Name "S7a_Deref",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "S7a_Deref"},
                         declOrigin = NameOriginGenerated
                           (AnonId
@@ -4726,9 +4704,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName
-                              "@NsConstr"
-                              "S7a_Deref"),
+                            (Name "@NsConstr" "S7a_Deref"),
                           structSizeof = 8,
                           structAlignment = 4,
                           structFields = [
@@ -4738,7 +4714,7 @@
                                 "simple_structs.h:34:23",
                                 fieldName = NamePair {
                                   nameC = Name "a",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "s7a_Deref_a"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -4753,7 +4729,7 @@
                                 "simple_structs.h:34:30",
                                 fieldName = NamePair {
                                   nameC = Name "b",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "s7a_Deref_b"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -4798,7 +4774,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "S7a_Deref",
       deriveInstanceComment =
@@ -4808,26 +4784,26 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "S7a_Deref",
       deriveInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "S7a",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "S7a",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_S7a",
         fieldType = HsPtr
           (HsTypRef
-            (HsName
+            (Name
               "@NsTypeConstr"
               "S7a_Deref")),
         fieldOrigin = GeneratedField,
@@ -4838,8 +4814,7 @@
           "simple_structs.h:34:36",
           declId = NamePair {
             nameC = Name "S7a",
-            nameHsIdent = HsIdentifier
-              "S7a"},
+            nameHsIdent = Identifier "S7a"},
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeaderInfo = Just
@@ -4852,17 +4827,17 @@
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "S7a",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_S7a"},
             typedefType = TypePointer
               (TypeStruct
                 NamePair {
                   nameC = Name "S7a_Deref",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "S7a_Deref"}
                 (NameOriginGenerated
                   (AnonId
@@ -4893,7 +4868,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Storable,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "S7a",
       deriveInstanceComment =
@@ -4903,7 +4878,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "S7a",
       deriveInstanceComment =
@@ -4913,7 +4888,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Ord,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "S7a",
       deriveInstanceComment =
@@ -4923,22 +4898,22 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "S7a",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "S7b_Deref",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "S7b_Deref",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "s7b_Deref_a",
           fieldType = HsPrimType
@@ -4950,7 +4925,7 @@
                 "simple_structs.h:35:23",
                 fieldName = NamePair {
                   nameC = Name "a",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "s7b_Deref_a"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -4973,7 +4948,7 @@
                   "simple_structs.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "s7b_Deref_b",
           fieldType = HsPrimType
@@ -4985,7 +4960,7 @@
                 "simple_structs.h:35:30",
                 fieldName = NamePair {
                   nameC = Name "b",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "s7b_Deref_b"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -5012,7 +4987,7 @@
             "simple_structs.h:35:9",
             declId = NamePair {
               nameC = Name "S7b_Deref",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "S7b_Deref"},
             declOrigin = NameOriginGenerated
               (AnonId
@@ -5028,9 +5003,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName
-                  "@NsConstr"
-                  "S7b_Deref"),
+                (Name "@NsConstr" "S7b_Deref"),
               structSizeof = 8,
               structAlignment = 4,
               structFields = [
@@ -5040,7 +5013,7 @@
                     "simple_structs.h:35:23",
                     fieldName = NamePair {
                       nameC = Name "a",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "s7b_Deref_a"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -5055,7 +5028,7 @@
                     "simple_structs.h:35:30",
                     fieldName = NamePair {
                       nameC = Name "b",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "s7b_Deref_b"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -5090,15 +5063,15 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "S7b_Deref",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "S7b_Deref",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "s7b_Deref_a",
               fieldType = HsPrimType
@@ -5110,7 +5083,7 @@
                     "simple_structs.h:35:23",
                     fieldName = NamePair {
                       nameC = Name "a",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "s7b_Deref_a"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -5133,7 +5106,7 @@
                       "simple_structs.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "s7b_Deref_b",
               fieldType = HsPrimType
@@ -5145,7 +5118,7 @@
                     "simple_structs.h:35:30",
                     fieldName = NamePair {
                       nameC = Name "b",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "s7b_Deref_b"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -5172,7 +5145,7 @@
                 "simple_structs.h:35:9",
                 declId = NamePair {
                   nameC = Name "S7b_Deref",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "S7b_Deref"},
                 declOrigin = NameOriginGenerated
                   (AnonId
@@ -5188,9 +5161,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName
-                      "@NsConstr"
-                      "S7b_Deref"),
+                    (Name "@NsConstr" "S7b_Deref"),
                   structSizeof = 8,
                   structAlignment = 4,
                   structFields = [
@@ -5200,7 +5171,7 @@
                         "simple_structs.h:35:23",
                         fieldName = NamePair {
                           nameC = Name "a",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "s7b_Deref_a"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -5215,7 +5186,7 @@
                         "simple_structs.h:35:30",
                         fieldName = NamePair {
                           nameC = Name "b",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "s7b_Deref_b"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -5253,15 +5224,15 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "S7b_Deref",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "S7b_Deref",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "s7b_Deref_a",
                       fieldType = HsPrimType
@@ -5273,7 +5244,7 @@
                             "simple_structs.h:35:23",
                             fieldName = NamePair {
                               nameC = Name "a",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "s7b_Deref_a"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -5296,7 +5267,7 @@
                               "simple_structs.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "s7b_Deref_b",
                       fieldType = HsPrimType
@@ -5308,7 +5279,7 @@
                             "simple_structs.h:35:30",
                             fieldName = NamePair {
                               nameC = Name "b",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "s7b_Deref_b"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -5335,7 +5306,7 @@
                         "simple_structs.h:35:9",
                         declId = NamePair {
                           nameC = Name "S7b_Deref",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "S7b_Deref"},
                         declOrigin = NameOriginGenerated
                           (AnonId
@@ -5351,9 +5322,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName
-                              "@NsConstr"
-                              "S7b_Deref"),
+                            (Name "@NsConstr" "S7b_Deref"),
                           structSizeof = 8,
                           structAlignment = 4,
                           structFields = [
@@ -5363,7 +5332,7 @@
                                 "simple_structs.h:35:23",
                                 fieldName = NamePair {
                                   nameC = Name "a",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "s7b_Deref_a"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -5378,7 +5347,7 @@
                                 "simple_structs.h:35:30",
                                 fieldName = NamePair {
                                   nameC = Name "b",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "s7b_Deref_b"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -5418,15 +5387,15 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "S7b_Deref",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "S7b_Deref",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "s7b_Deref_a",
                       fieldType = HsPrimType
@@ -5438,7 +5407,7 @@
                             "simple_structs.h:35:23",
                             fieldName = NamePair {
                               nameC = Name "a",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "s7b_Deref_a"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -5461,7 +5430,7 @@
                               "simple_structs.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "s7b_Deref_b",
                       fieldType = HsPrimType
@@ -5473,7 +5442,7 @@
                             "simple_structs.h:35:30",
                             fieldName = NamePair {
                               nameC = Name "b",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "s7b_Deref_b"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -5500,7 +5469,7 @@
                         "simple_structs.h:35:9",
                         declId = NamePair {
                           nameC = Name "S7b_Deref",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "S7b_Deref"},
                         declOrigin = NameOriginGenerated
                           (AnonId
@@ -5516,9 +5485,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName
-                              "@NsConstr"
-                              "S7b_Deref"),
+                            (Name "@NsConstr" "S7b_Deref"),
                           structSizeof = 8,
                           structAlignment = 4,
                           structFields = [
@@ -5528,7 +5495,7 @@
                                 "simple_structs.h:35:23",
                                 fieldName = NamePair {
                                   nameC = Name "a",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "s7b_Deref_a"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -5543,7 +5510,7 @@
                                 "simple_structs.h:35:30",
                                 fieldName = NamePair {
                                   nameC = Name "b",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "s7b_Deref_b"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -5588,7 +5555,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "S7b_Deref",
       deriveInstanceComment =
@@ -5598,28 +5565,28 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "S7b_Deref",
       deriveInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "S7b",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "S7b",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_S7b",
         fieldType = HsPtr
           (HsPtr
             (HsPtr
               (HsTypRef
-                (HsName
+                (Name
                   "@NsTypeConstr"
                   "S7b_Deref")))),
         fieldOrigin = GeneratedField,
@@ -5630,8 +5597,7 @@
           "simple_structs.h:35:38",
           declId = NamePair {
             nameC = Name "S7b",
-            nameHsIdent = HsIdentifier
-              "S7b"},
+            nameHsIdent = Identifier "S7b"},
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeaderInfo = Just
@@ -5644,10 +5610,10 @@
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "S7b",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_S7b"},
             typedefType = TypePointer
@@ -5656,7 +5622,7 @@
                   (TypeStruct
                     NamePair {
                       nameC = Name "S7b_Deref",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "S7b_Deref"}
                     (NameOriginGenerated
                       (AnonId
@@ -5687,7 +5653,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Storable,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "S7b",
       deriveInstanceComment =
@@ -5697,7 +5663,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "S7b",
       deriveInstanceComment =
@@ -5707,7 +5673,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Ord,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "S7b",
       deriveInstanceComment =
@@ -5717,7 +5683,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "S7b",
       deriveInstanceComment =

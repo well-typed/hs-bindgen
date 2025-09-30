@@ -5,8 +5,7 @@ TranslationUnit {
         declLoc = "fixedwidth.h:3:8",
         declId = NamePair {
           nameC = Name "foo",
-          nameHsIdent = HsIdentifier
-            "Foo"},
+          nameHsIdent = Identifier "Foo"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -18,7 +17,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "Foo"),
+            (Name "@NsConstr" "Foo"),
           structSizeof = 16,
           structAlignment = 8,
           structFields = [
@@ -27,7 +26,7 @@ TranslationUnit {
                 fieldLoc = "fixedwidth.h:4:11",
                 fieldName = NamePair {
                   nameC = Name "sixty_four",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "foo_sixty_four"},
                 fieldComment = Nothing},
               structFieldType = TypeExtBinding
@@ -36,17 +35,17 @@ TranslationUnit {
                     qualNameName = Name "uint64_t",
                     qualNameKind =
                     NameKindOrdinary},
-                  extHsRef = ExtHsRef {
-                    extHsRefModule = HsModuleName
+                  extHsRef = ExtRef {
+                    extRefModule = ModuleName
                       "HsBindgen.Runtime.Prelude",
-                    extHsRefIdentifier =
-                    HsIdentifier "Word64"},
+                    extRefIdentifier = Identifier
+                      "Word64"},
                   extHsSpec = TypeSpec {
                     typeSpecModule = Just
-                      (HsModuleName
+                      (ModuleName
                         "HsBindgen.Runtime.Prelude"),
                     typeSpecIdentifier = Just
-                      (HsIdentifier "Word64"),
+                      (Identifier "Word64"),
                     typeSpecInstances = Map.fromList
                       [
                         _×_
@@ -153,7 +152,7 @@ TranslationUnit {
                 fieldLoc = "fixedwidth.h:5:11",
                 fieldName = NamePair {
                   nameC = Name "thirty_two",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "foo_thirty_two"},
                 fieldComment = Nothing},
               structFieldType = TypeExtBinding
@@ -162,17 +161,17 @@ TranslationUnit {
                     qualNameName = Name "uint32_t",
                     qualNameKind =
                     NameKindOrdinary},
-                  extHsRef = ExtHsRef {
-                    extHsRefModule = HsModuleName
+                  extHsRef = ExtRef {
+                    extRefModule = ModuleName
                       "HsBindgen.Runtime.Prelude",
-                    extHsRefIdentifier =
-                    HsIdentifier "Word32"},
+                    extRefIdentifier = Identifier
+                      "Word32"},
                   extHsSpec = TypeSpec {
                     typeSpecModule = Just
-                      (HsModuleName
+                      (ModuleName
                         "HsBindgen.Runtime.Prelude"),
                     typeSpecIdentifier = Just
-                      (HsIdentifier "Word32"),
+                      (Identifier "Word32"),
                     typeSpecInstances = Map.fromList
                       [
                         _×_

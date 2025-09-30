@@ -1,7 +1,7 @@
 -- | Construct the final (external) form of the AST
 module HsBindgen.Frontend.AST.Finalize (finalize) where
 
-import Clang.HighLevel.Documentation qualified as C
+import Clang.HighLevel.Documentation qualified as CDoc
 
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.AST.External qualified as Ext
@@ -108,13 +108,13 @@ instance Finalize Int.DeclKind where
   finalize (Int.DeclFunction func)   = Ext.DeclFunction (finalize func)
   finalize (Int.DeclGlobal ty)       = Ext.DeclGlobal (finalize ty)
 
-instance Finalize Int.Reference where
-  type Finalized Int.Reference = Ext.Reference
+instance Finalize Int.CommentRef where
+  type Finalized Int.CommentRef = Ext.CommentRef
 
   finalize (Int.ById (x, _)) = Ext.ById x
 
 instance Finalize Int.Comment where
-  type Finalized Int.Comment = C.Comment Ext.Reference
+  type Finalized Int.Comment = CDoc.Comment Ext.CommentRef
 
   finalize (Int.Comment comment) = fmap finalize comment
 

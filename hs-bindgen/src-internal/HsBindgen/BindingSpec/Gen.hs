@@ -25,7 +25,7 @@ import HsBindgen.Errors
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
-import HsBindgen.Language.Haskell
+import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
   Public API
@@ -39,7 +39,7 @@ import HsBindgen.Language.Haskell
 -- * YAML (@.yaml@ extension)
 -- * JSON (@.json@ extension)
 genBindingSpec ::
-     HsModuleName
+     Hs.ModuleName
   -> [HashIncludeArg]
   -> FilePath
   -> [Hs.Decl]
@@ -55,7 +55,7 @@ genBindingSpec hsModuleName hashIncludeArgs path =
 -- | Generate binding specification
 genBindingSpecYaml ::
      [HashIncludeArg]
-  -> HsModuleName
+  -> Hs.ModuleName
   -> [Hs.Decl]
   -> ByteString
 genBindingSpecYaml hashIncludeArgs hsModuleName =
@@ -68,7 +68,7 @@ genBindingSpecYaml hashIncludeArgs hsModuleName =
 -- TODO omitted types
 genBindingSpec' ::
      [HashIncludeArg]
-  -> HsModuleName
+  -> Hs.ModuleName
   -> [Hs.Decl]
   -> UnresolvedBindingSpec
 genBindingSpec' hashIncludeArgs hsModuleName = foldr aux BindingSpec.empty
@@ -106,14 +106,14 @@ genBindingSpec' hashIncludeArgs hsModuleName = foldr aux BindingSpec.empty
 type Spec = (C.QualName, Omittable BindingSpec.TypeSpec)
 
 -- TODO aliases
-getStructSpec :: HsModuleName -> Hs.Struct n -> Spec
+getStructSpec :: Hs.ModuleName -> Hs.Struct n -> Spec
 getStructSpec hsModuleName hsStruct = case Hs.structOrigin hsStruct of
     Nothing -> panicPure "getStructSpec: structOrigin is Nothing"
     Just originDecl ->
       let cQualName = getCQualName (HsOrigin.declInfo originDecl) $
             case HsOrigin.declKind originDecl of
               HsOrigin.Struct{} -> C.NameKindTagged C.TagKindStruct
-          hsIdentifier = HsIdentifier $ getHsName (Hs.structName hsStruct)
+          hsIdentifier = Hs.Identifier $ Hs.getName (Hs.structName hsStruct)
           C.DeclSpec typeSpec' = HsOrigin.declSpec originDecl
           typeSpec = BindingSpec.TypeSpec {
               typeSpecModule     = Just hsModuleName
@@ -125,7 +125,7 @@ getStructSpec hsModuleName hsStruct = case Hs.structOrigin hsStruct of
       in  (cQualName, Require typeSpec)
 
 -- TODO aliases
-getEmptyDataSpec :: HsModuleName -> Hs.EmptyData -> Spec
+getEmptyDataSpec :: Hs.ModuleName -> Hs.EmptyData -> Spec
 getEmptyDataSpec hsModuleName edata =
     let originDecl = Hs.emptyDataOrigin edata
         cQualName = getCQualName (HsOrigin.declInfo originDecl) $
@@ -133,7 +133,7 @@ getEmptyDataSpec hsModuleName edata =
             HsOrigin.OpaqueStruct -> C.NameKindTagged C.TagKindStruct
             HsOrigin.OpaqueEnum   -> C.NameKindTagged C.TagKindEnum
             HsOrigin.OpaqueUnion  -> C.NameKindTagged C.TagKindUnion
-        hsIdentifier = HsIdentifier $ getHsName (Hs.emptyDataName edata)
+        hsIdentifier = Hs.Identifier $ Hs.getName (Hs.emptyDataName edata)
         typeSpec = BindingSpec.TypeSpec {
             typeSpecModule     = Just hsModuleName
           , typeSpecIdentifier = Just hsIdentifier
@@ -142,7 +142,7 @@ getEmptyDataSpec hsModuleName edata =
     in  (cQualName, Require typeSpec)
 
 -- TODO aliases
-getNewtypeSpec :: HsModuleName -> Hs.Newtype -> Spec
+getNewtypeSpec :: Hs.ModuleName -> Hs.Newtype -> Spec
 getNewtypeSpec hsModuleName hsNewtype =
     let originDecl = Hs.newtypeOrigin hsNewtype
         cQualName = getCQualName (HsOrigin.declInfo originDecl) $
@@ -151,7 +151,7 @@ getNewtypeSpec hsModuleName hsNewtype =
             HsOrigin.Typedef{} -> C.NameKindOrdinary
             HsOrigin.Union{}   -> C.NameKindTagged C.TagKindUnion
             HsOrigin.Macro{}   -> C.NameKindOrdinary
-        hsIdentifier = HsIdentifier $ getHsName (Hs.newtypeName hsNewtype)
+        hsIdentifier = Hs.Identifier $ Hs.getName (Hs.newtypeName hsNewtype)
         C.DeclSpec typeSpec' = HsOrigin.declSpec originDecl
         typeSpec = BindingSpec.TypeSpec {
             typeSpecModule     = Just hsModuleName
@@ -175,8 +175,8 @@ getCQualName declInfo cNameKind = case C.declOrigin declInfo of
     cName = C.nameC (C.declId declInfo)
 
 mkInstSpecs ::
-     Set HsTypeClass
-  -> Map HsTypeClass (Omittable BindingSpec.InstanceSpec)
+     Set Hs.TypeClass
+  -> Map Hs.TypeClass (Omittable BindingSpec.InstanceSpec)
 mkInstSpecs = Map.fromAscList . map (, oInstSpec) . Set.toAscList
   where
     oInstSpec :: Omittable BindingSpec.InstanceSpec

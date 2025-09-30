@@ -1,9 +1,7 @@
 [
   DeclVar
     VarDecl {
-      varDeclName = HsName
-        "@NsVar"
-        "a",
+      varDeclName = Name "@NsVar" "a",
       varDeclType = ForallTy {
         forallTyBinders = [],
         forallTy = QuantTy {

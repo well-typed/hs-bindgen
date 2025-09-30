@@ -1,15 +1,15 @@
 [
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "Thing",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "Thing",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "thing_x",
           fieldType = HsPrimType
@@ -20,7 +20,7 @@
                 fieldLoc = "struct_arg.h:3:9",
                 fieldName = NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "thing_x"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -45,7 +45,7 @@
             declLoc = "struct_arg.h:2:8",
             declId = NamePair {
               nameC = Name "thing",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Thing"},
             declOrigin = NameOriginInSource,
             declAliases = [],
@@ -58,7 +58,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "Thing"),
+                (Name "@NsConstr" "Thing"),
               structSizeof = 4,
               structAlignment = 4,
               structFields = [
@@ -67,7 +67,7 @@
                     fieldLoc = "struct_arg.h:3:9",
                     fieldName = NamePair {
                       nameC = Name "x",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "thing_x"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -100,15 +100,15 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Thing",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Thing",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "thing_x",
               fieldType = HsPrimType
@@ -119,7 +119,7 @@
                     fieldLoc = "struct_arg.h:3:9",
                     fieldName = NamePair {
                       nameC = Name "x",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "thing_x"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -144,7 +144,7 @@
                 declLoc = "struct_arg.h:2:8",
                 declId = NamePair {
                   nameC = Name "thing",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Thing"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
@@ -157,7 +157,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "Thing"),
+                    (Name "@NsConstr" "Thing"),
                   structSizeof = 4,
                   structAlignment = 4,
                   structFields = [
@@ -166,7 +166,7 @@
                         fieldLoc = "struct_arg.h:3:9",
                         fieldName = NamePair {
                           nameC = Name "x",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "thing_x"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -202,15 +202,15 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Thing",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Thing",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "thing_x",
                       fieldType = HsPrimType
@@ -221,7 +221,7 @@
                             fieldLoc = "struct_arg.h:3:9",
                             fieldName = NamePair {
                               nameC = Name "x",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "thing_x"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -246,7 +246,7 @@
                         declLoc = "struct_arg.h:2:8",
                         declId = NamePair {
                           nameC = Name "thing",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Thing"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -259,7 +259,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Thing"),
+                            (Name "@NsConstr" "Thing"),
                           structSizeof = 4,
                           structAlignment = 4,
                           structFields = [
@@ -268,7 +268,7 @@
                                 fieldLoc = "struct_arg.h:3:9",
                                 fieldName = NamePair {
                                   nameC = Name "x",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "thing_x"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -304,15 +304,15 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Thing",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Thing",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "thing_x",
                       fieldType = HsPrimType
@@ -323,7 +323,7 @@
                             fieldLoc = "struct_arg.h:3:9",
                             fieldName = NamePair {
                               nameC = Name "x",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "thing_x"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -348,7 +348,7 @@
                         declLoc = "struct_arg.h:2:8",
                         declId = NamePair {
                           nameC = Name "thing",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Thing"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -361,7 +361,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Thing"),
+                            (Name "@NsConstr" "Thing"),
                           structSizeof = 4,
                           structAlignment = 4,
                           structFields = [
@@ -370,7 +370,7 @@
                                 fieldLoc = "struct_arg.h:3:9",
                                 fieldName = NamePair {
                                   nameC = Name "x",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "thing_x"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -412,7 +412,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Thing",
       deriveInstanceComment =
@@ -422,25 +422,23 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Thing",
       deriveInstanceComment =
       Nothing},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "thing_fun_1_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "x"),
+            (Name "@NsVar" "x"),
           functionParameterType = HsPtr
             (HsTypRef
-              (HsName
-                "@NsTypeConstr"
-                "Thing")),
+              (Name "@NsTypeConstr" "Thing")),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -467,11 +465,11 @@
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypeStruct
                 NamePair {
                   nameC = Name "thing",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Thing"}
                 NameOriginInSource)],
           functionAttrs =
@@ -496,13 +494,13 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "thing_fun_2_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "x"),
+            (Name "@NsVar" "x"),
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
@@ -516,7 +514,7 @@
       HeapResultType
         (HsPtr
           (HsTypRef
-            (HsName
+            (Name
               "@NsTypeConstr"
               "Thing"))),
       foreignImportOrigName =
@@ -535,7 +533,7 @@
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypePrim
                 (PrimIntegral PrimInt Signed))],
           functionAttrs =
@@ -544,7 +542,7 @@
           functionRes = TypeStruct
             NamePair {
               nameC = Name "thing",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Thing"}
             NameOriginInSource},
       foreignImportComment = Just
@@ -564,13 +562,13 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "thing_fun_3a_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "x"),
+            (Name "@NsVar" "x"),
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
@@ -582,12 +580,10 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "y"),
+            (Name "@NsVar" "y"),
           functionParameterType = HsPtr
             (HsTypRef
-              (HsName
-                "@NsTypeConstr"
-                "Thing")),
+              (Name "@NsTypeConstr" "Thing")),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -597,7 +593,7 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "z"),
+            (Name "@NsVar" "z"),
           functionParameterType =
           HsPrimType HsPrimCDouble,
           functionParameterComment = Just
@@ -611,7 +607,7 @@
       HeapResultType
         (HsPtr
           (HsTypRef
-            (HsName
+            (Name
               "@NsTypeConstr"
               "Thing"))),
       foreignImportOrigName =
@@ -630,25 +626,25 @@
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypePrim
                 (PrimIntegral PrimInt Signed)),
             _×_
               (Just
                 NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier "y"})
+                  nameHsIdent = Identifier "y"})
               (TypeStruct
                 NamePair {
                   nameC = Name "thing",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Thing"}
                 NameOriginInSource),
             _×_
               (Just
                 NamePair {
                   nameC = Name "z",
-                  nameHsIdent = HsIdentifier "z"})
+                  nameHsIdent = Identifier "z"})
               (TypePrim
                 (PrimFloating PrimDouble))],
           functionAttrs =
@@ -657,7 +653,7 @@
           functionRes = TypeStruct
             NamePair {
               nameC = Name "thing",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Thing"}
             NameOriginInSource},
       foreignImportComment = Just
@@ -677,13 +673,13 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "thing_fun_3b_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "x"),
+            (Name "@NsVar" "x"),
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
@@ -695,12 +691,10 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "y"),
+            (Name "@NsVar" "y"),
           functionParameterType = HsPtr
             (HsTypRef
-              (HsName
-                "@NsTypeConstr"
-                "Thing")),
+              (Name "@NsTypeConstr" "Thing")),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -710,7 +704,7 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "z"),
+            (Name "@NsVar" "z"),
           functionParameterType =
           HsPrimType HsPrimCDouble,
           functionParameterComment = Just
@@ -739,25 +733,25 @@
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypePrim
                 (PrimIntegral PrimInt Signed)),
             _×_
               (Just
                 NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier "y"})
+                  nameHsIdent = Identifier "y"})
               (TypeStruct
                 NamePair {
                   nameC = Name "thing",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Thing"}
                 NameOriginInSource),
             _×_
               (Just
                 NamePair {
                   nameC = Name "z",
-                  nameHsIdent = HsIdentifier "z"})
+                  nameHsIdent = Identifier "z"})
               (TypePrim
                 (PrimFloating PrimDouble))],
           functionAttrs =
@@ -784,18 +778,16 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "thing_fun_1_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "x"),
+            (Name "@NsVar" "x"),
           functionParameterType = HsPtr
             (HsTypRef
-              (HsName
-                "@NsTypeConstr"
-                "Thing")),
+              (Name "@NsTypeConstr" "Thing")),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -822,11 +814,11 @@
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypeStruct
                 NamePair {
                   nameC = Name "thing",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Thing"}
                 NameOriginInSource)],
           functionAttrs =
@@ -851,13 +843,13 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "thing_fun_2_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "x"),
+            (Name "@NsVar" "x"),
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
@@ -871,7 +863,7 @@
       HeapResultType
         (HsPtr
           (HsTypRef
-            (HsName
+            (Name
               "@NsTypeConstr"
               "Thing"))),
       foreignImportOrigName =
@@ -890,7 +882,7 @@
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypePrim
                 (PrimIntegral PrimInt Signed))],
           functionAttrs =
@@ -899,7 +891,7 @@
           functionRes = TypeStruct
             NamePair {
               nameC = Name "thing",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Thing"}
             NameOriginInSource},
       foreignImportComment = Just
@@ -919,13 +911,13 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "thing_fun_3a_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "x"),
+            (Name "@NsVar" "x"),
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
@@ -937,12 +929,10 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "y"),
+            (Name "@NsVar" "y"),
           functionParameterType = HsPtr
             (HsTypRef
-              (HsName
-                "@NsTypeConstr"
-                "Thing")),
+              (Name "@NsTypeConstr" "Thing")),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -952,7 +942,7 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "z"),
+            (Name "@NsVar" "z"),
           functionParameterType =
           HsPrimType HsPrimCDouble,
           functionParameterComment = Just
@@ -966,7 +956,7 @@
       HeapResultType
         (HsPtr
           (HsTypRef
-            (HsName
+            (Name
               "@NsTypeConstr"
               "Thing"))),
       foreignImportOrigName =
@@ -985,25 +975,25 @@
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypePrim
                 (PrimIntegral PrimInt Signed)),
             _×_
               (Just
                 NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier "y"})
+                  nameHsIdent = Identifier "y"})
               (TypeStruct
                 NamePair {
                   nameC = Name "thing",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Thing"}
                 NameOriginInSource),
             _×_
               (Just
                 NamePair {
                   nameC = Name "z",
-                  nameHsIdent = HsIdentifier "z"})
+                  nameHsIdent = Identifier "z"})
               (TypePrim
                 (PrimFloating PrimDouble))],
           functionAttrs =
@@ -1012,7 +1002,7 @@
           functionRes = TypeStruct
             NamePair {
               nameC = Name "thing",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Thing"}
             NameOriginInSource},
       foreignImportComment = Just
@@ -1032,13 +1022,13 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "thing_fun_3b_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "x"),
+            (Name "@NsVar" "x"),
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
@@ -1050,12 +1040,10 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "y"),
+            (Name "@NsVar" "y"),
           functionParameterType = HsPtr
             (HsTypRef
-              (HsName
-                "@NsTypeConstr"
-                "Thing")),
+              (Name "@NsTypeConstr" "Thing")),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -1065,7 +1053,7 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "z"),
+            (Name "@NsVar" "z"),
           functionParameterType =
           HsPrimType HsPrimCDouble,
           functionParameterComment = Just
@@ -1094,25 +1082,25 @@
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypePrim
                 (PrimIntegral PrimInt Signed)),
             _×_
               (Just
                 NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier "y"})
+                  nameHsIdent = Identifier "y"})
               (TypeStruct
                 NamePair {
                   nameC = Name "thing",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Thing"}
                 NameOriginInSource),
             _×_
               (Just
                 NamePair {
                   nameC = Name "z",
-                  nameHsIdent = HsIdentifier "z"})
+                  nameHsIdent = Identifier "z"})
               (TypePrim
                 (PrimFloating PrimDouble))],
           functionAttrs =
@@ -1139,7 +1127,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_struct_arg_c5f0c295b311010a",
       foreignImportParameters = [],
@@ -1149,9 +1137,7 @@
           (HsFunPtr
             (HsFun
               (HsTypRef
-                (HsName
-                  "@NsTypeConstr"
-                  "Thing"))
+                (Name "@NsTypeConstr" "Thing"))
               (HsIO
                 (HsPrimType HsPrimCInt))))),
       foreignImportOrigName =
@@ -1169,7 +1155,7 @@
             TypeStruct
               NamePair {
                 nameC = Name "thing",
-                nameHsIdent = HsIdentifier
+                nameHsIdent = Identifier
                   "Thing"}
               NameOriginInSource]
           (TypePrim
@@ -1180,7 +1166,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_struct_arg_24edf6600396b62a",
       foreignImportParameters = [],
@@ -1192,7 +1178,7 @@
               (HsPrimType HsPrimCInt)
               (HsIO
                 (HsTypRef
-                  (HsName
+                  (Name
                     "@NsTypeConstr"
                     "Thing")))))),
       foreignImportOrigName =
@@ -1212,7 +1198,7 @@
           (TypeStruct
             NamePair {
               nameC = Name "thing",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Thing"}
             NameOriginInSource)),
       foreignImportComment = Nothing,
@@ -1221,7 +1207,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_struct_arg_29a42b48992cd0bf",
       foreignImportParameters = [],
@@ -1233,14 +1219,12 @@
               (HsPrimType HsPrimCInt)
               (HsFun
                 (HsTypRef
-                  (HsName
-                    "@NsTypeConstr"
-                    "Thing"))
+                  (Name "@NsTypeConstr" "Thing"))
                 (HsFun
                   (HsPrimType HsPrimCDouble)
                   (HsIO
                     (HsTypRef
-                      (HsName
+                      (Name
                         "@NsTypeConstr"
                         "Thing")))))))),
       foreignImportOrigName =
@@ -1260,7 +1244,7 @@
             TypeStruct
               NamePair {
                 nameC = Name "thing",
-                nameHsIdent = HsIdentifier
+                nameHsIdent = Identifier
                   "Thing"}
               NameOriginInSource,
             TypePrim
@@ -1268,7 +1252,7 @@
           (TypeStruct
             NamePair {
               nameC = Name "thing",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Thing"}
             NameOriginInSource)),
       foreignImportComment = Nothing,
@@ -1277,7 +1261,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_struct_arg_0d6597dfc03e312f",
       foreignImportParameters = [],
@@ -1289,9 +1273,7 @@
               (HsPrimType HsPrimCInt)
               (HsFun
                 (HsTypRef
-                  (HsName
-                    "@NsTypeConstr"
-                    "Thing"))
+                  (Name "@NsTypeConstr" "Thing"))
                 (HsFun
                   (HsPrimType HsPrimCDouble)
                   (HsIO
@@ -1313,7 +1295,7 @@
             TypeStruct
               NamePair {
                 nameC = Name "thing",
-                nameHsIdent = HsIdentifier
+                nameHsIdent = Identifier
                   "Thing"}
               NameOriginInSource,
             TypePrim

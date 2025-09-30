@@ -1,14 +1,14 @@
 [
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "Toggle",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "Toggle",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_Toggle",
         fieldType = HsBlock
@@ -20,7 +20,7 @@
           declLoc = "iterator.h:3:16",
           declId = NamePair {
             nameC = Name "Toggle",
-            nameHsIdent = HsIdentifier
+            nameHsIdent = Identifier
               "Toggle"},
           declOrigin = NameOriginInSource,
           declAliases = [],
@@ -33,10 +33,10 @@
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "Toggle",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_Toggle"},
             typedefType = TypeBlock
@@ -65,14 +65,14 @@
           commentChildren = []}},
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "Counter",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "Counter",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_Counter",
         fieldType = HsBlock
@@ -84,7 +84,7 @@
           declLoc = "iterator.h:10:14",
           declId = NamePair {
             nameC = Name "Counter",
-            nameHsIdent = HsIdentifier
+            nameHsIdent = Identifier
               "Counter"},
           declOrigin = NameOriginInSource,
           declAliases = [],
@@ -97,10 +97,10 @@
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "Counter",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_Counter"},
             typedefType = TypeBlock
@@ -132,14 +132,14 @@
           commentChildren = []}},
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "VarCounter",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "VarCounter",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_VarCounter",
         fieldType = HsBlock
@@ -153,7 +153,7 @@
           declLoc = "iterator.h:17:14",
           declId = NamePair {
             nameC = Name "VarCounter",
-            nameHsIdent = HsIdentifier
+            nameHsIdent = Identifier
               "VarCounter"},
           declOrigin = NameOriginInSource,
           declAliases = [],
@@ -166,10 +166,10 @@
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "VarCounter",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_VarCounter"},
             typedefType = TypeBlock
@@ -204,13 +204,13 @@
           commentChildren = []}},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "makeToggle",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "start"),
+            (Name "@NsVar" "start"),
           functionParameterType =
           HsPrimType HsPrimCBool,
           functionParameterComment = Just
@@ -224,7 +224,7 @@
       NormalResultType
         (HsIO
           (HsTypRef
-            (HsName
+            (Name
               "@NsTypeConstr"
               "Toggle"))),
       foreignImportOrigName =
@@ -243,7 +243,7 @@
               (Just
                 NamePair {
                   nameC = Name "start",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "start"})
               (TypePrim PrimBool)],
           functionAttrs =
@@ -253,7 +253,7 @@
             (TypedefRegular
               NamePair {
                 nameC = Name "Toggle",
-                nameHsIdent = HsIdentifier
+                nameHsIdent = Identifier
                   "Toggle"})},
       foreignImportComment = Just
         Comment {
@@ -271,17 +271,15 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "toggleNext",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "block"),
+            (Name "@NsVar" "block"),
           functionParameterType = HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Toggle"),
+            (Name "@NsTypeConstr" "Toggle"),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -308,13 +306,13 @@
               (Just
                 NamePair {
                   nameC = Name "block",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "block"})
               (TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "Toggle",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Toggle"}))],
           functionAttrs =
           FunctionAttributes
@@ -337,17 +335,15 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "releaseToggle",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "block"),
+            (Name "@NsVar" "block"),
           functionParameterType = HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Toggle"),
+            (Name "@NsTypeConstr" "Toggle"),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -374,13 +370,13 @@
               (Just
                 NamePair {
                   nameC = Name "block",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "block"})
               (TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "Toggle",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Toggle"}))],
           functionAttrs =
           FunctionAttributes
@@ -402,13 +398,13 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "makeCounter",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "start"),
+            (Name "@NsVar" "start"),
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
@@ -420,7 +416,7 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "increment"),
+            (Name "@NsVar" "increment"),
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
@@ -435,7 +431,7 @@
       NormalResultType
         (HsIO
           (HsTypRef
-            (HsName
+            (Name
               "@NsTypeConstr"
               "Counter"))),
       foreignImportOrigName =
@@ -454,7 +450,7 @@
               (Just
                 NamePair {
                   nameC = Name "start",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "start"})
               (TypePrim
                 (PrimIntegral PrimInt Signed)),
@@ -462,7 +458,7 @@
               (Just
                 NamePair {
                   nameC = Name "increment",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "increment"})
               (TypePrim
                 (PrimIntegral PrimInt Signed))],
@@ -473,7 +469,7 @@
             (TypedefRegular
               NamePair {
                 nameC = Name "Counter",
-                nameHsIdent = HsIdentifier
+                nameHsIdent = Identifier
                   "Counter"})},
       foreignImportComment = Just
         Comment {
@@ -491,15 +487,15 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "counterNext",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "block"),
+            (Name "@NsVar" "block"),
           functionParameterType = HsTypRef
-            (HsName
+            (Name
               "@NsTypeConstr"
               "Counter"),
           functionParameterComment = Just
@@ -528,13 +524,13 @@
               (Just
                 NamePair {
                   nameC = Name "block",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "block"})
               (TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "Counter",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Counter"}))],
           functionAttrs =
           FunctionAttributes
@@ -557,15 +553,15 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "releaseCounter",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "block"),
+            (Name "@NsVar" "block"),
           functionParameterType = HsTypRef
-            (HsName
+            (Name
               "@NsTypeConstr"
               "Counter"),
           functionParameterComment = Just
@@ -594,13 +590,13 @@
               (Just
                 NamePair {
                   nameC = Name "block",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "block"})
               (TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "Counter",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Counter"}))],
           functionAttrs =
           FunctionAttributes
@@ -622,13 +618,13 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "makeVarCounter",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "start"),
+            (Name "@NsVar" "start"),
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
@@ -642,7 +638,7 @@
       NormalResultType
         (HsIO
           (HsTypRef
-            (HsName
+            (Name
               "@NsTypeConstr"
               "VarCounter"))),
       foreignImportOrigName =
@@ -661,7 +657,7 @@
               (Just
                 NamePair {
                   nameC = Name "start",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "start"})
               (TypePrim
                 (PrimIntegral PrimInt Signed))],
@@ -672,7 +668,7 @@
             (TypedefRegular
               NamePair {
                 nameC = Name "VarCounter",
-                nameHsIdent = HsIdentifier
+                nameHsIdent = Identifier
                   "VarCounter"})},
       foreignImportComment = Just
         Comment {
@@ -690,15 +686,15 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "varCounterNext",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "block"),
+            (Name "@NsVar" "block"),
           functionParameterType = HsTypRef
-            (HsName
+            (Name
               "@NsTypeConstr"
               "VarCounter"),
           functionParameterComment = Just
@@ -710,7 +706,7 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "increment"),
+            (Name "@NsVar" "increment"),
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
@@ -740,19 +736,19 @@
               (Just
                 NamePair {
                   nameC = Name "block",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "block"})
               (TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "VarCounter",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "VarCounter"})),
             _×_
               (Just
                 NamePair {
                   nameC = Name "increment",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "increment"})
               (TypePrim
                 (PrimIntegral PrimInt Signed))],
@@ -777,15 +773,15 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "releaseVarCounter",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "block"),
+            (Name "@NsVar" "block"),
           functionParameterType = HsTypRef
-            (HsName
+            (Name
               "@NsTypeConstr"
               "VarCounter"),
           functionParameterComment = Just
@@ -814,13 +810,13 @@
               (Just
                 NamePair {
                   nameC = Name "block",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "block"})
               (TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "VarCounter",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "VarCounter"}))],
           functionAttrs =
           FunctionAttributes
@@ -842,13 +838,13 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "makeToggle",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "start"),
+            (Name "@NsVar" "start"),
           functionParameterType =
           HsPrimType HsPrimCBool,
           functionParameterComment = Just
@@ -862,7 +858,7 @@
       NormalResultType
         (HsIO
           (HsTypRef
-            (HsName
+            (Name
               "@NsTypeConstr"
               "Toggle"))),
       foreignImportOrigName =
@@ -881,7 +877,7 @@
               (Just
                 NamePair {
                   nameC = Name "start",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "start"})
               (TypePrim PrimBool)],
           functionAttrs =
@@ -891,7 +887,7 @@
             (TypedefRegular
               NamePair {
                 nameC = Name "Toggle",
-                nameHsIdent = HsIdentifier
+                nameHsIdent = Identifier
                   "Toggle"})},
       foreignImportComment = Just
         Comment {
@@ -909,17 +905,15 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "toggleNext",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "block"),
+            (Name "@NsVar" "block"),
           functionParameterType = HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Toggle"),
+            (Name "@NsTypeConstr" "Toggle"),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -946,13 +940,13 @@
               (Just
                 NamePair {
                   nameC = Name "block",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "block"})
               (TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "Toggle",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Toggle"}))],
           functionAttrs =
           FunctionAttributes
@@ -975,17 +969,15 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "releaseToggle",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "block"),
+            (Name "@NsVar" "block"),
           functionParameterType = HsTypRef
-            (HsName
-              "@NsTypeConstr"
-              "Toggle"),
+            (Name "@NsTypeConstr" "Toggle"),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -1012,13 +1004,13 @@
               (Just
                 NamePair {
                   nameC = Name "block",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "block"})
               (TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "Toggle",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Toggle"}))],
           functionAttrs =
           FunctionAttributes
@@ -1040,13 +1032,13 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "makeCounter",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "start"),
+            (Name "@NsVar" "start"),
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
@@ -1058,7 +1050,7 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "increment"),
+            (Name "@NsVar" "increment"),
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
@@ -1073,7 +1065,7 @@
       NormalResultType
         (HsIO
           (HsTypRef
-            (HsName
+            (Name
               "@NsTypeConstr"
               "Counter"))),
       foreignImportOrigName =
@@ -1092,7 +1084,7 @@
               (Just
                 NamePair {
                   nameC = Name "start",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "start"})
               (TypePrim
                 (PrimIntegral PrimInt Signed)),
@@ -1100,7 +1092,7 @@
               (Just
                 NamePair {
                   nameC = Name "increment",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "increment"})
               (TypePrim
                 (PrimIntegral PrimInt Signed))],
@@ -1111,7 +1103,7 @@
             (TypedefRegular
               NamePair {
                 nameC = Name "Counter",
-                nameHsIdent = HsIdentifier
+                nameHsIdent = Identifier
                   "Counter"})},
       foreignImportComment = Just
         Comment {
@@ -1129,15 +1121,15 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "counterNext",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "block"),
+            (Name "@NsVar" "block"),
           functionParameterType = HsTypRef
-            (HsName
+            (Name
               "@NsTypeConstr"
               "Counter"),
           functionParameterComment = Just
@@ -1166,13 +1158,13 @@
               (Just
                 NamePair {
                   nameC = Name "block",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "block"})
               (TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "Counter",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Counter"}))],
           functionAttrs =
           FunctionAttributes
@@ -1195,15 +1187,15 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "releaseCounter",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "block"),
+            (Name "@NsVar" "block"),
           functionParameterType = HsTypRef
-            (HsName
+            (Name
               "@NsTypeConstr"
               "Counter"),
           functionParameterComment = Just
@@ -1232,13 +1224,13 @@
               (Just
                 NamePair {
                   nameC = Name "block",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "block"})
               (TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "Counter",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Counter"}))],
           functionAttrs =
           FunctionAttributes
@@ -1260,13 +1252,13 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "makeVarCounter",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "start"),
+            (Name "@NsVar" "start"),
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
@@ -1280,7 +1272,7 @@
       NormalResultType
         (HsIO
           (HsTypRef
-            (HsName
+            (Name
               "@NsTypeConstr"
               "VarCounter"))),
       foreignImportOrigName =
@@ -1299,7 +1291,7 @@
               (Just
                 NamePair {
                   nameC = Name "start",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "start"})
               (TypePrim
                 (PrimIntegral PrimInt Signed))],
@@ -1310,7 +1302,7 @@
             (TypedefRegular
               NamePair {
                 nameC = Name "VarCounter",
-                nameHsIdent = HsIdentifier
+                nameHsIdent = Identifier
                   "VarCounter"})},
       foreignImportComment = Just
         Comment {
@@ -1328,15 +1320,15 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "varCounterNext",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "block"),
+            (Name "@NsVar" "block"),
           functionParameterType = HsTypRef
-            (HsName
+            (Name
               "@NsTypeConstr"
               "VarCounter"),
           functionParameterComment = Just
@@ -1348,7 +1340,7 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "increment"),
+            (Name "@NsVar" "increment"),
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
@@ -1378,19 +1370,19 @@
               (Just
                 NamePair {
                   nameC = Name "block",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "block"})
               (TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "VarCounter",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "VarCounter"})),
             _×_
               (Just
                 NamePair {
                   nameC = Name "increment",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "increment"})
               (TypePrim
                 (PrimIntegral PrimInt Signed))],
@@ -1415,15 +1407,15 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "releaseVarCounter",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "block"),
+            (Name "@NsVar" "block"),
           functionParameterType = HsTypRef
-            (HsName
+            (Name
               "@NsTypeConstr"
               "VarCounter"),
           functionParameterComment = Just
@@ -1452,13 +1444,13 @@
               (Just
                 NamePair {
                   nameC = Name "block",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "block"})
               (TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "VarCounter",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "VarCounter"}))],
           functionAttrs =
           FunctionAttributes
@@ -1480,7 +1472,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_iterator_504a6a44ef649697",
       foreignImportParameters = [],
@@ -1492,7 +1484,7 @@
               (HsPrimType HsPrimCBool)
               (HsIO
                 (HsTypRef
-                  (HsName
+                  (Name
                     "@NsTypeConstr"
                     "Toggle")))))),
       foreignImportOrigName =
@@ -1511,7 +1503,7 @@
             (TypedefRegular
               NamePair {
                 nameC = Name "Toggle",
-                nameHsIdent = HsIdentifier
+                nameHsIdent = Identifier
                   "Toggle"}))),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
@@ -1519,7 +1511,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_iterator_ee784d0363e34151",
       foreignImportParameters = [],
@@ -1529,9 +1521,7 @@
           (HsFunPtr
             (HsFun
               (HsTypRef
-                (HsName
-                  "@NsTypeConstr"
-                  "Toggle"))
+                (Name "@NsTypeConstr" "Toggle"))
               (HsIO
                 (HsPrimType HsPrimCBool))))),
       foreignImportOrigName =
@@ -1550,7 +1540,7 @@
               (TypedefRegular
                 NamePair {
                   nameC = Name "Toggle",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Toggle"})]
           (TypePrim PrimBool)),
       foreignImportComment = Nothing,
@@ -1559,7 +1549,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_iterator_864850832eaf96b9",
       foreignImportParameters = [],
@@ -1569,9 +1559,7 @@
           (HsFunPtr
             (HsFun
               (HsTypRef
-                (HsName
-                  "@NsTypeConstr"
-                  "Toggle"))
+                (Name "@NsTypeConstr" "Toggle"))
               (HsIO
                 (HsPrimType HsPrimUnit))))),
       foreignImportOrigName =
@@ -1590,7 +1578,7 @@
               (TypedefRegular
                 NamePair {
                   nameC = Name "Toggle",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Toggle"})]
           TypeVoid),
       foreignImportComment = Nothing,
@@ -1599,7 +1587,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_iterator_48b98d306e2a8d53",
       foreignImportParameters = [],
@@ -1613,7 +1601,7 @@
                 (HsPrimType HsPrimCInt)
                 (HsIO
                   (HsTypRef
-                    (HsName
+                    (Name
                       "@NsTypeConstr"
                       "Counter"))))))),
       foreignImportOrigName =
@@ -1636,7 +1624,7 @@
             (TypedefRegular
               NamePair {
                 nameC = Name "Counter",
-                nameHsIdent = HsIdentifier
+                nameHsIdent = Identifier
                   "Counter"}))),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
@@ -1644,7 +1632,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_iterator_aeb21db5034e4d66",
       foreignImportParameters = [],
@@ -1654,7 +1642,7 @@
           (HsFunPtr
             (HsFun
               (HsTypRef
-                (HsName
+                (Name
                   "@NsTypeConstr"
                   "Counter"))
               (HsIO
@@ -1675,7 +1663,7 @@
               (TypedefRegular
                 NamePair {
                   nameC = Name "Counter",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Counter"})]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
@@ -1685,7 +1673,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_iterator_8e1661e238f6f451",
       foreignImportParameters = [],
@@ -1695,7 +1683,7 @@
           (HsFunPtr
             (HsFun
               (HsTypRef
-                (HsName
+                (Name
                   "@NsTypeConstr"
                   "Counter"))
               (HsIO
@@ -1716,7 +1704,7 @@
               (TypedefRegular
                 NamePair {
                   nameC = Name "Counter",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Counter"})]
           TypeVoid),
       foreignImportComment = Nothing,
@@ -1725,7 +1713,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_iterator_b14e88e9cf7a56b8",
       foreignImportParameters = [],
@@ -1737,7 +1725,7 @@
               (HsPrimType HsPrimCInt)
               (HsIO
                 (HsTypRef
-                  (HsName
+                  (Name
                     "@NsTypeConstr"
                     "VarCounter")))))),
       foreignImportOrigName =
@@ -1758,7 +1746,7 @@
             (TypedefRegular
               NamePair {
                 nameC = Name "VarCounter",
-                nameHsIdent = HsIdentifier
+                nameHsIdent = Identifier
                   "VarCounter"}))),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
@@ -1766,7 +1754,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_iterator_4d10204c4166188d",
       foreignImportParameters = [],
@@ -1776,7 +1764,7 @@
           (HsFunPtr
             (HsFun
               (HsTypRef
-                (HsName
+                (Name
                   "@NsTypeConstr"
                   "VarCounter"))
               (HsFun
@@ -1799,7 +1787,7 @@
               (TypedefRegular
                 NamePair {
                   nameC = Name "VarCounter",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "VarCounter"}),
             TypePrim
               (PrimIntegral PrimInt Signed)]
@@ -1811,7 +1799,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_iterator_bde04ef01335be42",
       foreignImportParameters = [],
@@ -1821,7 +1809,7 @@
           (HsFunPtr
             (HsFun
               (HsTypRef
-                (HsName
+                (Name
                   "@NsTypeConstr"
                   "VarCounter"))
               (HsIO
@@ -1842,7 +1830,7 @@
               (TypedefRegular
                 NamePair {
                   nameC = Name "VarCounter",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "VarCounter"})]
           TypeVoid),
       foreignImportComment = Nothing,
