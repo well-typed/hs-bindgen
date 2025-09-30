@@ -1,15 +1,15 @@
 [
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "Flags",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "Flags",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "flags_fieldX",
           fieldType = HsPrimType
@@ -20,7 +20,7 @@
                 fieldLoc = "bitfields.h:2:10",
                 fieldName = NamePair {
                   nameC = Name "fieldX",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "flags_fieldX"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -42,7 +42,7 @@
                   headerInclude = "bitfields.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "flags_flagA",
           fieldType = HsPrimType
@@ -53,7 +53,7 @@
                 fieldLoc = "bitfields.h:3:9",
                 fieldName = NamePair {
                   nameC = Name "flagA",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "flags_flagA"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -73,7 +73,7 @@
                   headerInclude = "bitfields.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "flags_flagB",
           fieldType = HsPrimType
@@ -84,7 +84,7 @@
                 fieldLoc = "bitfields.h:4:9",
                 fieldName = NamePair {
                   nameC = Name "flagB",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "flags_flagB"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -104,7 +104,7 @@
                   headerInclude = "bitfields.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "flags_flagC",
           fieldType = HsPrimType
@@ -115,7 +115,7 @@
                 fieldLoc = "bitfields.h:5:9",
                 fieldName = NamePair {
                   nameC = Name "flagC",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "flags_flagC"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -135,7 +135,7 @@
                   headerInclude = "bitfields.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "flags_fieldY",
           fieldType = HsPrimType
@@ -146,7 +146,7 @@
                 fieldLoc = "bitfields.h:6:10",
                 fieldName = NamePair {
                   nameC = Name "fieldY",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "flags_fieldY"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -168,7 +168,7 @@
                   headerInclude = "bitfields.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "flags_bits",
           fieldType = HsPrimType
@@ -179,7 +179,7 @@
                 fieldLoc = "bitfields.h:7:9",
                 fieldName = NamePair {
                   nameC = Name "bits",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "flags_bits"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -204,7 +204,7 @@
             declLoc = "bitfields.h:1:8",
             declId = NamePair {
               nameC = Name "flags",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Flags"},
             declOrigin = NameOriginInSource,
             declAliases = [],
@@ -217,7 +217,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "Flags"),
+                (Name "@NsConstr" "Flags"),
               structSizeof = 4,
               structAlignment = 4,
               structFields = [
@@ -226,7 +226,7 @@
                     fieldLoc = "bitfields.h:2:10",
                     fieldName = NamePair {
                       nameC = Name "fieldX",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "flags_fieldX"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -240,7 +240,7 @@
                     fieldLoc = "bitfields.h:3:9",
                     fieldName = NamePair {
                       nameC = Name "flagA",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "flags_flagA"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -252,7 +252,7 @@
                     fieldLoc = "bitfields.h:4:9",
                     fieldName = NamePair {
                       nameC = Name "flagB",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "flags_flagB"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -264,7 +264,7 @@
                     fieldLoc = "bitfields.h:5:9",
                     fieldName = NamePair {
                       nameC = Name "flagC",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "flags_flagC"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -276,7 +276,7 @@
                     fieldLoc = "bitfields.h:6:10",
                     fieldName = NamePair {
                       nameC = Name "fieldY",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "flags_fieldY"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -290,7 +290,7 @@
                     fieldLoc = "bitfields.h:7:9",
                     fieldName = NamePair {
                       nameC = Name "bits",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "flags_bits"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -323,15 +323,15 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Flags",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Flags",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "flags_fieldX",
               fieldType = HsPrimType
@@ -342,7 +342,7 @@
                     fieldLoc = "bitfields.h:2:10",
                     fieldName = NamePair {
                       nameC = Name "fieldX",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "flags_fieldX"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -364,7 +364,7 @@
                       headerInclude = "bitfields.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "flags_flagA",
               fieldType = HsPrimType
@@ -375,7 +375,7 @@
                     fieldLoc = "bitfields.h:3:9",
                     fieldName = NamePair {
                       nameC = Name "flagA",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "flags_flagA"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -395,7 +395,7 @@
                       headerInclude = "bitfields.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "flags_flagB",
               fieldType = HsPrimType
@@ -406,7 +406,7 @@
                     fieldLoc = "bitfields.h:4:9",
                     fieldName = NamePair {
                       nameC = Name "flagB",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "flags_flagB"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -426,7 +426,7 @@
                       headerInclude = "bitfields.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "flags_flagC",
               fieldType = HsPrimType
@@ -437,7 +437,7 @@
                     fieldLoc = "bitfields.h:5:9",
                     fieldName = NamePair {
                       nameC = Name "flagC",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "flags_flagC"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -457,7 +457,7 @@
                       headerInclude = "bitfields.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "flags_fieldY",
               fieldType = HsPrimType
@@ -468,7 +468,7 @@
                     fieldLoc = "bitfields.h:6:10",
                     fieldName = NamePair {
                       nameC = Name "fieldY",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "flags_fieldY"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -490,7 +490,7 @@
                       headerInclude = "bitfields.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "flags_bits",
               fieldType = HsPrimType
@@ -501,7 +501,7 @@
                     fieldLoc = "bitfields.h:7:9",
                     fieldName = NamePair {
                       nameC = Name "bits",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "flags_bits"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -526,7 +526,7 @@
                 declLoc = "bitfields.h:1:8",
                 declId = NamePair {
                   nameC = Name "flags",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Flags"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
@@ -539,7 +539,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "Flags"),
+                    (Name "@NsConstr" "Flags"),
                   structSizeof = 4,
                   structAlignment = 4,
                   structFields = [
@@ -548,7 +548,7 @@
                         fieldLoc = "bitfields.h:2:10",
                         fieldName = NamePair {
                           nameC = Name "fieldX",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "flags_fieldX"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -562,7 +562,7 @@
                         fieldLoc = "bitfields.h:3:9",
                         fieldName = NamePair {
                           nameC = Name "flagA",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "flags_flagA"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -574,7 +574,7 @@
                         fieldLoc = "bitfields.h:4:9",
                         fieldName = NamePair {
                           nameC = Name "flagB",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "flags_flagB"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -586,7 +586,7 @@
                         fieldLoc = "bitfields.h:5:9",
                         fieldName = NamePair {
                           nameC = Name "flagC",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "flags_flagC"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -598,7 +598,7 @@
                         fieldLoc = "bitfields.h:6:10",
                         fieldName = NamePair {
                           nameC = Name "fieldY",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "flags_fieldY"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -612,7 +612,7 @@
                         fieldLoc = "bitfields.h:7:9",
                         fieldName = NamePair {
                           nameC = Name "bits",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "flags_bits"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -648,15 +648,15 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Flags",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Flags",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "flags_fieldX",
                       fieldType = HsPrimType
@@ -667,7 +667,7 @@
                             fieldLoc = "bitfields.h:2:10",
                             fieldName = NamePair {
                               nameC = Name "fieldX",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "flags_fieldX"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -689,7 +689,7 @@
                               headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "flags_flagA",
                       fieldType = HsPrimType
@@ -700,7 +700,7 @@
                             fieldLoc = "bitfields.h:3:9",
                             fieldName = NamePair {
                               nameC = Name "flagA",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "flags_flagA"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -720,7 +720,7 @@
                               headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "flags_flagB",
                       fieldType = HsPrimType
@@ -731,7 +731,7 @@
                             fieldLoc = "bitfields.h:4:9",
                             fieldName = NamePair {
                               nameC = Name "flagB",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "flags_flagB"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -751,7 +751,7 @@
                               headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "flags_flagC",
                       fieldType = HsPrimType
@@ -762,7 +762,7 @@
                             fieldLoc = "bitfields.h:5:9",
                             fieldName = NamePair {
                               nameC = Name "flagC",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "flags_flagC"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -782,7 +782,7 @@
                               headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "flags_fieldY",
                       fieldType = HsPrimType
@@ -793,7 +793,7 @@
                             fieldLoc = "bitfields.h:6:10",
                             fieldName = NamePair {
                               nameC = Name "fieldY",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "flags_fieldY"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -815,7 +815,7 @@
                               headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "flags_bits",
                       fieldType = HsPrimType
@@ -826,7 +826,7 @@
                             fieldLoc = "bitfields.h:7:9",
                             fieldName = NamePair {
                               nameC = Name "bits",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "flags_bits"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -851,7 +851,7 @@
                         declLoc = "bitfields.h:1:8",
                         declId = NamePair {
                           nameC = Name "flags",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Flags"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -864,7 +864,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Flags"),
+                            (Name "@NsConstr" "Flags"),
                           structSizeof = 4,
                           structAlignment = 4,
                           structFields = [
@@ -873,7 +873,7 @@
                                 fieldLoc = "bitfields.h:2:10",
                                 fieldName = NamePair {
                                   nameC = Name "fieldX",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "flags_fieldX"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -887,7 +887,7 @@
                                 fieldLoc = "bitfields.h:3:9",
                                 fieldName = NamePair {
                                   nameC = Name "flagA",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "flags_flagA"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -899,7 +899,7 @@
                                 fieldLoc = "bitfields.h:4:9",
                                 fieldName = NamePair {
                                   nameC = Name "flagB",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "flags_flagB"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -911,7 +911,7 @@
                                 fieldLoc = "bitfields.h:5:9",
                                 fieldName = NamePair {
                                   nameC = Name "flagC",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "flags_flagC"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -923,7 +923,7 @@
                                 fieldLoc = "bitfields.h:6:10",
                                 fieldName = NamePair {
                                   nameC = Name "fieldY",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "flags_fieldY"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -937,7 +937,7 @@
                                 fieldLoc = "bitfields.h:7:9",
                                 fieldName = NamePair {
                                   nameC = Name "bits",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "flags_bits"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -979,15 +979,15 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Flags",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Flags",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "flags_fieldX",
                       fieldType = HsPrimType
@@ -998,7 +998,7 @@
                             fieldLoc = "bitfields.h:2:10",
                             fieldName = NamePair {
                               nameC = Name "fieldX",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "flags_fieldX"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -1020,7 +1020,7 @@
                               headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "flags_flagA",
                       fieldType = HsPrimType
@@ -1031,7 +1031,7 @@
                             fieldLoc = "bitfields.h:3:9",
                             fieldName = NamePair {
                               nameC = Name "flagA",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "flags_flagA"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -1051,7 +1051,7 @@
                               headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "flags_flagB",
                       fieldType = HsPrimType
@@ -1062,7 +1062,7 @@
                             fieldLoc = "bitfields.h:4:9",
                             fieldName = NamePair {
                               nameC = Name "flagB",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "flags_flagB"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -1082,7 +1082,7 @@
                               headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "flags_flagC",
                       fieldType = HsPrimType
@@ -1093,7 +1093,7 @@
                             fieldLoc = "bitfields.h:5:9",
                             fieldName = NamePair {
                               nameC = Name "flagC",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "flags_flagC"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -1113,7 +1113,7 @@
                               headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "flags_fieldY",
                       fieldType = HsPrimType
@@ -1124,7 +1124,7 @@
                             fieldLoc = "bitfields.h:6:10",
                             fieldName = NamePair {
                               nameC = Name "fieldY",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "flags_fieldY"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -1146,7 +1146,7 @@
                               headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "flags_bits",
                       fieldType = HsPrimType
@@ -1157,7 +1157,7 @@
                             fieldLoc = "bitfields.h:7:9",
                             fieldName = NamePair {
                               nameC = Name "bits",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "flags_bits"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -1182,7 +1182,7 @@
                         declLoc = "bitfields.h:1:8",
                         declId = NamePair {
                           nameC = Name "flags",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Flags"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -1195,7 +1195,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Flags"),
+                            (Name "@NsConstr" "Flags"),
                           structSizeof = 4,
                           structAlignment = 4,
                           structFields = [
@@ -1204,7 +1204,7 @@
                                 fieldLoc = "bitfields.h:2:10",
                                 fieldName = NamePair {
                                   nameC = Name "fieldX",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "flags_fieldX"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -1218,7 +1218,7 @@
                                 fieldLoc = "bitfields.h:3:9",
                                 fieldName = NamePair {
                                   nameC = Name "flagA",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "flags_flagA"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -1230,7 +1230,7 @@
                                 fieldLoc = "bitfields.h:4:9",
                                 fieldName = NamePair {
                                   nameC = Name "flagB",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "flags_flagB"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -1242,7 +1242,7 @@
                                 fieldLoc = "bitfields.h:5:9",
                                 fieldName = NamePair {
                                   nameC = Name "flagC",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "flags_flagC"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -1254,7 +1254,7 @@
                                 fieldLoc = "bitfields.h:6:10",
                                 fieldName = NamePair {
                                   nameC = Name "fieldY",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "flags_fieldY"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -1268,7 +1268,7 @@
                                 fieldLoc = "bitfields.h:7:9",
                                 fieldName = NamePair {
                                   nameC = Name "bits",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "flags_bits"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -1328,7 +1328,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Flags",
       deriveInstanceComment =
@@ -1338,22 +1338,22 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Flags",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "Overflow32",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "Overflow32",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "overflow32_x",
           fieldType = HsPrimType
@@ -1364,7 +1364,7 @@
                 fieldLoc = "bitfields.h:13:9",
                 fieldName = NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "overflow32_x"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -1384,7 +1384,7 @@
                   headerInclude = "bitfields.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "overflow32_y",
           fieldType = HsPrimType
@@ -1395,7 +1395,7 @@
                 fieldLoc = "bitfields.h:14:9",
                 fieldName = NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "overflow32_y"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -1415,7 +1415,7 @@
                   headerInclude = "bitfields.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "overflow32_z",
           fieldType = HsPrimType
@@ -1426,7 +1426,7 @@
                 fieldLoc = "bitfields.h:15:9",
                 fieldName = NamePair {
                   nameC = Name "z",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "overflow32_z"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -1451,7 +1451,7 @@
             declLoc = "bitfields.h:12:8",
             declId = NamePair {
               nameC = Name "overflow32",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Overflow32"},
             declOrigin = NameOriginInSource,
             declAliases = [],
@@ -1464,9 +1464,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName
-                  "@NsConstr"
-                  "Overflow32"),
+                (Name "@NsConstr" "Overflow32"),
               structSizeof = 12,
               structAlignment = 4,
               structFields = [
@@ -1475,7 +1473,7 @@
                     fieldLoc = "bitfields.h:13:9",
                     fieldName = NamePair {
                       nameC = Name "x",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "overflow32_x"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1487,7 +1485,7 @@
                     fieldLoc = "bitfields.h:14:9",
                     fieldName = NamePair {
                       nameC = Name "y",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "overflow32_y"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1499,7 +1497,7 @@
                     fieldLoc = "bitfields.h:15:9",
                     fieldName = NamePair {
                       nameC = Name "z",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "overflow32_z"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1533,15 +1531,15 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Overflow32",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Overflow32",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "overflow32_x",
               fieldType = HsPrimType
@@ -1552,7 +1550,7 @@
                     fieldLoc = "bitfields.h:13:9",
                     fieldName = NamePair {
                       nameC = Name "x",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "overflow32_x"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1572,7 +1570,7 @@
                       headerInclude = "bitfields.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "overflow32_y",
               fieldType = HsPrimType
@@ -1583,7 +1581,7 @@
                     fieldLoc = "bitfields.h:14:9",
                     fieldName = NamePair {
                       nameC = Name "y",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "overflow32_y"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1603,7 +1601,7 @@
                       headerInclude = "bitfields.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "overflow32_z",
               fieldType = HsPrimType
@@ -1614,7 +1612,7 @@
                     fieldLoc = "bitfields.h:15:9",
                     fieldName = NamePair {
                       nameC = Name "z",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "overflow32_z"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1639,7 +1637,7 @@
                 declLoc = "bitfields.h:12:8",
                 declId = NamePair {
                   nameC = Name "overflow32",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Overflow32"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
@@ -1652,9 +1650,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName
-                      "@NsConstr"
-                      "Overflow32"),
+                    (Name "@NsConstr" "Overflow32"),
                   structSizeof = 12,
                   structAlignment = 4,
                   structFields = [
@@ -1663,7 +1659,7 @@
                         fieldLoc = "bitfields.h:13:9",
                         fieldName = NamePair {
                           nameC = Name "x",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "overflow32_x"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -1675,7 +1671,7 @@
                         fieldLoc = "bitfields.h:14:9",
                         fieldName = NamePair {
                           nameC = Name "y",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "overflow32_y"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -1687,7 +1683,7 @@
                         fieldLoc = "bitfields.h:15:9",
                         fieldName = NamePair {
                           nameC = Name "z",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "overflow32_z"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -1724,15 +1720,15 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Overflow32",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Overflow32",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "overflow32_x",
                       fieldType = HsPrimType
@@ -1743,7 +1739,7 @@
                             fieldLoc = "bitfields.h:13:9",
                             fieldName = NamePair {
                               nameC = Name "x",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "overflow32_x"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -1763,7 +1759,7 @@
                               headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "overflow32_y",
                       fieldType = HsPrimType
@@ -1774,7 +1770,7 @@
                             fieldLoc = "bitfields.h:14:9",
                             fieldName = NamePair {
                               nameC = Name "y",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "overflow32_y"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -1794,7 +1790,7 @@
                               headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "overflow32_z",
                       fieldType = HsPrimType
@@ -1805,7 +1801,7 @@
                             fieldLoc = "bitfields.h:15:9",
                             fieldName = NamePair {
                               nameC = Name "z",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "overflow32_z"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -1830,7 +1826,7 @@
                         declLoc = "bitfields.h:12:8",
                         declId = NamePair {
                           nameC = Name "overflow32",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Overflow32"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -1843,9 +1839,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName
-                              "@NsConstr"
-                              "Overflow32"),
+                            (Name "@NsConstr" "Overflow32"),
                           structSizeof = 12,
                           structAlignment = 4,
                           structFields = [
@@ -1854,7 +1848,7 @@
                                 fieldLoc = "bitfields.h:13:9",
                                 fieldName = NamePair {
                                   nameC = Name "x",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "overflow32_x"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -1866,7 +1860,7 @@
                                 fieldLoc = "bitfields.h:14:9",
                                 fieldName = NamePair {
                                   nameC = Name "y",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "overflow32_y"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -1878,7 +1872,7 @@
                                 fieldLoc = "bitfields.h:15:9",
                                 fieldName = NamePair {
                                   nameC = Name "z",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "overflow32_z"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -1918,15 +1912,15 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Overflow32",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Overflow32",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "overflow32_x",
                       fieldType = HsPrimType
@@ -1937,7 +1931,7 @@
                             fieldLoc = "bitfields.h:13:9",
                             fieldName = NamePair {
                               nameC = Name "x",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "overflow32_x"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -1957,7 +1951,7 @@
                               headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "overflow32_y",
                       fieldType = HsPrimType
@@ -1968,7 +1962,7 @@
                             fieldLoc = "bitfields.h:14:9",
                             fieldName = NamePair {
                               nameC = Name "y",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "overflow32_y"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -1988,7 +1982,7 @@
                               headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "overflow32_z",
                       fieldType = HsPrimType
@@ -1999,7 +1993,7 @@
                             fieldLoc = "bitfields.h:15:9",
                             fieldName = NamePair {
                               nameC = Name "z",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "overflow32_z"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -2024,7 +2018,7 @@
                         declLoc = "bitfields.h:12:8",
                         declId = NamePair {
                           nameC = Name "overflow32",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Overflow32"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -2037,9 +2031,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName
-                              "@NsConstr"
-                              "Overflow32"),
+                            (Name "@NsConstr" "Overflow32"),
                           structSizeof = 12,
                           structAlignment = 4,
                           structFields = [
@@ -2048,7 +2040,7 @@
                                 fieldLoc = "bitfields.h:13:9",
                                 fieldName = NamePair {
                                   nameC = Name "x",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "overflow32_x"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -2060,7 +2052,7 @@
                                 fieldLoc = "bitfields.h:14:9",
                                 fieldName = NamePair {
                                   nameC = Name "y",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "overflow32_y"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -2072,7 +2064,7 @@
                                 fieldLoc = "bitfields.h:15:9",
                                 fieldName = NamePair {
                                   nameC = Name "z",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "overflow32_z"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -2126,7 +2118,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Overflow32",
       deriveInstanceComment =
@@ -2136,22 +2128,22 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Overflow32",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "Overflow32b",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "Overflow32b",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "overflow32b_x",
           fieldType = HsPrimType
@@ -2162,7 +2154,7 @@
                 fieldLoc = "bitfields.h:19:10",
                 fieldName = NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "overflow32b_x"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -2182,7 +2174,7 @@
                   headerInclude = "bitfields.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "overflow32b_y",
           fieldType = HsPrimType
@@ -2193,7 +2185,7 @@
                 fieldLoc = "bitfields.h:20:10",
                 fieldName = NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "overflow32b_y"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -2213,7 +2205,7 @@
                   headerInclude = "bitfields.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "overflow32b_z",
           fieldType = HsPrimType
@@ -2224,7 +2216,7 @@
                 fieldLoc = "bitfields.h:21:10",
                 fieldName = NamePair {
                   nameC = Name "z",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "overflow32b_z"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -2249,7 +2241,7 @@
             declLoc = "bitfields.h:18:8",
             declId = NamePair {
               nameC = Name "overflow32b",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Overflow32b"},
             declOrigin = NameOriginInSource,
             declAliases = [],
@@ -2262,7 +2254,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName
+                (Name
                   "@NsConstr"
                   "Overflow32b"),
               structSizeof = 8,
@@ -2273,7 +2265,7 @@
                     fieldLoc = "bitfields.h:19:10",
                     fieldName = NamePair {
                       nameC = Name "x",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "overflow32b_x"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -2285,7 +2277,7 @@
                     fieldLoc = "bitfields.h:20:10",
                     fieldName = NamePair {
                       nameC = Name "y",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "overflow32b_y"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -2297,7 +2289,7 @@
                     fieldLoc = "bitfields.h:21:10",
                     fieldName = NamePair {
                       nameC = Name "z",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "overflow32b_z"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -2331,15 +2323,15 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Overflow32b",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Overflow32b",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "overflow32b_x",
               fieldType = HsPrimType
@@ -2350,7 +2342,7 @@
                     fieldLoc = "bitfields.h:19:10",
                     fieldName = NamePair {
                       nameC = Name "x",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "overflow32b_x"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -2370,7 +2362,7 @@
                       headerInclude = "bitfields.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "overflow32b_y",
               fieldType = HsPrimType
@@ -2381,7 +2373,7 @@
                     fieldLoc = "bitfields.h:20:10",
                     fieldName = NamePair {
                       nameC = Name "y",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "overflow32b_y"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -2401,7 +2393,7 @@
                       headerInclude = "bitfields.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "overflow32b_z",
               fieldType = HsPrimType
@@ -2412,7 +2404,7 @@
                     fieldLoc = "bitfields.h:21:10",
                     fieldName = NamePair {
                       nameC = Name "z",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "overflow32b_z"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -2437,7 +2429,7 @@
                 declLoc = "bitfields.h:18:8",
                 declId = NamePair {
                   nameC = Name "overflow32b",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Overflow32b"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
@@ -2450,7 +2442,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName
+                    (Name
                       "@NsConstr"
                       "Overflow32b"),
                   structSizeof = 8,
@@ -2461,7 +2453,7 @@
                         fieldLoc = "bitfields.h:19:10",
                         fieldName = NamePair {
                           nameC = Name "x",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "overflow32b_x"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -2473,7 +2465,7 @@
                         fieldLoc = "bitfields.h:20:10",
                         fieldName = NamePair {
                           nameC = Name "y",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "overflow32b_y"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -2485,7 +2477,7 @@
                         fieldLoc = "bitfields.h:21:10",
                         fieldName = NamePair {
                           nameC = Name "z",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "overflow32b_z"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -2522,15 +2514,15 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Overflow32b",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Overflow32b",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "overflow32b_x",
                       fieldType = HsPrimType
@@ -2541,7 +2533,7 @@
                             fieldLoc = "bitfields.h:19:10",
                             fieldName = NamePair {
                               nameC = Name "x",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "overflow32b_x"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -2561,7 +2553,7 @@
                               headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "overflow32b_y",
                       fieldType = HsPrimType
@@ -2572,7 +2564,7 @@
                             fieldLoc = "bitfields.h:20:10",
                             fieldName = NamePair {
                               nameC = Name "y",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "overflow32b_y"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -2592,7 +2584,7 @@
                               headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "overflow32b_z",
                       fieldType = HsPrimType
@@ -2603,7 +2595,7 @@
                             fieldLoc = "bitfields.h:21:10",
                             fieldName = NamePair {
                               nameC = Name "z",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "overflow32b_z"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -2628,7 +2620,7 @@
                         declLoc = "bitfields.h:18:8",
                         declId = NamePair {
                           nameC = Name "overflow32b",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Overflow32b"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -2641,7 +2633,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName
+                            (Name
                               "@NsConstr"
                               "Overflow32b"),
                           structSizeof = 8,
@@ -2652,7 +2644,7 @@
                                 fieldLoc = "bitfields.h:19:10",
                                 fieldName = NamePair {
                                   nameC = Name "x",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "overflow32b_x"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -2664,7 +2656,7 @@
                                 fieldLoc = "bitfields.h:20:10",
                                 fieldName = NamePair {
                                   nameC = Name "y",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "overflow32b_y"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -2676,7 +2668,7 @@
                                 fieldLoc = "bitfields.h:21:10",
                                 fieldName = NamePair {
                                   nameC = Name "z",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "overflow32b_z"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -2716,15 +2708,15 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Overflow32b",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Overflow32b",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "overflow32b_x",
                       fieldType = HsPrimType
@@ -2735,7 +2727,7 @@
                             fieldLoc = "bitfields.h:19:10",
                             fieldName = NamePair {
                               nameC = Name "x",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "overflow32b_x"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -2755,7 +2747,7 @@
                               headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "overflow32b_y",
                       fieldType = HsPrimType
@@ -2766,7 +2758,7 @@
                             fieldLoc = "bitfields.h:20:10",
                             fieldName = NamePair {
                               nameC = Name "y",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "overflow32b_y"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -2786,7 +2778,7 @@
                               headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "overflow32b_z",
                       fieldType = HsPrimType
@@ -2797,7 +2789,7 @@
                             fieldLoc = "bitfields.h:21:10",
                             fieldName = NamePair {
                               nameC = Name "z",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "overflow32b_z"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -2822,7 +2814,7 @@
                         declLoc = "bitfields.h:18:8",
                         declId = NamePair {
                           nameC = Name "overflow32b",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Overflow32b"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -2835,7 +2827,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName
+                            (Name
                               "@NsConstr"
                               "Overflow32b"),
                           structSizeof = 8,
@@ -2846,7 +2838,7 @@
                                 fieldLoc = "bitfields.h:19:10",
                                 fieldName = NamePair {
                                   nameC = Name "x",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "overflow32b_x"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -2858,7 +2850,7 @@
                                 fieldLoc = "bitfields.h:20:10",
                                 fieldName = NamePair {
                                   nameC = Name "y",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "overflow32b_y"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -2870,7 +2862,7 @@
                                 fieldLoc = "bitfields.h:21:10",
                                 fieldName = NamePair {
                                   nameC = Name "z",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "overflow32b_z"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -2924,7 +2916,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Overflow32b",
       deriveInstanceComment =
@@ -2934,22 +2926,22 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Overflow32b",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "Overflow32c",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "Overflow32c",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "overflow32c_x",
           fieldType = HsPrimType
@@ -2960,7 +2952,7 @@
                 fieldLoc = "bitfields.h:25:10",
                 fieldName = NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "overflow32c_x"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -2980,7 +2972,7 @@
                   headerInclude = "bitfields.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "overflow32c_y",
           fieldType = HsPrimType
@@ -2991,7 +2983,7 @@
                 fieldLoc = "bitfields.h:26:10",
                 fieldName = NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "overflow32c_y"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -3011,7 +3003,7 @@
                   headerInclude = "bitfields.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "overflow32c_z",
           fieldType = HsPrimType
@@ -3022,7 +3014,7 @@
                 fieldLoc = "bitfields.h:27:10",
                 fieldName = NamePair {
                   nameC = Name "z",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "overflow32c_z"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -3047,7 +3039,7 @@
             declLoc = "bitfields.h:24:8",
             declId = NamePair {
               nameC = Name "overflow32c",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Overflow32c"},
             declOrigin = NameOriginInSource,
             declAliases = [],
@@ -3060,7 +3052,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName
+                (Name
                   "@NsConstr"
                   "Overflow32c"),
               structSizeof = 16,
@@ -3071,7 +3063,7 @@
                     fieldLoc = "bitfields.h:25:10",
                     fieldName = NamePair {
                       nameC = Name "x",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "overflow32c_x"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -3083,7 +3075,7 @@
                     fieldLoc = "bitfields.h:26:10",
                     fieldName = NamePair {
                       nameC = Name "y",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "overflow32c_y"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -3095,7 +3087,7 @@
                     fieldLoc = "bitfields.h:27:10",
                     fieldName = NamePair {
                       nameC = Name "z",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "overflow32c_z"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -3129,15 +3121,15 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Overflow32c",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Overflow32c",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "overflow32c_x",
               fieldType = HsPrimType
@@ -3148,7 +3140,7 @@
                     fieldLoc = "bitfields.h:25:10",
                     fieldName = NamePair {
                       nameC = Name "x",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "overflow32c_x"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -3168,7 +3160,7 @@
                       headerInclude = "bitfields.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "overflow32c_y",
               fieldType = HsPrimType
@@ -3179,7 +3171,7 @@
                     fieldLoc = "bitfields.h:26:10",
                     fieldName = NamePair {
                       nameC = Name "y",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "overflow32c_y"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -3199,7 +3191,7 @@
                       headerInclude = "bitfields.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "overflow32c_z",
               fieldType = HsPrimType
@@ -3210,7 +3202,7 @@
                     fieldLoc = "bitfields.h:27:10",
                     fieldName = NamePair {
                       nameC = Name "z",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "overflow32c_z"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -3235,7 +3227,7 @@
                 declLoc = "bitfields.h:24:8",
                 declId = NamePair {
                   nameC = Name "overflow32c",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Overflow32c"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
@@ -3248,7 +3240,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName
+                    (Name
                       "@NsConstr"
                       "Overflow32c"),
                   structSizeof = 16,
@@ -3259,7 +3251,7 @@
                         fieldLoc = "bitfields.h:25:10",
                         fieldName = NamePair {
                           nameC = Name "x",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "overflow32c_x"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -3271,7 +3263,7 @@
                         fieldLoc = "bitfields.h:26:10",
                         fieldName = NamePair {
                           nameC = Name "y",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "overflow32c_y"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -3283,7 +3275,7 @@
                         fieldLoc = "bitfields.h:27:10",
                         fieldName = NamePair {
                           nameC = Name "z",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "overflow32c_z"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -3320,15 +3312,15 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Overflow32c",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Overflow32c",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "overflow32c_x",
                       fieldType = HsPrimType
@@ -3339,7 +3331,7 @@
                             fieldLoc = "bitfields.h:25:10",
                             fieldName = NamePair {
                               nameC = Name "x",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "overflow32c_x"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -3359,7 +3351,7 @@
                               headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "overflow32c_y",
                       fieldType = HsPrimType
@@ -3370,7 +3362,7 @@
                             fieldLoc = "bitfields.h:26:10",
                             fieldName = NamePair {
                               nameC = Name "y",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "overflow32c_y"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -3390,7 +3382,7 @@
                               headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "overflow32c_z",
                       fieldType = HsPrimType
@@ -3401,7 +3393,7 @@
                             fieldLoc = "bitfields.h:27:10",
                             fieldName = NamePair {
                               nameC = Name "z",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "overflow32c_z"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -3426,7 +3418,7 @@
                         declLoc = "bitfields.h:24:8",
                         declId = NamePair {
                           nameC = Name "overflow32c",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Overflow32c"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -3439,7 +3431,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName
+                            (Name
                               "@NsConstr"
                               "Overflow32c"),
                           structSizeof = 16,
@@ -3450,7 +3442,7 @@
                                 fieldLoc = "bitfields.h:25:10",
                                 fieldName = NamePair {
                                   nameC = Name "x",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "overflow32c_x"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -3462,7 +3454,7 @@
                                 fieldLoc = "bitfields.h:26:10",
                                 fieldName = NamePair {
                                   nameC = Name "y",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "overflow32c_y"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -3474,7 +3466,7 @@
                                 fieldLoc = "bitfields.h:27:10",
                                 fieldName = NamePair {
                                   nameC = Name "z",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "overflow32c_z"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -3514,15 +3506,15 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Overflow32c",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Overflow32c",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "overflow32c_x",
                       fieldType = HsPrimType
@@ -3533,7 +3525,7 @@
                             fieldLoc = "bitfields.h:25:10",
                             fieldName = NamePair {
                               nameC = Name "x",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "overflow32c_x"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -3553,7 +3545,7 @@
                               headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "overflow32c_y",
                       fieldType = HsPrimType
@@ -3564,7 +3556,7 @@
                             fieldLoc = "bitfields.h:26:10",
                             fieldName = NamePair {
                               nameC = Name "y",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "overflow32c_y"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -3584,7 +3576,7 @@
                               headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "overflow32c_z",
                       fieldType = HsPrimType
@@ -3595,7 +3587,7 @@
                             fieldLoc = "bitfields.h:27:10",
                             fieldName = NamePair {
                               nameC = Name "z",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "overflow32c_z"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -3620,7 +3612,7 @@
                         declLoc = "bitfields.h:24:8",
                         declId = NamePair {
                           nameC = Name "overflow32c",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Overflow32c"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -3633,7 +3625,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName
+                            (Name
                               "@NsConstr"
                               "Overflow32c"),
                           structSizeof = 16,
@@ -3644,7 +3636,7 @@
                                 fieldLoc = "bitfields.h:25:10",
                                 fieldName = NamePair {
                                   nameC = Name "x",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "overflow32c_x"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -3656,7 +3648,7 @@
                                 fieldLoc = "bitfields.h:26:10",
                                 fieldName = NamePair {
                                   nameC = Name "y",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "overflow32c_y"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -3668,7 +3660,7 @@
                                 fieldLoc = "bitfields.h:27:10",
                                 fieldName = NamePair {
                                   nameC = Name "z",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "overflow32c_z"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -3722,7 +3714,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Overflow32c",
       deriveInstanceComment =
@@ -3732,22 +3724,22 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Overflow32c",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "Overflow64",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "Overflow64",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "overflow64_x",
           fieldType = HsPrimType
@@ -3758,7 +3750,7 @@
                 fieldLoc = "bitfields.h:31:10",
                 fieldName = NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "overflow64_x"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -3778,7 +3770,7 @@
                   headerInclude = "bitfields.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "overflow64_y",
           fieldType = HsPrimType
@@ -3789,7 +3781,7 @@
                 fieldLoc = "bitfields.h:32:10",
                 fieldName = NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "overflow64_y"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -3814,7 +3806,7 @@
             declLoc = "bitfields.h:30:8",
             declId = NamePair {
               nameC = Name "overflow64",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Overflow64"},
             declOrigin = NameOriginInSource,
             declAliases = [],
@@ -3827,9 +3819,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName
-                  "@NsConstr"
-                  "Overflow64"),
+                (Name "@NsConstr" "Overflow64"),
               structSizeof = 16,
               structAlignment = 8,
               structFields = [
@@ -3838,7 +3828,7 @@
                     fieldLoc = "bitfields.h:31:10",
                     fieldName = NamePair {
                       nameC = Name "x",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "overflow64_x"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -3850,7 +3840,7 @@
                     fieldLoc = "bitfields.h:32:10",
                     fieldName = NamePair {
                       nameC = Name "y",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "overflow64_y"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -3884,15 +3874,15 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Overflow64",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Overflow64",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "overflow64_x",
               fieldType = HsPrimType
@@ -3903,7 +3893,7 @@
                     fieldLoc = "bitfields.h:31:10",
                     fieldName = NamePair {
                       nameC = Name "x",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "overflow64_x"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -3923,7 +3913,7 @@
                       headerInclude = "bitfields.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "overflow64_y",
               fieldType = HsPrimType
@@ -3934,7 +3924,7 @@
                     fieldLoc = "bitfields.h:32:10",
                     fieldName = NamePair {
                       nameC = Name "y",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "overflow64_y"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -3959,7 +3949,7 @@
                 declLoc = "bitfields.h:30:8",
                 declId = NamePair {
                   nameC = Name "overflow64",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Overflow64"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
@@ -3972,9 +3962,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName
-                      "@NsConstr"
-                      "Overflow64"),
+                    (Name "@NsConstr" "Overflow64"),
                   structSizeof = 16,
                   structAlignment = 8,
                   structFields = [
@@ -3983,7 +3971,7 @@
                         fieldLoc = "bitfields.h:31:10",
                         fieldName = NamePair {
                           nameC = Name "x",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "overflow64_x"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -3995,7 +3983,7 @@
                         fieldLoc = "bitfields.h:32:10",
                         fieldName = NamePair {
                           nameC = Name "y",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "overflow64_y"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -4032,15 +4020,15 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Overflow64",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Overflow64",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "overflow64_x",
                       fieldType = HsPrimType
@@ -4051,7 +4039,7 @@
                             fieldLoc = "bitfields.h:31:10",
                             fieldName = NamePair {
                               nameC = Name "x",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "overflow64_x"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -4071,7 +4059,7 @@
                               headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "overflow64_y",
                       fieldType = HsPrimType
@@ -4082,7 +4070,7 @@
                             fieldLoc = "bitfields.h:32:10",
                             fieldName = NamePair {
                               nameC = Name "y",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "overflow64_y"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -4107,7 +4095,7 @@
                         declLoc = "bitfields.h:30:8",
                         declId = NamePair {
                           nameC = Name "overflow64",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Overflow64"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -4120,9 +4108,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName
-                              "@NsConstr"
-                              "Overflow64"),
+                            (Name "@NsConstr" "Overflow64"),
                           structSizeof = 16,
                           structAlignment = 8,
                           structFields = [
@@ -4131,7 +4117,7 @@
                                 fieldLoc = "bitfields.h:31:10",
                                 fieldName = NamePair {
                                   nameC = Name "x",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "overflow64_x"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -4143,7 +4129,7 @@
                                 fieldLoc = "bitfields.h:32:10",
                                 fieldName = NamePair {
                                   nameC = Name "y",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "overflow64_y"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -4182,15 +4168,15 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Overflow64",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Overflow64",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "overflow64_x",
                       fieldType = HsPrimType
@@ -4201,7 +4187,7 @@
                             fieldLoc = "bitfields.h:31:10",
                             fieldName = NamePair {
                               nameC = Name "x",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "overflow64_x"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -4221,7 +4207,7 @@
                               headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "overflow64_y",
                       fieldType = HsPrimType
@@ -4232,7 +4218,7 @@
                             fieldLoc = "bitfields.h:32:10",
                             fieldName = NamePair {
                               nameC = Name "y",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "overflow64_y"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -4257,7 +4243,7 @@
                         declLoc = "bitfields.h:30:8",
                         declId = NamePair {
                           nameC = Name "overflow64",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Overflow64"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -4270,9 +4256,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName
-                              "@NsConstr"
-                              "Overflow64"),
+                            (Name "@NsConstr" "Overflow64"),
                           structSizeof = 16,
                           structAlignment = 8,
                           structFields = [
@@ -4281,7 +4265,7 @@
                                 fieldLoc = "bitfields.h:31:10",
                                 fieldName = NamePair {
                                   nameC = Name "x",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "overflow64_x"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -4293,7 +4277,7 @@
                                 fieldLoc = "bitfields.h:32:10",
                                 fieldName = NamePair {
                                   nameC = Name "y",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "overflow64_y"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -4342,7 +4326,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Overflow64",
       deriveInstanceComment =
@@ -4352,22 +4336,22 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Overflow64",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "AlignA",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "AlignA",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "alignA_x",
           fieldType = HsPrimType
@@ -4378,7 +4362,7 @@
                 fieldLoc = "bitfields.h:37:16",
                 fieldName = NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "alignA_x"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -4399,7 +4383,7 @@
                   headerInclude = "bitfields.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "alignA_y",
           fieldType = HsPrimType
@@ -4410,7 +4394,7 @@
                 fieldLoc = "bitfields.h:38:6",
                 fieldName = NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "alignA_y"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -4435,7 +4419,7 @@
             declLoc = "bitfields.h:36:8",
             declId = NamePair {
               nameC = Name "alignA",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "AlignA"},
             declOrigin = NameOriginInSource,
             declAliases = [],
@@ -4448,7 +4432,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "AlignA"),
+                (Name "@NsConstr" "AlignA"),
               structSizeof = 4,
               structAlignment = 4,
               structFields = [
@@ -4457,7 +4441,7 @@
                     fieldLoc = "bitfields.h:37:16",
                     fieldName = NamePair {
                       nameC = Name "x",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "alignA_x"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -4470,7 +4454,7 @@
                     fieldLoc = "bitfields.h:38:6",
                     fieldName = NamePair {
                       nameC = Name "y",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "alignA_y"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -4503,15 +4487,15 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "AlignA",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "AlignA",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "alignA_x",
               fieldType = HsPrimType
@@ -4522,7 +4506,7 @@
                     fieldLoc = "bitfields.h:37:16",
                     fieldName = NamePair {
                       nameC = Name "x",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "alignA_x"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -4543,7 +4527,7 @@
                       headerInclude = "bitfields.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "alignA_y",
               fieldType = HsPrimType
@@ -4554,7 +4538,7 @@
                     fieldLoc = "bitfields.h:38:6",
                     fieldName = NamePair {
                       nameC = Name "y",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "alignA_y"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -4579,7 +4563,7 @@
                 declLoc = "bitfields.h:36:8",
                 declId = NamePair {
                   nameC = Name "alignA",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "AlignA"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
@@ -4592,7 +4576,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "AlignA"),
+                    (Name "@NsConstr" "AlignA"),
                   structSizeof = 4,
                   structAlignment = 4,
                   structFields = [
@@ -4601,7 +4585,7 @@
                         fieldLoc = "bitfields.h:37:16",
                         fieldName = NamePair {
                           nameC = Name "x",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "alignA_x"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -4614,7 +4598,7 @@
                         fieldLoc = "bitfields.h:38:6",
                         fieldName = NamePair {
                           nameC = Name "y",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "alignA_y"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -4650,15 +4634,15 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "AlignA",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "AlignA",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "alignA_x",
                       fieldType = HsPrimType
@@ -4669,7 +4653,7 @@
                             fieldLoc = "bitfields.h:37:16",
                             fieldName = NamePair {
                               nameC = Name "x",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "alignA_x"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -4690,7 +4674,7 @@
                               headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "alignA_y",
                       fieldType = HsPrimType
@@ -4701,7 +4685,7 @@
                             fieldLoc = "bitfields.h:38:6",
                             fieldName = NamePair {
                               nameC = Name "y",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "alignA_y"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -4726,7 +4710,7 @@
                         declLoc = "bitfields.h:36:8",
                         declId = NamePair {
                           nameC = Name "alignA",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "AlignA"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -4739,7 +4723,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "AlignA"),
+                            (Name "@NsConstr" "AlignA"),
                           structSizeof = 4,
                           structAlignment = 4,
                           structFields = [
@@ -4748,7 +4732,7 @@
                                 fieldLoc = "bitfields.h:37:16",
                                 fieldName = NamePair {
                                   nameC = Name "x",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "alignA_x"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -4761,7 +4745,7 @@
                                 fieldLoc = "bitfields.h:38:6",
                                 fieldName = NamePair {
                                   nameC = Name "y",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "alignA_y"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -4799,15 +4783,15 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "AlignA",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "AlignA",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "alignA_x",
                       fieldType = HsPrimType
@@ -4818,7 +4802,7 @@
                             fieldLoc = "bitfields.h:37:16",
                             fieldName = NamePair {
                               nameC = Name "x",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "alignA_x"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -4839,7 +4823,7 @@
                               headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "alignA_y",
                       fieldType = HsPrimType
@@ -4850,7 +4834,7 @@
                             fieldLoc = "bitfields.h:38:6",
                             fieldName = NamePair {
                               nameC = Name "y",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "alignA_y"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -4875,7 +4859,7 @@
                         declLoc = "bitfields.h:36:8",
                         declId = NamePair {
                           nameC = Name "alignA",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "AlignA"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -4888,7 +4872,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "AlignA"),
+                            (Name "@NsConstr" "AlignA"),
                           structSizeof = 4,
                           structAlignment = 4,
                           structFields = [
@@ -4897,7 +4881,7 @@
                                 fieldLoc = "bitfields.h:37:16",
                                 fieldName = NamePair {
                                   nameC = Name "x",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "alignA_x"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -4910,7 +4894,7 @@
                                 fieldLoc = "bitfields.h:38:6",
                                 fieldName = NamePair {
                                   nameC = Name "y",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "alignA_y"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -4958,7 +4942,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "AlignA",
       deriveInstanceComment =
@@ -4968,22 +4952,22 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "AlignA",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "AlignB",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "AlignB",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "alignB_x",
           fieldType = HsPrimType
@@ -4994,7 +4978,7 @@
                 fieldLoc = "bitfields.h:42:16",
                 fieldName = NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "alignB_x"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -5015,7 +4999,7 @@
                   headerInclude = "bitfields.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "alignB_y",
           fieldType = HsPrimType
@@ -5026,7 +5010,7 @@
                 fieldLoc = "bitfields.h:43:6",
                 fieldName = NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "alignB_y"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -5051,7 +5035,7 @@
             declLoc = "bitfields.h:41:8",
             declId = NamePair {
               nameC = Name "alignB",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "AlignB"},
             declOrigin = NameOriginInSource,
             declAliases = [],
@@ -5064,7 +5048,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "AlignB"),
+                (Name "@NsConstr" "AlignB"),
               structSizeof = 8,
               structAlignment = 4,
               structFields = [
@@ -5073,7 +5057,7 @@
                     fieldLoc = "bitfields.h:42:16",
                     fieldName = NamePair {
                       nameC = Name "x",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "alignB_x"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -5086,7 +5070,7 @@
                     fieldLoc = "bitfields.h:43:6",
                     fieldName = NamePair {
                       nameC = Name "y",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "alignB_y"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -5119,15 +5103,15 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "AlignB",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "AlignB",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "alignB_x",
               fieldType = HsPrimType
@@ -5138,7 +5122,7 @@
                     fieldLoc = "bitfields.h:42:16",
                     fieldName = NamePair {
                       nameC = Name "x",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "alignB_x"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -5159,7 +5143,7 @@
                       headerInclude = "bitfields.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "alignB_y",
               fieldType = HsPrimType
@@ -5170,7 +5154,7 @@
                     fieldLoc = "bitfields.h:43:6",
                     fieldName = NamePair {
                       nameC = Name "y",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "alignB_y"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -5195,7 +5179,7 @@
                 declLoc = "bitfields.h:41:8",
                 declId = NamePair {
                   nameC = Name "alignB",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "AlignB"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
@@ -5208,7 +5192,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "AlignB"),
+                    (Name "@NsConstr" "AlignB"),
                   structSizeof = 8,
                   structAlignment = 4,
                   structFields = [
@@ -5217,7 +5201,7 @@
                         fieldLoc = "bitfields.h:42:16",
                         fieldName = NamePair {
                           nameC = Name "x",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "alignB_x"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -5230,7 +5214,7 @@
                         fieldLoc = "bitfields.h:43:6",
                         fieldName = NamePair {
                           nameC = Name "y",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "alignB_y"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -5266,15 +5250,15 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "AlignB",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "AlignB",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "alignB_x",
                       fieldType = HsPrimType
@@ -5285,7 +5269,7 @@
                             fieldLoc = "bitfields.h:42:16",
                             fieldName = NamePair {
                               nameC = Name "x",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "alignB_x"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -5306,7 +5290,7 @@
                               headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "alignB_y",
                       fieldType = HsPrimType
@@ -5317,7 +5301,7 @@
                             fieldLoc = "bitfields.h:43:6",
                             fieldName = NamePair {
                               nameC = Name "y",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "alignB_y"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -5342,7 +5326,7 @@
                         declLoc = "bitfields.h:41:8",
                         declId = NamePair {
                           nameC = Name "alignB",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "AlignB"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -5355,7 +5339,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "AlignB"),
+                            (Name "@NsConstr" "AlignB"),
                           structSizeof = 8,
                           structAlignment = 4,
                           structFields = [
@@ -5364,7 +5348,7 @@
                                 fieldLoc = "bitfields.h:42:16",
                                 fieldName = NamePair {
                                   nameC = Name "x",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "alignB_x"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -5377,7 +5361,7 @@
                                 fieldLoc = "bitfields.h:43:6",
                                 fieldName = NamePair {
                                   nameC = Name "y",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "alignB_y"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -5415,15 +5399,15 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "AlignB",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "AlignB",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "alignB_x",
                       fieldType = HsPrimType
@@ -5434,7 +5418,7 @@
                             fieldLoc = "bitfields.h:42:16",
                             fieldName = NamePair {
                               nameC = Name "x",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "alignB_x"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -5455,7 +5439,7 @@
                               headerInclude = "bitfields.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "alignB_y",
                       fieldType = HsPrimType
@@ -5466,7 +5450,7 @@
                             fieldLoc = "bitfields.h:43:6",
                             fieldName = NamePair {
                               nameC = Name "y",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "alignB_y"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -5491,7 +5475,7 @@
                         declLoc = "bitfields.h:41:8",
                         declId = NamePair {
                           nameC = Name "alignB",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "AlignB"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -5504,7 +5488,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "AlignB"),
+                            (Name "@NsConstr" "AlignB"),
                           structSizeof = 8,
                           structAlignment = 4,
                           structFields = [
@@ -5513,7 +5497,7 @@
                                 fieldLoc = "bitfields.h:42:16",
                                 fieldName = NamePair {
                                   nameC = Name "x",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "alignB_x"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -5526,7 +5510,7 @@
                                 fieldLoc = "bitfields.h:43:6",
                                 fieldName = NamePair {
                                   nameC = Name "y",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "alignB_y"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -5574,7 +5558,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "AlignB",
       deriveInstanceComment =
@@ -5584,7 +5568,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "AlignB",
       deriveInstanceComment =

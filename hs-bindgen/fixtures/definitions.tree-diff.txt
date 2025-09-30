@@ -5,8 +5,7 @@ TranslationUnit {
         declLoc = "definitions.h:13:5",
         declId = NamePair {
           nameC = Name "foo",
-          nameHsIdent = HsIdentifier
-            "foo"},
+          nameHsIdent = Identifier "foo"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -23,7 +22,7 @@ TranslationUnit {
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypePrim
                 (PrimFloating PrimDouble))],
           functionAttrs =
@@ -42,7 +41,7 @@ TranslationUnit {
         declLoc = "definitions.h:18:5",
         declId = NamePair {
           nameC = Name "n",
-          nameHsIdent = HsIdentifier "n"},
+          nameHsIdent = Identifier "n"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -66,7 +65,7 @@ TranslationUnit {
         declLoc = "definitions.h:23:8",
         declId = NamePair {
           nameC = Name "X",
-          nameHsIdent = HsIdentifier "X"},
+          nameHsIdent = Identifier "X"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -79,7 +78,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "X"),
+            (Name "@NsConstr" "X"),
           structSizeof = 4,
           structAlignment = 4,
           structFields = [
@@ -89,8 +88,7 @@ TranslationUnit {
                 "definitions.h:23:16",
                 fieldName = NamePair {
                   nameC = Name "n",
-                  nameHsIdent = HsIdentifier
-                    "x_n"},
+                  nameHsIdent = Identifier "x_n"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
@@ -108,7 +106,7 @@ TranslationUnit {
         declLoc = "definitions.h:26:7",
         declId = NamePair {
           nameC = Name "Y",
-          nameHsIdent = HsIdentifier "Y"},
+          nameHsIdent = Identifier "Y"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -121,10 +119,10 @@ TranslationUnit {
       declKind = DeclUnion
         Union {
           unionNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "Y",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_Y"},
           unionSizeof = 4,
@@ -136,8 +134,7 @@ TranslationUnit {
                 "definitions.h:26:15",
                 fieldName = NamePair {
                   nameC = Name "m",
-                  nameHsIdent = HsIdentifier
-                    "y_m"},
+                  nameHsIdent = Identifier "y_m"},
                 fieldComment = Nothing},
               unionFieldType = TypePrim
                 (PrimIntegral PrimInt Signed)},
@@ -147,8 +144,7 @@ TranslationUnit {
                 "definitions.h:26:22",
                 fieldName = NamePair {
                   nameC = Name "o",
-                  nameHsIdent = HsIdentifier
-                    "y_o"},
+                  nameHsIdent = Identifier "y_o"},
                 fieldComment = Nothing},
               unionFieldType = TypePrim
                 (PrimIntegral

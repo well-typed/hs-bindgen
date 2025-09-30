@@ -39,7 +39,7 @@ module HsBindgen.Backend.Hs.AST (
   , VarDeclRHSAppHead(..)
     -- ** Deriving instances
   , Strategy(..)
-  , HsTypeClass(..)
+  , Hs.TypeClass(..)
     -- ** Foreign imports
   , ForeignImportDecl(..)
   , FunctionParameter(..)
@@ -67,11 +67,11 @@ import HsBindgen.Backend.Hs.AST.SigmaType
 import HsBindgen.Backend.Hs.AST.Strategy
 import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.CallConv
-import HsBindgen.Backend.Hs.Haddock.Documentation (Comment)
+import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Imports
-import HsBindgen.Language.Haskell
+import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint
 import HsBindgen.Orphans ()
 
@@ -82,83 +82,83 @@ import DeBruijn (Add (..), Ctx, EmptyCtx, Idx (..), Wk (..))
 -------------------------------------------------------------------------------}
 
 data Field = Field {
-      fieldName    :: HsName NsVar
+      fieldName    :: Hs.Name Hs.NsVar
     , fieldType    :: HsType
     , fieldOrigin  :: Origin.Field
-    , fieldComment :: Maybe Comment
+    , fieldComment :: Maybe HsDoc.Comment
     }
   deriving stock (Generic, Show)
 
 data Struct (n :: Nat) = Struct {
-      structName      :: HsName NsTypeConstr
-    , structConstr    :: HsName NsConstr
+      structName      :: Hs.Name Hs.NsTypeConstr
+    , structConstr    :: Hs.Name Hs.NsConstr
     , structFields    :: Vec n Field
       -- TODO: This is a temporary work-around: for enums we generate /both/
       -- a newtype /and/ a struct, and then define instances only for the
       -- struct. This is a nasty hack that we should get rid of.
     , structOrigin    :: Maybe (Origin.Decl Origin.Struct)
-    , structInstances :: Set HsTypeClass
-    , structComment   :: Maybe Comment
+    , structInstances :: Set Hs.TypeClass
+    , structComment   :: Maybe HsDoc.Comment
     }
   deriving stock (Generic, Show)
 
 data EmptyData = EmptyData {
-      emptyDataName    :: HsName NsTypeConstr
+      emptyDataName    :: Hs.Name Hs.NsTypeConstr
     , emptyDataOrigin  :: Origin.Decl Origin.EmptyData
-    , emptyDataComment :: Maybe Comment
+    , emptyDataComment :: Maybe HsDoc.Comment
     }
   deriving stock (Generic, Show)
 
 data Newtype = Newtype {
-      newtypeName      :: HsName NsTypeConstr
-    , newtypeConstr    :: HsName NsConstr
+      newtypeName      :: Hs.Name Hs.NsTypeConstr
+    , newtypeConstr    :: Hs.Name Hs.NsConstr
     , newtypeField     :: Field
     , newtypeOrigin    :: Origin.Decl Origin.Newtype
-    , newtypeInstances :: Set HsTypeClass
-    , newtypeComment   :: Maybe Comment
+    , newtypeInstances :: Set Hs.TypeClass
+    , newtypeComment   :: Maybe HsDoc.Comment
     }
   deriving stock (Generic, Show)
 
 data ForeignImportDecl = ForeignImportDecl
-    { foreignImportName       :: HsName NsVar
+    { foreignImportName       :: Hs.Name Hs.NsVar
     , foreignImportParameters :: [FunctionParameter]
     , foreignImportResultType :: ResultType HsType
     , foreignImportOrigName   :: Text
     , foreignImportCallConv   :: CallConv
     , foreignImportOrigin     :: Origin.ForeignImport
-    , foreignImportComment    :: Maybe Comment
+    , foreignImportComment    :: Maybe HsDoc.Comment
     , foreignImportSafety     :: SHs.Safety
     }
   deriving stock (Generic, Show)
 
 data FunctionParameter = FunctionParameter
-  { functionParameterName    :: Maybe (HsName NsVar)
+  { functionParameterName    :: Maybe (Hs.Name Hs.NsVar)
   , functionParameterType    :: HsType
-  , functionParameterComment :: Maybe Comment
+  , functionParameterComment :: Maybe HsDoc.Comment
   }
   deriving stock (Generic, Show)
 
 data UnionGetter = UnionGetter
-  { unionGetterName    :: HsName NsVar
+  { unionGetterName    :: Hs.Name Hs.NsVar
   , unionGetterType    :: HsType
-  , unionGetterConstr  :: HsName NsTypeConstr
-  , unionGetterComment :: Maybe Comment
+  , unionGetterConstr  :: Hs.Name Hs.NsTypeConstr
+  , unionGetterComment :: Maybe HsDoc.Comment
   }
   deriving stock (Generic, Show)
 
 data UnionSetter = UnionSetter
-  { unionSetterName    :: HsName NsVar
+  { unionSetterName    :: Hs.Name Hs.NsVar
   , unionSetterType    :: HsType
-  , unionSetterConstr  :: HsName NsTypeConstr
-  , unionSetterComment :: Maybe Comment
+  , unionSetterConstr  :: Hs.Name Hs.NsTypeConstr
+  , unionSetterComment :: Maybe HsDoc.Comment
   }
   deriving stock (Generic, Show)
 
 data DeriveInstance = DeriveInstance
   { deriveInstanceStrategy :: Strategy HsType
-  , deriveInstanceClass    :: HsTypeClass
-  , deriveInstanceName     :: HsName NsTypeConstr
-  , deriveInstanceComment  :: Maybe Comment
+  , deriveInstanceClass    :: Hs.TypeClass
+  , deriveInstanceName     :: Hs.Name Hs.NsTypeConstr
+  , deriveInstanceComment  :: Maybe HsDoc.Comment
   }
   deriving stock (Generic, Show)
 
@@ -202,7 +202,7 @@ deriving instance Show Decl
 data DefineInstance =
   DefineInstance
     { defineInstanceDeclarations :: InstanceDecl
-    , defineInstanceComment      :: Maybe Comment
+    , defineInstanceComment      :: Maybe HsDoc.Comment
     }
   deriving stock (Generic, Show)
 
@@ -219,8 +219,8 @@ data InstanceDecl where
       -> InstanceDecl
     InstanceSequentialCEnum ::
          Struct (S Z)
-      -> HsName NsConstr
-      -> HsName NsConstr
+      -> Hs.Name Hs.NsConstr
+      -> Hs.Name Hs.NsConstr
       -> InstanceDecl
     InstanceCEnumShow :: Struct (S Z) -> InstanceDecl
     InstanceCEnumRead :: Struct (S Z) -> InstanceDecl
@@ -232,12 +232,12 @@ type VarDecl :: Star
 data VarDecl =
   VarDecl
     -- | Name of variable/function.
-    { varDeclName    :: HsName NsVar
+    { varDeclName    :: Hs.Name Hs.NsVar
     -- | Type of variable/function.
     , varDeclType    :: SigmaType
     -- | RHS of variable/function.
     , varDeclBody    :: VarDeclRHS EmptyCtx
-    , varDeclComment :: Maybe Comment
+    , varDeclComment :: Maybe HsDoc.Comment
     }
   deriving stock (Generic, Show)
 
@@ -260,7 +260,7 @@ data VarDeclRHSAppHead
   -- | The translation of a built-in C infix function such as @*@ or @&&@.
   = forall arity. InfixAppHead (CExpr.DSL.MFun arity)
   -- | A function name, or the name of a function-like macro.
-  | VarAppHead (HsName NsVar)
+  | VarAppHead (Hs.Name Hs.NsVar)
 
 deriving stock instance Show VarDeclRHSAppHead
 
@@ -278,12 +278,12 @@ deriving stock instance Show VarDeclRHSAppHead
 -- @
 --
 data PatSyn = PatSyn
-    { patSynName    :: HsName NsConstr
-    , patSynType    :: HsName NsTypeConstr
-    , patSynConstr  :: HsName NsConstr
+    { patSynName    :: Hs.Name Hs.NsConstr
+    , patSynType    :: Hs.Name Hs.NsTypeConstr
+    , patSynConstr  :: Hs.Name Hs.NsConstr
     , patSynValue   :: Integer
     , patSynOrigin  :: Origin.PatSyn
-    , patSynComment :: Maybe Comment
+    , patSynComment :: Maybe HsDoc.Comment
     }
   deriving stock (Generic, Show)
 

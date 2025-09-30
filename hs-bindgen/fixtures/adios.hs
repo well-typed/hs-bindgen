@@ -1,14 +1,14 @@
 [
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "Adio'0301s",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "Adio'0301s",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_Adio'0301s",
         fieldType = HsPrimType
@@ -20,7 +20,7 @@
           declLoc = "adios.h:7:13",
           declId = NamePair {
             nameC = Name "adio\769s",
-            nameHsIdent = HsIdentifier
+            nameHsIdent = Identifier
               "Adio'0301s"},
           declOrigin = NameOriginInSource,
           declAliases = [],
@@ -33,10 +33,10 @@
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "Adio'0301s",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_Adio'0301s"},
             typedefType = TypePrim
@@ -80,7 +80,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Storable,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Adio'0301s",
       deriveInstanceComment =
@@ -90,7 +90,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Adio'0301s",
       deriveInstanceComment =
@@ -100,7 +100,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Ord,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Adio'0301s",
       deriveInstanceComment =
@@ -110,7 +110,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Read,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Adio'0301s",
       deriveInstanceComment =
@@ -120,7 +120,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Adio'0301s",
       deriveInstanceComment =
@@ -130,7 +130,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Enum,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Adio'0301s",
       deriveInstanceComment =
@@ -140,7 +140,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Ix,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Adio'0301s",
       deriveInstanceComment =
@@ -150,7 +150,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bounded,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Adio'0301s",
       deriveInstanceComment =
@@ -160,7 +160,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Adio'0301s",
       deriveInstanceComment =
@@ -171,7 +171,7 @@
       DeriveNewtype,
       deriveInstanceClass =
       FiniteBits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Adio'0301s",
       deriveInstanceComment =
@@ -181,7 +181,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Integral,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Adio'0301s",
       deriveInstanceComment =
@@ -191,7 +191,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Num,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Adio'0301s",
       deriveInstanceComment =
@@ -201,21 +201,21 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Real,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Adio'0301s",
       deriveInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "C\25968\23383",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "C\25968\23383",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_C\25968\23383",
         fieldType = HsPrimType
@@ -227,7 +227,7 @@
           declLoc = "adios.h:12:13",
           declId = NamePair {
             nameC = Name "\25968\23383",
-            nameHsIdent = HsIdentifier
+            nameHsIdent = Identifier
               "C\25968\23383"},
           declOrigin = NameOriginInSource,
           declAliases = [],
@@ -240,10 +240,10 @@
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "C\25968\23383",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_C\25968\23383"},
             typedefType = TypePrim
@@ -287,7 +287,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Storable,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "C\25968\23383",
       deriveInstanceComment =
@@ -297,7 +297,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "C\25968\23383",
       deriveInstanceComment =
@@ -307,7 +307,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Ord,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "C\25968\23383",
       deriveInstanceComment =
@@ -317,7 +317,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Read,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "C\25968\23383",
       deriveInstanceComment =
@@ -327,7 +327,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "C\25968\23383",
       deriveInstanceComment =
@@ -337,7 +337,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Enum,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "C\25968\23383",
       deriveInstanceComment =
@@ -347,7 +347,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Ix,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "C\25968\23383",
       deriveInstanceComment =
@@ -357,7 +357,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bounded,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "C\25968\23383",
       deriveInstanceComment =
@@ -367,7 +367,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "C\25968\23383",
       deriveInstanceComment =
@@ -378,7 +378,7 @@
       DeriveNewtype,
       deriveInstanceClass =
       FiniteBits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "C\25968\23383",
       deriveInstanceComment =
@@ -388,7 +388,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Integral,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "C\25968\23383",
       deriveInstanceComment =
@@ -398,7 +398,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Num,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "C\25968\23383",
       deriveInstanceComment =
@@ -408,14 +408,14 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Real,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "C\25968\23383",
       deriveInstanceComment =
       Nothing},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "c\978",
       foreignImportParameters = [],
@@ -452,7 +452,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "\25308\25308",
       foreignImportParameters = [],
@@ -490,7 +490,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "say\25308\25308",
       foreignImportParameters = [],
@@ -528,7 +528,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "c\978",
       foreignImportParameters = [],
@@ -565,7 +565,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "\25308\25308",
       foreignImportParameters = [],
@@ -603,7 +603,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "say\25308\25308",
       foreignImportParameters = [],
@@ -641,7 +641,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_adios_857cc80028e9fd4d",
       foreignImportParameters = [],
@@ -667,7 +667,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_adios_8b289d4c7ae2c2a7",
       foreignImportParameters = [],
@@ -693,7 +693,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_adios_2879b42f75005d3b",
       foreignImportParameters = [],
@@ -719,7 +719,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_adios_e4b974661ff038a0",
       foreignImportParameters = [],
@@ -745,7 +745,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_adios_c538a25ba7055dd4",
       foreignImportParameters = [],

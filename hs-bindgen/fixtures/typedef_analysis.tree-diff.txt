@@ -8,7 +8,7 @@ TranslationUnit {
         "typedef_analysis.h:7:8",
         declId = NamePair {
           nameC = Name "struct1_t",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Struct1_t"},
         declOrigin =
         NameOriginRenamedFrom
@@ -32,9 +32,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName
-              "@NsConstr"
-              "Struct1_t"),
+            (Name "@NsConstr" "Struct1_t"),
           structSizeof = 0,
           structAlignment = 1,
           structFields = [],
@@ -51,7 +49,7 @@ TranslationUnit {
         "typedef_analysis.h:11:16",
         declId = NamePair {
           nameC = Name "struct2_t",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Struct2_t"},
         declOrigin =
         NameOriginRenamedFrom
@@ -68,9 +66,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName
-              "@NsConstr"
-              "Struct2_t"),
+            (Name "@NsConstr" "Struct2_t"),
           structSizeof = 0,
           structAlignment = 1,
           structFields = [],
@@ -87,7 +83,7 @@ TranslationUnit {
         "typedef_analysis.h:14:8",
         declId = NamePair {
           nameC = Name "struct3_t",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Struct3_t"},
         declOrigin =
         NameOriginRenamedFrom
@@ -114,7 +110,7 @@ TranslationUnit {
         "typedef_analysis.h:18:16",
         declId = NamePair {
           nameC = Name "struct4_t",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Struct4_t"},
         declOrigin =
         NameOriginRenamedFrom
@@ -141,7 +137,7 @@ TranslationUnit {
         "typedef_analysis.h:21:8",
         declId = NamePair {
           nameC = Name "struct5",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Struct5"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -155,7 +151,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "Struct5"),
+            (Name "@NsConstr" "Struct5"),
           structSizeof = 0,
           structAlignment = 1,
           structFields = [],
@@ -172,7 +168,7 @@ TranslationUnit {
         "typedef_analysis.h:22:25",
         declId = NamePair {
           nameC = Name "struct5_t",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Struct5_t"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -186,17 +182,17 @@ TranslationUnit {
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "Struct5_t",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_Struct5_t"},
           typedefType = TypePointer
             (TypeStruct
               NamePair {
                 nameC = Name "struct5",
-                nameHsIdent = HsIdentifier
+                nameHsIdent = Identifier
                   "Struct5"}
               NameOriginInSource)},
       declSpec = DeclSpec
@@ -211,7 +207,7 @@ TranslationUnit {
         "typedef_analysis.h:25:16",
         declId = NamePair {
           nameC = Name "struct6_Deref",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Struct6_Deref"},
         declOrigin =
         NameOriginRenamedFrom
@@ -227,7 +223,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName
+            (Name
               "@NsConstr"
               "Struct6_Deref"),
           structSizeof = 0,
@@ -246,7 +242,7 @@ TranslationUnit {
         "typedef_analysis.h:25:28",
         declId = NamePair {
           nameC = Name "struct6",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Struct6"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -260,17 +256,17 @@ TranslationUnit {
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "Struct6",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_Struct6"},
           typedefType = TypePointer
             (TypeStruct
               NamePair {
                 nameC = Name "struct6_Deref",
-                nameHsIdent = HsIdentifier
+                nameHsIdent = Identifier
                   "Struct6_Deref"}
               (NameOriginRenamedFrom
                 (Name "struct6")))},
@@ -286,7 +282,7 @@ TranslationUnit {
         "typedef_analysis.h:28:8",
         declId = NamePair {
           nameC = Name "struct7",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Struct7"},
         declOrigin = NameOriginInSource,
         declAliases = [
@@ -302,7 +298,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "Struct7"),
+            (Name "@NsConstr" "Struct7"),
           structSizeof = 0,
           structAlignment = 1,
           structFields = [],
@@ -319,7 +315,7 @@ TranslationUnit {
         "typedef_analysis.h:29:24",
         declId = NamePair {
           nameC = Name "struct7a",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Struct7a"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -333,16 +329,16 @@ TranslationUnit {
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "Struct7a",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_Struct7a"},
           typedefType = TypeStruct
             NamePair {
               nameC = Name "struct7",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Struct7"}
             NameOriginInSource},
       declSpec = DeclSpec
@@ -357,7 +353,7 @@ TranslationUnit {
         "typedef_analysis.h:30:24",
         declId = NamePair {
           nameC = Name "struct7b",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Struct7b"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -371,16 +367,16 @@ TranslationUnit {
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "Struct7b",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_Struct7b"},
           typedefType = TypeStruct
             NamePair {
               nameC = Name "struct7",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Struct7"}
             NameOriginInSource},
       declSpec = DeclSpec
@@ -395,7 +391,7 @@ TranslationUnit {
         "typedef_analysis.h:33:8",
         declId = NamePair {
           nameC = Name "struct8",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Struct8"},
         declOrigin = NameOriginInSource,
         declAliases = [
@@ -411,7 +407,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "Struct8"),
+            (Name "@NsConstr" "Struct8"),
           structSizeof = 0,
           structAlignment = 1,
           structFields = [],
@@ -428,7 +424,7 @@ TranslationUnit {
         "typedef_analysis.h:35:24",
         declId = NamePair {
           nameC = Name "struct8b",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Struct8b"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -442,16 +438,16 @@ TranslationUnit {
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "Struct8b",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_Struct8b"},
           typedefType = TypeStruct
             NamePair {
               nameC = Name "struct8",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Struct8"}
             NameOriginInSource},
       declSpec = DeclSpec
@@ -466,7 +462,7 @@ TranslationUnit {
         "typedef_analysis.h:38:8",
         declId = NamePair {
           nameC = Name "struct9",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Struct9"},
         declOrigin = NameOriginInSource,
         declAliases = [Name "struct9"],
@@ -480,7 +476,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "Struct9"),
+            (Name "@NsConstr" "Struct9"),
           structSizeof = 0,
           structAlignment = 1,
           structFields = [],
@@ -497,7 +493,7 @@ TranslationUnit {
         "typedef_analysis.h:40:17",
         declId = NamePair {
           nameC = Name "struct9_t",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Struct9_t"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -511,10 +507,10 @@ TranslationUnit {
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "Struct9_t",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_Struct9_t"},
           typedefType = TypeTypedef
@@ -523,7 +519,7 @@ TranslationUnit {
               (TypeStruct
                 NamePair {
                   nameC = Name "struct9",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Struct9"}
                 NameOriginInSource))},
       declSpec = DeclSpec
@@ -538,7 +534,7 @@ TranslationUnit {
         "typedef_analysis.h:46:8",
         declId = NamePair {
           nameC = Name "struct10_t",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Struct10_t"},
         declOrigin =
         NameOriginRenamedFrom
@@ -555,9 +551,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName
-              "@NsConstr"
-              "Struct10_t"),
+            (Name "@NsConstr" "Struct10_t"),
           structSizeof = 0,
           structAlignment = 1,
           structFields = [],
@@ -574,7 +568,7 @@ TranslationUnit {
         "typedef_analysis.h:48:20",
         declId = NamePair {
           nameC = Name "struct10_t_t",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Struct10_t_t"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -588,10 +582,10 @@ TranslationUnit {
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "Struct10_t_t",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_Struct10_t_t"},
           typedefType = TypeTypedef
@@ -600,7 +594,7 @@ TranslationUnit {
               (TypeStruct
                 NamePair {
                   nameC = Name "struct10_t",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Struct10_t"}
                 (NameOriginRenamedFrom
                   (Name "struct10"))))},
@@ -616,7 +610,7 @@ TranslationUnit {
         "typedef_analysis.h:51:8",
         declId = NamePair {
           nameC = Name "struct11_t",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Struct11_t"},
         declOrigin =
         NameOriginRenamedFrom
@@ -633,9 +627,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName
-              "@NsConstr"
-              "Struct11_t"),
+            (Name "@NsConstr" "Struct11_t"),
           structSizeof = 16,
           structAlignment = 8,
           structFields = [
@@ -645,7 +637,7 @@ TranslationUnit {
                 "typedef_analysis.h:52:7",
                 fieldName = NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "struct11_t_x"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -658,14 +650,14 @@ TranslationUnit {
                 "typedef_analysis.h:53:20",
                 fieldName = NamePair {
                   nameC = Name "self",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "struct11_t_self"},
                 fieldComment = Nothing},
               structFieldType = TypePointer
                 (TypeStruct
                   NamePair {
                     nameC = Name "struct11_t",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Struct11_t"}
                   (NameOriginRenamedFrom
                     (Name "struct11"))),
@@ -684,7 +676,7 @@ TranslationUnit {
         "typedef_analysis.h:60:8",
         declId = NamePair {
           nameC = Name "struct12_t",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Struct12_t"},
         declOrigin =
         NameOriginRenamedFrom
@@ -701,9 +693,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName
-              "@NsConstr"
-              "Struct12_t"),
+            (Name "@NsConstr" "Struct12_t"),
           structSizeof = 16,
           structAlignment = 8,
           structFields = [
@@ -713,7 +703,7 @@ TranslationUnit {
                 "typedef_analysis.h:61:7",
                 fieldName = NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "struct12_t_x"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -726,7 +716,7 @@ TranslationUnit {
                 "typedef_analysis.h:62:15",
                 fieldName = NamePair {
                   nameC = Name "self",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "struct12_t_self"},
                 fieldComment = Nothing},
               structFieldType = TypePointer
@@ -736,7 +726,7 @@ TranslationUnit {
                     (TypeStruct
                       NamePair {
                         nameC = Name "struct12_t",
-                        nameHsIdent = HsIdentifier
+                        nameHsIdent = Identifier
                           "Struct12_t"}
                       (NameOriginRenamedFrom
                         (Name "struct12"))))),
@@ -755,7 +745,7 @@ TranslationUnit {
         "typedef_analysis.h:66:8",
         declId = NamePair {
           nameC = Name "use_sites",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Use_sites"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -769,9 +759,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName
-              "@NsConstr"
-              "Use_sites"),
+            (Name "@NsConstr" "Use_sites"),
           structSizeof = 64,
           structAlignment = 8,
           structFields = [
@@ -782,7 +770,7 @@ TranslationUnit {
                 fieldName = NamePair {
                   nameC = Name
                     "useTypedef_struct1_t",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "use_sites_useTypedef_struct1_t"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
@@ -791,7 +779,7 @@ TranslationUnit {
                   (TypeStruct
                     NamePair {
                       nameC = Name "struct1_t",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "Struct1_t"}
                     (NameOriginRenamedFrom
                       (Name "struct1")))),
@@ -804,7 +792,7 @@ TranslationUnit {
                 fieldName = NamePair {
                   nameC = Name
                     "useTypedef_struct2_t",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "use_sites_useTypedef_struct2_t"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
@@ -813,7 +801,7 @@ TranslationUnit {
                   (TypeStruct
                     NamePair {
                       nameC = Name "struct2_t",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "Struct2_t"}
                     (NameOriginRenamedFrom
                       (Name "struct2")))),
@@ -826,7 +814,7 @@ TranslationUnit {
                 fieldName = NamePair {
                   nameC = Name
                     "useTypedef_struct3_t",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "use_sites_useTypedef_struct3_t"},
                 fieldComment = Nothing},
               structFieldType = TypePointer
@@ -836,7 +824,7 @@ TranslationUnit {
                     (TypeStruct
                       NamePair {
                         nameC = Name "struct3_t",
-                        nameHsIdent = HsIdentifier
+                        nameHsIdent = Identifier
                           "Struct3_t"}
                       (NameOriginRenamedFrom
                         (Name "struct3"))))),
@@ -849,7 +837,7 @@ TranslationUnit {
                 fieldName = NamePair {
                   nameC = Name
                     "useTypedef_struct4_t",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "use_sites_useTypedef_struct4_t"},
                 fieldComment = Nothing},
               structFieldType = TypePointer
@@ -859,7 +847,7 @@ TranslationUnit {
                     (TypeStruct
                       NamePair {
                         nameC = Name "struct4_t",
-                        nameHsIdent = HsIdentifier
+                        nameHsIdent = Identifier
                           "Struct4_t"}
                       (NameOriginRenamedFrom
                         (Name "struct4"))))),
@@ -872,13 +860,13 @@ TranslationUnit {
                 fieldName = NamePair {
                   nameC = Name
                     "useStruct_struct5",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "use_sites_useStruct_struct5"},
                 fieldComment = Nothing},
               structFieldType = TypeStruct
                 NamePair {
                   nameC = Name "struct5",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Struct5"}
                 NameOriginInSource,
               structFieldOffset = 128,
@@ -890,14 +878,14 @@ TranslationUnit {
                 fieldName = NamePair {
                   nameC = Name
                     "useTypedef_struct5_t",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "use_sites_useTypedef_struct5_t"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "struct5_t",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Struct5_t"}),
               structFieldOffset = 128,
               structFieldWidth = Nothing},
@@ -908,13 +896,13 @@ TranslationUnit {
                 fieldName = NamePair {
                   nameC = Name
                     "useStruct_struct6",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "use_sites_useStruct_struct6"},
                 fieldComment = Nothing},
               structFieldType = TypeStruct
                 NamePair {
                   nameC = Name "struct6_Deref",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Struct6_Deref"}
                 (NameOriginRenamedFrom
                   (Name "struct6")),
@@ -927,14 +915,14 @@ TranslationUnit {
                 fieldName = NamePair {
                   nameC = Name
                     "useTypedef_struct6",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "use_sites_useTypedef_struct6"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "struct6",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Struct6"}),
               structFieldOffset = 192,
               structFieldWidth = Nothing},
@@ -945,14 +933,14 @@ TranslationUnit {
                 fieldName = NamePair {
                   nameC = Name
                     "useTypedef_struct7a",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "use_sites_useTypedef_struct7a"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "struct7a",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Struct7a"}),
               structFieldOffset = 256,
               structFieldWidth = Nothing},
@@ -963,14 +951,14 @@ TranslationUnit {
                 fieldName = NamePair {
                   nameC = Name
                     "useTypedef_struct7b",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "use_sites_useTypedef_struct7b"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "struct7b",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Struct7b"}),
               structFieldOffset = 256,
               structFieldWidth = Nothing},
@@ -981,7 +969,7 @@ TranslationUnit {
                 fieldName = NamePair {
                   nameC = Name
                     "useTypedef_struct8",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "use_sites_useTypedef_struct8"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
@@ -990,7 +978,7 @@ TranslationUnit {
                   (TypeStruct
                     NamePair {
                       nameC = Name "struct8",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "Struct8"}
                     NameOriginInSource)),
               structFieldOffset = 256,
@@ -1002,14 +990,14 @@ TranslationUnit {
                 fieldName = NamePair {
                   nameC = Name
                     "useTypedef_struct8b",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "use_sites_useTypedef_struct8b"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "struct8b",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Struct8b"}),
               structFieldOffset = 256,
               structFieldWidth = Nothing},
@@ -1020,7 +1008,7 @@ TranslationUnit {
                 fieldName = NamePair {
                   nameC = Name
                     "useTypedef_struct9",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "use_sites_useTypedef_struct9"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
@@ -1029,7 +1017,7 @@ TranslationUnit {
                   (TypeStruct
                     NamePair {
                       nameC = Name "struct9",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "Struct9"}
                     NameOriginInSource)),
               structFieldOffset = 256,
@@ -1041,14 +1029,14 @@ TranslationUnit {
                 fieldName = NamePair {
                   nameC = Name
                     "useTypedef_struct9_t",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "use_sites_useTypedef_struct9_t"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "struct9_t",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Struct9_t"}),
               structFieldOffset = 256,
               structFieldWidth = Nothing},
@@ -1059,7 +1047,7 @@ TranslationUnit {
                 fieldName = NamePair {
                   nameC = Name
                     "useTypedef_struct10_t",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "use_sites_useTypedef_struct10_t"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
@@ -1068,7 +1056,7 @@ TranslationUnit {
                   (TypeStruct
                     NamePair {
                       nameC = Name "struct10_t",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "Struct10_t"}
                     (NameOriginRenamedFrom
                       (Name "struct10")))),
@@ -1081,14 +1069,14 @@ TranslationUnit {
                 fieldName = NamePair {
                   nameC = Name
                     "useTypedef_struct10_t_t",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "use_sites_useTypedef_struct10_t_t"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "struct10_t_t",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Struct10_t_t"}),
               structFieldOffset = 256,
               structFieldWidth = Nothing},
@@ -1099,7 +1087,7 @@ TranslationUnit {
                 fieldName = NamePair {
                   nameC = Name
                     "useTypedef_struct11_t",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "use_sites_useTypedef_struct11_t"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
@@ -1108,7 +1096,7 @@ TranslationUnit {
                   (TypeStruct
                     NamePair {
                       nameC = Name "struct11_t",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "Struct11_t"}
                     (NameOriginRenamedFrom
                       (Name "struct11")))),
@@ -1121,7 +1109,7 @@ TranslationUnit {
                 fieldName = NamePair {
                   nameC = Name
                     "useTypedef_struct12_t",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "use_sites_useTypedef_struct12_t"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
@@ -1130,7 +1118,7 @@ TranslationUnit {
                   (TypeStruct
                     NamePair {
                       nameC = Name "struct12_t",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "Struct12_t"}
                     (NameOriginRenamedFrom
                       (Name "struct12")))),

@@ -11,7 +11,7 @@ import C.Type qualified as CExpr.Runtime
 
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Imports
-import HsBindgen.Language.Haskell
+import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
   Types
@@ -56,14 +56,14 @@ data HsPrimType
 
 data HsType =
     HsPrimType HsPrimType
-  | HsTypRef (HsName NsTypeConstr)
+  | HsTypRef (Hs.Name Hs.NsTypeConstr)
   | HsConstArray Natural HsType
   | HsIncompleteArray HsType
   | HsPtr HsType
   | HsFunPtr HsType
   | HsIO HsType
   | HsFun HsType HsType
-  | HsExtBinding ExtHsRef BindingSpec.TypeSpec
+  | HsExtBinding Hs.ExtRef BindingSpec.TypeSpec
   | HsByteArray
   | HsSizedByteArray Natural Natural
   | HsBlock HsType

@@ -5,7 +5,7 @@ TranslationUnit {
         declLoc = "vector.h:1:9",
         declId = NamePair {
           nameC = Name "vector",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Vector"},
         declOrigin = NameOriginGenerated
           (AnonId "vector.h:1:9"),
@@ -19,7 +19,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "Vector"),
+            (Name "@NsConstr" "Vector"),
           structSizeof = 16,
           structAlignment = 8,
           structFields = [
@@ -28,7 +28,7 @@ TranslationUnit {
                 fieldLoc = "vector.h:2:12",
                 fieldName = NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "vector_x"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -40,7 +40,7 @@ TranslationUnit {
                 fieldLoc = "vector.h:3:12",
                 fieldName = NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "vector_y"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -59,7 +59,7 @@ TranslationUnit {
         declLoc = "vector.h:6:9",
         declId = NamePair {
           nameC = Name "new_vector",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "new_vector"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -76,14 +76,14 @@ TranslationUnit {
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypePrim
                 (PrimFloating PrimDouble)),
             _×_
               (Just
                 NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier "y"})
+                  nameHsIdent = Identifier "y"})
               (TypePrim
                 (PrimFloating PrimDouble))],
           functionAttrs =
@@ -96,7 +96,7 @@ TranslationUnit {
                 (TypeStruct
                   NamePair {
                     nameC = Name "vector",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Vector"}
                   (NameOriginGenerated
                     (AnonId "vector.h:1:9")))))},

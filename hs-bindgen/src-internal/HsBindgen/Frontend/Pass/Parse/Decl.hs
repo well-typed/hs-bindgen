@@ -7,7 +7,7 @@ import Data.Text qualified as Text
 
 import Clang.Enum.Simple
 import Clang.HighLevel qualified as HighLevel
-import Clang.HighLevel.Documentation
+import Clang.HighLevel.Documentation qualified as CDoc
 import Clang.HighLevel.Types
 import Clang.LowLevel.Core
 import Clang.Paths
@@ -58,7 +58,7 @@ getDeclInfo = \curr -> do
     declId         <- C.getPrelimDeclId curr
     declLoc        <- HighLevel.clang_getCursorLocation' curr
     declHeaderInfo <- getHeaderInfo (singleLocPath declLoc)
-    declComment    <- fmap parseCommentReferences <$> clang_getComment curr
+    declComment    <- fmap parseCommentReferences <$> CDoc.clang_getComment curr
     -- TODO: We might want a NameOriginBuiltin
     return C.DeclInfo{
         declId
@@ -79,7 +79,7 @@ getFieldInfo :: CXCursor -> ParseDecl (C.FieldInfo Parse)
 getFieldInfo = \curr -> do
   fieldLoc     <- HighLevel.clang_getCursorLocation' curr
   fieldName    <- C.Name <$> clang_getCursorDisplayName curr
-  fieldComment <- fmap parseCommentReferences <$> clang_getComment curr
+  fieldComment <- fmap parseCommentReferences <$> CDoc.clang_getComment curr
 
   return C.FieldInfo {
        fieldLoc
@@ -658,7 +658,7 @@ varDecl info = \curr -> do
   Internal auxiliary
 -------------------------------------------------------------------------------}
 
-parseCommentReferences :: Comment Text -> C.Comment Parse
+parseCommentReferences :: CDoc.Comment Text -> C.Comment Parse
 parseCommentReferences = C.Comment
                        . fmap ( C.ById
                               . C.PrelimDeclIdNamed

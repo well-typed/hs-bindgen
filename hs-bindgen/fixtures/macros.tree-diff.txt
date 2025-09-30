@@ -6,7 +6,7 @@ TranslationUnit {
         declLoc = "macros.h:1:9",
         declId = NamePair {
           nameC = Name "OBJECTLIKE1",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "oBJECTLIKE1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -39,7 +39,7 @@ TranslationUnit {
         declLoc = "macros.h:2:9",
         declId = NamePair {
           nameC = Name "OBJECTLIKE2",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "oBJECTLIKE2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -72,7 +72,7 @@ TranslationUnit {
         declLoc = "macros.h:3:9",
         declId = NamePair {
           nameC = Name "OBJECTLIKE3",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "oBJECTLIKE3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -114,7 +114,7 @@ TranslationUnit {
         declLoc = "macros.h:4:9",
         declId = NamePair {
           nameC = Name "OBJECTLIKE4",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "oBJECTLIKE4"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -156,7 +156,7 @@ TranslationUnit {
         declLoc = "macros.h:6:9",
         declId = NamePair {
           nameC = Name "MEANING_OF_LIFE1",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "mEANING_OF_LIFE1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -189,7 +189,7 @@ TranslationUnit {
         declLoc = "macros.h:7:9",
         declId = NamePair {
           nameC = Name "MEANING_OF_LIFE2",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "mEANING_OF_LIFE2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -222,7 +222,7 @@ TranslationUnit {
         declLoc = "macros.h:8:9",
         declId = NamePair {
           nameC = Name "MEANING_OF_LIFE3",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "mEANING_OF_LIFE3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -255,7 +255,7 @@ TranslationUnit {
         declLoc = "macros.h:9:9",
         declId = NamePair {
           nameC = Name "MEANING_OF_LIFE4",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "mEANING_OF_LIFE4"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -288,7 +288,7 @@ TranslationUnit {
         declLoc = "macros.h:10:9",
         declId = NamePair {
           nameC = Name "MEANING_OF_LIFE5",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "mEANING_OF_LIFE5"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -321,7 +321,7 @@ TranslationUnit {
         declLoc = "macros.h:12:9",
         declId = NamePair {
           nameC = Name "LONG_INT_TOKEN1",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "lONG_INT_TOKEN1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -357,7 +357,7 @@ TranslationUnit {
         declLoc = "macros.h:13:9",
         declId = NamePair {
           nameC = Name "LONG_INT_TOKEN2",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "lONG_INT_TOKEN2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -393,7 +393,7 @@ TranslationUnit {
         declLoc = "macros.h:14:9",
         declId = NamePair {
           nameC = Name "LONG_INT_TOKEN3",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "lONG_INT_TOKEN3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -429,7 +429,7 @@ TranslationUnit {
         declLoc = "macros.h:15:9",
         declId = NamePair {
           nameC = Name "LONG_INT_TOKEN4",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "lONG_INT_TOKEN4"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -465,7 +465,7 @@ TranslationUnit {
         declLoc = "macros.h:17:9",
         declId = NamePair {
           nameC = Name "TUPLE1",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "tUPLE1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -508,7 +508,7 @@ TranslationUnit {
         declLoc = "macros.h:18:9",
         declId = NamePair {
           nameC = Name "TUPLE2",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "tUPLE2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -551,7 +551,7 @@ TranslationUnit {
         declLoc = "macros.h:19:9",
         declId = NamePair {
           nameC = Name "TUPLE3",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "tUPLE3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -594,7 +594,7 @@ TranslationUnit {
         declLoc = "macros.h:24:9",
         declId = NamePair {
           nameC = Name "FLT1_1",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "fLT1_1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -631,7 +631,7 @@ TranslationUnit {
         declLoc = "macros.h:25:9",
         declId = NamePair {
           nameC = Name "FLT1_2",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "fLT1_2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -668,7 +668,7 @@ TranslationUnit {
         declLoc = "macros.h:26:9",
         declId = NamePair {
           nameC = Name "FLT1_3",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "fLT1_3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -704,7 +704,7 @@ TranslationUnit {
         declLoc = "macros.h:28:9",
         declId = NamePair {
           nameC = Name "FLT2_1",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "fLT2_1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -741,7 +741,7 @@ TranslationUnit {
         declLoc = "macros.h:29:9",
         declId = NamePair {
           nameC = Name "FLT2_2",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "fLT2_2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -778,7 +778,7 @@ TranslationUnit {
         declLoc = "macros.h:30:9",
         declId = NamePair {
           nameC = Name "FLT2_3",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "fLT2_3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -814,7 +814,7 @@ TranslationUnit {
         declLoc = "macros.h:32:9",
         declId = NamePair {
           nameC = Name "FLT3_1",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "fLT3_1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -851,7 +851,7 @@ TranslationUnit {
         declLoc = "macros.h:33:9",
         declId = NamePair {
           nameC = Name "FLT3_2",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "fLT3_2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -888,7 +888,7 @@ TranslationUnit {
         declLoc = "macros.h:34:9",
         declId = NamePair {
           nameC = Name "FLT3_3",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "fLT3_3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -925,7 +925,7 @@ TranslationUnit {
         declLoc = "macros.h:35:9",
         declId = NamePair {
           nameC = Name "FLT3_4",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "fLT3_4"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -961,7 +961,7 @@ TranslationUnit {
         declLoc = "macros.h:37:9",
         declId = NamePair {
           nameC = Name "FLT4_1",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "fLT4_1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -998,7 +998,7 @@ TranslationUnit {
         declLoc = "macros.h:38:9",
         declId = NamePair {
           nameC = Name "FLT4_2",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "fLT4_2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -1035,7 +1035,7 @@ TranslationUnit {
         declLoc = "macros.h:39:9",
         declId = NamePair {
           nameC = Name "FLT4_3",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "fLT4_3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -1072,7 +1072,7 @@ TranslationUnit {
         declLoc = "macros.h:41:9",
         declId = NamePair {
           nameC = Name "FLT5_1",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "fLT5_1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -1109,7 +1109,7 @@ TranslationUnit {
         declLoc = "macros.h:42:9",
         declId = NamePair {
           nameC = Name "FLT5_2",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "fLT5_2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -1146,7 +1146,7 @@ TranslationUnit {
         declLoc = "macros.h:44:9",
         declId = NamePair {
           nameC = Name "FLT6_1",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "fLT6_1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -1184,7 +1184,7 @@ TranslationUnit {
         declLoc = "macros.h:45:9",
         declId = NamePair {
           nameC = Name "FLT6_2",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "fLT6_2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -1221,7 +1221,7 @@ TranslationUnit {
         declLoc = "macros.h:46:9",
         declId = NamePair {
           nameC = Name "FLT6_3",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "fLT6_3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -1258,7 +1258,7 @@ TranslationUnit {
         declLoc = "macros.h:49:9",
         declId = NamePair {
           nameC = Name "BAD1",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "bAD1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -1303,7 +1303,7 @@ TranslationUnit {
         declLoc = "macros.h:50:9",
         declId = NamePair {
           nameC = Name "BAD2",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "bAD2"},
         declOrigin = NameOriginInSource,
         declAliases = [],

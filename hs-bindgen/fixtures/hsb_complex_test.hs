@@ -1,15 +1,15 @@
 [
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "Complex_object_t",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "Complex_object_t",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "complex_object_t_velocity",
           fieldType = HsComplexType
@@ -21,7 +21,7 @@
                 "hsb_complex_test.h:25:20",
                 fieldName = NamePair {
                   nameC = Name "velocity",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "complex_object_t_velocity"},
                 fieldComment = Nothing},
               structFieldType = TypeComplex
@@ -42,7 +42,7 @@
                   "hsb_complex_test.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "complex_object_t_position",
           fieldType = HsComplexType
@@ -54,7 +54,7 @@
                 "hsb_complex_test.h:26:20",
                 fieldName = NamePair {
                   nameC = Name "position",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "complex_object_t_position"},
                 fieldComment = Nothing},
               structFieldType = TypeComplex
@@ -75,7 +75,7 @@
                   "hsb_complex_test.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "complex_object_t_id",
           fieldType = HsPrimType
@@ -87,7 +87,7 @@
                 "hsb_complex_test.h:27:9",
                 fieldName = NamePair {
                   nameC = Name "id",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "complex_object_t_id"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -114,7 +114,7 @@
             "hsb_complex_test.h:24:9",
             declId = NamePair {
               nameC = Name "complex_object_t",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Complex_object_t"},
             declOrigin = NameOriginGenerated
               (AnonId
@@ -131,7 +131,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName
+                (Name
                   "@NsConstr"
                   "Complex_object_t"),
               structSizeof = 32,
@@ -143,7 +143,7 @@
                     "hsb_complex_test.h:25:20",
                     fieldName = NamePair {
                       nameC = Name "velocity",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "complex_object_t_velocity"},
                     fieldComment = Nothing},
                   structFieldType = TypeComplex
@@ -156,7 +156,7 @@
                     "hsb_complex_test.h:26:20",
                     fieldName = NamePair {
                       nameC = Name "position",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "complex_object_t_position"},
                     fieldComment = Nothing},
                   structFieldType = TypeComplex
@@ -169,7 +169,7 @@
                     "hsb_complex_test.h:27:9",
                     fieldName = NamePair {
                       nameC = Name "id",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "complex_object_t_id"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -204,15 +204,15 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Complex_object_t",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Complex_object_t",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "complex_object_t_velocity",
               fieldType = HsComplexType
@@ -224,7 +224,7 @@
                     "hsb_complex_test.h:25:20",
                     fieldName = NamePair {
                       nameC = Name "velocity",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "complex_object_t_velocity"},
                     fieldComment = Nothing},
                   structFieldType = TypeComplex
@@ -245,7 +245,7 @@
                       "hsb_complex_test.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "complex_object_t_position",
               fieldType = HsComplexType
@@ -257,7 +257,7 @@
                     "hsb_complex_test.h:26:20",
                     fieldName = NamePair {
                       nameC = Name "position",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "complex_object_t_position"},
                     fieldComment = Nothing},
                   structFieldType = TypeComplex
@@ -278,7 +278,7 @@
                       "hsb_complex_test.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "complex_object_t_id",
               fieldType = HsPrimType
@@ -290,7 +290,7 @@
                     "hsb_complex_test.h:27:9",
                     fieldName = NamePair {
                       nameC = Name "id",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "complex_object_t_id"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -317,7 +317,7 @@
                 "hsb_complex_test.h:24:9",
                 declId = NamePair {
                   nameC = Name "complex_object_t",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Complex_object_t"},
                 declOrigin = NameOriginGenerated
                   (AnonId
@@ -334,7 +334,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName
+                    (Name
                       "@NsConstr"
                       "Complex_object_t"),
                   structSizeof = 32,
@@ -346,7 +346,7 @@
                         "hsb_complex_test.h:25:20",
                         fieldName = NamePair {
                           nameC = Name "velocity",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "complex_object_t_velocity"},
                         fieldComment = Nothing},
                       structFieldType = TypeComplex
@@ -359,7 +359,7 @@
                         "hsb_complex_test.h:26:20",
                         fieldName = NamePair {
                           nameC = Name "position",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "complex_object_t_position"},
                         fieldComment = Nothing},
                       structFieldType = TypeComplex
@@ -372,7 +372,7 @@
                         "hsb_complex_test.h:27:9",
                         fieldName = NamePair {
                           nameC = Name "id",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "complex_object_t_id"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -410,15 +410,15 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Complex_object_t",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Complex_object_t",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "complex_object_t_velocity",
                       fieldType = HsComplexType
@@ -430,7 +430,7 @@
                             "hsb_complex_test.h:25:20",
                             fieldName = NamePair {
                               nameC = Name "velocity",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "complex_object_t_velocity"},
                             fieldComment = Nothing},
                           structFieldType = TypeComplex
@@ -451,7 +451,7 @@
                               "hsb_complex_test.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "complex_object_t_position",
                       fieldType = HsComplexType
@@ -463,7 +463,7 @@
                             "hsb_complex_test.h:26:20",
                             fieldName = NamePair {
                               nameC = Name "position",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "complex_object_t_position"},
                             fieldComment = Nothing},
                           structFieldType = TypeComplex
@@ -484,7 +484,7 @@
                               "hsb_complex_test.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "complex_object_t_id",
                       fieldType = HsPrimType
@@ -496,7 +496,7 @@
                             "hsb_complex_test.h:27:9",
                             fieldName = NamePair {
                               nameC = Name "id",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "complex_object_t_id"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -523,7 +523,7 @@
                         "hsb_complex_test.h:24:9",
                         declId = NamePair {
                           nameC = Name "complex_object_t",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Complex_object_t"},
                         declOrigin = NameOriginGenerated
                           (AnonId
@@ -540,7 +540,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName
+                            (Name
                               "@NsConstr"
                               "Complex_object_t"),
                           structSizeof = 32,
@@ -552,7 +552,7 @@
                                 "hsb_complex_test.h:25:20",
                                 fieldName = NamePair {
                                   nameC = Name "velocity",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "complex_object_t_velocity"},
                                 fieldComment = Nothing},
                               structFieldType = TypeComplex
@@ -565,7 +565,7 @@
                                 "hsb_complex_test.h:26:20",
                                 fieldName = NamePair {
                                   nameC = Name "position",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "complex_object_t_position"},
                                 fieldComment = Nothing},
                               structFieldType = TypeComplex
@@ -578,7 +578,7 @@
                                 "hsb_complex_test.h:27:9",
                                 fieldName = NamePair {
                                   nameC = Name "id",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "complex_object_t_id"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -619,15 +619,15 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Complex_object_t",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Complex_object_t",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "complex_object_t_velocity",
                       fieldType = HsComplexType
@@ -639,7 +639,7 @@
                             "hsb_complex_test.h:25:20",
                             fieldName = NamePair {
                               nameC = Name "velocity",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "complex_object_t_velocity"},
                             fieldComment = Nothing},
                           structFieldType = TypeComplex
@@ -660,7 +660,7 @@
                               "hsb_complex_test.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "complex_object_t_position",
                       fieldType = HsComplexType
@@ -672,7 +672,7 @@
                             "hsb_complex_test.h:26:20",
                             fieldName = NamePair {
                               nameC = Name "position",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "complex_object_t_position"},
                             fieldComment = Nothing},
                           structFieldType = TypeComplex
@@ -693,7 +693,7 @@
                               "hsb_complex_test.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "complex_object_t_id",
                       fieldType = HsPrimType
@@ -705,7 +705,7 @@
                             "hsb_complex_test.h:27:9",
                             fieldName = NamePair {
                               nameC = Name "id",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "complex_object_t_id"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -732,7 +732,7 @@
                         "hsb_complex_test.h:24:9",
                         declId = NamePair {
                           nameC = Name "complex_object_t",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Complex_object_t"},
                         declOrigin = NameOriginGenerated
                           (AnonId
@@ -749,7 +749,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName
+                            (Name
                               "@NsConstr"
                               "Complex_object_t"),
                           structSizeof = 32,
@@ -761,7 +761,7 @@
                                 "hsb_complex_test.h:25:20",
                                 fieldName = NamePair {
                                   nameC = Name "velocity",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "complex_object_t_velocity"},
                                 fieldComment = Nothing},
                               structFieldType = TypeComplex
@@ -774,7 +774,7 @@
                                 "hsb_complex_test.h:26:20",
                                 fieldName = NamePair {
                                   nameC = Name "position",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "complex_object_t_position"},
                                 fieldComment = Nothing},
                               structFieldType = TypeComplex
@@ -787,7 +787,7 @@
                                 "hsb_complex_test.h:27:9",
                                 fieldName = NamePair {
                                   nameC = Name "id",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "complex_object_t_id"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -833,7 +833,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Complex_object_t",
       deriveInstanceComment =
@@ -843,20 +843,20 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Complex_object_t",
       deriveInstanceComment =
       Nothing},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "multiply_complex_f_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "a"),
+            (Name "@NsVar" "a"),
           functionParameterType = HsPtr
             (HsComplexType HsPrimCFloat),
           functionParameterComment = Just
@@ -868,7 +868,7 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "b"),
+            (Name "@NsVar" "b"),
           functionParameterType = HsPtr
             (HsComplexType HsPrimCFloat),
           functionParameterComment = Just
@@ -898,14 +898,14 @@
               (Just
                 NamePair {
                   nameC = Name "a",
-                  nameHsIdent = HsIdentifier "a"})
+                  nameHsIdent = Identifier "a"})
               (TypeComplex
                 (PrimFloating PrimFloat)),
             _×_
               (Just
                 NamePair {
                   nameC = Name "b",
-                  nameHsIdent = HsIdentifier "b"})
+                  nameHsIdent = Identifier "b"})
               (TypeComplex
                 (PrimFloating PrimFloat))],
           functionAttrs =
@@ -931,13 +931,13 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "add_complex_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "a"),
+            (Name "@NsVar" "a"),
           functionParameterType = HsPtr
             (HsComplexType HsPrimCDouble),
           functionParameterComment = Just
@@ -949,7 +949,7 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "b"),
+            (Name "@NsVar" "b"),
           functionParameterType = HsPtr
             (HsComplexType HsPrimCDouble),
           functionParameterComment = Just
@@ -979,14 +979,14 @@
               (Just
                 NamePair {
                   nameC = Name "a",
-                  nameHsIdent = HsIdentifier "a"})
+                  nameHsIdent = Identifier "a"})
               (TypeComplex
                 (PrimFloating PrimDouble)),
             _×_
               (Just
                 NamePair {
                   nameC = Name "b",
-                  nameHsIdent = HsIdentifier "b"})
+                  nameHsIdent = Identifier "b"})
               (TypeComplex
                 (PrimFloating PrimDouble))],
           functionAttrs =
@@ -1012,13 +1012,13 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "multiply_complex_f_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "a"),
+            (Name "@NsVar" "a"),
           functionParameterType = HsPtr
             (HsComplexType HsPrimCFloat),
           functionParameterComment = Just
@@ -1030,7 +1030,7 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "b"),
+            (Name "@NsVar" "b"),
           functionParameterType = HsPtr
             (HsComplexType HsPrimCFloat),
           functionParameterComment = Just
@@ -1060,14 +1060,14 @@
               (Just
                 NamePair {
                   nameC = Name "a",
-                  nameHsIdent = HsIdentifier "a"})
+                  nameHsIdent = Identifier "a"})
               (TypeComplex
                 (PrimFloating PrimFloat)),
             _×_
               (Just
                 NamePair {
                   nameC = Name "b",
-                  nameHsIdent = HsIdentifier "b"})
+                  nameHsIdent = Identifier "b"})
               (TypeComplex
                 (PrimFloating PrimFloat))],
           functionAttrs =
@@ -1093,13 +1093,13 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "add_complex_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "a"),
+            (Name "@NsVar" "a"),
           functionParameterType = HsPtr
             (HsComplexType HsPrimCDouble),
           functionParameterComment = Just
@@ -1111,7 +1111,7 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "b"),
+            (Name "@NsVar" "b"),
           functionParameterType = HsPtr
             (HsComplexType HsPrimCDouble),
           functionParameterComment = Just
@@ -1141,14 +1141,14 @@
               (Just
                 NamePair {
                   nameC = Name "a",
-                  nameHsIdent = HsIdentifier "a"})
+                  nameHsIdent = Identifier "a"})
               (TypeComplex
                 (PrimFloating PrimDouble)),
             _×_
               (Just
                 NamePair {
                   nameC = Name "b",
-                  nameHsIdent = HsIdentifier "b"})
+                  nameHsIdent = Identifier "b"})
               (TypeComplex
                 (PrimFloating PrimDouble))],
           functionAttrs =
@@ -1174,7 +1174,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_hsb_complex_test_a7d89c01385c8c56",
       foreignImportParameters = [],
@@ -1213,7 +1213,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_hsb_complex_test_b6226a5bde741b3f",
       foreignImportParameters = [],
@@ -1252,7 +1252,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_hsb_complex_test_69e4d4972011967b",
       foreignImportParameters = [],
@@ -1279,7 +1279,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_hsb_complex_test_c3633906ced5dab3",
       foreignImportParameters = [],
@@ -1306,7 +1306,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_hsb_complex_test_7ef41813e25ff8c1",
       foreignImportParameters = [],
@@ -1333,7 +1333,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_hsb_complex_test_abdd562bd1b14921",
       foreignImportParameters = [],
@@ -1360,7 +1360,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_hsb_complex_test_02f701d4163d6ce7",
       foreignImportParameters = [],
@@ -1387,7 +1387,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_hsb_complex_test_a6117bb5e7cacd17",
       foreignImportParameters = [],
@@ -1414,7 +1414,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_hsb_complex_test_da2309480d364cee",
       foreignImportParameters = [],
@@ -1441,7 +1441,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_hsb_complex_test_467427dc59fbef50",
       foreignImportParameters = [],
@@ -1468,7 +1468,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_hsb_complex_test_bb0fb18f3dfee47d",
       foreignImportParameters = [],
@@ -1498,7 +1498,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_hsb_complex_test_f491f52e529a459a",
       foreignImportParameters = [],
@@ -1528,7 +1528,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_hsb_complex_test_ecb5f4a0ccb7ee75",
       foreignImportParameters = [],
@@ -1555,7 +1555,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_hsb_complex_test_6b136090c38a69c4",
       foreignImportParameters = [],
@@ -1582,7 +1582,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_hsb_complex_test_55b7fb104be53f70",
       foreignImportParameters = [],
@@ -1613,7 +1613,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_hsb_complex_test_0b63f3bda9243457",
       foreignImportParameters = [],

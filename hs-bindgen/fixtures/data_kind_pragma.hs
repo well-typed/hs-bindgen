@@ -1,14 +1,14 @@
 [
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "Triplet",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "Triplet",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_Triplet",
         fieldType = HsConstArray
@@ -22,7 +22,7 @@
           "data_kind_pragma.h:3:13",
           declId = NamePair {
             nameC = Name "triplet",
-            nameHsIdent = HsIdentifier
+            nameHsIdent = Identifier
               "Triplet"},
           declOrigin = NameOriginInSource,
           declAliases = [],
@@ -36,10 +36,10 @@
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "Triplet",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_Triplet"},
             typedefType = TypeConstArray
@@ -72,7 +72,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Storable,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Triplet",
       deriveInstanceComment =
@@ -82,7 +82,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Triplet",
       deriveInstanceComment =
@@ -92,7 +92,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Triplet",
       deriveInstanceComment =

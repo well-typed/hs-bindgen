@@ -1,29 +1,29 @@
 [
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "Foo",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "Foo",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "foo_sixty_four",
           fieldType = HsExtBinding
-            ExtHsRef {
-              extHsRefModule = HsModuleName
+            ExtRef {
+              extRefModule = ModuleName
                 "HsBindgen.Runtime.Prelude",
-              extHsRefIdentifier =
-              HsIdentifier "Word64"}
+              extRefIdentifier = Identifier
+                "Word64"}
             TypeSpec {
               typeSpecModule = Just
-                (HsModuleName
+                (ModuleName
                   "HsBindgen.Runtime.Prelude"),
               typeSpecIdentifier = Just
-                (HsIdentifier "Word64"),
+                (Identifier "Word64"),
               typeSpecInstances = Map.fromList
                 [
                   _×_
@@ -129,7 +129,7 @@
                 fieldLoc = "fixedwidth.h:4:11",
                 fieldName = NamePair {
                   nameC = Name "sixty_four",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "foo_sixty_four"},
                 fieldComment = Nothing},
               structFieldType = TypeExtBinding
@@ -138,17 +138,17 @@
                     qualNameName = Name "uint64_t",
                     qualNameKind =
                     NameKindOrdinary},
-                  extHsRef = ExtHsRef {
-                    extHsRefModule = HsModuleName
+                  extHsRef = ExtRef {
+                    extRefModule = ModuleName
                       "HsBindgen.Runtime.Prelude",
-                    extHsRefIdentifier =
-                    HsIdentifier "Word64"},
+                    extRefIdentifier = Identifier
+                      "Word64"},
                   extHsSpec = TypeSpec {
                     typeSpecModule = Just
-                      (HsModuleName
+                      (ModuleName
                         "HsBindgen.Runtime.Prelude"),
                     typeSpecIdentifier = Just
-                      (HsIdentifier "Word64"),
+                      (Identifier "Word64"),
                     typeSpecInstances = Map.fromList
                       [
                         _×_
@@ -264,21 +264,21 @@
                   headerInclude = "fixedwidth.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "foo_thirty_two",
           fieldType = HsExtBinding
-            ExtHsRef {
-              extHsRefModule = HsModuleName
+            ExtRef {
+              extRefModule = ModuleName
                 "HsBindgen.Runtime.Prelude",
-              extHsRefIdentifier =
-              HsIdentifier "Word32"}
+              extRefIdentifier = Identifier
+                "Word32"}
             TypeSpec {
               typeSpecModule = Just
-                (HsModuleName
+                (ModuleName
                   "HsBindgen.Runtime.Prelude"),
               typeSpecIdentifier = Just
-                (HsIdentifier "Word32"),
+                (Identifier "Word32"),
               typeSpecInstances = Map.fromList
                 [
                   _×_
@@ -384,7 +384,7 @@
                 fieldLoc = "fixedwidth.h:5:11",
                 fieldName = NamePair {
                   nameC = Name "thirty_two",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "foo_thirty_two"},
                 fieldComment = Nothing},
               structFieldType = TypeExtBinding
@@ -393,17 +393,17 @@
                     qualNameName = Name "uint32_t",
                     qualNameKind =
                     NameKindOrdinary},
-                  extHsRef = ExtHsRef {
-                    extHsRefModule = HsModuleName
+                  extHsRef = ExtRef {
+                    extRefModule = ModuleName
                       "HsBindgen.Runtime.Prelude",
-                    extHsRefIdentifier =
-                    HsIdentifier "Word32"},
+                    extRefIdentifier = Identifier
+                      "Word32"},
                   extHsSpec = TypeSpec {
                     typeSpecModule = Just
-                      (HsModuleName
+                      (ModuleName
                         "HsBindgen.Runtime.Prelude"),
                     typeSpecIdentifier = Just
-                      (HsIdentifier "Word32"),
+                      (Identifier "Word32"),
                     typeSpecInstances = Map.fromList
                       [
                         _×_
@@ -524,8 +524,7 @@
             declLoc = "fixedwidth.h:3:8",
             declId = NamePair {
               nameC = Name "foo",
-              nameHsIdent = HsIdentifier
-                "Foo"},
+              nameHsIdent = Identifier "Foo"},
             declOrigin = NameOriginInSource,
             declAliases = [],
             declHeaderInfo = Just
@@ -537,7 +536,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "Foo"),
+                (Name "@NsConstr" "Foo"),
               structSizeof = 16,
               structAlignment = 8,
               structFields = [
@@ -546,7 +545,7 @@
                     fieldLoc = "fixedwidth.h:4:11",
                     fieldName = NamePair {
                       nameC = Name "sixty_four",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "foo_sixty_four"},
                     fieldComment = Nothing},
                   structFieldType = TypeExtBinding
@@ -555,17 +554,17 @@
                         qualNameName = Name "uint64_t",
                         qualNameKind =
                         NameKindOrdinary},
-                      extHsRef = ExtHsRef {
-                        extHsRefModule = HsModuleName
+                      extHsRef = ExtRef {
+                        extRefModule = ModuleName
                           "HsBindgen.Runtime.Prelude",
-                        extHsRefIdentifier =
-                        HsIdentifier "Word64"},
+                        extRefIdentifier = Identifier
+                          "Word64"},
                       extHsSpec = TypeSpec {
                         typeSpecModule = Just
-                          (HsModuleName
+                          (ModuleName
                             "HsBindgen.Runtime.Prelude"),
                         typeSpecIdentifier = Just
-                          (HsIdentifier "Word64"),
+                          (Identifier "Word64"),
                         typeSpecInstances = Map.fromList
                           [
                             _×_
@@ -672,7 +671,7 @@
                     fieldLoc = "fixedwidth.h:5:11",
                     fieldName = NamePair {
                       nameC = Name "thirty_two",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "foo_thirty_two"},
                     fieldComment = Nothing},
                   structFieldType = TypeExtBinding
@@ -681,17 +680,17 @@
                         qualNameName = Name "uint32_t",
                         qualNameKind =
                         NameKindOrdinary},
-                      extHsRef = ExtHsRef {
-                        extHsRefModule = HsModuleName
+                      extHsRef = ExtRef {
+                        extRefModule = ModuleName
                           "HsBindgen.Runtime.Prelude",
-                        extHsRefIdentifier =
-                        HsIdentifier "Word32"},
+                        extRefIdentifier = Identifier
+                          "Word32"},
                       extHsSpec = TypeSpec {
                         typeSpecModule = Just
-                          (HsModuleName
+                          (ModuleName
                             "HsBindgen.Runtime.Prelude"),
                         typeSpecIdentifier = Just
-                          (HsIdentifier "Word32"),
+                          (Identifier "Word32"),
                         typeSpecInstances = Map.fromList
                           [
                             _×_
@@ -819,29 +818,29 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Foo",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Foo",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "foo_sixty_four",
               fieldType = HsExtBinding
-                ExtHsRef {
-                  extHsRefModule = HsModuleName
+                ExtRef {
+                  extRefModule = ModuleName
                     "HsBindgen.Runtime.Prelude",
-                  extHsRefIdentifier =
-                  HsIdentifier "Word64"}
+                  extRefIdentifier = Identifier
+                    "Word64"}
                 TypeSpec {
                   typeSpecModule = Just
-                    (HsModuleName
+                    (ModuleName
                       "HsBindgen.Runtime.Prelude"),
                   typeSpecIdentifier = Just
-                    (HsIdentifier "Word64"),
+                    (Identifier "Word64"),
                   typeSpecInstances = Map.fromList
                     [
                       _×_
@@ -947,7 +946,7 @@
                     fieldLoc = "fixedwidth.h:4:11",
                     fieldName = NamePair {
                       nameC = Name "sixty_four",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "foo_sixty_four"},
                     fieldComment = Nothing},
                   structFieldType = TypeExtBinding
@@ -956,17 +955,17 @@
                         qualNameName = Name "uint64_t",
                         qualNameKind =
                         NameKindOrdinary},
-                      extHsRef = ExtHsRef {
-                        extHsRefModule = HsModuleName
+                      extHsRef = ExtRef {
+                        extRefModule = ModuleName
                           "HsBindgen.Runtime.Prelude",
-                        extHsRefIdentifier =
-                        HsIdentifier "Word64"},
+                        extRefIdentifier = Identifier
+                          "Word64"},
                       extHsSpec = TypeSpec {
                         typeSpecModule = Just
-                          (HsModuleName
+                          (ModuleName
                             "HsBindgen.Runtime.Prelude"),
                         typeSpecIdentifier = Just
-                          (HsIdentifier "Word64"),
+                          (Identifier "Word64"),
                         typeSpecInstances = Map.fromList
                           [
                             _×_
@@ -1082,21 +1081,21 @@
                       headerInclude = "fixedwidth.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "foo_thirty_two",
               fieldType = HsExtBinding
-                ExtHsRef {
-                  extHsRefModule = HsModuleName
+                ExtRef {
+                  extRefModule = ModuleName
                     "HsBindgen.Runtime.Prelude",
-                  extHsRefIdentifier =
-                  HsIdentifier "Word32"}
+                  extRefIdentifier = Identifier
+                    "Word32"}
                 TypeSpec {
                   typeSpecModule = Just
-                    (HsModuleName
+                    (ModuleName
                       "HsBindgen.Runtime.Prelude"),
                   typeSpecIdentifier = Just
-                    (HsIdentifier "Word32"),
+                    (Identifier "Word32"),
                   typeSpecInstances = Map.fromList
                     [
                       _×_
@@ -1202,7 +1201,7 @@
                     fieldLoc = "fixedwidth.h:5:11",
                     fieldName = NamePair {
                       nameC = Name "thirty_two",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "foo_thirty_two"},
                     fieldComment = Nothing},
                   structFieldType = TypeExtBinding
@@ -1211,17 +1210,17 @@
                         qualNameName = Name "uint32_t",
                         qualNameKind =
                         NameKindOrdinary},
-                      extHsRef = ExtHsRef {
-                        extHsRefModule = HsModuleName
+                      extHsRef = ExtRef {
+                        extRefModule = ModuleName
                           "HsBindgen.Runtime.Prelude",
-                        extHsRefIdentifier =
-                        HsIdentifier "Word32"},
+                        extRefIdentifier = Identifier
+                          "Word32"},
                       extHsSpec = TypeSpec {
                         typeSpecModule = Just
-                          (HsModuleName
+                          (ModuleName
                             "HsBindgen.Runtime.Prelude"),
                         typeSpecIdentifier = Just
-                          (HsIdentifier "Word32"),
+                          (Identifier "Word32"),
                         typeSpecInstances = Map.fromList
                           [
                             _×_
@@ -1342,8 +1341,7 @@
                 declLoc = "fixedwidth.h:3:8",
                 declId = NamePair {
                   nameC = Name "foo",
-                  nameHsIdent = HsIdentifier
-                    "Foo"},
+                  nameHsIdent = Identifier "Foo"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
                 declHeaderInfo = Just
@@ -1355,7 +1353,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "Foo"),
+                    (Name "@NsConstr" "Foo"),
                   structSizeof = 16,
                   structAlignment = 8,
                   structFields = [
@@ -1364,7 +1362,7 @@
                         fieldLoc = "fixedwidth.h:4:11",
                         fieldName = NamePair {
                           nameC = Name "sixty_four",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "foo_sixty_four"},
                         fieldComment = Nothing},
                       structFieldType = TypeExtBinding
@@ -1373,17 +1371,17 @@
                             qualNameName = Name "uint64_t",
                             qualNameKind =
                             NameKindOrdinary},
-                          extHsRef = ExtHsRef {
-                            extHsRefModule = HsModuleName
+                          extHsRef = ExtRef {
+                            extRefModule = ModuleName
                               "HsBindgen.Runtime.Prelude",
-                            extHsRefIdentifier =
-                            HsIdentifier "Word64"},
+                            extRefIdentifier = Identifier
+                              "Word64"},
                           extHsSpec = TypeSpec {
                             typeSpecModule = Just
-                              (HsModuleName
+                              (ModuleName
                                 "HsBindgen.Runtime.Prelude"),
                             typeSpecIdentifier = Just
-                              (HsIdentifier "Word64"),
+                              (Identifier "Word64"),
                             typeSpecInstances = Map.fromList
                               [
                                 _×_
@@ -1490,7 +1488,7 @@
                         fieldLoc = "fixedwidth.h:5:11",
                         fieldName = NamePair {
                           nameC = Name "thirty_two",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "foo_thirty_two"},
                         fieldComment = Nothing},
                       structFieldType = TypeExtBinding
@@ -1499,17 +1497,17 @@
                             qualNameName = Name "uint32_t",
                             qualNameKind =
                             NameKindOrdinary},
-                          extHsRef = ExtHsRef {
-                            extHsRefModule = HsModuleName
+                          extHsRef = ExtRef {
+                            extRefModule = ModuleName
                               "HsBindgen.Runtime.Prelude",
-                            extHsRefIdentifier =
-                            HsIdentifier "Word32"},
+                            extRefIdentifier = Identifier
+                              "Word32"},
                           extHsSpec = TypeSpec {
                             typeSpecModule = Just
-                              (HsModuleName
+                              (ModuleName
                                 "HsBindgen.Runtime.Prelude"),
                             typeSpecIdentifier = Just
-                              (HsIdentifier "Word32"),
+                              (Identifier "Word32"),
                             typeSpecInstances = Map.fromList
                               [
                                 _×_
@@ -1640,29 +1638,29 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Foo",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Foo",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "foo_sixty_four",
                       fieldType = HsExtBinding
-                        ExtHsRef {
-                          extHsRefModule = HsModuleName
+                        ExtRef {
+                          extRefModule = ModuleName
                             "HsBindgen.Runtime.Prelude",
-                          extHsRefIdentifier =
-                          HsIdentifier "Word64"}
+                          extRefIdentifier = Identifier
+                            "Word64"}
                         TypeSpec {
                           typeSpecModule = Just
-                            (HsModuleName
+                            (ModuleName
                               "HsBindgen.Runtime.Prelude"),
                           typeSpecIdentifier = Just
-                            (HsIdentifier "Word64"),
+                            (Identifier "Word64"),
                           typeSpecInstances = Map.fromList
                             [
                               _×_
@@ -1768,7 +1766,7 @@
                             fieldLoc = "fixedwidth.h:4:11",
                             fieldName = NamePair {
                               nameC = Name "sixty_four",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "foo_sixty_four"},
                             fieldComment = Nothing},
                           structFieldType = TypeExtBinding
@@ -1777,17 +1775,17 @@
                                 qualNameName = Name "uint64_t",
                                 qualNameKind =
                                 NameKindOrdinary},
-                              extHsRef = ExtHsRef {
-                                extHsRefModule = HsModuleName
+                              extHsRef = ExtRef {
+                                extRefModule = ModuleName
                                   "HsBindgen.Runtime.Prelude",
-                                extHsRefIdentifier =
-                                HsIdentifier "Word64"},
+                                extRefIdentifier = Identifier
+                                  "Word64"},
                               extHsSpec = TypeSpec {
                                 typeSpecModule = Just
-                                  (HsModuleName
+                                  (ModuleName
                                     "HsBindgen.Runtime.Prelude"),
                                 typeSpecIdentifier = Just
-                                  (HsIdentifier "Word64"),
+                                  (Identifier "Word64"),
                                 typeSpecInstances = Map.fromList
                                   [
                                     _×_
@@ -1903,21 +1901,21 @@
                               headerInclude = "fixedwidth.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "foo_thirty_two",
                       fieldType = HsExtBinding
-                        ExtHsRef {
-                          extHsRefModule = HsModuleName
+                        ExtRef {
+                          extRefModule = ModuleName
                             "HsBindgen.Runtime.Prelude",
-                          extHsRefIdentifier =
-                          HsIdentifier "Word32"}
+                          extRefIdentifier = Identifier
+                            "Word32"}
                         TypeSpec {
                           typeSpecModule = Just
-                            (HsModuleName
+                            (ModuleName
                               "HsBindgen.Runtime.Prelude"),
                           typeSpecIdentifier = Just
-                            (HsIdentifier "Word32"),
+                            (Identifier "Word32"),
                           typeSpecInstances = Map.fromList
                             [
                               _×_
@@ -2023,7 +2021,7 @@
                             fieldLoc = "fixedwidth.h:5:11",
                             fieldName = NamePair {
                               nameC = Name "thirty_two",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "foo_thirty_two"},
                             fieldComment = Nothing},
                           structFieldType = TypeExtBinding
@@ -2032,17 +2030,17 @@
                                 qualNameName = Name "uint32_t",
                                 qualNameKind =
                                 NameKindOrdinary},
-                              extHsRef = ExtHsRef {
-                                extHsRefModule = HsModuleName
+                              extHsRef = ExtRef {
+                                extRefModule = ModuleName
                                   "HsBindgen.Runtime.Prelude",
-                                extHsRefIdentifier =
-                                HsIdentifier "Word32"},
+                                extRefIdentifier = Identifier
+                                  "Word32"},
                               extHsSpec = TypeSpec {
                                 typeSpecModule = Just
-                                  (HsModuleName
+                                  (ModuleName
                                     "HsBindgen.Runtime.Prelude"),
                                 typeSpecIdentifier = Just
-                                  (HsIdentifier "Word32"),
+                                  (Identifier "Word32"),
                                 typeSpecInstances = Map.fromList
                                   [
                                     _×_
@@ -2163,8 +2161,7 @@
                         declLoc = "fixedwidth.h:3:8",
                         declId = NamePair {
                           nameC = Name "foo",
-                          nameHsIdent = HsIdentifier
-                            "Foo"},
+                          nameHsIdent = Identifier "Foo"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
                         declHeaderInfo = Just
@@ -2176,7 +2173,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Foo"),
+                            (Name "@NsConstr" "Foo"),
                           structSizeof = 16,
                           structAlignment = 8,
                           structFields = [
@@ -2185,7 +2182,7 @@
                                 fieldLoc = "fixedwidth.h:4:11",
                                 fieldName = NamePair {
                                   nameC = Name "sixty_four",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "foo_sixty_four"},
                                 fieldComment = Nothing},
                               structFieldType = TypeExtBinding
@@ -2194,17 +2191,17 @@
                                     qualNameName = Name "uint64_t",
                                     qualNameKind =
                                     NameKindOrdinary},
-                                  extHsRef = ExtHsRef {
-                                    extHsRefModule = HsModuleName
+                                  extHsRef = ExtRef {
+                                    extRefModule = ModuleName
                                       "HsBindgen.Runtime.Prelude",
-                                    extHsRefIdentifier =
-                                    HsIdentifier "Word64"},
+                                    extRefIdentifier = Identifier
+                                      "Word64"},
                                   extHsSpec = TypeSpec {
                                     typeSpecModule = Just
-                                      (HsModuleName
+                                      (ModuleName
                                         "HsBindgen.Runtime.Prelude"),
                                     typeSpecIdentifier = Just
-                                      (HsIdentifier "Word64"),
+                                      (Identifier "Word64"),
                                     typeSpecInstances = Map.fromList
                                       [
                                         _×_
@@ -2311,7 +2308,7 @@
                                 fieldLoc = "fixedwidth.h:5:11",
                                 fieldName = NamePair {
                                   nameC = Name "thirty_two",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "foo_thirty_two"},
                                 fieldComment = Nothing},
                               structFieldType = TypeExtBinding
@@ -2320,17 +2317,17 @@
                                     qualNameName = Name "uint32_t",
                                     qualNameKind =
                                     NameKindOrdinary},
-                                  extHsRef = ExtHsRef {
-                                    extHsRefModule = HsModuleName
+                                  extHsRef = ExtRef {
+                                    extRefModule = ModuleName
                                       "HsBindgen.Runtime.Prelude",
-                                    extHsRefIdentifier =
-                                    HsIdentifier "Word32"},
+                                    extRefIdentifier = Identifier
+                                      "Word32"},
                                   extHsSpec = TypeSpec {
                                     typeSpecModule = Just
-                                      (HsModuleName
+                                      (ModuleName
                                         "HsBindgen.Runtime.Prelude"),
                                     typeSpecIdentifier = Just
-                                      (HsIdentifier "Word32"),
+                                      (Identifier "Word32"),
                                     typeSpecInstances = Map.fromList
                                       [
                                         _×_
@@ -2463,29 +2460,29 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Foo",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Foo",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "foo_sixty_four",
                       fieldType = HsExtBinding
-                        ExtHsRef {
-                          extHsRefModule = HsModuleName
+                        ExtRef {
+                          extRefModule = ModuleName
                             "HsBindgen.Runtime.Prelude",
-                          extHsRefIdentifier =
-                          HsIdentifier "Word64"}
+                          extRefIdentifier = Identifier
+                            "Word64"}
                         TypeSpec {
                           typeSpecModule = Just
-                            (HsModuleName
+                            (ModuleName
                               "HsBindgen.Runtime.Prelude"),
                           typeSpecIdentifier = Just
-                            (HsIdentifier "Word64"),
+                            (Identifier "Word64"),
                           typeSpecInstances = Map.fromList
                             [
                               _×_
@@ -2591,7 +2588,7 @@
                             fieldLoc = "fixedwidth.h:4:11",
                             fieldName = NamePair {
                               nameC = Name "sixty_four",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "foo_sixty_four"},
                             fieldComment = Nothing},
                           structFieldType = TypeExtBinding
@@ -2600,17 +2597,17 @@
                                 qualNameName = Name "uint64_t",
                                 qualNameKind =
                                 NameKindOrdinary},
-                              extHsRef = ExtHsRef {
-                                extHsRefModule = HsModuleName
+                              extHsRef = ExtRef {
+                                extRefModule = ModuleName
                                   "HsBindgen.Runtime.Prelude",
-                                extHsRefIdentifier =
-                                HsIdentifier "Word64"},
+                                extRefIdentifier = Identifier
+                                  "Word64"},
                               extHsSpec = TypeSpec {
                                 typeSpecModule = Just
-                                  (HsModuleName
+                                  (ModuleName
                                     "HsBindgen.Runtime.Prelude"),
                                 typeSpecIdentifier = Just
-                                  (HsIdentifier "Word64"),
+                                  (Identifier "Word64"),
                                 typeSpecInstances = Map.fromList
                                   [
                                     _×_
@@ -2726,21 +2723,21 @@
                               headerInclude = "fixedwidth.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "foo_thirty_two",
                       fieldType = HsExtBinding
-                        ExtHsRef {
-                          extHsRefModule = HsModuleName
+                        ExtRef {
+                          extRefModule = ModuleName
                             "HsBindgen.Runtime.Prelude",
-                          extHsRefIdentifier =
-                          HsIdentifier "Word32"}
+                          extRefIdentifier = Identifier
+                            "Word32"}
                         TypeSpec {
                           typeSpecModule = Just
-                            (HsModuleName
+                            (ModuleName
                               "HsBindgen.Runtime.Prelude"),
                           typeSpecIdentifier = Just
-                            (HsIdentifier "Word32"),
+                            (Identifier "Word32"),
                           typeSpecInstances = Map.fromList
                             [
                               _×_
@@ -2846,7 +2843,7 @@
                             fieldLoc = "fixedwidth.h:5:11",
                             fieldName = NamePair {
                               nameC = Name "thirty_two",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "foo_thirty_two"},
                             fieldComment = Nothing},
                           structFieldType = TypeExtBinding
@@ -2855,17 +2852,17 @@
                                 qualNameName = Name "uint32_t",
                                 qualNameKind =
                                 NameKindOrdinary},
-                              extHsRef = ExtHsRef {
-                                extHsRefModule = HsModuleName
+                              extHsRef = ExtRef {
+                                extRefModule = ModuleName
                                   "HsBindgen.Runtime.Prelude",
-                                extHsRefIdentifier =
-                                HsIdentifier "Word32"},
+                                extRefIdentifier = Identifier
+                                  "Word32"},
                               extHsSpec = TypeSpec {
                                 typeSpecModule = Just
-                                  (HsModuleName
+                                  (ModuleName
                                     "HsBindgen.Runtime.Prelude"),
                                 typeSpecIdentifier = Just
-                                  (HsIdentifier "Word32"),
+                                  (Identifier "Word32"),
                                 typeSpecInstances = Map.fromList
                                   [
                                     _×_
@@ -2986,8 +2983,7 @@
                         declLoc = "fixedwidth.h:3:8",
                         declId = NamePair {
                           nameC = Name "foo",
-                          nameHsIdent = HsIdentifier
-                            "Foo"},
+                          nameHsIdent = Identifier "Foo"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
                         declHeaderInfo = Just
@@ -2999,7 +2995,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Foo"),
+                            (Name "@NsConstr" "Foo"),
                           structSizeof = 16,
                           structAlignment = 8,
                           structFields = [
@@ -3008,7 +3004,7 @@
                                 fieldLoc = "fixedwidth.h:4:11",
                                 fieldName = NamePair {
                                   nameC = Name "sixty_four",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "foo_sixty_four"},
                                 fieldComment = Nothing},
                               structFieldType = TypeExtBinding
@@ -3017,17 +3013,17 @@
                                     qualNameName = Name "uint64_t",
                                     qualNameKind =
                                     NameKindOrdinary},
-                                  extHsRef = ExtHsRef {
-                                    extHsRefModule = HsModuleName
+                                  extHsRef = ExtRef {
+                                    extRefModule = ModuleName
                                       "HsBindgen.Runtime.Prelude",
-                                    extHsRefIdentifier =
-                                    HsIdentifier "Word64"},
+                                    extRefIdentifier = Identifier
+                                      "Word64"},
                                   extHsSpec = TypeSpec {
                                     typeSpecModule = Just
-                                      (HsModuleName
+                                      (ModuleName
                                         "HsBindgen.Runtime.Prelude"),
                                     typeSpecIdentifier = Just
-                                      (HsIdentifier "Word64"),
+                                      (Identifier "Word64"),
                                     typeSpecInstances = Map.fromList
                                       [
                                         _×_
@@ -3134,7 +3130,7 @@
                                 fieldLoc = "fixedwidth.h:5:11",
                                 fieldName = NamePair {
                                   nameC = Name "thirty_two",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "foo_thirty_two"},
                                 fieldComment = Nothing},
                               structFieldType = TypeExtBinding
@@ -3143,17 +3139,17 @@
                                     qualNameName = Name "uint32_t",
                                     qualNameKind =
                                     NameKindOrdinary},
-                                  extHsRef = ExtHsRef {
-                                    extHsRefModule = HsModuleName
+                                  extHsRef = ExtRef {
+                                    extRefModule = ModuleName
                                       "HsBindgen.Runtime.Prelude",
-                                    extHsRefIdentifier =
-                                    HsIdentifier "Word32"},
+                                    extRefIdentifier = Identifier
+                                      "Word32"},
                                   extHsSpec = TypeSpec {
                                     typeSpecModule = Just
-                                      (HsModuleName
+                                      (ModuleName
                                         "HsBindgen.Runtime.Prelude"),
                                     typeSpecIdentifier = Just
-                                      (HsIdentifier "Word32"),
+                                      (Identifier "Word32"),
                                     typeSpecInstances = Map.fromList
                                       [
                                         _×_
@@ -3291,7 +3287,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Foo",
       deriveInstanceComment =
@@ -3301,7 +3297,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Foo",
       deriveInstanceComment =

@@ -6,7 +6,7 @@ TranslationUnit {
         "redeclaration_identical.h:3:9",
         declId = NamePair {
           nameC = Name "A",
-          nameHsIdent = HsIdentifier "a"},
+          nameHsIdent = Identifier "a"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just

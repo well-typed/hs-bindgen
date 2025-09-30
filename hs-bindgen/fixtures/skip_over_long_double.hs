@@ -1,15 +1,15 @@
 [
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "Struct2",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "Struct2",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "struct2_x",
           fieldType = HsPrimType
@@ -21,7 +21,7 @@
                 "skip_over_long_double.h:14:7",
                 fieldName = NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "struct2_x"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -48,7 +48,7 @@
             "skip_over_long_double.h:13:8",
             declId = NamePair {
               nameC = Name "struct2",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Struct2"},
             declOrigin = NameOriginInSource,
             declAliases = [],
@@ -62,7 +62,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "Struct2"),
+                (Name "@NsConstr" "Struct2"),
               structSizeof = 4,
               structAlignment = 4,
               structFields = [
@@ -72,7 +72,7 @@
                     "skip_over_long_double.h:14:7",
                     fieldName = NamePair {
                       nameC = Name "x",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "struct2_x"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -106,15 +106,15 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Struct2",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Struct2",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "struct2_x",
               fieldType = HsPrimType
@@ -126,7 +126,7 @@
                     "skip_over_long_double.h:14:7",
                     fieldName = NamePair {
                       nameC = Name "x",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "struct2_x"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -153,7 +153,7 @@
                 "skip_over_long_double.h:13:8",
                 declId = NamePair {
                   nameC = Name "struct2",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Struct2"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
@@ -167,7 +167,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "Struct2"),
+                    (Name "@NsConstr" "Struct2"),
                   structSizeof = 4,
                   structAlignment = 4,
                   structFields = [
@@ -177,7 +177,7 @@
                         "skip_over_long_double.h:14:7",
                         fieldName = NamePair {
                           nameC = Name "x",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "struct2_x"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -214,15 +214,15 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Struct2",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Struct2",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "struct2_x",
                       fieldType = HsPrimType
@@ -234,7 +234,7 @@
                             "skip_over_long_double.h:14:7",
                             fieldName = NamePair {
                               nameC = Name "x",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "struct2_x"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -261,7 +261,7 @@
                         "skip_over_long_double.h:13:8",
                         declId = NamePair {
                           nameC = Name "struct2",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Struct2"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -275,7 +275,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Struct2"),
+                            (Name "@NsConstr" "Struct2"),
                           structSizeof = 4,
                           structAlignment = 4,
                           structFields = [
@@ -285,7 +285,7 @@
                                 "skip_over_long_double.h:14:7",
                                 fieldName = NamePair {
                                   nameC = Name "x",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "struct2_x"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -322,15 +322,15 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Struct2",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Struct2",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "struct2_x",
                       fieldType = HsPrimType
@@ -342,7 +342,7 @@
                             "skip_over_long_double.h:14:7",
                             fieldName = NamePair {
                               nameC = Name "x",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "struct2_x"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -369,7 +369,7 @@
                         "skip_over_long_double.h:13:8",
                         declId = NamePair {
                           nameC = Name "struct2",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Struct2"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -383,7 +383,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Struct2"),
+                            (Name "@NsConstr" "Struct2"),
                           structSizeof = 4,
                           structAlignment = 4,
                           structFields = [
@@ -393,7 +393,7 @@
                                 "skip_over_long_double.h:14:7",
                                 fieldName = NamePair {
                                   nameC = Name "x",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "struct2_x"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -436,7 +436,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Struct2",
       deriveInstanceComment =
@@ -446,14 +446,14 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Struct2",
       deriveInstanceComment =
       Nothing},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "fun2",
       foreignImportParameters = [
@@ -502,7 +502,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "fun2",
       foreignImportParameters = [
@@ -551,7 +551,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_skip_over_long_double_d1bf59c1516f6bfa",
       foreignImportParameters = [],

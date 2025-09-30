@@ -5,8 +5,7 @@ TranslationUnit {
         declLoc = "simple_func.h:1:8",
         declId = NamePair {
           nameC = Name "erf",
-          nameHsIdent = HsIdentifier
-            "erf"},
+          nameHsIdent = Identifier "erf"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -23,8 +22,7 @@ TranslationUnit {
               (Just
                 NamePair {
                   nameC = Name "arg",
-                  nameHsIdent = HsIdentifier
-                    "arg"})
+                  nameHsIdent = Identifier "arg"})
               (TypePrim
                 (PrimFloating PrimDouble))],
           functionAttrs =
@@ -43,7 +41,7 @@ TranslationUnit {
         declLoc = "simple_func.h:3:22",
         declId = NamePair {
           nameC = Name "bad_fma",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "bad_fma"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -61,21 +59,21 @@ TranslationUnit {
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypePrim
                 (PrimFloating PrimDouble)),
             _×_
               (Just
                 NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier "y"})
+                  nameHsIdent = Identifier "y"})
               (TypePrim
                 (PrimFloating PrimDouble)),
             _×_
               (Just
                 NamePair {
                   nameC = Name "z",
-                  nameHsIdent = HsIdentifier "z"})
+                  nameHsIdent = Identifier "z"})
               (TypePrim
                 (PrimFloating PrimDouble))],
           functionAttrs =
@@ -94,7 +92,7 @@ TranslationUnit {
         declLoc = "simple_func.h:7:6",
         declId = NamePair {
           nameC = Name "no_args",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "no_args"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -123,7 +121,7 @@ TranslationUnit {
         declLoc = "simple_func.h:9:6",
         declId = NamePair {
           nameC = Name "no_args_no_void",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "no_args_no_void"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -152,8 +150,7 @@ TranslationUnit {
         declLoc = "simple_func.h:11:5",
         declId = NamePair {
           nameC = Name "fun",
-          nameHsIdent = HsIdentifier
-            "fun"},
+          nameHsIdent = Identifier "fun"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -170,7 +167,7 @@ TranslationUnit {
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypePrim
                 (PrimChar
                   (PrimSignImplicit
@@ -179,7 +176,7 @@ TranslationUnit {
               (Just
                 NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier "y"})
+                  nameHsIdent = Identifier "y"})
               (TypePrim
                 (PrimFloating PrimDouble))],
           functionAttrs =

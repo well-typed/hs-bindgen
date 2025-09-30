@@ -1,7 +1,7 @@
 -- | Construct the final (external) form of the AST
 module HsBindgen.Frontend.AST.Finalize (finalize) where
 
-import Clang.HighLevel.Documentation qualified as C
+import Clang.HighLevel.Documentation qualified as CDoc
 
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.AST.External qualified as Ext
@@ -114,7 +114,7 @@ instance Finalize Int.Reference where
   finalize (Int.ById (x, _)) = Ext.ById x
 
 instance Finalize Int.Comment where
-  type Finalized Int.Comment = C.Comment Ext.Reference
+  type Finalized Int.Comment = CDoc.Comment Ext.Reference
 
   finalize (Int.Comment comment) = fmap finalize comment
 

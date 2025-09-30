@@ -6,7 +6,7 @@ TranslationUnit {
         declId = NamePair {
           nameC = Name
             "asm_labeled_variable",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "asm_labeled_variable"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -31,7 +31,7 @@ TranslationUnit {
         declId = NamePair {
           nameC = Name
             "asm_labeled_function",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "asm_labeled_function"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -48,14 +48,14 @@ TranslationUnit {
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypePrim
                 (PrimIntegral PrimInt Signed)),
             _×_
               (Just
                 NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier "y"})
+                  nameHsIdent = Identifier "y"})
               (TypePrim
                 (PrimIntegral PrimInt Signed))],
           functionAttrs =

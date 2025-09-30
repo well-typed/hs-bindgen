@@ -9,7 +9,7 @@ import HsBindgen.Backend.Hs.AST.Strategy
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Imports
-import HsBindgen.Language.Haskell
+import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -28,7 +28,7 @@ simplifySHs = fmap (\(x, y) -> (x, go y))
         in reconstruct simpleInstances decls'
 
 reconstruct ::
-     Map (HsName NsTypeConstr) SimpleInstances
+     Map (Hs.Name Hs.NsTypeConstr) SimpleInstances
   -> [SDecl] -> [SDecl]
 reconstruct simpleInstances = map aux
   where
@@ -41,7 +41,9 @@ reconstruct simpleInstances = map aux
         otherDecl ->
           otherDecl
 
-    instancesFor :: HsName 'NsTypeConstr -> [(Strategy ClosedType, [Global])]
+    instancesFor ::
+         Hs.Name 'Hs.NsTypeConstr
+      -> [(Strategy ClosedType, [Global])]
     instancesFor =
           maybe [] fromSimpleInstances
         . flip Map.lookup simpleInstances
@@ -81,7 +83,7 @@ instance Monoid SimpleInstances where
       , strategyNewtype = mempty
       }
 
-toSimpleInstances :: SDecl -> Maybe (HsName NsTypeConstr, SimpleInstances)
+toSimpleInstances :: SDecl -> Maybe (Hs.Name Hs.NsTypeConstr, SimpleInstances)
 toSimpleInstances = \case
     DDerivingInstance (DerivingInstance DeriveStock (TApp (TGlobal cls) (TCon name)) _) ->
       Just (name, mempty{strategyStock = Set.singleton cls})

@@ -1,10 +1,10 @@
 [
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "A",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "A",
       structFields = [],
@@ -15,7 +15,7 @@
             "named_vs_anon.h:15:8",
             declId = NamePair {
               nameC = Name "a",
-              nameHsIdent = HsIdentifier "A"},
+              nameHsIdent = Identifier "A"},
             declOrigin = NameOriginInSource,
             declAliases = [],
             declHeaderInfo = Just
@@ -28,7 +28,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "A"),
+                (Name "@NsConstr" "A"),
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
@@ -59,10 +59,10 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "A",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "A",
           structFields = [],
@@ -73,7 +73,7 @@
                 "named_vs_anon.h:15:8",
                 declId = NamePair {
                   nameC = Name "a",
-                  nameHsIdent = HsIdentifier "A"},
+                  nameHsIdent = Identifier "A"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
                 declHeaderInfo = Just
@@ -86,7 +86,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "A"),
+                    (Name "@NsConstr" "A"),
                   structSizeof = 0,
                   structAlignment = 1,
                   structFields = [],
@@ -120,10 +120,10 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "A",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "A",
                   structFields = [],
@@ -134,7 +134,7 @@
                         "named_vs_anon.h:15:8",
                         declId = NamePair {
                           nameC = Name "a",
-                          nameHsIdent = HsIdentifier "A"},
+                          nameHsIdent = Identifier "A"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
                         declHeaderInfo = Just
@@ -147,7 +147,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "A"),
+                            (Name "@NsConstr" "A"),
                           structSizeof = 0,
                           structAlignment = 1,
                           structFields = [],
@@ -181,10 +181,10 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "A",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "A",
                   structFields = [],
@@ -195,7 +195,7 @@
                         "named_vs_anon.h:15:8",
                         declId = NamePair {
                           nameC = Name "a",
-                          nameHsIdent = HsIdentifier "A"},
+                          nameHsIdent = Identifier "A"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
                         declHeaderInfo = Just
@@ -208,7 +208,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "A"),
+                            (Name "@NsConstr" "A"),
                           structSizeof = 0,
                           structAlignment = 1,
                           structFields = [],
@@ -243,7 +243,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "A",
       deriveInstanceComment =
@@ -253,17 +253,17 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "A",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "Struct1",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "Struct1",
       structFields = [],
@@ -274,7 +274,7 @@
             "named_vs_anon.h:16:8",
             declId = NamePair {
               nameC = Name "struct1",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Struct1"},
             declOrigin = NameOriginInSource,
             declAliases = [],
@@ -288,7 +288,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "Struct1"),
+                (Name "@NsConstr" "Struct1"),
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
@@ -319,10 +319,10 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Struct1",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Struct1",
           structFields = [],
@@ -333,7 +333,7 @@
                 "named_vs_anon.h:16:8",
                 declId = NamePair {
                   nameC = Name "struct1",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Struct1"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
@@ -347,7 +347,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "Struct1"),
+                    (Name "@NsConstr" "Struct1"),
                   structSizeof = 0,
                   structAlignment = 1,
                   structFields = [],
@@ -381,10 +381,10 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Struct1",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Struct1",
                   structFields = [],
@@ -395,7 +395,7 @@
                         "named_vs_anon.h:16:8",
                         declId = NamePair {
                           nameC = Name "struct1",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Struct1"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -409,7 +409,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Struct1"),
+                            (Name "@NsConstr" "Struct1"),
                           structSizeof = 0,
                           structAlignment = 1,
                           structFields = [],
@@ -443,10 +443,10 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Struct1",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Struct1",
                   structFields = [],
@@ -457,7 +457,7 @@
                         "named_vs_anon.h:16:8",
                         declId = NamePair {
                           nameC = Name "struct1",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Struct1"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -471,7 +471,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Struct1"),
+                            (Name "@NsConstr" "Struct1"),
                           structSizeof = 0,
                           structAlignment = 1,
                           structFields = [],
@@ -506,7 +506,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Struct1",
       deriveInstanceComment =
@@ -516,17 +516,17 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Struct1",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "B_s",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "B_s",
       structFields = [],
@@ -537,8 +537,7 @@
             "named_vs_anon.h:19:8",
             declId = NamePair {
               nameC = Name "b_s",
-              nameHsIdent = HsIdentifier
-                "B_s"},
+              nameHsIdent = Identifier "B_s"},
             declOrigin = NameOriginInSource,
             declAliases = [],
             declHeaderInfo = Just
@@ -551,7 +550,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "B_s"),
+                (Name "@NsConstr" "B_s"),
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
@@ -582,10 +581,10 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "B_s",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "B_s",
           structFields = [],
@@ -596,8 +595,7 @@
                 "named_vs_anon.h:19:8",
                 declId = NamePair {
                   nameC = Name "b_s",
-                  nameHsIdent = HsIdentifier
-                    "B_s"},
+                  nameHsIdent = Identifier "B_s"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
                 declHeaderInfo = Just
@@ -610,7 +608,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "B_s"),
+                    (Name "@NsConstr" "B_s"),
                   structSizeof = 0,
                   structAlignment = 1,
                   structFields = [],
@@ -644,10 +642,10 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "B_s",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "B_s",
                   structFields = [],
@@ -658,8 +656,7 @@
                         "named_vs_anon.h:19:8",
                         declId = NamePair {
                           nameC = Name "b_s",
-                          nameHsIdent = HsIdentifier
-                            "B_s"},
+                          nameHsIdent = Identifier "B_s"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
                         declHeaderInfo = Just
@@ -672,7 +669,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "B_s"),
+                            (Name "@NsConstr" "B_s"),
                           structSizeof = 0,
                           structAlignment = 1,
                           structFields = [],
@@ -706,10 +703,10 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "B_s",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "B_s",
                   structFields = [],
@@ -720,8 +717,7 @@
                         "named_vs_anon.h:19:8",
                         declId = NamePair {
                           nameC = Name "b_s",
-                          nameHsIdent = HsIdentifier
-                            "B_s"},
+                          nameHsIdent = Identifier "B_s"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
                         declHeaderInfo = Just
@@ -734,7 +730,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "B_s"),
+                            (Name "@NsConstr" "B_s"),
                           structSizeof = 0,
                           structAlignment = 1,
                           structFields = [],
@@ -769,7 +765,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "B_s",
       deriveInstanceComment =
@@ -779,17 +775,17 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "B_s",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "Struct2_s",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "Struct2_s",
       structFields = [],
@@ -800,7 +796,7 @@
             "named_vs_anon.h:20:8",
             declId = NamePair {
               nameC = Name "struct2_s",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Struct2_s"},
             declOrigin = NameOriginInSource,
             declAliases = [],
@@ -814,9 +810,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName
-                  "@NsConstr"
-                  "Struct2_s"),
+                (Name "@NsConstr" "Struct2_s"),
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
@@ -848,10 +842,10 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Struct2_s",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Struct2_s",
           structFields = [],
@@ -862,7 +856,7 @@
                 "named_vs_anon.h:20:8",
                 declId = NamePair {
                   nameC = Name "struct2_s",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Struct2_s"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
@@ -876,9 +870,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName
-                      "@NsConstr"
-                      "Struct2_s"),
+                    (Name "@NsConstr" "Struct2_s"),
                   structSizeof = 0,
                   structAlignment = 1,
                   structFields = [],
@@ -913,10 +905,10 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Struct2_s",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Struct2_s",
                   structFields = [],
@@ -927,7 +919,7 @@
                         "named_vs_anon.h:20:8",
                         declId = NamePair {
                           nameC = Name "struct2_s",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Struct2_s"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -941,9 +933,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName
-                              "@NsConstr"
-                              "Struct2_s"),
+                            (Name "@NsConstr" "Struct2_s"),
                           structSizeof = 0,
                           structAlignment = 1,
                           structFields = [],
@@ -978,10 +968,10 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Struct2_s",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Struct2_s",
                   structFields = [],
@@ -992,7 +982,7 @@
                         "named_vs_anon.h:20:8",
                         declId = NamePair {
                           nameC = Name "struct2_s",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Struct2_s"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -1006,9 +996,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName
-                              "@NsConstr"
-                              "Struct2_s"),
+                            (Name "@NsConstr" "Struct2_s"),
                           structSizeof = 0,
                           structAlignment = 1,
                           structFields = [],
@@ -1044,7 +1032,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Struct2_s",
       deriveInstanceComment =
@@ -1054,17 +1042,17 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Struct2_s",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "C",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "C",
       structFields = [],
@@ -1075,7 +1063,7 @@
             "named_vs_anon.h:23:36",
             declId = NamePair {
               nameC = Name "c",
-              nameHsIdent = HsIdentifier "C"},
+              nameHsIdent = Identifier "C"},
             declOrigin = NameOriginInSource,
             declAliases = [],
             declHeaderInfo = Just
@@ -1088,7 +1076,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "C"),
+                (Name "@NsConstr" "C"),
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
@@ -1119,10 +1107,10 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "C",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "C",
           structFields = [],
@@ -1133,7 +1121,7 @@
                 "named_vs_anon.h:23:36",
                 declId = NamePair {
                   nameC = Name "c",
-                  nameHsIdent = HsIdentifier "C"},
+                  nameHsIdent = Identifier "C"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
                 declHeaderInfo = Just
@@ -1146,7 +1134,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "C"),
+                    (Name "@NsConstr" "C"),
                   structSizeof = 0,
                   structAlignment = 1,
                   structFields = [],
@@ -1180,10 +1168,10 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "C",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "C",
                   structFields = [],
@@ -1194,7 +1182,7 @@
                         "named_vs_anon.h:23:36",
                         declId = NamePair {
                           nameC = Name "c",
-                          nameHsIdent = HsIdentifier "C"},
+                          nameHsIdent = Identifier "C"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
                         declHeaderInfo = Just
@@ -1207,7 +1195,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "C"),
+                            (Name "@NsConstr" "C"),
                           structSizeof = 0,
                           structAlignment = 1,
                           structFields = [],
@@ -1241,10 +1229,10 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "C",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "C",
                   structFields = [],
@@ -1255,7 +1243,7 @@
                         "named_vs_anon.h:23:36",
                         declId = NamePair {
                           nameC = Name "c",
-                          nameHsIdent = HsIdentifier "C"},
+                          nameHsIdent = Identifier "C"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
                         declHeaderInfo = Just
@@ -1268,7 +1256,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "C"),
+                            (Name "@NsConstr" "C"),
                           structSizeof = 0,
                           structAlignment = 1,
                           structFields = [],
@@ -1303,7 +1291,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "C",
       deriveInstanceComment =
@@ -1313,17 +1301,17 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "C",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "Struct3",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "Struct3",
       structFields = [],
@@ -1334,7 +1322,7 @@
             "named_vs_anon.h:24:36",
             declId = NamePair {
               nameC = Name "struct3",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Struct3"},
             declOrigin = NameOriginInSource,
             declAliases = [],
@@ -1348,7 +1336,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "Struct3"),
+                (Name "@NsConstr" "Struct3"),
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
@@ -1379,10 +1367,10 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Struct3",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Struct3",
           structFields = [],
@@ -1393,7 +1381,7 @@
                 "named_vs_anon.h:24:36",
                 declId = NamePair {
                   nameC = Name "struct3",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Struct3"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
@@ -1407,7 +1395,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "Struct3"),
+                    (Name "@NsConstr" "Struct3"),
                   structSizeof = 0,
                   structAlignment = 1,
                   structFields = [],
@@ -1441,10 +1429,10 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Struct3",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Struct3",
                   structFields = [],
@@ -1455,7 +1443,7 @@
                         "named_vs_anon.h:24:36",
                         declId = NamePair {
                           nameC = Name "struct3",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Struct3"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -1469,7 +1457,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Struct3"),
+                            (Name "@NsConstr" "Struct3"),
                           structSizeof = 0,
                           structAlignment = 1,
                           structFields = [],
@@ -1503,10 +1491,10 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Struct3",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Struct3",
                   structFields = [],
@@ -1517,7 +1505,7 @@
                         "named_vs_anon.h:24:36",
                         declId = NamePair {
                           nameC = Name "struct3",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Struct3"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -1531,7 +1519,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Struct3"),
+                            (Name "@NsConstr" "Struct3"),
                           structSizeof = 0,
                           structAlignment = 1,
                           structFields = [],
@@ -1566,7 +1554,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Struct3",
       deriveInstanceComment =
@@ -1576,17 +1564,17 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Struct3",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "D",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "D",
       structFields = [],
@@ -1597,7 +1585,7 @@
             "named_vs_anon.h:27:15",
             declId = NamePair {
               nameC = Name "d",
-              nameHsIdent = HsIdentifier "D"},
+              nameHsIdent = Identifier "D"},
             declOrigin = NameOriginInSource,
             declAliases = [],
             declHeaderInfo = Just
@@ -1610,7 +1598,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "D"),
+                (Name "@NsConstr" "D"),
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
@@ -1641,10 +1629,10 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "D",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "D",
           structFields = [],
@@ -1655,7 +1643,7 @@
                 "named_vs_anon.h:27:15",
                 declId = NamePair {
                   nameC = Name "d",
-                  nameHsIdent = HsIdentifier "D"},
+                  nameHsIdent = Identifier "D"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
                 declHeaderInfo = Just
@@ -1668,7 +1656,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "D"),
+                    (Name "@NsConstr" "D"),
                   structSizeof = 0,
                   structAlignment = 1,
                   structFields = [],
@@ -1702,10 +1690,10 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "D",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "D",
                   structFields = [],
@@ -1716,7 +1704,7 @@
                         "named_vs_anon.h:27:15",
                         declId = NamePair {
                           nameC = Name "d",
-                          nameHsIdent = HsIdentifier "D"},
+                          nameHsIdent = Identifier "D"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
                         declHeaderInfo = Just
@@ -1729,7 +1717,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "D"),
+                            (Name "@NsConstr" "D"),
                           structSizeof = 0,
                           structAlignment = 1,
                           structFields = [],
@@ -1763,10 +1751,10 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "D",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "D",
                   structFields = [],
@@ -1777,7 +1765,7 @@
                         "named_vs_anon.h:27:15",
                         declId = NamePair {
                           nameC = Name "d",
-                          nameHsIdent = HsIdentifier "D"},
+                          nameHsIdent = Identifier "D"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
                         declHeaderInfo = Just
@@ -1790,7 +1778,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "D"),
+                            (Name "@NsConstr" "D"),
                           structSizeof = 0,
                           structAlignment = 1,
                           structFields = [],
@@ -1825,7 +1813,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "D",
       deriveInstanceComment =
@@ -1835,17 +1823,17 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "D",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "Struct4",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "Struct4",
       structFields = [],
@@ -1856,7 +1844,7 @@
             "named_vs_anon.h:28:15",
             declId = NamePair {
               nameC = Name "struct4",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Struct4"},
             declOrigin = NameOriginInSource,
             declAliases = [],
@@ -1870,7 +1858,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "Struct4"),
+                (Name "@NsConstr" "Struct4"),
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
@@ -1901,10 +1889,10 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Struct4",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Struct4",
           structFields = [],
@@ -1915,7 +1903,7 @@
                 "named_vs_anon.h:28:15",
                 declId = NamePair {
                   nameC = Name "struct4",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Struct4"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
@@ -1929,7 +1917,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "Struct4"),
+                    (Name "@NsConstr" "Struct4"),
                   structSizeof = 0,
                   structAlignment = 1,
                   structFields = [],
@@ -1963,10 +1951,10 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Struct4",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Struct4",
                   structFields = [],
@@ -1977,7 +1965,7 @@
                         "named_vs_anon.h:28:15",
                         declId = NamePair {
                           nameC = Name "struct4",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Struct4"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -1991,7 +1979,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Struct4"),
+                            (Name "@NsConstr" "Struct4"),
                           structSizeof = 0,
                           structAlignment = 1,
                           structFields = [],
@@ -2025,10 +2013,10 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Struct4",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Struct4",
                   structFields = [],
@@ -2039,7 +2027,7 @@
                         "named_vs_anon.h:28:15",
                         declId = NamePair {
                           nameC = Name "struct4",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Struct4"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -2053,7 +2041,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Struct4"),
+                            (Name "@NsConstr" "Struct4"),
                           structSizeof = 0,
                           structAlignment = 1,
                           structFields = [],
@@ -2088,7 +2076,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Struct4",
       deriveInstanceComment =
@@ -2098,17 +2086,17 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Struct4",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "E_s",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "E_s",
       structFields = [],
@@ -2119,8 +2107,7 @@
             "named_vs_anon.h:31:15",
             declId = NamePair {
               nameC = Name "e_s",
-              nameHsIdent = HsIdentifier
-                "E_s"},
+              nameHsIdent = Identifier "E_s"},
             declOrigin = NameOriginInSource,
             declAliases = [],
             declHeaderInfo = Just
@@ -2133,7 +2120,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "E_s"),
+                (Name "@NsConstr" "E_s"),
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
@@ -2164,10 +2151,10 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "E_s",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "E_s",
           structFields = [],
@@ -2178,8 +2165,7 @@
                 "named_vs_anon.h:31:15",
                 declId = NamePair {
                   nameC = Name "e_s",
-                  nameHsIdent = HsIdentifier
-                    "E_s"},
+                  nameHsIdent = Identifier "E_s"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
                 declHeaderInfo = Just
@@ -2192,7 +2178,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "E_s"),
+                    (Name "@NsConstr" "E_s"),
                   structSizeof = 0,
                   structAlignment = 1,
                   structFields = [],
@@ -2226,10 +2212,10 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "E_s",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "E_s",
                   structFields = [],
@@ -2240,8 +2226,7 @@
                         "named_vs_anon.h:31:15",
                         declId = NamePair {
                           nameC = Name "e_s",
-                          nameHsIdent = HsIdentifier
-                            "E_s"},
+                          nameHsIdent = Identifier "E_s"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
                         declHeaderInfo = Just
@@ -2254,7 +2239,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "E_s"),
+                            (Name "@NsConstr" "E_s"),
                           structSizeof = 0,
                           structAlignment = 1,
                           structFields = [],
@@ -2288,10 +2273,10 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "E_s",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "E_s",
                   structFields = [],
@@ -2302,8 +2287,7 @@
                         "named_vs_anon.h:31:15",
                         declId = NamePair {
                           nameC = Name "e_s",
-                          nameHsIdent = HsIdentifier
-                            "E_s"},
+                          nameHsIdent = Identifier "E_s"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
                         declHeaderInfo = Just
@@ -2316,7 +2300,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "E_s"),
+                            (Name "@NsConstr" "E_s"),
                           structSizeof = 0,
                           structAlignment = 1,
                           structFields = [],
@@ -2351,7 +2335,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "E_s",
       deriveInstanceComment =
@@ -2361,17 +2345,17 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "E_s",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "Struct5_s",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "Struct5_s",
       structFields = [],
@@ -2382,7 +2366,7 @@
             "named_vs_anon.h:32:15",
             declId = NamePair {
               nameC = Name "struct5_s",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Struct5_s"},
             declOrigin = NameOriginInSource,
             declAliases = [],
@@ -2396,9 +2380,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName
-                  "@NsConstr"
-                  "Struct5_s"),
+                (Name "@NsConstr" "Struct5_s"),
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
@@ -2430,10 +2412,10 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Struct5_s",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Struct5_s",
           structFields = [],
@@ -2444,7 +2426,7 @@
                 "named_vs_anon.h:32:15",
                 declId = NamePair {
                   nameC = Name "struct5_s",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Struct5_s"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
@@ -2458,9 +2440,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName
-                      "@NsConstr"
-                      "Struct5_s"),
+                    (Name "@NsConstr" "Struct5_s"),
                   structSizeof = 0,
                   structAlignment = 1,
                   structFields = [],
@@ -2495,10 +2475,10 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Struct5_s",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Struct5_s",
                   structFields = [],
@@ -2509,7 +2489,7 @@
                         "named_vs_anon.h:32:15",
                         declId = NamePair {
                           nameC = Name "struct5_s",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Struct5_s"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -2523,9 +2503,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName
-                              "@NsConstr"
-                              "Struct5_s"),
+                            (Name "@NsConstr" "Struct5_s"),
                           structSizeof = 0,
                           structAlignment = 1,
                           structFields = [],
@@ -2560,10 +2538,10 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Struct5_s",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Struct5_s",
                   structFields = [],
@@ -2574,7 +2552,7 @@
                         "named_vs_anon.h:32:15",
                         declId = NamePair {
                           nameC = Name "struct5_s",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Struct5_s"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -2588,9 +2566,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName
-                              "@NsConstr"
-                              "Struct5_s"),
+                            (Name "@NsConstr" "Struct5_s"),
                           structSizeof = 0,
                           structAlignment = 1,
                           structFields = [],
@@ -2626,7 +2602,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Struct5_s",
       deriveInstanceComment =
@@ -2636,17 +2612,17 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Struct5_s",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "F",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "F",
       structFields = [],
@@ -2657,7 +2633,7 @@
             "named_vs_anon.h:35:9",
             declId = NamePair {
               nameC = Name "f",
-              nameHsIdent = HsIdentifier "F"},
+              nameHsIdent = Identifier "F"},
             declOrigin = NameOriginGenerated
               (AnonId "named_vs_anon.h:35:9"),
             declAliases = [Name "f"],
@@ -2671,7 +2647,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "F"),
+                (Name "@NsConstr" "F"),
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
@@ -2702,10 +2678,10 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "F",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "F",
           structFields = [],
@@ -2716,7 +2692,7 @@
                 "named_vs_anon.h:35:9",
                 declId = NamePair {
                   nameC = Name "f",
-                  nameHsIdent = HsIdentifier "F"},
+                  nameHsIdent = Identifier "F"},
                 declOrigin = NameOriginGenerated
                   (AnonId "named_vs_anon.h:35:9"),
                 declAliases = [Name "f"],
@@ -2730,7 +2706,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "F"),
+                    (Name "@NsConstr" "F"),
                   structSizeof = 0,
                   structAlignment = 1,
                   structFields = [],
@@ -2764,10 +2740,10 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "F",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "F",
                   structFields = [],
@@ -2778,7 +2754,7 @@
                         "named_vs_anon.h:35:9",
                         declId = NamePair {
                           nameC = Name "f",
-                          nameHsIdent = HsIdentifier "F"},
+                          nameHsIdent = Identifier "F"},
                         declOrigin = NameOriginGenerated
                           (AnonId "named_vs_anon.h:35:9"),
                         declAliases = [Name "f"],
@@ -2792,7 +2768,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "F"),
+                            (Name "@NsConstr" "F"),
                           structSizeof = 0,
                           structAlignment = 1,
                           structFields = [],
@@ -2826,10 +2802,10 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "F",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "F",
                   structFields = [],
@@ -2840,7 +2816,7 @@
                         "named_vs_anon.h:35:9",
                         declId = NamePair {
                           nameC = Name "f",
-                          nameHsIdent = HsIdentifier "F"},
+                          nameHsIdent = Identifier "F"},
                         declOrigin = NameOriginGenerated
                           (AnonId "named_vs_anon.h:35:9"),
                         declAliases = [Name "f"],
@@ -2854,7 +2830,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "F"),
+                            (Name "@NsConstr" "F"),
                           structSizeof = 0,
                           structAlignment = 1,
                           structFields = [],
@@ -2889,7 +2865,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "F",
       deriveInstanceComment =
@@ -2899,17 +2875,17 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "F",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "Typedef1",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "Typedef1",
       structFields = [],
@@ -2920,7 +2896,7 @@
             "named_vs_anon.h:36:9",
             declId = NamePair {
               nameC = Name "typedef1",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Typedef1"},
             declOrigin = NameOriginGenerated
               (AnonId "named_vs_anon.h:36:9"),
@@ -2935,7 +2911,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "Typedef1"),
+                (Name "@NsConstr" "Typedef1"),
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
@@ -2966,10 +2942,10 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Typedef1",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Typedef1",
           structFields = [],
@@ -2980,7 +2956,7 @@
                 "named_vs_anon.h:36:9",
                 declId = NamePair {
                   nameC = Name "typedef1",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Typedef1"},
                 declOrigin = NameOriginGenerated
                   (AnonId "named_vs_anon.h:36:9"),
@@ -2995,7 +2971,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "Typedef1"),
+                    (Name "@NsConstr" "Typedef1"),
                   structSizeof = 0,
                   structAlignment = 1,
                   structFields = [],
@@ -3029,10 +3005,10 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Typedef1",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Typedef1",
                   structFields = [],
@@ -3043,7 +3019,7 @@
                         "named_vs_anon.h:36:9",
                         declId = NamePair {
                           nameC = Name "typedef1",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Typedef1"},
                         declOrigin = NameOriginGenerated
                           (AnonId "named_vs_anon.h:36:9"),
@@ -3058,7 +3034,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Typedef1"),
+                            (Name "@NsConstr" "Typedef1"),
                           structSizeof = 0,
                           structAlignment = 1,
                           structFields = [],
@@ -3092,10 +3068,10 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Typedef1",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Typedef1",
                   structFields = [],
@@ -3106,7 +3082,7 @@
                         "named_vs_anon.h:36:9",
                         declId = NamePair {
                           nameC = Name "typedef1",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Typedef1"},
                         declOrigin = NameOriginGenerated
                           (AnonId "named_vs_anon.h:36:9"),
@@ -3121,7 +3097,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Typedef1"),
+                            (Name "@NsConstr" "Typedef1"),
                           structSizeof = 0,
                           structAlignment = 1,
                           structFields = [],
@@ -3156,7 +3132,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Typedef1",
       deriveInstanceComment =
@@ -3166,17 +3142,17 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Typedef1",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "G",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "G",
       structFields = [],
@@ -3187,7 +3163,7 @@
             "named_vs_anon.h:39:9",
             declId = NamePair {
               nameC = Name "g",
-              nameHsIdent = HsIdentifier "G"},
+              nameHsIdent = Identifier "G"},
             declOrigin = NameOriginGenerated
               (AnonId "named_vs_anon.h:39:9"),
             declAliases = [Name "g"],
@@ -3201,7 +3177,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "G"),
+                (Name "@NsConstr" "G"),
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
@@ -3232,10 +3208,10 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "G",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "G",
           structFields = [],
@@ -3246,7 +3222,7 @@
                 "named_vs_anon.h:39:9",
                 declId = NamePair {
                   nameC = Name "g",
-                  nameHsIdent = HsIdentifier "G"},
+                  nameHsIdent = Identifier "G"},
                 declOrigin = NameOriginGenerated
                   (AnonId "named_vs_anon.h:39:9"),
                 declAliases = [Name "g"],
@@ -3260,7 +3236,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "G"),
+                    (Name "@NsConstr" "G"),
                   structSizeof = 0,
                   structAlignment = 1,
                   structFields = [],
@@ -3294,10 +3270,10 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "G",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "G",
                   structFields = [],
@@ -3308,7 +3284,7 @@
                         "named_vs_anon.h:39:9",
                         declId = NamePair {
                           nameC = Name "g",
-                          nameHsIdent = HsIdentifier "G"},
+                          nameHsIdent = Identifier "G"},
                         declOrigin = NameOriginGenerated
                           (AnonId "named_vs_anon.h:39:9"),
                         declAliases = [Name "g"],
@@ -3322,7 +3298,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "G"),
+                            (Name "@NsConstr" "G"),
                           structSizeof = 0,
                           structAlignment = 1,
                           structFields = [],
@@ -3356,10 +3332,10 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "G",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "G",
                   structFields = [],
@@ -3370,7 +3346,7 @@
                         "named_vs_anon.h:39:9",
                         declId = NamePair {
                           nameC = Name "g",
-                          nameHsIdent = HsIdentifier "G"},
+                          nameHsIdent = Identifier "G"},
                         declOrigin = NameOriginGenerated
                           (AnonId "named_vs_anon.h:39:9"),
                         declAliases = [Name "g"],
@@ -3384,7 +3360,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "G"),
+                            (Name "@NsConstr" "G"),
                           structSizeof = 0,
                           structAlignment = 1,
                           structFields = [],
@@ -3419,7 +3395,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "G",
       deriveInstanceComment =
@@ -3429,17 +3405,17 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "G",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "Typedef2",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "Typedef2",
       structFields = [],
@@ -3450,7 +3426,7 @@
             "named_vs_anon.h:40:9",
             declId = NamePair {
               nameC = Name "typedef2",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Typedef2"},
             declOrigin = NameOriginGenerated
               (AnonId "named_vs_anon.h:40:9"),
@@ -3465,7 +3441,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "Typedef2"),
+                (Name "@NsConstr" "Typedef2"),
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
@@ -3496,10 +3472,10 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Typedef2",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Typedef2",
           structFields = [],
@@ -3510,7 +3486,7 @@
                 "named_vs_anon.h:40:9",
                 declId = NamePair {
                   nameC = Name "typedef2",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Typedef2"},
                 declOrigin = NameOriginGenerated
                   (AnonId "named_vs_anon.h:40:9"),
@@ -3525,7 +3501,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "Typedef2"),
+                    (Name "@NsConstr" "Typedef2"),
                   structSizeof = 0,
                   structAlignment = 1,
                   structFields = [],
@@ -3559,10 +3535,10 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Typedef2",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Typedef2",
                   structFields = [],
@@ -3573,7 +3549,7 @@
                         "named_vs_anon.h:40:9",
                         declId = NamePair {
                           nameC = Name "typedef2",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Typedef2"},
                         declOrigin = NameOriginGenerated
                           (AnonId "named_vs_anon.h:40:9"),
@@ -3588,7 +3564,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Typedef2"),
+                            (Name "@NsConstr" "Typedef2"),
                           structSizeof = 0,
                           structAlignment = 1,
                           structFields = [],
@@ -3622,10 +3598,10 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Typedef2",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Typedef2",
                   structFields = [],
@@ -3636,7 +3612,7 @@
                         "named_vs_anon.h:40:9",
                         declId = NamePair {
                           nameC = Name "typedef2",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Typedef2"},
                         declOrigin = NameOriginGenerated
                           (AnonId "named_vs_anon.h:40:9"),
@@ -3651,7 +3627,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Typedef2"),
+                            (Name "@NsConstr" "Typedef2"),
                           structSizeof = 0,
                           structAlignment = 1,
                           structFields = [],
@@ -3686,7 +3662,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Typedef2",
       deriveInstanceComment =
@@ -3696,17 +3672,17 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Typedef2",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "H",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "H",
       structFields = [],
@@ -3717,7 +3693,7 @@
             "named_vs_anon.h:43:9",
             declId = NamePair {
               nameC = Name "h",
-              nameHsIdent = HsIdentifier "H"},
+              nameHsIdent = Identifier "H"},
             declOrigin = NameOriginGenerated
               (AnonId "named_vs_anon.h:43:9"),
             declAliases = [Name "h"],
@@ -3731,7 +3707,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "H"),
+                (Name "@NsConstr" "H"),
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
@@ -3762,10 +3738,10 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "H",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "H",
           structFields = [],
@@ -3776,7 +3752,7 @@
                 "named_vs_anon.h:43:9",
                 declId = NamePair {
                   nameC = Name "h",
-                  nameHsIdent = HsIdentifier "H"},
+                  nameHsIdent = Identifier "H"},
                 declOrigin = NameOriginGenerated
                   (AnonId "named_vs_anon.h:43:9"),
                 declAliases = [Name "h"],
@@ -3790,7 +3766,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "H"),
+                    (Name "@NsConstr" "H"),
                   structSizeof = 0,
                   structAlignment = 1,
                   structFields = [],
@@ -3824,10 +3800,10 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "H",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "H",
                   structFields = [],
@@ -3838,7 +3814,7 @@
                         "named_vs_anon.h:43:9",
                         declId = NamePair {
                           nameC = Name "h",
-                          nameHsIdent = HsIdentifier "H"},
+                          nameHsIdent = Identifier "H"},
                         declOrigin = NameOriginGenerated
                           (AnonId "named_vs_anon.h:43:9"),
                         declAliases = [Name "h"],
@@ -3852,7 +3828,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "H"),
+                            (Name "@NsConstr" "H"),
                           structSizeof = 0,
                           structAlignment = 1,
                           structFields = [],
@@ -3886,10 +3862,10 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "H",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "H",
                   structFields = [],
@@ -3900,7 +3876,7 @@
                         "named_vs_anon.h:43:9",
                         declId = NamePair {
                           nameC = Name "h",
-                          nameHsIdent = HsIdentifier "H"},
+                          nameHsIdent = Identifier "H"},
                         declOrigin = NameOriginGenerated
                           (AnonId "named_vs_anon.h:43:9"),
                         declAliases = [Name "h"],
@@ -3914,7 +3890,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "H"),
+                            (Name "@NsConstr" "H"),
                           structSizeof = 0,
                           structAlignment = 1,
                           structFields = [],
@@ -3949,7 +3925,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "H",
       deriveInstanceComment =
@@ -3959,17 +3935,17 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "H",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "Typedef3",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "Typedef3",
       structFields = [],
@@ -3980,7 +3956,7 @@
             "named_vs_anon.h:44:9",
             declId = NamePair {
               nameC = Name "typedef3",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Typedef3"},
             declOrigin = NameOriginGenerated
               (AnonId "named_vs_anon.h:44:9"),
@@ -3995,7 +3971,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "Typedef3"),
+                (Name "@NsConstr" "Typedef3"),
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
@@ -4026,10 +4002,10 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Typedef3",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Typedef3",
           structFields = [],
@@ -4040,7 +4016,7 @@
                 "named_vs_anon.h:44:9",
                 declId = NamePair {
                   nameC = Name "typedef3",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Typedef3"},
                 declOrigin = NameOriginGenerated
                   (AnonId "named_vs_anon.h:44:9"),
@@ -4055,7 +4031,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "Typedef3"),
+                    (Name "@NsConstr" "Typedef3"),
                   structSizeof = 0,
                   structAlignment = 1,
                   structFields = [],
@@ -4089,10 +4065,10 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Typedef3",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Typedef3",
                   structFields = [],
@@ -4103,7 +4079,7 @@
                         "named_vs_anon.h:44:9",
                         declId = NamePair {
                           nameC = Name "typedef3",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Typedef3"},
                         declOrigin = NameOriginGenerated
                           (AnonId "named_vs_anon.h:44:9"),
@@ -4118,7 +4094,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Typedef3"),
+                            (Name "@NsConstr" "Typedef3"),
                           structSizeof = 0,
                           structAlignment = 1,
                           structFields = [],
@@ -4152,10 +4128,10 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Typedef3",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Typedef3",
                   structFields = [],
@@ -4166,7 +4142,7 @@
                         "named_vs_anon.h:44:9",
                         declId = NamePair {
                           nameC = Name "typedef3",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Typedef3"},
                         declOrigin = NameOriginGenerated
                           (AnonId "named_vs_anon.h:44:9"),
@@ -4181,7 +4157,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Typedef3"),
+                            (Name "@NsConstr" "Typedef3"),
                           structSizeof = 0,
                           structAlignment = 1,
                           structFields = [],
@@ -4216,7 +4192,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Typedef3",
       deriveInstanceComment =
@@ -4226,7 +4202,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Typedef3",
       deriveInstanceComment =

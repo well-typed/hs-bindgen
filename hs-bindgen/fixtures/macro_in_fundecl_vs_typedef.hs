@@ -1,14 +1,14 @@
 [
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "MC",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "MC",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_MC",
         fieldType = HsPrimType
@@ -21,8 +21,7 @@
           "macro_in_fundecl_vs_typedef.h:4:9",
           declId = NamePair {
             nameC = Name "MC",
-            nameHsIdent = HsIdentifier
-              "MC"},
+            nameHsIdent = Identifier "MC"},
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeaderInfo = Just
@@ -36,10 +35,10 @@
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "MC",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_MC"},
             macroType = TypePrim
@@ -85,7 +84,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Storable,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "MC",
       deriveInstanceComment =
@@ -95,7 +94,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "MC",
       deriveInstanceComment =
@@ -105,7 +104,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Ord,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "MC",
       deriveInstanceComment =
@@ -115,7 +114,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Read,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "MC",
       deriveInstanceComment =
@@ -125,7 +124,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "MC",
       deriveInstanceComment =
@@ -135,7 +134,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Enum,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "MC",
       deriveInstanceComment =
@@ -145,7 +144,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Ix,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "MC",
       deriveInstanceComment =
@@ -155,7 +154,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bounded,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "MC",
       deriveInstanceComment =
@@ -165,7 +164,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "MC",
       deriveInstanceComment =
@@ -176,7 +175,7 @@
       DeriveNewtype,
       deriveInstanceClass =
       FiniteBits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "MC",
       deriveInstanceComment =
@@ -186,7 +185,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Integral,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "MC",
       deriveInstanceComment =
@@ -196,7 +195,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Num,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "MC",
       deriveInstanceComment =
@@ -206,21 +205,21 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Real,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "MC",
       deriveInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "TC",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "TC",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_TC",
         fieldType = HsPrimType
@@ -233,8 +232,7 @@
           "macro_in_fundecl_vs_typedef.h:5:14",
           declId = NamePair {
             nameC = Name "TC",
-            nameHsIdent = HsIdentifier
-              "TC"},
+            nameHsIdent = Identifier "TC"},
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeaderInfo = Just
@@ -248,10 +246,10 @@
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "TC",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_TC"},
             typedefType = TypePrim
@@ -298,7 +296,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Storable,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "TC",
       deriveInstanceComment =
@@ -308,7 +306,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "TC",
       deriveInstanceComment =
@@ -318,7 +316,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Ord,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "TC",
       deriveInstanceComment =
@@ -328,7 +326,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Read,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "TC",
       deriveInstanceComment =
@@ -338,7 +336,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "TC",
       deriveInstanceComment =
@@ -348,7 +346,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Enum,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "TC",
       deriveInstanceComment =
@@ -358,7 +356,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Ix,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "TC",
       deriveInstanceComment =
@@ -368,7 +366,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bounded,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "TC",
       deriveInstanceComment =
@@ -378,7 +376,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "TC",
       deriveInstanceComment =
@@ -389,7 +387,7 @@
       DeriveNewtype,
       deriveInstanceClass =
       FiniteBits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "TC",
       deriveInstanceComment =
@@ -399,7 +397,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Integral,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "TC",
       deriveInstanceComment =
@@ -409,7 +407,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Num,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "TC",
       deriveInstanceComment =
@@ -419,22 +417,22 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Real,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "TC",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "Struct1",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "Struct1",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "struct1_a",
           fieldType = HsPrimType
@@ -446,7 +444,7 @@
                 "macro_in_fundecl_vs_typedef.h:18:30",
                 fieldName = NamePair {
                   nameC = Name "a",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "struct1_a"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -474,7 +472,7 @@
             "macro_in_fundecl_vs_typedef.h:18:16",
             declId = NamePair {
               nameC = Name "struct1",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Struct1"},
             declOrigin = NameOriginInSource,
             declAliases = [],
@@ -489,7 +487,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "Struct1"),
+                (Name "@NsConstr" "Struct1"),
               structSizeof = 4,
               structAlignment = 4,
               structFields = [
@@ -499,7 +497,7 @@
                     "macro_in_fundecl_vs_typedef.h:18:30",
                     fieldName = NamePair {
                       nameC = Name "a",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "struct1_a"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -534,15 +532,15 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Struct1",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Struct1",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "struct1_a",
               fieldType = HsPrimType
@@ -554,7 +552,7 @@
                     "macro_in_fundecl_vs_typedef.h:18:30",
                     fieldName = NamePair {
                       nameC = Name "a",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "struct1_a"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -582,7 +580,7 @@
                 "macro_in_fundecl_vs_typedef.h:18:16",
                 declId = NamePair {
                   nameC = Name "struct1",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Struct1"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
@@ -597,7 +595,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "Struct1"),
+                    (Name "@NsConstr" "Struct1"),
                   structSizeof = 4,
                   structAlignment = 4,
                   structFields = [
@@ -607,7 +605,7 @@
                         "macro_in_fundecl_vs_typedef.h:18:30",
                         fieldName = NamePair {
                           nameC = Name "a",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "struct1_a"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -645,15 +643,15 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Struct1",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Struct1",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "struct1_a",
                       fieldType = HsPrimType
@@ -665,7 +663,7 @@
                             "macro_in_fundecl_vs_typedef.h:18:30",
                             fieldName = NamePair {
                               nameC = Name "a",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "struct1_a"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -693,7 +691,7 @@
                         "macro_in_fundecl_vs_typedef.h:18:16",
                         declId = NamePair {
                           nameC = Name "struct1",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Struct1"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -708,7 +706,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Struct1"),
+                            (Name "@NsConstr" "Struct1"),
                           structSizeof = 4,
                           structAlignment = 4,
                           structFields = [
@@ -718,7 +716,7 @@
                                 "macro_in_fundecl_vs_typedef.h:18:30",
                                 fieldName = NamePair {
                                   nameC = Name "a",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "struct1_a"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -756,15 +754,15 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Struct1",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Struct1",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "struct1_a",
                       fieldType = HsPrimType
@@ -776,7 +774,7 @@
                             "macro_in_fundecl_vs_typedef.h:18:30",
                             fieldName = NamePair {
                               nameC = Name "a",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "struct1_a"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -804,7 +802,7 @@
                         "macro_in_fundecl_vs_typedef.h:18:16",
                         declId = NamePair {
                           nameC = Name "struct1",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Struct1"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -819,7 +817,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Struct1"),
+                            (Name "@NsConstr" "Struct1"),
                           structSizeof = 4,
                           structAlignment = 4,
                           structFields = [
@@ -829,7 +827,7 @@
                                 "macro_in_fundecl_vs_typedef.h:18:30",
                                 fieldName = NamePair {
                                   nameC = Name "a",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "struct1_a"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -873,7 +871,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Struct1",
       deriveInstanceComment =
@@ -883,22 +881,22 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Struct1",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "Struct2",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "Struct2",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "struct2_a",
           fieldType = HsPrimType
@@ -910,7 +908,7 @@
                 "macro_in_fundecl_vs_typedef.h:19:30",
                 fieldName = NamePair {
                   nameC = Name "a",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "struct2_a"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -938,7 +936,7 @@
             "macro_in_fundecl_vs_typedef.h:19:9",
             declId = NamePair {
               nameC = Name "struct2",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Struct2"},
             declOrigin = NameOriginGenerated
               (AnonId
@@ -955,7 +953,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "Struct2"),
+                (Name "@NsConstr" "Struct2"),
               structSizeof = 4,
               structAlignment = 4,
               structFields = [
@@ -965,7 +963,7 @@
                     "macro_in_fundecl_vs_typedef.h:19:30",
                     fieldName = NamePair {
                       nameC = Name "a",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "struct2_a"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1000,15 +998,15 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Struct2",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Struct2",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "struct2_a",
               fieldType = HsPrimType
@@ -1020,7 +1018,7 @@
                     "macro_in_fundecl_vs_typedef.h:19:30",
                     fieldName = NamePair {
                       nameC = Name "a",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "struct2_a"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1048,7 +1046,7 @@
                 "macro_in_fundecl_vs_typedef.h:19:9",
                 declId = NamePair {
                   nameC = Name "struct2",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Struct2"},
                 declOrigin = NameOriginGenerated
                   (AnonId
@@ -1065,7 +1063,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "Struct2"),
+                    (Name "@NsConstr" "Struct2"),
                   structSizeof = 4,
                   structAlignment = 4,
                   structFields = [
@@ -1075,7 +1073,7 @@
                         "macro_in_fundecl_vs_typedef.h:19:30",
                         fieldName = NamePair {
                           nameC = Name "a",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "struct2_a"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -1113,15 +1111,15 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Struct2",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Struct2",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "struct2_a",
                       fieldType = HsPrimType
@@ -1133,7 +1131,7 @@
                             "macro_in_fundecl_vs_typedef.h:19:30",
                             fieldName = NamePair {
                               nameC = Name "a",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "struct2_a"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -1161,7 +1159,7 @@
                         "macro_in_fundecl_vs_typedef.h:19:9",
                         declId = NamePair {
                           nameC = Name "struct2",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Struct2"},
                         declOrigin = NameOriginGenerated
                           (AnonId
@@ -1178,7 +1176,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Struct2"),
+                            (Name "@NsConstr" "Struct2"),
                           structSizeof = 4,
                           structAlignment = 4,
                           structFields = [
@@ -1188,7 +1186,7 @@
                                 "macro_in_fundecl_vs_typedef.h:19:30",
                                 fieldName = NamePair {
                                   nameC = Name "a",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "struct2_a"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -1226,15 +1224,15 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Struct2",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Struct2",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "struct2_a",
                       fieldType = HsPrimType
@@ -1246,7 +1244,7 @@
                             "macro_in_fundecl_vs_typedef.h:19:30",
                             fieldName = NamePair {
                               nameC = Name "a",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "struct2_a"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -1274,7 +1272,7 @@
                         "macro_in_fundecl_vs_typedef.h:19:9",
                         declId = NamePair {
                           nameC = Name "struct2",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Struct2"},
                         declOrigin = NameOriginGenerated
                           (AnonId
@@ -1291,7 +1289,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Struct2"),
+                            (Name "@NsConstr" "Struct2"),
                           structSizeof = 4,
                           structAlignment = 4,
                           structFields = [
@@ -1301,7 +1299,7 @@
                                 "macro_in_fundecl_vs_typedef.h:19:30",
                                 fieldName = NamePair {
                                   nameC = Name "a",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "struct2_a"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -1345,7 +1343,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Struct2",
       deriveInstanceComment =
@@ -1355,22 +1353,22 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Struct2",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "Struct3",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "Struct3",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "struct3_a",
           fieldType = HsPrimType
@@ -1382,7 +1380,7 @@
                 "macro_in_fundecl_vs_typedef.h:20:30",
                 fieldName = NamePair {
                   nameC = Name "a",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "struct3_a"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -1410,7 +1408,7 @@
             "macro_in_fundecl_vs_typedef.h:20:16",
             declId = NamePair {
               nameC = Name "struct3",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Struct3"},
             declOrigin = NameOriginInSource,
             declAliases = [
@@ -1426,7 +1424,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "Struct3"),
+                (Name "@NsConstr" "Struct3"),
               structSizeof = 4,
               structAlignment = 4,
               structFields = [
@@ -1436,7 +1434,7 @@
                     "macro_in_fundecl_vs_typedef.h:20:30",
                     fieldName = NamePair {
                       nameC = Name "a",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "struct3_a"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1471,15 +1469,15 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Struct3",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Struct3",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "struct3_a",
               fieldType = HsPrimType
@@ -1491,7 +1489,7 @@
                     "macro_in_fundecl_vs_typedef.h:20:30",
                     fieldName = NamePair {
                       nameC = Name "a",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "struct3_a"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1519,7 +1517,7 @@
                 "macro_in_fundecl_vs_typedef.h:20:16",
                 declId = NamePair {
                   nameC = Name "struct3",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Struct3"},
                 declOrigin = NameOriginInSource,
                 declAliases = [
@@ -1535,7 +1533,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "Struct3"),
+                    (Name "@NsConstr" "Struct3"),
                   structSizeof = 4,
                   structAlignment = 4,
                   structFields = [
@@ -1545,7 +1543,7 @@
                         "macro_in_fundecl_vs_typedef.h:20:30",
                         fieldName = NamePair {
                           nameC = Name "a",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "struct3_a"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -1583,15 +1581,15 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Struct3",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Struct3",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "struct3_a",
                       fieldType = HsPrimType
@@ -1603,7 +1601,7 @@
                             "macro_in_fundecl_vs_typedef.h:20:30",
                             fieldName = NamePair {
                               nameC = Name "a",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "struct3_a"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -1631,7 +1629,7 @@
                         "macro_in_fundecl_vs_typedef.h:20:16",
                         declId = NamePair {
                           nameC = Name "struct3",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Struct3"},
                         declOrigin = NameOriginInSource,
                         declAliases = [
@@ -1647,7 +1645,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Struct3"),
+                            (Name "@NsConstr" "Struct3"),
                           structSizeof = 4,
                           structAlignment = 4,
                           structFields = [
@@ -1657,7 +1655,7 @@
                                 "macro_in_fundecl_vs_typedef.h:20:30",
                                 fieldName = NamePair {
                                   nameC = Name "a",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "struct3_a"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -1695,15 +1693,15 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Struct3",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Struct3",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "struct3_a",
                       fieldType = HsPrimType
@@ -1715,7 +1713,7 @@
                             "macro_in_fundecl_vs_typedef.h:20:30",
                             fieldName = NamePair {
                               nameC = Name "a",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "struct3_a"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -1743,7 +1741,7 @@
                         "macro_in_fundecl_vs_typedef.h:20:16",
                         declId = NamePair {
                           nameC = Name "struct3",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Struct3"},
                         declOrigin = NameOriginInSource,
                         declAliases = [
@@ -1759,7 +1757,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Struct3"),
+                            (Name "@NsConstr" "Struct3"),
                           structSizeof = 4,
                           structAlignment = 4,
                           structFields = [
@@ -1769,7 +1767,7 @@
                                 "macro_in_fundecl_vs_typedef.h:20:30",
                                 fieldName = NamePair {
                                   nameC = Name "a",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "struct3_a"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -1813,7 +1811,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Struct3",
       deriveInstanceComment =
@@ -1823,25 +1821,25 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Struct3",
       deriveInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "Struct3_t",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "Struct3_t",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_Struct3_t",
         fieldType = HsTypRef
-          (HsName
+          (Name
             "@NsTypeConstr"
             "Struct3"),
         fieldOrigin = GeneratedField,
@@ -1852,7 +1850,7 @@
           "macro_in_fundecl_vs_typedef.h:20:35",
           declId = NamePair {
             nameC = Name "struct3_t",
-            nameHsIdent = HsIdentifier
+            nameHsIdent = Identifier
               "Struct3_t"},
           declOrigin = NameOriginInSource,
           declAliases = [],
@@ -1867,16 +1865,16 @@
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "Struct3_t",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_Struct3_t"},
             typedefType = TypeStruct
               NamePair {
                 nameC = Name "struct3",
-                nameHsIdent = HsIdentifier
+                nameHsIdent = Identifier
                   "Struct3"}
               NameOriginInSource},
         declSpec = DeclSpec
@@ -1907,7 +1905,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Storable,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Struct3_t",
       deriveInstanceComment =
@@ -1917,7 +1915,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Struct3_t",
       deriveInstanceComment =
@@ -1927,22 +1925,22 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Struct3_t",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "Struct4",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "Struct4",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "struct4_a",
           fieldType = HsPrimType
@@ -1954,7 +1952,7 @@
                 "macro_in_fundecl_vs_typedef.h:21:30",
                 fieldName = NamePair {
                   nameC = Name "a",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "struct4_a"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -1982,7 +1980,7 @@
             "macro_in_fundecl_vs_typedef.h:21:16",
             declId = NamePair {
               nameC = Name "struct4",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Struct4"},
             declOrigin = NameOriginInSource,
             declAliases = [Name "struct4"],
@@ -1997,7 +1995,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "Struct4"),
+                (Name "@NsConstr" "Struct4"),
               structSizeof = 4,
               structAlignment = 4,
               structFields = [
@@ -2007,7 +2005,7 @@
                     "macro_in_fundecl_vs_typedef.h:21:30",
                     fieldName = NamePair {
                       nameC = Name "a",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "struct4_a"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -2042,15 +2040,15 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Struct4",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Struct4",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "struct4_a",
               fieldType = HsPrimType
@@ -2062,7 +2060,7 @@
                     "macro_in_fundecl_vs_typedef.h:21:30",
                     fieldName = NamePair {
                       nameC = Name "a",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "struct4_a"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -2090,7 +2088,7 @@
                 "macro_in_fundecl_vs_typedef.h:21:16",
                 declId = NamePair {
                   nameC = Name "struct4",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Struct4"},
                 declOrigin = NameOriginInSource,
                 declAliases = [Name "struct4"],
@@ -2105,7 +2103,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "Struct4"),
+                    (Name "@NsConstr" "Struct4"),
                   structSizeof = 4,
                   structAlignment = 4,
                   structFields = [
@@ -2115,7 +2113,7 @@
                         "macro_in_fundecl_vs_typedef.h:21:30",
                         fieldName = NamePair {
                           nameC = Name "a",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "struct4_a"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -2153,15 +2151,15 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Struct4",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Struct4",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "struct4_a",
                       fieldType = HsPrimType
@@ -2173,7 +2171,7 @@
                             "macro_in_fundecl_vs_typedef.h:21:30",
                             fieldName = NamePair {
                               nameC = Name "a",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "struct4_a"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -2201,7 +2199,7 @@
                         "macro_in_fundecl_vs_typedef.h:21:16",
                         declId = NamePair {
                           nameC = Name "struct4",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Struct4"},
                         declOrigin = NameOriginInSource,
                         declAliases = [Name "struct4"],
@@ -2216,7 +2214,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Struct4"),
+                            (Name "@NsConstr" "Struct4"),
                           structSizeof = 4,
                           structAlignment = 4,
                           structFields = [
@@ -2226,7 +2224,7 @@
                                 "macro_in_fundecl_vs_typedef.h:21:30",
                                 fieldName = NamePair {
                                   nameC = Name "a",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "struct4_a"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -2264,15 +2262,15 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Struct4",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Struct4",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "struct4_a",
                       fieldType = HsPrimType
@@ -2284,7 +2282,7 @@
                             "macro_in_fundecl_vs_typedef.h:21:30",
                             fieldName = NamePair {
                               nameC = Name "a",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "struct4_a"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -2312,7 +2310,7 @@
                         "macro_in_fundecl_vs_typedef.h:21:16",
                         declId = NamePair {
                           nameC = Name "struct4",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Struct4"},
                         declOrigin = NameOriginInSource,
                         declAliases = [Name "struct4"],
@@ -2327,7 +2325,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Struct4"),
+                            (Name "@NsConstr" "Struct4"),
                           structSizeof = 4,
                           structAlignment = 4,
                           structFields = [
@@ -2337,7 +2335,7 @@
                                 "macro_in_fundecl_vs_typedef.h:21:30",
                                 fieldName = NamePair {
                                   nameC = Name "a",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "struct4_a"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -2381,7 +2379,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Struct4",
       deriveInstanceComment =
@@ -2391,22 +2389,22 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Struct4",
       deriveInstanceComment =
       Nothing},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "quux1",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "x"),
+            (Name "@NsVar" "x"),
           functionParameterType = HsTypRef
-            (HsName "@NsTypeConstr" "MC"),
+            (Name "@NsTypeConstr" "MC"),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -2416,9 +2414,9 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "y"),
+            (Name "@NsVar" "y"),
           functionParameterType = HsTypRef
-            (HsName "@NsTypeConstr" "TC"),
+            (Name "@NsTypeConstr" "TC"),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -2445,22 +2443,22 @@
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypeMacroTypedef
                 NamePair {
                   nameC = Name "MC",
-                  nameHsIdent = HsIdentifier "MC"}
+                  nameHsIdent = Identifier "MC"}
                 NameOriginInSource),
             _×_
               (Just
                 NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier "y"})
+                  nameHsIdent = Identifier "y"})
               (TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "TC",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "TC"}))],
           functionAttrs =
           FunctionAttributes
@@ -2485,15 +2483,15 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "quux2",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "x"),
+            (Name "@NsVar" "x"),
           functionParameterType = HsTypRef
-            (HsName "@NsTypeConstr" "MC"),
+            (Name "@NsTypeConstr" "MC"),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -2503,7 +2501,7 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "y"),
+            (Name "@NsVar" "y"),
           functionParameterType =
           HsPrimType HsPrimCChar,
           functionParameterComment = Just
@@ -2517,7 +2515,7 @@
       NormalResultType
         (HsIO
           (HsTypRef
-            (HsName "@NsTypeConstr" "TC"))),
+            (Name "@NsTypeConstr" "TC"))),
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_vs_typedef_db114519a8645d1f",
       foreignImportCallConv =
@@ -2534,17 +2532,17 @@
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypeMacroTypedef
                 NamePair {
                   nameC = Name "MC",
-                  nameHsIdent = HsIdentifier "MC"}
+                  nameHsIdent = Identifier "MC"}
                 NameOriginInSource),
             _×_
               (Just
                 NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier "y"})
+                  nameHsIdent = Identifier "y"})
               (TypePrim
                 (PrimChar
                   (PrimSignImplicit Nothing)))],
@@ -2555,7 +2553,7 @@
             (TypedefRegular
               NamePair {
                 nameC = Name "TC",
-                nameHsIdent = HsIdentifier
+                nameHsIdent = Identifier
                   "TC"})},
       foreignImportComment = Just
         Comment {
@@ -2574,13 +2572,13 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "wam1",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "x"),
+            (Name "@NsVar" "x"),
           functionParameterType =
           HsPrimType HsPrimCFloat,
           functionParameterComment = Just
@@ -2592,10 +2590,10 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "y"),
+            (Name "@NsVar" "y"),
           functionParameterType = HsPtr
             (HsTypRef
-              (HsName "@NsTypeConstr" "TC")),
+              (Name "@NsTypeConstr" "TC")),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -2608,9 +2606,7 @@
         (HsIO
           (HsPtr
             (HsTypRef
-              (HsName
-                "@NsTypeConstr"
-                "MC")))),
+              (Name "@NsTypeConstr" "MC")))),
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_vs_typedef_0a613fb26d413eaa",
       foreignImportCallConv =
@@ -2627,20 +2623,20 @@
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypePrim
                 (PrimFloating PrimFloat)),
             _×_
               (Just
                 NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier "y"})
+                  nameHsIdent = Identifier "y"})
               (TypePointer
                 (TypeTypedef
                   (TypedefRegular
                     NamePair {
                       nameC = Name "TC",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "TC"})))],
           functionAttrs =
           FunctionAttributes
@@ -2649,7 +2645,7 @@
             (TypeMacroTypedef
               NamePair {
                 nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
+                nameHsIdent = Identifier "MC"}
               NameOriginInSource)},
       foreignImportComment = Just
         Comment {
@@ -2668,13 +2664,13 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "wam2",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "x"),
+            (Name "@NsVar" "x"),
           functionParameterType =
           HsPrimType HsPrimCFloat,
           functionParameterComment = Just
@@ -2686,10 +2682,10 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "y"),
+            (Name "@NsVar" "y"),
           functionParameterType = HsPtr
             (HsTypRef
-              (HsName "@NsTypeConstr" "MC")),
+              (Name "@NsTypeConstr" "MC")),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -2702,9 +2698,7 @@
         (HsIO
           (HsPtr
             (HsTypRef
-              (HsName
-                "@NsTypeConstr"
-                "TC")))),
+              (Name "@NsTypeConstr" "TC")))),
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_vs_typedef_279b15c6940eb4f8",
       foreignImportCallConv =
@@ -2721,19 +2715,19 @@
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypePrim
                 (PrimFloating PrimFloat)),
             _×_
               (Just
                 NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier "y"})
+                  nameHsIdent = Identifier "y"})
               (TypePointer
                 (TypeMacroTypedef
                   NamePair {
                     nameC = Name "MC",
-                    nameHsIdent = HsIdentifier "MC"}
+                    nameHsIdent = Identifier "MC"}
                   NameOriginInSource))],
           functionAttrs =
           FunctionAttributes
@@ -2743,7 +2737,7 @@
               (TypedefRegular
                 NamePair {
                   nameC = Name "TC",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "TC"}))},
       foreignImportComment = Just
         Comment {
@@ -2762,16 +2756,16 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "struct_typedef1",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "s"),
+            (Name "@NsVar" "s"),
           functionParameterType = HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "Struct2")),
           functionParameterComment = Just
@@ -2783,9 +2777,9 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "x"),
+            (Name "@NsVar" "x"),
           functionParameterType = HsTypRef
-            (HsName "@NsTypeConstr" "MC"),
+            (Name "@NsTypeConstr" "MC"),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -2812,7 +2806,7 @@
               (Just
                 NamePair {
                   nameC = Name "s",
-                  nameHsIdent = HsIdentifier "s"})
+                  nameHsIdent = Identifier "s"})
               (TypePointer
                 (TypeTypedef
                   (TypedefSquashed
@@ -2820,7 +2814,7 @@
                     (TypeStruct
                       NamePair {
                         nameC = Name "struct2",
-                        nameHsIdent = HsIdentifier
+                        nameHsIdent = Identifier
                           "Struct2"}
                       (NameOriginGenerated
                         (AnonId
@@ -2829,11 +2823,11 @@
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypeMacroTypedef
                 NamePair {
                   nameC = Name "MC",
-                  nameHsIdent = HsIdentifier "MC"}
+                  nameHsIdent = Identifier "MC"}
                 NameOriginInSource)],
           functionAttrs =
           FunctionAttributes
@@ -2857,16 +2851,16 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "struct_typedef2",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "s"),
+            (Name "@NsVar" "s"),
           functionParameterType = HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "Struct3_t")),
           functionParameterComment = Just
@@ -2878,9 +2872,9 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "x"),
+            (Name "@NsVar" "x"),
           functionParameterType = HsTypRef
-            (HsName "@NsTypeConstr" "MC"),
+            (Name "@NsTypeConstr" "MC"),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -2907,23 +2901,23 @@
               (Just
                 NamePair {
                   nameC = Name "s",
-                  nameHsIdent = HsIdentifier "s"})
+                  nameHsIdent = Identifier "s"})
               (TypePointer
                 (TypeTypedef
                   (TypedefRegular
                     NamePair {
                       nameC = Name "struct3_t",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "Struct3_t"}))),
             _×_
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypeMacroTypedef
                 NamePair {
                   nameC = Name "MC",
-                  nameHsIdent = HsIdentifier "MC"}
+                  nameHsIdent = Identifier "MC"}
                 NameOriginInSource)],
           functionAttrs =
           FunctionAttributes
@@ -2947,16 +2941,16 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "struct_typedef3",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "s"),
+            (Name "@NsVar" "s"),
           functionParameterType = HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "Struct4")),
           functionParameterComment = Just
@@ -2968,9 +2962,9 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "x"),
+            (Name "@NsVar" "x"),
           functionParameterType = HsTypRef
-            (HsName "@NsTypeConstr" "MC"),
+            (Name "@NsTypeConstr" "MC"),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -2997,7 +2991,7 @@
               (Just
                 NamePair {
                   nameC = Name "s",
-                  nameHsIdent = HsIdentifier "s"})
+                  nameHsIdent = Identifier "s"})
               (TypePointer
                 (TypeTypedef
                   (TypedefSquashed
@@ -3005,18 +2999,18 @@
                     (TypeStruct
                       NamePair {
                         nameC = Name "struct4",
-                        nameHsIdent = HsIdentifier
+                        nameHsIdent = Identifier
                           "Struct4"}
                       NameOriginInSource)))),
             _×_
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypeMacroTypedef
                 NamePair {
                   nameC = Name "MC",
-                  nameHsIdent = HsIdentifier "MC"}
+                  nameHsIdent = Identifier "MC"}
                 NameOriginInSource)],
           functionAttrs =
           FunctionAttributes
@@ -3040,16 +3034,16 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "struct_name1",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "s"),
+            (Name "@NsVar" "s"),
           functionParameterType = HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "Struct1")),
           functionParameterComment = Just
@@ -3061,9 +3055,9 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "x"),
+            (Name "@NsVar" "x"),
           functionParameterType = HsTypRef
-            (HsName "@NsTypeConstr" "MC"),
+            (Name "@NsTypeConstr" "MC"),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -3090,23 +3084,23 @@
               (Just
                 NamePair {
                   nameC = Name "s",
-                  nameHsIdent = HsIdentifier "s"})
+                  nameHsIdent = Identifier "s"})
               (TypePointer
                 (TypeStruct
                   NamePair {
                     nameC = Name "struct1",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Struct1"}
                   NameOriginInSource)),
             _×_
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypeMacroTypedef
                 NamePair {
                   nameC = Name "MC",
-                  nameHsIdent = HsIdentifier "MC"}
+                  nameHsIdent = Identifier "MC"}
                 NameOriginInSource)],
           functionAttrs =
           FunctionAttributes
@@ -3130,16 +3124,16 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "struct_name2",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "s"),
+            (Name "@NsVar" "s"),
           functionParameterType = HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "Struct3")),
           functionParameterComment = Just
@@ -3151,9 +3145,9 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "x"),
+            (Name "@NsVar" "x"),
           functionParameterType = HsTypRef
-            (HsName "@NsTypeConstr" "MC"),
+            (Name "@NsTypeConstr" "MC"),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -3180,23 +3174,23 @@
               (Just
                 NamePair {
                   nameC = Name "s",
-                  nameHsIdent = HsIdentifier "s"})
+                  nameHsIdent = Identifier "s"})
               (TypePointer
                 (TypeStruct
                   NamePair {
                     nameC = Name "struct3",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Struct3"}
                   NameOriginInSource)),
             _×_
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypeMacroTypedef
                 NamePair {
                   nameC = Name "MC",
-                  nameHsIdent = HsIdentifier "MC"}
+                  nameHsIdent = Identifier "MC"}
                 NameOriginInSource)],
           functionAttrs =
           FunctionAttributes
@@ -3220,16 +3214,16 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "struct_name3",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "s"),
+            (Name "@NsVar" "s"),
           functionParameterType = HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "Struct4")),
           functionParameterComment = Just
@@ -3241,9 +3235,9 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "x"),
+            (Name "@NsVar" "x"),
           functionParameterType = HsTypRef
-            (HsName "@NsTypeConstr" "MC"),
+            (Name "@NsTypeConstr" "MC"),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -3270,23 +3264,23 @@
               (Just
                 NamePair {
                   nameC = Name "s",
-                  nameHsIdent = HsIdentifier "s"})
+                  nameHsIdent = Identifier "s"})
               (TypePointer
                 (TypeStruct
                   NamePair {
                     nameC = Name "struct4",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Struct4"}
                   NameOriginInSource)),
             _×_
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypeMacroTypedef
                 NamePair {
                   nameC = Name "MC",
-                  nameHsIdent = HsIdentifier "MC"}
+                  nameHsIdent = Identifier "MC"}
                 NameOriginInSource)],
           functionAttrs =
           FunctionAttributes
@@ -3310,15 +3304,15 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "quux1",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "x"),
+            (Name "@NsVar" "x"),
           functionParameterType = HsTypRef
-            (HsName "@NsTypeConstr" "MC"),
+            (Name "@NsTypeConstr" "MC"),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -3328,9 +3322,9 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "y"),
+            (Name "@NsVar" "y"),
           functionParameterType = HsTypRef
-            (HsName "@NsTypeConstr" "TC"),
+            (Name "@NsTypeConstr" "TC"),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -3357,22 +3351,22 @@
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypeMacroTypedef
                 NamePair {
                   nameC = Name "MC",
-                  nameHsIdent = HsIdentifier "MC"}
+                  nameHsIdent = Identifier "MC"}
                 NameOriginInSource),
             _×_
               (Just
                 NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier "y"})
+                  nameHsIdent = Identifier "y"})
               (TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "TC",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "TC"}))],
           functionAttrs =
           FunctionAttributes
@@ -3397,15 +3391,15 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "quux2",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "x"),
+            (Name "@NsVar" "x"),
           functionParameterType = HsTypRef
-            (HsName "@NsTypeConstr" "MC"),
+            (Name "@NsTypeConstr" "MC"),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -3415,7 +3409,7 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "y"),
+            (Name "@NsVar" "y"),
           functionParameterType =
           HsPrimType HsPrimCChar,
           functionParameterComment = Just
@@ -3429,7 +3423,7 @@
       NormalResultType
         (HsIO
           (HsTypRef
-            (HsName "@NsTypeConstr" "TC"))),
+            (Name "@NsTypeConstr" "TC"))),
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_vs_typedef_857e3b8d0292d39d",
       foreignImportCallConv =
@@ -3446,17 +3440,17 @@
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypeMacroTypedef
                 NamePair {
                   nameC = Name "MC",
-                  nameHsIdent = HsIdentifier "MC"}
+                  nameHsIdent = Identifier "MC"}
                 NameOriginInSource),
             _×_
               (Just
                 NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier "y"})
+                  nameHsIdent = Identifier "y"})
               (TypePrim
                 (PrimChar
                   (PrimSignImplicit Nothing)))],
@@ -3467,7 +3461,7 @@
             (TypedefRegular
               NamePair {
                 nameC = Name "TC",
-                nameHsIdent = HsIdentifier
+                nameHsIdent = Identifier
                   "TC"})},
       foreignImportComment = Just
         Comment {
@@ -3486,13 +3480,13 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "wam1",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "x"),
+            (Name "@NsVar" "x"),
           functionParameterType =
           HsPrimType HsPrimCFloat,
           functionParameterComment = Just
@@ -3504,10 +3498,10 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "y"),
+            (Name "@NsVar" "y"),
           functionParameterType = HsPtr
             (HsTypRef
-              (HsName "@NsTypeConstr" "TC")),
+              (Name "@NsTypeConstr" "TC")),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -3520,9 +3514,7 @@
         (HsIO
           (HsPtr
             (HsTypRef
-              (HsName
-                "@NsTypeConstr"
-                "MC")))),
+              (Name "@NsTypeConstr" "MC")))),
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_vs_typedef_81d53aede4a7b424",
       foreignImportCallConv =
@@ -3539,20 +3531,20 @@
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypePrim
                 (PrimFloating PrimFloat)),
             _×_
               (Just
                 NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier "y"})
+                  nameHsIdent = Identifier "y"})
               (TypePointer
                 (TypeTypedef
                   (TypedefRegular
                     NamePair {
                       nameC = Name "TC",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "TC"})))],
           functionAttrs =
           FunctionAttributes
@@ -3561,7 +3553,7 @@
             (TypeMacroTypedef
               NamePair {
                 nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
+                nameHsIdent = Identifier "MC"}
               NameOriginInSource)},
       foreignImportComment = Just
         Comment {
@@ -3580,13 +3572,13 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "wam2",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "x"),
+            (Name "@NsVar" "x"),
           functionParameterType =
           HsPrimType HsPrimCFloat,
           functionParameterComment = Just
@@ -3598,10 +3590,10 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "y"),
+            (Name "@NsVar" "y"),
           functionParameterType = HsPtr
             (HsTypRef
-              (HsName "@NsTypeConstr" "MC")),
+              (Name "@NsTypeConstr" "MC")),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -3614,9 +3606,7 @@
         (HsIO
           (HsPtr
             (HsTypRef
-              (HsName
-                "@NsTypeConstr"
-                "TC")))),
+              (Name "@NsTypeConstr" "TC")))),
       foreignImportOrigName =
       "hs_bindgen_test_macro_in_fundecl_vs_typedef_035abb3b83b92fea",
       foreignImportCallConv =
@@ -3633,19 +3623,19 @@
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypePrim
                 (PrimFloating PrimFloat)),
             _×_
               (Just
                 NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier "y"})
+                  nameHsIdent = Identifier "y"})
               (TypePointer
                 (TypeMacroTypedef
                   NamePair {
                     nameC = Name "MC",
-                    nameHsIdent = HsIdentifier "MC"}
+                    nameHsIdent = Identifier "MC"}
                   NameOriginInSource))],
           functionAttrs =
           FunctionAttributes
@@ -3655,7 +3645,7 @@
               (TypedefRegular
                 NamePair {
                   nameC = Name "TC",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "TC"}))},
       foreignImportComment = Just
         Comment {
@@ -3674,16 +3664,16 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "struct_typedef1",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "s"),
+            (Name "@NsVar" "s"),
           functionParameterType = HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "Struct2")),
           functionParameterComment = Just
@@ -3695,9 +3685,9 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "x"),
+            (Name "@NsVar" "x"),
           functionParameterType = HsTypRef
-            (HsName "@NsTypeConstr" "MC"),
+            (Name "@NsTypeConstr" "MC"),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -3724,7 +3714,7 @@
               (Just
                 NamePair {
                   nameC = Name "s",
-                  nameHsIdent = HsIdentifier "s"})
+                  nameHsIdent = Identifier "s"})
               (TypePointer
                 (TypeTypedef
                   (TypedefSquashed
@@ -3732,7 +3722,7 @@
                     (TypeStruct
                       NamePair {
                         nameC = Name "struct2",
-                        nameHsIdent = HsIdentifier
+                        nameHsIdent = Identifier
                           "Struct2"}
                       (NameOriginGenerated
                         (AnonId
@@ -3741,11 +3731,11 @@
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypeMacroTypedef
                 NamePair {
                   nameC = Name "MC",
-                  nameHsIdent = HsIdentifier "MC"}
+                  nameHsIdent = Identifier "MC"}
                 NameOriginInSource)],
           functionAttrs =
           FunctionAttributes
@@ -3769,16 +3759,16 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "struct_typedef2",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "s"),
+            (Name "@NsVar" "s"),
           functionParameterType = HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "Struct3_t")),
           functionParameterComment = Just
@@ -3790,9 +3780,9 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "x"),
+            (Name "@NsVar" "x"),
           functionParameterType = HsTypRef
-            (HsName "@NsTypeConstr" "MC"),
+            (Name "@NsTypeConstr" "MC"),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -3819,23 +3809,23 @@
               (Just
                 NamePair {
                   nameC = Name "s",
-                  nameHsIdent = HsIdentifier "s"})
+                  nameHsIdent = Identifier "s"})
               (TypePointer
                 (TypeTypedef
                   (TypedefRegular
                     NamePair {
                       nameC = Name "struct3_t",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "Struct3_t"}))),
             _×_
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypeMacroTypedef
                 NamePair {
                   nameC = Name "MC",
-                  nameHsIdent = HsIdentifier "MC"}
+                  nameHsIdent = Identifier "MC"}
                 NameOriginInSource)],
           functionAttrs =
           FunctionAttributes
@@ -3859,16 +3849,16 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "struct_typedef3",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "s"),
+            (Name "@NsVar" "s"),
           functionParameterType = HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "Struct4")),
           functionParameterComment = Just
@@ -3880,9 +3870,9 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "x"),
+            (Name "@NsVar" "x"),
           functionParameterType = HsTypRef
-            (HsName "@NsTypeConstr" "MC"),
+            (Name "@NsTypeConstr" "MC"),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -3909,7 +3899,7 @@
               (Just
                 NamePair {
                   nameC = Name "s",
-                  nameHsIdent = HsIdentifier "s"})
+                  nameHsIdent = Identifier "s"})
               (TypePointer
                 (TypeTypedef
                   (TypedefSquashed
@@ -3917,18 +3907,18 @@
                     (TypeStruct
                       NamePair {
                         nameC = Name "struct4",
-                        nameHsIdent = HsIdentifier
+                        nameHsIdent = Identifier
                           "Struct4"}
                       NameOriginInSource)))),
             _×_
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypeMacroTypedef
                 NamePair {
                   nameC = Name "MC",
-                  nameHsIdent = HsIdentifier "MC"}
+                  nameHsIdent = Identifier "MC"}
                 NameOriginInSource)],
           functionAttrs =
           FunctionAttributes
@@ -3952,16 +3942,16 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "struct_name1",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "s"),
+            (Name "@NsVar" "s"),
           functionParameterType = HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "Struct1")),
           functionParameterComment = Just
@@ -3973,9 +3963,9 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "x"),
+            (Name "@NsVar" "x"),
           functionParameterType = HsTypRef
-            (HsName "@NsTypeConstr" "MC"),
+            (Name "@NsTypeConstr" "MC"),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -4002,23 +3992,23 @@
               (Just
                 NamePair {
                   nameC = Name "s",
-                  nameHsIdent = HsIdentifier "s"})
+                  nameHsIdent = Identifier "s"})
               (TypePointer
                 (TypeStruct
                   NamePair {
                     nameC = Name "struct1",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Struct1"}
                   NameOriginInSource)),
             _×_
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypeMacroTypedef
                 NamePair {
                   nameC = Name "MC",
-                  nameHsIdent = HsIdentifier "MC"}
+                  nameHsIdent = Identifier "MC"}
                 NameOriginInSource)],
           functionAttrs =
           FunctionAttributes
@@ -4042,16 +4032,16 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "struct_name2",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "s"),
+            (Name "@NsVar" "s"),
           functionParameterType = HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "Struct3")),
           functionParameterComment = Just
@@ -4063,9 +4053,9 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "x"),
+            (Name "@NsVar" "x"),
           functionParameterType = HsTypRef
-            (HsName "@NsTypeConstr" "MC"),
+            (Name "@NsTypeConstr" "MC"),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -4092,23 +4082,23 @@
               (Just
                 NamePair {
                   nameC = Name "s",
-                  nameHsIdent = HsIdentifier "s"})
+                  nameHsIdent = Identifier "s"})
               (TypePointer
                 (TypeStruct
                   NamePair {
                     nameC = Name "struct3",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Struct3"}
                   NameOriginInSource)),
             _×_
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypeMacroTypedef
                 NamePair {
                   nameC = Name "MC",
-                  nameHsIdent = HsIdentifier "MC"}
+                  nameHsIdent = Identifier "MC"}
                 NameOriginInSource)],
           functionAttrs =
           FunctionAttributes
@@ -4132,16 +4122,16 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "struct_name3",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "s"),
+            (Name "@NsVar" "s"),
           functionParameterType = HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "Struct4")),
           functionParameterComment = Just
@@ -4153,9 +4143,9 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "x"),
+            (Name "@NsVar" "x"),
           functionParameterType = HsTypRef
-            (HsName "@NsTypeConstr" "MC"),
+            (Name "@NsTypeConstr" "MC"),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -4182,23 +4172,23 @@
               (Just
                 NamePair {
                   nameC = Name "s",
-                  nameHsIdent = HsIdentifier "s"})
+                  nameHsIdent = Identifier "s"})
               (TypePointer
                 (TypeStruct
                   NamePair {
                     nameC = Name "struct4",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Struct4"}
                   NameOriginInSource)),
             _×_
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypeMacroTypedef
                 NamePair {
                   nameC = Name "MC",
-                  nameHsIdent = HsIdentifier "MC"}
+                  nameHsIdent = Identifier "MC"}
                 NameOriginInSource)],
           functionAttrs =
           FunctionAttributes
@@ -4222,7 +4212,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_macro_in_fundecl_vs_typedef_7d7a63ab896ed293",
       foreignImportParameters = [],
@@ -4232,10 +4222,10 @@
           (HsFunPtr
             (HsFun
               (HsTypRef
-                (HsName "@NsTypeConstr" "MC"))
+                (Name "@NsTypeConstr" "MC"))
               (HsFun
                 (HsTypRef
-                  (HsName "@NsTypeConstr" "TC"))
+                  (Name "@NsTypeConstr" "TC"))
                 (HsIO
                   (HsPrimType HsPrimCChar)))))),
       foreignImportOrigName =
@@ -4253,14 +4243,13 @@
             TypeMacroTypedef
               NamePair {
                 nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
+                nameHsIdent = Identifier "MC"}
               NameOriginInSource,
             TypeTypedef
               (TypedefRegular
                 NamePair {
                   nameC = Name "TC",
-                  nameHsIdent = HsIdentifier
-                    "TC"})]
+                  nameHsIdent = Identifier "TC"})]
           (TypePrim
             (PrimChar
               (PrimSignImplicit Nothing)))),
@@ -4270,7 +4259,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_macro_in_fundecl_vs_typedef_b64c564dd7071f5b",
       foreignImportParameters = [],
@@ -4280,12 +4269,12 @@
           (HsFunPtr
             (HsFun
               (HsTypRef
-                (HsName "@NsTypeConstr" "MC"))
+                (Name "@NsTypeConstr" "MC"))
               (HsFun
                 (HsPrimType HsPrimCChar)
                 (HsIO
                   (HsTypRef
-                    (HsName
+                    (Name
                       "@NsTypeConstr"
                       "TC"))))))),
       foreignImportOrigName =
@@ -4303,7 +4292,7 @@
             TypeMacroTypedef
               NamePair {
                 nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
+                nameHsIdent = Identifier "MC"}
               NameOriginInSource,
             TypePrim
               (PrimChar
@@ -4312,7 +4301,7 @@
             (TypedefRegular
               NamePair {
                 nameC = Name "TC",
-                nameHsIdent = HsIdentifier
+                nameHsIdent = Identifier
                   "TC"}))),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
@@ -4320,7 +4309,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_macro_in_fundecl_vs_typedef_aa26b3a0f4d0aefe",
       foreignImportParameters = [],
@@ -4333,11 +4322,11 @@
               (HsFun
                 (HsPtr
                   (HsTypRef
-                    (HsName "@NsTypeConstr" "TC")))
+                    (Name "@NsTypeConstr" "TC")))
                 (HsIO
                   (HsPtr
                     (HsTypRef
-                      (HsName
+                      (Name
                         "@NsTypeConstr"
                         "MC")))))))),
       foreignImportOrigName =
@@ -4359,13 +4348,13 @@
                 (TypedefRegular
                   NamePair {
                     nameC = Name "TC",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "TC"}))]
           (TypePointer
             (TypeMacroTypedef
               NamePair {
                 nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
+                nameHsIdent = Identifier "MC"}
               NameOriginInSource))),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
@@ -4373,7 +4362,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_macro_in_fundecl_vs_typedef_5cb5ead73c0a3d63",
       foreignImportParameters = [],
@@ -4386,11 +4375,11 @@
               (HsFun
                 (HsPtr
                   (HsTypRef
-                    (HsName "@NsTypeConstr" "MC")))
+                    (Name "@NsTypeConstr" "MC")))
                 (HsIO
                   (HsPtr
                     (HsTypRef
-                      (HsName
+                      (Name
                         "@NsTypeConstr"
                         "TC")))))))),
       foreignImportOrigName =
@@ -4411,14 +4400,14 @@
               (TypeMacroTypedef
                 NamePair {
                   nameC = Name "MC",
-                  nameHsIdent = HsIdentifier "MC"}
+                  nameHsIdent = Identifier "MC"}
                 NameOriginInSource)]
           (TypePointer
             (TypeTypedef
               (TypedefRegular
                 NamePair {
                   nameC = Name "TC",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "TC"})))),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
@@ -4426,7 +4415,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_macro_in_fundecl_vs_typedef_a1aadeb6878a5152",
       foreignImportParameters = [],
@@ -4437,12 +4426,12 @@
             (HsFun
               (HsPtr
                 (HsTypRef
-                  (HsName
+                  (Name
                     "@NsTypeConstr"
                     "Struct2")))
               (HsFun
                 (HsTypRef
-                  (HsName "@NsTypeConstr" "MC"))
+                  (Name "@NsTypeConstr" "MC"))
                 (HsIO
                   (HsPrimType HsPrimUnit)))))),
       foreignImportOrigName =
@@ -4464,7 +4453,7 @@
                   (TypeStruct
                     NamePair {
                       nameC = Name "struct2",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "Struct2"}
                     (NameOriginGenerated
                       (AnonId
@@ -4472,7 +4461,7 @@
             TypeMacroTypedef
               NamePair {
                 nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
+                nameHsIdent = Identifier "MC"}
               NameOriginInSource]
           TypeVoid),
       foreignImportComment = Nothing,
@@ -4481,7 +4470,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_macro_in_fundecl_vs_typedef_e1dac8a006e6b043",
       foreignImportParameters = [],
@@ -4492,12 +4481,12 @@
             (HsFun
               (HsPtr
                 (HsTypRef
-                  (HsName
+                  (Name
                     "@NsTypeConstr"
                     "Struct3_t")))
               (HsFun
                 (HsTypRef
-                  (HsName "@NsTypeConstr" "MC"))
+                  (Name "@NsTypeConstr" "MC"))
                 (HsIO
                   (HsPrimType HsPrimUnit)))))),
       foreignImportOrigName =
@@ -4517,12 +4506,12 @@
                 (TypedefRegular
                   NamePair {
                     nameC = Name "struct3_t",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Struct3_t"})),
             TypeMacroTypedef
               NamePair {
                 nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
+                nameHsIdent = Identifier "MC"}
               NameOriginInSource]
           TypeVoid),
       foreignImportComment = Nothing,
@@ -4531,7 +4520,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_macro_in_fundecl_vs_typedef_078075d0a80d4368",
       foreignImportParameters = [],
@@ -4542,12 +4531,12 @@
             (HsFun
               (HsPtr
                 (HsTypRef
-                  (HsName
+                  (Name
                     "@NsTypeConstr"
                     "Struct4")))
               (HsFun
                 (HsTypRef
-                  (HsName "@NsTypeConstr" "MC"))
+                  (Name "@NsTypeConstr" "MC"))
                 (HsIO
                   (HsPrimType HsPrimUnit)))))),
       foreignImportOrigName =
@@ -4569,13 +4558,13 @@
                   (TypeStruct
                     NamePair {
                       nameC = Name "struct4",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "Struct4"}
                     NameOriginInSource))),
             TypeMacroTypedef
               NamePair {
                 nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
+                nameHsIdent = Identifier "MC"}
               NameOriginInSource]
           TypeVoid),
       foreignImportComment = Nothing,
@@ -4584,7 +4573,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_macro_in_fundecl_vs_typedef_7574edf86480f042",
       foreignImportParameters = [],
@@ -4595,12 +4584,12 @@
             (HsFun
               (HsPtr
                 (HsTypRef
-                  (HsName
+                  (Name
                     "@NsTypeConstr"
                     "Struct1")))
               (HsFun
                 (HsTypRef
-                  (HsName "@NsTypeConstr" "MC"))
+                  (Name "@NsTypeConstr" "MC"))
                 (HsIO
                   (HsPrimType HsPrimUnit)))))),
       foreignImportOrigName =
@@ -4619,13 +4608,13 @@
               (TypeStruct
                 NamePair {
                   nameC = Name "struct1",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Struct1"}
                 NameOriginInSource),
             TypeMacroTypedef
               NamePair {
                 nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
+                nameHsIdent = Identifier "MC"}
               NameOriginInSource]
           TypeVoid),
       foreignImportComment = Nothing,
@@ -4634,7 +4623,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_macro_in_fundecl_vs_typedef_e7a8c1f45f8b20c2",
       foreignImportParameters = [],
@@ -4645,12 +4634,12 @@
             (HsFun
               (HsPtr
                 (HsTypRef
-                  (HsName
+                  (Name
                     "@NsTypeConstr"
                     "Struct3")))
               (HsFun
                 (HsTypRef
-                  (HsName "@NsTypeConstr" "MC"))
+                  (Name "@NsTypeConstr" "MC"))
                 (HsIO
                   (HsPrimType HsPrimUnit)))))),
       foreignImportOrigName =
@@ -4669,13 +4658,13 @@
               (TypeStruct
                 NamePair {
                   nameC = Name "struct3",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Struct3"}
                 NameOriginInSource),
             TypeMacroTypedef
               NamePair {
                 nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
+                nameHsIdent = Identifier "MC"}
               NameOriginInSource]
           TypeVoid),
       foreignImportComment = Nothing,
@@ -4684,7 +4673,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_macro_in_fundecl_vs_typedef_d52310663e8daa5c",
       foreignImportParameters = [],
@@ -4695,12 +4684,12 @@
             (HsFun
               (HsPtr
                 (HsTypRef
-                  (HsName
+                  (Name
                     "@NsTypeConstr"
                     "Struct4")))
               (HsFun
                 (HsTypRef
-                  (HsName "@NsTypeConstr" "MC"))
+                  (Name "@NsTypeConstr" "MC"))
                 (HsIO
                   (HsPrimType HsPrimUnit)))))),
       foreignImportOrigName =
@@ -4719,13 +4708,13 @@
               (TypeStruct
                 NamePair {
                   nameC = Name "struct4",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Struct4"}
                 NameOriginInSource),
             TypeMacroTypedef
               NamePair {
                 nameC = Name "MC",
-                nameHsIdent = HsIdentifier "MC"}
+                nameHsIdent = Identifier "MC"}
               NameOriginInSource]
           TypeVoid),
       foreignImportComment = Nothing,

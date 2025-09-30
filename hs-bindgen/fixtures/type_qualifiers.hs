@@ -1,13 +1,13 @@
 [
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "list_example",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "items"),
+            (Name "@NsVar" "items"),
           functionParameterType = HsPtr
             (HsPtr
               (HsPrimType HsPrimCChar)),
@@ -20,7 +20,7 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "count"),
+            (Name "@NsVar" "count"),
           functionParameterType =
           HsPrimType HsPrimCSize,
           functionParameterComment = Just
@@ -49,7 +49,7 @@
               (Just
                 NamePair {
                   nameC = Name "items",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "items"})
               (TypePointer
                 (TypePointer
@@ -61,7 +61,7 @@
               (Just
                 NamePair {
                   nameC = Name "count",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "count"})
               (TypePrim PrimSize)],
           functionAttrs =
@@ -86,13 +86,13 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "list_example",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "items"),
+            (Name "@NsVar" "items"),
           functionParameterType = HsPtr
             (HsPtr
               (HsPrimType HsPrimCChar)),
@@ -105,7 +105,7 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "count"),
+            (Name "@NsVar" "count"),
           functionParameterType =
           HsPrimType HsPrimCSize,
           functionParameterComment = Just
@@ -134,7 +134,7 @@
               (Just
                 NamePair {
                   nameC = Name "items",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "items"})
               (TypePointer
                 (TypePointer
@@ -146,7 +146,7 @@
               (Just
                 NamePair {
                   nameC = Name "count",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "count"})
               (TypePrim PrimSize)],
           functionAttrs =
@@ -171,7 +171,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_type_qualifiers_24b25f22222ce366",
       foreignImportParameters = [],
@@ -213,7 +213,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_type_qualifiers_3afcbd8536cf21bd",
       foreignImportParameters = [],
@@ -243,7 +243,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_type_qualifiers_fcd0c984d664f6ee",
       foreignImportParameters = [],
@@ -275,7 +275,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_type_qualifiers_d61ea07e27589aef",
       foreignImportParameters = [],
@@ -309,7 +309,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_type_qualifiers_d1d6489b06a70107",
       foreignImportParameters = [],

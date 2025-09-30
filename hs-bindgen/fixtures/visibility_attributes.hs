@@ -1,7 +1,7 @@
 [
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f0",
       foreignImportParameters = [],
@@ -40,7 +40,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f1",
       foreignImportParameters = [],
@@ -79,7 +79,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f2",
       foreignImportParameters = [],
@@ -118,7 +118,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f3",
       foreignImportParameters = [],
@@ -157,7 +157,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f4",
       foreignImportParameters = [],
@@ -196,7 +196,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f5",
       foreignImportParameters = [],
@@ -235,7 +235,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f6",
       foreignImportParameters = [],
@@ -274,7 +274,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f7",
       foreignImportParameters = [],
@@ -313,7 +313,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f8",
       foreignImportParameters = [],
@@ -352,7 +352,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f9",
       foreignImportParameters = [],
@@ -391,7 +391,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f10",
       foreignImportParameters = [],
@@ -430,7 +430,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f11",
       foreignImportParameters = [],
@@ -469,7 +469,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f12",
       foreignImportParameters = [],
@@ -508,7 +508,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f13",
       foreignImportParameters = [],
@@ -547,7 +547,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f14",
       foreignImportParameters = [],
@@ -586,7 +586,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f15",
       foreignImportParameters = [],
@@ -625,7 +625,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f16",
       foreignImportParameters = [],
@@ -664,7 +664,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f17",
       foreignImportParameters = [],
@@ -703,7 +703,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f18",
       foreignImportParameters = [],
@@ -742,7 +742,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f19",
       foreignImportParameters = [],
@@ -781,7 +781,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f20",
       foreignImportParameters = [],
@@ -820,7 +820,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f21",
       foreignImportParameters = [],
@@ -859,7 +859,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f22",
       foreignImportParameters = [],
@@ -898,7 +898,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f23",
       foreignImportParameters = [],
@@ -937,7 +937,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f24",
       foreignImportParameters = [],
@@ -976,7 +976,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f25",
       foreignImportParameters = [],
@@ -1015,7 +1015,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f26",
       foreignImportParameters = [],
@@ -1054,7 +1054,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f27",
       foreignImportParameters = [],
@@ -1093,7 +1093,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f28",
       foreignImportParameters = [],
@@ -1132,7 +1132,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f29",
       foreignImportParameters = [],
@@ -1171,7 +1171,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f0",
       foreignImportParameters = [],
@@ -1210,7 +1210,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f1",
       foreignImportParameters = [],
@@ -1249,7 +1249,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f2",
       foreignImportParameters = [],
@@ -1288,7 +1288,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f3",
       foreignImportParameters = [],
@@ -1327,7 +1327,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f4",
       foreignImportParameters = [],
@@ -1366,7 +1366,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f5",
       foreignImportParameters = [],
@@ -1405,7 +1405,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f6",
       foreignImportParameters = [],
@@ -1444,7 +1444,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f7",
       foreignImportParameters = [],
@@ -1483,7 +1483,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f8",
       foreignImportParameters = [],
@@ -1522,7 +1522,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f9",
       foreignImportParameters = [],
@@ -1561,7 +1561,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f10",
       foreignImportParameters = [],
@@ -1600,7 +1600,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f11",
       foreignImportParameters = [],
@@ -1639,7 +1639,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f12",
       foreignImportParameters = [],
@@ -1678,7 +1678,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f13",
       foreignImportParameters = [],
@@ -1717,7 +1717,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f14",
       foreignImportParameters = [],
@@ -1756,7 +1756,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f15",
       foreignImportParameters = [],
@@ -1795,7 +1795,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f16",
       foreignImportParameters = [],
@@ -1834,7 +1834,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f17",
       foreignImportParameters = [],
@@ -1873,7 +1873,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f18",
       foreignImportParameters = [],
@@ -1912,7 +1912,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f19",
       foreignImportParameters = [],
@@ -1951,7 +1951,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f20",
       foreignImportParameters = [],
@@ -1990,7 +1990,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f21",
       foreignImportParameters = [],
@@ -2029,7 +2029,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f22",
       foreignImportParameters = [],
@@ -2068,7 +2068,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f23",
       foreignImportParameters = [],
@@ -2107,7 +2107,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f24",
       foreignImportParameters = [],
@@ -2146,7 +2146,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f25",
       foreignImportParameters = [],
@@ -2185,7 +2185,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f26",
       foreignImportParameters = [],
@@ -2224,7 +2224,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f27",
       foreignImportParameters = [],
@@ -2263,7 +2263,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f28",
       foreignImportParameters = [],
@@ -2302,7 +2302,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "f29",
       foreignImportParameters = [],
@@ -2341,7 +2341,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_a03f2cbeac50b3d3",
       foreignImportParameters = [],
@@ -2368,7 +2368,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_5469bdc0395f86c1",
       foreignImportParameters = [],
@@ -2395,7 +2395,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_490ca7e8c8282a69",
       foreignImportParameters = [],
@@ -2422,7 +2422,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_38506a9ac5626bf2",
       foreignImportParameters = [],
@@ -2449,7 +2449,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_10e5fac8fefa811b",
       foreignImportParameters = [],
@@ -2476,7 +2476,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_3f137e2ee71fd73b",
       foreignImportParameters = [],
@@ -2503,7 +2503,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_b69720e01b3b7ccd",
       foreignImportParameters = [],
@@ -2530,7 +2530,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_97be5f53b506f3b5",
       foreignImportParameters = [],
@@ -2557,7 +2557,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_ae7ef3d579d77d0b",
       foreignImportParameters = [],
@@ -2584,7 +2584,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_ef6d611329a20b40",
       foreignImportParameters = [],
@@ -2611,7 +2611,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_45797238134784ac",
       foreignImportParameters = [],
@@ -2638,7 +2638,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_f09c80553786e039",
       foreignImportParameters = [],
@@ -2665,7 +2665,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_2e9999eac1cab3da",
       foreignImportParameters = [],
@@ -2692,7 +2692,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_32e5be8a3f3ac037",
       foreignImportParameters = [],
@@ -2719,7 +2719,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_0b00a23924c6dc70",
       foreignImportParameters = [],
@@ -2746,7 +2746,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_0d2891732562e5ef",
       foreignImportParameters = [],
@@ -2773,7 +2773,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_f25227febbe8db15",
       foreignImportParameters = [],
@@ -2800,7 +2800,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_b90b1824c2839fd2",
       foreignImportParameters = [],
@@ -2827,7 +2827,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_24ba8b98fe453a5c",
       foreignImportParameters = [],
@@ -2854,7 +2854,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_b857c57c0cf79909",
       foreignImportParameters = [],
@@ -2881,7 +2881,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_d695cc521dd39753",
       foreignImportParameters = [],
@@ -2908,7 +2908,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_7311dbbdd00abedc",
       foreignImportParameters = [],
@@ -2935,7 +2935,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_4246b9344ad4db0d",
       foreignImportParameters = [],
@@ -2962,7 +2962,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_dcef056ccb5953f9",
       foreignImportParameters = [],
@@ -2989,7 +2989,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_9ab6df359be6d370",
       foreignImportParameters = [],
@@ -3016,7 +3016,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_80cad6f0afd3f1fc",
       foreignImportParameters = [],
@@ -3043,7 +3043,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_b1580cdccf30f552",
       foreignImportParameters = [],
@@ -3070,7 +3070,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_2e4891a5e2afe0df",
       foreignImportParameters = [],
@@ -3097,7 +3097,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_e2949a9b7b7cbfc0",
       foreignImportParameters = [],
@@ -3124,7 +3124,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_1224b39f0e8e72cd",
       foreignImportParameters = [],
@@ -3151,7 +3151,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_216496b15d8f3143",
       foreignImportParameters = [],
@@ -3178,7 +3178,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_8a4a155fb4b3e983",
       foreignImportParameters = [],
@@ -3205,7 +3205,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_8a341976b53c3159",
       foreignImportParameters = [],
@@ -3232,7 +3232,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_8a18e8a325536dc5",
       foreignImportParameters = [],
@@ -3259,7 +3259,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_8a083f6803595ed2",
       foreignImportParameters = [],
@@ -3286,7 +3286,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_b9d322a4c171d6fa",
       foreignImportParameters = [],
@@ -3313,7 +3313,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_2c4836056a76ae78",
       foreignImportParameters = [],
@@ -3340,7 +3340,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_b9d40a2f9eb7062e",
       foreignImportParameters = [],
@@ -3367,7 +3367,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_3fd4c67173dc11ce",
       foreignImportParameters = [],
@@ -3394,7 +3394,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_b9ff2784975e7295",
       foreignImportParameters = [],
@@ -3421,7 +3421,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_17a29f1f8c101878",
       foreignImportParameters = [],
@@ -3448,7 +3448,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_4e591df5ac4216c9",
       foreignImportParameters = [],
@@ -3475,7 +3475,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_7a8621a15e9246c4",
       foreignImportParameters = [],
@@ -3502,7 +3502,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_96cb39c8a898775e",
       foreignImportParameters = [],
@@ -3529,7 +3529,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_9f817ee25723fbcd",
       foreignImportParameters = [],
@@ -3556,7 +3556,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_0f8755cf60822f2e",
       foreignImportParameters = [],
@@ -3583,7 +3583,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_3023a5c63e753d58",
       foreignImportParameters = [],
@@ -3610,7 +3610,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_b5610fa653ca61e6",
       foreignImportParameters = [],
@@ -3637,7 +3637,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_17edf053c36e012c",
       foreignImportParameters = [],
@@ -3664,7 +3664,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_visibility_attributes_df1c0751f896e6b8",
       foreignImportParameters = [],

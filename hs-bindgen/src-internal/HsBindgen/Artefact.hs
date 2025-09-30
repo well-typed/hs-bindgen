@@ -36,7 +36,7 @@ import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.RootHeader (HashIncludeArg)
 import HsBindgen.Imports
-import HsBindgen.Language.Haskell
+import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -57,7 +57,7 @@ data Artefact (a :: Star) where
   -- * Backend
   HsDecls             :: Artefact (ByCategory [Hs.Decl])
   FinalDecls          :: Artefact (ByCategory ([UserlandCapiWrapper], [SHs.SDecl]))
-  FinalModuleBaseName :: Artefact HsModuleName
+  FinalModuleBaseName :: Artefact Hs.ModuleName
   FinalModuleSafe     :: Artefact HsModule
   FinalModuleUnsafe   :: Artefact HsModule
   FinalModules        :: Artefact (ByCategory HsModule)

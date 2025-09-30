@@ -27,7 +27,7 @@ import HsBindgen.Backend.HsModule.Capi (capiImport)
 import HsBindgen.Backend.HsModule.Names
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Imports
-import HsBindgen.Language.Haskell
+import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
   GhcPragma
@@ -70,13 +70,15 @@ data HsModule = HsModule {
 -------------------------------------------------------------------------------}
 
 data HsModuleOpts = HsModuleOpts {
-      hsModuleOptsBaseName  :: HsModuleName
+      hsModuleOptsBaseName  :: Hs.ModuleName
     }
   deriving stock (Show, Eq, Generic)
   deriving anyclass (Default)
 
 translateModuleMultiple ::
-  HsModuleName -> ByCategory ([UserlandCapiWrapper], [SDecl]) -> ByCategory HsModule
+     Hs.ModuleName
+  -> ByCategory ([UserlandCapiWrapper], [SDecl])
+  -> ByCategory HsModule
 translateModuleMultiple moduleBaseName declsByCat =
   mapByCategory go declsByCat
   where
@@ -85,7 +87,9 @@ translateModuleMultiple moduleBaseName declsByCat =
       translateModule' (Just cat) moduleBaseName wrappers decls
 
 translateModuleSingle ::
-     Safety -> HsModuleName -> ByCategory ([UserlandCapiWrapper], [SDecl])
+     Safety
+  -> Hs.ModuleName
+  -> ByCategory ([UserlandCapiWrapper], [SDecl])
   -> HsModule
 translateModuleSingle safety name declsByCat =
   translateModule' Nothing name wrappers decls
@@ -107,7 +111,11 @@ mergeDecls safety declsByCat =
     removeSafetyCategory = Map.filterWithKey (\k _ -> k /= safetyToRemove)
 
 translateModule' ::
-  Maybe BindingCategory -> HsModuleName -> [UserlandCapiWrapper] -> [SDecl] -> HsModule
+     Maybe BindingCategory
+  -> Hs.ModuleName
+  -> [UserlandCapiWrapper]
+  -> [SDecl]
+  -> HsModule
 translateModule' mcat moduleBaseName hsModuleUserlandCapiWrappers hsModuleDecls =
     let hsModulePragmas =
           resolvePragmas hsModuleUserlandCapiWrappers hsModuleDecls
@@ -117,7 +125,7 @@ translateModule' mcat moduleBaseName hsModuleUserlandCapiWrappers hsModuleDecls 
           Nothing       -> id
           Just BType    -> id
           Just otherCat -> (<> ('.' : displayBindingCategory otherCat))
-        hsModuleName = addSubModule $ Text.unpack $ getHsModuleName moduleBaseName
+        hsModuleName = addSubModule $ Text.unpack $ Hs.getModuleName moduleBaseName
     in  HsModule{..}
 
 {-------------------------------------------------------------------------------
@@ -153,7 +161,11 @@ resolveDeclPragmas decl =
 
 -- | Resolve imports in a list of declarations
 resolveImports ::
-  HsModuleName -> Maybe BindingCategory -> [UserlandCapiWrapper] -> [SDecl] -> [ImportListItem]
+     Hs.ModuleName
+  -> Maybe BindingCategory
+  -> [UserlandCapiWrapper]
+  -> [SDecl]
+  -> [ImportListItem]
 resolveImports baseModule cat wrappers ds =
     let ImportAcc requiresTypeModule qs us = mconcat $ map resolveDeclImports ds
     in  Set.toAscList . mconcat $
@@ -170,7 +182,7 @@ resolveImports baseModule cat wrappers ds =
       Nothing      -> mempty
       (Just BType) -> mempty
       _otherCat ->
-        let base = HsImportModule (Text.unpack $ getHsModuleName baseModule) Nothing
+        let base = HsImportModule (Text.unpack $ Hs.getModuleName baseModule) Nothing
         in  Set.singleton $ UnqualifiedImportListItem base Nothing
     userlandCapiImport :: Set HsImportModule
     userlandCapiImport = case wrappers of
@@ -301,10 +313,10 @@ resolveStrategyImports = \case
     Hs.DeriveStock -> mempty
     Hs.DeriveVia ty -> resolveTypeImports ty
 
-resolveExtHsRefImports :: ExtHsRef -> ImportAcc
-resolveExtHsRefImports ExtHsRef{..} =
+resolveExtHsRefImports :: Hs.ExtRef -> ImportAcc
+resolveExtHsRefImports Hs.ExtRef{..} =
     let hsImportModule = HsImportModule {
-            hsImportModuleName  = Text.unpack $ getHsModuleName extHsRefModule
+            hsImportModuleName  = Text.unpack $ Hs.getModuleName extRefModule
           , hsImportModuleAlias = Nothing
           }
     in  ImportAcc False (Set.singleton hsImportModule) mempty

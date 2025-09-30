@@ -72,7 +72,7 @@ import HsBindgen.Errors
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
-import HsBindgen.Language.Haskell
+import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Orphans ()
 import HsBindgen.Resolve
 import HsBindgen.Util.Monad
@@ -132,13 +132,13 @@ type ResolvedBindingSpec = BindingSpec (HashIncludeArg, SourcePath)
 -- | Binding specification for a C type
 data TypeSpec = TypeSpec {
       -- | Haskell module
-      typeSpecModule :: Maybe HsModuleName
+      typeSpecModule :: Maybe Hs.ModuleName
 
     , -- | Haskell identifier
-      typeSpecIdentifier :: Maybe HsIdentifier
+      typeSpecIdentifier :: Maybe Hs.Identifier
 
     , -- | Instance specification
-      typeSpecInstances :: Map HsTypeClass (Omittable InstanceSpec)
+      typeSpecInstances :: Map Hs.TypeClass (Omittable InstanceSpec)
     }
   deriving stock (Show, Eq, Generic)
 
@@ -204,8 +204,8 @@ strategySpecFromText = Map.fromList [
 
 -- | Constraint of an instance
 data ConstraintSpec = ConstraintSpec {
-      constraintSpecClass :: HsTypeClass
-    , constraintSpecRef   :: ExtHsRef
+      constraintSpecClass :: Hs.TypeClass
+    , constraintSpecRef   :: Hs.ExtRef
     }
   deriving stock (Show, Eq, Ord, Generic)
 
@@ -493,8 +493,8 @@ instance Aeson.ToJSON ABindingSpec where
 data ATypeSpecMapping = ATypeSpecMapping {
       aTypeSpecMappingHeaders    :: [FilePath]
     , aTypeSpecMappingCName      :: Text
-    , aTypeSpecMappingModule     :: Maybe HsModuleName
-    , aTypeSpecMappingIdentifier :: Maybe HsIdentifier
+    , aTypeSpecMappingModule     :: Maybe Hs.ModuleName
+    , aTypeSpecMappingIdentifier :: Maybe Hs.Identifier
     , aTypeSpecMappingInstances  :: [AOmittable AInstanceSpecMapping]
     }
   deriving stock Show
@@ -520,7 +520,7 @@ instance Aeson.ToJSON ATypeSpecMapping where
 --------------------------------------------------------------------------------
 
 data AInstanceSpecMapping = AInstanceSpecMapping {
-      aInstanceSpecMappingClass       :: HsTypeClass
+      aInstanceSpecMappingClass       :: Hs.TypeClass
     , aInstanceSpecMappingStrategy    :: Maybe StrategySpec
     , aInstanceSpecMappingConstraints :: [AConstraintSpec]
     }
@@ -560,19 +560,19 @@ newtype AConstraintSpec = AConstraintSpec ConstraintSpec
 
 instance Aeson.FromJSON AConstraintSpec where
   parseJSON = Aeson.withObject "AConstraintSpec" $ \o -> do
-    constraintSpecClass    <- o .: "class"
-    extHsRefModule         <- o .: "module"
-    extHsRefIdentifier     <- o .: "identifier"
-    let constraintSpecRef = ExtHsRef{..}
+    constraintSpecClass <- o .: "class"
+    extRefModule        <- o .: "module"
+    extRefIdentifier    <- o .: "identifier"
+    let constraintSpecRef = Hs.ExtRef{..}
     return $ AConstraintSpec ConstraintSpec{..}
 
 instance Aeson.ToJSON AConstraintSpec where
   toJSON (AConstraintSpec ConstraintSpec{..}) =
-    let ExtHsRef{..} = constraintSpecRef
+    let Hs.ExtRef{..} = constraintSpecRef
     in  Aeson.object [
             "class"      .= constraintSpecClass
-          , "module"     .= extHsRefModule
-          , "identifier" .= extHsRefIdentifier
+          , "module"     .= extRefModule
+          , "identifier" .= extRefIdentifier
           ]
 
 --------------------------------------------------------------------------------
@@ -660,7 +660,7 @@ fromABindingSpec path ABindingSpec{..} =
     -- duplicates ignored, last value retained
     mkInstanceMap ::
          [AOmittable AInstanceSpecMapping]
-      -> Map HsTypeClass (Omittable InstanceSpec)
+      -> Map Hs.TypeClass (Omittable InstanceSpec)
     mkInstanceMap xs = Map.fromList . flip map xs $ \case
       ARequire AInstanceSpecMapping{..} ->
         let inst = InstanceSpec {

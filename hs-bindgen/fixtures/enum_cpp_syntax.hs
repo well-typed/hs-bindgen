@@ -1,28 +1,28 @@
 [
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "Foo_enum",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "Foo_enum",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_Foo_enum",
         fieldType = HsExtBinding
-          ExtHsRef {
-            extHsRefModule = HsModuleName
+          ExtRef {
+            extRefModule = ModuleName
               "HsBindgen.Runtime.Prelude",
-            extHsRefIdentifier =
-            HsIdentifier "Word32"}
+            extRefIdentifier = Identifier
+              "Word32"}
           TypeSpec {
             typeSpecModule = Just
-              (HsModuleName
+              (ModuleName
                 "HsBindgen.Runtime.Prelude"),
             typeSpecIdentifier = Just
-              (HsIdentifier "Word32"),
+              (Identifier "Word32"),
             typeSpecInstances = Map.fromList
               [
                 _×_
@@ -130,7 +130,7 @@
           "enum_cpp_syntax.h:4:9",
           declId = NamePair {
             nameC = Name "foo_enum",
-            nameHsIdent = HsIdentifier
+            nameHsIdent = Identifier
               "Foo_enum"},
           declOrigin = NameOriginGenerated
             (AnonId
@@ -146,10 +146,10 @@
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "Foo_enum",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_Foo_enum"},
             enumType = TypeExtBinding
@@ -158,17 +158,17 @@
                   qualNameName = Name "uint32_t",
                   qualNameKind =
                   NameKindOrdinary},
-                extHsRef = ExtHsRef {
-                  extHsRefModule = HsModuleName
+                extHsRef = ExtRef {
+                  extRefModule = ModuleName
                     "HsBindgen.Runtime.Prelude",
-                  extHsRefIdentifier =
-                  HsIdentifier "Word32"},
+                  extRefIdentifier = Identifier
+                    "Word32"},
                 extHsSpec = TypeSpec {
                   typeSpecModule = Just
-                    (HsModuleName
+                    (ModuleName
                       "HsBindgen.Runtime.Prelude"),
                   typeSpecIdentifier = Just
-                    (HsIdentifier "Word32"),
+                    (Identifier "Word32"),
                   typeSpecInstances = Map.fromList
                     [
                       _×_
@@ -277,7 +277,7 @@
                   "enum_cpp_syntax.h:4:27",
                   fieldName = NamePair {
                     nameC = Name "A",
-                    nameHsIdent = HsIdentifier "A"},
+                    nameHsIdent = Identifier "A"},
                   fieldComment = Nothing},
                 enumConstantValue = 0},
               EnumConstant {
@@ -286,7 +286,7 @@
                   "enum_cpp_syntax.h:4:30",
                   fieldName = NamePair {
                     nameC = Name "B",
-                    nameHsIdent = HsIdentifier "B"},
+                    nameHsIdent = Identifier "B"},
                   fieldComment = Nothing},
                 enumConstantValue = 1},
               EnumConstant {
@@ -295,7 +295,7 @@
                   "enum_cpp_syntax.h:4:33",
                   fieldName = NamePair {
                     nameC = Name "C",
-                    nameHsIdent = HsIdentifier "C"},
+                    nameHsIdent = Identifier "C"},
                   fieldComment = Nothing},
                 enumConstantValue = 2}]},
         declSpec = DeclSpec
@@ -324,29 +324,29 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Foo_enum",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Foo_enum",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "un_Foo_enum",
               fieldType = HsExtBinding
-                ExtHsRef {
-                  extHsRefModule = HsModuleName
+                ExtRef {
+                  extRefModule = ModuleName
                     "HsBindgen.Runtime.Prelude",
-                  extHsRefIdentifier =
-                  HsIdentifier "Word32"}
+                  extRefIdentifier = Identifier
+                    "Word32"}
                 TypeSpec {
                   typeSpecModule = Just
-                    (HsModuleName
+                    (ModuleName
                       "HsBindgen.Runtime.Prelude"),
                   typeSpecIdentifier = Just
-                    (HsIdentifier "Word32"),
+                    (Identifier "Word32"),
                   typeSpecInstances = Map.fromList
                     [
                       _×_
@@ -460,29 +460,29 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Foo_enum",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Foo_enum",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "un_Foo_enum",
                       fieldType = HsExtBinding
-                        ExtHsRef {
-                          extHsRefModule = HsModuleName
+                        ExtRef {
+                          extRefModule = ModuleName
                             "HsBindgen.Runtime.Prelude",
-                          extHsRefIdentifier =
-                          HsIdentifier "Word32"}
+                          extRefIdentifier = Identifier
+                            "Word32"}
                         TypeSpec {
                           typeSpecModule = Just
-                            (HsModuleName
+                            (ModuleName
                               "HsBindgen.Runtime.Prelude"),
                           typeSpecIdentifier = Just
-                            (HsIdentifier "Word32"),
+                            (Identifier "Word32"),
                           typeSpecInstances = Map.fromList
                             [
                               _×_
@@ -596,29 +596,29 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Foo_enum",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Foo_enum",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "un_Foo_enum",
                       fieldType = HsExtBinding
-                        ExtHsRef {
-                          extHsRefModule = HsModuleName
+                        ExtRef {
+                          extRefModule = ModuleName
                             "HsBindgen.Runtime.Prelude",
-                          extHsRefIdentifier =
-                          HsIdentifier "Word32"}
+                          extRefIdentifier = Identifier
+                            "Word32"}
                         TypeSpec {
                           typeSpecModule = Just
-                            (HsModuleName
+                            (ModuleName
                               "HsBindgen.Runtime.Prelude"),
                           typeSpecIdentifier = Just
-                            (HsIdentifier "Word32"),
+                            (Identifier "Word32"),
                           typeSpecInstances = Map.fromList
                             [
                               _×_
@@ -738,7 +738,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Foo_enum",
       deriveInstanceComment =
@@ -748,7 +748,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Ord,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Foo_enum",
       deriveInstanceComment =
@@ -758,29 +758,29 @@
       defineInstanceDeclarations =
       InstanceCEnum
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Foo_enum",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Foo_enum",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "un_Foo_enum",
               fieldType = HsExtBinding
-                ExtHsRef {
-                  extHsRefModule = HsModuleName
+                ExtRef {
+                  extRefModule = ModuleName
                     "HsBindgen.Runtime.Prelude",
-                  extHsRefIdentifier =
-                  HsIdentifier "Word32"}
+                  extRefIdentifier = Identifier
+                    "Word32"}
                 TypeSpec {
                   typeSpecModule = Just
-                    (HsModuleName
+                    (ModuleName
                       "HsBindgen.Runtime.Prelude"),
                   typeSpecIdentifier = Just
-                    (HsIdentifier "Word32"),
+                    (Identifier "Word32"),
                   typeSpecInstances = Map.fromList
                     [
                       _×_
@@ -887,17 +887,17 @@
             [Eq, Ord, Read, Show, Storable],
           structComment = Nothing}
         (HsExtBinding
-          ExtHsRef {
-            extHsRefModule = HsModuleName
+          ExtRef {
+            extRefModule = ModuleName
               "HsBindgen.Runtime.Prelude",
-            extHsRefIdentifier =
-            HsIdentifier "Word32"}
+            extRefIdentifier = Identifier
+              "Word32"}
           TypeSpec {
             typeSpecModule = Just
-              (HsModuleName
+              (ModuleName
                 "HsBindgen.Runtime.Prelude"),
             typeSpecIdentifier = Just
-              (HsIdentifier "Word32"),
+              (Identifier "Word32"),
             typeSpecInstances = Map.fromList
               [
                 _×_
@@ -1010,29 +1010,29 @@
       defineInstanceDeclarations =
       InstanceSequentialCEnum
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Foo_enum",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Foo_enum",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "un_Foo_enum",
               fieldType = HsExtBinding
-                ExtHsRef {
-                  extHsRefModule = HsModuleName
+                ExtRef {
+                  extRefModule = ModuleName
                     "HsBindgen.Runtime.Prelude",
-                  extHsRefIdentifier =
-                  HsIdentifier "Word32"}
+                  extRefIdentifier = Identifier
+                    "Word32"}
                 TypeSpec {
                   typeSpecModule = Just
-                    (HsModuleName
+                    (ModuleName
                       "HsBindgen.Runtime.Prelude"),
                   typeSpecIdentifier = Just
-                    (HsIdentifier "Word32"),
+                    (Identifier "Word32"),
                   typeSpecInstances = Map.fromList
                     [
                       _×_
@@ -1138,8 +1138,8 @@
           structInstances = Set.fromList
             [Eq, Ord, Read, Show, Storable],
           structComment = Nothing}
-        (HsName "@NsConstr" "A")
-        (HsName "@NsConstr" "C"),
+        (Name "@NsConstr" "A")
+        (Name "@NsConstr" "C"),
       defineInstanceComment =
       Nothing},
   DeclInstance
@@ -1147,29 +1147,29 @@
       defineInstanceDeclarations =
       InstanceCEnumShow
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Foo_enum",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Foo_enum",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "un_Foo_enum",
               fieldType = HsExtBinding
-                ExtHsRef {
-                  extHsRefModule = HsModuleName
+                ExtRef {
+                  extRefModule = ModuleName
                     "HsBindgen.Runtime.Prelude",
-                  extHsRefIdentifier =
-                  HsIdentifier "Word32"}
+                  extRefIdentifier = Identifier
+                    "Word32"}
                 TypeSpec {
                   typeSpecModule = Just
-                    (HsModuleName
+                    (ModuleName
                       "HsBindgen.Runtime.Prelude"),
                   typeSpecIdentifier = Just
-                    (HsIdentifier "Word32"),
+                    (Identifier "Word32"),
                   typeSpecInstances = Map.fromList
                     [
                       _×_
@@ -1282,29 +1282,29 @@
       defineInstanceDeclarations =
       InstanceCEnumRead
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Foo_enum",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Foo_enum",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "un_Foo_enum",
               fieldType = HsExtBinding
-                ExtHsRef {
-                  extHsRefModule = HsModuleName
+                ExtRef {
+                  extRefModule = ModuleName
                     "HsBindgen.Runtime.Prelude",
-                  extHsRefIdentifier =
-                  HsIdentifier "Word32"}
+                  extRefIdentifier = Identifier
+                    "Word32"}
                 TypeSpec {
                   typeSpecModule = Just
-                    (HsModuleName
+                    (ModuleName
                       "HsBindgen.Runtime.Prelude"),
                   typeSpecIdentifier = Just
-                    (HsIdentifier "Word32"),
+                    (Identifier "Word32"),
                   typeSpecInstances = Map.fromList
                     [
                       _×_
@@ -1414,13 +1414,13 @@
       Nothing},
   DeclPatSyn
     PatSyn {
-      patSynName = HsName
+      patSynName = Name
         "@NsConstr"
         "A",
-      patSynType = HsName
+      patSynType = Name
         "@NsTypeConstr"
         "Foo_enum",
-      patSynConstr = HsName
+      patSynConstr = Name
         "@NsConstr"
         "Foo_enum",
       patSynValue = 0,
@@ -1431,7 +1431,7 @@
             "enum_cpp_syntax.h:4:27",
             fieldName = NamePair {
               nameC = Name "A",
-              nameHsIdent = HsIdentifier "A"},
+              nameHsIdent = Identifier "A"},
             fieldComment = Nothing},
           enumConstantValue = 0},
       patSynComment = Just
@@ -1449,13 +1449,13 @@
           commentChildren = []}},
   DeclPatSyn
     PatSyn {
-      patSynName = HsName
+      patSynName = Name
         "@NsConstr"
         "B",
-      patSynType = HsName
+      patSynType = Name
         "@NsTypeConstr"
         "Foo_enum",
-      patSynConstr = HsName
+      patSynConstr = Name
         "@NsConstr"
         "Foo_enum",
       patSynValue = 1,
@@ -1466,7 +1466,7 @@
             "enum_cpp_syntax.h:4:30",
             fieldName = NamePair {
               nameC = Name "B",
-              nameHsIdent = HsIdentifier "B"},
+              nameHsIdent = Identifier "B"},
             fieldComment = Nothing},
           enumConstantValue = 1},
       patSynComment = Just
@@ -1484,13 +1484,13 @@
           commentChildren = []}},
   DeclPatSyn
     PatSyn {
-      patSynName = HsName
+      patSynName = Name
         "@NsConstr"
         "C",
-      patSynType = HsName
+      patSynType = Name
         "@NsTypeConstr"
         "Foo_enum",
-      patSynConstr = HsName
+      patSynConstr = Name
         "@NsConstr"
         "Foo_enum",
       patSynValue = 2,
@@ -1501,7 +1501,7 @@
             "enum_cpp_syntax.h:4:33",
             fieldName = NamePair {
               nameC = Name "C",
-              nameHsIdent = HsIdentifier "C"},
+              nameHsIdent = Identifier "C"},
             fieldComment = Nothing},
           enumConstantValue = 2},
       patSynComment = Just

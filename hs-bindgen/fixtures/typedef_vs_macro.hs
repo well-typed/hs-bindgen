@@ -1,14 +1,14 @@
 [
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "T1",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "T1",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_T1",
         fieldType = HsPrimType
@@ -21,8 +21,7 @@
           "typedef_vs_macro.h:1:13",
           declId = NamePair {
             nameC = Name "T1",
-            nameHsIdent = HsIdentifier
-              "T1"},
+            nameHsIdent = Identifier "T1"},
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeaderInfo = Just
@@ -35,10 +34,10 @@
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "T1",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_T1"},
             typedefType = TypePrim
@@ -82,7 +81,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Storable,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T1",
       deriveInstanceComment =
@@ -92,7 +91,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T1",
       deriveInstanceComment =
@@ -102,7 +101,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Ord,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T1",
       deriveInstanceComment =
@@ -112,7 +111,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Read,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T1",
       deriveInstanceComment =
@@ -122,7 +121,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T1",
       deriveInstanceComment =
@@ -132,7 +131,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Enum,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T1",
       deriveInstanceComment =
@@ -142,7 +141,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Ix,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T1",
       deriveInstanceComment =
@@ -152,7 +151,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bounded,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T1",
       deriveInstanceComment =
@@ -162,7 +161,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T1",
       deriveInstanceComment =
@@ -173,7 +172,7 @@
       DeriveNewtype,
       deriveInstanceClass =
       FiniteBits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T1",
       deriveInstanceComment =
@@ -183,7 +182,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Integral,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T1",
       deriveInstanceComment =
@@ -193,7 +192,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Num,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T1",
       deriveInstanceComment =
@@ -203,21 +202,21 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Real,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T1",
       deriveInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "T2",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "T2",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_T2",
         fieldType = HsPrimType
@@ -230,8 +229,7 @@
           "typedef_vs_macro.h:2:14",
           declId = NamePair {
             nameC = Name "T2",
-            nameHsIdent = HsIdentifier
-              "T2"},
+            nameHsIdent = Identifier "T2"},
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeaderInfo = Just
@@ -244,10 +242,10 @@
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "T2",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_T2"},
             typedefType = TypePrim
@@ -293,7 +291,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Storable,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T2",
       deriveInstanceComment =
@@ -303,7 +301,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T2",
       deriveInstanceComment =
@@ -313,7 +311,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Ord,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T2",
       deriveInstanceComment =
@@ -323,7 +321,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Read,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T2",
       deriveInstanceComment =
@@ -333,7 +331,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T2",
       deriveInstanceComment =
@@ -343,7 +341,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Enum,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T2",
       deriveInstanceComment =
@@ -353,7 +351,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Ix,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T2",
       deriveInstanceComment =
@@ -363,7 +361,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bounded,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T2",
       deriveInstanceComment =
@@ -373,7 +371,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T2",
       deriveInstanceComment =
@@ -384,7 +382,7 @@
       DeriveNewtype,
       deriveInstanceClass =
       FiniteBits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T2",
       deriveInstanceComment =
@@ -394,7 +392,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Integral,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T2",
       deriveInstanceComment =
@@ -404,7 +402,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Num,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T2",
       deriveInstanceComment =
@@ -414,21 +412,21 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Real,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "T2",
       deriveInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "M1",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "M1",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_M1",
         fieldType = HsPrimType
@@ -441,8 +439,7 @@
           "typedef_vs_macro.h:4:9",
           declId = NamePair {
             nameC = Name "M1",
-            nameHsIdent = HsIdentifier
-              "M1"},
+            nameHsIdent = Identifier "M1"},
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeaderInfo = Just
@@ -455,10 +452,10 @@
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "M1",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_M1"},
             macroType = TypePrim
@@ -502,7 +499,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Storable,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "M1",
       deriveInstanceComment =
@@ -512,7 +509,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "M1",
       deriveInstanceComment =
@@ -522,7 +519,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Ord,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "M1",
       deriveInstanceComment =
@@ -532,7 +529,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Read,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "M1",
       deriveInstanceComment =
@@ -542,7 +539,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "M1",
       deriveInstanceComment =
@@ -552,7 +549,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Enum,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "M1",
       deriveInstanceComment =
@@ -562,7 +559,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Ix,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "M1",
       deriveInstanceComment =
@@ -572,7 +569,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bounded,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "M1",
       deriveInstanceComment =
@@ -582,7 +579,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "M1",
       deriveInstanceComment =
@@ -593,7 +590,7 @@
       DeriveNewtype,
       deriveInstanceClass =
       FiniteBits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "M1",
       deriveInstanceComment =
@@ -603,7 +600,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Integral,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "M1",
       deriveInstanceComment =
@@ -613,7 +610,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Num,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "M1",
       deriveInstanceComment =
@@ -623,21 +620,21 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Real,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "M1",
       deriveInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "M2",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "M2",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_M2",
         fieldType = HsPrimType
@@ -650,8 +647,7 @@
           "typedef_vs_macro.h:5:9",
           declId = NamePair {
             nameC = Name "M2",
-            nameHsIdent = HsIdentifier
-              "M2"},
+            nameHsIdent = Identifier "M2"},
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeaderInfo = Just
@@ -664,10 +660,10 @@
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "M2",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_M2"},
             macroType = TypePrim
@@ -712,7 +708,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Storable,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "M2",
       deriveInstanceComment =
@@ -722,7 +718,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "M2",
       deriveInstanceComment =
@@ -732,7 +728,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Ord,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "M2",
       deriveInstanceComment =
@@ -742,7 +738,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Read,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "M2",
       deriveInstanceComment =
@@ -752,7 +748,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "M2",
       deriveInstanceComment =
@@ -762,7 +758,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Enum,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "M2",
       deriveInstanceComment =
@@ -772,7 +768,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Ix,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "M2",
       deriveInstanceComment =
@@ -782,7 +778,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bounded,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "M2",
       deriveInstanceComment =
@@ -792,7 +788,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "M2",
       deriveInstanceComment =
@@ -803,7 +799,7 @@
       DeriveNewtype,
       deriveInstanceClass =
       FiniteBits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "M2",
       deriveInstanceComment =
@@ -813,7 +809,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Integral,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "M2",
       deriveInstanceComment =
@@ -823,7 +819,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Num,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "M2",
       deriveInstanceComment =
@@ -833,21 +829,21 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Real,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "M2",
       deriveInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "M3",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "M3",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_M3",
         fieldType = HsPtr
@@ -860,8 +856,7 @@
           "typedef_vs_macro.h:6:9",
           declId = NamePair {
             nameC = Name "M3",
-            nameHsIdent = HsIdentifier
-              "M3"},
+            nameHsIdent = Identifier "M3"},
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeaderInfo = Just
@@ -874,10 +869,10 @@
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "M3",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_M3"},
             macroType = TypePointer
@@ -909,7 +904,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Storable,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "M3",
       deriveInstanceComment =
@@ -919,7 +914,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "M3",
       deriveInstanceComment =
@@ -929,7 +924,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Ord,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "M3",
       deriveInstanceComment =
@@ -939,26 +934,26 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "M3",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "ExampleStruct",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "ExampleStruct",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "exampleStruct_t1",
           fieldType = HsTypRef
-            (HsName "@NsTypeConstr" "T1"),
+            (Name "@NsTypeConstr" "T1"),
           fieldOrigin = StructField
             StructField {
               structFieldInfo = FieldInfo {
@@ -966,15 +961,14 @@
                 "typedef_vs_macro.h:9:6",
                 fieldName = NamePair {
                   nameC = Name "t1",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "exampleStruct_t1"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "T1",
-                    nameHsIdent = HsIdentifier
-                      "T1"}),
+                    nameHsIdent = Identifier "T1"}),
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -991,11 +985,11 @@
                   "typedef_vs_macro.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "exampleStruct_t2",
           fieldType = HsTypRef
-            (HsName "@NsTypeConstr" "T2"),
+            (Name "@NsTypeConstr" "T2"),
           fieldOrigin = StructField
             StructField {
               structFieldInfo = FieldInfo {
@@ -1003,15 +997,14 @@
                 "typedef_vs_macro.h:10:6",
                 fieldName = NamePair {
                   nameC = Name "t2",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "exampleStruct_t2"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "T2",
-                    nameHsIdent = HsIdentifier
-                      "T2"}),
+                    nameHsIdent = Identifier "T2"}),
               structFieldOffset = 32,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -1028,11 +1021,11 @@
                   "typedef_vs_macro.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "exampleStruct_m1",
           fieldType = HsTypRef
-            (HsName "@NsTypeConstr" "M1"),
+            (Name "@NsTypeConstr" "M1"),
           fieldOrigin = StructField
             StructField {
               structFieldInfo = FieldInfo {
@@ -1040,14 +1033,14 @@
                 "typedef_vs_macro.h:11:6",
                 fieldName = NamePair {
                   nameC = Name "m1",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "exampleStruct_m1"},
                 fieldComment = Nothing},
               structFieldType =
               TypeMacroTypedef
                 NamePair {
                   nameC = Name "M1",
-                  nameHsIdent = HsIdentifier "M1"}
+                  nameHsIdent = Identifier "M1"}
                 NameOriginInSource,
               structFieldOffset = 64,
               structFieldWidth = Nothing},
@@ -1065,11 +1058,11 @@
                   "typedef_vs_macro.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "exampleStruct_m2",
           fieldType = HsTypRef
-            (HsName "@NsTypeConstr" "M2"),
+            (Name "@NsTypeConstr" "M2"),
           fieldOrigin = StructField
             StructField {
               structFieldInfo = FieldInfo {
@@ -1077,14 +1070,14 @@
                 "typedef_vs_macro.h:12:6",
                 fieldName = NamePair {
                   nameC = Name "m2",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "exampleStruct_m2"},
                 fieldComment = Nothing},
               structFieldType =
               TypeMacroTypedef
                 NamePair {
                   nameC = Name "M2",
-                  nameHsIdent = HsIdentifier "M2"}
+                  nameHsIdent = Identifier "M2"}
                 NameOriginInSource,
               structFieldOffset = 96,
               structFieldWidth = Nothing},
@@ -1108,7 +1101,7 @@
             "typedef_vs_macro.h:8:8",
             declId = NamePair {
               nameC = Name "ExampleStruct",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "ExampleStruct"},
             declOrigin = NameOriginInSource,
             declAliases = [],
@@ -1122,7 +1115,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName
+                (Name
                   "@NsConstr"
                   "ExampleStruct"),
               structSizeof = 16,
@@ -1134,15 +1127,14 @@
                     "typedef_vs_macro.h:9:6",
                     fieldName = NamePair {
                       nameC = Name "t1",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "exampleStruct_t1"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefRegular
                       NamePair {
                         nameC = Name "T1",
-                        nameHsIdent = HsIdentifier
-                          "T1"}),
+                        nameHsIdent = Identifier "T1"}),
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
                 StructField {
@@ -1151,15 +1143,14 @@
                     "typedef_vs_macro.h:10:6",
                     fieldName = NamePair {
                       nameC = Name "t2",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "exampleStruct_t2"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefRegular
                       NamePair {
                         nameC = Name "T2",
-                        nameHsIdent = HsIdentifier
-                          "T2"}),
+                        nameHsIdent = Identifier "T2"}),
                   structFieldOffset = 32,
                   structFieldWidth = Nothing},
                 StructField {
@@ -1168,14 +1159,14 @@
                     "typedef_vs_macro.h:11:6",
                     fieldName = NamePair {
                       nameC = Name "m1",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "exampleStruct_m1"},
                     fieldComment = Nothing},
                   structFieldType =
                   TypeMacroTypedef
                     NamePair {
                       nameC = Name "M1",
-                      nameHsIdent = HsIdentifier "M1"}
+                      nameHsIdent = Identifier "M1"}
                     NameOriginInSource,
                   structFieldOffset = 64,
                   structFieldWidth = Nothing},
@@ -1185,14 +1176,14 @@
                     "typedef_vs_macro.h:12:6",
                     fieldName = NamePair {
                       nameC = Name "m2",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "exampleStruct_m2"},
                     fieldComment = Nothing},
                   structFieldType =
                   TypeMacroTypedef
                     NamePair {
                       nameC = Name "M2",
-                      nameHsIdent = HsIdentifier "M2"}
+                      nameHsIdent = Identifier "M2"}
                     NameOriginInSource,
                   structFieldOffset = 96,
                   structFieldWidth = Nothing}],
@@ -1224,19 +1215,19 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "ExampleStruct",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "ExampleStruct",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "exampleStruct_t1",
               fieldType = HsTypRef
-                (HsName "@NsTypeConstr" "T1"),
+                (Name "@NsTypeConstr" "T1"),
               fieldOrigin = StructField
                 StructField {
                   structFieldInfo = FieldInfo {
@@ -1244,15 +1235,14 @@
                     "typedef_vs_macro.h:9:6",
                     fieldName = NamePair {
                       nameC = Name "t1",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "exampleStruct_t1"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefRegular
                       NamePair {
                         nameC = Name "T1",
-                        nameHsIdent = HsIdentifier
-                          "T1"}),
+                        nameHsIdent = Identifier "T1"}),
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -1269,11 +1259,11 @@
                       "typedef_vs_macro.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "exampleStruct_t2",
               fieldType = HsTypRef
-                (HsName "@NsTypeConstr" "T2"),
+                (Name "@NsTypeConstr" "T2"),
               fieldOrigin = StructField
                 StructField {
                   structFieldInfo = FieldInfo {
@@ -1281,15 +1271,14 @@
                     "typedef_vs_macro.h:10:6",
                     fieldName = NamePair {
                       nameC = Name "t2",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "exampleStruct_t2"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefRegular
                       NamePair {
                         nameC = Name "T2",
-                        nameHsIdent = HsIdentifier
-                          "T2"}),
+                        nameHsIdent = Identifier "T2"}),
                   structFieldOffset = 32,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -1306,11 +1295,11 @@
                       "typedef_vs_macro.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "exampleStruct_m1",
               fieldType = HsTypRef
-                (HsName "@NsTypeConstr" "M1"),
+                (Name "@NsTypeConstr" "M1"),
               fieldOrigin = StructField
                 StructField {
                   structFieldInfo = FieldInfo {
@@ -1318,14 +1307,14 @@
                     "typedef_vs_macro.h:11:6",
                     fieldName = NamePair {
                       nameC = Name "m1",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "exampleStruct_m1"},
                     fieldComment = Nothing},
                   structFieldType =
                   TypeMacroTypedef
                     NamePair {
                       nameC = Name "M1",
-                      nameHsIdent = HsIdentifier "M1"}
+                      nameHsIdent = Identifier "M1"}
                     NameOriginInSource,
                   structFieldOffset = 64,
                   structFieldWidth = Nothing},
@@ -1343,11 +1332,11 @@
                       "typedef_vs_macro.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "exampleStruct_m2",
               fieldType = HsTypRef
-                (HsName "@NsTypeConstr" "M2"),
+                (Name "@NsTypeConstr" "M2"),
               fieldOrigin = StructField
                 StructField {
                   structFieldInfo = FieldInfo {
@@ -1355,14 +1344,14 @@
                     "typedef_vs_macro.h:12:6",
                     fieldName = NamePair {
                       nameC = Name "m2",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "exampleStruct_m2"},
                     fieldComment = Nothing},
                   structFieldType =
                   TypeMacroTypedef
                     NamePair {
                       nameC = Name "M2",
-                      nameHsIdent = HsIdentifier "M2"}
+                      nameHsIdent = Identifier "M2"}
                     NameOriginInSource,
                   structFieldOffset = 96,
                   structFieldWidth = Nothing},
@@ -1386,7 +1375,7 @@
                 "typedef_vs_macro.h:8:8",
                 declId = NamePair {
                   nameC = Name "ExampleStruct",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "ExampleStruct"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
@@ -1400,7 +1389,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName
+                    (Name
                       "@NsConstr"
                       "ExampleStruct"),
                   structSizeof = 16,
@@ -1412,15 +1401,14 @@
                         "typedef_vs_macro.h:9:6",
                         fieldName = NamePair {
                           nameC = Name "t1",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "exampleStruct_t1"},
                         fieldComment = Nothing},
                       structFieldType = TypeTypedef
                         (TypedefRegular
                           NamePair {
                             nameC = Name "T1",
-                            nameHsIdent = HsIdentifier
-                              "T1"}),
+                            nameHsIdent = Identifier "T1"}),
                       structFieldOffset = 0,
                       structFieldWidth = Nothing},
                     StructField {
@@ -1429,15 +1417,14 @@
                         "typedef_vs_macro.h:10:6",
                         fieldName = NamePair {
                           nameC = Name "t2",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "exampleStruct_t2"},
                         fieldComment = Nothing},
                       structFieldType = TypeTypedef
                         (TypedefRegular
                           NamePair {
                             nameC = Name "T2",
-                            nameHsIdent = HsIdentifier
-                              "T2"}),
+                            nameHsIdent = Identifier "T2"}),
                       structFieldOffset = 32,
                       structFieldWidth = Nothing},
                     StructField {
@@ -1446,14 +1433,14 @@
                         "typedef_vs_macro.h:11:6",
                         fieldName = NamePair {
                           nameC = Name "m1",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "exampleStruct_m1"},
                         fieldComment = Nothing},
                       structFieldType =
                       TypeMacroTypedef
                         NamePair {
                           nameC = Name "M1",
-                          nameHsIdent = HsIdentifier "M1"}
+                          nameHsIdent = Identifier "M1"}
                         NameOriginInSource,
                       structFieldOffset = 64,
                       structFieldWidth = Nothing},
@@ -1463,14 +1450,14 @@
                         "typedef_vs_macro.h:12:6",
                         fieldName = NamePair {
                           nameC = Name "m2",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "exampleStruct_m2"},
                         fieldComment = Nothing},
                       structFieldType =
                       TypeMacroTypedef
                         NamePair {
                           nameC = Name "M2",
-                          nameHsIdent = HsIdentifier "M2"}
+                          nameHsIdent = Identifier "M2"}
                         NameOriginInSource,
                       structFieldOffset = 96,
                       structFieldWidth = Nothing}],
@@ -1505,19 +1492,19 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "ExampleStruct",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "ExampleStruct",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "exampleStruct_t1",
                       fieldType = HsTypRef
-                        (HsName "@NsTypeConstr" "T1"),
+                        (Name "@NsTypeConstr" "T1"),
                       fieldOrigin = StructField
                         StructField {
                           structFieldInfo = FieldInfo {
@@ -1525,15 +1512,14 @@
                             "typedef_vs_macro.h:9:6",
                             fieldName = NamePair {
                               nameC = Name "t1",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "exampleStruct_t1"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefRegular
                               NamePair {
                                 nameC = Name "T1",
-                                nameHsIdent = HsIdentifier
-                                  "T1"}),
+                                nameHsIdent = Identifier "T1"}),
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -1550,11 +1536,11 @@
                               "typedef_vs_macro.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "exampleStruct_t2",
                       fieldType = HsTypRef
-                        (HsName "@NsTypeConstr" "T2"),
+                        (Name "@NsTypeConstr" "T2"),
                       fieldOrigin = StructField
                         StructField {
                           structFieldInfo = FieldInfo {
@@ -1562,15 +1548,14 @@
                             "typedef_vs_macro.h:10:6",
                             fieldName = NamePair {
                               nameC = Name "t2",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "exampleStruct_t2"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefRegular
                               NamePair {
                                 nameC = Name "T2",
-                                nameHsIdent = HsIdentifier
-                                  "T2"}),
+                                nameHsIdent = Identifier "T2"}),
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -1587,11 +1572,11 @@
                               "typedef_vs_macro.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "exampleStruct_m1",
                       fieldType = HsTypRef
-                        (HsName "@NsTypeConstr" "M1"),
+                        (Name "@NsTypeConstr" "M1"),
                       fieldOrigin = StructField
                         StructField {
                           structFieldInfo = FieldInfo {
@@ -1599,14 +1584,14 @@
                             "typedef_vs_macro.h:11:6",
                             fieldName = NamePair {
                               nameC = Name "m1",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "exampleStruct_m1"},
                             fieldComment = Nothing},
                           structFieldType =
                           TypeMacroTypedef
                             NamePair {
                               nameC = Name "M1",
-                              nameHsIdent = HsIdentifier "M1"}
+                              nameHsIdent = Identifier "M1"}
                             NameOriginInSource,
                           structFieldOffset = 64,
                           structFieldWidth = Nothing},
@@ -1624,11 +1609,11 @@
                               "typedef_vs_macro.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "exampleStruct_m2",
                       fieldType = HsTypRef
-                        (HsName "@NsTypeConstr" "M2"),
+                        (Name "@NsTypeConstr" "M2"),
                       fieldOrigin = StructField
                         StructField {
                           structFieldInfo = FieldInfo {
@@ -1636,14 +1621,14 @@
                             "typedef_vs_macro.h:12:6",
                             fieldName = NamePair {
                               nameC = Name "m2",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "exampleStruct_m2"},
                             fieldComment = Nothing},
                           structFieldType =
                           TypeMacroTypedef
                             NamePair {
                               nameC = Name "M2",
-                              nameHsIdent = HsIdentifier "M2"}
+                              nameHsIdent = Identifier "M2"}
                             NameOriginInSource,
                           structFieldOffset = 96,
                           structFieldWidth = Nothing},
@@ -1667,7 +1652,7 @@
                         "typedef_vs_macro.h:8:8",
                         declId = NamePair {
                           nameC = Name "ExampleStruct",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "ExampleStruct"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -1681,7 +1666,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName
+                            (Name
                               "@NsConstr"
                               "ExampleStruct"),
                           structSizeof = 16,
@@ -1693,15 +1678,14 @@
                                 "typedef_vs_macro.h:9:6",
                                 fieldName = NamePair {
                                   nameC = Name "t1",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "exampleStruct_t1"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefRegular
                                   NamePair {
                                     nameC = Name "T1",
-                                    nameHsIdent = HsIdentifier
-                                      "T1"}),
+                                    nameHsIdent = Identifier "T1"}),
                               structFieldOffset = 0,
                               structFieldWidth = Nothing},
                             StructField {
@@ -1710,15 +1694,14 @@
                                 "typedef_vs_macro.h:10:6",
                                 fieldName = NamePair {
                                   nameC = Name "t2",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "exampleStruct_t2"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefRegular
                                   NamePair {
                                     nameC = Name "T2",
-                                    nameHsIdent = HsIdentifier
-                                      "T2"}),
+                                    nameHsIdent = Identifier "T2"}),
                               structFieldOffset = 32,
                               structFieldWidth = Nothing},
                             StructField {
@@ -1727,14 +1710,14 @@
                                 "typedef_vs_macro.h:11:6",
                                 fieldName = NamePair {
                                   nameC = Name "m1",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "exampleStruct_m1"},
                                 fieldComment = Nothing},
                               structFieldType =
                               TypeMacroTypedef
                                 NamePair {
                                   nameC = Name "M1",
-                                  nameHsIdent = HsIdentifier "M1"}
+                                  nameHsIdent = Identifier "M1"}
                                 NameOriginInSource,
                               structFieldOffset = 64,
                               structFieldWidth = Nothing},
@@ -1744,14 +1727,14 @@
                                 "typedef_vs_macro.h:12:6",
                                 fieldName = NamePair {
                                   nameC = Name "m2",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "exampleStruct_m2"},
                                 fieldComment = Nothing},
                               structFieldType =
                               TypeMacroTypedef
                                 NamePair {
                                   nameC = Name "M2",
-                                  nameHsIdent = HsIdentifier "M2"}
+                                  nameHsIdent = Identifier "M2"}
                                 NameOriginInSource,
                               structFieldOffset = 96,
                               structFieldWidth = Nothing}],
@@ -1790,19 +1773,19 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "ExampleStruct",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "ExampleStruct",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "exampleStruct_t1",
                       fieldType = HsTypRef
-                        (HsName "@NsTypeConstr" "T1"),
+                        (Name "@NsTypeConstr" "T1"),
                       fieldOrigin = StructField
                         StructField {
                           structFieldInfo = FieldInfo {
@@ -1810,15 +1793,14 @@
                             "typedef_vs_macro.h:9:6",
                             fieldName = NamePair {
                               nameC = Name "t1",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "exampleStruct_t1"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefRegular
                               NamePair {
                                 nameC = Name "T1",
-                                nameHsIdent = HsIdentifier
-                                  "T1"}),
+                                nameHsIdent = Identifier "T1"}),
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -1835,11 +1817,11 @@
                               "typedef_vs_macro.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "exampleStruct_t2",
                       fieldType = HsTypRef
-                        (HsName "@NsTypeConstr" "T2"),
+                        (Name "@NsTypeConstr" "T2"),
                       fieldOrigin = StructField
                         StructField {
                           structFieldInfo = FieldInfo {
@@ -1847,15 +1829,14 @@
                             "typedef_vs_macro.h:10:6",
                             fieldName = NamePair {
                               nameC = Name "t2",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "exampleStruct_t2"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefRegular
                               NamePair {
                                 nameC = Name "T2",
-                                nameHsIdent = HsIdentifier
-                                  "T2"}),
+                                nameHsIdent = Identifier "T2"}),
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -1872,11 +1853,11 @@
                               "typedef_vs_macro.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "exampleStruct_m1",
                       fieldType = HsTypRef
-                        (HsName "@NsTypeConstr" "M1"),
+                        (Name "@NsTypeConstr" "M1"),
                       fieldOrigin = StructField
                         StructField {
                           structFieldInfo = FieldInfo {
@@ -1884,14 +1865,14 @@
                             "typedef_vs_macro.h:11:6",
                             fieldName = NamePair {
                               nameC = Name "m1",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "exampleStruct_m1"},
                             fieldComment = Nothing},
                           structFieldType =
                           TypeMacroTypedef
                             NamePair {
                               nameC = Name "M1",
-                              nameHsIdent = HsIdentifier "M1"}
+                              nameHsIdent = Identifier "M1"}
                             NameOriginInSource,
                           structFieldOffset = 64,
                           structFieldWidth = Nothing},
@@ -1909,11 +1890,11 @@
                               "typedef_vs_macro.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "exampleStruct_m2",
                       fieldType = HsTypRef
-                        (HsName "@NsTypeConstr" "M2"),
+                        (Name "@NsTypeConstr" "M2"),
                       fieldOrigin = StructField
                         StructField {
                           structFieldInfo = FieldInfo {
@@ -1921,14 +1902,14 @@
                             "typedef_vs_macro.h:12:6",
                             fieldName = NamePair {
                               nameC = Name "m2",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "exampleStruct_m2"},
                             fieldComment = Nothing},
                           structFieldType =
                           TypeMacroTypedef
                             NamePair {
                               nameC = Name "M2",
-                              nameHsIdent = HsIdentifier "M2"}
+                              nameHsIdent = Identifier "M2"}
                             NameOriginInSource,
                           structFieldOffset = 96,
                           structFieldWidth = Nothing},
@@ -1952,7 +1933,7 @@
                         "typedef_vs_macro.h:8:8",
                         declId = NamePair {
                           nameC = Name "ExampleStruct",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "ExampleStruct"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -1966,7 +1947,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName
+                            (Name
                               "@NsConstr"
                               "ExampleStruct"),
                           structSizeof = 16,
@@ -1978,15 +1959,14 @@
                                 "typedef_vs_macro.h:9:6",
                                 fieldName = NamePair {
                                   nameC = Name "t1",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "exampleStruct_t1"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefRegular
                                   NamePair {
                                     nameC = Name "T1",
-                                    nameHsIdent = HsIdentifier
-                                      "T1"}),
+                                    nameHsIdent = Identifier "T1"}),
                               structFieldOffset = 0,
                               structFieldWidth = Nothing},
                             StructField {
@@ -1995,15 +1975,14 @@
                                 "typedef_vs_macro.h:10:6",
                                 fieldName = NamePair {
                                   nameC = Name "t2",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "exampleStruct_t2"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefRegular
                                   NamePair {
                                     nameC = Name "T2",
-                                    nameHsIdent = HsIdentifier
-                                      "T2"}),
+                                    nameHsIdent = Identifier "T2"}),
                               structFieldOffset = 32,
                               structFieldWidth = Nothing},
                             StructField {
@@ -2012,14 +1991,14 @@
                                 "typedef_vs_macro.h:11:6",
                                 fieldName = NamePair {
                                   nameC = Name "m1",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "exampleStruct_m1"},
                                 fieldComment = Nothing},
                               structFieldType =
                               TypeMacroTypedef
                                 NamePair {
                                   nameC = Name "M1",
-                                  nameHsIdent = HsIdentifier "M1"}
+                                  nameHsIdent = Identifier "M1"}
                                 NameOriginInSource,
                               structFieldOffset = 64,
                               structFieldWidth = Nothing},
@@ -2029,14 +2008,14 @@
                                 "typedef_vs_macro.h:12:6",
                                 fieldName = NamePair {
                                   nameC = Name "m2",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "exampleStruct_m2"},
                                 fieldComment = Nothing},
                               structFieldType =
                               TypeMacroTypedef
                                 NamePair {
                                   nameC = Name "M2",
-                                  nameHsIdent = HsIdentifier "M2"}
+                                  nameHsIdent = Identifier "M2"}
                                 NameOriginInSource,
                               structFieldOffset = 96,
                               structFieldWidth = Nothing}],
@@ -2080,7 +2059,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "ExampleStruct",
       deriveInstanceComment =
@@ -2090,21 +2069,21 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "ExampleStruct",
       deriveInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "Uint64_t",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "Uint64_t",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_Uint64_t",
         fieldType = HsPrimType
@@ -2117,7 +2096,7 @@
           "typedef_vs_macro.h:15:9",
           declId = NamePair {
             nameC = Name "uint64_t",
-            nameHsIdent = HsIdentifier
+            nameHsIdent = Identifier
               "Uint64_t"},
           declOrigin = NameOriginInSource,
           declAliases = [],
@@ -2131,10 +2110,10 @@
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "Uint64_t",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_Uint64_t"},
             macroType = TypePrim
@@ -2178,7 +2157,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Storable,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Uint64_t",
       deriveInstanceComment =
@@ -2188,7 +2167,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Uint64_t",
       deriveInstanceComment =
@@ -2198,7 +2177,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Ord,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Uint64_t",
       deriveInstanceComment =
@@ -2208,7 +2187,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Read,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Uint64_t",
       deriveInstanceComment =
@@ -2218,7 +2197,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Uint64_t",
       deriveInstanceComment =
@@ -2228,7 +2207,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Enum,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Uint64_t",
       deriveInstanceComment =
@@ -2238,7 +2217,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Ix,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Uint64_t",
       deriveInstanceComment =
@@ -2248,7 +2227,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bounded,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Uint64_t",
       deriveInstanceComment =
@@ -2258,7 +2237,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Uint64_t",
       deriveInstanceComment =
@@ -2269,7 +2248,7 @@
       DeriveNewtype,
       deriveInstanceClass =
       FiniteBits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Uint64_t",
       deriveInstanceComment =
@@ -2279,7 +2258,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Integral,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Uint64_t",
       deriveInstanceComment =
@@ -2289,7 +2268,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Num,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Uint64_t",
       deriveInstanceComment =
@@ -2299,27 +2278,27 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Real,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Uint64_t",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "Foo",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "Foo",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "foo_a",
           fieldType = HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "Uint64_t")),
           fieldOrigin = StructField
@@ -2329,14 +2308,14 @@
                 "typedef_vs_macro.h:18:13",
                 fieldName = NamePair {
                   nameC = Name "a",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "foo_a"},
                 fieldComment = Nothing},
               structFieldType = TypePointer
                 (TypeMacroTypedef
                   NamePair {
                     nameC = Name "uint64_t",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Uint64_t"}
                   NameOriginInSource),
               structFieldOffset = 0,
@@ -2361,8 +2340,7 @@
             "typedef_vs_macro.h:17:8",
             declId = NamePair {
               nameC = Name "foo",
-              nameHsIdent = HsIdentifier
-                "Foo"},
+              nameHsIdent = Identifier "Foo"},
             declOrigin = NameOriginInSource,
             declAliases = [],
             declHeaderInfo = Just
@@ -2375,7 +2353,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "Foo"),
+                (Name "@NsConstr" "Foo"),
               structSizeof = 8,
               structAlignment = 8,
               structFields = [
@@ -2385,14 +2363,14 @@
                     "typedef_vs_macro.h:18:13",
                     fieldName = NamePair {
                       nameC = Name "a",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "foo_a"},
                     fieldComment = Nothing},
                   structFieldType = TypePointer
                     (TypeMacroTypedef
                       NamePair {
                         nameC = Name "uint64_t",
-                        nameHsIdent = HsIdentifier
+                        nameHsIdent = Identifier
                           "Uint64_t"}
                       NameOriginInSource),
                   structFieldOffset = 0,
@@ -2424,20 +2402,20 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Foo",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Foo",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "foo_a",
               fieldType = HsPtr
                 (HsTypRef
-                  (HsName
+                  (Name
                     "@NsTypeConstr"
                     "Uint64_t")),
               fieldOrigin = StructField
@@ -2447,14 +2425,14 @@
                     "typedef_vs_macro.h:18:13",
                     fieldName = NamePair {
                       nameC = Name "a",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "foo_a"},
                     fieldComment = Nothing},
                   structFieldType = TypePointer
                     (TypeMacroTypedef
                       NamePair {
                         nameC = Name "uint64_t",
-                        nameHsIdent = HsIdentifier
+                        nameHsIdent = Identifier
                           "Uint64_t"}
                       NameOriginInSource),
                   structFieldOffset = 0,
@@ -2479,8 +2457,7 @@
                 "typedef_vs_macro.h:17:8",
                 declId = NamePair {
                   nameC = Name "foo",
-                  nameHsIdent = HsIdentifier
-                    "Foo"},
+                  nameHsIdent = Identifier "Foo"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
                 declHeaderInfo = Just
@@ -2493,7 +2470,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "Foo"),
+                    (Name "@NsConstr" "Foo"),
                   structSizeof = 8,
                   structAlignment = 8,
                   structFields = [
@@ -2503,14 +2480,14 @@
                         "typedef_vs_macro.h:18:13",
                         fieldName = NamePair {
                           nameC = Name "a",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "foo_a"},
                         fieldComment = Nothing},
                       structFieldType = TypePointer
                         (TypeMacroTypedef
                           NamePair {
                             nameC = Name "uint64_t",
-                            nameHsIdent = HsIdentifier
+                            nameHsIdent = Identifier
                               "Uint64_t"}
                           NameOriginInSource),
                       structFieldOffset = 0,
@@ -2545,20 +2522,20 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Foo",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Foo",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "foo_a",
                       fieldType = HsPtr
                         (HsTypRef
-                          (HsName
+                          (Name
                             "@NsTypeConstr"
                             "Uint64_t")),
                       fieldOrigin = StructField
@@ -2568,14 +2545,14 @@
                             "typedef_vs_macro.h:18:13",
                             fieldName = NamePair {
                               nameC = Name "a",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "foo_a"},
                             fieldComment = Nothing},
                           structFieldType = TypePointer
                             (TypeMacroTypedef
                               NamePair {
                                 nameC = Name "uint64_t",
-                                nameHsIdent = HsIdentifier
+                                nameHsIdent = Identifier
                                   "Uint64_t"}
                               NameOriginInSource),
                           structFieldOffset = 0,
@@ -2600,8 +2577,7 @@
                         "typedef_vs_macro.h:17:8",
                         declId = NamePair {
                           nameC = Name "foo",
-                          nameHsIdent = HsIdentifier
-                            "Foo"},
+                          nameHsIdent = Identifier "Foo"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
                         declHeaderInfo = Just
@@ -2614,7 +2590,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Foo"),
+                            (Name "@NsConstr" "Foo"),
                           structSizeof = 8,
                           structAlignment = 8,
                           structFields = [
@@ -2624,14 +2600,14 @@
                                 "typedef_vs_macro.h:18:13",
                                 fieldName = NamePair {
                                   nameC = Name "a",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "foo_a"},
                                 fieldComment = Nothing},
                               structFieldType = TypePointer
                                 (TypeMacroTypedef
                                   NamePair {
                                     nameC = Name "uint64_t",
-                                    nameHsIdent = HsIdentifier
+                                    nameHsIdent = Identifier
                                       "Uint64_t"}
                                   NameOriginInSource),
                               structFieldOffset = 0,
@@ -2666,20 +2642,20 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Foo",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Foo",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "foo_a",
                       fieldType = HsPtr
                         (HsTypRef
-                          (HsName
+                          (Name
                             "@NsTypeConstr"
                             "Uint64_t")),
                       fieldOrigin = StructField
@@ -2689,14 +2665,14 @@
                             "typedef_vs_macro.h:18:13",
                             fieldName = NamePair {
                               nameC = Name "a",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "foo_a"},
                             fieldComment = Nothing},
                           structFieldType = TypePointer
                             (TypeMacroTypedef
                               NamePair {
                                 nameC = Name "uint64_t",
-                                nameHsIdent = HsIdentifier
+                                nameHsIdent = Identifier
                                   "Uint64_t"}
                               NameOriginInSource),
                           structFieldOffset = 0,
@@ -2721,8 +2697,7 @@
                         "typedef_vs_macro.h:17:8",
                         declId = NamePair {
                           nameC = Name "foo",
-                          nameHsIdent = HsIdentifier
-                            "Foo"},
+                          nameHsIdent = Identifier "Foo"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
                         declHeaderInfo = Just
@@ -2735,7 +2710,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Foo"),
+                            (Name "@NsConstr" "Foo"),
                           structSizeof = 8,
                           structAlignment = 8,
                           structFields = [
@@ -2745,14 +2720,14 @@
                                 "typedef_vs_macro.h:18:13",
                                 fieldName = NamePair {
                                   nameC = Name "a",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "foo_a"},
                                 fieldComment = Nothing},
                               structFieldType = TypePointer
                                 (TypeMacroTypedef
                                   NamePair {
                                     nameC = Name "uint64_t",
-                                    nameHsIdent = HsIdentifier
+                                    nameHsIdent = Identifier
                                       "Uint64_t"}
                                   NameOriginInSource),
                               structFieldOffset = 0,
@@ -2793,7 +2768,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Foo",
       deriveInstanceComment =
@@ -2803,7 +2778,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Foo",
       deriveInstanceComment =

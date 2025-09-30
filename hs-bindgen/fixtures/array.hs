@@ -1,14 +1,14 @@
 [
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "Triplet",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "Triplet",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_Triplet",
         fieldType = HsConstArray
@@ -21,7 +21,7 @@
           declLoc = "array.h:41:13",
           declId = NamePair {
             nameC = Name "triplet",
-            nameHsIdent = HsIdentifier
+            nameHsIdent = Identifier
               "Triplet"},
           declOrigin = NameOriginInSource,
           declAliases = [],
@@ -34,10 +34,10 @@
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "Triplet",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_Triplet"},
             typedefType = TypeConstArray
@@ -69,7 +69,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Storable,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Triplet",
       deriveInstanceComment =
@@ -79,7 +79,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Triplet",
       deriveInstanceComment =
@@ -89,21 +89,21 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Triplet",
       deriveInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "List",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "List",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_List",
         fieldType = HsIncompleteArray
@@ -115,7 +115,7 @@
           declLoc = "array.h:43:13",
           declId = NamePair {
             nameC = Name "list",
-            nameHsIdent = HsIdentifier
+            nameHsIdent = Identifier
               "List"},
           declOrigin = NameOriginInSource,
           declAliases = [],
@@ -128,10 +128,10 @@
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "List",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_List"},
             typedefType =
@@ -163,7 +163,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "List",
       deriveInstanceComment =
@@ -173,21 +173,21 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "List",
       deriveInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "Matrix",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "Matrix",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_Matrix",
         fieldType = HsConstArray
@@ -202,7 +202,7 @@
           declLoc = "array.h:45:13",
           declId = NamePair {
             nameC = Name "matrix",
-            nameHsIdent = HsIdentifier
+            nameHsIdent = Identifier
               "Matrix"},
           declOrigin = NameOriginInSource,
           declAliases = [],
@@ -215,10 +215,10 @@
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "Matrix",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_Matrix"},
             typedefType = TypeConstArray
@@ -254,7 +254,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Storable,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Matrix",
       deriveInstanceComment =
@@ -264,7 +264,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Matrix",
       deriveInstanceComment =
@@ -274,21 +274,21 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Matrix",
       deriveInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "Tripletlist",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "Tripletlist",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_Tripletlist",
         fieldType = HsIncompleteArray
@@ -302,7 +302,7 @@
           declLoc = "array.h:47:13",
           declId = NamePair {
             nameC = Name "tripletlist",
-            nameHsIdent = HsIdentifier
+            nameHsIdent = Identifier
               "Tripletlist"},
           declOrigin = NameOriginInSource,
           declAliases = [],
@@ -315,10 +315,10 @@
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "Tripletlist",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_Tripletlist"},
             typedefType =
@@ -355,7 +355,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Tripletlist",
       deriveInstanceComment =
@@ -365,22 +365,22 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Tripletlist",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "Example",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "Example",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "example_triple",
           fieldType = HsConstArray
@@ -392,7 +392,7 @@
                 fieldLoc = "array.h:50:9",
                 fieldName = NamePair {
                   nameC = Name "triple",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "example_triple"},
                 fieldComment = Nothing},
               structFieldType = TypeConstArray
@@ -414,7 +414,7 @@
                   headerInclude = "array.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "example_sudoku",
           fieldType = HsConstArray
@@ -428,7 +428,7 @@
                 fieldLoc = "array.h:51:9",
                 fieldName = NamePair {
                   nameC = Name "sudoku",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "example_sudoku"},
                 fieldComment = Nothing},
               structFieldType = TypeConstArray
@@ -457,7 +457,7 @@
             declLoc = "array.h:49:8",
             declId = NamePair {
               nameC = Name "Example",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Example"},
             declOrigin = NameOriginInSource,
             declAliases = [],
@@ -470,7 +470,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "Example"),
+                (Name "@NsConstr" "Example"),
               structSizeof = 48,
               structAlignment = 4,
               structFields = [
@@ -479,7 +479,7 @@
                     fieldLoc = "array.h:50:9",
                     fieldName = NamePair {
                       nameC = Name "triple",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "example_triple"},
                     fieldComment = Nothing},
                   structFieldType = TypeConstArray
@@ -493,7 +493,7 @@
                     fieldLoc = "array.h:51:9",
                     fieldName = NamePair {
                       nameC = Name "sudoku",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "example_sudoku"},
                     fieldComment = Nothing},
                   structFieldType = TypeConstArray
@@ -530,15 +530,15 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Example",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Example",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "example_triple",
               fieldType = HsConstArray
@@ -550,7 +550,7 @@
                     fieldLoc = "array.h:50:9",
                     fieldName = NamePair {
                       nameC = Name "triple",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "example_triple"},
                     fieldComment = Nothing},
                   structFieldType = TypeConstArray
@@ -572,7 +572,7 @@
                       headerInclude = "array.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "example_sudoku",
               fieldType = HsConstArray
@@ -586,7 +586,7 @@
                     fieldLoc = "array.h:51:9",
                     fieldName = NamePair {
                       nameC = Name "sudoku",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "example_sudoku"},
                     fieldComment = Nothing},
                   structFieldType = TypeConstArray
@@ -615,7 +615,7 @@
                 declLoc = "array.h:49:8",
                 declId = NamePair {
                   nameC = Name "Example",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Example"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
@@ -628,7 +628,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "Example"),
+                    (Name "@NsConstr" "Example"),
                   structSizeof = 48,
                   structAlignment = 4,
                   structFields = [
@@ -637,7 +637,7 @@
                         fieldLoc = "array.h:50:9",
                         fieldName = NamePair {
                           nameC = Name "triple",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "example_triple"},
                         fieldComment = Nothing},
                       structFieldType = TypeConstArray
@@ -651,7 +651,7 @@
                         fieldLoc = "array.h:51:9",
                         fieldName = NamePair {
                           nameC = Name "sudoku",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "example_sudoku"},
                         fieldComment = Nothing},
                       structFieldType = TypeConstArray
@@ -691,15 +691,15 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Example",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Example",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "example_triple",
                       fieldType = HsConstArray
@@ -711,7 +711,7 @@
                             fieldLoc = "array.h:50:9",
                             fieldName = NamePair {
                               nameC = Name "triple",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "example_triple"},
                             fieldComment = Nothing},
                           structFieldType = TypeConstArray
@@ -733,7 +733,7 @@
                               headerInclude = "array.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "example_sudoku",
                       fieldType = HsConstArray
@@ -747,7 +747,7 @@
                             fieldLoc = "array.h:51:9",
                             fieldName = NamePair {
                               nameC = Name "sudoku",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "example_sudoku"},
                             fieldComment = Nothing},
                           structFieldType = TypeConstArray
@@ -776,7 +776,7 @@
                         declLoc = "array.h:49:8",
                         declId = NamePair {
                           nameC = Name "Example",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Example"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -789,7 +789,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Example"),
+                            (Name "@NsConstr" "Example"),
                           structSizeof = 48,
                           structAlignment = 4,
                           structFields = [
@@ -798,7 +798,7 @@
                                 fieldLoc = "array.h:50:9",
                                 fieldName = NamePair {
                                   nameC = Name "triple",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "example_triple"},
                                 fieldComment = Nothing},
                               structFieldType = TypeConstArray
@@ -812,7 +812,7 @@
                                 fieldLoc = "array.h:51:9",
                                 fieldName = NamePair {
                                   nameC = Name "sudoku",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "example_sudoku"},
                                 fieldComment = Nothing},
                               structFieldType = TypeConstArray
@@ -854,15 +854,15 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Example",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Example",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "example_triple",
                       fieldType = HsConstArray
@@ -874,7 +874,7 @@
                             fieldLoc = "array.h:50:9",
                             fieldName = NamePair {
                               nameC = Name "triple",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "example_triple"},
                             fieldComment = Nothing},
                           structFieldType = TypeConstArray
@@ -896,7 +896,7 @@
                               headerInclude = "array.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "example_sudoku",
                       fieldType = HsConstArray
@@ -910,7 +910,7 @@
                             fieldLoc = "array.h:51:9",
                             fieldName = NamePair {
                               nameC = Name "sudoku",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "example_sudoku"},
                             fieldComment = Nothing},
                           structFieldType = TypeConstArray
@@ -939,7 +939,7 @@
                         declLoc = "array.h:49:8",
                         declId = NamePair {
                           nameC = Name "Example",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Example"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -952,7 +952,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Example"),
+                            (Name "@NsConstr" "Example"),
                           structSizeof = 48,
                           structAlignment = 4,
                           structFields = [
@@ -961,7 +961,7 @@
                                 fieldLoc = "array.h:50:9",
                                 fieldName = NamePair {
                                   nameC = Name "triple",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "example_triple"},
                                 fieldComment = Nothing},
                               structFieldType = TypeConstArray
@@ -975,7 +975,7 @@
                                 fieldLoc = "array.h:51:9",
                                 fieldName = NamePair {
                                   nameC = Name "sudoku",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "example_sudoku"},
                                 fieldComment = Nothing},
                               structFieldType = TypeConstArray
@@ -1022,7 +1022,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Example",
       deriveInstanceComment =
@@ -1032,20 +1032,20 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Example",
       deriveInstanceComment =
       Nothing},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "fun_1_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "x"),
+            (Name "@NsVar" "x"),
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
@@ -1057,7 +1057,7 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "xs"),
+            (Name "@NsVar" "xs"),
           functionParameterType = HsPtr
             (HsPrimType HsPrimCInt),
           functionParameterComment = Just
@@ -1085,15 +1085,14 @@
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypePrim
                 (PrimIntegral PrimInt Signed)),
             _×_
               (Just
                 NamePair {
                   nameC = Name "xs",
-                  nameHsIdent = HsIdentifier
-                    "xs"})
+                  nameHsIdent = Identifier "xs"})
               (TypeConstArray
                 3
                 (TypePrim
@@ -1124,13 +1123,13 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "fun_2_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "xs"),
+            (Name "@NsVar" "xs"),
           functionParameterType = HsPtr
             (HsPrimType HsPrimCInt),
           functionParameterComment = Just
@@ -1158,13 +1157,12 @@
               (Just
                 NamePair {
                   nameC = Name "xs",
-                  nameHsIdent = HsIdentifier
-                    "xs"})
+                  nameHsIdent = Identifier "xs"})
               (TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "triplet",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Triplet"}))],
           functionAttrs =
           FunctionAttributes
@@ -1190,13 +1188,13 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "fun_3_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "xs"),
+            (Name "@NsVar" "xs"),
           functionParameterType = HsPtr
             (HsPrimType HsPrimCInt),
           functionParameterComment = Just
@@ -1224,8 +1222,7 @@
               (Just
                 NamePair {
                   nameC = Name "xs",
-                  nameHsIdent = HsIdentifier
-                    "xs"})
+                  nameHsIdent = Identifier "xs"})
               (TypeIncompleteArray
                 (TypePrim
                   (PrimIntegral
@@ -1255,13 +1252,13 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "fun_4_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "xs"),
+            (Name "@NsVar" "xs"),
           functionParameterType = HsPtr
             (HsPrimType HsPrimCInt),
           functionParameterComment = Just
@@ -1289,13 +1286,12 @@
               (Just
                 NamePair {
                   nameC = Name "xs",
-                  nameHsIdent = HsIdentifier
-                    "xs"})
+                  nameHsIdent = Identifier "xs"})
               (TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "list",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "List"}))],
           functionAttrs =
           FunctionAttributes
@@ -1321,13 +1317,13 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "fun_5_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "xss"),
+            (Name "@NsVar" "xss"),
           functionParameterType = HsPtr
             (HsConstArray
               3
@@ -1357,8 +1353,7 @@
               (Just
                 NamePair {
                   nameC = Name "xss",
-                  nameHsIdent = HsIdentifier
-                    "xss"})
+                  nameHsIdent = Identifier "xss"})
               (TypeConstArray
                 4
                 (TypeConstArray
@@ -1391,13 +1386,13 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "fun_6_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "xss"),
+            (Name "@NsVar" "xss"),
           functionParameterType = HsPtr
             (HsConstArray
               3
@@ -1427,13 +1422,12 @@
               (Just
                 NamePair {
                   nameC = Name "xss",
-                  nameHsIdent = HsIdentifier
-                    "xss"})
+                  nameHsIdent = Identifier "xss"})
               (TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "matrix",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Matrix"}))],
           functionAttrs =
           FunctionAttributes
@@ -1459,13 +1453,13 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "fun_7_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "xss"),
+            (Name "@NsVar" "xss"),
           functionParameterType = HsPtr
             (HsConstArray
               3
@@ -1495,8 +1489,7 @@
               (Just
                 NamePair {
                   nameC = Name "xss",
-                  nameHsIdent = HsIdentifier
-                    "xss"})
+                  nameHsIdent = Identifier "xss"})
               (TypeIncompleteArray
                 (TypeConstArray
                   3
@@ -1528,13 +1521,13 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "fun_8_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "xss"),
+            (Name "@NsVar" "xss"),
           functionParameterType = HsPtr
             (HsConstArray
               3
@@ -1564,13 +1557,12 @@
               (Just
                 NamePair {
                   nameC = Name "xss",
-                  nameHsIdent = HsIdentifier
-                    "xss"})
+                  nameHsIdent = Identifier "xss"})
               (TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "tripletlist",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Tripletlist"}))],
           functionAttrs =
           FunctionAttributes
@@ -1596,7 +1588,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "fun_9",
       foreignImportParameters = [],
@@ -1646,7 +1638,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "fun_10",
       foreignImportParameters = [],
@@ -1655,7 +1647,7 @@
         (HsIO
           (HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "Triplet")))),
       foreignImportOrigName =
@@ -1677,7 +1669,7 @@
               (TypedefRegular
                 NamePair {
                   nameC = Name "triplet",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Triplet"}))},
       foreignImportComment = Just
         Comment {
@@ -1697,7 +1689,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "fun_11",
       foreignImportParameters = [],
@@ -1745,7 +1737,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "fun_12",
       foreignImportParameters = [],
@@ -1754,7 +1746,7 @@
         (HsIO
           (HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "List")))),
       foreignImportOrigName =
@@ -1776,7 +1768,7 @@
               (TypedefRegular
                 NamePair {
                   nameC = Name "list",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "List"}))},
       foreignImportComment = Just
         Comment {
@@ -1796,7 +1788,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "fun_13",
       foreignImportParameters = [],
@@ -1850,7 +1842,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "fun_14",
       foreignImportParameters = [],
@@ -1859,7 +1851,7 @@
         (HsIO
           (HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "Matrix")))),
       foreignImportOrigName =
@@ -1881,7 +1873,7 @@
               (TypedefRegular
                 NamePair {
                   nameC = Name "matrix",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Matrix"}))},
       foreignImportComment = Just
         Comment {
@@ -1901,7 +1893,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "fun_15",
       foreignImportParameters = [],
@@ -1953,7 +1945,7 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "fun_16",
       foreignImportParameters = [],
@@ -1962,7 +1954,7 @@
         (HsIO
           (HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "Tripletlist")))),
       foreignImportOrigName =
@@ -1984,7 +1976,7 @@
               (TypedefRegular
                 NamePair {
                   nameC = Name "tripletlist",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Tripletlist"}))},
       foreignImportComment = Just
         Comment {
@@ -2004,13 +1996,13 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "fun_1_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "x"),
+            (Name "@NsVar" "x"),
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
@@ -2022,7 +2014,7 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "xs"),
+            (Name "@NsVar" "xs"),
           functionParameterType = HsPtr
             (HsPrimType HsPrimCInt),
           functionParameterComment = Just
@@ -2050,15 +2042,14 @@
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypePrim
                 (PrimIntegral PrimInt Signed)),
             _×_
               (Just
                 NamePair {
                   nameC = Name "xs",
-                  nameHsIdent = HsIdentifier
-                    "xs"})
+                  nameHsIdent = Identifier "xs"})
               (TypeConstArray
                 3
                 (TypePrim
@@ -2089,13 +2080,13 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "fun_2_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "xs"),
+            (Name "@NsVar" "xs"),
           functionParameterType = HsPtr
             (HsPrimType HsPrimCInt),
           functionParameterComment = Just
@@ -2123,13 +2114,12 @@
               (Just
                 NamePair {
                   nameC = Name "xs",
-                  nameHsIdent = HsIdentifier
-                    "xs"})
+                  nameHsIdent = Identifier "xs"})
               (TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "triplet",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Triplet"}))],
           functionAttrs =
           FunctionAttributes
@@ -2155,13 +2145,13 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "fun_3_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "xs"),
+            (Name "@NsVar" "xs"),
           functionParameterType = HsPtr
             (HsPrimType HsPrimCInt),
           functionParameterComment = Just
@@ -2189,8 +2179,7 @@
               (Just
                 NamePair {
                   nameC = Name "xs",
-                  nameHsIdent = HsIdentifier
-                    "xs"})
+                  nameHsIdent = Identifier "xs"})
               (TypeIncompleteArray
                 (TypePrim
                   (PrimIntegral
@@ -2220,13 +2209,13 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "fun_4_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "xs"),
+            (Name "@NsVar" "xs"),
           functionParameterType = HsPtr
             (HsPrimType HsPrimCInt),
           functionParameterComment = Just
@@ -2254,13 +2243,12 @@
               (Just
                 NamePair {
                   nameC = Name "xs",
-                  nameHsIdent = HsIdentifier
-                    "xs"})
+                  nameHsIdent = Identifier "xs"})
               (TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "list",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "List"}))],
           functionAttrs =
           FunctionAttributes
@@ -2286,13 +2274,13 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "fun_5_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "xss"),
+            (Name "@NsVar" "xss"),
           functionParameterType = HsPtr
             (HsConstArray
               3
@@ -2322,8 +2310,7 @@
               (Just
                 NamePair {
                   nameC = Name "xss",
-                  nameHsIdent = HsIdentifier
-                    "xss"})
+                  nameHsIdent = Identifier "xss"})
               (TypeConstArray
                 4
                 (TypeConstArray
@@ -2356,13 +2343,13 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "fun_6_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "xss"),
+            (Name "@NsVar" "xss"),
           functionParameterType = HsPtr
             (HsConstArray
               3
@@ -2392,13 +2379,12 @@
               (Just
                 NamePair {
                   nameC = Name "xss",
-                  nameHsIdent = HsIdentifier
-                    "xss"})
+                  nameHsIdent = Identifier "xss"})
               (TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "matrix",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Matrix"}))],
           functionAttrs =
           FunctionAttributes
@@ -2424,13 +2410,13 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "fun_7_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "xss"),
+            (Name "@NsVar" "xss"),
           functionParameterType = HsPtr
             (HsConstArray
               3
@@ -2460,8 +2446,7 @@
               (Just
                 NamePair {
                   nameC = Name "xss",
-                  nameHsIdent = HsIdentifier
-                    "xss"})
+                  nameHsIdent = Identifier "xss"})
               (TypeIncompleteArray
                 (TypeConstArray
                   3
@@ -2493,13 +2478,13 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "fun_8_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "xss"),
+            (Name "@NsVar" "xss"),
           functionParameterType = HsPtr
             (HsConstArray
               3
@@ -2529,13 +2514,12 @@
               (Just
                 NamePair {
                   nameC = Name "xss",
-                  nameHsIdent = HsIdentifier
-                    "xss"})
+                  nameHsIdent = Identifier "xss"})
               (TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "tripletlist",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Tripletlist"}))],
           functionAttrs =
           FunctionAttributes
@@ -2561,7 +2545,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "fun_9",
       foreignImportParameters = [],
@@ -2611,7 +2595,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "fun_10",
       foreignImportParameters = [],
@@ -2620,7 +2604,7 @@
         (HsIO
           (HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "Triplet")))),
       foreignImportOrigName =
@@ -2642,7 +2626,7 @@
               (TypedefRegular
                 NamePair {
                   nameC = Name "triplet",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Triplet"}))},
       foreignImportComment = Just
         Comment {
@@ -2662,7 +2646,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "fun_11",
       foreignImportParameters = [],
@@ -2710,7 +2694,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "fun_12",
       foreignImportParameters = [],
@@ -2719,7 +2703,7 @@
         (HsIO
           (HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "List")))),
       foreignImportOrigName =
@@ -2741,7 +2725,7 @@
               (TypedefRegular
                 NamePair {
                   nameC = Name "list",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "List"}))},
       foreignImportComment = Just
         Comment {
@@ -2761,7 +2745,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "fun_13",
       foreignImportParameters = [],
@@ -2815,7 +2799,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "fun_14",
       foreignImportParameters = [],
@@ -2824,7 +2808,7 @@
         (HsIO
           (HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "Matrix")))),
       foreignImportOrigName =
@@ -2846,7 +2830,7 @@
               (TypedefRegular
                 NamePair {
                   nameC = Name "matrix",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Matrix"}))},
       foreignImportComment = Just
         Comment {
@@ -2866,7 +2850,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "fun_15",
       foreignImportParameters = [],
@@ -2918,7 +2902,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "fun_16",
       foreignImportParameters = [],
@@ -2927,7 +2911,7 @@
         (HsIO
           (HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "Tripletlist")))),
       foreignImportOrigName =
@@ -2949,7 +2933,7 @@
               (TypedefRegular
                 NamePair {
                   nameC = Name "tripletlist",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Tripletlist"}))},
       foreignImportComment = Just
         Comment {
@@ -2969,7 +2953,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_array_3ced2f3b2af806f8",
       foreignImportParameters = [],
@@ -3010,7 +2994,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_array_84966994a8d7df93",
       foreignImportParameters = [],
@@ -3020,7 +3004,7 @@
           (HsFunPtr
             (HsFun
               (HsTypRef
-                (HsName
+                (Name
                   "@NsTypeConstr"
                   "Triplet"))
               (HsIO
@@ -3040,7 +3024,7 @@
               (TypedefRegular
                 NamePair {
                   nameC = Name "triplet",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Triplet"})]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
@@ -3050,7 +3034,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_array_3e6c940dbd7e5492",
       foreignImportParameters = [],
@@ -3085,7 +3069,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_array_d9f87d3e541b15e5",
       foreignImportParameters = [],
@@ -3095,7 +3079,7 @@
           (HsFunPtr
             (HsFun
               (HsTypRef
-                (HsName "@NsTypeConstr" "List"))
+                (Name "@NsTypeConstr" "List"))
               (HsIO
                 (HsPrimType HsPrimCInt))))),
       foreignImportOrigName =
@@ -3113,7 +3097,7 @@
               (TypedefRegular
                 NamePair {
                   nameC = Name "list",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "List"})]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
@@ -3123,7 +3107,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_array_cd41e41992d89300",
       foreignImportParameters = [],
@@ -3164,7 +3148,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_array_db0e2655437ab8bb",
       foreignImportParameters = [],
@@ -3174,9 +3158,7 @@
           (HsFunPtr
             (HsFun
               (HsTypRef
-                (HsName
-                  "@NsTypeConstr"
-                  "Matrix"))
+                (Name "@NsTypeConstr" "Matrix"))
               (HsIO
                 (HsPrimType HsPrimCInt))))),
       foreignImportOrigName =
@@ -3194,7 +3176,7 @@
               (TypedefRegular
                 NamePair {
                   nameC = Name "matrix",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Matrix"})]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
@@ -3204,7 +3186,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_array_9ec02aa16b020aa0",
       foreignImportParameters = [],
@@ -3243,7 +3225,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_array_a41b8d1332b69b95",
       foreignImportParameters = [],
@@ -3253,7 +3235,7 @@
           (HsFunPtr
             (HsFun
               (HsTypRef
-                (HsName
+                (Name
                   "@NsTypeConstr"
                   "Tripletlist"))
               (HsIO
@@ -3273,7 +3255,7 @@
               (TypedefRegular
                 NamePair {
                   nameC = Name "tripletlist",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Tripletlist"})]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
@@ -3283,7 +3265,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_array_76f53f330102e743",
       foreignImportParameters = [],
@@ -3320,7 +3302,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_array_abcc94f01de77b25",
       foreignImportParameters = [],
@@ -3331,7 +3313,7 @@
             (HsIO
               (HsPtr
                 (HsTypRef
-                  (HsName
+                  (Name
                     "@NsTypeConstr"
                     "Triplet")))))),
       foreignImportOrigName =
@@ -3350,7 +3332,7 @@
               (TypedefRegular
                 NamePair {
                   nameC = Name "triplet",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Triplet"})))),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
@@ -3358,7 +3340,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_array_6661b46e4a751a85",
       foreignImportParameters = [],
@@ -3393,7 +3375,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_array_9c80a9e3300aad15",
       foreignImportParameters = [],
@@ -3404,7 +3386,7 @@
             (HsIO
               (HsPtr
                 (HsTypRef
-                  (HsName
+                  (Name
                     "@NsTypeConstr"
                     "List")))))),
       foreignImportOrigName =
@@ -3423,7 +3405,7 @@
               (TypedefRegular
                 NamePair {
                   nameC = Name "list",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "List"})))),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
@@ -3431,7 +3413,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_array_bb741b7e8c029e7e",
       foreignImportParameters = [],
@@ -3472,7 +3454,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_array_75d83252a55a5c64",
       foreignImportParameters = [],
@@ -3483,7 +3465,7 @@
             (HsIO
               (HsPtr
                 (HsTypRef
-                  (HsName
+                  (Name
                     "@NsTypeConstr"
                     "Matrix")))))),
       foreignImportOrigName =
@@ -3502,7 +3484,7 @@
               (TypedefRegular
                 NamePair {
                   nameC = Name "matrix",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Matrix"})))),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
@@ -3510,7 +3492,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_array_069ac2d1873f3210",
       foreignImportParameters = [],
@@ -3549,7 +3531,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_array_314971335aaa6db3",
       foreignImportParameters = [],
@@ -3560,7 +3542,7 @@
             (HsIO
               (HsPtr
                 (HsTypRef
-                  (HsName
+                  (Name
                     "@NsTypeConstr"
                     "Tripletlist")))))),
       foreignImportOrigName =
@@ -3579,7 +3561,7 @@
               (TypedefRegular
                 NamePair {
                   nameC = Name "tripletlist",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Tripletlist"})))),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
@@ -3587,7 +3569,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_array_a6413f4d2092265d",
       foreignImportParameters = [],
@@ -3617,7 +3599,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_array_1693226264ba4aeb",
       foreignImportParameters = [],
@@ -3647,7 +3629,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_array_dafcf99a73b93389",
       foreignImportParameters = [],
@@ -3677,7 +3659,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_array_ca1016acc3449dee",
       foreignImportParameters = [],
@@ -3707,7 +3689,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_array_1a8c921160bc99a6",
       foreignImportParameters = [],
@@ -3737,7 +3719,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_array_17cf970243739b65",
       foreignImportParameters = [],
@@ -3765,7 +3747,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_array_85bc33b188037456",
       foreignImportParameters = [],
@@ -3795,7 +3777,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_array_87c784150cd3ff65",
       foreignImportParameters = [],
@@ -3804,7 +3786,7 @@
         (HsIO
           (HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "Triplet")))),
       foreignImportOrigName =
@@ -3820,7 +3802,7 @@
           (TypedefRegular
             NamePair {
               nameC = Name "triplet",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Triplet"})),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
@@ -3828,7 +3810,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_array_e7b0de7633a7a62a",
       foreignImportParameters = [],
@@ -3856,7 +3838,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_array_8fb64bc6c2bd4c73",
       foreignImportParameters = [],
@@ -3865,7 +3847,7 @@
         (HsIO
           (HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "List")))),
       foreignImportOrigName =
@@ -3881,7 +3863,7 @@
           (TypedefRegular
             NamePair {
               nameC = Name "list",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "List"})),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
@@ -3889,7 +3871,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_array_7348a94e6adce96e",
       foreignImportParameters = [],
@@ -3925,7 +3907,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_array_1308613140bb4b80",
       foreignImportParameters = [],
@@ -3934,7 +3916,7 @@
         (HsIO
           (HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "Matrix")))),
       foreignImportOrigName =
@@ -3950,7 +3932,7 @@
           (TypedefRegular
             NamePair {
               nameC = Name "matrix",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Matrix"})),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
@@ -3958,7 +3940,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_array_a060984b378ed676",
       foreignImportParameters = [],
@@ -3992,7 +3974,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_array_d82706abb6d8ea04",
       foreignImportParameters = [],
@@ -4001,7 +3983,7 @@
         (HsIO
           (HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "Tripletlist")))),
       foreignImportOrigName =
@@ -4017,7 +3999,7 @@
           (TypedefRegular
             NamePair {
               nameC = Name "tripletlist",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Tripletlist"})),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},

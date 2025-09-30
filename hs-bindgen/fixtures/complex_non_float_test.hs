@@ -1,7 +1,7 @@
 [
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_complex_non_float_test_1a47f4ebfee55a62",
       foreignImportParameters = [],
@@ -30,7 +30,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_complex_non_float_test_d56d4f7328166c91",
       foreignImportParameters = [],
@@ -59,7 +59,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_complex_non_float_test_b596fcc6ded5636c",
       foreignImportParameters = [],
@@ -88,7 +88,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_complex_non_float_test_9f8a73e0d4ba6969",
       foreignImportParameters = [],
@@ -115,7 +115,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_complex_non_float_test_4727b3aff4118d69",
       foreignImportParameters = [],

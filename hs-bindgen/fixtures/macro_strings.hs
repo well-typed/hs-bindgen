@@ -1,7 +1,7 @@
 [
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "c1",
       varDeclType = ForallTy {
@@ -33,7 +33,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "c2",
       varDeclType = ForallTy {
@@ -65,7 +65,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "c3",
       varDeclType = ForallTy {
@@ -97,7 +97,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "c4",
       varDeclType = ForallTy {
@@ -129,7 +129,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "c5",
       varDeclType = ForallTy {
@@ -161,7 +161,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "c6",
       varDeclType = ForallTy {
@@ -193,7 +193,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "c7",
       varDeclType = ForallTy {
@@ -225,7 +225,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "c8",
       varDeclType = ForallTy {
@@ -257,9 +257,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
-        "@NsVar"
-        "d",
+      varDeclName = Name "@NsVar" "d",
       varDeclType = ForallTy {
         forallTyBinders = [],
         forallTy = QuantTy {
@@ -289,7 +287,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "j1",
       varDeclType = ForallTy {
@@ -323,7 +321,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "j2",
       varDeclType = ForallTy {
@@ -357,7 +355,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "j3",
       varDeclType = ForallTy {
@@ -390,7 +388,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "s1",
       varDeclType = ForallTy {
@@ -448,7 +446,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "s2",
       varDeclType = ForallTy {
@@ -506,7 +504,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "s3",
       varDeclType = ForallTy {
@@ -564,7 +562,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "s4",
       varDeclType = ForallTy {
@@ -622,7 +620,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "s5",
       varDeclType = ForallTy {
@@ -680,7 +678,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "s6",
       varDeclType = ForallTy {
@@ -738,7 +736,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "s7",
       varDeclType = ForallTy {
@@ -796,7 +794,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "s8",
       varDeclType = ForallTy {
@@ -854,7 +852,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "t1",
       varDeclType = ForallTy {
@@ -913,7 +911,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "t2",
       varDeclType = ForallTy {
@@ -972,7 +970,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "t3",
       varDeclType = ForallTy {
@@ -1031,9 +1029,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
-        "@NsVar"
-        "u",
+      varDeclName = Name "@NsVar" "u",
       varDeclType = ForallTy {
         forallTyBinders = [],
         forallTy = QuantTy {
@@ -1098,9 +1094,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
-        "@NsVar"
-        "v",
+      varDeclName = Name "@NsVar" "v",
       varDeclType = ForallTy {
         forallTyBinders = [],
         forallTy = QuantTy {
@@ -1157,7 +1151,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "w1",
       varDeclType = ForallTy {
@@ -1216,7 +1210,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "w2",
       varDeclType = ForallTy {

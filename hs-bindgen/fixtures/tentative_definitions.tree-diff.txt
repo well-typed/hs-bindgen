@@ -6,8 +6,7 @@ TranslationUnit {
         "tentative_definitions.h:17:5",
         declId = NamePair {
           nameC = Name "i1",
-          nameHsIdent = HsIdentifier
-            "i1"},
+          nameHsIdent = Identifier "i1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -32,8 +31,7 @@ TranslationUnit {
         "tentative_definitions.h:21:12",
         declId = NamePair {
           nameC = Name "i2",
-          nameHsIdent = HsIdentifier
-            "i2"},
+          nameHsIdent = Identifier "i2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -58,8 +56,7 @@ TranslationUnit {
         "tentative_definitions.h:30:5",
         declId = NamePair {
           nameC = Name "i3",
-          nameHsIdent = HsIdentifier
-            "i3"},
+          nameHsIdent = Identifier "i3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just

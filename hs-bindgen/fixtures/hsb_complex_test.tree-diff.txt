@@ -7,7 +7,7 @@ TranslationUnit {
         declId = NamePair {
           nameC = Name
             "global_complex_float",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "global_complex_float"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -34,7 +34,7 @@ TranslationUnit {
         declId = NamePair {
           nameC = Name
             "global_complex_double",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "global_complex_double"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -61,7 +61,7 @@ TranslationUnit {
         declId = NamePair {
           nameC = Name
             "global_complex_float_flipped",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "global_complex_float_flipped"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -88,7 +88,7 @@ TranslationUnit {
         declId = NamePair {
           nameC = Name
             "global_complex_double_flipped",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "global_complex_double_flipped"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -115,7 +115,7 @@ TranslationUnit {
         declId = NamePair {
           nameC = Name
             "global_Complex_float",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "global_Complex_float"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -142,7 +142,7 @@ TranslationUnit {
         declId = NamePair {
           nameC = Name
             "global_Complex_double",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "global_Complex_double"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -169,7 +169,7 @@ TranslationUnit {
         declId = NamePair {
           nameC = Name
             "global_Complex_float_flipped",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "global_Complex_float_flipped"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -196,7 +196,7 @@ TranslationUnit {
         declId = NamePair {
           nameC = Name
             "global_Complex_double_flipped",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "global_Complex_double_flipped"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -223,7 +223,7 @@ TranslationUnit {
         declId = NamePair {
           nameC = Name
             "const_complex_float",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "const_complex_float"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -251,7 +251,7 @@ TranslationUnit {
         declId = NamePair {
           nameC = Name
             "const_complex_double",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "const_complex_double"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -279,7 +279,7 @@ TranslationUnit {
         declId = NamePair {
           nameC = Name
             "volatile_complex_float",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "volatile_complex_float"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -306,7 +306,7 @@ TranslationUnit {
         declId = NamePair {
           nameC = Name
             "volatile_complex_double",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "volatile_complex_double"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -333,7 +333,7 @@ TranslationUnit {
         declId = NamePair {
           nameC = Name
             "multiply_complex_f",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "multiply_complex_f"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -351,14 +351,14 @@ TranslationUnit {
               (Just
                 NamePair {
                   nameC = Name "a",
-                  nameHsIdent = HsIdentifier "a"})
+                  nameHsIdent = Identifier "a"})
               (TypeComplex
                 (PrimFloating PrimFloat)),
             _×_
               (Just
                 NamePair {
                   nameC = Name "b",
-                  nameHsIdent = HsIdentifier "b"})
+                  nameHsIdent = Identifier "b"})
               (TypeComplex
                 (PrimFloating PrimFloat))],
           functionAttrs =
@@ -378,7 +378,7 @@ TranslationUnit {
         "hsb_complex_test.h:22:16",
         declId = NamePair {
           nameC = Name "add_complex",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "add_complex"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -396,14 +396,14 @@ TranslationUnit {
               (Just
                 NamePair {
                   nameC = Name "a",
-                  nameHsIdent = HsIdentifier "a"})
+                  nameHsIdent = Identifier "a"})
               (TypeComplex
                 (PrimFloating PrimDouble)),
             _×_
               (Just
                 NamePair {
                   nameC = Name "b",
-                  nameHsIdent = HsIdentifier "b"})
+                  nameHsIdent = Identifier "b"})
               (TypeComplex
                 (PrimFloating PrimDouble))],
           functionAttrs =
@@ -423,7 +423,7 @@ TranslationUnit {
         "hsb_complex_test.h:24:9",
         declId = NamePair {
           nameC = Name "complex_object_t",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Complex_object_t"},
         declOrigin = NameOriginGenerated
           (AnonId
@@ -440,7 +440,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName
+            (Name
               "@NsConstr"
               "Complex_object_t"),
           structSizeof = 32,
@@ -452,7 +452,7 @@ TranslationUnit {
                 "hsb_complex_test.h:25:20",
                 fieldName = NamePair {
                   nameC = Name "velocity",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "complex_object_t_velocity"},
                 fieldComment = Nothing},
               structFieldType = TypeComplex
@@ -465,7 +465,7 @@ TranslationUnit {
                 "hsb_complex_test.h:26:20",
                 fieldName = NamePair {
                   nameC = Name "position",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "complex_object_t_position"},
                 fieldComment = Nothing},
               structFieldType = TypeComplex
@@ -478,7 +478,7 @@ TranslationUnit {
                 "hsb_complex_test.h:27:9",
                 fieldName = NamePair {
                   nameC = Name "id",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "complex_object_t_id"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -499,7 +499,7 @@ TranslationUnit {
         declId = NamePair {
           nameC = Name
             "complex_float_array",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "complex_float_array"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -528,7 +528,7 @@ TranslationUnit {
         declId = NamePair {
           nameC = Name
             "complex_double_array",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "complex_double_array"},
         declOrigin = NameOriginInSource,
         declAliases = [],

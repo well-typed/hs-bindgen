@@ -1,13 +1,13 @@
 [
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "square_cp",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "x"),
+            (Name "@NsVar" "x"),
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
@@ -36,7 +36,7 @@
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypePrim
                 (PrimIntegral PrimInt Signed))],
           functionAttrs =
@@ -71,13 +71,13 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "square_pc",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "x"),
+            (Name "@NsVar" "x"),
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
@@ -106,7 +106,7 @@
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypePrim
                 (PrimIntegral PrimInt Signed))],
           functionAttrs =
@@ -131,13 +131,13 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "square_cc",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "x"),
+            (Name "@NsVar" "x"),
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
@@ -166,7 +166,7 @@
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypePrim
                 (PrimIntegral PrimInt Signed))],
           functionAttrs =
@@ -191,13 +191,13 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "square_pp",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "x"),
+            (Name "@NsVar" "x"),
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
@@ -226,7 +226,7 @@
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypePrim
                 (PrimIntegral PrimInt Signed))],
           functionAttrs =
@@ -260,13 +260,13 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "square_cp",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "x"),
+            (Name "@NsVar" "x"),
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
@@ -295,7 +295,7 @@
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypePrim
                 (PrimIntegral PrimInt Signed))],
           functionAttrs =
@@ -330,13 +330,13 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "square_pc",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "x"),
+            (Name "@NsVar" "x"),
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
@@ -365,7 +365,7 @@
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypePrim
                 (PrimIntegral PrimInt Signed))],
           functionAttrs =
@@ -390,13 +390,13 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "square_cc",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "x"),
+            (Name "@NsVar" "x"),
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
@@ -425,7 +425,7 @@
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypePrim
                 (PrimIntegral PrimInt Signed))],
           functionAttrs =
@@ -450,13 +450,13 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "square_pp",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "x"),
+            (Name "@NsVar" "x"),
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
@@ -485,7 +485,7 @@
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypePrim
                 (PrimIntegral PrimInt Signed))],
           functionAttrs =
@@ -519,7 +519,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_fun_attributes_conflict_a488b67527d299f8",
       foreignImportParameters = [],
@@ -553,7 +553,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_fun_attributes_conflict_c4cea088a40be2f5",
       foreignImportParameters = [],
@@ -587,7 +587,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_fun_attributes_conflict_3bc327fede4fc009",
       foreignImportParameters = [],
@@ -621,7 +621,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_fun_attributes_conflict_dca75c8c02c209b2",
       foreignImportParameters = [],

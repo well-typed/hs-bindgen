@@ -1,7 +1,7 @@
 [
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "iNCR",
       varDeclType = ForallTy {
@@ -71,7 +71,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "aDD",
       varDeclType = ForallTy {
@@ -123,7 +123,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "iD",
       varDeclType = ForallTy {
@@ -153,7 +153,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "cONST",
       varDeclType = ForallTy {
@@ -189,7 +189,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "cMP",
       varDeclType = ForallTy {
@@ -248,7 +248,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "fUN1",
       varDeclType = ForallTy {
@@ -362,7 +362,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "fUN2",
       varDeclType = ForallTy {
@@ -454,9 +454,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
-        "@NsVar"
-        "g",
+      varDeclName = Name "@NsVar" "g",
       varDeclType = ForallTy {
         forallTyBinders = [
           NameHint "a",
@@ -512,15 +510,15 @@
               (NameHint "y")
               (VarDeclApp
                 (VarAppHead
-                  (HsName "@NsVar" "cONST"))
+                  (Name "@NsVar" "cONST"))
                 [
                   VarDeclApp
                     (VarAppHead
-                      (HsName "@NsVar" "iNCR"))
+                      (Name "@NsVar" "iNCR"))
                     [VarDeclVar (Idx 0)],
                   VarDeclApp
                     (VarAppHead
-                      (HsName "@NsVar" "iD"))
+                      (Name "@NsVar" "iD"))
                     [VarDeclVar (Idx 1)]])))),
       varDeclComment = Just
         Comment {
@@ -537,7 +535,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "dIV1",
       varDeclType = ForallTy {
@@ -648,7 +646,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "dIV2",
       varDeclType = ForallTy {
@@ -751,7 +749,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "sWAP32",
       varDeclType = ForallTy {
@@ -936,7 +934,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "aV_VERSION_INT",
       varDeclType = ForallTy {

@@ -1,7 +1,7 @@
 [
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "mAX_NAME_LENGTH",
       varDeclType = ForallTy {
@@ -40,28 +40,28 @@
           commentChildren = []}},
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "Size_type",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "Size_type",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_Size_type",
         fieldType = HsExtBinding
-          ExtHsRef {
-            extHsRefModule = HsModuleName
+          ExtRef {
+            extRefModule = ModuleName
               "HsBindgen.Runtime.Prelude",
-            extHsRefIdentifier =
-            HsIdentifier "CSize"}
+            extRefIdentifier = Identifier
+              "CSize"}
           TypeSpec {
             typeSpecModule = Just
-              (HsModuleName
+              (ModuleName
                 "HsBindgen.Runtime.Prelude"),
             typeSpecIdentifier = Just
-              (HsIdentifier "CSize"),
+              (Identifier "CSize"),
             typeSpecInstances = Map.fromList
               [
                 _×_
@@ -169,7 +169,7 @@
           "doxygen_docs.h:54:16",
           declId = NamePair {
             nameC = Name "size_type",
-            nameHsIdent = HsIdentifier
+            nameHsIdent = Identifier
               "Size_type"},
           declOrigin = NameOriginInSource,
           declAliases = [],
@@ -203,10 +203,10 @@
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "Size_type",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_Size_type"},
             typedefType = TypeExtBinding
@@ -215,17 +215,17 @@
                   qualNameName = Name "size_t",
                   qualNameKind =
                   NameKindOrdinary},
-                extHsRef = ExtHsRef {
-                  extHsRefModule = HsModuleName
+                extHsRef = ExtRef {
+                  extRefModule = ModuleName
                     "HsBindgen.Runtime.Prelude",
-                  extHsRefIdentifier =
-                  HsIdentifier "CSize"},
+                  extRefIdentifier = Identifier
+                    "CSize"},
                 extHsSpec = TypeSpec {
                   typeSpecModule = Just
-                    (HsModuleName
+                    (ModuleName
                       "HsBindgen.Runtime.Prelude"),
                   typeSpecIdentifier = Just
-                    (HsIdentifier "CSize"),
+                    (Identifier "CSize"),
                   typeSpecInstances = Map.fromList
                     [
                       _×_
@@ -374,7 +374,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Storable,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Size_type",
       deriveInstanceComment =
@@ -384,7 +384,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Size_type",
       deriveInstanceComment =
@@ -394,7 +394,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Ord,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Size_type",
       deriveInstanceComment =
@@ -404,7 +404,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Read,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Size_type",
       deriveInstanceComment =
@@ -414,7 +414,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Size_type",
       deriveInstanceComment =
@@ -424,7 +424,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Enum,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Size_type",
       deriveInstanceComment =
@@ -434,7 +434,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Ix,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Size_type",
       deriveInstanceComment =
@@ -444,7 +444,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bounded,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Size_type",
       deriveInstanceComment =
@@ -454,7 +454,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Size_type",
       deriveInstanceComment =
@@ -465,7 +465,7 @@
       DeriveNewtype,
       deriveInstanceClass =
       FiniteBits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Size_type",
       deriveInstanceComment =
@@ -475,7 +475,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Integral,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Size_type",
       deriveInstanceComment =
@@ -485,7 +485,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Num,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Size_type",
       deriveInstanceComment =
@@ -495,14 +495,14 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Real,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Size_type",
       deriveInstanceComment =
       Nothing},
   DeclEmpty
     EmptyData {
-      emptyDataName = HsName
+      emptyDataName = Name
         "@NsTypeConstr"
         "Forward_declared_struct",
       emptyDataOrigin = Decl {
@@ -511,7 +511,7 @@
           declId = NamePair {
             nameC = Name
               "forward_declared_struct",
-            nameHsIdent = HsIdentifier
+            nameHsIdent = Identifier
               "Forward_declared_struct"},
           declOrigin = NameOriginInSource,
           declAliases = [],
@@ -572,7 +572,7 @@
                   "Forward declaration with documentation"]]}},
   DeclEmpty
     EmptyData {
-      emptyDataName = HsName
+      emptyDataName = Name
         "@NsTypeConstr"
         "Forward_declared_union",
       emptyDataOrigin = Decl {
@@ -581,7 +581,7 @@
           declId = NamePair {
             nameC = Name
               "forward_declared_union",
-            nameHsIdent = HsIdentifier
+            nameHsIdent = Identifier
               "Forward_declared_union"},
           declOrigin = NameOriginInSource,
           declAliases = [],
@@ -628,14 +628,14 @@
                   "Forward declaration of union"]]}},
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "Color_enum",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "Color_enum",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_Color_enum",
         fieldType = HsPrimType
@@ -647,7 +647,7 @@
           declLoc = "doxygen_docs.h:83:6",
           declId = NamePair {
             nameC = Name "color_enum",
-            nameHsIdent = HsIdentifier
+            nameHsIdent = Identifier
               "Color_enum"},
           declOrigin = NameOriginInSource,
           declAliases = [],
@@ -672,10 +672,10 @@
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "Color_enum",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_Color_enum"},
             enumType = TypePrim
@@ -689,7 +689,7 @@
                   "doxygen_docs.h:84:5",
                   fieldName = NamePair {
                     nameC = Name "COLOR_RED",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "COLOR_RED"},
                   fieldComment = Just
                     (Comment
@@ -703,7 +703,7 @@
                   "doxygen_docs.h:85:5",
                   fieldName = NamePair {
                     nameC = Name "COLOR_GREEN",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "COLOR_GREEN"},
                   fieldComment = Just
                     (Comment
@@ -717,7 +717,7 @@
                   "doxygen_docs.h:86:5",
                   fieldName = NamePair {
                     nameC = Name "COLOR_BLUE",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "COLOR_BLUE"},
                   fieldComment = Just
                     (Comment
@@ -757,15 +757,15 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Color_enum",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Color_enum",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "un_Color_enum",
               fieldType = HsPrimType
@@ -784,15 +784,15 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Color_enum",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Color_enum",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "un_Color_enum",
                       fieldType = HsPrimType
@@ -811,15 +811,15 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Color_enum",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Color_enum",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "un_Color_enum",
                       fieldType = HsPrimType
@@ -844,7 +844,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Color_enum",
       deriveInstanceComment =
@@ -854,7 +854,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Ord,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Color_enum",
       deriveInstanceComment =
@@ -864,15 +864,15 @@
       defineInstanceDeclarations =
       InstanceCEnum
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Color_enum",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Color_enum",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "un_Color_enum",
               fieldType = HsPrimType
@@ -903,15 +903,15 @@
       defineInstanceDeclarations =
       InstanceSequentialCEnum
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Color_enum",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Color_enum",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "un_Color_enum",
               fieldType = HsPrimType
@@ -922,10 +922,8 @@
           structInstances = Set.fromList
             [Eq, Ord, Read, Show, Storable],
           structComment = Nothing}
-        (HsName "@NsConstr" "COLOR_RED")
-        (HsName
-          "@NsConstr"
-          "COLOR_BLUE"),
+        (Name "@NsConstr" "COLOR_RED")
+        (Name "@NsConstr" "COLOR_BLUE"),
       defineInstanceComment =
       Nothing},
   DeclInstance
@@ -933,15 +931,15 @@
       defineInstanceDeclarations =
       InstanceCEnumShow
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Color_enum",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Color_enum",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "un_Color_enum",
               fieldType = HsPrimType
@@ -959,15 +957,15 @@
       defineInstanceDeclarations =
       InstanceCEnumRead
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Color_enum",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Color_enum",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "un_Color_enum",
               fieldType = HsPrimType
@@ -982,13 +980,13 @@
       Nothing},
   DeclPatSyn
     PatSyn {
-      patSynName = HsName
+      patSynName = Name
         "@NsConstr"
         "COLOR_RED",
-      patSynType = HsName
+      patSynType = Name
         "@NsTypeConstr"
         "Color_enum",
-      patSynConstr = HsName
+      patSynConstr = Name
         "@NsConstr"
         "Color_enum",
       patSynValue = 0,
@@ -999,7 +997,7 @@
             "doxygen_docs.h:84:5",
             fieldName = NamePair {
               nameC = Name "COLOR_RED",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "COLOR_RED"},
             fieldComment = Just
               (Comment
@@ -1024,13 +1022,13 @@
           commentChildren = []}},
   DeclPatSyn
     PatSyn {
-      patSynName = HsName
+      patSynName = Name
         "@NsConstr"
         "COLOR_GREEN",
-      patSynType = HsName
+      patSynType = Name
         "@NsTypeConstr"
         "Color_enum",
-      patSynConstr = HsName
+      patSynConstr = Name
         "@NsConstr"
         "Color_enum",
       patSynValue = 1,
@@ -1041,7 +1039,7 @@
             "doxygen_docs.h:85:5",
             fieldName = NamePair {
               nameC = Name "COLOR_GREEN",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "COLOR_GREEN"},
             fieldComment = Just
               (Comment
@@ -1066,13 +1064,13 @@
           commentChildren = []}},
   DeclPatSyn
     PatSyn {
-      patSynName = HsName
+      patSynName = Name
         "@NsConstr"
         "COLOR_BLUE",
-      patSynType = HsName
+      patSynType = Name
         "@NsTypeConstr"
         "Color_enum",
-      patSynConstr = HsName
+      patSynConstr = Name
         "@NsConstr"
         "Color_enum",
       patSynValue = 2,
@@ -1083,7 +1081,7 @@
             "doxygen_docs.h:86:5",
             fieldName = NamePair {
               nameC = Name "COLOR_BLUE",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "COLOR_BLUE"},
             fieldComment = Just
               (Comment
@@ -1108,14 +1106,14 @@
           commentChildren = []}},
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "Event_callback_t",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "Event_callback_t",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_Event_callback_t",
         fieldType = HsFunPtr
@@ -1133,7 +1131,7 @@
           "doxygen_docs.h:225:15",
           declId = NamePair {
             nameC = Name "event_callback_t",
-            nameHsIdent = HsIdentifier
+            nameHsIdent = Identifier
               "Event_callback_t"},
           declOrigin = NameOriginInSource,
           declAliases = [],
@@ -1188,10 +1186,10 @@
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "Event_callback_t",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_Event_callback_t"},
             typedefType = TypePointer
@@ -1260,7 +1258,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Storable,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Event_callback_t",
       deriveInstanceComment =
@@ -1270,7 +1268,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Event_callback_t",
       deriveInstanceComment =
@@ -1280,7 +1278,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Ord,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Event_callback_t",
       deriveInstanceComment =
@@ -1290,36 +1288,36 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Event_callback_t",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "Config_t",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "Config_t",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "config_t_id",
           fieldType = HsExtBinding
-            ExtHsRef {
-              extHsRefModule = HsModuleName
+            ExtRef {
+              extRefModule = ModuleName
                 "HsBindgen.Runtime.Prelude",
-              extHsRefIdentifier =
-              HsIdentifier "Word32"}
+              extRefIdentifier = Identifier
+                "Word32"}
             TypeSpec {
               typeSpecModule = Just
-                (HsModuleName
+                (ModuleName
                   "HsBindgen.Runtime.Prelude"),
               typeSpecIdentifier = Just
-                (HsIdentifier "Word32"),
+                (Identifier "Word32"),
               typeSpecInstances = Map.fromList
                 [
                   _×_
@@ -1426,7 +1424,7 @@
                 "doxygen_docs.h:234:14",
                 fieldName = NamePair {
                   nameC = Name "id",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "config_t_id"},
                 fieldComment = Just
                   (Comment
@@ -1444,17 +1442,17 @@
                     qualNameName = Name "uint32_t",
                     qualNameKind =
                     NameKindOrdinary},
-                  extHsRef = ExtHsRef {
-                    extHsRefModule = HsModuleName
+                  extHsRef = ExtRef {
+                    extRefModule = ModuleName
                       "HsBindgen.Runtime.Prelude",
-                    extHsRefIdentifier =
-                    HsIdentifier "Word32"},
+                    extRefIdentifier = Identifier
+                      "Word32"},
                   extHsSpec = TypeSpec {
                     typeSpecModule = Just
-                      (HsModuleName
+                      (ModuleName
                         "HsBindgen.Runtime.Prelude"),
                     typeSpecIdentifier = Just
-                      (HsIdentifier "Word32"),
+                      (Identifier "Word32"),
                     typeSpecInstances = Map.fromList
                       [
                         _×_
@@ -1574,7 +1572,7 @@
                     TextContent
                       "Unique identifier"]]}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "config_t_name",
           fieldType = HsConstArray
@@ -1587,7 +1585,7 @@
                 "doxygen_docs.h:237:10",
                 fieldName = NamePair {
                   nameC = Name "name",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "config_t_name"},
                 fieldComment = Just
                   (Comment
@@ -1625,21 +1623,21 @@
                     TextContent
                       "Human-readable name"]]}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "config_t_flags",
           fieldType = HsExtBinding
-            ExtHsRef {
-              extHsRefModule = HsModuleName
+            ExtRef {
+              extRefModule = ModuleName
                 "HsBindgen.Runtime.Prelude",
-              extHsRefIdentifier =
-              HsIdentifier "Word32"}
+              extRefIdentifier = Identifier
+                "Word32"}
             TypeSpec {
               typeSpecModule = Just
-                (HsModuleName
+                (ModuleName
                   "HsBindgen.Runtime.Prelude"),
               typeSpecIdentifier = Just
-                (HsIdentifier "Word32"),
+                (Identifier "Word32"),
               typeSpecInstances = Map.fromList
                 [
                   _×_
@@ -1746,7 +1744,7 @@
                 "doxygen_docs.h:240:14",
                 fieldName = NamePair {
                   nameC = Name "flags",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "config_t_flags"},
                 fieldComment = Just
                   (Comment
@@ -1764,17 +1762,17 @@
                     qualNameName = Name "uint32_t",
                     qualNameKind =
                     NameKindOrdinary},
-                  extHsRef = ExtHsRef {
-                    extHsRefModule = HsModuleName
+                  extHsRef = ExtRef {
+                    extRefModule = ModuleName
                       "HsBindgen.Runtime.Prelude",
-                    extHsRefIdentifier =
-                    HsIdentifier "Word32"},
+                    extRefIdentifier = Identifier
+                      "Word32"},
                   extHsSpec = TypeSpec {
                     typeSpecModule = Just
-                      (HsModuleName
+                      (ModuleName
                         "HsBindgen.Runtime.Prelude"),
                     typeSpecIdentifier = Just
-                      (HsIdentifier "Word32"),
+                      (Identifier "Word32"),
                     typeSpecInstances = Map.fromList
                       [
                         _×_
@@ -1894,11 +1892,11 @@
                     TextContent
                       "Configuration flags"]]}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "config_t_callback",
           fieldType = HsTypRef
-            (HsName
+            (Name
               "@NsTypeConstr"
               "Event_callback_t"),
           fieldOrigin = StructField
@@ -1908,7 +1906,7 @@
                 "doxygen_docs.h:247:22",
                 fieldName = NamePair {
                   nameC = Name "callback",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "config_t_callback"},
                 fieldComment = Just
                   (Comment
@@ -1927,14 +1925,14 @@
                             (ById
                               NamePair {
                                 nameC = Name "event_callback_t",
-                                nameHsIdent = HsIdentifier
+                                nameHsIdent = Identifier
                                   "Event_callback_t"})],
                       Paragraph [TextContent ""]])},
               structFieldType = TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "event_callback_t",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Event_callback_t"}),
               structFieldOffset = 576,
               structFieldWidth = Nothing},
@@ -1961,7 +1959,7 @@
                     Identifier
                       "Event_callback_t"]]}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "config_t_user_data",
           fieldType = HsPtr
@@ -1973,7 +1971,7 @@
                 "doxygen_docs.h:250:11",
                 fieldName = NamePair {
                   nameC = Name "user_data",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "config_t_user_data"},
                 fieldComment = Just
                   (Comment
@@ -2014,7 +2012,7 @@
             "doxygen_docs.h:232:9",
             declId = NamePair {
               nameC = Name "config_t",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Config_t"},
             declOrigin = NameOriginGenerated
               (AnonId "doxygen_docs.h:232:9"),
@@ -2042,7 +2040,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "Config_t"),
+                (Name "@NsConstr" "Config_t"),
               structSizeof = 88,
               structAlignment = 8,
               structFields = [
@@ -2052,7 +2050,7 @@
                     "doxygen_docs.h:234:14",
                     fieldName = NamePair {
                       nameC = Name "id",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "config_t_id"},
                     fieldComment = Just
                       (Comment
@@ -2070,17 +2068,17 @@
                         qualNameName = Name "uint32_t",
                         qualNameKind =
                         NameKindOrdinary},
-                      extHsRef = ExtHsRef {
-                        extHsRefModule = HsModuleName
+                      extHsRef = ExtRef {
+                        extRefModule = ModuleName
                           "HsBindgen.Runtime.Prelude",
-                        extHsRefIdentifier =
-                        HsIdentifier "Word32"},
+                        extRefIdentifier = Identifier
+                          "Word32"},
                       extHsSpec = TypeSpec {
                         typeSpecModule = Just
-                          (HsModuleName
+                          (ModuleName
                             "HsBindgen.Runtime.Prelude"),
                         typeSpecIdentifier = Just
-                          (HsIdentifier "Word32"),
+                          (Identifier "Word32"),
                         typeSpecInstances = Map.fromList
                           [
                             _×_
@@ -2188,7 +2186,7 @@
                     "doxygen_docs.h:237:10",
                     fieldName = NamePair {
                       nameC = Name "name",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "config_t_name"},
                     fieldComment = Just
                       (Comment
@@ -2214,7 +2212,7 @@
                     "doxygen_docs.h:240:14",
                     fieldName = NamePair {
                       nameC = Name "flags",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "config_t_flags"},
                     fieldComment = Just
                       (Comment
@@ -2232,17 +2230,17 @@
                         qualNameName = Name "uint32_t",
                         qualNameKind =
                         NameKindOrdinary},
-                      extHsRef = ExtHsRef {
-                        extHsRefModule = HsModuleName
+                      extHsRef = ExtRef {
+                        extRefModule = ModuleName
                           "HsBindgen.Runtime.Prelude",
-                        extHsRefIdentifier =
-                        HsIdentifier "Word32"},
+                        extRefIdentifier = Identifier
+                          "Word32"},
                       extHsSpec = TypeSpec {
                         typeSpecModule = Just
-                          (HsModuleName
+                          (ModuleName
                             "HsBindgen.Runtime.Prelude"),
                         typeSpecIdentifier = Just
-                          (HsIdentifier "Word32"),
+                          (Identifier "Word32"),
                         typeSpecInstances = Map.fromList
                           [
                             _×_
@@ -2350,7 +2348,7 @@
                     "doxygen_docs.h:247:22",
                     fieldName = NamePair {
                       nameC = Name "callback",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "config_t_callback"},
                     fieldComment = Just
                       (Comment
@@ -2369,14 +2367,14 @@
                                 (ById
                                   NamePair {
                                     nameC = Name "event_callback_t",
-                                    nameHsIdent = HsIdentifier
+                                    nameHsIdent = Identifier
                                       "Event_callback_t"})],
                           Paragraph [TextContent ""]])},
                   structFieldType = TypeTypedef
                     (TypedefRegular
                       NamePair {
                         nameC = Name "event_callback_t",
-                        nameHsIdent = HsIdentifier
+                        nameHsIdent = Identifier
                           "Event_callback_t"}),
                   structFieldOffset = 576,
                   structFieldWidth = Nothing},
@@ -2386,7 +2384,7 @@
                     "doxygen_docs.h:250:11",
                     fieldName = NamePair {
                       nameC = Name "user_data",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "config_t_user_data"},
                     fieldComment = Just
                       (Comment
@@ -2437,29 +2435,29 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Config_t",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Config_t",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "config_t_id",
               fieldType = HsExtBinding
-                ExtHsRef {
-                  extHsRefModule = HsModuleName
+                ExtRef {
+                  extRefModule = ModuleName
                     "HsBindgen.Runtime.Prelude",
-                  extHsRefIdentifier =
-                  HsIdentifier "Word32"}
+                  extRefIdentifier = Identifier
+                    "Word32"}
                 TypeSpec {
                   typeSpecModule = Just
-                    (HsModuleName
+                    (ModuleName
                       "HsBindgen.Runtime.Prelude"),
                   typeSpecIdentifier = Just
-                    (HsIdentifier "Word32"),
+                    (Identifier "Word32"),
                   typeSpecInstances = Map.fromList
                     [
                       _×_
@@ -2566,7 +2564,7 @@
                     "doxygen_docs.h:234:14",
                     fieldName = NamePair {
                       nameC = Name "id",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "config_t_id"},
                     fieldComment = Just
                       (Comment
@@ -2584,17 +2582,17 @@
                         qualNameName = Name "uint32_t",
                         qualNameKind =
                         NameKindOrdinary},
-                      extHsRef = ExtHsRef {
-                        extHsRefModule = HsModuleName
+                      extHsRef = ExtRef {
+                        extRefModule = ModuleName
                           "HsBindgen.Runtime.Prelude",
-                        extHsRefIdentifier =
-                        HsIdentifier "Word32"},
+                        extRefIdentifier = Identifier
+                          "Word32"},
                       extHsSpec = TypeSpec {
                         typeSpecModule = Just
-                          (HsModuleName
+                          (ModuleName
                             "HsBindgen.Runtime.Prelude"),
                         typeSpecIdentifier = Just
-                          (HsIdentifier "Word32"),
+                          (Identifier "Word32"),
                         typeSpecInstances = Map.fromList
                           [
                             _×_
@@ -2714,7 +2712,7 @@
                         TextContent
                           "Unique identifier"]]}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "config_t_name",
               fieldType = HsConstArray
@@ -2727,7 +2725,7 @@
                     "doxygen_docs.h:237:10",
                     fieldName = NamePair {
                       nameC = Name "name",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "config_t_name"},
                     fieldComment = Just
                       (Comment
@@ -2765,21 +2763,21 @@
                         TextContent
                           "Human-readable name"]]}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "config_t_flags",
               fieldType = HsExtBinding
-                ExtHsRef {
-                  extHsRefModule = HsModuleName
+                ExtRef {
+                  extRefModule = ModuleName
                     "HsBindgen.Runtime.Prelude",
-                  extHsRefIdentifier =
-                  HsIdentifier "Word32"}
+                  extRefIdentifier = Identifier
+                    "Word32"}
                 TypeSpec {
                   typeSpecModule = Just
-                    (HsModuleName
+                    (ModuleName
                       "HsBindgen.Runtime.Prelude"),
                   typeSpecIdentifier = Just
-                    (HsIdentifier "Word32"),
+                    (Identifier "Word32"),
                   typeSpecInstances = Map.fromList
                     [
                       _×_
@@ -2886,7 +2884,7 @@
                     "doxygen_docs.h:240:14",
                     fieldName = NamePair {
                       nameC = Name "flags",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "config_t_flags"},
                     fieldComment = Just
                       (Comment
@@ -2904,17 +2902,17 @@
                         qualNameName = Name "uint32_t",
                         qualNameKind =
                         NameKindOrdinary},
-                      extHsRef = ExtHsRef {
-                        extHsRefModule = HsModuleName
+                      extHsRef = ExtRef {
+                        extRefModule = ModuleName
                           "HsBindgen.Runtime.Prelude",
-                        extHsRefIdentifier =
-                        HsIdentifier "Word32"},
+                        extRefIdentifier = Identifier
+                          "Word32"},
                       extHsSpec = TypeSpec {
                         typeSpecModule = Just
-                          (HsModuleName
+                          (ModuleName
                             "HsBindgen.Runtime.Prelude"),
                         typeSpecIdentifier = Just
-                          (HsIdentifier "Word32"),
+                          (Identifier "Word32"),
                         typeSpecInstances = Map.fromList
                           [
                             _×_
@@ -3034,11 +3032,11 @@
                         TextContent
                           "Configuration flags"]]}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "config_t_callback",
               fieldType = HsTypRef
-                (HsName
+                (Name
                   "@NsTypeConstr"
                   "Event_callback_t"),
               fieldOrigin = StructField
@@ -3048,7 +3046,7 @@
                     "doxygen_docs.h:247:22",
                     fieldName = NamePair {
                       nameC = Name "callback",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "config_t_callback"},
                     fieldComment = Just
                       (Comment
@@ -3067,14 +3065,14 @@
                                 (ById
                                   NamePair {
                                     nameC = Name "event_callback_t",
-                                    nameHsIdent = HsIdentifier
+                                    nameHsIdent = Identifier
                                       "Event_callback_t"})],
                           Paragraph [TextContent ""]])},
                   structFieldType = TypeTypedef
                     (TypedefRegular
                       NamePair {
                         nameC = Name "event_callback_t",
-                        nameHsIdent = HsIdentifier
+                        nameHsIdent = Identifier
                           "Event_callback_t"}),
                   structFieldOffset = 576,
                   structFieldWidth = Nothing},
@@ -3101,7 +3099,7 @@
                         Identifier
                           "Event_callback_t"]]}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "config_t_user_data",
               fieldType = HsPtr
@@ -3113,7 +3111,7 @@
                     "doxygen_docs.h:250:11",
                     fieldName = NamePair {
                       nameC = Name "user_data",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "config_t_user_data"},
                     fieldComment = Just
                       (Comment
@@ -3156,7 +3154,7 @@
                 "doxygen_docs.h:232:9",
                 declId = NamePair {
                   nameC = Name "config_t",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Config_t"},
                 declOrigin = NameOriginGenerated
                   (AnonId "doxygen_docs.h:232:9"),
@@ -3185,7 +3183,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "Config_t"),
+                    (Name "@NsConstr" "Config_t"),
                   structSizeof = 88,
                   structAlignment = 8,
                   structFields = [
@@ -3195,7 +3193,7 @@
                         "doxygen_docs.h:234:14",
                         fieldName = NamePair {
                           nameC = Name "id",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "config_t_id"},
                         fieldComment = Just
                           (Comment
@@ -3213,17 +3211,17 @@
                             qualNameName = Name "uint32_t",
                             qualNameKind =
                             NameKindOrdinary},
-                          extHsRef = ExtHsRef {
-                            extHsRefModule = HsModuleName
+                          extHsRef = ExtRef {
+                            extRefModule = ModuleName
                               "HsBindgen.Runtime.Prelude",
-                            extHsRefIdentifier =
-                            HsIdentifier "Word32"},
+                            extRefIdentifier = Identifier
+                              "Word32"},
                           extHsSpec = TypeSpec {
                             typeSpecModule = Just
-                              (HsModuleName
+                              (ModuleName
                                 "HsBindgen.Runtime.Prelude"),
                             typeSpecIdentifier = Just
-                              (HsIdentifier "Word32"),
+                              (Identifier "Word32"),
                             typeSpecInstances = Map.fromList
                               [
                                 _×_
@@ -3331,7 +3329,7 @@
                         "doxygen_docs.h:237:10",
                         fieldName = NamePair {
                           nameC = Name "name",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "config_t_name"},
                         fieldComment = Just
                           (Comment
@@ -3357,7 +3355,7 @@
                         "doxygen_docs.h:240:14",
                         fieldName = NamePair {
                           nameC = Name "flags",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "config_t_flags"},
                         fieldComment = Just
                           (Comment
@@ -3375,17 +3373,17 @@
                             qualNameName = Name "uint32_t",
                             qualNameKind =
                             NameKindOrdinary},
-                          extHsRef = ExtHsRef {
-                            extHsRefModule = HsModuleName
+                          extHsRef = ExtRef {
+                            extRefModule = ModuleName
                               "HsBindgen.Runtime.Prelude",
-                            extHsRefIdentifier =
-                            HsIdentifier "Word32"},
+                            extRefIdentifier = Identifier
+                              "Word32"},
                           extHsSpec = TypeSpec {
                             typeSpecModule = Just
-                              (HsModuleName
+                              (ModuleName
                                 "HsBindgen.Runtime.Prelude"),
                             typeSpecIdentifier = Just
-                              (HsIdentifier "Word32"),
+                              (Identifier "Word32"),
                             typeSpecInstances = Map.fromList
                               [
                                 _×_
@@ -3493,7 +3491,7 @@
                         "doxygen_docs.h:247:22",
                         fieldName = NamePair {
                           nameC = Name "callback",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "config_t_callback"},
                         fieldComment = Just
                           (Comment
@@ -3512,14 +3510,14 @@
                                     (ById
                                       NamePair {
                                         nameC = Name "event_callback_t",
-                                        nameHsIdent = HsIdentifier
+                                        nameHsIdent = Identifier
                                           "Event_callback_t"})],
                               Paragraph [TextContent ""]])},
                       structFieldType = TypeTypedef
                         (TypedefRegular
                           NamePair {
                             nameC = Name "event_callback_t",
-                            nameHsIdent = HsIdentifier
+                            nameHsIdent = Identifier
                               "Event_callback_t"}),
                       structFieldOffset = 576,
                       structFieldWidth = Nothing},
@@ -3529,7 +3527,7 @@
                         "doxygen_docs.h:250:11",
                         fieldName = NamePair {
                           nameC = Name "user_data",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "config_t_user_data"},
                         fieldComment = Just
                           (Comment
@@ -3584,29 +3582,29 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Config_t",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Config_t",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "config_t_id",
                       fieldType = HsExtBinding
-                        ExtHsRef {
-                          extHsRefModule = HsModuleName
+                        ExtRef {
+                          extRefModule = ModuleName
                             "HsBindgen.Runtime.Prelude",
-                          extHsRefIdentifier =
-                          HsIdentifier "Word32"}
+                          extRefIdentifier = Identifier
+                            "Word32"}
                         TypeSpec {
                           typeSpecModule = Just
-                            (HsModuleName
+                            (ModuleName
                               "HsBindgen.Runtime.Prelude"),
                           typeSpecIdentifier = Just
-                            (HsIdentifier "Word32"),
+                            (Identifier "Word32"),
                           typeSpecInstances = Map.fromList
                             [
                               _×_
@@ -3713,7 +3711,7 @@
                             "doxygen_docs.h:234:14",
                             fieldName = NamePair {
                               nameC = Name "id",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "config_t_id"},
                             fieldComment = Just
                               (Comment
@@ -3731,17 +3729,17 @@
                                 qualNameName = Name "uint32_t",
                                 qualNameKind =
                                 NameKindOrdinary},
-                              extHsRef = ExtHsRef {
-                                extHsRefModule = HsModuleName
+                              extHsRef = ExtRef {
+                                extRefModule = ModuleName
                                   "HsBindgen.Runtime.Prelude",
-                                extHsRefIdentifier =
-                                HsIdentifier "Word32"},
+                                extRefIdentifier = Identifier
+                                  "Word32"},
                               extHsSpec = TypeSpec {
                                 typeSpecModule = Just
-                                  (HsModuleName
+                                  (ModuleName
                                     "HsBindgen.Runtime.Prelude"),
                                 typeSpecIdentifier = Just
-                                  (HsIdentifier "Word32"),
+                                  (Identifier "Word32"),
                                 typeSpecInstances = Map.fromList
                                   [
                                     _×_
@@ -3861,7 +3859,7 @@
                                 TextContent
                                   "Unique identifier"]]}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "config_t_name",
                       fieldType = HsConstArray
@@ -3874,7 +3872,7 @@
                             "doxygen_docs.h:237:10",
                             fieldName = NamePair {
                               nameC = Name "name",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "config_t_name"},
                             fieldComment = Just
                               (Comment
@@ -3912,21 +3910,21 @@
                                 TextContent
                                   "Human-readable name"]]}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "config_t_flags",
                       fieldType = HsExtBinding
-                        ExtHsRef {
-                          extHsRefModule = HsModuleName
+                        ExtRef {
+                          extRefModule = ModuleName
                             "HsBindgen.Runtime.Prelude",
-                          extHsRefIdentifier =
-                          HsIdentifier "Word32"}
+                          extRefIdentifier = Identifier
+                            "Word32"}
                         TypeSpec {
                           typeSpecModule = Just
-                            (HsModuleName
+                            (ModuleName
                               "HsBindgen.Runtime.Prelude"),
                           typeSpecIdentifier = Just
-                            (HsIdentifier "Word32"),
+                            (Identifier "Word32"),
                           typeSpecInstances = Map.fromList
                             [
                               _×_
@@ -4033,7 +4031,7 @@
                             "doxygen_docs.h:240:14",
                             fieldName = NamePair {
                               nameC = Name "flags",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "config_t_flags"},
                             fieldComment = Just
                               (Comment
@@ -4051,17 +4049,17 @@
                                 qualNameName = Name "uint32_t",
                                 qualNameKind =
                                 NameKindOrdinary},
-                              extHsRef = ExtHsRef {
-                                extHsRefModule = HsModuleName
+                              extHsRef = ExtRef {
+                                extRefModule = ModuleName
                                   "HsBindgen.Runtime.Prelude",
-                                extHsRefIdentifier =
-                                HsIdentifier "Word32"},
+                                extRefIdentifier = Identifier
+                                  "Word32"},
                               extHsSpec = TypeSpec {
                                 typeSpecModule = Just
-                                  (HsModuleName
+                                  (ModuleName
                                     "HsBindgen.Runtime.Prelude"),
                                 typeSpecIdentifier = Just
-                                  (HsIdentifier "Word32"),
+                                  (Identifier "Word32"),
                                 typeSpecInstances = Map.fromList
                                   [
                                     _×_
@@ -4181,11 +4179,11 @@
                                 TextContent
                                   "Configuration flags"]]}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "config_t_callback",
                       fieldType = HsTypRef
-                        (HsName
+                        (Name
                           "@NsTypeConstr"
                           "Event_callback_t"),
                       fieldOrigin = StructField
@@ -4195,7 +4193,7 @@
                             "doxygen_docs.h:247:22",
                             fieldName = NamePair {
                               nameC = Name "callback",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "config_t_callback"},
                             fieldComment = Just
                               (Comment
@@ -4214,14 +4212,14 @@
                                         (ById
                                           NamePair {
                                             nameC = Name "event_callback_t",
-                                            nameHsIdent = HsIdentifier
+                                            nameHsIdent = Identifier
                                               "Event_callback_t"})],
                                   Paragraph [TextContent ""]])},
                           structFieldType = TypeTypedef
                             (TypedefRegular
                               NamePair {
                                 nameC = Name "event_callback_t",
-                                nameHsIdent = HsIdentifier
+                                nameHsIdent = Identifier
                                   "Event_callback_t"}),
                           structFieldOffset = 576,
                           structFieldWidth = Nothing},
@@ -4248,7 +4246,7 @@
                                 Identifier
                                   "Event_callback_t"]]}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "config_t_user_data",
                       fieldType = HsPtr
@@ -4260,7 +4258,7 @@
                             "doxygen_docs.h:250:11",
                             fieldName = NamePair {
                               nameC = Name "user_data",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "config_t_user_data"},
                             fieldComment = Just
                               (Comment
@@ -4303,7 +4301,7 @@
                         "doxygen_docs.h:232:9",
                         declId = NamePair {
                           nameC = Name "config_t",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Config_t"},
                         declOrigin = NameOriginGenerated
                           (AnonId "doxygen_docs.h:232:9"),
@@ -4332,7 +4330,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Config_t"),
+                            (Name "@NsConstr" "Config_t"),
                           structSizeof = 88,
                           structAlignment = 8,
                           structFields = [
@@ -4342,7 +4340,7 @@
                                 "doxygen_docs.h:234:14",
                                 fieldName = NamePair {
                                   nameC = Name "id",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "config_t_id"},
                                 fieldComment = Just
                                   (Comment
@@ -4360,17 +4358,17 @@
                                     qualNameName = Name "uint32_t",
                                     qualNameKind =
                                     NameKindOrdinary},
-                                  extHsRef = ExtHsRef {
-                                    extHsRefModule = HsModuleName
+                                  extHsRef = ExtRef {
+                                    extRefModule = ModuleName
                                       "HsBindgen.Runtime.Prelude",
-                                    extHsRefIdentifier =
-                                    HsIdentifier "Word32"},
+                                    extRefIdentifier = Identifier
+                                      "Word32"},
                                   extHsSpec = TypeSpec {
                                     typeSpecModule = Just
-                                      (HsModuleName
+                                      (ModuleName
                                         "HsBindgen.Runtime.Prelude"),
                                     typeSpecIdentifier = Just
-                                      (HsIdentifier "Word32"),
+                                      (Identifier "Word32"),
                                     typeSpecInstances = Map.fromList
                                       [
                                         _×_
@@ -4478,7 +4476,7 @@
                                 "doxygen_docs.h:237:10",
                                 fieldName = NamePair {
                                   nameC = Name "name",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "config_t_name"},
                                 fieldComment = Just
                                   (Comment
@@ -4504,7 +4502,7 @@
                                 "doxygen_docs.h:240:14",
                                 fieldName = NamePair {
                                   nameC = Name "flags",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "config_t_flags"},
                                 fieldComment = Just
                                   (Comment
@@ -4522,17 +4520,17 @@
                                     qualNameName = Name "uint32_t",
                                     qualNameKind =
                                     NameKindOrdinary},
-                                  extHsRef = ExtHsRef {
-                                    extHsRefModule = HsModuleName
+                                  extHsRef = ExtRef {
+                                    extRefModule = ModuleName
                                       "HsBindgen.Runtime.Prelude",
-                                    extHsRefIdentifier =
-                                    HsIdentifier "Word32"},
+                                    extRefIdentifier = Identifier
+                                      "Word32"},
                                   extHsSpec = TypeSpec {
                                     typeSpecModule = Just
-                                      (HsModuleName
+                                      (ModuleName
                                         "HsBindgen.Runtime.Prelude"),
                                     typeSpecIdentifier = Just
-                                      (HsIdentifier "Word32"),
+                                      (Identifier "Word32"),
                                     typeSpecInstances = Map.fromList
                                       [
                                         _×_
@@ -4640,7 +4638,7 @@
                                 "doxygen_docs.h:247:22",
                                 fieldName = NamePair {
                                   nameC = Name "callback",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "config_t_callback"},
                                 fieldComment = Just
                                   (Comment
@@ -4659,14 +4657,14 @@
                                             (ById
                                               NamePair {
                                                 nameC = Name "event_callback_t",
-                                                nameHsIdent = HsIdentifier
+                                                nameHsIdent = Identifier
                                                   "Event_callback_t"})],
                                       Paragraph [TextContent ""]])},
                               structFieldType = TypeTypedef
                                 (TypedefRegular
                                   NamePair {
                                     nameC = Name "event_callback_t",
-                                    nameHsIdent = HsIdentifier
+                                    nameHsIdent = Identifier
                                       "Event_callback_t"}),
                               structFieldOffset = 576,
                               structFieldWidth = Nothing},
@@ -4676,7 +4674,7 @@
                                 "doxygen_docs.h:250:11",
                                 fieldName = NamePair {
                                   nameC = Name "user_data",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "config_t_user_data"},
                                 fieldComment = Just
                                   (Comment
@@ -4738,29 +4736,29 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Config_t",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Config_t",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "config_t_id",
                       fieldType = HsExtBinding
-                        ExtHsRef {
-                          extHsRefModule = HsModuleName
+                        ExtRef {
+                          extRefModule = ModuleName
                             "HsBindgen.Runtime.Prelude",
-                          extHsRefIdentifier =
-                          HsIdentifier "Word32"}
+                          extRefIdentifier = Identifier
+                            "Word32"}
                         TypeSpec {
                           typeSpecModule = Just
-                            (HsModuleName
+                            (ModuleName
                               "HsBindgen.Runtime.Prelude"),
                           typeSpecIdentifier = Just
-                            (HsIdentifier "Word32"),
+                            (Identifier "Word32"),
                           typeSpecInstances = Map.fromList
                             [
                               _×_
@@ -4867,7 +4865,7 @@
                             "doxygen_docs.h:234:14",
                             fieldName = NamePair {
                               nameC = Name "id",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "config_t_id"},
                             fieldComment = Just
                               (Comment
@@ -4885,17 +4883,17 @@
                                 qualNameName = Name "uint32_t",
                                 qualNameKind =
                                 NameKindOrdinary},
-                              extHsRef = ExtHsRef {
-                                extHsRefModule = HsModuleName
+                              extHsRef = ExtRef {
+                                extRefModule = ModuleName
                                   "HsBindgen.Runtime.Prelude",
-                                extHsRefIdentifier =
-                                HsIdentifier "Word32"},
+                                extRefIdentifier = Identifier
+                                  "Word32"},
                               extHsSpec = TypeSpec {
                                 typeSpecModule = Just
-                                  (HsModuleName
+                                  (ModuleName
                                     "HsBindgen.Runtime.Prelude"),
                                 typeSpecIdentifier = Just
-                                  (HsIdentifier "Word32"),
+                                  (Identifier "Word32"),
                                 typeSpecInstances = Map.fromList
                                   [
                                     _×_
@@ -5015,7 +5013,7 @@
                                 TextContent
                                   "Unique identifier"]]}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "config_t_name",
                       fieldType = HsConstArray
@@ -5028,7 +5026,7 @@
                             "doxygen_docs.h:237:10",
                             fieldName = NamePair {
                               nameC = Name "name",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "config_t_name"},
                             fieldComment = Just
                               (Comment
@@ -5066,21 +5064,21 @@
                                 TextContent
                                   "Human-readable name"]]}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "config_t_flags",
                       fieldType = HsExtBinding
-                        ExtHsRef {
-                          extHsRefModule = HsModuleName
+                        ExtRef {
+                          extRefModule = ModuleName
                             "HsBindgen.Runtime.Prelude",
-                          extHsRefIdentifier =
-                          HsIdentifier "Word32"}
+                          extRefIdentifier = Identifier
+                            "Word32"}
                         TypeSpec {
                           typeSpecModule = Just
-                            (HsModuleName
+                            (ModuleName
                               "HsBindgen.Runtime.Prelude"),
                           typeSpecIdentifier = Just
-                            (HsIdentifier "Word32"),
+                            (Identifier "Word32"),
                           typeSpecInstances = Map.fromList
                             [
                               _×_
@@ -5187,7 +5185,7 @@
                             "doxygen_docs.h:240:14",
                             fieldName = NamePair {
                               nameC = Name "flags",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "config_t_flags"},
                             fieldComment = Just
                               (Comment
@@ -5205,17 +5203,17 @@
                                 qualNameName = Name "uint32_t",
                                 qualNameKind =
                                 NameKindOrdinary},
-                              extHsRef = ExtHsRef {
-                                extHsRefModule = HsModuleName
+                              extHsRef = ExtRef {
+                                extRefModule = ModuleName
                                   "HsBindgen.Runtime.Prelude",
-                                extHsRefIdentifier =
-                                HsIdentifier "Word32"},
+                                extRefIdentifier = Identifier
+                                  "Word32"},
                               extHsSpec = TypeSpec {
                                 typeSpecModule = Just
-                                  (HsModuleName
+                                  (ModuleName
                                     "HsBindgen.Runtime.Prelude"),
                                 typeSpecIdentifier = Just
-                                  (HsIdentifier "Word32"),
+                                  (Identifier "Word32"),
                                 typeSpecInstances = Map.fromList
                                   [
                                     _×_
@@ -5335,11 +5333,11 @@
                                 TextContent
                                   "Configuration flags"]]}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "config_t_callback",
                       fieldType = HsTypRef
-                        (HsName
+                        (Name
                           "@NsTypeConstr"
                           "Event_callback_t"),
                       fieldOrigin = StructField
@@ -5349,7 +5347,7 @@
                             "doxygen_docs.h:247:22",
                             fieldName = NamePair {
                               nameC = Name "callback",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "config_t_callback"},
                             fieldComment = Just
                               (Comment
@@ -5368,14 +5366,14 @@
                                         (ById
                                           NamePair {
                                             nameC = Name "event_callback_t",
-                                            nameHsIdent = HsIdentifier
+                                            nameHsIdent = Identifier
                                               "Event_callback_t"})],
                                   Paragraph [TextContent ""]])},
                           structFieldType = TypeTypedef
                             (TypedefRegular
                               NamePair {
                                 nameC = Name "event_callback_t",
-                                nameHsIdent = HsIdentifier
+                                nameHsIdent = Identifier
                                   "Event_callback_t"}),
                           structFieldOffset = 576,
                           structFieldWidth = Nothing},
@@ -5402,7 +5400,7 @@
                                 Identifier
                                   "Event_callback_t"]]}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "config_t_user_data",
                       fieldType = HsPtr
@@ -5414,7 +5412,7 @@
                             "doxygen_docs.h:250:11",
                             fieldName = NamePair {
                               nameC = Name "user_data",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "config_t_user_data"},
                             fieldComment = Just
                               (Comment
@@ -5457,7 +5455,7 @@
                         "doxygen_docs.h:232:9",
                         declId = NamePair {
                           nameC = Name "config_t",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Config_t"},
                         declOrigin = NameOriginGenerated
                           (AnonId "doxygen_docs.h:232:9"),
@@ -5486,7 +5484,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Config_t"),
+                            (Name "@NsConstr" "Config_t"),
                           structSizeof = 88,
                           structAlignment = 8,
                           structFields = [
@@ -5496,7 +5494,7 @@
                                 "doxygen_docs.h:234:14",
                                 fieldName = NamePair {
                                   nameC = Name "id",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "config_t_id"},
                                 fieldComment = Just
                                   (Comment
@@ -5514,17 +5512,17 @@
                                     qualNameName = Name "uint32_t",
                                     qualNameKind =
                                     NameKindOrdinary},
-                                  extHsRef = ExtHsRef {
-                                    extHsRefModule = HsModuleName
+                                  extHsRef = ExtRef {
+                                    extRefModule = ModuleName
                                       "HsBindgen.Runtime.Prelude",
-                                    extHsRefIdentifier =
-                                    HsIdentifier "Word32"},
+                                    extRefIdentifier = Identifier
+                                      "Word32"},
                                   extHsSpec = TypeSpec {
                                     typeSpecModule = Just
-                                      (HsModuleName
+                                      (ModuleName
                                         "HsBindgen.Runtime.Prelude"),
                                     typeSpecIdentifier = Just
-                                      (HsIdentifier "Word32"),
+                                      (Identifier "Word32"),
                                     typeSpecInstances = Map.fromList
                                       [
                                         _×_
@@ -5632,7 +5630,7 @@
                                 "doxygen_docs.h:237:10",
                                 fieldName = NamePair {
                                   nameC = Name "name",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "config_t_name"},
                                 fieldComment = Just
                                   (Comment
@@ -5658,7 +5656,7 @@
                                 "doxygen_docs.h:240:14",
                                 fieldName = NamePair {
                                   nameC = Name "flags",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "config_t_flags"},
                                 fieldComment = Just
                                   (Comment
@@ -5676,17 +5674,17 @@
                                     qualNameName = Name "uint32_t",
                                     qualNameKind =
                                     NameKindOrdinary},
-                                  extHsRef = ExtHsRef {
-                                    extHsRefModule = HsModuleName
+                                  extHsRef = ExtRef {
+                                    extRefModule = ModuleName
                                       "HsBindgen.Runtime.Prelude",
-                                    extHsRefIdentifier =
-                                    HsIdentifier "Word32"},
+                                    extRefIdentifier = Identifier
+                                      "Word32"},
                                   extHsSpec = TypeSpec {
                                     typeSpecModule = Just
-                                      (HsModuleName
+                                      (ModuleName
                                         "HsBindgen.Runtime.Prelude"),
                                     typeSpecIdentifier = Just
-                                      (HsIdentifier "Word32"),
+                                      (Identifier "Word32"),
                                     typeSpecInstances = Map.fromList
                                       [
                                         _×_
@@ -5794,7 +5792,7 @@
                                 "doxygen_docs.h:247:22",
                                 fieldName = NamePair {
                                   nameC = Name "callback",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "config_t_callback"},
                                 fieldComment = Just
                                   (Comment
@@ -5813,14 +5811,14 @@
                                             (ById
                                               NamePair {
                                                 nameC = Name "event_callback_t",
-                                                nameHsIdent = HsIdentifier
+                                                nameHsIdent = Identifier
                                                   "Event_callback_t"})],
                                       Paragraph [TextContent ""]])},
                               structFieldType = TypeTypedef
                                 (TypedefRegular
                                   NamePair {
                                     nameC = Name "event_callback_t",
-                                    nameHsIdent = HsIdentifier
+                                    nameHsIdent = Identifier
                                       "Event_callback_t"}),
                               structFieldOffset = 576,
                               structFieldWidth = Nothing},
@@ -5830,7 +5828,7 @@
                                 "doxygen_docs.h:250:11",
                                 fieldName = NamePair {
                                   nameC = Name "user_data",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "config_t_user_data"},
                                 fieldComment = Just
                                   (Comment
@@ -5896,7 +5894,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Config_t",
       deriveInstanceComment =
@@ -5906,21 +5904,21 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Config_t",
       deriveInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "Status_code_t",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "Status_code_t",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_Status_code_t",
         fieldType = HsPrimType
@@ -5933,7 +5931,7 @@
           "doxygen_docs.h:258:9",
           declId = NamePair {
             nameC = Name "status_code_t",
-            nameHsIdent = HsIdentifier
+            nameHsIdent = Identifier
               "Status_code_t"},
           declOrigin = NameOriginGenerated
             (AnonId "doxygen_docs.h:258:9"),
@@ -5962,10 +5960,10 @@
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "Status_code_t",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_Status_code_t"},
             enumType = TypePrim
@@ -5979,7 +5977,7 @@
                   "doxygen_docs.h:260:5",
                   fieldName = NamePair {
                     nameC = Name "STATUS_OK",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "STATUS_OK"},
                   fieldComment = Just
                     (Comment
@@ -5999,7 +5997,7 @@
                   fieldName = NamePair {
                     nameC = Name
                       "STATUS_INVALID_PARAM",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "STATUS_INVALID_PARAM"},
                   fieldComment = Just
                     (Comment
@@ -6018,7 +6016,7 @@
                   "doxygen_docs.h:266:5",
                   fieldName = NamePair {
                     nameC = Name "STATUS_NO_MEMORY",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "STATUS_NO_MEMORY"},
                   fieldComment = Just
                     (Comment
@@ -6037,7 +6035,7 @@
                   "doxygen_docs.h:269:5",
                   fieldName = NamePair {
                     nameC = Name "STATUS_TIMEOUT",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "STATUS_TIMEOUT"},
                   fieldComment = Just
                     (Comment
@@ -6056,7 +6054,7 @@
                   "doxygen_docs.h:272:5",
                   fieldName = NamePair {
                     nameC = Name "STATUS_ERROR",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "STATUS_ERROR"},
                   fieldComment = Just
                     (Comment
@@ -6104,15 +6102,15 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Status_code_t",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Status_code_t",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "un_Status_code_t",
               fieldType = HsPrimType
@@ -6131,15 +6129,15 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Status_code_t",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Status_code_t",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "un_Status_code_t",
                       fieldType = HsPrimType
@@ -6158,15 +6156,15 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Status_code_t",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Status_code_t",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "un_Status_code_t",
                       fieldType = HsPrimType
@@ -6191,7 +6189,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Status_code_t",
       deriveInstanceComment =
@@ -6201,7 +6199,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Ord,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Status_code_t",
       deriveInstanceComment =
@@ -6211,15 +6209,15 @@
       defineInstanceDeclarations =
       InstanceCEnum
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Status_code_t",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Status_code_t",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "un_Status_code_t",
               fieldType = HsPrimType
@@ -6259,15 +6257,15 @@
       defineInstanceDeclarations =
       InstanceCEnumShow
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Status_code_t",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Status_code_t",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "un_Status_code_t",
               fieldType = HsPrimType
@@ -6285,15 +6283,15 @@
       defineInstanceDeclarations =
       InstanceCEnumRead
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Status_code_t",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Status_code_t",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "un_Status_code_t",
               fieldType = HsPrimType
@@ -6308,13 +6306,13 @@
       Nothing},
   DeclPatSyn
     PatSyn {
-      patSynName = HsName
+      patSynName = Name
         "@NsConstr"
         "STATUS_OK",
-      patSynType = HsName
+      patSynType = Name
         "@NsTypeConstr"
         "Status_code_t",
-      patSynConstr = HsName
+      patSynConstr = Name
         "@NsConstr"
         "Status_code_t",
       patSynValue = 0,
@@ -6325,7 +6323,7 @@
             "doxygen_docs.h:260:5",
             fieldName = NamePair {
               nameC = Name "STATUS_OK",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "STATUS_OK"},
             fieldComment = Just
               (Comment
@@ -6358,13 +6356,13 @@
                   "Operation successful"]]}},
   DeclPatSyn
     PatSyn {
-      patSynName = HsName
+      patSynName = Name
         "@NsConstr"
         "STATUS_INVALID_PARAM",
-      patSynType = HsName
+      patSynType = Name
         "@NsTypeConstr"
         "Status_code_t",
-      patSynConstr = HsName
+      patSynConstr = Name
         "@NsConstr"
         "Status_code_t",
       patSynValue = `-1`,
@@ -6376,7 +6374,7 @@
             fieldName = NamePair {
               nameC = Name
                 "STATUS_INVALID_PARAM",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "STATUS_INVALID_PARAM"},
             fieldComment = Just
               (Comment
@@ -6409,13 +6407,13 @@
                   "Invalid parameter provided"]]}},
   DeclPatSyn
     PatSyn {
-      patSynName = HsName
+      patSynName = Name
         "@NsConstr"
         "STATUS_NO_MEMORY",
-      patSynType = HsName
+      patSynType = Name
         "@NsTypeConstr"
         "Status_code_t",
-      patSynConstr = HsName
+      patSynConstr = Name
         "@NsConstr"
         "Status_code_t",
       patSynValue = `-2`,
@@ -6426,7 +6424,7 @@
             "doxygen_docs.h:266:5",
             fieldName = NamePair {
               nameC = Name "STATUS_NO_MEMORY",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "STATUS_NO_MEMORY"},
             fieldComment = Just
               (Comment
@@ -6459,13 +6457,13 @@
                   "Memory allocation failed"]]}},
   DeclPatSyn
     PatSyn {
-      patSynName = HsName
+      patSynName = Name
         "@NsConstr"
         "STATUS_TIMEOUT",
-      patSynType = HsName
+      patSynType = Name
         "@NsTypeConstr"
         "Status_code_t",
-      patSynConstr = HsName
+      patSynConstr = Name
         "@NsConstr"
         "Status_code_t",
       patSynValue = `-3`,
@@ -6476,7 +6474,7 @@
             "doxygen_docs.h:269:5",
             fieldName = NamePair {
               nameC = Name "STATUS_TIMEOUT",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "STATUS_TIMEOUT"},
             fieldComment = Just
               (Comment
@@ -6509,13 +6507,13 @@
                   "Operation timed out"]]}},
   DeclPatSyn
     PatSyn {
-      patSynName = HsName
+      patSynName = Name
         "@NsConstr"
         "STATUS_ERROR",
-      patSynType = HsName
+      patSynType = Name
         "@NsTypeConstr"
         "Status_code_t",
-      patSynConstr = HsName
+      patSynConstr = Name
         "@NsConstr"
         "Status_code_t",
       patSynValue = `-99`,
@@ -6526,7 +6524,7 @@
             "doxygen_docs.h:272:5",
             fieldName = NamePair {
               nameC = Name "STATUS_ERROR",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "STATUS_ERROR"},
             fieldComment = Just
               (Comment
@@ -6558,29 +6556,29 @@
                 TextContent "Generic error"]]}},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "Data_union_t_as_parts",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "Data_union_t_as_parts",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "data_union_t_as_parts_low",
           fieldType = HsExtBinding
-            ExtHsRef {
-              extHsRefModule = HsModuleName
+            ExtRef {
+              extRefModule = ModuleName
                 "HsBindgen.Runtime.Prelude",
-              extHsRefIdentifier =
-              HsIdentifier "Word16"}
+              extRefIdentifier = Identifier
+                "Word16"}
             TypeSpec {
               typeSpecModule = Just
-                (HsModuleName
+                (ModuleName
                   "HsBindgen.Runtime.Prelude"),
               typeSpecIdentifier = Just
-                (HsIdentifier "Word16"),
+                (Identifier "Word16"),
               typeSpecInstances = Map.fromList
                 [
                   _×_
@@ -6687,7 +6685,7 @@
                 "doxygen_docs.h:291:18",
                 fieldName = NamePair {
                   nameC = Name "low",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "data_union_t_as_parts_low"},
                 fieldComment = Just
                   (Comment
@@ -6704,17 +6702,17 @@
                     qualNameName = Name "uint16_t",
                     qualNameKind =
                     NameKindOrdinary},
-                  extHsRef = ExtHsRef {
-                    extHsRefModule = HsModuleName
+                  extHsRef = ExtRef {
+                    extRefModule = ModuleName
                       "HsBindgen.Runtime.Prelude",
-                    extHsRefIdentifier =
-                    HsIdentifier "Word16"},
+                    extRefIdentifier = Identifier
+                      "Word16"},
                   extHsSpec = TypeSpec {
                     typeSpecModule = Just
-                      (HsModuleName
+                      (ModuleName
                         "HsBindgen.Runtime.Prelude"),
                     typeSpecIdentifier = Just
-                      (HsIdentifier "Word16"),
+                      (Identifier "Word16"),
                     typeSpecInstances = Map.fromList
                       [
                         _×_
@@ -6832,21 +6830,21 @@
                 Paragraph
                   [TextContent "Low 16 bits"]]}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "data_union_t_as_parts_high",
           fieldType = HsExtBinding
-            ExtHsRef {
-              extHsRefModule = HsModuleName
+            ExtRef {
+              extRefModule = ModuleName
                 "HsBindgen.Runtime.Prelude",
-              extHsRefIdentifier =
-              HsIdentifier "Word16"}
+              extRefIdentifier = Identifier
+                "Word16"}
             TypeSpec {
               typeSpecModule = Just
-                (HsModuleName
+                (ModuleName
                   "HsBindgen.Runtime.Prelude"),
               typeSpecIdentifier = Just
-                (HsIdentifier "Word16"),
+                (Identifier "Word16"),
               typeSpecInstances = Map.fromList
                 [
                   _×_
@@ -6953,7 +6951,7 @@
                 "doxygen_docs.h:292:18",
                 fieldName = NamePair {
                   nameC = Name "high",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "data_union_t_as_parts_high"},
                 fieldComment = Just
                   (Comment
@@ -6970,17 +6968,17 @@
                     qualNameName = Name "uint16_t",
                     qualNameKind =
                     NameKindOrdinary},
-                  extHsRef = ExtHsRef {
-                    extHsRefModule = HsModuleName
+                  extHsRef = ExtRef {
+                    extRefModule = ModuleName
                       "HsBindgen.Runtime.Prelude",
-                    extHsRefIdentifier =
-                    HsIdentifier "Word16"},
+                    extRefIdentifier = Identifier
+                      "Word16"},
                   extHsSpec = TypeSpec {
                     typeSpecModule = Just
-                      (HsModuleName
+                      (ModuleName
                         "HsBindgen.Runtime.Prelude"),
                     typeSpecIdentifier = Just
-                      (HsIdentifier "Word16"),
+                      (Identifier "Word16"),
                     typeSpecInstances = Map.fromList
                       [
                         _×_
@@ -7106,7 +7104,7 @@
             declId = NamePair {
               nameC = Name
                 "data_union_t_as_parts",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Data_union_t_as_parts"},
             declOrigin = NameOriginGenerated
               (AnonId "doxygen_docs.h:290:5"),
@@ -7137,7 +7135,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName
+                (Name
                   "@NsConstr"
                   "Data_union_t_as_parts"),
               structSizeof = 4,
@@ -7149,7 +7147,7 @@
                     "doxygen_docs.h:291:18",
                     fieldName = NamePair {
                       nameC = Name "low",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "data_union_t_as_parts_low"},
                     fieldComment = Just
                       (Comment
@@ -7166,17 +7164,17 @@
                         qualNameName = Name "uint16_t",
                         qualNameKind =
                         NameKindOrdinary},
-                      extHsRef = ExtHsRef {
-                        extHsRefModule = HsModuleName
+                      extHsRef = ExtRef {
+                        extRefModule = ModuleName
                           "HsBindgen.Runtime.Prelude",
-                        extHsRefIdentifier =
-                        HsIdentifier "Word16"},
+                        extRefIdentifier = Identifier
+                          "Word16"},
                       extHsSpec = TypeSpec {
                         typeSpecModule = Just
-                          (HsModuleName
+                          (ModuleName
                             "HsBindgen.Runtime.Prelude"),
                         typeSpecIdentifier = Just
-                          (HsIdentifier "Word16"),
+                          (Identifier "Word16"),
                         typeSpecInstances = Map.fromList
                           [
                             _×_
@@ -7284,7 +7282,7 @@
                     "doxygen_docs.h:292:18",
                     fieldName = NamePair {
                       nameC = Name "high",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "data_union_t_as_parts_high"},
                     fieldComment = Just
                       (Comment
@@ -7301,17 +7299,17 @@
                         qualNameName = Name "uint16_t",
                         qualNameKind =
                         NameKindOrdinary},
-                      extHsRef = ExtHsRef {
-                        extHsRefModule = HsModuleName
+                      extHsRef = ExtRef {
+                        extRefModule = ModuleName
                           "HsBindgen.Runtime.Prelude",
-                        extHsRefIdentifier =
-                        HsIdentifier "Word16"},
+                        extRefIdentifier = Identifier
+                          "Word16"},
                       extHsSpec = TypeSpec {
                         typeSpecModule = Just
-                          (HsModuleName
+                          (ModuleName
                             "HsBindgen.Runtime.Prelude"),
                         typeSpecIdentifier = Just
-                          (HsIdentifier "Word16"),
+                          (Identifier "Word16"),
                         typeSpecInstances = Map.fromList
                           [
                             _×_
@@ -7449,29 +7447,29 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Data_union_t_as_parts",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Data_union_t_as_parts",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "data_union_t_as_parts_low",
               fieldType = HsExtBinding
-                ExtHsRef {
-                  extHsRefModule = HsModuleName
+                ExtRef {
+                  extRefModule = ModuleName
                     "HsBindgen.Runtime.Prelude",
-                  extHsRefIdentifier =
-                  HsIdentifier "Word16"}
+                  extRefIdentifier = Identifier
+                    "Word16"}
                 TypeSpec {
                   typeSpecModule = Just
-                    (HsModuleName
+                    (ModuleName
                       "HsBindgen.Runtime.Prelude"),
                   typeSpecIdentifier = Just
-                    (HsIdentifier "Word16"),
+                    (Identifier "Word16"),
                   typeSpecInstances = Map.fromList
                     [
                       _×_
@@ -7578,7 +7576,7 @@
                     "doxygen_docs.h:291:18",
                     fieldName = NamePair {
                       nameC = Name "low",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "data_union_t_as_parts_low"},
                     fieldComment = Just
                       (Comment
@@ -7595,17 +7593,17 @@
                         qualNameName = Name "uint16_t",
                         qualNameKind =
                         NameKindOrdinary},
-                      extHsRef = ExtHsRef {
-                        extHsRefModule = HsModuleName
+                      extHsRef = ExtRef {
+                        extRefModule = ModuleName
                           "HsBindgen.Runtime.Prelude",
-                        extHsRefIdentifier =
-                        HsIdentifier "Word16"},
+                        extRefIdentifier = Identifier
+                          "Word16"},
                       extHsSpec = TypeSpec {
                         typeSpecModule = Just
-                          (HsModuleName
+                          (ModuleName
                             "HsBindgen.Runtime.Prelude"),
                         typeSpecIdentifier = Just
-                          (HsIdentifier "Word16"),
+                          (Identifier "Word16"),
                         typeSpecInstances = Map.fromList
                           [
                             _×_
@@ -7723,21 +7721,21 @@
                     Paragraph
                       [TextContent "Low 16 bits"]]}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "data_union_t_as_parts_high",
               fieldType = HsExtBinding
-                ExtHsRef {
-                  extHsRefModule = HsModuleName
+                ExtRef {
+                  extRefModule = ModuleName
                     "HsBindgen.Runtime.Prelude",
-                  extHsRefIdentifier =
-                  HsIdentifier "Word16"}
+                  extRefIdentifier = Identifier
+                    "Word16"}
                 TypeSpec {
                   typeSpecModule = Just
-                    (HsModuleName
+                    (ModuleName
                       "HsBindgen.Runtime.Prelude"),
                   typeSpecIdentifier = Just
-                    (HsIdentifier "Word16"),
+                    (Identifier "Word16"),
                   typeSpecInstances = Map.fromList
                     [
                       _×_
@@ -7844,7 +7842,7 @@
                     "doxygen_docs.h:292:18",
                     fieldName = NamePair {
                       nameC = Name "high",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "data_union_t_as_parts_high"},
                     fieldComment = Just
                       (Comment
@@ -7861,17 +7859,17 @@
                         qualNameName = Name "uint16_t",
                         qualNameKind =
                         NameKindOrdinary},
-                      extHsRef = ExtHsRef {
-                        extHsRefModule = HsModuleName
+                      extHsRef = ExtRef {
+                        extRefModule = ModuleName
                           "HsBindgen.Runtime.Prelude",
-                        extHsRefIdentifier =
-                        HsIdentifier "Word16"},
+                        extRefIdentifier = Identifier
+                          "Word16"},
                       extHsSpec = TypeSpec {
                         typeSpecModule = Just
-                          (HsModuleName
+                          (ModuleName
                             "HsBindgen.Runtime.Prelude"),
                         typeSpecIdentifier = Just
-                          (HsIdentifier "Word16"),
+                          (Identifier "Word16"),
                         typeSpecInstances = Map.fromList
                           [
                             _×_
@@ -7999,7 +7997,7 @@
                 declId = NamePair {
                   nameC = Name
                     "data_union_t_as_parts",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Data_union_t_as_parts"},
                 declOrigin = NameOriginGenerated
                   (AnonId "doxygen_docs.h:290:5"),
@@ -8032,7 +8030,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName
+                    (Name
                       "@NsConstr"
                       "Data_union_t_as_parts"),
                   structSizeof = 4,
@@ -8044,7 +8042,7 @@
                         "doxygen_docs.h:291:18",
                         fieldName = NamePair {
                           nameC = Name "low",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "data_union_t_as_parts_low"},
                         fieldComment = Just
                           (Comment
@@ -8061,17 +8059,17 @@
                             qualNameName = Name "uint16_t",
                             qualNameKind =
                             NameKindOrdinary},
-                          extHsRef = ExtHsRef {
-                            extHsRefModule = HsModuleName
+                          extHsRef = ExtRef {
+                            extRefModule = ModuleName
                               "HsBindgen.Runtime.Prelude",
-                            extHsRefIdentifier =
-                            HsIdentifier "Word16"},
+                            extRefIdentifier = Identifier
+                              "Word16"},
                           extHsSpec = TypeSpec {
                             typeSpecModule = Just
-                              (HsModuleName
+                              (ModuleName
                                 "HsBindgen.Runtime.Prelude"),
                             typeSpecIdentifier = Just
-                              (HsIdentifier "Word16"),
+                              (Identifier "Word16"),
                             typeSpecInstances = Map.fromList
                               [
                                 _×_
@@ -8179,7 +8177,7 @@
                         "doxygen_docs.h:292:18",
                         fieldName = NamePair {
                           nameC = Name "high",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "data_union_t_as_parts_high"},
                         fieldComment = Just
                           (Comment
@@ -8196,17 +8194,17 @@
                             qualNameName = Name "uint16_t",
                             qualNameKind =
                             NameKindOrdinary},
-                          extHsRef = ExtHsRef {
-                            extHsRefModule = HsModuleName
+                          extHsRef = ExtRef {
+                            extRefModule = ModuleName
                               "HsBindgen.Runtime.Prelude",
-                            extHsRefIdentifier =
-                            HsIdentifier "Word16"},
+                            extRefIdentifier = Identifier
+                              "Word16"},
                           extHsSpec = TypeSpec {
                             typeSpecModule = Just
-                              (HsModuleName
+                              (ModuleName
                                 "HsBindgen.Runtime.Prelude"),
                             typeSpecIdentifier = Just
-                              (HsIdentifier "Word16"),
+                              (Identifier "Word16"),
                             typeSpecInstances = Map.fromList
                               [
                                 _×_
@@ -8348,29 +8346,29 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Data_union_t_as_parts",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Data_union_t_as_parts",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "data_union_t_as_parts_low",
                       fieldType = HsExtBinding
-                        ExtHsRef {
-                          extHsRefModule = HsModuleName
+                        ExtRef {
+                          extRefModule = ModuleName
                             "HsBindgen.Runtime.Prelude",
-                          extHsRefIdentifier =
-                          HsIdentifier "Word16"}
+                          extRefIdentifier = Identifier
+                            "Word16"}
                         TypeSpec {
                           typeSpecModule = Just
-                            (HsModuleName
+                            (ModuleName
                               "HsBindgen.Runtime.Prelude"),
                           typeSpecIdentifier = Just
-                            (HsIdentifier "Word16"),
+                            (Identifier "Word16"),
                           typeSpecInstances = Map.fromList
                             [
                               _×_
@@ -8477,7 +8475,7 @@
                             "doxygen_docs.h:291:18",
                             fieldName = NamePair {
                               nameC = Name "low",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "data_union_t_as_parts_low"},
                             fieldComment = Just
                               (Comment
@@ -8494,17 +8492,17 @@
                                 qualNameName = Name "uint16_t",
                                 qualNameKind =
                                 NameKindOrdinary},
-                              extHsRef = ExtHsRef {
-                                extHsRefModule = HsModuleName
+                              extHsRef = ExtRef {
+                                extRefModule = ModuleName
                                   "HsBindgen.Runtime.Prelude",
-                                extHsRefIdentifier =
-                                HsIdentifier "Word16"},
+                                extRefIdentifier = Identifier
+                                  "Word16"},
                               extHsSpec = TypeSpec {
                                 typeSpecModule = Just
-                                  (HsModuleName
+                                  (ModuleName
                                     "HsBindgen.Runtime.Prelude"),
                                 typeSpecIdentifier = Just
-                                  (HsIdentifier "Word16"),
+                                  (Identifier "Word16"),
                                 typeSpecInstances = Map.fromList
                                   [
                                     _×_
@@ -8622,21 +8620,21 @@
                             Paragraph
                               [TextContent "Low 16 bits"]]}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "data_union_t_as_parts_high",
                       fieldType = HsExtBinding
-                        ExtHsRef {
-                          extHsRefModule = HsModuleName
+                        ExtRef {
+                          extRefModule = ModuleName
                             "HsBindgen.Runtime.Prelude",
-                          extHsRefIdentifier =
-                          HsIdentifier "Word16"}
+                          extRefIdentifier = Identifier
+                            "Word16"}
                         TypeSpec {
                           typeSpecModule = Just
-                            (HsModuleName
+                            (ModuleName
                               "HsBindgen.Runtime.Prelude"),
                           typeSpecIdentifier = Just
-                            (HsIdentifier "Word16"),
+                            (Identifier "Word16"),
                           typeSpecInstances = Map.fromList
                             [
                               _×_
@@ -8743,7 +8741,7 @@
                             "doxygen_docs.h:292:18",
                             fieldName = NamePair {
                               nameC = Name "high",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "data_union_t_as_parts_high"},
                             fieldComment = Just
                               (Comment
@@ -8760,17 +8758,17 @@
                                 qualNameName = Name "uint16_t",
                                 qualNameKind =
                                 NameKindOrdinary},
-                              extHsRef = ExtHsRef {
-                                extHsRefModule = HsModuleName
+                              extHsRef = ExtRef {
+                                extRefModule = ModuleName
                                   "HsBindgen.Runtime.Prelude",
-                                extHsRefIdentifier =
-                                HsIdentifier "Word16"},
+                                extRefIdentifier = Identifier
+                                  "Word16"},
                               extHsSpec = TypeSpec {
                                 typeSpecModule = Just
-                                  (HsModuleName
+                                  (ModuleName
                                     "HsBindgen.Runtime.Prelude"),
                                 typeSpecIdentifier = Just
-                                  (HsIdentifier "Word16"),
+                                  (Identifier "Word16"),
                                 typeSpecInstances = Map.fromList
                                   [
                                     _×_
@@ -8898,7 +8896,7 @@
                         declId = NamePair {
                           nameC = Name
                             "data_union_t_as_parts",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Data_union_t_as_parts"},
                         declOrigin = NameOriginGenerated
                           (AnonId "doxygen_docs.h:290:5"),
@@ -8931,7 +8929,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName
+                            (Name
                               "@NsConstr"
                               "Data_union_t_as_parts"),
                           structSizeof = 4,
@@ -8943,7 +8941,7 @@
                                 "doxygen_docs.h:291:18",
                                 fieldName = NamePair {
                                   nameC = Name "low",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "data_union_t_as_parts_low"},
                                 fieldComment = Just
                                   (Comment
@@ -8960,17 +8958,17 @@
                                     qualNameName = Name "uint16_t",
                                     qualNameKind =
                                     NameKindOrdinary},
-                                  extHsRef = ExtHsRef {
-                                    extHsRefModule = HsModuleName
+                                  extHsRef = ExtRef {
+                                    extRefModule = ModuleName
                                       "HsBindgen.Runtime.Prelude",
-                                    extHsRefIdentifier =
-                                    HsIdentifier "Word16"},
+                                    extRefIdentifier = Identifier
+                                      "Word16"},
                                   extHsSpec = TypeSpec {
                                     typeSpecModule = Just
-                                      (HsModuleName
+                                      (ModuleName
                                         "HsBindgen.Runtime.Prelude"),
                                     typeSpecIdentifier = Just
-                                      (HsIdentifier "Word16"),
+                                      (Identifier "Word16"),
                                     typeSpecInstances = Map.fromList
                                       [
                                         _×_
@@ -9078,7 +9076,7 @@
                                 "doxygen_docs.h:292:18",
                                 fieldName = NamePair {
                                   nameC = Name "high",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "data_union_t_as_parts_high"},
                                 fieldComment = Just
                                   (Comment
@@ -9095,17 +9093,17 @@
                                     qualNameName = Name "uint16_t",
                                     qualNameKind =
                                     NameKindOrdinary},
-                                  extHsRef = ExtHsRef {
-                                    extHsRefModule = HsModuleName
+                                  extHsRef = ExtRef {
+                                    extRefModule = ModuleName
                                       "HsBindgen.Runtime.Prelude",
-                                    extHsRefIdentifier =
-                                    HsIdentifier "Word16"},
+                                    extRefIdentifier = Identifier
+                                      "Word16"},
                                   extHsSpec = TypeSpec {
                                     typeSpecModule = Just
-                                      (HsModuleName
+                                      (ModuleName
                                         "HsBindgen.Runtime.Prelude"),
                                     typeSpecIdentifier = Just
-                                      (HsIdentifier "Word16"),
+                                      (Identifier "Word16"),
                                     typeSpecInstances = Map.fromList
                                       [
                                         _×_
@@ -9251,29 +9249,29 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Data_union_t_as_parts",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Data_union_t_as_parts",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "data_union_t_as_parts_low",
                       fieldType = HsExtBinding
-                        ExtHsRef {
-                          extHsRefModule = HsModuleName
+                        ExtRef {
+                          extRefModule = ModuleName
                             "HsBindgen.Runtime.Prelude",
-                          extHsRefIdentifier =
-                          HsIdentifier "Word16"}
+                          extRefIdentifier = Identifier
+                            "Word16"}
                         TypeSpec {
                           typeSpecModule = Just
-                            (HsModuleName
+                            (ModuleName
                               "HsBindgen.Runtime.Prelude"),
                           typeSpecIdentifier = Just
-                            (HsIdentifier "Word16"),
+                            (Identifier "Word16"),
                           typeSpecInstances = Map.fromList
                             [
                               _×_
@@ -9380,7 +9378,7 @@
                             "doxygen_docs.h:291:18",
                             fieldName = NamePair {
                               nameC = Name "low",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "data_union_t_as_parts_low"},
                             fieldComment = Just
                               (Comment
@@ -9397,17 +9395,17 @@
                                 qualNameName = Name "uint16_t",
                                 qualNameKind =
                                 NameKindOrdinary},
-                              extHsRef = ExtHsRef {
-                                extHsRefModule = HsModuleName
+                              extHsRef = ExtRef {
+                                extRefModule = ModuleName
                                   "HsBindgen.Runtime.Prelude",
-                                extHsRefIdentifier =
-                                HsIdentifier "Word16"},
+                                extRefIdentifier = Identifier
+                                  "Word16"},
                               extHsSpec = TypeSpec {
                                 typeSpecModule = Just
-                                  (HsModuleName
+                                  (ModuleName
                                     "HsBindgen.Runtime.Prelude"),
                                 typeSpecIdentifier = Just
-                                  (HsIdentifier "Word16"),
+                                  (Identifier "Word16"),
                                 typeSpecInstances = Map.fromList
                                   [
                                     _×_
@@ -9525,21 +9523,21 @@
                             Paragraph
                               [TextContent "Low 16 bits"]]}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "data_union_t_as_parts_high",
                       fieldType = HsExtBinding
-                        ExtHsRef {
-                          extHsRefModule = HsModuleName
+                        ExtRef {
+                          extRefModule = ModuleName
                             "HsBindgen.Runtime.Prelude",
-                          extHsRefIdentifier =
-                          HsIdentifier "Word16"}
+                          extRefIdentifier = Identifier
+                            "Word16"}
                         TypeSpec {
                           typeSpecModule = Just
-                            (HsModuleName
+                            (ModuleName
                               "HsBindgen.Runtime.Prelude"),
                           typeSpecIdentifier = Just
-                            (HsIdentifier "Word16"),
+                            (Identifier "Word16"),
                           typeSpecInstances = Map.fromList
                             [
                               _×_
@@ -9646,7 +9644,7 @@
                             "doxygen_docs.h:292:18",
                             fieldName = NamePair {
                               nameC = Name "high",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "data_union_t_as_parts_high"},
                             fieldComment = Just
                               (Comment
@@ -9663,17 +9661,17 @@
                                 qualNameName = Name "uint16_t",
                                 qualNameKind =
                                 NameKindOrdinary},
-                              extHsRef = ExtHsRef {
-                                extHsRefModule = HsModuleName
+                              extHsRef = ExtRef {
+                                extRefModule = ModuleName
                                   "HsBindgen.Runtime.Prelude",
-                                extHsRefIdentifier =
-                                HsIdentifier "Word16"},
+                                extRefIdentifier = Identifier
+                                  "Word16"},
                               extHsSpec = TypeSpec {
                                 typeSpecModule = Just
-                                  (HsModuleName
+                                  (ModuleName
                                     "HsBindgen.Runtime.Prelude"),
                                 typeSpecIdentifier = Just
-                                  (HsIdentifier "Word16"),
+                                  (Identifier "Word16"),
                                 typeSpecInstances = Map.fromList
                                   [
                                     _×_
@@ -9801,7 +9799,7 @@
                         declId = NamePair {
                           nameC = Name
                             "data_union_t_as_parts",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Data_union_t_as_parts"},
                         declOrigin = NameOriginGenerated
                           (AnonId "doxygen_docs.h:290:5"),
@@ -9834,7 +9832,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName
+                            (Name
                               "@NsConstr"
                               "Data_union_t_as_parts"),
                           structSizeof = 4,
@@ -9846,7 +9844,7 @@
                                 "doxygen_docs.h:291:18",
                                 fieldName = NamePair {
                                   nameC = Name "low",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "data_union_t_as_parts_low"},
                                 fieldComment = Just
                                   (Comment
@@ -9863,17 +9861,17 @@
                                     qualNameName = Name "uint16_t",
                                     qualNameKind =
                                     NameKindOrdinary},
-                                  extHsRef = ExtHsRef {
-                                    extHsRefModule = HsModuleName
+                                  extHsRef = ExtRef {
+                                    extRefModule = ModuleName
                                       "HsBindgen.Runtime.Prelude",
-                                    extHsRefIdentifier =
-                                    HsIdentifier "Word16"},
+                                    extRefIdentifier = Identifier
+                                      "Word16"},
                                   extHsSpec = TypeSpec {
                                     typeSpecModule = Just
-                                      (HsModuleName
+                                      (ModuleName
                                         "HsBindgen.Runtime.Prelude"),
                                     typeSpecIdentifier = Just
-                                      (HsIdentifier "Word16"),
+                                      (Identifier "Word16"),
                                     typeSpecInstances = Map.fromList
                                       [
                                         _×_
@@ -9981,7 +9979,7 @@
                                 "doxygen_docs.h:292:18",
                                 fieldName = NamePair {
                                   nameC = Name "high",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "data_union_t_as_parts_high"},
                                 fieldComment = Just
                                   (Comment
@@ -9998,17 +9996,17 @@
                                     qualNameName = Name "uint16_t",
                                     qualNameKind =
                                     NameKindOrdinary},
-                                  extHsRef = ExtHsRef {
-                                    extHsRefModule = HsModuleName
+                                  extHsRef = ExtRef {
+                                    extRefModule = ModuleName
                                       "HsBindgen.Runtime.Prelude",
-                                    extHsRefIdentifier =
-                                    HsIdentifier "Word16"},
+                                    extRefIdentifier = Identifier
+                                      "Word16"},
                                   extHsSpec = TypeSpec {
                                     typeSpecModule = Just
-                                      (HsModuleName
+                                      (ModuleName
                                         "HsBindgen.Runtime.Prelude"),
                                     typeSpecIdentifier = Just
-                                      (HsIdentifier "Word16"),
+                                      (Identifier "Word16"),
                                     typeSpecInstances = Map.fromList
                                       [
                                         _×_
@@ -10158,7 +10156,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Data_union_t_as_parts",
       deriveInstanceComment =
@@ -10168,21 +10166,21 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Data_union_t_as_parts",
       deriveInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "Data_union_t",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "Data_union_t",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_Data_union_t",
         fieldType = HsByteArray,
@@ -10196,7 +10194,7 @@
           "doxygen_docs.h:281:9",
           declId = NamePair {
             nameC = Name "data_union_t",
-            nameHsIdent = HsIdentifier
+            nameHsIdent = Identifier
               "Data_union_t"},
           declOrigin = NameOriginGenerated
             (AnonId "doxygen_docs.h:281:9"),
@@ -10228,10 +10226,10 @@
         declKind = Union
           Union {
             unionNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "Data_union_t",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_Data_union_t"},
             unionSizeof = 4,
@@ -10243,7 +10241,7 @@
                   "doxygen_docs.h:282:13",
                   fieldName = NamePair {
                     nameC = Name "as_int",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "data_union_t_as_int"},
                   fieldComment = Just
                     (Comment
@@ -10261,17 +10259,17 @@
                       qualNameName = Name "int32_t",
                       qualNameKind =
                       NameKindOrdinary},
-                    extHsRef = ExtHsRef {
-                      extHsRefModule = HsModuleName
+                    extHsRef = ExtRef {
+                      extRefModule = ModuleName
                         "HsBindgen.Runtime.Prelude",
-                      extHsRefIdentifier =
-                      HsIdentifier "Int32"},
+                      extRefIdentifier = Identifier
+                        "Int32"},
                     extHsSpec = TypeSpec {
                       typeSpecModule = Just
-                        (HsModuleName
+                        (ModuleName
                           "HsBindgen.Runtime.Prelude"),
                       typeSpecIdentifier = Just
-                        (HsIdentifier "Int32"),
+                        (Identifier "Int32"),
                       typeSpecInstances = Map.fromList
                         [
                           _×_
@@ -10377,7 +10375,7 @@
                   "doxygen_docs.h:283:11",
                   fieldName = NamePair {
                     nameC = Name "as_float",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "data_union_t_as_float"},
                   fieldComment = Just
                     (Comment
@@ -10397,7 +10395,7 @@
                   "doxygen_docs.h:284:13",
                   fieldName = NamePair {
                     nameC = Name "as_bytes",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "data_union_t_as_bytes"},
                   fieldComment = Just
                     (Comment
@@ -10417,17 +10415,17 @@
                         qualNameName = Name "uint8_t",
                         qualNameKind =
                         NameKindOrdinary},
-                      extHsRef = ExtHsRef {
-                        extHsRefModule = HsModuleName
+                      extHsRef = ExtRef {
+                        extRefModule = ModuleName
                           "HsBindgen.Runtime.Prelude",
-                        extHsRefIdentifier =
-                        HsIdentifier "Word8"},
+                        extRefIdentifier = Identifier
+                          "Word8"},
                       extHsSpec = TypeSpec {
                         typeSpecModule = Just
-                          (HsModuleName
+                          (ModuleName
                             "HsBindgen.Runtime.Prelude"),
                         typeSpecIdentifier = Just
-                          (HsIdentifier "Word8"),
+                          (Identifier "Word8"),
                         typeSpecInstances = Map.fromList
                           [
                             _×_
@@ -10533,7 +10531,7 @@
                   "doxygen_docs.h:293:30",
                   fieldName = NamePair {
                     nameC = Name "as_parts",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "data_union_t_as_parts"},
                   fieldComment = Just
                     (Comment
@@ -10546,7 +10544,7 @@
                   NamePair {
                     nameC = Name
                       "data_union_t_as_parts",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Data_union_t_as_parts"}
                   (NameOriginGenerated
                     (AnonId
@@ -10588,28 +10586,28 @@
       DeriveVia
         (HsSizedByteArray 4 4),
       deriveInstanceClass = Storable,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Data_union_t",
       deriveInstanceComment =
       Nothing},
   DeclUnionGetter
     UnionGetter {
-      unionGetterName = HsName
+      unionGetterName = Name
         "@NsVar"
         "get_data_union_t_as_int",
       unionGetterType = HsExtBinding
-        ExtHsRef {
-          extHsRefModule = HsModuleName
+        ExtRef {
+          extRefModule = ModuleName
             "HsBindgen.Runtime.Prelude",
-          extHsRefIdentifier =
-          HsIdentifier "Int32"}
+          extRefIdentifier = Identifier
+            "Int32"}
         TypeSpec {
           typeSpecModule = Just
-            (HsModuleName
+            (ModuleName
               "HsBindgen.Runtime.Prelude"),
           typeSpecIdentifier = Just
-            (HsIdentifier "Int32"),
+            (Identifier "Int32"),
           typeSpecInstances = Map.fromList
             [
               _×_
@@ -10709,7 +10707,7 @@
                     instanceSpecStrategy = Nothing,
                     instanceSpecConstraints = [
                       ]})]},
-      unionGetterConstr = HsName
+      unionGetterConstr = Name
         "@NsTypeConstr"
         "Data_union_t",
       unionGetterComment = Just
@@ -10736,21 +10734,21 @@
                   "set_data_union_t_as_int"]]}},
   DeclUnionSetter
     UnionSetter {
-      unionSetterName = HsName
+      unionSetterName = Name
         "@NsVar"
         "set_data_union_t_as_int",
       unionSetterType = HsExtBinding
-        ExtHsRef {
-          extHsRefModule = HsModuleName
+        ExtRef {
+          extRefModule = ModuleName
             "HsBindgen.Runtime.Prelude",
-          extHsRefIdentifier =
-          HsIdentifier "Int32"}
+          extRefIdentifier = Identifier
+            "Int32"}
         TypeSpec {
           typeSpecModule = Just
-            (HsModuleName
+            (ModuleName
               "HsBindgen.Runtime.Prelude"),
           typeSpecIdentifier = Just
-            (HsIdentifier "Int32"),
+            (Identifier "Int32"),
           typeSpecInstances = Map.fromList
             [
               _×_
@@ -10850,7 +10848,7 @@
                     instanceSpecStrategy = Nothing,
                     instanceSpecConstraints = [
                       ]})]},
-      unionSetterConstr = HsName
+      unionSetterConstr = Name
         "@NsTypeConstr"
         "Data_union_t",
       unionSetterComment = Just
@@ -10867,12 +10865,12 @@
                   "get_data_union_t_as_int"]]}},
   DeclUnionGetter
     UnionGetter {
-      unionGetterName = HsName
+      unionGetterName = Name
         "@NsVar"
         "get_data_union_t_as_float",
       unionGetterType = HsPrimType
         HsPrimCFloat,
-      unionGetterConstr = HsName
+      unionGetterConstr = Name
         "@NsTypeConstr"
         "Data_union_t",
       unionGetterComment = Just
@@ -10899,12 +10897,12 @@
                   "set_data_union_t_as_float"]]}},
   DeclUnionSetter
     UnionSetter {
-      unionSetterName = HsName
+      unionSetterName = Name
         "@NsVar"
         "set_data_union_t_as_float",
       unionSetterType = HsPrimType
         HsPrimCFloat,
-      unionSetterConstr = HsName
+      unionSetterConstr = Name
         "@NsTypeConstr"
         "Data_union_t",
       unionSetterComment = Just
@@ -10921,23 +10919,23 @@
                   "get_data_union_t_as_float"]]}},
   DeclUnionGetter
     UnionGetter {
-      unionGetterName = HsName
+      unionGetterName = Name
         "@NsVar"
         "get_data_union_t_as_bytes",
       unionGetterType = HsConstArray
         4
         (HsExtBinding
-          ExtHsRef {
-            extHsRefModule = HsModuleName
+          ExtRef {
+            extRefModule = ModuleName
               "HsBindgen.Runtime.Prelude",
-            extHsRefIdentifier =
-            HsIdentifier "Word8"}
+            extRefIdentifier = Identifier
+              "Word8"}
           TypeSpec {
             typeSpecModule = Just
-              (HsModuleName
+              (ModuleName
                 "HsBindgen.Runtime.Prelude"),
             typeSpecIdentifier = Just
-              (HsIdentifier "Word8"),
+              (Identifier "Word8"),
             typeSpecInstances = Map.fromList
               [
                 _×_
@@ -11037,7 +11035,7 @@
                       instanceSpecStrategy = Nothing,
                       instanceSpecConstraints = [
                         ]})]}),
-      unionGetterConstr = HsName
+      unionGetterConstr = Name
         "@NsTypeConstr"
         "Data_union_t",
       unionGetterComment = Just
@@ -11064,23 +11062,23 @@
                   "set_data_union_t_as_bytes"]]}},
   DeclUnionSetter
     UnionSetter {
-      unionSetterName = HsName
+      unionSetterName = Name
         "@NsVar"
         "set_data_union_t_as_bytes",
       unionSetterType = HsConstArray
         4
         (HsExtBinding
-          ExtHsRef {
-            extHsRefModule = HsModuleName
+          ExtRef {
+            extRefModule = ModuleName
               "HsBindgen.Runtime.Prelude",
-            extHsRefIdentifier =
-            HsIdentifier "Word8"}
+            extRefIdentifier = Identifier
+              "Word8"}
           TypeSpec {
             typeSpecModule = Just
-              (HsModuleName
+              (ModuleName
                 "HsBindgen.Runtime.Prelude"),
             typeSpecIdentifier = Just
-              (HsIdentifier "Word8"),
+              (Identifier "Word8"),
             typeSpecInstances = Map.fromList
               [
                 _×_
@@ -11180,7 +11178,7 @@
                       instanceSpecStrategy = Nothing,
                       instanceSpecConstraints = [
                         ]})]}),
-      unionSetterConstr = HsName
+      unionSetterConstr = Name
         "@NsTypeConstr"
         "Data_union_t",
       unionSetterComment = Just
@@ -11197,14 +11195,14 @@
                   "get_data_union_t_as_bytes"]]}},
   DeclUnionGetter
     UnionGetter {
-      unionGetterName = HsName
+      unionGetterName = Name
         "@NsVar"
         "get_data_union_t_as_parts",
       unionGetterType = HsTypRef
-        (HsName
+        (Name
           "@NsTypeConstr"
           "Data_union_t_as_parts"),
-      unionGetterConstr = HsName
+      unionGetterConstr = Name
         "@NsTypeConstr"
         "Data_union_t",
       unionGetterComment = Just
@@ -11228,14 +11226,14 @@
                   "set_data_union_t_as_parts"]]}},
   DeclUnionSetter
     UnionSetter {
-      unionSetterName = HsName
+      unionSetterName = Name
         "@NsVar"
         "set_data_union_t_as_parts",
       unionSetterType = HsTypRef
-        (HsName
+        (Name
           "@NsTypeConstr"
           "Data_union_t_as_parts"),
-      unionSetterConstr = HsName
+      unionSetterConstr = Name
         "@NsTypeConstr"
         "Data_union_t",
       unionSetterComment = Just
@@ -11252,15 +11250,15 @@
                   "get_data_union_t_as_parts"]]}},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "Bitfield_t",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "Bitfield_t",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "bitfield_t_flag1",
           fieldType = HsPrimType
@@ -11272,7 +11270,7 @@
                 "doxygen_docs.h:303:14",
                 fieldName = NamePair {
                   nameC = Name "flag1",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "bitfield_t_flag1"},
                 fieldComment = Just
                   (Comment
@@ -11306,7 +11304,7 @@
                     TextContent
                       "First flag (1 bit)"]]}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "bitfield_t_flag2",
           fieldType = HsPrimType
@@ -11318,7 +11316,7 @@
                 "doxygen_docs.h:304:14",
                 fieldName = NamePair {
                   nameC = Name "flag2",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "bitfield_t_flag2"},
                 fieldComment = Just
                   (Comment
@@ -11352,7 +11350,7 @@
                     TextContent
                       "Second flag (1 bit)"]]}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "bitfield_t_counter",
           fieldType = HsPrimType
@@ -11364,7 +11362,7 @@
                 "doxygen_docs.h:305:14",
                 fieldName = NamePair {
                   nameC = Name "counter",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "bitfield_t_counter"},
                 fieldComment = Just
                   (Comment
@@ -11398,7 +11396,7 @@
                     TextContent
                       "Counter value (6 bits)"]]}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "bitfield_t_reserved",
           fieldType = HsPrimType
@@ -11410,7 +11408,7 @@
                 "doxygen_docs.h:306:14",
                 fieldName = NamePair {
                   nameC = Name "reserved",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "bitfield_t_reserved"},
                 fieldComment = Just
                   (Comment
@@ -11450,7 +11448,7 @@
             "doxygen_docs.h:302:9",
             declId = NamePair {
               nameC = Name "bitfield_t",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Bitfield_t"},
             declOrigin = NameOriginGenerated
               (AnonId "doxygen_docs.h:302:9"),
@@ -11481,9 +11479,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName
-                  "@NsConstr"
-                  "Bitfield_t"),
+                (Name "@NsConstr" "Bitfield_t"),
               structSizeof = 4,
               structAlignment = 4,
               structFields = [
@@ -11493,7 +11489,7 @@
                     "doxygen_docs.h:303:14",
                     fieldName = NamePair {
                       nameC = Name "flag1",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "bitfield_t_flag1"},
                     fieldComment = Just
                       (Comment
@@ -11515,7 +11511,7 @@
                     "doxygen_docs.h:304:14",
                     fieldName = NamePair {
                       nameC = Name "flag2",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "bitfield_t_flag2"},
                     fieldComment = Just
                       (Comment
@@ -11537,7 +11533,7 @@
                     "doxygen_docs.h:305:14",
                     fieldName = NamePair {
                       nameC = Name "counter",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "bitfield_t_counter"},
                     fieldComment = Just
                       (Comment
@@ -11559,7 +11555,7 @@
                     "doxygen_docs.h:306:14",
                     fieldName = NamePair {
                       nameC = Name "reserved",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "bitfield_t_reserved"},
                     fieldComment = Just
                       (Comment
@@ -11612,15 +11608,15 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Bitfield_t",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Bitfield_t",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "bitfield_t_flag1",
               fieldType = HsPrimType
@@ -11632,7 +11628,7 @@
                     "doxygen_docs.h:303:14",
                     fieldName = NamePair {
                       nameC = Name "flag1",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "bitfield_t_flag1"},
                     fieldComment = Just
                       (Comment
@@ -11666,7 +11662,7 @@
                         TextContent
                           "First flag (1 bit)"]]}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "bitfield_t_flag2",
               fieldType = HsPrimType
@@ -11678,7 +11674,7 @@
                     "doxygen_docs.h:304:14",
                     fieldName = NamePair {
                       nameC = Name "flag2",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "bitfield_t_flag2"},
                     fieldComment = Just
                       (Comment
@@ -11712,7 +11708,7 @@
                         TextContent
                           "Second flag (1 bit)"]]}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "bitfield_t_counter",
               fieldType = HsPrimType
@@ -11724,7 +11720,7 @@
                     "doxygen_docs.h:305:14",
                     fieldName = NamePair {
                       nameC = Name "counter",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "bitfield_t_counter"},
                     fieldComment = Just
                       (Comment
@@ -11758,7 +11754,7 @@
                         TextContent
                           "Counter value (6 bits)"]]}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "bitfield_t_reserved",
               fieldType = HsPrimType
@@ -11770,7 +11766,7 @@
                     "doxygen_docs.h:306:14",
                     fieldName = NamePair {
                       nameC = Name "reserved",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "bitfield_t_reserved"},
                     fieldComment = Just
                       (Comment
@@ -11810,7 +11806,7 @@
                 "doxygen_docs.h:302:9",
                 declId = NamePair {
                   nameC = Name "bitfield_t",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Bitfield_t"},
                 declOrigin = NameOriginGenerated
                   (AnonId "doxygen_docs.h:302:9"),
@@ -11841,9 +11837,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName
-                      "@NsConstr"
-                      "Bitfield_t"),
+                    (Name "@NsConstr" "Bitfield_t"),
                   structSizeof = 4,
                   structAlignment = 4,
                   structFields = [
@@ -11853,7 +11847,7 @@
                         "doxygen_docs.h:303:14",
                         fieldName = NamePair {
                           nameC = Name "flag1",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "bitfield_t_flag1"},
                         fieldComment = Just
                           (Comment
@@ -11875,7 +11869,7 @@
                         "doxygen_docs.h:304:14",
                         fieldName = NamePair {
                           nameC = Name "flag2",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "bitfield_t_flag2"},
                         fieldComment = Just
                           (Comment
@@ -11897,7 +11891,7 @@
                         "doxygen_docs.h:305:14",
                         fieldName = NamePair {
                           nameC = Name "counter",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "bitfield_t_counter"},
                         fieldComment = Just
                           (Comment
@@ -11919,7 +11913,7 @@
                         "doxygen_docs.h:306:14",
                         fieldName = NamePair {
                           nameC = Name "reserved",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "bitfield_t_reserved"},
                         fieldComment = Just
                           (Comment
@@ -11975,15 +11969,15 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Bitfield_t",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Bitfield_t",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "bitfield_t_flag1",
                       fieldType = HsPrimType
@@ -11995,7 +11989,7 @@
                             "doxygen_docs.h:303:14",
                             fieldName = NamePair {
                               nameC = Name "flag1",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "bitfield_t_flag1"},
                             fieldComment = Just
                               (Comment
@@ -12029,7 +12023,7 @@
                                 TextContent
                                   "First flag (1 bit)"]]}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "bitfield_t_flag2",
                       fieldType = HsPrimType
@@ -12041,7 +12035,7 @@
                             "doxygen_docs.h:304:14",
                             fieldName = NamePair {
                               nameC = Name "flag2",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "bitfield_t_flag2"},
                             fieldComment = Just
                               (Comment
@@ -12075,7 +12069,7 @@
                                 TextContent
                                   "Second flag (1 bit)"]]}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "bitfield_t_counter",
                       fieldType = HsPrimType
@@ -12087,7 +12081,7 @@
                             "doxygen_docs.h:305:14",
                             fieldName = NamePair {
                               nameC = Name "counter",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "bitfield_t_counter"},
                             fieldComment = Just
                               (Comment
@@ -12121,7 +12115,7 @@
                                 TextContent
                                   "Counter value (6 bits)"]]}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "bitfield_t_reserved",
                       fieldType = HsPrimType
@@ -12133,7 +12127,7 @@
                             "doxygen_docs.h:306:14",
                             fieldName = NamePair {
                               nameC = Name "reserved",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "bitfield_t_reserved"},
                             fieldComment = Just
                               (Comment
@@ -12173,7 +12167,7 @@
                         "doxygen_docs.h:302:9",
                         declId = NamePair {
                           nameC = Name "bitfield_t",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Bitfield_t"},
                         declOrigin = NameOriginGenerated
                           (AnonId "doxygen_docs.h:302:9"),
@@ -12204,9 +12198,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName
-                              "@NsConstr"
-                              "Bitfield_t"),
+                            (Name "@NsConstr" "Bitfield_t"),
                           structSizeof = 4,
                           structAlignment = 4,
                           structFields = [
@@ -12216,7 +12208,7 @@
                                 "doxygen_docs.h:303:14",
                                 fieldName = NamePair {
                                   nameC = Name "flag1",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "bitfield_t_flag1"},
                                 fieldComment = Just
                                   (Comment
@@ -12238,7 +12230,7 @@
                                 "doxygen_docs.h:304:14",
                                 fieldName = NamePair {
                                   nameC = Name "flag2",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "bitfield_t_flag2"},
                                 fieldComment = Just
                                   (Comment
@@ -12260,7 +12252,7 @@
                                 "doxygen_docs.h:305:14",
                                 fieldName = NamePair {
                                   nameC = Name "counter",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "bitfield_t_counter"},
                                 fieldComment = Just
                                   (Comment
@@ -12282,7 +12274,7 @@
                                 "doxygen_docs.h:306:14",
                                 fieldName = NamePair {
                                   nameC = Name "reserved",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "bitfield_t_reserved"},
                                 fieldComment = Just
                                   (Comment
@@ -12342,15 +12334,15 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Bitfield_t",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Bitfield_t",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "bitfield_t_flag1",
                       fieldType = HsPrimType
@@ -12362,7 +12354,7 @@
                             "doxygen_docs.h:303:14",
                             fieldName = NamePair {
                               nameC = Name "flag1",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "bitfield_t_flag1"},
                             fieldComment = Just
                               (Comment
@@ -12396,7 +12388,7 @@
                                 TextContent
                                   "First flag (1 bit)"]]}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "bitfield_t_flag2",
                       fieldType = HsPrimType
@@ -12408,7 +12400,7 @@
                             "doxygen_docs.h:304:14",
                             fieldName = NamePair {
                               nameC = Name "flag2",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "bitfield_t_flag2"},
                             fieldComment = Just
                               (Comment
@@ -12442,7 +12434,7 @@
                                 TextContent
                                   "Second flag (1 bit)"]]}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "bitfield_t_counter",
                       fieldType = HsPrimType
@@ -12454,7 +12446,7 @@
                             "doxygen_docs.h:305:14",
                             fieldName = NamePair {
                               nameC = Name "counter",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "bitfield_t_counter"},
                             fieldComment = Just
                               (Comment
@@ -12488,7 +12480,7 @@
                                 TextContent
                                   "Counter value (6 bits)"]]}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "bitfield_t_reserved",
                       fieldType = HsPrimType
@@ -12500,7 +12492,7 @@
                             "doxygen_docs.h:306:14",
                             fieldName = NamePair {
                               nameC = Name "reserved",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "bitfield_t_reserved"},
                             fieldComment = Just
                               (Comment
@@ -12540,7 +12532,7 @@
                         "doxygen_docs.h:302:9",
                         declId = NamePair {
                           nameC = Name "bitfield_t",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Bitfield_t"},
                         declOrigin = NameOriginGenerated
                           (AnonId "doxygen_docs.h:302:9"),
@@ -12571,9 +12563,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName
-                              "@NsConstr"
-                              "Bitfield_t"),
+                            (Name "@NsConstr" "Bitfield_t"),
                           structSizeof = 4,
                           structAlignment = 4,
                           structFields = [
@@ -12583,7 +12573,7 @@
                                 "doxygen_docs.h:303:14",
                                 fieldName = NamePair {
                                   nameC = Name "flag1",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "bitfield_t_flag1"},
                                 fieldComment = Just
                                   (Comment
@@ -12605,7 +12595,7 @@
                                 "doxygen_docs.h:304:14",
                                 fieldName = NamePair {
                                   nameC = Name "flag2",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "bitfield_t_flag2"},
                                 fieldComment = Just
                                   (Comment
@@ -12627,7 +12617,7 @@
                                 "doxygen_docs.h:305:14",
                                 fieldName = NamePair {
                                   nameC = Name "counter",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "bitfield_t_counter"},
                                 fieldComment = Just
                                   (Comment
@@ -12649,7 +12639,7 @@
                                 "doxygen_docs.h:306:14",
                                 fieldName = NamePair {
                                   nameC = Name "reserved",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "bitfield_t_reserved"},
                                 fieldComment = Just
                                   (Comment
@@ -12727,7 +12717,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Bitfield_t",
       deriveInstanceComment =
@@ -12737,21 +12727,21 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Bitfield_t",
       deriveInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "Processor_fn_t",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "Processor_fn_t",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_Processor_fn_t",
         fieldType = HsFunPtr
@@ -12769,7 +12759,7 @@
           "doxygen_docs.h:317:15",
           declId = NamePair {
             nameC = Name "processor_fn_t",
-            nameHsIdent = HsIdentifier
+            nameHsIdent = Identifier
               "Processor_fn_t"},
           declOrigin = NameOriginInSource,
           declAliases = [],
@@ -12825,10 +12815,10 @@
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "Processor_fn_t",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_Processor_fn_t"},
             typedefType = TypePointer
@@ -12897,7 +12887,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Storable,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Processor_fn_t",
       deriveInstanceComment =
@@ -12907,7 +12897,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Processor_fn_t",
       deriveInstanceComment =
@@ -12917,7 +12907,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Ord,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Processor_fn_t",
       deriveInstanceComment =
@@ -12927,21 +12917,21 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Processor_fn_t",
       deriveInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "Filename_t",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "Filename_t",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_Filename_t",
         fieldType = HsConstArray
@@ -12955,7 +12945,7 @@
           "doxygen_docs.h:323:14",
           declId = NamePair {
             nameC = Name "filename_t",
-            nameHsIdent = HsIdentifier
+            nameHsIdent = Identifier
               "Filename_t"},
           declOrigin = NameOriginInSource,
           declAliases = [],
@@ -12980,10 +12970,10 @@
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "Filename_t",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_Filename_t"},
             typedefType = TypeConstArray
@@ -13024,7 +13014,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Storable,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Filename_t",
       deriveInstanceComment =
@@ -13034,7 +13024,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Filename_t",
       deriveInstanceComment =
@@ -13044,36 +13034,36 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Filename_t",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "Flexible_array",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "Flexible_array",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "flexible_array_count",
           fieldType = HsExtBinding
-            ExtHsRef {
-              extHsRefModule = HsModuleName
+            ExtRef {
+              extRefModule = ModuleName
                 "HsBindgen.Runtime.Prelude",
-              extHsRefIdentifier =
-              HsIdentifier "CSize"}
+              extRefIdentifier = Identifier
+                "CSize"}
             TypeSpec {
               typeSpecModule = Just
-                (HsModuleName
+                (ModuleName
                   "HsBindgen.Runtime.Prelude"),
               typeSpecIdentifier = Just
-                (HsIdentifier "CSize"),
+                (Identifier "CSize"),
               typeSpecInstances = Map.fromList
                 [
                   _×_
@@ -13180,7 +13170,7 @@
                 "doxygen_docs.h:361:12",
                 fieldName = NamePair {
                   nameC = Name "count",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "flexible_array_count"},
                 fieldComment = Just
                   (Comment
@@ -13198,17 +13188,17 @@
                     qualNameName = Name "size_t",
                     qualNameKind =
                     NameKindOrdinary},
-                  extHsRef = ExtHsRef {
-                    extHsRefModule = HsModuleName
+                  extHsRef = ExtRef {
+                    extRefModule = ModuleName
                       "HsBindgen.Runtime.Prelude",
-                    extHsRefIdentifier =
-                    HsIdentifier "CSize"},
+                    extRefIdentifier = Identifier
+                      "CSize"},
                   extHsSpec = TypeSpec {
                     typeSpecModule = Just
-                      (HsModuleName
+                      (ModuleName
                         "HsBindgen.Runtime.Prelude"),
                     typeSpecIdentifier = Just
-                      (HsIdentifier "CSize"),
+                      (Identifier "CSize"),
                     typeSpecInstances = Map.fromList
                       [
                         _×_
@@ -13334,7 +13324,7 @@
             "doxygen_docs.h:360:8",
             declId = NamePair {
               nameC = Name "flexible_array",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Flexible_array"},
             declOrigin = NameOriginInSource,
             declAliases = [],
@@ -13377,7 +13367,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName
+                (Name
                   "@NsConstr"
                   "Flexible_array"),
               structSizeof = 8,
@@ -13389,7 +13379,7 @@
                     "doxygen_docs.h:361:12",
                     fieldName = NamePair {
                       nameC = Name "count",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "flexible_array_count"},
                     fieldComment = Just
                       (Comment
@@ -13407,17 +13397,17 @@
                         qualNameName = Name "size_t",
                         qualNameKind =
                         NameKindOrdinary},
-                      extHsRef = ExtHsRef {
-                        extHsRefModule = HsModuleName
+                      extHsRef = ExtRef {
+                        extRefModule = ModuleName
                           "HsBindgen.Runtime.Prelude",
-                        extHsRefIdentifier =
-                        HsIdentifier "CSize"},
+                        extRefIdentifier = Identifier
+                          "CSize"},
                       extHsSpec = TypeSpec {
                         typeSpecModule = Just
-                          (HsModuleName
+                          (ModuleName
                             "HsBindgen.Runtime.Prelude"),
                         typeSpecIdentifier = Just
-                          (HsIdentifier "CSize"),
+                          (Identifier "CSize"),
                         typeSpecInstances = Map.fromList
                           [
                             _×_
@@ -13526,7 +13516,7 @@
                     "doxygen_docs.h:362:9",
                     fieldName = NamePair {
                       nameC = Name "data",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "flexible_array_data"},
                     fieldComment = Just
                       (Comment
@@ -13588,29 +13578,29 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Flexible_array",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Flexible_array",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "flexible_array_count",
               fieldType = HsExtBinding
-                ExtHsRef {
-                  extHsRefModule = HsModuleName
+                ExtRef {
+                  extRefModule = ModuleName
                     "HsBindgen.Runtime.Prelude",
-                  extHsRefIdentifier =
-                  HsIdentifier "CSize"}
+                  extRefIdentifier = Identifier
+                    "CSize"}
                 TypeSpec {
                   typeSpecModule = Just
-                    (HsModuleName
+                    (ModuleName
                       "HsBindgen.Runtime.Prelude"),
                   typeSpecIdentifier = Just
-                    (HsIdentifier "CSize"),
+                    (Identifier "CSize"),
                   typeSpecInstances = Map.fromList
                     [
                       _×_
@@ -13717,7 +13707,7 @@
                     "doxygen_docs.h:361:12",
                     fieldName = NamePair {
                       nameC = Name "count",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "flexible_array_count"},
                     fieldComment = Just
                       (Comment
@@ -13735,17 +13725,17 @@
                         qualNameName = Name "size_t",
                         qualNameKind =
                         NameKindOrdinary},
-                      extHsRef = ExtHsRef {
-                        extHsRefModule = HsModuleName
+                      extHsRef = ExtRef {
+                        extRefModule = ModuleName
                           "HsBindgen.Runtime.Prelude",
-                        extHsRefIdentifier =
-                        HsIdentifier "CSize"},
+                        extRefIdentifier = Identifier
+                          "CSize"},
                       extHsSpec = TypeSpec {
                         typeSpecModule = Just
-                          (HsModuleName
+                          (ModuleName
                             "HsBindgen.Runtime.Prelude"),
                         typeSpecIdentifier = Just
-                          (HsIdentifier "CSize"),
+                          (Identifier "CSize"),
                         typeSpecInstances = Map.fromList
                           [
                             _×_
@@ -13871,7 +13861,7 @@
                 "doxygen_docs.h:360:8",
                 declId = NamePair {
                   nameC = Name "flexible_array",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Flexible_array"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
@@ -13914,7 +13904,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName
+                    (Name
                       "@NsConstr"
                       "Flexible_array"),
                   structSizeof = 8,
@@ -13926,7 +13916,7 @@
                         "doxygen_docs.h:361:12",
                         fieldName = NamePair {
                           nameC = Name "count",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "flexible_array_count"},
                         fieldComment = Just
                           (Comment
@@ -13944,17 +13934,17 @@
                             qualNameName = Name "size_t",
                             qualNameKind =
                             NameKindOrdinary},
-                          extHsRef = ExtHsRef {
-                            extHsRefModule = HsModuleName
+                          extHsRef = ExtRef {
+                            extRefModule = ModuleName
                               "HsBindgen.Runtime.Prelude",
-                            extHsRefIdentifier =
-                            HsIdentifier "CSize"},
+                            extRefIdentifier = Identifier
+                              "CSize"},
                           extHsSpec = TypeSpec {
                             typeSpecModule = Just
-                              (HsModuleName
+                              (ModuleName
                                 "HsBindgen.Runtime.Prelude"),
                             typeSpecIdentifier = Just
-                              (HsIdentifier "CSize"),
+                              (Identifier "CSize"),
                             typeSpecInstances = Map.fromList
                               [
                                 _×_
@@ -14063,7 +14053,7 @@
                         "doxygen_docs.h:362:9",
                         fieldName = NamePair {
                           nameC = Name "data",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "flexible_array_data"},
                         fieldComment = Just
                           (Comment
@@ -14128,29 +14118,29 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Flexible_array",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Flexible_array",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "flexible_array_count",
                       fieldType = HsExtBinding
-                        ExtHsRef {
-                          extHsRefModule = HsModuleName
+                        ExtRef {
+                          extRefModule = ModuleName
                             "HsBindgen.Runtime.Prelude",
-                          extHsRefIdentifier =
-                          HsIdentifier "CSize"}
+                          extRefIdentifier = Identifier
+                            "CSize"}
                         TypeSpec {
                           typeSpecModule = Just
-                            (HsModuleName
+                            (ModuleName
                               "HsBindgen.Runtime.Prelude"),
                           typeSpecIdentifier = Just
-                            (HsIdentifier "CSize"),
+                            (Identifier "CSize"),
                           typeSpecInstances = Map.fromList
                             [
                               _×_
@@ -14257,7 +14247,7 @@
                             "doxygen_docs.h:361:12",
                             fieldName = NamePair {
                               nameC = Name "count",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "flexible_array_count"},
                             fieldComment = Just
                               (Comment
@@ -14275,17 +14265,17 @@
                                 qualNameName = Name "size_t",
                                 qualNameKind =
                                 NameKindOrdinary},
-                              extHsRef = ExtHsRef {
-                                extHsRefModule = HsModuleName
+                              extHsRef = ExtRef {
+                                extRefModule = ModuleName
                                   "HsBindgen.Runtime.Prelude",
-                                extHsRefIdentifier =
-                                HsIdentifier "CSize"},
+                                extRefIdentifier = Identifier
+                                  "CSize"},
                               extHsSpec = TypeSpec {
                                 typeSpecModule = Just
-                                  (HsModuleName
+                                  (ModuleName
                                     "HsBindgen.Runtime.Prelude"),
                                 typeSpecIdentifier = Just
-                                  (HsIdentifier "CSize"),
+                                  (Identifier "CSize"),
                                 typeSpecInstances = Map.fromList
                                   [
                                     _×_
@@ -14411,7 +14401,7 @@
                         "doxygen_docs.h:360:8",
                         declId = NamePair {
                           nameC = Name "flexible_array",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Flexible_array"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -14454,7 +14444,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName
+                            (Name
                               "@NsConstr"
                               "Flexible_array"),
                           structSizeof = 8,
@@ -14466,7 +14456,7 @@
                                 "doxygen_docs.h:361:12",
                                 fieldName = NamePair {
                                   nameC = Name "count",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "flexible_array_count"},
                                 fieldComment = Just
                                   (Comment
@@ -14484,17 +14474,17 @@
                                     qualNameName = Name "size_t",
                                     qualNameKind =
                                     NameKindOrdinary},
-                                  extHsRef = ExtHsRef {
-                                    extHsRefModule = HsModuleName
+                                  extHsRef = ExtRef {
+                                    extRefModule = ModuleName
                                       "HsBindgen.Runtime.Prelude",
-                                    extHsRefIdentifier =
-                                    HsIdentifier "CSize"},
+                                    extRefIdentifier = Identifier
+                                      "CSize"},
                                   extHsSpec = TypeSpec {
                                     typeSpecModule = Just
-                                      (HsModuleName
+                                      (ModuleName
                                         "HsBindgen.Runtime.Prelude"),
                                     typeSpecIdentifier = Just
-                                      (HsIdentifier "CSize"),
+                                      (Identifier "CSize"),
                                     typeSpecInstances = Map.fromList
                                       [
                                         _×_
@@ -14603,7 +14593,7 @@
                                 "doxygen_docs.h:362:9",
                                 fieldName = NamePair {
                                   nameC = Name "data",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "flexible_array_data"},
                                 fieldComment = Just
                                   (Comment
@@ -14668,29 +14658,29 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Flexible_array",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Flexible_array",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "flexible_array_count",
                       fieldType = HsExtBinding
-                        ExtHsRef {
-                          extHsRefModule = HsModuleName
+                        ExtRef {
+                          extRefModule = ModuleName
                             "HsBindgen.Runtime.Prelude",
-                          extHsRefIdentifier =
-                          HsIdentifier "CSize"}
+                          extRefIdentifier = Identifier
+                            "CSize"}
                         TypeSpec {
                           typeSpecModule = Just
-                            (HsModuleName
+                            (ModuleName
                               "HsBindgen.Runtime.Prelude"),
                           typeSpecIdentifier = Just
-                            (HsIdentifier "CSize"),
+                            (Identifier "CSize"),
                           typeSpecInstances = Map.fromList
                             [
                               _×_
@@ -14797,7 +14787,7 @@
                             "doxygen_docs.h:361:12",
                             fieldName = NamePair {
                               nameC = Name "count",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "flexible_array_count"},
                             fieldComment = Just
                               (Comment
@@ -14815,17 +14805,17 @@
                                 qualNameName = Name "size_t",
                                 qualNameKind =
                                 NameKindOrdinary},
-                              extHsRef = ExtHsRef {
-                                extHsRefModule = HsModuleName
+                              extHsRef = ExtRef {
+                                extRefModule = ModuleName
                                   "HsBindgen.Runtime.Prelude",
-                                extHsRefIdentifier =
-                                HsIdentifier "CSize"},
+                                extRefIdentifier = Identifier
+                                  "CSize"},
                               extHsSpec = TypeSpec {
                                 typeSpecModule = Just
-                                  (HsModuleName
+                                  (ModuleName
                                     "HsBindgen.Runtime.Prelude"),
                                 typeSpecIdentifier = Just
-                                  (HsIdentifier "CSize"),
+                                  (Identifier "CSize"),
                                 typeSpecInstances = Map.fromList
                                   [
                                     _×_
@@ -14951,7 +14941,7 @@
                         "doxygen_docs.h:360:8",
                         declId = NamePair {
                           nameC = Name "flexible_array",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Flexible_array"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -14994,7 +14984,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName
+                            (Name
                               "@NsConstr"
                               "Flexible_array"),
                           structSizeof = 8,
@@ -15006,7 +14996,7 @@
                                 "doxygen_docs.h:361:12",
                                 fieldName = NamePair {
                                   nameC = Name "count",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "flexible_array_count"},
                                 fieldComment = Just
                                   (Comment
@@ -15024,17 +15014,17 @@
                                     qualNameName = Name "size_t",
                                     qualNameKind =
                                     NameKindOrdinary},
-                                  extHsRef = ExtHsRef {
-                                    extHsRefModule = HsModuleName
+                                  extHsRef = ExtRef {
+                                    extRefModule = ModuleName
                                       "HsBindgen.Runtime.Prelude",
-                                    extHsRefIdentifier =
-                                    HsIdentifier "CSize"},
+                                    extRefIdentifier = Identifier
+                                      "CSize"},
                                   extHsSpec = TypeSpec {
                                     typeSpecModule = Just
-                                      (HsModuleName
+                                      (ModuleName
                                         "HsBindgen.Runtime.Prelude"),
                                     typeSpecIdentifier = Just
-                                      (HsIdentifier "CSize"),
+                                      (Identifier "CSize"),
                                     typeSpecInstances = Map.fromList
                                       [
                                         _×_
@@ -15143,7 +15133,7 @@
                                 "doxygen_docs.h:362:9",
                                 fieldName = NamePair {
                                   nameC = Name "data",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "flexible_array_data"},
                                 fieldComment = Just
                                   (Comment
@@ -15214,7 +15204,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Flexible_array",
       deriveInstanceComment =
@@ -15224,7 +15214,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Flexible_array",
       deriveInstanceComment =
@@ -15234,29 +15224,29 @@
       defineInstanceDeclarations =
       InstanceHasFLAM
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Flexible_array",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Flexible_array",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "flexible_array_count",
               fieldType = HsExtBinding
-                ExtHsRef {
-                  extHsRefModule = HsModuleName
+                ExtRef {
+                  extRefModule = ModuleName
                     "HsBindgen.Runtime.Prelude",
-                  extHsRefIdentifier =
-                  HsIdentifier "CSize"}
+                  extRefIdentifier = Identifier
+                    "CSize"}
                 TypeSpec {
                   typeSpecModule = Just
-                    (HsModuleName
+                    (ModuleName
                       "HsBindgen.Runtime.Prelude"),
                   typeSpecIdentifier = Just
-                    (HsIdentifier "CSize"),
+                    (Identifier "CSize"),
                   typeSpecInstances = Map.fromList
                     [
                       _×_
@@ -15363,7 +15353,7 @@
                     "doxygen_docs.h:361:12",
                     fieldName = NamePair {
                       nameC = Name "count",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "flexible_array_count"},
                     fieldComment = Just
                       (Comment
@@ -15381,17 +15371,17 @@
                         qualNameName = Name "size_t",
                         qualNameKind =
                         NameKindOrdinary},
-                      extHsRef = ExtHsRef {
-                        extHsRefModule = HsModuleName
+                      extHsRef = ExtRef {
+                        extRefModule = ModuleName
                           "HsBindgen.Runtime.Prelude",
-                        extHsRefIdentifier =
-                        HsIdentifier "CSize"},
+                        extRefIdentifier = Identifier
+                          "CSize"},
                       extHsSpec = TypeSpec {
                         typeSpecModule = Just
-                          (HsModuleName
+                          (ModuleName
                             "HsBindgen.Runtime.Prelude"),
                         typeSpecIdentifier = Just
-                          (HsIdentifier "CSize"),
+                          (Identifier "CSize"),
                         typeSpecInstances = Map.fromList
                           [
                             _×_
@@ -15517,7 +15507,7 @@
                 "doxygen_docs.h:360:8",
                 declId = NamePair {
                   nameC = Name "flexible_array",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Flexible_array"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
@@ -15560,7 +15550,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName
+                    (Name
                       "@NsConstr"
                       "Flexible_array"),
                   structSizeof = 8,
@@ -15572,7 +15562,7 @@
                         "doxygen_docs.h:361:12",
                         fieldName = NamePair {
                           nameC = Name "count",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "flexible_array_count"},
                         fieldComment = Just
                           (Comment
@@ -15590,17 +15580,17 @@
                             qualNameName = Name "size_t",
                             qualNameKind =
                             NameKindOrdinary},
-                          extHsRef = ExtHsRef {
-                            extHsRefModule = HsModuleName
+                          extHsRef = ExtRef {
+                            extRefModule = ModuleName
                               "HsBindgen.Runtime.Prelude",
-                            extHsRefIdentifier =
-                            HsIdentifier "CSize"},
+                            extRefIdentifier = Identifier
+                              "CSize"},
                           extHsSpec = TypeSpec {
                             typeSpecModule = Just
-                              (HsModuleName
+                              (ModuleName
                                 "HsBindgen.Runtime.Prelude"),
                             typeSpecIdentifier = Just
-                              (HsIdentifier "CSize"),
+                              (Identifier "CSize"),
                             typeSpecInstances = Map.fromList
                               [
                                 _×_
@@ -15709,7 +15699,7 @@
                         "doxygen_docs.h:362:9",
                         fieldName = NamePair {
                           nameC = Name "data",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "flexible_array_data"},
                         fieldComment = Just
                           (Comment
@@ -15772,26 +15762,26 @@
       Nothing},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "process_data",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "input_data"),
+            (Name "@NsVar" "input_data"),
           functionParameterType = HsPtr
             (HsExtBinding
-              ExtHsRef {
-                extHsRefModule = HsModuleName
+              ExtRef {
+                extRefModule = ModuleName
                   "HsBindgen.Runtime.Prelude",
-                extHsRefIdentifier =
-                HsIdentifier "Word8"}
+                extRefIdentifier = Identifier
+                  "Word8"}
               TypeSpec {
                 typeSpecModule = Just
-                  (HsModuleName
+                  (ModuleName
                     "HsBindgen.Runtime.Prelude"),
                 typeSpecIdentifier = Just
-                  (HsIdentifier "Word8"),
+                  (Identifier "Word8"),
                 typeSpecInstances = Map.fromList
                   [
                     _×_
@@ -15912,20 +15902,20 @@
                           "Input data buffer"]]}]}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "output_data"),
+            (Name "@NsVar" "output_data"),
           functionParameterType = HsPtr
             (HsExtBinding
-              ExtHsRef {
-                extHsRefModule = HsModuleName
+              ExtRef {
+                extRefModule = ModuleName
                   "HsBindgen.Runtime.Prelude",
-                extHsRefIdentifier =
-                HsIdentifier "Word8"}
+                extRefIdentifier = Identifier
+                  "Word8"}
               TypeSpec {
                 typeSpecModule = Just
-                  (HsModuleName
+                  (ModuleName
                     "HsBindgen.Runtime.Prelude"),
                 typeSpecIdentifier = Just
-                  (HsIdentifier "Word8"),
+                  (Identifier "Word8"),
                 typeSpecInstances = Map.fromList
                   [
                     _×_
@@ -16046,20 +16036,20 @@
                           "Output data buffer"]]}]}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "size"),
+            (Name "@NsVar" "size"),
           functionParameterType = HsPtr
             (HsExtBinding
-              ExtHsRef {
-                extHsRefModule = HsModuleName
+              ExtRef {
+                extRefModule = ModuleName
                   "HsBindgen.Runtime.Prelude",
-                extHsRefIdentifier =
-                HsIdentifier "CSize"}
+                extRefIdentifier = Identifier
+                  "CSize"}
               TypeSpec {
                 typeSpecModule = Just
-                  (HsModuleName
+                  (ModuleName
                     "HsBindgen.Runtime.Prelude"),
                 typeSpecIdentifier = Just
-                  (HsIdentifier "CSize"),
+                  (Identifier "CSize"),
                 typeSpecInstances = Map.fromList
                   [
                     _×_
@@ -16196,7 +16186,7 @@
               (Just
                 NamePair {
                   nameC = Name "input_data",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "input_data"})
               (TypePointer
                 (TypeConst
@@ -16206,17 +16196,17 @@
                         qualNameName = Name "uint8_t",
                         qualNameKind =
                         NameKindOrdinary},
-                      extHsRef = ExtHsRef {
-                        extHsRefModule = HsModuleName
+                      extHsRef = ExtRef {
+                        extRefModule = ModuleName
                           "HsBindgen.Runtime.Prelude",
-                        extHsRefIdentifier =
-                        HsIdentifier "Word8"},
+                        extRefIdentifier = Identifier
+                          "Word8"},
                       extHsSpec = TypeSpec {
                         typeSpecModule = Just
-                          (HsModuleName
+                          (ModuleName
                             "HsBindgen.Runtime.Prelude"),
                         typeSpecIdentifier = Just
-                          (HsIdentifier "Word8"),
+                          (Identifier "Word8"),
                         typeSpecInstances = Map.fromList
                           [
                             _×_
@@ -16320,7 +16310,7 @@
               (Just
                 NamePair {
                   nameC = Name "output_data",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "output_data"})
               (TypePointer
                 (TypeExtBinding
@@ -16329,17 +16319,17 @@
                       qualNameName = Name "uint8_t",
                       qualNameKind =
                       NameKindOrdinary},
-                    extHsRef = ExtHsRef {
-                      extHsRefModule = HsModuleName
+                    extHsRef = ExtRef {
+                      extRefModule = ModuleName
                         "HsBindgen.Runtime.Prelude",
-                      extHsRefIdentifier =
-                      HsIdentifier "Word8"},
+                      extRefIdentifier = Identifier
+                        "Word8"},
                     extHsSpec = TypeSpec {
                       typeSpecModule = Just
-                        (HsModuleName
+                        (ModuleName
                           "HsBindgen.Runtime.Prelude"),
                       typeSpecIdentifier = Just
-                        (HsIdentifier "Word8"),
+                        (Identifier "Word8"),
                       typeSpecInstances = Map.fromList
                         [
                           _×_
@@ -16443,7 +16433,7 @@
               (Just
                 NamePair {
                   nameC = Name "size",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "size"})
               (TypePointer
                 (TypeExtBinding
@@ -16452,17 +16442,17 @@
                       qualNameName = Name "size_t",
                       qualNameKind =
                       NameKindOrdinary},
-                    extHsRef = ExtHsRef {
-                      extHsRefModule = HsModuleName
+                    extHsRef = ExtRef {
+                      extRefModule = ModuleName
                         "HsBindgen.Runtime.Prelude",
-                      extHsRefIdentifier =
-                      HsIdentifier "CSize"},
+                      extRefIdentifier = Identifier
+                        "CSize"},
                     extHsSpec = TypeSpec {
                       typeSpecModule = Just
-                        (HsModuleName
+                        (ModuleName
                           "HsBindgen.Runtime.Prelude"),
                       typeSpecIdentifier = Just
-                        (HsIdentifier "CSize"),
+                        (Identifier "CSize"),
                       typeSpecInstances = Map.fromList
                         [
                           _×_
@@ -16632,13 +16622,13 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "process_file",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "filename"),
+            (Name "@NsVar" "filename"),
           functionParameterType = HsPtr
             (HsPrimType HsPrimCChar),
           functionParameterComment = Just
@@ -16680,7 +16670,7 @@
               (Just
                 NamePair {
                   nameC = Name "filename",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "filename"})
               (TypePointer
                 (TypeConst
@@ -16747,13 +16737,13 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "calculate_value",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "base"),
+            (Name "@NsVar" "base"),
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
@@ -16773,7 +16763,7 @@
                       [TextContent "Base value"]]}]}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "multiplier"),
+            (Name "@NsVar" "multiplier"),
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
@@ -16814,7 +16804,7 @@
               (Just
                 NamePair {
                   nameC = Name "base",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "base"})
               (TypePrim
                 (PrimIntegral PrimInt Signed)),
@@ -16822,7 +16812,7 @@
               (Just
                 NamePair {
                   nameC = Name "multiplier",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "multiplier"})
               (TypePrim
                 (PrimIntegral PrimInt Signed))],
@@ -16882,13 +16872,13 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "html_example",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "value"),
+            (Name "@NsVar" "value"),
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
@@ -16927,7 +16917,7 @@
               (Just
                 NamePair {
                   nameC = Name "value",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "value"})
               (TypePrim
                 (PrimIntegral PrimInt Signed))],
@@ -16988,13 +16978,13 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "list_example",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "items"),
+            (Name "@NsVar" "items"),
           functionParameterType = HsPtr
             (HsPtr
               (HsPrimType HsPrimCChar)),
@@ -17017,7 +17007,7 @@
                           "Array of items"]]}]}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "count"),
+            (Name "@NsVar" "count"),
           functionParameterType =
           HsPrimType HsPrimCSize,
           functionParameterComment = Just
@@ -17056,7 +17046,7 @@
               (Just
                 NamePair {
                   nameC = Name "items",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "items"})
               (TypePointer
                 (TypePointer
@@ -17068,7 +17058,7 @@
               (Just
                 NamePair {
                   nameC = Name "count",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "count"})
               (TypePrim PrimSize)],
           functionAttrs =
@@ -17201,13 +17191,13 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "dangerous_function",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "ptr"),
+            (Name "@NsVar" "ptr"),
           functionParameterType = HsPtr
             (HsPrimType HsPrimVoid),
           functionParameterComment = Just
@@ -17248,8 +17238,7 @@
               (Just
                 NamePair {
                   nameC = Name "ptr",
-                  nameHsIdent = HsIdentifier
-                    "ptr"})
+                  nameHsIdent = Identifier "ptr"})
               (TypePointer TypeVoid)],
           functionAttrs =
           FunctionAttributes
@@ -17308,13 +17297,13 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "detailed_return_codes",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "input"),
+            (Name "@NsVar" "input"),
           functionParameterType = HsPtr
             (HsPrimType HsPrimCChar),
           functionParameterComment = Just
@@ -17353,7 +17342,7 @@
               (Just
                 NamePair {
                   nameC = Name "input",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "input"})
               (TypePointer
                 (TypeConst
@@ -17417,13 +17406,13 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "old_function",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "old_param"),
+            (Name "@NsVar" "old_param"),
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
@@ -17464,7 +17453,7 @@
               (Just
                 NamePair {
                   nameC = Name "old_param",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "old_param"})
               (TypePrim
                 (PrimIntegral PrimInt Signed))],
@@ -17515,13 +17504,13 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "versioned_function",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "data'"),
+            (Name "@NsVar" "data'"),
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
@@ -17550,7 +17539,7 @@
               (Just
                 NamePair {
                   nameC = Name "data",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "data'"})
               (TypePrim
                 (PrimIntegral PrimInt Signed))],
@@ -17594,13 +17583,13 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "process_buffer_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "buffer"),
+            (Name "@NsVar" "buffer"),
           functionParameterType = HsPtr
             (HsPrimType HsPrimCChar),
           functionParameterComment = Just
@@ -17623,20 +17612,20 @@
                           "Buffer with minimum size"]]}]}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "size"),
+            (Name "@NsVar" "size"),
           functionParameterType =
           HsExtBinding
-            ExtHsRef {
-              extHsRefModule = HsModuleName
+            ExtRef {
+              extRefModule = ModuleName
                 "HsBindgen.Runtime.Prelude",
-              extHsRefIdentifier =
-              HsIdentifier "CSize"}
+              extRefIdentifier = Identifier
+                "CSize"}
             TypeSpec {
               typeSpecModule = Just
-                (HsModuleName
+                (ModuleName
                   "HsBindgen.Runtime.Prelude"),
               typeSpecIdentifier = Just
-                (HsIdentifier "CSize"),
+                (Identifier "CSize"),
               typeSpecInstances = Map.fromList
                 [
                   _×_
@@ -17772,7 +17761,7 @@
               (Just
                 NamePair {
                   nameC = Name "buffer",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "buffer"})
               (TypeConstArray
                 64
@@ -17784,7 +17773,7 @@
               (Just
                 NamePair {
                   nameC = Name "size",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "size"})
               (TypeExtBinding
                 ResolvedExtBinding {
@@ -17792,17 +17781,17 @@
                     qualNameName = Name "size_t",
                     qualNameKind =
                     NameKindOrdinary},
-                  extHsRef = ExtHsRef {
-                    extHsRefModule = HsModuleName
+                  extHsRef = ExtRef {
+                    extRefModule = ModuleName
                       "HsBindgen.Runtime.Prelude",
-                    extHsRefIdentifier =
-                    HsIdentifier "CSize"},
+                    extRefIdentifier = Identifier
+                      "CSize"},
                   extHsSpec = TypeSpec {
                     typeSpecModule = Just
-                      (HsModuleName
+                      (ModuleName
                         "HsBindgen.Runtime.Prelude"),
                     typeSpecIdentifier = Just
-                      (HsIdentifier "CSize"),
+                      (Identifier "CSize"),
                     typeSpecInstances = Map.fromList
                       [
                         _×_
@@ -17955,13 +17944,13 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "my_memcpy",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "dest"),
+            (Name "@NsVar" "dest"),
           functionParameterType = HsPtr
             (HsPrimType HsPrimVoid),
           functionParameterComment = Just
@@ -17983,7 +17972,7 @@
                           "Destination buffer (restrict)"]]}]}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "src"),
+            (Name "@NsVar" "src"),
           functionParameterType = HsPtr
             (HsPrimType HsPrimVoid),
           functionParameterComment = Just
@@ -18005,20 +17994,20 @@
                           "Source buffer (restrict)"]]}]}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "n"),
+            (Name "@NsVar" "n"),
           functionParameterType =
           HsExtBinding
-            ExtHsRef {
-              extHsRefModule = HsModuleName
+            ExtRef {
+              extRefModule = ModuleName
                 "HsBindgen.Runtime.Prelude",
-              extHsRefIdentifier =
-              HsIdentifier "CSize"}
+              extRefIdentifier = Identifier
+                "CSize"}
             TypeSpec {
               typeSpecModule = Just
-                (HsModuleName
+                (ModuleName
                   "HsBindgen.Runtime.Prelude"),
               typeSpecIdentifier = Just
-                (HsIdentifier "CSize"),
+                (Identifier "CSize"),
               typeSpecInstances = Map.fromList
                 [
                   _×_
@@ -18156,39 +18145,38 @@
               (Just
                 NamePair {
                   nameC = Name "dest",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "dest"})
               (TypePointer TypeVoid),
             _×_
               (Just
                 NamePair {
                   nameC = Name "src",
-                  nameHsIdent = HsIdentifier
-                    "src"})
+                  nameHsIdent = Identifier "src"})
               (TypePointer
                 (TypeConst TypeVoid)),
             _×_
               (Just
                 NamePair {
                   nameC = Name "n",
-                  nameHsIdent = HsIdentifier "n"})
+                  nameHsIdent = Identifier "n"})
               (TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
                     qualNameName = Name "size_t",
                     qualNameKind =
                     NameKindOrdinary},
-                  extHsRef = ExtHsRef {
-                    extHsRefModule = HsModuleName
+                  extHsRef = ExtRef {
+                    extRefModule = ModuleName
                       "HsBindgen.Runtime.Prelude",
-                    extHsRefIdentifier =
-                    HsIdentifier "CSize"},
+                    extRefIdentifier = Identifier
+                      "CSize"},
                   extHsSpec = TypeSpec {
                     typeSpecModule = Just
-                      (HsModuleName
+                      (ModuleName
                         "HsBindgen.Runtime.Prelude"),
                     typeSpecIdentifier = Just
-                      (HsIdentifier "CSize"),
+                      (Identifier "CSize"),
                     typeSpecInstances = Map.fromList
                       [
                         _×_
@@ -18349,13 +18337,13 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "double_value",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "x"),
+            (Name "@NsVar" "x"),
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
@@ -18394,7 +18382,7 @@
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypePrim
                 (PrimIntegral PrimInt Signed))],
           functionAttrs =
@@ -18433,16 +18421,16 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "complex_function",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "config"),
+            (Name "@NsVar" "config"),
           functionParameterType = HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "Config_t")),
           functionParameterComment = Just
@@ -18467,20 +18455,20 @@
                         TextContent ")"]]}]}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "data'"),
+            (Name "@NsVar" "data'"),
           functionParameterType = HsPtr
             (HsExtBinding
-              ExtHsRef {
-                extHsRefModule = HsModuleName
+              ExtRef {
+                extRefModule = ModuleName
                   "HsBindgen.Runtime.Prelude",
-                extHsRefIdentifier =
-                HsIdentifier "Word8"}
+                extRefIdentifier = Identifier
+                  "Word8"}
               TypeSpec {
                 typeSpecModule = Just
-                  (HsModuleName
+                  (ModuleName
                     "HsBindgen.Runtime.Prelude"),
                 typeSpecIdentifier = Just
-                  (HsIdentifier "Word8"),
+                  (Identifier "Word8"),
                 typeSpecInstances = Map.fromList
                   [
                     _×_
@@ -18589,20 +18577,20 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "size"),
+            (Name "@NsVar" "size"),
           functionParameterType =
           HsExtBinding
-            ExtHsRef {
-              extHsRefModule = HsModuleName
+            ExtRef {
+              extRefModule = ModuleName
                 "HsBindgen.Runtime.Prelude",
-              extHsRefIdentifier =
-              HsIdentifier "CSize"}
+              extRefIdentifier = Identifier
+                "CSize"}
             TypeSpec {
               typeSpecModule = Just
-                (HsModuleName
+                (ModuleName
                   "HsBindgen.Runtime.Prelude"),
               typeSpecIdentifier = Just
-                (HsIdentifier "CSize"),
+                (Identifier "CSize"),
               typeSpecInstances = Map.fromList
                 [
                   _×_
@@ -18723,7 +18711,7 @@
       NormalResultType
         (HsIO
           (HsTypRef
-            (HsName
+            (Name
               "@NsTypeConstr"
               "Status_code_t"))),
       foreignImportOrigName =
@@ -18742,7 +18730,7 @@
               (Just
                 NamePair {
                   nameC = Name "config",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "config"})
               (TypePointer
                 (TypeTypedef
@@ -18751,7 +18739,7 @@
                     (TypeStruct
                       NamePair {
                         nameC = Name "config_t",
-                        nameHsIdent = HsIdentifier
+                        nameHsIdent = Identifier
                           "Config_t"}
                       (NameOriginGenerated
                         (AnonId
@@ -18760,7 +18748,7 @@
               (Just
                 NamePair {
                   nameC = Name "data",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "data'"})
               (TypePointer
                 (TypeConst
@@ -18770,17 +18758,17 @@
                         qualNameName = Name "uint8_t",
                         qualNameKind =
                         NameKindOrdinary},
-                      extHsRef = ExtHsRef {
-                        extHsRefModule = HsModuleName
+                      extHsRef = ExtRef {
+                        extRefModule = ModuleName
                           "HsBindgen.Runtime.Prelude",
-                        extHsRefIdentifier =
-                        HsIdentifier "Word8"},
+                        extRefIdentifier = Identifier
+                          "Word8"},
                       extHsSpec = TypeSpec {
                         typeSpecModule = Just
-                          (HsModuleName
+                          (ModuleName
                             "HsBindgen.Runtime.Prelude"),
                         typeSpecIdentifier = Just
-                          (HsIdentifier "Word8"),
+                          (Identifier "Word8"),
                         typeSpecInstances = Map.fromList
                           [
                             _×_
@@ -18884,7 +18872,7 @@
               (Just
                 NamePair {
                   nameC = Name "size",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "size"})
               (TypeExtBinding
                 ResolvedExtBinding {
@@ -18892,17 +18880,17 @@
                     qualNameName = Name "size_t",
                     qualNameKind =
                     NameKindOrdinary},
-                  extHsRef = ExtHsRef {
-                    extHsRefModule = HsModuleName
+                  extHsRef = ExtRef {
+                    extRefModule = ModuleName
                       "HsBindgen.Runtime.Prelude",
-                    extHsRefIdentifier =
-                    HsIdentifier "CSize"},
+                    extRefIdentifier = Identifier
+                      "CSize"},
                   extHsSpec = TypeSpec {
                     typeSpecModule = Just
-                      (HsModuleName
+                      (ModuleName
                         "HsBindgen.Runtime.Prelude"),
                     typeSpecIdentifier = Just
-                      (HsIdentifier "CSize"),
+                      (Identifier "CSize"),
                     typeSpecInstances = Map.fromList
                       [
                         _×_
@@ -19011,7 +18999,7 @@
               (TypeEnum
                 NamePair {
                   nameC = Name "status_code_t",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Status_code_t"}
                 (NameOriginGenerated
                   (AnonId
@@ -19201,13 +19189,13 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hash",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "s"),
+            (Name "@NsVar" "s"),
           functionParameterType = HsPtr
             (HsPrimType HsPrimCChar),
           functionParameterComment = Just
@@ -19236,7 +19224,7 @@
               (Just
                 NamePair {
                   nameC = Name "s",
-                  nameHsIdent = HsIdentifier "s"})
+                  nameHsIdent = Identifier "s"})
               (TypePointer
                 (TypePrim
                   (PrimChar
@@ -19272,13 +19260,13 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "square",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "x"),
+            (Name "@NsVar" "x"),
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
@@ -19307,7 +19295,7 @@
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypePrim
                 (PrimIntegral PrimInt Signed))],
           functionAttrs =
@@ -19331,26 +19319,26 @@
       foreignImportSafety = Safe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "process_data",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "input_data"),
+            (Name "@NsVar" "input_data"),
           functionParameterType = HsPtr
             (HsExtBinding
-              ExtHsRef {
-                extHsRefModule = HsModuleName
+              ExtRef {
+                extRefModule = ModuleName
                   "HsBindgen.Runtime.Prelude",
-                extHsRefIdentifier =
-                HsIdentifier "Word8"}
+                extRefIdentifier = Identifier
+                  "Word8"}
               TypeSpec {
                 typeSpecModule = Just
-                  (HsModuleName
+                  (ModuleName
                     "HsBindgen.Runtime.Prelude"),
                 typeSpecIdentifier = Just
-                  (HsIdentifier "Word8"),
+                  (Identifier "Word8"),
                 typeSpecInstances = Map.fromList
                   [
                     _×_
@@ -19471,20 +19459,20 @@
                           "Input data buffer"]]}]}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "output_data"),
+            (Name "@NsVar" "output_data"),
           functionParameterType = HsPtr
             (HsExtBinding
-              ExtHsRef {
-                extHsRefModule = HsModuleName
+              ExtRef {
+                extRefModule = ModuleName
                   "HsBindgen.Runtime.Prelude",
-                extHsRefIdentifier =
-                HsIdentifier "Word8"}
+                extRefIdentifier = Identifier
+                  "Word8"}
               TypeSpec {
                 typeSpecModule = Just
-                  (HsModuleName
+                  (ModuleName
                     "HsBindgen.Runtime.Prelude"),
                 typeSpecIdentifier = Just
-                  (HsIdentifier "Word8"),
+                  (Identifier "Word8"),
                 typeSpecInstances = Map.fromList
                   [
                     _×_
@@ -19605,20 +19593,20 @@
                           "Output data buffer"]]}]}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "size"),
+            (Name "@NsVar" "size"),
           functionParameterType = HsPtr
             (HsExtBinding
-              ExtHsRef {
-                extHsRefModule = HsModuleName
+              ExtRef {
+                extRefModule = ModuleName
                   "HsBindgen.Runtime.Prelude",
-                extHsRefIdentifier =
-                HsIdentifier "CSize"}
+                extRefIdentifier = Identifier
+                  "CSize"}
               TypeSpec {
                 typeSpecModule = Just
-                  (HsModuleName
+                  (ModuleName
                     "HsBindgen.Runtime.Prelude"),
                 typeSpecIdentifier = Just
-                  (HsIdentifier "CSize"),
+                  (Identifier "CSize"),
                 typeSpecInstances = Map.fromList
                   [
                     _×_
@@ -19755,7 +19743,7 @@
               (Just
                 NamePair {
                   nameC = Name "input_data",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "input_data"})
               (TypePointer
                 (TypeConst
@@ -19765,17 +19753,17 @@
                         qualNameName = Name "uint8_t",
                         qualNameKind =
                         NameKindOrdinary},
-                      extHsRef = ExtHsRef {
-                        extHsRefModule = HsModuleName
+                      extHsRef = ExtRef {
+                        extRefModule = ModuleName
                           "HsBindgen.Runtime.Prelude",
-                        extHsRefIdentifier =
-                        HsIdentifier "Word8"},
+                        extRefIdentifier = Identifier
+                          "Word8"},
                       extHsSpec = TypeSpec {
                         typeSpecModule = Just
-                          (HsModuleName
+                          (ModuleName
                             "HsBindgen.Runtime.Prelude"),
                         typeSpecIdentifier = Just
-                          (HsIdentifier "Word8"),
+                          (Identifier "Word8"),
                         typeSpecInstances = Map.fromList
                           [
                             _×_
@@ -19879,7 +19867,7 @@
               (Just
                 NamePair {
                   nameC = Name "output_data",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "output_data"})
               (TypePointer
                 (TypeExtBinding
@@ -19888,17 +19876,17 @@
                       qualNameName = Name "uint8_t",
                       qualNameKind =
                       NameKindOrdinary},
-                    extHsRef = ExtHsRef {
-                      extHsRefModule = HsModuleName
+                    extHsRef = ExtRef {
+                      extRefModule = ModuleName
                         "HsBindgen.Runtime.Prelude",
-                      extHsRefIdentifier =
-                      HsIdentifier "Word8"},
+                      extRefIdentifier = Identifier
+                        "Word8"},
                     extHsSpec = TypeSpec {
                       typeSpecModule = Just
-                        (HsModuleName
+                        (ModuleName
                           "HsBindgen.Runtime.Prelude"),
                       typeSpecIdentifier = Just
-                        (HsIdentifier "Word8"),
+                        (Identifier "Word8"),
                       typeSpecInstances = Map.fromList
                         [
                           _×_
@@ -20002,7 +19990,7 @@
               (Just
                 NamePair {
                   nameC = Name "size",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "size"})
               (TypePointer
                 (TypeExtBinding
@@ -20011,17 +19999,17 @@
                       qualNameName = Name "size_t",
                       qualNameKind =
                       NameKindOrdinary},
-                    extHsRef = ExtHsRef {
-                      extHsRefModule = HsModuleName
+                    extHsRef = ExtRef {
+                      extRefModule = ModuleName
                         "HsBindgen.Runtime.Prelude",
-                      extHsRefIdentifier =
-                      HsIdentifier "CSize"},
+                      extRefIdentifier = Identifier
+                        "CSize"},
                     extHsSpec = TypeSpec {
                       typeSpecModule = Just
-                        (HsModuleName
+                        (ModuleName
                           "HsBindgen.Runtime.Prelude"),
                       typeSpecIdentifier = Just
-                        (HsIdentifier "CSize"),
+                        (Identifier "CSize"),
                       typeSpecInstances = Map.fromList
                         [
                           _×_
@@ -20191,13 +20179,13 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "process_file",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "filename"),
+            (Name "@NsVar" "filename"),
           functionParameterType = HsPtr
             (HsPrimType HsPrimCChar),
           functionParameterComment = Just
@@ -20239,7 +20227,7 @@
               (Just
                 NamePair {
                   nameC = Name "filename",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "filename"})
               (TypePointer
                 (TypeConst
@@ -20306,13 +20294,13 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "calculate_value",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "base"),
+            (Name "@NsVar" "base"),
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
@@ -20332,7 +20320,7 @@
                       [TextContent "Base value"]]}]}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "multiplier"),
+            (Name "@NsVar" "multiplier"),
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
@@ -20373,7 +20361,7 @@
               (Just
                 NamePair {
                   nameC = Name "base",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "base"})
               (TypePrim
                 (PrimIntegral PrimInt Signed)),
@@ -20381,7 +20369,7 @@
               (Just
                 NamePair {
                   nameC = Name "multiplier",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "multiplier"})
               (TypePrim
                 (PrimIntegral PrimInt Signed))],
@@ -20441,13 +20429,13 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "html_example",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "value"),
+            (Name "@NsVar" "value"),
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
@@ -20486,7 +20474,7 @@
               (Just
                 NamePair {
                   nameC = Name "value",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "value"})
               (TypePrim
                 (PrimIntegral PrimInt Signed))],
@@ -20547,13 +20535,13 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "list_example",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "items"),
+            (Name "@NsVar" "items"),
           functionParameterType = HsPtr
             (HsPtr
               (HsPrimType HsPrimCChar)),
@@ -20576,7 +20564,7 @@
                           "Array of items"]]}]}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "count"),
+            (Name "@NsVar" "count"),
           functionParameterType =
           HsPrimType HsPrimCSize,
           functionParameterComment = Just
@@ -20615,7 +20603,7 @@
               (Just
                 NamePair {
                   nameC = Name "items",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "items"})
               (TypePointer
                 (TypePointer
@@ -20627,7 +20615,7 @@
               (Just
                 NamePair {
                   nameC = Name "count",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "count"})
               (TypePrim PrimSize)],
           functionAttrs =
@@ -20760,13 +20748,13 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "dangerous_function",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "ptr"),
+            (Name "@NsVar" "ptr"),
           functionParameterType = HsPtr
             (HsPrimType HsPrimVoid),
           functionParameterComment = Just
@@ -20807,8 +20795,7 @@
               (Just
                 NamePair {
                   nameC = Name "ptr",
-                  nameHsIdent = HsIdentifier
-                    "ptr"})
+                  nameHsIdent = Identifier "ptr"})
               (TypePointer TypeVoid)],
           functionAttrs =
           FunctionAttributes
@@ -20867,13 +20854,13 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "detailed_return_codes",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "input"),
+            (Name "@NsVar" "input"),
           functionParameterType = HsPtr
             (HsPrimType HsPrimCChar),
           functionParameterComment = Just
@@ -20912,7 +20899,7 @@
               (Just
                 NamePair {
                   nameC = Name "input",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "input"})
               (TypePointer
                 (TypeConst
@@ -20976,13 +20963,13 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "old_function",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "old_param"),
+            (Name "@NsVar" "old_param"),
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
@@ -21023,7 +21010,7 @@
               (Just
                 NamePair {
                   nameC = Name "old_param",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "old_param"})
               (TypePrim
                 (PrimIntegral PrimInt Signed))],
@@ -21074,13 +21061,13 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "versioned_function",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "data'"),
+            (Name "@NsVar" "data'"),
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
@@ -21109,7 +21096,7 @@
               (Just
                 NamePair {
                   nameC = Name "data",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "data'"})
               (TypePrim
                 (PrimIntegral PrimInt Signed))],
@@ -21153,13 +21140,13 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "process_buffer_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "buffer"),
+            (Name "@NsVar" "buffer"),
           functionParameterType = HsPtr
             (HsPrimType HsPrimCChar),
           functionParameterComment = Just
@@ -21182,20 +21169,20 @@
                           "Buffer with minimum size"]]}]}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "size"),
+            (Name "@NsVar" "size"),
           functionParameterType =
           HsExtBinding
-            ExtHsRef {
-              extHsRefModule = HsModuleName
+            ExtRef {
+              extRefModule = ModuleName
                 "HsBindgen.Runtime.Prelude",
-              extHsRefIdentifier =
-              HsIdentifier "CSize"}
+              extRefIdentifier = Identifier
+                "CSize"}
             TypeSpec {
               typeSpecModule = Just
-                (HsModuleName
+                (ModuleName
                   "HsBindgen.Runtime.Prelude"),
               typeSpecIdentifier = Just
-                (HsIdentifier "CSize"),
+                (Identifier "CSize"),
               typeSpecInstances = Map.fromList
                 [
                   _×_
@@ -21331,7 +21318,7 @@
               (Just
                 NamePair {
                   nameC = Name "buffer",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "buffer"})
               (TypeConstArray
                 64
@@ -21343,7 +21330,7 @@
               (Just
                 NamePair {
                   nameC = Name "size",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "size"})
               (TypeExtBinding
                 ResolvedExtBinding {
@@ -21351,17 +21338,17 @@
                     qualNameName = Name "size_t",
                     qualNameKind =
                     NameKindOrdinary},
-                  extHsRef = ExtHsRef {
-                    extHsRefModule = HsModuleName
+                  extHsRef = ExtRef {
+                    extRefModule = ModuleName
                       "HsBindgen.Runtime.Prelude",
-                    extHsRefIdentifier =
-                    HsIdentifier "CSize"},
+                    extRefIdentifier = Identifier
+                      "CSize"},
                   extHsSpec = TypeSpec {
                     typeSpecModule = Just
-                      (HsModuleName
+                      (ModuleName
                         "HsBindgen.Runtime.Prelude"),
                     typeSpecIdentifier = Just
-                      (HsIdentifier "CSize"),
+                      (Identifier "CSize"),
                     typeSpecInstances = Map.fromList
                       [
                         _×_
@@ -21514,13 +21501,13 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "my_memcpy",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "dest"),
+            (Name "@NsVar" "dest"),
           functionParameterType = HsPtr
             (HsPrimType HsPrimVoid),
           functionParameterComment = Just
@@ -21542,7 +21529,7 @@
                           "Destination buffer (restrict)"]]}]}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "src"),
+            (Name "@NsVar" "src"),
           functionParameterType = HsPtr
             (HsPrimType HsPrimVoid),
           functionParameterComment = Just
@@ -21564,20 +21551,20 @@
                           "Source buffer (restrict)"]]}]}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "n"),
+            (Name "@NsVar" "n"),
           functionParameterType =
           HsExtBinding
-            ExtHsRef {
-              extHsRefModule = HsModuleName
+            ExtRef {
+              extRefModule = ModuleName
                 "HsBindgen.Runtime.Prelude",
-              extHsRefIdentifier =
-              HsIdentifier "CSize"}
+              extRefIdentifier = Identifier
+                "CSize"}
             TypeSpec {
               typeSpecModule = Just
-                (HsModuleName
+                (ModuleName
                   "HsBindgen.Runtime.Prelude"),
               typeSpecIdentifier = Just
-                (HsIdentifier "CSize"),
+                (Identifier "CSize"),
               typeSpecInstances = Map.fromList
                 [
                   _×_
@@ -21715,39 +21702,38 @@
               (Just
                 NamePair {
                   nameC = Name "dest",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "dest"})
               (TypePointer TypeVoid),
             _×_
               (Just
                 NamePair {
                   nameC = Name "src",
-                  nameHsIdent = HsIdentifier
-                    "src"})
+                  nameHsIdent = Identifier "src"})
               (TypePointer
                 (TypeConst TypeVoid)),
             _×_
               (Just
                 NamePair {
                   nameC = Name "n",
-                  nameHsIdent = HsIdentifier "n"})
+                  nameHsIdent = Identifier "n"})
               (TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
                     qualNameName = Name "size_t",
                     qualNameKind =
                     NameKindOrdinary},
-                  extHsRef = ExtHsRef {
-                    extHsRefModule = HsModuleName
+                  extHsRef = ExtRef {
+                    extRefModule = ModuleName
                       "HsBindgen.Runtime.Prelude",
-                    extHsRefIdentifier =
-                    HsIdentifier "CSize"},
+                    extRefIdentifier = Identifier
+                      "CSize"},
                   extHsSpec = TypeSpec {
                     typeSpecModule = Just
-                      (HsModuleName
+                      (ModuleName
                         "HsBindgen.Runtime.Prelude"),
                     typeSpecIdentifier = Just
-                      (HsIdentifier "CSize"),
+                      (Identifier "CSize"),
                     typeSpecInstances = Map.fromList
                       [
                         _×_
@@ -21908,13 +21894,13 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "double_value",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "x"),
+            (Name "@NsVar" "x"),
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
@@ -21953,7 +21939,7 @@
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypePrim
                 (PrimIntegral PrimInt Signed))],
           functionAttrs =
@@ -21992,16 +21978,16 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "complex_function",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "config"),
+            (Name "@NsVar" "config"),
           functionParameterType = HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "Config_t")),
           functionParameterComment = Just
@@ -22026,20 +22012,20 @@
                         TextContent ")"]]}]}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "data'"),
+            (Name "@NsVar" "data'"),
           functionParameterType = HsPtr
             (HsExtBinding
-              ExtHsRef {
-                extHsRefModule = HsModuleName
+              ExtRef {
+                extRefModule = ModuleName
                   "HsBindgen.Runtime.Prelude",
-                extHsRefIdentifier =
-                HsIdentifier "Word8"}
+                extRefIdentifier = Identifier
+                  "Word8"}
               TypeSpec {
                 typeSpecModule = Just
-                  (HsModuleName
+                  (ModuleName
                     "HsBindgen.Runtime.Prelude"),
                 typeSpecIdentifier = Just
-                  (HsIdentifier "Word8"),
+                  (Identifier "Word8"),
                 typeSpecInstances = Map.fromList
                   [
                     _×_
@@ -22148,20 +22134,20 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "size"),
+            (Name "@NsVar" "size"),
           functionParameterType =
           HsExtBinding
-            ExtHsRef {
-              extHsRefModule = HsModuleName
+            ExtRef {
+              extRefModule = ModuleName
                 "HsBindgen.Runtime.Prelude",
-              extHsRefIdentifier =
-              HsIdentifier "CSize"}
+              extRefIdentifier = Identifier
+                "CSize"}
             TypeSpec {
               typeSpecModule = Just
-                (HsModuleName
+                (ModuleName
                   "HsBindgen.Runtime.Prelude"),
               typeSpecIdentifier = Just
-                (HsIdentifier "CSize"),
+                (Identifier "CSize"),
               typeSpecInstances = Map.fromList
                 [
                   _×_
@@ -22282,7 +22268,7 @@
       NormalResultType
         (HsIO
           (HsTypRef
-            (HsName
+            (Name
               "@NsTypeConstr"
               "Status_code_t"))),
       foreignImportOrigName =
@@ -22301,7 +22287,7 @@
               (Just
                 NamePair {
                   nameC = Name "config",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "config"})
               (TypePointer
                 (TypeTypedef
@@ -22310,7 +22296,7 @@
                     (TypeStruct
                       NamePair {
                         nameC = Name "config_t",
-                        nameHsIdent = HsIdentifier
+                        nameHsIdent = Identifier
                           "Config_t"}
                       (NameOriginGenerated
                         (AnonId
@@ -22319,7 +22305,7 @@
               (Just
                 NamePair {
                   nameC = Name "data",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "data'"})
               (TypePointer
                 (TypeConst
@@ -22329,17 +22315,17 @@
                         qualNameName = Name "uint8_t",
                         qualNameKind =
                         NameKindOrdinary},
-                      extHsRef = ExtHsRef {
-                        extHsRefModule = HsModuleName
+                      extHsRef = ExtRef {
+                        extRefModule = ModuleName
                           "HsBindgen.Runtime.Prelude",
-                        extHsRefIdentifier =
-                        HsIdentifier "Word8"},
+                        extRefIdentifier = Identifier
+                          "Word8"},
                       extHsSpec = TypeSpec {
                         typeSpecModule = Just
-                          (HsModuleName
+                          (ModuleName
                             "HsBindgen.Runtime.Prelude"),
                         typeSpecIdentifier = Just
-                          (HsIdentifier "Word8"),
+                          (Identifier "Word8"),
                         typeSpecInstances = Map.fromList
                           [
                             _×_
@@ -22443,7 +22429,7 @@
               (Just
                 NamePair {
                   nameC = Name "size",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "size"})
               (TypeExtBinding
                 ResolvedExtBinding {
@@ -22451,17 +22437,17 @@
                     qualNameName = Name "size_t",
                     qualNameKind =
                     NameKindOrdinary},
-                  extHsRef = ExtHsRef {
-                    extHsRefModule = HsModuleName
+                  extHsRef = ExtRef {
+                    extRefModule = ModuleName
                       "HsBindgen.Runtime.Prelude",
-                    extHsRefIdentifier =
-                    HsIdentifier "CSize"},
+                    extRefIdentifier = Identifier
+                      "CSize"},
                   extHsSpec = TypeSpec {
                     typeSpecModule = Just
-                      (HsModuleName
+                      (ModuleName
                         "HsBindgen.Runtime.Prelude"),
                     typeSpecIdentifier = Just
-                      (HsIdentifier "CSize"),
+                      (Identifier "CSize"),
                     typeSpecInstances = Map.fromList
                       [
                         _×_
@@ -22570,7 +22556,7 @@
               (TypeEnum
                 NamePair {
                   nameC = Name "status_code_t",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Status_code_t"}
                 (NameOriginGenerated
                   (AnonId
@@ -22760,13 +22746,13 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hash",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "s"),
+            (Name "@NsVar" "s"),
           functionParameterType = HsPtr
             (HsPrimType HsPrimCChar),
           functionParameterComment = Just
@@ -22795,7 +22781,7 @@
               (Just
                 NamePair {
                   nameC = Name "s",
-                  nameHsIdent = HsIdentifier "s"})
+                  nameHsIdent = Identifier "s"})
               (TypePointer
                 (TypePrim
                   (PrimChar
@@ -22831,13 +22817,13 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "square",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "x"),
+            (Name "@NsVar" "x"),
           functionParameterType =
           HsPrimType HsPrimCInt,
           functionParameterComment = Just
@@ -22866,7 +22852,7 @@
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypePrim
                 (PrimIntegral PrimInt Signed))],
           functionAttrs =
@@ -22890,7 +22876,7 @@
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_doxygen_docs_d0e1f65bee5472f6",
       foreignImportParameters = [],
@@ -22901,17 +22887,17 @@
             (HsFun
               (HsPtr
                 (HsExtBinding
-                  ExtHsRef {
-                    extHsRefModule = HsModuleName
+                  ExtRef {
+                    extRefModule = ModuleName
                       "HsBindgen.Runtime.Prelude",
-                    extHsRefIdentifier =
-                    HsIdentifier "Word8"}
+                    extRefIdentifier = Identifier
+                      "Word8"}
                   TypeSpec {
                     typeSpecModule = Just
-                      (HsModuleName
+                      (ModuleName
                         "HsBindgen.Runtime.Prelude"),
                     typeSpecIdentifier = Just
-                      (HsIdentifier "Word8"),
+                      (Identifier "Word8"),
                     typeSpecInstances = Map.fromList
                       [
                         _×_
@@ -23014,17 +23000,17 @@
               (HsFun
                 (HsPtr
                   (HsExtBinding
-                    ExtHsRef {
-                      extHsRefModule = HsModuleName
+                    ExtRef {
+                      extRefModule = ModuleName
                         "HsBindgen.Runtime.Prelude",
-                      extHsRefIdentifier =
-                      HsIdentifier "Word8"}
+                      extRefIdentifier = Identifier
+                        "Word8"}
                     TypeSpec {
                       typeSpecModule = Just
-                        (HsModuleName
+                        (ModuleName
                           "HsBindgen.Runtime.Prelude"),
                       typeSpecIdentifier = Just
-                        (HsIdentifier "Word8"),
+                        (Identifier "Word8"),
                       typeSpecInstances = Map.fromList
                         [
                           _×_
@@ -23127,17 +23113,17 @@
                 (HsFun
                   (HsPtr
                     (HsExtBinding
-                      ExtHsRef {
-                        extHsRefModule = HsModuleName
+                      ExtRef {
+                        extRefModule = ModuleName
                           "HsBindgen.Runtime.Prelude",
-                        extHsRefIdentifier =
-                        HsIdentifier "CSize"}
+                        extRefIdentifier = Identifier
+                          "CSize"}
                       TypeSpec {
                         typeSpecModule = Just
-                          (HsModuleName
+                          (ModuleName
                             "HsBindgen.Runtime.Prelude"),
                         typeSpecIdentifier = Just
-                          (HsIdentifier "CSize"),
+                          (Identifier "CSize"),
                         typeSpecInstances = Map.fromList
                           [
                             _×_
@@ -23259,17 +23245,17 @@
                       qualNameName = Name "uint8_t",
                       qualNameKind =
                       NameKindOrdinary},
-                    extHsRef = ExtHsRef {
-                      extHsRefModule = HsModuleName
+                    extHsRef = ExtRef {
+                      extRefModule = ModuleName
                         "HsBindgen.Runtime.Prelude",
-                      extHsRefIdentifier =
-                      HsIdentifier "Word8"},
+                      extRefIdentifier = Identifier
+                        "Word8"},
                     extHsSpec = TypeSpec {
                       typeSpecModule = Just
-                        (HsModuleName
+                        (ModuleName
                           "HsBindgen.Runtime.Prelude"),
                       typeSpecIdentifier = Just
-                        (HsIdentifier "Word8"),
+                        (Identifier "Word8"),
                       typeSpecInstances = Map.fromList
                         [
                           _×_
@@ -23376,17 +23362,17 @@
                     qualNameName = Name "uint8_t",
                     qualNameKind =
                     NameKindOrdinary},
-                  extHsRef = ExtHsRef {
-                    extHsRefModule = HsModuleName
+                  extHsRef = ExtRef {
+                    extRefModule = ModuleName
                       "HsBindgen.Runtime.Prelude",
-                    extHsRefIdentifier =
-                    HsIdentifier "Word8"},
+                    extRefIdentifier = Identifier
+                      "Word8"},
                   extHsSpec = TypeSpec {
                     typeSpecModule = Just
-                      (HsModuleName
+                      (ModuleName
                         "HsBindgen.Runtime.Prelude"),
                     typeSpecIdentifier = Just
-                      (HsIdentifier "Word8"),
+                      (Identifier "Word8"),
                     typeSpecInstances = Map.fromList
                       [
                         _×_
@@ -23493,17 +23479,17 @@
                     qualNameName = Name "size_t",
                     qualNameKind =
                     NameKindOrdinary},
-                  extHsRef = ExtHsRef {
-                    extHsRefModule = HsModuleName
+                  extHsRef = ExtRef {
+                    extRefModule = ModuleName
                       "HsBindgen.Runtime.Prelude",
-                    extHsRefIdentifier =
-                    HsIdentifier "CSize"},
+                    extRefIdentifier = Identifier
+                      "CSize"},
                   extHsSpec = TypeSpec {
                     typeSpecModule = Just
-                      (HsModuleName
+                      (ModuleName
                         "HsBindgen.Runtime.Prelude"),
                     typeSpecIdentifier = Just
-                      (HsIdentifier "CSize"),
+                      (Identifier "CSize"),
                     typeSpecInstances = Map.fromList
                       [
                         _×_
@@ -23611,7 +23597,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_doxygen_docs_3621ac21e0f7a16b",
       foreignImportParameters = [],
@@ -23647,7 +23633,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_doxygen_docs_90c8694d918623e1",
       foreignImportParameters = [],
@@ -23685,7 +23671,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_doxygen_docs_e113abb2b0034e66",
       foreignImportParameters = [],
@@ -23718,7 +23704,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_doxygen_docs_24b25f22222ce366",
       foreignImportParameters = [],
@@ -23760,7 +23746,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_doxygen_docs_6017a8a05430a56b",
       foreignImportParameters = [],
@@ -23792,7 +23778,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_doxygen_docs_78d3a59b40cdc8e7",
       foreignImportParameters = [],
@@ -23830,7 +23816,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_doxygen_docs_885c5a5805adf39b",
       foreignImportParameters = [],
@@ -23864,7 +23850,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_doxygen_docs_247ac59146595fd0",
       foreignImportParameters = [],
@@ -23898,7 +23884,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_doxygen_docs_7c3d7625a05c8175",
       foreignImportParameters = [],
@@ -23912,17 +23898,17 @@
                 (HsPrimType HsPrimCChar))
               (HsFun
                 (HsExtBinding
-                  ExtHsRef {
-                    extHsRefModule = HsModuleName
+                  ExtRef {
+                    extRefModule = ModuleName
                       "HsBindgen.Runtime.Prelude",
-                    extHsRefIdentifier =
-                    HsIdentifier "CSize"}
+                    extRefIdentifier = Identifier
+                      "CSize"}
                   TypeSpec {
                     typeSpecModule = Just
-                      (HsModuleName
+                      (ModuleName
                         "HsBindgen.Runtime.Prelude"),
                     typeSpecIdentifier = Just
-                      (HsIdentifier "CSize"),
+                      (Identifier "CSize"),
                     typeSpecInstances = Map.fromList
                       [
                         _×_
@@ -24048,17 +24034,17 @@
                   qualNameName = Name "size_t",
                   qualNameKind =
                   NameKindOrdinary},
-                extHsRef = ExtHsRef {
-                  extHsRefModule = HsModuleName
+                extHsRef = ExtRef {
+                  extRefModule = ModuleName
                     "HsBindgen.Runtime.Prelude",
-                  extHsRefIdentifier =
-                  HsIdentifier "CSize"},
+                  extRefIdentifier = Identifier
+                    "CSize"},
                 extHsSpec = TypeSpec {
                   typeSpecModule = Just
-                    (HsModuleName
+                    (ModuleName
                       "HsBindgen.Runtime.Prelude"),
                   typeSpecIdentifier = Just
-                    (HsIdentifier "CSize"),
+                    (Identifier "CSize"),
                   typeSpecInstances = Map.fromList
                     [
                       _×_
@@ -24166,7 +24152,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_doxygen_docs_e2e8b5d5ac435de8",
       foreignImportParameters = [],
@@ -24180,17 +24166,17 @@
                 (HsPtr (HsPrimType HsPrimVoid))
                 (HsFun
                   (HsExtBinding
-                    ExtHsRef {
-                      extHsRefModule = HsModuleName
+                    ExtRef {
+                      extRefModule = ModuleName
                         "HsBindgen.Runtime.Prelude",
-                      extHsRefIdentifier =
-                      HsIdentifier "CSize"}
+                      extRefIdentifier = Identifier
+                        "CSize"}
                     TypeSpec {
                       typeSpecModule = Just
-                        (HsModuleName
+                        (ModuleName
                           "HsBindgen.Runtime.Prelude"),
                       typeSpecIdentifier = Just
-                        (HsIdentifier "CSize"),
+                        (Identifier "CSize"),
                       typeSpecInstances = Map.fromList
                         [
                           _×_
@@ -24314,17 +24300,17 @@
                   qualNameName = Name "size_t",
                   qualNameKind =
                   NameKindOrdinary},
-                extHsRef = ExtHsRef {
-                  extHsRefModule = HsModuleName
+                extHsRef = ExtRef {
+                  extRefModule = ModuleName
                     "HsBindgen.Runtime.Prelude",
-                  extHsRefIdentifier =
-                  HsIdentifier "CSize"},
+                  extRefIdentifier = Identifier
+                    "CSize"},
                 extHsSpec = TypeSpec {
                   typeSpecModule = Just
-                    (HsModuleName
+                    (ModuleName
                       "HsBindgen.Runtime.Prelude"),
                   typeSpecIdentifier = Just
-                    (HsIdentifier "CSize"),
+                    (Identifier "CSize"),
                   typeSpecInstances = Map.fromList
                     [
                       _×_
@@ -24431,7 +24417,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_doxygen_docs_c819fda6b145aafa",
       foreignImportParameters = [],
@@ -24465,7 +24451,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_doxygen_docs_76146a96271b3f75",
       foreignImportParameters = [],
@@ -24476,23 +24462,23 @@
             (HsFun
               (HsPtr
                 (HsTypRef
-                  (HsName
+                  (Name
                     "@NsTypeConstr"
                     "Config_t")))
               (HsFun
                 (HsPtr
                   (HsExtBinding
-                    ExtHsRef {
-                      extHsRefModule = HsModuleName
+                    ExtRef {
+                      extRefModule = ModuleName
                         "HsBindgen.Runtime.Prelude",
-                      extHsRefIdentifier =
-                      HsIdentifier "Word8"}
+                      extRefIdentifier = Identifier
+                        "Word8"}
                     TypeSpec {
                       typeSpecModule = Just
-                        (HsModuleName
+                        (ModuleName
                           "HsBindgen.Runtime.Prelude"),
                       typeSpecIdentifier = Just
-                        (HsIdentifier "Word8"),
+                        (Identifier "Word8"),
                       typeSpecInstances = Map.fromList
                         [
                           _×_
@@ -24594,17 +24580,17 @@
                                   ]})]}))
                 (HsFun
                   (HsExtBinding
-                    ExtHsRef {
-                      extHsRefModule = HsModuleName
+                    ExtRef {
+                      extRefModule = ModuleName
                         "HsBindgen.Runtime.Prelude",
-                      extHsRefIdentifier =
-                      HsIdentifier "CSize"}
+                      extRefIdentifier = Identifier
+                        "CSize"}
                     TypeSpec {
                       typeSpecModule = Just
-                        (HsModuleName
+                        (ModuleName
                           "HsBindgen.Runtime.Prelude"),
                       typeSpecIdentifier = Just
-                        (HsIdentifier "CSize"),
+                        (Identifier "CSize"),
                       typeSpecInstances = Map.fromList
                         [
                           _×_
@@ -24706,7 +24692,7 @@
                                   ]})]})
                   (HsIO
                     (HsTypRef
-                      (HsName
+                      (Name
                         "@NsTypeConstr"
                         "Status_code_t")))))))),
       foreignImportOrigName =
@@ -24728,7 +24714,7 @@
                   (TypeStruct
                     NamePair {
                       nameC = Name "config_t",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "Config_t"}
                     (NameOriginGenerated
                       (AnonId
@@ -24741,17 +24727,17 @@
                       qualNameName = Name "uint8_t",
                       qualNameKind =
                       NameKindOrdinary},
-                    extHsRef = ExtHsRef {
-                      extHsRefModule = HsModuleName
+                    extHsRef = ExtRef {
+                      extRefModule = ModuleName
                         "HsBindgen.Runtime.Prelude",
-                      extHsRefIdentifier =
-                      HsIdentifier "Word8"},
+                      extRefIdentifier = Identifier
+                        "Word8"},
                     extHsSpec = TypeSpec {
                       typeSpecModule = Just
-                        (HsModuleName
+                        (ModuleName
                           "HsBindgen.Runtime.Prelude"),
                       typeSpecIdentifier = Just
-                        (HsIdentifier "Word8"),
+                        (Identifier "Word8"),
                       typeSpecInstances = Map.fromList
                         [
                           _×_
@@ -24857,17 +24843,17 @@
                   qualNameName = Name "size_t",
                   qualNameKind =
                   NameKindOrdinary},
-                extHsRef = ExtHsRef {
-                  extHsRefModule = HsModuleName
+                extHsRef = ExtRef {
+                  extRefModule = ModuleName
                     "HsBindgen.Runtime.Prelude",
-                  extHsRefIdentifier =
-                  HsIdentifier "CSize"},
+                  extRefIdentifier = Identifier
+                    "CSize"},
                 extHsSpec = TypeSpec {
                   typeSpecModule = Just
-                    (HsModuleName
+                    (ModuleName
                       "HsBindgen.Runtime.Prelude"),
                   typeSpecIdentifier = Just
-                    (HsIdentifier "CSize"),
+                    (Identifier "CSize"),
                   typeSpecInstances = Map.fromList
                     [
                       _×_
@@ -24973,7 +24959,7 @@
               (TypeEnum
                 NamePair {
                   nameC = Name "status_code_t",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Status_code_t"}
                 (NameOriginGenerated
                   (AnonId
@@ -24984,7 +24970,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_doxygen_docs_4de9606eb9c5dd01",
       foreignImportParameters = [],
@@ -25021,7 +25007,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_doxygen_docs_c41111f40a04cdc9",
       foreignImportParameters = [],
@@ -25055,7 +25041,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_doxygen_docs_1a40d1e5fbd04660",
       foreignImportParameters = [],
@@ -25082,7 +25068,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_doxygen_docs_0f1cef8c70bbdf2c",
       foreignImportParameters = [],

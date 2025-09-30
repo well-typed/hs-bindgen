@@ -6,8 +6,7 @@ TranslationUnit {
         "macro_typedef_scope.h:4:9",
         declId = NamePair {
           nameC = Name "T1",
-          nameHsIdent = HsIdentifier
-            "T1"},
+          nameHsIdent = Identifier "T1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -21,10 +20,10 @@ TranslationUnit {
         (MacroType
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "T1",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_T1"},
             macroType = TypePrim
@@ -41,8 +40,7 @@ TranslationUnit {
         "macro_typedef_scope.h:5:12",
         declId = NamePair {
           nameC = Name "T2",
-          nameHsIdent = HsIdentifier
-            "T2"},
+          nameHsIdent = Identifier "T2"},
         declOrigin = NameOriginInSource,
         declAliases = [Name "T4"],
         declHeaderInfo = Just
@@ -55,16 +53,16 @@ TranslationUnit {
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "T2",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_T2"},
           typedefType = TypeMacroTypedef
             NamePair {
               nameC = Name "T1",
-              nameHsIdent = HsIdentifier "T1"}
+              nameHsIdent = Identifier "T1"}
             NameOriginInSource},
       declSpec = DeclSpec
         TypeSpec {
@@ -78,8 +76,7 @@ TranslationUnit {
         "macro_typedef_scope.h:6:9",
         declId = NamePair {
           nameC = Name "T3",
-          nameHsIdent = HsIdentifier
-            "T3"},
+          nameHsIdent = Identifier "T3"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -93,17 +90,17 @@ TranslationUnit {
         (MacroType
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "T3",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_T3"},
             macroType = TypeTypedef
               (TypedefRegular
                 NamePair {
                   nameC = Name "T2",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "T2"})}),
       declSpec = DeclSpec
         TypeSpec {
@@ -117,8 +114,7 @@ TranslationUnit {
         "macro_typedef_scope.h:7:12",
         declId = NamePair {
           nameC = Name "T4",
-          nameHsIdent = HsIdentifier
-            "T4"},
+          nameHsIdent = Identifier "T4"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -131,16 +127,16 @@ TranslationUnit {
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "T4",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_T4"},
           typedefType = TypeMacroTypedef
             NamePair {
               nameC = Name "T3",
-              nameHsIdent = HsIdentifier "T3"}
+              nameHsIdent = Identifier "T3"}
             NameOriginInSource},
       declSpec = DeclSpec
         TypeSpec {

@@ -6,7 +6,7 @@ import Language.Haskell.TH qualified as TH
 import Language.Haskell.TH.Syntax qualified as TH
 import Text.SimplePrettyPrint (pretty)
 
-import HsBindgen.Backend.Hs.Haddock.Documentation (Comment)
+import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.HsModule.Render (CommentKind (..))
 
 -- | An intermediate class between 'TH.Quote' and 'TH.Quasi'
@@ -20,12 +20,12 @@ class TH.Quote g => Guasi g where
 
     -- | Attach a documentation string to a declaration
     --
-    withDecDoc   :: Maybe Comment -> g TH.Dec -> g TH.Dec
+    withDecDoc   :: Maybe HsDoc.Comment -> g TH.Dec -> g TH.Dec
 
     -- | Attach a documentation string to a 'TH.DocLoc'. This is mostly used
     -- for data structure fields.
     --
-    putFieldDoc :: TH.DocLoc -> Maybe Comment -> g ()
+    putFieldDoc :: TH.DocLoc -> Maybe HsDoc.Comment -> g ()
 
 instance Guasi TH.Q where
     addDependentFile = TH.addDependentFile

@@ -1,14 +1,14 @@
 [
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "MyEnum",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "MyEnum",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_MyEnum",
         fieldType = HsPrimType
@@ -20,7 +20,7 @@
           declLoc = "uses_utf8.h:4:6",
           declId = NamePair {
             nameC = Name "MyEnum",
-            nameHsIdent = HsIdentifier
+            nameHsIdent = Identifier
               "MyEnum"},
           declOrigin = NameOriginInSource,
           declAliases = [],
@@ -33,10 +33,10 @@
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "MyEnum",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_MyEnum"},
             enumType = TypePrim
@@ -49,7 +49,7 @@
                   fieldLoc = "uses_utf8.h:5:9",
                   fieldName = NamePair {
                     nameC = Name "Say\20320\22909",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Say\20320\22909"},
                   fieldComment = Nothing},
                 enumConstantValue = 0},
@@ -58,7 +58,7 @@
                   fieldLoc = "uses_utf8.h:6:9",
                   fieldName = NamePair {
                     nameC = Name "Say\25308\25308",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Say\25308\25308"},
                   fieldComment = Nothing},
                 enumConstantValue = 1}]},
@@ -87,15 +87,15 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "MyEnum",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "MyEnum",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "un_MyEnum",
               fieldType = HsPrimType
@@ -114,15 +114,15 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "MyEnum",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "MyEnum",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "un_MyEnum",
                       fieldType = HsPrimType
@@ -141,15 +141,15 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "MyEnum",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "MyEnum",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "un_MyEnum",
                       fieldType = HsPrimType
@@ -174,7 +174,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "MyEnum",
       deriveInstanceComment =
@@ -184,7 +184,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Ord,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "MyEnum",
       deriveInstanceComment =
@@ -194,15 +194,15 @@
       defineInstanceDeclarations =
       InstanceCEnum
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "MyEnum",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "MyEnum",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "un_MyEnum",
               fieldType = HsPrimType
@@ -232,15 +232,15 @@
       defineInstanceDeclarations =
       InstanceSequentialCEnum
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "MyEnum",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "MyEnum",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "un_MyEnum",
               fieldType = HsPrimType
@@ -251,10 +251,10 @@
           structInstances = Set.fromList
             [Eq, Ord, Read, Show, Storable],
           structComment = Nothing}
-        (HsName
+        (Name
           "@NsConstr"
           "Say\20320\22909")
-        (HsName
+        (Name
           "@NsConstr"
           "Say\25308\25308"),
       defineInstanceComment =
@@ -264,15 +264,15 @@
       defineInstanceDeclarations =
       InstanceCEnumShow
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "MyEnum",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "MyEnum",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "un_MyEnum",
               fieldType = HsPrimType
@@ -290,15 +290,15 @@
       defineInstanceDeclarations =
       InstanceCEnumRead
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "MyEnum",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "MyEnum",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "un_MyEnum",
               fieldType = HsPrimType
@@ -313,13 +313,13 @@
       Nothing},
   DeclPatSyn
     PatSyn {
-      patSynName = HsName
+      patSynName = Name
         "@NsConstr"
         "Say\20320\22909",
-      patSynType = HsName
+      patSynType = Name
         "@NsTypeConstr"
         "MyEnum",
-      patSynConstr = HsName
+      patSynConstr = Name
         "@NsConstr"
         "MyEnum",
       patSynValue = 0,
@@ -329,7 +329,7 @@
             fieldLoc = "uses_utf8.h:5:9",
             fieldName = NamePair {
               nameC = Name "Say\20320\22909",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Say\20320\22909"},
             fieldComment = Nothing},
           enumConstantValue = 0},
@@ -348,13 +348,13 @@
           commentChildren = []}},
   DeclPatSyn
     PatSyn {
-      patSynName = HsName
+      patSynName = Name
         "@NsConstr"
         "Say\25308\25308",
-      patSynType = HsName
+      patSynType = Name
         "@NsTypeConstr"
         "MyEnum",
-      patSynConstr = HsName
+      patSynConstr = Name
         "@NsConstr"
         "MyEnum",
       patSynValue = 1,
@@ -364,7 +364,7 @@
             fieldLoc = "uses_utf8.h:6:9",
             fieldName = NamePair {
               nameC = Name "Say\25308\25308",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Say\25308\25308"},
             fieldComment = Nothing},
           enumConstantValue = 1},

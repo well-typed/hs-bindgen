@@ -12,7 +12,7 @@ import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.SHs.AST (ByCategory)
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
-import HsBindgen.Language.Haskell (HsModuleName (getHsModuleName))
+import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Test.C (genTestsC)
 import HsBindgen.Test.Hs (genTestsHs)
 import HsBindgen.Test.Readme (genTestsReadme)
@@ -25,8 +25,8 @@ import HsBindgen.Test.Readme (genTestsReadme)
 genTests ::
      [HashIncludeArg]
   -> ByCategory [Hs.Decl]
-  -> HsModuleName -- ^ Generated Haskell module name
-  -> FilePath     -- ^ Test suite directory path
+  -> Hs.ModuleName -- ^ Generated Haskell module name
+  -> FilePath      -- ^ Test suite directory path
   -> IO ()
 genTests hashIncludeArgs decls hsModuleName testSuitePath = do
     -- fails when testSuitePath already exists
@@ -69,7 +69,7 @@ genTests hashIncludeArgs decls hsModuleName testSuitePath = do
     hsMainPath                = FilePath.combine srcPath "Main.hs"
 
     moduleName :: String
-    moduleName = Text.unpack $ getHsModuleName hsModuleName
+    moduleName = Text.unpack $ Hs.getModuleName hsModuleName
 
 {-------------------------------------------------------------------------------
   Auxiliary functions

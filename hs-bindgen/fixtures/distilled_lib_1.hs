@@ -1,15 +1,15 @@
 [
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "Another_typedef_struct_t",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "Another_typedef_struct_t",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "another_typedef_struct_t_foo",
           fieldType = HsPrimType
@@ -21,7 +21,7 @@
                 "distilled_lib_1.h:9:22",
                 fieldName = NamePair {
                   nameC = Name "foo",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "another_typedef_struct_t_foo"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -42,7 +42,7 @@
                   "distilled_lib_1.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "another_typedef_struct_t_bar",
           fieldType = HsPrimType
@@ -54,7 +54,7 @@
                 "distilled_lib_1.h:9:32",
                 fieldName = NamePair {
                   nameC = Name "bar",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "another_typedef_struct_t_bar"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -84,7 +84,7 @@
             declId = NamePair {
               nameC = Name
                 "another_typedef_struct_t",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Another_typedef_struct_t"},
             declOrigin = NameOriginGenerated
               (AnonId
@@ -102,7 +102,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName
+                (Name
                   "@NsConstr"
                   "Another_typedef_struct_t"),
               structSizeof = 8,
@@ -114,7 +114,7 @@
                     "distilled_lib_1.h:9:22",
                     fieldName = NamePair {
                       nameC = Name "foo",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "another_typedef_struct_t_foo"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -127,7 +127,7 @@
                     "distilled_lib_1.h:9:32",
                     fieldName = NamePair {
                       nameC = Name "bar",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "another_typedef_struct_t_bar"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -164,15 +164,15 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Another_typedef_struct_t",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Another_typedef_struct_t",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "another_typedef_struct_t_foo",
               fieldType = HsPrimType
@@ -184,7 +184,7 @@
                     "distilled_lib_1.h:9:22",
                     fieldName = NamePair {
                       nameC = Name "foo",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "another_typedef_struct_t_foo"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -205,7 +205,7 @@
                       "distilled_lib_1.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "another_typedef_struct_t_bar",
               fieldType = HsPrimType
@@ -217,7 +217,7 @@
                     "distilled_lib_1.h:9:32",
                     fieldName = NamePair {
                       nameC = Name "bar",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "another_typedef_struct_t_bar"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -247,7 +247,7 @@
                 declId = NamePair {
                   nameC = Name
                     "another_typedef_struct_t",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Another_typedef_struct_t"},
                 declOrigin = NameOriginGenerated
                   (AnonId
@@ -265,7 +265,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName
+                    (Name
                       "@NsConstr"
                       "Another_typedef_struct_t"),
                   structSizeof = 8,
@@ -277,7 +277,7 @@
                         "distilled_lib_1.h:9:22",
                         fieldName = NamePair {
                           nameC = Name "foo",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "another_typedef_struct_t_foo"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -290,7 +290,7 @@
                         "distilled_lib_1.h:9:32",
                         fieldName = NamePair {
                           nameC = Name "bar",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "another_typedef_struct_t_bar"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -330,15 +330,15 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Another_typedef_struct_t",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Another_typedef_struct_t",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "another_typedef_struct_t_foo",
                       fieldType = HsPrimType
@@ -350,7 +350,7 @@
                             "distilled_lib_1.h:9:22",
                             fieldName = NamePair {
                               nameC = Name "foo",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "another_typedef_struct_t_foo"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -371,7 +371,7 @@
                               "distilled_lib_1.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "another_typedef_struct_t_bar",
                       fieldType = HsPrimType
@@ -383,7 +383,7 @@
                             "distilled_lib_1.h:9:32",
                             fieldName = NamePair {
                               nameC = Name "bar",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "another_typedef_struct_t_bar"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -413,7 +413,7 @@
                         declId = NamePair {
                           nameC = Name
                             "another_typedef_struct_t",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Another_typedef_struct_t"},
                         declOrigin = NameOriginGenerated
                           (AnonId
@@ -431,7 +431,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName
+                            (Name
                               "@NsConstr"
                               "Another_typedef_struct_t"),
                           structSizeof = 8,
@@ -443,7 +443,7 @@
                                 "distilled_lib_1.h:9:22",
                                 fieldName = NamePair {
                                   nameC = Name "foo",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "another_typedef_struct_t_foo"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -456,7 +456,7 @@
                                 "distilled_lib_1.h:9:32",
                                 fieldName = NamePair {
                                   nameC = Name "bar",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "another_typedef_struct_t_bar"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -498,15 +498,15 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Another_typedef_struct_t",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Another_typedef_struct_t",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "another_typedef_struct_t_foo",
                       fieldType = HsPrimType
@@ -518,7 +518,7 @@
                             "distilled_lib_1.h:9:22",
                             fieldName = NamePair {
                               nameC = Name "foo",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "another_typedef_struct_t_foo"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -539,7 +539,7 @@
                               "distilled_lib_1.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "another_typedef_struct_t_bar",
                       fieldType = HsPrimType
@@ -551,7 +551,7 @@
                             "distilled_lib_1.h:9:32",
                             fieldName = NamePair {
                               nameC = Name "bar",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "another_typedef_struct_t_bar"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -581,7 +581,7 @@
                         declId = NamePair {
                           nameC = Name
                             "another_typedef_struct_t",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Another_typedef_struct_t"},
                         declOrigin = NameOriginGenerated
                           (AnonId
@@ -599,7 +599,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName
+                            (Name
                               "@NsConstr"
                               "Another_typedef_struct_t"),
                           structSizeof = 8,
@@ -611,7 +611,7 @@
                                 "distilled_lib_1.h:9:22",
                                 fieldName = NamePair {
                                   nameC = Name "foo",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "another_typedef_struct_t_foo"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -624,7 +624,7 @@
                                 "distilled_lib_1.h:9:32",
                                 fieldName = NamePair {
                                   nameC = Name "bar",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "another_typedef_struct_t_bar"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -671,7 +671,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Another_typedef_struct_t",
       deriveInstanceComment =
@@ -681,21 +681,21 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Another_typedef_struct_t",
       deriveInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "Another_typedef_enum_e",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "Another_typedef_enum_e",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_Another_typedef_enum_e",
         fieldType = HsPrimType
@@ -709,7 +709,7 @@
           declId = NamePair {
             nameC = Name
               "another_typedef_enum_e",
-            nameHsIdent = HsIdentifier
+            nameHsIdent = Identifier
               "Another_typedef_enum_e"},
           declOrigin = NameOriginGenerated
             (AnonId
@@ -726,10 +726,10 @@
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "Another_typedef_enum_e",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_Another_typedef_enum_e"},
             enumType = TypePrim
@@ -743,8 +743,7 @@
                   "distilled_lib_1.h:10:16",
                   fieldName = NamePair {
                     nameC = Name "FOO",
-                    nameHsIdent = HsIdentifier
-                      "FOO"},
+                    nameHsIdent = Identifier "FOO"},
                   fieldComment = Nothing},
                 enumConstantValue = 0},
               EnumConstant {
@@ -753,8 +752,7 @@
                   "distilled_lib_1.h:10:21",
                   fieldName = NamePair {
                     nameC = Name "BAR",
-                    nameHsIdent = HsIdentifier
-                      "BAR"},
+                    nameHsIdent = Identifier "BAR"},
                   fieldComment = Nothing},
                 enumConstantValue = 1}]},
         declSpec = DeclSpec
@@ -784,15 +782,15 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Another_typedef_enum_e",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Another_typedef_enum_e",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "un_Another_typedef_enum_e",
               fieldType = HsPrimType
@@ -811,15 +809,15 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Another_typedef_enum_e",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Another_typedef_enum_e",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "un_Another_typedef_enum_e",
                       fieldType = HsPrimType
@@ -838,15 +836,15 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Another_typedef_enum_e",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Another_typedef_enum_e",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "un_Another_typedef_enum_e",
                       fieldType = HsPrimType
@@ -871,7 +869,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Another_typedef_enum_e",
       deriveInstanceComment =
@@ -881,7 +879,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Ord,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Another_typedef_enum_e",
       deriveInstanceComment =
@@ -891,15 +889,15 @@
       defineInstanceDeclarations =
       InstanceCEnum
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Another_typedef_enum_e",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Another_typedef_enum_e",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "un_Another_typedef_enum_e",
               fieldType = HsPrimType
@@ -923,15 +921,15 @@
       defineInstanceDeclarations =
       InstanceSequentialCEnum
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Another_typedef_enum_e",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Another_typedef_enum_e",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "un_Another_typedef_enum_e",
               fieldType = HsPrimType
@@ -942,8 +940,8 @@
           structInstances = Set.fromList
             [Eq, Ord, Read, Show, Storable],
           structComment = Nothing}
-        (HsName "@NsConstr" "FOO")
-        (HsName "@NsConstr" "BAR"),
+        (Name "@NsConstr" "FOO")
+        (Name "@NsConstr" "BAR"),
       defineInstanceComment =
       Nothing},
   DeclInstance
@@ -951,15 +949,15 @@
       defineInstanceDeclarations =
       InstanceCEnumShow
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Another_typedef_enum_e",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Another_typedef_enum_e",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "un_Another_typedef_enum_e",
               fieldType = HsPrimType
@@ -977,15 +975,15 @@
       defineInstanceDeclarations =
       InstanceCEnumRead
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Another_typedef_enum_e",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Another_typedef_enum_e",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "un_Another_typedef_enum_e",
               fieldType = HsPrimType
@@ -1000,13 +998,13 @@
       Nothing},
   DeclPatSyn
     PatSyn {
-      patSynName = HsName
+      patSynName = Name
         "@NsConstr"
         "FOO",
-      patSynType = HsName
+      patSynType = Name
         "@NsTypeConstr"
         "Another_typedef_enum_e",
-      patSynConstr = HsName
+      patSynConstr = Name
         "@NsConstr"
         "Another_typedef_enum_e",
       patSynValue = 0,
@@ -1017,8 +1015,7 @@
             "distilled_lib_1.h:10:16",
             fieldName = NamePair {
               nameC = Name "FOO",
-              nameHsIdent = HsIdentifier
-                "FOO"},
+              nameHsIdent = Identifier "FOO"},
             fieldComment = Nothing},
           enumConstantValue = 0},
       patSynComment = Just
@@ -1036,13 +1033,13 @@
           commentChildren = []}},
   DeclPatSyn
     PatSyn {
-      patSynName = HsName
+      patSynName = Name
         "@NsConstr"
         "BAR",
-      patSynType = HsName
+      patSynType = Name
         "@NsTypeConstr"
         "Another_typedef_enum_e",
-      patSynConstr = HsName
+      patSynConstr = Name
         "@NsConstr"
         "Another_typedef_enum_e",
       patSynValue = 1,
@@ -1053,8 +1050,7 @@
             "distilled_lib_1.h:10:21",
             fieldName = NamePair {
               nameC = Name "BAR",
-              nameHsIdent = HsIdentifier
-                "BAR"},
+              nameHsIdent = Identifier "BAR"},
             fieldComment = Nothing},
           enumConstantValue = 1},
       patSynComment = Just
@@ -1072,9 +1068,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
-        "@NsVar"
-        "a",
+      varDeclName = Name "@NsVar" "a",
       varDeclType = ForallTy {
         forallTyBinders = [],
         forallTy = QuantTy {
@@ -1110,9 +1104,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
-        "@NsVar"
-        "b",
+      varDeclName = Name "@NsVar" "b",
       varDeclType = ForallTy {
         forallTyBinders = [],
         forallTy = QuantTy {
@@ -1148,7 +1140,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "sOME_DEFINED_CONSTANT",
       varDeclType = ForallTy {
@@ -1187,14 +1179,14 @@
           commentChildren = []}},
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "A_type_t",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "A_type_t",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_A_type_t",
         fieldType = HsPrimType
@@ -1207,7 +1199,7 @@
           "distilled_lib_1.h:14:13",
           declId = NamePair {
             nameC = Name "a_type_t",
-            nameHsIdent = HsIdentifier
+            nameHsIdent = Identifier
               "A_type_t"},
           declOrigin = NameOriginInSource,
           declAliases = [],
@@ -1221,10 +1213,10 @@
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "A_type_t",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_A_type_t"},
             typedefType = TypePrim
@@ -1268,7 +1260,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Storable,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "A_type_t",
       deriveInstanceComment =
@@ -1278,7 +1270,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "A_type_t",
       deriveInstanceComment =
@@ -1288,7 +1280,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Ord,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "A_type_t",
       deriveInstanceComment =
@@ -1298,7 +1290,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Read,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "A_type_t",
       deriveInstanceComment =
@@ -1308,7 +1300,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "A_type_t",
       deriveInstanceComment =
@@ -1318,7 +1310,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Enum,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "A_type_t",
       deriveInstanceComment =
@@ -1328,7 +1320,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Ix,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "A_type_t",
       deriveInstanceComment =
@@ -1338,7 +1330,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bounded,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "A_type_t",
       deriveInstanceComment =
@@ -1348,7 +1340,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "A_type_t",
       deriveInstanceComment =
@@ -1359,7 +1351,7 @@
       DeriveNewtype,
       deriveInstanceClass =
       FiniteBits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "A_type_t",
       deriveInstanceComment =
@@ -1369,7 +1361,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Integral,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "A_type_t",
       deriveInstanceComment =
@@ -1379,7 +1371,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Num,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "A_type_t",
       deriveInstanceComment =
@@ -1389,21 +1381,21 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Real,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "A_type_t",
       deriveInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "Var_t",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "Var_t",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_Var_t",
         fieldType = HsPrimType
@@ -1416,7 +1408,7 @@
           "distilled_lib_1.h:15:13",
           declId = NamePair {
             nameC = Name "var_t",
-            nameHsIdent = HsIdentifier
+            nameHsIdent = Identifier
               "Var_t"},
           declOrigin = NameOriginInSource,
           declAliases = [],
@@ -1430,10 +1422,10 @@
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "Var_t",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_Var_t"},
             typedefType = TypePrim
@@ -1477,7 +1469,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Storable,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Var_t",
       deriveInstanceComment =
@@ -1487,7 +1479,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Var_t",
       deriveInstanceComment =
@@ -1497,7 +1489,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Ord,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Var_t",
       deriveInstanceComment =
@@ -1507,7 +1499,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Read,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Var_t",
       deriveInstanceComment =
@@ -1517,7 +1509,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Var_t",
       deriveInstanceComment =
@@ -1527,7 +1519,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Enum,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Var_t",
       deriveInstanceComment =
@@ -1537,7 +1529,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Ix,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Var_t",
       deriveInstanceComment =
@@ -1547,7 +1539,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bounded,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Var_t",
       deriveInstanceComment =
@@ -1557,7 +1549,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Var_t",
       deriveInstanceComment =
@@ -1568,7 +1560,7 @@
       DeriveNewtype,
       deriveInstanceClass =
       FiniteBits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Var_t",
       deriveInstanceComment =
@@ -1578,7 +1570,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Integral,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Var_t",
       deriveInstanceComment =
@@ -1588,7 +1580,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Num,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Var_t",
       deriveInstanceComment =
@@ -1598,22 +1590,22 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Real,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Var_t",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "A_typedef_struct_t",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "A_typedef_struct_t",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "a_typedef_struct_t_field_0",
           fieldType = HsPrimType
@@ -1625,7 +1617,7 @@
                 "distilled_lib_1.h:37:31",
                 fieldName = NamePair {
                   nameC = Name "field_0",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "a_typedef_struct_t_field_0"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -1646,21 +1638,21 @@
                   "distilled_lib_1.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "a_typedef_struct_t_field_1",
           fieldType = HsExtBinding
-            ExtHsRef {
-              extHsRefModule = HsModuleName
+            ExtRef {
+              extRefModule = ModuleName
                 "HsBindgen.Runtime.Prelude",
-              extHsRefIdentifier =
-              HsIdentifier "Word8"}
+              extRefIdentifier = Identifier
+                "Word8"}
             TypeSpec {
               typeSpecModule = Just
-                (HsModuleName
+                (ModuleName
                   "HsBindgen.Runtime.Prelude"),
               typeSpecIdentifier = Just
-                (HsIdentifier "Word8"),
+                (Identifier "Word8"),
               typeSpecInstances = Map.fromList
                 [
                   _×_
@@ -1767,7 +1759,7 @@
                 "distilled_lib_1.h:38:31",
                 fieldName = NamePair {
                   nameC = Name "field_1",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "a_typedef_struct_t_field_1"},
                 fieldComment = Nothing},
               structFieldType = TypeExtBinding
@@ -1776,17 +1768,17 @@
                     qualNameName = Name "uint8_t",
                     qualNameKind =
                     NameKindOrdinary},
-                  extHsRef = ExtHsRef {
-                    extHsRefModule = HsModuleName
+                  extHsRef = ExtRef {
+                    extRefModule = ModuleName
                       "HsBindgen.Runtime.Prelude",
-                    extHsRefIdentifier =
-                    HsIdentifier "Word8"},
+                    extRefIdentifier = Identifier
+                      "Word8"},
                   extHsSpec = TypeSpec {
                     typeSpecModule = Just
-                      (HsModuleName
+                      (ModuleName
                         "HsBindgen.Runtime.Prelude"),
                     typeSpecIdentifier = Just
-                      (HsIdentifier "Word8"),
+                      (Identifier "Word8"),
                     typeSpecInstances = Map.fromList
                       [
                         _×_
@@ -1902,21 +1894,21 @@
                   "distilled_lib_1.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "a_typedef_struct_t_field_2",
           fieldType = HsExtBinding
-            ExtHsRef {
-              extHsRefModule = HsModuleName
+            ExtRef {
+              extRefModule = ModuleName
                 "HsBindgen.Runtime.Prelude",
-              extHsRefIdentifier =
-              HsIdentifier "Word16"}
+              extRefIdentifier = Identifier
+                "Word16"}
             TypeSpec {
               typeSpecModule = Just
-                (HsModuleName
+                (ModuleName
                   "HsBindgen.Runtime.Prelude"),
               typeSpecIdentifier = Just
-                (HsIdentifier "Word16"),
+                (Identifier "Word16"),
               typeSpecInstances = Map.fromList
                 [
                   _×_
@@ -2023,7 +2015,7 @@
                 "distilled_lib_1.h:39:31",
                 fieldName = NamePair {
                   nameC = Name "field_2",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "a_typedef_struct_t_field_2"},
                 fieldComment = Nothing},
               structFieldType = TypeExtBinding
@@ -2032,17 +2024,17 @@
                     qualNameName = Name "uint16_t",
                     qualNameKind =
                     NameKindOrdinary},
-                  extHsRef = ExtHsRef {
-                    extHsRefModule = HsModuleName
+                  extHsRef = ExtRef {
+                    extRefModule = ModuleName
                       "HsBindgen.Runtime.Prelude",
-                    extHsRefIdentifier =
-                    HsIdentifier "Word16"},
+                    extRefIdentifier = Identifier
+                      "Word16"},
                   extHsSpec = TypeSpec {
                     typeSpecModule = Just
-                      (HsModuleName
+                      (ModuleName
                         "HsBindgen.Runtime.Prelude"),
                     typeSpecIdentifier = Just
-                      (HsIdentifier "Word16"),
+                      (Identifier "Word16"),
                     typeSpecInstances = Map.fromList
                       [
                         _×_
@@ -2158,21 +2150,21 @@
                   "distilled_lib_1.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "a_typedef_struct_t_field_3",
           fieldType = HsExtBinding
-            ExtHsRef {
-              extHsRefModule = HsModuleName
+            ExtRef {
+              extRefModule = ModuleName
                 "HsBindgen.Runtime.Prelude",
-              extHsRefIdentifier =
-              HsIdentifier "Word32"}
+              extRefIdentifier = Identifier
+                "Word32"}
             TypeSpec {
               typeSpecModule = Just
-                (HsModuleName
+                (ModuleName
                   "HsBindgen.Runtime.Prelude"),
               typeSpecIdentifier = Just
-                (HsIdentifier "Word32"),
+                (Identifier "Word32"),
               typeSpecInstances = Map.fromList
                 [
                   _×_
@@ -2279,7 +2271,7 @@
                 "distilled_lib_1.h:40:31",
                 fieldName = NamePair {
                   nameC = Name "field_3",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "a_typedef_struct_t_field_3"},
                 fieldComment = Nothing},
               structFieldType = TypeExtBinding
@@ -2288,17 +2280,17 @@
                     qualNameName = Name "uint32_t",
                     qualNameKind =
                     NameKindOrdinary},
-                  extHsRef = ExtHsRef {
-                    extHsRefModule = HsModuleName
+                  extHsRef = ExtRef {
+                    extRefModule = ModuleName
                       "HsBindgen.Runtime.Prelude",
-                    extHsRefIdentifier =
-                    HsIdentifier "Word32"},
+                    extRefIdentifier = Identifier
+                      "Word32"},
                   extHsSpec = TypeSpec {
                     typeSpecModule = Just
-                      (HsModuleName
+                      (ModuleName
                         "HsBindgen.Runtime.Prelude"),
                     typeSpecIdentifier = Just
-                      (HsIdentifier "Word32"),
+                      (Identifier "Word32"),
                     typeSpecInstances = Map.fromList
                       [
                         _×_
@@ -2414,11 +2406,11 @@
                   "distilled_lib_1.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "a_typedef_struct_t_field_4",
           fieldType = HsTypRef
-            (HsName
+            (Name
               "@NsTypeConstr"
               "Another_typedef_struct_t"),
           fieldOrigin = StructField
@@ -2428,7 +2420,7 @@
                 "distilled_lib_1.h:41:31",
                 fieldName = NamePair {
                   nameC = Name "field_4",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "a_typedef_struct_t_field_4"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
@@ -2439,7 +2431,7 @@
                     NamePair {
                       nameC = Name
                         "another_typedef_struct_t",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "Another_typedef_struct_t"}
                     (NameOriginGenerated
                       (AnonId
@@ -2460,12 +2452,12 @@
                   "distilled_lib_1.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "a_typedef_struct_t_field_5",
           fieldType = HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "Another_typedef_struct_t")),
           fieldOrigin = StructField
@@ -2475,7 +2467,7 @@
                 "distilled_lib_1.h:42:31",
                 fieldName = NamePair {
                   nameC = Name "field_5",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "a_typedef_struct_t_field_5"},
                 fieldComment = Nothing},
               structFieldType = TypePointer
@@ -2487,7 +2479,7 @@
                       NamePair {
                         nameC = Name
                           "another_typedef_struct_t",
-                        nameHsIdent = HsIdentifier
+                        nameHsIdent = Identifier
                           "Another_typedef_struct_t"}
                       (NameOriginGenerated
                         (AnonId
@@ -2508,7 +2500,7 @@
                   "distilled_lib_1.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "a_typedef_struct_t_field_6",
           fieldType = HsPtr
@@ -2520,7 +2512,7 @@
                 "distilled_lib_1.h:43:31",
                 fieldName = NamePair {
                   nameC = Name "field_6",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "a_typedef_struct_t_field_6"},
                 fieldComment = Nothing},
               structFieldType = TypePointer
@@ -2541,23 +2533,23 @@
                   "distilled_lib_1.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "a_typedef_struct_t_field_7",
           fieldType = HsConstArray
             7
             (HsExtBinding
-              ExtHsRef {
-                extHsRefModule = HsModuleName
+              ExtRef {
+                extRefModule = ModuleName
                   "HsBindgen.Runtime.Prelude",
-                extHsRefIdentifier =
-                HsIdentifier "Word32"}
+                extRefIdentifier = Identifier
+                  "Word32"}
               TypeSpec {
                 typeSpecModule = Just
-                  (HsModuleName
+                  (ModuleName
                     "HsBindgen.Runtime.Prelude"),
                 typeSpecIdentifier = Just
-                  (HsIdentifier "Word32"),
+                  (Identifier "Word32"),
                 typeSpecInstances = Map.fromList
                   [
                     _×_
@@ -2664,7 +2656,7 @@
                 "distilled_lib_1.h:44:31",
                 fieldName = NamePair {
                   nameC = Name "field_7",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "a_typedef_struct_t_field_7"},
                 fieldComment = Nothing},
               structFieldType = TypeConstArray
@@ -2675,17 +2667,17 @@
                       qualNameName = Name "uint32_t",
                       qualNameKind =
                       NameKindOrdinary},
-                    extHsRef = ExtHsRef {
-                      extHsRefModule = HsModuleName
+                    extHsRef = ExtRef {
+                      extRefModule = ModuleName
                         "HsBindgen.Runtime.Prelude",
-                      extHsRefIdentifier =
-                      HsIdentifier "Word32"},
+                      extRefIdentifier = Identifier
+                        "Word32"},
                     extHsSpec = TypeSpec {
                       typeSpecModule = Just
-                        (HsModuleName
+                        (ModuleName
                           "HsBindgen.Runtime.Prelude"),
                       typeSpecIdentifier = Just
-                        (HsIdentifier "Word32"),
+                        (Identifier "Word32"),
                       typeSpecInstances = Map.fromList
                         [
                           _×_
@@ -2801,11 +2793,11 @@
                   "distilled_lib_1.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "a_typedef_struct_t_field_8",
           fieldType = HsTypRef
-            (HsName
+            (Name
               "@NsTypeConstr"
               "Another_typedef_enum_e"),
           fieldOrigin = StructField
@@ -2815,7 +2807,7 @@
                 "distilled_lib_1.h:45:31",
                 fieldName = NamePair {
                   nameC = Name "field_8",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "a_typedef_struct_t_field_8"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
@@ -2825,7 +2817,7 @@
                     NamePair {
                       nameC = Name
                         "another_typedef_enum_e",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "Another_typedef_enum_e"}
                     (NameOriginGenerated
                       (AnonId
@@ -2846,13 +2838,13 @@
                   "distilled_lib_1.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "a_typedef_struct_t_field_9",
           fieldType = HsConstArray
             4
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "Another_typedef_enum_e")),
           fieldOrigin = StructField
@@ -2862,7 +2854,7 @@
                 "distilled_lib_1.h:46:31",
                 fieldName = NamePair {
                   nameC = Name "field_9",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "a_typedef_struct_t_field_9"},
                 fieldComment = Nothing},
               structFieldType = TypeConstArray
@@ -2874,7 +2866,7 @@
                       NamePair {
                         nameC = Name
                           "another_typedef_enum_e",
-                        nameHsIdent = HsIdentifier
+                        nameHsIdent = Identifier
                           "Another_typedef_enum_e"}
                       (NameOriginGenerated
                         (AnonId
@@ -2895,7 +2887,7 @@
                   "distilled_lib_1.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "a_typedef_struct_t_field_10",
           fieldType = HsConstArray
@@ -2903,7 +2895,7 @@
             (HsConstArray
               3
               (HsTypRef
-                (HsName
+                (Name
                   "@NsTypeConstr"
                   "Another_typedef_enum_e"))),
           fieldOrigin = StructField
@@ -2913,7 +2905,7 @@
                 "distilled_lib_1.h:47:31",
                 fieldName = NamePair {
                   nameC = Name "field_10",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "a_typedef_struct_t_field_10"},
                 fieldComment = Nothing},
               structFieldType = TypeConstArray
@@ -2927,7 +2919,7 @@
                         NamePair {
                           nameC = Name
                             "another_typedef_enum_e",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Another_typedef_enum_e"}
                         (NameOriginGenerated
                           (AnonId
@@ -2955,7 +2947,7 @@
             declId = NamePair {
               nameC = Name
                 "a_typedef_struct_t",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "A_typedef_struct_t"},
             declOrigin =
             NameOriginRenamedFrom
@@ -2972,7 +2964,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName
+                (Name
                   "@NsConstr"
                   "A_typedef_struct_t"),
               structSizeof = 140,
@@ -2984,7 +2976,7 @@
                     "distilled_lib_1.h:37:31",
                     fieldName = NamePair {
                       nameC = Name "field_0",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "a_typedef_struct_t_field_0"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -2997,7 +2989,7 @@
                     "distilled_lib_1.h:38:31",
                     fieldName = NamePair {
                       nameC = Name "field_1",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "a_typedef_struct_t_field_1"},
                     fieldComment = Nothing},
                   structFieldType = TypeExtBinding
@@ -3006,17 +2998,17 @@
                         qualNameName = Name "uint8_t",
                         qualNameKind =
                         NameKindOrdinary},
-                      extHsRef = ExtHsRef {
-                        extHsRefModule = HsModuleName
+                      extHsRef = ExtRef {
+                        extRefModule = ModuleName
                           "HsBindgen.Runtime.Prelude",
-                        extHsRefIdentifier =
-                        HsIdentifier "Word8"},
+                        extRefIdentifier = Identifier
+                          "Word8"},
                       extHsSpec = TypeSpec {
                         typeSpecModule = Just
-                          (HsModuleName
+                          (ModuleName
                             "HsBindgen.Runtime.Prelude"),
                         typeSpecIdentifier = Just
-                          (HsIdentifier "Word8"),
+                          (Identifier "Word8"),
                         typeSpecInstances = Map.fromList
                           [
                             _×_
@@ -3124,7 +3116,7 @@
                     "distilled_lib_1.h:39:31",
                     fieldName = NamePair {
                       nameC = Name "field_2",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "a_typedef_struct_t_field_2"},
                     fieldComment = Nothing},
                   structFieldType = TypeExtBinding
@@ -3133,17 +3125,17 @@
                         qualNameName = Name "uint16_t",
                         qualNameKind =
                         NameKindOrdinary},
-                      extHsRef = ExtHsRef {
-                        extHsRefModule = HsModuleName
+                      extHsRef = ExtRef {
+                        extRefModule = ModuleName
                           "HsBindgen.Runtime.Prelude",
-                        extHsRefIdentifier =
-                        HsIdentifier "Word16"},
+                        extRefIdentifier = Identifier
+                          "Word16"},
                       extHsSpec = TypeSpec {
                         typeSpecModule = Just
-                          (HsModuleName
+                          (ModuleName
                             "HsBindgen.Runtime.Prelude"),
                         typeSpecIdentifier = Just
-                          (HsIdentifier "Word16"),
+                          (Identifier "Word16"),
                         typeSpecInstances = Map.fromList
                           [
                             _×_
@@ -3251,7 +3243,7 @@
                     "distilled_lib_1.h:40:31",
                     fieldName = NamePair {
                       nameC = Name "field_3",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "a_typedef_struct_t_field_3"},
                     fieldComment = Nothing},
                   structFieldType = TypeExtBinding
@@ -3260,17 +3252,17 @@
                         qualNameName = Name "uint32_t",
                         qualNameKind =
                         NameKindOrdinary},
-                      extHsRef = ExtHsRef {
-                        extHsRefModule = HsModuleName
+                      extHsRef = ExtRef {
+                        extRefModule = ModuleName
                           "HsBindgen.Runtime.Prelude",
-                        extHsRefIdentifier =
-                        HsIdentifier "Word32"},
+                        extRefIdentifier = Identifier
+                          "Word32"},
                       extHsSpec = TypeSpec {
                         typeSpecModule = Just
-                          (HsModuleName
+                          (ModuleName
                             "HsBindgen.Runtime.Prelude"),
                         typeSpecIdentifier = Just
-                          (HsIdentifier "Word32"),
+                          (Identifier "Word32"),
                         typeSpecInstances = Map.fromList
                           [
                             _×_
@@ -3378,7 +3370,7 @@
                     "distilled_lib_1.h:41:31",
                     fieldName = NamePair {
                       nameC = Name "field_4",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "a_typedef_struct_t_field_4"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
@@ -3389,7 +3381,7 @@
                         NamePair {
                           nameC = Name
                             "another_typedef_struct_t",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Another_typedef_struct_t"}
                         (NameOriginGenerated
                           (AnonId
@@ -3402,7 +3394,7 @@
                     "distilled_lib_1.h:42:31",
                     fieldName = NamePair {
                       nameC = Name "field_5",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "a_typedef_struct_t_field_5"},
                     fieldComment = Nothing},
                   structFieldType = TypePointer
@@ -3414,7 +3406,7 @@
                           NamePair {
                             nameC = Name
                               "another_typedef_struct_t",
-                            nameHsIdent = HsIdentifier
+                            nameHsIdent = Identifier
                               "Another_typedef_struct_t"}
                           (NameOriginGenerated
                             (AnonId
@@ -3427,7 +3419,7 @@
                     "distilled_lib_1.h:43:31",
                     fieldName = NamePair {
                       nameC = Name "field_6",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "a_typedef_struct_t_field_6"},
                     fieldComment = Nothing},
                   structFieldType = TypePointer
@@ -3440,7 +3432,7 @@
                     "distilled_lib_1.h:44:31",
                     fieldName = NamePair {
                       nameC = Name "field_7",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "a_typedef_struct_t_field_7"},
                     fieldComment = Nothing},
                   structFieldType = TypeConstArray
@@ -3451,17 +3443,17 @@
                           qualNameName = Name "uint32_t",
                           qualNameKind =
                           NameKindOrdinary},
-                        extHsRef = ExtHsRef {
-                          extHsRefModule = HsModuleName
+                        extHsRef = ExtRef {
+                          extRefModule = ModuleName
                             "HsBindgen.Runtime.Prelude",
-                          extHsRefIdentifier =
-                          HsIdentifier "Word32"},
+                          extRefIdentifier = Identifier
+                            "Word32"},
                         extHsSpec = TypeSpec {
                           typeSpecModule = Just
-                            (HsModuleName
+                            (ModuleName
                               "HsBindgen.Runtime.Prelude"),
                           typeSpecIdentifier = Just
-                            (HsIdentifier "Word32"),
+                            (Identifier "Word32"),
                           typeSpecInstances = Map.fromList
                             [
                               _×_
@@ -3569,7 +3561,7 @@
                     "distilled_lib_1.h:45:31",
                     fieldName = NamePair {
                       nameC = Name "field_8",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "a_typedef_struct_t_field_8"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
@@ -3579,7 +3571,7 @@
                         NamePair {
                           nameC = Name
                             "another_typedef_enum_e",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Another_typedef_enum_e"}
                         (NameOriginGenerated
                           (AnonId
@@ -3592,7 +3584,7 @@
                     "distilled_lib_1.h:46:31",
                     fieldName = NamePair {
                       nameC = Name "field_9",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "a_typedef_struct_t_field_9"},
                     fieldComment = Nothing},
                   structFieldType = TypeConstArray
@@ -3604,7 +3596,7 @@
                           NamePair {
                             nameC = Name
                               "another_typedef_enum_e",
-                            nameHsIdent = HsIdentifier
+                            nameHsIdent = Identifier
                               "Another_typedef_enum_e"}
                           (NameOriginGenerated
                             (AnonId
@@ -3617,7 +3609,7 @@
                     "distilled_lib_1.h:47:31",
                     fieldName = NamePair {
                       nameC = Name "field_10",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "a_typedef_struct_t_field_10"},
                     fieldComment = Nothing},
                   structFieldType = TypeConstArray
@@ -3631,7 +3623,7 @@
                             NamePair {
                               nameC = Name
                                 "another_typedef_enum_e",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "Another_typedef_enum_e"}
                             (NameOriginGenerated
                               (AnonId
@@ -3666,15 +3658,15 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "A_typedef_struct_t",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "A_typedef_struct_t",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "a_typedef_struct_t_field_0",
               fieldType = HsPrimType
@@ -3686,7 +3678,7 @@
                     "distilled_lib_1.h:37:31",
                     fieldName = NamePair {
                       nameC = Name "field_0",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "a_typedef_struct_t_field_0"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -3707,21 +3699,21 @@
                       "distilled_lib_1.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "a_typedef_struct_t_field_1",
               fieldType = HsExtBinding
-                ExtHsRef {
-                  extHsRefModule = HsModuleName
+                ExtRef {
+                  extRefModule = ModuleName
                     "HsBindgen.Runtime.Prelude",
-                  extHsRefIdentifier =
-                  HsIdentifier "Word8"}
+                  extRefIdentifier = Identifier
+                    "Word8"}
                 TypeSpec {
                   typeSpecModule = Just
-                    (HsModuleName
+                    (ModuleName
                       "HsBindgen.Runtime.Prelude"),
                   typeSpecIdentifier = Just
-                    (HsIdentifier "Word8"),
+                    (Identifier "Word8"),
                   typeSpecInstances = Map.fromList
                     [
                       _×_
@@ -3828,7 +3820,7 @@
                     "distilled_lib_1.h:38:31",
                     fieldName = NamePair {
                       nameC = Name "field_1",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "a_typedef_struct_t_field_1"},
                     fieldComment = Nothing},
                   structFieldType = TypeExtBinding
@@ -3837,17 +3829,17 @@
                         qualNameName = Name "uint8_t",
                         qualNameKind =
                         NameKindOrdinary},
-                      extHsRef = ExtHsRef {
-                        extHsRefModule = HsModuleName
+                      extHsRef = ExtRef {
+                        extRefModule = ModuleName
                           "HsBindgen.Runtime.Prelude",
-                        extHsRefIdentifier =
-                        HsIdentifier "Word8"},
+                        extRefIdentifier = Identifier
+                          "Word8"},
                       extHsSpec = TypeSpec {
                         typeSpecModule = Just
-                          (HsModuleName
+                          (ModuleName
                             "HsBindgen.Runtime.Prelude"),
                         typeSpecIdentifier = Just
-                          (HsIdentifier "Word8"),
+                          (Identifier "Word8"),
                         typeSpecInstances = Map.fromList
                           [
                             _×_
@@ -3963,21 +3955,21 @@
                       "distilled_lib_1.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "a_typedef_struct_t_field_2",
               fieldType = HsExtBinding
-                ExtHsRef {
-                  extHsRefModule = HsModuleName
+                ExtRef {
+                  extRefModule = ModuleName
                     "HsBindgen.Runtime.Prelude",
-                  extHsRefIdentifier =
-                  HsIdentifier "Word16"}
+                  extRefIdentifier = Identifier
+                    "Word16"}
                 TypeSpec {
                   typeSpecModule = Just
-                    (HsModuleName
+                    (ModuleName
                       "HsBindgen.Runtime.Prelude"),
                   typeSpecIdentifier = Just
-                    (HsIdentifier "Word16"),
+                    (Identifier "Word16"),
                   typeSpecInstances = Map.fromList
                     [
                       _×_
@@ -4084,7 +4076,7 @@
                     "distilled_lib_1.h:39:31",
                     fieldName = NamePair {
                       nameC = Name "field_2",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "a_typedef_struct_t_field_2"},
                     fieldComment = Nothing},
                   structFieldType = TypeExtBinding
@@ -4093,17 +4085,17 @@
                         qualNameName = Name "uint16_t",
                         qualNameKind =
                         NameKindOrdinary},
-                      extHsRef = ExtHsRef {
-                        extHsRefModule = HsModuleName
+                      extHsRef = ExtRef {
+                        extRefModule = ModuleName
                           "HsBindgen.Runtime.Prelude",
-                        extHsRefIdentifier =
-                        HsIdentifier "Word16"},
+                        extRefIdentifier = Identifier
+                          "Word16"},
                       extHsSpec = TypeSpec {
                         typeSpecModule = Just
-                          (HsModuleName
+                          (ModuleName
                             "HsBindgen.Runtime.Prelude"),
                         typeSpecIdentifier = Just
-                          (HsIdentifier "Word16"),
+                          (Identifier "Word16"),
                         typeSpecInstances = Map.fromList
                           [
                             _×_
@@ -4219,21 +4211,21 @@
                       "distilled_lib_1.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "a_typedef_struct_t_field_3",
               fieldType = HsExtBinding
-                ExtHsRef {
-                  extHsRefModule = HsModuleName
+                ExtRef {
+                  extRefModule = ModuleName
                     "HsBindgen.Runtime.Prelude",
-                  extHsRefIdentifier =
-                  HsIdentifier "Word32"}
+                  extRefIdentifier = Identifier
+                    "Word32"}
                 TypeSpec {
                   typeSpecModule = Just
-                    (HsModuleName
+                    (ModuleName
                       "HsBindgen.Runtime.Prelude"),
                   typeSpecIdentifier = Just
-                    (HsIdentifier "Word32"),
+                    (Identifier "Word32"),
                   typeSpecInstances = Map.fromList
                     [
                       _×_
@@ -4340,7 +4332,7 @@
                     "distilled_lib_1.h:40:31",
                     fieldName = NamePair {
                       nameC = Name "field_3",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "a_typedef_struct_t_field_3"},
                     fieldComment = Nothing},
                   structFieldType = TypeExtBinding
@@ -4349,17 +4341,17 @@
                         qualNameName = Name "uint32_t",
                         qualNameKind =
                         NameKindOrdinary},
-                      extHsRef = ExtHsRef {
-                        extHsRefModule = HsModuleName
+                      extHsRef = ExtRef {
+                        extRefModule = ModuleName
                           "HsBindgen.Runtime.Prelude",
-                        extHsRefIdentifier =
-                        HsIdentifier "Word32"},
+                        extRefIdentifier = Identifier
+                          "Word32"},
                       extHsSpec = TypeSpec {
                         typeSpecModule = Just
-                          (HsModuleName
+                          (ModuleName
                             "HsBindgen.Runtime.Prelude"),
                         typeSpecIdentifier = Just
-                          (HsIdentifier "Word32"),
+                          (Identifier "Word32"),
                         typeSpecInstances = Map.fromList
                           [
                             _×_
@@ -4475,11 +4467,11 @@
                       "distilled_lib_1.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "a_typedef_struct_t_field_4",
               fieldType = HsTypRef
-                (HsName
+                (Name
                   "@NsTypeConstr"
                   "Another_typedef_struct_t"),
               fieldOrigin = StructField
@@ -4489,7 +4481,7 @@
                     "distilled_lib_1.h:41:31",
                     fieldName = NamePair {
                       nameC = Name "field_4",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "a_typedef_struct_t_field_4"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
@@ -4500,7 +4492,7 @@
                         NamePair {
                           nameC = Name
                             "another_typedef_struct_t",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Another_typedef_struct_t"}
                         (NameOriginGenerated
                           (AnonId
@@ -4521,12 +4513,12 @@
                       "distilled_lib_1.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "a_typedef_struct_t_field_5",
               fieldType = HsPtr
                 (HsTypRef
-                  (HsName
+                  (Name
                     "@NsTypeConstr"
                     "Another_typedef_struct_t")),
               fieldOrigin = StructField
@@ -4536,7 +4528,7 @@
                     "distilled_lib_1.h:42:31",
                     fieldName = NamePair {
                       nameC = Name "field_5",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "a_typedef_struct_t_field_5"},
                     fieldComment = Nothing},
                   structFieldType = TypePointer
@@ -4548,7 +4540,7 @@
                           NamePair {
                             nameC = Name
                               "another_typedef_struct_t",
-                            nameHsIdent = HsIdentifier
+                            nameHsIdent = Identifier
                               "Another_typedef_struct_t"}
                           (NameOriginGenerated
                             (AnonId
@@ -4569,7 +4561,7 @@
                       "distilled_lib_1.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "a_typedef_struct_t_field_6",
               fieldType = HsPtr
@@ -4581,7 +4573,7 @@
                     "distilled_lib_1.h:43:31",
                     fieldName = NamePair {
                       nameC = Name "field_6",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "a_typedef_struct_t_field_6"},
                     fieldComment = Nothing},
                   structFieldType = TypePointer
@@ -4602,23 +4594,23 @@
                       "distilled_lib_1.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "a_typedef_struct_t_field_7",
               fieldType = HsConstArray
                 7
                 (HsExtBinding
-                  ExtHsRef {
-                    extHsRefModule = HsModuleName
+                  ExtRef {
+                    extRefModule = ModuleName
                       "HsBindgen.Runtime.Prelude",
-                    extHsRefIdentifier =
-                    HsIdentifier "Word32"}
+                    extRefIdentifier = Identifier
+                      "Word32"}
                   TypeSpec {
                     typeSpecModule = Just
-                      (HsModuleName
+                      (ModuleName
                         "HsBindgen.Runtime.Prelude"),
                     typeSpecIdentifier = Just
-                      (HsIdentifier "Word32"),
+                      (Identifier "Word32"),
                     typeSpecInstances = Map.fromList
                       [
                         _×_
@@ -4725,7 +4717,7 @@
                     "distilled_lib_1.h:44:31",
                     fieldName = NamePair {
                       nameC = Name "field_7",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "a_typedef_struct_t_field_7"},
                     fieldComment = Nothing},
                   structFieldType = TypeConstArray
@@ -4736,17 +4728,17 @@
                           qualNameName = Name "uint32_t",
                           qualNameKind =
                           NameKindOrdinary},
-                        extHsRef = ExtHsRef {
-                          extHsRefModule = HsModuleName
+                        extHsRef = ExtRef {
+                          extRefModule = ModuleName
                             "HsBindgen.Runtime.Prelude",
-                          extHsRefIdentifier =
-                          HsIdentifier "Word32"},
+                          extRefIdentifier = Identifier
+                            "Word32"},
                         extHsSpec = TypeSpec {
                           typeSpecModule = Just
-                            (HsModuleName
+                            (ModuleName
                               "HsBindgen.Runtime.Prelude"),
                           typeSpecIdentifier = Just
-                            (HsIdentifier "Word32"),
+                            (Identifier "Word32"),
                           typeSpecInstances = Map.fromList
                             [
                               _×_
@@ -4862,11 +4854,11 @@
                       "distilled_lib_1.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "a_typedef_struct_t_field_8",
               fieldType = HsTypRef
-                (HsName
+                (Name
                   "@NsTypeConstr"
                   "Another_typedef_enum_e"),
               fieldOrigin = StructField
@@ -4876,7 +4868,7 @@
                     "distilled_lib_1.h:45:31",
                     fieldName = NamePair {
                       nameC = Name "field_8",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "a_typedef_struct_t_field_8"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
@@ -4886,7 +4878,7 @@
                         NamePair {
                           nameC = Name
                             "another_typedef_enum_e",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Another_typedef_enum_e"}
                         (NameOriginGenerated
                           (AnonId
@@ -4907,13 +4899,13 @@
                       "distilled_lib_1.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "a_typedef_struct_t_field_9",
               fieldType = HsConstArray
                 4
                 (HsTypRef
-                  (HsName
+                  (Name
                     "@NsTypeConstr"
                     "Another_typedef_enum_e")),
               fieldOrigin = StructField
@@ -4923,7 +4915,7 @@
                     "distilled_lib_1.h:46:31",
                     fieldName = NamePair {
                       nameC = Name "field_9",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "a_typedef_struct_t_field_9"},
                     fieldComment = Nothing},
                   structFieldType = TypeConstArray
@@ -4935,7 +4927,7 @@
                           NamePair {
                             nameC = Name
                               "another_typedef_enum_e",
-                            nameHsIdent = HsIdentifier
+                            nameHsIdent = Identifier
                               "Another_typedef_enum_e"}
                           (NameOriginGenerated
                             (AnonId
@@ -4956,7 +4948,7 @@
                       "distilled_lib_1.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "a_typedef_struct_t_field_10",
               fieldType = HsConstArray
@@ -4964,7 +4956,7 @@
                 (HsConstArray
                   3
                   (HsTypRef
-                    (HsName
+                    (Name
                       "@NsTypeConstr"
                       "Another_typedef_enum_e"))),
               fieldOrigin = StructField
@@ -4974,7 +4966,7 @@
                     "distilled_lib_1.h:47:31",
                     fieldName = NamePair {
                       nameC = Name "field_10",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "a_typedef_struct_t_field_10"},
                     fieldComment = Nothing},
                   structFieldType = TypeConstArray
@@ -4988,7 +4980,7 @@
                             NamePair {
                               nameC = Name
                                 "another_typedef_enum_e",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "Another_typedef_enum_e"}
                             (NameOriginGenerated
                               (AnonId
@@ -5016,7 +5008,7 @@
                 declId = NamePair {
                   nameC = Name
                     "a_typedef_struct_t",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "A_typedef_struct_t"},
                 declOrigin =
                 NameOriginRenamedFrom
@@ -5033,7 +5025,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName
+                    (Name
                       "@NsConstr"
                       "A_typedef_struct_t"),
                   structSizeof = 140,
@@ -5045,7 +5037,7 @@
                         "distilled_lib_1.h:37:31",
                         fieldName = NamePair {
                           nameC = Name "field_0",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "a_typedef_struct_t_field_0"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -5058,7 +5050,7 @@
                         "distilled_lib_1.h:38:31",
                         fieldName = NamePair {
                           nameC = Name "field_1",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "a_typedef_struct_t_field_1"},
                         fieldComment = Nothing},
                       structFieldType = TypeExtBinding
@@ -5067,17 +5059,17 @@
                             qualNameName = Name "uint8_t",
                             qualNameKind =
                             NameKindOrdinary},
-                          extHsRef = ExtHsRef {
-                            extHsRefModule = HsModuleName
+                          extHsRef = ExtRef {
+                            extRefModule = ModuleName
                               "HsBindgen.Runtime.Prelude",
-                            extHsRefIdentifier =
-                            HsIdentifier "Word8"},
+                            extRefIdentifier = Identifier
+                              "Word8"},
                           extHsSpec = TypeSpec {
                             typeSpecModule = Just
-                              (HsModuleName
+                              (ModuleName
                                 "HsBindgen.Runtime.Prelude"),
                             typeSpecIdentifier = Just
-                              (HsIdentifier "Word8"),
+                              (Identifier "Word8"),
                             typeSpecInstances = Map.fromList
                               [
                                 _×_
@@ -5185,7 +5177,7 @@
                         "distilled_lib_1.h:39:31",
                         fieldName = NamePair {
                           nameC = Name "field_2",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "a_typedef_struct_t_field_2"},
                         fieldComment = Nothing},
                       structFieldType = TypeExtBinding
@@ -5194,17 +5186,17 @@
                             qualNameName = Name "uint16_t",
                             qualNameKind =
                             NameKindOrdinary},
-                          extHsRef = ExtHsRef {
-                            extHsRefModule = HsModuleName
+                          extHsRef = ExtRef {
+                            extRefModule = ModuleName
                               "HsBindgen.Runtime.Prelude",
-                            extHsRefIdentifier =
-                            HsIdentifier "Word16"},
+                            extRefIdentifier = Identifier
+                              "Word16"},
                           extHsSpec = TypeSpec {
                             typeSpecModule = Just
-                              (HsModuleName
+                              (ModuleName
                                 "HsBindgen.Runtime.Prelude"),
                             typeSpecIdentifier = Just
-                              (HsIdentifier "Word16"),
+                              (Identifier "Word16"),
                             typeSpecInstances = Map.fromList
                               [
                                 _×_
@@ -5312,7 +5304,7 @@
                         "distilled_lib_1.h:40:31",
                         fieldName = NamePair {
                           nameC = Name "field_3",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "a_typedef_struct_t_field_3"},
                         fieldComment = Nothing},
                       structFieldType = TypeExtBinding
@@ -5321,17 +5313,17 @@
                             qualNameName = Name "uint32_t",
                             qualNameKind =
                             NameKindOrdinary},
-                          extHsRef = ExtHsRef {
-                            extHsRefModule = HsModuleName
+                          extHsRef = ExtRef {
+                            extRefModule = ModuleName
                               "HsBindgen.Runtime.Prelude",
-                            extHsRefIdentifier =
-                            HsIdentifier "Word32"},
+                            extRefIdentifier = Identifier
+                              "Word32"},
                           extHsSpec = TypeSpec {
                             typeSpecModule = Just
-                              (HsModuleName
+                              (ModuleName
                                 "HsBindgen.Runtime.Prelude"),
                             typeSpecIdentifier = Just
-                              (HsIdentifier "Word32"),
+                              (Identifier "Word32"),
                             typeSpecInstances = Map.fromList
                               [
                                 _×_
@@ -5439,7 +5431,7 @@
                         "distilled_lib_1.h:41:31",
                         fieldName = NamePair {
                           nameC = Name "field_4",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "a_typedef_struct_t_field_4"},
                         fieldComment = Nothing},
                       structFieldType = TypeTypedef
@@ -5450,7 +5442,7 @@
                             NamePair {
                               nameC = Name
                                 "another_typedef_struct_t",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "Another_typedef_struct_t"}
                             (NameOriginGenerated
                               (AnonId
@@ -5463,7 +5455,7 @@
                         "distilled_lib_1.h:42:31",
                         fieldName = NamePair {
                           nameC = Name "field_5",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "a_typedef_struct_t_field_5"},
                         fieldComment = Nothing},
                       structFieldType = TypePointer
@@ -5475,7 +5467,7 @@
                               NamePair {
                                 nameC = Name
                                   "another_typedef_struct_t",
-                                nameHsIdent = HsIdentifier
+                                nameHsIdent = Identifier
                                   "Another_typedef_struct_t"}
                               (NameOriginGenerated
                                 (AnonId
@@ -5488,7 +5480,7 @@
                         "distilled_lib_1.h:43:31",
                         fieldName = NamePair {
                           nameC = Name "field_6",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "a_typedef_struct_t_field_6"},
                         fieldComment = Nothing},
                       structFieldType = TypePointer
@@ -5501,7 +5493,7 @@
                         "distilled_lib_1.h:44:31",
                         fieldName = NamePair {
                           nameC = Name "field_7",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "a_typedef_struct_t_field_7"},
                         fieldComment = Nothing},
                       structFieldType = TypeConstArray
@@ -5512,17 +5504,17 @@
                               qualNameName = Name "uint32_t",
                               qualNameKind =
                               NameKindOrdinary},
-                            extHsRef = ExtHsRef {
-                              extHsRefModule = HsModuleName
+                            extHsRef = ExtRef {
+                              extRefModule = ModuleName
                                 "HsBindgen.Runtime.Prelude",
-                              extHsRefIdentifier =
-                              HsIdentifier "Word32"},
+                              extRefIdentifier = Identifier
+                                "Word32"},
                             extHsSpec = TypeSpec {
                               typeSpecModule = Just
-                                (HsModuleName
+                                (ModuleName
                                   "HsBindgen.Runtime.Prelude"),
                               typeSpecIdentifier = Just
-                                (HsIdentifier "Word32"),
+                                (Identifier "Word32"),
                               typeSpecInstances = Map.fromList
                                 [
                                   _×_
@@ -5630,7 +5622,7 @@
                         "distilled_lib_1.h:45:31",
                         fieldName = NamePair {
                           nameC = Name "field_8",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "a_typedef_struct_t_field_8"},
                         fieldComment = Nothing},
                       structFieldType = TypeTypedef
@@ -5640,7 +5632,7 @@
                             NamePair {
                               nameC = Name
                                 "another_typedef_enum_e",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "Another_typedef_enum_e"}
                             (NameOriginGenerated
                               (AnonId
@@ -5653,7 +5645,7 @@
                         "distilled_lib_1.h:46:31",
                         fieldName = NamePair {
                           nameC = Name "field_9",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "a_typedef_struct_t_field_9"},
                         fieldComment = Nothing},
                       structFieldType = TypeConstArray
@@ -5665,7 +5657,7 @@
                               NamePair {
                                 nameC = Name
                                   "another_typedef_enum_e",
-                                nameHsIdent = HsIdentifier
+                                nameHsIdent = Identifier
                                   "Another_typedef_enum_e"}
                               (NameOriginGenerated
                                 (AnonId
@@ -5678,7 +5670,7 @@
                         "distilled_lib_1.h:47:31",
                         fieldName = NamePair {
                           nameC = Name "field_10",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "a_typedef_struct_t_field_10"},
                         fieldComment = Nothing},
                       structFieldType = TypeConstArray
@@ -5692,7 +5684,7 @@
                                 NamePair {
                                   nameC = Name
                                     "another_typedef_enum_e",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "Another_typedef_enum_e"}
                                 (NameOriginGenerated
                                   (AnonId
@@ -5730,15 +5722,15 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "A_typedef_struct_t",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "A_typedef_struct_t",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "a_typedef_struct_t_field_0",
                       fieldType = HsPrimType
@@ -5750,7 +5742,7 @@
                             "distilled_lib_1.h:37:31",
                             fieldName = NamePair {
                               nameC = Name "field_0",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "a_typedef_struct_t_field_0"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -5771,21 +5763,21 @@
                               "distilled_lib_1.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "a_typedef_struct_t_field_1",
                       fieldType = HsExtBinding
-                        ExtHsRef {
-                          extHsRefModule = HsModuleName
+                        ExtRef {
+                          extRefModule = ModuleName
                             "HsBindgen.Runtime.Prelude",
-                          extHsRefIdentifier =
-                          HsIdentifier "Word8"}
+                          extRefIdentifier = Identifier
+                            "Word8"}
                         TypeSpec {
                           typeSpecModule = Just
-                            (HsModuleName
+                            (ModuleName
                               "HsBindgen.Runtime.Prelude"),
                           typeSpecIdentifier = Just
-                            (HsIdentifier "Word8"),
+                            (Identifier "Word8"),
                           typeSpecInstances = Map.fromList
                             [
                               _×_
@@ -5892,7 +5884,7 @@
                             "distilled_lib_1.h:38:31",
                             fieldName = NamePair {
                               nameC = Name "field_1",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "a_typedef_struct_t_field_1"},
                             fieldComment = Nothing},
                           structFieldType = TypeExtBinding
@@ -5901,17 +5893,17 @@
                                 qualNameName = Name "uint8_t",
                                 qualNameKind =
                                 NameKindOrdinary},
-                              extHsRef = ExtHsRef {
-                                extHsRefModule = HsModuleName
+                              extHsRef = ExtRef {
+                                extRefModule = ModuleName
                                   "HsBindgen.Runtime.Prelude",
-                                extHsRefIdentifier =
-                                HsIdentifier "Word8"},
+                                extRefIdentifier = Identifier
+                                  "Word8"},
                               extHsSpec = TypeSpec {
                                 typeSpecModule = Just
-                                  (HsModuleName
+                                  (ModuleName
                                     "HsBindgen.Runtime.Prelude"),
                                 typeSpecIdentifier = Just
-                                  (HsIdentifier "Word8"),
+                                  (Identifier "Word8"),
                                 typeSpecInstances = Map.fromList
                                   [
                                     _×_
@@ -6027,21 +6019,21 @@
                               "distilled_lib_1.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "a_typedef_struct_t_field_2",
                       fieldType = HsExtBinding
-                        ExtHsRef {
-                          extHsRefModule = HsModuleName
+                        ExtRef {
+                          extRefModule = ModuleName
                             "HsBindgen.Runtime.Prelude",
-                          extHsRefIdentifier =
-                          HsIdentifier "Word16"}
+                          extRefIdentifier = Identifier
+                            "Word16"}
                         TypeSpec {
                           typeSpecModule = Just
-                            (HsModuleName
+                            (ModuleName
                               "HsBindgen.Runtime.Prelude"),
                           typeSpecIdentifier = Just
-                            (HsIdentifier "Word16"),
+                            (Identifier "Word16"),
                           typeSpecInstances = Map.fromList
                             [
                               _×_
@@ -6148,7 +6140,7 @@
                             "distilled_lib_1.h:39:31",
                             fieldName = NamePair {
                               nameC = Name "field_2",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "a_typedef_struct_t_field_2"},
                             fieldComment = Nothing},
                           structFieldType = TypeExtBinding
@@ -6157,17 +6149,17 @@
                                 qualNameName = Name "uint16_t",
                                 qualNameKind =
                                 NameKindOrdinary},
-                              extHsRef = ExtHsRef {
-                                extHsRefModule = HsModuleName
+                              extHsRef = ExtRef {
+                                extRefModule = ModuleName
                                   "HsBindgen.Runtime.Prelude",
-                                extHsRefIdentifier =
-                                HsIdentifier "Word16"},
+                                extRefIdentifier = Identifier
+                                  "Word16"},
                               extHsSpec = TypeSpec {
                                 typeSpecModule = Just
-                                  (HsModuleName
+                                  (ModuleName
                                     "HsBindgen.Runtime.Prelude"),
                                 typeSpecIdentifier = Just
-                                  (HsIdentifier "Word16"),
+                                  (Identifier "Word16"),
                                 typeSpecInstances = Map.fromList
                                   [
                                     _×_
@@ -6283,21 +6275,21 @@
                               "distilled_lib_1.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "a_typedef_struct_t_field_3",
                       fieldType = HsExtBinding
-                        ExtHsRef {
-                          extHsRefModule = HsModuleName
+                        ExtRef {
+                          extRefModule = ModuleName
                             "HsBindgen.Runtime.Prelude",
-                          extHsRefIdentifier =
-                          HsIdentifier "Word32"}
+                          extRefIdentifier = Identifier
+                            "Word32"}
                         TypeSpec {
                           typeSpecModule = Just
-                            (HsModuleName
+                            (ModuleName
                               "HsBindgen.Runtime.Prelude"),
                           typeSpecIdentifier = Just
-                            (HsIdentifier "Word32"),
+                            (Identifier "Word32"),
                           typeSpecInstances = Map.fromList
                             [
                               _×_
@@ -6404,7 +6396,7 @@
                             "distilled_lib_1.h:40:31",
                             fieldName = NamePair {
                               nameC = Name "field_3",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "a_typedef_struct_t_field_3"},
                             fieldComment = Nothing},
                           structFieldType = TypeExtBinding
@@ -6413,17 +6405,17 @@
                                 qualNameName = Name "uint32_t",
                                 qualNameKind =
                                 NameKindOrdinary},
-                              extHsRef = ExtHsRef {
-                                extHsRefModule = HsModuleName
+                              extHsRef = ExtRef {
+                                extRefModule = ModuleName
                                   "HsBindgen.Runtime.Prelude",
-                                extHsRefIdentifier =
-                                HsIdentifier "Word32"},
+                                extRefIdentifier = Identifier
+                                  "Word32"},
                               extHsSpec = TypeSpec {
                                 typeSpecModule = Just
-                                  (HsModuleName
+                                  (ModuleName
                                     "HsBindgen.Runtime.Prelude"),
                                 typeSpecIdentifier = Just
-                                  (HsIdentifier "Word32"),
+                                  (Identifier "Word32"),
                                 typeSpecInstances = Map.fromList
                                   [
                                     _×_
@@ -6539,11 +6531,11 @@
                               "distilled_lib_1.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "a_typedef_struct_t_field_4",
                       fieldType = HsTypRef
-                        (HsName
+                        (Name
                           "@NsTypeConstr"
                           "Another_typedef_struct_t"),
                       fieldOrigin = StructField
@@ -6553,7 +6545,7 @@
                             "distilled_lib_1.h:41:31",
                             fieldName = NamePair {
                               nameC = Name "field_4",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "a_typedef_struct_t_field_4"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
@@ -6564,7 +6556,7 @@
                                 NamePair {
                                   nameC = Name
                                     "another_typedef_struct_t",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "Another_typedef_struct_t"}
                                 (NameOriginGenerated
                                   (AnonId
@@ -6585,12 +6577,12 @@
                               "distilled_lib_1.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "a_typedef_struct_t_field_5",
                       fieldType = HsPtr
                         (HsTypRef
-                          (HsName
+                          (Name
                             "@NsTypeConstr"
                             "Another_typedef_struct_t")),
                       fieldOrigin = StructField
@@ -6600,7 +6592,7 @@
                             "distilled_lib_1.h:42:31",
                             fieldName = NamePair {
                               nameC = Name "field_5",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "a_typedef_struct_t_field_5"},
                             fieldComment = Nothing},
                           structFieldType = TypePointer
@@ -6612,7 +6604,7 @@
                                   NamePair {
                                     nameC = Name
                                       "another_typedef_struct_t",
-                                    nameHsIdent = HsIdentifier
+                                    nameHsIdent = Identifier
                                       "Another_typedef_struct_t"}
                                   (NameOriginGenerated
                                     (AnonId
@@ -6633,7 +6625,7 @@
                               "distilled_lib_1.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "a_typedef_struct_t_field_6",
                       fieldType = HsPtr
@@ -6645,7 +6637,7 @@
                             "distilled_lib_1.h:43:31",
                             fieldName = NamePair {
                               nameC = Name "field_6",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "a_typedef_struct_t_field_6"},
                             fieldComment = Nothing},
                           structFieldType = TypePointer
@@ -6666,23 +6658,23 @@
                               "distilled_lib_1.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "a_typedef_struct_t_field_7",
                       fieldType = HsConstArray
                         7
                         (HsExtBinding
-                          ExtHsRef {
-                            extHsRefModule = HsModuleName
+                          ExtRef {
+                            extRefModule = ModuleName
                               "HsBindgen.Runtime.Prelude",
-                            extHsRefIdentifier =
-                            HsIdentifier "Word32"}
+                            extRefIdentifier = Identifier
+                              "Word32"}
                           TypeSpec {
                             typeSpecModule = Just
-                              (HsModuleName
+                              (ModuleName
                                 "HsBindgen.Runtime.Prelude"),
                             typeSpecIdentifier = Just
-                              (HsIdentifier "Word32"),
+                              (Identifier "Word32"),
                             typeSpecInstances = Map.fromList
                               [
                                 _×_
@@ -6789,7 +6781,7 @@
                             "distilled_lib_1.h:44:31",
                             fieldName = NamePair {
                               nameC = Name "field_7",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "a_typedef_struct_t_field_7"},
                             fieldComment = Nothing},
                           structFieldType = TypeConstArray
@@ -6800,17 +6792,17 @@
                                   qualNameName = Name "uint32_t",
                                   qualNameKind =
                                   NameKindOrdinary},
-                                extHsRef = ExtHsRef {
-                                  extHsRefModule = HsModuleName
+                                extHsRef = ExtRef {
+                                  extRefModule = ModuleName
                                     "HsBindgen.Runtime.Prelude",
-                                  extHsRefIdentifier =
-                                  HsIdentifier "Word32"},
+                                  extRefIdentifier = Identifier
+                                    "Word32"},
                                 extHsSpec = TypeSpec {
                                   typeSpecModule = Just
-                                    (HsModuleName
+                                    (ModuleName
                                       "HsBindgen.Runtime.Prelude"),
                                   typeSpecIdentifier = Just
-                                    (HsIdentifier "Word32"),
+                                    (Identifier "Word32"),
                                   typeSpecInstances = Map.fromList
                                     [
                                       _×_
@@ -6926,11 +6918,11 @@
                               "distilled_lib_1.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "a_typedef_struct_t_field_8",
                       fieldType = HsTypRef
-                        (HsName
+                        (Name
                           "@NsTypeConstr"
                           "Another_typedef_enum_e"),
                       fieldOrigin = StructField
@@ -6940,7 +6932,7 @@
                             "distilled_lib_1.h:45:31",
                             fieldName = NamePair {
                               nameC = Name "field_8",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "a_typedef_struct_t_field_8"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
@@ -6950,7 +6942,7 @@
                                 NamePair {
                                   nameC = Name
                                     "another_typedef_enum_e",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "Another_typedef_enum_e"}
                                 (NameOriginGenerated
                                   (AnonId
@@ -6971,13 +6963,13 @@
                               "distilled_lib_1.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "a_typedef_struct_t_field_9",
                       fieldType = HsConstArray
                         4
                         (HsTypRef
-                          (HsName
+                          (Name
                             "@NsTypeConstr"
                             "Another_typedef_enum_e")),
                       fieldOrigin = StructField
@@ -6987,7 +6979,7 @@
                             "distilled_lib_1.h:46:31",
                             fieldName = NamePair {
                               nameC = Name "field_9",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "a_typedef_struct_t_field_9"},
                             fieldComment = Nothing},
                           structFieldType = TypeConstArray
@@ -6999,7 +6991,7 @@
                                   NamePair {
                                     nameC = Name
                                       "another_typedef_enum_e",
-                                    nameHsIdent = HsIdentifier
+                                    nameHsIdent = Identifier
                                       "Another_typedef_enum_e"}
                                   (NameOriginGenerated
                                     (AnonId
@@ -7020,7 +7012,7 @@
                               "distilled_lib_1.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "a_typedef_struct_t_field_10",
                       fieldType = HsConstArray
@@ -7028,7 +7020,7 @@
                         (HsConstArray
                           3
                           (HsTypRef
-                            (HsName
+                            (Name
                               "@NsTypeConstr"
                               "Another_typedef_enum_e"))),
                       fieldOrigin = StructField
@@ -7038,7 +7030,7 @@
                             "distilled_lib_1.h:47:31",
                             fieldName = NamePair {
                               nameC = Name "field_10",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "a_typedef_struct_t_field_10"},
                             fieldComment = Nothing},
                           structFieldType = TypeConstArray
@@ -7052,7 +7044,7 @@
                                     NamePair {
                                       nameC = Name
                                         "another_typedef_enum_e",
-                                      nameHsIdent = HsIdentifier
+                                      nameHsIdent = Identifier
                                         "Another_typedef_enum_e"}
                                     (NameOriginGenerated
                                       (AnonId
@@ -7080,7 +7072,7 @@
                         declId = NamePair {
                           nameC = Name
                             "a_typedef_struct_t",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "A_typedef_struct_t"},
                         declOrigin =
                         NameOriginRenamedFrom
@@ -7097,7 +7089,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName
+                            (Name
                               "@NsConstr"
                               "A_typedef_struct_t"),
                           structSizeof = 140,
@@ -7109,7 +7101,7 @@
                                 "distilled_lib_1.h:37:31",
                                 fieldName = NamePair {
                                   nameC = Name "field_0",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "a_typedef_struct_t_field_0"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -7122,7 +7114,7 @@
                                 "distilled_lib_1.h:38:31",
                                 fieldName = NamePair {
                                   nameC = Name "field_1",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "a_typedef_struct_t_field_1"},
                                 fieldComment = Nothing},
                               structFieldType = TypeExtBinding
@@ -7131,17 +7123,17 @@
                                     qualNameName = Name "uint8_t",
                                     qualNameKind =
                                     NameKindOrdinary},
-                                  extHsRef = ExtHsRef {
-                                    extHsRefModule = HsModuleName
+                                  extHsRef = ExtRef {
+                                    extRefModule = ModuleName
                                       "HsBindgen.Runtime.Prelude",
-                                    extHsRefIdentifier =
-                                    HsIdentifier "Word8"},
+                                    extRefIdentifier = Identifier
+                                      "Word8"},
                                   extHsSpec = TypeSpec {
                                     typeSpecModule = Just
-                                      (HsModuleName
+                                      (ModuleName
                                         "HsBindgen.Runtime.Prelude"),
                                     typeSpecIdentifier = Just
-                                      (HsIdentifier "Word8"),
+                                      (Identifier "Word8"),
                                     typeSpecInstances = Map.fromList
                                       [
                                         _×_
@@ -7249,7 +7241,7 @@
                                 "distilled_lib_1.h:39:31",
                                 fieldName = NamePair {
                                   nameC = Name "field_2",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "a_typedef_struct_t_field_2"},
                                 fieldComment = Nothing},
                               structFieldType = TypeExtBinding
@@ -7258,17 +7250,17 @@
                                     qualNameName = Name "uint16_t",
                                     qualNameKind =
                                     NameKindOrdinary},
-                                  extHsRef = ExtHsRef {
-                                    extHsRefModule = HsModuleName
+                                  extHsRef = ExtRef {
+                                    extRefModule = ModuleName
                                       "HsBindgen.Runtime.Prelude",
-                                    extHsRefIdentifier =
-                                    HsIdentifier "Word16"},
+                                    extRefIdentifier = Identifier
+                                      "Word16"},
                                   extHsSpec = TypeSpec {
                                     typeSpecModule = Just
-                                      (HsModuleName
+                                      (ModuleName
                                         "HsBindgen.Runtime.Prelude"),
                                     typeSpecIdentifier = Just
-                                      (HsIdentifier "Word16"),
+                                      (Identifier "Word16"),
                                     typeSpecInstances = Map.fromList
                                       [
                                         _×_
@@ -7376,7 +7368,7 @@
                                 "distilled_lib_1.h:40:31",
                                 fieldName = NamePair {
                                   nameC = Name "field_3",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "a_typedef_struct_t_field_3"},
                                 fieldComment = Nothing},
                               structFieldType = TypeExtBinding
@@ -7385,17 +7377,17 @@
                                     qualNameName = Name "uint32_t",
                                     qualNameKind =
                                     NameKindOrdinary},
-                                  extHsRef = ExtHsRef {
-                                    extHsRefModule = HsModuleName
+                                  extHsRef = ExtRef {
+                                    extRefModule = ModuleName
                                       "HsBindgen.Runtime.Prelude",
-                                    extHsRefIdentifier =
-                                    HsIdentifier "Word32"},
+                                    extRefIdentifier = Identifier
+                                      "Word32"},
                                   extHsSpec = TypeSpec {
                                     typeSpecModule = Just
-                                      (HsModuleName
+                                      (ModuleName
                                         "HsBindgen.Runtime.Prelude"),
                                     typeSpecIdentifier = Just
-                                      (HsIdentifier "Word32"),
+                                      (Identifier "Word32"),
                                     typeSpecInstances = Map.fromList
                                       [
                                         _×_
@@ -7503,7 +7495,7 @@
                                 "distilled_lib_1.h:41:31",
                                 fieldName = NamePair {
                                   nameC = Name "field_4",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "a_typedef_struct_t_field_4"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
@@ -7514,7 +7506,7 @@
                                     NamePair {
                                       nameC = Name
                                         "another_typedef_struct_t",
-                                      nameHsIdent = HsIdentifier
+                                      nameHsIdent = Identifier
                                         "Another_typedef_struct_t"}
                                     (NameOriginGenerated
                                       (AnonId
@@ -7527,7 +7519,7 @@
                                 "distilled_lib_1.h:42:31",
                                 fieldName = NamePair {
                                   nameC = Name "field_5",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "a_typedef_struct_t_field_5"},
                                 fieldComment = Nothing},
                               structFieldType = TypePointer
@@ -7539,7 +7531,7 @@
                                       NamePair {
                                         nameC = Name
                                           "another_typedef_struct_t",
-                                        nameHsIdent = HsIdentifier
+                                        nameHsIdent = Identifier
                                           "Another_typedef_struct_t"}
                                       (NameOriginGenerated
                                         (AnonId
@@ -7552,7 +7544,7 @@
                                 "distilled_lib_1.h:43:31",
                                 fieldName = NamePair {
                                   nameC = Name "field_6",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "a_typedef_struct_t_field_6"},
                                 fieldComment = Nothing},
                               structFieldType = TypePointer
@@ -7565,7 +7557,7 @@
                                 "distilled_lib_1.h:44:31",
                                 fieldName = NamePair {
                                   nameC = Name "field_7",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "a_typedef_struct_t_field_7"},
                                 fieldComment = Nothing},
                               structFieldType = TypeConstArray
@@ -7576,17 +7568,17 @@
                                       qualNameName = Name "uint32_t",
                                       qualNameKind =
                                       NameKindOrdinary},
-                                    extHsRef = ExtHsRef {
-                                      extHsRefModule = HsModuleName
+                                    extHsRef = ExtRef {
+                                      extRefModule = ModuleName
                                         "HsBindgen.Runtime.Prelude",
-                                      extHsRefIdentifier =
-                                      HsIdentifier "Word32"},
+                                      extRefIdentifier = Identifier
+                                        "Word32"},
                                     extHsSpec = TypeSpec {
                                       typeSpecModule = Just
-                                        (HsModuleName
+                                        (ModuleName
                                           "HsBindgen.Runtime.Prelude"),
                                       typeSpecIdentifier = Just
-                                        (HsIdentifier "Word32"),
+                                        (Identifier "Word32"),
                                       typeSpecInstances = Map.fromList
                                         [
                                           _×_
@@ -7694,7 +7686,7 @@
                                 "distilled_lib_1.h:45:31",
                                 fieldName = NamePair {
                                   nameC = Name "field_8",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "a_typedef_struct_t_field_8"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
@@ -7704,7 +7696,7 @@
                                     NamePair {
                                       nameC = Name
                                         "another_typedef_enum_e",
-                                      nameHsIdent = HsIdentifier
+                                      nameHsIdent = Identifier
                                         "Another_typedef_enum_e"}
                                     (NameOriginGenerated
                                       (AnonId
@@ -7717,7 +7709,7 @@
                                 "distilled_lib_1.h:46:31",
                                 fieldName = NamePair {
                                   nameC = Name "field_9",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "a_typedef_struct_t_field_9"},
                                 fieldComment = Nothing},
                               structFieldType = TypeConstArray
@@ -7729,7 +7721,7 @@
                                       NamePair {
                                         nameC = Name
                                           "another_typedef_enum_e",
-                                        nameHsIdent = HsIdentifier
+                                        nameHsIdent = Identifier
                                           "Another_typedef_enum_e"}
                                       (NameOriginGenerated
                                         (AnonId
@@ -7742,7 +7734,7 @@
                                 "distilled_lib_1.h:47:31",
                                 fieldName = NamePair {
                                   nameC = Name "field_10",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "a_typedef_struct_t_field_10"},
                                 fieldComment = Nothing},
                               structFieldType = TypeConstArray
@@ -7756,7 +7748,7 @@
                                         NamePair {
                                           nameC = Name
                                             "another_typedef_enum_e",
-                                          nameHsIdent = HsIdentifier
+                                          nameHsIdent = Identifier
                                             "Another_typedef_enum_e"}
                                         (NameOriginGenerated
                                           (AnonId
@@ -7805,15 +7797,15 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "A_typedef_struct_t",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "A_typedef_struct_t",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "a_typedef_struct_t_field_0",
                       fieldType = HsPrimType
@@ -7825,7 +7817,7 @@
                             "distilled_lib_1.h:37:31",
                             fieldName = NamePair {
                               nameC = Name "field_0",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "a_typedef_struct_t_field_0"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -7846,21 +7838,21 @@
                               "distilled_lib_1.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "a_typedef_struct_t_field_1",
                       fieldType = HsExtBinding
-                        ExtHsRef {
-                          extHsRefModule = HsModuleName
+                        ExtRef {
+                          extRefModule = ModuleName
                             "HsBindgen.Runtime.Prelude",
-                          extHsRefIdentifier =
-                          HsIdentifier "Word8"}
+                          extRefIdentifier = Identifier
+                            "Word8"}
                         TypeSpec {
                           typeSpecModule = Just
-                            (HsModuleName
+                            (ModuleName
                               "HsBindgen.Runtime.Prelude"),
                           typeSpecIdentifier = Just
-                            (HsIdentifier "Word8"),
+                            (Identifier "Word8"),
                           typeSpecInstances = Map.fromList
                             [
                               _×_
@@ -7967,7 +7959,7 @@
                             "distilled_lib_1.h:38:31",
                             fieldName = NamePair {
                               nameC = Name "field_1",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "a_typedef_struct_t_field_1"},
                             fieldComment = Nothing},
                           structFieldType = TypeExtBinding
@@ -7976,17 +7968,17 @@
                                 qualNameName = Name "uint8_t",
                                 qualNameKind =
                                 NameKindOrdinary},
-                              extHsRef = ExtHsRef {
-                                extHsRefModule = HsModuleName
+                              extHsRef = ExtRef {
+                                extRefModule = ModuleName
                                   "HsBindgen.Runtime.Prelude",
-                                extHsRefIdentifier =
-                                HsIdentifier "Word8"},
+                                extRefIdentifier = Identifier
+                                  "Word8"},
                               extHsSpec = TypeSpec {
                                 typeSpecModule = Just
-                                  (HsModuleName
+                                  (ModuleName
                                     "HsBindgen.Runtime.Prelude"),
                                 typeSpecIdentifier = Just
-                                  (HsIdentifier "Word8"),
+                                  (Identifier "Word8"),
                                 typeSpecInstances = Map.fromList
                                   [
                                     _×_
@@ -8102,21 +8094,21 @@
                               "distilled_lib_1.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "a_typedef_struct_t_field_2",
                       fieldType = HsExtBinding
-                        ExtHsRef {
-                          extHsRefModule = HsModuleName
+                        ExtRef {
+                          extRefModule = ModuleName
                             "HsBindgen.Runtime.Prelude",
-                          extHsRefIdentifier =
-                          HsIdentifier "Word16"}
+                          extRefIdentifier = Identifier
+                            "Word16"}
                         TypeSpec {
                           typeSpecModule = Just
-                            (HsModuleName
+                            (ModuleName
                               "HsBindgen.Runtime.Prelude"),
                           typeSpecIdentifier = Just
-                            (HsIdentifier "Word16"),
+                            (Identifier "Word16"),
                           typeSpecInstances = Map.fromList
                             [
                               _×_
@@ -8223,7 +8215,7 @@
                             "distilled_lib_1.h:39:31",
                             fieldName = NamePair {
                               nameC = Name "field_2",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "a_typedef_struct_t_field_2"},
                             fieldComment = Nothing},
                           structFieldType = TypeExtBinding
@@ -8232,17 +8224,17 @@
                                 qualNameName = Name "uint16_t",
                                 qualNameKind =
                                 NameKindOrdinary},
-                              extHsRef = ExtHsRef {
-                                extHsRefModule = HsModuleName
+                              extHsRef = ExtRef {
+                                extRefModule = ModuleName
                                   "HsBindgen.Runtime.Prelude",
-                                extHsRefIdentifier =
-                                HsIdentifier "Word16"},
+                                extRefIdentifier = Identifier
+                                  "Word16"},
                               extHsSpec = TypeSpec {
                                 typeSpecModule = Just
-                                  (HsModuleName
+                                  (ModuleName
                                     "HsBindgen.Runtime.Prelude"),
                                 typeSpecIdentifier = Just
-                                  (HsIdentifier "Word16"),
+                                  (Identifier "Word16"),
                                 typeSpecInstances = Map.fromList
                                   [
                                     _×_
@@ -8358,21 +8350,21 @@
                               "distilled_lib_1.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "a_typedef_struct_t_field_3",
                       fieldType = HsExtBinding
-                        ExtHsRef {
-                          extHsRefModule = HsModuleName
+                        ExtRef {
+                          extRefModule = ModuleName
                             "HsBindgen.Runtime.Prelude",
-                          extHsRefIdentifier =
-                          HsIdentifier "Word32"}
+                          extRefIdentifier = Identifier
+                            "Word32"}
                         TypeSpec {
                           typeSpecModule = Just
-                            (HsModuleName
+                            (ModuleName
                               "HsBindgen.Runtime.Prelude"),
                           typeSpecIdentifier = Just
-                            (HsIdentifier "Word32"),
+                            (Identifier "Word32"),
                           typeSpecInstances = Map.fromList
                             [
                               _×_
@@ -8479,7 +8471,7 @@
                             "distilled_lib_1.h:40:31",
                             fieldName = NamePair {
                               nameC = Name "field_3",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "a_typedef_struct_t_field_3"},
                             fieldComment = Nothing},
                           structFieldType = TypeExtBinding
@@ -8488,17 +8480,17 @@
                                 qualNameName = Name "uint32_t",
                                 qualNameKind =
                                 NameKindOrdinary},
-                              extHsRef = ExtHsRef {
-                                extHsRefModule = HsModuleName
+                              extHsRef = ExtRef {
+                                extRefModule = ModuleName
                                   "HsBindgen.Runtime.Prelude",
-                                extHsRefIdentifier =
-                                HsIdentifier "Word32"},
+                                extRefIdentifier = Identifier
+                                  "Word32"},
                               extHsSpec = TypeSpec {
                                 typeSpecModule = Just
-                                  (HsModuleName
+                                  (ModuleName
                                     "HsBindgen.Runtime.Prelude"),
                                 typeSpecIdentifier = Just
-                                  (HsIdentifier "Word32"),
+                                  (Identifier "Word32"),
                                 typeSpecInstances = Map.fromList
                                   [
                                     _×_
@@ -8614,11 +8606,11 @@
                               "distilled_lib_1.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "a_typedef_struct_t_field_4",
                       fieldType = HsTypRef
-                        (HsName
+                        (Name
                           "@NsTypeConstr"
                           "Another_typedef_struct_t"),
                       fieldOrigin = StructField
@@ -8628,7 +8620,7 @@
                             "distilled_lib_1.h:41:31",
                             fieldName = NamePair {
                               nameC = Name "field_4",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "a_typedef_struct_t_field_4"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
@@ -8639,7 +8631,7 @@
                                 NamePair {
                                   nameC = Name
                                     "another_typedef_struct_t",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "Another_typedef_struct_t"}
                                 (NameOriginGenerated
                                   (AnonId
@@ -8660,12 +8652,12 @@
                               "distilled_lib_1.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "a_typedef_struct_t_field_5",
                       fieldType = HsPtr
                         (HsTypRef
-                          (HsName
+                          (Name
                             "@NsTypeConstr"
                             "Another_typedef_struct_t")),
                       fieldOrigin = StructField
@@ -8675,7 +8667,7 @@
                             "distilled_lib_1.h:42:31",
                             fieldName = NamePair {
                               nameC = Name "field_5",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "a_typedef_struct_t_field_5"},
                             fieldComment = Nothing},
                           structFieldType = TypePointer
@@ -8687,7 +8679,7 @@
                                   NamePair {
                                     nameC = Name
                                       "another_typedef_struct_t",
-                                    nameHsIdent = HsIdentifier
+                                    nameHsIdent = Identifier
                                       "Another_typedef_struct_t"}
                                   (NameOriginGenerated
                                     (AnonId
@@ -8708,7 +8700,7 @@
                               "distilled_lib_1.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "a_typedef_struct_t_field_6",
                       fieldType = HsPtr
@@ -8720,7 +8712,7 @@
                             "distilled_lib_1.h:43:31",
                             fieldName = NamePair {
                               nameC = Name "field_6",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "a_typedef_struct_t_field_6"},
                             fieldComment = Nothing},
                           structFieldType = TypePointer
@@ -8741,23 +8733,23 @@
                               "distilled_lib_1.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "a_typedef_struct_t_field_7",
                       fieldType = HsConstArray
                         7
                         (HsExtBinding
-                          ExtHsRef {
-                            extHsRefModule = HsModuleName
+                          ExtRef {
+                            extRefModule = ModuleName
                               "HsBindgen.Runtime.Prelude",
-                            extHsRefIdentifier =
-                            HsIdentifier "Word32"}
+                            extRefIdentifier = Identifier
+                              "Word32"}
                           TypeSpec {
                             typeSpecModule = Just
-                              (HsModuleName
+                              (ModuleName
                                 "HsBindgen.Runtime.Prelude"),
                             typeSpecIdentifier = Just
-                              (HsIdentifier "Word32"),
+                              (Identifier "Word32"),
                             typeSpecInstances = Map.fromList
                               [
                                 _×_
@@ -8864,7 +8856,7 @@
                             "distilled_lib_1.h:44:31",
                             fieldName = NamePair {
                               nameC = Name "field_7",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "a_typedef_struct_t_field_7"},
                             fieldComment = Nothing},
                           structFieldType = TypeConstArray
@@ -8875,17 +8867,17 @@
                                   qualNameName = Name "uint32_t",
                                   qualNameKind =
                                   NameKindOrdinary},
-                                extHsRef = ExtHsRef {
-                                  extHsRefModule = HsModuleName
+                                extHsRef = ExtRef {
+                                  extRefModule = ModuleName
                                     "HsBindgen.Runtime.Prelude",
-                                  extHsRefIdentifier =
-                                  HsIdentifier "Word32"},
+                                  extRefIdentifier = Identifier
+                                    "Word32"},
                                 extHsSpec = TypeSpec {
                                   typeSpecModule = Just
-                                    (HsModuleName
+                                    (ModuleName
                                       "HsBindgen.Runtime.Prelude"),
                                   typeSpecIdentifier = Just
-                                    (HsIdentifier "Word32"),
+                                    (Identifier "Word32"),
                                   typeSpecInstances = Map.fromList
                                     [
                                       _×_
@@ -9001,11 +8993,11 @@
                               "distilled_lib_1.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "a_typedef_struct_t_field_8",
                       fieldType = HsTypRef
-                        (HsName
+                        (Name
                           "@NsTypeConstr"
                           "Another_typedef_enum_e"),
                       fieldOrigin = StructField
@@ -9015,7 +9007,7 @@
                             "distilled_lib_1.h:45:31",
                             fieldName = NamePair {
                               nameC = Name "field_8",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "a_typedef_struct_t_field_8"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
@@ -9025,7 +9017,7 @@
                                 NamePair {
                                   nameC = Name
                                     "another_typedef_enum_e",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "Another_typedef_enum_e"}
                                 (NameOriginGenerated
                                   (AnonId
@@ -9046,13 +9038,13 @@
                               "distilled_lib_1.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "a_typedef_struct_t_field_9",
                       fieldType = HsConstArray
                         4
                         (HsTypRef
-                          (HsName
+                          (Name
                             "@NsTypeConstr"
                             "Another_typedef_enum_e")),
                       fieldOrigin = StructField
@@ -9062,7 +9054,7 @@
                             "distilled_lib_1.h:46:31",
                             fieldName = NamePair {
                               nameC = Name "field_9",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "a_typedef_struct_t_field_9"},
                             fieldComment = Nothing},
                           structFieldType = TypeConstArray
@@ -9074,7 +9066,7 @@
                                   NamePair {
                                     nameC = Name
                                       "another_typedef_enum_e",
-                                    nameHsIdent = HsIdentifier
+                                    nameHsIdent = Identifier
                                       "Another_typedef_enum_e"}
                                   (NameOriginGenerated
                                     (AnonId
@@ -9095,7 +9087,7 @@
                               "distilled_lib_1.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "a_typedef_struct_t_field_10",
                       fieldType = HsConstArray
@@ -9103,7 +9095,7 @@
                         (HsConstArray
                           3
                           (HsTypRef
-                            (HsName
+                            (Name
                               "@NsTypeConstr"
                               "Another_typedef_enum_e"))),
                       fieldOrigin = StructField
@@ -9113,7 +9105,7 @@
                             "distilled_lib_1.h:47:31",
                             fieldName = NamePair {
                               nameC = Name "field_10",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "a_typedef_struct_t_field_10"},
                             fieldComment = Nothing},
                           structFieldType = TypeConstArray
@@ -9127,7 +9119,7 @@
                                     NamePair {
                                       nameC = Name
                                         "another_typedef_enum_e",
-                                      nameHsIdent = HsIdentifier
+                                      nameHsIdent = Identifier
                                         "Another_typedef_enum_e"}
                                     (NameOriginGenerated
                                       (AnonId
@@ -9155,7 +9147,7 @@
                         declId = NamePair {
                           nameC = Name
                             "a_typedef_struct_t",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "A_typedef_struct_t"},
                         declOrigin =
                         NameOriginRenamedFrom
@@ -9172,7 +9164,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName
+                            (Name
                               "@NsConstr"
                               "A_typedef_struct_t"),
                           structSizeof = 140,
@@ -9184,7 +9176,7 @@
                                 "distilled_lib_1.h:37:31",
                                 fieldName = NamePair {
                                   nameC = Name "field_0",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "a_typedef_struct_t_field_0"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -9197,7 +9189,7 @@
                                 "distilled_lib_1.h:38:31",
                                 fieldName = NamePair {
                                   nameC = Name "field_1",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "a_typedef_struct_t_field_1"},
                                 fieldComment = Nothing},
                               structFieldType = TypeExtBinding
@@ -9206,17 +9198,17 @@
                                     qualNameName = Name "uint8_t",
                                     qualNameKind =
                                     NameKindOrdinary},
-                                  extHsRef = ExtHsRef {
-                                    extHsRefModule = HsModuleName
+                                  extHsRef = ExtRef {
+                                    extRefModule = ModuleName
                                       "HsBindgen.Runtime.Prelude",
-                                    extHsRefIdentifier =
-                                    HsIdentifier "Word8"},
+                                    extRefIdentifier = Identifier
+                                      "Word8"},
                                   extHsSpec = TypeSpec {
                                     typeSpecModule = Just
-                                      (HsModuleName
+                                      (ModuleName
                                         "HsBindgen.Runtime.Prelude"),
                                     typeSpecIdentifier = Just
-                                      (HsIdentifier "Word8"),
+                                      (Identifier "Word8"),
                                     typeSpecInstances = Map.fromList
                                       [
                                         _×_
@@ -9324,7 +9316,7 @@
                                 "distilled_lib_1.h:39:31",
                                 fieldName = NamePair {
                                   nameC = Name "field_2",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "a_typedef_struct_t_field_2"},
                                 fieldComment = Nothing},
                               structFieldType = TypeExtBinding
@@ -9333,17 +9325,17 @@
                                     qualNameName = Name "uint16_t",
                                     qualNameKind =
                                     NameKindOrdinary},
-                                  extHsRef = ExtHsRef {
-                                    extHsRefModule = HsModuleName
+                                  extHsRef = ExtRef {
+                                    extRefModule = ModuleName
                                       "HsBindgen.Runtime.Prelude",
-                                    extHsRefIdentifier =
-                                    HsIdentifier "Word16"},
+                                    extRefIdentifier = Identifier
+                                      "Word16"},
                                   extHsSpec = TypeSpec {
                                     typeSpecModule = Just
-                                      (HsModuleName
+                                      (ModuleName
                                         "HsBindgen.Runtime.Prelude"),
                                     typeSpecIdentifier = Just
-                                      (HsIdentifier "Word16"),
+                                      (Identifier "Word16"),
                                     typeSpecInstances = Map.fromList
                                       [
                                         _×_
@@ -9451,7 +9443,7 @@
                                 "distilled_lib_1.h:40:31",
                                 fieldName = NamePair {
                                   nameC = Name "field_3",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "a_typedef_struct_t_field_3"},
                                 fieldComment = Nothing},
                               structFieldType = TypeExtBinding
@@ -9460,17 +9452,17 @@
                                     qualNameName = Name "uint32_t",
                                     qualNameKind =
                                     NameKindOrdinary},
-                                  extHsRef = ExtHsRef {
-                                    extHsRefModule = HsModuleName
+                                  extHsRef = ExtRef {
+                                    extRefModule = ModuleName
                                       "HsBindgen.Runtime.Prelude",
-                                    extHsRefIdentifier =
-                                    HsIdentifier "Word32"},
+                                    extRefIdentifier = Identifier
+                                      "Word32"},
                                   extHsSpec = TypeSpec {
                                     typeSpecModule = Just
-                                      (HsModuleName
+                                      (ModuleName
                                         "HsBindgen.Runtime.Prelude"),
                                     typeSpecIdentifier = Just
-                                      (HsIdentifier "Word32"),
+                                      (Identifier "Word32"),
                                     typeSpecInstances = Map.fromList
                                       [
                                         _×_
@@ -9578,7 +9570,7 @@
                                 "distilled_lib_1.h:41:31",
                                 fieldName = NamePair {
                                   nameC = Name "field_4",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "a_typedef_struct_t_field_4"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
@@ -9589,7 +9581,7 @@
                                     NamePair {
                                       nameC = Name
                                         "another_typedef_struct_t",
-                                      nameHsIdent = HsIdentifier
+                                      nameHsIdent = Identifier
                                         "Another_typedef_struct_t"}
                                     (NameOriginGenerated
                                       (AnonId
@@ -9602,7 +9594,7 @@
                                 "distilled_lib_1.h:42:31",
                                 fieldName = NamePair {
                                   nameC = Name "field_5",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "a_typedef_struct_t_field_5"},
                                 fieldComment = Nothing},
                               structFieldType = TypePointer
@@ -9614,7 +9606,7 @@
                                       NamePair {
                                         nameC = Name
                                           "another_typedef_struct_t",
-                                        nameHsIdent = HsIdentifier
+                                        nameHsIdent = Identifier
                                           "Another_typedef_struct_t"}
                                       (NameOriginGenerated
                                         (AnonId
@@ -9627,7 +9619,7 @@
                                 "distilled_lib_1.h:43:31",
                                 fieldName = NamePair {
                                   nameC = Name "field_6",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "a_typedef_struct_t_field_6"},
                                 fieldComment = Nothing},
                               structFieldType = TypePointer
@@ -9640,7 +9632,7 @@
                                 "distilled_lib_1.h:44:31",
                                 fieldName = NamePair {
                                   nameC = Name "field_7",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "a_typedef_struct_t_field_7"},
                                 fieldComment = Nothing},
                               structFieldType = TypeConstArray
@@ -9651,17 +9643,17 @@
                                       qualNameName = Name "uint32_t",
                                       qualNameKind =
                                       NameKindOrdinary},
-                                    extHsRef = ExtHsRef {
-                                      extHsRefModule = HsModuleName
+                                    extHsRef = ExtRef {
+                                      extRefModule = ModuleName
                                         "HsBindgen.Runtime.Prelude",
-                                      extHsRefIdentifier =
-                                      HsIdentifier "Word32"},
+                                      extRefIdentifier = Identifier
+                                        "Word32"},
                                     extHsSpec = TypeSpec {
                                       typeSpecModule = Just
-                                        (HsModuleName
+                                        (ModuleName
                                           "HsBindgen.Runtime.Prelude"),
                                       typeSpecIdentifier = Just
-                                        (HsIdentifier "Word32"),
+                                        (Identifier "Word32"),
                                       typeSpecInstances = Map.fromList
                                         [
                                           _×_
@@ -9769,7 +9761,7 @@
                                 "distilled_lib_1.h:45:31",
                                 fieldName = NamePair {
                                   nameC = Name "field_8",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "a_typedef_struct_t_field_8"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
@@ -9779,7 +9771,7 @@
                                     NamePair {
                                       nameC = Name
                                         "another_typedef_enum_e",
-                                      nameHsIdent = HsIdentifier
+                                      nameHsIdent = Identifier
                                         "Another_typedef_enum_e"}
                                     (NameOriginGenerated
                                       (AnonId
@@ -9792,7 +9784,7 @@
                                 "distilled_lib_1.h:46:31",
                                 fieldName = NamePair {
                                   nameC = Name "field_9",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "a_typedef_struct_t_field_9"},
                                 fieldComment = Nothing},
                               structFieldType = TypeConstArray
@@ -9804,7 +9796,7 @@
                                       NamePair {
                                         nameC = Name
                                           "another_typedef_enum_e",
-                                        nameHsIdent = HsIdentifier
+                                        nameHsIdent = Identifier
                                           "Another_typedef_enum_e"}
                                       (NameOriginGenerated
                                         (AnonId
@@ -9817,7 +9809,7 @@
                                 "distilled_lib_1.h:47:31",
                                 fieldName = NamePair {
                                   nameC = Name "field_10",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "a_typedef_struct_t_field_10"},
                                 fieldComment = Nothing},
                               structFieldType = TypeConstArray
@@ -9831,7 +9823,7 @@
                                         NamePair {
                                           nameC = Name
                                             "another_typedef_enum_e",
-                                          nameHsIdent = HsIdentifier
+                                          nameHsIdent = Identifier
                                             "Another_typedef_enum_e"}
                                         (NameOriginGenerated
                                           (AnonId
@@ -9885,7 +9877,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "A_typedef_struct_t",
       deriveInstanceComment =
@@ -9895,14 +9887,14 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "A_typedef_struct_t",
       deriveInstanceComment =
       Nothing},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "a_DEFINE_0",
       varDeclType = ForallTy {
@@ -9941,7 +9933,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "a_DEFINE_1",
       varDeclType = ForallTy {
@@ -9980,7 +9972,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "a_DEFINE_2",
       varDeclType = ForallTy {
@@ -10019,7 +10011,7 @@
           commentChildren = []}},
   DeclVar
     VarDecl {
-      varDeclName = HsName
+      varDeclName = Name
         "@NsVar"
         "tWO_ARGS",
       varDeclType = ForallTy {
@@ -10081,14 +10073,14 @@
           commentChildren = []}},
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "A_typedef_enum_e",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "A_typedef_enum_e",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_A_typedef_enum_e",
         fieldType = HsPrimType
@@ -10101,7 +10093,7 @@
           "distilled_lib_1.h:61:9",
           declId = NamePair {
             nameC = Name "a_typedef_enum_e",
-            nameHsIdent = HsIdentifier
+            nameHsIdent = Identifier
               "A_typedef_enum_e"},
           declOrigin = NameOriginGenerated
             (AnonId
@@ -10118,10 +10110,10 @@
         declKind = Enum
           Enum {
             enumNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "A_typedef_enum_e",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_A_typedef_enum_e"},
             enumType = TypePrim
@@ -10136,7 +10128,7 @@
                   "distilled_lib_1.h:63:3",
                   fieldName = NamePair {
                     nameC = Name "ENUM_CASE_0",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "ENUM_CASE_0"},
                   fieldComment = Nothing},
                 enumConstantValue = 0},
@@ -10146,7 +10138,7 @@
                   "distilled_lib_1.h:64:3",
                   fieldName = NamePair {
                     nameC = Name "ENUM_CASE_1",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "ENUM_CASE_1"},
                   fieldComment = Nothing},
                 enumConstantValue = 1},
@@ -10156,7 +10148,7 @@
                   "distilled_lib_1.h:65:3",
                   fieldName = NamePair {
                     nameC = Name "ENUM_CASE_2",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "ENUM_CASE_2"},
                   fieldComment = Nothing},
                 enumConstantValue = 2},
@@ -10166,7 +10158,7 @@
                   "distilled_lib_1.h:66:3",
                   fieldName = NamePair {
                     nameC = Name "ENUM_CASE_3",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "ENUM_CASE_3"},
                   fieldComment = Nothing},
                 enumConstantValue = 3}]},
@@ -10197,15 +10189,15 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "A_typedef_enum_e",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "A_typedef_enum_e",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "un_A_typedef_enum_e",
               fieldType = HsPrimType
@@ -10224,15 +10216,15 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "A_typedef_enum_e",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "A_typedef_enum_e",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "un_A_typedef_enum_e",
                       fieldType = HsPrimType
@@ -10251,15 +10243,15 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "A_typedef_enum_e",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "A_typedef_enum_e",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "un_A_typedef_enum_e",
                       fieldType = HsPrimType
@@ -10284,7 +10276,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "A_typedef_enum_e",
       deriveInstanceComment =
@@ -10294,7 +10286,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Ord,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "A_typedef_enum_e",
       deriveInstanceComment =
@@ -10304,15 +10296,15 @@
       defineInstanceDeclarations =
       InstanceCEnum
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "A_typedef_enum_e",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "A_typedef_enum_e",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "un_A_typedef_enum_e",
               fieldType = HsPrimType
@@ -10346,15 +10338,15 @@
       defineInstanceDeclarations =
       InstanceSequentialCEnum
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "A_typedef_enum_e",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "A_typedef_enum_e",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "un_A_typedef_enum_e",
               fieldType = HsPrimType
@@ -10365,10 +10357,8 @@
           structInstances = Set.fromList
             [Eq, Ord, Read, Show, Storable],
           structComment = Nothing}
-        (HsName
-          "@NsConstr"
-          "ENUM_CASE_0")
-        (HsName
+        (Name "@NsConstr" "ENUM_CASE_0")
+        (Name
           "@NsConstr"
           "ENUM_CASE_3"),
       defineInstanceComment =
@@ -10378,15 +10368,15 @@
       defineInstanceDeclarations =
       InstanceCEnumShow
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "A_typedef_enum_e",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "A_typedef_enum_e",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "un_A_typedef_enum_e",
               fieldType = HsPrimType
@@ -10404,15 +10394,15 @@
       defineInstanceDeclarations =
       InstanceCEnumRead
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "A_typedef_enum_e",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "A_typedef_enum_e",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "un_A_typedef_enum_e",
               fieldType = HsPrimType
@@ -10427,13 +10417,13 @@
       Nothing},
   DeclPatSyn
     PatSyn {
-      patSynName = HsName
+      patSynName = Name
         "@NsConstr"
         "ENUM_CASE_0",
-      patSynType = HsName
+      patSynType = Name
         "@NsTypeConstr"
         "A_typedef_enum_e",
-      patSynConstr = HsName
+      patSynConstr = Name
         "@NsConstr"
         "A_typedef_enum_e",
       patSynValue = 0,
@@ -10444,7 +10434,7 @@
             "distilled_lib_1.h:63:3",
             fieldName = NamePair {
               nameC = Name "ENUM_CASE_0",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "ENUM_CASE_0"},
             fieldComment = Nothing},
           enumConstantValue = 0},
@@ -10464,13 +10454,13 @@
           commentChildren = []}},
   DeclPatSyn
     PatSyn {
-      patSynName = HsName
+      patSynName = Name
         "@NsConstr"
         "ENUM_CASE_1",
-      patSynType = HsName
+      patSynType = Name
         "@NsTypeConstr"
         "A_typedef_enum_e",
-      patSynConstr = HsName
+      patSynConstr = Name
         "@NsConstr"
         "A_typedef_enum_e",
       patSynValue = 1,
@@ -10481,7 +10471,7 @@
             "distilled_lib_1.h:64:3",
             fieldName = NamePair {
               nameC = Name "ENUM_CASE_1",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "ENUM_CASE_1"},
             fieldComment = Nothing},
           enumConstantValue = 1},
@@ -10501,13 +10491,13 @@
           commentChildren = []}},
   DeclPatSyn
     PatSyn {
-      patSynName = HsName
+      patSynName = Name
         "@NsConstr"
         "ENUM_CASE_2",
-      patSynType = HsName
+      patSynType = Name
         "@NsTypeConstr"
         "A_typedef_enum_e",
-      patSynConstr = HsName
+      patSynConstr = Name
         "@NsConstr"
         "A_typedef_enum_e",
       patSynValue = 2,
@@ -10518,7 +10508,7 @@
             "distilled_lib_1.h:65:3",
             fieldName = NamePair {
               nameC = Name "ENUM_CASE_2",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "ENUM_CASE_2"},
             fieldComment = Nothing},
           enumConstantValue = 2},
@@ -10538,13 +10528,13 @@
           commentChildren = []}},
   DeclPatSyn
     PatSyn {
-      patSynName = HsName
+      patSynName = Name
         "@NsConstr"
         "ENUM_CASE_3",
-      patSynType = HsName
+      patSynType = Name
         "@NsTypeConstr"
         "A_typedef_enum_e",
-      patSynConstr = HsName
+      patSynConstr = Name
         "@NsConstr"
         "A_typedef_enum_e",
       patSynValue = 3,
@@ -10555,7 +10545,7 @@
             "distilled_lib_1.h:66:3",
             fieldName = NamePair {
               nameC = Name "ENUM_CASE_3",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "ENUM_CASE_3"},
             fieldComment = Nothing},
           enumConstantValue = 3},
@@ -10575,14 +10565,14 @@
           commentChildren = []}},
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "Callback_t",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "Callback_t",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_Callback_t",
         fieldType = HsFunPtr
@@ -10590,17 +10580,17 @@
             (HsPtr (HsPrimType HsPrimVoid))
             (HsFun
               (HsExtBinding
-                ExtHsRef {
-                  extHsRefModule = HsModuleName
+                ExtRef {
+                  extRefModule = ModuleName
                     "HsBindgen.Runtime.Prelude",
-                  extHsRefIdentifier =
-                  HsIdentifier "Word32"}
+                  extRefIdentifier = Identifier
+                    "Word32"}
                 TypeSpec {
                   typeSpecModule = Just
-                    (HsModuleName
+                    (ModuleName
                       "HsBindgen.Runtime.Prelude"),
                   typeSpecIdentifier = Just
-                    (HsIdentifier "Word32"),
+                    (Identifier "Word32"),
                   typeSpecInstances = Map.fromList
                     [
                       _×_
@@ -10702,17 +10692,17 @@
                               ]})]})
               (HsIO
                 (HsExtBinding
-                  ExtHsRef {
-                    extHsRefModule = HsModuleName
+                  ExtRef {
+                    extRefModule = ModuleName
                       "HsBindgen.Runtime.Prelude",
-                    extHsRefIdentifier =
-                    HsIdentifier "Word32"}
+                    extRefIdentifier = Identifier
+                      "Word32"}
                   TypeSpec {
                     typeSpecModule = Just
-                      (HsModuleName
+                      (ModuleName
                         "HsBindgen.Runtime.Prelude"),
                     typeSpecIdentifier = Just
-                      (HsIdentifier "Word32"),
+                      (Identifier "Word32"),
                     typeSpecInstances = Map.fromList
                       [
                         _×_
@@ -10820,7 +10810,7 @@
           "distilled_lib_1.h:77:19",
           declId = NamePair {
             nameC = Name "callback_t",
-            nameHsIdent = HsIdentifier
+            nameHsIdent = Identifier
               "Callback_t"},
           declOrigin = NameOriginInSource,
           declAliases = [],
@@ -10834,10 +10824,10 @@
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "Callback_t",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_Callback_t"},
             typedefType = TypePointer
@@ -10850,17 +10840,17 @@
                         qualNameName = Name "uint32_t",
                         qualNameKind =
                         NameKindOrdinary},
-                      extHsRef = ExtHsRef {
-                        extHsRefModule = HsModuleName
+                      extHsRef = ExtRef {
+                        extRefModule = ModuleName
                           "HsBindgen.Runtime.Prelude",
-                        extHsRefIdentifier =
-                        HsIdentifier "Word32"},
+                        extRefIdentifier = Identifier
+                          "Word32"},
                       extHsSpec = TypeSpec {
                         typeSpecModule = Just
-                          (HsModuleName
+                          (ModuleName
                             "HsBindgen.Runtime.Prelude"),
                         typeSpecIdentifier = Just
-                          (HsIdentifier "Word32"),
+                          (Identifier "Word32"),
                         typeSpecInstances = Map.fromList
                           [
                             _×_
@@ -10966,17 +10956,17 @@
                       qualNameName = Name "uint32_t",
                       qualNameKind =
                       NameKindOrdinary},
-                    extHsRef = ExtHsRef {
-                      extHsRefModule = HsModuleName
+                    extHsRef = ExtRef {
+                      extRefModule = ModuleName
                         "HsBindgen.Runtime.Prelude",
-                      extHsRefIdentifier =
-                      HsIdentifier "Word32"},
+                      extRefIdentifier = Identifier
+                        "Word32"},
                     extHsSpec = TypeSpec {
                       typeSpecModule = Just
-                        (HsModuleName
+                        (ModuleName
                           "HsBindgen.Runtime.Prelude"),
                       typeSpecIdentifier = Just
-                        (HsIdentifier "Word32"),
+                        (Identifier "Word32"),
                       typeSpecInstances = Map.fromList
                         [
                           _×_
@@ -11103,7 +11093,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Storable,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Callback_t",
       deriveInstanceComment =
@@ -11113,7 +11103,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Callback_t",
       deriveInstanceComment =
@@ -11123,7 +11113,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Ord,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Callback_t",
       deriveInstanceComment =
@@ -11133,23 +11123,23 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Callback_t",
       deriveInstanceComment =
       Nothing},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "some_fun_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "i"),
+            (Name "@NsVar" "i"),
           functionParameterType = HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "A_type_t")),
           functionParameterComment = Just
@@ -11161,20 +11151,20 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "j"),
+            (Name "@NsVar" "j"),
           functionParameterType =
           HsExtBinding
-            ExtHsRef {
-              extHsRefModule = HsModuleName
+            ExtRef {
+              extRefModule = ModuleName
                 "HsBindgen.Runtime.Prelude",
-              extHsRefIdentifier =
-              HsIdentifier "Word32"}
+              extRefIdentifier = Identifier
+                "Word32"}
             TypeSpec {
               typeSpecModule = Just
-                (HsModuleName
+                (ModuleName
                   "HsBindgen.Runtime.Prelude"),
               typeSpecIdentifier = Just
-                (HsIdentifier "Word32"),
+                (Identifier "Word32"),
               typeSpecInstances = Map.fromList
                 [
                   _×_
@@ -11283,20 +11273,20 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "k"),
+            (Name "@NsVar" "k"),
           functionParameterType = HsPtr
             (HsExtBinding
-              ExtHsRef {
-                extHsRefModule = HsModuleName
+              ExtRef {
+                extRefModule = ModuleName
                   "HsBindgen.Runtime.Prelude",
-                extHsRefIdentifier =
-                HsIdentifier "Word8"}
+                extRefIdentifier = Identifier
+                  "Word8"}
               TypeSpec {
                 typeSpecModule = Just
-                  (HsModuleName
+                  (ModuleName
                     "HsBindgen.Runtime.Prelude"),
                 typeSpecIdentifier = Just
-                  (HsIdentifier "Word8"),
+                  (Identifier "Word8"),
                 typeSpecInstances = Map.fromList
                   [
                     _×_
@@ -11407,17 +11397,17 @@
       NormalResultType
         (HsIO
           (HsExtBinding
-            ExtHsRef {
-              extHsRefModule = HsModuleName
+            ExtRef {
+              extRefModule = ModuleName
                 "HsBindgen.Runtime.Prelude",
-              extHsRefIdentifier =
-              HsIdentifier "Int32"}
+              extRefIdentifier = Identifier
+                "Int32"}
             TypeSpec {
               typeSpecModule = Just
-                (HsModuleName
+                (ModuleName
                   "HsBindgen.Runtime.Prelude"),
               typeSpecIdentifier = Just
-                (HsIdentifier "Int32"),
+                (Identifier "Int32"),
               typeSpecInstances = Map.fromList
                 [
                   _×_
@@ -11533,36 +11523,36 @@
               (Just
                 NamePair {
                   nameC = Name "i",
-                  nameHsIdent = HsIdentifier "i"})
+                  nameHsIdent = Identifier "i"})
               (TypePointer
                 (TypeTypedef
                   (TypedefRegular
                     NamePair {
                       nameC = Name "a_type_t",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "A_type_t"}))),
             _×_
               (Just
                 NamePair {
                   nameC = Name "j",
-                  nameHsIdent = HsIdentifier "j"})
+                  nameHsIdent = Identifier "j"})
               (TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
                     qualNameName = Name "uint32_t",
                     qualNameKind =
                     NameKindOrdinary},
-                  extHsRef = ExtHsRef {
-                    extHsRefModule = HsModuleName
+                  extHsRef = ExtRef {
+                    extRefModule = ModuleName
                       "HsBindgen.Runtime.Prelude",
-                    extHsRefIdentifier =
-                    HsIdentifier "Word32"},
+                    extRefIdentifier = Identifier
+                      "Word32"},
                   extHsSpec = TypeSpec {
                     typeSpecModule = Just
-                      (HsModuleName
+                      (ModuleName
                         "HsBindgen.Runtime.Prelude"),
                     typeSpecIdentifier = Just
-                      (HsIdentifier "Word32"),
+                      (Identifier "Word32"),
                     typeSpecInstances = Map.fromList
                       [
                         _×_
@@ -11666,7 +11656,7 @@
               (Just
                 NamePair {
                   nameC = Name "k",
-                  nameHsIdent = HsIdentifier "k"})
+                  nameHsIdent = Identifier "k"})
               (TypeIncompleteArray
                 (TypeExtBinding
                   ResolvedExtBinding {
@@ -11674,17 +11664,17 @@
                       qualNameName = Name "uint8_t",
                       qualNameKind =
                       NameKindOrdinary},
-                    extHsRef = ExtHsRef {
-                      extHsRefModule = HsModuleName
+                    extHsRef = ExtRef {
+                      extRefModule = ModuleName
                         "HsBindgen.Runtime.Prelude",
-                      extHsRefIdentifier =
-                      HsIdentifier "Word8"},
+                      extRefIdentifier = Identifier
+                        "Word8"},
                     extHsSpec = TypeSpec {
                       typeSpecModule = Just
-                        (HsModuleName
+                        (ModuleName
                           "HsBindgen.Runtime.Prelude"),
                       typeSpecIdentifier = Just
-                        (HsIdentifier "Word8"),
+                        (Identifier "Word8"),
                       typeSpecInstances = Map.fromList
                         [
                           _×_
@@ -11793,17 +11783,17 @@
                 qualNameName = Name "int32_t",
                 qualNameKind =
                 NameKindOrdinary},
-              extHsRef = ExtHsRef {
-                extHsRefModule = HsModuleName
+              extHsRef = ExtRef {
+                extRefModule = ModuleName
                   "HsBindgen.Runtime.Prelude",
-                extHsRefIdentifier =
-                HsIdentifier "Int32"},
+                extRefIdentifier = Identifier
+                  "Int32"},
               extHsSpec = TypeSpec {
                 typeSpecModule = Just
-                  (HsModuleName
+                  (ModuleName
                     "HsBindgen.Runtime.Prelude"),
                 typeSpecIdentifier = Just
-                  (HsIdentifier "Int32"),
+                  (Identifier "Int32"),
                 typeSpecInstances = Map.fromList
                   [
                     _×_
@@ -11920,16 +11910,16 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "some_fun_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "i"),
+            (Name "@NsVar" "i"),
           functionParameterType = HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "A_type_t")),
           functionParameterComment = Just
@@ -11941,20 +11931,20 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "j"),
+            (Name "@NsVar" "j"),
           functionParameterType =
           HsExtBinding
-            ExtHsRef {
-              extHsRefModule = HsModuleName
+            ExtRef {
+              extRefModule = ModuleName
                 "HsBindgen.Runtime.Prelude",
-              extHsRefIdentifier =
-              HsIdentifier "Word32"}
+              extRefIdentifier = Identifier
+                "Word32"}
             TypeSpec {
               typeSpecModule = Just
-                (HsModuleName
+                (ModuleName
                   "HsBindgen.Runtime.Prelude"),
               typeSpecIdentifier = Just
-                (HsIdentifier "Word32"),
+                (Identifier "Word32"),
               typeSpecInstances = Map.fromList
                 [
                   _×_
@@ -12063,20 +12053,20 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName "@NsVar" "k"),
+            (Name "@NsVar" "k"),
           functionParameterType = HsPtr
             (HsExtBinding
-              ExtHsRef {
-                extHsRefModule = HsModuleName
+              ExtRef {
+                extRefModule = ModuleName
                   "HsBindgen.Runtime.Prelude",
-                extHsRefIdentifier =
-                HsIdentifier "Word8"}
+                extRefIdentifier = Identifier
+                  "Word8"}
               TypeSpec {
                 typeSpecModule = Just
-                  (HsModuleName
+                  (ModuleName
                     "HsBindgen.Runtime.Prelude"),
                 typeSpecIdentifier = Just
-                  (HsIdentifier "Word8"),
+                  (Identifier "Word8"),
                 typeSpecInstances = Map.fromList
                   [
                     _×_
@@ -12187,17 +12177,17 @@
       NormalResultType
         (HsIO
           (HsExtBinding
-            ExtHsRef {
-              extHsRefModule = HsModuleName
+            ExtRef {
+              extRefModule = ModuleName
                 "HsBindgen.Runtime.Prelude",
-              extHsRefIdentifier =
-              HsIdentifier "Int32"}
+              extRefIdentifier = Identifier
+                "Int32"}
             TypeSpec {
               typeSpecModule = Just
-                (HsModuleName
+                (ModuleName
                   "HsBindgen.Runtime.Prelude"),
               typeSpecIdentifier = Just
-                (HsIdentifier "Int32"),
+                (Identifier "Int32"),
               typeSpecInstances = Map.fromList
                 [
                   _×_
@@ -12313,36 +12303,36 @@
               (Just
                 NamePair {
                   nameC = Name "i",
-                  nameHsIdent = HsIdentifier "i"})
+                  nameHsIdent = Identifier "i"})
               (TypePointer
                 (TypeTypedef
                   (TypedefRegular
                     NamePair {
                       nameC = Name "a_type_t",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "A_type_t"}))),
             _×_
               (Just
                 NamePair {
                   nameC = Name "j",
-                  nameHsIdent = HsIdentifier "j"})
+                  nameHsIdent = Identifier "j"})
               (TypeExtBinding
                 ResolvedExtBinding {
                   extCName = QualName {
                     qualNameName = Name "uint32_t",
                     qualNameKind =
                     NameKindOrdinary},
-                  extHsRef = ExtHsRef {
-                    extHsRefModule = HsModuleName
+                  extHsRef = ExtRef {
+                    extRefModule = ModuleName
                       "HsBindgen.Runtime.Prelude",
-                    extHsRefIdentifier =
-                    HsIdentifier "Word32"},
+                    extRefIdentifier = Identifier
+                      "Word32"},
                   extHsSpec = TypeSpec {
                     typeSpecModule = Just
-                      (HsModuleName
+                      (ModuleName
                         "HsBindgen.Runtime.Prelude"),
                     typeSpecIdentifier = Just
-                      (HsIdentifier "Word32"),
+                      (Identifier "Word32"),
                     typeSpecInstances = Map.fromList
                       [
                         _×_
@@ -12446,7 +12436,7 @@
               (Just
                 NamePair {
                   nameC = Name "k",
-                  nameHsIdent = HsIdentifier "k"})
+                  nameHsIdent = Identifier "k"})
               (TypeIncompleteArray
                 (TypeExtBinding
                   ResolvedExtBinding {
@@ -12454,17 +12444,17 @@
                       qualNameName = Name "uint8_t",
                       qualNameKind =
                       NameKindOrdinary},
-                    extHsRef = ExtHsRef {
-                      extHsRefModule = HsModuleName
+                    extHsRef = ExtRef {
+                      extRefModule = ModuleName
                         "HsBindgen.Runtime.Prelude",
-                      extHsRefIdentifier =
-                      HsIdentifier "Word8"},
+                      extRefIdentifier = Identifier
+                        "Word8"},
                     extHsSpec = TypeSpec {
                       typeSpecModule = Just
-                        (HsModuleName
+                        (ModuleName
                           "HsBindgen.Runtime.Prelude"),
                       typeSpecIdentifier = Just
-                        (HsIdentifier "Word8"),
+                        (Identifier "Word8"),
                       typeSpecInstances = Map.fromList
                         [
                           _×_
@@ -12573,17 +12563,17 @@
                 qualNameName = Name "int32_t",
                 qualNameKind =
                 NameKindOrdinary},
-              extHsRef = ExtHsRef {
-                extHsRefModule = HsModuleName
+              extHsRef = ExtRef {
+                extRefModule = ModuleName
                   "HsBindgen.Runtime.Prelude",
-                extHsRefIdentifier =
-                HsIdentifier "Int32"},
+                extRefIdentifier = Identifier
+                  "Int32"},
               extHsSpec = TypeSpec {
                 typeSpecModule = Just
-                  (HsModuleName
+                  (ModuleName
                     "HsBindgen.Runtime.Prelude"),
                 typeSpecIdentifier = Just
-                  (HsIdentifier "Int32"),
+                  (Identifier "Int32"),
                 typeSpecInstances = Map.fromList
                   [
                     _×_
@@ -12700,7 +12690,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_distilled_lib_1_969c7d0305e0614c",
       foreignImportParameters = [],
@@ -12711,22 +12701,22 @@
             (HsFun
               (HsPtr
                 (HsTypRef
-                  (HsName
+                  (Name
                     "@NsTypeConstr"
                     "A_type_t")))
               (HsFun
                 (HsExtBinding
-                  ExtHsRef {
-                    extHsRefModule = HsModuleName
+                  ExtRef {
+                    extRefModule = ModuleName
                       "HsBindgen.Runtime.Prelude",
-                    extHsRefIdentifier =
-                    HsIdentifier "Word32"}
+                    extRefIdentifier = Identifier
+                      "Word32"}
                   TypeSpec {
                     typeSpecModule = Just
-                      (HsModuleName
+                      (ModuleName
                         "HsBindgen.Runtime.Prelude"),
                     typeSpecIdentifier = Just
-                      (HsIdentifier "Word32"),
+                      (Identifier "Word32"),
                     typeSpecInstances = Map.fromList
                       [
                         _×_
@@ -12829,17 +12819,17 @@
                 (HsFun
                   (HsIncompleteArray
                     (HsExtBinding
-                      ExtHsRef {
-                        extHsRefModule = HsModuleName
+                      ExtRef {
+                        extRefModule = ModuleName
                           "HsBindgen.Runtime.Prelude",
-                        extHsRefIdentifier =
-                        HsIdentifier "Word8"}
+                        extRefIdentifier = Identifier
+                          "Word8"}
                       TypeSpec {
                         typeSpecModule = Just
-                          (HsModuleName
+                          (ModuleName
                             "HsBindgen.Runtime.Prelude"),
                         typeSpecIdentifier = Just
-                          (HsIdentifier "Word8"),
+                          (Identifier "Word8"),
                         typeSpecInstances = Map.fromList
                           [
                             _×_
@@ -12941,17 +12931,17 @@
                                     ]})]}))
                   (HsIO
                     (HsExtBinding
-                      ExtHsRef {
-                        extHsRefModule = HsModuleName
+                      ExtRef {
+                        extRefModule = ModuleName
                           "HsBindgen.Runtime.Prelude",
-                        extHsRefIdentifier =
-                        HsIdentifier "Int32"}
+                        extRefIdentifier = Identifier
+                          "Int32"}
                       TypeSpec {
                         typeSpecModule = Just
-                          (HsModuleName
+                          (ModuleName
                             "HsBindgen.Runtime.Prelude"),
                         typeSpecIdentifier = Just
-                          (HsIdentifier "Int32"),
+                          (Identifier "Int32"),
                         typeSpecInstances = Map.fromList
                           [
                             _×_
@@ -13068,7 +13058,7 @@
                 (TypedefRegular
                   NamePair {
                     nameC = Name "a_type_t",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "A_type_t"})),
             TypeExtBinding
               ResolvedExtBinding {
@@ -13076,17 +13066,17 @@
                   qualNameName = Name "uint32_t",
                   qualNameKind =
                   NameKindOrdinary},
-                extHsRef = ExtHsRef {
-                  extHsRefModule = HsModuleName
+                extHsRef = ExtRef {
+                  extRefModule = ModuleName
                     "HsBindgen.Runtime.Prelude",
-                  extHsRefIdentifier =
-                  HsIdentifier "Word32"},
+                  extRefIdentifier = Identifier
+                    "Word32"},
                 extHsSpec = TypeSpec {
                   typeSpecModule = Just
-                    (HsModuleName
+                    (ModuleName
                       "HsBindgen.Runtime.Prelude"),
                   typeSpecIdentifier = Just
-                    (HsIdentifier "Word32"),
+                    (Identifier "Word32"),
                   typeSpecInstances = Map.fromList
                     [
                       _×_
@@ -13193,17 +13183,17 @@
                     qualNameName = Name "uint8_t",
                     qualNameKind =
                     NameKindOrdinary},
-                  extHsRef = ExtHsRef {
-                    extHsRefModule = HsModuleName
+                  extHsRef = ExtRef {
+                    extRefModule = ModuleName
                       "HsBindgen.Runtime.Prelude",
-                    extHsRefIdentifier =
-                    HsIdentifier "Word8"},
+                    extRefIdentifier = Identifier
+                      "Word8"},
                   extHsSpec = TypeSpec {
                     typeSpecModule = Just
-                      (HsModuleName
+                      (ModuleName
                         "HsBindgen.Runtime.Prelude"),
                     typeSpecIdentifier = Just
-                      (HsIdentifier "Word8"),
+                      (Identifier "Word8"),
                     typeSpecInstances = Map.fromList
                       [
                         _×_
@@ -13309,17 +13299,17 @@
                 qualNameName = Name "int32_t",
                 qualNameKind =
                 NameKindOrdinary},
-              extHsRef = ExtHsRef {
-                extHsRefModule = HsModuleName
+              extHsRef = ExtRef {
+                extRefModule = ModuleName
                   "HsBindgen.Runtime.Prelude",
-                extHsRefIdentifier =
-                HsIdentifier "Int32"},
+                extRefIdentifier = Identifier
+                  "Int32"},
               extHsSpec = TypeSpec {
                 typeSpecModule = Just
-                  (HsModuleName
+                  (ModuleName
                     "HsBindgen.Runtime.Prelude"),
                 typeSpecIdentifier = Just
-                  (HsIdentifier "Int32"),
+                  (Identifier "Int32"),
                 typeSpecInstances = Map.fromList
                   [
                     _×_
@@ -13425,7 +13415,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_distilled_lib_1_b9e65c51f976c6f6",
       foreignImportParameters = [],
@@ -13434,7 +13424,7 @@
         (HsIO
           (HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "Var_t")))),
       foreignImportOrigName =
@@ -13451,7 +13441,7 @@
           (TypedefRegular
             NamePair {
               nameC = Name "var_t",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Var_t"})),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},

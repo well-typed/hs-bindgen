@@ -6,7 +6,7 @@ TranslationUnit {
         "nested_unions.h:2:15",
         declId = NamePair {
           nameC = Name "unionA",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "UnionA"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -20,10 +20,10 @@ TranslationUnit {
       declKind = DeclUnion
         Union {
           unionNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "UnionA",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_UnionA"},
           unionSizeof = 4,
@@ -35,7 +35,7 @@ TranslationUnit {
                 "nested_unions.h:3:21",
                 fieldName = NamePair {
                   nameC = Name "a",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "unionA_a"},
                 fieldComment = Nothing},
               unionFieldType = TypePrim
@@ -46,7 +46,7 @@ TranslationUnit {
                 "nested_unions.h:4:22",
                 fieldName = NamePair {
                   nameC = Name "b",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "unionA_b"},
                 fieldComment = Nothing},
               unionFieldType = TypePrim
@@ -64,8 +64,7 @@ TranslationUnit {
         declLoc = "nested_unions.h:1:8",
         declId = NamePair {
           nameC = Name "exA",
-          nameHsIdent = HsIdentifier
-            "ExA"},
+          nameHsIdent = Identifier "ExA"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -78,7 +77,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "ExA"),
+            (Name "@NsConstr" "ExA"),
           structSizeof = 4,
           structAlignment = 4,
           structFields = [
@@ -88,13 +87,13 @@ TranslationUnit {
                 "nested_unions.h:5:11",
                 fieldName = NamePair {
                   nameC = Name "fieldA1",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "exA_fieldA1"},
                 fieldComment = Nothing},
               structFieldType = TypeUnion
                 NamePair {
                   nameC = Name "unionA",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "UnionA"}
                 NameOriginInSource,
               structFieldOffset = 0,
@@ -111,7 +110,7 @@ TranslationUnit {
         declLoc = "nested_unions.h:9:9",
         declId = NamePair {
           nameC = Name "exB_fieldB1",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "ExB_fieldB1"},
         declOrigin = NameOriginGenerated
           (AnonId "nested_unions.h:9:9"),
@@ -126,10 +125,10 @@ TranslationUnit {
       declKind = DeclUnion
         Union {
           unionNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "ExB_fieldB1",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_ExB_fieldB1"},
           unionSizeof = 4,
@@ -141,7 +140,7 @@ TranslationUnit {
                 "nested_unions.h:10:21",
                 fieldName = NamePair {
                   nameC = Name "a",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "exB_fieldB1_a"},
                 fieldComment = Nothing},
               unionFieldType = TypePrim
@@ -152,7 +151,7 @@ TranslationUnit {
                 "nested_unions.h:11:22",
                 fieldName = NamePair {
                   nameC = Name "b",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "exB_fieldB1_b"},
                 fieldComment = Nothing},
               unionFieldType = TypePrim
@@ -170,8 +169,7 @@ TranslationUnit {
         declLoc = "nested_unions.h:8:8",
         declId = NamePair {
           nameC = Name "exB",
-          nameHsIdent = HsIdentifier
-            "ExB"},
+          nameHsIdent = Identifier "ExB"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -184,7 +182,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "ExB"),
+            (Name "@NsConstr" "ExB"),
           structSizeof = 4,
           structAlignment = 4,
           structFields = [
@@ -194,13 +192,13 @@ TranslationUnit {
                 "nested_unions.h:12:11",
                 fieldName = NamePair {
                   nameC = Name "fieldB1",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "exB_fieldB1"},
                 fieldComment = Nothing},
               structFieldType = TypeUnion
                 NamePair {
                   nameC = Name "exB_fieldB1",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "ExB_fieldB1"}
                 (NameOriginGenerated
                   (AnonId "nested_unions.h:9:9")),

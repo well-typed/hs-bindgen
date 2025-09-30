@@ -6,7 +6,7 @@ TranslationUnit {
         "skip_over_long_double.h:7:6",
         declId = NamePair {
           nameC = Name "fun2",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "fun2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -40,7 +40,7 @@ TranslationUnit {
         "skip_over_long_double.h:13:8",
         declId = NamePair {
           nameC = Name "struct2",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Struct2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -54,7 +54,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "Struct2"),
+            (Name "@NsConstr" "Struct2"),
           structSizeof = 4,
           structAlignment = 4,
           structFields = [
@@ -64,7 +64,7 @@ TranslationUnit {
                 "skip_over_long_double.h:14:7",
                 fieldName = NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "struct2_x"},
                 fieldComment = Nothing},
               structFieldType = TypePrim

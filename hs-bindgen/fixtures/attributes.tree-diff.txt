@@ -5,8 +5,7 @@ TranslationUnit {
         declLoc = "attributes.h:10:36",
         declId = NamePair {
           nameC = Name "foo",
-          nameHsIdent = HsIdentifier
-            "Foo"},
+          nameHsIdent = Identifier "Foo"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -18,7 +17,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "Foo"),
+            (Name "@NsConstr" "Foo"),
           structSizeof = 5,
           structAlignment = 1,
           structFields = [
@@ -27,7 +26,7 @@ TranslationUnit {
                 fieldLoc = "attributes.h:11:10",
                 fieldName = NamePair {
                   nameC = Name "c",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "foo_c"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -41,7 +40,7 @@ TranslationUnit {
                 fieldLoc = "attributes.h:12:10",
                 fieldName = NamePair {
                   nameC = Name "i",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "foo_i"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -60,8 +59,7 @@ TranslationUnit {
         declLoc = "attributes.h:16:15",
         declId = NamePair {
           nameC = Name "bar",
-          nameHsIdent = HsIdentifier
-            "Bar"},
+          nameHsIdent = Identifier "Bar"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -73,7 +71,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "Bar"),
+            (Name "@NsConstr" "Bar"),
           structSizeof = 5,
           structAlignment = 1,
           structFields = [
@@ -82,7 +80,7 @@ TranslationUnit {
                 fieldLoc = "attributes.h:17:10",
                 fieldName = NamePair {
                   nameC = Name "c",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "bar_c"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -96,7 +94,7 @@ TranslationUnit {
                 fieldLoc = "attributes.h:18:10",
                 fieldName = NamePair {
                   nameC = Name "i",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "bar_i"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -115,8 +113,7 @@ TranslationUnit {
         declLoc = "attributes.h:22:9",
         declId = NamePair {
           nameC = Name "baz",
-          nameHsIdent = HsIdentifier
-            "Baz"},
+          nameHsIdent = Identifier "Baz"},
         declOrigin = NameOriginGenerated
           (AnonId "attributes.h:22:9"),
         declAliases = [Name "baz"],
@@ -129,7 +126,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "Baz"),
+            (Name "@NsConstr" "Baz"),
           structSizeof = 5,
           structAlignment = 1,
           structFields = [
@@ -138,7 +135,7 @@ TranslationUnit {
                 fieldLoc = "attributes.h:23:10",
                 fieldName = NamePair {
                   nameC = Name "c",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "baz_c"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -152,7 +149,7 @@ TranslationUnit {
                 fieldLoc = "attributes.h:24:10",
                 fieldName = NamePair {
                   nameC = Name "i",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "baz_i"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -171,8 +168,7 @@ TranslationUnit {
         declLoc = "attributes.h:28:9",
         declId = NamePair {
           nameC = Name "qux",
-          nameHsIdent = HsIdentifier
-            "Qux"},
+          nameHsIdent = Identifier "Qux"},
         declOrigin = NameOriginGenerated
           (AnonId "attributes.h:28:9"),
         declAliases = [Name "qux"],
@@ -185,7 +181,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "Qux"),
+            (Name "@NsConstr" "Qux"),
           structSizeof = 5,
           structAlignment = 1,
           structFields = [
@@ -194,7 +190,7 @@ TranslationUnit {
                 fieldLoc = "attributes.h:29:10",
                 fieldName = NamePair {
                   nameC = Name "c",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "qux_c"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -208,7 +204,7 @@ TranslationUnit {
                 fieldLoc = "attributes.h:30:10",
                 fieldName = NamePair {
                   nameC = Name "i",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "qux_i"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -227,7 +223,7 @@ TranslationUnit {
         declLoc = "attributes.h:34:16",
         declId = NamePair {
           nameC = Name "FILE",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "FILE"},
         declOrigin =
         NameOriginRenamedFrom
@@ -242,7 +238,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "FILE"),
+            (Name "@NsConstr" "FILE"),
           structSizeof = 16,
           structAlignment = 8,
           structFields = [
@@ -251,7 +247,7 @@ TranslationUnit {
                 fieldLoc = "attributes.h:35:9",
                 fieldName = NamePair {
                   nameC = Name "_r",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "fILE__r"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -263,7 +259,7 @@ TranslationUnit {
                 fieldLoc = "attributes.h:36:9",
                 fieldName = NamePair {
                   nameC = Name "_w",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "fILE__w"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -275,7 +271,7 @@ TranslationUnit {
                 fieldLoc = "attributes.h:37:22",
                 fieldName = NamePair {
                   nameC = Name "_close",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "fILE__close"},
                 fieldComment = Nothing},
               structFieldType = TypePointer

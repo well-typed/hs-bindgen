@@ -48,7 +48,7 @@ import Prelude hiding (Enum)
 import C.Expr.Syntax qualified as CExpr.DSL
 import C.Expr.Typecheck.Type qualified as CExpr.DSL
 
-import Clang.HighLevel.Documentation qualified as C
+import Clang.HighLevel.Documentation qualified as CDoc
 import Clang.HighLevel.Types
 
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
@@ -305,7 +305,7 @@ decideFunctionPurity = foldr prefer ImpureFunction
 
 newtype Comment p =
   Comment
-    { unComment :: C.Comment (Reference p) }
+    { unComment :: CDoc.Comment (Reference p) }
 
 -- | Needed for cross referencing identifiers when translating to Haddocks.
 -- When parsing a referencing command, e.g. \\ref, we need an identifier that

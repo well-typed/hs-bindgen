@@ -12,7 +12,7 @@ import Data.Text qualified as T
 import System.FilePath qualified as FilePath
 import Text.SimplePrettyPrint
 
-import HsBindgen.Language.Haskell
+import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
   C function prefix
@@ -34,5 +34,5 @@ getCFunPrefix = List.map aux . FilePath.dropExtension
   Pretty printing
 -------------------------------------------------------------------------------}
 
-prettyHsName :: HsName ns -> CtxDoc
-prettyHsName = string . T.unpack . getHsName
+prettyHsName :: Hs.Name ns -> CtxDoc
+prettyHsName = string . T.unpack . Hs.getName

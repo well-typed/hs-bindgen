@@ -5,7 +5,7 @@ TranslationUnit {
         declLoc = "enums.h:4:6",
         declId = NamePair {
           nameC = Name "first",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "First"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -18,10 +18,10 @@ TranslationUnit {
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "First",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_First"},
           enumType = TypePrim
@@ -34,7 +34,7 @@ TranslationUnit {
                 fieldLoc = "enums.h:5:5",
                 fieldName = NamePair {
                   nameC = Name "FIRST1",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "FIRST1"},
                 fieldComment = Nothing},
               enumConstantValue = 0},
@@ -43,7 +43,7 @@ TranslationUnit {
                 fieldLoc = "enums.h:6:5",
                 fieldName = NamePair {
                   nameC = Name "FIRST2",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "FIRST2"},
                 fieldComment = Nothing},
               enumConstantValue = 1}]},
@@ -58,7 +58,7 @@ TranslationUnit {
         declLoc = "enums.h:9:6",
         declId = NamePair {
           nameC = Name "second",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Second"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -71,10 +71,10 @@ TranslationUnit {
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "Second",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_Second"},
           enumType = TypePrim
@@ -87,7 +87,7 @@ TranslationUnit {
                 fieldLoc = "enums.h:10:5",
                 fieldName = NamePair {
                   nameC = Name "SECOND_A",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "SECOND_A"},
                 fieldComment = Nothing},
               enumConstantValue = `-1`},
@@ -96,7 +96,7 @@ TranslationUnit {
                 fieldLoc = "enums.h:11:5",
                 fieldName = NamePair {
                   nameC = Name "SECOND_B",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "SECOND_B"},
                 fieldComment = Nothing},
               enumConstantValue = 0},
@@ -105,7 +105,7 @@ TranslationUnit {
                 fieldLoc = "enums.h:12:5",
                 fieldName = NamePair {
                   nameC = Name "SECOND_C",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "SECOND_C"},
                 fieldComment = Nothing},
               enumConstantValue = 1}]},
@@ -120,7 +120,7 @@ TranslationUnit {
         declLoc = "enums.h:15:6",
         declId = NamePair {
           nameC = Name "same",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Same"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -133,10 +133,10 @@ TranslationUnit {
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "Same",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_Same"},
           enumType = TypePrim
@@ -149,7 +149,7 @@ TranslationUnit {
                 fieldLoc = "enums.h:16:5",
                 fieldName = NamePair {
                   nameC = Name "SAME_A",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "SAME_A"},
                 fieldComment = Nothing},
               enumConstantValue = 1},
@@ -158,7 +158,7 @@ TranslationUnit {
                 fieldLoc = "enums.h:17:5",
                 fieldName = NamePair {
                   nameC = Name "SAME_B",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "SAME_B"},
                 fieldComment = Nothing},
               enumConstantValue = 1}]},
@@ -173,7 +173,7 @@ TranslationUnit {
         declLoc = "enums.h:20:6",
         declId = NamePair {
           nameC = Name "nonseq",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Nonseq"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -186,10 +186,10 @@ TranslationUnit {
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "Nonseq",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_Nonseq"},
           enumType = TypePrim
@@ -202,7 +202,7 @@ TranslationUnit {
                 fieldLoc = "enums.h:21:5",
                 fieldName = NamePair {
                   nameC = Name "NONSEQ_A",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "NONSEQ_A"},
                 fieldComment = Nothing},
               enumConstantValue = 200},
@@ -211,7 +211,7 @@ TranslationUnit {
                 fieldLoc = "enums.h:22:5",
                 fieldName = NamePair {
                   nameC = Name "NONSEQ_B",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "NONSEQ_B"},
                 fieldComment = Nothing},
               enumConstantValue = 301},
@@ -220,7 +220,7 @@ TranslationUnit {
                 fieldLoc = "enums.h:23:5",
                 fieldName = NamePair {
                   nameC = Name "NONSEQ_C",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "NONSEQ_C"},
                 fieldComment = Nothing},
               enumConstantValue = 404}]},
@@ -235,7 +235,7 @@ TranslationUnit {
         declLoc = "enums.h:26:6",
         declId = NamePair {
           nameC = Name "packed",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Packed"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -248,10 +248,10 @@ TranslationUnit {
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "Packed",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_Packed"},
           enumType = TypePrim
@@ -265,7 +265,7 @@ TranslationUnit {
                 fieldLoc = "enums.h:27:5",
                 fieldName = NamePair {
                   nameC = Name "PACKED_A",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "PACKED_A"},
                 fieldComment = Nothing},
               enumConstantValue = 0},
@@ -274,7 +274,7 @@ TranslationUnit {
                 fieldLoc = "enums.h:27:15",
                 fieldName = NamePair {
                   nameC = Name "PACKED_B",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "PACKED_B"},
                 fieldComment = Nothing},
               enumConstantValue = 1},
@@ -283,7 +283,7 @@ TranslationUnit {
                 fieldLoc = "enums.h:27:25",
                 fieldName = NamePair {
                   nameC = Name "PACKED_C",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "PACKED_C"},
                 fieldComment = Nothing},
               enumConstantValue = 2}]},
@@ -298,7 +298,7 @@ TranslationUnit {
         declLoc = "enums.h:30:9",
         declId = NamePair {
           nameC = Name "enumA",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "EnumA"},
         declOrigin = NameOriginGenerated
           (AnonId "enums.h:30:9"),
@@ -312,10 +312,10 @@ TranslationUnit {
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "EnumA",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_EnumA"},
           enumType = TypePrim
@@ -328,7 +328,7 @@ TranslationUnit {
                 fieldLoc = "enums.h:30:16",
                 fieldName = NamePair {
                   nameC = Name "A_FOO",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "A_FOO"},
                 fieldComment = Nothing},
               enumConstantValue = 0},
@@ -337,7 +337,7 @@ TranslationUnit {
                 fieldLoc = "enums.h:30:23",
                 fieldName = NamePair {
                   nameC = Name "A_BAR",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "A_BAR"},
                 fieldComment = Nothing},
               enumConstantValue = 1}]},
@@ -352,7 +352,7 @@ TranslationUnit {
         declLoc = "enums.h:32:14",
         declId = NamePair {
           nameC = Name "enumB",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "EnumB"},
         declOrigin = NameOriginInSource,
         declAliases = [Name "enumB"],
@@ -365,10 +365,10 @@ TranslationUnit {
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "EnumB",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_EnumB"},
           enumType = TypePrim
@@ -381,7 +381,7 @@ TranslationUnit {
                 fieldLoc = "enums.h:32:22",
                 fieldName = NamePair {
                   nameC = Name "B_FOO",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "B_FOO"},
                 fieldComment = Nothing},
               enumConstantValue = 0},
@@ -390,7 +390,7 @@ TranslationUnit {
                 fieldLoc = "enums.h:32:29",
                 fieldName = NamePair {
                   nameC = Name "B_BAR",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "B_BAR"},
                 fieldComment = Nothing},
               enumConstantValue = 1}]},
@@ -405,7 +405,7 @@ TranslationUnit {
         declLoc = "enums.h:34:6",
         declId = NamePair {
           nameC = Name "enumC",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "EnumC"},
         declOrigin = NameOriginInSource,
         declAliases = [Name "enumC"],
@@ -418,10 +418,10 @@ TranslationUnit {
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "EnumC",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_EnumC"},
           enumType = TypePrim
@@ -434,7 +434,7 @@ TranslationUnit {
                 fieldLoc = "enums.h:34:14",
                 fieldName = NamePair {
                   nameC = Name "C_FOO",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "C_FOO"},
                 fieldComment = Nothing},
               enumConstantValue = 0},
@@ -443,7 +443,7 @@ TranslationUnit {
                 fieldLoc = "enums.h:34:21",
                 fieldName = NamePair {
                   nameC = Name "C_BAR",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "C_BAR"},
                 fieldComment = Nothing},
               enumConstantValue = 1}]},
@@ -458,7 +458,7 @@ TranslationUnit {
         declLoc = "enums.h:37:6",
         declId = NamePair {
           nameC = Name "enumD_t",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "EnumD_t"},
         declOrigin =
         NameOriginRenamedFrom
@@ -473,10 +473,10 @@ TranslationUnit {
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "EnumD_t",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_EnumD_t"},
           enumType = TypePrim
@@ -489,7 +489,7 @@ TranslationUnit {
                 fieldLoc = "enums.h:37:14",
                 fieldName = NamePair {
                   nameC = Name "D_FOO",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "D_FOO"},
                 fieldComment = Nothing},
               enumConstantValue = 0},
@@ -498,7 +498,7 @@ TranslationUnit {
                 fieldLoc = "enums.h:37:21",
                 fieldName = NamePair {
                   nameC = Name "D_BAR",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "D_BAR"},
                 fieldComment = Nothing},
               enumConstantValue = 1}]},

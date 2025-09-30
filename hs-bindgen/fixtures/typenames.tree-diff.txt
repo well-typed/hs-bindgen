@@ -5,8 +5,7 @@ TranslationUnit {
         declLoc = "typenames.h:14:6",
         declId = NamePair {
           nameC = Name "foo",
-          nameHsIdent = HsIdentifier
-            "Foo"},
+          nameHsIdent = Identifier "Foo"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -18,10 +17,10 @@ TranslationUnit {
       declKind = DeclEnum
         Enum {
           enumNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "Foo",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_Foo"},
           enumType = TypePrim
@@ -34,7 +33,7 @@ TranslationUnit {
                 fieldLoc = "typenames.h:15:2",
                 fieldName = NamePair {
                   nameC = Name "FOO1",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "FOO1"},
                 fieldComment = Nothing},
               enumConstantValue = 0},
@@ -43,7 +42,7 @@ TranslationUnit {
                 fieldLoc = "typenames.h:16:2",
                 fieldName = NamePair {
                   nameC = Name "FOO2",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "FOO2"},
                 fieldComment = Nothing},
               enumConstantValue = 1}]},
@@ -58,8 +57,7 @@ TranslationUnit {
         declLoc = "typenames.h:19:16",
         declId = NamePair {
           nameC = Name "foo",
-          nameHsIdent = HsIdentifier
-            "Foo"},
+          nameHsIdent = Identifier "Foo"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -71,10 +69,10 @@ TranslationUnit {
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "Foo",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_Foo"},
           typedefType = TypePrim

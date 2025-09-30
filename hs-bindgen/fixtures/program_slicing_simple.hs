@@ -1,14 +1,14 @@
 [
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "Uint32_t",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "Uint32_t",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_Uint32_t",
         fieldType = HsPrimType
@@ -20,7 +20,7 @@
           declLoc = "alltypes.h:131:25",
           declId = NamePair {
             nameC = Name "uint32_t",
-            nameHsIdent = HsIdentifier
+            nameHsIdent = Identifier
               "Uint32_t"},
           declOrigin = NameOriginInSource,
           declAliases = [
@@ -37,10 +37,10 @@
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "Uint32_t",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_Uint32_t"},
             typedefType = TypePrim
@@ -86,7 +86,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Storable,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Uint32_t",
       deriveInstanceComment =
@@ -96,7 +96,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Uint32_t",
       deriveInstanceComment =
@@ -106,7 +106,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Ord,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Uint32_t",
       deriveInstanceComment =
@@ -116,7 +116,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Read,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Uint32_t",
       deriveInstanceComment =
@@ -126,7 +126,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Uint32_t",
       deriveInstanceComment =
@@ -136,7 +136,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Enum,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Uint32_t",
       deriveInstanceComment =
@@ -146,7 +146,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Ix,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Uint32_t",
       deriveInstanceComment =
@@ -156,7 +156,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bounded,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Uint32_t",
       deriveInstanceComment =
@@ -166,7 +166,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Uint32_t",
       deriveInstanceComment =
@@ -177,7 +177,7 @@
       DeriveNewtype,
       deriveInstanceClass =
       FiniteBits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Uint32_t",
       deriveInstanceComment =
@@ -187,7 +187,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Integral,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Uint32_t",
       deriveInstanceComment =
@@ -197,7 +197,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Num,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Uint32_t",
       deriveInstanceComment =
@@ -207,35 +207,35 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Real,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Uint32_t",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "Foo",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "Foo",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "foo_sixty_four",
           fieldType = HsExtBinding
-            ExtHsRef {
-              extHsRefModule = HsModuleName
+            ExtRef {
+              extRefModule = ModuleName
                 "Example",
-              extHsRefIdentifier =
-              HsIdentifier "Uint64_t"}
+              extRefIdentifier = Identifier
+                "Uint64_t"}
             TypeSpec {
               typeSpecModule = Just
-                (HsModuleName "Example"),
+                (ModuleName "Example"),
               typeSpecIdentifier = Just
-                (HsIdentifier "Uint64_t"),
+                (Identifier "Uint64_t"),
               typeSpecInstances = Map.fromList
                 [
                   _×_
@@ -324,7 +324,7 @@
                 "program_slicing_simple.h:4:12",
                 fieldName = NamePair {
                   nameC = Name "sixty_four",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "foo_sixty_four"},
                 fieldComment = Nothing},
               structFieldType = TypeExtBinding
@@ -333,16 +333,16 @@
                     qualNameName = Name "uint64_t",
                     qualNameKind =
                     NameKindOrdinary},
-                  extHsRef = ExtHsRef {
-                    extHsRefModule = HsModuleName
+                  extHsRef = ExtRef {
+                    extRefModule = ModuleName
                       "Example",
-                    extHsRefIdentifier =
-                    HsIdentifier "Uint64_t"},
+                    extRefIdentifier = Identifier
+                      "Uint64_t"},
                   extHsSpec = TypeSpec {
                     typeSpecModule = Just
-                      (HsModuleName "Example"),
+                      (ModuleName "Example"),
                     typeSpecIdentifier = Just
-                      (HsIdentifier "Uint64_t"),
+                      (Identifier "Uint64_t"),
                     typeSpecInstances = Map.fromList
                       [
                         _×_
@@ -441,11 +441,11 @@
                   "program_slicing_simple.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "foo_thirty_two",
           fieldType = HsTypRef
-            (HsName
+            (Name
               "@NsTypeConstr"
               "Uint32_t"),
           fieldOrigin = StructField
@@ -455,14 +455,14 @@
                 "program_slicing_simple.h:5:12",
                 fieldName = NamePair {
                   nameC = Name "thirty_two",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "foo_thirty_two"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "uint32_t",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Uint32_t"}),
               structFieldOffset = 64,
               structFieldWidth = Nothing},
@@ -487,8 +487,7 @@
             "program_slicing_simple.h:3:8",
             declId = NamePair {
               nameC = Name "foo",
-              nameHsIdent = HsIdentifier
-                "Foo"},
+              nameHsIdent = Identifier "Foo"},
             declOrigin = NameOriginInSource,
             declAliases = [],
             declHeaderInfo = Just
@@ -501,7 +500,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "Foo"),
+                (Name "@NsConstr" "Foo"),
               structSizeof = 16,
               structAlignment = 8,
               structFields = [
@@ -511,7 +510,7 @@
                     "program_slicing_simple.h:4:12",
                     fieldName = NamePair {
                       nameC = Name "sixty_four",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "foo_sixty_four"},
                     fieldComment = Nothing},
                   structFieldType = TypeExtBinding
@@ -520,16 +519,16 @@
                         qualNameName = Name "uint64_t",
                         qualNameKind =
                         NameKindOrdinary},
-                      extHsRef = ExtHsRef {
-                        extHsRefModule = HsModuleName
+                      extHsRef = ExtRef {
+                        extRefModule = ModuleName
                           "Example",
-                        extHsRefIdentifier =
-                        HsIdentifier "Uint64_t"},
+                        extRefIdentifier = Identifier
+                          "Uint64_t"},
                       extHsSpec = TypeSpec {
                         typeSpecModule = Just
-                          (HsModuleName "Example"),
+                          (ModuleName "Example"),
                         typeSpecIdentifier = Just
-                          (HsIdentifier "Uint64_t"),
+                          (Identifier "Uint64_t"),
                         typeSpecInstances = Map.fromList
                           [
                             _×_
@@ -619,14 +618,14 @@
                     "program_slicing_simple.h:5:12",
                     fieldName = NamePair {
                       nameC = Name "thirty_two",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "foo_thirty_two"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefRegular
                       NamePair {
                         nameC = Name "uint32_t",
-                        nameHsIdent = HsIdentifier
+                        nameHsIdent = Identifier
                           "Uint32_t"}),
                   structFieldOffset = 64,
                   structFieldWidth = Nothing}],
@@ -657,28 +656,28 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Foo",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Foo",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "foo_sixty_four",
               fieldType = HsExtBinding
-                ExtHsRef {
-                  extHsRefModule = HsModuleName
+                ExtRef {
+                  extRefModule = ModuleName
                     "Example",
-                  extHsRefIdentifier =
-                  HsIdentifier "Uint64_t"}
+                  extRefIdentifier = Identifier
+                    "Uint64_t"}
                 TypeSpec {
                   typeSpecModule = Just
-                    (HsModuleName "Example"),
+                    (ModuleName "Example"),
                   typeSpecIdentifier = Just
-                    (HsIdentifier "Uint64_t"),
+                    (Identifier "Uint64_t"),
                   typeSpecInstances = Map.fromList
                     [
                       _×_
@@ -767,7 +766,7 @@
                     "program_slicing_simple.h:4:12",
                     fieldName = NamePair {
                       nameC = Name "sixty_four",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "foo_sixty_four"},
                     fieldComment = Nothing},
                   structFieldType = TypeExtBinding
@@ -776,16 +775,16 @@
                         qualNameName = Name "uint64_t",
                         qualNameKind =
                         NameKindOrdinary},
-                      extHsRef = ExtHsRef {
-                        extHsRefModule = HsModuleName
+                      extHsRef = ExtRef {
+                        extRefModule = ModuleName
                           "Example",
-                        extHsRefIdentifier =
-                        HsIdentifier "Uint64_t"},
+                        extRefIdentifier = Identifier
+                          "Uint64_t"},
                       extHsSpec = TypeSpec {
                         typeSpecModule = Just
-                          (HsModuleName "Example"),
+                          (ModuleName "Example"),
                         typeSpecIdentifier = Just
-                          (HsIdentifier "Uint64_t"),
+                          (Identifier "Uint64_t"),
                         typeSpecInstances = Map.fromList
                           [
                             _×_
@@ -884,11 +883,11 @@
                       "program_slicing_simple.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "foo_thirty_two",
               fieldType = HsTypRef
-                (HsName
+                (Name
                   "@NsTypeConstr"
                   "Uint32_t"),
               fieldOrigin = StructField
@@ -898,14 +897,14 @@
                     "program_slicing_simple.h:5:12",
                     fieldName = NamePair {
                       nameC = Name "thirty_two",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "foo_thirty_two"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefRegular
                       NamePair {
                         nameC = Name "uint32_t",
-                        nameHsIdent = HsIdentifier
+                        nameHsIdent = Identifier
                           "Uint32_t"}),
                   structFieldOffset = 64,
                   structFieldWidth = Nothing},
@@ -930,8 +929,7 @@
                 "program_slicing_simple.h:3:8",
                 declId = NamePair {
                   nameC = Name "foo",
-                  nameHsIdent = HsIdentifier
-                    "Foo"},
+                  nameHsIdent = Identifier "Foo"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
                 declHeaderInfo = Just
@@ -944,7 +942,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "Foo"),
+                    (Name "@NsConstr" "Foo"),
                   structSizeof = 16,
                   structAlignment = 8,
                   structFields = [
@@ -954,7 +952,7 @@
                         "program_slicing_simple.h:4:12",
                         fieldName = NamePair {
                           nameC = Name "sixty_four",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "foo_sixty_four"},
                         fieldComment = Nothing},
                       structFieldType = TypeExtBinding
@@ -963,16 +961,16 @@
                             qualNameName = Name "uint64_t",
                             qualNameKind =
                             NameKindOrdinary},
-                          extHsRef = ExtHsRef {
-                            extHsRefModule = HsModuleName
+                          extHsRef = ExtRef {
+                            extRefModule = ModuleName
                               "Example",
-                            extHsRefIdentifier =
-                            HsIdentifier "Uint64_t"},
+                            extRefIdentifier = Identifier
+                              "Uint64_t"},
                           extHsSpec = TypeSpec {
                             typeSpecModule = Just
-                              (HsModuleName "Example"),
+                              (ModuleName "Example"),
                             typeSpecIdentifier = Just
-                              (HsIdentifier "Uint64_t"),
+                              (Identifier "Uint64_t"),
                             typeSpecInstances = Map.fromList
                               [
                                 _×_
@@ -1062,14 +1060,14 @@
                         "program_slicing_simple.h:5:12",
                         fieldName = NamePair {
                           nameC = Name "thirty_two",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "foo_thirty_two"},
                         fieldComment = Nothing},
                       structFieldType = TypeTypedef
                         (TypedefRegular
                           NamePair {
                             nameC = Name "uint32_t",
-                            nameHsIdent = HsIdentifier
+                            nameHsIdent = Identifier
                               "Uint32_t"}),
                       structFieldOffset = 64,
                       structFieldWidth = Nothing}],
@@ -1103,28 +1101,28 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Foo",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Foo",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "foo_sixty_four",
                       fieldType = HsExtBinding
-                        ExtHsRef {
-                          extHsRefModule = HsModuleName
+                        ExtRef {
+                          extRefModule = ModuleName
                             "Example",
-                          extHsRefIdentifier =
-                          HsIdentifier "Uint64_t"}
+                          extRefIdentifier = Identifier
+                            "Uint64_t"}
                         TypeSpec {
                           typeSpecModule = Just
-                            (HsModuleName "Example"),
+                            (ModuleName "Example"),
                           typeSpecIdentifier = Just
-                            (HsIdentifier "Uint64_t"),
+                            (Identifier "Uint64_t"),
                           typeSpecInstances = Map.fromList
                             [
                               _×_
@@ -1213,7 +1211,7 @@
                             "program_slicing_simple.h:4:12",
                             fieldName = NamePair {
                               nameC = Name "sixty_four",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "foo_sixty_four"},
                             fieldComment = Nothing},
                           structFieldType = TypeExtBinding
@@ -1222,16 +1220,16 @@
                                 qualNameName = Name "uint64_t",
                                 qualNameKind =
                                 NameKindOrdinary},
-                              extHsRef = ExtHsRef {
-                                extHsRefModule = HsModuleName
+                              extHsRef = ExtRef {
+                                extRefModule = ModuleName
                                   "Example",
-                                extHsRefIdentifier =
-                                HsIdentifier "Uint64_t"},
+                                extRefIdentifier = Identifier
+                                  "Uint64_t"},
                               extHsSpec = TypeSpec {
                                 typeSpecModule = Just
-                                  (HsModuleName "Example"),
+                                  (ModuleName "Example"),
                                 typeSpecIdentifier = Just
-                                  (HsIdentifier "Uint64_t"),
+                                  (Identifier "Uint64_t"),
                                 typeSpecInstances = Map.fromList
                                   [
                                     _×_
@@ -1330,11 +1328,11 @@
                               "program_slicing_simple.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "foo_thirty_two",
                       fieldType = HsTypRef
-                        (HsName
+                        (Name
                           "@NsTypeConstr"
                           "Uint32_t"),
                       fieldOrigin = StructField
@@ -1344,14 +1342,14 @@
                             "program_slicing_simple.h:5:12",
                             fieldName = NamePair {
                               nameC = Name "thirty_two",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "foo_thirty_two"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefRegular
                               NamePair {
                                 nameC = Name "uint32_t",
-                                nameHsIdent = HsIdentifier
+                                nameHsIdent = Identifier
                                   "Uint32_t"}),
                           structFieldOffset = 64,
                           structFieldWidth = Nothing},
@@ -1376,8 +1374,7 @@
                         "program_slicing_simple.h:3:8",
                         declId = NamePair {
                           nameC = Name "foo",
-                          nameHsIdent = HsIdentifier
-                            "Foo"},
+                          nameHsIdent = Identifier "Foo"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
                         declHeaderInfo = Just
@@ -1390,7 +1387,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Foo"),
+                            (Name "@NsConstr" "Foo"),
                           structSizeof = 16,
                           structAlignment = 8,
                           structFields = [
@@ -1400,7 +1397,7 @@
                                 "program_slicing_simple.h:4:12",
                                 fieldName = NamePair {
                                   nameC = Name "sixty_four",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "foo_sixty_four"},
                                 fieldComment = Nothing},
                               structFieldType = TypeExtBinding
@@ -1409,16 +1406,16 @@
                                     qualNameName = Name "uint64_t",
                                     qualNameKind =
                                     NameKindOrdinary},
-                                  extHsRef = ExtHsRef {
-                                    extHsRefModule = HsModuleName
+                                  extHsRef = ExtRef {
+                                    extRefModule = ModuleName
                                       "Example",
-                                    extHsRefIdentifier =
-                                    HsIdentifier "Uint64_t"},
+                                    extRefIdentifier = Identifier
+                                      "Uint64_t"},
                                   extHsSpec = TypeSpec {
                                     typeSpecModule = Just
-                                      (HsModuleName "Example"),
+                                      (ModuleName "Example"),
                                     typeSpecIdentifier = Just
-                                      (HsIdentifier "Uint64_t"),
+                                      (Identifier "Uint64_t"),
                                     typeSpecInstances = Map.fromList
                                       [
                                         _×_
@@ -1508,14 +1505,14 @@
                                 "program_slicing_simple.h:5:12",
                                 fieldName = NamePair {
                                   nameC = Name "thirty_two",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "foo_thirty_two"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefRegular
                                   NamePair {
                                     nameC = Name "uint32_t",
-                                    nameHsIdent = HsIdentifier
+                                    nameHsIdent = Identifier
                                       "Uint32_t"}),
                               structFieldOffset = 64,
                               structFieldWidth = Nothing}],
@@ -1551,28 +1548,28 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Foo",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Foo",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "foo_sixty_four",
                       fieldType = HsExtBinding
-                        ExtHsRef {
-                          extHsRefModule = HsModuleName
+                        ExtRef {
+                          extRefModule = ModuleName
                             "Example",
-                          extHsRefIdentifier =
-                          HsIdentifier "Uint64_t"}
+                          extRefIdentifier = Identifier
+                            "Uint64_t"}
                         TypeSpec {
                           typeSpecModule = Just
-                            (HsModuleName "Example"),
+                            (ModuleName "Example"),
                           typeSpecIdentifier = Just
-                            (HsIdentifier "Uint64_t"),
+                            (Identifier "Uint64_t"),
                           typeSpecInstances = Map.fromList
                             [
                               _×_
@@ -1661,7 +1658,7 @@
                             "program_slicing_simple.h:4:12",
                             fieldName = NamePair {
                               nameC = Name "sixty_four",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "foo_sixty_four"},
                             fieldComment = Nothing},
                           structFieldType = TypeExtBinding
@@ -1670,16 +1667,16 @@
                                 qualNameName = Name "uint64_t",
                                 qualNameKind =
                                 NameKindOrdinary},
-                              extHsRef = ExtHsRef {
-                                extHsRefModule = HsModuleName
+                              extHsRef = ExtRef {
+                                extRefModule = ModuleName
                                   "Example",
-                                extHsRefIdentifier =
-                                HsIdentifier "Uint64_t"},
+                                extRefIdentifier = Identifier
+                                  "Uint64_t"},
                               extHsSpec = TypeSpec {
                                 typeSpecModule = Just
-                                  (HsModuleName "Example"),
+                                  (ModuleName "Example"),
                                 typeSpecIdentifier = Just
-                                  (HsIdentifier "Uint64_t"),
+                                  (Identifier "Uint64_t"),
                                 typeSpecInstances = Map.fromList
                                   [
                                     _×_
@@ -1778,11 +1775,11 @@
                               "program_slicing_simple.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "foo_thirty_two",
                       fieldType = HsTypRef
-                        (HsName
+                        (Name
                           "@NsTypeConstr"
                           "Uint32_t"),
                       fieldOrigin = StructField
@@ -1792,14 +1789,14 @@
                             "program_slicing_simple.h:5:12",
                             fieldName = NamePair {
                               nameC = Name "thirty_two",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "foo_thirty_two"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefRegular
                               NamePair {
                                 nameC = Name "uint32_t",
-                                nameHsIdent = HsIdentifier
+                                nameHsIdent = Identifier
                                   "Uint32_t"}),
                           structFieldOffset = 64,
                           structFieldWidth = Nothing},
@@ -1824,8 +1821,7 @@
                         "program_slicing_simple.h:3:8",
                         declId = NamePair {
                           nameC = Name "foo",
-                          nameHsIdent = HsIdentifier
-                            "Foo"},
+                          nameHsIdent = Identifier "Foo"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
                         declHeaderInfo = Just
@@ -1838,7 +1834,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Foo"),
+                            (Name "@NsConstr" "Foo"),
                           structSizeof = 16,
                           structAlignment = 8,
                           structFields = [
@@ -1848,7 +1844,7 @@
                                 "program_slicing_simple.h:4:12",
                                 fieldName = NamePair {
                                   nameC = Name "sixty_four",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "foo_sixty_four"},
                                 fieldComment = Nothing},
                               structFieldType = TypeExtBinding
@@ -1857,16 +1853,16 @@
                                     qualNameName = Name "uint64_t",
                                     qualNameKind =
                                     NameKindOrdinary},
-                                  extHsRef = ExtHsRef {
-                                    extHsRefModule = HsModuleName
+                                  extHsRef = ExtRef {
+                                    extRefModule = ModuleName
                                       "Example",
-                                    extHsRefIdentifier =
-                                    HsIdentifier "Uint64_t"},
+                                    extRefIdentifier = Identifier
+                                      "Uint64_t"},
                                   extHsSpec = TypeSpec {
                                     typeSpecModule = Just
-                                      (HsModuleName "Example"),
+                                      (ModuleName "Example"),
                                     typeSpecIdentifier = Just
-                                      (HsIdentifier "Uint64_t"),
+                                      (Identifier "Uint64_t"),
                                     typeSpecInstances = Map.fromList
                                       [
                                         _×_
@@ -1956,14 +1952,14 @@
                                 "program_slicing_simple.h:5:12",
                                 fieldName = NamePair {
                                   nameC = Name "thirty_two",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "foo_thirty_two"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefRegular
                                   NamePair {
                                     nameC = Name "uint32_t",
-                                    nameHsIdent = HsIdentifier
+                                    nameHsIdent = Identifier
                                       "Uint32_t"}),
                               structFieldOffset = 64,
                               structFieldWidth = Nothing}],
@@ -2004,7 +2000,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Foo",
       deriveInstanceComment =
@@ -2014,7 +2010,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Foo",
       deriveInstanceComment =

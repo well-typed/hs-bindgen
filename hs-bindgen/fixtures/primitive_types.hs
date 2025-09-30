@@ -1,15 +1,15 @@
 [
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "Primitive",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "Primitive",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "primitive_c",
           fieldType = HsPrimType
@@ -21,7 +21,7 @@
                 "primitive_types.h:2:10",
                 fieldName = NamePair {
                   nameC = Name "c",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "primitive_c"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -44,7 +44,7 @@
                   "primitive_types.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "primitive_sc",
           fieldType = HsPrimType
@@ -56,7 +56,7 @@
                 "primitive_types.h:3:17",
                 fieldName = NamePair {
                   nameC = Name "sc",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "primitive_sc"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -78,7 +78,7 @@
                   "primitive_types.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "primitive_uc",
           fieldType = HsPrimType
@@ -90,7 +90,7 @@
                 "primitive_types.h:4:19",
                 fieldName = NamePair {
                   nameC = Name "uc",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "primitive_uc"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -112,7 +112,7 @@
                   "primitive_types.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "primitive_s",
           fieldType = HsPrimType
@@ -124,7 +124,7 @@
                 "primitive_types.h:6:11",
                 fieldName = NamePair {
                   nameC = Name "s",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "primitive_s"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -145,7 +145,7 @@
                   "primitive_types.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "primitive_si",
           fieldType = HsPrimType
@@ -157,7 +157,7 @@
                 "primitive_types.h:7:15",
                 fieldName = NamePair {
                   nameC = Name "si",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "primitive_si"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -178,7 +178,7 @@
                   "primitive_types.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "primitive_ss",
           fieldType = HsPrimType
@@ -190,7 +190,7 @@
                 "primitive_types.h:8:18",
                 fieldName = NamePair {
                   nameC = Name "ss",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "primitive_ss"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -211,7 +211,7 @@
                   "primitive_types.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "primitive_ssi",
           fieldType = HsPrimType
@@ -223,7 +223,7 @@
                 "primitive_types.h:9:22",
                 fieldName = NamePair {
                   nameC = Name "ssi",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "primitive_ssi"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -244,7 +244,7 @@
                   "primitive_types.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "primitive_us",
           fieldType = HsPrimType
@@ -256,7 +256,7 @@
                 "primitive_types.h:11:20",
                 fieldName = NamePair {
                   nameC = Name "us",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "primitive_us"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -279,7 +279,7 @@
                   "primitive_types.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "primitive_usi",
           fieldType = HsPrimType
@@ -291,7 +291,7 @@
                 "primitive_types.h:12:24",
                 fieldName = NamePair {
                   nameC = Name "usi",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "primitive_usi"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -314,7 +314,7 @@
                   "primitive_types.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "primitive_i",
           fieldType = HsPrimType
@@ -326,7 +326,7 @@
                 "primitive_types.h:14:9",
                 fieldName = NamePair {
                   nameC = Name "i",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "primitive_i"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -347,7 +347,7 @@
                   "primitive_types.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "primitive_s2",
           fieldType = HsPrimType
@@ -359,7 +359,7 @@
                 "primitive_types.h:15:12",
                 fieldName = NamePair {
                   nameC = Name "s2",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "primitive_s2"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -380,7 +380,7 @@
                   "primitive_types.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "primitive_si2",
           fieldType = HsPrimType
@@ -392,7 +392,7 @@
                 "primitive_types.h:16:16",
                 fieldName = NamePair {
                   nameC = Name "si2",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "primitive_si2"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -413,7 +413,7 @@
                   "primitive_types.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "primitive_u",
           fieldType = HsPrimType
@@ -425,7 +425,7 @@
                 "primitive_types.h:18:14",
                 fieldName = NamePair {
                   nameC = Name "u",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "primitive_u"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -446,7 +446,7 @@
                   "primitive_types.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "primitive_ui",
           fieldType = HsPrimType
@@ -458,7 +458,7 @@
                 "primitive_types.h:19:18",
                 fieldName = NamePair {
                   nameC = Name "ui",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "primitive_ui"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -479,7 +479,7 @@
                   "primitive_types.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "primitive_l",
           fieldType = HsPrimType
@@ -491,7 +491,7 @@
                 "primitive_types.h:21:10",
                 fieldName = NamePair {
                   nameC = Name "l",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "primitive_l"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -512,7 +512,7 @@
                   "primitive_types.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "primitive_li",
           fieldType = HsPrimType
@@ -524,7 +524,7 @@
                 "primitive_types.h:22:14",
                 fieldName = NamePair {
                   nameC = Name "li",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "primitive_li"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -545,7 +545,7 @@
                   "primitive_types.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "primitive_sl",
           fieldType = HsPrimType
@@ -557,7 +557,7 @@
                 "primitive_types.h:23:17",
                 fieldName = NamePair {
                   nameC = Name "sl",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "primitive_sl"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -578,7 +578,7 @@
                   "primitive_types.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "primitive_sli",
           fieldType = HsPrimType
@@ -590,7 +590,7 @@
                 "primitive_types.h:24:21",
                 fieldName = NamePair {
                   nameC = Name "sli",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "primitive_sli"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -611,7 +611,7 @@
                   "primitive_types.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "primitive_ul",
           fieldType = HsPrimType
@@ -623,7 +623,7 @@
                 "primitive_types.h:26:19",
                 fieldName = NamePair {
                   nameC = Name "ul",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "primitive_ul"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -646,7 +646,7 @@
                   "primitive_types.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "primitive_uli",
           fieldType = HsPrimType
@@ -658,7 +658,7 @@
                 "primitive_types.h:27:23",
                 fieldName = NamePair {
                   nameC = Name "uli",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "primitive_uli"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -681,7 +681,7 @@
                   "primitive_types.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "primitive_ll",
           fieldType = HsPrimType
@@ -693,7 +693,7 @@
                 "primitive_types.h:29:15",
                 fieldName = NamePair {
                   nameC = Name "ll",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "primitive_ll"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -716,7 +716,7 @@
                   "primitive_types.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "primitive_lli",
           fieldType = HsPrimType
@@ -728,7 +728,7 @@
                 "primitive_types.h:30:19",
                 fieldName = NamePair {
                   nameC = Name "lli",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "primitive_lli"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -751,7 +751,7 @@
                   "primitive_types.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "primitive_sll",
           fieldType = HsPrimType
@@ -763,7 +763,7 @@
                 "primitive_types.h:31:22",
                 fieldName = NamePair {
                   nameC = Name "sll",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "primitive_sll"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -786,7 +786,7 @@
                   "primitive_types.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "primitive_slli",
           fieldType = HsPrimType
@@ -798,7 +798,7 @@
                 "primitive_types.h:32:26",
                 fieldName = NamePair {
                   nameC = Name "slli",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "primitive_slli"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -821,7 +821,7 @@
                   "primitive_types.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "primitive_ull",
           fieldType = HsPrimType
@@ -833,7 +833,7 @@
                 "primitive_types.h:34:24",
                 fieldName = NamePair {
                   nameC = Name "ull",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "primitive_ull"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -856,7 +856,7 @@
                   "primitive_types.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "primitive_ulli",
           fieldType = HsPrimType
@@ -868,7 +868,7 @@
                 "primitive_types.h:35:28",
                 fieldName = NamePair {
                   nameC = Name "ulli",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "primitive_ulli"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -891,7 +891,7 @@
                   "primitive_types.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "primitive_f",
           fieldType = HsPrimType
@@ -903,7 +903,7 @@
                 "primitive_types.h:37:11",
                 fieldName = NamePair {
                   nameC = Name "f",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "primitive_f"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -924,7 +924,7 @@
                   "primitive_types.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "primitive_d",
           fieldType = HsPrimType
@@ -936,7 +936,7 @@
                 "primitive_types.h:38:12",
                 fieldName = NamePair {
                   nameC = Name "d",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "primitive_d"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -963,7 +963,7 @@
             "primitive_types.h:1:8",
             declId = NamePair {
               nameC = Name "primitive",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Primitive"},
             declOrigin = NameOriginInSource,
             declAliases = [],
@@ -977,9 +977,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName
-                  "@NsConstr"
-                  "Primitive"),
+                (Name "@NsConstr" "Primitive"),
               structSizeof = 152,
               structAlignment = 8,
               structFields = [
@@ -989,7 +987,7 @@
                     "primitive_types.h:2:10",
                     fieldName = NamePair {
                       nameC = Name "c",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_c"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1004,7 +1002,7 @@
                     "primitive_types.h:3:17",
                     fieldName = NamePair {
                       nameC = Name "sc",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_sc"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1018,7 +1016,7 @@
                     "primitive_types.h:4:19",
                     fieldName = NamePair {
                       nameC = Name "uc",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_uc"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1032,7 +1030,7 @@
                     "primitive_types.h:6:11",
                     fieldName = NamePair {
                       nameC = Name "s",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_s"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1045,7 +1043,7 @@
                     "primitive_types.h:7:15",
                     fieldName = NamePair {
                       nameC = Name "si",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_si"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1058,7 +1056,7 @@
                     "primitive_types.h:8:18",
                     fieldName = NamePair {
                       nameC = Name "ss",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_ss"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1071,7 +1069,7 @@
                     "primitive_types.h:9:22",
                     fieldName = NamePair {
                       nameC = Name "ssi",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_ssi"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1084,7 +1082,7 @@
                     "primitive_types.h:11:20",
                     fieldName = NamePair {
                       nameC = Name "us",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_us"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1099,7 +1097,7 @@
                     "primitive_types.h:12:24",
                     fieldName = NamePair {
                       nameC = Name "usi",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_usi"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1114,7 +1112,7 @@
                     "primitive_types.h:14:9",
                     fieldName = NamePair {
                       nameC = Name "i",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_i"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1127,7 +1125,7 @@
                     "primitive_types.h:15:12",
                     fieldName = NamePair {
                       nameC = Name "s2",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_s2"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1140,7 +1138,7 @@
                     "primitive_types.h:16:16",
                     fieldName = NamePair {
                       nameC = Name "si2",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_si2"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1153,7 +1151,7 @@
                     "primitive_types.h:18:14",
                     fieldName = NamePair {
                       nameC = Name "u",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_u"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1166,7 +1164,7 @@
                     "primitive_types.h:19:18",
                     fieldName = NamePair {
                       nameC = Name "ui",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_ui"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1179,7 +1177,7 @@
                     "primitive_types.h:21:10",
                     fieldName = NamePair {
                       nameC = Name "l",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_l"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1192,7 +1190,7 @@
                     "primitive_types.h:22:14",
                     fieldName = NamePair {
                       nameC = Name "li",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_li"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1205,7 +1203,7 @@
                     "primitive_types.h:23:17",
                     fieldName = NamePair {
                       nameC = Name "sl",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_sl"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1218,7 +1216,7 @@
                     "primitive_types.h:24:21",
                     fieldName = NamePair {
                       nameC = Name "sli",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_sli"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1231,7 +1229,7 @@
                     "primitive_types.h:26:19",
                     fieldName = NamePair {
                       nameC = Name "ul",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_ul"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1246,7 +1244,7 @@
                     "primitive_types.h:27:23",
                     fieldName = NamePair {
                       nameC = Name "uli",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_uli"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1261,7 +1259,7 @@
                     "primitive_types.h:29:15",
                     fieldName = NamePair {
                       nameC = Name "ll",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_ll"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1276,7 +1274,7 @@
                     "primitive_types.h:30:19",
                     fieldName = NamePair {
                       nameC = Name "lli",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_lli"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1291,7 +1289,7 @@
                     "primitive_types.h:31:22",
                     fieldName = NamePair {
                       nameC = Name "sll",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_sll"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1306,7 +1304,7 @@
                     "primitive_types.h:32:26",
                     fieldName = NamePair {
                       nameC = Name "slli",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_slli"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1321,7 +1319,7 @@
                     "primitive_types.h:34:24",
                     fieldName = NamePair {
                       nameC = Name "ull",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_ull"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1336,7 +1334,7 @@
                     "primitive_types.h:35:28",
                     fieldName = NamePair {
                       nameC = Name "ulli",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_ulli"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1351,7 +1349,7 @@
                     "primitive_types.h:37:11",
                     fieldName = NamePair {
                       nameC = Name "f",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_f"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1364,7 +1362,7 @@
                     "primitive_types.h:38:12",
                     fieldName = NamePair {
                       nameC = Name "d",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_d"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1399,15 +1397,15 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Primitive",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Primitive",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "primitive_c",
               fieldType = HsPrimType
@@ -1419,7 +1417,7 @@
                     "primitive_types.h:2:10",
                     fieldName = NamePair {
                       nameC = Name "c",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_c"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1442,7 +1440,7 @@
                       "primitive_types.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "primitive_sc",
               fieldType = HsPrimType
@@ -1454,7 +1452,7 @@
                     "primitive_types.h:3:17",
                     fieldName = NamePair {
                       nameC = Name "sc",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_sc"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1476,7 +1474,7 @@
                       "primitive_types.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "primitive_uc",
               fieldType = HsPrimType
@@ -1488,7 +1486,7 @@
                     "primitive_types.h:4:19",
                     fieldName = NamePair {
                       nameC = Name "uc",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_uc"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1510,7 +1508,7 @@
                       "primitive_types.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "primitive_s",
               fieldType = HsPrimType
@@ -1522,7 +1520,7 @@
                     "primitive_types.h:6:11",
                     fieldName = NamePair {
                       nameC = Name "s",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_s"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1543,7 +1541,7 @@
                       "primitive_types.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "primitive_si",
               fieldType = HsPrimType
@@ -1555,7 +1553,7 @@
                     "primitive_types.h:7:15",
                     fieldName = NamePair {
                       nameC = Name "si",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_si"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1576,7 +1574,7 @@
                       "primitive_types.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "primitive_ss",
               fieldType = HsPrimType
@@ -1588,7 +1586,7 @@
                     "primitive_types.h:8:18",
                     fieldName = NamePair {
                       nameC = Name "ss",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_ss"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1609,7 +1607,7 @@
                       "primitive_types.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "primitive_ssi",
               fieldType = HsPrimType
@@ -1621,7 +1619,7 @@
                     "primitive_types.h:9:22",
                     fieldName = NamePair {
                       nameC = Name "ssi",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_ssi"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1642,7 +1640,7 @@
                       "primitive_types.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "primitive_us",
               fieldType = HsPrimType
@@ -1654,7 +1652,7 @@
                     "primitive_types.h:11:20",
                     fieldName = NamePair {
                       nameC = Name "us",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_us"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1677,7 +1675,7 @@
                       "primitive_types.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "primitive_usi",
               fieldType = HsPrimType
@@ -1689,7 +1687,7 @@
                     "primitive_types.h:12:24",
                     fieldName = NamePair {
                       nameC = Name "usi",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_usi"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1712,7 +1710,7 @@
                       "primitive_types.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "primitive_i",
               fieldType = HsPrimType
@@ -1724,7 +1722,7 @@
                     "primitive_types.h:14:9",
                     fieldName = NamePair {
                       nameC = Name "i",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_i"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1745,7 +1743,7 @@
                       "primitive_types.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "primitive_s2",
               fieldType = HsPrimType
@@ -1757,7 +1755,7 @@
                     "primitive_types.h:15:12",
                     fieldName = NamePair {
                       nameC = Name "s2",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_s2"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1778,7 +1776,7 @@
                       "primitive_types.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "primitive_si2",
               fieldType = HsPrimType
@@ -1790,7 +1788,7 @@
                     "primitive_types.h:16:16",
                     fieldName = NamePair {
                       nameC = Name "si2",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_si2"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1811,7 +1809,7 @@
                       "primitive_types.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "primitive_u",
               fieldType = HsPrimType
@@ -1823,7 +1821,7 @@
                     "primitive_types.h:18:14",
                     fieldName = NamePair {
                       nameC = Name "u",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_u"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1844,7 +1842,7 @@
                       "primitive_types.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "primitive_ui",
               fieldType = HsPrimType
@@ -1856,7 +1854,7 @@
                     "primitive_types.h:19:18",
                     fieldName = NamePair {
                       nameC = Name "ui",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_ui"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1877,7 +1875,7 @@
                       "primitive_types.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "primitive_l",
               fieldType = HsPrimType
@@ -1889,7 +1887,7 @@
                     "primitive_types.h:21:10",
                     fieldName = NamePair {
                       nameC = Name "l",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_l"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1910,7 +1908,7 @@
                       "primitive_types.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "primitive_li",
               fieldType = HsPrimType
@@ -1922,7 +1920,7 @@
                     "primitive_types.h:22:14",
                     fieldName = NamePair {
                       nameC = Name "li",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_li"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1943,7 +1941,7 @@
                       "primitive_types.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "primitive_sl",
               fieldType = HsPrimType
@@ -1955,7 +1953,7 @@
                     "primitive_types.h:23:17",
                     fieldName = NamePair {
                       nameC = Name "sl",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_sl"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -1976,7 +1974,7 @@
                       "primitive_types.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "primitive_sli",
               fieldType = HsPrimType
@@ -1988,7 +1986,7 @@
                     "primitive_types.h:24:21",
                     fieldName = NamePair {
                       nameC = Name "sli",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_sli"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -2009,7 +2007,7 @@
                       "primitive_types.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "primitive_ul",
               fieldType = HsPrimType
@@ -2021,7 +2019,7 @@
                     "primitive_types.h:26:19",
                     fieldName = NamePair {
                       nameC = Name "ul",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_ul"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -2044,7 +2042,7 @@
                       "primitive_types.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "primitive_uli",
               fieldType = HsPrimType
@@ -2056,7 +2054,7 @@
                     "primitive_types.h:27:23",
                     fieldName = NamePair {
                       nameC = Name "uli",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_uli"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -2079,7 +2077,7 @@
                       "primitive_types.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "primitive_ll",
               fieldType = HsPrimType
@@ -2091,7 +2089,7 @@
                     "primitive_types.h:29:15",
                     fieldName = NamePair {
                       nameC = Name "ll",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_ll"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -2114,7 +2112,7 @@
                       "primitive_types.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "primitive_lli",
               fieldType = HsPrimType
@@ -2126,7 +2124,7 @@
                     "primitive_types.h:30:19",
                     fieldName = NamePair {
                       nameC = Name "lli",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_lli"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -2149,7 +2147,7 @@
                       "primitive_types.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "primitive_sll",
               fieldType = HsPrimType
@@ -2161,7 +2159,7 @@
                     "primitive_types.h:31:22",
                     fieldName = NamePair {
                       nameC = Name "sll",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_sll"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -2184,7 +2182,7 @@
                       "primitive_types.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "primitive_slli",
               fieldType = HsPrimType
@@ -2196,7 +2194,7 @@
                     "primitive_types.h:32:26",
                     fieldName = NamePair {
                       nameC = Name "slli",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_slli"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -2219,7 +2217,7 @@
                       "primitive_types.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "primitive_ull",
               fieldType = HsPrimType
@@ -2231,7 +2229,7 @@
                     "primitive_types.h:34:24",
                     fieldName = NamePair {
                       nameC = Name "ull",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_ull"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -2254,7 +2252,7 @@
                       "primitive_types.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "primitive_ulli",
               fieldType = HsPrimType
@@ -2266,7 +2264,7 @@
                     "primitive_types.h:35:28",
                     fieldName = NamePair {
                       nameC = Name "ulli",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_ulli"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -2289,7 +2287,7 @@
                       "primitive_types.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "primitive_f",
               fieldType = HsPrimType
@@ -2301,7 +2299,7 @@
                     "primitive_types.h:37:11",
                     fieldName = NamePair {
                       nameC = Name "f",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_f"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -2322,7 +2320,7 @@
                       "primitive_types.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "primitive_d",
               fieldType = HsPrimType
@@ -2334,7 +2332,7 @@
                     "primitive_types.h:38:12",
                     fieldName = NamePair {
                       nameC = Name "d",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "primitive_d"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -2361,7 +2359,7 @@
                 "primitive_types.h:1:8",
                 declId = NamePair {
                   nameC = Name "primitive",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Primitive"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
@@ -2375,9 +2373,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName
-                      "@NsConstr"
-                      "Primitive"),
+                    (Name "@NsConstr" "Primitive"),
                   structSizeof = 152,
                   structAlignment = 8,
                   structFields = [
@@ -2387,7 +2383,7 @@
                         "primitive_types.h:2:10",
                         fieldName = NamePair {
                           nameC = Name "c",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "primitive_c"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -2402,7 +2398,7 @@
                         "primitive_types.h:3:17",
                         fieldName = NamePair {
                           nameC = Name "sc",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "primitive_sc"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -2416,7 +2412,7 @@
                         "primitive_types.h:4:19",
                         fieldName = NamePair {
                           nameC = Name "uc",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "primitive_uc"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -2430,7 +2426,7 @@
                         "primitive_types.h:6:11",
                         fieldName = NamePair {
                           nameC = Name "s",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "primitive_s"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -2443,7 +2439,7 @@
                         "primitive_types.h:7:15",
                         fieldName = NamePair {
                           nameC = Name "si",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "primitive_si"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -2456,7 +2452,7 @@
                         "primitive_types.h:8:18",
                         fieldName = NamePair {
                           nameC = Name "ss",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "primitive_ss"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -2469,7 +2465,7 @@
                         "primitive_types.h:9:22",
                         fieldName = NamePair {
                           nameC = Name "ssi",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "primitive_ssi"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -2482,7 +2478,7 @@
                         "primitive_types.h:11:20",
                         fieldName = NamePair {
                           nameC = Name "us",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "primitive_us"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -2497,7 +2493,7 @@
                         "primitive_types.h:12:24",
                         fieldName = NamePair {
                           nameC = Name "usi",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "primitive_usi"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -2512,7 +2508,7 @@
                         "primitive_types.h:14:9",
                         fieldName = NamePair {
                           nameC = Name "i",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "primitive_i"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -2525,7 +2521,7 @@
                         "primitive_types.h:15:12",
                         fieldName = NamePair {
                           nameC = Name "s2",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "primitive_s2"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -2538,7 +2534,7 @@
                         "primitive_types.h:16:16",
                         fieldName = NamePair {
                           nameC = Name "si2",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "primitive_si2"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -2551,7 +2547,7 @@
                         "primitive_types.h:18:14",
                         fieldName = NamePair {
                           nameC = Name "u",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "primitive_u"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -2564,7 +2560,7 @@
                         "primitive_types.h:19:18",
                         fieldName = NamePair {
                           nameC = Name "ui",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "primitive_ui"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -2577,7 +2573,7 @@
                         "primitive_types.h:21:10",
                         fieldName = NamePair {
                           nameC = Name "l",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "primitive_l"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -2590,7 +2586,7 @@
                         "primitive_types.h:22:14",
                         fieldName = NamePair {
                           nameC = Name "li",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "primitive_li"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -2603,7 +2599,7 @@
                         "primitive_types.h:23:17",
                         fieldName = NamePair {
                           nameC = Name "sl",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "primitive_sl"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -2616,7 +2612,7 @@
                         "primitive_types.h:24:21",
                         fieldName = NamePair {
                           nameC = Name "sli",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "primitive_sli"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -2629,7 +2625,7 @@
                         "primitive_types.h:26:19",
                         fieldName = NamePair {
                           nameC = Name "ul",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "primitive_ul"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -2644,7 +2640,7 @@
                         "primitive_types.h:27:23",
                         fieldName = NamePair {
                           nameC = Name "uli",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "primitive_uli"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -2659,7 +2655,7 @@
                         "primitive_types.h:29:15",
                         fieldName = NamePair {
                           nameC = Name "ll",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "primitive_ll"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -2674,7 +2670,7 @@
                         "primitive_types.h:30:19",
                         fieldName = NamePair {
                           nameC = Name "lli",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "primitive_lli"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -2689,7 +2685,7 @@
                         "primitive_types.h:31:22",
                         fieldName = NamePair {
                           nameC = Name "sll",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "primitive_sll"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -2704,7 +2700,7 @@
                         "primitive_types.h:32:26",
                         fieldName = NamePair {
                           nameC = Name "slli",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "primitive_slli"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -2719,7 +2715,7 @@
                         "primitive_types.h:34:24",
                         fieldName = NamePair {
                           nameC = Name "ull",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "primitive_ull"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -2734,7 +2730,7 @@
                         "primitive_types.h:35:28",
                         fieldName = NamePair {
                           nameC = Name "ulli",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "primitive_ulli"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -2749,7 +2745,7 @@
                         "primitive_types.h:37:11",
                         fieldName = NamePair {
                           nameC = Name "f",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "primitive_f"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -2762,7 +2758,7 @@
                         "primitive_types.h:38:12",
                         fieldName = NamePair {
                           nameC = Name "d",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "primitive_d"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -2800,15 +2796,15 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Primitive",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Primitive",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_c",
                       fieldType = HsPrimType
@@ -2820,7 +2816,7 @@
                             "primitive_types.h:2:10",
                             fieldName = NamePair {
                               nameC = Name "c",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_c"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -2843,7 +2839,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_sc",
                       fieldType = HsPrimType
@@ -2855,7 +2851,7 @@
                             "primitive_types.h:3:17",
                             fieldName = NamePair {
                               nameC = Name "sc",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_sc"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -2877,7 +2873,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_uc",
                       fieldType = HsPrimType
@@ -2889,7 +2885,7 @@
                             "primitive_types.h:4:19",
                             fieldName = NamePair {
                               nameC = Name "uc",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_uc"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -2911,7 +2907,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_s",
                       fieldType = HsPrimType
@@ -2923,7 +2919,7 @@
                             "primitive_types.h:6:11",
                             fieldName = NamePair {
                               nameC = Name "s",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_s"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -2944,7 +2940,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_si",
                       fieldType = HsPrimType
@@ -2956,7 +2952,7 @@
                             "primitive_types.h:7:15",
                             fieldName = NamePair {
                               nameC = Name "si",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_si"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -2977,7 +2973,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_ss",
                       fieldType = HsPrimType
@@ -2989,7 +2985,7 @@
                             "primitive_types.h:8:18",
                             fieldName = NamePair {
                               nameC = Name "ss",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_ss"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -3010,7 +3006,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_ssi",
                       fieldType = HsPrimType
@@ -3022,7 +3018,7 @@
                             "primitive_types.h:9:22",
                             fieldName = NamePair {
                               nameC = Name "ssi",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_ssi"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -3043,7 +3039,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_us",
                       fieldType = HsPrimType
@@ -3055,7 +3051,7 @@
                             "primitive_types.h:11:20",
                             fieldName = NamePair {
                               nameC = Name "us",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_us"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -3078,7 +3074,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_usi",
                       fieldType = HsPrimType
@@ -3090,7 +3086,7 @@
                             "primitive_types.h:12:24",
                             fieldName = NamePair {
                               nameC = Name "usi",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_usi"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -3113,7 +3109,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_i",
                       fieldType = HsPrimType
@@ -3125,7 +3121,7 @@
                             "primitive_types.h:14:9",
                             fieldName = NamePair {
                               nameC = Name "i",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_i"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -3146,7 +3142,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_s2",
                       fieldType = HsPrimType
@@ -3158,7 +3154,7 @@
                             "primitive_types.h:15:12",
                             fieldName = NamePair {
                               nameC = Name "s2",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_s2"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -3179,7 +3175,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_si2",
                       fieldType = HsPrimType
@@ -3191,7 +3187,7 @@
                             "primitive_types.h:16:16",
                             fieldName = NamePair {
                               nameC = Name "si2",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_si2"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -3212,7 +3208,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_u",
                       fieldType = HsPrimType
@@ -3224,7 +3220,7 @@
                             "primitive_types.h:18:14",
                             fieldName = NamePair {
                               nameC = Name "u",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_u"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -3245,7 +3241,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_ui",
                       fieldType = HsPrimType
@@ -3257,7 +3253,7 @@
                             "primitive_types.h:19:18",
                             fieldName = NamePair {
                               nameC = Name "ui",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_ui"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -3278,7 +3274,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_l",
                       fieldType = HsPrimType
@@ -3290,7 +3286,7 @@
                             "primitive_types.h:21:10",
                             fieldName = NamePair {
                               nameC = Name "l",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_l"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -3311,7 +3307,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_li",
                       fieldType = HsPrimType
@@ -3323,7 +3319,7 @@
                             "primitive_types.h:22:14",
                             fieldName = NamePair {
                               nameC = Name "li",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_li"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -3344,7 +3340,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_sl",
                       fieldType = HsPrimType
@@ -3356,7 +3352,7 @@
                             "primitive_types.h:23:17",
                             fieldName = NamePair {
                               nameC = Name "sl",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_sl"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -3377,7 +3373,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_sli",
                       fieldType = HsPrimType
@@ -3389,7 +3385,7 @@
                             "primitive_types.h:24:21",
                             fieldName = NamePair {
                               nameC = Name "sli",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_sli"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -3410,7 +3406,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_ul",
                       fieldType = HsPrimType
@@ -3422,7 +3418,7 @@
                             "primitive_types.h:26:19",
                             fieldName = NamePair {
                               nameC = Name "ul",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_ul"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -3445,7 +3441,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_uli",
                       fieldType = HsPrimType
@@ -3457,7 +3453,7 @@
                             "primitive_types.h:27:23",
                             fieldName = NamePair {
                               nameC = Name "uli",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_uli"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -3480,7 +3476,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_ll",
                       fieldType = HsPrimType
@@ -3492,7 +3488,7 @@
                             "primitive_types.h:29:15",
                             fieldName = NamePair {
                               nameC = Name "ll",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_ll"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -3515,7 +3511,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_lli",
                       fieldType = HsPrimType
@@ -3527,7 +3523,7 @@
                             "primitive_types.h:30:19",
                             fieldName = NamePair {
                               nameC = Name "lli",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_lli"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -3550,7 +3546,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_sll",
                       fieldType = HsPrimType
@@ -3562,7 +3558,7 @@
                             "primitive_types.h:31:22",
                             fieldName = NamePair {
                               nameC = Name "sll",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_sll"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -3585,7 +3581,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_slli",
                       fieldType = HsPrimType
@@ -3597,7 +3593,7 @@
                             "primitive_types.h:32:26",
                             fieldName = NamePair {
                               nameC = Name "slli",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_slli"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -3620,7 +3616,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_ull",
                       fieldType = HsPrimType
@@ -3632,7 +3628,7 @@
                             "primitive_types.h:34:24",
                             fieldName = NamePair {
                               nameC = Name "ull",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_ull"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -3655,7 +3651,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_ulli",
                       fieldType = HsPrimType
@@ -3667,7 +3663,7 @@
                             "primitive_types.h:35:28",
                             fieldName = NamePair {
                               nameC = Name "ulli",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_ulli"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -3690,7 +3686,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_f",
                       fieldType = HsPrimType
@@ -3702,7 +3698,7 @@
                             "primitive_types.h:37:11",
                             fieldName = NamePair {
                               nameC = Name "f",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_f"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -3723,7 +3719,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_d",
                       fieldType = HsPrimType
@@ -3735,7 +3731,7 @@
                             "primitive_types.h:38:12",
                             fieldName = NamePair {
                               nameC = Name "d",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_d"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -3762,7 +3758,7 @@
                         "primitive_types.h:1:8",
                         declId = NamePair {
                           nameC = Name "primitive",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Primitive"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -3776,9 +3772,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName
-                              "@NsConstr"
-                              "Primitive"),
+                            (Name "@NsConstr" "Primitive"),
                           structSizeof = 152,
                           structAlignment = 8,
                           structFields = [
@@ -3788,7 +3782,7 @@
                                 "primitive_types.h:2:10",
                                 fieldName = NamePair {
                                   nameC = Name "c",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_c"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -3803,7 +3797,7 @@
                                 "primitive_types.h:3:17",
                                 fieldName = NamePair {
                                   nameC = Name "sc",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_sc"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -3817,7 +3811,7 @@
                                 "primitive_types.h:4:19",
                                 fieldName = NamePair {
                                   nameC = Name "uc",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_uc"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -3831,7 +3825,7 @@
                                 "primitive_types.h:6:11",
                                 fieldName = NamePair {
                                   nameC = Name "s",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_s"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -3844,7 +3838,7 @@
                                 "primitive_types.h:7:15",
                                 fieldName = NamePair {
                                   nameC = Name "si",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_si"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -3857,7 +3851,7 @@
                                 "primitive_types.h:8:18",
                                 fieldName = NamePair {
                                   nameC = Name "ss",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_ss"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -3870,7 +3864,7 @@
                                 "primitive_types.h:9:22",
                                 fieldName = NamePair {
                                   nameC = Name "ssi",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_ssi"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -3883,7 +3877,7 @@
                                 "primitive_types.h:11:20",
                                 fieldName = NamePair {
                                   nameC = Name "us",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_us"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -3898,7 +3892,7 @@
                                 "primitive_types.h:12:24",
                                 fieldName = NamePair {
                                   nameC = Name "usi",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_usi"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -3913,7 +3907,7 @@
                                 "primitive_types.h:14:9",
                                 fieldName = NamePair {
                                   nameC = Name "i",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_i"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -3926,7 +3920,7 @@
                                 "primitive_types.h:15:12",
                                 fieldName = NamePair {
                                   nameC = Name "s2",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_s2"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -3939,7 +3933,7 @@
                                 "primitive_types.h:16:16",
                                 fieldName = NamePair {
                                   nameC = Name "si2",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_si2"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -3952,7 +3946,7 @@
                                 "primitive_types.h:18:14",
                                 fieldName = NamePair {
                                   nameC = Name "u",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_u"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -3965,7 +3959,7 @@
                                 "primitive_types.h:19:18",
                                 fieldName = NamePair {
                                   nameC = Name "ui",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_ui"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -3978,7 +3972,7 @@
                                 "primitive_types.h:21:10",
                                 fieldName = NamePair {
                                   nameC = Name "l",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_l"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -3991,7 +3985,7 @@
                                 "primitive_types.h:22:14",
                                 fieldName = NamePair {
                                   nameC = Name "li",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_li"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -4004,7 +3998,7 @@
                                 "primitive_types.h:23:17",
                                 fieldName = NamePair {
                                   nameC = Name "sl",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_sl"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -4017,7 +4011,7 @@
                                 "primitive_types.h:24:21",
                                 fieldName = NamePair {
                                   nameC = Name "sli",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_sli"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -4030,7 +4024,7 @@
                                 "primitive_types.h:26:19",
                                 fieldName = NamePair {
                                   nameC = Name "ul",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_ul"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -4045,7 +4039,7 @@
                                 "primitive_types.h:27:23",
                                 fieldName = NamePair {
                                   nameC = Name "uli",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_uli"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -4060,7 +4054,7 @@
                                 "primitive_types.h:29:15",
                                 fieldName = NamePair {
                                   nameC = Name "ll",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_ll"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -4075,7 +4069,7 @@
                                 "primitive_types.h:30:19",
                                 fieldName = NamePair {
                                   nameC = Name "lli",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_lli"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -4090,7 +4084,7 @@
                                 "primitive_types.h:31:22",
                                 fieldName = NamePair {
                                   nameC = Name "sll",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_sll"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -4105,7 +4099,7 @@
                                 "primitive_types.h:32:26",
                                 fieldName = NamePair {
                                   nameC = Name "slli",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_slli"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -4120,7 +4114,7 @@
                                 "primitive_types.h:34:24",
                                 fieldName = NamePair {
                                   nameC = Name "ull",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_ull"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -4135,7 +4129,7 @@
                                 "primitive_types.h:35:28",
                                 fieldName = NamePair {
                                   nameC = Name "ulli",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_ulli"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -4150,7 +4144,7 @@
                                 "primitive_types.h:37:11",
                                 fieldName = NamePair {
                                   nameC = Name "f",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_f"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -4163,7 +4157,7 @@
                                 "primitive_types.h:38:12",
                                 fieldName = NamePair {
                                   nameC = Name "d",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_d"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -4229,15 +4223,15 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Primitive",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Primitive",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_c",
                       fieldType = HsPrimType
@@ -4249,7 +4243,7 @@
                             "primitive_types.h:2:10",
                             fieldName = NamePair {
                               nameC = Name "c",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_c"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -4272,7 +4266,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_sc",
                       fieldType = HsPrimType
@@ -4284,7 +4278,7 @@
                             "primitive_types.h:3:17",
                             fieldName = NamePair {
                               nameC = Name "sc",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_sc"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -4306,7 +4300,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_uc",
                       fieldType = HsPrimType
@@ -4318,7 +4312,7 @@
                             "primitive_types.h:4:19",
                             fieldName = NamePair {
                               nameC = Name "uc",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_uc"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -4340,7 +4334,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_s",
                       fieldType = HsPrimType
@@ -4352,7 +4346,7 @@
                             "primitive_types.h:6:11",
                             fieldName = NamePair {
                               nameC = Name "s",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_s"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -4373,7 +4367,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_si",
                       fieldType = HsPrimType
@@ -4385,7 +4379,7 @@
                             "primitive_types.h:7:15",
                             fieldName = NamePair {
                               nameC = Name "si",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_si"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -4406,7 +4400,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_ss",
                       fieldType = HsPrimType
@@ -4418,7 +4412,7 @@
                             "primitive_types.h:8:18",
                             fieldName = NamePair {
                               nameC = Name "ss",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_ss"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -4439,7 +4433,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_ssi",
                       fieldType = HsPrimType
@@ -4451,7 +4445,7 @@
                             "primitive_types.h:9:22",
                             fieldName = NamePair {
                               nameC = Name "ssi",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_ssi"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -4472,7 +4466,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_us",
                       fieldType = HsPrimType
@@ -4484,7 +4478,7 @@
                             "primitive_types.h:11:20",
                             fieldName = NamePair {
                               nameC = Name "us",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_us"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -4507,7 +4501,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_usi",
                       fieldType = HsPrimType
@@ -4519,7 +4513,7 @@
                             "primitive_types.h:12:24",
                             fieldName = NamePair {
                               nameC = Name "usi",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_usi"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -4542,7 +4536,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_i",
                       fieldType = HsPrimType
@@ -4554,7 +4548,7 @@
                             "primitive_types.h:14:9",
                             fieldName = NamePair {
                               nameC = Name "i",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_i"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -4575,7 +4569,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_s2",
                       fieldType = HsPrimType
@@ -4587,7 +4581,7 @@
                             "primitive_types.h:15:12",
                             fieldName = NamePair {
                               nameC = Name "s2",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_s2"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -4608,7 +4602,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_si2",
                       fieldType = HsPrimType
@@ -4620,7 +4614,7 @@
                             "primitive_types.h:16:16",
                             fieldName = NamePair {
                               nameC = Name "si2",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_si2"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -4641,7 +4635,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_u",
                       fieldType = HsPrimType
@@ -4653,7 +4647,7 @@
                             "primitive_types.h:18:14",
                             fieldName = NamePair {
                               nameC = Name "u",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_u"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -4674,7 +4668,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_ui",
                       fieldType = HsPrimType
@@ -4686,7 +4680,7 @@
                             "primitive_types.h:19:18",
                             fieldName = NamePair {
                               nameC = Name "ui",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_ui"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -4707,7 +4701,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_l",
                       fieldType = HsPrimType
@@ -4719,7 +4713,7 @@
                             "primitive_types.h:21:10",
                             fieldName = NamePair {
                               nameC = Name "l",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_l"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -4740,7 +4734,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_li",
                       fieldType = HsPrimType
@@ -4752,7 +4746,7 @@
                             "primitive_types.h:22:14",
                             fieldName = NamePair {
                               nameC = Name "li",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_li"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -4773,7 +4767,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_sl",
                       fieldType = HsPrimType
@@ -4785,7 +4779,7 @@
                             "primitive_types.h:23:17",
                             fieldName = NamePair {
                               nameC = Name "sl",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_sl"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -4806,7 +4800,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_sli",
                       fieldType = HsPrimType
@@ -4818,7 +4812,7 @@
                             "primitive_types.h:24:21",
                             fieldName = NamePair {
                               nameC = Name "sli",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_sli"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -4839,7 +4833,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_ul",
                       fieldType = HsPrimType
@@ -4851,7 +4845,7 @@
                             "primitive_types.h:26:19",
                             fieldName = NamePair {
                               nameC = Name "ul",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_ul"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -4874,7 +4868,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_uli",
                       fieldType = HsPrimType
@@ -4886,7 +4880,7 @@
                             "primitive_types.h:27:23",
                             fieldName = NamePair {
                               nameC = Name "uli",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_uli"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -4909,7 +4903,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_ll",
                       fieldType = HsPrimType
@@ -4921,7 +4915,7 @@
                             "primitive_types.h:29:15",
                             fieldName = NamePair {
                               nameC = Name "ll",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_ll"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -4944,7 +4938,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_lli",
                       fieldType = HsPrimType
@@ -4956,7 +4950,7 @@
                             "primitive_types.h:30:19",
                             fieldName = NamePair {
                               nameC = Name "lli",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_lli"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -4979,7 +4973,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_sll",
                       fieldType = HsPrimType
@@ -4991,7 +4985,7 @@
                             "primitive_types.h:31:22",
                             fieldName = NamePair {
                               nameC = Name "sll",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_sll"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -5014,7 +5008,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_slli",
                       fieldType = HsPrimType
@@ -5026,7 +5020,7 @@
                             "primitive_types.h:32:26",
                             fieldName = NamePair {
                               nameC = Name "slli",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_slli"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -5049,7 +5043,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_ull",
                       fieldType = HsPrimType
@@ -5061,7 +5055,7 @@
                             "primitive_types.h:34:24",
                             fieldName = NamePair {
                               nameC = Name "ull",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_ull"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -5084,7 +5078,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_ulli",
                       fieldType = HsPrimType
@@ -5096,7 +5090,7 @@
                             "primitive_types.h:35:28",
                             fieldName = NamePair {
                               nameC = Name "ulli",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_ulli"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -5119,7 +5113,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_f",
                       fieldType = HsPrimType
@@ -5131,7 +5125,7 @@
                             "primitive_types.h:37:11",
                             fieldName = NamePair {
                               nameC = Name "f",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_f"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -5152,7 +5146,7 @@
                               "primitive_types.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "primitive_d",
                       fieldType = HsPrimType
@@ -5164,7 +5158,7 @@
                             "primitive_types.h:38:12",
                             fieldName = NamePair {
                               nameC = Name "d",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "primitive_d"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -5191,7 +5185,7 @@
                         "primitive_types.h:1:8",
                         declId = NamePair {
                           nameC = Name "primitive",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Primitive"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -5205,9 +5199,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName
-                              "@NsConstr"
-                              "Primitive"),
+                            (Name "@NsConstr" "Primitive"),
                           structSizeof = 152,
                           structAlignment = 8,
                           structFields = [
@@ -5217,7 +5209,7 @@
                                 "primitive_types.h:2:10",
                                 fieldName = NamePair {
                                   nameC = Name "c",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_c"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -5232,7 +5224,7 @@
                                 "primitive_types.h:3:17",
                                 fieldName = NamePair {
                                   nameC = Name "sc",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_sc"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -5246,7 +5238,7 @@
                                 "primitive_types.h:4:19",
                                 fieldName = NamePair {
                                   nameC = Name "uc",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_uc"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -5260,7 +5252,7 @@
                                 "primitive_types.h:6:11",
                                 fieldName = NamePair {
                                   nameC = Name "s",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_s"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -5273,7 +5265,7 @@
                                 "primitive_types.h:7:15",
                                 fieldName = NamePair {
                                   nameC = Name "si",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_si"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -5286,7 +5278,7 @@
                                 "primitive_types.h:8:18",
                                 fieldName = NamePair {
                                   nameC = Name "ss",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_ss"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -5299,7 +5291,7 @@
                                 "primitive_types.h:9:22",
                                 fieldName = NamePair {
                                   nameC = Name "ssi",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_ssi"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -5312,7 +5304,7 @@
                                 "primitive_types.h:11:20",
                                 fieldName = NamePair {
                                   nameC = Name "us",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_us"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -5327,7 +5319,7 @@
                                 "primitive_types.h:12:24",
                                 fieldName = NamePair {
                                   nameC = Name "usi",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_usi"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -5342,7 +5334,7 @@
                                 "primitive_types.h:14:9",
                                 fieldName = NamePair {
                                   nameC = Name "i",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_i"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -5355,7 +5347,7 @@
                                 "primitive_types.h:15:12",
                                 fieldName = NamePair {
                                   nameC = Name "s2",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_s2"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -5368,7 +5360,7 @@
                                 "primitive_types.h:16:16",
                                 fieldName = NamePair {
                                   nameC = Name "si2",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_si2"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -5381,7 +5373,7 @@
                                 "primitive_types.h:18:14",
                                 fieldName = NamePair {
                                   nameC = Name "u",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_u"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -5394,7 +5386,7 @@
                                 "primitive_types.h:19:18",
                                 fieldName = NamePair {
                                   nameC = Name "ui",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_ui"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -5407,7 +5399,7 @@
                                 "primitive_types.h:21:10",
                                 fieldName = NamePair {
                                   nameC = Name "l",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_l"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -5420,7 +5412,7 @@
                                 "primitive_types.h:22:14",
                                 fieldName = NamePair {
                                   nameC = Name "li",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_li"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -5433,7 +5425,7 @@
                                 "primitive_types.h:23:17",
                                 fieldName = NamePair {
                                   nameC = Name "sl",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_sl"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -5446,7 +5438,7 @@
                                 "primitive_types.h:24:21",
                                 fieldName = NamePair {
                                   nameC = Name "sli",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_sli"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -5459,7 +5451,7 @@
                                 "primitive_types.h:26:19",
                                 fieldName = NamePair {
                                   nameC = Name "ul",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_ul"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -5474,7 +5466,7 @@
                                 "primitive_types.h:27:23",
                                 fieldName = NamePair {
                                   nameC = Name "uli",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_uli"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -5489,7 +5481,7 @@
                                 "primitive_types.h:29:15",
                                 fieldName = NamePair {
                                   nameC = Name "ll",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_ll"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -5504,7 +5496,7 @@
                                 "primitive_types.h:30:19",
                                 fieldName = NamePair {
                                   nameC = Name "lli",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_lli"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -5519,7 +5511,7 @@
                                 "primitive_types.h:31:22",
                                 fieldName = NamePair {
                                   nameC = Name "sll",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_sll"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -5534,7 +5526,7 @@
                                 "primitive_types.h:32:26",
                                 fieldName = NamePair {
                                   nameC = Name "slli",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_slli"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -5549,7 +5541,7 @@
                                 "primitive_types.h:34:24",
                                 fieldName = NamePair {
                                   nameC = Name "ull",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_ull"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -5564,7 +5556,7 @@
                                 "primitive_types.h:35:28",
                                 fieldName = NamePair {
                                   nameC = Name "ulli",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_ulli"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -5579,7 +5571,7 @@
                                 "primitive_types.h:37:11",
                                 fieldName = NamePair {
                                   nameC = Name "f",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_f"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -5592,7 +5584,7 @@
                                 "primitive_types.h:38:12",
                                 fieldName = NamePair {
                                   nameC = Name "d",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "primitive_d"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -5714,7 +5706,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Primitive",
       deriveInstanceComment =
@@ -5724,7 +5716,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Primitive",
       deriveInstanceComment =

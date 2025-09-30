@@ -8,7 +8,7 @@ TranslationUnit {
         "fun_attributes_conflict.h:9:5",
         declId = NamePair {
           nameC = Name "square_cp",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "square_cp"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -37,7 +37,7 @@ TranslationUnit {
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypePrim
                 (PrimIntegral PrimInt Signed))],
           functionAttrs =
@@ -57,7 +57,7 @@ TranslationUnit {
         "fun_attributes_conflict.h:11:5",
         declId = NamePair {
           nameC = Name "square_pc",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "square_pc"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -75,7 +75,7 @@ TranslationUnit {
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypePrim
                 (PrimIntegral PrimInt Signed))],
           functionAttrs =
@@ -95,7 +95,7 @@ TranslationUnit {
         "fun_attributes_conflict.h:13:5",
         declId = NamePair {
           nameC = Name "square_cc",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "square_cc"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -113,7 +113,7 @@ TranslationUnit {
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypePrim
                 (PrimIntegral PrimInt Signed))],
           functionAttrs =
@@ -133,7 +133,7 @@ TranslationUnit {
         "fun_attributes_conflict.h:15:5",
         declId = NamePair {
           nameC = Name "square_pp",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "square_pp"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -151,7 +151,7 @@ TranslationUnit {
               (Just
                 NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier "x"})
+                  nameHsIdent = Identifier "x"})
               (TypePrim
                 (PrimIntegral PrimInt Signed))],
           functionAttrs =

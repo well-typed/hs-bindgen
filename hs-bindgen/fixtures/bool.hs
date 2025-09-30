@@ -1,15 +1,15 @@
 [
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "Bools1",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "Bools1",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "bools1_x",
           fieldType = HsPrimType
@@ -20,7 +20,7 @@
                 fieldLoc = "bool.h:2:11",
                 fieldName = NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "bools1_x"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -40,7 +40,7 @@
                   headerInclude = "bool.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "bools1_y",
           fieldType = HsPrimType
@@ -51,7 +51,7 @@
                 fieldLoc = "bool.h:3:11",
                 fieldName = NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "bools1_y"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -76,7 +76,7 @@
             declLoc = "bool.h:1:8",
             declId = NamePair {
               nameC = Name "bools1",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Bools1"},
             declOrigin = NameOriginInSource,
             declAliases = [],
@@ -89,7 +89,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "Bools1"),
+                (Name "@NsConstr" "Bools1"),
               structSizeof = 2,
               structAlignment = 1,
               structFields = [
@@ -98,7 +98,7 @@
                     fieldLoc = "bool.h:2:11",
                     fieldName = NamePair {
                       nameC = Name "x",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "bools1_x"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -110,7 +110,7 @@
                     fieldLoc = "bool.h:3:11",
                     fieldName = NamePair {
                       nameC = Name "y",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "bools1_y"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -143,15 +143,15 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Bools1",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Bools1",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "bools1_x",
               fieldType = HsPrimType
@@ -162,7 +162,7 @@
                     fieldLoc = "bool.h:2:11",
                     fieldName = NamePair {
                       nameC = Name "x",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "bools1_x"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -182,7 +182,7 @@
                       headerInclude = "bool.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "bools1_y",
               fieldType = HsPrimType
@@ -193,7 +193,7 @@
                     fieldLoc = "bool.h:3:11",
                     fieldName = NamePair {
                       nameC = Name "y",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "bools1_y"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -218,7 +218,7 @@
                 declLoc = "bool.h:1:8",
                 declId = NamePair {
                   nameC = Name "bools1",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Bools1"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
@@ -231,7 +231,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "Bools1"),
+                    (Name "@NsConstr" "Bools1"),
                   structSizeof = 2,
                   structAlignment = 1,
                   structFields = [
@@ -240,7 +240,7 @@
                         fieldLoc = "bool.h:2:11",
                         fieldName = NamePair {
                           nameC = Name "x",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "bools1_x"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -252,7 +252,7 @@
                         fieldLoc = "bool.h:3:11",
                         fieldName = NamePair {
                           nameC = Name "y",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "bools1_y"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -288,15 +288,15 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Bools1",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Bools1",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "bools1_x",
                       fieldType = HsPrimType
@@ -307,7 +307,7 @@
                             fieldLoc = "bool.h:2:11",
                             fieldName = NamePair {
                               nameC = Name "x",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "bools1_x"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -327,7 +327,7 @@
                               headerInclude = "bool.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "bools1_y",
                       fieldType = HsPrimType
@@ -338,7 +338,7 @@
                             fieldLoc = "bool.h:3:11",
                             fieldName = NamePair {
                               nameC = Name "y",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "bools1_y"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -363,7 +363,7 @@
                         declLoc = "bool.h:1:8",
                         declId = NamePair {
                           nameC = Name "bools1",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Bools1"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -376,7 +376,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Bools1"),
+                            (Name "@NsConstr" "Bools1"),
                           structSizeof = 2,
                           structAlignment = 1,
                           structFields = [
@@ -385,7 +385,7 @@
                                 fieldLoc = "bool.h:2:11",
                                 fieldName = NamePair {
                                   nameC = Name "x",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "bools1_x"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -397,7 +397,7 @@
                                 fieldLoc = "bool.h:3:11",
                                 fieldName = NamePair {
                                   nameC = Name "y",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "bools1_y"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -435,15 +435,15 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Bools1",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Bools1",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "bools1_x",
                       fieldType = HsPrimType
@@ -454,7 +454,7 @@
                             fieldLoc = "bool.h:2:11",
                             fieldName = NamePair {
                               nameC = Name "x",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "bools1_x"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -474,7 +474,7 @@
                               headerInclude = "bool.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "bools1_y",
                       fieldType = HsPrimType
@@ -485,7 +485,7 @@
                             fieldLoc = "bool.h:3:11",
                             fieldName = NamePair {
                               nameC = Name "y",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "bools1_y"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -510,7 +510,7 @@
                         declLoc = "bool.h:1:8",
                         declId = NamePair {
                           nameC = Name "bools1",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Bools1"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -523,7 +523,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Bools1"),
+                            (Name "@NsConstr" "Bools1"),
                           structSizeof = 2,
                           structAlignment = 1,
                           structFields = [
@@ -532,7 +532,7 @@
                                 fieldLoc = "bool.h:2:11",
                                 fieldName = NamePair {
                                   nameC = Name "x",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "bools1_x"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -544,7 +544,7 @@
                                 fieldLoc = "bool.h:3:11",
                                 fieldName = NamePair {
                                   nameC = Name "y",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "bools1_y"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -587,7 +587,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Bools1",
       deriveInstanceComment =
@@ -597,22 +597,22 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Bools1",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "Bools2",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "Bools2",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "bools2_x",
           fieldType = HsPrimType
@@ -623,7 +623,7 @@
                 fieldLoc = "bool.h:9:10",
                 fieldName = NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "bools2_x"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -643,7 +643,7 @@
                   headerInclude = "bool.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "bools2_y",
           fieldType = HsPrimType
@@ -654,7 +654,7 @@
                 fieldLoc = "bool.h:10:10",
                 fieldName = NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "bools2_y"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -679,7 +679,7 @@
             declLoc = "bool.h:8:8",
             declId = NamePair {
               nameC = Name "bools2",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Bools2"},
             declOrigin = NameOriginInSource,
             declAliases = [],
@@ -692,7 +692,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "Bools2"),
+                (Name "@NsConstr" "Bools2"),
               structSizeof = 2,
               structAlignment = 1,
               structFields = [
@@ -701,7 +701,7 @@
                     fieldLoc = "bool.h:9:10",
                     fieldName = NamePair {
                       nameC = Name "x",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "bools2_x"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -713,7 +713,7 @@
                     fieldLoc = "bool.h:10:10",
                     fieldName = NamePair {
                       nameC = Name "y",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "bools2_y"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -746,15 +746,15 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Bools2",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Bools2",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "bools2_x",
               fieldType = HsPrimType
@@ -765,7 +765,7 @@
                     fieldLoc = "bool.h:9:10",
                     fieldName = NamePair {
                       nameC = Name "x",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "bools2_x"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -785,7 +785,7 @@
                       headerInclude = "bool.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "bools2_y",
               fieldType = HsPrimType
@@ -796,7 +796,7 @@
                     fieldLoc = "bool.h:10:10",
                     fieldName = NamePair {
                       nameC = Name "y",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "bools2_y"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
@@ -821,7 +821,7 @@
                 declLoc = "bool.h:8:8",
                 declId = NamePair {
                   nameC = Name "bools2",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Bools2"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
@@ -834,7 +834,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "Bools2"),
+                    (Name "@NsConstr" "Bools2"),
                   structSizeof = 2,
                   structAlignment = 1,
                   structFields = [
@@ -843,7 +843,7 @@
                         fieldLoc = "bool.h:9:10",
                         fieldName = NamePair {
                           nameC = Name "x",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "bools2_x"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -855,7 +855,7 @@
                         fieldLoc = "bool.h:10:10",
                         fieldName = NamePair {
                           nameC = Name "y",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "bools2_y"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
@@ -891,15 +891,15 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Bools2",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Bools2",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "bools2_x",
                       fieldType = HsPrimType
@@ -910,7 +910,7 @@
                             fieldLoc = "bool.h:9:10",
                             fieldName = NamePair {
                               nameC = Name "x",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "bools2_x"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -930,7 +930,7 @@
                               headerInclude = "bool.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "bools2_y",
                       fieldType = HsPrimType
@@ -941,7 +941,7 @@
                             fieldLoc = "bool.h:10:10",
                             fieldName = NamePair {
                               nameC = Name "y",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "bools2_y"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -966,7 +966,7 @@
                         declLoc = "bool.h:8:8",
                         declId = NamePair {
                           nameC = Name "bools2",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Bools2"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -979,7 +979,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Bools2"),
+                            (Name "@NsConstr" "Bools2"),
                           structSizeof = 2,
                           structAlignment = 1,
                           structFields = [
@@ -988,7 +988,7 @@
                                 fieldLoc = "bool.h:9:10",
                                 fieldName = NamePair {
                                   nameC = Name "x",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "bools2_x"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -1000,7 +1000,7 @@
                                 fieldLoc = "bool.h:10:10",
                                 fieldName = NamePair {
                                   nameC = Name "y",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "bools2_y"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -1038,15 +1038,15 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Bools2",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Bools2",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "bools2_x",
                       fieldType = HsPrimType
@@ -1057,7 +1057,7 @@
                             fieldLoc = "bool.h:9:10",
                             fieldName = NamePair {
                               nameC = Name "x",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "bools2_x"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -1077,7 +1077,7 @@
                               headerInclude = "bool.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "bools2_y",
                       fieldType = HsPrimType
@@ -1088,7 +1088,7 @@
                             fieldLoc = "bool.h:10:10",
                             fieldName = NamePair {
                               nameC = Name "y",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "bools2_y"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
@@ -1113,7 +1113,7 @@
                         declLoc = "bool.h:8:8",
                         declId = NamePair {
                           nameC = Name "bools2",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Bools2"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -1126,7 +1126,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Bools2"),
+                            (Name "@NsConstr" "Bools2"),
                           structSizeof = 2,
                           structAlignment = 1,
                           structFields = [
@@ -1135,7 +1135,7 @@
                                 fieldLoc = "bool.h:9:10",
                                 fieldName = NamePair {
                                   nameC = Name "x",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "bools2_x"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -1147,7 +1147,7 @@
                                 fieldLoc = "bool.h:10:10",
                                 fieldName = NamePair {
                                   nameC = Name "y",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "bools2_y"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
@@ -1190,7 +1190,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Bools2",
       deriveInstanceComment =
@@ -1200,21 +1200,21 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Bools2",
       deriveInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "BOOL",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "BOOL",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_BOOL",
         fieldType = HsPrimType
@@ -1226,7 +1226,7 @@
           declLoc = "bool.h:13:9",
           declId = NamePair {
             nameC = Name "BOOL",
-            nameHsIdent = HsIdentifier
+            nameHsIdent = Identifier
               "BOOL"},
           declOrigin = NameOriginInSource,
           declAliases = [],
@@ -1239,10 +1239,10 @@
         declKind = Macro
           CheckedMacroType {
             macroTypeNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "BOOL",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_BOOL"},
             macroType = TypePrim PrimBool},
@@ -1284,7 +1284,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Storable,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "BOOL",
       deriveInstanceComment =
@@ -1294,7 +1294,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "BOOL",
       deriveInstanceComment =
@@ -1304,7 +1304,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Ord,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "BOOL",
       deriveInstanceComment =
@@ -1314,7 +1314,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Read,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "BOOL",
       deriveInstanceComment =
@@ -1324,7 +1324,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "BOOL",
       deriveInstanceComment =
@@ -1334,7 +1334,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Enum,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "BOOL",
       deriveInstanceComment =
@@ -1344,7 +1344,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Ix,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "BOOL",
       deriveInstanceComment =
@@ -1354,7 +1354,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bounded,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "BOOL",
       deriveInstanceComment =
@@ -1364,7 +1364,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "BOOL",
       deriveInstanceComment =
@@ -1375,7 +1375,7 @@
       DeriveNewtype,
       deriveInstanceClass =
       FiniteBits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "BOOL",
       deriveInstanceComment =
@@ -1385,7 +1385,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Integral,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "BOOL",
       deriveInstanceComment =
@@ -1395,7 +1395,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Num,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "BOOL",
       deriveInstanceComment =
@@ -1405,41 +1405,40 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Real,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "BOOL",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "Bools3",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "Bools3",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "bools3_x",
           fieldType = HsTypRef
-            (HsName "@NsTypeConstr" "BOOL"),
+            (Name "@NsTypeConstr" "BOOL"),
           fieldOrigin = StructField
             StructField {
               structFieldInfo = FieldInfo {
                 fieldLoc = "bool.h:16:10",
                 fieldName = NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "bools3_x"},
                 fieldComment = Nothing},
               structFieldType =
               TypeMacroTypedef
                 NamePair {
                   nameC = Name "BOOL",
-                  nameHsIdent = HsIdentifier
-                    "BOOL"}
+                  nameHsIdent = Identifier "BOOL"}
                 NameOriginInSource,
               structFieldOffset = 0,
               structFieldWidth = Nothing},
@@ -1456,26 +1455,25 @@
                   headerInclude = "bool.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "bools3_y",
           fieldType = HsTypRef
-            (HsName "@NsTypeConstr" "BOOL"),
+            (Name "@NsTypeConstr" "BOOL"),
           fieldOrigin = StructField
             StructField {
               structFieldInfo = FieldInfo {
                 fieldLoc = "bool.h:17:10",
                 fieldName = NamePair {
                   nameC = Name "y",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "bools3_y"},
                 fieldComment = Nothing},
               structFieldType =
               TypeMacroTypedef
                 NamePair {
                   nameC = Name "BOOL",
-                  nameHsIdent = HsIdentifier
-                    "BOOL"}
+                  nameHsIdent = Identifier "BOOL"}
                 NameOriginInSource,
               structFieldOffset = 8,
               structFieldWidth = Nothing},
@@ -1497,7 +1495,7 @@
             declLoc = "bool.h:15:8",
             declId = NamePair {
               nameC = Name "bools3",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Bools3"},
             declOrigin = NameOriginInSource,
             declAliases = [],
@@ -1510,7 +1508,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "Bools3"),
+                (Name "@NsConstr" "Bools3"),
               structSizeof = 2,
               structAlignment = 1,
               structFields = [
@@ -1519,15 +1517,14 @@
                     fieldLoc = "bool.h:16:10",
                     fieldName = NamePair {
                       nameC = Name "x",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "bools3_x"},
                     fieldComment = Nothing},
                   structFieldType =
                   TypeMacroTypedef
                     NamePair {
                       nameC = Name "BOOL",
-                      nameHsIdent = HsIdentifier
-                        "BOOL"}
+                      nameHsIdent = Identifier "BOOL"}
                     NameOriginInSource,
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
@@ -1536,15 +1533,14 @@
                     fieldLoc = "bool.h:17:10",
                     fieldName = NamePair {
                       nameC = Name "y",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "bools3_y"},
                     fieldComment = Nothing},
                   structFieldType =
                   TypeMacroTypedef
                     NamePair {
                       nameC = Name "BOOL",
-                      nameHsIdent = HsIdentifier
-                        "BOOL"}
+                      nameHsIdent = Identifier "BOOL"}
                     NameOriginInSource,
                   structFieldOffset = 8,
                   structFieldWidth = Nothing}],
@@ -1574,34 +1570,33 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Bools3",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Bools3",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "bools3_x",
               fieldType = HsTypRef
-                (HsName "@NsTypeConstr" "BOOL"),
+                (Name "@NsTypeConstr" "BOOL"),
               fieldOrigin = StructField
                 StructField {
                   structFieldInfo = FieldInfo {
                     fieldLoc = "bool.h:16:10",
                     fieldName = NamePair {
                       nameC = Name "x",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "bools3_x"},
                     fieldComment = Nothing},
                   structFieldType =
                   TypeMacroTypedef
                     NamePair {
                       nameC = Name "BOOL",
-                      nameHsIdent = HsIdentifier
-                        "BOOL"}
+                      nameHsIdent = Identifier "BOOL"}
                     NameOriginInSource,
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
@@ -1618,26 +1613,25 @@
                       headerInclude = "bool.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "bools3_y",
               fieldType = HsTypRef
-                (HsName "@NsTypeConstr" "BOOL"),
+                (Name "@NsTypeConstr" "BOOL"),
               fieldOrigin = StructField
                 StructField {
                   structFieldInfo = FieldInfo {
                     fieldLoc = "bool.h:17:10",
                     fieldName = NamePair {
                       nameC = Name "y",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "bools3_y"},
                     fieldComment = Nothing},
                   structFieldType =
                   TypeMacroTypedef
                     NamePair {
                       nameC = Name "BOOL",
-                      nameHsIdent = HsIdentifier
-                        "BOOL"}
+                      nameHsIdent = Identifier "BOOL"}
                     NameOriginInSource,
                   structFieldOffset = 8,
                   structFieldWidth = Nothing},
@@ -1659,7 +1653,7 @@
                 declLoc = "bool.h:15:8",
                 declId = NamePair {
                   nameC = Name "bools3",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Bools3"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
@@ -1672,7 +1666,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "Bools3"),
+                    (Name "@NsConstr" "Bools3"),
                   structSizeof = 2,
                   structAlignment = 1,
                   structFields = [
@@ -1681,15 +1675,14 @@
                         fieldLoc = "bool.h:16:10",
                         fieldName = NamePair {
                           nameC = Name "x",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "bools3_x"},
                         fieldComment = Nothing},
                       structFieldType =
                       TypeMacroTypedef
                         NamePair {
                           nameC = Name "BOOL",
-                          nameHsIdent = HsIdentifier
-                            "BOOL"}
+                          nameHsIdent = Identifier "BOOL"}
                         NameOriginInSource,
                       structFieldOffset = 0,
                       structFieldWidth = Nothing},
@@ -1698,15 +1691,14 @@
                         fieldLoc = "bool.h:17:10",
                         fieldName = NamePair {
                           nameC = Name "y",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "bools3_y"},
                         fieldComment = Nothing},
                       structFieldType =
                       TypeMacroTypedef
                         NamePair {
                           nameC = Name "BOOL",
-                          nameHsIdent = HsIdentifier
-                            "BOOL"}
+                          nameHsIdent = Identifier "BOOL"}
                         NameOriginInSource,
                       structFieldOffset = 8,
                       structFieldWidth = Nothing}],
@@ -1739,34 +1731,33 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Bools3",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Bools3",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "bools3_x",
                       fieldType = HsTypRef
-                        (HsName "@NsTypeConstr" "BOOL"),
+                        (Name "@NsTypeConstr" "BOOL"),
                       fieldOrigin = StructField
                         StructField {
                           structFieldInfo = FieldInfo {
                             fieldLoc = "bool.h:16:10",
                             fieldName = NamePair {
                               nameC = Name "x",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "bools3_x"},
                             fieldComment = Nothing},
                           structFieldType =
                           TypeMacroTypedef
                             NamePair {
                               nameC = Name "BOOL",
-                              nameHsIdent = HsIdentifier
-                                "BOOL"}
+                              nameHsIdent = Identifier "BOOL"}
                             NameOriginInSource,
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
@@ -1783,26 +1774,25 @@
                               headerInclude = "bool.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "bools3_y",
                       fieldType = HsTypRef
-                        (HsName "@NsTypeConstr" "BOOL"),
+                        (Name "@NsTypeConstr" "BOOL"),
                       fieldOrigin = StructField
                         StructField {
                           structFieldInfo = FieldInfo {
                             fieldLoc = "bool.h:17:10",
                             fieldName = NamePair {
                               nameC = Name "y",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "bools3_y"},
                             fieldComment = Nothing},
                           structFieldType =
                           TypeMacroTypedef
                             NamePair {
                               nameC = Name "BOOL",
-                              nameHsIdent = HsIdentifier
-                                "BOOL"}
+                              nameHsIdent = Identifier "BOOL"}
                             NameOriginInSource,
                           structFieldOffset = 8,
                           structFieldWidth = Nothing},
@@ -1824,7 +1814,7 @@
                         declLoc = "bool.h:15:8",
                         declId = NamePair {
                           nameC = Name "bools3",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Bools3"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -1837,7 +1827,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Bools3"),
+                            (Name "@NsConstr" "Bools3"),
                           structSizeof = 2,
                           structAlignment = 1,
                           structFields = [
@@ -1846,15 +1836,14 @@
                                 fieldLoc = "bool.h:16:10",
                                 fieldName = NamePair {
                                   nameC = Name "x",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "bools3_x"},
                                 fieldComment = Nothing},
                               structFieldType =
                               TypeMacroTypedef
                                 NamePair {
                                   nameC = Name "BOOL",
-                                  nameHsIdent = HsIdentifier
-                                    "BOOL"}
+                                  nameHsIdent = Identifier "BOOL"}
                                 NameOriginInSource,
                               structFieldOffset = 0,
                               structFieldWidth = Nothing},
@@ -1863,15 +1852,14 @@
                                 fieldLoc = "bool.h:17:10",
                                 fieldName = NamePair {
                                   nameC = Name "y",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "bools3_y"},
                                 fieldComment = Nothing},
                               structFieldType =
                               TypeMacroTypedef
                                 NamePair {
                                   nameC = Name "BOOL",
-                                  nameHsIdent = HsIdentifier
-                                    "BOOL"}
+                                  nameHsIdent = Identifier "BOOL"}
                                 NameOriginInSource,
                               structFieldOffset = 8,
                               structFieldWidth = Nothing}],
@@ -1906,34 +1894,33 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Bools3",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Bools3",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "bools3_x",
                       fieldType = HsTypRef
-                        (HsName "@NsTypeConstr" "BOOL"),
+                        (Name "@NsTypeConstr" "BOOL"),
                       fieldOrigin = StructField
                         StructField {
                           structFieldInfo = FieldInfo {
                             fieldLoc = "bool.h:16:10",
                             fieldName = NamePair {
                               nameC = Name "x",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "bools3_x"},
                             fieldComment = Nothing},
                           structFieldType =
                           TypeMacroTypedef
                             NamePair {
                               nameC = Name "BOOL",
-                              nameHsIdent = HsIdentifier
-                                "BOOL"}
+                              nameHsIdent = Identifier "BOOL"}
                             NameOriginInSource,
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
@@ -1950,26 +1937,25 @@
                               headerInclude = "bool.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "bools3_y",
                       fieldType = HsTypRef
-                        (HsName "@NsTypeConstr" "BOOL"),
+                        (Name "@NsTypeConstr" "BOOL"),
                       fieldOrigin = StructField
                         StructField {
                           structFieldInfo = FieldInfo {
                             fieldLoc = "bool.h:17:10",
                             fieldName = NamePair {
                               nameC = Name "y",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "bools3_y"},
                             fieldComment = Nothing},
                           structFieldType =
                           TypeMacroTypedef
                             NamePair {
                               nameC = Name "BOOL",
-                              nameHsIdent = HsIdentifier
-                                "BOOL"}
+                              nameHsIdent = Identifier "BOOL"}
                             NameOriginInSource,
                           structFieldOffset = 8,
                           structFieldWidth = Nothing},
@@ -1991,7 +1977,7 @@
                         declLoc = "bool.h:15:8",
                         declId = NamePair {
                           nameC = Name "bools3",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Bools3"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
@@ -2004,7 +1990,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Bools3"),
+                            (Name "@NsConstr" "Bools3"),
                           structSizeof = 2,
                           structAlignment = 1,
                           structFields = [
@@ -2013,15 +1999,14 @@
                                 fieldLoc = "bool.h:16:10",
                                 fieldName = NamePair {
                                   nameC = Name "x",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "bools3_x"},
                                 fieldComment = Nothing},
                               structFieldType =
                               TypeMacroTypedef
                                 NamePair {
                                   nameC = Name "BOOL",
-                                  nameHsIdent = HsIdentifier
-                                    "BOOL"}
+                                  nameHsIdent = Identifier "BOOL"}
                                 NameOriginInSource,
                               structFieldOffset = 0,
                               structFieldWidth = Nothing},
@@ -2030,15 +2015,14 @@
                                 fieldLoc = "bool.h:17:10",
                                 fieldName = NamePair {
                                   nameC = Name "y",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "bools3_y"},
                                 fieldComment = Nothing},
                               structFieldType =
                               TypeMacroTypedef
                                 NamePair {
                                   nameC = Name "BOOL",
-                                  nameHsIdent = HsIdentifier
-                                    "BOOL"}
+                                  nameHsIdent = Identifier "BOOL"}
                                 NameOriginInSource,
                               structFieldOffset = 8,
                               structFieldWidth = Nothing}],
@@ -2078,7 +2062,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Bools3",
       deriveInstanceComment =
@@ -2088,7 +2072,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Bools3",
       deriveInstanceComment =

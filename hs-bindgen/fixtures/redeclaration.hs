@@ -1,14 +1,14 @@
 [
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "Int_t",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "Int_t",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_Int_t",
         fieldType = HsPrimType
@@ -21,7 +21,7 @@
           "redeclaration.h:20:13",
           declId = NamePair {
             nameC = Name "int_t",
-            nameHsIdent = HsIdentifier
+            nameHsIdent = Identifier
               "Int_t"},
           declOrigin = NameOriginInSource,
           declAliases = [],
@@ -35,10 +35,10 @@
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "Int_t",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_Int_t"},
             typedefType = TypePrim
@@ -82,7 +82,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Storable,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int_t",
       deriveInstanceComment =
@@ -92,7 +92,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int_t",
       deriveInstanceComment =
@@ -102,7 +102,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Ord,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int_t",
       deriveInstanceComment =
@@ -112,7 +112,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Read,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int_t",
       deriveInstanceComment =
@@ -122,7 +122,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int_t",
       deriveInstanceComment =
@@ -132,7 +132,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Enum,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int_t",
       deriveInstanceComment =
@@ -142,7 +142,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Ix,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int_t",
       deriveInstanceComment =
@@ -152,7 +152,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bounded,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int_t",
       deriveInstanceComment =
@@ -162,7 +162,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int_t",
       deriveInstanceComment =
@@ -173,7 +173,7 @@
       DeriveNewtype,
       deriveInstanceClass =
       FiniteBits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int_t",
       deriveInstanceComment =
@@ -183,7 +183,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Integral,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int_t",
       deriveInstanceComment =
@@ -193,7 +193,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Num,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int_t",
       deriveInstanceComment =
@@ -203,24 +203,22 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Real,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int_t",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "X",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "X",
       structFields = [
         Field {
-          fieldName = HsName
-            "@NsVar"
-            "x_n",
+          fieldName = Name "@NsVar" "x_n",
           fieldType = HsPrimType
             HsPrimCInt,
           fieldOrigin = StructField
@@ -230,8 +228,7 @@
                 "redeclaration.h:26:16",
                 fieldName = NamePair {
                   nameC = Name "n",
-                  nameHsIdent = HsIdentifier
-                    "x_n"},
+                  nameHsIdent = Identifier "x_n"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
@@ -257,7 +254,7 @@
             "redeclaration.h:26:8",
             declId = NamePair {
               nameC = Name "X",
-              nameHsIdent = HsIdentifier "X"},
+              nameHsIdent = Identifier "X"},
             declOrigin = NameOriginInSource,
             declAliases = [],
             declHeaderInfo = Just
@@ -270,7 +267,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "X"),
+                (Name "@NsConstr" "X"),
               structSizeof = 4,
               structAlignment = 4,
               structFields = [
@@ -280,8 +277,7 @@
                     "redeclaration.h:26:16",
                     fieldName = NamePair {
                       nameC = Name "n",
-                      nameHsIdent = HsIdentifier
-                        "x_n"},
+                      nameHsIdent = Identifier "x_n"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
@@ -314,17 +310,15 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "X",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "X",
           structFields = [
             Field {
-              fieldName = HsName
-                "@NsVar"
-                "x_n",
+              fieldName = Name "@NsVar" "x_n",
               fieldType = HsPrimType
                 HsPrimCInt,
               fieldOrigin = StructField
@@ -334,8 +328,7 @@
                     "redeclaration.h:26:16",
                     fieldName = NamePair {
                       nameC = Name "n",
-                      nameHsIdent = HsIdentifier
-                        "x_n"},
+                      nameHsIdent = Identifier "x_n"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimIntegral PrimInt Signed),
@@ -361,7 +354,7 @@
                 "redeclaration.h:26:8",
                 declId = NamePair {
                   nameC = Name "X",
-                  nameHsIdent = HsIdentifier "X"},
+                  nameHsIdent = Identifier "X"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
                 declHeaderInfo = Just
@@ -374,7 +367,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "X"),
+                    (Name "@NsConstr" "X"),
                   structSizeof = 4,
                   structAlignment = 4,
                   structFields = [
@@ -384,8 +377,7 @@
                         "redeclaration.h:26:16",
                         fieldName = NamePair {
                           nameC = Name "n",
-                          nameHsIdent = HsIdentifier
-                            "x_n"},
+                          nameHsIdent = Identifier "x_n"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimIntegral PrimInt Signed),
@@ -421,17 +413,15 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "X",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "X",
                   structFields = [
                     Field {
-                      fieldName = HsName
-                        "@NsVar"
-                        "x_n",
+                      fieldName = Name "@NsVar" "x_n",
                       fieldType = HsPrimType
                         HsPrimCInt,
                       fieldOrigin = StructField
@@ -441,8 +431,7 @@
                             "redeclaration.h:26:16",
                             fieldName = NamePair {
                               nameC = Name "n",
-                              nameHsIdent = HsIdentifier
-                                "x_n"},
+                              nameHsIdent = Identifier "x_n"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
@@ -468,7 +457,7 @@
                         "redeclaration.h:26:8",
                         declId = NamePair {
                           nameC = Name "X",
-                          nameHsIdent = HsIdentifier "X"},
+                          nameHsIdent = Identifier "X"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
                         declHeaderInfo = Just
@@ -481,7 +470,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "X"),
+                            (Name "@NsConstr" "X"),
                           structSizeof = 4,
                           structAlignment = 4,
                           structFields = [
@@ -491,8 +480,7 @@
                                 "redeclaration.h:26:16",
                                 fieldName = NamePair {
                                   nameC = Name "n",
-                                  nameHsIdent = HsIdentifier
-                                    "x_n"},
+                                  nameHsIdent = Identifier "x_n"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
@@ -528,17 +516,15 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "X",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "X",
                   structFields = [
                     Field {
-                      fieldName = HsName
-                        "@NsVar"
-                        "x_n",
+                      fieldName = Name "@NsVar" "x_n",
                       fieldType = HsPrimType
                         HsPrimCInt,
                       fieldOrigin = StructField
@@ -548,8 +534,7 @@
                             "redeclaration.h:26:16",
                             fieldName = NamePair {
                               nameC = Name "n",
-                              nameHsIdent = HsIdentifier
-                                "x_n"},
+                              nameHsIdent = Identifier "x_n"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimIntegral PrimInt Signed),
@@ -575,7 +560,7 @@
                         "redeclaration.h:26:8",
                         declId = NamePair {
                           nameC = Name "X",
-                          nameHsIdent = HsIdentifier "X"},
+                          nameHsIdent = Identifier "X"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
                         declHeaderInfo = Just
@@ -588,7 +573,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "X"),
+                            (Name "@NsConstr" "X"),
                           structSizeof = 4,
                           structAlignment = 4,
                           structFields = [
@@ -598,8 +583,7 @@
                                 "redeclaration.h:26:16",
                                 fieldName = NamePair {
                                   nameC = Name "n",
-                                  nameHsIdent = HsIdentifier
-                                    "x_n"},
+                                  nameHsIdent = Identifier "x_n"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimIntegral PrimInt Signed),
@@ -641,7 +625,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "X",
       deriveInstanceComment =
@@ -651,14 +635,14 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "X",
       deriveInstanceComment =
       Nothing},
   DeclEmpty
     EmptyData {
-      emptyDataName = HsName
+      emptyDataName = Name
         "@NsTypeConstr"
         "Y",
       emptyDataOrigin = Decl {
@@ -667,7 +651,7 @@
           "redeclaration.h:29:7",
           declId = NamePair {
             nameC = Name "y",
-            nameHsIdent = HsIdentifier "Y"},
+            nameHsIdent = Identifier "Y"},
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeaderInfo = Just
@@ -699,14 +683,14 @@
           commentChildren = []}},
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "Y",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "Y",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_Y",
         fieldType = HsByteArray,
@@ -718,7 +702,7 @@
           "redeclaration.h:30:7",
           declId = NamePair {
             nameC = Name "Y",
-            nameHsIdent = HsIdentifier "Y"},
+            nameHsIdent = Identifier "Y"},
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeaderInfo = Just
@@ -731,10 +715,10 @@
         declKind = Union
           Union {
             unionNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "Y",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_Y"},
             unionSizeof = 4,
@@ -746,8 +730,7 @@
                   "redeclaration.h:30:15",
                   fieldName = NamePair {
                     nameC = Name "m",
-                    nameHsIdent = HsIdentifier
-                      "y_m"},
+                    nameHsIdent = Identifier "y_m"},
                   fieldComment = Nothing},
                 unionFieldType = TypePrim
                   (PrimIntegral PrimInt Signed)},
@@ -757,8 +740,7 @@
                   "redeclaration.h:30:22",
                   fieldName = NamePair {
                     nameC = Name "o",
-                    nameHsIdent = HsIdentifier
-                      "y_o"},
+                    nameHsIdent = Identifier "y_o"},
                   fieldComment = Nothing},
                 unionFieldType = TypePrim
                   (PrimIntegral
@@ -791,19 +773,19 @@
       DeriveVia
         (HsSizedByteArray 4 4),
       deriveInstanceClass = Storable,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Y",
       deriveInstanceComment =
       Nothing},
   DeclUnionGetter
     UnionGetter {
-      unionGetterName = HsName
+      unionGetterName = Name
         "@NsVar"
         "get_y_m",
       unionGetterType = HsPrimType
         HsPrimCInt,
-      unionGetterConstr = HsName
+      unionGetterConstr = Name
         "@NsTypeConstr"
         "Y",
       unionGetterComment = Just
@@ -825,12 +807,12 @@
                 Identifier "set_y_m"]]}},
   DeclUnionSetter
     UnionSetter {
-      unionSetterName = HsName
+      unionSetterName = Name
         "@NsVar"
         "set_y_m",
       unionSetterType = HsPrimType
         HsPrimCInt,
-      unionSetterConstr = HsName
+      unionSetterConstr = Name
         "@NsTypeConstr"
         "Y",
       unionSetterComment = Just
@@ -846,12 +828,12 @@
                 Identifier "get_y_m"]]}},
   DeclUnionGetter
     UnionGetter {
-      unionGetterName = HsName
+      unionGetterName = Name
         "@NsVar"
         "get_y_o",
       unionGetterType = HsPrimType
         HsPrimCInt,
-      unionGetterConstr = HsName
+      unionGetterConstr = Name
         "@NsTypeConstr"
         "Y",
       unionGetterComment = Just
@@ -873,12 +855,12 @@
                 Identifier "set_y_o"]]}},
   DeclUnionSetter
     UnionSetter {
-      unionSetterName = HsName
+      unionSetterName = Name
         "@NsVar"
         "set_y_o",
       unionSetterType = HsPrimType
         HsPrimCInt,
-      unionSetterConstr = HsName
+      unionSetterConstr = Name
         "@NsTypeConstr"
         "Y",
       unionSetterComment = Just
@@ -894,7 +876,7 @@
                 Identifier "get_y_o"]]}},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_redeclaration_10b125673bf2041b",
       foreignImportParameters = [],

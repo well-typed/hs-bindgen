@@ -1,14 +1,14 @@
 [
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "Myint",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "Myint",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_Myint",
         fieldType = HsPrimType
@@ -20,7 +20,7 @@
           declLoc = "typedefs.h:1:13",
           declId = NamePair {
             nameC = Name "myint",
-            nameHsIdent = HsIdentifier
+            nameHsIdent = Identifier
               "Myint"},
           declOrigin = NameOriginInSource,
           declAliases = [],
@@ -33,10 +33,10 @@
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "Myint",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_Myint"},
             typedefType = TypePrim
@@ -79,7 +79,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Storable,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Myint",
       deriveInstanceComment =
@@ -89,7 +89,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Myint",
       deriveInstanceComment =
@@ -99,7 +99,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Ord,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Myint",
       deriveInstanceComment =
@@ -109,7 +109,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Read,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Myint",
       deriveInstanceComment =
@@ -119,7 +119,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Myint",
       deriveInstanceComment =
@@ -129,7 +129,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Enum,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Myint",
       deriveInstanceComment =
@@ -139,7 +139,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Ix,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Myint",
       deriveInstanceComment =
@@ -149,7 +149,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bounded,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Myint",
       deriveInstanceComment =
@@ -159,7 +159,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Myint",
       deriveInstanceComment =
@@ -170,7 +170,7 @@
       DeriveNewtype,
       deriveInstanceClass =
       FiniteBits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Myint",
       deriveInstanceComment =
@@ -180,7 +180,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Integral,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Myint",
       deriveInstanceComment =
@@ -190,7 +190,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Num,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Myint",
       deriveInstanceComment =
@@ -200,21 +200,21 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Real,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Myint",
       deriveInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "Intptr",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "Intptr",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_Intptr",
         fieldType = HsPtr
@@ -226,7 +226,7 @@
           declLoc = "typedefs.h:2:15",
           declId = NamePair {
             nameC = Name "intptr",
-            nameHsIdent = HsIdentifier
+            nameHsIdent = Identifier
               "Intptr"},
           declOrigin = NameOriginInSource,
           declAliases = [],
@@ -239,10 +239,10 @@
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "Intptr",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_Intptr"},
             typedefType = TypePointer
@@ -273,7 +273,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Storable,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Intptr",
       deriveInstanceComment =
@@ -283,7 +283,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Intptr",
       deriveInstanceComment =
@@ -293,7 +293,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Ord,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Intptr",
       deriveInstanceComment =
@@ -303,7 +303,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Intptr",
       deriveInstanceComment =

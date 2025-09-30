@@ -12,7 +12,7 @@ import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Sort.IsPass (DeclMeta)
 import HsBindgen.Imports
-import HsBindgen.Language.Haskell (ExtHsRef)
+import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -52,7 +52,7 @@ data ResolvedExtBinding = ResolvedExtBinding{
       extCName :: C.QualName
 
       -- | The Haskell type which will be used
-    , extHsRef :: ExtHsRef
+    , extHsRef :: Hs.ExtRef
 
       -- | Additional information about the Haskell type
     , extHsSpec :: BindingSpec.TypeSpec

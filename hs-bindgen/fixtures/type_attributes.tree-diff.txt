@@ -6,7 +6,7 @@ TranslationUnit {
         "type_attributes.h:8:8",
         declId = NamePair {
           nameC = Name "S",
-          nameHsIdent = HsIdentifier "S"},
+          nameHsIdent = Identifier "S"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -19,7 +19,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "S"),
+            (Name "@NsConstr" "S"),
           structSizeof = 8,
           structAlignment = 8,
           structFields = [
@@ -29,8 +29,7 @@ TranslationUnit {
                 "type_attributes.h:8:18",
                 fieldName = NamePair {
                   nameC = Name "f",
-                  nameHsIdent = HsIdentifier
-                    "s_f"},
+                  nameHsIdent = Identifier "s_f"},
                 fieldComment = Nothing},
               structFieldType = TypeConstArray
                 3
@@ -53,7 +52,7 @@ TranslationUnit {
         "type_attributes.h:9:13",
         declId = NamePair {
           nameC = Name "more_aligned_int",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "More_aligned_int"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -67,10 +66,10 @@ TranslationUnit {
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "More_aligned_int",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_More_aligned_int"},
           typedefType = TypePrim
@@ -87,8 +86,7 @@ TranslationUnit {
         "type_attributes.h:11:8",
         declId = NamePair {
           nameC = Name "S2",
-          nameHsIdent = HsIdentifier
-            "S2"},
+          nameHsIdent = Identifier "S2"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -101,7 +99,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName "@NsConstr" "S2"),
+            (Name "@NsConstr" "S2"),
           structSizeof = 16,
           structAlignment = 16,
           structFields = [
@@ -111,7 +109,7 @@ TranslationUnit {
                 "type_attributes.h:11:19",
                 fieldName = NamePair {
                   nameC = Name "f",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "s2_f"},
                 fieldComment = Nothing},
               structFieldType = TypeConstArray
@@ -136,7 +134,7 @@ TranslationUnit {
         declId = NamePair {
           nameC = Name
             "my_unpacked_struct",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "My_unpacked_struct"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -150,7 +148,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName
+            (Name
               "@NsConstr"
               "My_unpacked_struct"),
           structSizeof = 8,
@@ -162,7 +160,7 @@ TranslationUnit {
                 "type_attributes.h:15:8",
                 fieldName = NamePair {
                   nameC = Name "c",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "my_unpacked_struct_c"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -177,7 +175,7 @@ TranslationUnit {
                 "type_attributes.h:16:7",
                 fieldName = NamePair {
                   nameC = Name "i",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "my_unpacked_struct_i"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -197,7 +195,7 @@ TranslationUnit {
         "type_attributes.h:19:37",
         declId = NamePair {
           nameC = Name "my_packed_struct",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "My_packed_struct"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -211,7 +209,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (HsName
+            (Name
               "@NsConstr"
               "My_packed_struct"),
           structSizeof = 13,
@@ -223,7 +221,7 @@ TranslationUnit {
                 "type_attributes.h:21:9",
                 fieldName = NamePair {
                   nameC = Name "c",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "my_packed_struct_c"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -238,7 +236,7 @@ TranslationUnit {
                 "type_attributes.h:22:9",
                 fieldName = NamePair {
                   nameC = Name "i",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "my_packed_struct_i"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
@@ -251,14 +249,14 @@ TranslationUnit {
                 "type_attributes.h:23:30",
                 fieldName = NamePair {
                   nameC = Name "s",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "my_packed_struct_s"},
                 fieldComment = Nothing},
               structFieldType = TypeStruct
                 NamePair {
                   nameC = Name
                     "my_unpacked_struct",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "My_unpacked_struct"}
                 NameOriginInSource,
               structFieldOffset = 40,
@@ -276,7 +274,7 @@ TranslationUnit {
         "type_attributes.h:29:9",
         declId = NamePair {
           nameC = Name "wait",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Wait"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -301,7 +299,7 @@ TranslationUnit {
         declId = NamePair {
           nameC = Name
             "wait_status_ptr_t",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Wait_status_ptr_t"},
         declOrigin = NameOriginGenerated
           (AnonId
@@ -318,10 +316,10 @@ TranslationUnit {
       declKind = DeclUnion
         Union {
           unionNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "Wait_status_ptr_t",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_Wait_status_ptr_t"},
           unionSizeof = 8,
@@ -333,7 +331,7 @@ TranslationUnit {
                 "type_attributes.h:28:8",
                 fieldName = NamePair {
                   nameC = Name "__ip",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "wait_status_ptr_t___ip"},
                 fieldComment = Nothing},
               unionFieldType = TypePointer
@@ -345,15 +343,14 @@ TranslationUnit {
                 "type_attributes.h:29:15",
                 fieldName = NamePair {
                   nameC = Name "__up",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "wait_status_ptr_t___up"},
                 fieldComment = Nothing},
               unionFieldType = TypePointer
                 (TypeUnion
                   NamePair {
                     nameC = Name "wait",
-                    nameHsIdent = HsIdentifier
-                      "Wait"}
+                    nameHsIdent = Identifier "Wait"}
                   NameOriginInSource)}]},
       declSpec = DeclSpec
         TypeSpec {
@@ -367,8 +364,7 @@ TranslationUnit {
         "type_attributes.h:32:13",
         declId = NamePair {
           nameC = Name "T1",
-          nameHsIdent = HsIdentifier
-            "T1"},
+          nameHsIdent = Identifier "T1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -381,10 +377,10 @@ TranslationUnit {
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "T1",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_T1"},
           typedefType = TypePrim
@@ -401,7 +397,7 @@ TranslationUnit {
         "type_attributes.h:34:46",
         declId = NamePair {
           nameC = Name "short_a",
-          nameHsIdent = HsIdentifier
+          nameHsIdent = Identifier
             "Short_a"},
         declOrigin = NameOriginInSource,
         declAliases = [],
@@ -415,10 +411,10 @@ TranslationUnit {
       declKind = DeclTypedef
         Typedef {
           typedefNames = NewtypeNames {
-            newtypeConstr = HsName
+            newtypeConstr = Name
               "@NsConstr"
               "Short_a",
-            newtypeField = HsName
+            newtypeField = Name
               "@NsVar"
               "un_Short_a"},
           typedefType = TypePrim

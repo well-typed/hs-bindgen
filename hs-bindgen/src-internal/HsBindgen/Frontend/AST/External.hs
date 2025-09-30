@@ -61,7 +61,7 @@ module HsBindgen.Frontend.AST.External (
 
 import Prelude hiding (Enum)
 
-import Clang.HighLevel.Documentation
+import Clang.HighLevel.Documentation qualified as CDoc
 import Clang.HighLevel.Types
 import Clang.Paths
 
@@ -71,7 +71,7 @@ import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass qualified as ResolveBindingSpec
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
-import HsBindgen.Language.Haskell
+import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -104,14 +104,14 @@ data DeclInfo = DeclInfo {
     , declOrigin     :: C.NameOrigin
     , declAliases    :: [C.Name]
     , declHeaderInfo :: Maybe Int.HeaderInfo
-    , declComment    :: Maybe (Comment Reference)
+    , declComment    :: Maybe (CDoc.Comment Reference)
     }
   deriving stock (Show, Eq, Generic)
 
 data FieldInfo = FieldInfo {
       fieldLoc     :: SingleLoc
     , fieldName    :: NamePair
-    , fieldComment :: Maybe (Comment Reference)
+    , fieldComment :: Maybe (CDoc.Comment Reference)
     }
   deriving stock (Show, Eq, Generic)
 
@@ -313,19 +313,19 @@ isVoid _        = False
 
 -- | Pair of a C name and the corresponding Haskell name
 --
--- Invariant: the 'HsIdentifier' must satisfy the rules for legal Haskell names,
--- for its intended use (constructor, variable, ..).
+-- Invariant: the 'Hs.Identifier' must satisfy the rules for legal Haskell
+-- names, for its intended use (constructor, variable, ..).
 data NamePair = NamePair {
       nameC       :: C.Name
-    , nameHsIdent :: HsIdentifier
+    , nameHsIdent :: Hs.Identifier
     }
   deriving stock (Show, Eq, Ord, Generic)
 
 -- | Extract namespaced Haskell name
 --
 -- The invariant on 'NamePair' justifies this otherwise unsafe operation.
-nameHs :: NamePair -> HsName ns
-nameHs NamePair{nameHsIdent = HsIdentifier name} = HsName name
+nameHs :: NamePair -> Hs.Name ns
+nameHs NamePair{nameHsIdent = Hs.Identifier name} = Hs.Name name
 
 {-------------------------------------------------------------------------------
   Additional names
@@ -335,13 +335,13 @@ nameHs NamePair{nameHsIdent = HsIdentifier name} = HsName name
 
 -- | Names for a Haskell record type
 data RecordNames = RecordNames {
-      recordConstr :: HsName NsConstr
+      recordConstr :: Hs.Name Hs.NsConstr
     }
   deriving stock (Show, Eq, Ord, Generic)
 
 -- | Names for a Haskell newtype
 data NewtypeNames = NewtypeNames {
-      newtypeConstr :: HsName NsConstr
-    , newtypeField  :: HsName NsVar
+      newtypeConstr :: Hs.Name Hs.NsConstr
+    , newtypeField  :: Hs.Name Hs.NsVar
     }
   deriving stock (Show, Eq, Ord, Generic)

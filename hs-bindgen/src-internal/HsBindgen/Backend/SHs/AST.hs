@@ -35,11 +35,11 @@ import C.Char qualified as CExpr.Runtime
 import HsBindgen.Backend.Hs.AST.Strategy qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.CallConv
-import HsBindgen.Backend.Hs.Haddock.Documentation (Comment)
+import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Imports
-import HsBindgen.Language.Haskell
+import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint
 
 import DeBruijn (Add, Ctx, EmptyCtx, Idx)
@@ -207,8 +207,8 @@ type SExpr :: Ctx -> Star
 data SExpr ctx =
     EGlobal Global
   | EBound (Idx ctx)
-  | EFree (HsName NsVar)
-  | ECon (HsName NsConstr)
+  | EFree (Hs.Name Hs.NsVar)
+  | ECon (Hs.Name Hs.NsConstr)
   | EIntegral Integer (Maybe HsPrimType)
   | EFloat Float HsPrimType -- ^ Type annotation to distinguish Float/CFLoat
   | EDouble Double HsPrimType
@@ -235,7 +235,7 @@ data SExpr ctx =
 -- For now 'PatExpr' is quite small, as we don't need much.
 type PatExpr :: Star
 data PatExpr
-  = PEApps (HsName NsConstr) [PatExpr] -- head of pattern application cannot be variable.
+  = PEApps (Hs.Name Hs.NsConstr) [PatExpr] -- head of pattern application cannot be variable.
   | PELit Integer
   deriving stock (Show)
 
@@ -246,7 +246,7 @@ pattern EInt i <- EIntegral (fromInteger -> i) (Just HsPrimInt)
 
 -- | Case alternatives
 data SAlt ctx where
-    SAlt :: HsName NsConstr -> Add n ctx ctx' -> Vec n NameHint -> SExpr ctx' -> SAlt ctx
+    SAlt :: Hs.Name Hs.NsConstr -> Add n ctx ctx' -> Vec n NameHint -> SExpr ctx' -> SAlt ctx
 
 deriving stock instance Show (SAlt ctx)
 
@@ -297,15 +297,15 @@ type ClosedType = SType EmptyCtx
 type SType :: Ctx -> Star
 data SType ctx =
     TGlobal Global
-  | TCon (HsName NsTypeConstr)
+  | TCon (Hs.Name Hs.NsTypeConstr)
   | TFun (SType ctx) (SType ctx)
   | TLit Natural
-  | TExt ExtHsRef BindingSpec.TypeSpec
+  | TExt Hs.ExtRef BindingSpec.TypeSpec
   | TBound (Idx ctx)
   | TApp (SType ctx) (SType ctx)
   | forall n ctx'. TForall (Vec n NameHint) (Add n ctx ctx') [SType ctx'] (SType ctx')
 
-data Pragma = NOINLINE (HsName NsVar)
+data Pragma = NOINLINE (Hs.Name Hs.NsVar)
   deriving stock Show
 
 infixl 9 `TApp`
@@ -313,10 +313,10 @@ infixl 9 `TApp`
 deriving stock instance Show (SType ctx)
 
 data Var = Var {
-      varName    :: HsName NsVar
+      varName    :: Hs.Name Hs.NsVar
     , varType    :: ClosedType
     , varExpr    :: ClosedExpr
-    , varComment :: Maybe Comment
+    , varComment :: Maybe HsDoc.Comment
     }
   deriving stock (Show)
 
@@ -325,49 +325,49 @@ data Instance  = Instance {
     , instanceArgs    :: [ClosedType]
     , instanceTypes   :: [(Global, ClosedType, ClosedType)]
     , instanceDecs    :: [(Global, ClosedExpr)]
-    , instanceComment :: Maybe Comment
+    , instanceComment :: Maybe HsDoc.Comment
     }
   deriving stock (Show)
 
 data Field = Field {
-      fieldName   :: HsName NsVar
+      fieldName   :: Hs.Name Hs.NsVar
     , fieldType   :: ClosedType
     , fieldOrigin :: Origin.Field
-    , fieldComment :: Maybe Comment
+    , fieldComment :: Maybe HsDoc.Comment
     }
   deriving stock (Show)
 
 data Record = Record {
-      dataType    :: HsName NsTypeConstr
-    , dataCon     :: HsName NsConstr
+      dataType    :: Hs.Name Hs.NsTypeConstr
+    , dataCon     :: Hs.Name Hs.NsConstr
     , dataFields  :: [Field]
     , dataOrigin  :: Origin.Decl Origin.Struct
     , dataDeriv   :: [(Hs.Strategy ClosedType, [Global])]
-    , dataComment :: Maybe Comment
+    , dataComment :: Maybe HsDoc.Comment
     }
   deriving stock (Show)
 
 data EmptyData = EmptyData {
-      emptyDataName    :: HsName NsTypeConstr
+      emptyDataName    :: Hs.Name Hs.NsTypeConstr
     , emptyDataOrigin  :: Origin.Decl Origin.EmptyData
-    , emptyDataComment :: Maybe Comment
+    , emptyDataComment :: Maybe HsDoc.Comment
     }
   deriving stock (Show)
 
 data DerivingInstance = DerivingInstance {
       derivingInstanceStrategy :: Hs.Strategy ClosedType
     , derivingInstanceType     :: ClosedType
-    , derivingInstanceComment  :: Maybe Comment
+    , derivingInstanceComment  :: Maybe HsDoc.Comment
     }
   deriving stock (Show)
 
 data Newtype = Newtype {
-      newtypeName    :: HsName NsTypeConstr
-    , newtypeCon     :: HsName NsConstr
+      newtypeName    :: Hs.Name Hs.NsTypeConstr
+    , newtypeCon     :: Hs.Name Hs.NsConstr
     , newtypeField   :: Field
     , newtypeOrigin  :: Origin.Decl Origin.Newtype
     , newtypeDeriv   :: [(Hs.Strategy ClosedType, [Global])]
-    , newtypeComment :: Maybe Comment
+    , newtypeComment :: Maybe HsDoc.Comment
     }
   deriving stock (Show)
 
@@ -376,13 +376,13 @@ data Newtype = Newtype {
 -- generate polymorphic type signatures.
 --
 data ForeignImport = ForeignImport
-    { foreignImportName       :: HsName NsVar
+    { foreignImportName       :: Hs.Name Hs.NsVar
     , foreignImportParameters :: [FunctionParameter]
     , foreignImportResultType :: ResultType ClosedType
     , foreignImportOrigName   :: Text
     , foreignImportCallConv   :: CallConv
     , foreignImportOrigin     :: Origin.ForeignImport
-    , foreignImportComment    :: Maybe Comment
+    , foreignImportComment    :: Maybe HsDoc.Comment
     , foreignImportSafety     :: Safety
     }
   deriving stock (Show)
@@ -395,17 +395,17 @@ instance Default Safety where
   def = Safe
 
 data FunctionParameter = FunctionParameter
-  { functionParameterName    :: Maybe (HsName NsVar)
+  { functionParameterName    :: Maybe (Hs.Name Hs.NsVar)
   , functionParameterType    :: ClosedType
-  , functionParameterComment :: Maybe Comment
+  , functionParameterComment :: Maybe HsDoc.Comment
   }
   deriving stock (Show)
 
 data PatternSynonym = PatternSynonym
-    { patSynName    :: HsName NsConstr
+    { patSynName    :: Hs.Name Hs.NsConstr
     , patSynType    :: ClosedType
     , patSynRHS     :: PatExpr
     , patSynOrigin  :: Origin.PatSyn
-    , patSynComment :: Maybe Comment
+    , patSynComment :: Maybe HsDoc.Comment
     }
   deriving stock (Show)

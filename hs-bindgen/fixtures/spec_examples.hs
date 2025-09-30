@@ -1,14 +1,14 @@
 [
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "Int16_T",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "Int16_T",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_Int16_T",
         fieldType = HsPrimType
@@ -21,7 +21,7 @@
           "spec_examples.h:10:15",
           declId = NamePair {
             nameC = Name "int16_T",
-            nameHsIdent = HsIdentifier
+            nameHsIdent = Identifier
               "Int16_T"},
           declOrigin = NameOriginInSource,
           declAliases = [],
@@ -41,10 +41,10 @@
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "Int16_T",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_Int16_T"},
             typedefType = TypePrim
@@ -93,7 +93,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Storable,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int16_T",
       deriveInstanceComment =
@@ -103,7 +103,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int16_T",
       deriveInstanceComment =
@@ -113,7 +113,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Ord,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int16_T",
       deriveInstanceComment =
@@ -123,7 +123,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Read,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int16_T",
       deriveInstanceComment =
@@ -133,7 +133,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int16_T",
       deriveInstanceComment =
@@ -143,7 +143,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Enum,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int16_T",
       deriveInstanceComment =
@@ -153,7 +153,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Ix,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int16_T",
       deriveInstanceComment =
@@ -163,7 +163,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bounded,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int16_T",
       deriveInstanceComment =
@@ -173,7 +173,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int16_T",
       deriveInstanceComment =
@@ -184,7 +184,7 @@
       DeriveNewtype,
       deriveInstanceClass =
       FiniteBits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int16_T",
       deriveInstanceComment =
@@ -194,7 +194,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Integral,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int16_T",
       deriveInstanceComment =
@@ -204,7 +204,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Num,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int16_T",
       deriveInstanceComment =
@@ -214,21 +214,21 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Real,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int16_T",
       deriveInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "Int32_T",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "Int32_T",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_Int32_T",
         fieldType = HsPrimType
@@ -241,7 +241,7 @@
           "spec_examples.h:11:13",
           declId = NamePair {
             nameC = Name "int32_T",
-            nameHsIdent = HsIdentifier
+            nameHsIdent = Identifier
               "Int32_T"},
           declOrigin = NameOriginInSource,
           declAliases = [],
@@ -255,10 +255,10 @@
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "Int32_T",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_Int32_T"},
             typedefType = TypePrim
@@ -302,7 +302,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Storable,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int32_T",
       deriveInstanceComment =
@@ -312,7 +312,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int32_T",
       deriveInstanceComment =
@@ -322,7 +322,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Ord,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int32_T",
       deriveInstanceComment =
@@ -332,7 +332,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Read,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int32_T",
       deriveInstanceComment =
@@ -342,7 +342,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int32_T",
       deriveInstanceComment =
@@ -352,7 +352,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Enum,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int32_T",
       deriveInstanceComment =
@@ -362,7 +362,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Ix,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int32_T",
       deriveInstanceComment =
@@ -372,7 +372,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bounded,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int32_T",
       deriveInstanceComment =
@@ -382,7 +382,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int32_T",
       deriveInstanceComment =
@@ -393,7 +393,7 @@
       DeriveNewtype,
       deriveInstanceClass =
       FiniteBits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int32_T",
       deriveInstanceComment =
@@ -403,7 +403,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Integral,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int32_T",
       deriveInstanceComment =
@@ -413,7 +413,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Num,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int32_T",
       deriveInstanceComment =
@@ -423,21 +423,21 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Real,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int32_T",
       deriveInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
-      newtypeName = HsName
+      newtypeName = Name
         "@NsTypeConstr"
         "Int64_T",
-      newtypeConstr = HsName
+      newtypeConstr = Name
         "@NsConstr"
         "Int64_T",
       newtypeField = Field {
-        fieldName = HsName
+        fieldName = Name
           "@NsVar"
           "un_Int64_T",
         fieldType = HsPrimType
@@ -450,7 +450,7 @@
           "spec_examples.h:12:19",
           declId = NamePair {
             nameC = Name "int64_T",
-            nameHsIdent = HsIdentifier
+            nameHsIdent = Identifier
               "Int64_T"},
           declOrigin = NameOriginInSource,
           declAliases = [],
@@ -464,10 +464,10 @@
         declKind = Typedef
           Typedef {
             typedefNames = NewtypeNames {
-              newtypeConstr = HsName
+              newtypeConstr = Name
                 "@NsConstr"
                 "Int64_T",
-              newtypeField = HsName
+              newtypeField = Name
                 "@NsVar"
                 "un_Int64_T"},
             typedefType = TypePrim
@@ -513,7 +513,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Storable,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int64_T",
       deriveInstanceComment =
@@ -523,7 +523,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int64_T",
       deriveInstanceComment =
@@ -533,7 +533,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Ord,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int64_T",
       deriveInstanceComment =
@@ -543,7 +543,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Read,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int64_T",
       deriveInstanceComment =
@@ -553,7 +553,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int64_T",
       deriveInstanceComment =
@@ -563,7 +563,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Enum,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int64_T",
       deriveInstanceComment =
@@ -573,7 +573,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Ix,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int64_T",
       deriveInstanceComment =
@@ -583,7 +583,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bounded,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int64_T",
       deriveInstanceComment =
@@ -593,7 +593,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Bits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int64_T",
       deriveInstanceComment =
@@ -604,7 +604,7 @@
       DeriveNewtype,
       deriveInstanceClass =
       FiniteBits,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int64_T",
       deriveInstanceComment =
@@ -614,7 +614,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Integral,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int64_T",
       deriveInstanceComment =
@@ -624,7 +624,7 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Num,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int64_T",
       deriveInstanceComment =
@@ -634,26 +634,26 @@
       deriveInstanceStrategy =
       DeriveNewtype,
       deriveInstanceClass = Real,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Int64_T",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "Cint16_T",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "Cint16_T",
       structFields = [
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "cint16_T_re",
           fieldType = HsTypRef
-            (HsName
+            (Name
               "@NsTypeConstr"
               "Int16_T"),
           fieldOrigin = StructField
@@ -663,14 +663,14 @@
                 "spec_examples.h:15:11",
                 fieldName = NamePair {
                   nameC = Name "re",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "cint16_T_re"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "int16_T",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Int16_T"}),
               structFieldOffset = 0,
               structFieldWidth = Nothing},
@@ -688,11 +688,11 @@
                   "spec_examples.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "cint16_T_im",
           fieldType = HsTypRef
-            (HsName
+            (Name
               "@NsTypeConstr"
               "Int16_T"),
           fieldOrigin = StructField
@@ -702,14 +702,14 @@
                 "spec_examples.h:16:11",
                 fieldName = NamePair {
                   nameC = Name "im",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "cint16_T_im"},
                 fieldComment = Nothing},
               structFieldType = TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "int16_T",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Int16_T"}),
               structFieldOffset = 16,
               structFieldWidth = Nothing},
@@ -733,7 +733,7 @@
             "spec_examples.h:14:9",
             declId = NamePair {
               nameC = Name "cint16_T",
-              nameHsIdent = HsIdentifier
+              nameHsIdent = Identifier
                 "Cint16_T"},
             declOrigin = NameOriginGenerated
               (AnonId "spec_examples.h:14:9"),
@@ -748,7 +748,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "Cint16_T"),
+                (Name "@NsConstr" "Cint16_T"),
               structSizeof = 4,
               structAlignment = 2,
               structFields = [
@@ -758,14 +758,14 @@
                     "spec_examples.h:15:11",
                     fieldName = NamePair {
                       nameC = Name "re",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "cint16_T_re"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefRegular
                       NamePair {
                         nameC = Name "int16_T",
-                        nameHsIdent = HsIdentifier
+                        nameHsIdent = Identifier
                           "Int16_T"}),
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
@@ -775,14 +775,14 @@
                     "spec_examples.h:16:11",
                     fieldName = NamePair {
                       nameC = Name "im",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "cint16_T_im"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefRegular
                       NamePair {
                         nameC = Name "int16_T",
-                        nameHsIdent = HsIdentifier
+                        nameHsIdent = Identifier
                           "Int16_T"}),
                   structFieldOffset = 16,
                   structFieldWidth = Nothing}],
@@ -813,19 +813,19 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "Cint16_T",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "Cint16_T",
           structFields = [
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "cint16_T_re",
               fieldType = HsTypRef
-                (HsName
+                (Name
                   "@NsTypeConstr"
                   "Int16_T"),
               fieldOrigin = StructField
@@ -835,14 +835,14 @@
                     "spec_examples.h:15:11",
                     fieldName = NamePair {
                       nameC = Name "re",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "cint16_T_re"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefRegular
                       NamePair {
                         nameC = Name "int16_T",
-                        nameHsIdent = HsIdentifier
+                        nameHsIdent = Identifier
                           "Int16_T"}),
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
@@ -860,11 +860,11 @@
                       "spec_examples.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "cint16_T_im",
               fieldType = HsTypRef
-                (HsName
+                (Name
                   "@NsTypeConstr"
                   "Int16_T"),
               fieldOrigin = StructField
@@ -874,14 +874,14 @@
                     "spec_examples.h:16:11",
                     fieldName = NamePair {
                       nameC = Name "im",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "cint16_T_im"},
                     fieldComment = Nothing},
                   structFieldType = TypeTypedef
                     (TypedefRegular
                       NamePair {
                         nameC = Name "int16_T",
-                        nameHsIdent = HsIdentifier
+                        nameHsIdent = Identifier
                           "Int16_T"}),
                   structFieldOffset = 16,
                   structFieldWidth = Nothing},
@@ -905,7 +905,7 @@
                 "spec_examples.h:14:9",
                 declId = NamePair {
                   nameC = Name "cint16_T",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Cint16_T"},
                 declOrigin = NameOriginGenerated
                   (AnonId "spec_examples.h:14:9"),
@@ -920,7 +920,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "Cint16_T"),
+                    (Name "@NsConstr" "Cint16_T"),
                   structSizeof = 4,
                   structAlignment = 2,
                   structFields = [
@@ -930,14 +930,14 @@
                         "spec_examples.h:15:11",
                         fieldName = NamePair {
                           nameC = Name "re",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "cint16_T_re"},
                         fieldComment = Nothing},
                       structFieldType = TypeTypedef
                         (TypedefRegular
                           NamePair {
                             nameC = Name "int16_T",
-                            nameHsIdent = HsIdentifier
+                            nameHsIdent = Identifier
                               "Int16_T"}),
                       structFieldOffset = 0,
                       structFieldWidth = Nothing},
@@ -947,14 +947,14 @@
                         "spec_examples.h:16:11",
                         fieldName = NamePair {
                           nameC = Name "im",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "cint16_T_im"},
                         fieldComment = Nothing},
                       structFieldType = TypeTypedef
                         (TypedefRegular
                           NamePair {
                             nameC = Name "int16_T",
-                            nameHsIdent = HsIdentifier
+                            nameHsIdent = Identifier
                               "Int16_T"}),
                       structFieldOffset = 16,
                       structFieldWidth = Nothing}],
@@ -988,19 +988,19 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Cint16_T",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Cint16_T",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "cint16_T_re",
                       fieldType = HsTypRef
-                        (HsName
+                        (Name
                           "@NsTypeConstr"
                           "Int16_T"),
                       fieldOrigin = StructField
@@ -1010,14 +1010,14 @@
                             "spec_examples.h:15:11",
                             fieldName = NamePair {
                               nameC = Name "re",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "cint16_T_re"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefRegular
                               NamePair {
                                 nameC = Name "int16_T",
-                                nameHsIdent = HsIdentifier
+                                nameHsIdent = Identifier
                                   "Int16_T"}),
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
@@ -1035,11 +1035,11 @@
                               "spec_examples.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "cint16_T_im",
                       fieldType = HsTypRef
-                        (HsName
+                        (Name
                           "@NsTypeConstr"
                           "Int16_T"),
                       fieldOrigin = StructField
@@ -1049,14 +1049,14 @@
                             "spec_examples.h:16:11",
                             fieldName = NamePair {
                               nameC = Name "im",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "cint16_T_im"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefRegular
                               NamePair {
                                 nameC = Name "int16_T",
-                                nameHsIdent = HsIdentifier
+                                nameHsIdent = Identifier
                                   "Int16_T"}),
                           structFieldOffset = 16,
                           structFieldWidth = Nothing},
@@ -1080,7 +1080,7 @@
                         "spec_examples.h:14:9",
                         declId = NamePair {
                           nameC = Name "cint16_T",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Cint16_T"},
                         declOrigin = NameOriginGenerated
                           (AnonId "spec_examples.h:14:9"),
@@ -1095,7 +1095,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Cint16_T"),
+                            (Name "@NsConstr" "Cint16_T"),
                           structSizeof = 4,
                           structAlignment = 2,
                           structFields = [
@@ -1105,14 +1105,14 @@
                                 "spec_examples.h:15:11",
                                 fieldName = NamePair {
                                   nameC = Name "re",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "cint16_T_re"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefRegular
                                   NamePair {
                                     nameC = Name "int16_T",
-                                    nameHsIdent = HsIdentifier
+                                    nameHsIdent = Identifier
                                       "Int16_T"}),
                               structFieldOffset = 0,
                               structFieldWidth = Nothing},
@@ -1122,14 +1122,14 @@
                                 "spec_examples.h:16:11",
                                 fieldName = NamePair {
                                   nameC = Name "im",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "cint16_T_im"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefRegular
                                   NamePair {
                                     nameC = Name "int16_T",
-                                    nameHsIdent = HsIdentifier
+                                    nameHsIdent = Identifier
                                       "Int16_T"}),
                               structFieldOffset = 16,
                               structFieldWidth = Nothing}],
@@ -1165,19 +1165,19 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "Cint16_T",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "Cint16_T",
                   structFields = [
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "cint16_T_re",
                       fieldType = HsTypRef
-                        (HsName
+                        (Name
                           "@NsTypeConstr"
                           "Int16_T"),
                       fieldOrigin = StructField
@@ -1187,14 +1187,14 @@
                             "spec_examples.h:15:11",
                             fieldName = NamePair {
                               nameC = Name "re",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "cint16_T_re"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefRegular
                               NamePair {
                                 nameC = Name "int16_T",
-                                nameHsIdent = HsIdentifier
+                                nameHsIdent = Identifier
                                   "Int16_T"}),
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
@@ -1212,11 +1212,11 @@
                               "spec_examples.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "cint16_T_im",
                       fieldType = HsTypRef
-                        (HsName
+                        (Name
                           "@NsTypeConstr"
                           "Int16_T"),
                       fieldOrigin = StructField
@@ -1226,14 +1226,14 @@
                             "spec_examples.h:16:11",
                             fieldName = NamePair {
                               nameC = Name "im",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "cint16_T_im"},
                             fieldComment = Nothing},
                           structFieldType = TypeTypedef
                             (TypedefRegular
                               NamePair {
                                 nameC = Name "int16_T",
-                                nameHsIdent = HsIdentifier
+                                nameHsIdent = Identifier
                                   "Int16_T"}),
                           structFieldOffset = 16,
                           structFieldWidth = Nothing},
@@ -1257,7 +1257,7 @@
                         "spec_examples.h:14:9",
                         declId = NamePair {
                           nameC = Name "cint16_T",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "Cint16_T"},
                         declOrigin = NameOriginGenerated
                           (AnonId "spec_examples.h:14:9"),
@@ -1272,7 +1272,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "Cint16_T"),
+                            (Name "@NsConstr" "Cint16_T"),
                           structSizeof = 4,
                           structAlignment = 2,
                           structFields = [
@@ -1282,14 +1282,14 @@
                                 "spec_examples.h:15:11",
                                 fieldName = NamePair {
                                   nameC = Name "re",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "cint16_T_re"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefRegular
                                   NamePair {
                                     nameC = Name "int16_T",
-                                    nameHsIdent = HsIdentifier
+                                    nameHsIdent = Identifier
                                       "Int16_T"}),
                               structFieldOffset = 0,
                               structFieldWidth = Nothing},
@@ -1299,14 +1299,14 @@
                                 "spec_examples.h:16:11",
                                 fieldName = NamePair {
                                   nameC = Name "im",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "cint16_T_im"},
                                 fieldComment = Nothing},
                               structFieldType = TypeTypedef
                                 (TypedefRegular
                                   NamePair {
                                     nameC = Name "int16_T",
-                                    nameHsIdent = HsIdentifier
+                                    nameHsIdent = Identifier
                                       "Int16_T"}),
                               structFieldOffset = 16,
                               structFieldWidth = Nothing}],
@@ -1347,7 +1347,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Cint16_T",
       deriveInstanceComment =
@@ -1357,17 +1357,17 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "Cint16_T",
       deriveInstanceComment =
       Nothing},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "B",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "B",
       structFields = [],
@@ -1378,7 +1378,7 @@
             "spec_examples.h:19:8",
             declId = NamePair {
               nameC = Name "B",
-              nameHsIdent = HsIdentifier "B"},
+              nameHsIdent = Identifier "B"},
             declOrigin = NameOriginInSource,
             declAliases = [],
             declHeaderInfo = Just
@@ -1391,7 +1391,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "B"),
+                (Name "@NsConstr" "B"),
               structSizeof = 0,
               structAlignment = 1,
               structFields = [],
@@ -1422,10 +1422,10 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "B",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "B",
           structFields = [],
@@ -1436,7 +1436,7 @@
                 "spec_examples.h:19:8",
                 declId = NamePair {
                   nameC = Name "B",
-                  nameHsIdent = HsIdentifier "B"},
+                  nameHsIdent = Identifier "B"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
                 declHeaderInfo = Just
@@ -1449,7 +1449,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "B"),
+                    (Name "@NsConstr" "B"),
                   structSizeof = 0,
                   structAlignment = 1,
                   structFields = [],
@@ -1483,10 +1483,10 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "B",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "B",
                   structFields = [],
@@ -1497,7 +1497,7 @@
                         "spec_examples.h:19:8",
                         declId = NamePair {
                           nameC = Name "B",
-                          nameHsIdent = HsIdentifier "B"},
+                          nameHsIdent = Identifier "B"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
                         declHeaderInfo = Just
@@ -1510,7 +1510,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "B"),
+                            (Name "@NsConstr" "B"),
                           structSizeof = 0,
                           structAlignment = 1,
                           structFields = [],
@@ -1544,10 +1544,10 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "B",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "B",
                   structFields = [],
@@ -1558,7 +1558,7 @@
                         "spec_examples.h:19:8",
                         declId = NamePair {
                           nameC = Name "B",
-                          nameHsIdent = HsIdentifier "B"},
+                          nameHsIdent = Identifier "B"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
                         declHeaderInfo = Just
@@ -1571,7 +1571,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "B"),
+                            (Name "@NsConstr" "B"),
                           structSizeof = 0,
                           structAlignment = 1,
                           structFields = [],
@@ -1606,7 +1606,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "B",
       deriveInstanceComment =
@@ -1616,14 +1616,14 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "B",
       deriveInstanceComment =
       Nothing},
   DeclEmpty
     EmptyData {
-      emptyDataName = HsName
+      emptyDataName = Name
         "@NsTypeConstr"
         "C",
       emptyDataOrigin = Decl {
@@ -1632,7 +1632,7 @@
           "spec_examples.h:28:10",
           declId = NamePair {
             nameC = Name "C",
-            nameHsIdent = HsIdentifier "C"},
+            nameHsIdent = Identifier "C"},
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeaderInfo = Just
@@ -1664,17 +1664,15 @@
           commentChildren = []}},
   DeclData
     Struct {
-      structName = HsName
+      structName = Name
         "@NsTypeConstr"
         "A",
-      structConstr = HsName
+      structConstr = Name
         "@NsConstr"
         "A",
       structFields = [
         Field {
-          fieldName = HsName
-            "@NsVar"
-            "a_x",
+          fieldName = Name "@NsVar" "a_x",
           fieldType = HsPrimType
             HsPrimCDouble,
           fieldOrigin = StructField
@@ -1684,8 +1682,7 @@
                 "spec_examples.h:24:10",
                 fieldName = NamePair {
                   nameC = Name "x",
-                  nameHsIdent = HsIdentifier
-                    "a_x"},
+                  nameHsIdent = Identifier "a_x"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimFloating PrimDouble),
@@ -1705,7 +1702,7 @@
                   "spec_examples.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "a_label",
           fieldType = HsPtr
@@ -1717,7 +1714,7 @@
                 "spec_examples.h:25:9",
                 fieldName = NamePair {
                   nameC = Name "label",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "a_label"},
                 fieldComment = Nothing},
               structFieldType = TypePointer
@@ -1741,7 +1738,7 @@
                   "spec_examples.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
+          fieldName = Name
             "@NsVar"
             "a_samples",
           fieldType = HsConstArray
@@ -1754,7 +1751,7 @@
                 "spec_examples.h:26:8",
                 fieldName = NamePair {
                   nameC = Name "samples",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "a_samples"},
                 fieldComment = Nothing},
               structFieldType = TypeConstArray
@@ -1779,11 +1776,9 @@
                   "spec_examples.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
-            "@NsVar"
-            "a_b",
+          fieldName = Name "@NsVar" "a_b",
           fieldType = HsTypRef
-            (HsName "@NsTypeConstr" "B"),
+            (Name "@NsTypeConstr" "B"),
           fieldOrigin = StructField
             StructField {
               structFieldInfo = FieldInfo {
@@ -1791,13 +1786,12 @@
                 "spec_examples.h:27:12",
                 fieldName = NamePair {
                   nameC = Name "b",
-                  nameHsIdent = HsIdentifier
-                    "a_b"},
+                  nameHsIdent = Identifier "a_b"},
                 fieldComment = Nothing},
               structFieldType = TypeStruct
                 NamePair {
                   nameC = Name "B",
-                  nameHsIdent = HsIdentifier "B"}
+                  nameHsIdent = Identifier "B"}
                 NameOriginInSource,
               structFieldOffset = 1152,
               structFieldWidth = Nothing},
@@ -1815,12 +1809,10 @@
                   "spec_examples.h"},
               commentChildren = []}},
         Field {
-          fieldName = HsName
-            "@NsVar"
-            "a_c",
+          fieldName = Name "@NsVar" "a_c",
           fieldType = HsPtr
             (HsTypRef
-              (HsName "@NsTypeConstr" "C")),
+              (Name "@NsTypeConstr" "C")),
           fieldOrigin = StructField
             StructField {
               structFieldInfo = FieldInfo {
@@ -1828,14 +1820,13 @@
                 "spec_examples.h:28:13",
                 fieldName = NamePair {
                   nameC = Name "c",
-                  nameHsIdent = HsIdentifier
-                    "a_c"},
+                  nameHsIdent = Identifier "a_c"},
                 fieldComment = Nothing},
               structFieldType = TypePointer
                 (TypeStruct
                   NamePair {
                     nameC = Name "C",
-                    nameHsIdent = HsIdentifier "C"}
+                    nameHsIdent = Identifier "C"}
                   NameOriginInSource),
               structFieldOffset = 1152,
               structFieldWidth = Nothing},
@@ -1859,7 +1850,7 @@
             "spec_examples.h:23:8",
             declId = NamePair {
               nameC = Name "A",
-              nameHsIdent = HsIdentifier "A"},
+              nameHsIdent = Identifier "A"},
             declOrigin = NameOriginInSource,
             declAliases = [],
             declHeaderInfo = Just
@@ -1872,7 +1863,7 @@
           declKind = Struct
             Struct {
               structNames = RecordNames
-                (HsName "@NsConstr" "A"),
+                (Name "@NsConstr" "A"),
               structSizeof = 152,
               structAlignment = 8,
               structFields = [
@@ -1882,8 +1873,7 @@
                     "spec_examples.h:24:10",
                     fieldName = NamePair {
                       nameC = Name "x",
-                      nameHsIdent = HsIdentifier
-                        "a_x"},
+                      nameHsIdent = Identifier "a_x"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimFloating PrimDouble),
@@ -1895,7 +1885,7 @@
                     "spec_examples.h:25:9",
                     fieldName = NamePair {
                       nameC = Name "label",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "a_label"},
                     fieldComment = Nothing},
                   structFieldType = TypePointer
@@ -1911,7 +1901,7 @@
                     "spec_examples.h:26:8",
                     fieldName = NamePair {
                       nameC = Name "samples",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "a_samples"},
                     fieldComment = Nothing},
                   structFieldType = TypeConstArray
@@ -1928,13 +1918,12 @@
                     "spec_examples.h:27:12",
                     fieldName = NamePair {
                       nameC = Name "b",
-                      nameHsIdent = HsIdentifier
-                        "a_b"},
+                      nameHsIdent = Identifier "a_b"},
                     fieldComment = Nothing},
                   structFieldType = TypeStruct
                     NamePair {
                       nameC = Name "B",
-                      nameHsIdent = HsIdentifier "B"}
+                      nameHsIdent = Identifier "B"}
                     NameOriginInSource,
                   structFieldOffset = 1152,
                   structFieldWidth = Nothing},
@@ -1944,14 +1933,13 @@
                     "spec_examples.h:28:13",
                     fieldName = NamePair {
                       nameC = Name "c",
-                      nameHsIdent = HsIdentifier
-                        "a_c"},
+                      nameHsIdent = Identifier "a_c"},
                     fieldComment = Nothing},
                   structFieldType = TypePointer
                     (TypeStruct
                       NamePair {
                         nameC = Name "C",
-                        nameHsIdent = HsIdentifier "C"}
+                        nameHsIdent = Identifier "C"}
                       NameOriginInSource),
                   structFieldOffset = 1152,
                   structFieldWidth = Nothing}],
@@ -1982,17 +1970,15 @@
       defineInstanceDeclarations =
       InstanceStorable
         Struct {
-          structName = HsName
+          structName = Name
             "@NsTypeConstr"
             "A",
-          structConstr = HsName
+          structConstr = Name
             "@NsConstr"
             "A",
           structFields = [
             Field {
-              fieldName = HsName
-                "@NsVar"
-                "a_x",
+              fieldName = Name "@NsVar" "a_x",
               fieldType = HsPrimType
                 HsPrimCDouble,
               fieldOrigin = StructField
@@ -2002,8 +1988,7 @@
                     "spec_examples.h:24:10",
                     fieldName = NamePair {
                       nameC = Name "x",
-                      nameHsIdent = HsIdentifier
-                        "a_x"},
+                      nameHsIdent = Identifier "a_x"},
                     fieldComment = Nothing},
                   structFieldType = TypePrim
                     (PrimFloating PrimDouble),
@@ -2023,7 +2008,7 @@
                       "spec_examples.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "a_label",
               fieldType = HsPtr
@@ -2035,7 +2020,7 @@
                     "spec_examples.h:25:9",
                     fieldName = NamePair {
                       nameC = Name "label",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "a_label"},
                     fieldComment = Nothing},
                   structFieldType = TypePointer
@@ -2059,7 +2044,7 @@
                       "spec_examples.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
+              fieldName = Name
                 "@NsVar"
                 "a_samples",
               fieldType = HsConstArray
@@ -2072,7 +2057,7 @@
                     "spec_examples.h:26:8",
                     fieldName = NamePair {
                       nameC = Name "samples",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "a_samples"},
                     fieldComment = Nothing},
                   structFieldType = TypeConstArray
@@ -2097,11 +2082,9 @@
                       "spec_examples.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
-                "@NsVar"
-                "a_b",
+              fieldName = Name "@NsVar" "a_b",
               fieldType = HsTypRef
-                (HsName "@NsTypeConstr" "B"),
+                (Name "@NsTypeConstr" "B"),
               fieldOrigin = StructField
                 StructField {
                   structFieldInfo = FieldInfo {
@@ -2109,13 +2092,12 @@
                     "spec_examples.h:27:12",
                     fieldName = NamePair {
                       nameC = Name "b",
-                      nameHsIdent = HsIdentifier
-                        "a_b"},
+                      nameHsIdent = Identifier "a_b"},
                     fieldComment = Nothing},
                   structFieldType = TypeStruct
                     NamePair {
                       nameC = Name "B",
-                      nameHsIdent = HsIdentifier "B"}
+                      nameHsIdent = Identifier "B"}
                     NameOriginInSource,
                   structFieldOffset = 1152,
                   structFieldWidth = Nothing},
@@ -2133,12 +2115,10 @@
                       "spec_examples.h"},
                   commentChildren = []}},
             Field {
-              fieldName = HsName
-                "@NsVar"
-                "a_c",
+              fieldName = Name "@NsVar" "a_c",
               fieldType = HsPtr
                 (HsTypRef
-                  (HsName "@NsTypeConstr" "C")),
+                  (Name "@NsTypeConstr" "C")),
               fieldOrigin = StructField
                 StructField {
                   structFieldInfo = FieldInfo {
@@ -2146,14 +2126,13 @@
                     "spec_examples.h:28:13",
                     fieldName = NamePair {
                       nameC = Name "c",
-                      nameHsIdent = HsIdentifier
-                        "a_c"},
+                      nameHsIdent = Identifier "a_c"},
                     fieldComment = Nothing},
                   structFieldType = TypePointer
                     (TypeStruct
                       NamePair {
                         nameC = Name "C",
-                        nameHsIdent = HsIdentifier "C"}
+                        nameHsIdent = Identifier "C"}
                       NameOriginInSource),
                   structFieldOffset = 1152,
                   structFieldWidth = Nothing},
@@ -2177,7 +2156,7 @@
                 "spec_examples.h:23:8",
                 declId = NamePair {
                   nameC = Name "A",
-                  nameHsIdent = HsIdentifier "A"},
+                  nameHsIdent = Identifier "A"},
                 declOrigin = NameOriginInSource,
                 declAliases = [],
                 declHeaderInfo = Just
@@ -2190,7 +2169,7 @@
               declKind = Struct
                 Struct {
                   structNames = RecordNames
-                    (HsName "@NsConstr" "A"),
+                    (Name "@NsConstr" "A"),
                   structSizeof = 152,
                   structAlignment = 8,
                   structFields = [
@@ -2200,8 +2179,7 @@
                         "spec_examples.h:24:10",
                         fieldName = NamePair {
                           nameC = Name "x",
-                          nameHsIdent = HsIdentifier
-                            "a_x"},
+                          nameHsIdent = Identifier "a_x"},
                         fieldComment = Nothing},
                       structFieldType = TypePrim
                         (PrimFloating PrimDouble),
@@ -2213,7 +2191,7 @@
                         "spec_examples.h:25:9",
                         fieldName = NamePair {
                           nameC = Name "label",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "a_label"},
                         fieldComment = Nothing},
                       structFieldType = TypePointer
@@ -2229,7 +2207,7 @@
                         "spec_examples.h:26:8",
                         fieldName = NamePair {
                           nameC = Name "samples",
-                          nameHsIdent = HsIdentifier
+                          nameHsIdent = Identifier
                             "a_samples"},
                         fieldComment = Nothing},
                       structFieldType = TypeConstArray
@@ -2246,13 +2224,12 @@
                         "spec_examples.h:27:12",
                         fieldName = NamePair {
                           nameC = Name "b",
-                          nameHsIdent = HsIdentifier
-                            "a_b"},
+                          nameHsIdent = Identifier "a_b"},
                         fieldComment = Nothing},
                       structFieldType = TypeStruct
                         NamePair {
                           nameC = Name "B",
-                          nameHsIdent = HsIdentifier "B"}
+                          nameHsIdent = Identifier "B"}
                         NameOriginInSource,
                       structFieldOffset = 1152,
                       structFieldWidth = Nothing},
@@ -2262,14 +2239,13 @@
                         "spec_examples.h:28:13",
                         fieldName = NamePair {
                           nameC = Name "c",
-                          nameHsIdent = HsIdentifier
-                            "a_c"},
+                          nameHsIdent = Identifier "a_c"},
                         fieldComment = Nothing},
                       structFieldType = TypePointer
                         (TypeStruct
                           NamePair {
                             nameC = Name "C",
-                            nameHsIdent = HsIdentifier "C"}
+                            nameHsIdent = Identifier "C"}
                           NameOriginInSource),
                       structFieldOffset = 1152,
                       structFieldWidth = Nothing}],
@@ -2303,17 +2279,15 @@
             (Ap
               (StructCon
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "A",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "A",
                   structFields = [
                     Field {
-                      fieldName = HsName
-                        "@NsVar"
-                        "a_x",
+                      fieldName = Name "@NsVar" "a_x",
                       fieldType = HsPrimType
                         HsPrimCDouble,
                       fieldOrigin = StructField
@@ -2323,8 +2297,7 @@
                             "spec_examples.h:24:10",
                             fieldName = NamePair {
                               nameC = Name "x",
-                              nameHsIdent = HsIdentifier
-                                "a_x"},
+                              nameHsIdent = Identifier "a_x"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimFloating PrimDouble),
@@ -2344,7 +2317,7 @@
                               "spec_examples.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "a_label",
                       fieldType = HsPtr
@@ -2356,7 +2329,7 @@
                             "spec_examples.h:25:9",
                             fieldName = NamePair {
                               nameC = Name "label",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "a_label"},
                             fieldComment = Nothing},
                           structFieldType = TypePointer
@@ -2380,7 +2353,7 @@
                               "spec_examples.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "a_samples",
                       fieldType = HsConstArray
@@ -2393,7 +2366,7 @@
                             "spec_examples.h:26:8",
                             fieldName = NamePair {
                               nameC = Name "samples",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "a_samples"},
                             fieldComment = Nothing},
                           structFieldType = TypeConstArray
@@ -2418,11 +2391,9 @@
                               "spec_examples.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
-                        "@NsVar"
-                        "a_b",
+                      fieldName = Name "@NsVar" "a_b",
                       fieldType = HsTypRef
-                        (HsName "@NsTypeConstr" "B"),
+                        (Name "@NsTypeConstr" "B"),
                       fieldOrigin = StructField
                         StructField {
                           structFieldInfo = FieldInfo {
@@ -2430,13 +2401,12 @@
                             "spec_examples.h:27:12",
                             fieldName = NamePair {
                               nameC = Name "b",
-                              nameHsIdent = HsIdentifier
-                                "a_b"},
+                              nameHsIdent = Identifier "a_b"},
                             fieldComment = Nothing},
                           structFieldType = TypeStruct
                             NamePair {
                               nameC = Name "B",
-                              nameHsIdent = HsIdentifier "B"}
+                              nameHsIdent = Identifier "B"}
                             NameOriginInSource,
                           structFieldOffset = 1152,
                           structFieldWidth = Nothing},
@@ -2454,12 +2424,10 @@
                               "spec_examples.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
-                        "@NsVar"
-                        "a_c",
+                      fieldName = Name "@NsVar" "a_c",
                       fieldType = HsPtr
                         (HsTypRef
-                          (HsName "@NsTypeConstr" "C")),
+                          (Name "@NsTypeConstr" "C")),
                       fieldOrigin = StructField
                         StructField {
                           structFieldInfo = FieldInfo {
@@ -2467,14 +2435,13 @@
                             "spec_examples.h:28:13",
                             fieldName = NamePair {
                               nameC = Name "c",
-                              nameHsIdent = HsIdentifier
-                                "a_c"},
+                              nameHsIdent = Identifier "a_c"},
                             fieldComment = Nothing},
                           structFieldType = TypePointer
                             (TypeStruct
                               NamePair {
                                 nameC = Name "C",
-                                nameHsIdent = HsIdentifier "C"}
+                                nameHsIdent = Identifier "C"}
                               NameOriginInSource),
                           structFieldOffset = 1152,
                           structFieldWidth = Nothing},
@@ -2498,7 +2465,7 @@
                         "spec_examples.h:23:8",
                         declId = NamePair {
                           nameC = Name "A",
-                          nameHsIdent = HsIdentifier "A"},
+                          nameHsIdent = Identifier "A"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
                         declHeaderInfo = Just
@@ -2511,7 +2478,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "A"),
+                            (Name "@NsConstr" "A"),
                           structSizeof = 152,
                           structAlignment = 8,
                           structFields = [
@@ -2521,8 +2488,7 @@
                                 "spec_examples.h:24:10",
                                 fieldName = NamePair {
                                   nameC = Name "x",
-                                  nameHsIdent = HsIdentifier
-                                    "a_x"},
+                                  nameHsIdent = Identifier "a_x"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimFloating PrimDouble),
@@ -2534,7 +2500,7 @@
                                 "spec_examples.h:25:9",
                                 fieldName = NamePair {
                                   nameC = Name "label",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "a_label"},
                                 fieldComment = Nothing},
                               structFieldType = TypePointer
@@ -2550,7 +2516,7 @@
                                 "spec_examples.h:26:8",
                                 fieldName = NamePair {
                                   nameC = Name "samples",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "a_samples"},
                                 fieldComment = Nothing},
                               structFieldType = TypeConstArray
@@ -2567,13 +2533,12 @@
                                 "spec_examples.h:27:12",
                                 fieldName = NamePair {
                                   nameC = Name "b",
-                                  nameHsIdent = HsIdentifier
-                                    "a_b"},
+                                  nameHsIdent = Identifier "a_b"},
                                 fieldComment = Nothing},
                               structFieldType = TypeStruct
                                 NamePair {
                                   nameC = Name "B",
-                                  nameHsIdent = HsIdentifier "B"}
+                                  nameHsIdent = Identifier "B"}
                                 NameOriginInSource,
                               structFieldOffset = 1152,
                               structFieldWidth = Nothing},
@@ -2583,14 +2548,13 @@
                                 "spec_examples.h:28:13",
                                 fieldName = NamePair {
                                   nameC = Name "c",
-                                  nameHsIdent = HsIdentifier
-                                    "a_c"},
+                                  nameHsIdent = Identifier "a_c"},
                                 fieldComment = Nothing},
                               structFieldType = TypePointer
                                 (TypeStruct
                                   NamePair {
                                     nameC = Name "C",
-                                    nameHsIdent = HsIdentifier "C"}
+                                    nameHsIdent = Identifier "C"}
                                   NameOriginInSource),
                               structFieldOffset = 1152,
                               structFieldWidth = Nothing}],
@@ -2629,17 +2593,15 @@
               (ElimStruct
                 (Idx 0)
                 Struct {
-                  structName = HsName
+                  structName = Name
                     "@NsTypeConstr"
                     "A",
-                  structConstr = HsName
+                  structConstr = Name
                     "@NsConstr"
                     "A",
                   structFields = [
                     Field {
-                      fieldName = HsName
-                        "@NsVar"
-                        "a_x",
+                      fieldName = Name "@NsVar" "a_x",
                       fieldType = HsPrimType
                         HsPrimCDouble,
                       fieldOrigin = StructField
@@ -2649,8 +2611,7 @@
                             "spec_examples.h:24:10",
                             fieldName = NamePair {
                               nameC = Name "x",
-                              nameHsIdent = HsIdentifier
-                                "a_x"},
+                              nameHsIdent = Identifier "a_x"},
                             fieldComment = Nothing},
                           structFieldType = TypePrim
                             (PrimFloating PrimDouble),
@@ -2670,7 +2631,7 @@
                               "spec_examples.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "a_label",
                       fieldType = HsPtr
@@ -2682,7 +2643,7 @@
                             "spec_examples.h:25:9",
                             fieldName = NamePair {
                               nameC = Name "label",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "a_label"},
                             fieldComment = Nothing},
                           structFieldType = TypePointer
@@ -2706,7 +2667,7 @@
                               "spec_examples.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
+                      fieldName = Name
                         "@NsVar"
                         "a_samples",
                       fieldType = HsConstArray
@@ -2719,7 +2680,7 @@
                             "spec_examples.h:26:8",
                             fieldName = NamePair {
                               nameC = Name "samples",
-                              nameHsIdent = HsIdentifier
+                              nameHsIdent = Identifier
                                 "a_samples"},
                             fieldComment = Nothing},
                           structFieldType = TypeConstArray
@@ -2744,11 +2705,9 @@
                               "spec_examples.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
-                        "@NsVar"
-                        "a_b",
+                      fieldName = Name "@NsVar" "a_b",
                       fieldType = HsTypRef
-                        (HsName "@NsTypeConstr" "B"),
+                        (Name "@NsTypeConstr" "B"),
                       fieldOrigin = StructField
                         StructField {
                           structFieldInfo = FieldInfo {
@@ -2756,13 +2715,12 @@
                             "spec_examples.h:27:12",
                             fieldName = NamePair {
                               nameC = Name "b",
-                              nameHsIdent = HsIdentifier
-                                "a_b"},
+                              nameHsIdent = Identifier "a_b"},
                             fieldComment = Nothing},
                           structFieldType = TypeStruct
                             NamePair {
                               nameC = Name "B",
-                              nameHsIdent = HsIdentifier "B"}
+                              nameHsIdent = Identifier "B"}
                             NameOriginInSource,
                           structFieldOffset = 1152,
                           structFieldWidth = Nothing},
@@ -2780,12 +2738,10 @@
                               "spec_examples.h"},
                           commentChildren = []}},
                     Field {
-                      fieldName = HsName
-                        "@NsVar"
-                        "a_c",
+                      fieldName = Name "@NsVar" "a_c",
                       fieldType = HsPtr
                         (HsTypRef
-                          (HsName "@NsTypeConstr" "C")),
+                          (Name "@NsTypeConstr" "C")),
                       fieldOrigin = StructField
                         StructField {
                           structFieldInfo = FieldInfo {
@@ -2793,14 +2749,13 @@
                             "spec_examples.h:28:13",
                             fieldName = NamePair {
                               nameC = Name "c",
-                              nameHsIdent = HsIdentifier
-                                "a_c"},
+                              nameHsIdent = Identifier "a_c"},
                             fieldComment = Nothing},
                           structFieldType = TypePointer
                             (TypeStruct
                               NamePair {
                                 nameC = Name "C",
-                                nameHsIdent = HsIdentifier "C"}
+                                nameHsIdent = Identifier "C"}
                               NameOriginInSource),
                           structFieldOffset = 1152,
                           structFieldWidth = Nothing},
@@ -2824,7 +2779,7 @@
                         "spec_examples.h:23:8",
                         declId = NamePair {
                           nameC = Name "A",
-                          nameHsIdent = HsIdentifier "A"},
+                          nameHsIdent = Identifier "A"},
                         declOrigin = NameOriginInSource,
                         declAliases = [],
                         declHeaderInfo = Just
@@ -2837,7 +2792,7 @@
                       declKind = Struct
                         Struct {
                           structNames = RecordNames
-                            (HsName "@NsConstr" "A"),
+                            (Name "@NsConstr" "A"),
                           structSizeof = 152,
                           structAlignment = 8,
                           structFields = [
@@ -2847,8 +2802,7 @@
                                 "spec_examples.h:24:10",
                                 fieldName = NamePair {
                                   nameC = Name "x",
-                                  nameHsIdent = HsIdentifier
-                                    "a_x"},
+                                  nameHsIdent = Identifier "a_x"},
                                 fieldComment = Nothing},
                               structFieldType = TypePrim
                                 (PrimFloating PrimDouble),
@@ -2860,7 +2814,7 @@
                                 "spec_examples.h:25:9",
                                 fieldName = NamePair {
                                   nameC = Name "label",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "a_label"},
                                 fieldComment = Nothing},
                               structFieldType = TypePointer
@@ -2876,7 +2830,7 @@
                                 "spec_examples.h:26:8",
                                 fieldName = NamePair {
                                   nameC = Name "samples",
-                                  nameHsIdent = HsIdentifier
+                                  nameHsIdent = Identifier
                                     "a_samples"},
                                 fieldComment = Nothing},
                               structFieldType = TypeConstArray
@@ -2893,13 +2847,12 @@
                                 "spec_examples.h:27:12",
                                 fieldName = NamePair {
                                   nameC = Name "b",
-                                  nameHsIdent = HsIdentifier
-                                    "a_b"},
+                                  nameHsIdent = Identifier "a_b"},
                                 fieldComment = Nothing},
                               structFieldType = TypeStruct
                                 NamePair {
                                   nameC = Name "B",
-                                  nameHsIdent = HsIdentifier "B"}
+                                  nameHsIdent = Identifier "B"}
                                 NameOriginInSource,
                               structFieldOffset = 1152,
                               structFieldWidth = Nothing},
@@ -2909,14 +2862,13 @@
                                 "spec_examples.h:28:13",
                                 fieldName = NamePair {
                                   nameC = Name "c",
-                                  nameHsIdent = HsIdentifier
-                                    "a_c"},
+                                  nameHsIdent = Identifier "a_c"},
                                 fieldComment = Nothing},
                               structFieldType = TypePointer
                                 (TypeStruct
                                   NamePair {
                                     nameC = Name "C",
-                                    nameHsIdent = HsIdentifier "C"}
+                                    nameHsIdent = Identifier "C"}
                                   NameOriginInSource),
                               structFieldOffset = 1152,
                               structFieldWidth = Nothing}],
@@ -2960,7 +2912,7 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Show,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "A",
       deriveInstanceComment =
@@ -2970,25 +2922,25 @@
       deriveInstanceStrategy =
       DeriveStock,
       deriveInstanceClass = Eq,
-      deriveInstanceName = HsName
+      deriveInstanceName = Name
         "@NsTypeConstr"
         "A",
       deriveInstanceComment =
       Nothing},
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "resample_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName
+            (Name
               "@NsVar"
               "res_m_num_valid_samples"),
           functionParameterType = HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "Int32_T")),
           functionParameterComment = Just
@@ -3001,12 +2953,10 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName
-              "@NsVar"
-              "res_m_iq_int"),
+            (Name "@NsVar" "res_m_iq_int"),
           functionParameterType = HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "Cint16_T")),
           functionParameterComment = Just
@@ -3019,11 +2969,11 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName
+            (Name
               "@NsVar"
               "res_m_old_rate"),
           functionParameterType = HsTypRef
-            (HsName
+            (Name
               "@NsTypeConstr"
               "Int64_T"),
           functionParameterComment = Just
@@ -3036,11 +2986,11 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName
+            (Name
               "@NsVar"
               "res_m_new_rate"),
           functionParameterType = HsTypRef
-            (HsName
+            (Name
               "@NsTypeConstr"
               "Int64_T"),
           functionParameterComment = Just
@@ -3053,12 +3003,12 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName
+            (Name
               "@NsVar"
               "res_m_iq_resampled_int"),
           functionParameterType = HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "Cint16_T")),
           functionParameterComment = Just
@@ -3089,20 +3039,20 @@
                 NamePair {
                   nameC = Name
                     "res_m_num_valid_samples",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "res_m_num_valid_samples"})
               (TypePointer
                 (TypeTypedef
                   (TypedefRegular
                     NamePair {
                       nameC = Name "int32_T",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "Int32_T"}))),
             _×_
               (Just
                 NamePair {
                   nameC = Name "res_m_iq_int",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "res_m_iq_int"})
               (TypeConstArray
                 30720000
@@ -3112,7 +3062,7 @@
                     (TypeStruct
                       NamePair {
                         nameC = Name "cint16_T",
-                        nameHsIdent = HsIdentifier
+                        nameHsIdent = Identifier
                           "Cint16_T"}
                       (NameOriginGenerated
                         (AnonId
@@ -3121,32 +3071,32 @@
               (Just
                 NamePair {
                   nameC = Name "res_m_old_rate",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "res_m_old_rate"})
               (TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "int64_T",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Int64_T"})),
             _×_
               (Just
                 NamePair {
                   nameC = Name "res_m_new_rate",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "res_m_new_rate"})
               (TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "int64_T",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Int64_T"})),
             _×_
               (Just
                 NamePair {
                   nameC = Name
                     "res_m_iq_resampled_int",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "res_m_iq_resampled_int"})
               (TypeConstArray
                 30720000
@@ -3156,7 +3106,7 @@
                     (TypeStruct
                       NamePair {
                         nameC = Name "cint16_T",
-                        nameHsIdent = HsIdentifier
+                        nameHsIdent = Identifier
                           "Cint16_T"}
                       (NameOriginGenerated
                         (AnonId
@@ -3182,18 +3132,18 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "resample_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
-            (HsName
+            (Name
               "@NsVar"
               "res_m_num_valid_samples"),
           functionParameterType = HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "Int32_T")),
           functionParameterComment = Just
@@ -3206,12 +3156,10 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName
-              "@NsVar"
-              "res_m_iq_int"),
+            (Name "@NsVar" "res_m_iq_int"),
           functionParameterType = HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "Cint16_T")),
           functionParameterComment = Just
@@ -3224,11 +3172,11 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName
+            (Name
               "@NsVar"
               "res_m_old_rate"),
           functionParameterType = HsTypRef
-            (HsName
+            (Name
               "@NsTypeConstr"
               "Int64_T"),
           functionParameterComment = Just
@@ -3241,11 +3189,11 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName
+            (Name
               "@NsVar"
               "res_m_new_rate"),
           functionParameterType = HsTypRef
-            (HsName
+            (Name
               "@NsTypeConstr"
               "Int64_T"),
           functionParameterComment = Just
@@ -3258,12 +3206,12 @@
               commentChildren = []}},
         FunctionParameter {
           functionParameterName = Just
-            (HsName
+            (Name
               "@NsVar"
               "res_m_iq_resampled_int"),
           functionParameterType = HsPtr
             (HsTypRef
-              (HsName
+              (Name
                 "@NsTypeConstr"
                 "Cint16_T")),
           functionParameterComment = Just
@@ -3294,20 +3242,20 @@
                 NamePair {
                   nameC = Name
                     "res_m_num_valid_samples",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "res_m_num_valid_samples"})
               (TypePointer
                 (TypeTypedef
                   (TypedefRegular
                     NamePair {
                       nameC = Name "int32_T",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "Int32_T"}))),
             _×_
               (Just
                 NamePair {
                   nameC = Name "res_m_iq_int",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "res_m_iq_int"})
               (TypeConstArray
                 30720000
@@ -3317,7 +3265,7 @@
                     (TypeStruct
                       NamePair {
                         nameC = Name "cint16_T",
-                        nameHsIdent = HsIdentifier
+                        nameHsIdent = Identifier
                           "Cint16_T"}
                       (NameOriginGenerated
                         (AnonId
@@ -3326,32 +3274,32 @@
               (Just
                 NamePair {
                   nameC = Name "res_m_old_rate",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "res_m_old_rate"})
               (TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "int64_T",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Int64_T"})),
             _×_
               (Just
                 NamePair {
                   nameC = Name "res_m_new_rate",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "res_m_new_rate"})
               (TypeTypedef
                 (TypedefRegular
                   NamePair {
                     nameC = Name "int64_T",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Int64_T"})),
             _×_
               (Just
                 NamePair {
                   nameC = Name
                     "res_m_iq_resampled_int",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "res_m_iq_resampled_int"})
               (TypeConstArray
                 30720000
@@ -3361,7 +3309,7 @@
                     (TypeStruct
                       NamePair {
                         nameC = Name "cint16_T",
-                        nameHsIdent = HsIdentifier
+                        nameHsIdent = Identifier
                           "Cint16_T"}
                       (NameOriginGenerated
                         (AnonId
@@ -3387,7 +3335,7 @@
   DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
-      foreignImportName = HsName
+      foreignImportName = Name
         "@NsVar"
         "hs_bindgen_test_spec_examples_46b04422dcd0bbd5",
       foreignImportParameters = [],
@@ -3398,31 +3346,31 @@
             (HsFun
               (HsPtr
                 (HsTypRef
-                  (HsName
+                  (Name
                     "@NsTypeConstr"
                     "Int32_T")))
               (HsFun
                 (HsConstArray
                   30720000
                   (HsTypRef
-                    (HsName
+                    (Name
                       "@NsTypeConstr"
                       "Cint16_T")))
                 (HsFun
                   (HsTypRef
-                    (HsName
+                    (Name
                       "@NsTypeConstr"
                       "Int64_T"))
                   (HsFun
                     (HsTypRef
-                      (HsName
+                      (Name
                         "@NsTypeConstr"
                         "Int64_T"))
                     (HsFun
                       (HsConstArray
                         30720000
                         (HsTypRef
-                          (HsName
+                          (Name
                             "@NsTypeConstr"
                             "Cint16_T")))
                       (HsIO
@@ -3444,7 +3392,7 @@
                 (TypedefRegular
                   NamePair {
                     nameC = Name "int32_T",
-                    nameHsIdent = HsIdentifier
+                    nameHsIdent = Identifier
                       "Int32_T"})),
             TypeConstArray
               30720000
@@ -3454,7 +3402,7 @@
                   (TypeStruct
                     NamePair {
                       nameC = Name "cint16_T",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "Cint16_T"}
                     (NameOriginGenerated
                       (AnonId
@@ -3463,13 +3411,13 @@
               (TypedefRegular
                 NamePair {
                   nameC = Name "int64_T",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Int64_T"}),
             TypeTypedef
               (TypedefRegular
                 NamePair {
                   nameC = Name "int64_T",
-                  nameHsIdent = HsIdentifier
+                  nameHsIdent = Identifier
                     "Int64_T"}),
             TypeConstArray
               30720000
@@ -3479,7 +3427,7 @@
                   (TypeStruct
                     NamePair {
                       nameC = Name "cint16_T",
-                      nameHsIdent = HsIdentifier
+                      nameHsIdent = Identifier
                         "Cint16_T"}
                     (NameOriginGenerated
                       (AnonId

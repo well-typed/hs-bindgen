@@ -22,7 +22,7 @@ import HsBindgen.Errors
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
-import HsBindgen.Language.Haskell
+import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
   Bindings
@@ -119,45 +119,45 @@ bindingSpec = BindingSpec.BindingSpec{..}
     inttypesH :: Set HashIncludeArg
     inttypesH = mkH ["inttypes.h", "stdint.h"]
 
-    divI :: [HsTypeClass]
-    divI = [Eq, Ord, ReadRaw, Show]
+    divI :: [Hs.TypeClass]
+    divI = [Hs.Eq, Hs.Ord, Hs.ReadRaw, Hs.Show]
 
-    eqI :: [HsTypeClass]
-    eqI = [Eq, ReadRaw, Show, StaticSize, Storable, WriteRaw]
+    eqI :: [Hs.TypeClass]
+    eqI = [Hs.Eq, Hs.ReadRaw, Hs.Show, Hs.StaticSize, Hs.Storable, Hs.WriteRaw]
 
-    intI :: [HsTypeClass]
+    intI :: [Hs.TypeClass]
     intI = [
-        Bits
-      , Bounded
-      , Enum
-      , Eq
-      , FiniteBits
-      , Integral
-      , Ix
-      , Num
-      , Ord
-      , Read
-      , ReadRaw
-      , Real
-      , Show
-      , StaticSize
-      , Storable
-      , WriteRaw
+        Hs.Bits
+      , Hs.Bounded
+      , Hs.Enum
+      , Hs.Eq
+      , Hs.FiniteBits
+      , Hs.Integral
+      , Hs.Ix
+      , Hs.Num
+      , Hs.Ord
+      , Hs.Read
+      , Hs.ReadRaw
+      , Hs.Real
+      , Hs.Show
+      , Hs.StaticSize
+      , Hs.Storable
+      , Hs.WriteRaw
       ]
 
-    timeI :: [HsTypeClass]
+    timeI :: [Hs.TypeClass]
     timeI = [
-         Enum
-      ,  Eq
-      ,  Num
-      ,  Ord
-      ,  Read
-      ,  ReadRaw
-      ,  Real
-      ,  Show
-      ,  StaticSize
-      ,  Storable
-      ,  WriteRaw
+        Hs.Enum
+      , Hs.Eq
+      , Hs.Num
+      , Hs.Ord
+      , Hs.Read
+      , Hs.ReadRaw
+      , Hs.Real
+      , Hs.Show
+      , Hs.StaticSize
+      , Hs.Storable
+      , Hs.WriteRaw
       ]
 
 {-------------------------------------------------------------------------------
@@ -169,8 +169,8 @@ mkH = Set.fromList . map HashIncludeArg
 
 mkT ::
      Text
-  -> HsIdentifier
-  -> [HsTypeClass]
+  -> Hs.Identifier
+  -> [Hs.TypeClass]
   -> Set HashIncludeArg
   -> ( C.QualName
      , [(Set HashIncludeArg , Omittable BindingSpec.TypeSpec)]

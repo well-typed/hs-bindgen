@@ -43,7 +43,7 @@ import HsBindgen.Config.ClangArgs
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.RootHeader (UncheckedHashIncludeArg)
-import HsBindgen.Language.Haskell (HsModuleName)
+import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
@@ -471,7 +471,7 @@ parseUniqueId = fmap UniqueId . strOption $ mconcat [
   Pretty printer options
 -------------------------------------------------------------------------------}
 
-parseHsModuleName :: Parser HsModuleName
+parseHsModuleName :: Parser Hs.ModuleName
 parseHsModuleName = strOption $ mconcat [
       long "module"
     , metavar "NAME"
