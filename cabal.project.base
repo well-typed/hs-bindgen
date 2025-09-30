@@ -9,3 +9,6 @@ package clang
 
 package hs-bindgen
   flags: +dev
+
+tests: True
+benchmarks: True
