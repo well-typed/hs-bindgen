@@ -7,6 +7,10 @@ on:
   pull_request:
   merge_group:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 env:
   # Fix the index state. It rarely has to change unless we want to use a new
   # version of stylish-haskell.
