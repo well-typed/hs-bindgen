@@ -39,3 +39,17 @@ newtype Intptr
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+{-| __C declaration:__ @int2int@
+
+    __defined at:__ @typedefs.h:5:13@
+
+    __exported by:__ @typedefs.h@
+-}
+newtype Int2int
+    = Int2int {un_Int2int :: (CInt -> IO CInt)}
+      {- ^ __C declaration:__ @int2int@
+
+           __defined at:__ @typedefs.h:5:13@
+
+           __exported by:__ @typedefs.h@
+      -}

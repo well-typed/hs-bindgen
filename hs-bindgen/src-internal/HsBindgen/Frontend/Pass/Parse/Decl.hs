@@ -435,50 +435,52 @@ functionDecl info = \curr -> do
     declCls    <- HighLevel.classifyDeclaration curr
     typ        <- fromCXType' (ParseTypeExceptionContext info NameKindOrdinary)
                     =<< clang_getCursorType curr
-    (functionArgs, functionRes) <- guardTypeFunction curr typ
-    functionAnn <- getReparseInfo curr
-    let mkDecl :: C.FunctionPurity -> C.Decl Parse
-        mkDecl purity = C.Decl{
-            declInfo = info
-          , declKind = C.DeclFunction C.Function {
-                functionArgs
-              , functionRes
-              , functionAttrs = C.FunctionAttributes purity
-              , functionAnn
+    guardTypeFunction curr typ >>= \case
+      Nothing -> foldContinue
+      Just (functionArgs, functionRes) -> do
+        functionAnn <- getReparseInfo curr
+        let mkDecl :: C.FunctionPurity -> C.Decl Parse
+            mkDecl purity = C.Decl{
+                declInfo = info
+              , declKind = C.DeclFunction C.Function {
+                    functionArgs
+                  , functionRes
+                  , functionAttrs = C.FunctionAttributes purity
+                  , functionAnn
+                  }
+              , declAnn  = NoAnn
               }
-          , declAnn  = NoAnn
-          }
 
-    case declCls of
-      -- The header contains a definition elsewhere, but it is not the
-      -- declaration that the cursor is currently pointing to. Skip this
-      -- declaration.
-      DefinitionElsewhere _->
-        foldContinue
-      _ -> foldRecurseWith nestedDecl $ \nestedDecls -> do
-        let declsAndAttrs = concat nestedDecls
-            (decls, attrs) = partitionEithers declsAndAttrs
-            purity = C.decideFunctionPurity attrs
-            (anonDecls, otherDecls) = partitionAnonDecls decls
+        case declCls of
+          -- The header contains a definition elsewhere, but it is not the
+          -- declaration that the cursor is currently pointing to. Skip this
+          -- declaration.
+          DefinitionElsewhere _->
+            foldContinue
+          _ -> foldRecurseWith nestedDecl $ \nestedDecls -> do
+            let declsAndAttrs = concat nestedDecls
+                (decls, attrs) = partitionEithers declsAndAttrs
+                purity = C.decideFunctionPurity attrs
+                (anonDecls, otherDecls) = partitionAnonDecls decls
 
-        -- This declaration may act as a definition.
-        let isDefn = declCls == Definition
+            -- This declaration may act as a definition.
+            let isDefn = declCls == Definition
 
-        if not (null anonDecls) then do
-          recordTrace info NameKindOrdinary $ ParseUnexpectedAnonInSignature info
-          return []
-        else do
-          when (visibilityCanCauseErrors visibility linkage isDefn) $
-            recordTrace info NameKindOrdinary $ ParseNonPublicVisibility info
-          when (isDefn && linkage == ExternalLinkage) $
-            recordTrace info NameKindOrdinary $
-              ParsePotentialDuplicateSymbol info (visibility == PublicVisibility)
-          return $ otherDecls ++ [mkDecl purity]
+            if not (null anonDecls) then do
+              recordTrace info NameKindOrdinary $ ParseUnexpectedAnonInSignature info
+              return []
+            else do
+              when (visibilityCanCauseErrors visibility linkage isDefn) $
+                recordTrace info NameKindOrdinary $ ParseNonPublicVisibility info
+              when (isDefn && linkage == ExternalLinkage) $
+                recordTrace info NameKindOrdinary $
+                  ParsePotentialDuplicateSymbol info (visibility == PublicVisibility)
+              return $ otherDecls ++ [mkDecl purity]
   where
     guardTypeFunction ::
          CXCursor
       -> C.Type Parse
-      -> ParseDecl ([(Maybe C.Name, C.Type Parse)], C.Type Parse)
+      -> ParseDecl (Maybe ([(Maybe C.Name, C.Type Parse)], C.Type Parse))
     guardTypeFunction curr ty =
         case ty of
           C.TypeFun args res -> do
@@ -492,7 +494,10 @@ functionDecl info = \curr -> do
                        else Just (C.Name argName)
 
               return (mbArgName, argCType)
-            pure (args', res)
+            pure $ Just (args', res)
+          C.TypeTypedef{} -> do
+            recordTrace info NameKindOrdinary $ ParseFunctionOfTypeTypedef info
+            pure Nothing
           otherType ->
             panicIO $ "Expected function type, but got " <> show otherType
 

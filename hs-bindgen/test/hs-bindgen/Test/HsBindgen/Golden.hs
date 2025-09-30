@@ -105,7 +105,6 @@ testCases = [
     , defaultTest "struct_arg"
     , defaultTest "type_qualifiers"
     , defaultTest "typedef_vs_macro"
-    , defaultTest "typedefs"
     , defaultTest "typenames"
     , defaultTest "unions"
     , defaultTest "uses_utf8"
@@ -202,6 +201,11 @@ testCases = [
           Just $ Expected $ Labelled "Squashed" $ C.declIdName (C.declId info)
         TraceFrontend (FrontendHandleTypedefs (HandleTypedefsRenamedTagged info _to)) ->
           Just $ Expected $ Labelled "Renamed"  $ C.declIdName (C.declId info)
+        _otherwise ->
+          Nothing
+    , testTraceCustom "typedefs" ["foo"] $ \case
+        TraceFrontend (FrontendSelect (SelectedButFailed (ParseFunctionOfTypeTypedef info))) ->
+          Just $ Expected $ C.declId info
         _otherwise ->
           Nothing
     , testTraceCustom "varargs" ["f", "g"] $ \case

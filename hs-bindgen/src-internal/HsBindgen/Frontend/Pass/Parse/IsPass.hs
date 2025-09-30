@@ -235,6 +235,17 @@ data ParseMsg =
     -- > extern void __attribute__ ((visibility ("hidden"))) f (void);
     -- > extern int __attribute__ ((visibility ("hidden"))) i;
   | ParseNonPublicVisibility (C.DeclInfo Parse)
+
+    -- | A function declaration was encountered where the type of the function
+    -- is typedef reference. This is not yet supported by hs-bindgen.
+    --
+    -- For example:
+    --
+    -- > typedef int int2int(int);
+    -- > extern int2int foo;
+    --
+    -- <https://github.com/well-typed/hs-bindgen/issues/1034>
+  | ParseFunctionOfTypeTypedef (C.DeclInfo Parse)
   deriving stock (Show)
 
 instance PrettyForTrace ParseMsg where
@@ -272,6 +283,8 @@ instance PrettyForTrace ParseMsg where
         , prettyForTrace info
         , " may result in linker errors because the symbol has non-public visibility"
         ]
+      ParseFunctionOfTypeTypedef info -> noBindingsGenerated info $
+        "unsupported function declared with a typedef type"
     where
       noBindingsGenerated :: C.DeclInfo Parse -> CtxDoc -> CtxDoc
       noBindingsGenerated info reason = PP.hcat [
@@ -293,6 +306,7 @@ instance IsTrace Level ParseMsg where
       ParseUnknownStorageClass{}       -> Warning
       ParsePotentialDuplicateSymbol{}  -> Notice
       ParseNonPublicVisibility{}       -> Warning
+      ParseFunctionOfTypeTypedef{}     -> Warning
   getSource  = const HsBindgen
   getTraceId = const "parse"
 

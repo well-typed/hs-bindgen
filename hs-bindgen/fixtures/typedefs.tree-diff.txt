@@ -64,5 +64,41 @@ TranslationUnit {
           typeSpecModule = Nothing,
           typeSpecIdentifier = Nothing,
           typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "typedefs.h:5:13",
+        declId = NamePair {
+          nameC = Name "int2int",
+          nameHsIdent = Identifier
+            "Int2int"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["typedefs.h"],
+            headerInclude = "typedefs.h"},
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = Name
+              "@NsConstr"
+              "Int2int",
+            newtypeField = Name
+              "@NsVar"
+              "un_Int2int"},
+          typedefType = TypeFun
+            [
+              TypePrim
+                (PrimIntegral PrimInt Signed)]
+            (TypePrim
+              (PrimIntegral PrimInt Signed))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
             []}}],
   unitDeps = ["typedefs"]}

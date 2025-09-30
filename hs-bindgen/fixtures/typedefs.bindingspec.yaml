@@ -3,6 +3,10 @@ version:
   binding_specification: '1.0'
 types:
 - headers: typedefs.h
+  cname: int2int
+  module: Example
+  identifier: Int2int
+- headers: typedefs.h
   cname: intptr
   module: Example
   identifier: Intptr

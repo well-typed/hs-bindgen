@@ -307,4 +307,71 @@
         "@NsTypeConstr"
         "Intptr",
       deriveInstanceComment =
-      Nothing}]
+      Nothing},
+  DeclNewtype
+    Newtype {
+      newtypeName = Name
+        "@NsTypeConstr"
+        "Int2int",
+      newtypeConstr = Name
+        "@NsConstr"
+        "Int2int",
+      newtypeField = Field {
+        fieldName = Name
+          "@NsVar"
+          "un_Int2int",
+        fieldType = HsFun
+          (HsPrimType HsPrimCInt)
+          (HsIO (HsPrimType HsPrimCInt)),
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "typedefs.h:5:13",
+          declId = NamePair {
+            nameC = Name "int2int",
+            nameHsIdent = Identifier
+              "Int2int"},
+          declOrigin = NameOriginInSource,
+          declAliases = [],
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedefs.h"],
+              headerInclude = "typedefs.h"},
+          declComment = Nothing},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = Name
+                "@NsConstr"
+                "Int2int",
+              newtypeField = Name
+                "@NsVar"
+                "un_Int2int"},
+            typedefType = TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimInt Signed)]
+              (TypePrim
+                (PrimIntegral PrimInt Signed))},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
+      newtypeInstances = Set.fromList
+        [],
+      newtypeComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "int2int",
+          commentLocation = Just
+            "typedefs.h:5:13",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["typedefs.h"],
+              headerInclude = "typedefs.h"},
+          commentChildren = []}}]
