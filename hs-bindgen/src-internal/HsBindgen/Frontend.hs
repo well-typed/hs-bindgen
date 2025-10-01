@@ -147,14 +147,13 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
     selectPass <- cache "select" $ do
       (_, isMainHeader, isInMainHeaderDir) <- parsePass
       afterResolveBindingSpec              <- resolveBindingSpecPass
-      let (afterSelect, msgsParseDelayed, msgsSelect) =
+      let (afterSelect, msgsSelect) =
             selectDecls
               isMainHeader
               isInMainHeaderDir
               selectConfig
               afterResolveBindingSpec
-      forM_ msgsParseDelayed $ traceWith tracer . FrontendParse
-      forM_ msgsSelect       $ traceWith tracer . FrontendSelect
+      forM_ msgsSelect $ traceWith tracer . FrontendSelect
       pure afterSelect
 
     handleTypedefsPass <- cache "handleTypedefs" $ do

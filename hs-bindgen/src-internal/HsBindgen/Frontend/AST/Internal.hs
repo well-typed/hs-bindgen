@@ -8,6 +8,7 @@ module HsBindgen.Frontend.AST.Internal (
     TranslationUnit(..)
     -- * Declarations
   , Decl(..)
+  , Availability(..)
   , DeclInfo(..)
   , HeaderInfo(..)
   , FieldInfo(..)
@@ -44,6 +45,7 @@ module HsBindgen.Frontend.AST.Internal (
   ) where
 
 import Prelude hiding (Enum)
+import Prelude qualified as P
 
 import C.Expr.Syntax qualified as CExpr.DSL
 import C.Expr.Typecheck.Type qualified as CExpr.DSL
@@ -104,6 +106,24 @@ data Decl p = Decl {
     , declKind :: DeclKind p
     , declAnn  :: Ann "Decl" p
     }
+
+-- | Availability of declarations.
+--
+-- See 'Clang.LowLevel.Core.CXAvailabilityKind'.
+data Availability =
+    -- | Available and recommended for use.
+    Available
+    -- | Available but deprecated; may result in compilation error.
+  | Deprecated
+    -- | Unavailable or unaccessible; results in compilation error.
+  | Unavailable
+  deriving stock (Show, Eq, Ord, P.Enum, Bounded, Generic)
+
+instance PrettyForTrace Availability where
+  prettyForTrace = \case
+    Available   -> "available"
+    Deprecated  -> "deprecated"
+    Unavailable -> "unavailable"
 
 data DeclInfo p = DeclInfo{
       declLoc     :: SingleLoc

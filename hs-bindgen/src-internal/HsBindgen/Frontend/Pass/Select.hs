@@ -29,56 +29,43 @@ selectDecls ::
   -> Predicate.IsInMainHeaderDir
   -> Config Select
   -> C.TranslationUnit ResolveBindingSpec
-  -> (C.TranslationUnit Select, [Msg Parse], [Msg Select])
+  -> (C.TranslationUnit Select, [Msg Select])
 selectDecls isMainHeader isInMainHeaderDir SelectConfig{..} unitRBS =
-    case selectConfigProgramSlicing of
-      DisableProgramSlicing ->
-        let matchedDecls :: [C.Decl Select]
-            matchedDecls = filter matchDecl decls
+    let matchedDecls, unmatchedDecls :: [C.Decl Select]
+        (matchedDecls, unmatchedDecls) = partition matchDecl decls
 
-            parseMsgs :: [Msg Parse]
-            failedParseMsgs :: [Msg Select]
-            (parseMsgs, failedParseMsgs) = getParseMsgs' matchedDecls
+        selectedRoots :: [C.NsPrelimDeclId]
+        selectedRoots = map C.declOrigNsPrelimDeclId matchedDecls
 
-            selectMsgs :: [Msg Select]
-            selectMsgs = map (SelectSelected SelectionRoot . C.declInfo) matchedDecls
-         in ( unitSelect { C.unitDecls = matchedDecls }
-            , parseMsgs, failedParseMsgs ++ selectMsgs
-            )
+        transitiveDeps :: Set C.NsPrelimDeclId
+        transitiveDeps = case selectConfigProgramSlicing of
+          DisableProgramSlicing ->
+            Set.empty
+          EnableProgramSlicing ->
+            UseDeclGraph.getTransitiveDeps useDeclGraph selectedRoots
 
-      EnableProgramSlicing ->
-        let matchedDecls, unmatchedDecls :: [C.Decl Select]
-            (matchedDecls, unmatchedDecls) = partition matchDecl decls
-
-            selectedRoots :: [C.NsPrelimDeclId]
-            selectedRoots = map C.declOrigNsPrelimDeclId matchedDecls
-
-            transitiveDeps :: Set C.NsPrelimDeclId
-            transitiveDeps =
-              UseDeclGraph.getTransitiveDeps useDeclGraph selectedRoots
-
+        selectedDecls :: [C.Decl Select]
+        selectedDecls = case selectConfigProgramSlicing of
+          DisableProgramSlicing ->
+            matchedDecls
+          EnableProgramSlicing ->
             -- NOTE: Careful, we need to maintain the order of declarations so
-            -- that children come before parents.  'filter' does that for us.
-            selectedDecls :: [C.Decl Select]
-            selectedDecls =
-              filter
-                ((`Set.member` transitiveDeps) . C.declOrigNsPrelimDeclId)
-                decls
+            -- that children come before parents. 'filter' does that for us.
+            filter ((`Set.member` transitiveDeps) . C.declOrigNsPrelimDeclId) decls
 
-            parseMsgs :: [Msg Parse]
-            failedParseMsgs :: [Msg Select]
-            (parseMsgs, failedParseMsgs) = getParseMsgs' selectedDecls
+        parseMsgs :: [Msg Select]
+        parseMsgs = getDelayedParseMsgs' selectedDecls
 
-            selectMsgs :: [Msg Select]
-            unavailableTransitiveDeps :: Set C.NsPrelimDeclId
-            (selectMsgs, unavailableTransitiveDeps) =
-              getSelectMsgs selectedRoots transitiveDeps selectedDecls unmatchedDecls
+        selectMsgs :: [Msg Select]
+        unavailableTransitiveDeps :: Set C.NsPrelimDeclId
+        (selectMsgs, unavailableTransitiveDeps) =
+          getSelectMsgs selectedRoots transitiveDeps selectedDecls unmatchedDecls
 
-        in if Set.null unavailableTransitiveDeps
-           then ( unitSelect { C.unitDecls = selectedDecls }
-                , parseMsgs, failedParseMsgs ++ selectMsgs
-                )
-           else panicPure $ errorMsgWith unavailableTransitiveDeps
+    in if Set.null unavailableTransitiveDeps
+       then ( unitSelect { C.unitDecls = selectedDecls }
+            , parseMsgs ++ selectMsgs
+            )
+       else panicPure $ errorMsgWith unavailableTransitiveDeps
   where
     errorMsgWith :: Set C.NsPrelimDeclId -> String
     errorMsgWith xs = unlines $
@@ -112,7 +99,7 @@ selectDecls isMainHeader isInMainHeaderDir SelectConfig{..} unitRBS =
     useDeclGraph :: UseDeclGraph
     useDeclGraph = declUseDecl ann
 
-    match :: SingleLoc -> C.QualDeclId -> Availability -> Bool
+    match :: SingleLoc -> C.QualDeclId -> C.Availability -> Bool
     match loc qualDeclId availability =
       Predicate.matchSelect
         isMainHeader
@@ -138,8 +125,8 @@ selectDecls isMainHeader isInMainHeaderDir SelectConfig{..} unitRBS =
           }
       in match loc qualDeclId declAvailability
 
-    getParseMsgs' :: [C.Decl Select] -> ([Msg Parse], [Msg Select])
-    getParseMsgs' = getParseMsgs ann matchKey
+    getDelayedParseMsgs' :: [C.Decl Select] -> [Msg Select]
+    getDelayedParseMsgs' = getDelayedParseMsgs ann matchKey
 
 {-------------------------------------------------------------------------------
   Trace messages
@@ -182,15 +169,16 @@ getSelectMsgs selectedRootsIds transitiveDeps selectedDecls unmatchedDecls =
 
 type Key = ParseMsgKey Select
 
-getParseMsgs ::
+getDelayedParseMsgs ::
      DeclMeta ResolveBindingSpec
   -> (ParseMsgKey Select -> Bool)
   -> [C.Decl Select]
-  -> ([Msg Parse], [Msg Select])
-getParseMsgs meta match decls =
-     (concat selectedMsgs, map SelectedButFailed (concat failedMsgs))
+  -> [Msg Select]
+getDelayedParseMsgs meta match decls =
+        map (uncurry SelectParse)  (flatten selectedMsgs)
+     ++ map (uncurry SelectFailed) (flatten failedMsgs)
   where
-    msgs :: Map Key [ParseMsg]
+    msgs :: Map Key [DelayedParseMsg]
     msgs = unParseMsgs $ coerceParseMsgs $ declParseMsgs meta
 
     allKeys :: Set Key
@@ -219,8 +207,11 @@ getParseMsgs meta match decls =
     failedKeys :: Set Key
     failedKeys = desiredSelectedKeys Set.\\ selectedKeys
 
-    selectedMsgs :: Map Key [ParseMsg]
+    selectedMsgs :: Map Key [DelayedParseMsg]
     selectedMsgs = Map.restrictKeys msgs selectedKeys
 
-    failedMsgs :: Map Key [ParseMsg]
+    failedMsgs :: Map Key [DelayedParseMsg]
     failedMsgs = Map.restrictKeys msgs failedKeys
+
+    flatten :: Map a [b] -> [(a, b)]
+    flatten = concatMap (\(k, xs) -> map (k,) xs) . Map.toList

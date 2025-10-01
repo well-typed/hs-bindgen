@@ -75,7 +75,7 @@ run = liftIO . unwrap
 
 data ParseTypeExceptionInContext ctx =
   ParseTypeExceptionInContext {
-    parseContext :: ctx
+    parseContext   :: ctx
   , parseException :: ParseTypeException
   }
   deriving stock (Show, Eq, Ord, Generic)
