@@ -8,7 +8,8 @@ module HsBindgen.Frontend.Pass.Parse.IsPass (
   , getUnparsedMacro
     -- * Trace messages
   , ParseTypeExceptionContext(..)
-  , ParseMsg(..)
+  , UnrecognizedParseMsg(..)
+  , DelayedParseMsg(..)
   , ParseMsgKey(..)
   , ParseMsgs(..)
   , emptyParseMsgs
@@ -60,7 +61,7 @@ instance IsPass Parse where
   type MacroBody    Parse = UnparsedMacro
   type ExtBinding   Parse = Void
   type Ann ix       Parse = AnnParse ix
-  type Msg          Parse = ParseMsg
+  type Msg          Parse = UnrecognizedParseMsg
 
 {-------------------------------------------------------------------------------
   Information about the declarations
@@ -110,7 +111,7 @@ getUnparsedMacro unit curr = do
 -------------------------------------------------------------------------------}
 
 data ParseTypeExceptionContext = ParseTypeExceptionContext {
-      contextInfo :: C.DeclInfo Parse
+      contextInfo     :: C.DeclInfo Parse
     , contextNameKind :: NameKind
     }
   deriving stock (Show)
@@ -119,23 +120,66 @@ instance PrettyForTrace ParseTypeExceptionContext where
   prettyForTrace (ParseTypeExceptionContext info kind) =
     prettyForTrace info <+> ", name kind: " <+> prettyForTrace kind
 
--- | Parse messages
+-- | Delayed parse messages
+--
+-- We can not attach these messages to declarations and emit them directly while
+-- parsing.
+data UnrecognizedParseMsg =
+    -- | We excluded a declaration.
+    ParseNotAttempted String (C.DeclInfo Parse)
+
+    -- | We unepxectedly excluded a declaration (for example, because it is
+    -- reported "unavailable").
+  | ParseNotAttemptedUnexpected String (C.DeclInfo Parse)
+
+    -- | Declaration availability can not be determined.
+    --
+    -- That is 'Clang.LowLevel.Core.clang_getCursorAvailability' does not
+    -- provide a valid 'Clang.LowLevel.Core.CXAvailabilityKind'.
+  | ParseUnknownCursorAvailability (C.DeclInfo Parse) (SimpleEnum CXAvailabilityKind)
+  deriving stock (Show)
+
+instance PrettyForTrace UnrecognizedParseMsg where
+  prettyForTrace = \case
+      ParseNotAttempted reason info ->
+        withInfo info $
+          "parse not attempted because:" <+> PP.string reason
+      ParseNotAttemptedUnexpected reason info ->
+        withInfo info $
+          "parse unexpectedly not attempted because:" <+> PP.string reason
+      ParseUnknownCursorAvailability info simpleKind ->
+        withInfo info $
+          "unknown declaration availability:" <+> PP.showToCtxDoc simpleKind
+    where withInfo info doc = PP.hsep [
+              prettyForTrace info
+            , doc
+            ]
+
+instance IsTrace Level UnrecognizedParseMsg where
+  getDefaultLogLevel = \case
+      ParseNotAttempted{}              -> Info
+      ParseNotAttemptedUnexpected{}    -> Notice
+      ParseUnknownCursorAvailability{} -> Notice
+  getSource  = const HsBindgen
+  getTraceId = const "parse-unrecognized"
+
+-- | Delayed parse messages
+--
+-- These messages are only emitted when we attempt to select the attached
+-- declaration.
 --
 -- We distinguish between \"unsupported\", which refers to C features that one
 -- could reasonably expect to be supported eventually, and \"unexpected\", for
 -- strange C input.
-data ParseMsg =
-    -- | We excluded a declaration
-    ParseExcluded (C.DeclInfo Parse)
-
+data DelayedParseMsg =
     -- | Unsupported type
     --
     -- Since types don't necessarily have associated source locations, we
     -- instead record information about the enclosing declaration.
-  | ParseUnsupportedType (C.DeclInfo Parse) ParseTypeException
+    ParseUnsupportedType ParseTypeException
 
     -- | Struct with implicit fields
-  | ParseUnsupportedImplicitFields (C.DeclInfo Parse)
+  | ParseUnsupportedImplicitFields
 
     -- | Unexpected anonymous declaration inside function signature
     --
@@ -165,7 +209,7 @@ data ParseMsg =
     -- no way of assigning a name to the struct). Since it is relatively clear
     -- that the anonymous version is anyway unusable (callers would have no way
     -- of constructing any values), we rule them out.
-  | ParseUnexpectedAnonInSignature (C.DeclInfo Parse)
+  | ParseUnexpectedAnonInSignature
 
     -- | Unexpected anonymous declaration inside @extern@
     --
@@ -188,15 +232,15 @@ data ParseMsg =
     -- (As of C23, the situation is different for /named/ structs: multiple uses
     -- of a struct with the same name are considered compatible as of
     -- WG14-N3037.)
-  | ParseUnexpectedAnonInExtern (C.DeclInfo Parse)
+  | ParseUnexpectedAnonInExtern
 
     -- | Thread local variables
     --
     -- <https://github.com/well-typed/hs-bindgen/issues/828>
-  | ParseUnsupportedTLS (C.DeclInfo Parse)
+  | ParseUnsupportedTLS
 
     -- | Variable declaration
-  | ParseUnknownStorageClass (C.DeclInfo Parse) (SimpleEnum CX_StorageClass)
+  | ParseUnknownStorageClass (SimpleEnum CX_StorageClass)
 
     -- | Fully defined global variables and functions with external linkage.
     --
@@ -212,7 +256,7 @@ data ParseMsg =
     -- referencing. So, if a symbol has non-public visibility, the risk of such
     -- surprises is mitigated somewhat. See the "Visibility" section in the
     -- manual for more details.
-  | ParsePotentialDuplicateSymbol (C.DeclInfo Parse)
+  | ParsePotentialDuplicateSymbol
       -- | The symbol has public visibility
       Bool
 
@@ -234,7 +278,7 @@ data ParseMsg =
     --
     -- > extern void __attribute__ ((visibility ("hidden"))) f (void);
     -- > extern int __attribute__ ((visibility ("hidden"))) i;
-  | ParseNonPublicVisibility (C.DeclInfo Parse)
+  | ParseNonPublicVisibility
 
     -- | A function declaration was encountered where the type of the function
     -- is typedef reference. This is not yet supported by hs-bindgen.
@@ -245,60 +289,49 @@ data ParseMsg =
     -- > extern int2int foo;
     --
     -- <https://github.com/well-typed/hs-bindgen/issues/1034>
-  | ParseFunctionOfTypeTypedef (C.DeclInfo Parse)
+  | ParseFunctionOfTypeTypedef
   deriving stock (Show)
 
-instance PrettyForTrace ParseMsg where
+instance PrettyForTrace DelayedParseMsg where
   prettyForTrace = \case
-      ParseExcluded info ->
-          prettyForTrace info >< " parse not attempted"
-      ParseUnsupportedType info err -> noBindingsGenerated info $
-          prettyForTrace err
-      ParseUnsupportedImplicitFields info -> noBindingsGenerated info $
-          "unsupported implicit fields"
-      ParseUnexpectedAnonInSignature info -> noBindingsGenerated info $
+      ParseUnsupportedType err -> noBindingsGenerated $
+        prettyForTrace err
+      ParseUnsupportedImplicitFields -> noBindingsGenerated $
+        "unsupported implicit fields"
+      ParseUnexpectedAnonInSignature -> noBindingsGenerated $
           "unexpected anonymous declaration in function signature"
-      ParseUnexpectedAnonInExtern info -> noBindingsGenerated info $
+      ParseUnexpectedAnonInExtern -> noBindingsGenerated $
           "unexpected anonymous declaration in global variable"
-      ParseUnsupportedTLS info -> noBindingsGenerated info $
-          "unsupported thread-local variable"
-      ParseUnknownStorageClass info storage -> noBindingsGenerated info $ PP.hsep [
+      ParseUnsupportedTLS -> noBindingsGenerated $
+        "unsupported thread-local variable"
+      ParseUnknownStorageClass storage -> noBindingsGenerated $ PP.hsep [
           "unsupported storage class"
         , PP.showToCtxDoc storage
         ]
-      ParsePotentialDuplicateSymbol info isPublic -> PP.hcat $ concat [
-          [ "Bindings generated for "
-          , prettyForTrace info
-          , " may result in duplicate symbols; "
-          , "consider using 'static' or 'extern';" ]
-        , concat [ [
-              " or if that is not an option, consider attributing hidden "
+      ParsePotentialDuplicateSymbol isPublic -> PP.hsep $ [
+            "Bindings may result in duplicate symbols;"
+          , "consider using 'static' or 'extern';"
+          ] ++
+          if isPublic
+          then [
+              "or if that is not an option, consider attributing hidden"
             , "visibility to the symbol"
             ]
-          | isPublic
-          ]
+          else []
+      ParseNonPublicVisibility -> PP.hsep [
+          "Bindings may result in linker errors"
+        , "because the symbol has non-public visibility"
         ]
-      ParseNonPublicVisibility info  -> PP.hcat [
-          "Bindings generated for "
-        , prettyForTrace info
-        , " may result in linker errors because the symbol has non-public visibility"
-        ]
-      ParseFunctionOfTypeTypedef info -> noBindingsGenerated info $
+      ParseFunctionOfTypeTypedef -> noBindingsGenerated $
         "unsupported function declared with a typedef type"
     where
-      noBindingsGenerated :: C.DeclInfo Parse -> CtxDoc -> CtxDoc
-      noBindingsGenerated info reason = PP.hcat [
-            "No bindings generated for "
-          , prettyForTrace info
-          , ": "
-          , reason
-          ]
+      noBindingsGenerated :: CtxDoc -> CtxDoc
+      noBindingsGenerated reason = PP.hcat [ "no bindings generated: ", reason ]
 
 -- | Unsupported features are warnings, because we skip over them
-instance IsTrace Level ParseMsg where
+instance IsTrace Level DelayedParseMsg where
   getDefaultLogLevel = \case
-      ParseExcluded{}                  -> Info
-      ParseUnsupportedType _ctxt err   -> getDefaultLogLevel err
+      ParseUnsupportedType err         -> getDefaultLogLevel err
       ParseUnsupportedImplicitFields{} -> Warning
       ParseUnexpectedAnonInSignature{} -> Warning
       ParseUnexpectedAnonInExtern{}    -> Warning
@@ -308,7 +341,7 @@ instance IsTrace Level ParseMsg where
       ParseNonPublicVisibility{}       -> Warning
       ParseFunctionOfTypeTypedef{}     -> Warning
   getSource  = const HsBindgen
-  getTraceId = const "parse"
+  getTraceId = const "parse-delayed"
 
 {-------------------------------------------------------------------------------
   Location-specific parse messages
@@ -320,20 +353,32 @@ instance IsTrace Level ParseMsg where
 -- parsed/reified declarations, as well as for declarations we wanted to select
 -- but that were skipped during parse/reification. We call these latter
 -- declarations "failed declarations".
-newtype ParseMsgs p = ParseMsgs { unParseMsgs :: Map (ParseMsgKey p) [ParseMsg] }
+newtype ParseMsgs p = ParseMsgs {
+    unParseMsgs :: Map (ParseMsgKey p) [DelayedParseMsg]
+  }
 deriving instance Show (Id p) => Show (ParseMsgs p)
 
 data ParseMsgKey p = ParseMsgKey {
-      parseMsgDeclLoc  :: SingleLoc
-    , parseMsgDeclId   :: Id p
-    , parseMsgDeclKind :: NameKind
+      parseMsgDeclLoc          :: SingleLoc
+    , parseMsgDeclId           :: Id p
+    , parseMsgDeclKind         :: NameKind
+    , parseMsgDeclAvailability :: C.Availability
     }
 deriving stock instance Show (Id p) => Show (ParseMsgKey p)
 deriving stock instance Eq (Id p)   => Eq (ParseMsgKey p)
 deriving stock instance Ord (Id p)  => Ord (ParseMsgKey p)
 
 instance (Id p ~ Id p') => CoercePass ParseMsgKey p p' where
-  coercePass (ParseMsgKey l i k) = ParseMsgKey l i k
+  coercePass (ParseMsgKey l i k a) = ParseMsgKey l i k a
+
+instance PrettyForTrace (Id p) => PrettyForTrace (ParseMsgKey p) where
+  prettyForTrace ParseMsgKey{..} = PP.hsep [
+      prettyForTrace parseMsgDeclKind
+    , prettyForTrace parseMsgDeclId
+    , "at"
+    , PP.showToCtxDoc parseMsgDeclLoc
+    , "(" >< prettyForTrace parseMsgDeclAvailability >< ")"
+    ]
 
 emptyParseMsgs :: ParseMsgs p
 emptyParseMsgs = ParseMsgs $ Map.empty
@@ -349,12 +394,12 @@ mapParseMsgs :: Ord (ParseMsgKey p')
 mapParseMsgs f = ParseMsgs . Map.mapKeys f . unParseMsgs
 
 recordParseMsg :: forall p. Ord (ParseMsgKey p)
-  => C.DeclInfo p -> NameKind -> ParseMsg -> ParseMsgs p -> ParseMsgs p
+  => C.DeclInfo p -> NameKind -> DelayedParseMsg -> ParseMsgs p -> ParseMsgs p
 recordParseMsg info kind trace =
    ParseMsgs . Map.alter (Just <$> add trace) key . unParseMsgs
   where
     key :: ParseMsgKey p
-    key = ParseMsgKey (C.declLoc info) (C.declId info) kind
+    key = ParseMsgKey (C.declLoc info) (C.declId info) kind (C.declAvailability info)
 
     add x Nothing   = [x]
     add x (Just xs) = x:xs

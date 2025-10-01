@@ -14,7 +14,7 @@ import Test.Tasty.QuickCheck (Arbitrary (arbitrary), CoArbitrary (coarbitrary),
 import Clang.Paths
 
 import HsBindgen.Errors (panicPure)
-import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.Predicate
 
 tests :: TestTree
@@ -42,6 +42,7 @@ tests = testGroup "Test.HsBindgen.Prop.Selection" [
         , testProperty "header-path/needle"    prop_selectHeaderPathMatchesNeedle
         , testProperty "decl-name/all"         prop_selectDeclNameMatchesAll
         , testProperty "decl-name/needle"      prop_selectDeclNameMatchesNeedle
+        , testProperty "decl-deprecated"       prop_selectDeclMatchDeprecated
         ]
     , testGroup "mergePredicates" [
           testProperty "select/false"     prop_mergeFalse
@@ -114,74 +115,90 @@ prop_parseHeaderPathMatchesNeedle (SourcePath pathT) =
   Select pass selection properties
 -------------------------------------------------------------------------------}
 
-prop_selectTrue :: SourcePath -> C.QualDeclId -> Bool
-prop_selectTrue path qid = matchSelect (const True) (const True) path qid PTrue
+prop_selectTrue :: SourcePath -> C.QualDeclId -> C.Availability -> Bool
+prop_selectTrue path qid availability =
+  matchSelect (const True) (const True) path qid availability PTrue
 
-prop_selectFalse :: SourcePath -> C.QualDeclId -> Bool
-prop_selectFalse path qid =
-    not $ matchSelect (const True) (const True) path qid PFalse
+prop_selectFalse :: SourcePath -> C.QualDeclId -> C.Availability -> Bool
+prop_selectFalse path qid availability =
+    not $ matchSelect (const True) (const True) path qid availability PFalse
 
 prop_selectAnd
-  :: Fun SourcePath Bool -> Fun SourcePath Bool -> SourcePath -> C.QualDeclId
+  :: Fun SourcePath Bool -> Fun SourcePath Bool
+  -> SourcePath -> C.QualDeclId -> C.Availability
   -> SelectPredicate -> SelectPredicate -> Bool
-prop_selectAnd (Fn isMainHeader) (Fn isInMainHeaderDir) path qid p1 p2 =
-    let p1Res = matchSelect isMainHeader isInMainHeaderDir path qid p1
-        p2Res = matchSelect isMainHeader isInMainHeaderDir path qid p2
+prop_selectAnd (Fn isMainHeader) (Fn isInMainHeaderDir) path qid availability p1 p2 =
+    let p1Res = matchSelect isMainHeader isInMainHeaderDir path qid availability p1
+        p2Res = matchSelect isMainHeader isInMainHeaderDir path qid availability p2
         p1AndP2Res =
-          matchSelect isMainHeader isInMainHeaderDir path qid (PAnd p1 p2)
+          matchSelect isMainHeader isInMainHeaderDir path qid availability (PAnd p1 p2)
      in (p1Res && p2Res) == p1AndP2Res
 
 prop_selectOr
-  :: Fun SourcePath Bool -> Fun SourcePath Bool -> SourcePath -> C.QualDeclId
+  :: Fun SourcePath Bool -> Fun SourcePath Bool
+  -> SourcePath -> C.QualDeclId -> C.Availability
   -> SelectPredicate -> SelectPredicate -> Bool
-prop_selectOr (Fn isMainHeader) (Fn isInMainHeaderDir) path qid p1 p2 =
-    let p1Res = matchSelect isMainHeader isInMainHeaderDir path qid p1
-        p2Res = matchSelect isMainHeader isInMainHeaderDir path qid p2
+prop_selectOr (Fn isMainHeader) (Fn isInMainHeaderDir) path qid availability p1 p2 =
+    let p1Res = matchSelect isMainHeader isInMainHeaderDir path qid availability p1
+        p2Res = matchSelect isMainHeader isInMainHeaderDir path qid availability p2
         p1OrP2Res =
-          matchSelect isMainHeader isInMainHeaderDir path qid (POr p1 p2)
+          matchSelect isMainHeader isInMainHeaderDir path qid availability (POr p1 p2)
      in (p1Res || p2Res) == p1OrP2Res
 
 prop_selectNot
-  :: Fun SourcePath Bool -> Fun SourcePath Bool -> SourcePath -> C.QualDeclId
+  :: Fun SourcePath Bool -> Fun SourcePath Bool
+  -> SourcePath -> C.QualDeclId -> C.Availability
   -> SelectPredicate -> Property
-prop_selectNot (Fn isMainHeader) (Fn isInMainHeaderDir) path qid p =
-      matchSelect isMainHeader isInMainHeaderDir path qid p
-  =/= matchSelect isMainHeader isInMainHeaderDir path qid (PNot p)
+prop_selectNot (Fn isMainHeader) (Fn isInMainHeaderDir) path qid availability p =
+      matchSelect isMainHeader isInMainHeaderDir path qid availability p
+  =/= matchSelect isMainHeader isInMainHeaderDir path qid availability (PNot p)
 
 prop_selectFromMainHeaders
-  :: Fun SourcePath Bool -> SourcePath -> C.QualDeclId -> Bool
-prop_selectFromMainHeaders (Fn isMainHeader) path qid =
-  let p = PIf $ Left FromMainHeaders
-   in matchSelect isMainHeader unused path qid p == isMainHeader path
+  :: Fun SourcePath Bool -> SourcePath -> C.QualDeclId -> C.Availability -> Bool
+prop_selectFromMainHeaders (Fn isMainHeader) path qid availability =
+  let p = PIf $ SelectHeader FromMainHeaders
+   in matchSelect isMainHeader unused path qid availability p == isMainHeader path
 
 prop_selectFromMainHeaderDirs
-  :: Fun SourcePath Bool -> SourcePath -> C.QualDeclId -> Bool
-prop_selectFromMainHeaderDirs (Fn isInMainHeaderDir) path qid =
-  let p = PIf $ Left FromMainHeaderDirs
-   in matchSelect unused isInMainHeaderDir path qid p == isInMainHeaderDir path
+  :: Fun SourcePath Bool -> SourcePath -> C.QualDeclId -> C.Availability -> Bool
+prop_selectFromMainHeaderDirs (Fn isInMainHeaderDir) path qid availability =
+  let p = PIf $ SelectHeader FromMainHeaderDirs
+   in matchSelect unused isInMainHeaderDir path qid availability p
+        == isInMainHeaderDir path
 
-prop_selectHeaderPathMatchesAll :: SourcePath -> C.QualDeclId -> Bool
-prop_selectHeaderPathMatchesAll path qid =
-  let p = PIf $ Left (HeaderPathMatches ".*")
-   in matchSelect unused unused path qid p
+prop_selectHeaderPathMatchesAll ::
+  SourcePath -> C.QualDeclId -> C.Availability -> Bool
+prop_selectHeaderPathMatchesAll path qid availability =
+  let p = PIf $ SelectHeader (HeaderPathMatches ".*")
+   in matchSelect unused unused path qid availability p
 
-prop_selectHeaderPathMatchesNeedle :: SourcePath -> C.QualDeclId -> Bool
-prop_selectHeaderPathMatchesNeedle (SourcePath pathT) qid =
+prop_selectHeaderPathMatchesNeedle ::
+  SourcePath -> C.QualDeclId -> C.Availability -> Bool
+prop_selectHeaderPathMatchesNeedle (SourcePath pathT) qid availability =
   let path = SourcePath $ pathT <> "NEEDLE" <> pathT
-      p = PIf $ Left (HeaderPathMatches "NEEDLE")
-   in matchSelect unused unused path qid p
+      p = PIf $ SelectHeader (HeaderPathMatches "NEEDLE")
+   in matchSelect unused unused path qid availability p
 
-prop_selectDeclNameMatchesAll :: SourcePath -> C.QualDeclId -> Bool
-prop_selectDeclNameMatchesAll path qid =
-  let p = PIf $ Right (DeclNameMatches ".*")
-   in matchSelect unused unused path qid p
+prop_selectDeclNameMatchesAll ::
+  SourcePath -> C.QualDeclId -> C.Availability -> Bool
+prop_selectDeclNameMatchesAll path qid availability =
+  let p = PIf $ SelectDecl (DeclNameMatches ".*")
+   in matchSelect unused unused path qid availability p
 
-prop_selectDeclNameMatchesNeedle :: SourcePath -> C.QualDeclId -> Bool
-prop_selectDeclNameMatchesNeedle path qid =
+prop_selectDeclNameMatchesNeedle ::
+  SourcePath -> C.QualDeclId -> C.Availability -> Bool
+prop_selectDeclNameMatchesNeedle path qid availability =
   let name  = C.qualDeclIdName qid
       qid'  = qid { C.qualDeclIdName = name <> "NEEDLE" <> name }
-      p     = PIf $ Right (DeclNameMatches "NEEDLE")
-   in matchSelect unused unused path qid' p
+      p     = PIf $ SelectDecl (DeclNameMatches "NEEDLE")
+   in matchSelect unused unused path qid' availability p
+
+prop_selectDeclMatchDeprecated ::
+  SourcePath -> C.QualDeclId -> C.Availability -> Bool
+prop_selectDeclMatchDeprecated path qid availability =
+  let p = PIf $ SelectDecl DeclDeprecated
+   in matchSelect unused unused path qid availability p
+        == (availability == C.Deprecated)
 
 {-------------------------------------------------------------------------------
   Match tests and properties
@@ -208,14 +225,14 @@ mergeExcludeOne :: Assertion
 mergeExcludeOne = mergePredicates [p] [PTrue] @?= PNot p
   where
     p :: SelectPredicate
-    p = PIf $ Right (DeclNameMatches "a")
+    p = PIf $ SelectDecl (DeclNameMatches "a")
 
 mergeExcludeTwo :: Assertion
 mergeExcludeTwo = mergePredicates [pa, pb] [PTrue] @?= PAnd (PNot pa) (PNot pb)
   where
     pa, pb :: SelectPredicate
-    pa = PIf $ Right (DeclNameMatches "a")
-    pb = PIf $ Right (DeclNameMatches "b")
+    pa = PIf $ SelectDecl (DeclNameMatches "a")
+    pb = PIf $ SelectDecl (DeclNameMatches "b")
 
 {-------------------------------------------------------------------------------
   Helpers
@@ -247,6 +264,9 @@ instance Arbitrary C.NameOrigin where
 instance Arbitrary C.QualDeclId where
   arbitrary = C.QualDeclId <$> arbitrary <*> arbitrary <*> arbitrary
 
+instance Arbitrary C.Availability where
+  arbitrary = elements [minBound .. maxBound]
+
 instance Arbitrary ParsePredicate where
   arbitrary = oneof [
       pure PTrue
@@ -262,10 +282,11 @@ instance Arbitrary SelectPredicate where
       pure PTrue
     , PAnd <$> arbitrary <*> arbitrary
     , PNot <$> arbitrary
-    , pure (PIf (Left FromMainHeaders))
-    , pure (PIf (Left FromMainHeaderDirs))
-    , PIf . Left  . HeaderPathMatches <$> elements regexPatterns
-    , PIf . Right . DeclNameMatches   <$> elements regexPatterns
+    , pure (PIf (SelectHeader FromMainHeaders))
+    , pure (PIf (SelectHeader FromMainHeaderDirs))
+    , PIf . SelectHeader  . HeaderPathMatches <$> elements regexPatterns
+    , PIf . SelectDecl    . DeclNameMatches   <$> elements regexPatterns
+    , pure (PIf (SelectDecl DeclDeprecated))
     ]
 
 regexPatterns :: [Regex]

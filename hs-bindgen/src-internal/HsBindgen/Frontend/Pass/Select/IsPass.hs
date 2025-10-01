@@ -10,7 +10,8 @@ module HsBindgen.Frontend.Pass.Select.IsPass (
   ) where
 
 import Data.Default (Default (def))
-import Text.SimplePrettyPrint ((><))
+import Text.SimplePrettyPrint (CtxDoc, (<+>), (><))
+import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.Analysis.DeclIndex
@@ -108,7 +109,11 @@ instance PrettyForTrace SelectReason where
 data SelectMsg =
     SelectNotSelected (C.DeclInfo Select)
   | SelectSelected SelectReason (C.DeclInfo Select)
-  | SelectedButFailed ParseMsg
+    -- | Delayed parse message for actually selected declarations.
+  | SelectParse  (ParseMsgKey Select) DelayedParseMsg
+    -- | Delayed parse message for declarations that the user wanted to select,
+    -- but we failed to parse.
+  | SelectFailed (ParseMsgKey Select) DelayedParseMsg
   -- TODO https://github.com/well-typed/hs-bindgen/issues/1037: Introduce
   -- `SelectedButSkipped`.
   deriving stock (Show)
@@ -119,15 +124,24 @@ instance PrettyForTrace SelectMsg where
       prettyForTrace info >< " not selected"
     SelectSelected reason info ->
       prettyForTrace info >< " selected (" >< prettyForTrace reason >< ")"
-    SelectedButFailed  x ->
-      "Missed declaration: " >< prettyForTrace x
+    SelectParse  k x -> "During parse:" <+> prettyDelayedParseMsg k x
+    SelectFailed k x -> "Failed to select declaration declaration:" <+> prettyDelayedParseMsg k x
+    where
+      prettyDelayedParseMsg :: ParseMsgKey Select -> DelayedParseMsg -> CtxDoc
+      prettyDelayedParseMsg k v = PP.hcat [
+          prettyForTrace k
+        , ":"
+        , prettyForTrace v
+        ]
 
 instance IsTrace Level SelectMsg where
   getDefaultLogLevel = \case
-    SelectNotSelected{}                     -> Info
-    SelectSelected{}                        -> Info
-    SelectedButFailed  x                    -> getDefaultLogLevel x
+    SelectNotSelected{} -> Info
+    SelectSelected{}    -> Info
+    SelectParse  _ x    -> getDefaultLogLevel x
+    SelectFailed _ x    -> getDefaultLogLevel x
   getSource  = const HsBindgen
   getTraceId = \case
-    SelectedButFailed  x -> "select-miss-" <> getTraceId x
-    _else                -> "select"
+    SelectParse  _ x -> "select-parse-"   <> getTraceId x
+    SelectFailed _ x -> "select-missed-"  <> getTraceId x
+    _else            -> "select"

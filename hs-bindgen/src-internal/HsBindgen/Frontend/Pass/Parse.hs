@@ -21,7 +21,7 @@ import HsBindgen.Util.Tracer
 -------------------------------------------------------------------------------}
 
 parseDecls ::
-     Tracer IO ParseMsg
+     Tracer IO UnrecognizedParseMsg
   -> RootHeader
   -> Predicate.ParsePredicate
   -> IncludeGraph

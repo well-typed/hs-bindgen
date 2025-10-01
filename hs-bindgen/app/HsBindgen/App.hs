@@ -401,20 +401,20 @@ parseSelectPredicate = fmap aux . many . asum $ [
           long "select-all"
         , help "Select all declarations"
         ]
-    , flag' (Right (PIf (Left FromMainHeaders))) $ mconcat [
+    , flag' (Right (PIf (SelectHeader FromMainHeaders))) $ mconcat [
           long "select-from-main-headers"
         , help "Select declarations in main headers (default)"
         ]
-    , flag' (Right (PIf (Left FromMainHeaderDirs))) $ mconcat [
+    , flag' (Right (PIf (SelectHeader FromMainHeaderDirs))) $ mconcat [
           long "select-from-main-header-dirs"
         , help "Select declarations in main header directories"
         ]
-    , fmap (Right . PIf . Left . HeaderPathMatches) $ strOption $ mconcat [
+    , fmap (Right . PIf . SelectHeader . HeaderPathMatches) $ strOption $ mconcat [
           long "select-by-header-path"
         , metavar "PCRE"
         , help "Select declarations in headers with paths that match PCRE"
         ]
-    , fmap (Left . PIf . Left . HeaderPathMatches) $ strOption $ mconcat [
+    , fmap (Left . PIf . SelectHeader . HeaderPathMatches) $ strOption $ mconcat [
           long "select-except-by-header-path"
         , metavar "PCRE"
         , help $ concat [
@@ -422,15 +422,19 @@ parseSelectPredicate = fmap aux . many . asum $ [
             , " PCRE"
             ]
         ]
-    , fmap (Right . PIf . Right . DeclNameMatches) $ strOption $ mconcat [
+    , fmap (Right . PIf . SelectDecl . DeclNameMatches) $ strOption $ mconcat [
           long "select-by-decl-name"
         , metavar "PCRE"
         , help "Select declarations with C names that match PCRE"
         ]
-    , fmap (Left . PIf . Right . DeclNameMatches) $ strOption $ mconcat [
+    , fmap (Left . PIf . SelectDecl . DeclNameMatches) $ strOption $ mconcat [
           long "select-except-by-decl-name"
         , metavar "PCRE"
-        , help "Select except declarations with C names that match PCRE"
+        , help "Select except (i.e., do not select) declarations with C names that match PCRE"
+        ]
+    , flag' (Left $ PIf $ SelectDecl DeclDeprecated) $ mconcat [
+          long "select-except-deprecated"
+        , help "Select except (i.e., do not select) deprecated declarations"
         ]
     ]
   where

@@ -2,7 +2,7 @@
 source-repository-package
     type: git
     location: https://github.com/well-typed/libclang
-    tag: 8105e5e7bd30223a755185ee9fb6ec3727f8360b
+    tag: d4ae9a5fcca9ae71fcb4df2c0b0ea37c6b15c48c
 
 package clang
   flags: +dev

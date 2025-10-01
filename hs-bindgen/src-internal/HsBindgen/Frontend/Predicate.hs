@@ -11,6 +11,7 @@ module HsBindgen.Frontend.Predicate (
   , DeclPredicate (..)
   , ParsePredicate
   , SelectPredicate
+  , SelectPredicate_ (..)
   , Regex -- opaque
     -- * Execution (internal API)
   , IsMainHeader
@@ -75,9 +76,12 @@ data HeaderPathPredicate =
 
 -- | Predicate that determines which declarations should be kept, based on the
 -- declarations themselves
-newtype DeclPredicate =
+data DeclPredicate =
     -- | Match declaration name against regex
     DeclNameMatches Regex
+    -- | Match deprecated declarations taking current target platform into
+    -- account; see 'Availability'
+  | DeclDeprecated
   deriving (Show, Eq)
 
 -- | Predicates for the @Parse@ pass select based on header file paths
@@ -95,10 +99,16 @@ instance Default ParsePredicate where
 -- data structures, the selection predicate dictates which declarations
 -- `hs-bindgen` generates bindings for. For details, please see the @hs-bindgen@
 -- manual section on predicates and program slicing.
-type SelectPredicate = Predicate (Either HeaderPathPredicate DeclPredicate)
+type SelectPredicate = Predicate SelectPredicate_
+
+-- TODO_PR
+data SelectPredicate_ =
+    SelectHeader HeaderPathPredicate
+  | SelectDecl   DeclPredicate
+  deriving (Show, Eq, Generic)
 
 instance Default SelectPredicate where
-  def = PIf (Left FromMainHeaders)
+  def = PIf (SelectHeader FromMainHeaders)
 
 {-------------------------------------------------------------------------------
   Execution
@@ -159,10 +169,12 @@ matchSelect ::
   -> IsInMainHeaderDir
   -> SourcePath
   -> C.QualDeclId
+  -> C.Availability
   -> SelectPredicate
   -> Bool
-matchSelect isMainHeader isInMainHeaderDir path qid = eval $
-    either (matchHeaderPath isMainHeader isInMainHeaderDir path) (matchDecl qid)
+matchSelect isMainHeader isInMainHeaderDir path qid availability = eval $ \case
+  SelectHeader p -> matchHeaderPath isMainHeader isInMainHeaderDir path p
+  SelectDecl   p -> matchDecl qid availability p
 
 {-------------------------------------------------------------------------------
   Merging
@@ -237,9 +249,14 @@ matchHeaderPath isMainHeader isInMainHeaderDir path@(SourcePath pathT) = \case
     HeaderPathMatches re -> matchTest re pathT
 
 -- | Match 'DeclPredicate' predicates
-matchDecl :: C.QualDeclId -> DeclPredicate -> Bool
-matchDecl qid = \case
+matchDecl :: C.QualDeclId -> C.Availability -> DeclPredicate -> Bool
+matchDecl qid availability = \case
     DeclNameMatches re -> matchTest re $ C.qualDeclIdText qid
+    DeclDeprecated     -> isDeprecated
+  where
+    isDeprecated = case availability of
+      C.Deprecated -> True
+      _            -> False
 
 {-------------------------------------------------------------------------------
   Internal auxiliary: regexs

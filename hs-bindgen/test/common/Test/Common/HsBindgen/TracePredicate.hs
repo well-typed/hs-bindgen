@@ -24,6 +24,7 @@ import Data.IORef (modifyIORef', newIORef, readIORef)
 import Data.Map.Strict (Map)
 import Data.Map.Strict qualified as Map
 import Data.Maybe (fromMaybe)
+import Data.Text (Text)
 import Data.Typeable (Typeable)
 import Test.Common.HsBindgen.Trace
 import Text.SimplePrettyPrint (CtxDoc)
@@ -196,6 +197,10 @@ instance (IsTrace l a, Show a) => WrongCountMsg a CtxDoc where
 -- | Traces with multiple outcome, with user-defined labels
 instance (IsTrace l a, Show a) => WrongCountMsg a String where
   wrongCount = wrongCount . PP.string
+
+-- | Traces with multiple outcome, with user-defined labels
+instance (IsTrace l a, Show a) => WrongCountMsg a Text where
+  wrongCount = wrongCount . PP.textToCtxDoc
 
 -- | It is often useful to check for warnings/errors for specific declarations
 instance (IsTrace l a, Show a) => WrongCountMsg a C.PrelimDeclId where

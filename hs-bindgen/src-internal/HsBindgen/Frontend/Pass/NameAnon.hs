@@ -86,6 +86,7 @@ nameDecl env decl = do
           , declAliases = findAliasesOf env nsId
           , declLoc
           , declHeaderInfo
+          , declAvailability
           , declComment = fmap (nameUseSites env) declComment
           }
       , declKind = nameUseSites env declKind
@@ -93,7 +94,7 @@ nameDecl env decl = do
       }
   where
     C.Decl{declInfo, declKind, declAnn} = decl
-    C.DeclInfo{declId, declLoc, declHeaderInfo, declComment} = declInfo
+    C.DeclInfo{..} = declInfo
 
     nsId :: C.NsPrelimDeclId
     nsId = C.declNsPrelimDeclId decl

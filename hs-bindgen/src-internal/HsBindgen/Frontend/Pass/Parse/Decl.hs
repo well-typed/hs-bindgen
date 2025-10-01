@@ -43,8 +43,8 @@ topLevelDecl = foldWithHandler handleTypeException parseDecl
       -> ParseDecl (Maybe [C.Decl Parse])
     handleTypeException curr err = do
         info <- getDeclInfo curr
-        recordTrace info contextNameKind $
-          ParseUnsupportedType info (parseException err)
+        recordDelayedTrace info contextNameKind $
+          ParseUnsupportedType (parseException err)
         return Nothing
       where
         ParseTypeExceptionContext{..} = parseContext err
@@ -58,15 +58,43 @@ getDeclInfo = \curr -> do
     declId         <- C.getPrelimDeclId curr
     declLoc        <- HighLevel.clang_getCursorLocation' curr
     declHeaderInfo <- getHeaderInfo (singleLocPath declLoc)
+    sAvailability  <- clang_getCursorAvailability curr
     declComment    <- fmap parseCommentReferences <$> CDoc.clang_getComment curr
-    -- TODO: We might want a NameOriginBuiltin
-    return C.DeclInfo{
-        declId
-      , declLoc
-      , declAliases = []
-      , declHeaderInfo
-      , declComment
-      }
+
+    let mAvailability :: Maybe C.Availability
+        mAvailability = fmap toAvailability $ fromSimple $ sAvailability
+
+        -- NOTE: If the availability is unknown/undefined, we set the
+        -- declaration to be unavailable. We do not attempt to parse unavailable
+        -- declarations and emit an appropriate trace.
+        declAvailability :: C.Availability
+        declAvailability = fromMaybe C.Unavailable mAvailability
+
+        info :: C.DeclInfo Parse
+        info = C.DeclInfo{
+            declId
+          , declLoc
+          , declAliases = []
+          , declHeaderInfo
+          , declAvailability
+          , declComment
+          }
+
+    when (isNothing mAvailability) $
+      recordUnrecognizedTrace $ ParseUnknownCursorAvailability info sAvailability
+
+    -- TODO: We might want a NameOriginBuiltin.
+    pure info
+  where
+    fromSimple :: IsSimpleEnum a => SimpleEnum a -> Maybe a
+    fromSimple x = either (const Nothing) Just $ fromSimpleEnum x
+
+    toAvailability :: CXAvailabilityKind -> C.Availability
+    toAvailability = \case
+      CXAvailability_Available     -> C.Available
+      CXAvailability_Deprecated    -> C.Deprecated
+      CXAvailability_NotAvailable  -> C.Unavailable
+      CXAvailability_NotAccessible -> C.Unavailable
 
 getHeaderInfo :: SourcePath -> ParseDecl (Maybe C.HeaderInfo)
 getHeaderInfo path
@@ -110,20 +138,32 @@ parseDecl = \curr -> do
     let isBuiltin = case C.declId info of
           C.PrelimDeclIdBuiltin{} -> True
           _otherwise              -> False
+        isUnavailable = case C.declAvailability info of
+          C.Unavailable -> True
+          _otherwise    -> False
 
     let parseWith ::
              (C.DeclInfo Parse -> Parser)
           -> C.NameKind
           -> ParseDecl (Next ParseDecl [C.Decl Parse])
         parseWith parser kind
-          | isBuiltin =
+          | isBuiltin = do
               -- TODO Support builtin macros (#1087)
+              let trace = ParseNotAttempted "builtin declaration" info
+              recordUnrecognizedTrace trace
+              recordNonParsedDecl info kind >> foldContinue
+          | isUnavailable = do
+              let trace = ParseNotAttemptedUnexpected "declaration is unavailable" info
+              recordUnrecognizedTrace trace
               recordNonParsedDecl info kind >> foldContinue
           | otherwise = do
-              selected <- evalPredicate info
-              if selected
-                then parser info curr
-                else recordNonParsedDecl info kind >> foldContinue
+              matched <- evalPredicate info
+              if matched
+              then parser info curr
+              else do
+                let trace = ParseNotAttempted "parse predicate did not match" info
+                recordUnrecognizedTrace trace
+                recordNonParsedDecl info kind >> foldContinue
 
     dispatch curr $ \case
       -- Ordinary kinds that we parse
@@ -206,8 +246,8 @@ structDecl info = \curr -> do
             partitionChildren xs
               | null unused = return $ Just (used, fields)
               | otherwise   = do
-                  recordTrace info (NameKindTagged TagKindStruct)
-                    $ ParseUnsupportedImplicitFields info
+                  recordDelayedTrace info (NameKindTagged TagKindStruct)
+                    ParseUnsupportedImplicitFields
                   return Nothing
               where
                 otherDecls :: [C.Decl Parse]
@@ -271,8 +311,8 @@ unionDecl info = \curr -> do
             partitionChildren xs
               | null unused = return $ Just (used, fields)
               | otherwise   = do
-                  recordTrace info (NameKindTagged TagKindUnion)
-                    $ ParseUnsupportedImplicitFields info
+                  recordDelayedTrace info (NameKindTagged TagKindUnion)
+                    ParseUnsupportedImplicitFields
                   return Nothing
               where
                 otherDecls :: [C.Decl Parse]
@@ -467,14 +507,16 @@ functionDecl info = \curr -> do
             let isDefn = declCls == Definition
 
             if not (null anonDecls) then do
-              recordTrace info NameKindOrdinary $ ParseUnexpectedAnonInSignature info
+              recordDelayedTrace info NameKindOrdinary
+                ParseUnexpectedAnonInSignature
               return []
             else do
               when (visibilityCanCauseErrors visibility linkage isDefn) $
-                recordTrace info NameKindOrdinary $ ParseNonPublicVisibility info
+                recordDelayedTrace info NameKindOrdinary
+                  ParseNonPublicVisibility
               when (isDefn && linkage == ExternalLinkage) $
-                recordTrace info NameKindOrdinary $
-                  ParsePotentialDuplicateSymbol info (visibility == PublicVisibility)
+                recordDelayedTrace info NameKindOrdinary $
+                  ParsePotentialDuplicateSymbol (visibility == PublicVisibility)
               return $ otherDecls ++ [mkDecl purity]
   where
     guardTypeFunction ::
@@ -496,7 +538,7 @@ functionDecl info = \curr -> do
               return (mbArgName, argCType)
             pure $ Just (args', res)
           C.TypeTypedef{} -> do
-            recordTrace info NameKindOrdinary $ ParseFunctionOfTypeTypedef info
+            recordDelayedTrace info NameKindOrdinary ParseFunctionOfTypeTypedef
             pure Nothing
           otherType ->
             panicIO $ "Expected function type, but got " <> show otherType
@@ -579,24 +621,25 @@ varDecl info = \curr -> do
                    || (isTentative && declCls == DefinitionUnavailable)
 
         if not (null anonDecls) then do
-          recordTrace info NameKindOrdinary $ ParseUnexpectedAnonInExtern info
+          recordDelayedTrace info NameKindOrdinary ParseUnexpectedAnonInExtern
           return []
         else (otherDecls ++) <$> do
           when (visibilityCanCauseErrors visibility linkage isDefn) $
-            recordTrace info NameKindOrdinary $ ParseNonPublicVisibility info
+            recordDelayedTrace info NameKindOrdinary ParseNonPublicVisibility
           when (isDefn && linkage == ExternalLinkage) $
-            recordTrace info NameKindOrdinary $
-              ParsePotentialDuplicateSymbol info (visibility == PublicVisibility)
+            recordDelayedTrace info NameKindOrdinary $
+              ParsePotentialDuplicateSymbol (visibility == PublicVisibility)
           case cls of
             VarGlobal -> do
               return [mkDecl $ C.DeclGlobal typ]
             VarConst -> do
               return [mkDecl $ C.DeclGlobal typ]
             VarThreadLocal -> do
-              recordTrace info NameKindOrdinary $ ParseUnsupportedTLS info
+              recordDelayedTrace info NameKindOrdinary ParseUnsupportedTLS
               return []
             VarUnsupported storage -> do
-              recordTrace info NameKindOrdinary $ ParseUnknownStorageClass info storage
+              recordDelayedTrace info NameKindOrdinary $
+                ParseUnknownStorageClass storage
               return []
   where
     -- Look for nested declarations inside the global variable type

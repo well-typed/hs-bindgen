@@ -8,6 +8,7 @@ module HsBindgen.Frontend.AST.External (
     TranslationUnit(..)
     -- * Declarations
   , Decl(..)
+  , Int.Availability(..)
   , DeclInfo(..)
   , Int.HeaderInfo(..)
   , FieldInfo(..)

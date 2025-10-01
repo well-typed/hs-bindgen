@@ -19,7 +19,8 @@ module HsBindgen.Frontend.Pass.Parse.Decl.Monad (
   , checkHasMacroExpansion
   , recordNonParsedDecl
     -- ** Logging
-  , recordTrace
+  , recordUnrecognizedTrace
+  , recordDelayedTrace
     -- ** Errors
   , unknownCursorKind
     -- * Utility: dispatching
@@ -94,7 +95,7 @@ data Env = Env {
     , envIsInMainHeaderDir        :: Predicate.IsInMainHeaderDir
     , envGetMainHeadersAndInclude :: GetMainHeadersAndInclude
     , envPredicate                :: Predicate.ParsePredicate
-    , envTracer                   :: Tracer IO ParseMsg
+    , envTracer                   :: Tracer IO UnrecognizedParseMsg
     }
 
 getTranslationUnit :: ParseDecl CXTranslationUnit
@@ -108,14 +109,12 @@ evalGetMainHeadersAndInclude path = wrapEff $ \ParseSupport{parseEnv} ->
     either panicIO return $ (envGetMainHeadersAndInclude parseEnv) path
 
 evalPredicate :: C.DeclInfo Parse -> ParseDecl Bool
-evalPredicate info = wrapEff $ \ParseSupport{parseEnv} -> do
-    let selected = Predicate.matchParse
-                     (envIsMainHeader parseEnv)
-                     (envIsInMainHeaderDir parseEnv)
-                     (singleLocPath (C.declLoc info))
-                     (envPredicate parseEnv)
-    unless selected $ traceWith (envTracer parseEnv) (ParseExcluded info)
-    return selected
+evalPredicate info = wrapEff $ \ParseSupport{parseEnv} -> pure $
+    Predicate.matchParse
+      (envIsMainHeader parseEnv)
+      (envIsInMainHeaderDir parseEnv)
+      (singleLocPath (C.declLoc info))
+      (envPredicate parseEnv)
 
 {-------------------------------------------------------------------------------
   "State"
@@ -206,8 +205,16 @@ recordNonParsedDecl declInfo nameKind =
   Logging
 -------------------------------------------------------------------------------}
 
-recordTrace :: C.DeclInfo Parse -> NameKind -> ParseMsg -> ParseDecl ()
-recordTrace info kind trace = wrapEff $ \ParseSupport{parseState} ->
+-- | Directly emit a parse message that can not be attached to a declaration,
+-- usually because not enough information about the declaration is available.
+recordUnrecognizedTrace :: UnrecognizedParseMsg -> ParseDecl ()
+recordUnrecognizedTrace trace = wrapEff $ \ParseSupport{parseEnv} ->
+  traceWith (envTracer parseEnv) trace
+
+-- | Attach a delayed parse message to a declaration. We only emit the parse
+-- message when we select the declaration.
+recordDelayedTrace :: C.DeclInfo Parse -> NameKind -> DelayedParseMsg -> ParseDecl ()
+recordDelayedTrace info kind trace = wrapEff $ \ParseSupport{parseState} ->
     modifyIORef parseState $ \st -> st{
         stateParseMsgs = recordParseMsg info kind trace (stateParseMsgs st)
       }
