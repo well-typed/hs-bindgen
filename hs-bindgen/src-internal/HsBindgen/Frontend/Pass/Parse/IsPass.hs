@@ -210,7 +210,7 @@ data ParseMsg =
     -- rather than throw a linker error. It can be suprising for users if the
     -- linker picks an unexpected definition for the symbol they are
     -- referencing. So, if a symbol has non-public visibility, the risk of such
-    -- surprises is mitigated somewhat. See the section on Visibility in the
+    -- surprises is mitigated somewhat. See the "Visibility" section in the
     -- manual for more details.
   | ParsePotentialDuplicateSymbol (C.DeclInfo Parse)
       -- | The symbol has public visibility

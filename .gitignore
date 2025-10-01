@@ -8,11 +8,6 @@ cabal.project.local
 dist-newstyle/
 unversioned
 
-# manual generated files
-manual/hs/manual/generated/**/*.hs
-manual/hs/hs-game/generated/**/*.hs
-manual/hs/hs-vector/generated/**/*.hs
-
 *.dll
 *.log
 

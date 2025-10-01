@@ -654,6 +654,9 @@ varDecl info = \curr -> do
           -- We are not interested in assembler labels.
           Right CXCursor_AsmLabelAttr -> foldContinue
 
+          -- Function types
+          Right CXCursor_ParmDecl -> foldContinue
+
           -- Panic on anything we don't recognize
           _otherwise -> do
             loc <- HighLevel.clang_getCursorLocation' curr

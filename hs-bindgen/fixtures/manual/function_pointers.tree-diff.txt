@@ -1,0 +1,611 @@
+TranslationUnit {
+  unitDecls =
+  [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "function_pointers.h:5:12",
+        declId = NamePair {
+          nameC = Name "square",
+          nameHsIdent = Identifier
+            "square"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["manual/function_pointers.h"],
+            headerInclude =
+            "manual/function_pointers.h"},
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              Nothing
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "function_pointers.h:7:12",
+        declId = NamePair {
+          nameC = Name "plus",
+          nameHsIdent = Identifier
+            "plus"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["manual/function_pointers.h"],
+            headerInclude =
+            "manual/function_pointers.h"},
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              Nothing
+              (TypePrim
+                (PrimIntegral PrimInt Signed)),
+            _×_
+              Nothing
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "function_pointers.h:9:12",
+        declId = NamePair {
+          nameC = Name "apply1",
+          nameHsIdent = Identifier
+            "apply1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["manual/function_pointers.h"],
+            headerInclude =
+            "manual/function_pointers.h"},
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "f",
+                  nameHsIdent = Identifier "f"})
+              (TypePointer
+                (TypeFun
+                  [
+                    TypePrim
+                      (PrimIntegral PrimInt Signed)]
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed)))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = Identifier "x"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "function_pointers.h:11:12",
+        declId = NamePair {
+          nameC = Name "apply2",
+          nameHsIdent = Identifier
+            "apply2"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["manual/function_pointers.h"],
+            headerInclude =
+            "manual/function_pointers.h"},
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "f",
+                  nameHsIdent = Identifier "f"})
+              (TypePointer
+                (TypeFun
+                  [
+                    TypePrim
+                      (PrimIntegral PrimInt Signed),
+                    TypePrim
+                      (PrimIntegral PrimInt Signed)]
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed)))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = Identifier "x"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = Identifier "y"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo =
+      DeclInfo {
+        declLoc =
+        "function_pointers.h:20:12",
+        declId = NamePair {
+          nameC = Name
+            "apply1_pointer_arg",
+          nameHsIdent = Identifier
+            "apply1_pointer_arg"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["manual/function_pointers.h"],
+            headerInclude =
+            "manual/function_pointers.h"},
+        declComment =
+        Just
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "Basically the same as apply1(), but here for illustratory purposes."]])},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              Nothing
+              (TypePointer
+                (TypeFun
+                  [
+                    TypePrim
+                      (PrimIntegral PrimInt Signed)]
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed)))),
+            _×_
+              Nothing
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo =
+      DeclInfo {
+        declLoc =
+        "function_pointers.h:24:12",
+        declId = NamePair {
+          nameC = Name
+            "apply1_nopointer_arg",
+          nameHsIdent = Identifier
+            "apply1_nopointer_arg"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["manual/function_pointers.h"],
+            headerInclude =
+            "manual/function_pointers.h"},
+        declComment =
+        Just
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "A version of apply1_pointer_arg() that declares to take a argument of",
+                  TextContent
+                    "function type, rather than a pointer-to-function type."]])},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              Nothing
+              (TypePointer
+                (TypeFun
+                  [
+                    TypePrim
+                      (PrimIntegral PrimInt Signed)]
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed)))),
+            _×_
+              Nothing
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo =
+      DeclInfo {
+        declLoc =
+        "function_pointers.h:29:21",
+        declId = NamePair {
+          nameC = Name
+            "apply1_nopointer_res",
+          nameHsIdent = Identifier
+            "apply1_nopointer_res"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["manual/function_pointers.h"],
+            headerInclude =
+            "manual/function_pointers.h"},
+        declComment =
+        Just
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "A function returning a pointer to a function like apply1_nopointer()."]])},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeConst
+            (TypePointer
+              (TypeFun
+                [
+                  TypePointer
+                    (TypeFun
+                      [
+                        TypePrim
+                          (PrimIntegral PrimInt Signed)]
+                      (TypePrim
+                        (PrimIntegral PrimInt Signed))),
+                  TypePrim
+                    (PrimIntegral PrimInt Signed)]
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed))))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo =
+      DeclInfo {
+        declLoc =
+        "function_pointers.h:32:21",
+        declId = NamePair {
+          nameC = Name
+            "apply1_nopointer_var",
+          nameHsIdent = Identifier
+            "apply1_nopointer_var"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["manual/function_pointers.h"],
+            headerInclude =
+            "manual/function_pointers.h"},
+        declComment =
+        Just
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "A global variable pointing to a function like apply1_nopointer()."]])},
+      declKind = DeclGlobal
+        (TypeConst
+          (TypePointer
+            (TypeFun
+              [
+                TypePointer
+                  (TypeFun
+                    [
+                      TypePrim
+                        (PrimIntegral PrimInt Signed)]
+                    (TypePrim
+                      (PrimIntegral PrimInt Signed))),
+                TypePrim
+                  (PrimIntegral PrimInt Signed)]
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed))))),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo =
+      DeclInfo {
+        declLoc =
+        "function_pointers.h:35:8",
+        declId = NamePair {
+          nameC = Name "Apply1Struct",
+          nameHsIdent = Identifier
+            "Apply1Struct"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["manual/function_pointers.h"],
+            headerInclude =
+            "manual/function_pointers.h"},
+        declComment =
+        Just
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "A struct field pointing to a function like apply1_nopointer()."]])},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name
+              "@NsConstr"
+              "Apply1Struct"),
+          structSizeof = 8,
+          structAlignment = 8,
+          structFields = [
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "function_pointers.h:36:16",
+                fieldName = NamePair {
+                  nameC = Name
+                    "apply1_nopointer_struct_field",
+                  nameHsIdent = Identifier
+                    "apply1Struct_apply1_nopointer_struct_field"},
+                fieldComment = Nothing},
+              structFieldType = TypeConst
+                (TypePointer
+                  (TypeFun
+                    [
+                      TypePointer
+                        (TypeFun
+                          [
+                            TypePrim
+                              (PrimIntegral PrimInt Signed)]
+                          (TypePrim
+                            (PrimIntegral PrimInt Signed))),
+                      TypePrim
+                        (PrimIntegral PrimInt Signed)]
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed)))),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "function_pointers.h:38:34",
+        declId = NamePair {
+          nameC = Name "apply1_struct",
+          nameHsIdent = Identifier
+            "apply1_struct"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["manual/function_pointers.h"],
+            headerInclude =
+            "manual/function_pointers.h"},
+        declComment = Nothing},
+      declKind = DeclGlobal
+        (TypeConst
+          (TypeStruct
+            NamePair {
+              nameC = Name "Apply1Struct",
+              nameHsIdent = Identifier
+                "Apply1Struct"}
+            NameOriginInSource)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo =
+      DeclInfo {
+        declLoc =
+        "function_pointers.h:41:7",
+        declId = NamePair {
+          nameC = Name "Apply1Union",
+          nameHsIdent = Identifier
+            "Apply1Union"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["manual/function_pointers.h"],
+            headerInclude =
+            "manual/function_pointers.h"},
+        declComment =
+        Just
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "A union field pointing to a function like apply1_nopointer()."]])},
+      declKind = DeclUnion
+        Union {
+          unionNames = NewtypeNames {
+            newtypeConstr = Name
+              "@NsConstr"
+              "Apply1Union",
+            newtypeField = Name
+              "@NsVar"
+              "un_Apply1Union"},
+          unionSizeof = 8,
+          unionAlignment = 8,
+          unionFields = [
+            UnionField {
+              unionFieldInfo = FieldInfo {
+                fieldLoc =
+                "function_pointers.h:42:16",
+                fieldName = NamePair {
+                  nameC = Name
+                    "apply1_nopointer_union_field",
+                  nameHsIdent = Identifier
+                    "apply1Union_apply1_nopointer_union_field"},
+                fieldComment = Nothing},
+              unionFieldType = TypeConst
+                (TypePointer
+                  (TypeFun
+                    [
+                      TypePointer
+                        (TypeFun
+                          [
+                            TypePrim
+                              (PrimIntegral PrimInt Signed)]
+                          (TypePrim
+                            (PrimIntegral PrimInt Signed))),
+                      TypePrim
+                        (PrimIntegral PrimInt Signed)]
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed))))}]},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "function_pointers.h:44:32",
+        declId = NamePair {
+          nameC = Name "apply1_union",
+          nameHsIdent = Identifier
+            "apply1_union"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["manual/function_pointers.h"],
+            headerInclude =
+            "manual/function_pointers.h"},
+        declComment = Nothing},
+      declKind = DeclGlobal
+        (TypeConst
+          (TypeUnion
+            NamePair {
+              nameC = Name "Apply1Union",
+              nameHsIdent = Identifier
+                "Apply1Union"}
+            NameOriginInSource)),
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}}],
+  unitDeps = [
+    "function_pointers"]}

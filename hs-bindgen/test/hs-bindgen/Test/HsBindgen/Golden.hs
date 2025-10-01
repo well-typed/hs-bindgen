@@ -68,7 +68,7 @@ testTreeFor testResources test@TestCase{testHasOutput, testClangVersion}
 -------------------------------------------------------------------------------}
 
 testCases :: [TestCase]
-testCases = [
+testCases = manualTestCases ++ [
       --
       -- Standard test cases
       --
@@ -603,3 +603,12 @@ testCases = [
         | Set.member name expectedNames ->
             Just . Expected $ "selected " ++ Text.unpack (C.getName name)
         | otherwise -> Just Unexpected
+
+
+-- | Test cases for header files used in the manual
+manualTestCases :: [TestCase]
+manualTestCases = [
+      testTraceCustom "manual/function_pointers" ([]  :: [String]) $ \case
+        _otherwise ->
+          Nothing
+    ]

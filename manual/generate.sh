@@ -17,6 +17,8 @@ else
     echo "Not setting SUPPORTS_UNICODE (not Linux or LLVM backend enabled)"
 fi
 
+mkdir -p external
+
 echo "# "
 echo "# Basic examples"
 echo "# "

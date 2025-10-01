@@ -1,6 +1,7 @@
 module Manual.Tools (
    section
  , subsection
+ , subsubsection
  ) where
 
 section :: String -> IO ()
@@ -13,4 +14,10 @@ subsection :: String -> IO ()
 subsection s = do
   putStrLn ""
   putStrLn $ "** " <> s <> " **"
+  putStrLn ""
+
+subsubsection :: String -> IO ()
+subsubsection s = do
+  putStrLn ""
+  putStrLn $ "* " <> s <> " *"
   putStrLn ""

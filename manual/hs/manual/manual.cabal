@@ -52,7 +52,9 @@ executable run-manual
       Example
       Example.Global
       Example.Unsafe
+      FunctionPointers
       FunctionPointers.FunPtr
+      FunctionPointers.Global
       FunctionPointers.Safe
       Globals
       Globals.Global

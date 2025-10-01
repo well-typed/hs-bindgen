@@ -24,8 +24,10 @@ import Complex.Safe qualified as Complex
 import Example.Global
 import Example.Unsafe
 
+import FunctionPointers qualified as FunPtr
 import FunctionPointers.FunPtr qualified as FunPtr
 import FunctionPointers.Safe qualified as FunPtr
+import FunctionPointers.Global qualified as FunPtr
 
 import Game.Player.Safe
 import Game.State
@@ -326,9 +328,40 @@ main = do
       print =<< FunPtr.apply1 FunPtr.square_ptr 4
       print =<< FunPtr.apply1 FunPtr.square_ptr 5
       print =<< FunPtr.apply1 FunPtr.square_ptr 6
+
       print =<< FunPtr.apply2 FunPtr.plus_ptr 7 8
       print =<< FunPtr.apply2 FunPtr.plus_ptr 9 10
       print =<< FunPtr.apply2 FunPtr.plus_ptr 11 12
+
+      subsection "Implicit function to pointer conversion"
+      do
+        -- function pointer type in function parameter
+        print =<< FunPtr.apply1_pointer_arg FunPtr.square_ptr 4
+        print =<< FunPtr.apply1_pointer_arg FunPtr.square_ptr 5
+        print =<< FunPtr.apply1_pointer_arg FunPtr.square_ptr 6
+
+        -- function type in function parameter
+        print =<< FunPtr.apply1_nopointer_arg FunPtr.square_ptr 4
+        print =<< FunPtr.apply1_nopointer_arg FunPtr.square_ptr 5
+        print =<< FunPtr.apply1_nopointer_arg FunPtr.square_ptr 6
+
+        subsubsection "Parameters of function type can occur almost anywhere!"
+        do -- function type in function result
+          apply1FunPtr <- FunPtr.apply1_nopointer_res
+          let apply1Fun = mkApply1Fun apply1FunPtr
+          print =<< apply1Fun FunPtr.square_ptr 4
+        do -- function type in global
+          let apply1FunPtr = FunPtr.apply1_nopointer_var
+              apply1Fun = mkApply1Fun apply1FunPtr
+          print =<< apply1Fun FunPtr.square_ptr 5
+        do -- function type in struct field
+          let apply1FunPtr = FunPtr.apply1Struct_apply1_nopointer_struct_field FunPtr.apply1_struct
+              apply1Fun = mkApply1Fun apply1FunPtr
+          print =<< apply1Fun FunPtr.square_ptr 6
+        do -- function type in union field
+          let apply1FunPtr = FunPtr.get_apply1Union_apply1_nopointer_union_field FunPtr.apply1_union
+              apply1Fun = mkApply1Fun apply1FunPtr
+          print =<< apply1Fun FunPtr.square_ptr 7
 
 --------------------------------------------------------------------------------
     section "Complex types"
@@ -510,3 +543,13 @@ transposeMatrix inputMatrix =
       F.alloca $ \(outputPtr :: Ptr Arrays.Matrix) -> do
         Arrays.transpose_wrapper (inputPtr) (snd $ CA.isFirstElem outputPtr)
         peek outputPtr
+
+{-------------------------------------------------------------------------------
+  Function pointers
+-------------------------------------------------------------------------------}
+
+foreign import ccall "dynamic" mkApply1Fun ::
+     F.FunPtr ((F.FunPtr (FC.CInt -> IO FC.CInt)) -> FC.CInt -> IO FC.CInt)
+  -> F.FunPtr (FC.CInt -> IO FC.CInt)
+  -> FC.CInt
+  -> IO FC.CInt
