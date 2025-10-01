@@ -29,7 +29,7 @@ int apply1_nopointer_arg (int f(int), int x) {
   return f(x);
 }
 
-int (*apply1_nopointer_res (void)) (int (int), int) {
+int (* const apply1_nopointer_res (void)) (int (int), int) {
   return &apply1_nopointer_arg;
 }
 
