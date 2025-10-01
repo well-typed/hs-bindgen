@@ -1,0 +1,18 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+types:
+- headers: manual/function_pointers.h
+  cname: struct Apply1Struct
+  module: Example
+  identifier: Apply1Struct
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: manual/function_pointers.h
+  cname: union Apply1Union
+  module: Example
+  identifier: Apply1Union
+  instances:
+  - Storable

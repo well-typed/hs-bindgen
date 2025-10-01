@@ -152,7 +152,8 @@ function hasProto ty = do
       nargs <- clang_getNumArgTypes ty
       args  <- forM [0 .. nargs - 1] $ \i ->
                  clang_getArgType ty (fromIntegral i) >>= cxtype
-      pure $ C.TypeFun args res
+      pure $ C.TypeFun (map adjustFunctionTypesToPointers args)
+                       (adjustFunctionTypesToPointers res)
 
 constantArray :: CXType -> ParseType (C.Type Parse)
 constantArray ty = do
@@ -173,3 +174,39 @@ blockPointer ty = do
     fun <- function True =<< clang_getPointeeType ty
     return (C.TypeBlock fun)
 
+{-------------------------------------------------------------------------------
+  Implicit function to pointer conversion
+-------------------------------------------------------------------------------}
+
+-- | Recursively convert each function type to a pointer-to-function type.
+--
+-- See the "Functions" section of the manual.
+adjustFunctionTypesToPointers :: C.Type Parse -> C.Type Parse
+adjustFunctionTypesToPointers = go False
+  where
+    go ctx = \case
+      C.TypePrim pt -> C.TypePrim pt
+      C.TypeStruct n -> C.TypeStruct n
+      C.TypeUnion n -> C.TypeUnion n
+      C.TypeEnum n -> C.TypeEnum n
+      -- TODO: this should look through typedefs. See issue
+      -- #1142 and issue #1033.
+      C.TypeTypedef ref ->  C.TypeTypedef ref
+      C.TypeMacroTypedef n -> C.TypeMacroTypedef n
+      C.TypePointer t -> C.TypePointer $ go True t
+      C.TypeFun args res -> do
+        let args' = map (go False) args
+            res' = go False res
+        if ctx then
+          C.TypeFun args' res'
+        else
+          C.TypePointer (C.TypeFun args' res')
+      C.TypeVoid -> C.TypeVoid
+      C.TypeConstArray n t -> C.TypeConstArray n $ go ctx t
+      C.TypeExtBinding eb -> C.TypeExtBinding eb
+      C.TypeIncompleteArray t -> C.TypeIncompleteArray $ go ctx t
+      -- This is a slightly weird case. From what I understand, blocks are
+      -- similar to pointers. So, I'm treating them like pointers.
+      C.TypeBlock t -> C.TypeBlock $ go True t
+      C.TypeConst t -> C.TypeConst $ go ctx t
+      C.TypeComplex pt -> C.TypeComplex pt
