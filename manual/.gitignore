@@ -1,0 +1,10 @@
+# Any build products and files that hs-bindgen generates are not to be committed.
+## C build products
+*.o
+*.so
+## Binding specs
+external/
+## Haskell files
+hs/manual/generated/**/*.hs
+hs/hs-game/generated/**/*.hs
+hs/hs-vector/generated/**/*.hs
