@@ -246,9 +246,7 @@ instance F.Storable Struct5_s where
         case s1 of
           Struct5_s -> return ()
 
-{-| __C declaration:__ @f@
-
-    __defined at:__ @named_vs_anon.h:35:9@
+{-| __defined at:__ @named_vs_anon.h:35:9@
 
     __exported by:__ @named_vs_anon.h@
 -}
@@ -270,9 +268,7 @@ instance F.Storable F where
         case s1 of
           F -> return ()
 
-{-| __C declaration:__ @typedef1@
-
-    __defined at:__ @named_vs_anon.h:36:9@
+{-| __defined at:__ @named_vs_anon.h:36:9@
 
     __exported by:__ @named_vs_anon.h@
 -}
@@ -294,9 +290,7 @@ instance F.Storable Typedef1 where
         case s1 of
           Typedef1 -> return ()
 
-{-| __C declaration:__ @g@
-
-    __defined at:__ @named_vs_anon.h:39:9@
+{-| __defined at:__ @named_vs_anon.h:39:9@
 
     __exported by:__ @named_vs_anon.h@
 -}
@@ -318,9 +312,7 @@ instance F.Storable G where
         case s1 of
           G -> return ()
 
-{-| __C declaration:__ @typedef2@
-
-    __defined at:__ @named_vs_anon.h:40:9@
+{-| __defined at:__ @named_vs_anon.h:40:9@
 
     __exported by:__ @named_vs_anon.h@
 -}
@@ -342,9 +334,7 @@ instance F.Storable Typedef2 where
         case s1 of
           Typedef2 -> return ()
 
-{-| __C declaration:__ @h@
-
-    __defined at:__ @named_vs_anon.h:43:9@
+{-| __defined at:__ @named_vs_anon.h:43:9@
 
     __exported by:__ @named_vs_anon.h@
 -}
@@ -366,9 +356,7 @@ instance F.Storable H where
         case s1 of
           H -> return ()
 
-{-| __C declaration:__ @typedef3@
-
-    __defined at:__ @named_vs_anon.h:44:9@
+{-| __defined at:__ @named_vs_anon.h:44:9@
 
     __exported by:__ @named_vs_anon.h@
 -}

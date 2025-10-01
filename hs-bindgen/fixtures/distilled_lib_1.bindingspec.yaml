@@ -66,6 +66,10 @@ types:
   - Show
   - Storable
 - headers: distilled_lib_1.h
+  cname: callback_t_Deref
+  module: Example
+  identifier: Callback_t_Deref
+- headers: distilled_lib_1.h
   cname: var_t
   module: Example
   identifier: Var_t

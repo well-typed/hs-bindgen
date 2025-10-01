@@ -1597,7 +1597,7 @@
       structComment = Just
         Comment {
           commentTitle = Nothing,
-          commentOrigin = Just "S3_t",
+          commentOrigin = Nothing,
           commentLocation = Just
             "simple_structs.h:15:9",
           commentHeaderInfo = Just
@@ -1708,7 +1708,7 @@
           structComment = Just
             Comment {
               commentTitle = Nothing,
-              commentOrigin = Just "S3_t",
+              commentOrigin = Nothing,
               commentLocation = Just
                 "simple_structs.h:15:9",
               commentHeaderInfo = Just
@@ -1822,7 +1822,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just "S3_t",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "simple_structs.h:15:9",
                       commentHeaderInfo = Just
@@ -1936,7 +1936,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just "S3_t",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "simple_structs.h:15:9",
                       commentHeaderInfo = Just
@@ -4266,8 +4266,7 @@
       structComment = Just
         Comment {
           commentTitle = Nothing,
-          commentOrigin = Just
-            "S7a_Deref",
+          commentOrigin = Nothing,
           commentLocation = Just
             "simple_structs.h:34:9",
           commentHeaderInfo = Just
@@ -4424,8 +4423,7 @@
           structComment = Just
             Comment {
               commentTitle = Nothing,
-              commentOrigin = Just
-                "S7a_Deref",
+              commentOrigin = Nothing,
               commentLocation = Just
                 "simple_structs.h:34:9",
               commentHeaderInfo = Just
@@ -4585,8 +4583,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just
-                        "S7a_Deref",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "simple_structs.h:34:9",
                       commentHeaderInfo = Just
@@ -4748,8 +4745,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just
-                        "S7a_Deref",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "simple_structs.h:34:9",
                       commentHeaderInfo = Just
@@ -5047,8 +5043,7 @@
       structComment = Just
         Comment {
           commentTitle = Nothing,
-          commentOrigin = Just
-            "S7b_Deref",
+          commentOrigin = Nothing,
           commentLocation = Just
             "simple_structs.h:35:9",
           commentHeaderInfo = Just
@@ -5205,8 +5200,7 @@
           structComment = Just
             Comment {
               commentTitle = Nothing,
-              commentOrigin = Just
-                "S7b_Deref",
+              commentOrigin = Nothing,
               commentLocation = Just
                 "simple_structs.h:35:9",
               commentHeaderInfo = Just
@@ -5366,8 +5360,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just
-                        "S7b_Deref",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "simple_structs.h:35:9",
                       commentHeaderInfo = Just
@@ -5529,8 +5522,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just
-                        "S7b_Deref",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "simple_structs.h:35:9",
                       commentHeaderInfo = Just

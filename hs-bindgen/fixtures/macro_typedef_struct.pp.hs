@@ -23,9 +23,7 @@ newtype MY_TYPE = MY_TYPE
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
-{-| __C declaration:__ @bar@
-
-    __defined at:__ @macro_typedef_struct.h:3:9@
+{-| __defined at:__ @macro_typedef_struct.h:3:9@
 
     __exported by:__ @macro_typedef_struct.h@
 -}

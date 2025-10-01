@@ -29,9 +29,7 @@ import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Rea
 
 $(HsBindgen.Runtime.Prelude.addCSource "#include <distilled_lib_1.h>\nint32_t hs_bindgen_test_distilled_lib_1_29c178c31334688f (a_type_t *arg1, uint32_t arg2, uint8_t *arg3) { return some_fun(arg1, arg2, arg3); }\n/* get_some_fun_ptr */ __attribute__ ((const)) int32_t (*hs_bindgen_test_distilled_lib_1_969c7d0305e0614c (void)) (a_type_t *arg1, uint32_t arg2, uint8_t arg3[]) { return &some_fun; } \n/* get_v_ptr */ __attribute__ ((const)) var_t *hs_bindgen_test_distilled_lib_1_b9e65c51f976c6f6 (void) { return &v; } \n")
 
-{-| __C declaration:__ @another_typedef_struct_t@
-
-    __defined at:__ @distilled_lib_1.h:9:9@
+{-| __defined at:__ @distilled_lib_1.h:9:9@
 
     __exported by:__ @distilled_lib_1.h@
 -}
@@ -75,9 +73,7 @@ instance F.Storable Another_typedef_struct_t where
                  F.pokeByteOff ptr0 (0 :: Int) another_typedef_struct_t_foo2
               >> F.pokeByteOff ptr0 (4 :: Int) another_typedef_struct_t_bar3
 
-{-| __C declaration:__ @another_typedef_enum_e@
-
-    __defined at:__ @distilled_lib_1.h:10:9@
+{-| __defined at:__ @distilled_lib_1.h:10:9@
 
     __exported by:__ @distilled_lib_1.h@
 -}
@@ -387,9 +383,7 @@ a_DEFINE_2 = (2 :: FC.CInt)
 tWO_ARGS :: ((,) FC.CInt) FC.CInt
 tWO_ARGS = (,) (13398 :: FC.CInt) (30874 :: FC.CInt)
 
-{-| __C declaration:__ @a_typedef_enum_e@
-
-    __defined at:__ @distilled_lib_1.h:61:9@
+{-| __defined at:__ @distilled_lib_1.h:61:9@
 
     __exported by:__ @distilled_lib_1.h@
 -}
@@ -496,6 +490,16 @@ pattern ENUM_CASE_2 = A_typedef_enum_e 2
 pattern ENUM_CASE_3 :: A_typedef_enum_e
 pattern ENUM_CASE_3 = A_typedef_enum_e 3
 
+{-| Auxiliary type used by 'Callback_t'
+
+__defined at:__ @distilled_lib_1.h:77:19@
+
+__exported by:__ @distilled_lib_1.h@
+-}
+newtype Callback_t_Deref = Callback_t_Deref
+  { un_Callback_t_Deref :: (Ptr.Ptr Void) -> HsBindgen.Runtime.Prelude.Word32 -> IO HsBindgen.Runtime.Prelude.Word32
+  }
+
 {-| __C declaration:__ @callback_t@
 
     __defined at:__ @distilled_lib_1.h:77:19@
@@ -503,7 +507,7 @@ pattern ENUM_CASE_3 = A_typedef_enum_e 3
     __exported by:__ @distilled_lib_1.h@
 -}
 newtype Callback_t = Callback_t
-  { un_Callback_t :: Ptr.FunPtr ((Ptr.Ptr Void) -> HsBindgen.Runtime.Prelude.Word32 -> IO HsBindgen.Runtime.Prelude.Word32)
+  { un_Callback_t :: Ptr.FunPtr Callback_t_Deref
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)

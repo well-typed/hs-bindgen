@@ -311,9 +311,7 @@ instance Storable DimB
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    DimB dimB_tag_3
                                         dimB_payload_4 -> pokeByteOff ptr_1 (0 :: Int) dimB_tag_3 >> pokeByteOff ptr_1 (4 :: Int) dimB_payload_4
-{-| __C declaration:__ @AnonA_xy@
-
-    __defined at:__ @unions.h:35:5@
+{-| __defined at:__ @unions.h:35:5@
 
     __exported by:__ @unions.h@
 -}
@@ -332,9 +330,7 @@ data AnonA_xy
 
                      __exported by:__ @unions.h@
                 -}}
-      {- ^ __C declaration:__ @AnonA_xy@
-
-           __defined at:__ @unions.h:35:5@
+      {- ^ __defined at:__ @unions.h:35:5@
 
            __exported by:__ @unions.h@
       -}
@@ -346,9 +342,7 @@ instance Storable AnonA_xy
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    AnonA_xy anonA_xy_x_3
                                             anonA_xy_y_4 -> pokeByteOff ptr_1 (0 :: Int) anonA_xy_x_3 >> pokeByteOff ptr_1 (8 :: Int) anonA_xy_y_4
-{-| __C declaration:__ @AnonA_polar@
-
-    __defined at:__ @unions.h:36:5@
+{-| __defined at:__ @unions.h:36:5@
 
     __exported by:__ @unions.h@
 -}
@@ -367,9 +361,7 @@ data AnonA_polar
 
                         __exported by:__ @unions.h@
                    -}}
-      {- ^ __C declaration:__ @AnonA_polar@
-
-           __defined at:__ @unions.h:36:5@
+      {- ^ __defined at:__ @unions.h:36:5@
 
            __exported by:__ @unions.h@
       -}

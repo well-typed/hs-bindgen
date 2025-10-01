@@ -982,7 +982,7 @@
       structComment = Just
         Comment {
           commentTitle = Nothing,
-          commentOrigin = Just "struct2",
+          commentOrigin = Nothing,
           commentLocation = Just
             "macro_in_fundecl_vs_typedef.h:19:9",
           commentHeaderInfo = Just
@@ -1092,7 +1092,7 @@
           structComment = Just
             Comment {
               commentTitle = Nothing,
-              commentOrigin = Just "struct2",
+              commentOrigin = Nothing,
               commentLocation = Just
                 "macro_in_fundecl_vs_typedef.h:19:9",
               commentHeaderInfo = Just
@@ -1205,7 +1205,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just "struct2",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "macro_in_fundecl_vs_typedef.h:19:9",
                       commentHeaderInfo = Just
@@ -1318,7 +1318,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just "struct2",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "macro_in_fundecl_vs_typedef.h:19:9",
                       commentHeaderInfo = Just

@@ -78,9 +78,7 @@ instance F.Storable Struct1 where
           Struct1 struct1_a2 ->
             F.pokeByteOff ptr0 (0 :: Int) struct1_a2
 
-{-| __C declaration:__ @struct2@
-
-    __defined at:__ @macro_in_fundecl_vs_typedef.h:19:9@
+{-| __defined at:__ @macro_in_fundecl_vs_typedef.h:19:9@
 
     __exported by:__ @macro_in_fundecl_vs_typedef.h@
 -}

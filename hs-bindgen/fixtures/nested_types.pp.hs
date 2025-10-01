@@ -96,9 +96,7 @@ instance F.Storable Bar where
                F.pokeByteOff ptr0 (0 :: Int) bar_foo12
             >> F.pokeByteOff ptr0 (8 :: Int) bar_foo23
 
-{-| __C declaration:__ @ex3_ex3_struct@
-
-    __defined at:__ @nested_types.h:12:5@
+{-| __defined at:__ @nested_types.h:12:5@
 
     __exported by:__ @nested_types.h@
 -}

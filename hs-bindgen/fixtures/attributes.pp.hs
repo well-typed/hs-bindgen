@@ -97,9 +97,7 @@ instance F.Storable Bar where
                F.pokeByteOff ptr0 (0 :: Int) bar_c2
             >> F.pokeByteOff ptr0 (1 :: Int) bar_i3
 
-{-| __C declaration:__ @baz@
-
-    __defined at:__ @attributes.h:22:9@
+{-| __defined at:__ @attributes.h:22:9@
 
     __exported by:__ @attributes.h@
 -}
@@ -141,9 +139,7 @@ instance F.Storable Baz where
                F.pokeByteOff ptr0 (0 :: Int) baz_c2
             >> F.pokeByteOff ptr0 (1 :: Int) baz_i3
 
-{-| __C declaration:__ @qux@
-
-    __defined at:__ @attributes.h:28:9@
+{-| __defined at:__ @attributes.h:28:9@
 
     __exported by:__ @attributes.h@
 -}

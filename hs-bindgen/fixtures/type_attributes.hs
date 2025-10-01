@@ -2861,8 +2861,7 @@
       newtypeComment = Just
         Comment {
           commentTitle = Nothing,
-          commentOrigin = Just
-            "wait_status_ptr_t",
+          commentOrigin = Nothing,
           commentLocation = Just
             "type_attributes.h:26:9",
           commentHeaderInfo = Just

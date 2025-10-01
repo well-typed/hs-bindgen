@@ -2403,8 +2403,7 @@
       structComment = Just
         Comment {
           commentTitle = Nothing,
-          commentOrigin = Just
-            "version_t",
+          commentOrigin = Nothing,
           commentLocation = Just
             "globals.h:406:9",
           commentHeaderInfo = Just
@@ -3602,8 +3601,7 @@
           structComment = Just
             Comment {
               commentTitle = Nothing,
-              commentOrigin = Just
-                "version_t",
+              commentOrigin = Nothing,
               commentLocation = Just
                 "globals.h:406:9",
               commentHeaderInfo = Just
@@ -4804,8 +4802,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just
-                        "version_t",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "globals.h:406:9",
                       commentHeaderInfo = Just
@@ -6009,8 +6006,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just
-                        "version_t",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "globals.h:406:9",
                       commentHeaderInfo = Just
@@ -6580,8 +6576,7 @@
       structComment = Just
         Comment {
           commentTitle = Nothing,
-          commentOrigin = Just
-            "struct1_t",
+          commentOrigin = Nothing,
           commentLocation = Just
             "globals.h:413:9",
           commentHeaderInfo = Just
@@ -7123,8 +7118,7 @@
           structComment = Just
             Comment {
               commentTitle = Nothing,
-              commentOrigin = Just
-                "struct1_t",
+              commentOrigin = Nothing,
               commentLocation = Just
                 "globals.h:413:9",
               commentHeaderInfo = Just
@@ -7669,8 +7663,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just
-                        "struct1_t",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "globals.h:413:9",
                       commentHeaderInfo = Just
@@ -8218,8 +8211,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just
-                        "struct1_t",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "globals.h:413:9",
                       commentHeaderInfo = Just
@@ -8366,8 +8358,7 @@
       structComment = Just
         Comment {
           commentTitle = Nothing,
-          commentOrigin = Just
-            "struct2_t",
+          commentOrigin = Nothing,
           commentLocation = Just
             "globals.h:420:9",
           commentHeaderInfo = Just
@@ -8486,8 +8477,7 @@
           structComment = Just
             Comment {
               commentTitle = Nothing,
-              commentOrigin = Just
-                "struct2_t",
+              commentOrigin = Nothing,
               commentLocation = Just
                 "globals.h:420:9",
               commentHeaderInfo = Just
@@ -8609,8 +8599,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just
-                        "struct2_t",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "globals.h:420:9",
                       commentHeaderInfo = Just
@@ -8732,8 +8721,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just
-                        "struct2_t",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "globals.h:420:9",
                       commentHeaderInfo = Just

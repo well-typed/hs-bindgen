@@ -110,9 +110,7 @@ instance F.Storable Inline_struct where
                F.pokeByteOff ptr0 (0 :: Int) inline_struct_x2
             >> F.pokeByteOff ptr0 (4 :: Int) inline_struct_y3
 
-{-| __C declaration:__ @version_t@
-
-    __defined at:__ @globals.h:406:9@
+{-| __defined at:__ @globals.h:406:9@
 
     __exported by:__ @globals.h@
 -}
@@ -163,9 +161,7 @@ instance F.Storable Version_t where
             >> F.pokeByteOff ptr0 (2 :: Int) version_t_minor3
             >> F.pokeByteOff ptr0 (4 :: Int) version_t_patch4
 
-{-| __C declaration:__ @struct1_t@
-
-    __defined at:__ @globals.h:413:9@
+{-| __defined at:__ @globals.h:413:9@
 
     __exported by:__ @globals.h@
 -}
@@ -216,9 +212,7 @@ instance F.Storable Struct1_t where
             >> F.pokeByteOff ptr0 (2 :: Int) struct1_t_y3
             >> F.pokeByteOff ptr0 (4 :: Int) struct1_t_version4
 
-{-| __C declaration:__ @struct2_t@
-
-    __defined at:__ @globals.h:420:9@
+{-| __defined at:__ @globals.h:420:9@
 
     __exported by:__ @globals.h@
 -}
@@ -251,12 +245,28 @@ instance F.Storable Struct2_t where
           Struct2_t struct2_t_field12 ->
             F.pokeByteOff ptr0 (0 :: Int) struct2_t_field12
 
+{-| Constant, through typedef
+
+__C declaration:__ @ConstInt@
+
+__defined at:__ @globals.h:448:19@
+
+__exported by:__ @globals.h@
+-}
 newtype ConstInt = ConstInt
   { un_ConstInt :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
+{-| An array of uknown size containing constant integers
+
+__C declaration:__ @ConstIntArray@
+
+__defined at:__ @globals.h:463:19@
+
+__exported by:__ @globals.h@
+-}
 newtype ConstIntArray = ConstIntArray
   { un_ConstIntArray :: HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt
   }
@@ -311,6 +321,14 @@ foreign import ccall unsafe "hs_bindgen_test_globals_454b1c1a1b7d5b60" hs_bindge
 
 {-# NOINLINE simpleGlobal_ptr #-}
 
+{-| Global variables
+
+__C declaration:__ @simpleGlobal@
+
+__defined at:__ @globals.h:9:12@
+
+__exported by:__ @globals.h@
+-}
 simpleGlobal_ptr :: Ptr.Ptr FC.CInt
 simpleGlobal_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globals_454b1c1a1b7d5b60
@@ -675,6 +693,14 @@ foreign import ccall unsafe "hs_bindgen_test_globals_c98b4d346a0bb607" hs_bindge
 
 {-# NOINLINE classless_ptr #-}
 
+{-| No storage class specified
+
+__C declaration:__ @classless@
+
+__defined at:__ @globals.h:457:11@
+
+__exported by:__ @globals.h@
+-}
 classless_ptr :: Ptr.Ptr FC.CInt
 classless_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globals_c98b4d346a0bb607
@@ -690,6 +716,14 @@ foreign import ccall unsafe "hs_bindgen_test_globals_e7a61097e2415261" hs_bindge
 
 {-# NOINLINE constArray1_ptr #-}
 
+{-| A an array of size 4 containing constant integers
+
+__C declaration:__ @constArray1@
+
+__defined at:__ @globals.h:460:18@
+
+__exported by:__ @globals.h@
+-}
 constArray1_ptr :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) FC.CInt)
 constArray1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globals_e7a61097e2415261
@@ -720,6 +754,14 @@ foreign import ccall unsafe "hs_bindgen_test_globals_c7d3a2347092dfe0" hs_bindge
 
 {-# NOINLINE constTuple_ptr #-}
 
+{-| A constant tuple
+
+__C declaration:__ @constTuple@
+
+__defined at:__ @globals.h:468:27@
+
+__exported by:__ @globals.h@
+-}
 constTuple_ptr :: Ptr.Ptr Tuple
 constTuple_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globals_c7d3a2347092dfe0
@@ -735,6 +777,14 @@ foreign import ccall unsafe "hs_bindgen_test_globals_3639a5c5b63aad84" hs_bindge
 
 {-# NOINLINE nonConstTuple_ptr #-}
 
+{-| A non-constant tuple with a constant member
+
+__C declaration:__ @nonConstTuple@
+
+__defined at:__ @globals.h:470:21@
+
+__exported by:__ @globals.h@
+-}
 nonConstTuple_ptr :: Ptr.Ptr Tuple
 nonConstTuple_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globals_3639a5c5b63aad84
@@ -744,6 +794,14 @@ foreign import ccall unsafe "hs_bindgen_test_globals_9fd2e0d3b265dee4" hs_bindge
 
 {-# NOINLINE ptrToConstInt_ptr #-}
 
+{-| A pointer to const int
+
+__C declaration:__ @ptrToConstInt@
+
+__defined at:__ @globals.h:473:20@
+
+__exported by:__ @globals.h@
+-}
 ptrToConstInt_ptr :: Ptr.Ptr (Ptr.Ptr FC.CInt)
 ptrToConstInt_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globals_9fd2e0d3b265dee4
@@ -753,6 +811,14 @@ foreign import ccall unsafe "hs_bindgen_test_globals_10cf1344894b0264" hs_bindge
 
 {-# NOINLINE constPtrToInt_ptr #-}
 
+{-| A const pointer to int
+
+__C declaration:__ @constPtrToInt@
+
+__defined at:__ @globals.h:475:20@
+
+__exported by:__ @globals.h@
+-}
 constPtrToInt_ptr :: Ptr.Ptr (Ptr.Ptr FC.CInt)
 constPtrToInt_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globals_10cf1344894b0264
@@ -768,6 +834,14 @@ foreign import ccall unsafe "hs_bindgen_test_globals_1b236183822e0d24" hs_bindge
 
 {-# NOINLINE constPtrToConstInt_ptr #-}
 
+{-| A const pointer to const int
+
+__C declaration:__ @constPtrToConstInt@
+
+__defined at:__ @globals.h:477:26@
+
+__exported by:__ @globals.h@
+-}
 constPtrToConstInt_ptr :: Ptr.Ptr (Ptr.Ptr FC.CInt)
 constPtrToConstInt_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_globals_1b236183822e0d24

@@ -106,9 +106,7 @@ instance F.Storable S2_t where
             >> F.pokeByteOff ptr0 (4 :: Int) s2_t_b3
             >> F.pokeByteOff ptr0 (8 :: Int) s2_t_c4
 
-{-| __C declaration:__ @S3_t@
-
-    __defined at:__ @simple_structs.h:15:9@
+{-| __defined at:__ @simple_structs.h:15:9@
 
     __exported by:__ @simple_structs.h@
 -}
@@ -281,9 +279,7 @@ instance F.Storable S6 where
                F.pokeByteOff ptr0 (0 :: Int) s6_a2
             >> F.pokeByteOff ptr0 (4 :: Int) s6_b3
 
-{-| __C declaration:__ @S7a_Deref@
-
-    __defined at:__ @simple_structs.h:34:9@
+{-| __defined at:__ @simple_structs.h:34:9@
 
     __exported by:__ @simple_structs.h@
 -}
@@ -337,9 +333,7 @@ newtype S7a = S7a
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
 
-{-| __C declaration:__ @S7b_Deref@
-
-    __defined at:__ @simple_structs.h:35:9@
+{-| __defined at:__ @simple_structs.h:35:9@
 
     __exported by:__ @simple_structs.h@
 -}

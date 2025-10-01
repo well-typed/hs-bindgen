@@ -1766,6 +1766,60 @@ TranslationUnit {
         declLoc =
         "doxygen_docs.h:225:15",
         declId = NamePair {
+          nameC = Name
+            "event_callback_t_Deref",
+          nameHsIdent = Identifier
+            "Event_callback_t_Deref"},
+        declOrigin = NameOriginGenerated
+          (AnonId
+            "doxygen_docs.h:225:15"),
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["doxygen_docs.h"],
+            headerInclude =
+            "doxygen_docs.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "Auxiliary type used by ",
+                  InlineRefCommand
+                    (ById
+                      NamePair {
+                        nameC = Name "event_callback_t",
+                        nameHsIdent = Identifier
+                          "Event_callback_t"})]])},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = Name
+              "@NsConstr"
+              "Event_callback_t_Deref",
+            newtypeField = Name
+              "@NsVar"
+              "un_Event_callback_t_Deref"},
+          typedefType = TypeFun
+            [
+              TypePrim
+                (PrimIntegral PrimInt Signed),
+              TypePointer TypeVoid]
+            (TypePrim
+              (PrimIntegral PrimInt Signed))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "doxygen_docs.h:225:15",
+        declId = NamePair {
           nameC = Name "event_callback_t",
           nameHsIdent = Identifier
             "Event_callback_t"},
@@ -1829,15 +1883,13 @@ TranslationUnit {
               "@NsVar"
               "un_Event_callback_t"},
           typedefType = TypePointer
-            (TypeFun
-              [
-                TypePrim
-                  (PrimIntegral PrimInt Signed),
-                TypePointer TypeVoid]
-              (TypePrim
-                (PrimIntegral
-                  PrimInt
-                  Signed)))},
+            (TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = Name
+                    "event_callback_t_Deref",
+                  nameHsIdent = Identifier
+                    "Event_callback_t_Deref"}))},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -3223,6 +3275,60 @@ TranslationUnit {
         declLoc =
         "doxygen_docs.h:317:15",
         declId = NamePair {
+          nameC = Name
+            "processor_fn_t_Deref",
+          nameHsIdent = Identifier
+            "Processor_fn_t_Deref"},
+        declOrigin = NameOriginGenerated
+          (AnonId
+            "doxygen_docs.h:317:15"),
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["doxygen_docs.h"],
+            headerInclude =
+            "doxygen_docs.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "Auxiliary type used by ",
+                  InlineRefCommand
+                    (ById
+                      NamePair {
+                        nameC = Name "processor_fn_t",
+                        nameHsIdent = Identifier
+                          "Processor_fn_t"})]])},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = Name
+              "@NsConstr"
+              "Processor_fn_t_Deref",
+            newtypeField = Name
+              "@NsVar"
+              "un_Processor_fn_t_Deref"},
+          typedefType = TypeFun
+            [
+              TypePrim
+                (PrimIntegral PrimInt Signed),
+              TypePointer TypeVoid]
+            (TypePrim
+              (PrimIntegral PrimInt Signed))},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "doxygen_docs.h:317:15",
+        declId = NamePair {
           nameC = Name "processor_fn_t",
           nameHsIdent = Identifier
             "Processor_fn_t"},
@@ -3287,15 +3393,13 @@ TranslationUnit {
               "@NsVar"
               "un_Processor_fn_t"},
           typedefType = TypePointer
-            (TypeFun
-              [
-                TypePrim
-                  (PrimIntegral PrimInt Signed),
-                TypePointer TypeVoid]
-              (TypePrim
-                (PrimIntegral
-                  PrimInt
-                  Signed)))},
+            (TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = Name
+                    "processor_fn_t_Deref",
+                  nameHsIdent = Identifier
+                    "Processor_fn_t_Deref"}))},
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

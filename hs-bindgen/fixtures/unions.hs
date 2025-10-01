@@ -3173,7 +3173,7 @@
       structComment = Just
         Comment {
           commentTitle = Nothing,
-          commentOrigin = Just "AnonA_xy",
+          commentOrigin = Nothing,
           commentLocation = Just
             "unions.h:35:5",
           commentHeaderInfo = Just
@@ -3316,7 +3316,7 @@
           structComment = Just
             Comment {
               commentTitle = Nothing,
-              commentOrigin = Just "AnonA_xy",
+              commentOrigin = Nothing,
               commentLocation = Just
                 "unions.h:35:5",
               commentHeaderInfo = Just
@@ -3462,7 +3462,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just "AnonA_xy",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "unions.h:35:5",
                       commentHeaderInfo = Just
@@ -3610,7 +3610,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just "AnonA_xy",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "unions.h:35:5",
                       commentHeaderInfo = Just
@@ -3782,8 +3782,7 @@
       structComment = Just
         Comment {
           commentTitle = Nothing,
-          commentOrigin = Just
-            "AnonA_polar",
+          commentOrigin = Nothing,
           commentLocation = Just
             "unions.h:36:5",
           commentHeaderInfo = Just
@@ -3928,8 +3927,7 @@
           structComment = Just
             Comment {
               commentTitle = Nothing,
-              commentOrigin = Just
-                "AnonA_polar",
+              commentOrigin = Nothing,
               commentLocation = Just
                 "unions.h:36:5",
               commentHeaderInfo = Just
@@ -4077,8 +4075,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just
-                        "AnonA_polar",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "unions.h:36:5",
                       commentHeaderInfo = Just
@@ -4228,8 +4225,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just
-                        "AnonA_polar",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "unions.h:36:5",
                       commentHeaderInfo = Just

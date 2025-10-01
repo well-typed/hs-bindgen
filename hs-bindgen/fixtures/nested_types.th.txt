@@ -69,9 +69,7 @@ instance Storable Bar
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Bar bar_foo1_3
                                        bar_foo2_4 -> pokeByteOff ptr_1 (0 :: Int) bar_foo1_3 >> pokeByteOff ptr_1 (8 :: Int) bar_foo2_4
-{-| __C declaration:__ @ex3_ex3_struct@
-
-    __defined at:__ @nested_types.h:12:5@
+{-| __defined at:__ @nested_types.h:12:5@
 
     __exported by:__ @nested_types.h@
 -}
@@ -90,9 +88,7 @@ data Ex3_ex3_struct
 
                            __exported by:__ @nested_types.h@
                       -}}
-      {- ^ __C declaration:__ @ex3_ex3_struct@
-
-           __defined at:__ @nested_types.h:12:5@
+      {- ^ __defined at:__ @nested_types.h:12:5@
 
            __exported by:__ @nested_types.h@
       -}

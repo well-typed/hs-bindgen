@@ -359,7 +359,7 @@
       structComment = Just
         Comment {
           commentTitle = Nothing,
-          commentOrigin = Just "bar",
+          commentOrigin = Nothing,
           commentLocation = Just
             "macro_typedef_struct.h:3:9",
           commentHeaderInfo = Just
@@ -523,7 +523,7 @@
           structComment = Just
             Comment {
               commentTitle = Nothing,
-              commentOrigin = Just "bar",
+              commentOrigin = Nothing,
               commentLocation = Just
                 "macro_typedef_struct.h:3:9",
               commentHeaderInfo = Just
@@ -690,7 +690,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just "bar",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "macro_typedef_struct.h:3:9",
                       commentHeaderInfo = Just
@@ -859,7 +859,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just "bar",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "macro_typedef_struct.h:3:9",
                       commentHeaderInfo = Just

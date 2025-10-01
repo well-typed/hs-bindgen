@@ -21,16 +21,17 @@ import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.Haddock.Config (HaddockConfig (..), PathStyle (..))
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Errors (panicPure)
-import HsBindgen.Frontend.AST.External (CommentRef (..), DeclInfo (..),
-                                        FieldInfo (..), HeaderInfo (..),
-                                        Name (..), NamePair (..))
+import HsBindgen.Frontend.AST.External (AnonId (..), CommentRef (..),
+                                        DeclInfo (..), FieldInfo (..),
+                                        HeaderInfo (..), Name (..),
+                                        NameOrigin (..), NamePair (..))
 import HsBindgen.Language.Haskell qualified as Hs
 
 -- | Convert a Clang comment to a Haddock comment
 --
 generateHaddocksWithInfo :: HaddockConfig -> DeclInfo -> Maybe HsDoc.Comment
 generateHaddocksWithInfo config DeclInfo{..} =
-  fst $ generateHaddocksWithParams config declLoc declHeaderInfo declId declComment []
+  fst $ generateHaddocksWithParams config False declLoc declHeaderInfo declId declOrigin declComment []
 
 generateHaddocksWithFieldInfo
   :: HaddockConfig
@@ -38,7 +39,7 @@ generateHaddocksWithFieldInfo
   -> FieldInfo
   -> Maybe HsDoc.Comment
 generateHaddocksWithFieldInfo config DeclInfo{..} FieldInfo{..} =
-  fst $ generateHaddocksWithParams config fieldLoc declHeaderInfo fieldName fieldComment []
+  fst $ generateHaddocksWithParams config True fieldLoc declHeaderInfo fieldName declOrigin fieldComment []
 
 generateHaddocksWithInfoParams
   :: HaddockConfig
@@ -46,7 +47,7 @@ generateHaddocksWithInfoParams
   -> [Hs.FunctionParameter]
   -> (Maybe HsDoc.Comment, [Hs.FunctionParameter])
 generateHaddocksWithInfoParams config DeclInfo{..} params =
-  generateHaddocksWithParams config declLoc declHeaderInfo declId declComment params
+  generateHaddocksWithParams config False declLoc declHeaderInfo declId declOrigin declComment params
 
 -- | Convert a Clang comment to a Haddock comment, updating function parameters
 --
@@ -58,28 +59,48 @@ generateHaddocksWithInfoParams config DeclInfo{..} params =
 --
 generateHaddocksWithParams ::
      HaddockConfig
+  -> Bool
   -> C.SingleLoc
   -> Maybe HeaderInfo
   -> NamePair
+  -> NameOrigin
   -> Maybe (CDoc.Comment CommentRef)
   -> [Hs.FunctionParameter]
   -> (Maybe HsDoc.Comment, [Hs.FunctionParameter])
-generateHaddocksWithParams HaddockConfig{..} declLoc mHeaderInfo declId Nothing params =
-  -- If there's no C.Comment to associate with any function parameter we make
-  -- sure to at least add a comment that will show the function parameter name
-  -- if it exists.
-  --
-  ( Just
-     HsDoc.Comment {
-       HsDoc.commentTitle      = Nothing
-     , HsDoc.commentOrigin     = Just (getName (nameC declId))
-     , HsDoc.commentLocation   = Just (updateSingleLoc pathStyle declLoc)
-     , HsDoc.commentHeaderInfo = mHeaderInfo
-     , HsDoc.commentChildren   = []
-     }
-  , map addFunctionParameterComment params)
-generateHaddocksWithParams HaddockConfig{..} declLoc mHeaderInfo declId (Just CDoc.Comment{..}) params =
-  let (commentTitle, commentChildren') =
+generateHaddocksWithParams HaddockConfig{..} isField declLoc mHeaderInfo declId declOrigin Nothing params =
+  let (commentCName, commentLocation) =
+        case declOrigin of
+          NameOriginGenerated (AnonId _)
+            | not isField                -> ( Nothing
+                                            , Just (updateSingleLoc pathStyle declLoc)
+                                            )
+          _                              -> ( Just (getName (nameC declId))
+                                            , Just (updateSingleLoc pathStyle declLoc)
+                                            )
+   in -- If there's no C.Comment to associate with any function parameter we make
+      -- sure to at least add a comment that will show the function parameter name
+      -- if it exists.
+      --
+      ( Just
+         HsDoc.Comment {
+           HsDoc.commentTitle      = Nothing
+         , HsDoc.commentOrigin     = commentCName
+         , HsDoc.commentLocation   = commentLocation
+         , HsDoc.commentHeaderInfo = mHeaderInfo
+         , HsDoc.commentChildren   = []
+         }
+      , map addFunctionParameterComment params)
+generateHaddocksWithParams HaddockConfig{..} isField declLoc mHeaderInfo declId declOrigin (Just CDoc.Comment{..}) params =
+  let (commentCName, commentLocation) =
+        case declOrigin of
+          NameOriginGenerated (AnonId _)
+            | not isField                -> ( Nothing
+                                            , Just (updateSingleLoc pathStyle declLoc)
+                                            )
+          _                              -> ( Just (getName (nameC declId))
+                                            , Just (updateSingleLoc pathStyle declLoc)
+                                            )
+      (commentTitle, commentChildren') =
         case commentChildren of
           (CDoc.Paragraph [CDoc.TextContent ""]:rest) -> (Nothing, rest)
           (CDoc.Paragraph ci:rest)                    -> ( Just $ concatMap convertInlineContent
@@ -122,8 +143,8 @@ generateHaddocksWithParams HaddockConfig{..} declLoc mHeaderInfo declId (Just CD
 
    in ( Just HsDoc.Comment {
           commentTitle
-        , commentOrigin     = Just (getName (nameC declId))
-        , commentLocation   = Just (updateSingleLoc pathStyle declLoc)
+        , commentOrigin     = commentCName
+        , commentLocation   = commentLocation
         , commentHeaderInfo = mHeaderInfo
         , commentChildren   = finalChildren
         }

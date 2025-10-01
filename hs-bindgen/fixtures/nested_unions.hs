@@ -730,8 +730,7 @@
       newtypeComment = Just
         Comment {
           commentTitle = Nothing,
-          commentOrigin = Just
-            "exB_fieldB1",
+          commentOrigin = Nothing,
           commentLocation = Just
             "nested_unions.h:9:9",
           commentHeaderInfo = Just

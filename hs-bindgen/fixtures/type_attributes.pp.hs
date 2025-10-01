@@ -205,9 +205,7 @@ instance F.Storable My_packed_struct where
 -}
 data Wait
 
-{-| __C declaration:__ @wait_status_ptr_t@
-
-    __defined at:__ @type_attributes.h:26:9@
+{-| __defined at:__ @type_attributes.h:26:9@
 
     __exported by:__ @type_attributes.h@
 -}

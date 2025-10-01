@@ -63,7 +63,7 @@
             [
               TextContent
                 "Attributes on functions"],
-          commentOrigin = Just "FILE",
+          commentOrigin = Nothing,
           commentLocation = Just
             "fun_attributes.h:7:9",
           commentHeaderInfo = Just
@@ -145,7 +145,7 @@
                 [
                   TextContent
                     "Attributes on functions"],
-              commentOrigin = Just "FILE",
+              commentOrigin = Nothing,
               commentLocation = Just
                 "fun_attributes.h:7:9",
               commentHeaderInfo = Just
@@ -231,7 +231,7 @@
                         [
                           TextContent
                             "Attributes on functions"],
-                      commentOrigin = Just "FILE",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "fun_attributes.h:7:9",
                       commentHeaderInfo = Just
@@ -317,7 +317,7 @@
                         [
                           TextContent
                             "Attributes on functions"],
-                      commentOrigin = Just "FILE",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "fun_attributes.h:7:9",
                       commentHeaderInfo = Just

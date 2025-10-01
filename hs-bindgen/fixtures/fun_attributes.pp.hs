@@ -24,8 +24,6 @@ $(HsBindgen.Runtime.Prelude.addCSource "#include <fun_attributes.h>\nvoid hs_bin
 
   Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html
 
-__C declaration:__ @FILE@
-
 __defined at:__ @fun_attributes.h:7:9@
 
 __exported by:__ @fun_attributes.h@

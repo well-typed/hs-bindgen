@@ -142,22 +142,17 @@ instance Pretty CommentKind where
             PartOfDeclarationComment c -> ("{- ^", "-}", c)
             THComment c                -> ("", "", c)
         indentation = length commentStart - 1
-        fromCCtxDoc =
-          case commentOrigin of
-            Nothing    -> empty
-            Just cName ->
-              let parts = [ Just $ "__C declaration:__ @"
-                                >< textToCtxDoc cName
-                                >< "@"
-                          , (\p -> "__defined at:__ @"
-                                >< uncurry prettyHashIncludeArgLoc p
-                                >< "@"
-                            ) <$> (liftA2 (,) commentHeaderInfo commentLocation)
-                          , (\hinfo -> "__exported by:__ @"
-                                    >< prettyMainHeaders hinfo
-                                    >< "@") <$> commentHeaderInfo
-                          ]
-              in vsep (catMaybes parts)
+        fromCCtxDoc = [ (\n -> "__C declaration:__ @"
+                            >< textToCtxDoc n
+                            >< "@") <$> commentOrigin
+                      , (\p -> "__defined at:__ @"
+                            >< uncurry prettyHashIncludeArgLoc p
+                            >< "@"
+                        ) <$> (liftA2 (,) commentHeaderInfo commentLocation)
+                      , (\hinfo -> "__exported by:__ @"
+                                >< prettyMainHeaders hinfo
+                                >< "@") <$> commentHeaderInfo
+                      ]
         firstContent =
           case commentTitle of
             Nothing -> empty
@@ -165,15 +160,27 @@ instance Pretty CommentKind where
         -- If the comment only has the the origin C Name then use that has the
         -- title.
      in case commentChildren of
-          [] | Nothing <- commentTitle ->
+          [] | Nothing <- commentTitle
+             , not (null fromCCtxDoc) ->
                 string commentStart
-            <+> fromCCtxDoc
+            <+> vsep (catMaybes fromCCtxDoc)
+             $$ string commentEnd
+             | Just _ <- commentTitle
+             , null fromCCtxDoc ->
+                string commentStart
+            <+> firstContent
+             $$ string commentEnd
+             | Just _  <- commentTitle
+             , not (null fromCCtxDoc) ->
+                string commentStart
+            <+> firstContent
+            $+$ vsep (catMaybes fromCCtxDoc)
              $$ string commentEnd
              | otherwise -> empty
 
-          _  -> vsep (string commentStart <+> firstContent
+          _ -> vsep (string commentStart <+> firstContent
                      : map (nest indentation . pretty) commentChildren)
-            $+$ vcat [ fromCCtxDoc
+            $+$ vcat [ vsep (catMaybes fromCCtxDoc)
                      , string commentEnd
                      ]
 

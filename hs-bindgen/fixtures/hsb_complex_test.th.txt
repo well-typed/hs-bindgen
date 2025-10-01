@@ -21,9 +21,7 @@
 -- /* get_volatile_complex_double_ptr */ __attribute__ ((const)) double _Complex *hs_bindgen_test_hsb_complex_test_6b136090c38a69c4 (void) { return &volatile_complex_double; } 
 -- /* get_complex_float_array_ptr */ __attribute__ ((const)) float _Complex (*hs_bindgen_test_hsb_complex_test_55b7fb104be53f70 (void))[10] { return &complex_float_array; } 
 -- /* get_complex_double_array_ptr */ __attribute__ ((const)) double _Complex (*hs_bindgen_test_hsb_complex_test_0b63f3bda9243457 (void))[10] { return &complex_double_array; } 
-{-| __C declaration:__ @complex_object_t@
-
-    __defined at:__ @hsb_complex_test.h:24:9@
+{-| __defined at:__ @hsb_complex_test.h:24:9@
 
     __exported by:__ @hsb_complex_test.h@
 -}
@@ -49,9 +47,7 @@ data Complex_object_t
 
                              __exported by:__ @hsb_complex_test.h@
                         -}}
-      {- ^ __C declaration:__ @complex_object_t@
-
-           __defined at:__ @hsb_complex_test.h:24:9@
+      {- ^ __defined at:__ @hsb_complex_test.h:24:9@
 
            __exported by:__ @hsb_complex_test.h@
       -}

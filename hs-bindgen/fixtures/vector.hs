@@ -130,7 +130,7 @@
       structComment = Just
         Comment {
           commentTitle = Nothing,
-          commentOrigin = Just "vector",
+          commentOrigin = Nothing,
           commentLocation = Just
             "vector.h:1:9",
           commentHeaderInfo = Just
@@ -273,7 +273,7 @@
           structComment = Just
             Comment {
               commentTitle = Nothing,
-              commentOrigin = Just "vector",
+              commentOrigin = Nothing,
               commentLocation = Just
                 "vector.h:1:9",
               commentHeaderInfo = Just
@@ -419,7 +419,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just "vector",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "vector.h:1:9",
                       commentHeaderInfo = Just
@@ -567,7 +567,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just "vector",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "vector.h:1:9",
                       commentHeaderInfo = Just

@@ -1108,6 +1108,98 @@
     Newtype {
       newtypeName = Name
         "@NsTypeConstr"
+        "Event_callback_t_Deref",
+      newtypeConstr = Name
+        "@NsConstr"
+        "Event_callback_t_Deref",
+      newtypeField = Field {
+        fieldName = Name
+          "@NsVar"
+          "un_Event_callback_t_Deref",
+        fieldType = HsFun
+          (HsPrimType HsPrimCInt)
+          (HsFun
+            (HsPtr (HsPrimType HsPrimVoid))
+            (HsIO (HsPrimType HsPrimCInt))),
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "doxygen_docs.h:225:15",
+          declId = NamePair {
+            nameC = Name
+              "event_callback_t_Deref",
+            nameHsIdent = Identifier
+              "Event_callback_t_Deref"},
+          declOrigin = NameOriginGenerated
+            (AnonId
+              "doxygen_docs.h:225:15"),
+          declAliases = [],
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          declComment = Just
+            (Comment
+              [
+                Paragraph
+                  [
+                    TextContent
+                      "Auxiliary type used by ",
+                    InlineRefCommand
+                      (ById
+                        NamePair {
+                          nameC = Name "event_callback_t",
+                          nameHsIdent = Identifier
+                            "Event_callback_t"})]])},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = Name
+                "@NsConstr"
+                "Event_callback_t_Deref",
+              newtypeField = Name
+                "@NsVar"
+                "un_Event_callback_t_Deref"},
+            typedefType = TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimInt Signed),
+                TypePointer TypeVoid]
+              (TypePrim
+                (PrimIntegral PrimInt Signed))},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
+      newtypeInstances = Set.fromList
+        [],
+      newtypeComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Auxiliary type used by",
+              Identifier "Event_callback_t"],
+          commentOrigin = Nothing,
+          commentLocation = Just
+            "doxygen_docs.h:225:15",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren = []}},
+  DeclNewtype
+    Newtype {
+      newtypeName = Name
+        "@NsTypeConstr"
         "Event_callback_t",
       newtypeConstr = Name
         "@NsConstr"
@@ -1117,12 +1209,10 @@
           "@NsVar"
           "un_Event_callback_t",
         fieldType = HsFunPtr
-          (HsFun
-            (HsPrimType HsPrimCInt)
-            (HsFun
-              (HsPtr (HsPrimType HsPrimVoid))
-              (HsIO
-                (HsPrimType HsPrimCInt)))),
+          (HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Event_callback_t_Deref")),
         fieldOrigin = GeneratedField,
         fieldComment = Nothing},
       newtypeOrigin = Decl {
@@ -1193,15 +1283,13 @@
                 "@NsVar"
                 "un_Event_callback_t"},
             typedefType = TypePointer
-              (TypeFun
-                [
-                  TypePrim
-                    (PrimIntegral PrimInt Signed),
-                  TypePointer TypeVoid]
-                (TypePrim
-                  (PrimIntegral
-                    PrimInt
-                    Signed)))},
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name
+                      "event_callback_t_Deref",
+                    nameHsIdent = Identifier
+                      "Event_callback_t_Deref"}))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -2412,7 +2500,7 @@
       structComment = Just
         Comment {
           commentTitle = Nothing,
-          commentOrigin = Just "config_t",
+          commentOrigin = Nothing,
           commentLocation = Just
             "doxygen_docs.h:232:9",
           commentHeaderInfo = Just
@@ -3555,7 +3643,7 @@
           structComment = Just
             Comment {
               commentTitle = Nothing,
-              commentOrigin = Just "config_t",
+              commentOrigin = Nothing,
               commentLocation = Just
                 "doxygen_docs.h:232:9",
               commentHeaderInfo = Just
@@ -4703,7 +4791,7 @@
                   Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just "config_t",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "doxygen_docs.h:232:9",
                       commentHeaderInfo = Just
@@ -5857,7 +5945,7 @@
                   Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just "config_t",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "doxygen_docs.h:232:9",
                       commentHeaderInfo = Just
@@ -6078,8 +6166,7 @@
       newtypeComment = Just
         Comment {
           commentTitle = Nothing,
-          commentOrigin = Just
-            "status_code_t",
+          commentOrigin = Nothing,
           commentLocation = Just
             "doxygen_docs.h:258:9",
           commentHeaderInfo = Just
@@ -7423,8 +7510,7 @@
       structComment = Just
         Comment {
           commentTitle = Nothing,
-          commentOrigin = Just
-            "data_union_t_as_parts",
+          commentOrigin = Nothing,
           commentLocation = Just
             "doxygen_docs.h:290:5",
           commentHeaderInfo = Just
@@ -8318,8 +8404,7 @@
           structComment = Just
             Comment {
               commentTitle = Nothing,
-              commentOrigin = Just
-                "data_union_t_as_parts",
+              commentOrigin = Nothing,
               commentLocation = Just
                 "doxygen_docs.h:290:5",
               commentHeaderInfo = Just
@@ -9218,8 +9303,7 @@
                   Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just
-                        "data_union_t_as_parts",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "doxygen_docs.h:290:5",
                       commentHeaderInfo = Just
@@ -10121,8 +10205,7 @@
                   Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just
-                        "data_union_t_as_parts",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "doxygen_docs.h:290:5",
                       commentHeaderInfo = Just
@@ -10560,8 +10643,7 @@
       newtypeComment = Just
         Comment {
           commentTitle = Nothing,
-          commentOrigin = Just
-            "data_union_t",
+          commentOrigin = Nothing,
           commentLocation = Just
             "doxygen_docs.h:281:9",
           commentHeaderInfo = Just
@@ -11583,8 +11665,7 @@
       structComment = Just
         Comment {
           commentTitle = Nothing,
-          commentOrigin = Just
-            "bitfield_t",
+          commentOrigin = Nothing,
           commentLocation = Just
             "doxygen_docs.h:302:9",
           commentHeaderInfo = Just
@@ -11941,8 +12022,7 @@
           structComment = Just
             Comment {
               commentTitle = Nothing,
-              commentOrigin = Just
-                "bitfield_t",
+              commentOrigin = Nothing,
               commentLocation = Just
                 "doxygen_docs.h:302:9",
               commentHeaderInfo = Just
@@ -12302,8 +12382,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just
-                        "bitfield_t",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "doxygen_docs.h:302:9",
                       commentHeaderInfo = Just
@@ -12667,8 +12746,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just
-                        "bitfield_t",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "doxygen_docs.h:302:9",
                       commentHeaderInfo = Just
@@ -12736,6 +12814,98 @@
     Newtype {
       newtypeName = Name
         "@NsTypeConstr"
+        "Processor_fn_t_Deref",
+      newtypeConstr = Name
+        "@NsConstr"
+        "Processor_fn_t_Deref",
+      newtypeField = Field {
+        fieldName = Name
+          "@NsVar"
+          "un_Processor_fn_t_Deref",
+        fieldType = HsFun
+          (HsPrimType HsPrimCInt)
+          (HsFun
+            (HsPtr (HsPrimType HsPrimVoid))
+            (HsIO (HsPrimType HsPrimCInt))),
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "doxygen_docs.h:317:15",
+          declId = NamePair {
+            nameC = Name
+              "processor_fn_t_Deref",
+            nameHsIdent = Identifier
+              "Processor_fn_t_Deref"},
+          declOrigin = NameOriginGenerated
+            (AnonId
+              "doxygen_docs.h:317:15"),
+          declAliases = [],
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          declComment = Just
+            (Comment
+              [
+                Paragraph
+                  [
+                    TextContent
+                      "Auxiliary type used by ",
+                    InlineRefCommand
+                      (ById
+                        NamePair {
+                          nameC = Name "processor_fn_t",
+                          nameHsIdent = Identifier
+                            "Processor_fn_t"})]])},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = Name
+                "@NsConstr"
+                "Processor_fn_t_Deref",
+              newtypeField = Name
+                "@NsVar"
+                "un_Processor_fn_t_Deref"},
+            typedefType = TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimInt Signed),
+                TypePointer TypeVoid]
+              (TypePrim
+                (PrimIntegral PrimInt Signed))},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
+      newtypeInstances = Set.fromList
+        [],
+      newtypeComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Auxiliary type used by",
+              Identifier "Processor_fn_t"],
+          commentOrigin = Nothing,
+          commentLocation = Just
+            "doxygen_docs.h:317:15",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["doxygen_docs.h"],
+              headerInclude =
+              "doxygen_docs.h"},
+          commentChildren = []}},
+  DeclNewtype
+    Newtype {
+      newtypeName = Name
+        "@NsTypeConstr"
         "Processor_fn_t",
       newtypeConstr = Name
         "@NsConstr"
@@ -12745,12 +12915,10 @@
           "@NsVar"
           "un_Processor_fn_t",
         fieldType = HsFunPtr
-          (HsFun
-            (HsPrimType HsPrimCInt)
-            (HsFun
-              (HsPtr (HsPrimType HsPrimVoid))
-              (HsIO
-                (HsPrimType HsPrimCInt)))),
+          (HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Processor_fn_t_Deref")),
         fieldOrigin = GeneratedField,
         fieldComment = Nothing},
       newtypeOrigin = Decl {
@@ -12822,15 +12990,13 @@
                 "@NsVar"
                 "un_Processor_fn_t"},
             typedefType = TypePointer
-              (TypeFun
-                [
-                  TypePrim
-                    (PrimIntegral PrimInt Signed),
-                  TypePointer TypeVoid]
-                (TypePrim
-                  (PrimIntegral
-                    PrimInt
-                    Signed)))},
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name
+                      "processor_fn_t_Deref",
+                    nameHsIdent = Identifier
+                      "Processor_fn_t_Deref"}))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,

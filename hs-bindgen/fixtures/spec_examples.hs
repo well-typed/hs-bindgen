@@ -798,7 +798,7 @@
       structComment = Just
         Comment {
           commentTitle = Nothing,
-          commentOrigin = Just "cint16_T",
+          commentOrigin = Nothing,
           commentLocation = Just
             "spec_examples.h:14:9",
           commentHeaderInfo = Just
@@ -970,7 +970,7 @@
           structComment = Just
             Comment {
               commentTitle = Nothing,
-              commentOrigin = Just "cint16_T",
+              commentOrigin = Nothing,
               commentLocation = Just
                 "spec_examples.h:14:9",
               commentHeaderInfo = Just
@@ -1145,7 +1145,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just "cint16_T",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "spec_examples.h:14:9",
                       commentHeaderInfo = Just
@@ -1322,7 +1322,7 @@
                   structComment = Just
                     Comment {
                       commentTitle = Nothing,
-                      commentOrigin = Just "cint16_T",
+                      commentOrigin = Nothing,
                       commentLocation = Just
                         "spec_examples.h:14:9",
                       commentHeaderInfo = Just

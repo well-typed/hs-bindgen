@@ -105,9 +105,7 @@ instance Storable Struct1
           peek = \ptr_0 -> pure Struct1 <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Struct1 struct1_a_3 -> pokeByteOff ptr_1 (0 :: Int) struct1_a_3
-{-| __C declaration:__ @struct2@
-
-    __defined at:__ @macro_in_fundecl_vs_typedef.h:19:9@
+{-| __defined at:__ @macro_in_fundecl_vs_typedef.h:19:9@
 
     __exported by:__ @macro_in_fundecl_vs_typedef.h@
 -}
@@ -119,9 +117,7 @@ data Struct2
 
                     __exported by:__ @macro_in_fundecl_vs_typedef.h@
                -}}
-      {- ^ __C declaration:__ @struct2@
-
-           __defined at:__ @macro_in_fundecl_vs_typedef.h:19:9@
+      {- ^ __defined at:__ @macro_in_fundecl_vs_typedef.h:19:9@
 
            __exported by:__ @macro_in_fundecl_vs_typedef.h@
       -}

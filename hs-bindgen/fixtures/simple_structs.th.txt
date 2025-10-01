@@ -77,9 +77,7 @@ instance Storable S2_t
                                    S2_t s2_t_a_3
                                         s2_t_b_4
                                         s2_t_c_5 -> pokeByteOff ptr_1 (0 :: Int) s2_t_a_3 >> (pokeByteOff ptr_1 (4 :: Int) s2_t_b_4 >> pokeByteOff ptr_1 (8 :: Int) s2_t_c_5)
-{-| __C declaration:__ @S3_t@
-
-    __defined at:__ @simple_structs.h:15:9@
+{-| __defined at:__ @simple_structs.h:15:9@
 
     __exported by:__ @simple_structs.h@
 -}
@@ -91,9 +89,7 @@ data S3_t
 
                  __exported by:__ @simple_structs.h@
             -}}
-      {- ^ __C declaration:__ @S3_t@
-
-           __defined at:__ @simple_structs.h:15:9@
+      {- ^ __defined at:__ @simple_structs.h:15:9@
 
            __exported by:__ @simple_structs.h@
       -}
@@ -217,9 +213,7 @@ instance Storable S6
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    S6 s6_a_3
                                       s6_b_4 -> pokeByteOff ptr_1 (0 :: Int) s6_a_3 >> pokeByteOff ptr_1 (4 :: Int) s6_b_4
-{-| __C declaration:__ @S7a_Deref@
-
-    __defined at:__ @simple_structs.h:34:9@
+{-| __defined at:__ @simple_structs.h:34:9@
 
     __exported by:__ @simple_structs.h@
 -}
@@ -238,9 +232,7 @@ data S7a_Deref
 
                       __exported by:__ @simple_structs.h@
                  -}}
-      {- ^ __C declaration:__ @S7a_Deref@
-
-           __defined at:__ @simple_structs.h:34:9@
+      {- ^ __defined at:__ @simple_structs.h:34:9@
 
            __exported by:__ @simple_structs.h@
       -}
@@ -268,9 +260,7 @@ newtype S7a
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
-{-| __C declaration:__ @S7b_Deref@
-
-    __defined at:__ @simple_structs.h:35:9@
+{-| __defined at:__ @simple_structs.h:35:9@
 
     __exported by:__ @simple_structs.h@
 -}
@@ -289,9 +279,7 @@ data S7b_Deref
 
                       __exported by:__ @simple_structs.h@
                  -}}
-      {- ^ __C declaration:__ @S7b_Deref@
-
-           __defined at:__ @simple_structs.h:35:9@
+      {- ^ __defined at:__ @simple_structs.h:35:9@
 
            __exported by:__ @simple_structs.h@
       -}

@@ -3,9 +3,7 @@
 -- vector *hs_bindgen_test_vector_c8cd49ec7dbcac25 (double arg1, double arg2) { return new_vector(arg1, arg2); }
 -- vector *hs_bindgen_test_vector_30a7381111c0131a (double arg1, double arg2) { return new_vector(arg1, arg2); }
 -- /* get_new_vector_ptr */ __attribute__ ((const)) vector *(*hs_bindgen_test_vector_7672b9e7f001c998 (void)) (double arg1, double arg2) { return &new_vector; } 
-{-| __C declaration:__ @vector@
-
-    __defined at:__ @vector.h:1:9@
+{-| __defined at:__ @vector.h:1:9@
 
     __exported by:__ @vector.h@
 -}
@@ -24,9 +22,7 @@ data Vector
 
                    __exported by:__ @vector.h@
               -}}
-      {- ^ __C declaration:__ @vector@
-
-           __defined at:__ @vector.h:1:9@
+      {- ^ __defined at:__ @vector.h:1:9@
 
            __exported by:__ @vector.h@
       -}

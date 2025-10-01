@@ -3,6 +3,66 @@ version:
   binding_specification: '1.0'
 types:
 - headers: typedefs.h
+  cname: FunctionPointer_Function
+  module: Example
+  identifier: FunctionPointer_Function
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- headers: typedefs.h
+  cname: FunctionPointer_Function_Deref
+  module: Example
+  identifier: FunctionPointer_Function_Deref
+- headers: typedefs.h
+  cname: NonFunctionPointer_Function
+  module: Example
+  identifier: NonFunctionPointer_Function
+- headers: typedefs.h
+  cname: f1
+  module: Example
+  identifier: F1
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- headers: typedefs.h
+  cname: f1_Deref
+  module: Example
+  identifier: F1_Deref
+- headers: typedefs.h
+  cname: g1
+  module: Example
+  identifier: G1
+- headers: typedefs.h
+  cname: g2
+  module: Example
+  identifier: G2
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- headers: typedefs.h
+  cname: h1
+  module: Example
+  identifier: H1
+- headers: typedefs.h
+  cname: h2
+  module: Example
+  identifier: H2
+- headers: typedefs.h
+  cname: h3
+  module: Example
+  identifier: H3
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- headers: typedefs.h
   cname: int2int
   module: Example
   identifier: Int2int
