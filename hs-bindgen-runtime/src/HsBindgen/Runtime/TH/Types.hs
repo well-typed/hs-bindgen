@@ -1,33 +1,20 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# LANGUAGE TypeApplications #-}
 
--- | Function pointer utilities and type class for converting Haskell functions
--- to C function pointers.
---
--- This module provides a type class 'ToFunPtr' that allows for a uniform
--- interface to convert Haskell functions to C function pointers.
---
--- This module also provides TH splices that generate FFI wrappers and
+-- | This module provides TH splices that generate FFI wrappers and
 -- 'ToFunPtr' instances that are called in different modules to paralellize
 -- compilation and compile time code generation.
 --
-module HsBindgen.Runtime.FunPtr.Common (
-    -- * Type class
-    ToFunPtr(..)
-  , FromFunPtr(..)
-
-    -- * Template Haskell FFI wrapper generation and 'ToFunPtr' instance
-    -- generation
-
-    -- ** Types
-  , allPrimTypes
+module HsBindgen.Runtime.TH.Types (
+    -- * Types
+    allPrimTypes
   , allPtrTypes
   , allIOTypes
-    -- *** Common Types
+    -- * Common Types
   , commonPrimTypes
   , commonPtrTypes
   , commonReturnTypes
-    -- ** Generate the instances
+    -- * Generate the instances
   , generateInstance
   ) where
 
@@ -37,21 +24,7 @@ import Foreign.C.Types
 import GHC.Ptr qualified as Ptr
 import Language.Haskell.TH
 
--- | Type class for converting Haskell functions to C function pointers.
---
-class ToFunPtr a where
-  -- | Convert a Haskell function to a C function pointer.
-  --
-  -- The caller is responsible for freeing the function pointer using
-  -- 'F.freeHaskellFunPtr' when it is no longer needed.
-  --
-  toFunPtr :: a -> IO (F.FunPtr a)
-
--- | Type class for converting C function pointers to Haskell functions.
---
-class FromFunPtr a where
-  -- | Convert C function pointer into a Haskell function.
-  fromFunPtr :: F.FunPtr a -> a
+import HsBindgen.Runtime.FunPtr
 
 -- | Get primitive marshallable types
 --

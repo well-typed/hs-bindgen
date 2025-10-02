@@ -301,8 +301,8 @@ data PatSyn = PatSyn
 --
 type ToFunPtrInstance :: Star
 data ToFunPtrInstance = ToFunPtrInstance
-    { toFunPtrInstanceType    :: HsType
-    , toFunPtrInstanceWrapper :: Hs.Name Hs.NsVar
+    { toFunPtrInstanceType :: HsType
+    , toFunPtrInstanceBody :: Hs.Name Hs.NsVar
     }
   deriving stock (Generic, Show)
 
@@ -314,8 +314,8 @@ data ToFunPtrInstance = ToFunPtrInstance
 --
 type FromFunPtrInstance :: Star
 data FromFunPtrInstance = FromFunPtrInstance
-    { fromFunPtrInstanceType    :: HsType
-    , fromFunPtrInstanceWrapper :: Hs.Name Hs.NsVar
+    { fromFunPtrInstanceType :: HsType
+    , fromFunPtrInstanceBody :: Hs.Name Hs.NsVar
     }
   deriving stock (Generic, Show)
 

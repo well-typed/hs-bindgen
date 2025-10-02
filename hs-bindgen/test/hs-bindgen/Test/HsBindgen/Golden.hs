@@ -387,10 +387,6 @@ testCases = manualTestCases ++ [
         _otherwise ->
           Nothing
 
-      -- callbacks
-    , defaultFailingTest "callback_by_value"
-
-
       --
       -- Miscellaneous other tests that require special treatment
       --

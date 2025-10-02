@@ -50,7 +50,7 @@ import HsBindgen.Runtime.CAPI qualified
 import HsBindgen.Runtime.CEnum qualified
 import HsBindgen.Runtime.ConstantArray qualified
 import HsBindgen.Runtime.FlexibleArrayMember qualified
-import HsBindgen.Runtime.FunPtr.Common qualified
+import HsBindgen.Runtime.FunPtr qualified
 import HsBindgen.Runtime.IncompleteArray qualified
 import HsBindgen.Runtime.Marshal qualified
 import HsBindgen.Runtime.SizedByteArray qualified
@@ -72,10 +72,10 @@ mkGlobal = \case
       StaticSize_class      -> ''HsBindgen.Runtime.Marshal.StaticSize
       ReadRaw_class         -> ''HsBindgen.Runtime.Marshal.ReadRaw
       WriteRaw_class        -> ''HsBindgen.Runtime.Marshal.WriteRaw
-      ToFunPtr_class        -> ''HsBindgen.Runtime.FunPtr.Common.ToFunPtr
-      ToFunPtr_toFunPtr     -> 'HsBindgen.Runtime.FunPtr.Common.toFunPtr
-      FromFunPtr_class      -> ''HsBindgen.Runtime.FunPtr.Common.FromFunPtr
-      FromFunPtr_fromFunPtr -> 'HsBindgen.Runtime.FunPtr.Common.fromFunPtr
+      ToFunPtr_class        -> ''HsBindgen.Runtime.FunPtr.ToFunPtr
+      ToFunPtr_toFunPtr     -> 'HsBindgen.Runtime.FunPtr.toFunPtr
+      FromFunPtr_class      -> ''HsBindgen.Runtime.FunPtr.FromFunPtr
+      FromFunPtr_fromFunPtr -> 'HsBindgen.Runtime.FunPtr.fromFunPtr
       Storable_class        -> ''Foreign.Storable.Storable
       Storable_sizeOf       -> 'Foreign.Storable.sizeOf
       Storable_alignment    -> 'Foreign.Storable.alignment

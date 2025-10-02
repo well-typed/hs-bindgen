@@ -91,7 +91,7 @@ translateDefineInstanceDecl Hs.DefineInstance {..} =
         { instanceClass   = ToFunPtr_class
         , instanceArgs    = [ translateType toFunPtrInstanceType ]
         , instanceTypes   = []
-        , instanceDecs    = [(ToFunPtr_toFunPtr, EFree toFunPtrInstanceWrapper)]
+        , instanceDecs    = [(ToFunPtr_toFunPtr, EFree toFunPtrInstanceBody)]
         , instanceComment = defineInstanceComment
         }
     Hs.InstanceFromFunPtr Hs.FromFunPtrInstance{..} -> DInst
@@ -99,7 +99,7 @@ translateDefineInstanceDecl Hs.DefineInstance {..} =
         { instanceClass   = FromFunPtr_class
         , instanceArgs    = [ translateType fromFunPtrInstanceType ]
         , instanceTypes   = []
-        , instanceDecs    = [(FromFunPtr_fromFunPtr, EFree fromFunPtrInstanceWrapper)]
+        , instanceDecs    = [(FromFunPtr_fromFunPtr, EFree fromFunPtrInstanceBody)]
         , instanceComment = defineInstanceComment
         }
 

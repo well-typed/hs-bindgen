@@ -848,32 +848,37 @@ typedefDecs opts haddockConfig typedefs info typedef spec = do
 
     candidateInsts :: Set Hs.TypeClass
     candidateInsts = Set.unions
-                   $ [ Set.singleton Hs.Storable
-                     , Set.fromList (snd <$> translationDeriveTypedef opts)
-                     ]
+                   [ Set.singleton Hs.Storable
+                   , Set.fromList (snd <$> translationDeriveTypedef opts)
+                   ]
 
     newtypeWrapper :: [Hs.Decl]
     newtypeWrapper =
       case C.typedefType typedef of
-        -- We need to check C.Type here instead of Hs.HsType because we might
-        -- need to wrap/unwrap some of the function's argument types due to FFI
-        -- limitations.
+        -- We need to be careful and not generate any wrappers for function
+        -- types that receive data types not supported by Haskell's FFI
+        -- (i.e. structs, unions by value).
         --
-        -- We also need to be careful and not generate any wrappers for
-        -- function types that receive data types not supported by Haskell's
-        -- FFI (i.e. structs, unions by value).
+        -- Note that we don't want to explicitly see all the way through
+        -- typedefs here. See the following example
         --
-        C.TypePointer t@(C.TypeTypedef (C.TypedefRegular n))
-          | C.TypeFun args res <- getUnderlyingType typedefs t
-          , not (any hasUnsupportedType (res:args)) ->
-            let lowlevelNewtypeName = C.nameHs n
-                lowlevelNameTo      = "to" <> C.nameHs n
-                lowlevelNameFrom    = "from" <> C.nameHs n
+        -- @
+        -- typedef void (f)(int);
+        -- typedef f g;
+        -- @
+        --
+        -- If we see all the way through the typedef this case will not be
+        -- handled correctly.
+        --
+        t@(C.TypeFun args res)
+          | not (any hasUnsupportedType (res:args)) ->
+            let newtypeNameTo   = "to" <> coerce newtypeName
+                newtypeNameFrom = "from" <> coerce newtypeName
 
             in [ Hs.DeclForeignImport Hs.ForeignImportDecl
-                 { foreignImportName       = lowlevelNameTo
-                 , foreignImportResultType = NormalResultType $ HsIO $ HsFunPtr $ HsTypRef lowlevelNewtypeName
-                 , foreignImportParameters = [wrapperParam (HsTypRef lowlevelNewtypeName)]
+                 { foreignImportName       = newtypeNameTo
+                 , foreignImportResultType = NormalResultType $ HsIO $ HsFunPtr $ HsTypRef newtypeName
+                 , foreignImportParameters = [wrapperParam (HsTypRef newtypeName)]
                  , foreignImportOrigName   = "wrapper"
                  , foreignImportCallConv   = CallConvGhcCCall ImportAsValue
                  , foreignImportOrigin     = Origin.ToFunPtr t
@@ -881,9 +886,9 @@ typedefDecs opts haddockConfig typedefs info typedef spec = do
                  , foreignImportSafety     = SHs.Safe
                  }
                , Hs.DeclForeignImport Hs.ForeignImportDecl
-                 { foreignImportName       = lowlevelNameFrom
-                 , foreignImportResultType = NormalResultType $ HsTypRef lowlevelNewtypeName
-                 , foreignImportParameters = [wrapperParam (HsFunPtr $ HsTypRef lowlevelNewtypeName)]
+                 { foreignImportName       = newtypeNameFrom
+                 , foreignImportResultType = NormalResultType $ HsTypRef newtypeName
+                 , foreignImportParameters = [wrapperParam (HsFunPtr $ HsTypRef newtypeName)]
                  , foreignImportOrigName   = "dynamic"
                  , foreignImportCallConv   = CallConvGhcCCall ImportAsValue
                  , foreignImportOrigin     = Origin.FromFunPtr t
@@ -893,24 +898,20 @@ typedefDecs opts haddockConfig typedefs info typedef spec = do
                , Hs.DeclDefineInstance $ Hs.DefineInstance
                  { defineInstanceDeclarations = Hs.InstanceToFunPtr
                    Hs.ToFunPtrInstance
-                   { toFunPtrInstanceType    = HsTypRef lowlevelNewtypeName
-                   , toFunPtrInstanceWrapper = lowlevelNameTo
+                   { toFunPtrInstanceType = HsTypRef newtypeName
+                   , toFunPtrInstanceBody = newtypeNameTo
                    }
                  , defineInstanceComment = Nothing
                  }
                , Hs.DeclDefineInstance $ Hs.DefineInstance
                  { defineInstanceDeclarations = Hs.InstanceFromFunPtr
                    Hs.FromFunPtrInstance
-                   { fromFunPtrInstanceType    = HsTypRef lowlevelNewtypeName
-                   , fromFunPtrInstanceWrapper = lowlevelNameFrom
+                   { fromFunPtrInstanceType = HsTypRef newtypeName
+                   , fromFunPtrInstanceBody = newtypeNameFrom
                    }
                  , defineInstanceComment = Nothing
                  }
                ]
-        C.TypePointer (C.TypeFun _ _)
-          -- TODO: We should issue a warning here but we can't until #1132 is
-          -- done.
-          | otherwise -> []
         _ -> []
       where
         hasUnsupportedType :: C.Type -> Bool

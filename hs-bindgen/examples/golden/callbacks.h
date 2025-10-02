@@ -18,3 +18,9 @@ struct Measurement {
 
 typedef void (*MeasurementReceived)(struct Measurement *data);
 void onNewMeasurement(MeasurementReceived handler);
+
+typedef void (*MeasurementReceived2)(struct Measurement data);
+void onNewMeasurement2(MeasurementReceived2 handler);
+
+typedef void (*SampleBufferFull)(int samples[10]);
+void onBufferReady(SampleBufferFull handler);
