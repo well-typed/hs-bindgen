@@ -19,7 +19,7 @@ module HsBindgen.Frontend.Pass.Parse.Decl.Monad (
   , checkHasMacroExpansion
   , recordNonParsedDecl
     -- ** Logging
-  , recordUnrecognizedTrace
+  , recordUnattachedTrace
   , recordDelayedTrace
     -- ** Errors
   , unknownCursorKind
@@ -95,7 +95,7 @@ data Env = Env {
     , envIsInMainHeaderDir        :: Predicate.IsInMainHeaderDir
     , envGetMainHeadersAndInclude :: GetMainHeadersAndInclude
     , envPredicate                :: Predicate.ParsePredicate
-    , envTracer                   :: Tracer IO UnrecognizedParseMsg
+    , envTracer                   :: Tracer IO UnattachedParseMsg
     }
 
 getTranslationUnit :: ParseDecl CXTranslationUnit
@@ -207,8 +207,8 @@ recordNonParsedDecl declInfo nameKind =
 
 -- | Directly emit a parse message that can not be attached to a declaration,
 -- usually because not enough information about the declaration is available.
-recordUnrecognizedTrace :: UnrecognizedParseMsg -> ParseDecl ()
-recordUnrecognizedTrace trace = wrapEff $ \ParseSupport{parseEnv} ->
+recordUnattachedTrace :: UnattachedParseMsg -> ParseDecl ()
+recordUnattachedTrace trace = wrapEff $ \ParseSupport{parseEnv} ->
   traceWith (envTracer parseEnv) trace
 
 -- | Attach a delayed parse message to a declaration. We only emit the parse
