@@ -3,10 +3,8 @@ module HsBindgen.Frontend.Pass.HandleMacros (
   ) where
 
 import Control.Monad.State
-import Data.Char (toUpper)
 import Data.Map qualified as Map
 import Data.Vec.Lazy qualified as Vec
-import System.FilePath (takeBaseName)
 
 import C.Expr.Parse.Expr qualified as CExpr.DSL
 import C.Expr.Parse.Infra qualified as CExpr.DSL
@@ -15,7 +13,6 @@ import C.Expr.Typecheck.Expr qualified as CExpr.DSL
 import C.Expr.Typecheck.Type qualified as CExpr.DSL
 
 import Clang.HighLevel.Types
-import Clang.Paths
 
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Coerce
@@ -446,38 +443,3 @@ reparseWith p tokens onFailure onSuccess = state $ \st ->
       Left  e -> runState (unwrapM $ onFailure  ) st{
             stateErrors = HandleMacrosErrorReparse e : stateErrors st
           }
-
-{-------------------------------------------------------------------------------
-  Include guards
-
-  Include guards are macros used to prevent headers from being included more
-  than once, but they are a convention only. Therfore 'isIncludeGuard' can only
-  implement some heuristics.
--------------------------------------------------------------------------------}
-
-_isIncludeGuard :: CExpr.DSL.Macro p -> Bool
-_isIncludeGuard CExpr.DSL.Macro{macroLoc, macroName, macroArgs, macroBody} =
-    and [
-        macroName `elem` includeGuards
-      , null macroArgs
-      , case macroBody of
-          CExpr.DSL.MTerm (CExpr.DSL.MInt CExpr.DSL.IntegerLiteral { integerLiteralValue = 1 })
-            -> True
-          _otherwise
-            -> False
-      ]
-  where
-    sourcePath :: FilePath
-    sourcePath = getSourcePath . singleLocPath $ multiLocExpansion macroLoc
-
-    includeGuards :: [CExpr.DSL.Name]
-    includeGuards = possibleIncludeGuards (takeBaseName sourcePath)
-
-    -- | Possible names for include guards, given the file (base) name
-    possibleIncludeGuards :: String -> [CExpr.DSL.Name]
-    possibleIncludeGuards baseName = map fromString $ [
-                 map toUpper baseName ++ "_H"
-        , "_" ++ map toUpper baseName ++ "_H" -- this would be a reserved name
-        ,        map toUpper baseName ++ "_INCLUDED"
-        ]
-
