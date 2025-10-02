@@ -8,7 +8,7 @@ module HsBindgen.Frontend.Pass.Parse.IsPass (
   , getUnparsedMacro
     -- * Trace messages
   , ParseTypeExceptionContext(..)
-  , UnrecognizedParseMsg(..)
+  , UnattachedParseMsg(..)
   , DelayedParseMsg(..)
   , ParseMsgKey(..)
   , ParseMsgs(..)
@@ -61,7 +61,7 @@ instance IsPass Parse where
   type MacroBody    Parse = UnparsedMacro
   type ExtBinding   Parse = Void
   type Ann ix       Parse = AnnParse ix
-  type Msg          Parse = UnrecognizedParseMsg
+  type Msg          Parse = UnattachedParseMsg
 
 {-------------------------------------------------------------------------------
   Information about the declarations
@@ -120,11 +120,11 @@ instance PrettyForTrace ParseTypeExceptionContext where
   prettyForTrace (ParseTypeExceptionContext info kind) =
     prettyForTrace info <+> ", name kind: " <+> prettyForTrace kind
 
--- | Delayed parse messages
+-- | Parse messages not attached to a declaration
 --
--- We can not attach these messages to declarations and emit them directly while
+-- If we can not attach messages to declarations, we emit them directly while
 -- parsing.
-data UnrecognizedParseMsg =
+data UnattachedParseMsg =
     -- | We excluded a declaration.
     ParseNotAttempted String (C.DeclInfo Parse)
 
@@ -139,7 +139,7 @@ data UnrecognizedParseMsg =
   | ParseUnknownCursorAvailability (C.DeclInfo Parse) (SimpleEnum CXAvailabilityKind)
   deriving stock (Show)
 
-instance PrettyForTrace UnrecognizedParseMsg where
+instance PrettyForTrace UnattachedParseMsg where
   prettyForTrace = \case
       ParseNotAttempted reason info ->
         withInfo info $
@@ -155,17 +155,17 @@ instance PrettyForTrace UnrecognizedParseMsg where
             , doc
             ]
 
-instance IsTrace Level UnrecognizedParseMsg where
+instance IsTrace Level UnattachedParseMsg where
   getDefaultLogLevel = \case
       ParseNotAttempted{}              -> Info
       ParseNotAttemptedUnexpected{}    -> Notice
       ParseUnknownCursorAvailability{} -> Notice
   getSource  = const HsBindgen
-  getTraceId = const "parse-unrecognized"
+  getTraceId = const "parse-unattached"
 
 -- | Delayed parse messages
 --
--- These messages are only emitted when we attempt to select the attached
+-- We emit these parse messages only when we attempt to select the attached
 -- declaration.
 --
 -- We distinguish between \"unsupported\", which refers to C features that one

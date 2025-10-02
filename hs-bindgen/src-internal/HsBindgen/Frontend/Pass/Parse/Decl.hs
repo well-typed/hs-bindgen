@@ -81,7 +81,7 @@ getDeclInfo = \curr -> do
           }
 
     when (isNothing mAvailability) $
-      recordUnrecognizedTrace $ ParseUnknownCursorAvailability info sAvailability
+      recordUnattachedTrace $ ParseUnknownCursorAvailability info sAvailability
 
     -- TODO: We might want a NameOriginBuiltin.
     pure info
@@ -150,11 +150,11 @@ parseDecl = \curr -> do
           | isBuiltin = do
               -- TODO Support builtin macros (#1087)
               let trace = ParseNotAttempted "builtin declaration" info
-              recordUnrecognizedTrace trace
+              recordUnattachedTrace trace
               recordNonParsedDecl info kind >> foldContinue
           | isUnavailable = do
               let trace = ParseNotAttemptedUnexpected "declaration is unavailable" info
-              recordUnrecognizedTrace trace
+              recordUnattachedTrace trace
               recordNonParsedDecl info kind >> foldContinue
           | otherwise = do
               matched <- evalPredicate info
@@ -162,7 +162,7 @@ parseDecl = \curr -> do
               then parser info curr
               else do
                 let trace = ParseNotAttempted "parse predicate did not match" info
-                recordUnrecognizedTrace trace
+                recordUnattachedTrace trace
                 recordNonParsedDecl info kind >> foldContinue
 
     dispatch curr $ \case
