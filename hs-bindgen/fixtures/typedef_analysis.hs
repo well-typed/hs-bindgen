@@ -4791,7 +4791,14 @@
                   NamePair {
                     nameC = Name "struct5_t",
                     nameHsIdent = Identifier
-                      "Struct5_t"}),
+                      "Struct5_t"}
+                  (TypePointer
+                    (TypeStruct
+                      NamePair {
+                        nameC = Name "struct5",
+                        nameHsIdent = Identifier
+                          "Struct5"}
+                      NameOriginInSource))),
               structFieldOffset = 128,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -4874,7 +4881,15 @@
                   NamePair {
                     nameC = Name "struct6",
                     nameHsIdent = Identifier
-                      "Struct6"}),
+                      "Struct6"}
+                  (TypePointer
+                    (TypeStruct
+                      NamePair {
+                        nameC = Name "struct6_Deref",
+                        nameHsIdent = Identifier
+                          "Struct6_Deref"}
+                      (NameOriginRenamedFrom
+                        (Name "struct6"))))),
               structFieldOffset = 192,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -4915,7 +4930,13 @@
                   NamePair {
                     nameC = Name "struct7a",
                     nameHsIdent = Identifier
-                      "Struct7a"}),
+                      "Struct7a"}
+                  (TypeStruct
+                    NamePair {
+                      nameC = Name "struct7",
+                      nameHsIdent = Identifier
+                        "Struct7"}
+                    NameOriginInSource)),
               structFieldOffset = 256,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -4956,7 +4977,13 @@
                   NamePair {
                     nameC = Name "struct7b",
                     nameHsIdent = Identifier
-                      "Struct7b"}),
+                      "Struct7b"}
+                  (TypeStruct
+                    NamePair {
+                      nameC = Name "struct7",
+                      nameHsIdent = Identifier
+                        "Struct7"}
+                    NameOriginInSource)),
               structFieldOffset = 256,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -5041,7 +5068,13 @@
                   NamePair {
                     nameC = Name "struct8b",
                     nameHsIdent = Identifier
-                      "Struct8b"}),
+                      "Struct8b"}
+                  (TypeStruct
+                    NamePair {
+                      nameC = Name "struct8",
+                      nameHsIdent = Identifier
+                        "Struct8"}
+                    NameOriginInSource)),
               structFieldOffset = 256,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -5126,7 +5159,16 @@
                   NamePair {
                     nameC = Name "struct9_t",
                     nameHsIdent = Identifier
-                      "Struct9_t"}),
+                      "Struct9_t"}
+                  (TypeTypedef
+                    (TypedefSquashed
+                      (Name "struct9")
+                      (TypeStruct
+                        NamePair {
+                          nameC = Name "struct9",
+                          nameHsIdent = Identifier
+                            "Struct9"}
+                        NameOriginInSource)))),
               structFieldOffset = 256,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -5212,7 +5254,17 @@
                   NamePair {
                     nameC = Name "struct10_t_t",
                     nameHsIdent = Identifier
-                      "Struct10_t_t"}),
+                      "Struct10_t_t"}
+                  (TypeTypedef
+                    (TypedefSquashed
+                      (Name "struct10_t")
+                      (TypeStruct
+                        NamePair {
+                          nameC = Name "struct10_t",
+                          nameHsIdent = Identifier
+                            "Struct10_t"}
+                        (NameOriginRenamedFrom
+                          (Name "struct10")))))),
               structFieldOffset = 256,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -5467,7 +5519,14 @@
                       NamePair {
                         nameC = Name "struct5_t",
                         nameHsIdent = Identifier
-                          "Struct5_t"}),
+                          "Struct5_t"}
+                      (TypePointer
+                        (TypeStruct
+                          NamePair {
+                            nameC = Name "struct5",
+                            nameHsIdent = Identifier
+                              "Struct5"}
+                          NameOriginInSource))),
                   structFieldOffset = 128,
                   structFieldWidth = Nothing},
                 StructField {
@@ -5504,7 +5563,15 @@
                       NamePair {
                         nameC = Name "struct6",
                         nameHsIdent = Identifier
-                          "Struct6"}),
+                          "Struct6"}
+                      (TypePointer
+                        (TypeStruct
+                          NamePair {
+                            nameC = Name "struct6_Deref",
+                            nameHsIdent = Identifier
+                              "Struct6_Deref"}
+                          (NameOriginRenamedFrom
+                            (Name "struct6"))))),
                   structFieldOffset = 192,
                   structFieldWidth = Nothing},
                 StructField {
@@ -5522,7 +5589,13 @@
                       NamePair {
                         nameC = Name "struct7a",
                         nameHsIdent = Identifier
-                          "Struct7a"}),
+                          "Struct7a"}
+                      (TypeStruct
+                        NamePair {
+                          nameC = Name "struct7",
+                          nameHsIdent = Identifier
+                            "Struct7"}
+                        NameOriginInSource)),
                   structFieldOffset = 256,
                   structFieldWidth = Nothing},
                 StructField {
@@ -5540,7 +5613,13 @@
                       NamePair {
                         nameC = Name "struct7b",
                         nameHsIdent = Identifier
-                          "Struct7b"}),
+                          "Struct7b"}
+                      (TypeStruct
+                        NamePair {
+                          nameC = Name "struct7",
+                          nameHsIdent = Identifier
+                            "Struct7"}
+                        NameOriginInSource)),
                   structFieldOffset = 256,
                   structFieldWidth = Nothing},
                 StructField {
@@ -5579,7 +5658,13 @@
                       NamePair {
                         nameC = Name "struct8b",
                         nameHsIdent = Identifier
-                          "Struct8b"}),
+                          "Struct8b"}
+                      (TypeStruct
+                        NamePair {
+                          nameC = Name "struct8",
+                          nameHsIdent = Identifier
+                            "Struct8"}
+                        NameOriginInSource)),
                   structFieldOffset = 256,
                   structFieldWidth = Nothing},
                 StructField {
@@ -5618,7 +5703,16 @@
                       NamePair {
                         nameC = Name "struct9_t",
                         nameHsIdent = Identifier
-                          "Struct9_t"}),
+                          "Struct9_t"}
+                      (TypeTypedef
+                        (TypedefSquashed
+                          (Name "struct9")
+                          (TypeStruct
+                            NamePair {
+                              nameC = Name "struct9",
+                              nameHsIdent = Identifier
+                                "Struct9"}
+                            NameOriginInSource)))),
                   structFieldOffset = 256,
                   structFieldWidth = Nothing},
                 StructField {
@@ -5658,7 +5752,17 @@
                       NamePair {
                         nameC = Name "struct10_t_t",
                         nameHsIdent = Identifier
-                          "Struct10_t_t"}),
+                          "Struct10_t_t"}
+                      (TypeTypedef
+                        (TypedefSquashed
+                          (Name "struct10_t")
+                          (TypeStruct
+                            NamePair {
+                              nameC = Name "struct10_t",
+                              nameHsIdent = Identifier
+                                "Struct10_t"}
+                            (NameOriginRenamedFrom
+                              (Name "struct10")))))),
                   structFieldOffset = 256,
                   structFieldWidth = Nothing},
                 StructField {
@@ -5989,7 +6093,14 @@
                       NamePair {
                         nameC = Name "struct5_t",
                         nameHsIdent = Identifier
-                          "Struct5_t"}),
+                          "Struct5_t"}
+                      (TypePointer
+                        (TypeStruct
+                          NamePair {
+                            nameC = Name "struct5",
+                            nameHsIdent = Identifier
+                              "Struct5"}
+                          NameOriginInSource))),
                   structFieldOffset = 128,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -6072,7 +6183,15 @@
                       NamePair {
                         nameC = Name "struct6",
                         nameHsIdent = Identifier
-                          "Struct6"}),
+                          "Struct6"}
+                      (TypePointer
+                        (TypeStruct
+                          NamePair {
+                            nameC = Name "struct6_Deref",
+                            nameHsIdent = Identifier
+                              "Struct6_Deref"}
+                          (NameOriginRenamedFrom
+                            (Name "struct6"))))),
                   structFieldOffset = 192,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -6113,7 +6232,13 @@
                       NamePair {
                         nameC = Name "struct7a",
                         nameHsIdent = Identifier
-                          "Struct7a"}),
+                          "Struct7a"}
+                      (TypeStruct
+                        NamePair {
+                          nameC = Name "struct7",
+                          nameHsIdent = Identifier
+                            "Struct7"}
+                        NameOriginInSource)),
                   structFieldOffset = 256,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -6154,7 +6279,13 @@
                       NamePair {
                         nameC = Name "struct7b",
                         nameHsIdent = Identifier
-                          "Struct7b"}),
+                          "Struct7b"}
+                      (TypeStruct
+                        NamePair {
+                          nameC = Name "struct7",
+                          nameHsIdent = Identifier
+                            "Struct7"}
+                        NameOriginInSource)),
                   structFieldOffset = 256,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -6239,7 +6370,13 @@
                       NamePair {
                         nameC = Name "struct8b",
                         nameHsIdent = Identifier
-                          "Struct8b"}),
+                          "Struct8b"}
+                      (TypeStruct
+                        NamePair {
+                          nameC = Name "struct8",
+                          nameHsIdent = Identifier
+                            "Struct8"}
+                        NameOriginInSource)),
                   structFieldOffset = 256,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -6324,7 +6461,16 @@
                       NamePair {
                         nameC = Name "struct9_t",
                         nameHsIdent = Identifier
-                          "Struct9_t"}),
+                          "Struct9_t"}
+                      (TypeTypedef
+                        (TypedefSquashed
+                          (Name "struct9")
+                          (TypeStruct
+                            NamePair {
+                              nameC = Name "struct9",
+                              nameHsIdent = Identifier
+                                "Struct9"}
+                            NameOriginInSource)))),
                   structFieldOffset = 256,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -6410,7 +6556,17 @@
                       NamePair {
                         nameC = Name "struct10_t_t",
                         nameHsIdent = Identifier
-                          "Struct10_t_t"}),
+                          "Struct10_t_t"}
+                      (TypeTypedef
+                        (TypedefSquashed
+                          (Name "struct10_t")
+                          (TypeStruct
+                            NamePair {
+                              nameC = Name "struct10_t",
+                              nameHsIdent = Identifier
+                                "Struct10_t"}
+                            (NameOriginRenamedFrom
+                              (Name "struct10")))))),
                   structFieldOffset = 256,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -6665,7 +6821,14 @@
                           NamePair {
                             nameC = Name "struct5_t",
                             nameHsIdent = Identifier
-                              "Struct5_t"}),
+                              "Struct5_t"}
+                          (TypePointer
+                            (TypeStruct
+                              NamePair {
+                                nameC = Name "struct5",
+                                nameHsIdent = Identifier
+                                  "Struct5"}
+                              NameOriginInSource))),
                       structFieldOffset = 128,
                       structFieldWidth = Nothing},
                     StructField {
@@ -6702,7 +6865,15 @@
                           NamePair {
                             nameC = Name "struct6",
                             nameHsIdent = Identifier
-                              "Struct6"}),
+                              "Struct6"}
+                          (TypePointer
+                            (TypeStruct
+                              NamePair {
+                                nameC = Name "struct6_Deref",
+                                nameHsIdent = Identifier
+                                  "Struct6_Deref"}
+                              (NameOriginRenamedFrom
+                                (Name "struct6"))))),
                       structFieldOffset = 192,
                       structFieldWidth = Nothing},
                     StructField {
@@ -6720,7 +6891,13 @@
                           NamePair {
                             nameC = Name "struct7a",
                             nameHsIdent = Identifier
-                              "Struct7a"}),
+                              "Struct7a"}
+                          (TypeStruct
+                            NamePair {
+                              nameC = Name "struct7",
+                              nameHsIdent = Identifier
+                                "Struct7"}
+                            NameOriginInSource)),
                       structFieldOffset = 256,
                       structFieldWidth = Nothing},
                     StructField {
@@ -6738,7 +6915,13 @@
                           NamePair {
                             nameC = Name "struct7b",
                             nameHsIdent = Identifier
-                              "Struct7b"}),
+                              "Struct7b"}
+                          (TypeStruct
+                            NamePair {
+                              nameC = Name "struct7",
+                              nameHsIdent = Identifier
+                                "Struct7"}
+                            NameOriginInSource)),
                       structFieldOffset = 256,
                       structFieldWidth = Nothing},
                     StructField {
@@ -6777,7 +6960,13 @@
                           NamePair {
                             nameC = Name "struct8b",
                             nameHsIdent = Identifier
-                              "Struct8b"}),
+                              "Struct8b"}
+                          (TypeStruct
+                            NamePair {
+                              nameC = Name "struct8",
+                              nameHsIdent = Identifier
+                                "Struct8"}
+                            NameOriginInSource)),
                       structFieldOffset = 256,
                       structFieldWidth = Nothing},
                     StructField {
@@ -6816,7 +7005,16 @@
                           NamePair {
                             nameC = Name "struct9_t",
                             nameHsIdent = Identifier
-                              "Struct9_t"}),
+                              "Struct9_t"}
+                          (TypeTypedef
+                            (TypedefSquashed
+                              (Name "struct9")
+                              (TypeStruct
+                                NamePair {
+                                  nameC = Name "struct9",
+                                  nameHsIdent = Identifier
+                                    "Struct9"}
+                                NameOriginInSource)))),
                       structFieldOffset = 256,
                       structFieldWidth = Nothing},
                     StructField {
@@ -6856,7 +7054,17 @@
                           NamePair {
                             nameC = Name "struct10_t_t",
                             nameHsIdent = Identifier
-                              "Struct10_t_t"}),
+                              "Struct10_t_t"}
+                          (TypeTypedef
+                            (TypedefSquashed
+                              (Name "struct10_t")
+                              (TypeStruct
+                                NamePair {
+                                  nameC = Name "struct10_t",
+                                  nameHsIdent = Identifier
+                                    "Struct10_t"}
+                                (NameOriginRenamedFrom
+                                  (Name "struct10")))))),
                       structFieldOffset = 256,
                       structFieldWidth = Nothing},
                     StructField {
@@ -7190,7 +7398,14 @@
                               NamePair {
                                 nameC = Name "struct5_t",
                                 nameHsIdent = Identifier
-                                  "Struct5_t"}),
+                                  "Struct5_t"}
+                              (TypePointer
+                                (TypeStruct
+                                  NamePair {
+                                    nameC = Name "struct5",
+                                    nameHsIdent = Identifier
+                                      "Struct5"}
+                                  NameOriginInSource))),
                           structFieldOffset = 128,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -7273,7 +7488,15 @@
                               NamePair {
                                 nameC = Name "struct6",
                                 nameHsIdent = Identifier
-                                  "Struct6"}),
+                                  "Struct6"}
+                              (TypePointer
+                                (TypeStruct
+                                  NamePair {
+                                    nameC = Name "struct6_Deref",
+                                    nameHsIdent = Identifier
+                                      "Struct6_Deref"}
+                                  (NameOriginRenamedFrom
+                                    (Name "struct6"))))),
                           structFieldOffset = 192,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -7314,7 +7537,13 @@
                               NamePair {
                                 nameC = Name "struct7a",
                                 nameHsIdent = Identifier
-                                  "Struct7a"}),
+                                  "Struct7a"}
+                              (TypeStruct
+                                NamePair {
+                                  nameC = Name "struct7",
+                                  nameHsIdent = Identifier
+                                    "Struct7"}
+                                NameOriginInSource)),
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -7355,7 +7584,13 @@
                               NamePair {
                                 nameC = Name "struct7b",
                                 nameHsIdent = Identifier
-                                  "Struct7b"}),
+                                  "Struct7b"}
+                              (TypeStruct
+                                NamePair {
+                                  nameC = Name "struct7",
+                                  nameHsIdent = Identifier
+                                    "Struct7"}
+                                NameOriginInSource)),
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -7440,7 +7675,13 @@
                               NamePair {
                                 nameC = Name "struct8b",
                                 nameHsIdent = Identifier
-                                  "Struct8b"}),
+                                  "Struct8b"}
+                              (TypeStruct
+                                NamePair {
+                                  nameC = Name "struct8",
+                                  nameHsIdent = Identifier
+                                    "Struct8"}
+                                NameOriginInSource)),
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -7525,7 +7766,16 @@
                               NamePair {
                                 nameC = Name "struct9_t",
                                 nameHsIdent = Identifier
-                                  "Struct9_t"}),
+                                  "Struct9_t"}
+                              (TypeTypedef
+                                (TypedefSquashed
+                                  (Name "struct9")
+                                  (TypeStruct
+                                    NamePair {
+                                      nameC = Name "struct9",
+                                      nameHsIdent = Identifier
+                                        "Struct9"}
+                                    NameOriginInSource)))),
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -7611,7 +7861,17 @@
                               NamePair {
                                 nameC = Name "struct10_t_t",
                                 nameHsIdent = Identifier
-                                  "Struct10_t_t"}),
+                                  "Struct10_t_t"}
+                              (TypeTypedef
+                                (TypedefSquashed
+                                  (Name "struct10_t")
+                                  (TypeStruct
+                                    NamePair {
+                                      nameC = Name "struct10_t",
+                                      nameHsIdent = Identifier
+                                        "Struct10_t"}
+                                    (NameOriginRenamedFrom
+                                      (Name "struct10")))))),
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -7866,7 +8126,14 @@
                                   NamePair {
                                     nameC = Name "struct5_t",
                                     nameHsIdent = Identifier
-                                      "Struct5_t"}),
+                                      "Struct5_t"}
+                                  (TypePointer
+                                    (TypeStruct
+                                      NamePair {
+                                        nameC = Name "struct5",
+                                        nameHsIdent = Identifier
+                                          "Struct5"}
+                                      NameOriginInSource))),
                               structFieldOffset = 128,
                               structFieldWidth = Nothing},
                             StructField {
@@ -7903,7 +8170,15 @@
                                   NamePair {
                                     nameC = Name "struct6",
                                     nameHsIdent = Identifier
-                                      "Struct6"}),
+                                      "Struct6"}
+                                  (TypePointer
+                                    (TypeStruct
+                                      NamePair {
+                                        nameC = Name "struct6_Deref",
+                                        nameHsIdent = Identifier
+                                          "Struct6_Deref"}
+                                      (NameOriginRenamedFrom
+                                        (Name "struct6"))))),
                               structFieldOffset = 192,
                               structFieldWidth = Nothing},
                             StructField {
@@ -7921,7 +8196,13 @@
                                   NamePair {
                                     nameC = Name "struct7a",
                                     nameHsIdent = Identifier
-                                      "Struct7a"}),
+                                      "Struct7a"}
+                                  (TypeStruct
+                                    NamePair {
+                                      nameC = Name "struct7",
+                                      nameHsIdent = Identifier
+                                        "Struct7"}
+                                    NameOriginInSource)),
                               structFieldOffset = 256,
                               structFieldWidth = Nothing},
                             StructField {
@@ -7939,7 +8220,13 @@
                                   NamePair {
                                     nameC = Name "struct7b",
                                     nameHsIdent = Identifier
-                                      "Struct7b"}),
+                                      "Struct7b"}
+                                  (TypeStruct
+                                    NamePair {
+                                      nameC = Name "struct7",
+                                      nameHsIdent = Identifier
+                                        "Struct7"}
+                                    NameOriginInSource)),
                               structFieldOffset = 256,
                               structFieldWidth = Nothing},
                             StructField {
@@ -7978,7 +8265,13 @@
                                   NamePair {
                                     nameC = Name "struct8b",
                                     nameHsIdent = Identifier
-                                      "Struct8b"}),
+                                      "Struct8b"}
+                                  (TypeStruct
+                                    NamePair {
+                                      nameC = Name "struct8",
+                                      nameHsIdent = Identifier
+                                        "Struct8"}
+                                    NameOriginInSource)),
                               structFieldOffset = 256,
                               structFieldWidth = Nothing},
                             StructField {
@@ -8017,7 +8310,16 @@
                                   NamePair {
                                     nameC = Name "struct9_t",
                                     nameHsIdent = Identifier
-                                      "Struct9_t"}),
+                                      "Struct9_t"}
+                                  (TypeTypedef
+                                    (TypedefSquashed
+                                      (Name "struct9")
+                                      (TypeStruct
+                                        NamePair {
+                                          nameC = Name "struct9",
+                                          nameHsIdent = Identifier
+                                            "Struct9"}
+                                        NameOriginInSource)))),
                               structFieldOffset = 256,
                               structFieldWidth = Nothing},
                             StructField {
@@ -8057,7 +8359,17 @@
                                   NamePair {
                                     nameC = Name "struct10_t_t",
                                     nameHsIdent = Identifier
-                                      "Struct10_t_t"}),
+                                      "Struct10_t_t"}
+                                  (TypeTypedef
+                                    (TypedefSquashed
+                                      (Name "struct10_t")
+                                      (TypeStruct
+                                        NamePair {
+                                          nameC = Name "struct10_t",
+                                          nameHsIdent = Identifier
+                                            "Struct10_t"}
+                                        (NameOriginRenamedFrom
+                                          (Name "struct10")))))),
                               structFieldOffset = 256,
                               structFieldWidth = Nothing},
                             StructField {
@@ -8409,7 +8721,14 @@
                               NamePair {
                                 nameC = Name "struct5_t",
                                 nameHsIdent = Identifier
-                                  "Struct5_t"}),
+                                  "Struct5_t"}
+                              (TypePointer
+                                (TypeStruct
+                                  NamePair {
+                                    nameC = Name "struct5",
+                                    nameHsIdent = Identifier
+                                      "Struct5"}
+                                  NameOriginInSource))),
                           structFieldOffset = 128,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -8492,7 +8811,15 @@
                               NamePair {
                                 nameC = Name "struct6",
                                 nameHsIdent = Identifier
-                                  "Struct6"}),
+                                  "Struct6"}
+                              (TypePointer
+                                (TypeStruct
+                                  NamePair {
+                                    nameC = Name "struct6_Deref",
+                                    nameHsIdent = Identifier
+                                      "Struct6_Deref"}
+                                  (NameOriginRenamedFrom
+                                    (Name "struct6"))))),
                           structFieldOffset = 192,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -8533,7 +8860,13 @@
                               NamePair {
                                 nameC = Name "struct7a",
                                 nameHsIdent = Identifier
-                                  "Struct7a"}),
+                                  "Struct7a"}
+                              (TypeStruct
+                                NamePair {
+                                  nameC = Name "struct7",
+                                  nameHsIdent = Identifier
+                                    "Struct7"}
+                                NameOriginInSource)),
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -8574,7 +8907,13 @@
                               NamePair {
                                 nameC = Name "struct7b",
                                 nameHsIdent = Identifier
-                                  "Struct7b"}),
+                                  "Struct7b"}
+                              (TypeStruct
+                                NamePair {
+                                  nameC = Name "struct7",
+                                  nameHsIdent = Identifier
+                                    "Struct7"}
+                                NameOriginInSource)),
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -8659,7 +8998,13 @@
                               NamePair {
                                 nameC = Name "struct8b",
                                 nameHsIdent = Identifier
-                                  "Struct8b"}),
+                                  "Struct8b"}
+                              (TypeStruct
+                                NamePair {
+                                  nameC = Name "struct8",
+                                  nameHsIdent = Identifier
+                                    "Struct8"}
+                                NameOriginInSource)),
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -8744,7 +9089,16 @@
                               NamePair {
                                 nameC = Name "struct9_t",
                                 nameHsIdent = Identifier
-                                  "Struct9_t"}),
+                                  "Struct9_t"}
+                              (TypeTypedef
+                                (TypedefSquashed
+                                  (Name "struct9")
+                                  (TypeStruct
+                                    NamePair {
+                                      nameC = Name "struct9",
+                                      nameHsIdent = Identifier
+                                        "Struct9"}
+                                    NameOriginInSource)))),
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -8830,7 +9184,17 @@
                               NamePair {
                                 nameC = Name "struct10_t_t",
                                 nameHsIdent = Identifier
-                                  "Struct10_t_t"}),
+                                  "Struct10_t_t"}
+                              (TypeTypedef
+                                (TypedefSquashed
+                                  (Name "struct10_t")
+                                  (TypeStruct
+                                    NamePair {
+                                      nameC = Name "struct10_t",
+                                      nameHsIdent = Identifier
+                                        "Struct10_t"}
+                                    (NameOriginRenamedFrom
+                                      (Name "struct10")))))),
                           structFieldOffset = 256,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -9085,7 +9449,14 @@
                                   NamePair {
                                     nameC = Name "struct5_t",
                                     nameHsIdent = Identifier
-                                      "Struct5_t"}),
+                                      "Struct5_t"}
+                                  (TypePointer
+                                    (TypeStruct
+                                      NamePair {
+                                        nameC = Name "struct5",
+                                        nameHsIdent = Identifier
+                                          "Struct5"}
+                                      NameOriginInSource))),
                               structFieldOffset = 128,
                               structFieldWidth = Nothing},
                             StructField {
@@ -9122,7 +9493,15 @@
                                   NamePair {
                                     nameC = Name "struct6",
                                     nameHsIdent = Identifier
-                                      "Struct6"}),
+                                      "Struct6"}
+                                  (TypePointer
+                                    (TypeStruct
+                                      NamePair {
+                                        nameC = Name "struct6_Deref",
+                                        nameHsIdent = Identifier
+                                          "Struct6_Deref"}
+                                      (NameOriginRenamedFrom
+                                        (Name "struct6"))))),
                               structFieldOffset = 192,
                               structFieldWidth = Nothing},
                             StructField {
@@ -9140,7 +9519,13 @@
                                   NamePair {
                                     nameC = Name "struct7a",
                                     nameHsIdent = Identifier
-                                      "Struct7a"}),
+                                      "Struct7a"}
+                                  (TypeStruct
+                                    NamePair {
+                                      nameC = Name "struct7",
+                                      nameHsIdent = Identifier
+                                        "Struct7"}
+                                    NameOriginInSource)),
                               structFieldOffset = 256,
                               structFieldWidth = Nothing},
                             StructField {
@@ -9158,7 +9543,13 @@
                                   NamePair {
                                     nameC = Name "struct7b",
                                     nameHsIdent = Identifier
-                                      "Struct7b"}),
+                                      "Struct7b"}
+                                  (TypeStruct
+                                    NamePair {
+                                      nameC = Name "struct7",
+                                      nameHsIdent = Identifier
+                                        "Struct7"}
+                                    NameOriginInSource)),
                               structFieldOffset = 256,
                               structFieldWidth = Nothing},
                             StructField {
@@ -9197,7 +9588,13 @@
                                   NamePair {
                                     nameC = Name "struct8b",
                                     nameHsIdent = Identifier
-                                      "Struct8b"}),
+                                      "Struct8b"}
+                                  (TypeStruct
+                                    NamePair {
+                                      nameC = Name "struct8",
+                                      nameHsIdent = Identifier
+                                        "Struct8"}
+                                    NameOriginInSource)),
                               structFieldOffset = 256,
                               structFieldWidth = Nothing},
                             StructField {
@@ -9236,7 +9633,16 @@
                                   NamePair {
                                     nameC = Name "struct9_t",
                                     nameHsIdent = Identifier
-                                      "Struct9_t"}),
+                                      "Struct9_t"}
+                                  (TypeTypedef
+                                    (TypedefSquashed
+                                      (Name "struct9")
+                                      (TypeStruct
+                                        NamePair {
+                                          nameC = Name "struct9",
+                                          nameHsIdent = Identifier
+                                            "Struct9"}
+                                        NameOriginInSource)))),
                               structFieldOffset = 256,
                               structFieldWidth = Nothing},
                             StructField {
@@ -9276,7 +9682,17 @@
                                   NamePair {
                                     nameC = Name "struct10_t_t",
                                     nameHsIdent = Identifier
-                                      "Struct10_t_t"}),
+                                      "Struct10_t_t"}
+                                  (TypeTypedef
+                                    (TypedefSquashed
+                                      (Name "struct10_t")
+                                      (TypeStruct
+                                        NamePair {
+                                          nameC = Name "struct10_t",
+                                          nameHsIdent = Identifier
+                                            "Struct10_t"}
+                                        (NameOriginRenamedFrom
+                                          (Name "struct10")))))),
                               structFieldOffset = 256,
                               structFieldWidth = Nothing},
                             StructField {

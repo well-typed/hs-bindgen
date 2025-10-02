@@ -24,6 +24,7 @@ import HsBindgen.Frontend.NonParsedDecls (NonParsedDecls)
 import HsBindgen.Frontend.NonParsedDecls qualified as NonParsedDecls
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.NameAnon.IsPass
+import HsBindgen.Frontend.Pass.Parse.IsPass (TypedefRefRegular (..))
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass
 import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Imports
@@ -363,8 +364,11 @@ instance Resolve C.Type where
         auxU C.TypeEnum         uid (C.NameKindTagged C.TagKindEnum)
       C.TypeMacroTypedef uid ->
         auxU C.TypeMacroTypedef uid C.NameKindOrdinary
-      C.TypeTypedef      nm  ->
-        auxN C.TypeTypedef      nm  C.NameKindOrdinary
+      C.TypeTypedef      (TypedefRefRegular nm uTy) -> do
+        (uTyDepIds, uTy') <- resolve uTy
+        let mkTypeTypedef = C.TypeTypedef . flip TypedefRefRegular uTy'
+        (tdDepIds, td) <- auxN mkTypeTypedef nm  C.NameKindOrdinary
+        pure (uTyDepIds `Set.union` tdDepIds, td)
 
       -- Recursive cases
       C.TypePointer t         -> fmap C.TypePointer <$> resolve t

@@ -93,6 +93,7 @@ instance ToExpr C.StructField
 instance ToExpr C.TagKind
 instance ToExpr C.TranslationUnit
 instance ToExpr C.Type
+instance ToExpr C.TypeQualifier
 instance ToExpr C.Typedef
 instance ToExpr C.TypedefRef
 instance ToExpr C.Union

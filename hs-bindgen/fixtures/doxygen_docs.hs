@@ -1389,7 +1389,16 @@
                     nameC = Name
                       "event_callback_t_Deref",
                     nameHsIdent = Identifier
-                      "Event_callback_t_Deref"}))},
+                      "Event_callback_t_Deref"}
+                  (TypeFun
+                    [
+                      TypePrim
+                        (PrimIntegral PrimInt Signed),
+                      TypePointer TypeVoid]
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed)))))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -2121,7 +2130,17 @@
                   NamePair {
                     nameC = Name "event_callback_t",
                     nameHsIdent = Identifier
-                      "Event_callback_t"}),
+                      "Event_callback_t"}
+                  (TypePointer
+                    (TypeFun
+                      [
+                        TypePrim
+                          (PrimIntegral PrimInt Signed),
+                        TypePointer TypeVoid]
+                      (TypePrim
+                        (PrimIntegral
+                          PrimInt
+                          Signed))))),
               structFieldOffset = 576,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -2563,7 +2582,17 @@
                       NamePair {
                         nameC = Name "event_callback_t",
                         nameHsIdent = Identifier
-                          "Event_callback_t"}),
+                          "Event_callback_t"}
+                      (TypePointer
+                        (TypeFun
+                          [
+                            TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            TypePointer TypeVoid]
+                          (TypePrim
+                            (PrimIntegral
+                              PrimInt
+                              Signed))))),
                   structFieldOffset = 576,
                   structFieldWidth = Nothing},
                 StructField {
@@ -3261,7 +3290,17 @@
                       NamePair {
                         nameC = Name "event_callback_t",
                         nameHsIdent = Identifier
-                          "Event_callback_t"}),
+                          "Event_callback_t"}
+                      (TypePointer
+                        (TypeFun
+                          [
+                            TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            TypePointer TypeVoid]
+                          (TypePrim
+                            (PrimIntegral
+                              PrimInt
+                              Signed))))),
                   structFieldOffset = 576,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -3706,7 +3745,17 @@
                           NamePair {
                             nameC = Name "event_callback_t",
                             nameHsIdent = Identifier
-                              "Event_callback_t"}),
+                              "Event_callback_t"}
+                          (TypePointer
+                            (TypeFun
+                              [
+                                TypePrim
+                                  (PrimIntegral PrimInt Signed),
+                                TypePointer TypeVoid]
+                              (TypePrim
+                                (PrimIntegral
+                                  PrimInt
+                                  Signed))))),
                       structFieldOffset = 576,
                       structFieldWidth = Nothing},
                     StructField {
@@ -4408,7 +4457,17 @@
                               NamePair {
                                 nameC = Name "event_callback_t",
                                 nameHsIdent = Identifier
-                                  "Event_callback_t"}),
+                                  "Event_callback_t"}
+                              (TypePointer
+                                (TypeFun
+                                  [
+                                    TypePrim
+                                      (PrimIntegral PrimInt Signed),
+                                    TypePointer TypeVoid]
+                                  (TypePrim
+                                    (PrimIntegral
+                                      PrimInt
+                                      Signed))))),
                           structFieldOffset = 576,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -4853,7 +4912,17 @@
                                   NamePair {
                                     nameC = Name "event_callback_t",
                                     nameHsIdent = Identifier
-                                      "Event_callback_t"}),
+                                      "Event_callback_t"}
+                                  (TypePointer
+                                    (TypeFun
+                                      [
+                                        TypePrim
+                                          (PrimIntegral PrimInt Signed),
+                                        TypePointer TypeVoid]
+                                      (TypePrim
+                                        (PrimIntegral
+                                          PrimInt
+                                          Signed))))),
                               structFieldOffset = 576,
                               structFieldWidth = Nothing},
                             StructField {
@@ -5562,7 +5631,17 @@
                               NamePair {
                                 nameC = Name "event_callback_t",
                                 nameHsIdent = Identifier
-                                  "Event_callback_t"}),
+                                  "Event_callback_t"}
+                              (TypePointer
+                                (TypeFun
+                                  [
+                                    TypePrim
+                                      (PrimIntegral PrimInt Signed),
+                                    TypePointer TypeVoid]
+                                  (TypePrim
+                                    (PrimIntegral
+                                      PrimInt
+                                      Signed))))),
                           structFieldOffset = 576,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -6007,7 +6086,17 @@
                                   NamePair {
                                     nameC = Name "event_callback_t",
                                     nameHsIdent = Identifier
-                                      "Event_callback_t"}),
+                                      "Event_callback_t"}
+                                  (TypePointer
+                                    (TypeFun
+                                      [
+                                        TypePrim
+                                          (PrimIntegral PrimInt Signed),
+                                        TypePointer TypeVoid]
+                                      (TypePrim
+                                        (PrimIntegral
+                                          PrimInt
+                                          Signed))))),
                               structFieldOffset = 576,
                               structFieldWidth = Nothing},
                             StructField {
@@ -13196,7 +13285,16 @@
                     nameC = Name
                       "processor_fn_t_Deref",
                     nameHsIdent = Identifier
-                      "Processor_fn_t_Deref"}))},
+                      "Processor_fn_t_Deref"}
+                  (TypeFun
+                    [
+                      TypePrim
+                        (PrimIntegral PrimInt Signed),
+                      TypePointer TypeVoid]
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed)))))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -16555,7 +16653,8 @@
                   nameHsIdent = Identifier
                     "input_data"})
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -17039,7 +17138,8 @@
                   nameHsIdent = Identifier
                     "filename"})
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypePrim
                     (PrimChar
                       (PrimSignImplicit Nothing)))))],
@@ -17416,7 +17516,8 @@
                     "items"})
               (TypePointer
                 (TypePointer
-                  (TypeConst
+                  (TypeQualified
+                    TypeQualifierConst
                     (TypePrim
                       (PrimChar
                         (PrimSignImplicit Nothing)))))),
@@ -17711,7 +17812,8 @@
                   nameHsIdent = Identifier
                     "input"})
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypePrim
                     (PrimChar
                       (PrimSignImplicit
@@ -18520,7 +18622,9 @@
                   nameC = Name "src",
                   nameHsIdent = Identifier "src"})
               (TypePointer
-                (TypeConst TypeVoid)),
+                (TypeQualified
+                  TypeQualifierConst
+                  TypeVoid)),
             _×_
               (Just
                 NamePair {
@@ -19117,7 +19221,8 @@
                   nameHsIdent = Identifier
                     "data'"})
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -20112,7 +20217,8 @@
                   nameHsIdent = Identifier
                     "input_data"})
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -20596,7 +20702,8 @@
                   nameHsIdent = Identifier
                     "filename"})
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypePrim
                     (PrimChar
                       (PrimSignImplicit Nothing)))))],
@@ -20973,7 +21080,8 @@
                     "items"})
               (TypePointer
                 (TypePointer
-                  (TypeConst
+                  (TypeQualified
+                    TypeQualifierConst
                     (TypePrim
                       (PrimChar
                         (PrimSignImplicit Nothing)))))),
@@ -21268,7 +21376,8 @@
                   nameHsIdent = Identifier
                     "input"})
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypePrim
                     (PrimChar
                       (PrimSignImplicit
@@ -22077,7 +22186,9 @@
                   nameC = Name "src",
                   nameHsIdent = Identifier "src"})
               (TypePointer
-                (TypeConst TypeVoid)),
+                (TypeQualified
+                  TypeQualifierConst
+                  TypeVoid)),
             _×_
               (Just
                 NamePair {
@@ -22674,7 +22785,8 @@
                   nameHsIdent = Identifier
                     "data'"})
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypeExtBinding
                     ResolvedExtBinding {
                       extCName = QualName {
@@ -23604,7 +23716,8 @@
         (TypeFun
           [
             TypePointer
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypeExtBinding
                   ResolvedExtBinding {
                     extCName = QualName {
@@ -23988,7 +24101,8 @@
         (TypeFun
           [
             TypePointer
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim
                   (PrimChar
                     (PrimSignImplicit Nothing))))]
@@ -24100,7 +24214,8 @@
           [
             TypePointer
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypePrim
                     (PrimChar
                       (PrimSignImplicit Nothing))))),
@@ -24169,7 +24284,8 @@
         (TypeFun
           [
             TypePointer
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim
                   (PrimChar
                     (PrimSignImplicit
@@ -24659,7 +24775,9 @@
           [
             TypePointer TypeVoid,
             TypePointer
-              (TypeConst TypeVoid),
+              (TypeQualified
+                TypeQualifierConst
+                TypeVoid),
             TypeExtBinding
               ResolvedExtBinding {
                 extCName = QualName {
@@ -25086,7 +25204,8 @@
                       (AnonId
                         "doxygen_docs.h:232:9"))))),
             TypePointer
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypeExtBinding
                   ResolvedExtBinding {
                     extCName = QualName {
@@ -25455,7 +25574,8 @@
           "doxygen_docs.h"},
       foreignImportOrigin = Global
         (TypePointer
-          (TypeConst
+          (TypeQualified
+            TypeQualifierConst
             (TypePrim
               (PrimChar
                 (PrimSignImplicit

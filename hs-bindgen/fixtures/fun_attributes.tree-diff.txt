@@ -165,7 +165,11 @@ TranslationUnit {
                   NamePair {
                     nameC = Name "size_t",
                     nameHsIdent = Identifier
-                      "Size_t"})),
+                      "Size_t"}
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed)))),
             _×_
               Nothing
               (TypeTypedef
@@ -173,7 +177,11 @@ TranslationUnit {
                   NamePair {
                     nameC = Name "size_t",
                     nameHsIdent = Identifier
-                      "Size_t"}))],
+                      "Size_t"}
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -212,7 +220,11 @@ TranslationUnit {
                   NamePair {
                     nameC = Name "size_t",
                     nameHsIdent = Identifier
-                      "Size_t"})),
+                      "Size_t"}
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed)))),
             _×_
               Nothing
               (TypeTypedef
@@ -220,7 +232,11 @@ TranslationUnit {
                   NamePair {
                     nameC = Name "size_t",
                     nameHsIdent = Identifier
-                      "Size_t"}))],
+                      "Size_t"}
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -262,7 +278,11 @@ TranslationUnit {
                   NamePair {
                     nameC = Name "size_t",
                     nameHsIdent = Identifier
-                      "Size_t"}))],
+                      "Size_t"}
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -301,7 +321,11 @@ TranslationUnit {
                   NamePair {
                     nameC = Name "size_t",
                     nameHsIdent = Identifier
-                      "Size_t"}))],
+                      "Size_t"}
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -340,7 +364,11 @@ TranslationUnit {
                   NamePair {
                     nameC = Name "size_t",
                     nameHsIdent = Identifier
-                      "Size_t"}))],
+                      "Size_t"}
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -456,7 +484,8 @@ TranslationUnit {
                   nameHsIdent = Identifier
                     "my_format"})
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypePrim
                     (PrimChar
                       (PrimSignImplicit
@@ -502,7 +531,8 @@ TranslationUnit {
             _×_
               Nothing
               (TypePointer
-                (TypeConst
+                (TypeQualified
+                  TypeQualifierConst
                   (TypePrim
                     (PrimChar
                       (PrimSignImplicit
@@ -589,7 +619,9 @@ TranslationUnit {
                   nameC = Name "src",
                   nameHsIdent = Identifier "src"})
               (TypePointer
-                (TypeConst TypeVoid)),
+                (TypeQualified
+                  TypeQualifierConst
+                  TypeVoid)),
             _×_
               (Just
                 NamePair {
@@ -600,7 +632,11 @@ TranslationUnit {
                   NamePair {
                     nameC = Name "size_t",
                     nameHsIdent = Identifier
-                      "Size_t"}))],
+                      "Size_t"}
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -710,7 +746,11 @@ TranslationUnit {
                   NamePair {
                     nameC = Name "size_t",
                     nameHsIdent = Identifier
-                      "Size_t"}))],
+                      "Size_t"}
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,

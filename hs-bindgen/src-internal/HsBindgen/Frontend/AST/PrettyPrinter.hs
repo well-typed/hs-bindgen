@@ -156,10 +156,10 @@ showsType x (TypeFun args res)      =
   where
     named :: Int -> Type -> (ShowS, Type)
     named i t = (showString "arg" . shows i, t)
-showsType x TypeVoid                  = showString "void " . x 0
-showsType x (TypeIncompleteArray t)   = showsType (\_d -> x (arrayPrec + 1) . showString "[]") t
-showsType x (TypeExtBinding ext)      = showCQualName (extCName ext) . showChar ' ' . x 0
-showsType x (TypeBlock t)             = showsType (\_d -> showString "^" . x 0) t
+showsType x TypeVoid                = showString "void " . x 0
+showsType x (TypeIncompleteArray t) = showsType (\_d -> x (arrayPrec + 1) . showString "[]") t
+showsType x (TypeExtBinding ext)    = showCQualName (extCName ext) . showChar ' ' . x 0
+showsType x (TypeBlock t)           = showsType (\_d -> showString "^" . x 0) t
 -- Type qualifiers like @const@ can appear before, and _after_ the type they
 -- refer to. For example,
 --
@@ -193,7 +193,7 @@ showsType x (TypeBlock t)             = showsType (\_d -> showString "^" . x 0) 
 -- constant int" as follows:
 --
 -- > int const * const f();
-showsType x (TypeConst t) = showsType (\_d -> showString "const " . x 0) t
+showsType x (TypeQualified TypeQualifierConst t) = showsType (\_d -> showString "const " . x 0) t
 showsType x (TypeComplex p) = C.showsPrimType p . showChar ' ' . showString "_Complex " . x 0
 
 -- | The precedence of various constructs in C declarations.
@@ -254,5 +254,5 @@ showsCName :: Name -> String -> String
 showsCName = showString . Text.unpack . getName
 
 showsTypedefName :: TypedefRef -> String -> String
-showsTypedefName (TypedefRegular  np)     = showsName  np NameOriginInSource
+showsTypedefName (TypedefRegular  np _ty) = showsName  np NameOriginInSource
 showsTypedefName (TypedefSquashed nm _ty) = showsCName nm

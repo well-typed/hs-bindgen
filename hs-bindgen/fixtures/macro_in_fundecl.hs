@@ -1827,7 +1827,8 @@
                 NamePair {
                   nameC = Name "i",
                   nameHsIdent = Identifier "i"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim
                   (PrimIntegral
                     PrimInt
@@ -1902,7 +1903,8 @@
                 NamePair {
                   nameC = Name "i",
                   nameHsIdent = Identifier "i"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypeMacroTypedef
                   NamePair {
                     nameC = Name "I",
@@ -1979,7 +1981,8 @@
                 NamePair {
                   nameC = Name "i",
                   nameHsIdent = Identifier "i"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim
                   (PrimIntegral
                     PrimInt
@@ -2853,7 +2856,8 @@
                 NamePair {
                   nameC = Name "i",
                   nameHsIdent = Identifier "i"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim
                   (PrimIntegral
                     PrimInt
@@ -2928,7 +2932,8 @@
                 NamePair {
                   nameC = Name "i",
                   nameHsIdent = Identifier "i"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypeMacroTypedef
                   NamePair {
                     nameC = Name "I",
@@ -3005,7 +3010,8 @@
                 NamePair {
                   nameC = Name "i",
                   nameHsIdent = Identifier "i"})
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim
                   (PrimIntegral
                     PrimInt
@@ -3559,7 +3565,8 @@
       foreignImportOrigin = Global
         (TypeFun
           [
-            TypeConst
+            TypeQualified
+              TypeQualifierConst
               (TypePrim
                 (PrimIntegral PrimInt Signed))]
           (TypePointer
@@ -3607,7 +3614,8 @@
       foreignImportOrigin = Global
         (TypeFun
           [
-            TypeConst
+            TypeQualified
+              TypeQualifierConst
               (TypeMacroTypedef
                 NamePair {
                   nameC = Name "I",
@@ -3660,7 +3668,8 @@
       foreignImportOrigin = Global
         (TypeFun
           [
-            TypeConst
+            TypeQualified
+              TypeQualifierConst
               (TypePrim
                 (PrimIntegral PrimInt Signed))]
           (TypePointer

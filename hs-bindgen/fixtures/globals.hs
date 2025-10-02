@@ -8805,7 +8805,8 @@
               newtypeField = Name
                 "@NsVar"
                 "un_ConstInt"},
-            typedefType = TypeConst
+            typedefType = TypeQualified
+              TypeQualifierConst
               (TypePrim
                 (PrimIntegral PrimInt Signed))},
         declSpec = DeclSpec
@@ -9026,7 +9027,8 @@
                 "un_ConstIntArray"},
             typedefType =
             TypeIncompleteArray
-              (TypeConst
+              (TypeQualified
+                TypeQualifierConst
                 (TypePrim
                   (PrimIntegral
                     PrimInt
@@ -9130,7 +9132,8 @@
                   nameHsIdent = Identifier
                     "tuple_y"},
                 fieldComment = Nothing},
-              structFieldType = TypeConst
+              structFieldType = TypeQualified
+                TypeQualifierConst
                 (TypePrim
                   (PrimIntegral PrimInt Signed)),
               structFieldOffset = 32,
@@ -9190,7 +9193,8 @@
                       nameHsIdent = Identifier
                         "tuple_y"},
                     fieldComment = Nothing},
-                  structFieldType = TypeConst
+                  structFieldType = TypeQualified
+                    TypeQualifierConst
                     (TypePrim
                       (PrimIntegral PrimInt Signed)),
                   structFieldOffset = 32,
@@ -9274,7 +9278,8 @@
                       nameHsIdent = Identifier
                         "tuple_y"},
                     fieldComment = Nothing},
-                  structFieldType = TypeConst
+                  structFieldType = TypeQualified
+                    TypeQualifierConst
                     (TypePrim
                       (PrimIntegral PrimInt Signed)),
                   structFieldOffset = 32,
@@ -9334,7 +9339,8 @@
                           nameHsIdent = Identifier
                             "tuple_y"},
                         fieldComment = Nothing},
-                      structFieldType = TypeConst
+                      structFieldType = TypeQualified
+                        TypeQualifierConst
                         (TypePrim
                           (PrimIntegral PrimInt Signed)),
                       structFieldOffset = 32,
@@ -9421,7 +9427,8 @@
                               nameHsIdent = Identifier
                                 "tuple_y"},
                             fieldComment = Nothing},
-                          structFieldType = TypeConst
+                          structFieldType = TypeQualified
+                            TypeQualifierConst
                             (TypePrim
                               (PrimIntegral PrimInt Signed)),
                           structFieldOffset = 32,
@@ -9481,7 +9488,8 @@
                                   nameHsIdent = Identifier
                                     "tuple_y"},
                                 fieldComment = Nothing},
-                              structFieldType = TypeConst
+                              structFieldType = TypeQualified
+                                TypeQualifierConst
                                 (TypePrim
                                   (PrimIntegral PrimInt Signed)),
                               structFieldOffset = 32,
@@ -9570,7 +9578,8 @@
                               nameHsIdent = Identifier
                                 "tuple_y"},
                             fieldComment = Nothing},
-                          structFieldType = TypeConst
+                          structFieldType = TypeQualified
+                            TypeQualifierConst
                             (TypePrim
                               (PrimIntegral PrimInt Signed)),
                           structFieldOffset = 32,
@@ -9630,7 +9639,8 @@
                                   nameHsIdent = Identifier
                                     "tuple_y"},
                                 fieldComment = Nothing},
-                              structFieldType = TypeConst
+                              structFieldType = TypeQualified
+                                TypeQualifierConst
                                 (TypePrim
                                   (PrimIntegral PrimInt Signed)),
                               structFieldOffset = 32,
@@ -10938,7 +10948,8 @@
           capiWrapperImport =
           "globals.h"},
       foreignImportOrigin = Global
-        (TypeConst
+        (TypeQualified
+          TypeQualifierConst
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       foreignImportComment = Nothing,
@@ -10976,7 +10987,13 @@
             NamePair {
               nameC = Name "ConstInt",
               nameHsIdent = Identifier
-                "ConstInt"})),
+                "ConstInt"}
+            (TypeQualified
+              TypeQualifierConst
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed))))),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -11004,7 +11021,8 @@
           capiWrapperImport =
           "globals.h"},
       foreignImportOrigin = Global
-        (TypeConst
+        (TypeQualified
+          TypeQualifierConst
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       foreignImportComment = Nothing,
@@ -11034,7 +11052,8 @@
           capiWrapperImport =
           "globals.h"},
       foreignImportOrigin = Global
-        (TypeConst
+        (TypeQualified
+          TypeQualifierConst
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       foreignImportComment = Nothing,
@@ -11068,7 +11087,8 @@
       foreignImportOrigin = Global
         (TypeConstArray
           4
-          (TypeConst
+          (TypeQualified
+            TypeQualifierConst
             (TypePrim
               (PrimIntegral
                 PrimInt
@@ -11108,7 +11128,14 @@
             NamePair {
               nameC = Name "ConstIntArray",
               nameHsIdent = Identifier
-                "ConstIntArray"})),
+                "ConstIntArray"}
+            (TypeIncompleteArray
+              (TypeQualified
+                TypeQualifierConst
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))))),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -11137,7 +11164,8 @@
           capiWrapperImport =
           "globals.h"},
       foreignImportOrigin = Global
-        (TypeConst
+        (TypeQualified
+          TypeQualifierConst
           (TypeStruct
             NamePair {
               nameC = Name "tuple",
@@ -11207,7 +11235,8 @@
           "globals.h"},
       foreignImportOrigin = Global
         (TypePointer
-          (TypeConst
+          (TypeQualified
+            TypeQualifierConst
             (TypePrim
               (PrimIntegral
                 PrimInt
@@ -11238,7 +11267,8 @@
           capiWrapperImport =
           "globals.h"},
       foreignImportOrigin = Global
-        (TypeConst
+        (TypeQualified
+          TypeQualifierConst
           (TypePointer
             (TypePrim
               (PrimIntegral
@@ -11272,9 +11302,11 @@
           capiWrapperImport =
           "globals.h"},
       foreignImportOrigin = Global
-        (TypeConst
+        (TypeQualified
+          TypeQualifierConst
           (TypePointer
-            (TypeConst
+            (TypeQualified
+              TypeQualifierConst
               (TypePrim
                 (PrimIntegral
                   PrimInt
