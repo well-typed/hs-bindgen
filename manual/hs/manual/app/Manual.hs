@@ -5,7 +5,7 @@
 module Manual (main) where
 
 import Control.Exception (bracket)
-import Control.Monad (forM_, (<=<))
+import Control.Monad (forM_, (<=<), (>=>))
 import Data.Complex
 import Data.Vector.Storable qualified as VS
 import Foreign as F
@@ -53,6 +53,10 @@ import Complex qualified
 import Example
 import Globals qualified
 import Structs
+
+import Callbacks
+import Callbacks.Safe
+import HsBindgen.Runtime.FunPtr
 
 {-------------------------------------------------------------------------------
   Simple struct
@@ -482,6 +486,36 @@ main = do
       putStrLn $ "  Sum of complex_double_array_ptr: " <> show doubleArraySum
       putStrLn $ "  Expected: " <> show doubleArrayExpectedSum
       putStrLn $ "  Match: " <> show (complexEq 1e-12 doubleArraySum doubleArrayExpectedSum)
+
+    --
+    -- Callbacks
+    section "Callbacks (Passing Haskell functions to C callbacks)"
+    --
+    do
+
+      withToFunPtr (FileOpenedNotification_Deref $ putStrLn "")
+                   (onFileOpened . FileOpenedNotification)
+
+      putStrLn ""
+      withToFunPtr
+          (ProgressUpdate_Deref $ \progress -> putStrLn $ "Progress: " ++ show progress ++ "%")
+          (onProgressChanged . ProgressUpdate)
+
+      putStrLn ""
+      withToFunPtr
+        (DataValidator_Deref $ \value -> do
+          putStrLn $ "Validating: " ++ show value
+          return $ if value > 0 then 1 else 0)
+        $ (\validator -> do
+            result1 <- validateInput validator 50
+            result2 <- validateInput validator (-10)
+            putStrLn $ "Validation results: " ++ show result1 ++ ", " ++ show result2
+          ) . DataValidator
+
+      putStrLn ""
+      withToFunPtr
+        (MeasurementReceived_Deref $ peek >=> print)
+        (onNewMeasurement . MeasurementReceived)
 
 {-------------------------------------------------------------------------------
   Arrays

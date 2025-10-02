@@ -86,6 +86,22 @@ translateDefineInstanceDecl Hs.DefineInstance {..} =
       DInst $ translateCEnumInstanceShow struct defineInstanceComment
     Hs.InstanceCEnumRead struct ->
       DInst $ translateCEnumInstanceRead struct defineInstanceComment
+    Hs.InstanceToFunPtr Hs.ToFunPtrInstance{..}     -> DInst
+      Instance
+        { instanceClass   = ToFunPtr_class
+        , instanceArgs    = [ translateType toFunPtrInstanceType ]
+        , instanceTypes   = []
+        , instanceDecs    = [(ToFunPtr_toFunPtr, EFree toFunPtrInstanceBody)]
+        , instanceComment = defineInstanceComment
+        }
+    Hs.InstanceFromFunPtr Hs.FromFunPtrInstance{..} -> DInst
+      Instance
+        { instanceClass   = FromFunPtr_class
+        , instanceArgs    = [ translateType fromFunPtrInstanceType ]
+        , instanceTypes   = []
+        , instanceDecs    = [(FromFunPtr_fromFunPtr, EFree fromFunPtrInstanceBody)]
+        , instanceComment = defineInstanceComment
+        }
 
 translateDeclData :: Hs.Struct n -> SDecl
 translateDeclData struct = DRecord

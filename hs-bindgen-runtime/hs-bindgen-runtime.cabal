@@ -52,11 +52,15 @@ library
       HsBindgen.Runtime.CEnum
       HsBindgen.Runtime.ConstantArray
       HsBindgen.Runtime.FlexibleArrayMember
+      HsBindgen.Runtime.FunPtr
       HsBindgen.Runtime.IncompleteArray
       HsBindgen.Runtime.LibC
       HsBindgen.Runtime.Marshal
       HsBindgen.Runtime.Prelude
       HsBindgen.Runtime.SizedByteArray
+  other-modules:
+      HsBindgen.Runtime.TH.Types
+      HsBindgen.Runtime.TH.Instances
   hs-source-dirs:
       src
   build-depends:

@@ -43,6 +43,10 @@ module HsBindgen.Backend.Hs.AST (
     -- ** Foreign imports
   , ForeignImportDecl(..)
   , FunctionParameter(..)
+    -- ** 'ToFunPtr'
+  , ToFunPtrInstance(..)
+    -- ** 'FromFunPtr'
+  , FromFunPtrInstance(..)
     -- ** 'Storable'
   , StorableInstance(..)
   , PeekByteOff(..)
@@ -224,6 +228,8 @@ data InstanceDecl where
       -> InstanceDecl
     InstanceCEnumShow :: Struct (S Z) -> InstanceDecl
     InstanceCEnumRead :: Struct (S Z) -> InstanceDecl
+    InstanceToFunPtr   :: ToFunPtrInstance -> InstanceDecl
+    InstanceFromFunPtr :: FromFunPtrInstance -> InstanceDecl
 
 deriving instance Show InstanceDecl
 
@@ -284,6 +290,32 @@ data PatSyn = PatSyn
     , patSynValue   :: Integer
     , patSynOrigin  :: Origin.PatSyn
     , patSynComment :: Maybe HsDoc.Comment
+    }
+  deriving stock (Generic, Show)
+
+{-------------------------------------------------------------------------------
+  'ToFunPtr'
+-------------------------------------------------------------------------------}
+
+-- | 'ToFunPtr' instance
+--
+type ToFunPtrInstance :: Star
+data ToFunPtrInstance = ToFunPtrInstance
+    { toFunPtrInstanceType :: HsType
+    , toFunPtrInstanceBody :: Hs.Name Hs.NsVar
+    }
+  deriving stock (Generic, Show)
+
+{-------------------------------------------------------------------------------
+  'FromFunPtr'
+-------------------------------------------------------------------------------}
+
+-- | 'FromFunPtr' instance
+--
+type FromFunPtrInstance :: Star
+data FromFunPtrInstance = FromFunPtrInstance
+    { fromFunPtrInstanceType :: HsType
+    , fromFunPtrInstanceBody :: Hs.Name Hs.NsVar
     }
   deriving stock (Generic, Show)
 

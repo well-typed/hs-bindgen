@@ -24,6 +24,7 @@ import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.CAPI
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.ConstantArray
+import qualified HsBindgen.Runtime.FunPtr
 import qualified HsBindgen.Runtime.IncompleteArray
 import qualified HsBindgen.Runtime.Prelude
 import qualified HsBindgen.Runtime.SizedByteArray
@@ -254,6 +255,22 @@ newtype Funptr_typedef1_Deref = Funptr_typedef1_Deref
   { un_Funptr_typedef1_Deref :: IO A
   }
 
+foreign import ccall safe "wrapper" toFunptr_typedef1_Deref
+  :: Funptr_typedef1_Deref
+  -> IO (Ptr.FunPtr Funptr_typedef1_Deref)
+
+foreign import ccall safe "dynamic" fromFunptr_typedef1_Deref
+  :: Ptr.FunPtr Funptr_typedef1_Deref
+  -> Funptr_typedef1_Deref
+
+instance HsBindgen.Runtime.FunPtr.ToFunPtr Funptr_typedef1_Deref where
+
+  toFunPtr = toFunptr_typedef1_Deref
+
+instance HsBindgen.Runtime.FunPtr.FromFunPtr Funptr_typedef1_Deref where
+
+  fromFunPtr = fromFunptr_typedef1_Deref
+
 {-| __C declaration:__ @funptr_typedef1@
 
     __defined at:__ @reparse.h:132:16@
@@ -275,6 +292,22 @@ __exported by:__ @reparse.h@
 newtype Funptr_typedef2_Deref = Funptr_typedef2_Deref
   { un_Funptr_typedef2_Deref :: IO (Ptr.Ptr A)
   }
+
+foreign import ccall safe "wrapper" toFunptr_typedef2_Deref
+  :: Funptr_typedef2_Deref
+  -> IO (Ptr.FunPtr Funptr_typedef2_Deref)
+
+foreign import ccall safe "dynamic" fromFunptr_typedef2_Deref
+  :: Ptr.FunPtr Funptr_typedef2_Deref
+  -> Funptr_typedef2_Deref
+
+instance HsBindgen.Runtime.FunPtr.ToFunPtr Funptr_typedef2_Deref where
+
+  toFunPtr = toFunptr_typedef2_Deref
+
+instance HsBindgen.Runtime.FunPtr.FromFunPtr Funptr_typedef2_Deref where
+
+  fromFunPtr = fromFunptr_typedef2_Deref
 
 {-| __C declaration:__ @funptr_typedef2@
 
@@ -298,6 +331,22 @@ newtype Funptr_typedef3_Deref = Funptr_typedef3_Deref
   { un_Funptr_typedef3_Deref :: IO (Ptr.Ptr (Ptr.Ptr A))
   }
 
+foreign import ccall safe "wrapper" toFunptr_typedef3_Deref
+  :: Funptr_typedef3_Deref
+  -> IO (Ptr.FunPtr Funptr_typedef3_Deref)
+
+foreign import ccall safe "dynamic" fromFunptr_typedef3_Deref
+  :: Ptr.FunPtr Funptr_typedef3_Deref
+  -> Funptr_typedef3_Deref
+
+instance HsBindgen.Runtime.FunPtr.ToFunPtr Funptr_typedef3_Deref where
+
+  toFunPtr = toFunptr_typedef3_Deref
+
+instance HsBindgen.Runtime.FunPtr.FromFunPtr Funptr_typedef3_Deref where
+
+  fromFunPtr = fromFunptr_typedef3_Deref
+
 {-| __C declaration:__ @funptr_typedef3@
 
     __defined at:__ @reparse.h:134:16@
@@ -320,6 +369,22 @@ newtype Funptr_typedef4_Deref = Funptr_typedef4_Deref
   { un_Funptr_typedef4_Deref :: FC.CInt -> FC.CDouble -> IO A
   }
 
+foreign import ccall safe "wrapper" toFunptr_typedef4_Deref
+  :: Funptr_typedef4_Deref
+  -> IO (Ptr.FunPtr Funptr_typedef4_Deref)
+
+foreign import ccall safe "dynamic" fromFunptr_typedef4_Deref
+  :: Ptr.FunPtr Funptr_typedef4_Deref
+  -> Funptr_typedef4_Deref
+
+instance HsBindgen.Runtime.FunPtr.ToFunPtr Funptr_typedef4_Deref where
+
+  toFunPtr = toFunptr_typedef4_Deref
+
+instance HsBindgen.Runtime.FunPtr.FromFunPtr Funptr_typedef4_Deref where
+
+  fromFunPtr = fromFunptr_typedef4_Deref
+
 {-| __C declaration:__ @funptr_typedef4@
 
     __defined at:__ @reparse.h:135:16@
@@ -341,6 +406,22 @@ __exported by:__ @reparse.h@
 newtype Funptr_typedef5_Deref = Funptr_typedef5_Deref
   { un_Funptr_typedef5_Deref :: FC.CInt -> FC.CDouble -> IO (Ptr.Ptr A)
   }
+
+foreign import ccall safe "wrapper" toFunptr_typedef5_Deref
+  :: Funptr_typedef5_Deref
+  -> IO (Ptr.FunPtr Funptr_typedef5_Deref)
+
+foreign import ccall safe "dynamic" fromFunptr_typedef5_Deref
+  :: Ptr.FunPtr Funptr_typedef5_Deref
+  -> Funptr_typedef5_Deref
+
+instance HsBindgen.Runtime.FunPtr.ToFunPtr Funptr_typedef5_Deref where
+
+  toFunPtr = toFunptr_typedef5_Deref
+
+instance HsBindgen.Runtime.FunPtr.FromFunPtr Funptr_typedef5_Deref where
+
+  fromFunPtr = fromFunptr_typedef5_Deref
 
 {-| __C declaration:__ @funptr_typedef5@
 
@@ -614,6 +695,22 @@ newtype Const_funptr1_Deref = Const_funptr1_Deref
   { un_Const_funptr1_Deref :: FC.CInt -> FC.CDouble -> IO A
   }
 
+foreign import ccall safe "wrapper" toConst_funptr1_Deref
+  :: Const_funptr1_Deref
+  -> IO (Ptr.FunPtr Const_funptr1_Deref)
+
+foreign import ccall safe "dynamic" fromConst_funptr1_Deref
+  :: Ptr.FunPtr Const_funptr1_Deref
+  -> Const_funptr1_Deref
+
+instance HsBindgen.Runtime.FunPtr.ToFunPtr Const_funptr1_Deref where
+
+  toFunPtr = toConst_funptr1_Deref
+
+instance HsBindgen.Runtime.FunPtr.FromFunPtr Const_funptr1_Deref where
+
+  fromFunPtr = fromConst_funptr1_Deref
+
 {-| __C declaration:__ @const_funptr1@
 
     __defined at:__ @reparse.h:238:27@
@@ -635,6 +732,22 @@ __exported by:__ @reparse.h@
 newtype Const_funptr2_Deref = Const_funptr2_Deref
   { un_Const_funptr2_Deref :: FC.CInt -> FC.CDouble -> IO A
   }
+
+foreign import ccall safe "wrapper" toConst_funptr2_Deref
+  :: Const_funptr2_Deref
+  -> IO (Ptr.FunPtr Const_funptr2_Deref)
+
+foreign import ccall safe "dynamic" fromConst_funptr2_Deref
+  :: Ptr.FunPtr Const_funptr2_Deref
+  -> Const_funptr2_Deref
+
+instance HsBindgen.Runtime.FunPtr.ToFunPtr Const_funptr2_Deref where
+
+  toFunPtr = toConst_funptr2_Deref
+
+instance HsBindgen.Runtime.FunPtr.FromFunPtr Const_funptr2_Deref where
+
+  fromFunPtr = fromConst_funptr2_Deref
 
 {-| __C declaration:__ @const_funptr2@
 
@@ -658,6 +771,22 @@ newtype Const_funptr3_Deref = Const_funptr3_Deref
   { un_Const_funptr3_Deref :: FC.CInt -> FC.CDouble -> IO (Ptr.Ptr A)
   }
 
+foreign import ccall safe "wrapper" toConst_funptr3_Deref
+  :: Const_funptr3_Deref
+  -> IO (Ptr.FunPtr Const_funptr3_Deref)
+
+foreign import ccall safe "dynamic" fromConst_funptr3_Deref
+  :: Ptr.FunPtr Const_funptr3_Deref
+  -> Const_funptr3_Deref
+
+instance HsBindgen.Runtime.FunPtr.ToFunPtr Const_funptr3_Deref where
+
+  toFunPtr = toConst_funptr3_Deref
+
+instance HsBindgen.Runtime.FunPtr.FromFunPtr Const_funptr3_Deref where
+
+  fromFunPtr = fromConst_funptr3_Deref
+
 {-| __C declaration:__ @const_funptr3@
 
     __defined at:__ @reparse.h:240:27@
@@ -679,6 +808,22 @@ __exported by:__ @reparse.h@
 newtype Const_funptr4_Deref = Const_funptr4_Deref
   { un_Const_funptr4_Deref :: FC.CInt -> FC.CDouble -> IO (Ptr.Ptr A)
   }
+
+foreign import ccall safe "wrapper" toConst_funptr4_Deref
+  :: Const_funptr4_Deref
+  -> IO (Ptr.FunPtr Const_funptr4_Deref)
+
+foreign import ccall safe "dynamic" fromConst_funptr4_Deref
+  :: Ptr.FunPtr Const_funptr4_Deref
+  -> Const_funptr4_Deref
+
+instance HsBindgen.Runtime.FunPtr.ToFunPtr Const_funptr4_Deref where
+
+  toFunPtr = toConst_funptr4_Deref
+
+instance HsBindgen.Runtime.FunPtr.FromFunPtr Const_funptr4_Deref where
+
+  fromFunPtr = fromConst_funptr4_Deref
 
 {-| __C declaration:__ @const_funptr4@
 
@@ -702,6 +847,22 @@ newtype Const_funptr5_Deref = Const_funptr5_Deref
   { un_Const_funptr5_Deref :: FC.CInt -> FC.CDouble -> IO (Ptr.Ptr A)
   }
 
+foreign import ccall safe "wrapper" toConst_funptr5_Deref
+  :: Const_funptr5_Deref
+  -> IO (Ptr.FunPtr Const_funptr5_Deref)
+
+foreign import ccall safe "dynamic" fromConst_funptr5_Deref
+  :: Ptr.FunPtr Const_funptr5_Deref
+  -> Const_funptr5_Deref
+
+instance HsBindgen.Runtime.FunPtr.ToFunPtr Const_funptr5_Deref where
+
+  toFunPtr = toConst_funptr5_Deref
+
+instance HsBindgen.Runtime.FunPtr.FromFunPtr Const_funptr5_Deref where
+
+  fromFunPtr = fromConst_funptr5_Deref
+
 {-| __C declaration:__ @const_funptr5@
 
     __defined at:__ @reparse.h:242:27@
@@ -724,6 +885,22 @@ newtype Const_funptr6_Deref = Const_funptr6_Deref
   { un_Const_funptr6_Deref :: FC.CInt -> FC.CDouble -> IO (Ptr.Ptr A)
   }
 
+foreign import ccall safe "wrapper" toConst_funptr6_Deref
+  :: Const_funptr6_Deref
+  -> IO (Ptr.FunPtr Const_funptr6_Deref)
+
+foreign import ccall safe "dynamic" fromConst_funptr6_Deref
+  :: Ptr.FunPtr Const_funptr6_Deref
+  -> Const_funptr6_Deref
+
+instance HsBindgen.Runtime.FunPtr.ToFunPtr Const_funptr6_Deref where
+
+  toFunPtr = toConst_funptr6_Deref
+
+instance HsBindgen.Runtime.FunPtr.FromFunPtr Const_funptr6_Deref where
+
+  fromFunPtr = fromConst_funptr6_Deref
+
 {-| __C declaration:__ @const_funptr6@
 
     __defined at:__ @reparse.h:243:27@
@@ -745,6 +922,22 @@ __exported by:__ @reparse.h@
 newtype Const_funptr7_Deref = Const_funptr7_Deref
   { un_Const_funptr7_Deref :: FC.CInt -> FC.CDouble -> IO (Ptr.Ptr A)
   }
+
+foreign import ccall safe "wrapper" toConst_funptr7_Deref
+  :: Const_funptr7_Deref
+  -> IO (Ptr.FunPtr Const_funptr7_Deref)
+
+foreign import ccall safe "dynamic" fromConst_funptr7_Deref
+  :: Ptr.FunPtr Const_funptr7_Deref
+  -> Const_funptr7_Deref
+
+instance HsBindgen.Runtime.FunPtr.ToFunPtr Const_funptr7_Deref where
+
+  toFunPtr = toConst_funptr7_Deref
+
+instance HsBindgen.Runtime.FunPtr.FromFunPtr Const_funptr7_Deref where
+
+  fromFunPtr = fromConst_funptr7_Deref
 
 {-| __C declaration:__ @const_funptr7@
 

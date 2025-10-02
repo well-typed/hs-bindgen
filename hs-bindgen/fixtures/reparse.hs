@@ -1766,6 +1766,106 @@
                 ["reparse.h"],
               headerInclude = "reparse.h"},
           commentChildren = []}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "toFunptr_typedef1_Deref",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Funptr_typedef1_Deref"),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Funptr_typedef1_Deref")))),
+      foreignImportOrigName =
+      "wrapper",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin = ToFunPtr
+        (TypeFun
+          []
+          (TypeMacroTypedef
+            NamePair {
+              nameC = Name "A",
+              nameHsIdent = Identifier "A"}
+            NameOriginInSource)),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "fromFunptr_typedef1_Deref",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Funptr_typedef1_Deref")),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsTypRef
+          (Name
+            "@NsTypeConstr"
+            "Funptr_typedef1_Deref")),
+      foreignImportOrigName =
+      "dynamic",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin = FromFunPtr
+        (TypeFun
+          []
+          (TypeMacroTypedef
+            NamePair {
+              nameC = Name "A",
+              nameHsIdent = Identifier "A"}
+            NameOriginInSource)),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceToFunPtr
+        ToFunPtrInstance {
+          toFunPtrInstanceType = HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Funptr_typedef1_Deref"),
+          toFunPtrInstanceBody = Name
+            "@NsVar"
+            "toFunptr_typedef1_Deref"},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceFromFunPtr
+        FromFunPtrInstance {
+          fromFunPtrInstanceType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Funptr_typedef1_Deref"),
+          fromFunPtrInstanceBody = Name
+            "@NsVar"
+            "fromFunptr_typedef1_Deref"},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -1966,6 +2066,108 @@
                 ["reparse.h"],
               headerInclude = "reparse.h"},
           commentChildren = []}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "toFunptr_typedef2_Deref",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Funptr_typedef2_Deref"),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Funptr_typedef2_Deref")))),
+      foreignImportOrigName =
+      "wrapper",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin = ToFunPtr
+        (TypeFun
+          []
+          (TypePointer
+            (TypeMacroTypedef
+              NamePair {
+                nameC = Name "A",
+                nameHsIdent = Identifier "A"}
+              NameOriginInSource))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "fromFunptr_typedef2_Deref",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Funptr_typedef2_Deref")),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsTypRef
+          (Name
+            "@NsTypeConstr"
+            "Funptr_typedef2_Deref")),
+      foreignImportOrigName =
+      "dynamic",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin = FromFunPtr
+        (TypeFun
+          []
+          (TypePointer
+            (TypeMacroTypedef
+              NamePair {
+                nameC = Name "A",
+                nameHsIdent = Identifier "A"}
+              NameOriginInSource))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceToFunPtr
+        ToFunPtrInstance {
+          toFunPtrInstanceType = HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Funptr_typedef2_Deref"),
+          toFunPtrInstanceBody = Name
+            "@NsVar"
+            "toFunptr_typedef2_Deref"},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceFromFunPtr
+        FromFunPtrInstance {
+          fromFunPtrInstanceType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Funptr_typedef2_Deref"),
+          fromFunPtrInstanceBody = Name
+            "@NsVar"
+            "fromFunptr_typedef2_Deref"},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -2168,6 +2370,110 @@
                 ["reparse.h"],
               headerInclude = "reparse.h"},
           commentChildren = []}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "toFunptr_typedef3_Deref",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Funptr_typedef3_Deref"),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Funptr_typedef3_Deref")))),
+      foreignImportOrigName =
+      "wrapper",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin = ToFunPtr
+        (TypeFun
+          []
+          (TypePointer
+            (TypePointer
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = Identifier "A"}
+                NameOriginInSource)))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "fromFunptr_typedef3_Deref",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Funptr_typedef3_Deref")),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsTypRef
+          (Name
+            "@NsTypeConstr"
+            "Funptr_typedef3_Deref")),
+      foreignImportOrigName =
+      "dynamic",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin = FromFunPtr
+        (TypeFun
+          []
+          (TypePointer
+            (TypePointer
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = Identifier "A"}
+                NameOriginInSource)))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceToFunPtr
+        ToFunPtrInstance {
+          toFunPtrInstanceType = HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Funptr_typedef3_Deref"),
+          toFunPtrInstanceBody = Name
+            "@NsVar"
+            "toFunptr_typedef3_Deref"},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceFromFunPtr
+        FromFunPtrInstance {
+          fromFunPtrInstanceType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Funptr_typedef3_Deref"),
+          fromFunPtrInstanceBody = Name
+            "@NsVar"
+            "fromFunptr_typedef3_Deref"},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -2374,6 +2680,114 @@
                 ["reparse.h"],
               headerInclude = "reparse.h"},
           commentChildren = []}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "toFunptr_typedef4_Deref",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Funptr_typedef4_Deref"),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Funptr_typedef4_Deref")))),
+      foreignImportOrigName =
+      "wrapper",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin = ToFunPtr
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimInt Signed),
+            TypePrim
+              (PrimFloating PrimDouble)]
+          (TypeMacroTypedef
+            NamePair {
+              nameC = Name "A",
+              nameHsIdent = Identifier "A"}
+            NameOriginInSource)),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "fromFunptr_typedef4_Deref",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Funptr_typedef4_Deref")),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsTypRef
+          (Name
+            "@NsTypeConstr"
+            "Funptr_typedef4_Deref")),
+      foreignImportOrigName =
+      "dynamic",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin = FromFunPtr
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimInt Signed),
+            TypePrim
+              (PrimFloating PrimDouble)]
+          (TypeMacroTypedef
+            NamePair {
+              nameC = Name "A",
+              nameHsIdent = Identifier "A"}
+            NameOriginInSource)),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceToFunPtr
+        ToFunPtrInstance {
+          toFunPtrInstanceType = HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Funptr_typedef4_Deref"),
+          toFunPtrInstanceBody = Name
+            "@NsVar"
+            "toFunptr_typedef4_Deref"},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceFromFunPtr
+        FromFunPtrInstance {
+          fromFunPtrInstanceType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Funptr_typedef4_Deref"),
+          fromFunPtrInstanceBody = Name
+            "@NsVar"
+            "fromFunptr_typedef4_Deref"},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -2582,6 +2996,116 @@
                 ["reparse.h"],
               headerInclude = "reparse.h"},
           commentChildren = []}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "toFunptr_typedef5_Deref",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Funptr_typedef5_Deref"),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Funptr_typedef5_Deref")))),
+      foreignImportOrigName =
+      "wrapper",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin = ToFunPtr
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimInt Signed),
+            TypePrim
+              (PrimFloating PrimDouble)]
+          (TypePointer
+            (TypeMacroTypedef
+              NamePair {
+                nameC = Name "A",
+                nameHsIdent = Identifier "A"}
+              NameOriginInSource))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "fromFunptr_typedef5_Deref",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Funptr_typedef5_Deref")),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsTypRef
+          (Name
+            "@NsTypeConstr"
+            "Funptr_typedef5_Deref")),
+      foreignImportOrigName =
+      "dynamic",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin = FromFunPtr
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimInt Signed),
+            TypePrim
+              (PrimFloating PrimDouble)]
+          (TypePointer
+            (TypeMacroTypedef
+              NamePair {
+                nameC = Name "A",
+                nameHsIdent = Identifier "A"}
+              NameOriginInSource))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceToFunPtr
+        ToFunPtrInstance {
+          toFunPtrInstanceType = HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Funptr_typedef5_Deref"),
+          toFunPtrInstanceBody = Name
+            "@NsVar"
+            "toFunptr_typedef5_Deref"},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceFromFunPtr
+        FromFunPtrInstance {
+          fromFunPtrInstanceType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Funptr_typedef5_Deref"),
+          fromFunPtrInstanceBody = Name
+            "@NsVar"
+            "fromFunptr_typedef5_Deref"},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -6714,6 +7238,116 @@
                 ["reparse.h"],
               headerInclude = "reparse.h"},
           commentChildren = []}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "toConst_funptr1_Deref",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr1_Deref"),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Const_funptr1_Deref")))),
+      foreignImportOrigName =
+      "wrapper",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin = ToFunPtr
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimInt Signed),
+            TypePrim
+              (PrimFloating PrimDouble)]
+          (TypeConst
+            (TypeMacroTypedef
+              NamePair {
+                nameC = Name "A",
+                nameHsIdent = Identifier "A"}
+              NameOriginInSource))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "fromConst_funptr1_Deref",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Const_funptr1_Deref")),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsTypRef
+          (Name
+            "@NsTypeConstr"
+            "Const_funptr1_Deref")),
+      foreignImportOrigName =
+      "dynamic",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin = FromFunPtr
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimInt Signed),
+            TypePrim
+              (PrimFloating PrimDouble)]
+          (TypeConst
+            (TypeMacroTypedef
+              NamePair {
+                nameC = Name "A",
+                nameHsIdent = Identifier "A"}
+              NameOriginInSource))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceToFunPtr
+        ToFunPtrInstance {
+          toFunPtrInstanceType = HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr1_Deref"),
+          toFunPtrInstanceBody = Name
+            "@NsVar"
+            "toConst_funptr1_Deref"},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceFromFunPtr
+        FromFunPtrInstance {
+          fromFunPtrInstanceType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr1_Deref"),
+          fromFunPtrInstanceBody = Name
+            "@NsVar"
+            "fromConst_funptr1_Deref"},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -6921,6 +7555,116 @@
                 ["reparse.h"],
               headerInclude = "reparse.h"},
           commentChildren = []}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "toConst_funptr2_Deref",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr2_Deref"),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Const_funptr2_Deref")))),
+      foreignImportOrigName =
+      "wrapper",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin = ToFunPtr
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimInt Signed),
+            TypePrim
+              (PrimFloating PrimDouble)]
+          (TypeConst
+            (TypeMacroTypedef
+              NamePair {
+                nameC = Name "A",
+                nameHsIdent = Identifier "A"}
+              NameOriginInSource))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "fromConst_funptr2_Deref",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Const_funptr2_Deref")),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsTypRef
+          (Name
+            "@NsTypeConstr"
+            "Const_funptr2_Deref")),
+      foreignImportOrigName =
+      "dynamic",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin = FromFunPtr
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimInt Signed),
+            TypePrim
+              (PrimFloating PrimDouble)]
+          (TypeConst
+            (TypeMacroTypedef
+              NamePair {
+                nameC = Name "A",
+                nameHsIdent = Identifier "A"}
+              NameOriginInSource))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceToFunPtr
+        ToFunPtrInstance {
+          toFunPtrInstanceType = HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr2_Deref"),
+          toFunPtrInstanceBody = Name
+            "@NsVar"
+            "toConst_funptr2_Deref"},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceFromFunPtr
+        FromFunPtrInstance {
+          fromFunPtrInstanceType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr2_Deref"),
+          fromFunPtrInstanceBody = Name
+            "@NsVar"
+            "fromConst_funptr2_Deref"},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -7130,6 +7874,118 @@
                 ["reparse.h"],
               headerInclude = "reparse.h"},
           commentChildren = []}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "toConst_funptr3_Deref",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr3_Deref"),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Const_funptr3_Deref")))),
+      foreignImportOrigName =
+      "wrapper",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin = ToFunPtr
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimInt Signed),
+            TypePrim
+              (PrimFloating PrimDouble)]
+          (TypePointer
+            (TypeConst
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = Identifier "A"}
+                NameOriginInSource)))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "fromConst_funptr3_Deref",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Const_funptr3_Deref")),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsTypRef
+          (Name
+            "@NsTypeConstr"
+            "Const_funptr3_Deref")),
+      foreignImportOrigName =
+      "dynamic",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin = FromFunPtr
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimInt Signed),
+            TypePrim
+              (PrimFloating PrimDouble)]
+          (TypePointer
+            (TypeConst
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = Identifier "A"}
+                NameOriginInSource)))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceToFunPtr
+        ToFunPtrInstance {
+          toFunPtrInstanceType = HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr3_Deref"),
+          toFunPtrInstanceBody = Name
+            "@NsVar"
+            "toConst_funptr3_Deref"},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceFromFunPtr
+        FromFunPtrInstance {
+          fromFunPtrInstanceType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr3_Deref"),
+          fromFunPtrInstanceBody = Name
+            "@NsVar"
+            "fromConst_funptr3_Deref"},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -7339,6 +8195,118 @@
                 ["reparse.h"],
               headerInclude = "reparse.h"},
           commentChildren = []}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "toConst_funptr4_Deref",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr4_Deref"),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Const_funptr4_Deref")))),
+      foreignImportOrigName =
+      "wrapper",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin = ToFunPtr
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimInt Signed),
+            TypePrim
+              (PrimFloating PrimDouble)]
+          (TypePointer
+            (TypeConst
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = Identifier "A"}
+                NameOriginInSource)))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "fromConst_funptr4_Deref",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Const_funptr4_Deref")),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsTypRef
+          (Name
+            "@NsTypeConstr"
+            "Const_funptr4_Deref")),
+      foreignImportOrigName =
+      "dynamic",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin = FromFunPtr
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimInt Signed),
+            TypePrim
+              (PrimFloating PrimDouble)]
+          (TypePointer
+            (TypeConst
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = Identifier "A"}
+                NameOriginInSource)))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceToFunPtr
+        ToFunPtrInstance {
+          toFunPtrInstanceType = HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr4_Deref"),
+          toFunPtrInstanceBody = Name
+            "@NsVar"
+            "toConst_funptr4_Deref"},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceFromFunPtr
+        FromFunPtrInstance {
+          fromFunPtrInstanceType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr4_Deref"),
+          fromFunPtrInstanceBody = Name
+            "@NsVar"
+            "fromConst_funptr4_Deref"},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -7548,6 +8516,118 @@
                 ["reparse.h"],
               headerInclude = "reparse.h"},
           commentChildren = []}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "toConst_funptr5_Deref",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr5_Deref"),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Const_funptr5_Deref")))),
+      foreignImportOrigName =
+      "wrapper",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin = ToFunPtr
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimInt Signed),
+            TypePrim
+              (PrimFloating PrimDouble)]
+          (TypeConst
+            (TypePointer
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = Identifier "A"}
+                NameOriginInSource)))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "fromConst_funptr5_Deref",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Const_funptr5_Deref")),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsTypRef
+          (Name
+            "@NsTypeConstr"
+            "Const_funptr5_Deref")),
+      foreignImportOrigName =
+      "dynamic",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin = FromFunPtr
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimInt Signed),
+            TypePrim
+              (PrimFloating PrimDouble)]
+          (TypeConst
+            (TypePointer
+              (TypeMacroTypedef
+                NamePair {
+                  nameC = Name "A",
+                  nameHsIdent = Identifier "A"}
+                NameOriginInSource)))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceToFunPtr
+        ToFunPtrInstance {
+          toFunPtrInstanceType = HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr5_Deref"),
+          toFunPtrInstanceBody = Name
+            "@NsVar"
+            "toConst_funptr5_Deref"},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceFromFunPtr
+        FromFunPtrInstance {
+          fromFunPtrInstanceType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr5_Deref"),
+          fromFunPtrInstanceBody = Name
+            "@NsVar"
+            "fromConst_funptr5_Deref"},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -7758,6 +8838,120 @@
                 ["reparse.h"],
               headerInclude = "reparse.h"},
           commentChildren = []}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "toConst_funptr6_Deref",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr6_Deref"),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Const_funptr6_Deref")))),
+      foreignImportOrigName =
+      "wrapper",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin = ToFunPtr
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimInt Signed),
+            TypePrim
+              (PrimFloating PrimDouble)]
+          (TypeConst
+            (TypePointer
+              (TypeConst
+                (TypeMacroTypedef
+                  NamePair {
+                    nameC = Name "A",
+                    nameHsIdent = Identifier "A"}
+                  NameOriginInSource))))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "fromConst_funptr6_Deref",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Const_funptr6_Deref")),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsTypRef
+          (Name
+            "@NsTypeConstr"
+            "Const_funptr6_Deref")),
+      foreignImportOrigName =
+      "dynamic",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin = FromFunPtr
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimInt Signed),
+            TypePrim
+              (PrimFloating PrimDouble)]
+          (TypeConst
+            (TypePointer
+              (TypeConst
+                (TypeMacroTypedef
+                  NamePair {
+                    nameC = Name "A",
+                    nameHsIdent = Identifier "A"}
+                  NameOriginInSource))))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceToFunPtr
+        ToFunPtrInstance {
+          toFunPtrInstanceType = HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr6_Deref"),
+          toFunPtrInstanceBody = Name
+            "@NsVar"
+            "toConst_funptr6_Deref"},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceFromFunPtr
+        FromFunPtrInstance {
+          fromFunPtrInstanceType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr6_Deref"),
+          fromFunPtrInstanceBody = Name
+            "@NsVar"
+            "fromConst_funptr6_Deref"},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -7968,6 +9162,120 @@
                 ["reparse.h"],
               headerInclude = "reparse.h"},
           commentChildren = []}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "toConst_funptr7_Deref",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr7_Deref"),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Const_funptr7_Deref")))),
+      foreignImportOrigName =
+      "wrapper",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin = ToFunPtr
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimInt Signed),
+            TypePrim
+              (PrimFloating PrimDouble)]
+          (TypeConst
+            (TypePointer
+              (TypeConst
+                (TypeMacroTypedef
+                  NamePair {
+                    nameC = Name "A",
+                    nameHsIdent = Identifier "A"}
+                  NameOriginInSource))))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "fromConst_funptr7_Deref",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Const_funptr7_Deref")),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsTypRef
+          (Name
+            "@NsTypeConstr"
+            "Const_funptr7_Deref")),
+      foreignImportOrigName =
+      "dynamic",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin = FromFunPtr
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimInt Signed),
+            TypePrim
+              (PrimFloating PrimDouble)]
+          (TypeConst
+            (TypePointer
+              (TypeConst
+                (TypeMacroTypedef
+                  NamePair {
+                    nameC = Name "A",
+                    nameHsIdent = Identifier "A"}
+                  NameOriginInSource))))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceToFunPtr
+        ToFunPtrInstance {
+          toFunPtrInstanceType = HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr7_Deref"),
+          toFunPtrInstanceBody = Name
+            "@NsVar"
+            "toConst_funptr7_Deref"},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceFromFunPtr
+        FromFunPtrInstance {
+          fromFunPtrInstanceType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr7_Deref"),
+          fromFunPtrInstanceBody = Name
+            "@NsVar"
+            "fromConst_funptr7_Deref"},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name

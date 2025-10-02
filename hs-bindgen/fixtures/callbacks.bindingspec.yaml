@@ -1,0 +1,90 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+types:
+- headers: callbacks.h
+  cname: DataValidator
+  module: Example
+  identifier: DataValidator
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- headers: callbacks.h
+  cname: DataValidator_Deref
+  module: Example
+  identifier: DataValidator_Deref
+- headers: callbacks.h
+  cname: FileOpenedNotification
+  module: Example
+  identifier: FileOpenedNotification
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- headers: callbacks.h
+  cname: FileOpenedNotification_Deref
+  module: Example
+  identifier: FileOpenedNotification_Deref
+- headers: callbacks.h
+  cname: struct Measurement
+  module: Example
+  identifier: Measurement
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: callbacks.h
+  cname: MeasurementReceived
+  module: Example
+  identifier: MeasurementReceived
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- headers: callbacks.h
+  cname: MeasurementReceived2
+  module: Example
+  identifier: MeasurementReceived2
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- headers: callbacks.h
+  cname: MeasurementReceived2_Deref
+  module: Example
+  identifier: MeasurementReceived2_Deref
+- headers: callbacks.h
+  cname: MeasurementReceived_Deref
+  module: Example
+  identifier: MeasurementReceived_Deref
+- headers: callbacks.h
+  cname: ProgressUpdate
+  module: Example
+  identifier: ProgressUpdate
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- headers: callbacks.h
+  cname: ProgressUpdate_Deref
+  module: Example
+  identifier: ProgressUpdate_Deref
+- headers: callbacks.h
+  cname: SampleBufferFull
+  module: Example
+  identifier: SampleBufferFull
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- headers: callbacks.h
+  cname: SampleBufferFull_Deref
+  module: Example
+  identifier: SampleBufferFull_Deref

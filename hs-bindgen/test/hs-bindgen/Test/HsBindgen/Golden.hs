@@ -79,6 +79,7 @@ testCases = manualTestCases ++ [
     , defaultTest "bitfields"
     , defaultTest "bool"
     , defaultTest "data_kind_pragma"
+    , defaultTest "callbacks"
     , defaultTest "distilled_lib_1"
     , defaultTest "enum_cpp_syntax"
     , defaultTest "enums"

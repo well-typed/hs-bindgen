@@ -175,6 +175,9 @@ instance ToExpr (Hs.TauType ctx)
 instance ToExpr (Hs.VarDeclRHS ctx)
 instance ToExpr (t ctx) => ToExpr (Hs.Seq t ctx)
 
+instance ToExpr Hs.ToFunPtrInstance
+instance ToExpr Hs.FromFunPtrInstance
+
 instance ToExpr Hs.Decl where
   toExpr = \case
     Hs.DeclData struct ->
@@ -223,6 +226,10 @@ instance ToExpr Hs.InstanceDecl where
       Expr.App "InstanceCEnumShow" [toExpr struct]
     Hs.InstanceCEnumRead struct ->
       Expr.App "InstanceCEnumRead" [toExpr struct]
+    Hs.InstanceToFunPtr inst ->
+      Expr.App "InstanceToFunPtr" [toExpr inst]
+    Hs.InstanceFromFunPtr inst ->
+      Expr.App "InstanceFromFunPtr" [toExpr inst]
 
 instance ToExpr (t (S ctx)) => ToExpr (Hs.Lambda t ctx) where
   toExpr (Hs.Lambda name body) = Expr.App "Lambda" [toExpr name, toExpr body]

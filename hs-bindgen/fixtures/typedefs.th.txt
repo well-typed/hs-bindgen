@@ -53,6 +53,14 @@ newtype Int2int
 
            __exported by:__ @typedefs.h@
       -}
+foreign import ccall safe "wrapper" toInt2int :: Int2int ->
+                                                 IO (FunPtr Int2int)
+foreign import ccall safe "dynamic" fromInt2int :: FunPtr Int2int ->
+                                                   Int2int
+instance ToFunPtr Int2int
+    where toFunPtr = toInt2int
+instance FromFunPtr Int2int
+    where fromFunPtr = fromInt2int
 {-| Auxiliary type used by 'FunctionPointer_Function'
 
 __defined at:__ @typedefs.h:8:16@
@@ -67,6 +75,14 @@ newtype FunctionPointer_Function_Deref
 
       __exported by:__ @typedefs.h@
       -}
+foreign import ccall safe "wrapper" toFunctionPointer_Function_Deref :: FunctionPointer_Function_Deref ->
+                                                                        IO (FunPtr FunctionPointer_Function_Deref)
+foreign import ccall safe "dynamic" fromFunctionPointer_Function_Deref :: FunPtr FunctionPointer_Function_Deref ->
+                                                                          FunctionPointer_Function_Deref
+instance ToFunPtr FunctionPointer_Function_Deref
+    where toFunPtr = toFunctionPointer_Function_Deref
+instance FromFunPtr FunctionPointer_Function_Deref
+    where fromFunPtr = fromFunctionPointer_Function_Deref
 {-| __C declaration:__ @FunctionPointer_Function@
 
     __defined at:__ @typedefs.h:8:16@
@@ -98,6 +114,14 @@ newtype NonFunctionPointer_Function
 
            __exported by:__ @typedefs.h@
       -}
+foreign import ccall safe "wrapper" toNonFunctionPointer_Function :: NonFunctionPointer_Function ->
+                                                                     IO (FunPtr NonFunctionPointer_Function)
+foreign import ccall safe "dynamic" fromNonFunctionPointer_Function :: FunPtr NonFunctionPointer_Function ->
+                                                                       NonFunctionPointer_Function
+instance ToFunPtr NonFunctionPointer_Function
+    where toFunPtr = toNonFunctionPointer_Function
+instance FromFunPtr NonFunctionPointer_Function
+    where fromFunPtr = fromNonFunctionPointer_Function
 {-| Auxiliary type used by 'F1'
 
 __defined at:__ @typedefs.h:11:16@
@@ -112,6 +136,14 @@ newtype F1_Deref
 
       __exported by:__ @typedefs.h@
       -}
+foreign import ccall safe "wrapper" toF1_Deref :: F1_Deref ->
+                                                  IO (FunPtr F1_Deref)
+foreign import ccall safe "dynamic" fromF1_Deref :: FunPtr F1_Deref ->
+                                                    F1_Deref
+instance ToFunPtr F1_Deref
+    where toFunPtr = toF1_Deref
+instance FromFunPtr F1_Deref
+    where fromFunPtr = fromF1_Deref
 {-| __C declaration:__ @f1@
 
     __defined at:__ @typedefs.h:11:16@
@@ -142,6 +174,12 @@ newtype G1
 
            __exported by:__ @typedefs.h@
       -}
+foreign import ccall safe "wrapper" toG1 :: G1 -> IO (FunPtr G1)
+foreign import ccall safe "dynamic" fromG1 :: FunPtr G1 -> G1
+instance ToFunPtr G1
+    where toFunPtr = toG1
+instance FromFunPtr G1
+    where fromFunPtr = fromG1
 {-| __C declaration:__ @g2@
 
     __defined at:__ @typedefs.h:14:14@
@@ -172,6 +210,12 @@ newtype H1
 
            __exported by:__ @typedefs.h@
       -}
+foreign import ccall safe "wrapper" toH1 :: H1 -> IO (FunPtr H1)
+foreign import ccall safe "dynamic" fromH1 :: FunPtr H1 -> H1
+instance ToFunPtr H1
+    where toFunPtr = toH1
+instance FromFunPtr H1
+    where fromFunPtr = fromH1
 {-| __C declaration:__ @h2@
 
     __defined at:__ @typedefs.h:17:12@

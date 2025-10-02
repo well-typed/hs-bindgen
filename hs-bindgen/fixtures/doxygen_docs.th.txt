@@ -247,6 +247,14 @@ newtype Event_callback_t_Deref
 
       __exported by:__ @doxygen_docs.h@
       -}
+foreign import ccall safe "wrapper" toEvent_callback_t_Deref :: Event_callback_t_Deref ->
+                                                                IO (FunPtr Event_callback_t_Deref)
+foreign import ccall safe "dynamic" fromEvent_callback_t_Deref :: FunPtr Event_callback_t_Deref ->
+                                                                  Event_callback_t_Deref
+instance ToFunPtr Event_callback_t_Deref
+    where toFunPtr = toEvent_callback_t_Deref
+instance FromFunPtr Event_callback_t_Deref
+    where fromFunPtr = fromEvent_callback_t_Deref
 {-|
 
   Callback function type
@@ -854,6 +862,14 @@ newtype Processor_fn_t_Deref
 
       __exported by:__ @doxygen_docs.h@
       -}
+foreign import ccall safe "wrapper" toProcessor_fn_t_Deref :: Processor_fn_t_Deref ->
+                                                              IO (FunPtr Processor_fn_t_Deref)
+foreign import ccall safe "dynamic" fromProcessor_fn_t_Deref :: FunPtr Processor_fn_t_Deref ->
+                                                                Processor_fn_t_Deref
+instance ToFunPtr Processor_fn_t_Deref
+    where toFunPtr = toProcessor_fn_t_Deref
+instance FromFunPtr Processor_fn_t_Deref
+    where fromFunPtr = fromProcessor_fn_t_Deref
 {-|
 
   > processor_fn_t

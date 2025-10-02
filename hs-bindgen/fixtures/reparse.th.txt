@@ -585,6 +585,14 @@ newtype Funptr_typedef1_Deref
 
       __exported by:__ @reparse.h@
       -}
+foreign import ccall safe "wrapper" toFunptr_typedef1_Deref :: Funptr_typedef1_Deref ->
+                                                               IO (FunPtr Funptr_typedef1_Deref)
+foreign import ccall safe "dynamic" fromFunptr_typedef1_Deref :: FunPtr Funptr_typedef1_Deref ->
+                                                                 Funptr_typedef1_Deref
+instance ToFunPtr Funptr_typedef1_Deref
+    where toFunPtr = toFunptr_typedef1_Deref
+instance FromFunPtr Funptr_typedef1_Deref
+    where fromFunPtr = fromFunptr_typedef1_Deref
 {-| __C declaration:__ @funptr_typedef1@
 
     __defined at:__ @reparse.h:132:16@
@@ -615,6 +623,14 @@ newtype Funptr_typedef2_Deref
 
       __exported by:__ @reparse.h@
       -}
+foreign import ccall safe "wrapper" toFunptr_typedef2_Deref :: Funptr_typedef2_Deref ->
+                                                               IO (FunPtr Funptr_typedef2_Deref)
+foreign import ccall safe "dynamic" fromFunptr_typedef2_Deref :: FunPtr Funptr_typedef2_Deref ->
+                                                                 Funptr_typedef2_Deref
+instance ToFunPtr Funptr_typedef2_Deref
+    where toFunPtr = toFunptr_typedef2_Deref
+instance FromFunPtr Funptr_typedef2_Deref
+    where fromFunPtr = fromFunptr_typedef2_Deref
 {-| __C declaration:__ @funptr_typedef2@
 
     __defined at:__ @reparse.h:133:16@
@@ -645,6 +661,14 @@ newtype Funptr_typedef3_Deref
 
       __exported by:__ @reparse.h@
       -}
+foreign import ccall safe "wrapper" toFunptr_typedef3_Deref :: Funptr_typedef3_Deref ->
+                                                               IO (FunPtr Funptr_typedef3_Deref)
+foreign import ccall safe "dynamic" fromFunptr_typedef3_Deref :: FunPtr Funptr_typedef3_Deref ->
+                                                                 Funptr_typedef3_Deref
+instance ToFunPtr Funptr_typedef3_Deref
+    where toFunPtr = toFunptr_typedef3_Deref
+instance FromFunPtr Funptr_typedef3_Deref
+    where fromFunPtr = fromFunptr_typedef3_Deref
 {-| __C declaration:__ @funptr_typedef3@
 
     __defined at:__ @reparse.h:134:16@
@@ -676,6 +700,14 @@ newtype Funptr_typedef4_Deref
 
       __exported by:__ @reparse.h@
       -}
+foreign import ccall safe "wrapper" toFunptr_typedef4_Deref :: Funptr_typedef4_Deref ->
+                                                               IO (FunPtr Funptr_typedef4_Deref)
+foreign import ccall safe "dynamic" fromFunptr_typedef4_Deref :: FunPtr Funptr_typedef4_Deref ->
+                                                                 Funptr_typedef4_Deref
+instance ToFunPtr Funptr_typedef4_Deref
+    where toFunPtr = toFunptr_typedef4_Deref
+instance FromFunPtr Funptr_typedef4_Deref
+    where fromFunPtr = fromFunptr_typedef4_Deref
 {-| __C declaration:__ @funptr_typedef4@
 
     __defined at:__ @reparse.h:135:16@
@@ -707,6 +739,14 @@ newtype Funptr_typedef5_Deref
 
       __exported by:__ @reparse.h@
       -}
+foreign import ccall safe "wrapper" toFunptr_typedef5_Deref :: Funptr_typedef5_Deref ->
+                                                               IO (FunPtr Funptr_typedef5_Deref)
+foreign import ccall safe "dynamic" fromFunptr_typedef5_Deref :: FunPtr Funptr_typedef5_Deref ->
+                                                                 Funptr_typedef5_Deref
+instance ToFunPtr Funptr_typedef5_Deref
+    where toFunPtr = toFunptr_typedef5_Deref
+instance FromFunPtr Funptr_typedef5_Deref
+    where fromFunPtr = fromFunptr_typedef5_Deref
 {-| __C declaration:__ @funptr_typedef5@
 
     __defined at:__ @reparse.h:136:16@
@@ -1012,6 +1052,14 @@ newtype Const_funptr1_Deref
 
       __exported by:__ @reparse.h@
       -}
+foreign import ccall safe "wrapper" toConst_funptr1_Deref :: Const_funptr1_Deref ->
+                                                             IO (FunPtr Const_funptr1_Deref)
+foreign import ccall safe "dynamic" fromConst_funptr1_Deref :: FunPtr Const_funptr1_Deref ->
+                                                               Const_funptr1_Deref
+instance ToFunPtr Const_funptr1_Deref
+    where toFunPtr = toConst_funptr1_Deref
+instance FromFunPtr Const_funptr1_Deref
+    where fromFunPtr = fromConst_funptr1_Deref
 {-| __C declaration:__ @const_funptr1@
 
     __defined at:__ @reparse.h:238:27@
@@ -1043,6 +1091,14 @@ newtype Const_funptr2_Deref
 
       __exported by:__ @reparse.h@
       -}
+foreign import ccall safe "wrapper" toConst_funptr2_Deref :: Const_funptr2_Deref ->
+                                                             IO (FunPtr Const_funptr2_Deref)
+foreign import ccall safe "dynamic" fromConst_funptr2_Deref :: FunPtr Const_funptr2_Deref ->
+                                                               Const_funptr2_Deref
+instance ToFunPtr Const_funptr2_Deref
+    where toFunPtr = toConst_funptr2_Deref
+instance FromFunPtr Const_funptr2_Deref
+    where fromFunPtr = fromConst_funptr2_Deref
 {-| __C declaration:__ @const_funptr2@
 
     __defined at:__ @reparse.h:239:27@
@@ -1074,6 +1130,14 @@ newtype Const_funptr3_Deref
 
       __exported by:__ @reparse.h@
       -}
+foreign import ccall safe "wrapper" toConst_funptr3_Deref :: Const_funptr3_Deref ->
+                                                             IO (FunPtr Const_funptr3_Deref)
+foreign import ccall safe "dynamic" fromConst_funptr3_Deref :: FunPtr Const_funptr3_Deref ->
+                                                               Const_funptr3_Deref
+instance ToFunPtr Const_funptr3_Deref
+    where toFunPtr = toConst_funptr3_Deref
+instance FromFunPtr Const_funptr3_Deref
+    where fromFunPtr = fromConst_funptr3_Deref
 {-| __C declaration:__ @const_funptr3@
 
     __defined at:__ @reparse.h:240:27@
@@ -1105,6 +1169,14 @@ newtype Const_funptr4_Deref
 
       __exported by:__ @reparse.h@
       -}
+foreign import ccall safe "wrapper" toConst_funptr4_Deref :: Const_funptr4_Deref ->
+                                                             IO (FunPtr Const_funptr4_Deref)
+foreign import ccall safe "dynamic" fromConst_funptr4_Deref :: FunPtr Const_funptr4_Deref ->
+                                                               Const_funptr4_Deref
+instance ToFunPtr Const_funptr4_Deref
+    where toFunPtr = toConst_funptr4_Deref
+instance FromFunPtr Const_funptr4_Deref
+    where fromFunPtr = fromConst_funptr4_Deref
 {-| __C declaration:__ @const_funptr4@
 
     __defined at:__ @reparse.h:241:27@
@@ -1136,6 +1208,14 @@ newtype Const_funptr5_Deref
 
       __exported by:__ @reparse.h@
       -}
+foreign import ccall safe "wrapper" toConst_funptr5_Deref :: Const_funptr5_Deref ->
+                                                             IO (FunPtr Const_funptr5_Deref)
+foreign import ccall safe "dynamic" fromConst_funptr5_Deref :: FunPtr Const_funptr5_Deref ->
+                                                               Const_funptr5_Deref
+instance ToFunPtr Const_funptr5_Deref
+    where toFunPtr = toConst_funptr5_Deref
+instance FromFunPtr Const_funptr5_Deref
+    where fromFunPtr = fromConst_funptr5_Deref
 {-| __C declaration:__ @const_funptr5@
 
     __defined at:__ @reparse.h:242:27@
@@ -1167,6 +1247,14 @@ newtype Const_funptr6_Deref
 
       __exported by:__ @reparse.h@
       -}
+foreign import ccall safe "wrapper" toConst_funptr6_Deref :: Const_funptr6_Deref ->
+                                                             IO (FunPtr Const_funptr6_Deref)
+foreign import ccall safe "dynamic" fromConst_funptr6_Deref :: FunPtr Const_funptr6_Deref ->
+                                                               Const_funptr6_Deref
+instance ToFunPtr Const_funptr6_Deref
+    where toFunPtr = toConst_funptr6_Deref
+instance FromFunPtr Const_funptr6_Deref
+    where fromFunPtr = fromConst_funptr6_Deref
 {-| __C declaration:__ @const_funptr6@
 
     __defined at:__ @reparse.h:243:27@
@@ -1198,6 +1286,14 @@ newtype Const_funptr7_Deref
 
       __exported by:__ @reparse.h@
       -}
+foreign import ccall safe "wrapper" toConst_funptr7_Deref :: Const_funptr7_Deref ->
+                                                             IO (FunPtr Const_funptr7_Deref)
+foreign import ccall safe "dynamic" fromConst_funptr7_Deref :: FunPtr Const_funptr7_Deref ->
+                                                               Const_funptr7_Deref
+instance ToFunPtr Const_funptr7_Deref
+    where toFunPtr = toConst_funptr7_Deref
+instance FromFunPtr Const_funptr7_Deref
+    where fromFunPtr = fromConst_funptr7_Deref
 {-| __C declaration:__ @const_funptr7@
 
     __defined at:__ @reparse.h:244:27@

@@ -472,6 +472,14 @@ newtype Callback_t_Deref
 
       __exported by:__ @distilled_lib_1.h@
       -}
+foreign import ccall safe "wrapper" toCallback_t_Deref :: Callback_t_Deref ->
+                                                          IO (FunPtr Callback_t_Deref)
+foreign import ccall safe "dynamic" fromCallback_t_Deref :: FunPtr Callback_t_Deref ->
+                                                            Callback_t_Deref
+instance ToFunPtr Callback_t_Deref
+    where toFunPtr = toCallback_t_Deref
+instance FromFunPtr Callback_t_Deref
+    where fromFunPtr = fromCallback_t_Deref
 {-| __C declaration:__ @callback_t@
 
     __defined at:__ @distilled_lib_1.h:77:19@
