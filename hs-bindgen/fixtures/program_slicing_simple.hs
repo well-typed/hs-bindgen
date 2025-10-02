@@ -463,7 +463,11 @@
                   NamePair {
                     nameC = Name "uint32_t",
                     nameHsIdent = Identifier
-                      "Uint32_t"}),
+                      "Uint32_t"}
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Unsigned))),
               structFieldOffset = 64,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -626,7 +630,11 @@
                       NamePair {
                         nameC = Name "uint32_t",
                         nameHsIdent = Identifier
-                          "Uint32_t"}),
+                          "Uint32_t"}
+                      (TypePrim
+                        (PrimIntegral
+                          PrimInt
+                          Unsigned))),
                   structFieldOffset = 64,
                   structFieldWidth = Nothing}],
               structFlam = Nothing},
@@ -905,7 +913,11 @@
                       NamePair {
                         nameC = Name "uint32_t",
                         nameHsIdent = Identifier
-                          "Uint32_t"}),
+                          "Uint32_t"}
+                      (TypePrim
+                        (PrimIntegral
+                          PrimInt
+                          Unsigned))),
                   structFieldOffset = 64,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -1068,7 +1080,11 @@
                           NamePair {
                             nameC = Name "uint32_t",
                             nameHsIdent = Identifier
-                              "Uint32_t"}),
+                              "Uint32_t"}
+                          (TypePrim
+                            (PrimIntegral
+                              PrimInt
+                              Unsigned))),
                       structFieldOffset = 64,
                       structFieldWidth = Nothing}],
                   structFlam = Nothing},
@@ -1350,7 +1366,11 @@
                               NamePair {
                                 nameC = Name "uint32_t",
                                 nameHsIdent = Identifier
-                                  "Uint32_t"}),
+                                  "Uint32_t"}
+                              (TypePrim
+                                (PrimIntegral
+                                  PrimInt
+                                  Unsigned))),
                           structFieldOffset = 64,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -1513,7 +1533,11 @@
                                   NamePair {
                                     nameC = Name "uint32_t",
                                     nameHsIdent = Identifier
-                                      "Uint32_t"}),
+                                      "Uint32_t"}
+                                  (TypePrim
+                                    (PrimIntegral
+                                      PrimInt
+                                      Unsigned))),
                               structFieldOffset = 64,
                               structFieldWidth = Nothing}],
                           structFlam = Nothing},
@@ -1797,7 +1821,11 @@
                               NamePair {
                                 nameC = Name "uint32_t",
                                 nameHsIdent = Identifier
-                                  "Uint32_t"}),
+                                  "Uint32_t"}
+                              (TypePrim
+                                (PrimIntegral
+                                  PrimInt
+                                  Unsigned))),
                           structFieldOffset = 64,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -1960,7 +1988,11 @@
                                   NamePair {
                                     nameC = Name "uint32_t",
                                     nameHsIdent = Identifier
-                                      "Uint32_t"}),
+                                      "Uint32_t"}
+                                  (TypePrim
+                                    (PrimIntegral
+                                      PrimInt
+                                      Unsigned))),
                               structFieldOffset = 64,
                               structFieldWidth = Nothing}],
                           structFlam = Nothing},

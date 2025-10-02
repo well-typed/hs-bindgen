@@ -671,7 +671,11 @@
                   NamePair {
                     nameC = Name "int16_T",
                     nameHsIdent = Identifier
-                      "Int16_T"}),
+                      "Int16_T"}
+                  (TypePrim
+                    (PrimIntegral
+                      PrimShort
+                      Signed))),
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -710,7 +714,11 @@
                   NamePair {
                     nameC = Name "int16_T",
                     nameHsIdent = Identifier
-                      "Int16_T"}),
+                      "Int16_T"}
+                  (TypePrim
+                    (PrimIntegral
+                      PrimShort
+                      Signed))),
               structFieldOffset = 16,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -766,7 +774,11 @@
                       NamePair {
                         nameC = Name "int16_T",
                         nameHsIdent = Identifier
-                          "Int16_T"}),
+                          "Int16_T"}
+                      (TypePrim
+                        (PrimIntegral
+                          PrimShort
+                          Signed))),
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
                 StructField {
@@ -783,7 +795,11 @@
                       NamePair {
                         nameC = Name "int16_T",
                         nameHsIdent = Identifier
-                          "Int16_T"}),
+                          "Int16_T"}
+                      (TypePrim
+                        (PrimIntegral
+                          PrimShort
+                          Signed))),
                   structFieldOffset = 16,
                   structFieldWidth = Nothing}],
               structFlam = Nothing},
@@ -843,7 +859,11 @@
                       NamePair {
                         nameC = Name "int16_T",
                         nameHsIdent = Identifier
-                          "Int16_T"}),
+                          "Int16_T"}
+                      (TypePrim
+                        (PrimIntegral
+                          PrimShort
+                          Signed))),
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -882,7 +902,11 @@
                       NamePair {
                         nameC = Name "int16_T",
                         nameHsIdent = Identifier
-                          "Int16_T"}),
+                          "Int16_T"}
+                      (TypePrim
+                        (PrimIntegral
+                          PrimShort
+                          Signed))),
                   structFieldOffset = 16,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -938,7 +962,11 @@
                           NamePair {
                             nameC = Name "int16_T",
                             nameHsIdent = Identifier
-                              "Int16_T"}),
+                              "Int16_T"}
+                          (TypePrim
+                            (PrimIntegral
+                              PrimShort
+                              Signed))),
                       structFieldOffset = 0,
                       structFieldWidth = Nothing},
                     StructField {
@@ -955,7 +983,11 @@
                           NamePair {
                             nameC = Name "int16_T",
                             nameHsIdent = Identifier
-                              "Int16_T"}),
+                              "Int16_T"}
+                          (TypePrim
+                            (PrimIntegral
+                              PrimShort
+                              Signed))),
                       structFieldOffset = 16,
                       structFieldWidth = Nothing}],
                   structFlam = Nothing},
@@ -1018,7 +1050,11 @@
                               NamePair {
                                 nameC = Name "int16_T",
                                 nameHsIdent = Identifier
-                                  "Int16_T"}),
+                                  "Int16_T"}
+                              (TypePrim
+                                (PrimIntegral
+                                  PrimShort
+                                  Signed))),
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -1057,7 +1093,11 @@
                               NamePair {
                                 nameC = Name "int16_T",
                                 nameHsIdent = Identifier
-                                  "Int16_T"}),
+                                  "Int16_T"}
+                              (TypePrim
+                                (PrimIntegral
+                                  PrimShort
+                                  Signed))),
                           structFieldOffset = 16,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -1113,7 +1153,11 @@
                                   NamePair {
                                     nameC = Name "int16_T",
                                     nameHsIdent = Identifier
-                                      "Int16_T"}),
+                                      "Int16_T"}
+                                  (TypePrim
+                                    (PrimIntegral
+                                      PrimShort
+                                      Signed))),
                               structFieldOffset = 0,
                               structFieldWidth = Nothing},
                             StructField {
@@ -1130,7 +1174,11 @@
                                   NamePair {
                                     nameC = Name "int16_T",
                                     nameHsIdent = Identifier
-                                      "Int16_T"}),
+                                      "Int16_T"}
+                                  (TypePrim
+                                    (PrimIntegral
+                                      PrimShort
+                                      Signed))),
                               structFieldOffset = 16,
                               structFieldWidth = Nothing}],
                           structFlam = Nothing},
@@ -1195,7 +1243,11 @@
                               NamePair {
                                 nameC = Name "int16_T",
                                 nameHsIdent = Identifier
-                                  "Int16_T"}),
+                                  "Int16_T"}
+                              (TypePrim
+                                (PrimIntegral
+                                  PrimShort
+                                  Signed))),
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -1234,7 +1286,11 @@
                               NamePair {
                                 nameC = Name "int16_T",
                                 nameHsIdent = Identifier
-                                  "Int16_T"}),
+                                  "Int16_T"}
+                              (TypePrim
+                                (PrimIntegral
+                                  PrimShort
+                                  Signed))),
                           structFieldOffset = 16,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -1290,7 +1346,11 @@
                                   NamePair {
                                     nameC = Name "int16_T",
                                     nameHsIdent = Identifier
-                                      "Int16_T"}),
+                                      "Int16_T"}
+                                  (TypePrim
+                                    (PrimIntegral
+                                      PrimShort
+                                      Signed))),
                               structFieldOffset = 0,
                               structFieldWidth = Nothing},
                             StructField {
@@ -1307,7 +1367,11 @@
                                   NamePair {
                                     nameC = Name "int16_T",
                                     nameHsIdent = Identifier
-                                      "Int16_T"}),
+                                      "Int16_T"}
+                                  (TypePrim
+                                    (PrimIntegral
+                                      PrimShort
+                                      Signed))),
                               structFieldOffset = 16,
                               structFieldWidth = Nothing}],
                           structFlam = Nothing},
@@ -3047,7 +3111,11 @@
                     NamePair {
                       nameC = Name "int32_T",
                       nameHsIdent = Identifier
-                        "Int32_T"}))),
+                        "Int32_T"}
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed))))),
             _×_
               (Just
                 NamePair {
@@ -3078,7 +3146,11 @@
                   NamePair {
                     nameC = Name "int64_T",
                     nameHsIdent = Identifier
-                      "Int64_T"})),
+                      "Int64_T"}
+                  (TypePrim
+                    (PrimIntegral
+                      PrimLongLong
+                      Signed)))),
             _×_
               (Just
                 NamePair {
@@ -3090,7 +3162,11 @@
                   NamePair {
                     nameC = Name "int64_T",
                     nameHsIdent = Identifier
-                      "Int64_T"})),
+                      "Int64_T"}
+                  (TypePrim
+                    (PrimIntegral
+                      PrimLongLong
+                      Signed)))),
             _×_
               (Just
                 NamePair {
@@ -3250,7 +3326,11 @@
                     NamePair {
                       nameC = Name "int32_T",
                       nameHsIdent = Identifier
-                        "Int32_T"}))),
+                        "Int32_T"}
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed))))),
             _×_
               (Just
                 NamePair {
@@ -3281,7 +3361,11 @@
                   NamePair {
                     nameC = Name "int64_T",
                     nameHsIdent = Identifier
-                      "Int64_T"})),
+                      "Int64_T"}
+                  (TypePrim
+                    (PrimIntegral
+                      PrimLongLong
+                      Signed)))),
             _×_
               (Just
                 NamePair {
@@ -3293,7 +3377,11 @@
                   NamePair {
                     nameC = Name "int64_T",
                     nameHsIdent = Identifier
-                      "Int64_T"})),
+                      "Int64_T"}
+                  (TypePrim
+                    (PrimIntegral
+                      PrimLongLong
+                      Signed)))),
             _×_
               (Just
                 NamePair {
@@ -3393,7 +3481,11 @@
                   NamePair {
                     nameC = Name "int32_T",
                     nameHsIdent = Identifier
-                      "Int32_T"})),
+                      "Int32_T"}
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed)))),
             TypeConstArray
               30720000
               (TypeTypedef
@@ -3412,13 +3504,21 @@
                 NamePair {
                   nameC = Name "int64_T",
                   nameHsIdent = Identifier
-                    "Int64_T"}),
+                    "Int64_T"}
+                (TypePrim
+                  (PrimIntegral
+                    PrimLongLong
+                    Signed))),
             TypeTypedef
               (TypedefRegular
                 NamePair {
                   nameC = Name "int64_T",
                   nameHsIdent = Identifier
-                    "Int64_T"}),
+                    "Int64_T"}
+                (TypePrim
+                  (PrimIntegral
+                    PrimLongLong
+                    Signed))),
             TypeConstArray
               30720000
               (TypeTypedef

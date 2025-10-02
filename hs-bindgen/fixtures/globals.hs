@@ -10987,7 +10987,13 @@
             NamePair {
               nameC = Name "ConstInt",
               nameHsIdent = Identifier
-                "ConstInt"})),
+                "ConstInt"}
+            (TypeQualified
+              TypeQualifierConst
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed))))),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -11122,7 +11128,14 @@
             NamePair {
               nameC = Name "ConstIntArray",
               nameHsIdent = Identifier
-                "ConstIntArray"})),
+                "ConstIntArray"}
+            (TypeIncompleteArray
+              (TypeQualified
+                TypeQualifierConst
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))))),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,

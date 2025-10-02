@@ -254,7 +254,11 @@
               NamePair {
                 nameC = Name "Toggle",
                 nameHsIdent = Identifier
-                  "Toggle"})},
+                  "Toggle"}
+              (TypeBlock
+                (TypeFun
+                  []
+                  (TypePrim PrimBool))))},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -313,7 +317,11 @@
                   NamePair {
                     nameC = Name "Toggle",
                     nameHsIdent = Identifier
-                      "Toggle"}))],
+                      "Toggle"}
+                  (TypeBlock
+                    (TypeFun
+                      []
+                      (TypePrim PrimBool)))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -377,7 +385,11 @@
                   NamePair {
                     nameC = Name "Toggle",
                     nameHsIdent = Identifier
-                      "Toggle"}))],
+                      "Toggle"}
+                  (TypeBlock
+                    (TypeFun
+                      []
+                      (TypePrim PrimBool)))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -470,7 +482,14 @@
               NamePair {
                 nameC = Name "Counter",
                 nameHsIdent = Identifier
-                  "Counter"})},
+                  "Counter"}
+              (TypeBlock
+                (TypeFun
+                  []
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed)))))},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -531,7 +550,14 @@
                   NamePair {
                     nameC = Name "Counter",
                     nameHsIdent = Identifier
-                      "Counter"}))],
+                      "Counter"}
+                  (TypeBlock
+                    (TypeFun
+                      []
+                      (TypePrim
+                        (PrimIntegral
+                          PrimInt
+                          Signed))))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -597,7 +623,14 @@
                   NamePair {
                     nameC = Name "Counter",
                     nameHsIdent = Identifier
-                      "Counter"}))],
+                      "Counter"}
+                  (TypeBlock
+                    (TypeFun
+                      []
+                      (TypePrim
+                        (PrimIntegral
+                          PrimInt
+                          Signed))))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -669,7 +702,16 @@
               NamePair {
                 nameC = Name "VarCounter",
                 nameHsIdent = Identifier
-                  "VarCounter"})},
+                  "VarCounter"}
+              (TypeBlock
+                (TypeFun
+                  [
+                    TypePrim
+                      (PrimIntegral PrimInt Signed)]
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed)))))},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -743,7 +785,16 @@
                   NamePair {
                     nameC = Name "VarCounter",
                     nameHsIdent = Identifier
-                      "VarCounter"})),
+                      "VarCounter"}
+                  (TypeBlock
+                    (TypeFun
+                      [
+                        TypePrim
+                          (PrimIntegral PrimInt Signed)]
+                      (TypePrim
+                        (PrimIntegral
+                          PrimInt
+                          Signed)))))),
             _×_
               (Just
                 NamePair {
@@ -817,7 +868,16 @@
                   NamePair {
                     nameC = Name "VarCounter",
                     nameHsIdent = Identifier
-                      "VarCounter"}))],
+                      "VarCounter"}
+                  (TypeBlock
+                    (TypeFun
+                      [
+                        TypePrim
+                          (PrimIntegral PrimInt Signed)]
+                      (TypePrim
+                        (PrimIntegral
+                          PrimInt
+                          Signed))))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -888,7 +948,11 @@
               NamePair {
                 nameC = Name "Toggle",
                 nameHsIdent = Identifier
-                  "Toggle"})},
+                  "Toggle"}
+              (TypeBlock
+                (TypeFun
+                  []
+                  (TypePrim PrimBool))))},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -947,7 +1011,11 @@
                   NamePair {
                     nameC = Name "Toggle",
                     nameHsIdent = Identifier
-                      "Toggle"}))],
+                      "Toggle"}
+                  (TypeBlock
+                    (TypeFun
+                      []
+                      (TypePrim PrimBool)))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1011,7 +1079,11 @@
                   NamePair {
                     nameC = Name "Toggle",
                     nameHsIdent = Identifier
-                      "Toggle"}))],
+                      "Toggle"}
+                  (TypeBlock
+                    (TypeFun
+                      []
+                      (TypePrim PrimBool)))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1104,7 +1176,14 @@
               NamePair {
                 nameC = Name "Counter",
                 nameHsIdent = Identifier
-                  "Counter"})},
+                  "Counter"}
+              (TypeBlock
+                (TypeFun
+                  []
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed)))))},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -1165,7 +1244,14 @@
                   NamePair {
                     nameC = Name "Counter",
                     nameHsIdent = Identifier
-                      "Counter"}))],
+                      "Counter"}
+                  (TypeBlock
+                    (TypeFun
+                      []
+                      (TypePrim
+                        (PrimIntegral
+                          PrimInt
+                          Signed))))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1231,7 +1317,14 @@
                   NamePair {
                     nameC = Name "Counter",
                     nameHsIdent = Identifier
-                      "Counter"}))],
+                      "Counter"}
+                  (TypeBlock
+                    (TypeFun
+                      []
+                      (TypePrim
+                        (PrimIntegral
+                          PrimInt
+                          Signed))))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1303,7 +1396,16 @@
               NamePair {
                 nameC = Name "VarCounter",
                 nameHsIdent = Identifier
-                  "VarCounter"})},
+                  "VarCounter"}
+              (TypeBlock
+                (TypeFun
+                  [
+                    TypePrim
+                      (PrimIntegral PrimInt Signed)]
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed)))))},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
@@ -1377,7 +1479,16 @@
                   NamePair {
                     nameC = Name "VarCounter",
                     nameHsIdent = Identifier
-                      "VarCounter"})),
+                      "VarCounter"}
+                  (TypeBlock
+                    (TypeFun
+                      [
+                        TypePrim
+                          (PrimIntegral PrimInt Signed)]
+                      (TypePrim
+                        (PrimIntegral
+                          PrimInt
+                          Signed)))))),
             _×_
               (Just
                 NamePair {
@@ -1451,7 +1562,16 @@
                   NamePair {
                     nameC = Name "VarCounter",
                     nameHsIdent = Identifier
-                      "VarCounter"}))],
+                      "VarCounter"}
+                  (TypeBlock
+                    (TypeFun
+                      [
+                        TypePrim
+                          (PrimIntegral PrimInt Signed)]
+                      (TypePrim
+                        (PrimIntegral
+                          PrimInt
+                          Signed))))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1504,7 +1624,11 @@
               NamePair {
                 nameC = Name "Toggle",
                 nameHsIdent = Identifier
-                  "Toggle"}))),
+                  "Toggle"}
+              (TypeBlock
+                (TypeFun
+                  []
+                  (TypePrim PrimBool)))))),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1541,7 +1665,11 @@
                 NamePair {
                   nameC = Name "Toggle",
                   nameHsIdent = Identifier
-                    "Toggle"})]
+                    "Toggle"}
+                (TypeBlock
+                  (TypeFun
+                    []
+                    (TypePrim PrimBool))))]
           (TypePrim PrimBool)),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
@@ -1579,7 +1707,11 @@
                 NamePair {
                   nameC = Name "Toggle",
                   nameHsIdent = Identifier
-                    "Toggle"})]
+                    "Toggle"}
+                (TypeBlock
+                  (TypeFun
+                    []
+                    (TypePrim PrimBool))))]
           TypeVoid),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
@@ -1625,7 +1757,14 @@
               NamePair {
                 nameC = Name "Counter",
                 nameHsIdent = Identifier
-                  "Counter"}))),
+                  "Counter"}
+              (TypeBlock
+                (TypeFun
+                  []
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))))),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1664,7 +1803,14 @@
                 NamePair {
                   nameC = Name "Counter",
                   nameHsIdent = Identifier
-                    "Counter"})]
+                    "Counter"}
+                (TypeBlock
+                  (TypeFun
+                    []
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed)))))]
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       foreignImportComment = Nothing,
@@ -1705,7 +1851,14 @@
                 NamePair {
                   nameC = Name "Counter",
                   nameHsIdent = Identifier
-                    "Counter"})]
+                    "Counter"}
+                (TypeBlock
+                  (TypeFun
+                    []
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed)))))]
           TypeVoid),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
@@ -1747,7 +1900,16 @@
               NamePair {
                 nameC = Name "VarCounter",
                 nameHsIdent = Identifier
-                  "VarCounter"}))),
+                  "VarCounter"}
+              (TypeBlock
+                (TypeFun
+                  [
+                    TypePrim
+                      (PrimIntegral PrimInt Signed)]
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))))),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,
@@ -1788,7 +1950,16 @@
                 NamePair {
                   nameC = Name "VarCounter",
                   nameHsIdent = Identifier
-                    "VarCounter"}),
+                    "VarCounter"}
+                (TypeBlock
+                  (TypeFun
+                    [
+                      TypePrim
+                        (PrimIntegral PrimInt Signed)]
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed))))),
             TypePrim
               (PrimIntegral PrimInt Signed)]
           (TypePrim
@@ -1831,7 +2002,16 @@
                 NamePair {
                   nameC = Name "VarCounter",
                   nameHsIdent = Identifier
-                    "VarCounter"})]
+                    "VarCounter"}
+                (TypeBlock
+                  (TypeFun
+                    [
+                      TypePrim
+                        (PrimIntegral PrimInt Signed)]
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed)))))]
           TypeVoid),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},

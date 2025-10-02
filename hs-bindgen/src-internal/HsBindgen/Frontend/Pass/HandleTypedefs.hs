@@ -12,6 +12,7 @@ import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass
+import HsBindgen.Frontend.Pass.Parse.IsPass (TypedefRefRegular (..))
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Imports
 
@@ -75,7 +76,7 @@ handleDecl td decl =
                 , C.declKind = C.DeclTypedef $ C.Typedef {
                     typedefType = C.TypePointer
                                 . C.TypeTypedef
-                                . TypedefRegular
+                                . flip TypedefRegular (handleUseSites td $ C.TypeFun args res)
                                 . C.declId
                                 $ C.declInfo derefDecl
                   , typedefAnn  = NoAnn
@@ -258,8 +259,8 @@ instance HandleUseSites C.Type where
           Just (newName, newOrigin) -> mkType $ C.DeclId newName newOrigin
           Nothing                   -> mkType uid
 
-      squash :: C.Name -> C.Type HandleTypedefs
-      squash name = C.TypeTypedef $
+      squash :: TypedefRef Select -> C.Type HandleTypedefs
+      squash (TypedefRefRegular name uTy) = C.TypeTypedef $
           case Map.lookup name (TypedefAnalysis.squash td) of
-            Nothing -> TypedefRegular $ C.DeclId name C.NameOriginInSource
+            Nothing -> TypedefRegular (C.DeclId name C.NameOriginInSource) (go uTy)
             Just ty -> TypedefSquashed name ty

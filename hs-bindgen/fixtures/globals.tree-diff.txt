@@ -1746,7 +1746,13 @@ TranslationUnit {
             NamePair {
               nameC = Name "ConstInt",
               nameHsIdent = Identifier
-                "ConstInt"})),
+                "ConstInt"}
+            (TypeQualified
+              TypeQualifierConst
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed))))),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -1924,7 +1930,14 @@ TranslationUnit {
             NamePair {
               nameC = Name "ConstIntArray",
               nameHsIdent = Identifier
-                "ConstIntArray"})),
+                "ConstIntArray"}
+            (TypeIncompleteArray
+              (TypeQualified
+                TypeQualifierConst
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))))),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

@@ -289,7 +289,7 @@ instance Finalize Int.Type where
 instance Finalize Int.RenamedTypedefRef where
   type Finalized Int.RenamedTypedefRef = Ext.TypedefRef
 
-  finalize (Int.TypedefRegular (np, _origin)) = Ext.TypedefRegular np
+  finalize (Int.TypedefRegular (np, _origin) uTy) = Ext.TypedefRegular np (finalize uTy)
   finalize (Int.TypedefSquashed nm ty) = Ext.TypedefSquashed nm (finalize ty)
 
 {-------------------------------------------------------------------------------

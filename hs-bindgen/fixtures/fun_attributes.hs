@@ -685,7 +685,11 @@
                   NamePair {
                     nameC = Name "size_t",
                     nameHsIdent = Identifier
-                      "Size_t"})),
+                      "Size_t"}
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed)))),
             _×_
               Nothing
               (TypeTypedef
@@ -693,7 +697,11 @@
                   NamePair {
                     nameC = Name "size_t",
                     nameHsIdent = Identifier
-                      "Size_t"}))],
+                      "Size_t"}
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -756,7 +764,11 @@
                   NamePair {
                     nameC = Name "size_t",
                     nameHsIdent = Identifier
-                      "Size_t"})),
+                      "Size_t"}
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed)))),
             _×_
               Nothing
               (TypeTypedef
@@ -764,7 +776,11 @@
                   NamePair {
                     nameC = Name "size_t",
                     nameHsIdent = Identifier
-                      "Size_t"}))],
+                      "Size_t"}
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -830,7 +846,11 @@
                   NamePair {
                     nameC = Name "size_t",
                     nameHsIdent = Identifier
-                      "Size_t"}))],
+                      "Size_t"}
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -887,7 +907,11 @@
                   NamePair {
                     nameC = Name "size_t",
                     nameHsIdent = Identifier
-                      "Size_t"}))],
+                      "Size_t"}
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -944,7 +968,11 @@
                   NamePair {
                     nameC = Name "size_t",
                     nameHsIdent = Identifier
-                      "Size_t"}))],
+                      "Size_t"}
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1354,7 +1382,11 @@
                   NamePair {
                     nameC = Name "size_t",
                     nameHsIdent = Identifier
-                      "Size_t"}))],
+                      "Size_t"}
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1521,7 +1553,11 @@
                   NamePair {
                     nameC = Name "size_t",
                     nameHsIdent = Identifier
-                      "Size_t"}))],
+                      "Size_t"}
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1981,7 +2017,11 @@
                   NamePair {
                     nameC = Name "size_t",
                     nameHsIdent = Identifier
-                      "Size_t"})),
+                      "Size_t"}
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed)))),
             _×_
               Nothing
               (TypeTypedef
@@ -1989,7 +2029,11 @@
                   NamePair {
                     nameC = Name "size_t",
                     nameHsIdent = Identifier
-                      "Size_t"}))],
+                      "Size_t"}
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -2052,7 +2096,11 @@
                   NamePair {
                     nameC = Name "size_t",
                     nameHsIdent = Identifier
-                      "Size_t"})),
+                      "Size_t"}
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed)))),
             _×_
               Nothing
               (TypeTypedef
@@ -2060,7 +2108,11 @@
                   NamePair {
                     nameC = Name "size_t",
                     nameHsIdent = Identifier
-                      "Size_t"}))],
+                      "Size_t"}
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -2126,7 +2178,11 @@
                   NamePair {
                     nameC = Name "size_t",
                     nameHsIdent = Identifier
-                      "Size_t"}))],
+                      "Size_t"}
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -2183,7 +2239,11 @@
                   NamePair {
                     nameC = Name "size_t",
                     nameHsIdent = Identifier
-                      "Size_t"}))],
+                      "Size_t"}
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -2240,7 +2300,11 @@
                   NamePair {
                     nameC = Name "size_t",
                     nameHsIdent = Identifier
-                      "Size_t"}))],
+                      "Size_t"}
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -2650,7 +2714,11 @@
                   NamePair {
                     nameC = Name "size_t",
                     nameHsIdent = Identifier
-                      "Size_t"}))],
+                      "Size_t"}
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -2817,7 +2885,11 @@
                   NamePair {
                     nameC = Name "size_t",
                     nameHsIdent = Identifier
-                      "Size_t"}))],
+                      "Size_t"}
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -3247,13 +3319,17 @@
                 NamePair {
                   nameC = Name "size_t",
                   nameHsIdent = Identifier
-                    "Size_t"}),
+                    "Size_t"}
+                (TypePrim
+                  (PrimIntegral PrimInt Signed))),
             TypeTypedef
               (TypedefRegular
                 NamePair {
                   nameC = Name "size_t",
                   nameHsIdent = Identifier
-                    "Size_t"})]
+                    "Size_t"}
+                (TypePrim
+                  (PrimIntegral PrimInt Signed)))]
           (TypePointer TypeVoid)),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
@@ -3295,13 +3371,17 @@
                 NamePair {
                   nameC = Name "size_t",
                   nameHsIdent = Identifier
-                    "Size_t"}),
+                    "Size_t"}
+                (TypePrim
+                  (PrimIntegral PrimInt Signed))),
             TypeTypedef
               (TypedefRegular
                 NamePair {
                   nameC = Name "size_t",
                   nameHsIdent = Identifier
-                    "Size_t"})]
+                    "Size_t"}
+                (TypePrim
+                  (PrimIntegral PrimInt Signed)))]
           (TypePointer TypeVoid)),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
@@ -3343,7 +3423,9 @@
                 NamePair {
                   nameC = Name "size_t",
                   nameHsIdent = Identifier
-                    "Size_t"})]
+                    "Size_t"}
+                (TypePrim
+                  (PrimIntegral PrimInt Signed)))]
           (TypePointer TypeVoid)),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
@@ -3382,7 +3464,9 @@
                 NamePair {
                   nameC = Name "size_t",
                   nameHsIdent = Identifier
-                    "Size_t"})]
+                    "Size_t"}
+                (TypePrim
+                  (PrimIntegral PrimInt Signed)))]
           (TypePointer TypeVoid)),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
@@ -3421,7 +3505,9 @@
                 NamePair {
                   nameC = Name "size_t",
                   nameHsIdent = Identifier
-                    "Size_t"})]
+                    "Size_t"}
+                (TypePrim
+                  (PrimIntegral PrimInt Signed)))]
           (TypePointer TypeVoid)),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
@@ -3666,7 +3752,9 @@
                 NamePair {
                   nameC = Name "size_t",
                   nameHsIdent = Identifier
-                    "Size_t"})]
+                    "Size_t"}
+                (TypePrim
+                  (PrimIntegral PrimInt Signed)))]
           (TypePointer TypeVoid)),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
@@ -3769,7 +3857,9 @@
                 NamePair {
                   nameC = Name "size_t",
                   nameHsIdent = Identifier
-                    "Size_t"})]
+                    "Size_t"}
+                (TypePrim
+                  (PrimIntegral PrimInt Signed)))]
           (TypePointer TypeVoid)),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},

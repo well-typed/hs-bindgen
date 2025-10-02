@@ -2,6 +2,8 @@ module HsBindgen.Frontend.Pass.Parse.IsPass (
     Parse
   , ParseDeclMeta(..)
   , emptyParseDeclMeta
+    -- * Typedefs
+  , TypedefRefRegular(..)
     -- * Macros
   , UnparsedMacro(..)
   , ReparseInfo(..)
@@ -57,7 +59,7 @@ instance IsPass Parse where
   type Id           Parse = C.PrelimDeclId
   type FieldName    Parse = C.Name
   type ArgumentName Parse = Maybe C.Name
-  type TypedefRef   Parse = C.Name
+  type TypedefRef   Parse = TypedefRefRegular Parse
   type MacroBody    Parse = UnparsedMacro
   type ExtBinding   Parse = Void
   type Ann ix       Parse = AnnParse ix
@@ -78,6 +80,34 @@ emptyParseDeclMeta = ParseDeclMeta {
       parseDeclNonParsed = NonParsedDecls.empty
     , parseDeclParseMsg  = emptyParseMsgs
     }
+
+{-------------------------------------------------------------------------------
+  Typedefs
+-------------------------------------------------------------------------------}
+
+-- A "regular" typedef reference.
+--
+-- In the example C code below, the type of global variable @x@ is a reference
+-- to the typedef @foo@
+--
+-- > typedef foo int;
+-- > foo x;
+--
+-- In Haskell, the type of @x@ will be the name of the referenced typedef @foo@.
+-- The type of @x@ will /also/ record the underlying type of @foo@. The Haskell
+-- type roughly looks like:
+--
+-- > 'RegularTypedef' "foo" "int"
+--
+-- The underlying type is included so that it can be inspected locally. For
+-- example, in the backend we inspect whether a typedef wraps a function type.
+-- Having the underlying type available there makes it possible to check this.
+data TypedefRefRegular p = TypedefRefRegular
+    -- | Name of the referenced typedef declaration
+    C.Name
+    -- | The underlying type of the referenced typedef declaration
+    (C.Type p)
+  deriving stock (Show, Eq, Generic)
 
 {-------------------------------------------------------------------------------
   Macros

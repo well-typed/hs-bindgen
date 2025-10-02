@@ -968,7 +968,9 @@
                 (TypedefRegular
                   NamePair {
                     nameC = Name "T1",
-                    nameHsIdent = Identifier "T1"}),
+                    nameHsIdent = Identifier "T1"}
+                  (TypePrim
+                    (PrimIntegral PrimInt Signed))),
               structFieldOffset = 0,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -1004,7 +1006,11 @@
                 (TypedefRegular
                   NamePair {
                     nameC = Name "T2",
-                    nameHsIdent = Identifier "T2"}),
+                    nameHsIdent = Identifier "T2"}
+                  (TypePrim
+                    (PrimChar
+                      (PrimSignImplicit
+                        (Just Signed))))),
               structFieldOffset = 32,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -1134,7 +1140,9 @@
                     (TypedefRegular
                       NamePair {
                         nameC = Name "T1",
-                        nameHsIdent = Identifier "T1"}),
+                        nameHsIdent = Identifier "T1"}
+                      (TypePrim
+                        (PrimIntegral PrimInt Signed))),
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
                 StructField {
@@ -1150,7 +1158,11 @@
                     (TypedefRegular
                       NamePair {
                         nameC = Name "T2",
-                        nameHsIdent = Identifier "T2"}),
+                        nameHsIdent = Identifier "T2"}
+                      (TypePrim
+                        (PrimChar
+                          (PrimSignImplicit
+                            (Just Signed))))),
                   structFieldOffset = 32,
                   structFieldWidth = Nothing},
                 StructField {
@@ -1242,7 +1254,9 @@
                     (TypedefRegular
                       NamePair {
                         nameC = Name "T1",
-                        nameHsIdent = Identifier "T1"}),
+                        nameHsIdent = Identifier "T1"}
+                      (TypePrim
+                        (PrimIntegral PrimInt Signed))),
                   structFieldOffset = 0,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -1278,7 +1292,11 @@
                     (TypedefRegular
                       NamePair {
                         nameC = Name "T2",
-                        nameHsIdent = Identifier "T2"}),
+                        nameHsIdent = Identifier "T2"}
+                      (TypePrim
+                        (PrimChar
+                          (PrimSignImplicit
+                            (Just Signed))))),
                   structFieldOffset = 32,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -1408,7 +1426,9 @@
                         (TypedefRegular
                           NamePair {
                             nameC = Name "T1",
-                            nameHsIdent = Identifier "T1"}),
+                            nameHsIdent = Identifier "T1"}
+                          (TypePrim
+                            (PrimIntegral PrimInt Signed))),
                       structFieldOffset = 0,
                       structFieldWidth = Nothing},
                     StructField {
@@ -1424,7 +1444,11 @@
                         (TypedefRegular
                           NamePair {
                             nameC = Name "T2",
-                            nameHsIdent = Identifier "T2"}),
+                            nameHsIdent = Identifier "T2"}
+                          (TypePrim
+                            (PrimChar
+                              (PrimSignImplicit
+                                (Just Signed))))),
                       structFieldOffset = 32,
                       structFieldWidth = Nothing},
                     StructField {
@@ -1519,7 +1543,9 @@
                             (TypedefRegular
                               NamePair {
                                 nameC = Name "T1",
-                                nameHsIdent = Identifier "T1"}),
+                                nameHsIdent = Identifier "T1"}
+                              (TypePrim
+                                (PrimIntegral PrimInt Signed))),
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -1555,7 +1581,11 @@
                             (TypedefRegular
                               NamePair {
                                 nameC = Name "T2",
-                                nameHsIdent = Identifier "T2"}),
+                                nameHsIdent = Identifier "T2"}
+                              (TypePrim
+                                (PrimChar
+                                  (PrimSignImplicit
+                                    (Just Signed))))),
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -1685,7 +1715,9 @@
                                 (TypedefRegular
                                   NamePair {
                                     nameC = Name "T1",
-                                    nameHsIdent = Identifier "T1"}),
+                                    nameHsIdent = Identifier "T1"}
+                                  (TypePrim
+                                    (PrimIntegral PrimInt Signed))),
                               structFieldOffset = 0,
                               structFieldWidth = Nothing},
                             StructField {
@@ -1701,7 +1733,11 @@
                                 (TypedefRegular
                                   NamePair {
                                     nameC = Name "T2",
-                                    nameHsIdent = Identifier "T2"}),
+                                    nameHsIdent = Identifier "T2"}
+                                  (TypePrim
+                                    (PrimChar
+                                      (PrimSignImplicit
+                                        (Just Signed))))),
                               structFieldOffset = 32,
                               structFieldWidth = Nothing},
                             StructField {
@@ -1800,7 +1836,9 @@
                             (TypedefRegular
                               NamePair {
                                 nameC = Name "T1",
-                                nameHsIdent = Identifier "T1"}),
+                                nameHsIdent = Identifier "T1"}
+                              (TypePrim
+                                (PrimIntegral PrimInt Signed))),
                           structFieldOffset = 0,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -1836,7 +1874,11 @@
                             (TypedefRegular
                               NamePair {
                                 nameC = Name "T2",
-                                nameHsIdent = Identifier "T2"}),
+                                nameHsIdent = Identifier "T2"}
+                              (TypePrim
+                                (PrimChar
+                                  (PrimSignImplicit
+                                    (Just Signed))))),
                           structFieldOffset = 32,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -1966,7 +2008,9 @@
                                 (TypedefRegular
                                   NamePair {
                                     nameC = Name "T1",
-                                    nameHsIdent = Identifier "T1"}),
+                                    nameHsIdent = Identifier "T1"}
+                                  (TypePrim
+                                    (PrimIntegral PrimInt Signed))),
                               structFieldOffset = 0,
                               structFieldWidth = Nothing},
                             StructField {
@@ -1982,7 +2026,11 @@
                                 (TypedefRegular
                                   NamePair {
                                     nameC = Name "T2",
-                                    nameHsIdent = Identifier "T2"}),
+                                    nameHsIdent = Identifier "T2"}
+                                  (TypePrim
+                                    (PrimChar
+                                      (PrimSignImplicit
+                                        (Just Signed))))),
                               structFieldOffset = 32,
                               structFieldWidth = Nothing},
                             StructField {

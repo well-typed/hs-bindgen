@@ -87,7 +87,7 @@ depsOfType = \case
     TypeStruct uid         -> [(ByValue, C.nsPrelimDeclId uid C.TypeNamespaceTag)]
     TypeUnion uid          -> [(ByValue, C.nsPrelimDeclId uid C.TypeNamespaceTag)]
     TypeEnum uid           -> [(ByValue, C.nsPrelimDeclId uid C.TypeNamespaceTag)]
-    TypeTypedef name       -> [
+    TypeTypedef (TypedefRefRegular name _) -> [
         ( ByValue
         , C.nsPrelimDeclId (C.PrelimDeclIdNamed name) C.TypeNamespaceOrdinary
         )

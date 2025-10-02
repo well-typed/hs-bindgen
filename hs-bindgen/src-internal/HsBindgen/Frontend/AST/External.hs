@@ -75,14 +75,11 @@ module HsBindgen.Frontend.AST.External (
 
 import Prelude hiding (Enum)
 
-import Data.Map.Strict qualified as Map
-
 import Clang.HighLevel.Documentation qualified as CDoc
 import Clang.HighLevel.Types
 import Clang.Paths
 
 import HsBindgen.BindingSpec qualified as BindingSpec
-import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend.AST.Internal qualified as Int
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass qualified as ResolveBindingSpec
@@ -325,7 +322,7 @@ data TypeQualifier = TypeQualifierConst
   deriving stock (Show, Eq, Generic)
 
 data TypedefRef =
-    TypedefRegular NamePair
+    TypedefRegular NamePair Type
   | TypedefSquashed C.Name Type
   deriving stock (Show, Eq, Generic)
 
@@ -334,8 +331,8 @@ isVoid TypeVoid = True
 isVoid _        = False
 
 -- | Is the erased type @const@-qualified?
-isErasedConstQualifiedType :: GetErasedType ctx t => ctx -> t -> Bool
-isErasedConstQualifiedType env ty = case getErasedType env ty of
+isErasedConstQualifiedType :: GetErasedType t => t -> Bool
+isErasedConstQualifiedType ty = case getErasedType ty of
     -- Types can be directly @const@-qualified,
     TypeQualified TypeQualifierConst _ -> True
     -- but arrays are also @const@-qualified if their element type is,
@@ -345,8 +342,8 @@ isErasedConstQualifiedType env ty = case getErasedType env ty of
     _ -> False
 
 -- | Is the canonical type a function type?
-isCanonicalFunctionType :: GetCanonicalType ctx t => ctx -> t -> Bool
-isCanonicalFunctionType env ty = case getCanonicalType env ty of
+isCanonicalFunctionType :: GetCanonicalType t => t -> Bool
+isCanonicalFunctionType ty = case getCanonicalType ty of
     TypeFun{} -> True
     _ -> False
 
@@ -389,22 +386,22 @@ type instance TypeQualifierF Canonical = Void
 -- types, so this algorithm will terminate sooner or later. In practice,
 -- @typedef@ "chains" are probably not that long, so we do not expect this
 -- algorithm to have problematic performance.
-class GetErasedType ctx t where
+class GetErasedType t where
   -- | Obtain the /erased/ version of the given type
-  getErasedType :: ctx -> t -> ErasedType
+  getErasedType :: t -> ErasedType
 
-instance GetErasedType ctx ErasedType where
-  getErasedType _ = id
+instance GetErasedType  ErasedType where
+  getErasedType = id
 
-instance GetErasedType (Map C.Name Type) Type where
-  getErasedType env = go
+instance GetErasedType Type where
+  getErasedType = go
     where
       go ty = case ty of
         TypePrim pt -> TypePrim pt
         TypeStruct np no -> TypeStruct np no
         TypeUnion np no -> TypeUnion np no
         TypeEnum np no -> TypeEnum np no
-        TypeTypedef ref -> go (eraseTypedef env ref)
+        TypeTypedef ref -> go (eraseTypedef ref)
         TypeMacroTypedef np no -> TypeMacroTypedef np no
         TypePointer t -> TypePointer $ go t
         TypeConstArray n t -> TypeConstArray n $ go t
@@ -421,22 +418,22 @@ instance GetErasedType (Map C.Name Type) Type where
 -- The algorithm to canonicalise types performs the same @typedef@ erasure that
 -- we perform in 'GetErasedType'. Along the way, any type qualifiers like
 -- @const@ are also removed.
-class GetCanonicalType ctx t where
+class GetCanonicalType t where
   -- | Obtain the /canonical/ version of the given type
-  getCanonicalType :: ctx -> t -> CanonicalType
+  getCanonicalType :: t -> CanonicalType
 
-instance GetCanonicalType ctx CanonicalType where
-  getCanonicalType _ = id
+instance GetCanonicalType CanonicalType where
+  getCanonicalType = id
 
-instance GetCanonicalType (Map C.Name Type) Type where
-  getCanonicalType env = go
+instance GetCanonicalType Type where
+  getCanonicalType = go
     where
       go ty = case ty of
         TypePrim pt -> TypePrim pt
         TypeStruct np no -> TypeStruct np no
         TypeUnion np no -> TypeUnion np no
         TypeEnum np no -> TypeEnum np no
-        TypeTypedef ref -> go (eraseTypedef env ref)
+        TypeTypedef ref -> go (eraseTypedef ref)
         TypeMacroTypedef np no -> TypeMacroTypedef np no
         TypePointer t -> TypePointer $ go t
         TypeConstArray n t -> TypeConstArray n $ go t
@@ -449,14 +446,9 @@ instance GetCanonicalType (Map C.Name Type) Type where
         TypeComplex pt -> TypeComplex pt
 
 -- | Erase one layer of a typedef
---
--- TODO https://github.com/well-typed/hs-bindgen/issues/1050: Should we panic on
--- unbound typedefs?
-eraseTypedef :: Map C.Name Type -> TypedefRef -> Type
-eraseTypedef env = \case
-      TypedefRegular n ->
-        let err = panicPure $ "Unbound typedef " ++ show n
-        in  Map.findWithDefault err (nameC n) env
+eraseTypedef :: TypedefRef -> Type
+eraseTypedef = \case
+      TypedefRegular _ t' -> t'
       TypedefSquashed _ t' -> t'
 
 {-------------------------------------------------------------------------------

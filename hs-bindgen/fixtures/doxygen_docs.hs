@@ -1389,7 +1389,16 @@
                     nameC = Name
                       "event_callback_t_Deref",
                     nameHsIdent = Identifier
-                      "Event_callback_t_Deref"}))},
+                      "Event_callback_t_Deref"}
+                  (TypeFun
+                    [
+                      TypePrim
+                        (PrimIntegral PrimInt Signed),
+                      TypePointer TypeVoid]
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed)))))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -2121,7 +2130,17 @@
                   NamePair {
                     nameC = Name "event_callback_t",
                     nameHsIdent = Identifier
-                      "Event_callback_t"}),
+                      "Event_callback_t"}
+                  (TypePointer
+                    (TypeFun
+                      [
+                        TypePrim
+                          (PrimIntegral PrimInt Signed),
+                        TypePointer TypeVoid]
+                      (TypePrim
+                        (PrimIntegral
+                          PrimInt
+                          Signed))))),
               structFieldOffset = 576,
               structFieldWidth = Nothing},
           fieldComment = Just
@@ -2563,7 +2582,17 @@
                       NamePair {
                         nameC = Name "event_callback_t",
                         nameHsIdent = Identifier
-                          "Event_callback_t"}),
+                          "Event_callback_t"}
+                      (TypePointer
+                        (TypeFun
+                          [
+                            TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            TypePointer TypeVoid]
+                          (TypePrim
+                            (PrimIntegral
+                              PrimInt
+                              Signed))))),
                   structFieldOffset = 576,
                   structFieldWidth = Nothing},
                 StructField {
@@ -3261,7 +3290,17 @@
                       NamePair {
                         nameC = Name "event_callback_t",
                         nameHsIdent = Identifier
-                          "Event_callback_t"}),
+                          "Event_callback_t"}
+                      (TypePointer
+                        (TypeFun
+                          [
+                            TypePrim
+                              (PrimIntegral PrimInt Signed),
+                            TypePointer TypeVoid]
+                          (TypePrim
+                            (PrimIntegral
+                              PrimInt
+                              Signed))))),
                   structFieldOffset = 576,
                   structFieldWidth = Nothing},
               fieldComment = Just
@@ -3706,7 +3745,17 @@
                           NamePair {
                             nameC = Name "event_callback_t",
                             nameHsIdent = Identifier
-                              "Event_callback_t"}),
+                              "Event_callback_t"}
+                          (TypePointer
+                            (TypeFun
+                              [
+                                TypePrim
+                                  (PrimIntegral PrimInt Signed),
+                                TypePointer TypeVoid]
+                              (TypePrim
+                                (PrimIntegral
+                                  PrimInt
+                                  Signed))))),
                       structFieldOffset = 576,
                       structFieldWidth = Nothing},
                     StructField {
@@ -4408,7 +4457,17 @@
                               NamePair {
                                 nameC = Name "event_callback_t",
                                 nameHsIdent = Identifier
-                                  "Event_callback_t"}),
+                                  "Event_callback_t"}
+                              (TypePointer
+                                (TypeFun
+                                  [
+                                    TypePrim
+                                      (PrimIntegral PrimInt Signed),
+                                    TypePointer TypeVoid]
+                                  (TypePrim
+                                    (PrimIntegral
+                                      PrimInt
+                                      Signed))))),
                           structFieldOffset = 576,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -4853,7 +4912,17 @@
                                   NamePair {
                                     nameC = Name "event_callback_t",
                                     nameHsIdent = Identifier
-                                      "Event_callback_t"}),
+                                      "Event_callback_t"}
+                                  (TypePointer
+                                    (TypeFun
+                                      [
+                                        TypePrim
+                                          (PrimIntegral PrimInt Signed),
+                                        TypePointer TypeVoid]
+                                      (TypePrim
+                                        (PrimIntegral
+                                          PrimInt
+                                          Signed))))),
                               structFieldOffset = 576,
                               structFieldWidth = Nothing},
                             StructField {
@@ -5562,7 +5631,17 @@
                               NamePair {
                                 nameC = Name "event_callback_t",
                                 nameHsIdent = Identifier
-                                  "Event_callback_t"}),
+                                  "Event_callback_t"}
+                              (TypePointer
+                                (TypeFun
+                                  [
+                                    TypePrim
+                                      (PrimIntegral PrimInt Signed),
+                                    TypePointer TypeVoid]
+                                  (TypePrim
+                                    (PrimIntegral
+                                      PrimInt
+                                      Signed))))),
                           structFieldOffset = 576,
                           structFieldWidth = Nothing},
                       fieldComment = Just
@@ -6007,7 +6086,17 @@
                                   NamePair {
                                     nameC = Name "event_callback_t",
                                     nameHsIdent = Identifier
-                                      "Event_callback_t"}),
+                                      "Event_callback_t"}
+                                  (TypePointer
+                                    (TypeFun
+                                      [
+                                        TypePrim
+                                          (PrimIntegral PrimInt Signed),
+                                        TypePointer TypeVoid]
+                                      (TypePrim
+                                        (PrimIntegral
+                                          PrimInt
+                                          Signed))))),
                               structFieldOffset = 576,
                               structFieldWidth = Nothing},
                             StructField {
@@ -13196,7 +13285,16 @@
                     nameC = Name
                       "processor_fn_t_Deref",
                     nameHsIdent = Identifier
-                      "Processor_fn_t_Deref"}))},
+                      "Processor_fn_t_Deref"}
+                  (TypeFun
+                    [
+                      TypePrim
+                        (PrimIntegral PrimInt Signed),
+                      TypePointer TypeVoid]
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed)))))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,

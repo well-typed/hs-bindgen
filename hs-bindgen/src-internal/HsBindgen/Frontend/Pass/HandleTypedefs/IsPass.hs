@@ -44,8 +44,8 @@ instance IsPass HandleTypedefs where
 
 -- | Reference to a typedef type
 data RenamedTypedefRef p =
-    -- | Regular reference
-    TypedefRegular (Id p)
+    -- | Regular reference (see @TypedefRefRegular@)
+    TypedefRegular (Id p) (C.Type p)
 
     -- When we have a typedef around an anonymous declaration:
     --

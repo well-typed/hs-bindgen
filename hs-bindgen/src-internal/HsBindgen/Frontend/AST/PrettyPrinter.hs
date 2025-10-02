@@ -254,5 +254,5 @@ showsCName :: Name -> String -> String
 showsCName = showString . Text.unpack . getName
 
 showsTypedefName :: TypedefRef -> String -> String
-showsTypedefName (TypedefRegular  np)     = showsName  np NameOriginInSource
+showsTypedefName (TypedefRegular  np _ty) = showsName  np NameOriginInSource
 showsTypedefName (TypedefSquashed nm _ty) = showsCName nm

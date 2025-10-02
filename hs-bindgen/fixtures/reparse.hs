@@ -1916,7 +1916,14 @@
                     nameC = Name
                       "funptr_typedef1_Deref",
                     nameHsIdent = Identifier
-                      "Funptr_typedef1_Deref"}))},
+                      "Funptr_typedef1_Deref"}
+                  (TypeFun
+                    []
+                    (TypeMacroTypedef
+                      NamePair {
+                        nameC = Name "A",
+                        nameHsIdent = Identifier "A"}
+                      NameOriginInSource))))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -2218,7 +2225,15 @@
                     nameC = Name
                       "funptr_typedef2_Deref",
                     nameHsIdent = Identifier
-                      "Funptr_typedef2_Deref"}))},
+                      "Funptr_typedef2_Deref"}
+                  (TypeFun
+                    []
+                    (TypePointer
+                      (TypeMacroTypedef
+                        NamePair {
+                          nameC = Name "A",
+                          nameHsIdent = Identifier "A"}
+                        NameOriginInSource)))))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -2524,7 +2539,16 @@
                     nameC = Name
                       "funptr_typedef3_Deref",
                     nameHsIdent = Identifier
-                      "Funptr_typedef3_Deref"}))},
+                      "Funptr_typedef3_Deref"}
+                  (TypeFun
+                    []
+                    (TypePointer
+                      (TypePointer
+                        (TypeMacroTypedef
+                          NamePair {
+                            nameC = Name "A",
+                            nameHsIdent = Identifier "A"}
+                          NameOriginInSource))))))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -2838,7 +2862,18 @@
                     nameC = Name
                       "funptr_typedef4_Deref",
                     nameHsIdent = Identifier
-                      "Funptr_typedef4_Deref"}))},
+                      "Funptr_typedef4_Deref"}
+                  (TypeFun
+                    [
+                      TypePrim
+                        (PrimIntegral PrimInt Signed),
+                      TypePrim
+                        (PrimFloating PrimDouble)]
+                    (TypeMacroTypedef
+                      NamePair {
+                        nameC = Name "A",
+                        nameHsIdent = Identifier "A"}
+                      NameOriginInSource))))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -3156,7 +3191,19 @@
                     nameC = Name
                       "funptr_typedef5_Deref",
                     nameHsIdent = Identifier
-                      "Funptr_typedef5_Deref"}))},
+                      "Funptr_typedef5_Deref"}
+                  (TypeFun
+                    [
+                      TypePrim
+                        (PrimIntegral PrimInt Signed),
+                      TypePrim
+                        (PrimFloating PrimDouble)]
+                    (TypePointer
+                      (TypeMacroTypedef
+                        NamePair {
+                          nameC = Name "A",
+                          nameHsIdent = Identifier "A"}
+                        NameOriginInSource)))))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -7482,7 +7529,20 @@
                     nameC = Name
                       "const_funptr1_Deref",
                     nameHsIdent = Identifier
-                      "Const_funptr1_Deref"}))},
+                      "Const_funptr1_Deref"}
+                  (TypeFun
+                    [
+                      TypePrim
+                        (PrimIntegral PrimInt Signed),
+                      TypePrim
+                        (PrimFloating PrimDouble)]
+                    (TypeQualified
+                      TypeQualifierConst
+                      (TypeMacroTypedef
+                        NamePair {
+                          nameC = Name "A",
+                          nameHsIdent = Identifier "A"}
+                        NameOriginInSource)))))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -7802,7 +7862,20 @@
                     nameC = Name
                       "const_funptr2_Deref",
                     nameHsIdent = Identifier
-                      "Const_funptr2_Deref"}))},
+                      "Const_funptr2_Deref"}
+                  (TypeFun
+                    [
+                      TypePrim
+                        (PrimIntegral PrimInt Signed),
+                      TypePrim
+                        (PrimFloating PrimDouble)]
+                    (TypeQualified
+                      TypeQualifierConst
+                      (TypeMacroTypedef
+                        NamePair {
+                          nameC = Name "A",
+                          nameHsIdent = Identifier "A"}
+                        NameOriginInSource)))))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -8126,7 +8199,21 @@
                     nameC = Name
                       "const_funptr3_Deref",
                     nameHsIdent = Identifier
-                      "Const_funptr3_Deref"}))},
+                      "Const_funptr3_Deref"}
+                  (TypeFun
+                    [
+                      TypePrim
+                        (PrimIntegral PrimInt Signed),
+                      TypePrim
+                        (PrimFloating PrimDouble)]
+                    (TypePointer
+                      (TypeQualified
+                        TypeQualifierConst
+                        (TypeMacroTypedef
+                          NamePair {
+                            nameC = Name "A",
+                            nameHsIdent = Identifier "A"}
+                          NameOriginInSource))))))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -8450,7 +8537,21 @@
                     nameC = Name
                       "const_funptr4_Deref",
                     nameHsIdent = Identifier
-                      "Const_funptr4_Deref"}))},
+                      "Const_funptr4_Deref"}
+                  (TypeFun
+                    [
+                      TypePrim
+                        (PrimIntegral PrimInt Signed),
+                      TypePrim
+                        (PrimFloating PrimDouble)]
+                    (TypePointer
+                      (TypeQualified
+                        TypeQualifierConst
+                        (TypeMacroTypedef
+                          NamePair {
+                            nameC = Name "A",
+                            nameHsIdent = Identifier "A"}
+                          NameOriginInSource))))))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -8774,7 +8875,21 @@
                     nameC = Name
                       "const_funptr5_Deref",
                     nameHsIdent = Identifier
-                      "Const_funptr5_Deref"}))},
+                      "Const_funptr5_Deref"}
+                  (TypeFun
+                    [
+                      TypePrim
+                        (PrimIntegral PrimInt Signed),
+                      TypePrim
+                        (PrimFloating PrimDouble)]
+                    (TypeQualified
+                      TypeQualifierConst
+                      (TypePointer
+                        (TypeMacroTypedef
+                          NamePair {
+                            nameC = Name "A",
+                            nameHsIdent = Identifier "A"}
+                          NameOriginInSource))))))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -9104,7 +9219,23 @@
                     nameC = Name
                       "const_funptr6_Deref",
                     nameHsIdent = Identifier
-                      "Const_funptr6_Deref"}))},
+                      "Const_funptr6_Deref"}
+                  (TypeFun
+                    [
+                      TypePrim
+                        (PrimIntegral PrimInt Signed),
+                      TypePrim
+                        (PrimFloating PrimDouble)]
+                    (TypeQualified
+                      TypeQualifierConst
+                      (TypePointer
+                        (TypeQualified
+                          TypeQualifierConst
+                          (TypeMacroTypedef
+                            NamePair {
+                              nameC = Name "A",
+                              nameHsIdent = Identifier "A"}
+                            NameOriginInSource)))))))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -9434,7 +9565,23 @@
                     nameC = Name
                       "const_funptr7_Deref",
                     nameHsIdent = Identifier
-                      "Const_funptr7_Deref"}))},
+                      "Const_funptr7_Deref"}
+                  (TypeFun
+                    [
+                      TypePrim
+                        (PrimIntegral PrimInt Signed),
+                      TypePrim
+                        (PrimFloating PrimDouble)]
+                    (TypeQualified
+                      TypeQualifierConst
+                      (TypePointer
+                        (TypeQualified
+                          TypeQualifierConst
+                          (TypeMacroTypedef
+                            NamePair {
+                              nameC = Name "A",
+                              nameHsIdent = Identifier "A"}
+                            NameOriginInSource)))))))},
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
