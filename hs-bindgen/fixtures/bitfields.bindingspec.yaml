@@ -5,7 +5,7 @@ types:
 - headers: bitfields.h
   cname: struct alignA
   module: Example
-  identifier: AlignA
+  hsname: AlignA
   instances:
   - Eq
   - Show
@@ -13,7 +13,7 @@ types:
 - headers: bitfields.h
   cname: struct alignB
   module: Example
-  identifier: AlignB
+  hsname: AlignB
   instances:
   - Eq
   - Show
@@ -21,7 +21,7 @@ types:
 - headers: bitfields.h
   cname: struct flags
   module: Example
-  identifier: Flags
+  hsname: Flags
   instances:
   - Eq
   - Show
@@ -29,7 +29,7 @@ types:
 - headers: bitfields.h
   cname: struct overflow32
   module: Example
-  identifier: Overflow32
+  hsname: Overflow32
   instances:
   - Eq
   - Show
@@ -37,7 +37,7 @@ types:
 - headers: bitfields.h
   cname: struct overflow32b
   module: Example
-  identifier: Overflow32b
+  hsname: Overflow32b
   instances:
   - Eq
   - Show
@@ -45,7 +45,7 @@ types:
 - headers: bitfields.h
   cname: struct overflow32c
   module: Example
-  identifier: Overflow32c
+  hsname: Overflow32c
   instances:
   - Eq
   - Show
@@ -53,7 +53,7 @@ types:
 - headers: bitfields.h
   cname: struct overflow64
   module: Example
-  identifier: Overflow64
+  hsname: Overflow64
   instances:
   - Eq
   - Show

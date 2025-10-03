@@ -5,7 +5,7 @@ types:
 - headers: program_slicing_simple.h
   cname: uint64_t
   module: Example
-  identifier: Uint64_t
+  hsname: Uint64_t
   instances:
   - Eq
   - Ord

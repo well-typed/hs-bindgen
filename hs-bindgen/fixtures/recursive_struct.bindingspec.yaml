@@ -5,7 +5,7 @@ types:
 - headers: recursive_struct.h
   cname: struct linked_list_A_s
   module: Example
-  identifier: Linked_list_A_t
+  hsname: Linked_list_A_t
   instances:
   - Eq
   - Show
@@ -13,7 +13,7 @@ types:
 - headers: recursive_struct.h
   cname: struct linked_list_B_t
   module: Example
-  identifier: Linked_list_B_t
+  hsname: Linked_list_B_t
   instances:
   - Eq
   - Show

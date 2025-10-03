@@ -5,7 +5,7 @@ types:
 - headers: typenames.h
   cname: foo
   module: Example
-  identifier: Foo
+  hsname: Foo
   instances:
   - Eq
   - Ord
@@ -22,7 +22,7 @@ types:
 - headers: typenames.h
   cname: enum foo
   module: Example
-  identifier: Foo
+  hsname: Foo
   instances:
   - Eq
   - Ord

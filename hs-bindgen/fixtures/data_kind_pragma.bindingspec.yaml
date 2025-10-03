@@ -5,7 +5,7 @@ types:
 - headers: data_kind_pragma.h
   cname: triplet
   module: Example
-  identifier: Triplet
+  hsname: Triplet
   instances:
   - Eq
   - Show

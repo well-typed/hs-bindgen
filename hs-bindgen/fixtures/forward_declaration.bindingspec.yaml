@@ -5,7 +5,7 @@ types:
 - headers: forward_declaration.h
   cname: struct S1
   module: Example
-  identifier: S1_t
+  hsname: S1_t
   instances:
   - Eq
   - Show
@@ -13,7 +13,7 @@ types:
 - headers: forward_declaration.h
   cname: struct S2
   module: Example
-  identifier: S2
+  hsname: S2
   instances:
   - Eq
   - Show

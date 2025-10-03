@@ -5,7 +5,7 @@ types:
 - headers: callbacks.h
   cname: DataValidator
   module: Example
-  identifier: DataValidator
+  hsname: DataValidator
   instances:
   - Eq
   - Ord
@@ -14,11 +14,11 @@ types:
 - headers: callbacks.h
   cname: DataValidator_Deref
   module: Example
-  identifier: DataValidator_Deref
+  hsname: DataValidator_Deref
 - headers: callbacks.h
   cname: FileOpenedNotification
   module: Example
-  identifier: FileOpenedNotification
+  hsname: FileOpenedNotification
   instances:
   - Eq
   - Ord
@@ -27,11 +27,11 @@ types:
 - headers: callbacks.h
   cname: FileOpenedNotification_Deref
   module: Example
-  identifier: FileOpenedNotification_Deref
+  hsname: FileOpenedNotification_Deref
 - headers: callbacks.h
   cname: struct Measurement
   module: Example
-  identifier: Measurement
+  hsname: Measurement
   instances:
   - Eq
   - Show
@@ -39,7 +39,7 @@ types:
 - headers: callbacks.h
   cname: MeasurementReceived
   module: Example
-  identifier: MeasurementReceived
+  hsname: MeasurementReceived
   instances:
   - Eq
   - Ord
@@ -48,7 +48,7 @@ types:
 - headers: callbacks.h
   cname: MeasurementReceived2
   module: Example
-  identifier: MeasurementReceived2
+  hsname: MeasurementReceived2
   instances:
   - Eq
   - Ord
@@ -57,15 +57,15 @@ types:
 - headers: callbacks.h
   cname: MeasurementReceived2_Deref
   module: Example
-  identifier: MeasurementReceived2_Deref
+  hsname: MeasurementReceived2_Deref
 - headers: callbacks.h
   cname: MeasurementReceived_Deref
   module: Example
-  identifier: MeasurementReceived_Deref
+  hsname: MeasurementReceived_Deref
 - headers: callbacks.h
   cname: ProgressUpdate
   module: Example
-  identifier: ProgressUpdate
+  hsname: ProgressUpdate
   instances:
   - Eq
   - Ord
@@ -74,11 +74,11 @@ types:
 - headers: callbacks.h
   cname: ProgressUpdate_Deref
   module: Example
-  identifier: ProgressUpdate_Deref
+  hsname: ProgressUpdate_Deref
 - headers: callbacks.h
   cname: SampleBufferFull
   module: Example
-  identifier: SampleBufferFull
+  hsname: SampleBufferFull
   instances:
   - Eq
   - Ord
@@ -87,4 +87,4 @@ types:
 - headers: callbacks.h
   cname: SampleBufferFull_Deref
   module: Example
-  identifier: SampleBufferFull_Deref
+  hsname: SampleBufferFull_Deref

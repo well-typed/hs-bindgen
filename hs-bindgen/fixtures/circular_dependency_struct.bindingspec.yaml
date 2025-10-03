@@ -5,7 +5,7 @@ types:
 - headers: circular_dependency_struct.h
   cname: struct a
   module: Example
-  identifier: A
+  hsname: A
   instances:
   - Eq
   - Show
@@ -13,7 +13,7 @@ types:
 - headers: circular_dependency_struct.h
   cname: struct b
   module: Example
-  identifier: B
+  hsname: B
   instances:
   - Eq
   - Show

@@ -5,7 +5,7 @@ types:
 - headers: array.h
   cname: struct Example
   module: Example
-  identifier: Example
+  hsname: Example
   instances:
   - Eq
   - Show
@@ -13,14 +13,14 @@ types:
 - headers: array.h
   cname: list
   module: Example
-  identifier: List
+  hsname: List
   instances:
   - Eq
   - Show
 - headers: array.h
   cname: matrix
   module: Example
-  identifier: Matrix
+  hsname: Matrix
   instances:
   - Eq
   - Show
@@ -28,7 +28,7 @@ types:
 - headers: array.h
   cname: triplet
   module: Example
-  identifier: Triplet
+  hsname: Triplet
   instances:
   - Eq
   - Show
@@ -36,7 +36,7 @@ types:
 - headers: array.h
   cname: tripletlist
   module: Example
-  identifier: Tripletlist
+  hsname: Tripletlist
   instances:
   - Eq
   - Show

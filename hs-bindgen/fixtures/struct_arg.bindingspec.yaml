@@ -5,7 +5,7 @@ types:
 - headers: struct_arg.h
   cname: struct thing
   module: Example
-  identifier: Thing
+  hsname: Thing
   instances:
   - Eq
   - Show

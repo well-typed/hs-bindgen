@@ -5,7 +5,7 @@ types:
 - headers: enums.h
   cname: enumA
   module: Example
-  identifier: EnumA
+  hsname: EnumA
   instances:
   - Eq
   - Ord
@@ -15,7 +15,7 @@ types:
 - headers: enums.h
   cname: enum enumB
   module: Example
-  identifier: EnumB
+  hsname: EnumB
   instances:
   - Eq
   - Ord
@@ -25,7 +25,7 @@ types:
 - headers: enums.h
   cname: enum enumC
   module: Example
-  identifier: EnumC
+  hsname: EnumC
   instances:
   - Eq
   - Ord
@@ -35,7 +35,7 @@ types:
 - headers: enums.h
   cname: enum enumD
   module: Example
-  identifier: EnumD_t
+  hsname: EnumD_t
   instances:
   - Eq
   - Ord
@@ -45,7 +45,7 @@ types:
 - headers: enums.h
   cname: enum first
   module: Example
-  identifier: First
+  hsname: First
   instances:
   - Eq
   - Ord
@@ -55,7 +55,7 @@ types:
 - headers: enums.h
   cname: enum nonseq
   module: Example
-  identifier: Nonseq
+  hsname: Nonseq
   instances:
   - Eq
   - Ord
@@ -65,7 +65,7 @@ types:
 - headers: enums.h
   cname: enum packed
   module: Example
-  identifier: Packed
+  hsname: Packed
   instances:
   - Eq
   - Ord
@@ -75,7 +75,7 @@ types:
 - headers: enums.h
   cname: enum same
   module: Example
-  identifier: Same
+  hsname: Same
   instances:
   - Eq
   - Ord
@@ -85,7 +85,7 @@ types:
 - headers: enums.h
   cname: enum second
   module: Example
-  identifier: Second
+  hsname: Second
   instances:
   - Eq
   - Ord

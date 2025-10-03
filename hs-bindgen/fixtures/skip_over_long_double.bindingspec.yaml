@@ -5,7 +5,7 @@ types:
 - headers: skip_over_long_double.h
   cname: struct struct2
   module: Example
-  identifier: Struct2
+  hsname: Struct2
   instances:
   - Eq
   - Show

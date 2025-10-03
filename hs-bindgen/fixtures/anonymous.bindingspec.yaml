@@ -5,7 +5,7 @@ types:
 - headers: anonymous.h
   cname: struct S1
   module: Example
-  identifier: S1
+  hsname: S1
   instances:
   - Eq
   - Show
@@ -13,7 +13,7 @@ types:
 - headers: anonymous.h
   cname: S1_c
   module: Example
-  identifier: S1_c
+  hsname: S1_c
   instances:
   - Eq
   - Show
@@ -21,7 +21,7 @@ types:
 - headers: anonymous.h
   cname: struct S2
   module: Example
-  identifier: S2
+  hsname: S2
   instances:
   - Eq
   - Show
@@ -29,7 +29,7 @@ types:
 - headers: anonymous.h
   cname: S2_inner
   module: Example
-  identifier: S2_inner
+  hsname: S2_inner
   instances:
   - Eq
   - Show
@@ -37,7 +37,7 @@ types:
 - headers: anonymous.h
   cname: S2_inner_deep
   module: Example
-  identifier: S2_inner_deep
+  hsname: S2_inner_deep
   instances:
   - Eq
   - Show
@@ -45,7 +45,7 @@ types:
 - headers: anonymous.h
   cname: struct S3
   module: Example
-  identifier: S3
+  hsname: S3
   instances:
   - Eq
   - Show
@@ -53,7 +53,7 @@ types:
 - headers: anonymous.h
   cname: S3_c
   module: Example
-  identifier: S3_c
+  hsname: S3_c
   instances:
   - Eq
   - Show

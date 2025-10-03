@@ -374,7 +374,7 @@ encodeYaml' = Data.Yaml.Pretty.encodePretty yamlConfig
       "headers"               ->  6  -- ATypeSpecMapping:1
       "cname"                 ->  7  -- ATypeSpecMapping:2
       "module"                ->  8  -- ATypeSpecMapping:3, AConstraintSpec:2
-      "identifier"            ->  9  -- ATypeSpecMapping:4, AConstraintSpec:3
+      "hsname"                ->  9  -- ATypeSpecMapping:4, AConstraintSpec:3
       "instances"             -> 10  -- ATypeSpecMapping:5
       "strategy"              -> 11  -- AInstanceSpecMapping:2
       "constraints"           -> 12  -- AInstanceSpecMapping:3
@@ -530,7 +530,7 @@ instance Aeson.FromJSON ATypeSpecMapping where
     aTypeSpecMappingHeaders    <- o .:  "headers" >>= listFromJSON
     aTypeSpecMappingCName      <- o .:  "cname"
     aTypeSpecMappingModule     <- o .:? "module"
-    aTypeSpecMappingIdentifier <- o .:? "identifier"
+    aTypeSpecMappingIdentifier <- o .:? "hsname"
     aTypeSpecMappingInstances  <- o .:? "instances" .!= []
     return ATypeSpecMapping{..}
 
@@ -538,9 +538,9 @@ instance Aeson.ToJSON ATypeSpecMapping where
   toJSON ATypeSpecMapping{..} = Aeson.Object . KM.fromList $ catMaybes [
       Just ("headers" .= listToJSON aTypeSpecMappingHeaders)
     , Just ("cname"   .= aTypeSpecMappingCName)
-    , ("module"     .=) <$> aTypeSpecMappingModule
-    , ("identifier" .=) <$> aTypeSpecMappingIdentifier
-    , ("instances"  .=) <$> omitWhenNull aTypeSpecMappingInstances
+    , ("module"    .=) <$> aTypeSpecMappingModule
+    , ("hsname"    .=) <$> aTypeSpecMappingIdentifier
+    , ("instances" .=) <$> omitWhenNull aTypeSpecMappingInstances
     ]
 
 --------------------------------------------------------------------------------
@@ -590,7 +590,7 @@ instance Aeson.FromJSON AConstraintSpec where
   parseJSON = Aeson.withObject "AConstraintSpec" $ \o -> do
     constraintSpecClass <- o .: "class"
     extRefModule        <- o .: "module"
-    extRefIdentifier    <- o .: "identifier"
+    extRefIdentifier    <- o .: "hsname"
     let constraintSpecRef = Hs.ExtRef{..}
     return $ AConstraintSpec ConstraintSpec{..}
 
@@ -598,9 +598,9 @@ instance Aeson.ToJSON AConstraintSpec where
   toJSON (AConstraintSpec ConstraintSpec{..}) =
     let Hs.ExtRef{..} = constraintSpecRef
     in  Aeson.object [
-            "class"      .= constraintSpecClass
-          , "module"     .= extRefModule
-          , "identifier" .= extRefIdentifier
+            "class"  .= constraintSpecClass
+          , "module" .= extRefModule
+          , "hsname" .= extRefIdentifier
           ]
 
 --------------------------------------------------------------------------------

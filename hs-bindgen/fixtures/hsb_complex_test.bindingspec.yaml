@@ -5,7 +5,7 @@ types:
 - headers: hsb_complex_test.h
   cname: complex_object_t
   module: Example
-  identifier: Complex_object_t
+  hsname: Complex_object_t
   instances:
   - Eq
   - Show

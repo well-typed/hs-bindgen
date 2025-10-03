@@ -5,13 +5,13 @@ types:
 - headers: unions.h
   cname: union AnonA
   module: Example
-  identifier: AnonA
+  hsname: AnonA
   instances:
   - Storable
 - headers: unions.h
   cname: AnonA_polar
   module: Example
-  identifier: AnonA_polar
+  hsname: AnonA_polar
   instances:
   - Eq
   - Show
@@ -19,7 +19,7 @@ types:
 - headers: unions.h
   cname: AnonA_xy
   module: Example
-  identifier: AnonA_xy
+  hsname: AnonA_xy
   instances:
   - Eq
   - Show
@@ -27,13 +27,13 @@ types:
 - headers: unions.h
   cname: struct Dim
   module: Example
-  identifier: Dim
+  hsname: Dim
   instances:
   - Storable
 - headers: unions.h
   cname: struct Dim2
   module: Example
-  identifier: Dim2
+  hsname: Dim2
   instances:
   - Eq
   - Show
@@ -41,7 +41,7 @@ types:
 - headers: unions.h
   cname: struct Dim3
   module: Example
-  identifier: Dim3
+  hsname: Dim3
   instances:
   - Eq
   - Show
@@ -49,18 +49,18 @@ types:
 - headers: unions.h
   cname: struct DimB
   module: Example
-  identifier: DimB
+  hsname: DimB
   instances:
   - Storable
 - headers: unions.h
   cname: union DimPayload
   module: Example
-  identifier: DimPayload
+  hsname: DimPayload
   instances:
   - Storable
 - headers: unions.h
   cname: union DimPayloadB
   module: Example
-  identifier: DimPayloadB
+  hsname: DimPayloadB
   instances:
   - Storable

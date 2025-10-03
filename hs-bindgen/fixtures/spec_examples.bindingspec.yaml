@@ -5,7 +5,7 @@ types:
 - headers: spec_examples.h
   cname: struct A
   module: Example
-  identifier: A
+  hsname: A
   instances:
   - Eq
   - Show
@@ -13,7 +13,7 @@ types:
 - headers: spec_examples.h
   cname: struct B
   module: Example
-  identifier: B
+  hsname: B
   instances:
   - Eq
   - Show
@@ -21,11 +21,11 @@ types:
 - headers: spec_examples.h
   cname: struct C
   module: Example
-  identifier: C
+  hsname: C
 - headers: spec_examples.h
   cname: cint16_T
   module: Example
-  identifier: Cint16_T
+  hsname: Cint16_T
   instances:
   - Eq
   - Show
@@ -33,7 +33,7 @@ types:
 - headers: spec_examples.h
   cname: int16_T
   module: Example
-  identifier: Int16_T
+  hsname: Int16_T
   instances:
   - Eq
   - Ord
@@ -51,7 +51,7 @@ types:
 - headers: spec_examples.h
   cname: int32_T
   module: Example
-  identifier: Int32_T
+  hsname: Int32_T
   instances:
   - Eq
   - Ord
@@ -69,7 +69,7 @@ types:
 - headers: spec_examples.h
   cname: int64_T
   module: Example
-  identifier: Int64_T
+  hsname: Int64_T
   instances:
   - Eq
   - Ord

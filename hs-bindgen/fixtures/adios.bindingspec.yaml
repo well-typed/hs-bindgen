@@ -5,7 +5,7 @@ types:
 - headers: adios.h
   cname: adiós
   module: Example
-  identifier: Adio'0301s
+  hsname: Adio'0301s
   instances:
   - Eq
   - Ord
@@ -23,7 +23,7 @@ types:
 - headers: adios.h
   cname: 数字
   module: Example
-  identifier: C数字
+  hsname: C数字
   instances:
   - Eq
   - Ord

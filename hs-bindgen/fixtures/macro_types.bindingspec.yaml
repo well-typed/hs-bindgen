@@ -5,7 +5,7 @@ types:
 - headers: macro_types.h
   cname: BOOLEAN_T
   module: Example
-  identifier: BOOLEAN_T
+  hsname: BOOLEAN_T
   instances:
   - Eq
   - Ord
@@ -23,7 +23,7 @@ types:
 - headers: macro_types.h
   cname: MTy
   module: Example
-  identifier: MTy
+  hsname: MTy
   instances:
   - Eq
   - Ord
@@ -40,7 +40,7 @@ types:
 - headers: macro_types.h
   cname: PtrInt
   module: Example
-  identifier: PtrInt
+  hsname: PtrInt
   instances:
   - Eq
   - Ord
@@ -49,7 +49,7 @@ types:
 - headers: macro_types.h
   cname: PtrPtrChar
   module: Example
-  identifier: PtrPtrChar
+  hsname: PtrPtrChar
   instances:
   - Eq
   - Ord
@@ -58,7 +58,7 @@ types:
 - headers: macro_types.h
   cname: UINT8_T
   module: Example
-  identifier: UINT8_T
+  hsname: UINT8_T
   instances:
   - Eq
   - Ord
@@ -76,7 +76,7 @@ types:
 - headers: macro_types.h
   cname: boolean_T
   module: Example
-  identifier: Boolean_T
+  hsname: Boolean_T
   instances:
   - Eq
   - Ord
@@ -94,7 +94,7 @@ types:
 - headers: macro_types.h
   cname: tty
   module: Example
-  identifier: Tty
+  hsname: Tty
   instances:
   - Eq
   - Ord

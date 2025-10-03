@@ -5,7 +5,7 @@ types:
 - headers: globals.h
   cname: ConstInt
   module: Example
-  identifier: ConstInt
+  hsname: ConstInt
   instances:
   - Eq
   - Ord
@@ -23,14 +23,14 @@ types:
 - headers: globals.h
   cname: ConstIntArray
   module: Example
-  identifier: ConstIntArray
+  hsname: ConstIntArray
   instances:
   - Eq
   - Show
 - headers: globals.h
   cname: struct config
   module: Example
-  identifier: Config
+  hsname: Config
   instances:
   - Eq
   - Show
@@ -38,7 +38,7 @@ types:
 - headers: globals.h
   cname: struct inline_struct
   module: Example
-  identifier: Inline_struct
+  hsname: Inline_struct
   instances:
   - Eq
   - Show
@@ -46,7 +46,7 @@ types:
 - headers: globals.h
   cname: struct1_t
   module: Example
-  identifier: Struct1_t
+  hsname: Struct1_t
   instances:
   - Eq
   - Show
@@ -54,7 +54,7 @@ types:
 - headers: globals.h
   cname: struct2_t
   module: Example
-  identifier: Struct2_t
+  hsname: Struct2_t
   instances:
   - Eq
   - Show
@@ -62,7 +62,7 @@ types:
 - headers: globals.h
   cname: struct tuple
   module: Example
-  identifier: Tuple
+  hsname: Tuple
   instances:
   - Eq
   - Show
@@ -70,7 +70,7 @@ types:
 - headers: globals.h
   cname: version_t
   module: Example
-  identifier: Version_t
+  hsname: Version_t
   instances:
   - Eq
   - Show

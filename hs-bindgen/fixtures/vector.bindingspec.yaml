@@ -5,7 +5,7 @@ types:
 - headers: vector.h
   cname: vector
   module: Example
-  identifier: Vector
+  hsname: Vector
   instances:
   - Eq
   - Show
