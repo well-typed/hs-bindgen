@@ -22,7 +22,6 @@ module HsBindgen.BindingSpec.Private.V1 (
   , UnresolvedBindingSpec
   , ResolvedBindingSpec
   , TypeSpec(..)
-  , defaultTypeSpec
     -- ** Instances
   , InstanceSpec(..)
   , StrategySpec(..)
@@ -142,8 +141,8 @@ data TypeSpec = TypeSpec {
     }
   deriving stock (Show, Eq, Generic)
 
-defaultTypeSpec :: TypeSpec
-defaultTypeSpec = TypeSpec {
+instance Default TypeSpec where
+  def = TypeSpec {
       typeSpecModule     = Nothing
     , typeSpecIdentifier = Nothing
     , typeSpecInstances  = Map.empty

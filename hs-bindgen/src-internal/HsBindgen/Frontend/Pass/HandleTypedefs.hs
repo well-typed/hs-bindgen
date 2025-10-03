@@ -4,7 +4,6 @@ import Data.Map.Strict qualified as Map
 
 import Clang.HighLevel.Documentation qualified as Clang
 
-import HsBindgen.BindingSpec (defaultTypeSpec)
 import HsBindgen.Frontend.Analysis.Typedefs (TypedefAnalysis)
 import HsBindgen.Frontend.Analysis.Typedefs qualified as TypedefAnalysis
 import HsBindgen.Frontend.AST.Coerce
@@ -68,7 +67,7 @@ handleDecl td decl =
                                typedefType = C.TypeFun args res
                              , typedefAnn  = NoAnn
                              }
-                , declAnn  = defaultTypeSpec
+                , declAnn  = def
                 }
               mainDecl = C.Decl {
                   C.declInfo = declInfo'

@@ -33,7 +33,6 @@ module HsBindgen.BindingSpec (
     -- ** Types
   , Common.Omittable(..)
   , BindingSpec.TypeSpec(..)
-  , BindingSpec.defaultTypeSpec
   , BindingSpec.InstanceSpec(..)
   , BindingSpec.StrategySpec(..)
   , BindingSpec.ConstraintSpec(..)

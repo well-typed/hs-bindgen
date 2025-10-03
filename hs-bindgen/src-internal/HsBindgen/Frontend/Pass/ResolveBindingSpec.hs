@@ -210,7 +210,7 @@ resolveDeep decl@C.Decl{..} mTypeSpec = do
     reassemble declKind' = C.Decl {
         declInfo = coercePass declInfo
       , declKind = declKind'
-      , declAnn  = fromMaybe BindingSpec.defaultTypeSpec mTypeSpec
+      , declAnn  = fromMaybe def mTypeSpec
       }
 
 {-------------------------------------------------------------------------------
