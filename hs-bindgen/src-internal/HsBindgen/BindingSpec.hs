@@ -43,7 +43,6 @@ module HsBindgen.BindingSpec (
 
 import Data.ByteString qualified as BSS
 import Data.ByteString.Lazy qualified as BSL
-import Data.Map.Strict qualified as Map
 
 import Clang.Args (ClangArgs)
 import Clang.Paths (SourcePath)
@@ -220,9 +219,9 @@ encodeBindingSpecYaml = BindingSpec.encodeYaml . bindingSpecUnresolved
   Internal API
 -------------------------------------------------------------------------------}
 
--- | Get the set of types in a binding specifications
-getTypes :: BindingSpec -> Set C.QualName
-getTypes = Map.keysSet . BindingSpec.bindingSpecTypes . bindingSpecResolved
+-- | Get the types in a binding specification
+getTypes :: BindingSpec -> Map C.QualName [Set SourcePath]
+getTypes = BindingSpec.getTypes . bindingSpecResolved
 
 -- | Lookup the @'Common.Omittable' 'TypeSpec'@ associated with a C type
 lookupTypeSpec ::

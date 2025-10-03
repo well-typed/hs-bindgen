@@ -51,8 +51,7 @@ resolveBindingSpec
             (declUseDecl unitAnn)
             (declNonParsed unitAnn)
             (resolveDecls unitDecls)
-        notUsedErrs =
-          ResolveBindingSpecTypeNotUsed <$> Set.toAscList stateNoPTypes
+        notUsedErrs = ResolveBindingSpecTypeNotUsed <$> Map.keys stateNoPTypes
     in  (reassemble decls stateUseDecl, reverse stateErrors ++ notUsedErrs)
   where
     reassemble ::
@@ -111,7 +110,7 @@ data MEnv = MEnv {
 data MState = MState {
       stateErrors    :: [Msg ResolveBindingSpec] -- ^ Stored in reverse order
     , stateExtTypes  :: Map C.QualName (C.Type ResolveBindingSpec)
-    , stateNoPTypes  :: Set C.QualName
+    , stateNoPTypes  :: Map C.QualName [Set SourcePath]
     , stateOmitTypes :: Set C.QualName
     , stateUseDecl   :: UseDeclGraph
     }
@@ -140,10 +139,20 @@ insertExtType cQualName typ st = st {
       stateExtTypes = Map.insert cQualName typ (stateExtTypes st)
     }
 
-deleteNoPType :: C.QualName -> MState -> MState
-deleteNoPType cQualName st = st {
-      stateNoPTypes = Set.delete cQualName (stateNoPTypes st)
+deleteNoPType :: C.QualName -> SourcePath -> MState -> MState
+deleteNoPType cQualName path st = st {
+      stateNoPTypes = Map.update (aux []) cQualName (stateNoPTypes st)
     }
+  where
+    aux :: [Set SourcePath] -> [Set SourcePath] -> Maybe [Set SourcePath]
+    aux acc = \case
+      s : ss
+        | Set.member path s ->
+            case ss ++ acc of
+              []  -> Nothing
+              ss' -> Just ss'
+        | otherwise -> aux (s : acc) ss
+      [] -> Just acc
 
 insertOmittedType :: C.QualName -> MState -> MState
 insertOmittedType cQualName st = st {
@@ -185,10 +194,12 @@ resolveTop decl = RWS.ask >>= \MEnv{..} -> do
       then return Nothing
       else case BindingSpec.lookupTypeSpec cQualName declPaths envPSpec of
         Just (BindingSpec.Require typeSpec) -> do
-          RWS.modify' $ deleteNoPType cQualName
+          RWS.modify' $ deleteNoPType cQualName sourcePath
           return $ Just (decl, Just typeSpec)
         Just BindingSpec.Omit -> do
-          RWS.modify' $ deleteNoPType cQualName . insertOmittedType cQualName
+          RWS.modify' $
+              deleteNoPType cQualName sourcePath
+            . insertOmittedType cQualName
           return Nothing
         Nothing -> return $ Just (decl, Nothing)
 

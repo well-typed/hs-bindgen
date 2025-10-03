@@ -29,6 +29,7 @@ module HsBindgen.BindingSpec.Private.V1 (
     -- * API
   , empty
   , load
+  , getTypes
   , lookupTypeSpec
     -- ** YAML/JSON
   , readFile
@@ -241,6 +242,12 @@ load tracer injResolveHeader args stdSpec cmpt paths = do
 
     tracerResolve :: Tracer IO BindingSpecResolveMsg
     tracerResolve = contramap BindingSpecResolveMsg tracer
+
+-- | Get the types in a binding specification
+getTypes :: ResolvedBindingSpec -> Map C.QualName [Set SourcePath]
+getTypes =
+      fmap (map (Set.map snd . fst))
+    . bindingSpecTypes
 
 -- | Lookup the @'Omittable' 'TypeSpec'@ associated with a C type
 lookupTypeSpec ::
