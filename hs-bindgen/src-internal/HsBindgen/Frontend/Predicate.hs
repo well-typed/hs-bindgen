@@ -58,8 +58,7 @@ data Boolean a =
 instance Default a => Default (Boolean a) where
   def = BIf def
 
--- | Predicate that determines which declarations should be kept, based on
--- header paths
+-- | Predicates matched against header paths
 data HeaderPathPredicate =
     -- | Only include declarations in main headers (not included headers)
     FromMainHeaders
@@ -72,8 +71,7 @@ data HeaderPathPredicate =
   | HeaderPathMatches Regex
   deriving stock (Show, Eq, Generic)
 
--- | Predicate that determines which declarations should be kept, based on the
--- declarations themselves
+-- | Predicates matched against declarations themselves
 data DeclPredicate =
     -- | Match declaration name against regex
     DeclNameMatches Regex
@@ -82,22 +80,34 @@ data DeclPredicate =
   | DeclDeprecated
   deriving stock (Show, Eq, Generic)
 
--- | Predicates for the @Parse@ pass select based on header file paths
-data ParsePredicate = ParseHeader HeaderPathPredicate
+-- | Predicates for the @Parse@ pass
+--
+-- Parse predicates match against header file paths only.
+--
+-- The parse predicate and the select predicate both allow matching against
+-- header paths but serve different purposes. The parse predicate dictates which
+-- declarations `hs-bindgen` reifies into `hs-bindgen`-specific data structures,
+-- the selection predicate dictates which declarations `hs-bindgen` generates
+-- bindings for. For details, please see the @hs-bindgen@ manual section on
+-- predicates and program slicing.
+data ParsePredicate =
+    ParseHeader HeaderPathPredicate
   deriving stock (Show, Eq, Generic)
 
 instance Default ParsePredicate where
   def = ParseHeader FromMainHeaderDirs
 
--- | Predicates for the @Select@ pass select based on header file paths or the
--- declarations themselves
+-- | Predicates for the @Select@ pass
 --
--- NOTE: The parse predicate and the select predicate both allow matching
--- against header paths but serve different purposes. The parse predicate
--- dictates which declarations `hs-bindgen` reifies into `hs-bindgen`-specific
--- data structures, the selection predicate dictates which declarations
--- `hs-bindgen` generates bindings for. For details, please see the @hs-bindgen@
--- manual section on predicates and program slicing.
+-- Select predicates match against header file paths or the declarations
+-- themselves.
+--
+-- The parse predicate and the select predicate both allow matching against
+-- header paths but serve different purposes. The parse predicate dictates which
+-- declarations `hs-bindgen` reifies into `hs-bindgen`-specific data structures,
+-- the selection predicate dictates which declarations `hs-bindgen` generates
+-- bindings for. For details, please see the @hs-bindgen@ manual section on
+-- predicates and program slicing.
 data SelectPredicate =
     SelectHeader HeaderPathPredicate
   | SelectDecl   DeclPredicate

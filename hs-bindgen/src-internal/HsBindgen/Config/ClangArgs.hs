@@ -28,15 +28,18 @@ import HsBindgen.Imports
 
 -- | Configuration of @libclang@ command-line arguments
 --
--- The default standard when one is not specified depends on the Clang version
--- and if GNU extensions are enabled or not.
+-- The default C standard — if unspecified — depends on the Clang version and if
+-- GNU extensions are enabled.
 --
--- This is not intended to be complete; we have added the arguments that are
--- most relevant to @hs-bindgen@.
+-- `ClangArgsConfig` is not intended to be complete; instead, we have added
+-- configuration options most relevant to @hs-bindgen@. Pass other
+-- configurations options directly using command line arguments ('argsBefore',
+-- 'argsInner', and 'argsAfter').
 data ClangArgsConfig path = ClangArgsConfig {
-      -- | Target architecture ('Nothing' to compile for the host architecture)
+      -- | Target architecture
       --
-      -- The environment can be overriden separately, if necessary.
+      -- 'Nothing' compiles for the host architecture. The environment can be
+      -- overriden separately, if necessary.
       target :: Maybe (Target, TargetEnv)
 
       -- | C standard
@@ -50,25 +53,25 @@ data ClangArgsConfig path = ClangArgsConfig {
 
       -- | Directories that will be added to the include search path
       --
-      -- This corresponds to the @-I@ clang argument.  See
-      -- <https://clang.llvm.org/docs/ClangCommandLineReference.html#include-path-management>.
+      -- This corresponds to the [@-I@ Clang
+      -- argument](https://clang.llvm.org/docs/ClangCommandLineReference.html#include-path-management).
     , extraIncludeDirs :: [path]
 
       -- | Preprocessor macro definitions
       --
       -- A definition of form @<macro>=<value>@ defines a macro with the
-      -- specified value.  A definition of form @<macro>@ defines a macro with
+      -- specified value. A definition of form @<macro>@ defines a macro with
       -- value @1@.
       --
-      -- This corresponds to the @-D@ clang argument.  See
-      -- <https://clang.llvm.org/docs/ClangCommandLineReference.html#preprocessor-options>.
+      -- This corresponds to the [@-D@ Clang
+      -- argument](https://clang.llvm.org/docs/ClangCommandLineReference.html#preprocessor-options).
     , defineMacros :: [String]
 
       -- | Enable block support
       --
-      -- NOTE: Running code that uses blocks will need the blocks runtime. This
-      -- is not always installed with clang; for example, on Ubuntu this is a
-      -- separate package @libblocksruntime-dev@. This package also provides the
+      -- Running code that uses blocks will need the blocks runtime. This is not
+      -- always installed with Clang; for example, on Ubuntu this is a separate
+      -- package @libblocksruntime-dev@. This package also provides the
       -- @Block.h@ header.
     , enableBlocks :: Bool
 
@@ -92,7 +95,8 @@ data ClangArgsConfig path = ClangArgsConfig {
       --   ]
       -- @
       --
-      -- See https://clang.llvm.org/docs/ClangCommandLineReference.html
+      -- See the [Clang command line
+      -- reference](https://clang.llvm.org/docs/ClangCommandLineReference.html).
     , argsInner :: [String]
 
       -- | Arguments to append when calling @libclang@
@@ -170,9 +174,10 @@ instance Default (ClangArgsConfig path) where
 --   little endian. If assumptions like these are ever challenged because we
 --   support another architecture, careful testing will be essential.
 --
--- * Supporting anything outside the GHC tier 1 platforms would be difficult
---   <https://gitlab.haskell.org/ghc/ghc/-/wikis/platforms#tier-1-platforms>,
---   although some tier 2 platforms /might/ also be possible.
+-- * Supporting anything outside the [GHC tier 1
+--   platforms](https://gitlab.haskell.org/ghc/ghc/-/wikis/platforms#tier-1-platforms)
+--   would be difficult , although some tier 2 platforms /might/ also be
+--   possible.
 --
 -- Notes on the translation to @clang@ triples:
 --
@@ -198,7 +203,8 @@ data Target =
 -- | Target environment
 --
 -- For example, on Windows valid choices are @msvc@ (for Visual C++) or @gnu@
--- (for @gcc@); see <https://wetmelon.github.io/clang-on-windows.html>.
+-- (for @gcc@); see [Using Clang on
+-- Windows](https://wetmelon.github.io/clang-on-windows.html).
 data TargetEnv =
     TargetEnvDefault
   | TargetEnvOverride String
