@@ -42,8 +42,8 @@ data Config_ path = Config {
   , bindingSpec :: BindingSpecConfig
 
     -- * Frontend
-  , parsePredicate  :: ParsePredicate
-  , selectPredicate :: SelectPredicate
+  , parsePredicate  :: Boolean ParsePredicate
+  , selectPredicate :: Boolean SelectPredicate
   , programSlicing  :: ProgramSlicing
 
     -- * Backend

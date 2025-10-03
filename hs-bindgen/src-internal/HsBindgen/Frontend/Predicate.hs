@@ -1,17 +1,13 @@
 -- | Select definitions from the C header
---
--- Intended for qualified import.
---
--- > import HsBindgen.Frontend.Predicate (Predicate(..))
--- > import HsBindgen.Frontend.Predicate qualified as Predicate
 module HsBindgen.Frontend.Predicate (
-    -- * Definition
-    Predicate (..)
+    -- * Booleans
+    Boolean (..)
+  , mergeBooleans
+    -- * Predicates
   , HeaderPathPredicate (..)
   , DeclPredicate (..)
-  , ParsePredicate
-  , SelectPredicate
-  , SelectPredicate_ (..)
+  , ParsePredicate (..)
+  , SelectPredicate (..)
   , Regex -- opaque
     -- * Execution (internal API)
   , IsMainHeader
@@ -20,8 +16,6 @@ module HsBindgen.Frontend.Predicate (
   , mkIsInMainHeaderDir
   , matchParse
   , matchSelect
-    -- * Merging
-  , mergePredicates
   ) where
 
 import Data.List qualified as List
@@ -39,26 +33,30 @@ import HsBindgen.Imports
   Definition
 -------------------------------------------------------------------------------}
 
--- | Predicate that determines which declarations should be kept
-data Predicate a =
+-- | Boolean logic combining predicates that determine which declarations should
+-- be kept
+data Boolean a =
     -- | Match any declaration
-    PTrue
+    BTrue
 
     -- | Match no declaration
-  | PFalse
+  | BFalse
 
     -- | Logical conjunction
-  | PAnd (Predicate a) (Predicate a)
+  | BAnd (Boolean a) (Boolean a)
 
     -- | Logical disjunction
-  | POr (Predicate a) (Predicate a)
+  | BOr (Boolean a) (Boolean a)
 
     -- | Logical negation
-  | PNot (Predicate a)
+  | BNot (Boolean a)
 
     -- | Concrete predicates
-  | PIf a
-  deriving (Show, Eq)
+  | BIf a
+  deriving stock (Show, Eq, Generic)
+
+instance Default a => Default (Boolean a) where
+  def = BIf def
 
 -- | Predicate that determines which declarations should be kept, based on
 -- header paths
@@ -72,7 +70,7 @@ data HeaderPathPredicate =
 
     -- | Match header path against regex
   | HeaderPathMatches Regex
-  deriving (Show, Eq)
+  deriving stock (Show, Eq, Generic)
 
 -- | Predicate that determines which declarations should be kept, based on the
 -- declarations themselves
@@ -82,13 +80,14 @@ data DeclPredicate =
     -- | Match deprecated declarations taking current target platform into
     -- account; see 'Availability'
   | DeclDeprecated
-  deriving (Show, Eq)
+  deriving stock (Show, Eq, Generic)
 
 -- | Predicates for the @Parse@ pass select based on header file paths
-type ParsePredicate = Predicate HeaderPathPredicate
+data ParsePredicate = ParseHeader HeaderPathPredicate
+  deriving stock (Show, Eq, Generic)
 
 instance Default ParsePredicate where
-  def = PIf FromMainHeaderDirs
+  def = ParseHeader FromMainHeaderDirs
 
 -- | Predicates for the @Select@ pass select based on header file paths or the
 -- declarations themselves
@@ -99,16 +98,13 @@ instance Default ParsePredicate where
 -- data structures, the selection predicate dictates which declarations
 -- `hs-bindgen` generates bindings for. For details, please see the @hs-bindgen@
 -- manual section on predicates and program slicing.
-type SelectPredicate = Predicate SelectPredicate_
-
--- TODO_PR
-data SelectPredicate_ =
+data SelectPredicate =
     SelectHeader HeaderPathPredicate
   | SelectDecl   DeclPredicate
-  deriving (Show, Eq, Generic)
+  deriving stock (Show, Eq, Generic)
 
 instance Default SelectPredicate where
-  def = PIf (SelectHeader FromMainHeaders)
+  def = SelectHeader FromMainHeaders
 
 {-------------------------------------------------------------------------------
   Execution
@@ -158,10 +154,10 @@ matchParse ::
      IsMainHeader
   -> IsInMainHeaderDir
   -> SourcePath
-  -> ParsePredicate
+  -> Boolean ParsePredicate
   -> Bool
-matchParse isMainHeader isInMainHeaderDir path = eval $
-    matchHeaderPath isMainHeader isInMainHeaderDir path
+matchParse isMainHeader isInMainHeaderDir path = eval $ \case
+    ParseHeader p -> matchHeaderPath isMainHeader isInMainHeaderDir path p
 
 -- | Match 'SelectPredicate' predicates
 matchSelect ::
@@ -170,27 +166,27 @@ matchSelect ::
   -> SourcePath
   -> C.QualDeclId
   -> C.Availability
-  -> SelectPredicate
+  -> Boolean SelectPredicate
   -> Bool
 matchSelect isMainHeader isInMainHeaderDir path qid availability = eval $ \case
-  SelectHeader p -> matchHeaderPath isMainHeader isInMainHeaderDir path p
-  SelectDecl   p -> matchDecl qid availability p
+    SelectHeader p -> matchHeaderPath isMainHeader isInMainHeaderDir path p
+    SelectDecl   p -> matchDecl qid availability p
 
 {-------------------------------------------------------------------------------
   Merging
 -------------------------------------------------------------------------------}
 
--- | Merge lists of negative and positive predicates
+-- | Merge lists of negative and positive Booleans
 --
--- Combine the negative predicates using AND, and the positive predicates using
+-- Combine the negative Booleans using AND, and the positive Booleans using
 -- OR.
-mergePredicates :: Eq a => [Predicate a] -> [Predicate a] -> Predicate a
-mergePredicates negatives positives =
-    let mergeNeg p q = reduce $ PAnd (reduce $ PNot $ reduce p) q
-        neg = foldr mergeNeg PTrue negatives
-        mergePos p q = reduce $ POr (reduce p) q
-        pos = foldr mergePos PFalse positives
-     in reduce $ PAnd neg pos
+mergeBooleans :: Eq a => [Boolean a] -> [Boolean a] -> Boolean a
+mergeBooleans negatives positives =
+    let mergeNeg p q = reduce $ BAnd (reduce $ BNot $ reduce p) q
+        neg = foldr mergeNeg BTrue negatives
+        mergePos p q = reduce $ BOr (reduce p) q
+        pos = foldr mergePos BFalse positives
+     in reduce $ BAnd neg pos
 
 {-------------------------------------------------------------------------------
   Internal auxiliary: execution
@@ -200,41 +196,41 @@ mergePredicates negatives positives =
 --
 -- * This is /not/ recursive: we call this at every step in 'eval'
 -- * This needs to match the semantics of 'eval' precisely.
-reduce :: Eq a => Predicate a -> Predicate a
+reduce :: Eq a => Boolean a -> Boolean a
 reduce = \case
-  PNot (PNot p) -> p
-  PNot PTrue    -> PFalse
-  PNot PFalse   -> PTrue
+  BNot (BNot p) -> p
+  BNot BTrue    -> BFalse
+  BNot BFalse   -> BTrue
   --
-  PAnd PTrue q -> q
-  PAnd p PTrue -> p
-  PAnd p q | p == PFalse || q == PFalse -> PFalse
+  BAnd BTrue q -> q
+  BAnd p BTrue -> p
+  BAnd p q | p == BFalse || q == BFalse -> BFalse
   --
-  POr PFalse q -> q
-  POr p PFalse -> p
-  POr p q | p == PTrue || q == PTrue -> PTrue
+  BOr BFalse q -> q
+  BOr p BFalse -> p
+  BOr p q | p == BTrue || q == BTrue -> BTrue
   --
   p -> p
 
--- | Evaluate a predicate
+-- | Evaluate a 'Boolean'
 --
 -- * This needs to match the semantics of 'reduce' precisely.  It should be OK
 --   as long as /obvious/ boolean interpretations are used.
 eval :: forall a.
      Eq a
-  => (a -> Bool)  -- ^ Evaluation function for concrete predicates
-  -> Predicate a
+  => (a -> Bool)  -- ^ Evaluation function for concrete Booleans
+  -> Boolean a
   -> Bool
 eval f = go
   where
-    go :: Predicate a -> Bool
+    go :: Boolean a -> Bool
     go p = case reduce p of
-      PTrue        -> True
-      PFalse       -> False
-      PAnd   p1 p2 -> go p1 && go p2
-      POr    p1 p2 -> go p1 || go p2
-      PNot   p1    -> not (go p1)
-      PIf    p1    -> f p1
+      BTrue        -> True
+      BFalse       -> False
+      BAnd   p1 p2 -> go p1 && go p2
+      BOr    p1 p2 -> go p1 || go p2
+      BNot   p1    -> not (go p1)
+      BIf    p1    -> f p1
 
 -- | Match 'HeaderPathPredicate' predicates
 matchHeaderPath ::

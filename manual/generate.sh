@@ -28,6 +28,7 @@ mkdir -p hs/manual/generated
 cabal run hs-bindgen-cli -- \
     preprocess \
     -I c/ \
+    --unique-id com.hs-bindgen.manual.example \
     --hs-output-dir hs/manual/generated \
     --module Example \
     manual_examples.h
@@ -35,6 +36,7 @@ cabal run hs-bindgen-cli -- \
 cabal run hs-bindgen-cli -- \
     preprocess \
     -I c \
+    --unique-id com.hs-bindgen.manual.structs \
     --hs-output-dir hs/manual/generated \
     --module Structs \
     structs.h
@@ -42,6 +44,7 @@ cabal run hs-bindgen-cli -- \
 cabal run hs-bindgen-cli -- \
     preprocess \
     -I c \
+    --unique-id com.hs-bindgen.manual.globals \
     --hs-output-dir hs/manual/generated \
     --module Globals \
     globals.h
@@ -49,6 +52,7 @@ cabal run hs-bindgen-cli -- \
 cabal run hs-bindgen-cli -- \
     preprocess \
     -I c \
+    --unique-id com.hs-bindgen.manual.arrays \
     --hs-output-dir hs/manual/generated \
     --module Arrays \
     arrays.h
@@ -56,6 +60,7 @@ cabal run hs-bindgen-cli -- \
 cabal run hs-bindgen-cli -- \
     preprocess \
     -I c \
+    --unique-id com.hs-bindgen.manual.funptrs \
     --hs-output-dir hs/manual/generated \
     --module FunctionPointers \
     function_pointers.h
@@ -63,6 +68,7 @@ cabal run hs-bindgen-cli -- \
 cabal run hs-bindgen-cli -- \
     preprocess \
     -I c/ \
+    --unique-id com.hs-bindgen.manual.complex \
     --hs-output-dir hs/manual/generated \
     --module Complex \
     hsb_complex_test.h
@@ -70,6 +76,7 @@ cabal run hs-bindgen-cli -- \
 cabal run hs-bindgen-cli -- \
     preprocess \
     -I c/ \
+    --unique-id com.hs-bindgen.manual.callbacks \
     --hs-output-dir hs/manual/generated \
     --module Callbacks \
     callbacks.h
@@ -81,6 +88,7 @@ echo "# "
 cabal run hs-bindgen-cli -- \
     preprocess \
     -I c \
+    --unique-id com.hs-bindgen.manual.vector \
     --hs-output-dir hs/hs-vector/generated \
     --gen-binding-spec external/vector.yaml \
     --module Vector \
@@ -91,6 +99,7 @@ mkdir -p hs/hs-vector/generated/Vector
 cabal run hs-bindgen-cli -- \
     preprocess \
     -I c \
+    --unique-id com.hs-bindgen.manual.vectorr \
     --hs-output-dir hs/hs-vector/generated \
     --external-binding-spec external/vector.yaml \
     --module Vector.Rotate \
@@ -99,6 +108,7 @@ cabal run hs-bindgen-cli -- \
 cabal run hs-bindgen-cli -- \
     preprocess \
     -I c \
+    --unique-id com.hs-bindgen.manual.vectorl \
     --hs-output-dir hs/hs-vector/generated \
     --external-binding-spec external/vector.yaml \
     --module Vector.Length \
@@ -113,6 +123,7 @@ mkdir -p hs/hs-game/generated/Game
 cabal run hs-bindgen-cli -- \
     preprocess \
     -I c \
+    --unique-id com.hs-bindgen.manual.game \
     --select-by-header-path 'game_internal\.h$' \
     --hs-output-dir hs/hs-game/generated \
     --gen-binding-spec external/game.yaml \
@@ -123,6 +134,7 @@ cabal run hs-bindgen-cli -- \
 cabal run hs-bindgen-cli -- \
     preprocess \
     -I c \
+    --unique-id com.hs-bindgen.manual.gamew \
     --hs-output-dir hs/hs-game/generated \
     --external-binding-spec external/game.yaml \
     --module Game.World \
@@ -131,6 +143,7 @@ cabal run hs-bindgen-cli -- \
 cabal run hs-bindgen-cli -- \
     preprocess \
     -I c \
+    --unique-id com.hs-bindgen.manual.gamep \
     --hs-output-dir hs/hs-game/generated \
     --external-binding-spec external/game.yaml \
     --module Game.Player \

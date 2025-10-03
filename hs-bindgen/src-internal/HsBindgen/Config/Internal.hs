@@ -18,7 +18,7 @@ import HsBindgen.Backend.UniqueId
 import HsBindgen.BindingSpec
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Frontend.Pass.Select.IsPass (ProgramSlicing)
-import HsBindgen.Frontend.Predicate (ParsePredicate, SelectPredicate)
+import HsBindgen.Frontend.Predicate (Boolean, ParsePredicate, SelectPredicate)
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
@@ -60,8 +60,8 @@ data BootConfig = BootConfig {
 --
 -- The frontend parses the C code and reifies the C declarations.
 data FrontendConfig = FrontendConfig {
-      frontendParsePredicate  :: ParsePredicate
-    , frontendSelectPredicate :: SelectPredicate
+      frontendParsePredicate  :: Boolean ParsePredicate
+    , frontendSelectPredicate :: Boolean SelectPredicate
     , frontendProgramSlicing  :: ProgramSlicing
     }
   deriving stock (Show, Eq, Generic)
