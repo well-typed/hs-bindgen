@@ -472,7 +472,7 @@ resolve tracer injResolveHeader args uSpec = do
 
 data ABindingSpec = ABindingSpec {
       aBindingSpecVersion :: AVersion
-    , aBindingSpecTypes   :: [AOmittable ATypeSpecMapping]
+    , aBindingSpecTypes   :: [AOTypeSpecMapping]
     }
   deriving stock Show
 
@@ -490,12 +490,32 @@ instance Aeson.ToJSON ABindingSpec where
 
 --------------------------------------------------------------------------------
 
+type AOTypeSpecMapping = AOmittable AKTypeSpecMapping ATypeSpecMapping
+
+data AKTypeSpecMapping = AKTypeSpecMapping {
+      akTypeSpecMappingHeaders :: [FilePath]
+    , akTypeSpecMappingCName   :: Text
+    }
+  deriving stock Show
+
+instance Aeson.FromJSON AKTypeSpecMapping where
+  parseJSON = Aeson.withObject "AKTypeSpecMapping" $ \o -> do
+    akTypeSpecMappingHeaders <- o .: "headers" >>= listFromJSON
+    akTypeSpecMappingCName   <- o .: "cname"
+    return AKTypeSpecMapping{..}
+
+instance Aeson.ToJSON AKTypeSpecMapping where
+  toJSON AKTypeSpecMapping{..} = Aeson.Object $ KM.fromList [
+      "headers" .= listToJSON akTypeSpecMappingHeaders
+    , "cname"   .= akTypeSpecMappingCName
+    ]
+
 data ATypeSpecMapping = ATypeSpecMapping {
       aTypeSpecMappingHeaders    :: [FilePath]
     , aTypeSpecMappingCName      :: Text
     , aTypeSpecMappingModule     :: Maybe Hs.ModuleName
     , aTypeSpecMappingIdentifier :: Maybe Hs.Identifier
-    , aTypeSpecMappingInstances  :: [AOmittable AInstanceSpecMapping]
+    , aTypeSpecMappingInstances  :: [AOInstanceSpecMapping]
     }
   deriving stock Show
 
@@ -518,6 +538,8 @@ instance Aeson.ToJSON ATypeSpecMapping where
     ]
 
 --------------------------------------------------------------------------------
+
+type AOInstanceSpecMapping = AOmittable Hs.TypeClass AInstanceSpecMapping
 
 data AInstanceSpecMapping = AInstanceSpecMapping {
       aInstanceSpecMappingClass       :: Hs.TypeClass
@@ -586,7 +608,7 @@ fromABindingSpec path ABindingSpec{..} =
     in  (typeErrs, BindingSpec{..})
   where
     mkTypeMap ::
-         [AOmittable ATypeSpecMapping]
+         [AOTypeSpecMapping]
       -> ( [BindingSpecReadMsg]
          , Map C.QualName [(Set HashIncludeArg, Omittable TypeSpec)]
          )
@@ -608,7 +630,7 @@ fromABindingSpec path ABindingSpec{..} =
       in  (invalidErrs ++ argErrs ++ conflictErrs, x)
 
     mkTypeMapInsert ::
-         AOmittable ATypeSpecMapping
+         AOTypeSpecMapping
       -> ( Set Text
          , [HashIncludeArgMsg]
          , Map C.QualName (Set HashIncludeArg)
@@ -629,8 +651,8 @@ fromABindingSpec path ABindingSpec{..} =
                         mkInstanceMap aTypeSpecMappingInstances
                     }
               in  (aTypeSpecMappingCName, aTypeSpecMappingHeaders, Require typ)
-            AOmit ATypeSpecMapping{..} ->
-              (aTypeSpecMappingCName, aTypeSpecMappingHeaders, Omit)
+            AOmit AKTypeSpecMapping{..} ->
+              (akTypeSpecMappingCName, akTypeSpecMappingHeaders, Omit)
           (msgs', headers') = bimap ((msgs ++) . concat) Set.fromList $
             unzip (map hashIncludeArg headers)
       in  case C.parseQualName cname of
@@ -659,7 +681,7 @@ fromABindingSpec path ABindingSpec{..} =
 
     -- duplicates ignored, last value retained
     mkInstanceMap ::
-         [AOmittable AInstanceSpecMapping]
+         [AOInstanceSpecMapping]
       -> Map Hs.TypeClass (Omittable InstanceSpec)
     mkInstanceMap xs = Map.fromList . flip map xs $ \case
       ARequire AInstanceSpecMapping{..} ->
@@ -671,7 +693,7 @@ fromABindingSpec path ABindingSpec{..} =
                   ]
               }
         in  (aInstanceSpecMappingClass, Require inst)
-      AOmit AInstanceSpecMapping{..} -> (aInstanceSpecMappingClass, Omit)
+      AOmit hsTypeClass -> (hsTypeClass, Omit)
 
 toABindingSpec :: UnresolvedBindingSpec -> ABindingSpec
 toABindingSpec BindingSpec{..} = ABindingSpec{..}
@@ -679,7 +701,7 @@ toABindingSpec BindingSpec{..} = ABindingSpec{..}
     aBindingSpecVersion :: AVersion
     aBindingSpecVersion = mkAVersion version
 
-    aBindingSpecTypes :: [AOmittable ATypeSpecMapping]
+    aBindingSpecTypes :: [AOTypeSpecMapping]
     aBindingSpecTypes = [
         case oType of
           Require TypeSpec{..} -> ARequire ATypeSpecMapping {
@@ -691,26 +713,19 @@ toABindingSpec BindingSpec{..} = ABindingSpec{..}
             , aTypeSpecMappingInstances  = [
                   case oInst of
                     Require InstanceSpec{..} -> ARequire AInstanceSpecMapping {
-                        aInstanceSpecMappingClass       = clss
+                        aInstanceSpecMappingClass       = hsTypeClass
                       , aInstanceSpecMappingStrategy    = instanceSpecStrategy
                       , aInstanceSpecMappingConstraints =
                           map AConstraintSpec instanceSpecConstraints
                       }
-                    Omit -> AOmit AInstanceSpecMapping {
-                        aInstanceSpecMappingClass       = clss
-                      , aInstanceSpecMappingStrategy    = Nothing
-                      , aInstanceSpecMappingConstraints = []
-                      }
-                | (clss, oInst) <- Map.toAscList typeSpecInstances
+                    Omit -> AOmit hsTypeClass
+                | (hsTypeClass, oInst) <- Map.toAscList typeSpecInstances
                 ]
             }
-          Omit -> AOmit ATypeSpecMapping {
-              aTypeSpecMappingHeaders    =
+          Omit -> AOmit AKTypeSpecMapping {
+              akTypeSpecMappingHeaders =
                 map getHashIncludeArg (Set.toAscList headers)
-            , aTypeSpecMappingCName      = C.qualNameText cQualName
-            , aTypeSpecMappingModule     = Nothing
-            , aTypeSpecMappingIdentifier = Nothing
-            , aTypeSpecMappingInstances  = []
+            , akTypeSpecMappingCName = C.qualNameText cQualName
             }
       | (cQualName, xs) <- Map.toAscList bindingSpecTypes
       , (headers, oType) <- xs
