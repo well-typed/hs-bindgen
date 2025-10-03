@@ -8,6 +8,7 @@ maintainer:         edsko@well-typed.com
 category:           Development
 build-type:         Simple
 synopsis:           Generate Haskell bindings from C headers
+description:        Automatically generate Haskell bindings from C headers
 extra-doc-files:    CHANGELOG.md
 tested-with:      , GHC==9.2.8
                   , GHC==9.4.8

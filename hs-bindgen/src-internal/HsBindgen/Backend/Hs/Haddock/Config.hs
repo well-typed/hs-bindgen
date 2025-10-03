@@ -12,8 +12,12 @@ data HaddockConfig = HaddockConfig {
   deriving stock (Show, Eq, Generic)
   deriving anyclass Default
 
-data PathStyle = Short
-               | Full
+-- | Path style used in generated Haddock comments
+data PathStyle =
+    -- | Abbreviate paths
+    Short
+    -- | Print full paths, potentially exposing the local file tree
+  | Full
   deriving stock (Show, Eq, Generic)
 
 instance Default PathStyle where

@@ -5,7 +5,6 @@
 -- NOTE: Client code should /NOT/ have to import from @clang@.
 
 module HsBindgen.TH (
-    -- * Template Haskell API
     TH.withHsBindgen
   , TH.hashInclude
 
@@ -24,6 +23,7 @@ module HsBindgen.TH (
   , TH.IncludeDir(..)
 
     -- ** Binding specifications
+  , BindingSpec.BindingSpecConfig(..)
   , BindingSpec.EnableStdlibBindingSpec(..)
   , BindingSpec.BindingSpecCompatibility(..)
 

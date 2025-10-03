@@ -42,26 +42,28 @@ import HsBindgen
   Template Haskell API
 -------------------------------------------------------------------------------}
 
+-- | Configuration with C include directories
+--
+-- C include directories can be provided relative to the package root (see the
+-- 'IncludeDir' data constructor 'Pkg').
 type Config = Config_ IncludeDir
 
--- | Project-specific C include directory.
---
--- Will be added either to the C include search path.
+-- | C include directory added to the C include search path
 data IncludeDir =
     Dir FilePath
-    -- | Include directory relative to package root.
+    -- | Include directory relative to package root
   | Pkg FilePath
   deriving stock (Eq, Show, Generic)
 
--- | Generate bindings for given C headers at compile-time.
+-- | Generate bindings for given C headers at compile-time
 --
 -- Use together with 'hashInclude'.
 --
 -- For example,
 --
--- > withHsBindgen def $ do
--- >   hashInclude "a.h"
--- >   hashInclude "b.h"
+-- > withHsBindgen def def $ do
+-- >   hashInclude "foo.h"
+-- >   hashInclude "bar.h"
 withHsBindgen :: Config -> ConfigTH -> Bindgen () -> TH.Q [TH.Dec]
 withHsBindgen config ConfigTH{..} hashIncludes = do
     checkHsBindgenRuntimePreludeIsInScope
@@ -90,7 +92,7 @@ withHsBindgen config ConfigTH{..} hashIncludes = do
     checkLanguageExtensions requiredExts
     uncurry (getThDecls deps) decls
 
--- | @#include@ (i.e., generate bindings for) a C header.
+-- | @#include@ (i.e., generate bindings for) a C header
 --
 -- For example, the Haskell code,
 --
@@ -113,7 +115,7 @@ hashInclude arg = do
   Internal artefacts
 -------------------------------------------------------------------------------}
 
--- | Get required extensions.
+-- | Get required extensions
 getExtensions :: [UserlandCapiWrapper] -> [SHs.SDecl] -> Set TH.Extension
 getExtensions wrappers decls = userlandCapiExt <> foldMap requiredExtensions decls
   where
@@ -121,8 +123,9 @@ getExtensions wrappers decls = userlandCapiExt <> foldMap requiredExtensions dec
       []  -> Set.empty
       _xs -> Set.singleton TH.TemplateHaskell
 
--- | Internal; Get Template Haskell declarations; non-IO part of
--- 'withHsBindgen'.
+-- | Internal; Get Template Haskell declarations;
+--
+-- Non-IO part of 'withHsBindgen'.
 getThDecls
     :: Guasi q
     => [SourcePath]
@@ -146,16 +149,20 @@ getThDecls deps wrappers decls = do
   Helpers
 -------------------------------------------------------------------------------}
 
--- | The default tracer configuration in Q uses 'outputConfigTH'.
+-- | The default tracer configuration in Q uses 'outputConfigTH'
 tracerConfigDefTH :: TracerConfig IO l a
 tracerConfigDefTH = def {
         tOutputConfig = outputConfigTH
       }
 
--- | Internal! See 'withHsBindgen'.
+-- | Internal!
+--
+-- See 'withHsBindgen'.
 type Bindgen a = State BindgenState a
 
--- | Internal! State manipulated by 'hashInclude'.
+-- | Internal!
+--
+-- State manipulated by 'hashInclude'.
 data BindgenState = BindgenState {
     bindgenStateUncheckedHashIncludeArgs :: [UncheckedHashIncludeArg]
   }

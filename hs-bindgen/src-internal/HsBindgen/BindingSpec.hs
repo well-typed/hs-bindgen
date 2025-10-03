@@ -99,6 +99,7 @@ type PrescriptiveBindingSpec = BindingSpec
 data EnableStdlibBindingSpec =
     -- | Automatically include @stdlib@
     EnableStdlibBindingSpec
+    -- | Do not include @stdlib@
   | DisableStdlibBindingSpec
   deriving stock (Show, Eq)
 

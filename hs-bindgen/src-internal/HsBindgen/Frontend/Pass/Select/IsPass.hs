@@ -71,10 +71,11 @@ data SelectDeclMeta = SelectDeclMeta {
   Configuration
 -------------------------------------------------------------------------------}
 
+-- | Select transitive dependencies?
 data ProgramSlicing =
-  -- | Enable program slicing: Select declarations using the selection predicate
-  -- /and/ their transitive dependencies.
-  EnableProgramSlicing
+    -- | Select declarations using the selection predicate /and/ their
+    -- transitive dependencies.
+    EnableProgramSlicing
   | DisableProgramSlicing
   deriving stock (Show, Eq)
 

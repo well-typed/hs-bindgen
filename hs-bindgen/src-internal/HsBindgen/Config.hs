@@ -35,7 +35,8 @@ import HsBindgen.Language.Haskell qualified as Hs
 
 -- NOTE: Stable public API.
 
--- | Configuration shared between preprocessor and Template-Haskell modes.
+-- | Configuration shared between preprocessor (e.g., the @hs-bindgen@ client:
+-- @hs-bindgen-cli@) and Template-Haskell modes
 data Config_ path = Config {
     -- * Boot
     clang       :: ClangArgsConfig path
@@ -47,7 +48,6 @@ data Config_ path = Config {
   , programSlicing  :: ProgramSlicing
 
     -- * Backend
-    -- | Path style used in Haddock comments.
   , haddockPathStyle :: PathStyle
   }
   deriving stock (Show, Eq, Generic)
@@ -79,7 +79,7 @@ toBindgenConfig Config{..} = BindgenConfig bootConfig frontendConfig backendConf
 
 -- NOTE: Stable public API.
 
--- | Configuration specific to preprocessor mode.
+-- | Configuration specific to preprocessor mode
 data ConfigPP = ConfigPP {
     uniqueId   :: Maybe UniqueId
   , moduleName :: Hs.ModuleName
@@ -110,9 +110,17 @@ toBindgenConfigPP config ConfigPP{..} =
 
 -- NOTE: Stable public API.
 
--- | Configuration specific to Template-Haskell mode.
+-- | Configuration specific to Template-Haskell mode
 data ConfigTH = ConfigTH {
-    -- | Foreign import safety.
+    -- | Foreign import safety
+    --
+    -- The generated identifiers of @safe@ and @unsafe@ foreign imports are
+    -- identical, so we have to choose one.
+    --
+    -- Default:
+    --
+    -- >>> def :: Safety
+    -- Safe
     safety :: Safety
   }
   deriving stock (Show, Eq, Generic)
