@@ -110,7 +110,7 @@ parseBindingSpecVersion t =
   Compatibility
 -------------------------------------------------------------------------------}
 
--- | Binding specification compatibility
+-- | Binding specification compatibility strictness
 data BindingSpecCompatibility =
     -- | Do not allow newer minor versions
     BindingSpecStrict

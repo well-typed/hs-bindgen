@@ -391,7 +391,7 @@ data ForeignImport = ForeignImport
     }
   deriving stock (Show)
 
--- | Safety of foreign import declarations.
+-- | Safety of foreign import declarations
 data Safety = Safe | Unsafe
   deriving stock (Show, Eq, Generic)
 
