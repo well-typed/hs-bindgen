@@ -1,0 +1,18 @@
+name: c-minisat Example
+description: Build and run the c-minisat example
+
+runs:
+  using: composite
+  steps:
+    - name: Install minisat
+      shell: bash
+      run: sudo apt-get update && sudo apt-get install -y minisat
+
+    - name: Initialize git submodules
+      shell: bash
+      run: git submodule update --init --recursive examples/c-minisat/minisat-c-bindings
+
+    - name: Run generation and build script
+      shell: bash
+      working-directory: ./examples/c-minisat
+      run: ./generate-and-run.sh
