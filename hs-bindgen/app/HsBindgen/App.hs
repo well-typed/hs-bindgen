@@ -361,41 +361,43 @@ parseClangOptionAfter = strOption $ mconcat [
   Predicates and slicing
 -------------------------------------------------------------------------------}
 
-parseParsePredicate :: Parser ParsePredicate
+parseParsePredicate :: Parser (Boolean ParsePredicate)
 parseParsePredicate = fmap aux . many . asum $ [
       flag' (Right PTrue) $ mconcat [
           long "parse-all"
         , help "Parse all headers"
         ]
-    , flag' (Right (PIf FromMainHeaders)) $ mconcat [
+    , flag' (Right (PIf (ParseHeader FromMainHeaders))) $ mconcat [
           long "parse-from-main-headers"
         , help "Parse main headers"
         ]
-    , flag' (Right (PIf FromMainHeaderDirs)) $ mconcat [
+    , flag' (Right (PIf (ParseHeader FromMainHeaderDirs))) $ mconcat [
           long "parse-from-main-header-dirs"
         , help "Parse headers in main header directories (default)"
         ]
-    , fmap (Right . PIf . HeaderPathMatches) $ strOption $ mconcat [
+    , fmap (Right . PIf . ParseHeader . HeaderPathMatches) $ strOption $ mconcat [
           long "parse-by-header-path"
         , metavar "PCRE"
         , help "Parse headers with paths that match PCRE"
         ]
-    , fmap (Left . PIf . HeaderPathMatches) $ strOption $ mconcat [
+    , fmap (Left . PIf . ParseHeader . HeaderPathMatches) $ strOption $ mconcat [
           long "parse-except-by-header-path"
         , metavar "PCRE"
         , help "Parse except headers with paths that match PCRE"
         ]
     ]
   where
-    aux :: [Either ParsePredicate ParsePredicate] -> ParsePredicate
-    aux = uncurry mergePredicates . fmap applyDefault . partitionEithers
+    aux ::
+         [Either (Boolean ParsePredicate) (Boolean ParsePredicate)]
+      -> Boolean ParsePredicate
+    aux = uncurry mergeBooleans . fmap applyDefault . partitionEithers
 
-    applyDefault :: [ParsePredicate] -> [ParsePredicate]
+    applyDefault :: Default a => [a] -> [a]
     applyDefault = \case
       [] -> [def]
       ps -> ps
 
-parseSelectPredicate :: Parser SelectPredicate
+parseSelectPredicate :: Parser (Boolean SelectPredicate)
 parseSelectPredicate = fmap aux . many . asum $ [
       flag' (Right PTrue) $ mconcat [
           long "select-all"
@@ -438,10 +440,12 @@ parseSelectPredicate = fmap aux . many . asum $ [
         ]
     ]
   where
-    aux :: [Either SelectPredicate SelectPredicate] -> SelectPredicate
-    aux = uncurry mergePredicates . fmap applyDefault . partitionEithers
+    aux ::
+         [Either (Boolean SelectPredicate) (Boolean SelectPredicate)]
+      -> (Boolean SelectPredicate)
+    aux = uncurry mergeBooleans . fmap applyDefault . partitionEithers
 
-    applyDefault :: [SelectPredicate] -> [SelectPredicate]
+    applyDefault :: Default a => [a] -> [a]
     applyDefault = \case
       [] -> [def]
       ps -> ps

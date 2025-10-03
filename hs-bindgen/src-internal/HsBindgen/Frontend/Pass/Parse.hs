@@ -11,7 +11,7 @@ import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Pass.Parse.Decl
 import HsBindgen.Frontend.Pass.Parse.Decl.Monad qualified as ParseDecl
 import HsBindgen.Frontend.Pass.Parse.IsPass
-import HsBindgen.Frontend.Predicate qualified as Predicate
+import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.ProcessIncludes
 import HsBindgen.Frontend.RootHeader (RootHeader)
 import HsBindgen.Util.Tracer
@@ -23,10 +23,10 @@ import HsBindgen.Util.Tracer
 parseDecls ::
      Tracer IO UnattachedParseMsg
   -> RootHeader
-  -> Predicate.ParsePredicate
+  -> Boolean ParsePredicate
   -> IncludeGraph
-  -> Predicate.IsMainHeader
-  -> Predicate.IsInMainHeaderDir
+  -> IsMainHeader
+  -> IsInMainHeaderDir
   -> GetMainHeadersAndInclude
   -> CXTranslationUnit
   -> IO (C.TranslationUnit Parse)

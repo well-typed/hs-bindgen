@@ -46,7 +46,7 @@ import HsBindgen.Frontend.NonParsedDecls (NonParsedDecls)
 import HsBindgen.Frontend.NonParsedDecls qualified as NonParsedDecls
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
-import HsBindgen.Frontend.Predicate qualified as Predicate
+import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.ProcessIncludes (GetMainHeadersAndInclude)
 import HsBindgen.Frontend.RootHeader (HashIncludeArg, RootHeader)
 import HsBindgen.Imports
@@ -91,10 +91,10 @@ run env f = do
 data Env = Env {
       envUnit                     :: CXTranslationUnit
     , envRootHeader               :: RootHeader
-    , envIsMainHeader             :: Predicate.IsMainHeader
-    , envIsInMainHeaderDir        :: Predicate.IsInMainHeaderDir
+    , envIsMainHeader             :: IsMainHeader
+    , envIsInMainHeaderDir        :: IsInMainHeaderDir
     , envGetMainHeadersAndInclude :: GetMainHeadersAndInclude
-    , envPredicate                :: Predicate.ParsePredicate
+    , envPredicate                :: Boolean ParsePredicate
     , envTracer                   :: Tracer IO UnattachedParseMsg
     }
 
@@ -110,7 +110,7 @@ evalGetMainHeadersAndInclude path = wrapEff $ \ParseSupport{parseEnv} ->
 
 evalPredicate :: C.DeclInfo Parse -> ParseDecl Bool
 evalPredicate info = wrapEff $ \ParseSupport{parseEnv} -> pure $
-    Predicate.matchParse
+    matchParse
       (envIsMainHeader parseEnv)
       (envIsInMainHeaderDir parseEnv)
       (singleLocPath (C.declLoc info))

@@ -28,16 +28,16 @@ module HsBindgen.TH (
   , BindingSpec.BindingSpecCompatibility(..)
 
     -- ** Predicates and program slicing
-  , Predicate.Predicate(..)
+  , Predicate.Boolean(..)
   , Predicate.HeaderPathPredicate(..)
   , Predicate.Regex
 
     -- *** Parse predicates
-  , Predicate.ParsePredicate
+  , Predicate.ParsePredicate(..)
 
     -- *** Select predicates and program slicing
   , Predicate.DeclPredicate(..)
-  , Predicate.SelectPredicate
+  , Predicate.SelectPredicate(..)
   , Select.ProgramSlicing(..)
 
     -- ** Haddocks

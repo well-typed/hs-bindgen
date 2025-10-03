@@ -20,13 +20,13 @@ import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Pass.Sort.IsPass
-import HsBindgen.Frontend.Predicate qualified as Predicate
+import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
 selectDecls ::
-     Predicate.IsMainHeader
-  -> Predicate.IsInMainHeaderDir
+     IsMainHeader
+  -> IsInMainHeaderDir
   -> Config Select
   -> C.TranslationUnit ResolveBindingSpec
   -> (C.TranslationUnit Select, [Msg Select])
@@ -101,7 +101,7 @@ selectDecls isMainHeader isInMainHeaderDir SelectConfig{..} unitRBS =
 
     match :: SingleLoc -> C.QualDeclId -> C.Availability -> Bool
     match loc qualDeclId availability =
-      Predicate.matchSelect
+      matchSelect
         isMainHeader
         isInMainHeaderDir
         (singleLocPath loc)
