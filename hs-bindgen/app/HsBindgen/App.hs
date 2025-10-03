@@ -363,24 +363,24 @@ parseClangOptionAfter = strOption $ mconcat [
 
 parseParsePredicate :: Parser (Boolean ParsePredicate)
 parseParsePredicate = fmap aux . many . asum $ [
-      flag' (Right PTrue) $ mconcat [
+      flag' (Right BTrue) $ mconcat [
           long "parse-all"
         , help "Parse all headers"
         ]
-    , flag' (Right (PIf (ParseHeader FromMainHeaders))) $ mconcat [
+    , flag' (Right (BIf (ParseHeader FromMainHeaders))) $ mconcat [
           long "parse-from-main-headers"
         , help "Parse main headers"
         ]
-    , flag' (Right (PIf (ParseHeader FromMainHeaderDirs))) $ mconcat [
+    , flag' (Right (BIf (ParseHeader FromMainHeaderDirs))) $ mconcat [
           long "parse-from-main-header-dirs"
         , help "Parse headers in main header directories (default)"
         ]
-    , fmap (Right . PIf . ParseHeader . HeaderPathMatches) $ strOption $ mconcat [
+    , fmap (Right . BIf . ParseHeader . HeaderPathMatches) $ strOption $ mconcat [
           long "parse-by-header-path"
         , metavar "PCRE"
         , help "Parse headers with paths that match PCRE"
         ]
-    , fmap (Left . PIf . ParseHeader . HeaderPathMatches) $ strOption $ mconcat [
+    , fmap (Left . BIf . ParseHeader . HeaderPathMatches) $ strOption $ mconcat [
           long "parse-except-by-header-path"
         , metavar "PCRE"
         , help "Parse except headers with paths that match PCRE"
@@ -399,24 +399,24 @@ parseParsePredicate = fmap aux . many . asum $ [
 
 parseSelectPredicate :: Parser (Boolean SelectPredicate)
 parseSelectPredicate = fmap aux . many . asum $ [
-      flag' (Right PTrue) $ mconcat [
+      flag' (Right BTrue) $ mconcat [
           long "select-all"
         , help "Select all declarations"
         ]
-    , flag' (Right (PIf (SelectHeader FromMainHeaders))) $ mconcat [
+    , flag' (Right (BIf (SelectHeader FromMainHeaders))) $ mconcat [
           long "select-from-main-headers"
         , help "Select declarations in main headers (default)"
         ]
-    , flag' (Right (PIf (SelectHeader FromMainHeaderDirs))) $ mconcat [
+    , flag' (Right (BIf (SelectHeader FromMainHeaderDirs))) $ mconcat [
           long "select-from-main-header-dirs"
         , help "Select declarations in main header directories"
         ]
-    , fmap (Right . PIf . SelectHeader . HeaderPathMatches) $ strOption $ mconcat [
+    , fmap (Right . BIf . SelectHeader . HeaderPathMatches) $ strOption $ mconcat [
           long "select-by-header-path"
         , metavar "PCRE"
         , help "Select declarations in headers with paths that match PCRE"
         ]
-    , fmap (Left . PIf . SelectHeader . HeaderPathMatches) $ strOption $ mconcat [
+    , fmap (Left . BIf . SelectHeader . HeaderPathMatches) $ strOption $ mconcat [
           long "select-except-by-header-path"
         , metavar "PCRE"
         , help $ concat [
@@ -424,17 +424,17 @@ parseSelectPredicate = fmap aux . many . asum $ [
             , " PCRE"
             ]
         ]
-    , fmap (Right . PIf . SelectDecl . DeclNameMatches) $ strOption $ mconcat [
+    , fmap (Right . BIf . SelectDecl . DeclNameMatches) $ strOption $ mconcat [
           long "select-by-decl-name"
         , metavar "PCRE"
         , help "Select declarations with C names that match PCRE"
         ]
-    , fmap (Left . PIf . SelectDecl . DeclNameMatches) $ strOption $ mconcat [
+    , fmap (Left . BIf . SelectDecl . DeclNameMatches) $ strOption $ mconcat [
           long "select-except-by-decl-name"
         , metavar "PCRE"
         , help "Select except (i.e., do not select) declarations with C names that match PCRE"
         ]
-    , flag' (Left $ PIf $ SelectDecl DeclDeprecated) $ mconcat [
+    , flag' (Left $ BIf $ SelectDecl DeclDeprecated) $ mconcat [
           long "select-except-deprecated"
         , help "Select except (i.e., do not select) deprecated declarations"
         ]

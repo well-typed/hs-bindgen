@@ -37,26 +37,26 @@ import HsBindgen.Imports
 -- be kept
 data Boolean a =
     -- | Match any declaration
-    PTrue
+    BTrue
 
     -- | Match no declaration
-  | PFalse
+  | BFalse
 
     -- | Logical conjunction
-  | PAnd (Boolean a) (Boolean a)
+  | BAnd (Boolean a) (Boolean a)
 
     -- | Logical disjunction
-  | POr (Boolean a) (Boolean a)
+  | BOr (Boolean a) (Boolean a)
 
     -- | Logical negation
-  | PNot (Boolean a)
+  | BNot (Boolean a)
 
     -- | Concrete predicates
-  | PIf a
+  | BIf a
   deriving stock (Show, Eq, Generic)
 
 instance Default a => Default (Boolean a) where
-  def = PIf def
+  def = BIf def
 
 -- | Predicate that determines which declarations should be kept, based on
 -- header paths
@@ -182,11 +182,11 @@ matchSelect isMainHeader isInMainHeaderDir path qid availability = eval $ \case
 -- OR.
 mergeBooleans :: Eq a => [Boolean a] -> [Boolean a] -> Boolean a
 mergeBooleans negatives positives =
-    let mergeNeg p q = reduce $ PAnd (reduce $ PNot $ reduce p) q
-        neg = foldr mergeNeg PTrue negatives
-        mergePos p q = reduce $ POr (reduce p) q
-        pos = foldr mergePos PFalse positives
-     in reduce $ PAnd neg pos
+    let mergeNeg p q = reduce $ BAnd (reduce $ BNot $ reduce p) q
+        neg = foldr mergeNeg BTrue negatives
+        mergePos p q = reduce $ BOr (reduce p) q
+        pos = foldr mergePos BFalse positives
+     in reduce $ BAnd neg pos
 
 {-------------------------------------------------------------------------------
   Internal auxiliary: execution
@@ -198,17 +198,17 @@ mergeBooleans negatives positives =
 -- * This needs to match the semantics of 'eval' precisely.
 reduce :: Eq a => Boolean a -> Boolean a
 reduce = \case
-  PNot (PNot p) -> p
-  PNot PTrue    -> PFalse
-  PNot PFalse   -> PTrue
+  BNot (BNot p) -> p
+  BNot BTrue    -> BFalse
+  BNot BFalse   -> BTrue
   --
-  PAnd PTrue q -> q
-  PAnd p PTrue -> p
-  PAnd p q | p == PFalse || q == PFalse -> PFalse
+  BAnd BTrue q -> q
+  BAnd p BTrue -> p
+  BAnd p q | p == BFalse || q == BFalse -> BFalse
   --
-  POr PFalse q -> q
-  POr p PFalse -> p
-  POr p q | p == PTrue || q == PTrue -> PTrue
+  BOr BFalse q -> q
+  BOr p BFalse -> p
+  BOr p q | p == BTrue || q == BTrue -> BTrue
   --
   p -> p
 
@@ -225,12 +225,12 @@ eval f = go
   where
     go :: Boolean a -> Bool
     go p = case reduce p of
-      PTrue        -> True
-      PFalse       -> False
-      PAnd   p1 p2 -> go p1 && go p2
-      POr    p1 p2 -> go p1 || go p2
-      PNot   p1    -> not (go p1)
-      PIf    p1    -> f p1
+      BTrue        -> True
+      BFalse       -> False
+      BAnd   p1 p2 -> go p1 && go p2
+      BOr    p1 p2 -> go p1 || go p2
+      BNot   p1    -> not (go p1)
+      BIf    p1    -> f p1
 
 -- | Match 'HeaderPathPredicate' predicates
 matchHeaderPath ::

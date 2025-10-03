@@ -250,9 +250,9 @@ testCases = manualTestCases ++ [
       in (defaultTest "visibility_attributes") {
           testOnFrontendConfig = \cfg -> cfg{
               frontendSelectPredicate =
-                PAnd
-                  (PIf (SelectHeader FromMainHeaders))
-                  (PNot (PIf (SelectDecl DeclDeprecated)))
+                BAnd
+                  (BIf (SelectHeader FromMainHeaders))
+                  (BNot (BIf (SelectDecl DeclDeprecated)))
             }
         , testTracePredicate = customTracePredicate' declsWithWarnings $ \case
             TraceFrontend (FrontendSelect (SelectParse key (ParsePotentialDuplicateSymbol _isPublic))) ->
@@ -419,12 +419,12 @@ testCases = manualTestCases ++ [
     , (defaultTest "delay_traces") {
           testOnFrontendConfig = \cfg -> cfg{
               frontendSelectPredicate =
-                POr
-                  (PIf (SelectDecl (DeclNameMatches "_function")))
+                BOr
+                  (BIf (SelectDecl (DeclNameMatches "_function")))
                   -- NOTE: Matching for name kind is not good practice, but we
                   -- want to check if nested, but skipped declarations are
                   -- correctly assigned name kinds.
-                  (PIf (SelectDecl (DeclNameMatches "struct")))
+                  (BIf (SelectDecl (DeclNameMatches "struct")))
             }
         , testTracePredicate = customTracePredicate' [
               "long_double_function"
@@ -540,8 +540,8 @@ testCases = manualTestCases ++ [
           -- uint64_t if we only provide external binding specifications for
           -- uint64_t.
           testOnFrontendConfig = \cfg -> cfg{
-              frontendParsePredicate  = PTrue
-            , frontendSelectPredicate = PIf (SelectHeader FromMainHeaders)
+              frontendParsePredicate  = BTrue
+            , frontendSelectPredicate = BIf (SelectHeader FromMainHeaders)
             , frontendProgramSlicing  = EnableProgramSlicing
             }
         , testStdlibSpec = BindingSpec.DisableStdlibBindingSpec
@@ -559,10 +559,10 @@ testCases = manualTestCases ++ [
         }
     , (defaultTest "program_slicing_selection"){
           testOnFrontendConfig = \cfg -> cfg{
-              frontendParsePredicate  = PTrue
-            , frontendSelectPredicate = POr
-                (PIf . SelectDecl $ DeclNameMatches "FileOperationRecord")
-                (PIf . SelectDecl $ DeclNameMatches "read_file_chunk")
+              frontendParsePredicate  = BTrue
+            , frontendSelectPredicate = BOr
+                (BIf . SelectDecl $ DeclNameMatches "FileOperationRecord")
+                (BIf . SelectDecl $ DeclNameMatches "read_file_chunk")
             , frontendProgramSlicing  = EnableProgramSlicing
             }
         , testTracePredicate = customTracePredicate [
