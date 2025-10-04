@@ -1,0 +1,55 @@
+-- addDependentFile examples/golden/circular_dependency_struct.h
+{-| __C declaration:__ @b@
+
+    __defined at:__ @circular_dependency_struct.h:3:8@
+
+    __exported by:__ @circular_dependency_struct.h@
+-}
+data B
+    = B {b_toA :: (Ptr A)
+         {- ^ __C declaration:__ @toA@
+
+              __defined at:__ @circular_dependency_struct.h:4:13@
+
+              __exported by:__ @circular_dependency_struct.h@
+         -}}
+      {- ^ __C declaration:__ @b@
+
+           __defined at:__ @circular_dependency_struct.h:3:8@
+
+           __exported by:__ @circular_dependency_struct.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable B
+    where sizeOf = \_ -> 8 :: Int
+          alignment = \_ -> 8 :: Int
+          peek = \ptr_0 -> pure B <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   B b_toA_3 -> pokeByteOff ptr_1 (0 :: Int) b_toA_3
+{-| __C declaration:__ @a@
+
+    __defined at:__ @circular_dependency_struct.h:7:8@
+
+    __exported by:__ @circular_dependency_struct.h@
+-}
+data A
+    = A {a_toB :: B
+         {- ^ __C declaration:__ @toB@
+
+              __defined at:__ @circular_dependency_struct.h:8:12@
+
+              __exported by:__ @circular_dependency_struct.h@
+         -}}
+      {- ^ __C declaration:__ @a@
+
+           __defined at:__ @circular_dependency_struct.h:7:8@
+
+           __exported by:__ @circular_dependency_struct.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable A
+    where sizeOf = \_ -> 8 :: Int
+          alignment = \_ -> 8 :: Int
+          peek = \ptr_0 -> pure A <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   A a_toB_3 -> pokeByteOff ptr_1 (0 :: Int) a_toB_3

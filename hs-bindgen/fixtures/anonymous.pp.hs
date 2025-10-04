@@ -213,48 +213,6 @@ instance F.Storable S2 where
                F.pokeByteOff ptr0 (0 :: Int) s2_inner2
             >> F.pokeByteOff ptr0 (8 :: Int) s2_d3
 
-{-| __defined at:__ @anonymous.h:25:3@
-
-    __exported by:__ @anonymous.h@
--}
-data S3_c = S3_c
-  { s3_c_a :: FC.CInt
-    {- ^ __C declaration:__ @a@
-
-         __defined at:__ @anonymous.h:26:9@
-
-         __exported by:__ @anonymous.h@
-    -}
-  , s3_c_b :: FC.CInt
-    {- ^ __C declaration:__ @b@
-
-         __defined at:__ @anonymous.h:27:9@
-
-         __exported by:__ @anonymous.h@
-    -}
-  }
-  deriving stock (Eq, Show)
-
-instance F.Storable S3_c where
-
-  sizeOf = \_ -> (8 :: Int)
-
-  alignment = \_ -> (4 :: Int)
-
-  peek =
-    \ptr0 ->
-          pure S3_c
-      <*> F.peekByteOff ptr0 (0 :: Int)
-      <*> F.peekByteOff ptr0 (4 :: Int)
-
-  poke =
-    \ptr0 ->
-      \s1 ->
-        case s1 of
-          S3_c s3_c_a2 s3_c_b3 ->
-               F.pokeByteOff ptr0 (0 :: Int) s3_c_a2
-            >> F.pokeByteOff ptr0 (4 :: Int) s3_c_b3
-
 {-| __C declaration:__ @S3@
 
     __defined at:__ @anonymous.h:24:8@
@@ -298,3 +256,45 @@ instance F.Storable S3 where
           S3 s3_c2 s3_d3 ->
                F.pokeByteOff ptr0 (0 :: Int) s3_c2
             >> F.pokeByteOff ptr0 (8 :: Int) s3_d3
+
+{-| __defined at:__ @anonymous.h:25:3@
+
+    __exported by:__ @anonymous.h@
+-}
+data S3_c = S3_c
+  { s3_c_a :: FC.CInt
+    {- ^ __C declaration:__ @a@
+
+         __defined at:__ @anonymous.h:26:9@
+
+         __exported by:__ @anonymous.h@
+    -}
+  , s3_c_b :: FC.CInt
+    {- ^ __C declaration:__ @b@
+
+         __defined at:__ @anonymous.h:27:9@
+
+         __exported by:__ @anonymous.h@
+    -}
+  }
+  deriving stock (Eq, Show)
+
+instance F.Storable S3_c where
+
+  sizeOf = \_ -> (8 :: Int)
+
+  alignment = \_ -> (4 :: Int)
+
+  peek =
+    \ptr0 ->
+          pure S3_c
+      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> F.peekByteOff ptr0 (4 :: Int)
+
+  poke =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          S3_c s3_c_a2 s3_c_b3 ->
+               F.pokeByteOff ptr0 (0 :: Int) s3_c_a2
+            >> F.pokeByteOff ptr0 (4 :: Int) s3_c_b3

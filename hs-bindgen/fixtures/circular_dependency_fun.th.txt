@@ -1,0 +1,67 @@
+-- addDependentFile examples/golden/circular_dependency_fun.h
+{-| Auxiliary type used by 'Fun_ptr'
+
+__defined at:__ @circular_dependency_fun.h:3:16@
+
+__exported by:__ @circular_dependency_fun.h@
+-}
+newtype Fun_ptr_Deref
+    = Fun_ptr_Deref {un_Fun_ptr_Deref :: (Ptr Forward_declaration ->
+                                          IO Unit)}
+      {- ^ Auxiliary type used by 'Fun_ptr'
+
+      __defined at:__ @circular_dependency_fun.h:3:16@
+
+      __exported by:__ @circular_dependency_fun.h@
+      -}
+foreign import ccall safe "wrapper" toFun_ptr_Deref :: Fun_ptr_Deref ->
+                                                       IO (FunPtr Fun_ptr_Deref)
+foreign import ccall safe "dynamic" fromFun_ptr_Deref :: FunPtr Fun_ptr_Deref ->
+                                                         Fun_ptr_Deref
+instance ToFunPtr Fun_ptr_Deref
+    where toFunPtr = toFun_ptr_Deref
+instance FromFunPtr Fun_ptr_Deref
+    where fromFunPtr = fromFun_ptr_Deref
+{-| __C declaration:__ @fun_ptr@
+
+    __defined at:__ @circular_dependency_fun.h:3:16@
+
+    __exported by:__ @circular_dependency_fun.h@
+-}
+newtype Fun_ptr
+    = Fun_ptr {un_Fun_ptr :: (FunPtr Fun_ptr_Deref)}
+      {- ^ __C declaration:__ @fun_ptr@
+
+           __defined at:__ @circular_dependency_fun.h:3:16@
+
+           __exported by:__ @circular_dependency_fun.h@
+      -}
+    deriving stock (Eq, Ord, Show)
+    deriving newtype Storable
+{-| __C declaration:__ @forward_declaration@
+
+    __defined at:__ @circular_dependency_fun.h:5:8@
+
+    __exported by:__ @circular_dependency_fun.h@
+-}
+data Forward_declaration
+    = Forward_declaration {forward_declaration_f :: Fun_ptr
+                           {- ^ __C declaration:__ @f@
+
+                                __defined at:__ @circular_dependency_fun.h:6:11@
+
+                                __exported by:__ @circular_dependency_fun.h@
+                           -}}
+      {- ^ __C declaration:__ @forward_declaration@
+
+           __defined at:__ @circular_dependency_fun.h:5:8@
+
+           __exported by:__ @circular_dependency_fun.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable Forward_declaration
+    where sizeOf = \_ -> 8 :: Int
+          alignment = \_ -> 8 :: Int
+          peek = \ptr_0 -> pure Forward_declaration <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Forward_declaration forward_declaration_f_3 -> pokeByteOff ptr_1 (0 :: Int) forward_declaration_f_3

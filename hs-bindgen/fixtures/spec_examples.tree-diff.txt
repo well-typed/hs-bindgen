@@ -211,29 +211,6 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "spec_examples.h:28:10",
-        declId = NamePair {
-          nameC = Name "C",
-          nameHsIdent = Identifier "C"},
-        declOrigin = NameOriginInSource,
-        declAliases = [],
-        declHeaderInfo = Just
-          HeaderInfo {
-            headerMainHeaders = NE.fromList
-              ["spec_examples.h"],
-            headerInclude =
-            "spec_examples.h"},
-        declComment = Nothing},
-      declKind = DeclStructOpaque,
-      declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
-    Decl {
-      declInfo = DeclInfo {
-        declLoc =
         "spec_examples.h:23:8",
         declId = NamePair {
           nameC = Name "A",
@@ -331,6 +308,29 @@ TranslationUnit {
               structFieldOffset = 1152,
               structFieldWidth = Nothing}],
           structFlam = Nothing},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "spec_examples.h:28:10",
+        declId = NamePair {
+          nameC = Name "C",
+          nameHsIdent = Identifier "C"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["spec_examples.h"],
+            headerInclude =
+            "spec_examples.h"},
+        declComment = Nothing},
+      declKind = DeclStructOpaque,
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

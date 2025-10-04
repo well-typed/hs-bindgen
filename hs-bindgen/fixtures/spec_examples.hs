@@ -1621,47 +1621,6 @@
         "B",
       deriveInstanceComment =
       Nothing},
-  DeclEmpty
-    EmptyData {
-      emptyDataName = Name
-        "@NsTypeConstr"
-        "C",
-      emptyDataOrigin = Decl {
-        declInfo = DeclInfo {
-          declLoc =
-          "spec_examples.h:28:10",
-          declId = NamePair {
-            nameC = Name "C",
-            nameHsIdent = Identifier "C"},
-          declOrigin = NameOriginInSource,
-          declAliases = [],
-          declHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["spec_examples.h"],
-              headerInclude =
-              "spec_examples.h"},
-          declComment = Nothing},
-        declKind = OpaqueStruct,
-        declSpec = DeclSpec
-          TypeSpec {
-            typeSpecModule = Nothing,
-            typeSpecIdentifier = Nothing,
-            typeSpecInstances = Map.fromList
-              []}},
-      emptyDataComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "C",
-          commentLocation = Just
-            "spec_examples.h:28:10",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["spec_examples.h"],
-              headerInclude =
-              "spec_examples.h"},
-          commentChildren = []}},
   DeclData
     Struct {
       structName = Name
@@ -2927,6 +2886,47 @@
         "A",
       deriveInstanceComment =
       Nothing},
+  DeclEmpty
+    EmptyData {
+      emptyDataName = Name
+        "@NsTypeConstr"
+        "C",
+      emptyDataOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "spec_examples.h:28:10",
+          declId = NamePair {
+            nameC = Name "C",
+            nameHsIdent = Identifier "C"},
+          declOrigin = NameOriginInSource,
+          declAliases = [],
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["spec_examples.h"],
+              headerInclude =
+              "spec_examples.h"},
+          declComment = Nothing},
+        declKind = OpaqueStruct,
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
+      emptyDataComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "C",
+          commentLocation = Just
+            "spec_examples.h:28:10",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["spec_examples.h"],
+              headerInclude =
+              "spec_examples.h"},
+          commentChildren = []}},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name

@@ -1,0 +1,25 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+types:
+- headers: circular_dependency_fun.h
+  cname: struct forward_declaration
+  module: Example
+  identifier: Forward_declaration
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: circular_dependency_fun.h
+  cname: fun_ptr
+  module: Example
+  identifier: Fun_ptr
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- headers: circular_dependency_fun.h
+  cname: fun_ptr_Deref
+  module: Example
+  identifier: Fun_ptr_Deref

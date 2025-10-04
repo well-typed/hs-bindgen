@@ -19,6 +19,7 @@ module Data.DynGraph.Labelled (
   , FindTargetsResult(..)
     -- * Deletion
   , deleteEdges
+  , filterEdges
     -- * Debugging
   , dumpMermaid
     -- * Auxiliary: tree traversals
@@ -309,6 +310,17 @@ deleteEdges vFrom vs dynGraph@DynGraph{..}
     mne s
       | Set.null s = Nothing
       | otherwise  = Just s
+
+filterEdges :: forall l a. (l -> Bool) -> DynGraph l a -> DynGraph l a
+filterEdges f graph = graph {
+      edges = IntMap.mapMaybe aux $ edges graph
+    }
+  where
+    aux :: Set (Int, l) -> Maybe (Set (Int, l))
+    aux = dropIfEmpty . Set.filter (f . snd)
+
+    dropIfEmpty :: Set (Int, l) -> Maybe (Set (Int, l))
+    dropIfEmpty x = if Set.null x then Nothing else Just x
 
 {-------------------------------------------------------------------------------
   Internal

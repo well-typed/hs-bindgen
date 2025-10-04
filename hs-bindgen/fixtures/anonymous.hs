@@ -2983,613 +2983,6 @@
     Struct {
       structName = Name
         "@NsTypeConstr"
-        "S3_c",
-      structConstr = Name
-        "@NsConstr"
-        "S3_c",
-      structFields = [
-        Field {
-          fieldName = Name
-            "@NsVar"
-            "s3_c_a",
-          fieldType = HsPrimType
-            HsPrimCInt,
-          fieldOrigin = StructField
-            StructField {
-              structFieldInfo = FieldInfo {
-                fieldLoc = "anonymous.h:26:9",
-                fieldName = NamePair {
-                  nameC = Name "a",
-                  nameHsIdent = Identifier
-                    "s3_c_a"},
-                fieldComment = Nothing},
-              structFieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              structFieldOffset = 0,
-              structFieldWidth = Nothing},
-          fieldComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "a",
-              commentLocation = Just
-                "anonymous.h:26:9",
-              commentHeaderInfo = Just
-                HeaderInfo {
-                  headerMainHeaders = NE.fromList
-                    ["anonymous.h"],
-                  headerInclude = "anonymous.h"},
-              commentChildren = []}},
-        Field {
-          fieldName = Name
-            "@NsVar"
-            "s3_c_b",
-          fieldType = HsPrimType
-            HsPrimCInt,
-          fieldOrigin = StructField
-            StructField {
-              structFieldInfo = FieldInfo {
-                fieldLoc = "anonymous.h:27:9",
-                fieldName = NamePair {
-                  nameC = Name "b",
-                  nameHsIdent = Identifier
-                    "s3_c_b"},
-                fieldComment = Nothing},
-              structFieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              structFieldOffset = 32,
-              structFieldWidth = Nothing},
-          fieldComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "b",
-              commentLocation = Just
-                "anonymous.h:27:9",
-              commentHeaderInfo = Just
-                HeaderInfo {
-                  headerMainHeaders = NE.fromList
-                    ["anonymous.h"],
-                  headerInclude = "anonymous.h"},
-              commentChildren = []}}],
-      structOrigin = Just
-        Decl {
-          declInfo = DeclInfo {
-            declLoc = "anonymous.h:25:3",
-            declId = NamePair {
-              nameC = Name "S3_c",
-              nameHsIdent = Identifier
-                "S3_c"},
-            declOrigin = NameOriginGenerated
-              (AnonId "anonymous.h:25:3"),
-            declAliases = [],
-            declHeaderInfo = Just
-              HeaderInfo {
-                headerMainHeaders = NE.fromList
-                  ["anonymous.h"],
-                headerInclude = "anonymous.h"},
-            declComment = Nothing},
-          declKind = Struct
-            Struct {
-              structNames = RecordNames
-                (Name "@NsConstr" "S3_c"),
-              structSizeof = 8,
-              structAlignment = 4,
-              structFields = [
-                StructField {
-                  structFieldInfo = FieldInfo {
-                    fieldLoc = "anonymous.h:26:9",
-                    fieldName = NamePair {
-                      nameC = Name "a",
-                      nameHsIdent = Identifier
-                        "s3_c_a"},
-                    fieldComment = Nothing},
-                  structFieldType = TypePrim
-                    (PrimIntegral PrimInt Signed),
-                  structFieldOffset = 0,
-                  structFieldWidth = Nothing},
-                StructField {
-                  structFieldInfo = FieldInfo {
-                    fieldLoc = "anonymous.h:27:9",
-                    fieldName = NamePair {
-                      nameC = Name "b",
-                      nameHsIdent = Identifier
-                        "s3_c_b"},
-                    fieldComment = Nothing},
-                  structFieldType = TypePrim
-                    (PrimIntegral PrimInt Signed),
-                  structFieldOffset = 32,
-                  structFieldWidth = Nothing}],
-              structFlam = Nothing},
-          declSpec = DeclSpec
-            TypeSpec {
-              typeSpecModule = Nothing,
-              typeSpecIdentifier = Nothing,
-              typeSpecInstances = Map.fromList
-                []}},
-      structInstances = Set.fromList
-        [Eq, Show, Storable],
-      structComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Nothing,
-          commentLocation = Just
-            "anonymous.h:25:3",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["anonymous.h"],
-              headerInclude = "anonymous.h"},
-          commentChildren = []}},
-  DeclInstance
-    DefineInstance {
-      defineInstanceDeclarations =
-      InstanceStorable
-        Struct {
-          structName = Name
-            "@NsTypeConstr"
-            "S3_c",
-          structConstr = Name
-            "@NsConstr"
-            "S3_c",
-          structFields = [
-            Field {
-              fieldName = Name
-                "@NsVar"
-                "s3_c_a",
-              fieldType = HsPrimType
-                HsPrimCInt,
-              fieldOrigin = StructField
-                StructField {
-                  structFieldInfo = FieldInfo {
-                    fieldLoc = "anonymous.h:26:9",
-                    fieldName = NamePair {
-                      nameC = Name "a",
-                      nameHsIdent = Identifier
-                        "s3_c_a"},
-                    fieldComment = Nothing},
-                  structFieldType = TypePrim
-                    (PrimIntegral PrimInt Signed),
-                  structFieldOffset = 0,
-                  structFieldWidth = Nothing},
-              fieldComment = Just
-                Comment {
-                  commentTitle = Nothing,
-                  commentOrigin = Just "a",
-                  commentLocation = Just
-                    "anonymous.h:26:9",
-                  commentHeaderInfo = Just
-                    HeaderInfo {
-                      headerMainHeaders = NE.fromList
-                        ["anonymous.h"],
-                      headerInclude = "anonymous.h"},
-                  commentChildren = []}},
-            Field {
-              fieldName = Name
-                "@NsVar"
-                "s3_c_b",
-              fieldType = HsPrimType
-                HsPrimCInt,
-              fieldOrigin = StructField
-                StructField {
-                  structFieldInfo = FieldInfo {
-                    fieldLoc = "anonymous.h:27:9",
-                    fieldName = NamePair {
-                      nameC = Name "b",
-                      nameHsIdent = Identifier
-                        "s3_c_b"},
-                    fieldComment = Nothing},
-                  structFieldType = TypePrim
-                    (PrimIntegral PrimInt Signed),
-                  structFieldOffset = 32,
-                  structFieldWidth = Nothing},
-              fieldComment = Just
-                Comment {
-                  commentTitle = Nothing,
-                  commentOrigin = Just "b",
-                  commentLocation = Just
-                    "anonymous.h:27:9",
-                  commentHeaderInfo = Just
-                    HeaderInfo {
-                      headerMainHeaders = NE.fromList
-                        ["anonymous.h"],
-                      headerInclude = "anonymous.h"},
-                  commentChildren = []}}],
-          structOrigin = Just
-            Decl {
-              declInfo = DeclInfo {
-                declLoc = "anonymous.h:25:3",
-                declId = NamePair {
-                  nameC = Name "S3_c",
-                  nameHsIdent = Identifier
-                    "S3_c"},
-                declOrigin = NameOriginGenerated
-                  (AnonId "anonymous.h:25:3"),
-                declAliases = [],
-                declHeaderInfo = Just
-                  HeaderInfo {
-                    headerMainHeaders = NE.fromList
-                      ["anonymous.h"],
-                    headerInclude = "anonymous.h"},
-                declComment = Nothing},
-              declKind = Struct
-                Struct {
-                  structNames = RecordNames
-                    (Name "@NsConstr" "S3_c"),
-                  structSizeof = 8,
-                  structAlignment = 4,
-                  structFields = [
-                    StructField {
-                      structFieldInfo = FieldInfo {
-                        fieldLoc = "anonymous.h:26:9",
-                        fieldName = NamePair {
-                          nameC = Name "a",
-                          nameHsIdent = Identifier
-                            "s3_c_a"},
-                        fieldComment = Nothing},
-                      structFieldType = TypePrim
-                        (PrimIntegral PrimInt Signed),
-                      structFieldOffset = 0,
-                      structFieldWidth = Nothing},
-                    StructField {
-                      structFieldInfo = FieldInfo {
-                        fieldLoc = "anonymous.h:27:9",
-                        fieldName = NamePair {
-                          nameC = Name "b",
-                          nameHsIdent = Identifier
-                            "s3_c_b"},
-                        fieldComment = Nothing},
-                      structFieldType = TypePrim
-                        (PrimIntegral PrimInt Signed),
-                      structFieldOffset = 32,
-                      structFieldWidth = Nothing}],
-                  structFlam = Nothing},
-              declSpec = DeclSpec
-                TypeSpec {
-                  typeSpecModule = Nothing,
-                  typeSpecIdentifier = Nothing,
-                  typeSpecInstances = Map.fromList
-                    []}},
-          structInstances = Set.fromList
-            [Eq, Show, Storable],
-          structComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Nothing,
-              commentLocation = Just
-                "anonymous.h:25:3",
-              commentHeaderInfo = Just
-                HeaderInfo {
-                  headerMainHeaders = NE.fromList
-                    ["anonymous.h"],
-                  headerInclude = "anonymous.h"},
-              commentChildren = []}}
-        StorableInstance {
-          storableSizeOf = 8,
-          storableAlignment = 4,
-          storablePeek = Lambda
-            (NameHint "ptr")
-            (Ap
-              (StructCon
-                Struct {
-                  structName = Name
-                    "@NsTypeConstr"
-                    "S3_c",
-                  structConstr = Name
-                    "@NsConstr"
-                    "S3_c",
-                  structFields = [
-                    Field {
-                      fieldName = Name
-                        "@NsVar"
-                        "s3_c_a",
-                      fieldType = HsPrimType
-                        HsPrimCInt,
-                      fieldOrigin = StructField
-                        StructField {
-                          structFieldInfo = FieldInfo {
-                            fieldLoc = "anonymous.h:26:9",
-                            fieldName = NamePair {
-                              nameC = Name "a",
-                              nameHsIdent = Identifier
-                                "s3_c_a"},
-                            fieldComment = Nothing},
-                          structFieldType = TypePrim
-                            (PrimIntegral PrimInt Signed),
-                          structFieldOffset = 0,
-                          structFieldWidth = Nothing},
-                      fieldComment = Just
-                        Comment {
-                          commentTitle = Nothing,
-                          commentOrigin = Just "a",
-                          commentLocation = Just
-                            "anonymous.h:26:9",
-                          commentHeaderInfo = Just
-                            HeaderInfo {
-                              headerMainHeaders = NE.fromList
-                                ["anonymous.h"],
-                              headerInclude = "anonymous.h"},
-                          commentChildren = []}},
-                    Field {
-                      fieldName = Name
-                        "@NsVar"
-                        "s3_c_b",
-                      fieldType = HsPrimType
-                        HsPrimCInt,
-                      fieldOrigin = StructField
-                        StructField {
-                          structFieldInfo = FieldInfo {
-                            fieldLoc = "anonymous.h:27:9",
-                            fieldName = NamePair {
-                              nameC = Name "b",
-                              nameHsIdent = Identifier
-                                "s3_c_b"},
-                            fieldComment = Nothing},
-                          structFieldType = TypePrim
-                            (PrimIntegral PrimInt Signed),
-                          structFieldOffset = 32,
-                          structFieldWidth = Nothing},
-                      fieldComment = Just
-                        Comment {
-                          commentTitle = Nothing,
-                          commentOrigin = Just "b",
-                          commentLocation = Just
-                            "anonymous.h:27:9",
-                          commentHeaderInfo = Just
-                            HeaderInfo {
-                              headerMainHeaders = NE.fromList
-                                ["anonymous.h"],
-                              headerInclude = "anonymous.h"},
-                          commentChildren = []}}],
-                  structOrigin = Just
-                    Decl {
-                      declInfo = DeclInfo {
-                        declLoc = "anonymous.h:25:3",
-                        declId = NamePair {
-                          nameC = Name "S3_c",
-                          nameHsIdent = Identifier
-                            "S3_c"},
-                        declOrigin = NameOriginGenerated
-                          (AnonId "anonymous.h:25:3"),
-                        declAliases = [],
-                        declHeaderInfo = Just
-                          HeaderInfo {
-                            headerMainHeaders = NE.fromList
-                              ["anonymous.h"],
-                            headerInclude = "anonymous.h"},
-                        declComment = Nothing},
-                      declKind = Struct
-                        Struct {
-                          structNames = RecordNames
-                            (Name "@NsConstr" "S3_c"),
-                          structSizeof = 8,
-                          structAlignment = 4,
-                          structFields = [
-                            StructField {
-                              structFieldInfo = FieldInfo {
-                                fieldLoc = "anonymous.h:26:9",
-                                fieldName = NamePair {
-                                  nameC = Name "a",
-                                  nameHsIdent = Identifier
-                                    "s3_c_a"},
-                                fieldComment = Nothing},
-                              structFieldType = TypePrim
-                                (PrimIntegral PrimInt Signed),
-                              structFieldOffset = 0,
-                              structFieldWidth = Nothing},
-                            StructField {
-                              structFieldInfo = FieldInfo {
-                                fieldLoc = "anonymous.h:27:9",
-                                fieldName = NamePair {
-                                  nameC = Name "b",
-                                  nameHsIdent = Identifier
-                                    "s3_c_b"},
-                                fieldComment = Nothing},
-                              structFieldType = TypePrim
-                                (PrimIntegral PrimInt Signed),
-                              structFieldOffset = 32,
-                              structFieldWidth = Nothing}],
-                          structFlam = Nothing},
-                      declSpec = DeclSpec
-                        TypeSpec {
-                          typeSpecModule = Nothing,
-                          typeSpecIdentifier = Nothing,
-                          typeSpecInstances = Map.fromList
-                            []}},
-                  structInstances = Set.fromList
-                    [Eq, Show, Storable],
-                  structComment = Just
-                    Comment {
-                      commentTitle = Nothing,
-                      commentOrigin = Nothing,
-                      commentLocation = Just
-                        "anonymous.h:25:3",
-                      commentHeaderInfo = Just
-                        HeaderInfo {
-                          headerMainHeaders = NE.fromList
-                            ["anonymous.h"],
-                          headerInclude = "anonymous.h"},
-                      commentChildren = []}})
-              [
-                PeekByteOff (Idx 0) 0,
-                PeekByteOff (Idx 0) 4]),
-          storablePoke = Lambda
-            (NameHint "ptr")
-            (Lambda
-              (NameHint "s")
-              (ElimStruct
-                (Idx 0)
-                Struct {
-                  structName = Name
-                    "@NsTypeConstr"
-                    "S3_c",
-                  structConstr = Name
-                    "@NsConstr"
-                    "S3_c",
-                  structFields = [
-                    Field {
-                      fieldName = Name
-                        "@NsVar"
-                        "s3_c_a",
-                      fieldType = HsPrimType
-                        HsPrimCInt,
-                      fieldOrigin = StructField
-                        StructField {
-                          structFieldInfo = FieldInfo {
-                            fieldLoc = "anonymous.h:26:9",
-                            fieldName = NamePair {
-                              nameC = Name "a",
-                              nameHsIdent = Identifier
-                                "s3_c_a"},
-                            fieldComment = Nothing},
-                          structFieldType = TypePrim
-                            (PrimIntegral PrimInt Signed),
-                          structFieldOffset = 0,
-                          structFieldWidth = Nothing},
-                      fieldComment = Just
-                        Comment {
-                          commentTitle = Nothing,
-                          commentOrigin = Just "a",
-                          commentLocation = Just
-                            "anonymous.h:26:9",
-                          commentHeaderInfo = Just
-                            HeaderInfo {
-                              headerMainHeaders = NE.fromList
-                                ["anonymous.h"],
-                              headerInclude = "anonymous.h"},
-                          commentChildren = []}},
-                    Field {
-                      fieldName = Name
-                        "@NsVar"
-                        "s3_c_b",
-                      fieldType = HsPrimType
-                        HsPrimCInt,
-                      fieldOrigin = StructField
-                        StructField {
-                          structFieldInfo = FieldInfo {
-                            fieldLoc = "anonymous.h:27:9",
-                            fieldName = NamePair {
-                              nameC = Name "b",
-                              nameHsIdent = Identifier
-                                "s3_c_b"},
-                            fieldComment = Nothing},
-                          structFieldType = TypePrim
-                            (PrimIntegral PrimInt Signed),
-                          structFieldOffset = 32,
-                          structFieldWidth = Nothing},
-                      fieldComment = Just
-                        Comment {
-                          commentTitle = Nothing,
-                          commentOrigin = Just "b",
-                          commentLocation = Just
-                            "anonymous.h:27:9",
-                          commentHeaderInfo = Just
-                            HeaderInfo {
-                              headerMainHeaders = NE.fromList
-                                ["anonymous.h"],
-                              headerInclude = "anonymous.h"},
-                          commentChildren = []}}],
-                  structOrigin = Just
-                    Decl {
-                      declInfo = DeclInfo {
-                        declLoc = "anonymous.h:25:3",
-                        declId = NamePair {
-                          nameC = Name "S3_c",
-                          nameHsIdent = Identifier
-                            "S3_c"},
-                        declOrigin = NameOriginGenerated
-                          (AnonId "anonymous.h:25:3"),
-                        declAliases = [],
-                        declHeaderInfo = Just
-                          HeaderInfo {
-                            headerMainHeaders = NE.fromList
-                              ["anonymous.h"],
-                            headerInclude = "anonymous.h"},
-                        declComment = Nothing},
-                      declKind = Struct
-                        Struct {
-                          structNames = RecordNames
-                            (Name "@NsConstr" "S3_c"),
-                          structSizeof = 8,
-                          structAlignment = 4,
-                          structFields = [
-                            StructField {
-                              structFieldInfo = FieldInfo {
-                                fieldLoc = "anonymous.h:26:9",
-                                fieldName = NamePair {
-                                  nameC = Name "a",
-                                  nameHsIdent = Identifier
-                                    "s3_c_a"},
-                                fieldComment = Nothing},
-                              structFieldType = TypePrim
-                                (PrimIntegral PrimInt Signed),
-                              structFieldOffset = 0,
-                              structFieldWidth = Nothing},
-                            StructField {
-                              structFieldInfo = FieldInfo {
-                                fieldLoc = "anonymous.h:27:9",
-                                fieldName = NamePair {
-                                  nameC = Name "b",
-                                  nameHsIdent = Identifier
-                                    "s3_c_b"},
-                                fieldComment = Nothing},
-                              structFieldType = TypePrim
-                                (PrimIntegral PrimInt Signed),
-                              structFieldOffset = 32,
-                              structFieldWidth = Nothing}],
-                          structFlam = Nothing},
-                      declSpec = DeclSpec
-                        TypeSpec {
-                          typeSpecModule = Nothing,
-                          typeSpecIdentifier = Nothing,
-                          typeSpecInstances = Map.fromList
-                            []}},
-                  structInstances = Set.fromList
-                    [Eq, Show, Storable],
-                  structComment = Just
-                    Comment {
-                      commentTitle = Nothing,
-                      commentOrigin = Nothing,
-                      commentLocation = Just
-                        "anonymous.h:25:3",
-                      commentHeaderInfo = Just
-                        HeaderInfo {
-                          headerMainHeaders = NE.fromList
-                            ["anonymous.h"],
-                          headerInclude = "anonymous.h"},
-                      commentChildren = []}}
-                (Add 2)
-                (Seq
-                  [
-                    PokeByteOff (Idx 3) 0 (Idx 0),
-                    PokeByteOff
-                      (Idx 3)
-                      4
-                      (Idx 1)])))},
-      defineInstanceComment =
-      Nothing},
-  DeclNewtypeInstance
-    DeriveInstance {
-      deriveInstanceStrategy =
-      DeriveStock,
-      deriveInstanceClass = Show,
-      deriveInstanceName = Name
-        "@NsTypeConstr"
-        "S3_c",
-      deriveInstanceComment =
-      Nothing},
-  DeclNewtypeInstance
-    DeriveInstance {
-      deriveInstanceStrategy =
-      DeriveStock,
-      deriveInstanceClass = Eq,
-      deriveInstanceName = Name
-        "@NsTypeConstr"
-        "S3_c",
-      deriveInstanceComment =
-      Nothing},
-  DeclData
-    Struct {
-      structName = Name
-        "@NsTypeConstr"
         "S3",
       structConstr = Name
         "@NsConstr"
@@ -4239,5 +3632,612 @@
       deriveInstanceName = Name
         "@NsTypeConstr"
         "S3",
+      deriveInstanceComment =
+      Nothing},
+  DeclData
+    Struct {
+      structName = Name
+        "@NsTypeConstr"
+        "S3_c",
+      structConstr = Name
+        "@NsConstr"
+        "S3_c",
+      structFields = [
+        Field {
+          fieldName = Name
+            "@NsVar"
+            "s3_c_a",
+          fieldType = HsPrimType
+            HsPrimCInt,
+          fieldOrigin = StructField
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "anonymous.h:26:9",
+                fieldName = NamePair {
+                  nameC = Name "a",
+                  nameHsIdent = Identifier
+                    "s3_c_a"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "a",
+              commentLocation = Just
+                "anonymous.h:26:9",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["anonymous.h"],
+                  headerInclude = "anonymous.h"},
+              commentChildren = []}},
+        Field {
+          fieldName = Name
+            "@NsVar"
+            "s3_c_b",
+          fieldType = HsPrimType
+            HsPrimCInt,
+          fieldOrigin = StructField
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "anonymous.h:27:9",
+                fieldName = NamePair {
+                  nameC = Name "b",
+                  nameHsIdent = Identifier
+                    "s3_c_b"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 32,
+              structFieldWidth = Nothing},
+          fieldComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "b",
+              commentLocation = Just
+                "anonymous.h:27:9",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["anonymous.h"],
+                  headerInclude = "anonymous.h"},
+              commentChildren = []}}],
+      structOrigin = Just
+        Decl {
+          declInfo = DeclInfo {
+            declLoc = "anonymous.h:25:3",
+            declId = NamePair {
+              nameC = Name "S3_c",
+              nameHsIdent = Identifier
+                "S3_c"},
+            declOrigin = NameOriginGenerated
+              (AnonId "anonymous.h:25:3"),
+            declAliases = [],
+            declHeaderInfo = Just
+              HeaderInfo {
+                headerMainHeaders = NE.fromList
+                  ["anonymous.h"],
+                headerInclude = "anonymous.h"},
+            declComment = Nothing},
+          declKind = Struct
+            Struct {
+              structNames = RecordNames
+                (Name "@NsConstr" "S3_c"),
+              structSizeof = 8,
+              structAlignment = 4,
+              structFields = [
+                StructField {
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "anonymous.h:26:9",
+                    fieldName = NamePair {
+                      nameC = Name "a",
+                      nameHsIdent = Identifier
+                        "s3_c_a"},
+                    fieldComment = Nothing},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing},
+                StructField {
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "anonymous.h:27:9",
+                    fieldName = NamePair {
+                      nameC = Name "b",
+                      nameHsIdent = Identifier
+                        "s3_c_b"},
+                    fieldComment = Nothing},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 32,
+                  structFieldWidth = Nothing}],
+              structFlam = Nothing},
+          declSpec = DeclSpec
+            TypeSpec {
+              typeSpecModule = Nothing,
+              typeSpecIdentifier = Nothing,
+              typeSpecInstances = Map.fromList
+                []}},
+      structInstances = Set.fromList
+        [Eq, Show, Storable],
+      structComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Nothing,
+          commentLocation = Just
+            "anonymous.h:25:3",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["anonymous.h"],
+              headerInclude = "anonymous.h"},
+          commentChildren = []}},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceStorable
+        Struct {
+          structName = Name
+            "@NsTypeConstr"
+            "S3_c",
+          structConstr = Name
+            "@NsConstr"
+            "S3_c",
+          structFields = [
+            Field {
+              fieldName = Name
+                "@NsVar"
+                "s3_c_a",
+              fieldType = HsPrimType
+                HsPrimCInt,
+              fieldOrigin = StructField
+                StructField {
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "anonymous.h:26:9",
+                    fieldName = NamePair {
+                      nameC = Name "a",
+                      nameHsIdent = Identifier
+                        "s3_c_a"},
+                    fieldComment = Nothing},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 0,
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "a",
+                  commentLocation = Just
+                    "anonymous.h:26:9",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["anonymous.h"],
+                      headerInclude = "anonymous.h"},
+                  commentChildren = []}},
+            Field {
+              fieldName = Name
+                "@NsVar"
+                "s3_c_b",
+              fieldType = HsPrimType
+                HsPrimCInt,
+              fieldOrigin = StructField
+                StructField {
+                  structFieldInfo = FieldInfo {
+                    fieldLoc = "anonymous.h:27:9",
+                    fieldName = NamePair {
+                      nameC = Name "b",
+                      nameHsIdent = Identifier
+                        "s3_c_b"},
+                    fieldComment = Nothing},
+                  structFieldType = TypePrim
+                    (PrimIntegral PrimInt Signed),
+                  structFieldOffset = 32,
+                  structFieldWidth = Nothing},
+              fieldComment = Just
+                Comment {
+                  commentTitle = Nothing,
+                  commentOrigin = Just "b",
+                  commentLocation = Just
+                    "anonymous.h:27:9",
+                  commentHeaderInfo = Just
+                    HeaderInfo {
+                      headerMainHeaders = NE.fromList
+                        ["anonymous.h"],
+                      headerInclude = "anonymous.h"},
+                  commentChildren = []}}],
+          structOrigin = Just
+            Decl {
+              declInfo = DeclInfo {
+                declLoc = "anonymous.h:25:3",
+                declId = NamePair {
+                  nameC = Name "S3_c",
+                  nameHsIdent = Identifier
+                    "S3_c"},
+                declOrigin = NameOriginGenerated
+                  (AnonId "anonymous.h:25:3"),
+                declAliases = [],
+                declHeaderInfo = Just
+                  HeaderInfo {
+                    headerMainHeaders = NE.fromList
+                      ["anonymous.h"],
+                    headerInclude = "anonymous.h"},
+                declComment = Nothing},
+              declKind = Struct
+                Struct {
+                  structNames = RecordNames
+                    (Name "@NsConstr" "S3_c"),
+                  structSizeof = 8,
+                  structAlignment = 4,
+                  structFields = [
+                    StructField {
+                      structFieldInfo = FieldInfo {
+                        fieldLoc = "anonymous.h:26:9",
+                        fieldName = NamePair {
+                          nameC = Name "a",
+                          nameHsIdent = Identifier
+                            "s3_c_a"},
+                        fieldComment = Nothing},
+                      structFieldType = TypePrim
+                        (PrimIntegral PrimInt Signed),
+                      structFieldOffset = 0,
+                      structFieldWidth = Nothing},
+                    StructField {
+                      structFieldInfo = FieldInfo {
+                        fieldLoc = "anonymous.h:27:9",
+                        fieldName = NamePair {
+                          nameC = Name "b",
+                          nameHsIdent = Identifier
+                            "s3_c_b"},
+                        fieldComment = Nothing},
+                      structFieldType = TypePrim
+                        (PrimIntegral PrimInt Signed),
+                      structFieldOffset = 32,
+                      structFieldWidth = Nothing}],
+                  structFlam = Nothing},
+              declSpec = DeclSpec
+                TypeSpec {
+                  typeSpecModule = Nothing,
+                  typeSpecIdentifier = Nothing,
+                  typeSpecInstances = Map.fromList
+                    []}},
+          structInstances = Set.fromList
+            [Eq, Show, Storable],
+          structComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Nothing,
+              commentLocation = Just
+                "anonymous.h:25:3",
+              commentHeaderInfo = Just
+                HeaderInfo {
+                  headerMainHeaders = NE.fromList
+                    ["anonymous.h"],
+                  headerInclude = "anonymous.h"},
+              commentChildren = []}}
+        StorableInstance {
+          storableSizeOf = 8,
+          storableAlignment = 4,
+          storablePeek = Lambda
+            (NameHint "ptr")
+            (Ap
+              (StructCon
+                Struct {
+                  structName = Name
+                    "@NsTypeConstr"
+                    "S3_c",
+                  structConstr = Name
+                    "@NsConstr"
+                    "S3_c",
+                  structFields = [
+                    Field {
+                      fieldName = Name
+                        "@NsVar"
+                        "s3_c_a",
+                      fieldType = HsPrimType
+                        HsPrimCInt,
+                      fieldOrigin = StructField
+                        StructField {
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "anonymous.h:26:9",
+                            fieldName = NamePair {
+                              nameC = Name "a",
+                              nameHsIdent = Identifier
+                                "s3_c_a"},
+                            fieldComment = Nothing},
+                          structFieldType = TypePrim
+                            (PrimIntegral PrimInt Signed),
+                          structFieldOffset = 0,
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "a",
+                          commentLocation = Just
+                            "anonymous.h:26:9",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["anonymous.h"],
+                              headerInclude = "anonymous.h"},
+                          commentChildren = []}},
+                    Field {
+                      fieldName = Name
+                        "@NsVar"
+                        "s3_c_b",
+                      fieldType = HsPrimType
+                        HsPrimCInt,
+                      fieldOrigin = StructField
+                        StructField {
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "anonymous.h:27:9",
+                            fieldName = NamePair {
+                              nameC = Name "b",
+                              nameHsIdent = Identifier
+                                "s3_c_b"},
+                            fieldComment = Nothing},
+                          structFieldType = TypePrim
+                            (PrimIntegral PrimInt Signed),
+                          structFieldOffset = 32,
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "b",
+                          commentLocation = Just
+                            "anonymous.h:27:9",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["anonymous.h"],
+                              headerInclude = "anonymous.h"},
+                          commentChildren = []}}],
+                  structOrigin = Just
+                    Decl {
+                      declInfo = DeclInfo {
+                        declLoc = "anonymous.h:25:3",
+                        declId = NamePair {
+                          nameC = Name "S3_c",
+                          nameHsIdent = Identifier
+                            "S3_c"},
+                        declOrigin = NameOriginGenerated
+                          (AnonId "anonymous.h:25:3"),
+                        declAliases = [],
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["anonymous.h"],
+                            headerInclude = "anonymous.h"},
+                        declComment = Nothing},
+                      declKind = Struct
+                        Struct {
+                          structNames = RecordNames
+                            (Name "@NsConstr" "S3_c"),
+                          structSizeof = 8,
+                          structAlignment = 4,
+                          structFields = [
+                            StructField {
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "anonymous.h:26:9",
+                                fieldName = NamePair {
+                                  nameC = Name "a",
+                                  nameHsIdent = Identifier
+                                    "s3_c_a"},
+                                fieldComment = Nothing},
+                              structFieldType = TypePrim
+                                (PrimIntegral PrimInt Signed),
+                              structFieldOffset = 0,
+                              structFieldWidth = Nothing},
+                            StructField {
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "anonymous.h:27:9",
+                                fieldName = NamePair {
+                                  nameC = Name "b",
+                                  nameHsIdent = Identifier
+                                    "s3_c_b"},
+                                fieldComment = Nothing},
+                              structFieldType = TypePrim
+                                (PrimIntegral PrimInt Signed),
+                              structFieldOffset = 32,
+                              structFieldWidth = Nothing}],
+                          structFlam = Nothing},
+                      declSpec = DeclSpec
+                        TypeSpec {
+                          typeSpecModule = Nothing,
+                          typeSpecIdentifier = Nothing,
+                          typeSpecInstances = Map.fromList
+                            []}},
+                  structInstances = Set.fromList
+                    [Eq, Show, Storable],
+                  structComment = Just
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Nothing,
+                      commentLocation = Just
+                        "anonymous.h:25:3",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["anonymous.h"],
+                          headerInclude = "anonymous.h"},
+                      commentChildren = []}})
+              [
+                PeekByteOff (Idx 0) 0,
+                PeekByteOff (Idx 0) 4]),
+          storablePoke = Lambda
+            (NameHint "ptr")
+            (Lambda
+              (NameHint "s")
+              (ElimStruct
+                (Idx 0)
+                Struct {
+                  structName = Name
+                    "@NsTypeConstr"
+                    "S3_c",
+                  structConstr = Name
+                    "@NsConstr"
+                    "S3_c",
+                  structFields = [
+                    Field {
+                      fieldName = Name
+                        "@NsVar"
+                        "s3_c_a",
+                      fieldType = HsPrimType
+                        HsPrimCInt,
+                      fieldOrigin = StructField
+                        StructField {
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "anonymous.h:26:9",
+                            fieldName = NamePair {
+                              nameC = Name "a",
+                              nameHsIdent = Identifier
+                                "s3_c_a"},
+                            fieldComment = Nothing},
+                          structFieldType = TypePrim
+                            (PrimIntegral PrimInt Signed),
+                          structFieldOffset = 0,
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "a",
+                          commentLocation = Just
+                            "anonymous.h:26:9",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["anonymous.h"],
+                              headerInclude = "anonymous.h"},
+                          commentChildren = []}},
+                    Field {
+                      fieldName = Name
+                        "@NsVar"
+                        "s3_c_b",
+                      fieldType = HsPrimType
+                        HsPrimCInt,
+                      fieldOrigin = StructField
+                        StructField {
+                          structFieldInfo = FieldInfo {
+                            fieldLoc = "anonymous.h:27:9",
+                            fieldName = NamePair {
+                              nameC = Name "b",
+                              nameHsIdent = Identifier
+                                "s3_c_b"},
+                            fieldComment = Nothing},
+                          structFieldType = TypePrim
+                            (PrimIntegral PrimInt Signed),
+                          structFieldOffset = 32,
+                          structFieldWidth = Nothing},
+                      fieldComment = Just
+                        Comment {
+                          commentTitle = Nothing,
+                          commentOrigin = Just "b",
+                          commentLocation = Just
+                            "anonymous.h:27:9",
+                          commentHeaderInfo = Just
+                            HeaderInfo {
+                              headerMainHeaders = NE.fromList
+                                ["anonymous.h"],
+                              headerInclude = "anonymous.h"},
+                          commentChildren = []}}],
+                  structOrigin = Just
+                    Decl {
+                      declInfo = DeclInfo {
+                        declLoc = "anonymous.h:25:3",
+                        declId = NamePair {
+                          nameC = Name "S3_c",
+                          nameHsIdent = Identifier
+                            "S3_c"},
+                        declOrigin = NameOriginGenerated
+                          (AnonId "anonymous.h:25:3"),
+                        declAliases = [],
+                        declHeaderInfo = Just
+                          HeaderInfo {
+                            headerMainHeaders = NE.fromList
+                              ["anonymous.h"],
+                            headerInclude = "anonymous.h"},
+                        declComment = Nothing},
+                      declKind = Struct
+                        Struct {
+                          structNames = RecordNames
+                            (Name "@NsConstr" "S3_c"),
+                          structSizeof = 8,
+                          structAlignment = 4,
+                          structFields = [
+                            StructField {
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "anonymous.h:26:9",
+                                fieldName = NamePair {
+                                  nameC = Name "a",
+                                  nameHsIdent = Identifier
+                                    "s3_c_a"},
+                                fieldComment = Nothing},
+                              structFieldType = TypePrim
+                                (PrimIntegral PrimInt Signed),
+                              structFieldOffset = 0,
+                              structFieldWidth = Nothing},
+                            StructField {
+                              structFieldInfo = FieldInfo {
+                                fieldLoc = "anonymous.h:27:9",
+                                fieldName = NamePair {
+                                  nameC = Name "b",
+                                  nameHsIdent = Identifier
+                                    "s3_c_b"},
+                                fieldComment = Nothing},
+                              structFieldType = TypePrim
+                                (PrimIntegral PrimInt Signed),
+                              structFieldOffset = 32,
+                              structFieldWidth = Nothing}],
+                          structFlam = Nothing},
+                      declSpec = DeclSpec
+                        TypeSpec {
+                          typeSpecModule = Nothing,
+                          typeSpecIdentifier = Nothing,
+                          typeSpecInstances = Map.fromList
+                            []}},
+                  structInstances = Set.fromList
+                    [Eq, Show, Storable],
+                  structComment = Just
+                    Comment {
+                      commentTitle = Nothing,
+                      commentOrigin = Nothing,
+                      commentLocation = Just
+                        "anonymous.h:25:3",
+                      commentHeaderInfo = Just
+                        HeaderInfo {
+                          headerMainHeaders = NE.fromList
+                            ["anonymous.h"],
+                          headerInclude = "anonymous.h"},
+                      commentChildren = []}}
+                (Add 2)
+                (Seq
+                  [
+                    PokeByteOff (Idx 3) 0 (Idx 0),
+                    PokeByteOff
+                      (Idx 3)
+                      4
+                      (Idx 1)])))},
+      defineInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Show,
+      deriveInstanceName = Name
+        "@NsTypeConstr"
+        "S3_c",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Eq,
+      deriveInstanceName = Name
+        "@NsTypeConstr"
+        "S3_c",
       deriveInstanceComment =
       Nothing}]

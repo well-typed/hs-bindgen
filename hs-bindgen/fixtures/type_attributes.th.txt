@@ -155,13 +155,6 @@ instance Storable My_packed_struct
                                    My_packed_struct my_packed_struct_c_3
                                                     my_packed_struct_i_4
                                                     my_packed_struct_s_5 -> pokeByteOff ptr_1 (0 :: Int) my_packed_struct_c_3 >> (pokeByteOff ptr_1 (1 :: Int) my_packed_struct_i_4 >> pokeByteOff ptr_1 (5 :: Int) my_packed_struct_s_5)
-{-| __C declaration:__ @wait@
-
-    __defined at:__ @type_attributes.h:29:9@
-
-    __exported by:__ @type_attributes.h@
--}
-data Wait
 {-| __defined at:__ @type_attributes.h:26:9@
 
     __exported by:__ @type_attributes.h@
@@ -242,6 +235,13 @@ set_wait_status_ptr_t___up :: Ptr Wait -> Wait_status_ptr_t
 
 -}
 set_wait_status_ptr_t___up = setUnionPayload
+{-| __C declaration:__ @wait@
+
+    __defined at:__ @type_attributes.h:29:9@
+
+    __exported by:__ @type_attributes.h@
+-}
+data Wait
 {-| __C declaration:__ @T1@
 
     __defined at:__ @type_attributes.h:32:13@

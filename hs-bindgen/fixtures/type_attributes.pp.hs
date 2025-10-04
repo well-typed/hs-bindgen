@@ -197,14 +197,6 @@ instance F.Storable My_packed_struct where
             >> F.pokeByteOff ptr0 (1 :: Int) my_packed_struct_i3
             >> F.pokeByteOff ptr0 (5 :: Int) my_packed_struct_s4
 
-{-| __C declaration:__ @wait@
-
-    __defined at:__ @type_attributes.h:29:9@
-
-    __exported by:__ @type_attributes.h@
--}
-data Wait
-
 {-| __defined at:__ @type_attributes.h:26:9@
 
     __exported by:__ @type_attributes.h@
@@ -260,6 +252,14 @@ get_wait_status_ptr_t___up =
 set_wait_status_ptr_t___up :: (Ptr.Ptr Wait) -> Wait_status_ptr_t
 set_wait_status_ptr_t___up =
   HsBindgen.Runtime.ByteArray.setUnionPayload
+
+{-| __C declaration:__ @wait@
+
+    __defined at:__ @type_attributes.h:29:9@
+
+    __exported by:__ @type_attributes.h@
+-}
+data Wait
 
 {-| __C declaration:__ @T1@
 

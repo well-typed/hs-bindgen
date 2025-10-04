@@ -131,13 +131,6 @@ instance Storable B
           peek = \ptr_0 -> pure B
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    B -> return ()
-{-| __C declaration:__ @C@
-
-    __defined at:__ @spec_examples.h:28:10@
-
-    __exported by:__ @spec_examples.h@
--}
-data C
 {-| __C declaration:__ @A@
 
     __defined at:__ @spec_examples.h:23:8@
@@ -197,6 +190,13 @@ instance Storable A
                                      a_samples_5
                                      a_b_6
                                      a_c_7 -> pokeByteOff ptr_1 (0 :: Int) a_x_3 >> (pokeByteOff ptr_1 (8 :: Int) a_label_4 >> (pokeByteOff ptr_1 (16 :: Int) a_samples_5 >> (pokeByteOff ptr_1 (144 :: Int) a_b_6 >> pokeByteOff ptr_1 (144 :: Int) a_c_7)))
+{-| __C declaration:__ @C@
+
+    __defined at:__ @spec_examples.h:28:10@
+
+    __exported by:__ @spec_examples.h@
+-}
+data C
 {-| __C declaration:__ @resample@
 
     __defined at:__ @spec_examples.h:31:6@
