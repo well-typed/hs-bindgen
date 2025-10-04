@@ -4,11 +4,13 @@ module HsBindgen.Backend.Hs.Translation (
   , generateDeclarations
   ) where
 
+import Control.Monad.Except (MonadError (..), runExceptT)
 import Control.Monad.State qualified as State
 import Data.ByteString (ByteString)
 import Data.ByteString.Base16 qualified as B16
 import Data.ByteString.Char8 qualified as B
 import Data.Char (isLetter)
+import Data.Either (partitionEithers)
 import Data.List (intercalate)
 import Data.List qualified as List
 import Data.List.NonEmpty qualified as NonEmpty
@@ -149,7 +151,8 @@ generateDeclarations' ::
   -> [WithCategory Hs.Decl]
 generateDeclarations' opts haddockConfig moduleName decs =
     flip State.evalState Map.empty $
-      concat <$> mapM (generateDecs opts haddockConfig moduleName typedefs) decs
+      concat <$> retryOrPanic
+        (map (generateDecs opts haddockConfig moduleName typedefs) decs)
   where
     typedefs :: Map C.Name C.Type
     typedefs = Map.union actualTypedefs pseudoTypedefs
@@ -173,31 +176,60 @@ generateDeclarations' opts haddockConfig moduleName decs =
         , C.MacroType C.CheckedMacroType{macroType} <- [macro]
         ]
 
+    -- | Declarations may have circular dependencies. In these cases, we fail to
+    -- look up instances of dependencies and fail. These missing instances may
+    -- be inserted at a later stage, so we retry translation until no more
+    -- declarations can be translated.
+    --
+    -- See https://github.com/well-typed/hs-bindgen/issues/1068.
+    retryOrPanic :: forall m a. Monad m => [m (Either String a)] -> m [a]
+    retryOrPanic as = go (map ("not tried",) as) []
+      where
+        go :: [(String, m (Either String a))] -> [(a, m (Either String a))] -> m [a]
+        go fails succs = do
+          -- Retry failed actions.
+          let failedAs :: [m (Either String a)]
+              failedAs = map snd fails
+          rs <- sequence failedAs
+          let rs' = zipWith biAttach failedAs rs
+              (fails', succs') = partitionEithers rs'
+          if null fails'
+            then pure $ map fst $ succs ++ succs'
+            else if length fails' >= length fails
+              then panicPure $ unlines $ map fst fails'
+              else go fails' (succs ++ succs')
+
+biAttach :: Bifunctor p => c -> p a b -> p (a, c) (b, c)
+biAttach x = bimap (, x) (, x)
+
 {-------------------------------------------------------------------------------
   Instance Map
 -------------------------------------------------------------------------------}
 
 type InstanceMap = Map (Hs.Name Hs.NsTypeConstr) (Set Hs.TypeClass)
 
-getInstances ::
-     InstanceMap             -- ^ Current state
+getInstances :: forall m.
+     MonadError String m
+  => InstanceMap             -- ^ Current state
   -> Hs.Name Hs.NsTypeConstr -- ^ Name of current type
   -> Set Hs.TypeClass        -- ^ Candidate instances
   -> [HsType]                -- ^ Dependencies
-  -> Set Hs.TypeClass
+     -- | The type may not be available yet in the instance map; then we need to
+     -- postpone instance lookup.
+  -> m (Set Hs.TypeClass)
 getInstances instanceMap name = aux
   where
-    aux :: Set Hs.TypeClass -> [HsType] -> Set Hs.TypeClass
-    aux acc [] = acc
+    aux :: Set Hs.TypeClass -> [HsType] -> m (Set Hs.TypeClass)
+    aux acc [] = pure acc
     aux acc (hsType:hsTypes)
-      | Set.null acc = acc
+      | Set.null acc = pure acc
       | otherwise = case hsType of
           HsPrimType primType -> aux (acc /\ hsPrimTypeInsts primType) hsTypes
           HsTypRef name'
             | name' == name -> aux acc hsTypes
             | otherwise -> case Map.lookup name' instanceMap of
                 Just instances -> aux (acc /\ instances) hsTypes
-                Nothing -> panicPure $ "type not found: " ++ show name'
+                Nothing -> throwError $ "type not found: " ++ show name'
           HsConstArray _n hsType' ->
             -- constrain by ConstantArray item type in next step
             aux (acc /\ cArrayInsts) $ hsType' : hsTypes
@@ -206,8 +238,8 @@ getInstances instanceMap name = aux
             aux (acc /\ arrayInsts) $ hsType' : hsTypes
           HsPtr{} -> aux (acc /\ ptrInsts) hsTypes
           HsFunPtr{} -> aux (acc /\ ptrInsts) hsTypes
-          HsIO{} -> Set.empty
-          HsFun{} -> Set.empty
+          HsIO{} -> pure Set.empty
+          HsFun{} -> pure Set.empty
           HsExtBinding _ref typeSpec ->
             let acc' = acc /\ typeSpecInsts typeSpec
             in  aux acc' hsTypes
@@ -221,6 +253,7 @@ getInstances instanceMap name = aux
             aux acc (t:hsTypes)
           HsComplexType primType -> aux (acc /\ hsPrimTypeInsts primType) hsTypes
 
+    -- | Intersection.
     (/\) :: Ord a => Set a -> Set a -> Set a
     (/\) = Set.intersection
 
@@ -338,17 +371,20 @@ getInstances instanceMap name = aux
 
 -- TODO: Take DeclSpec into account
 generateDecs ::
-     State.MonadState InstanceMap m
+     (HasCallStack, State.MonadState InstanceMap m)
   => TranslationOpts
   -> HaddockConfig
   -> Hs.ModuleName
   -> Map C.Name C.Type
   -> C.Decl
-  -> m [WithCategory Hs.Decl]
+  -> m (Either String [WithCategory Hs.Decl])
 generateDecs opts haddockConfig moduleName typedefs (C.Decl info kind spec) =
+    runExceptT $
     case kind of
-      C.DeclStruct struct -> withCategoryM BType $
-        reifyStructFields struct $ structDecs opts haddockConfig typedefs info struct spec
+      C.DeclStruct struct ->
+        withCategoryM BType $
+          reifyStructFields struct $
+            structDecs opts haddockConfig typedefs info struct spec
       C.DeclStructOpaque -> withCategoryM BType $
         opaqueStructDecs haddockConfig info spec
       C.DeclUnion union -> withCategoryM BType $
@@ -374,10 +410,10 @@ generateDecs opts haddockConfig moduleName typedefs (C.Decl info kind spec) =
                 ++ withCategory BFunPtr  funPtrDecls
       C.DeclMacro macro -> withCategoryM BType $
         macroDecs opts haddockConfig typedefs info macro spec
-      C.DeclGlobal ty ->
-        State.get >>= \instsMap ->
-          pure $ withCategory BGlobal $
-            global opts haddockConfig moduleName instsMap typedefs info ty spec
+      C.DeclGlobal ty -> do
+        instsMap <- State.get
+        withCategory BGlobal <$>
+          global opts haddockConfig moduleName instsMap typedefs info ty spec
     where
       withCategory :: BindingCategory -> [a] -> [WithCategory a]
       withCategory c = map (WithCategory c)
@@ -398,7 +434,7 @@ reifyStructFields struct k = Vec.reifyList (C.structFields struct) k
 
 -- | Generate declarations for given C struct
 structDecs :: forall n m.
-     (SNatI n, State.MonadState InstanceMap m)
+     (HasCallStack, SNatI n, State.MonadState InstanceMap m, MonadError String m)
   => TranslationOpts
   -> HaddockConfig
   -> Map C.Name C.Type
@@ -408,7 +444,8 @@ structDecs :: forall n m.
   -> Vec n C.StructField
   -> m [Hs.Decl]
 structDecs opts haddockConfig typedefs info struct spec fields = do
-    (insts, decls) <- aux <$> State.get
+    insts <- getInstances' =<< State.get
+    let decls = aux insts
     State.modify' $ Map.insert structName insts
     pure decls
   where
@@ -427,15 +464,14 @@ structDecs opts haddockConfig typedefs info struct spec fields = do
     candidateInsts = Set.union (Set.singleton Hs.Storable) $
       Set.fromList (snd <$> translationDeriveStruct opts)
 
-    -- everything in aux is state-dependent
-    aux :: InstanceMap -> (Set Hs.TypeClass, [Hs.Decl])
-    aux instanceMap = (insts,) $
-        structDecl : storableDecl ++ optDecls ++ hasFlamDecl
-      where
-        insts :: Set Hs.TypeClass
-        insts = getInstances instanceMap structName candidateInsts $
-          Hs.fieldType <$> Vec.toList structFields
+    getInstances' :: InstanceMap -> m (Set Hs.TypeClass)
+    getInstances' instanceMap = getInstances instanceMap structName candidateInsts $
+     Hs.fieldType <$> Vec.toList structFields
 
+    -- everything in aux is state-dependent
+    aux :: Set Hs.TypeClass -> [Hs.Decl]
+    aux insts = structDecl : storableDecl ++ optDecls ++ hasFlamDecl
+      where
         hsStruct :: Hs.Struct n
         hsStruct = Hs.Struct {
             structName      = structName
@@ -568,8 +604,8 @@ opaqueUnionDecs = opaqueDecs Origin.OpaqueUnion
   Unions
 -------------------------------------------------------------------------------}
 
-unionDecs ::
-     State.MonadState InstanceMap m
+unionDecs :: forall m.
+     (HasCallStack, State.MonadState InstanceMap m, MonadError String m)
   => HaddockConfig
   -> Map C.Name C.Type
   -> C.DeclInfo
@@ -577,7 +613,7 @@ unionDecs ::
   -> C.DeclSpec
   -> m [Hs.Decl]
 unionDecs haddockConfig typedefs info union spec = do
-    decls <- aux <$> State.get
+    decls <- aux =<< State.get
     State.modify' $ Map.insert newtypeName insts
     pure decls
   where
@@ -627,18 +663,18 @@ unionDecs haddockConfig typedefs info union spec = do
         (fromIntegral (C.unionAlignment union))
 
     -- everything in aux is state-dependent
-    aux :: InstanceMap -> [Hs.Decl]
-    aux instanceMap = newtypeDecl : storableDecl : accessorDecls
+    aux :: InstanceMap -> m [Hs.Decl]
+    aux instanceMap = ([newtypeDecl, storableDecl] ++) <$> accessorDecls
       where
-        accessorDecls :: [Hs.Decl]
-        accessorDecls = concatMap getAccessorDecls (C.unionFields union)
+        accessorDecls :: m [Hs.Decl]
+        accessorDecls = concat <$> mapM getAccessorDecls (C.unionFields union)
 
         -- TODO: Should the name mangler take care of the "get" and "set" prefixes?
-        getAccessorDecls :: C.UnionField -> [Hs.Decl]
-        getAccessorDecls C.UnionField{..} =
+        getAccessorDecls :: C.UnionField -> m [Hs.Decl]
+        getAccessorDecls C.UnionField{..} = do
           let hsType = typ typedefs unionFieldType
-              fInsts = getInstances instanceMap newtypeName insts [hsType]
-              getterName = "get_" <> C.nameHs (C.fieldName unionFieldInfo)
+          fInsts <- getInstances instanceMap newtypeName insts [hsType]
+          let getterName = "get_" <> C.nameHs (C.fieldName unionFieldInfo)
               setterName = "set_" <> C.nameHs (C.fieldName unionFieldInfo)
               commentRefName name = Just
                 HsDoc.Comment {
@@ -652,25 +688,25 @@ unionDecs haddockConfig typedefs info union spec = do
                                         ]
                                       ]
                 }
-          in  if Hs.Storable `Set.notMember` fInsts
-                then []
-                else
-                  [ Hs.DeclUnionGetter
-                      Hs.UnionGetter {
-                        unionGetterName    = getterName
-                      , unionGetterType    = hsType
-                      , unionGetterConstr  = newtypeName
-                      , unionGetterComment = generateHaddocksWithFieldInfo haddockConfig info unionFieldInfo
-                                          <> commentRefName (Hs.getName setterName)
-                      }
-                  , Hs.DeclUnionSetter
-                      Hs.UnionSetter {
-                        unionSetterName    = setterName
-                      , unionSetterType    = hsType
-                      , unionSetterConstr  = newtypeName
-                      , unionSetterComment = commentRefName (Hs.getName getterName)
-                      }
-                  ]
+          pure $ if Hs.Storable `Set.notMember` fInsts
+            then []
+            else
+              [ Hs.DeclUnionGetter
+                  Hs.UnionGetter {
+                    unionGetterName    = getterName
+                  , unionGetterType    = hsType
+                  , unionGetterConstr  = newtypeName
+                  , unionGetterComment = generateHaddocksWithFieldInfo haddockConfig info unionFieldInfo
+                                      <> commentRefName (Hs.getName setterName)
+                  }
+              , Hs.DeclUnionSetter
+                  Hs.UnionSetter {
+                    unionSetterName    = setterName
+                  , unionSetterType    = hsType
+                  , unionSetterConstr  = newtypeName
+                  , unionSetterComment = commentRefName (Hs.getName getterName)
+                  }
+              ]
 
 {-------------------------------------------------------------------------------
   Enum
@@ -821,8 +857,8 @@ enumDecs opts haddockConfig typedefs info e spec = do
   Typedef
 -------------------------------------------------------------------------------}
 
-typedefDecs ::
-     State.MonadState InstanceMap m
+typedefDecs :: forall m.
+     (HasCallStack, State.MonadState InstanceMap m, MonadError String m)
   => TranslationOpts
   -> HaddockConfig
   -> Map C.Name C.Type
@@ -831,7 +867,8 @@ typedefDecs ::
   -> C.DeclSpec
   -> m [Hs.Decl]
 typedefDecs opts haddockConfig typedefs info typedef spec = do
-    (insts, decls) <- aux <$> State.get
+    insts <- getInstances' =<< State.get
+    let decls = aux insts
     State.modify' $ Map.insert newtypeName insts
     pure decls
   where
@@ -923,19 +960,18 @@ typedefDecs opts haddockConfig typedefs info typedef spec = do
           , functionParameterComment = Nothing
           }
 
-    -- everything in aux is state-dependent
-    aux :: InstanceMap -> (Set Hs.TypeClass, [Hs.Decl])
-    aux instanceMap = (insts,) $
-      (newtypeDecl : newtypeWrapper) ++ storableDecl ++ optDecls
-      where
-        insts :: Set Hs.TypeClass
-        insts =
-          getInstances
-            instanceMap
-            newtypeName
-            candidateInsts
-            [Hs.fieldType newtypeField]
+    getInstances' :: InstanceMap -> m (Set Hs.TypeClass)
+    getInstances' instanceMap =
+      getInstances
+        instanceMap
+        newtypeName
+        candidateInsts
+        [Hs.fieldType newtypeField]
 
+    -- Everything in aux is state-dependent
+    aux :: Set Hs.TypeClass -> [Hs.Decl]
+    aux insts = (newtypeDecl : newtypeWrapper) ++ storableDecl ++ optDecls
+      where
         hsNewtype :: Hs.Newtype
         hsNewtype = Hs.Newtype {
             newtypeName      = newtypeName
@@ -999,7 +1035,7 @@ getUnderlyingType typedefs = go
 -------------------------------------------------------------------------------}
 
 macroDecs ::
-     State.MonadState InstanceMap m
+     (State.MonadState InstanceMap m, MonadError String m)
   => TranslationOpts
   -> HaddockConfig
   -> Map C.Name C.Type
@@ -1012,8 +1048,8 @@ macroDecs opts haddockConfig typedefs info checkedMacro spec =
       C.MacroType ty   -> macroDecsTypedef opts haddockConfig typedefs info ty spec
       C.MacroExpr expr -> pure $ macroVarDecs haddockConfig info expr
 
-macroDecsTypedef ::
-     State.MonadState InstanceMap m
+macroDecsTypedef :: forall m.
+     (HasCallStack, State.MonadState InstanceMap m, MonadError String m)
   => TranslationOpts
   -> HaddockConfig
   -> Map C.Name C.Type
@@ -1022,7 +1058,8 @@ macroDecsTypedef ::
   -> C.DeclSpec
   -> m [Hs.Decl]
 macroDecsTypedef opts haddockConfig typedefs info macroType spec = do
-    (insts, decls) <- aux (C.macroType macroType) <$> State.get
+    insts <- getInstances' =<< State.get
+    let decls = aux insts
     State.modify' $ Map.insert newtypeName insts
     pure $ decls
   where
@@ -1033,17 +1070,17 @@ macroDecsTypedef opts haddockConfig typedefs info macroType spec = do
     candidateInsts = Set.union (Set.singleton Hs.Storable) $
       Set.fromList (snd <$> translationDeriveTypedef opts)
 
+    fieldType :: HsType
+    fieldType = typ typedefs $ C.macroType macroType
+
+    getInstances' :: InstanceMap -> m (Set Hs.TypeClass)
+    getInstances' instanceMap =
+      getInstances instanceMap newtypeName candidateInsts [fieldType]
+
     -- everything in aux is state-dependent
-    aux :: C.Type -> InstanceMap -> (Set Hs.TypeClass, [Hs.Decl])
-    aux ty instanceMap = (insts,) $
-        newtypeDecl : storableDecl ++ optDecls
+    aux :: Set Hs.TypeClass -> [Hs.Decl]
+    aux insts = newtypeDecl : storableDecl ++ optDecls
       where
-        fieldType :: HsType
-        fieldType = typ typedefs ty
-
-        insts :: Set Hs.TypeClass
-        insts = getInstances instanceMap newtypeName candidateInsts [fieldType]
-
         hsNewtype :: Hs.Newtype
         hsNewtype = Hs.Newtype {
             newtypeName      = newtypeName
@@ -1535,8 +1572,9 @@ getMainHashIncludeArg declInfo = case C.declHeaderInfo declInfo of
 -- we also generate an additional \"getter\" function in Haskell land that
 -- returns precisely the value of the constant rather than a /pointer/ to
 -- the value.
-global ::
-     TranslationOpts
+global :: forall m.
+     MonadError String m
+  => TranslationOpts
   -> HaddockConfig
   -> Hs.ModuleName
   -> InstanceMap
@@ -1544,15 +1582,15 @@ global ::
   -> C.DeclInfo
   -> C.Type
   -> C.DeclSpec
-  -> [Hs.Decl]
+  -> m [Hs.Decl]
 global opts haddockConfig moduleName instsMap typedefs info ty _spec =
   let underlyingType = case ty of
         C.TypeConstArray _ ty' -> ty'
         otherType -> getUnderlyingType typedefs otherType
   in case underlyingType of
     -- Generate getter if the underlying type is @const@.
-    C.TypeConst _ -> stubDecs ++ getConstGetterOfType ty
-    _             -> stubDecs
+    C.TypeConst _ -> (stubDecs ++) <$> getConstGetterOfType ty
+    _             -> pure stubDecs
   where
     -- *** Stub ***
     stubDecs :: [Hs.Decl]
@@ -1560,7 +1598,7 @@ global opts haddockConfig moduleName instsMap typedefs info ty _spec =
     (stubDecs, pureStubName) =
       addressStubDecs opts haddockConfig moduleName typedefs info ty _spec
 
-    getConstGetterOfType :: C.Type -> [Hs.Decl]
+    getConstGetterOfType :: C.Type -> m [Hs.Decl]
     getConstGetterOfType t = constGetter (typ typedefs t) instsMap info pureStubName
 
 -- | Getter for a constant (i.e., @const@) global variable
@@ -1573,12 +1611,15 @@ global opts haddockConfig moduleName instsMap typedefs info ty _spec =
 -- use the foreign import of the stub function instead. Most notably, arrays of
 -- unknown size do not have a 'Storable' instance.
 constGetter ::
-     HsType
+     MonadError String m
+  => HsType
   -> InstanceMap
   -> C.DeclInfo
   -> Hs.Name Hs.NsVar
-  -> [Hs.Decl]
-constGetter ty instsMap info pureStubName = concat [
+  -> m [Hs.Decl]
+constGetter ty instsMap info pureStubName = do
+  insts <- getInstances instsMap "unused" (Set.singleton Hs.Storable) [ty]
+  pure $ concat [
           [ Hs.DeclSimple $ SHs.DPragma (SHs.NOINLINE getterName)
           , getterDecl
           ]
@@ -1593,9 +1634,7 @@ constGetter ty instsMap info pureStubName = concat [
           --
           -- TODO: we don't yet check whether the Storable instance has no
           -- superclass constraints. See issue #993.
-          Hs.Storable
-            `elem`
-              getInstances instsMap "unused" (Set.singleton Hs.Storable) [ty]
+          Hs.Storable `elem` insts
         ]
   where
     -- *** Getter ***
