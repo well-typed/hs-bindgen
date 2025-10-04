@@ -78,6 +78,7 @@ testCases = manualTestCases ++ [
     , defaultTest "anonymous"
     , defaultTest "bitfields"
     , defaultTest "bool"
+    , defaultTest "circular_dependency"
     , defaultTest "data_kind_pragma"
     , defaultTest "callbacks"
     , defaultTest "distilled_lib_1"
