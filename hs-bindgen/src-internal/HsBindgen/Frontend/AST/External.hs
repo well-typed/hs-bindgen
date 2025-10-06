@@ -38,7 +38,7 @@ module HsBindgen.Frontend.AST.External (
   , Int.FunctionPurity(..)
     -- * Types
   , Type(..)
-  , ResolveBindingSpec.ResolvedExtBinding(..)
+  , ResolveBindingSpecs.ResolvedExtBinding(..)
   , isVoid
     -- * Names
   , C.Name(..)
@@ -69,7 +69,7 @@ import Clang.Paths
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.AST.Internal qualified as Int
 import HsBindgen.Frontend.Naming qualified as C
-import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass qualified as ResolveBindingSpec
+import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass qualified as ResolveBindingSpecs
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
 import HsBindgen.Language.Haskell qualified as Hs
@@ -295,7 +295,7 @@ data Type =
   | TypeIncompleteArray Type
   | TypeBlock Type
   | TypeConst Type
-  | TypeExtBinding ResolveBindingSpec.ResolvedExtBinding
+  | TypeExtBinding ResolveBindingSpecs.ResolvedExtBinding
   | TypeComplex C.PrimType
   deriving stock (Show, Eq, Generic)
 

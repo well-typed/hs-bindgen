@@ -80,7 +80,7 @@ data TranslationUnit p = TranslationUnit{
       -- * If program slicing is enabled, the 'Slice' pass filters selected
       --   declarations and their transitive dependencies.
       --
-      -- * The 'ResolveBindingSpec' pass removes declarations for which we have
+      -- * The 'ResolveBindingSpecs' pass removes declarations for which we have
       --   existing external bindings, as well as declarations omitted by a
       --   prescriptive binding specification.
       unitDecls :: [Decl p]

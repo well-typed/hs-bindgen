@@ -23,8 +23,8 @@ import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.NonParsedDecls
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
-import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass (ResolveBindingSpec,
-                                                          ResolvedExtBinding)
+import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass (ResolveBindingSpecs,
+                                                           ResolvedExtBinding)
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Util.Tracer
 
@@ -46,7 +46,7 @@ instance IsPass Select where
   type ArgumentName Select = Maybe C.Name
   type TypedefRef   Select = C.Name
   -- NOTE Using @CheckedMacro Select@ is incompatible with 'CoercePass'
-  type MacroBody    Select = CheckedMacro ResolveBindingSpec
+  type MacroBody    Select = CheckedMacro ResolveBindingSpecs
   type ExtBinding   Select = ResolvedExtBinding
   type Ann ix       Select = AnnSelect ix
   type Config       Select = SelectConfig

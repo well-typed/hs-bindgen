@@ -12,7 +12,7 @@ import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass
-import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass (ResolvedExtBinding)
+import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass (ResolvedExtBinding)
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
