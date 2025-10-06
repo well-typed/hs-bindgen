@@ -137,16 +137,14 @@ class HandleUseSites a where
 
 instance HandleUseSites C.DeclKind where
   handleUseSites td = \case
-      C.DeclStruct struct   -> C.DeclStruct (handleUseSites td struct)
-      C.DeclStructOpaque    -> C.DeclStructOpaque
-      C.DeclUnion union     -> C.DeclUnion (handleUseSites td union)
-      C.DeclUnionOpaque     -> C.DeclUnionOpaque
-      C.DeclEnum enum       -> C.DeclEnum (handleUseSites td enum)
-      C.DeclEnumOpaque      -> C.DeclEnumOpaque
-      C.DeclTypedef typedef -> C.DeclTypedef (handleUseSites td typedef)
-      C.DeclMacro macro     -> C.DeclMacro (handleUseSites td (coercePass macro))
-      C.DeclFunction fun    -> C.DeclFunction (handleUseSites td fun)
-      C.DeclGlobal ty       -> C.DeclGlobal (handleUseSites td ty)
+      C.DeclStruct struct    -> C.DeclStruct (handleUseSites td struct)
+      C.DeclUnion union      -> C.DeclUnion (handleUseSites td union)
+      C.DeclEnum enum        -> C.DeclEnum (handleUseSites td enum)
+      C.DeclTypedef typedef  -> C.DeclTypedef (handleUseSites td typedef)
+      C.DeclOpaque cNameKind -> C.DeclOpaque cNameKind
+      C.DeclMacro macro      -> C.DeclMacro (handleUseSites td (coercePass macro))
+      C.DeclFunction fun     -> C.DeclFunction (handleUseSites td fun)
+      C.DeclGlobal ty        -> C.DeclGlobal (handleUseSites td ty)
 
 instance HandleUseSites C.FieldInfo where
   handleUseSites td C.FieldInfo{..} =

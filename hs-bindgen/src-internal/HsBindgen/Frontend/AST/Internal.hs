@@ -161,12 +161,15 @@ data FieldInfo p = FieldInfo {
 
 data DeclKind p =
     DeclStruct (Struct p)
-  | DeclStructOpaque
   | DeclUnion (Union p)
-  | DeclUnionOpaque
   | DeclTypedef (Typedef p)
   | DeclEnum (Enum p)
-  | DeclEnumOpaque
+    -- | Opaque type
+    --
+    -- When parsing, a C @struct@, @union@, or @enum@ may be opaque.  Users may
+    -- specify any kind of type to be opaque using a prescriptive binding
+    -- specification, however, including @typedef@ types.
+  | DeclOpaque C.NameKind
   | DeclMacro (MacroBody p)
   | DeclFunction (Function p)
     -- | A global variable, whether it be declared @extern@, @static@ or neither.
@@ -543,10 +546,8 @@ declQualName Decl{declInfo = DeclInfo{declId}, declKind} =
 
 declKindNameKind :: DeclKind p -> C.NameKind
 declKindNameKind = \case
-    DeclStruct{}       -> C.NameKindTagged C.TagKindStruct
-    DeclStructOpaque{} -> C.NameKindTagged C.TagKindStruct
-    DeclUnion{}        -> C.NameKindTagged C.TagKindUnion
-    DeclUnionOpaque{}  -> C.NameKindTagged C.TagKindUnion
-    DeclEnum{}         -> C.NameKindTagged C.TagKindEnum
-    DeclEnumOpaque{}   -> C.NameKindTagged C.TagKindEnum
-    _otherwise         -> C.NameKindOrdinary
+    DeclStruct{}         -> C.NameKindTagged C.TagKindStruct
+    DeclUnion{}          -> C.NameKindTagged C.TagKindUnion
+    DeclEnum{}           -> C.NameKindTagged C.TagKindEnum
+    DeclOpaque cNameKind -> cNameKind
+    _otherwise           -> C.NameKindOrdinary

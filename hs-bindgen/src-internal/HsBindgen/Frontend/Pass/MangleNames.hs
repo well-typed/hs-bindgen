@@ -272,18 +272,14 @@ instance Mangle C.Decl where
 instance MangleDecl C.DeclKind where
   mangleDecl info (C.DeclStruct struct) =
       C.DeclStruct <$> mangleDecl info struct
-  mangleDecl _ C.DeclStructOpaque =
-      return $ C.DeclStructOpaque
   mangleDecl info (C.DeclUnion union) =
       C.DeclUnion <$> mangleDecl info union
-  mangleDecl _ C.DeclUnionOpaque =
-      return $ C.DeclUnionOpaque
   mangleDecl info (C.DeclTypedef typedef) =
       C.DeclTypedef <$> mangleDecl info typedef
   mangleDecl info (C.DeclEnum enum) =
       C.DeclEnum <$> mangleDecl info enum
-  mangleDecl _ C.DeclEnumOpaque =
-      return $ C.DeclEnumOpaque
+  mangleDecl _ (C.DeclOpaque cNameKind) =
+      return $ C.DeclOpaque cNameKind
   mangleDecl info (C.DeclFunction fun) =
       C.DeclFunction <$> mangleDecl info fun
   mangleDecl info (C.DeclMacro macro) =
@@ -497,15 +493,13 @@ withDeclNamespace ::
   -> r
 withDeclNamespace kind k =
     case kind of
-      C.DeclStruct{}       -> k (Proxy @Hs.NsTypeConstr)
-      C.DeclStructOpaque{} -> k (Proxy @Hs.NsTypeConstr)
-      C.DeclUnion{}        -> k (Proxy @Hs.NsTypeConstr)
-      C.DeclUnionOpaque{}  -> k (Proxy @Hs.NsTypeConstr)
-      C.DeclTypedef{}      -> k (Proxy @Hs.NsTypeConstr)
-      C.DeclEnum{}         -> k (Proxy @Hs.NsTypeConstr)
-      C.DeclEnumOpaque{}   -> k (Proxy @Hs.NsTypeConstr)
-      C.DeclFunction{}     -> k (Proxy @Hs.NsVar)
-      C.DeclGlobal{}       -> k (Proxy @Hs.NsVar)
+      C.DeclStruct{}   -> k (Proxy @Hs.NsTypeConstr)
+      C.DeclUnion{}    -> k (Proxy @Hs.NsTypeConstr)
+      C.DeclTypedef{}  -> k (Proxy @Hs.NsTypeConstr)
+      C.DeclEnum{}     -> k (Proxy @Hs.NsTypeConstr)
+      C.DeclOpaque{}   -> k (Proxy @Hs.NsTypeConstr)
+      C.DeclFunction{} -> k (Proxy @Hs.NsVar)
+      C.DeclGlobal{}   -> k (Proxy @Hs.NsVar)
 
       C.DeclMacro macro ->
         case macro of

@@ -351,7 +351,8 @@ TranslationUnit {
             headerInclude =
             "type_attributes.h"},
         declComment = Nothing},
-      declKind = DeclUnionOpaque,
+      declKind = DeclOpaque
+        (NameKindTagged TagKindUnion),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

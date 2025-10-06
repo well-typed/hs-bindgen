@@ -233,16 +233,14 @@ class Resolve a where
 
 instance Resolve C.DeclKind where
   resolve = \case
-      C.DeclStruct struct   -> fmap C.DeclStruct   <$> resolve struct
-      C.DeclStructOpaque    -> return (Set.empty, C.DeclStructOpaque)
-      C.DeclUnion union     -> fmap C.DeclUnion    <$> resolve union
-      C.DeclUnionOpaque     -> return (Set.empty, C.DeclUnionOpaque)
-      C.DeclTypedef typedef -> fmap C.DeclTypedef  <$> resolve typedef
-      C.DeclEnum enum       -> fmap C.DeclEnum     <$> resolve enum
-      C.DeclEnumOpaque      -> return (Set.empty, C.DeclEnumOpaque)
-      C.DeclMacro macro     -> fmap C.DeclMacro    <$> resolve macro
-      C.DeclFunction fun    -> fmap C.DeclFunction <$> resolve fun
-      C.DeclGlobal ty       -> fmap C.DeclGlobal   <$> resolve ty
+      C.DeclStruct struct    -> fmap C.DeclStruct   <$> resolve struct
+      C.DeclUnion union      -> fmap C.DeclUnion    <$> resolve union
+      C.DeclTypedef typedef  -> fmap C.DeclTypedef  <$> resolve typedef
+      C.DeclEnum enum        -> fmap C.DeclEnum     <$> resolve enum
+      C.DeclOpaque cNameKind -> return (Set.empty, C.DeclOpaque cNameKind)
+      C.DeclMacro macro      -> fmap C.DeclMacro    <$> resolve macro
+      C.DeclFunction fun     -> fmap C.DeclFunction <$> resolve fun
+      C.DeclGlobal ty        -> fmap C.DeclGlobal   <$> resolve ty
 
 instance Resolve C.Struct where
   resolve C.Struct{..} =

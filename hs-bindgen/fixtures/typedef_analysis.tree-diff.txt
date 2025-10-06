@@ -97,7 +97,8 @@ TranslationUnit {
             headerInclude =
             "typedef_analysis.h"},
         declComment = Nothing},
-      declKind = DeclStructOpaque,
+      declKind = DeclOpaque
+        (NameKindTagged TagKindStruct),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -124,7 +125,8 @@ TranslationUnit {
             headerInclude =
             "typedef_analysis.h"},
         declComment = Nothing},
-      declKind = DeclStructOpaque,
+      declKind = DeclOpaque
+        (NameKindTagged TagKindStruct),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

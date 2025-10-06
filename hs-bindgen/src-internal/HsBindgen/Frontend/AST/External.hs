@@ -118,12 +118,15 @@ data FieldInfo = FieldInfo {
 
 data DeclKind =
     DeclStruct Struct
-  | DeclStructOpaque
   | DeclUnion Union
-  | DeclUnionOpaque
   | DeclTypedef Typedef
   | DeclEnum Enum
-  | DeclEnumOpaque
+    -- | Opaque type
+    --
+    -- When parsing, a C @struct@, @union@, or @enum@ may be opaque.  Users may
+    -- specify any kind of type to be opaque using a prescriptive binding
+    -- specification, however, including @typedef@ types.
+  | DeclOpaque C.NameKind
   | DeclMacro CheckedMacro
   | DeclFunction Function
     -- | A global variable, whether it be declared @extern@, @static@ or neither.

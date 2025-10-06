@@ -661,7 +661,8 @@
               headerInclude =
               "redeclaration.h"},
           declComment = Nothing},
-        declKind = OpaqueUnion,
+        declKind = Opaque
+          (NameKindTagged TagKindUnion),
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,

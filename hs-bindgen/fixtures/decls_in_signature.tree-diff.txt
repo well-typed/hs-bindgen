@@ -18,7 +18,8 @@ TranslationUnit {
             headerInclude =
             "decls_in_signature.h"},
         declComment = Nothing},
-      declKind = DeclStructOpaque,
+      declKind = DeclOpaque
+        (NameKindTagged TagKindStruct),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

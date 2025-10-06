@@ -117,7 +117,8 @@ TranslationUnit {
             headerInclude =
             "redeclaration.h"},
         declComment = Nothing},
-      declKind = DeclUnionOpaque,
+      declKind = DeclOpaque
+        (NameKindTagged TagKindUnion),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

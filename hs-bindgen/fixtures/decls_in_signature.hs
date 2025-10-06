@@ -21,7 +21,8 @@
               headerInclude =
               "decls_in_signature.h"},
           declComment = Nothing},
-        declKind = OpaqueStruct,
+        declKind = Opaque
+          (NameKindTagged TagKindStruct),
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,

@@ -130,9 +130,7 @@ getEmptyDataSpec hsModuleName edata =
     let originDecl = Hs.emptyDataOrigin edata
         cQualName = getCQualName (HsOrigin.declInfo originDecl) $
           case HsOrigin.declKind originDecl of
-            HsOrigin.OpaqueStruct -> C.NameKindTagged C.TagKindStruct
-            HsOrigin.OpaqueEnum   -> C.NameKindTagged C.TagKindEnum
-            HsOrigin.OpaqueUnion  -> C.NameKindTagged C.TagKindUnion
+            HsOrigin.Opaque cNameKind -> cNameKind
         hsIdentifier = Hs.Identifier $ Hs.getName (Hs.emptyDataName edata)
         typeSpec = BindingSpec.TypeSpec {
             typeSpecModule     = Just hsModuleName

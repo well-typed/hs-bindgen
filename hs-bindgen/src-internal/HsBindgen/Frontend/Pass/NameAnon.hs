@@ -145,12 +145,10 @@ class NameUseSites a where
 instance NameUseSites C.DeclKind where
   nameUseSites env = \case
       C.DeclStruct struct    -> C.DeclStruct (nameUseSites env struct)
-      C.DeclStructOpaque     -> C.DeclStructOpaque
       C.DeclUnion union      -> C.DeclUnion (nameUseSites env union)
-      C.DeclUnionOpaque      -> C.DeclUnionOpaque
       C.DeclEnum enum        -> C.DeclEnum (nameUseSites env enum)
-      C.DeclEnumOpaque       -> C.DeclEnumOpaque
       C.DeclTypedef typedef  -> C.DeclTypedef (nameUseSites env typedef)
+      C.DeclOpaque cNameKind -> C.DeclOpaque cNameKind
       C.DeclMacro macro      -> C.DeclMacro (nameUseSites env macro)
       C.DeclFunction fun     -> C.DeclFunction (nameUseSites env fun)
       C.DeclGlobal ty        -> C.DeclGlobal (nameUseSites env ty)

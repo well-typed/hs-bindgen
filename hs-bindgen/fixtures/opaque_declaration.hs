@@ -20,7 +20,8 @@
               headerInclude =
               "opaque_declaration.h"},
           declComment = Nothing},
-        declKind = OpaqueStruct,
+        declKind = Opaque
+          (NameKindTagged TagKindStruct),
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -1027,7 +1028,8 @@
               headerInclude =
               "opaque_declaration.h"},
           declComment = Nothing},
-        declKind = OpaqueEnum,
+        declKind = Opaque
+          (NameKindTagged TagKindEnum),
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -1069,7 +1071,8 @@
               headerInclude =
               "opaque_declaration.h"},
           declComment = Nothing},
-        declKind = OpaqueUnion,
+        declKind = Opaque
+          (NameKindTagged TagKindUnion),
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,

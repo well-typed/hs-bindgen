@@ -640,7 +640,8 @@
               headerInclude =
               "typedef_analysis.h"},
           declComment = Nothing},
-        declKind = OpaqueStruct,
+        declKind = Opaque
+          (NameKindTagged TagKindStruct),
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,
@@ -686,7 +687,8 @@
               headerInclude =
               "typedef_analysis.h"},
           declComment = Nothing},
-        declKind = OpaqueStruct,
+        declKind = Opaque
+          (NameKindTagged TagKindStruct),
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,

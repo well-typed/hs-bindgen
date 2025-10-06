@@ -328,7 +328,8 @@ TranslationUnit {
                 blockCommandParagraph = [
                   TextContent
                     "Forward declaration with documentation"]}])},
-      declKind = DeclStructOpaque,
+      declKind = DeclOpaque
+        (NameKindTagged TagKindStruct),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,
@@ -361,7 +362,8 @@ TranslationUnit {
                 blockCommandParagraph = [
                   TextContent
                     "Forward declaration of union"]}])},
-      declKind = DeclUnionOpaque,
+      declKind = DeclOpaque
+        (NameKindTagged TagKindUnion),
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

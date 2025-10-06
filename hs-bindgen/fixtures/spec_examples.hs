@@ -2907,7 +2907,8 @@
               headerInclude =
               "spec_examples.h"},
           declComment = Nothing},
-        declKind = OpaqueStruct,
+        declKind = Opaque
+          (NameKindTagged TagKindStruct),
         declSpec = DeclSpec
           TypeSpec {
             typeSpecModule = Nothing,

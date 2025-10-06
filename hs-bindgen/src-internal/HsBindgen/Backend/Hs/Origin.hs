@@ -49,9 +49,7 @@ data Newtype =
   deriving stock (Generic, Show)
 
 data EmptyData =
-    OpaqueStruct
-  | OpaqueEnum
-  | OpaqueUnion
+    Opaque C.NameKind
   deriving stock (Generic, Show)
 
 data ForeignImport =
