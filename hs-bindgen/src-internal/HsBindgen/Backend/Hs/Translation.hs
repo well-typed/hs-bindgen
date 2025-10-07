@@ -1736,9 +1736,11 @@ macroVarDecs haddockConfig info macroExpr = [
           , varDeclBody    = hsBody
           , varDeclComment = generateHaddocksWithInfo haddockConfig info
           }
-    | hsBody <- toList $ macroLamHsExpr macroExprArgs macroExprBody
     ]
   where
+    hsBody :: Hs.VarDeclRHS EmptyCtx
+    hsBody = macroLamHsExpr macroExprArgs macroExprBody
+
     macroExprArgs :: [CExpr.DSL.Name]
     macroExprBody :: CExpr.DSL.MExpr CExpr.DSL.Ps
     macroExprType :: CExpr.DSL.Quant (CExpr.DSL.Type CExpr.DSL.Ty)
@@ -1800,13 +1802,13 @@ newtype U n = U { unU :: Vec n (Idx n) }
 macroLamHsExpr ::
      [CExpr.DSL.Name]
   -> CExpr.DSL.MExpr p
-  -> Maybe (Hs.VarDeclRHS EmptyCtx)
+  -> Hs.VarDeclRHS EmptyCtx
 macroLamHsExpr macroArgs expr =
     makeNames macroArgs Map.empty
   where
-    makeNames :: [CExpr.DSL.Name] -> Map CExpr.DSL.Name (Idx ctx) -> Maybe (Hs.VarDeclRHS ctx)
+    makeNames :: [CExpr.DSL.Name] -> Map CExpr.DSL.Name (Idx ctx) -> Hs.VarDeclRHS ctx
     makeNames []     env = macroExprHsExpr env expr
-    makeNames (n:ns) env = Hs.VarDeclLambda . Hs.Lambda (cnameToHint n) <$> makeNames ns (Map.insert n IZ (fmap IS env))
+    makeNames (n:ns) env = Hs.VarDeclLambda . Hs.Lambda (cnameToHint n) $ makeNames ns (Map.insert n IZ (fmap IS env))
 
 cnameToHint :: CExpr.DSL.Name -> NameHint
 cnameToHint (CExpr.DSL.Name t) = fromString (T.unpack t)
@@ -1814,15 +1816,15 @@ cnameToHint (CExpr.DSL.Name t) = fromString (T.unpack t)
 macroExprHsExpr ::
      Map CExpr.DSL.Name (Idx ctx)
   -> CExpr.DSL.MExpr p
-  -> Maybe (Hs.VarDeclRHS ctx)
+  -> Hs.VarDeclRHS ctx
 macroExprHsExpr = goExpr where
-    goExpr :: Map CExpr.DSL.Name (Idx ctx) -> CExpr.DSL.MExpr p -> Maybe (Hs.VarDeclRHS ctx)
+    goExpr :: Map CExpr.DSL.Name (Idx ctx) -> CExpr.DSL.MExpr p -> Hs.VarDeclRHS ctx
     goExpr env = \case
       CExpr.DSL.MTerm tm -> goTerm env tm
       CExpr.DSL.MApp _xapp fun args ->
         goApp env (Hs.InfixAppHead fun) (toList args)
 
-    goTerm :: Map CExpr.DSL.Name (Idx ctx) -> CExpr.DSL.MTerm p -> Maybe (Hs.VarDeclRHS ctx)
+    goTerm :: Map CExpr.DSL.Name (Idx ctx) -> CExpr.DSL.MTerm p -> Hs.VarDeclRHS ctx
     goTerm env = \case
       CExpr.DSL.MInt i -> goInt i
       CExpr.DSL.MFloat f -> goFloat f
@@ -1831,38 +1833,35 @@ macroExprHsExpr = goExpr where
       CExpr.DSL.MVar _xvar cname args ->
         --  TODO: removed the macro argument used as a function check.
         case Map.lookup cname env of
-          Just i  -> return (Hs.VarDeclVar i)
+          Just i  -> Hs.VarDeclVar i
           Nothing ->
             let hsVar = macroName cname -- mangle nm $ NameVar cname
             in  goApp env (Hs.VarAppHead hsVar) args
-      CExpr.DSL.MStringize {} -> Nothing
-      CExpr.DSL.MConcat {} -> Nothing
 
-    goApp :: Map CExpr.DSL.Name (Idx ctx) -> Hs.VarDeclRHSAppHead -> [CExpr.DSL.MExpr p] -> Maybe (Hs.VarDeclRHS ctx)
-    goApp env appHead args = do
-      args' <- traverse (goExpr env) args
-      return $ Hs.VarDeclApp appHead args'
+    goApp :: Map CExpr.DSL.Name (Idx ctx) -> Hs.VarDeclRHSAppHead -> [CExpr.DSL.MExpr p] -> Hs.VarDeclRHS ctx
+    goApp env appHead args =
+      let args' = map (goExpr env) args
+       in Hs.VarDeclApp appHead args'
 
-    goInt :: CExpr.DSL.IntegerLiteral -> Maybe (Hs.VarDeclRHS ctx)
+    goInt :: CExpr.DSL.IntegerLiteral -> Hs.VarDeclRHS ctx
     goInt (CExpr.DSL.IntegerLiteral { integerLiteralType = intyTy, integerLiteralValue = i }) =
-      Just $ Hs.VarDeclIntegral i $
+      Hs.VarDeclIntegral i $
         hsPrimIntTy $ CExpr.Runtime.IntLike intyTy
 
-    goChar :: CExpr.DSL.CharLiteral -> Maybe (Hs.VarDeclRHS ctx)
+    goChar :: CExpr.DSL.CharLiteral -> Hs.VarDeclRHS ctx
     goChar (CExpr.DSL.CharLiteral { charLiteralValue = c }) =
-      return $ Hs.VarDeclChar c
+      Hs.VarDeclChar c
 
-    goString :: CExpr.DSL.StringLiteral -> Maybe (Hs.VarDeclRHS ctx)
-    goString (CExpr.DSL.StringLiteral { stringLiteralValue = s }) = do
+    goString :: CExpr.DSL.StringLiteral -> Hs.VarDeclRHS ctx
+    goString (CExpr.DSL.StringLiteral { stringLiteralValue = s }) =
       let bytes = concatMap (IsList.toList . CExpr.Runtime.charValue) s
-      return $
-        Hs.VarDeclString (IsList.fromList bytes)
+       in Hs.VarDeclString (IsList.fromList bytes)
 
-    goFloat :: CExpr.DSL.FloatingLiteral -> Maybe (Hs.VarDeclRHS ctx)
+    goFloat :: CExpr.DSL.FloatingLiteral -> Hs.VarDeclRHS ctx
     goFloat flt@(CExpr.DSL.FloatingLiteral { floatingLiteralType = fty }) =
       case fty of
-        CExpr.Runtime.FloatType  -> Just $ Hs.VarDeclFloat (CExpr.DSL.floatingLiteralFloatValue flt)
-        CExpr.Runtime.DoubleType -> Just $ Hs.VarDeclDouble (CExpr.DSL.floatingLiteralDoubleValue flt)
+        CExpr.Runtime.FloatType  -> Hs.VarDeclFloat (CExpr.DSL.floatingLiteralFloatValue flt)
+        CExpr.Runtime.DoubleType -> Hs.VarDeclDouble (CExpr.DSL.floatingLiteralDoubleValue flt)
 
 -- | Construct Haskell name for macro
 --
