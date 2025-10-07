@@ -53,25 +53,7 @@
             typeSpecInstances = Map.fromList
               [
                 _×_
-                  Eq
-                  (Require
-                    InstanceSpec {
-                      instanceSpecStrategy = Nothing,
-                      instanceSpecConstraints = []}),
-                _×_
-                  Ord
-                  (Require
-                    InstanceSpec {
-                      instanceSpecStrategy = Nothing,
-                      instanceSpecConstraints = []}),
-                _×_
-                  Enum
-                  (Require
-                    InstanceSpec {
-                      instanceSpecStrategy = Nothing,
-                      instanceSpecConstraints = []}),
-                _×_
-                  Ix
+                  Bits
                   (Require
                     InstanceSpec {
                       instanceSpecStrategy = Nothing,
@@ -83,19 +65,13 @@
                       instanceSpecStrategy = Nothing,
                       instanceSpecConstraints = []}),
                 _×_
-                  Read
+                  Enum
                   (Require
                     InstanceSpec {
                       instanceSpecStrategy = Nothing,
                       instanceSpecConstraints = []}),
                 _×_
-                  Show
-                  (Require
-                    InstanceSpec {
-                      instanceSpecStrategy = Nothing,
-                      instanceSpecConstraints = []}),
-                _×_
-                  Bits
+                  Eq
                   (Require
                     InstanceSpec {
                       instanceSpecStrategy = Nothing,
@@ -113,13 +89,37 @@
                       instanceSpecStrategy = Nothing,
                       instanceSpecConstraints = []}),
                 _×_
+                  Ix
+                  (Require
+                    InstanceSpec {
+                      instanceSpecStrategy = Nothing,
+                      instanceSpecConstraints = []}),
+                _×_
                   Num
                   (Require
                     InstanceSpec {
                       instanceSpecStrategy = Nothing,
                       instanceSpecConstraints = []}),
                 _×_
+                  Ord
+                  (Require
+                    InstanceSpec {
+                      instanceSpecStrategy = Nothing,
+                      instanceSpecConstraints = []}),
+                _×_
+                  Read
+                  (Require
+                    InstanceSpec {
+                      instanceSpecStrategy = Nothing,
+                      instanceSpecConstraints = []}),
+                _×_
                   Real
+                  (Require
+                    InstanceSpec {
+                      instanceSpecStrategy = Nothing,
+                      instanceSpecConstraints = []}),
+                _×_
+                  Show
                   (Require
                     InstanceSpec {
                       instanceSpecStrategy = Nothing,
@@ -133,18 +133,18 @@
                         ]})]}},
       newtypeInstances = Set.fromList
         [
-          Eq,
-          Ord,
-          Enum,
-          Ix,
-          Bounded,
-          Read,
-          Show,
           Bits,
+          Bounded,
+          Enum,
+          Eq,
           FiniteBits,
           Integral,
+          Ix,
           Num,
+          Ord,
+          Read,
           Real,
+          Show,
           Storable],
       newtypeComment = Just
         Comment {

@@ -21,18 +21,18 @@ types:
   module: Example
   hsname: Int_t
   instances:
-  - Eq
-  - Ord
-  - Enum
-  - Ix
-  - Bounded
-  - Read
-  - Show
   - Bits
+  - Bounded
+  - Enum
+  - Eq
   - FiniteBits
   - Integral
+  - Ix
   - Num
+  - Ord
+  - Read
   - Real
+  - Show
   - Storable
 - headers: redeclaration.h
   cname: union y

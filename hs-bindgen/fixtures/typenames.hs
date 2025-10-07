@@ -417,17 +417,17 @@
               []}},
       newtypeInstances = Set.fromList
         [
-          Eq,
-          Ord,
           Enum,
-          Read,
-          Show,
+          Eq,
           Floating,
           Fractional,
           Num,
+          Ord,
+          Read,
           Real,
           RealFloat,
           RealFrac,
+          Show,
           Storable],
       newtypeComment = Just
         Comment {

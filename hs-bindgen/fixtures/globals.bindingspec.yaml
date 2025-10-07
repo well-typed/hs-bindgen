@@ -7,18 +7,18 @@ types:
   module: Example
   hsname: ConstInt
   instances:
-  - Eq
-  - Ord
-  - Enum
-  - Ix
-  - Bounded
-  - Read
-  - Show
   - Bits
+  - Bounded
+  - Enum
+  - Eq
   - FiniteBits
   - Integral
+  - Ix
   - Num
+  - Ord
+  - Read
   - Real
+  - Show
   - Storable
 - headers: globals.h
   cname: ConstIntArray

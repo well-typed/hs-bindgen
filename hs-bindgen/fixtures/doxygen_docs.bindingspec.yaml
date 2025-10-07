@@ -97,18 +97,18 @@ types:
   module: Example
   hsname: Size_type
   instances:
-  - Eq
-  - Ord
-  - Enum
-  - Ix
-  - Bounded
-  - Read
-  - Show
   - Bits
+  - Bounded
+  - Enum
+  - Eq
   - FiniteBits
   - Integral
+  - Ix
   - Num
+  - Ord
+  - Read
   - Real
+  - Show
   - Storable
 - headers: doxygen_docs.h
   cname: status_code_t

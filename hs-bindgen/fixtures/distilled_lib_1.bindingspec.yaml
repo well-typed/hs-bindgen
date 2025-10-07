@@ -7,18 +7,18 @@ types:
   module: Example
   hsname: A_type_t
   instances:
-  - Eq
-  - Ord
-  - Enum
-  - Ix
-  - Bounded
-  - Read
-  - Show
   - Bits
+  - Bounded
+  - Enum
+  - Eq
   - FiniteBits
   - Integral
+  - Ix
   - Num
+  - Ord
+  - Read
   - Real
+  - Show
   - Storable
 - headers: distilled_lib_1.h
   cname: a_typedef_enum_e
@@ -74,16 +74,16 @@ types:
   module: Example
   hsname: Var_t
   instances:
-  - Eq
-  - Ord
-  - Enum
-  - Ix
-  - Bounded
-  - Read
-  - Show
   - Bits
+  - Bounded
+  - Enum
+  - Eq
   - FiniteBits
   - Integral
+  - Ix
   - Num
+  - Ord
+  - Read
   - Real
+  - Show
   - Storable

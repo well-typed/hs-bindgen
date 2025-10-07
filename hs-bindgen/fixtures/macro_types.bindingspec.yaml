@@ -7,35 +7,35 @@ types:
   module: Example
   hsname: BOOLEAN_T
   instances:
-  - Eq
-  - Ord
-  - Enum
-  - Ix
-  - Bounded
-  - Read
-  - Show
   - Bits
+  - Bounded
+  - Enum
+  - Eq
   - FiniteBits
   - Integral
+  - Ix
   - Num
+  - Ord
+  - Read
   - Real
+  - Show
   - Storable
 - headers: macro_types.h
   cname: MTy
   module: Example
   hsname: MTy
   instances:
-  - Eq
-  - Ord
   - Enum
-  - Read
-  - Show
+  - Eq
   - Floating
   - Fractional
   - Num
+  - Ord
+  - Read
   - Real
   - RealFloat
   - RealFrac
+  - Show
   - Storable
 - headers: macro_types.h
   cname: PtrInt
@@ -60,51 +60,51 @@ types:
   module: Example
   hsname: UINT8_T
   instances:
-  - Eq
-  - Ord
-  - Enum
-  - Ix
-  - Bounded
-  - Read
-  - Show
   - Bits
+  - Bounded
+  - Enum
+  - Eq
   - FiniteBits
   - Integral
+  - Ix
   - Num
+  - Ord
+  - Read
   - Real
+  - Show
   - Storable
 - headers: macro_types.h
   cname: boolean_T
   module: Example
   hsname: Boolean_T
   instances:
-  - Eq
-  - Ord
-  - Enum
-  - Ix
-  - Bounded
-  - Read
-  - Show
   - Bits
+  - Bounded
+  - Enum
+  - Eq
   - FiniteBits
   - Integral
+  - Ix
   - Num
+  - Ord
+  - Read
   - Real
+  - Show
   - Storable
 - headers: macro_types.h
   cname: tty
   module: Example
   hsname: Tty
   instances:
-  - Eq
-  - Ord
   - Enum
-  - Read
-  - Show
+  - Eq
   - Floating
   - Fractional
   - Num
+  - Ord
+  - Read
   - Real
   - RealFloat
   - RealFrac
+  - Show
   - Storable

@@ -630,25 +630,7 @@
               typeSpecInstances = Map.fromList
                 [
                   _×_
-                    Eq
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Ord
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Enum
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Ix
+                    Bits
                     (Require
                       InstanceSpec {
                         instanceSpecStrategy = Nothing,
@@ -660,19 +642,13 @@
                         instanceSpecStrategy = Nothing,
                         instanceSpecConstraints = []}),
                   _×_
-                    Read
+                    Enum
                     (Require
                       InstanceSpec {
                         instanceSpecStrategy = Nothing,
                         instanceSpecConstraints = []}),
                   _×_
-                    Show
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Bits
+                    Eq
                     (Require
                       InstanceSpec {
                         instanceSpecStrategy = Nothing,
@@ -690,19 +666,25 @@
                         instanceSpecStrategy = Nothing,
                         instanceSpecConstraints = []}),
                   _×_
+                    Ix
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
                     Num
                     (Require
                       InstanceSpec {
                         instanceSpecStrategy = Nothing,
                         instanceSpecConstraints = []}),
                   _×_
-                    Real
+                    Ord
                     (Require
                       InstanceSpec {
                         instanceSpecStrategy = Nothing,
                         instanceSpecConstraints = []}),
                   _×_
-                    StaticSize
+                    Read
                     (Require
                       InstanceSpec {
                         instanceSpecStrategy = Nothing,
@@ -714,13 +696,31 @@
                         instanceSpecStrategy = Nothing,
                         instanceSpecConstraints = []}),
                   _×_
-                    WriteRaw
+                    Real
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Show
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    StaticSize
                     (Require
                       InstanceSpec {
                         instanceSpecStrategy = Nothing,
                         instanceSpecConstraints = []}),
                   _×_
                     Storable
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    WriteRaw
                     (Require
                       InstanceSpec {
                         instanceSpecStrategy = Nothing,
@@ -756,25 +756,7 @@
                     typeSpecInstances = Map.fromList
                       [
                         _×_
-                          Eq
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Ord
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Enum
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Ix
+                          Bits
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
@@ -786,19 +768,13 @@
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
-                          Read
+                          Enum
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
-                          Show
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Bits
+                          Eq
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
@@ -816,19 +792,25 @@
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
+                          Ix
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
                           Num
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
-                          Real
+                          Ord
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
-                          StaticSize
+                          Read
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
@@ -840,13 +822,31 @@
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
-                          WriteRaw
+                          Real
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Show
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          StaticSize
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
                           Storable
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          WriteRaw
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
@@ -943,25 +943,7 @@
                         typeSpecInstances = Map.fromList
                           [
                             _×_
-                              Eq
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = []}),
-                            _×_
-                              Ord
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = []}),
-                            _×_
-                              Enum
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = []}),
-                            _×_
-                              Ix
+                              Bits
                               (Require
                                 InstanceSpec {
                                   instanceSpecStrategy = Nothing,
@@ -973,19 +955,13 @@
                                   instanceSpecStrategy = Nothing,
                                   instanceSpecConstraints = []}),
                             _×_
-                              Read
+                              Enum
                               (Require
                                 InstanceSpec {
                                   instanceSpecStrategy = Nothing,
                                   instanceSpecConstraints = []}),
                             _×_
-                              Show
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = []}),
-                            _×_
-                              Bits
+                              Eq
                               (Require
                                 InstanceSpec {
                                   instanceSpecStrategy = Nothing,
@@ -1003,19 +979,25 @@
                                   instanceSpecStrategy = Nothing,
                                   instanceSpecConstraints = []}),
                             _×_
+                              Ix
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
                               Num
                               (Require
                                 InstanceSpec {
                                   instanceSpecStrategy = Nothing,
                                   instanceSpecConstraints = []}),
                             _×_
-                              Real
+                              Ord
                               (Require
                                 InstanceSpec {
                                   instanceSpecStrategy = Nothing,
                                   instanceSpecConstraints = []}),
                             _×_
-                              StaticSize
+                              Read
                               (Require
                                 InstanceSpec {
                                   instanceSpecStrategy = Nothing,
@@ -1027,13 +1009,31 @@
                                   instanceSpecStrategy = Nothing,
                                   instanceSpecConstraints = []}),
                             _×_
-                              WriteRaw
+                              Real
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Show
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              StaticSize
                               (Require
                                 InstanceSpec {
                                   instanceSpecStrategy = Nothing,
                                   instanceSpecConstraints = []}),
                             _×_
                               Storable
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              WriteRaw
                               (Require
                                 InstanceSpec {
                                   instanceSpecStrategy = Nothing,
@@ -1135,25 +1135,7 @@
                   typeSpecInstances = Map.fromList
                     [
                       _×_
-                        Eq
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Ord
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Enum
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Ix
+                        Bits
                         (Require
                           InstanceSpec {
                             instanceSpecStrategy = Nothing,
@@ -1165,19 +1147,13 @@
                             instanceSpecStrategy = Nothing,
                             instanceSpecConstraints = []}),
                       _×_
-                        Read
+                        Enum
                         (Require
                           InstanceSpec {
                             instanceSpecStrategy = Nothing,
                             instanceSpecConstraints = []}),
                       _×_
-                        Show
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Bits
+                        Eq
                         (Require
                           InstanceSpec {
                             instanceSpecStrategy = Nothing,
@@ -1195,19 +1171,25 @@
                             instanceSpecStrategy = Nothing,
                             instanceSpecConstraints = []}),
                       _×_
+                        Ix
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
                         Num
                         (Require
                           InstanceSpec {
                             instanceSpecStrategy = Nothing,
                             instanceSpecConstraints = []}),
                       _×_
-                        Real
+                        Ord
                         (Require
                           InstanceSpec {
                             instanceSpecStrategy = Nothing,
                             instanceSpecConstraints = []}),
                       _×_
-                        StaticSize
+                        Read
                         (Require
                           InstanceSpec {
                             instanceSpecStrategy = Nothing,
@@ -1219,13 +1201,31 @@
                             instanceSpecStrategy = Nothing,
                             instanceSpecConstraints = []}),
                       _×_
-                        WriteRaw
+                        Real
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Show
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        StaticSize
                         (Require
                           InstanceSpec {
                             instanceSpecStrategy = Nothing,
                             instanceSpecConstraints = []}),
                       _×_
                         Storable
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        WriteRaw
                         (Require
                           InstanceSpec {
                             instanceSpecStrategy = Nothing,
@@ -1261,25 +1261,7 @@
                         typeSpecInstances = Map.fromList
                           [
                             _×_
-                              Eq
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = []}),
-                            _×_
-                              Ord
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = []}),
-                            _×_
-                              Enum
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = []}),
-                            _×_
-                              Ix
+                              Bits
                               (Require
                                 InstanceSpec {
                                   instanceSpecStrategy = Nothing,
@@ -1291,19 +1273,13 @@
                                   instanceSpecStrategy = Nothing,
                                   instanceSpecConstraints = []}),
                             _×_
-                              Read
+                              Enum
                               (Require
                                 InstanceSpec {
                                   instanceSpecStrategy = Nothing,
                                   instanceSpecConstraints = []}),
                             _×_
-                              Show
-                              (Require
-                                InstanceSpec {
-                                  instanceSpecStrategy = Nothing,
-                                  instanceSpecConstraints = []}),
-                            _×_
-                              Bits
+                              Eq
                               (Require
                                 InstanceSpec {
                                   instanceSpecStrategy = Nothing,
@@ -1321,19 +1297,25 @@
                                   instanceSpecStrategy = Nothing,
                                   instanceSpecConstraints = []}),
                             _×_
+                              Ix
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
                               Num
                               (Require
                                 InstanceSpec {
                                   instanceSpecStrategy = Nothing,
                                   instanceSpecConstraints = []}),
                             _×_
-                              Real
+                              Ord
                               (Require
                                 InstanceSpec {
                                   instanceSpecStrategy = Nothing,
                                   instanceSpecConstraints = []}),
                             _×_
-                              StaticSize
+                              Read
                               (Require
                                 InstanceSpec {
                                   instanceSpecStrategy = Nothing,
@@ -1345,13 +1327,31 @@
                                   instanceSpecStrategy = Nothing,
                                   instanceSpecConstraints = []}),
                             _×_
-                              WriteRaw
+                              Real
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Show
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              StaticSize
                               (Require
                                 InstanceSpec {
                                   instanceSpecStrategy = Nothing,
                                   instanceSpecConstraints = []}),
                             _×_
                               Storable
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              WriteRaw
                               (Require
                                 InstanceSpec {
                                   instanceSpecStrategy = Nothing,
@@ -1448,25 +1448,7 @@
                             typeSpecInstances = Map.fromList
                               [
                                 _×_
-                                  Eq
-                                  (Require
-                                    InstanceSpec {
-                                      instanceSpecStrategy = Nothing,
-                                      instanceSpecConstraints = []}),
-                                _×_
-                                  Ord
-                                  (Require
-                                    InstanceSpec {
-                                      instanceSpecStrategy = Nothing,
-                                      instanceSpecConstraints = []}),
-                                _×_
-                                  Enum
-                                  (Require
-                                    InstanceSpec {
-                                      instanceSpecStrategy = Nothing,
-                                      instanceSpecConstraints = []}),
-                                _×_
-                                  Ix
+                                  Bits
                                   (Require
                                     InstanceSpec {
                                       instanceSpecStrategy = Nothing,
@@ -1478,19 +1460,13 @@
                                       instanceSpecStrategy = Nothing,
                                       instanceSpecConstraints = []}),
                                 _×_
-                                  Read
+                                  Enum
                                   (Require
                                     InstanceSpec {
                                       instanceSpecStrategy = Nothing,
                                       instanceSpecConstraints = []}),
                                 _×_
-                                  Show
-                                  (Require
-                                    InstanceSpec {
-                                      instanceSpecStrategy = Nothing,
-                                      instanceSpecConstraints = []}),
-                                _×_
-                                  Bits
+                                  Eq
                                   (Require
                                     InstanceSpec {
                                       instanceSpecStrategy = Nothing,
@@ -1508,19 +1484,25 @@
                                       instanceSpecStrategy = Nothing,
                                       instanceSpecConstraints = []}),
                                 _×_
+                                  Ix
+                                  (Require
+                                    InstanceSpec {
+                                      instanceSpecStrategy = Nothing,
+                                      instanceSpecConstraints = []}),
+                                _×_
                                   Num
                                   (Require
                                     InstanceSpec {
                                       instanceSpecStrategy = Nothing,
                                       instanceSpecConstraints = []}),
                                 _×_
-                                  Real
+                                  Ord
                                   (Require
                                     InstanceSpec {
                                       instanceSpecStrategy = Nothing,
                                       instanceSpecConstraints = []}),
                                 _×_
-                                  StaticSize
+                                  Read
                                   (Require
                                     InstanceSpec {
                                       instanceSpecStrategy = Nothing,
@@ -1532,13 +1514,31 @@
                                       instanceSpecStrategy = Nothing,
                                       instanceSpecConstraints = []}),
                                 _×_
-                                  WriteRaw
+                                  Real
+                                  (Require
+                                    InstanceSpec {
+                                      instanceSpecStrategy = Nothing,
+                                      instanceSpecConstraints = []}),
+                                _×_
+                                  Show
+                                  (Require
+                                    InstanceSpec {
+                                      instanceSpecStrategy = Nothing,
+                                      instanceSpecConstraints = []}),
+                                _×_
+                                  StaticSize
                                   (Require
                                     InstanceSpec {
                                       instanceSpecStrategy = Nothing,
                                       instanceSpecConstraints = []}),
                                 _×_
                                   Storable
+                                  (Require
+                                    InstanceSpec {
+                                      instanceSpecStrategy = Nothing,
+                                      instanceSpecConstraints = []}),
+                                _×_
+                                  WriteRaw
                                   (Require
                                     InstanceSpec {
                                       instanceSpecStrategy = Nothing,
@@ -1643,25 +1643,7 @@
                           typeSpecInstances = Map.fromList
                             [
                               _×_
-                                Eq
-                                (Require
-                                  InstanceSpec {
-                                    instanceSpecStrategy = Nothing,
-                                    instanceSpecConstraints = []}),
-                              _×_
-                                Ord
-                                (Require
-                                  InstanceSpec {
-                                    instanceSpecStrategy = Nothing,
-                                    instanceSpecConstraints = []}),
-                              _×_
-                                Enum
-                                (Require
-                                  InstanceSpec {
-                                    instanceSpecStrategy = Nothing,
-                                    instanceSpecConstraints = []}),
-                              _×_
-                                Ix
+                                Bits
                                 (Require
                                   InstanceSpec {
                                     instanceSpecStrategy = Nothing,
@@ -1673,19 +1655,13 @@
                                     instanceSpecStrategy = Nothing,
                                     instanceSpecConstraints = []}),
                               _×_
-                                Read
+                                Enum
                                 (Require
                                   InstanceSpec {
                                     instanceSpecStrategy = Nothing,
                                     instanceSpecConstraints = []}),
                               _×_
-                                Show
-                                (Require
-                                  InstanceSpec {
-                                    instanceSpecStrategy = Nothing,
-                                    instanceSpecConstraints = []}),
-                              _×_
-                                Bits
+                                Eq
                                 (Require
                                   InstanceSpec {
                                     instanceSpecStrategy = Nothing,
@@ -1703,19 +1679,25 @@
                                     instanceSpecStrategy = Nothing,
                                     instanceSpecConstraints = []}),
                               _×_
+                                Ix
+                                (Require
+                                  InstanceSpec {
+                                    instanceSpecStrategy = Nothing,
+                                    instanceSpecConstraints = []}),
+                              _×_
                                 Num
                                 (Require
                                   InstanceSpec {
                                     instanceSpecStrategy = Nothing,
                                     instanceSpecConstraints = []}),
                               _×_
-                                Real
+                                Ord
                                 (Require
                                   InstanceSpec {
                                     instanceSpecStrategy = Nothing,
                                     instanceSpecConstraints = []}),
                               _×_
-                                StaticSize
+                                Read
                                 (Require
                                   InstanceSpec {
                                     instanceSpecStrategy = Nothing,
@@ -1727,13 +1709,31 @@
                                     instanceSpecStrategy = Nothing,
                                     instanceSpecConstraints = []}),
                               _×_
-                                WriteRaw
+                                Real
+                                (Require
+                                  InstanceSpec {
+                                    instanceSpecStrategy = Nothing,
+                                    instanceSpecConstraints = []}),
+                              _×_
+                                Show
+                                (Require
+                                  InstanceSpec {
+                                    instanceSpecStrategy = Nothing,
+                                    instanceSpecConstraints = []}),
+                              _×_
+                                StaticSize
                                 (Require
                                   InstanceSpec {
                                     instanceSpecStrategy = Nothing,
                                     instanceSpecConstraints = []}),
                               _×_
                                 Storable
+                                (Require
+                                  InstanceSpec {
+                                    instanceSpecStrategy = Nothing,
+                                    instanceSpecConstraints = []}),
+                              _×_
+                                WriteRaw
                                 (Require
                                   InstanceSpec {
                                     instanceSpecStrategy = Nothing,
@@ -1769,25 +1769,7 @@
                                 typeSpecInstances = Map.fromList
                                   [
                                     _×_
-                                      Eq
-                                      (Require
-                                        InstanceSpec {
-                                          instanceSpecStrategy = Nothing,
-                                          instanceSpecConstraints = []}),
-                                    _×_
-                                      Ord
-                                      (Require
-                                        InstanceSpec {
-                                          instanceSpecStrategy = Nothing,
-                                          instanceSpecConstraints = []}),
-                                    _×_
-                                      Enum
-                                      (Require
-                                        InstanceSpec {
-                                          instanceSpecStrategy = Nothing,
-                                          instanceSpecConstraints = []}),
-                                    _×_
-                                      Ix
+                                      Bits
                                       (Require
                                         InstanceSpec {
                                           instanceSpecStrategy = Nothing,
@@ -1799,19 +1781,13 @@
                                           instanceSpecStrategy = Nothing,
                                           instanceSpecConstraints = []}),
                                     _×_
-                                      Read
+                                      Enum
                                       (Require
                                         InstanceSpec {
                                           instanceSpecStrategy = Nothing,
                                           instanceSpecConstraints = []}),
                                     _×_
-                                      Show
-                                      (Require
-                                        InstanceSpec {
-                                          instanceSpecStrategy = Nothing,
-                                          instanceSpecConstraints = []}),
-                                    _×_
-                                      Bits
+                                      Eq
                                       (Require
                                         InstanceSpec {
                                           instanceSpecStrategy = Nothing,
@@ -1829,19 +1805,25 @@
                                           instanceSpecStrategy = Nothing,
                                           instanceSpecConstraints = []}),
                                     _×_
+                                      Ix
+                                      (Require
+                                        InstanceSpec {
+                                          instanceSpecStrategy = Nothing,
+                                          instanceSpecConstraints = []}),
+                                    _×_
                                       Num
                                       (Require
                                         InstanceSpec {
                                           instanceSpecStrategy = Nothing,
                                           instanceSpecConstraints = []}),
                                     _×_
-                                      Real
+                                      Ord
                                       (Require
                                         InstanceSpec {
                                           instanceSpecStrategy = Nothing,
                                           instanceSpecConstraints = []}),
                                     _×_
-                                      StaticSize
+                                      Read
                                       (Require
                                         InstanceSpec {
                                           instanceSpecStrategy = Nothing,
@@ -1853,13 +1835,31 @@
                                           instanceSpecStrategy = Nothing,
                                           instanceSpecConstraints = []}),
                                     _×_
-                                      WriteRaw
+                                      Real
+                                      (Require
+                                        InstanceSpec {
+                                          instanceSpecStrategy = Nothing,
+                                          instanceSpecConstraints = []}),
+                                    _×_
+                                      Show
+                                      (Require
+                                        InstanceSpec {
+                                          instanceSpecStrategy = Nothing,
+                                          instanceSpecConstraints = []}),
+                                    _×_
+                                      StaticSize
                                       (Require
                                         InstanceSpec {
                                           instanceSpecStrategy = Nothing,
                                           instanceSpecConstraints = []}),
                                     _×_
                                       Storable
+                                      (Require
+                                        InstanceSpec {
+                                          instanceSpecStrategy = Nothing,
+                                          instanceSpecConstraints = []}),
+                                    _×_
+                                      WriteRaw
                                       (Require
                                         InstanceSpec {
                                           instanceSpecStrategy = Nothing,
@@ -1956,25 +1956,7 @@
                                     typeSpecInstances = Map.fromList
                                       [
                                         _×_
-                                          Eq
-                                          (Require
-                                            InstanceSpec {
-                                              instanceSpecStrategy = Nothing,
-                                              instanceSpecConstraints = []}),
-                                        _×_
-                                          Ord
-                                          (Require
-                                            InstanceSpec {
-                                              instanceSpecStrategy = Nothing,
-                                              instanceSpecConstraints = []}),
-                                        _×_
-                                          Enum
-                                          (Require
-                                            InstanceSpec {
-                                              instanceSpecStrategy = Nothing,
-                                              instanceSpecConstraints = []}),
-                                        _×_
-                                          Ix
+                                          Bits
                                           (Require
                                             InstanceSpec {
                                               instanceSpecStrategy = Nothing,
@@ -1986,19 +1968,13 @@
                                               instanceSpecStrategy = Nothing,
                                               instanceSpecConstraints = []}),
                                         _×_
-                                          Read
+                                          Enum
                                           (Require
                                             InstanceSpec {
                                               instanceSpecStrategy = Nothing,
                                               instanceSpecConstraints = []}),
                                         _×_
-                                          Show
-                                          (Require
-                                            InstanceSpec {
-                                              instanceSpecStrategy = Nothing,
-                                              instanceSpecConstraints = []}),
-                                        _×_
-                                          Bits
+                                          Eq
                                           (Require
                                             InstanceSpec {
                                               instanceSpecStrategy = Nothing,
@@ -2016,19 +1992,25 @@
                                               instanceSpecStrategy = Nothing,
                                               instanceSpecConstraints = []}),
                                         _×_
+                                          Ix
+                                          (Require
+                                            InstanceSpec {
+                                              instanceSpecStrategy = Nothing,
+                                              instanceSpecConstraints = []}),
+                                        _×_
                                           Num
                                           (Require
                                             InstanceSpec {
                                               instanceSpecStrategy = Nothing,
                                               instanceSpecConstraints = []}),
                                         _×_
-                                          Real
+                                          Ord
                                           (Require
                                             InstanceSpec {
                                               instanceSpecStrategy = Nothing,
                                               instanceSpecConstraints = []}),
                                         _×_
-                                          StaticSize
+                                          Read
                                           (Require
                                             InstanceSpec {
                                               instanceSpecStrategy = Nothing,
@@ -2040,13 +2022,31 @@
                                               instanceSpecStrategy = Nothing,
                                               instanceSpecConstraints = []}),
                                         _×_
-                                          WriteRaw
+                                          Real
+                                          (Require
+                                            InstanceSpec {
+                                              instanceSpecStrategy = Nothing,
+                                              instanceSpecConstraints = []}),
+                                        _×_
+                                          Show
+                                          (Require
+                                            InstanceSpec {
+                                              instanceSpecStrategy = Nothing,
+                                              instanceSpecConstraints = []}),
+                                        _×_
+                                          StaticSize
                                           (Require
                                             InstanceSpec {
                                               instanceSpecStrategy = Nothing,
                                               instanceSpecConstraints = []}),
                                         _×_
                                           Storable
+                                          (Require
+                                            InstanceSpec {
+                                              instanceSpecStrategy = Nothing,
+                                              instanceSpecConstraints = []}),
+                                        _×_
+                                          WriteRaw
                                           (Require
                                             InstanceSpec {
                                               instanceSpecStrategy = Nothing,
@@ -2153,25 +2153,7 @@
                           typeSpecInstances = Map.fromList
                             [
                               _×_
-                                Eq
-                                (Require
-                                  InstanceSpec {
-                                    instanceSpecStrategy = Nothing,
-                                    instanceSpecConstraints = []}),
-                              _×_
-                                Ord
-                                (Require
-                                  InstanceSpec {
-                                    instanceSpecStrategy = Nothing,
-                                    instanceSpecConstraints = []}),
-                              _×_
-                                Enum
-                                (Require
-                                  InstanceSpec {
-                                    instanceSpecStrategy = Nothing,
-                                    instanceSpecConstraints = []}),
-                              _×_
-                                Ix
+                                Bits
                                 (Require
                                   InstanceSpec {
                                     instanceSpecStrategy = Nothing,
@@ -2183,19 +2165,13 @@
                                     instanceSpecStrategy = Nothing,
                                     instanceSpecConstraints = []}),
                               _×_
-                                Read
+                                Enum
                                 (Require
                                   InstanceSpec {
                                     instanceSpecStrategy = Nothing,
                                     instanceSpecConstraints = []}),
                               _×_
-                                Show
-                                (Require
-                                  InstanceSpec {
-                                    instanceSpecStrategy = Nothing,
-                                    instanceSpecConstraints = []}),
-                              _×_
-                                Bits
+                                Eq
                                 (Require
                                   InstanceSpec {
                                     instanceSpecStrategy = Nothing,
@@ -2213,19 +2189,25 @@
                                     instanceSpecStrategy = Nothing,
                                     instanceSpecConstraints = []}),
                               _×_
+                                Ix
+                                (Require
+                                  InstanceSpec {
+                                    instanceSpecStrategy = Nothing,
+                                    instanceSpecConstraints = []}),
+                              _×_
                                 Num
                                 (Require
                                   InstanceSpec {
                                     instanceSpecStrategy = Nothing,
                                     instanceSpecConstraints = []}),
                               _×_
-                                Real
+                                Ord
                                 (Require
                                   InstanceSpec {
                                     instanceSpecStrategy = Nothing,
                                     instanceSpecConstraints = []}),
                               _×_
-                                StaticSize
+                                Read
                                 (Require
                                   InstanceSpec {
                                     instanceSpecStrategy = Nothing,
@@ -2237,13 +2219,31 @@
                                     instanceSpecStrategy = Nothing,
                                     instanceSpecConstraints = []}),
                               _×_
-                                WriteRaw
+                                Real
+                                (Require
+                                  InstanceSpec {
+                                    instanceSpecStrategy = Nothing,
+                                    instanceSpecConstraints = []}),
+                              _×_
+                                Show
+                                (Require
+                                  InstanceSpec {
+                                    instanceSpecStrategy = Nothing,
+                                    instanceSpecConstraints = []}),
+                              _×_
+                                StaticSize
                                 (Require
                                   InstanceSpec {
                                     instanceSpecStrategy = Nothing,
                                     instanceSpecConstraints = []}),
                               _×_
                                 Storable
+                                (Require
+                                  InstanceSpec {
+                                    instanceSpecStrategy = Nothing,
+                                    instanceSpecConstraints = []}),
+                              _×_
+                                WriteRaw
                                 (Require
                                   InstanceSpec {
                                     instanceSpecStrategy = Nothing,
@@ -2279,25 +2279,7 @@
                                 typeSpecInstances = Map.fromList
                                   [
                                     _×_
-                                      Eq
-                                      (Require
-                                        InstanceSpec {
-                                          instanceSpecStrategy = Nothing,
-                                          instanceSpecConstraints = []}),
-                                    _×_
-                                      Ord
-                                      (Require
-                                        InstanceSpec {
-                                          instanceSpecStrategy = Nothing,
-                                          instanceSpecConstraints = []}),
-                                    _×_
-                                      Enum
-                                      (Require
-                                        InstanceSpec {
-                                          instanceSpecStrategy = Nothing,
-                                          instanceSpecConstraints = []}),
-                                    _×_
-                                      Ix
+                                      Bits
                                       (Require
                                         InstanceSpec {
                                           instanceSpecStrategy = Nothing,
@@ -2309,19 +2291,13 @@
                                           instanceSpecStrategy = Nothing,
                                           instanceSpecConstraints = []}),
                                     _×_
-                                      Read
+                                      Enum
                                       (Require
                                         InstanceSpec {
                                           instanceSpecStrategy = Nothing,
                                           instanceSpecConstraints = []}),
                                     _×_
-                                      Show
-                                      (Require
-                                        InstanceSpec {
-                                          instanceSpecStrategy = Nothing,
-                                          instanceSpecConstraints = []}),
-                                    _×_
-                                      Bits
+                                      Eq
                                       (Require
                                         InstanceSpec {
                                           instanceSpecStrategy = Nothing,
@@ -2339,19 +2315,25 @@
                                           instanceSpecStrategy = Nothing,
                                           instanceSpecConstraints = []}),
                                     _×_
+                                      Ix
+                                      (Require
+                                        InstanceSpec {
+                                          instanceSpecStrategy = Nothing,
+                                          instanceSpecConstraints = []}),
+                                    _×_
                                       Num
                                       (Require
                                         InstanceSpec {
                                           instanceSpecStrategy = Nothing,
                                           instanceSpecConstraints = []}),
                                     _×_
-                                      Real
+                                      Ord
                                       (Require
                                         InstanceSpec {
                                           instanceSpecStrategy = Nothing,
                                           instanceSpecConstraints = []}),
                                     _×_
-                                      StaticSize
+                                      Read
                                       (Require
                                         InstanceSpec {
                                           instanceSpecStrategy = Nothing,
@@ -2363,13 +2345,31 @@
                                           instanceSpecStrategy = Nothing,
                                           instanceSpecConstraints = []}),
                                     _×_
-                                      WriteRaw
+                                      Real
+                                      (Require
+                                        InstanceSpec {
+                                          instanceSpecStrategy = Nothing,
+                                          instanceSpecConstraints = []}),
+                                    _×_
+                                      Show
+                                      (Require
+                                        InstanceSpec {
+                                          instanceSpecStrategy = Nothing,
+                                          instanceSpecConstraints = []}),
+                                    _×_
+                                      StaticSize
                                       (Require
                                         InstanceSpec {
                                           instanceSpecStrategy = Nothing,
                                           instanceSpecConstraints = []}),
                                     _×_
                                       Storable
+                                      (Require
+                                        InstanceSpec {
+                                          instanceSpecStrategy = Nothing,
+                                          instanceSpecConstraints = []}),
+                                    _×_
+                                      WriteRaw
                                       (Require
                                         InstanceSpec {
                                           instanceSpecStrategy = Nothing,
@@ -2466,25 +2466,7 @@
                                     typeSpecInstances = Map.fromList
                                       [
                                         _×_
-                                          Eq
-                                          (Require
-                                            InstanceSpec {
-                                              instanceSpecStrategy = Nothing,
-                                              instanceSpecConstraints = []}),
-                                        _×_
-                                          Ord
-                                          (Require
-                                            InstanceSpec {
-                                              instanceSpecStrategy = Nothing,
-                                              instanceSpecConstraints = []}),
-                                        _×_
-                                          Enum
-                                          (Require
-                                            InstanceSpec {
-                                              instanceSpecStrategy = Nothing,
-                                              instanceSpecConstraints = []}),
-                                        _×_
-                                          Ix
+                                          Bits
                                           (Require
                                             InstanceSpec {
                                               instanceSpecStrategy = Nothing,
@@ -2496,19 +2478,13 @@
                                               instanceSpecStrategy = Nothing,
                                               instanceSpecConstraints = []}),
                                         _×_
-                                          Read
+                                          Enum
                                           (Require
                                             InstanceSpec {
                                               instanceSpecStrategy = Nothing,
                                               instanceSpecConstraints = []}),
                                         _×_
-                                          Show
-                                          (Require
-                                            InstanceSpec {
-                                              instanceSpecStrategy = Nothing,
-                                              instanceSpecConstraints = []}),
-                                        _×_
-                                          Bits
+                                          Eq
                                           (Require
                                             InstanceSpec {
                                               instanceSpecStrategy = Nothing,
@@ -2526,19 +2502,25 @@
                                               instanceSpecStrategy = Nothing,
                                               instanceSpecConstraints = []}),
                                         _×_
+                                          Ix
+                                          (Require
+                                            InstanceSpec {
+                                              instanceSpecStrategy = Nothing,
+                                              instanceSpecConstraints = []}),
+                                        _×_
                                           Num
                                           (Require
                                             InstanceSpec {
                                               instanceSpecStrategy = Nothing,
                                               instanceSpecConstraints = []}),
                                         _×_
-                                          Real
+                                          Ord
                                           (Require
                                             InstanceSpec {
                                               instanceSpecStrategy = Nothing,
                                               instanceSpecConstraints = []}),
                                         _×_
-                                          StaticSize
+                                          Read
                                           (Require
                                             InstanceSpec {
                                               instanceSpecStrategy = Nothing,
@@ -2550,13 +2532,31 @@
                                               instanceSpecStrategy = Nothing,
                                               instanceSpecConstraints = []}),
                                         _×_
-                                          WriteRaw
+                                          Real
+                                          (Require
+                                            InstanceSpec {
+                                              instanceSpecStrategy = Nothing,
+                                              instanceSpecConstraints = []}),
+                                        _×_
+                                          Show
+                                          (Require
+                                            InstanceSpec {
+                                              instanceSpecStrategy = Nothing,
+                                              instanceSpecConstraints = []}),
+                                        _×_
+                                          StaticSize
                                           (Require
                                             InstanceSpec {
                                               instanceSpecStrategy = Nothing,
                                               instanceSpecConstraints = []}),
                                         _×_
                                           Storable
+                                          (Require
+                                            InstanceSpec {
+                                              instanceSpecStrategy = Nothing,
+                                              instanceSpecConstraints = []}),
+                                        _×_
+                                          WriteRaw
                                           (Require
                                             InstanceSpec {
                                               instanceSpecStrategy = Nothing,
@@ -2679,25 +2679,7 @@
               typeSpecInstances = Map.fromList
                 [
                   _×_
-                    Eq
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Ord
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Enum
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Ix
+                    Bits
                     (Require
                       InstanceSpec {
                         instanceSpecStrategy = Nothing,
@@ -2709,19 +2691,13 @@
                         instanceSpecStrategy = Nothing,
                         instanceSpecConstraints = []}),
                   _×_
-                    Read
+                    Enum
                     (Require
                       InstanceSpec {
                         instanceSpecStrategy = Nothing,
                         instanceSpecConstraints = []}),
                   _×_
-                    Show
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Bits
+                    Eq
                     (Require
                       InstanceSpec {
                         instanceSpecStrategy = Nothing,
@@ -2739,19 +2715,25 @@
                         instanceSpecStrategy = Nothing,
                         instanceSpecConstraints = []}),
                   _×_
+                    Ix
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
                     Num
                     (Require
                       InstanceSpec {
                         instanceSpecStrategy = Nothing,
                         instanceSpecConstraints = []}),
                   _×_
-                    Real
+                    Ord
                     (Require
                       InstanceSpec {
                         instanceSpecStrategy = Nothing,
                         instanceSpecConstraints = []}),
                   _×_
-                    StaticSize
+                    Read
                     (Require
                       InstanceSpec {
                         instanceSpecStrategy = Nothing,
@@ -2763,13 +2745,31 @@
                         instanceSpecStrategy = Nothing,
                         instanceSpecConstraints = []}),
                   _×_
-                    WriteRaw
+                    Real
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Show
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    StaticSize
                     (Require
                       InstanceSpec {
                         instanceSpecStrategy = Nothing,
                         instanceSpecConstraints = []}),
                   _×_
                     Storable
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    WriteRaw
                     (Require
                       InstanceSpec {
                         instanceSpecStrategy = Nothing,
@@ -2861,25 +2861,7 @@
                     typeSpecInstances = Map.fromList
                       [
                         _×_
-                          Eq
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Ord
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Enum
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Ix
+                          Bits
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
@@ -2891,19 +2873,13 @@
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
-                          Read
+                          Enum
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
-                          Show
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Bits
+                          Eq
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
@@ -2921,19 +2897,25 @@
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
+                          Ix
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
                           Num
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
-                          Real
+                          Ord
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
-                          StaticSize
+                          Read
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
@@ -2945,13 +2927,31 @@
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
-                          WriteRaw
+                          Real
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Show
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          StaticSize
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
                           Storable
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          WriteRaw
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
@@ -3044,25 +3044,7 @@
               typeSpecInstances = Map.fromList
                 [
                   _×_
-                    Eq
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Ord
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Enum
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Ix
+                    Bits
                     (Require
                       InstanceSpec {
                         instanceSpecStrategy = Nothing,
@@ -3074,19 +3056,13 @@
                         instanceSpecStrategy = Nothing,
                         instanceSpecConstraints = []}),
                   _×_
-                    Read
+                    Enum
                     (Require
                       InstanceSpec {
                         instanceSpecStrategy = Nothing,
                         instanceSpecConstraints = []}),
                   _×_
-                    Show
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Bits
+                    Eq
                     (Require
                       InstanceSpec {
                         instanceSpecStrategy = Nothing,
@@ -3104,19 +3080,25 @@
                         instanceSpecStrategy = Nothing,
                         instanceSpecConstraints = []}),
                   _×_
+                    Ix
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
                     Num
                     (Require
                       InstanceSpec {
                         instanceSpecStrategy = Nothing,
                         instanceSpecConstraints = []}),
                   _×_
-                    Real
+                    Ord
                     (Require
                       InstanceSpec {
                         instanceSpecStrategy = Nothing,
                         instanceSpecConstraints = []}),
                   _×_
-                    StaticSize
+                    Read
                     (Require
                       InstanceSpec {
                         instanceSpecStrategy = Nothing,
@@ -3128,13 +3110,31 @@
                         instanceSpecStrategy = Nothing,
                         instanceSpecConstraints = []}),
                   _×_
-                    WriteRaw
+                    Real
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Show
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    StaticSize
                     (Require
                       InstanceSpec {
                         instanceSpecStrategy = Nothing,
                         instanceSpecConstraints = []}),
                   _×_
                     Storable
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    WriteRaw
                     (Require
                       InstanceSpec {
                         instanceSpecStrategy = Nothing,
@@ -3226,25 +3226,7 @@
                     typeSpecInstances = Map.fromList
                       [
                         _×_
-                          Eq
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Ord
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Enum
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Ix
+                          Bits
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
@@ -3256,19 +3238,13 @@
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
-                          Read
+                          Enum
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
-                          Show
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Bits
+                          Eq
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
@@ -3286,19 +3262,25 @@
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
+                          Ix
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
                           Num
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
-                          Real
+                          Ord
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
-                          StaticSize
+                          Read
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
@@ -3310,13 +3292,31 @@
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
-                          WriteRaw
+                          Real
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Show
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          StaticSize
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
                           Storable
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          WriteRaw
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
@@ -3391,25 +3391,7 @@
                       typeSpecInstances = Map.fromList
                         [
                           _×_
-                            Eq
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Ord
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Enum
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Ix
+                            Bits
                             (Require
                               InstanceSpec {
                                 instanceSpecStrategy = Nothing,
@@ -3421,19 +3403,13 @@
                                 instanceSpecStrategy = Nothing,
                                 instanceSpecConstraints = []}),
                           _×_
-                            Read
+                            Enum
                             (Require
                               InstanceSpec {
                                 instanceSpecStrategy = Nothing,
                                 instanceSpecConstraints = []}),
                           _×_
-                            Show
-                            (Require
-                              InstanceSpec {
-                                instanceSpecStrategy = Nothing,
-                                instanceSpecConstraints = []}),
-                          _×_
-                            Bits
+                            Eq
                             (Require
                               InstanceSpec {
                                 instanceSpecStrategy = Nothing,
@@ -3451,19 +3427,25 @@
                                 instanceSpecStrategy = Nothing,
                                 instanceSpecConstraints = []}),
                           _×_
+                            Ix
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
                             Num
                             (Require
                               InstanceSpec {
                                 instanceSpecStrategy = Nothing,
                                 instanceSpecConstraints = []}),
                           _×_
-                            Real
+                            Ord
                             (Require
                               InstanceSpec {
                                 instanceSpecStrategy = Nothing,
                                 instanceSpecConstraints = []}),
                           _×_
-                            StaticSize
+                            Read
                             (Require
                               InstanceSpec {
                                 instanceSpecStrategy = Nothing,
@@ -3475,13 +3457,31 @@
                                 instanceSpecStrategy = Nothing,
                                 instanceSpecConstraints = []}),
                           _×_
-                            WriteRaw
+                            Real
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Show
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            StaticSize
                             (Require
                               InstanceSpec {
                                 instanceSpecStrategy = Nothing,
                                 instanceSpecConstraints = []}),
                           _×_
                             Storable
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            WriteRaw
                             (Require
                               InstanceSpec {
                                 instanceSpecStrategy = Nothing,
@@ -3545,25 +3545,7 @@
                   typeSpecInstances = Map.fromList
                     [
                       _×_
-                        Eq
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Ord
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Enum
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Ix
+                        Bits
                         (Require
                           InstanceSpec {
                             instanceSpecStrategy = Nothing,
@@ -3575,19 +3557,13 @@
                             instanceSpecStrategy = Nothing,
                             instanceSpecConstraints = []}),
                       _×_
-                        Read
+                        Enum
                         (Require
                           InstanceSpec {
                             instanceSpecStrategy = Nothing,
                             instanceSpecConstraints = []}),
                       _×_
-                        Show
-                        (Require
-                          InstanceSpec {
-                            instanceSpecStrategy = Nothing,
-                            instanceSpecConstraints = []}),
-                      _×_
-                        Bits
+                        Eq
                         (Require
                           InstanceSpec {
                             instanceSpecStrategy = Nothing,
@@ -3605,19 +3581,25 @@
                             instanceSpecStrategy = Nothing,
                             instanceSpecConstraints = []}),
                       _×_
+                        Ix
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
                         Num
                         (Require
                           InstanceSpec {
                             instanceSpecStrategy = Nothing,
                             instanceSpecConstraints = []}),
                       _×_
-                        Real
+                        Ord
                         (Require
                           InstanceSpec {
                             instanceSpecStrategy = Nothing,
                             instanceSpecConstraints = []}),
                       _×_
-                        StaticSize
+                        Read
                         (Require
                           InstanceSpec {
                             instanceSpecStrategy = Nothing,
@@ -3629,13 +3611,31 @@
                             instanceSpecStrategy = Nothing,
                             instanceSpecConstraints = []}),
                       _×_
-                        WriteRaw
+                        Real
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Show
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        StaticSize
                         (Require
                           InstanceSpec {
                             instanceSpecStrategy = Nothing,
                             instanceSpecConstraints = []}),
                       _×_
                         Storable
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        WriteRaw
                         (Require
                           InstanceSpec {
                             instanceSpecStrategy = Nothing,

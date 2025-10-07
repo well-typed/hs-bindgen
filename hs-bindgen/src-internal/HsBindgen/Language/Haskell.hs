@@ -21,6 +21,7 @@ module HsBindgen.Language.Haskell (
 
 import Data.Aeson qualified as Aeson
 import Data.Aeson.Types qualified as Aeson
+import Data.Ord qualified as Ord
 import Data.Text qualified as Text
 import Text.Read (readMaybe)
 
@@ -139,7 +140,7 @@ data TypeClass =
   | ReadRaw
   | WriteRaw
   | Storable
-  deriving stock (Eq, Generic, Ord, Read, Show)
+  deriving stock (Eq, Generic, Read, Show)
 
 instance Aeson.FromJSON TypeClass where
   parseJSON = Aeson.withText "TypeClass" $ \t ->
@@ -150,3 +151,7 @@ instance Aeson.FromJSON TypeClass where
 
 instance Aeson.ToJSON TypeClass where
   toJSON = Aeson.String . Text.pack . show
+
+-- Order lexicographically, not by order of definition
+instance Ord TypeClass where
+  compare = Ord.comparing show

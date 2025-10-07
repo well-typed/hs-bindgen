@@ -59,18 +59,18 @@
               []}},
       newtypeInstances = Set.fromList
         [
-          Eq,
-          Ord,
-          Enum,
-          Ix,
-          Bounded,
-          Read,
-          Show,
           Bits,
+          Bounded,
+          Enum,
+          Eq,
           FiniteBits,
           Integral,
+          Ix,
           Num,
+          Ord,
+          Read,
           Real,
+          Show,
           Storable],
       newtypeComment = Just
         Comment {
@@ -271,18 +271,18 @@
               []}},
       newtypeInstances = Set.fromList
         [
-          Eq,
-          Ord,
-          Enum,
-          Ix,
-          Bounded,
-          Read,
-          Show,
           Bits,
+          Bounded,
+          Enum,
+          Eq,
           FiniteBits,
           Integral,
+          Ix,
           Num,
+          Ord,
+          Read,
           Real,
+          Show,
           Storable],
       newtypeComment = Just
         Comment {
@@ -482,18 +482,18 @@
               []}},
       newtypeInstances = Set.fromList
         [
-          Eq,
-          Ord,
-          Enum,
-          Ix,
-          Bounded,
-          Read,
-          Show,
           Bits,
+          Bounded,
+          Enum,
+          Eq,
           FiniteBits,
           Integral,
+          Ix,
           Num,
+          Ord,
+          Read,
           Real,
+          Show,
           Storable],
       newtypeComment = Just
         Comment {

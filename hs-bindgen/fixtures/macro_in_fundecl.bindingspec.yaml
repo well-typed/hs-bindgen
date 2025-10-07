@@ -7,87 +7,87 @@ types:
   module: Example
   hsname: C
   instances:
-  - Eq
-  - Ord
-  - Enum
-  - Ix
-  - Bounded
-  - Read
-  - Show
   - Bits
+  - Bounded
+  - Enum
+  - Eq
   - FiniteBits
   - Integral
+  - Ix
   - Num
+  - Ord
+  - Read
   - Real
+  - Show
   - Storable
 - headers: macro_in_fundecl.h
   cname: F
   module: Example
   hsname: F
   instances:
-  - Eq
-  - Ord
   - Enum
-  - Read
-  - Show
+  - Eq
   - Floating
   - Fractional
   - Num
+  - Ord
+  - Read
   - Real
   - RealFloat
   - RealFrac
+  - Show
   - Storable
 - headers: macro_in_fundecl.h
   cname: I
   module: Example
   hsname: I
   instances:
-  - Eq
-  - Ord
-  - Enum
-  - Ix
-  - Bounded
-  - Read
-  - Show
   - Bits
+  - Bounded
+  - Enum
+  - Eq
   - FiniteBits
   - Integral
+  - Ix
   - Num
+  - Ord
+  - Read
   - Real
+  - Show
   - Storable
 - headers: macro_in_fundecl.h
   cname: L
   module: Example
   hsname: L
   instances:
-  - Eq
-  - Ord
-  - Enum
-  - Ix
-  - Bounded
-  - Read
-  - Show
   - Bits
+  - Bounded
+  - Enum
+  - Eq
   - FiniteBits
   - Integral
+  - Ix
   - Num
+  - Ord
+  - Read
   - Real
+  - Show
   - Storable
 - headers: macro_in_fundecl.h
   cname: S
   module: Example
   hsname: S
   instances:
-  - Eq
-  - Ord
-  - Enum
-  - Ix
-  - Bounded
-  - Read
-  - Show
   - Bits
+  - Bounded
+  - Enum
+  - Eq
   - FiniteBits
   - Integral
+  - Ix
   - Num
+  - Ord
+  - Read
   - Real
+  - Show
   - Storable
