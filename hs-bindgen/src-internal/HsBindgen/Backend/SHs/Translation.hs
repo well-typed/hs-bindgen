@@ -459,20 +459,32 @@ toNameHint (Hs.Name t) = NameHint (T.unpack t)
 -------------------------------------------------------------------------------}
 
 translateUnionGetter :: Hs.UnionGetter -> SDecl
-translateUnionGetter Hs.UnionGetter{..} = DVar
-  Var { varName    = unionGetterName
-      , varType    = TFun (TCon unionGetterConstr) (translateType unionGetterType)
-      , varExpr    = EGlobal ByteArray_getUnionPayload
-      , varComment = unionGetterComment
-      }
+translateUnionGetter Hs.UnionGetter{..} = DFunction
+  Function { functionName       = unionGetterName
+           , functionParameters = [ FunctionParameter
+                                     { functionParameterName    = Nothing
+                                     , functionParameterType    = TCon unionGetterConstr
+                                     , functionParameterComment = Nothing
+                                     }
+                                  ]
+           , functionResultType = translateType unionGetterType
+           , functionBody       = EGlobal ByteArray_getUnionPayload
+           , functionComment    = unionGetterComment
+           }
 
 translateUnionSetter :: Hs.UnionSetter -> SDecl
-translateUnionSetter Hs.UnionSetter{..} = DVar
-  Var { varName    = unionSetterName
-      , varType    = (TFun (translateType unionSetterType) (TCon unionSetterConstr))
-      , varExpr    = EGlobal ByteArray_setUnionPayload
-      , varComment = unionSetterComment
-      }
+translateUnionSetter Hs.UnionSetter{..} = DFunction
+  Function { functionName       = unionSetterName
+           , functionParameters = [ FunctionParameter
+                                     { functionParameterName    = Nothing
+                                     , functionParameterType    = translateType unionSetterType
+                                     , functionParameterComment = Nothing
+                                     }
+                                  ]
+           , functionResultType = TCon unionSetterConstr
+           , functionBody       = EGlobal ByteArray_setUnionPayload
+           , functionComment    = unionSetterComment
+           }
 
 {-------------------------------------------------------------------------------
   Enums
