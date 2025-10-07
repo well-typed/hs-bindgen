@@ -18,13 +18,14 @@
                 "HsBindgen.Runtime.Prelude",
               extRefIdentifier = Identifier
                 "Word64"}
-            TypeSpec {
-              typeSpecModule = Just
+            CTypeSpec {
+              cTypeSpecModule = Just
                 (ModuleName
                   "HsBindgen.Runtime.Prelude"),
-              typeSpecIdentifier = Just
+              cTypeSpecIdentifier = Just
                 (Identifier "Word64"),
-              typeSpecInstances = Map.fromList
+              cTypeSpecInstances =
+              Map.fromList
                 [
                   _×_
                     Bits
@@ -143,13 +144,14 @@
                       "HsBindgen.Runtime.Prelude",
                     extRefIdentifier = Identifier
                       "Word64"},
-                  extHsSpec = TypeSpec {
-                    typeSpecModule = Just
+                  extHsSpec = CTypeSpec {
+                    cTypeSpecModule = Just
                       (ModuleName
                         "HsBindgen.Runtime.Prelude"),
-                    typeSpecIdentifier = Just
+                    cTypeSpecIdentifier = Just
                       (Identifier "Word64"),
-                    typeSpecInstances = Map.fromList
+                    cTypeSpecInstances =
+                    Map.fromList
                       [
                         _×_
                           Bits
@@ -273,13 +275,14 @@
                 "HsBindgen.Runtime.Prelude",
               extRefIdentifier = Identifier
                 "Word32"}
-            TypeSpec {
-              typeSpecModule = Just
+            CTypeSpec {
+              cTypeSpecModule = Just
                 (ModuleName
                   "HsBindgen.Runtime.Prelude"),
-              typeSpecIdentifier = Just
+              cTypeSpecIdentifier = Just
                 (Identifier "Word32"),
-              typeSpecInstances = Map.fromList
+              cTypeSpecInstances =
+              Map.fromList
                 [
                   _×_
                     Bits
@@ -398,13 +401,14 @@
                       "HsBindgen.Runtime.Prelude",
                     extRefIdentifier = Identifier
                       "Word32"},
-                  extHsSpec = TypeSpec {
-                    typeSpecModule = Just
+                  extHsSpec = CTypeSpec {
+                    cTypeSpecModule = Just
                       (ModuleName
                         "HsBindgen.Runtime.Prelude"),
-                    typeSpecIdentifier = Just
+                    cTypeSpecIdentifier = Just
                       (Identifier "Word32"),
-                    typeSpecInstances = Map.fromList
+                    cTypeSpecInstances =
+                    Map.fromList
                       [
                         _×_
                           Bits
@@ -559,13 +563,14 @@
                           "HsBindgen.Runtime.Prelude",
                         extRefIdentifier = Identifier
                           "Word64"},
-                      extHsSpec = TypeSpec {
-                        typeSpecModule = Just
+                      extHsSpec = CTypeSpec {
+                        cTypeSpecModule = Just
                           (ModuleName
                             "HsBindgen.Runtime.Prelude"),
-                        typeSpecIdentifier = Just
+                        cTypeSpecIdentifier = Just
                           (Identifier "Word64"),
-                        typeSpecInstances = Map.fromList
+                        cTypeSpecInstances =
+                        Map.fromList
                           [
                             _×_
                               Bits
@@ -685,13 +690,14 @@
                           "HsBindgen.Runtime.Prelude",
                         extRefIdentifier = Identifier
                           "Word32"},
-                      extHsSpec = TypeSpec {
-                        typeSpecModule = Just
+                      extHsSpec = CTypeSpec {
+                        cTypeSpecModule = Just
                           (ModuleName
                             "HsBindgen.Runtime.Prelude"),
-                        typeSpecIdentifier = Just
+                        cTypeSpecIdentifier = Just
                           (Identifier "Word32"),
-                        typeSpecInstances = Map.fromList
+                        cTypeSpecInstances =
+                        Map.fromList
                           [
                             _×_
                               Bits
@@ -794,11 +800,11 @@
                   structFieldWidth = Nothing}],
               structFlam = Nothing},
           declSpec = DeclSpec
-            TypeSpec {
-              typeSpecModule = Nothing,
-              typeSpecIdentifier = Nothing,
-              typeSpecInstances = Map.fromList
-                []}},
+            CTypeSpec {
+              cTypeSpecModule = Nothing,
+              cTypeSpecIdentifier = Nothing,
+              cTypeSpecInstances =
+              Map.fromList []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
@@ -835,13 +841,14 @@
                     "HsBindgen.Runtime.Prelude",
                   extRefIdentifier = Identifier
                     "Word64"}
-                TypeSpec {
-                  typeSpecModule = Just
+                CTypeSpec {
+                  cTypeSpecModule = Just
                     (ModuleName
                       "HsBindgen.Runtime.Prelude"),
-                  typeSpecIdentifier = Just
+                  cTypeSpecIdentifier = Just
                     (Identifier "Word64"),
-                  typeSpecInstances = Map.fromList
+                  cTypeSpecInstances =
+                  Map.fromList
                     [
                       _×_
                         Bits
@@ -960,13 +967,14 @@
                           "HsBindgen.Runtime.Prelude",
                         extRefIdentifier = Identifier
                           "Word64"},
-                      extHsSpec = TypeSpec {
-                        typeSpecModule = Just
+                      extHsSpec = CTypeSpec {
+                        cTypeSpecModule = Just
                           (ModuleName
                             "HsBindgen.Runtime.Prelude"),
-                        typeSpecIdentifier = Just
+                        cTypeSpecIdentifier = Just
                           (Identifier "Word64"),
-                        typeSpecInstances = Map.fromList
+                        cTypeSpecInstances =
+                        Map.fromList
                           [
                             _×_
                               Bits
@@ -1090,13 +1098,14 @@
                     "HsBindgen.Runtime.Prelude",
                   extRefIdentifier = Identifier
                     "Word32"}
-                TypeSpec {
-                  typeSpecModule = Just
+                CTypeSpec {
+                  cTypeSpecModule = Just
                     (ModuleName
                       "HsBindgen.Runtime.Prelude"),
-                  typeSpecIdentifier = Just
+                  cTypeSpecIdentifier = Just
                     (Identifier "Word32"),
-                  typeSpecInstances = Map.fromList
+                  cTypeSpecInstances =
+                  Map.fromList
                     [
                       _×_
                         Bits
@@ -1215,13 +1224,14 @@
                           "HsBindgen.Runtime.Prelude",
                         extRefIdentifier = Identifier
                           "Word32"},
-                      extHsSpec = TypeSpec {
-                        typeSpecModule = Just
+                      extHsSpec = CTypeSpec {
+                        cTypeSpecModule = Just
                           (ModuleName
                             "HsBindgen.Runtime.Prelude"),
-                        typeSpecIdentifier = Just
+                        cTypeSpecIdentifier = Just
                           (Identifier "Word32"),
-                        typeSpecInstances = Map.fromList
+                        cTypeSpecInstances =
+                        Map.fromList
                           [
                             _×_
                               Bits
@@ -1376,13 +1386,14 @@
                               "HsBindgen.Runtime.Prelude",
                             extRefIdentifier = Identifier
                               "Word64"},
-                          extHsSpec = TypeSpec {
-                            typeSpecModule = Just
+                          extHsSpec = CTypeSpec {
+                            cTypeSpecModule = Just
                               (ModuleName
                                 "HsBindgen.Runtime.Prelude"),
-                            typeSpecIdentifier = Just
+                            cTypeSpecIdentifier = Just
                               (Identifier "Word64"),
-                            typeSpecInstances = Map.fromList
+                            cTypeSpecInstances =
+                            Map.fromList
                               [
                                 _×_
                                   Bits
@@ -1502,13 +1513,14 @@
                               "HsBindgen.Runtime.Prelude",
                             extRefIdentifier = Identifier
                               "Word32"},
-                          extHsSpec = TypeSpec {
-                            typeSpecModule = Just
+                          extHsSpec = CTypeSpec {
+                            cTypeSpecModule = Just
                               (ModuleName
                                 "HsBindgen.Runtime.Prelude"),
-                            typeSpecIdentifier = Just
+                            cTypeSpecIdentifier = Just
                               (Identifier "Word32"),
-                            typeSpecInstances = Map.fromList
+                            cTypeSpecInstances =
+                            Map.fromList
                               [
                                 _×_
                                   Bits
@@ -1611,11 +1623,11 @@
                       structFieldWidth = Nothing}],
                   structFlam = Nothing},
               declSpec = DeclSpec
-                TypeSpec {
-                  typeSpecModule = Nothing,
-                  typeSpecIdentifier = Nothing,
-                  typeSpecInstances = Map.fromList
-                    []}},
+                CTypeSpec {
+                  cTypeSpecModule = Nothing,
+                  cTypeSpecIdentifier = Nothing,
+                  cTypeSpecInstances =
+                  Map.fromList []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
@@ -1655,13 +1667,14 @@
                             "HsBindgen.Runtime.Prelude",
                           extRefIdentifier = Identifier
                             "Word64"}
-                        TypeSpec {
-                          typeSpecModule = Just
+                        CTypeSpec {
+                          cTypeSpecModule = Just
                             (ModuleName
                               "HsBindgen.Runtime.Prelude"),
-                          typeSpecIdentifier = Just
+                          cTypeSpecIdentifier = Just
                             (Identifier "Word64"),
-                          typeSpecInstances = Map.fromList
+                          cTypeSpecInstances =
+                          Map.fromList
                             [
                               _×_
                                 Bits
@@ -1780,13 +1793,14 @@
                                   "HsBindgen.Runtime.Prelude",
                                 extRefIdentifier = Identifier
                                   "Word64"},
-                              extHsSpec = TypeSpec {
-                                typeSpecModule = Just
+                              extHsSpec = CTypeSpec {
+                                cTypeSpecModule = Just
                                   (ModuleName
                                     "HsBindgen.Runtime.Prelude"),
-                                typeSpecIdentifier = Just
+                                cTypeSpecIdentifier = Just
                                   (Identifier "Word64"),
-                                typeSpecInstances = Map.fromList
+                                cTypeSpecInstances =
+                                Map.fromList
                                   [
                                     _×_
                                       Bits
@@ -1910,13 +1924,14 @@
                             "HsBindgen.Runtime.Prelude",
                           extRefIdentifier = Identifier
                             "Word32"}
-                        TypeSpec {
-                          typeSpecModule = Just
+                        CTypeSpec {
+                          cTypeSpecModule = Just
                             (ModuleName
                               "HsBindgen.Runtime.Prelude"),
-                          typeSpecIdentifier = Just
+                          cTypeSpecIdentifier = Just
                             (Identifier "Word32"),
-                          typeSpecInstances = Map.fromList
+                          cTypeSpecInstances =
+                          Map.fromList
                             [
                               _×_
                                 Bits
@@ -2035,13 +2050,14 @@
                                   "HsBindgen.Runtime.Prelude",
                                 extRefIdentifier = Identifier
                                   "Word32"},
-                              extHsSpec = TypeSpec {
-                                typeSpecModule = Just
+                              extHsSpec = CTypeSpec {
+                                cTypeSpecModule = Just
                                   (ModuleName
                                     "HsBindgen.Runtime.Prelude"),
-                                typeSpecIdentifier = Just
+                                cTypeSpecIdentifier = Just
                                   (Identifier "Word32"),
-                                typeSpecInstances = Map.fromList
+                                cTypeSpecInstances =
+                                Map.fromList
                                   [
                                     _×_
                                       Bits
@@ -2196,13 +2212,14 @@
                                       "HsBindgen.Runtime.Prelude",
                                     extRefIdentifier = Identifier
                                       "Word64"},
-                                  extHsSpec = TypeSpec {
-                                    typeSpecModule = Just
+                                  extHsSpec = CTypeSpec {
+                                    cTypeSpecModule = Just
                                       (ModuleName
                                         "HsBindgen.Runtime.Prelude"),
-                                    typeSpecIdentifier = Just
+                                    cTypeSpecIdentifier = Just
                                       (Identifier "Word64"),
-                                    typeSpecInstances = Map.fromList
+                                    cTypeSpecInstances =
+                                    Map.fromList
                                       [
                                         _×_
                                           Bits
@@ -2322,13 +2339,14 @@
                                       "HsBindgen.Runtime.Prelude",
                                     extRefIdentifier = Identifier
                                       "Word32"},
-                                  extHsSpec = TypeSpec {
-                                    typeSpecModule = Just
+                                  extHsSpec = CTypeSpec {
+                                    cTypeSpecModule = Just
                                       (ModuleName
                                         "HsBindgen.Runtime.Prelude"),
-                                    typeSpecIdentifier = Just
+                                    cTypeSpecIdentifier = Just
                                       (Identifier "Word32"),
-                                    typeSpecInstances = Map.fromList
+                                    cTypeSpecInstances =
+                                    Map.fromList
                                       [
                                         _×_
                                           Bits
@@ -2431,11 +2449,11 @@
                               structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
-                        TypeSpec {
-                          typeSpecModule = Nothing,
-                          typeSpecIdentifier = Nothing,
-                          typeSpecInstances = Map.fromList
-                            []}},
+                        CTypeSpec {
+                          cTypeSpecModule = Nothing,
+                          cTypeSpecIdentifier = Nothing,
+                          cTypeSpecInstances =
+                          Map.fromList []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
@@ -2477,13 +2495,14 @@
                             "HsBindgen.Runtime.Prelude",
                           extRefIdentifier = Identifier
                             "Word64"}
-                        TypeSpec {
-                          typeSpecModule = Just
+                        CTypeSpec {
+                          cTypeSpecModule = Just
                             (ModuleName
                               "HsBindgen.Runtime.Prelude"),
-                          typeSpecIdentifier = Just
+                          cTypeSpecIdentifier = Just
                             (Identifier "Word64"),
-                          typeSpecInstances = Map.fromList
+                          cTypeSpecInstances =
+                          Map.fromList
                             [
                               _×_
                                 Bits
@@ -2602,13 +2621,14 @@
                                   "HsBindgen.Runtime.Prelude",
                                 extRefIdentifier = Identifier
                                   "Word64"},
-                              extHsSpec = TypeSpec {
-                                typeSpecModule = Just
+                              extHsSpec = CTypeSpec {
+                                cTypeSpecModule = Just
                                   (ModuleName
                                     "HsBindgen.Runtime.Prelude"),
-                                typeSpecIdentifier = Just
+                                cTypeSpecIdentifier = Just
                                   (Identifier "Word64"),
-                                typeSpecInstances = Map.fromList
+                                cTypeSpecInstances =
+                                Map.fromList
                                   [
                                     _×_
                                       Bits
@@ -2732,13 +2752,14 @@
                             "HsBindgen.Runtime.Prelude",
                           extRefIdentifier = Identifier
                             "Word32"}
-                        TypeSpec {
-                          typeSpecModule = Just
+                        CTypeSpec {
+                          cTypeSpecModule = Just
                             (ModuleName
                               "HsBindgen.Runtime.Prelude"),
-                          typeSpecIdentifier = Just
+                          cTypeSpecIdentifier = Just
                             (Identifier "Word32"),
-                          typeSpecInstances = Map.fromList
+                          cTypeSpecInstances =
+                          Map.fromList
                             [
                               _×_
                                 Bits
@@ -2857,13 +2878,14 @@
                                   "HsBindgen.Runtime.Prelude",
                                 extRefIdentifier = Identifier
                                   "Word32"},
-                              extHsSpec = TypeSpec {
-                                typeSpecModule = Just
+                              extHsSpec = CTypeSpec {
+                                cTypeSpecModule = Just
                                   (ModuleName
                                     "HsBindgen.Runtime.Prelude"),
-                                typeSpecIdentifier = Just
+                                cTypeSpecIdentifier = Just
                                   (Identifier "Word32"),
-                                typeSpecInstances = Map.fromList
+                                cTypeSpecInstances =
+                                Map.fromList
                                   [
                                     _×_
                                       Bits
@@ -3018,13 +3040,14 @@
                                       "HsBindgen.Runtime.Prelude",
                                     extRefIdentifier = Identifier
                                       "Word64"},
-                                  extHsSpec = TypeSpec {
-                                    typeSpecModule = Just
+                                  extHsSpec = CTypeSpec {
+                                    cTypeSpecModule = Just
                                       (ModuleName
                                         "HsBindgen.Runtime.Prelude"),
-                                    typeSpecIdentifier = Just
+                                    cTypeSpecIdentifier = Just
                                       (Identifier "Word64"),
-                                    typeSpecInstances = Map.fromList
+                                    cTypeSpecInstances =
+                                    Map.fromList
                                       [
                                         _×_
                                           Bits
@@ -3144,13 +3167,14 @@
                                       "HsBindgen.Runtime.Prelude",
                                     extRefIdentifier = Identifier
                                       "Word32"},
-                                  extHsSpec = TypeSpec {
-                                    typeSpecModule = Just
+                                  extHsSpec = CTypeSpec {
+                                    cTypeSpecModule = Just
                                       (ModuleName
                                         "HsBindgen.Runtime.Prelude"),
-                                    typeSpecIdentifier = Just
+                                    cTypeSpecIdentifier = Just
                                       (Identifier "Word32"),
-                                    typeSpecInstances = Map.fromList
+                                    cTypeSpecInstances =
+                                    Map.fromList
                                       [
                                         _×_
                                           Bits
@@ -3253,11 +3277,11 @@
                               structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
-                        TypeSpec {
-                          typeSpecModule = Nothing,
-                          typeSpecIdentifier = Nothing,
-                          typeSpecInstances = Map.fromList
-                            []}},
+                        CTypeSpec {
+                          cTypeSpecModule = Nothing,
+                          cTypeSpecIdentifier = Nothing,
+                          cTypeSpecInstances =
+                          Map.fromList []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just

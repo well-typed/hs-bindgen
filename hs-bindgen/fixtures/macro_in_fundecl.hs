@@ -43,11 +43,11 @@
             macroType = TypePrim
               (PrimIntegral PrimInt Signed)},
         declSpec = DeclSpec
-          TypeSpec {
-            typeSpecModule = Nothing,
-            typeSpecIdentifier = Nothing,
-            typeSpecInstances = Map.fromList
-              []}},
+          CTypeSpec {
+            cTypeSpecModule = Nothing,
+            cTypeSpecIdentifier = Nothing,
+            cTypeSpecInstances =
+            Map.fromList []}},
       newtypeInstances = Set.fromList
         [
           Bits,
@@ -252,11 +252,11 @@
               (PrimChar
                 (PrimSignImplicit Nothing))},
         declSpec = DeclSpec
-          TypeSpec {
-            typeSpecModule = Nothing,
-            typeSpecIdentifier = Nothing,
-            typeSpecInstances = Map.fromList
-              []}},
+          CTypeSpec {
+            cTypeSpecModule = Nothing,
+            cTypeSpecIdentifier = Nothing,
+            cTypeSpecInstances =
+            Map.fromList []}},
       newtypeInstances = Set.fromList
         [
           Bits,
@@ -460,11 +460,11 @@
             macroType = TypePrim
               (PrimFloating PrimFloat)},
         declSpec = DeclSpec
-          TypeSpec {
-            typeSpecModule = Nothing,
-            typeSpecIdentifier = Nothing,
-            typeSpecInstances = Map.fromList
-              []}},
+          CTypeSpec {
+            cTypeSpecModule = Nothing,
+            cTypeSpecIdentifier = Nothing,
+            cTypeSpecInstances =
+            Map.fromList []}},
       newtypeInstances = Set.fromList
         [
           Enum,
@@ -657,11 +657,11 @@
             macroType = TypePrim
               (PrimIntegral PrimLong Signed)},
         declSpec = DeclSpec
-          TypeSpec {
-            typeSpecModule = Nothing,
-            typeSpecIdentifier = Nothing,
-            typeSpecInstances = Map.fromList
-              []}},
+          CTypeSpec {
+            cTypeSpecModule = Nothing,
+            cTypeSpecIdentifier = Nothing,
+            cTypeSpecInstances =
+            Map.fromList []}},
       newtypeInstances = Set.fromList
         [
           Bits,
@@ -867,11 +867,11 @@
                 PrimShort
                 Signed)},
         declSpec = DeclSpec
-          TypeSpec {
-            typeSpecModule = Nothing,
-            typeSpecIdentifier = Nothing,
-            typeSpecInstances = Map.fromList
-              []}},
+          CTypeSpec {
+            cTypeSpecModule = Nothing,
+            cTypeSpecIdentifier = Nothing,
+            cTypeSpecInstances =
+            Map.fromList []}},
       newtypeInstances = Set.fromList
         [
           Bits,

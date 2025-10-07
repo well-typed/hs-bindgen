@@ -110,11 +110,11 @@
                   fieldComment = Nothing},
                 enumConstantValue = `-1`}]},
         declSpec = DeclSpec
-          TypeSpec {
-            typeSpecModule = Nothing,
-            typeSpecIdentifier = Nothing,
-            typeSpecInstances = Map.fromList
-              []}},
+          CTypeSpec {
+            cTypeSpecModule = Nothing,
+            cTypeSpecIdentifier = Nothing,
+            cTypeSpecInstances =
+            Map.fromList []}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Read, Show, Storable],
       newtypeComment = Just
@@ -621,13 +621,14 @@
                 "HsBindgen.Runtime.Prelude",
               extRefIdentifier = Identifier
                 "CSize"}
-            TypeSpec {
-              typeSpecModule = Just
+            CTypeSpec {
+              cTypeSpecModule = Just
                 (ModuleName
                   "HsBindgen.Runtime.Prelude"),
-              typeSpecIdentifier = Just
+              cTypeSpecIdentifier = Just
                 (Identifier "CSize"),
-              typeSpecInstances = Map.fromList
+              cTypeSpecInstances =
+              Map.fromList
                 [
                   _×_
                     Bits
@@ -747,13 +748,14 @@
                       "HsBindgen.Runtime.Prelude",
                     extRefIdentifier = Identifier
                       "CSize"},
-                  extHsSpec = TypeSpec {
-                    typeSpecModule = Just
+                  extHsSpec = CTypeSpec {
+                    cTypeSpecModule = Just
                       (ModuleName
                         "HsBindgen.Runtime.Prelude"),
-                    typeSpecIdentifier = Just
+                    cTypeSpecIdentifier = Just
                       (Identifier "CSize"),
-                    typeSpecInstances = Map.fromList
+                    cTypeSpecInstances =
+                    Map.fromList
                       [
                         _×_
                           Bits
@@ -934,13 +936,14 @@
                           "HsBindgen.Runtime.Prelude",
                         extRefIdentifier = Identifier
                           "CSize"},
-                      extHsSpec = TypeSpec {
-                        typeSpecModule = Just
+                      extHsSpec = CTypeSpec {
+                        cTypeSpecModule = Just
                           (ModuleName
                             "HsBindgen.Runtime.Prelude"),
-                        typeSpecIdentifier = Just
+                        cTypeSpecIdentifier = Just
                           (Identifier "CSize"),
-                        typeSpecInstances = Map.fromList
+                        cTypeSpecInstances =
+                        Map.fromList
                           [
                             _×_
                               Bits
@@ -1043,11 +1046,11 @@
                   structFieldWidth = Nothing}],
               structFlam = Nothing},
           declSpec = DeclSpec
-            TypeSpec {
-              typeSpecModule = Nothing,
-              typeSpecIdentifier = Nothing,
-              typeSpecInstances = Map.fromList
-                []}},
+            CTypeSpec {
+              cTypeSpecModule = Nothing,
+              cTypeSpecIdentifier = Nothing,
+              cTypeSpecInstances =
+              Map.fromList []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
@@ -1126,13 +1129,14 @@
                     "HsBindgen.Runtime.Prelude",
                   extRefIdentifier = Identifier
                     "CSize"}
-                TypeSpec {
-                  typeSpecModule = Just
+                CTypeSpec {
+                  cTypeSpecModule = Just
                     (ModuleName
                       "HsBindgen.Runtime.Prelude"),
-                  typeSpecIdentifier = Just
+                  cTypeSpecIdentifier = Just
                     (Identifier "CSize"),
-                  typeSpecInstances = Map.fromList
+                  cTypeSpecInstances =
+                  Map.fromList
                     [
                       _×_
                         Bits
@@ -1252,13 +1256,14 @@
                           "HsBindgen.Runtime.Prelude",
                         extRefIdentifier = Identifier
                           "CSize"},
-                      extHsSpec = TypeSpec {
-                        typeSpecModule = Just
+                      extHsSpec = CTypeSpec {
+                        cTypeSpecModule = Just
                           (ModuleName
                             "HsBindgen.Runtime.Prelude"),
-                        typeSpecIdentifier = Just
+                        cTypeSpecIdentifier = Just
                           (Identifier "CSize"),
-                        typeSpecInstances = Map.fromList
+                        cTypeSpecInstances =
+                        Map.fromList
                           [
                             _×_
                               Bits
@@ -1439,13 +1444,14 @@
                               "HsBindgen.Runtime.Prelude",
                             extRefIdentifier = Identifier
                               "CSize"},
-                          extHsSpec = TypeSpec {
-                            typeSpecModule = Just
+                          extHsSpec = CTypeSpec {
+                            cTypeSpecModule = Just
                               (ModuleName
                                 "HsBindgen.Runtime.Prelude"),
-                            typeSpecIdentifier = Just
+                            cTypeSpecIdentifier = Just
                               (Identifier "CSize"),
-                            typeSpecInstances = Map.fromList
+                            cTypeSpecInstances =
+                            Map.fromList
                               [
                                 _×_
                                   Bits
@@ -1548,11 +1554,11 @@
                       structFieldWidth = Nothing}],
                   structFlam = Nothing},
               declSpec = DeclSpec
-                TypeSpec {
-                  typeSpecModule = Nothing,
-                  typeSpecIdentifier = Nothing,
-                  typeSpecInstances = Map.fromList
-                    []}},
+                CTypeSpec {
+                  cTypeSpecModule = Nothing,
+                  cTypeSpecIdentifier = Nothing,
+                  cTypeSpecInstances =
+                  Map.fromList []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
@@ -1634,13 +1640,14 @@
                             "HsBindgen.Runtime.Prelude",
                           extRefIdentifier = Identifier
                             "CSize"}
-                        TypeSpec {
-                          typeSpecModule = Just
+                        CTypeSpec {
+                          cTypeSpecModule = Just
                             (ModuleName
                               "HsBindgen.Runtime.Prelude"),
-                          typeSpecIdentifier = Just
+                          cTypeSpecIdentifier = Just
                             (Identifier "CSize"),
-                          typeSpecInstances = Map.fromList
+                          cTypeSpecInstances =
+                          Map.fromList
                             [
                               _×_
                                 Bits
@@ -1760,13 +1767,14 @@
                                   "HsBindgen.Runtime.Prelude",
                                 extRefIdentifier = Identifier
                                   "CSize"},
-                              extHsSpec = TypeSpec {
-                                typeSpecModule = Just
+                              extHsSpec = CTypeSpec {
+                                cTypeSpecModule = Just
                                   (ModuleName
                                     "HsBindgen.Runtime.Prelude"),
-                                typeSpecIdentifier = Just
+                                cTypeSpecIdentifier = Just
                                   (Identifier "CSize"),
-                                typeSpecInstances = Map.fromList
+                                cTypeSpecInstances =
+                                Map.fromList
                                   [
                                     _×_
                                       Bits
@@ -1947,13 +1955,14 @@
                                       "HsBindgen.Runtime.Prelude",
                                     extRefIdentifier = Identifier
                                       "CSize"},
-                                  extHsSpec = TypeSpec {
-                                    typeSpecModule = Just
+                                  extHsSpec = CTypeSpec {
+                                    cTypeSpecModule = Just
                                       (ModuleName
                                         "HsBindgen.Runtime.Prelude"),
-                                    typeSpecIdentifier = Just
+                                    cTypeSpecIdentifier = Just
                                       (Identifier "CSize"),
-                                    typeSpecInstances = Map.fromList
+                                    cTypeSpecInstances =
+                                    Map.fromList
                                       [
                                         _×_
                                           Bits
@@ -2056,11 +2065,11 @@
                               structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
-                        TypeSpec {
-                          typeSpecModule = Nothing,
-                          typeSpecIdentifier = Nothing,
-                          typeSpecInstances = Map.fromList
-                            []}},
+                        CTypeSpec {
+                          cTypeSpecModule = Nothing,
+                          cTypeSpecIdentifier = Nothing,
+                          cTypeSpecInstances =
+                          Map.fromList []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
@@ -2144,13 +2153,14 @@
                             "HsBindgen.Runtime.Prelude",
                           extRefIdentifier = Identifier
                             "CSize"}
-                        TypeSpec {
-                          typeSpecModule = Just
+                        CTypeSpec {
+                          cTypeSpecModule = Just
                             (ModuleName
                               "HsBindgen.Runtime.Prelude"),
-                          typeSpecIdentifier = Just
+                          cTypeSpecIdentifier = Just
                             (Identifier "CSize"),
-                          typeSpecInstances = Map.fromList
+                          cTypeSpecInstances =
+                          Map.fromList
                             [
                               _×_
                                 Bits
@@ -2270,13 +2280,14 @@
                                   "HsBindgen.Runtime.Prelude",
                                 extRefIdentifier = Identifier
                                   "CSize"},
-                              extHsSpec = TypeSpec {
-                                typeSpecModule = Just
+                              extHsSpec = CTypeSpec {
+                                cTypeSpecModule = Just
                                   (ModuleName
                                     "HsBindgen.Runtime.Prelude"),
-                                typeSpecIdentifier = Just
+                                cTypeSpecIdentifier = Just
                                   (Identifier "CSize"),
-                                typeSpecInstances = Map.fromList
+                                cTypeSpecInstances =
+                                Map.fromList
                                   [
                                     _×_
                                       Bits
@@ -2457,13 +2468,14 @@
                                       "HsBindgen.Runtime.Prelude",
                                     extRefIdentifier = Identifier
                                       "CSize"},
-                                  extHsSpec = TypeSpec {
-                                    typeSpecModule = Just
+                                  extHsSpec = CTypeSpec {
+                                    cTypeSpecModule = Just
                                       (ModuleName
                                         "HsBindgen.Runtime.Prelude"),
-                                    typeSpecIdentifier = Just
+                                    cTypeSpecIdentifier = Just
                                       (Identifier "CSize"),
-                                    typeSpecInstances = Map.fromList
+                                    cTypeSpecInstances =
+                                    Map.fromList
                                       [
                                         _×_
                                           Bits
@@ -2566,11 +2578,11 @@
                               structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
-                        TypeSpec {
-                          typeSpecModule = Nothing,
-                          typeSpecIdentifier = Nothing,
-                          typeSpecInstances = Map.fromList
-                            []}},
+                        CTypeSpec {
+                          cTypeSpecModule = Nothing,
+                          cTypeSpecIdentifier = Nothing,
+                          cTypeSpecInstances =
+                          Map.fromList []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
@@ -2633,14 +2645,14 @@
                   "HsBindgen.Runtime.Prelude",
                 extRefIdentifier = Identifier
                   "CFile"}
-              TypeSpec {
-                typeSpecModule = Just
+              CTypeSpec {
+                cTypeSpecModule = Just
                   (ModuleName
                     "HsBindgen.Runtime.Prelude"),
-                typeSpecIdentifier = Just
+                cTypeSpecIdentifier = Just
                   (Identifier "CFile"),
-                typeSpecInstances = Map.fromList
-                  []}),
+                cTypeSpecInstances =
+                Map.fromList []}),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -2670,13 +2682,14 @@
                 "HsBindgen.Runtime.Prelude",
               extRefIdentifier = Identifier
                 "CSize"}
-            TypeSpec {
-              typeSpecModule = Just
+            CTypeSpec {
+              cTypeSpecModule = Just
                 (ModuleName
                   "HsBindgen.Runtime.Prelude"),
-              typeSpecIdentifier = Just
+              cTypeSpecIdentifier = Just
                 (Identifier "CSize"),
-              typeSpecInstances = Map.fromList
+              cTypeSpecInstances =
+              Map.fromList
                 [
                   _×_
                     Bits
@@ -2820,14 +2833,14 @@
                         "HsBindgen.Runtime.Prelude",
                       extRefIdentifier = Identifier
                         "CFile"},
-                    extHsSpec = TypeSpec {
-                      typeSpecModule = Just
+                    extHsSpec = CTypeSpec {
+                      cTypeSpecModule = Just
                         (ModuleName
                           "HsBindgen.Runtime.Prelude"),
-                      typeSpecIdentifier = Just
+                      cTypeSpecIdentifier = Just
                         (Identifier "CFile"),
-                      typeSpecInstances = Map.fromList
-                        []}})),
+                      cTypeSpecInstances =
+                      Map.fromList []}})),
             _×_
               (Just
                 NamePair {
@@ -2852,13 +2865,14 @@
                       "HsBindgen.Runtime.Prelude",
                     extRefIdentifier = Identifier
                       "CSize"},
-                  extHsSpec = TypeSpec {
-                    typeSpecModule = Just
+                  extHsSpec = CTypeSpec {
+                    cTypeSpecModule = Just
                       (ModuleName
                         "HsBindgen.Runtime.Prelude"),
-                    typeSpecIdentifier = Just
+                    cTypeSpecIdentifier = Just
                       (Identifier "CSize"),
-                    typeSpecInstances = Map.fromList
+                    cTypeSpecInstances =
+                    Map.fromList
                       [
                         _×_
                           Bits
@@ -2998,14 +3012,14 @@
                   "HsBindgen.Runtime.Prelude",
                 extRefIdentifier = Identifier
                   "CFile"}
-              TypeSpec {
-                typeSpecModule = Just
+              CTypeSpec {
+                cTypeSpecModule = Just
                   (ModuleName
                     "HsBindgen.Runtime.Prelude"),
-                typeSpecIdentifier = Just
+                cTypeSpecIdentifier = Just
                   (Identifier "CFile"),
-                typeSpecInstances = Map.fromList
-                  []}),
+                cTypeSpecInstances =
+                Map.fromList []}),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -3035,13 +3049,14 @@
                 "HsBindgen.Runtime.Prelude",
               extRefIdentifier = Identifier
                 "CSize"}
-            TypeSpec {
-              typeSpecModule = Just
+            CTypeSpec {
+              cTypeSpecModule = Just
                 (ModuleName
                   "HsBindgen.Runtime.Prelude"),
-              typeSpecIdentifier = Just
+              cTypeSpecIdentifier = Just
                 (Identifier "CSize"),
-              typeSpecInstances = Map.fromList
+              cTypeSpecInstances =
+              Map.fromList
                 [
                   _×_
                     Bits
@@ -3185,14 +3200,14 @@
                         "HsBindgen.Runtime.Prelude",
                       extRefIdentifier = Identifier
                         "CFile"},
-                    extHsSpec = TypeSpec {
-                      typeSpecModule = Just
+                    extHsSpec = CTypeSpec {
+                      cTypeSpecModule = Just
                         (ModuleName
                           "HsBindgen.Runtime.Prelude"),
-                      typeSpecIdentifier = Just
+                      cTypeSpecIdentifier = Just
                         (Identifier "CFile"),
-                      typeSpecInstances = Map.fromList
-                        []}})),
+                      cTypeSpecInstances =
+                      Map.fromList []}})),
             _×_
               (Just
                 NamePair {
@@ -3217,13 +3232,14 @@
                       "HsBindgen.Runtime.Prelude",
                     extRefIdentifier = Identifier
                       "CSize"},
-                  extHsSpec = TypeSpec {
-                    typeSpecModule = Just
+                  extHsSpec = CTypeSpec {
+                    cTypeSpecModule = Just
                       (ModuleName
                         "HsBindgen.Runtime.Prelude"),
-                    typeSpecIdentifier = Just
+                    cTypeSpecIdentifier = Just
                       (Identifier "CSize"),
-                    typeSpecInstances = Map.fromList
+                    cTypeSpecInstances =
+                    Map.fromList
                       [
                         _×_
                           Bits
@@ -3365,14 +3381,14 @@
                       "HsBindgen.Runtime.Prelude",
                     extRefIdentifier = Identifier
                       "CFile"}
-                  TypeSpec {
-                    typeSpecModule = Just
+                  CTypeSpec {
+                    cTypeSpecModule = Just
                       (ModuleName
                         "HsBindgen.Runtime.Prelude"),
-                    typeSpecIdentifier = Just
+                    cTypeSpecIdentifier = Just
                       (Identifier "CFile"),
-                    typeSpecInstances = Map.fromList
-                      []}))
+                    cTypeSpecInstances =
+                    Map.fromList []}))
               (HsFun
                 (HsPtr (HsPrimType HsPrimVoid))
                 (HsFun
@@ -3382,13 +3398,14 @@
                         "HsBindgen.Runtime.Prelude",
                       extRefIdentifier = Identifier
                         "CSize"}
-                    TypeSpec {
-                      typeSpecModule = Just
+                    CTypeSpec {
+                      cTypeSpecModule = Just
                         (ModuleName
                           "HsBindgen.Runtime.Prelude"),
-                      typeSpecIdentifier = Just
+                      cTypeSpecIdentifier = Just
                         (Identifier "CSize"),
-                      typeSpecInstances = Map.fromList
+                      cTypeSpecInstances =
+                      Map.fromList
                         [
                           _×_
                             Bits
@@ -3516,14 +3533,14 @@
                       "HsBindgen.Runtime.Prelude",
                     extRefIdentifier = Identifier
                       "CFile"},
-                  extHsSpec = TypeSpec {
-                    typeSpecModule = Just
+                  extHsSpec = CTypeSpec {
+                    cTypeSpecModule = Just
                       (ModuleName
                         "HsBindgen.Runtime.Prelude"),
-                    typeSpecIdentifier = Just
+                    cTypeSpecIdentifier = Just
                       (Identifier "CFile"),
-                    typeSpecInstances = Map.fromList
-                      []}}),
+                    cTypeSpecInstances =
+                    Map.fromList []}}),
             TypePointer TypeVoid,
             TypeExtBinding
               ResolvedExtBinding {
@@ -3536,13 +3553,14 @@
                     "HsBindgen.Runtime.Prelude",
                   extRefIdentifier = Identifier
                     "CSize"},
-                extHsSpec = TypeSpec {
-                  typeSpecModule = Just
+                extHsSpec = CTypeSpec {
+                  cTypeSpecModule = Just
                     (ModuleName
                       "HsBindgen.Runtime.Prelude"),
-                  typeSpecIdentifier = Just
+                  cTypeSpecIdentifier = Just
                     (Identifier "CSize"),
-                  typeSpecInstances = Map.fromList
+                  cTypeSpecInstances =
+                  Map.fromList
                     [
                       _×_
                         Bits

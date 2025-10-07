@@ -39,13 +39,14 @@ TranslationUnit {
                   "HsBindgen.Runtime.Prelude",
                 extRefIdentifier = Identifier
                   "Word32"},
-              extHsSpec = TypeSpec {
-                typeSpecModule = Just
+              extHsSpec = CTypeSpec {
+                cTypeSpecModule = Just
                   (ModuleName
                     "HsBindgen.Runtime.Prelude"),
-                typeSpecIdentifier = Just
+                cTypeSpecIdentifier = Just
                   (Identifier "Word32"),
-                typeSpecInstances = Map.fromList
+                cTypeSpecInstances =
+                Map.fromList
                   [
                     _×_
                       Bits
@@ -175,11 +176,11 @@ TranslationUnit {
                 fieldComment = Nothing},
               enumConstantValue = 2}]},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}}],
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}}],
   unitDeps = [
     "stdint",
     "alltypes",

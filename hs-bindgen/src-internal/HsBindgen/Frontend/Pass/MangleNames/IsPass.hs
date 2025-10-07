@@ -26,7 +26,7 @@ data MangleNames a deriving anyclass (C.ValidPass)
 
 type family AnnMangleNames ix where
   AnnMangleNames "TranslationUnit"  = SelectDeclMeta
-  AnnMangleNames "Decl"             = BindingSpec.TypeSpec
+  AnnMangleNames "Decl"             = BindingSpec.CTypeSpec
   AnnMangleNames "Struct"           = C.RecordNames
   AnnMangleNames "Union"            = C.NewtypeNames
   AnnMangleNames "Enum"             = C.NewtypeNames

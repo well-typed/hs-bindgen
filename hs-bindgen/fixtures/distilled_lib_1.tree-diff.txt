@@ -62,11 +62,11 @@ TranslationUnit {
               structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -121,11 +121,11 @@ TranslationUnit {
                 fieldComment = Nothing},
               enumConstantValue = 1}]},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -155,11 +155,11 @@ TranslationUnit {
             macroExprType =
             "IntLike (CIntegralType (IntLike (Int Signed)))"}),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -189,11 +189,11 @@ TranslationUnit {
             macroExprType =
             "IntLike (CIntegralType (IntLike (Int Signed)))"}),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -225,11 +225,11 @@ TranslationUnit {
             macroExprType =
             "IntLike (CIntegralType (IntLike (Int Signed)))"}),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -259,11 +259,11 @@ TranslationUnit {
           typedefType = TypePrim
             (PrimIntegral PrimInt Signed)},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -293,11 +293,11 @@ TranslationUnit {
           typedefType = TypePrim
             (PrimIntegral PrimInt Signed)},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -361,13 +361,14 @@ TranslationUnit {
                       "HsBindgen.Runtime.Prelude",
                     extRefIdentifier = Identifier
                       "Word8"},
-                  extHsSpec = TypeSpec {
-                    typeSpecModule = Just
+                  extHsSpec = CTypeSpec {
+                    cTypeSpecModule = Just
                       (ModuleName
                         "HsBindgen.Runtime.Prelude"),
-                    typeSpecIdentifier = Just
+                    cTypeSpecIdentifier = Just
                       (Identifier "Word8"),
-                    typeSpecInstances = Map.fromList
+                    cTypeSpecInstances =
+                    Map.fromList
                       [
                         _×_
                           Bits
@@ -488,13 +489,14 @@ TranslationUnit {
                       "HsBindgen.Runtime.Prelude",
                     extRefIdentifier = Identifier
                       "Word16"},
-                  extHsSpec = TypeSpec {
-                    typeSpecModule = Just
+                  extHsSpec = CTypeSpec {
+                    cTypeSpecModule = Just
                       (ModuleName
                         "HsBindgen.Runtime.Prelude"),
-                    typeSpecIdentifier = Just
+                    cTypeSpecIdentifier = Just
                       (Identifier "Word16"),
-                    typeSpecInstances = Map.fromList
+                    cTypeSpecInstances =
+                    Map.fromList
                       [
                         _×_
                           Bits
@@ -615,13 +617,14 @@ TranslationUnit {
                       "HsBindgen.Runtime.Prelude",
                     extRefIdentifier = Identifier
                       "Word32"},
-                  extHsSpec = TypeSpec {
-                    typeSpecModule = Just
+                  extHsSpec = CTypeSpec {
+                    cTypeSpecModule = Just
                       (ModuleName
                         "HsBindgen.Runtime.Prelude"),
-                    typeSpecIdentifier = Just
+                    cTypeSpecIdentifier = Just
                       (Identifier "Word32"),
-                    typeSpecInstances = Map.fromList
+                    cTypeSpecInstances =
+                    Map.fromList
                       [
                         _×_
                           Bits
@@ -806,13 +809,14 @@ TranslationUnit {
                         "HsBindgen.Runtime.Prelude",
                       extRefIdentifier = Identifier
                         "Word32"},
-                    extHsSpec = TypeSpec {
-                      typeSpecModule = Just
+                    extHsSpec = CTypeSpec {
+                      cTypeSpecModule = Just
                         (ModuleName
                           "HsBindgen.Runtime.Prelude"),
-                      typeSpecIdentifier = Just
+                      cTypeSpecIdentifier = Just
                         (Identifier "Word32"),
-                      typeSpecInstances = Map.fromList
+                      cTypeSpecInstances =
+                      Map.fromList
                         [
                           _×_
                             Bits
@@ -990,11 +994,11 @@ TranslationUnit {
               structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -1025,11 +1029,11 @@ TranslationUnit {
             macroExprType =
             "IntLike (CIntegralType (IntLike (Int Signed)))"}),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -1061,11 +1065,11 @@ TranslationUnit {
             macroExprType =
             "IntLike (CIntegralType (IntLike (Int Unsigned)))"}),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -1096,11 +1100,11 @@ TranslationUnit {
             macroExprType =
             "IntLike (CIntegralType (IntLike (Int Signed)))"}),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -1141,11 +1145,11 @@ TranslationUnit {
             macroExprType =
             "Tuple2 (IntLike (CIntegralType (IntLike (Int Signed)))) (IntLike (CIntegralType (IntLike (Int Signed))))"}),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -1222,11 +1226,11 @@ TranslationUnit {
                 fieldComment = Nothing},
               enumConstantValue = 3}]},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -1275,13 +1279,14 @@ TranslationUnit {
                       "HsBindgen.Runtime.Prelude",
                     extRefIdentifier = Identifier
                       "Word32"},
-                  extHsSpec = TypeSpec {
-                    typeSpecModule = Just
+                  extHsSpec = CTypeSpec {
+                    cTypeSpecModule = Just
                       (ModuleName
                         "HsBindgen.Runtime.Prelude"),
-                    typeSpecIdentifier = Just
+                    cTypeSpecIdentifier = Just
                       (Identifier "Word32"),
-                    typeSpecInstances = Map.fromList
+                    cTypeSpecInstances =
+                    Map.fromList
                       [
                         _×_
                           Bits
@@ -1397,13 +1402,14 @@ TranslationUnit {
                         "HsBindgen.Runtime.Prelude",
                       extRefIdentifier = Identifier
                         "Word8"},
-                    extHsSpec = TypeSpec {
-                      typeSpecModule = Just
+                    extHsSpec = CTypeSpec {
+                      cTypeSpecModule = Just
                         (ModuleName
                           "HsBindgen.Runtime.Prelude"),
-                      typeSpecIdentifier = Just
+                      cTypeSpecIdentifier = Just
                         (Identifier "Word8"),
-                      typeSpecInstances = Map.fromList
+                      cTypeSpecInstances =
+                      Map.fromList
                         [
                           _×_
                             Bits
@@ -1516,13 +1522,14 @@ TranslationUnit {
                   "HsBindgen.Runtime.Prelude",
                 extRefIdentifier = Identifier
                   "Int32"},
-              extHsSpec = TypeSpec {
-                typeSpecModule = Just
+              extHsSpec = CTypeSpec {
+                cTypeSpecModule = Just
                   (ModuleName
                     "HsBindgen.Runtime.Prelude"),
-                typeSpecIdentifier = Just
+                cTypeSpecIdentifier = Just
                   (Identifier "Int32"),
-                typeSpecInstances = Map.fromList
+                cTypeSpecInstances =
+                Map.fromList
                   [
                     _×_
                       Bits
@@ -1622,11 +1629,11 @@ TranslationUnit {
                           instanceSpecConstraints = [
                             ]})]}}},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -1681,13 +1688,14 @@ TranslationUnit {
                       "HsBindgen.Runtime.Prelude",
                     extRefIdentifier = Identifier
                       "Word32"},
-                  extHsSpec = TypeSpec {
-                    typeSpecModule = Just
+                  extHsSpec = CTypeSpec {
+                    cTypeSpecModule = Just
                       (ModuleName
                         "HsBindgen.Runtime.Prelude"),
-                    typeSpecIdentifier = Just
+                    cTypeSpecIdentifier = Just
                       (Identifier "Word32"),
-                    typeSpecInstances = Map.fromList
+                    cTypeSpecInstances =
+                    Map.fromList
                       [
                         _×_
                           Bits
@@ -1797,13 +1805,14 @@ TranslationUnit {
                     "HsBindgen.Runtime.Prelude",
                   extRefIdentifier = Identifier
                     "Word32"},
-                extHsSpec = TypeSpec {
-                  typeSpecModule = Just
+                extHsSpec = CTypeSpec {
+                  cTypeSpecModule = Just
                     (ModuleName
                       "HsBindgen.Runtime.Prelude"),
-                  typeSpecIdentifier = Just
+                  cTypeSpecIdentifier = Just
                     (Identifier "Word32"),
-                  typeSpecInstances = Map.fromList
+                  cTypeSpecInstances =
+                  Map.fromList
                     [
                       _×_
                         Bits
@@ -1903,11 +1912,11 @@ TranslationUnit {
                             instanceSpecConstraints = [
                               ]})]}})},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -1942,11 +1951,11 @@ TranslationUnit {
                   nameHsIdent = Identifier
                     "Callback_t_Deref"}))},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -1971,11 +1980,11 @@ TranslationUnit {
               nameHsIdent = Identifier
                 "Var_t"})),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}}],
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}}],
   unitDeps = [
     "stdint",
     "alltypes",

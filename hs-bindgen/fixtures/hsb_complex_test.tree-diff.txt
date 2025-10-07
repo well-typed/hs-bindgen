@@ -22,11 +22,11 @@ TranslationUnit {
         (TypeComplex
           (PrimFloating PrimFloat)),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -49,11 +49,11 @@ TranslationUnit {
         (TypeComplex
           (PrimFloating PrimDouble)),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -76,11 +76,11 @@ TranslationUnit {
         (TypeComplex
           (PrimFloating PrimFloat)),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -103,11 +103,11 @@ TranslationUnit {
         (TypeComplex
           (PrimFloating PrimDouble)),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -130,11 +130,11 @@ TranslationUnit {
         (TypeComplex
           (PrimFloating PrimFloat)),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -157,11 +157,11 @@ TranslationUnit {
         (TypeComplex
           (PrimFloating PrimDouble)),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -184,11 +184,11 @@ TranslationUnit {
         (TypeComplex
           (PrimFloating PrimFloat)),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -211,11 +211,11 @@ TranslationUnit {
         (TypeComplex
           (PrimFloating PrimDouble)),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -239,11 +239,11 @@ TranslationUnit {
           (TypeComplex
             (PrimFloating PrimFloat))),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -267,11 +267,11 @@ TranslationUnit {
           (TypeComplex
             (PrimFloating PrimDouble))),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -294,11 +294,11 @@ TranslationUnit {
         (TypeComplex
           (PrimFloating PrimFloat)),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -321,11 +321,11 @@ TranslationUnit {
         (TypeComplex
           (PrimFloating PrimDouble)),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -367,11 +367,11 @@ TranslationUnit {
           functionRes = TypeComplex
             (PrimFloating PrimFloat)},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -412,11 +412,11 @@ TranslationUnit {
           functionRes = TypeComplex
             (PrimFloating PrimDouble)},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -487,11 +487,11 @@ TranslationUnit {
               structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -516,11 +516,11 @@ TranslationUnit {
           (TypeComplex
             (PrimFloating PrimFloat))),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -545,11 +545,11 @@ TranslationUnit {
           (TypeComplex
             (PrimFloating PrimDouble))),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}}],
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}}],
   unitDeps = [
     "complex",
     "hsb_complex_test"]}

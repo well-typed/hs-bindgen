@@ -40,11 +40,11 @@ TranslationUnit {
           structFields = [],
           structFlam = Nothing},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -74,11 +74,11 @@ TranslationUnit {
           typedefType = TypePrim
             (PrimIntegral PrimInt Signed)},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -104,11 +104,11 @@ TranslationUnit {
             ImpureFunction,
           functionRes = TypeVoid},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -133,11 +133,11 @@ TranslationUnit {
             ImpureFunction,
           functionRes = TypeVoid},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -180,11 +180,11 @@ TranslationUnit {
           functionRes = TypePointer
             TypeVoid},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -227,11 +227,11 @@ TranslationUnit {
           functionRes = TypePointer
             TypeVoid},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -269,11 +269,11 @@ TranslationUnit {
           functionRes = TypePointer
             TypeVoid},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -308,11 +308,11 @@ TranslationUnit {
           functionRes = TypePointer
             TypeVoid},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -347,11 +347,11 @@ TranslationUnit {
           functionRes = TypePointer
             TypeVoid},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -382,11 +382,11 @@ TranslationUnit {
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -413,11 +413,11 @@ TranslationUnit {
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -470,11 +470,11 @@ TranslationUnit {
                 (PrimSignImplicit
                   (Just Signed))))},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -522,11 +522,11 @@ TranslationUnit {
                     (AnonId
                       "fun_attributes.h:7:9")))))},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -551,11 +551,11 @@ TranslationUnit {
             ImpureFunction,
           functionRes = TypeVoid},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -607,11 +607,11 @@ TranslationUnit {
           functionRes = TypePointer
             TypeVoid},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -637,11 +637,11 @@ TranslationUnit {
             ImpureFunction,
           functionRes = TypeVoid},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -675,11 +675,11 @@ TranslationUnit {
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -717,11 +717,11 @@ TranslationUnit {
           functionRes = TypePointer
             TypeVoid},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -747,11 +747,11 @@ TranslationUnit {
             ImpureFunction,
           functionRes = TypeVoid},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -778,11 +778,11 @@ TranslationUnit {
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -809,11 +809,11 @@ TranslationUnit {
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -838,11 +838,11 @@ TranslationUnit {
             ImpureFunction,
           functionRes = TypeVoid},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -863,11 +863,11 @@ TranslationUnit {
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -893,11 +893,11 @@ TranslationUnit {
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -923,11 +923,11 @@ TranslationUnit {
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -953,11 +953,11 @@ TranslationUnit {
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -983,9 +983,9 @@ TranslationUnit {
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}}],
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}}],
   unitDeps = ["fun_attributes"]}

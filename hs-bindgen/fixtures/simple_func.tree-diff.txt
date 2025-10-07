@@ -31,11 +31,11 @@ TranslationUnit {
           functionRes = TypePrim
             (PrimFloating PrimDouble)},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "simple_func.h:3:22",
@@ -82,11 +82,11 @@ TranslationUnit {
           functionRes = TypePrim
             (PrimFloating PrimDouble)},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "simple_func.h:7:6",
@@ -111,11 +111,11 @@ TranslationUnit {
             ImpureFunction,
           functionRes = TypeVoid},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "simple_func.h:9:6",
@@ -140,11 +140,11 @@ TranslationUnit {
             ImpureFunction,
           functionRes = TypeVoid},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "simple_func.h:11:5",
@@ -185,9 +185,9 @@ TranslationUnit {
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}}],
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}}],
   unitDeps = ["simple_func"]}

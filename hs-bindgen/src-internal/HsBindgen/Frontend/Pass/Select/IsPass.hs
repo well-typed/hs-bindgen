@@ -37,7 +37,7 @@ data Select a deriving anyclass ValidPass
 
 type family AnnSelect ix where
   AnnSelect "TranslationUnit" = SelectDeclMeta
-  AnnSelect "Decl"            = BindingSpec.TypeSpec
+  AnnSelect "Decl"            = BindingSpec.CTypeSpec
   AnnSelect _                 = NoAnn
 
 instance IsPass Select where

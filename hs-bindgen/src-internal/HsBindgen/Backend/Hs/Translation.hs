@@ -209,8 +209,8 @@ getInstances instanceMap name = aux
           HsFunPtr{} -> aux (acc /\ ptrInsts) hsTypes
           HsIO{} -> Set.empty
           HsFun{} -> Set.empty
-          HsExtBinding _ref typeSpec ->
-            let acc' = acc /\ typeSpecInsts typeSpec
+          HsExtBinding _ref cTypeSpec ->
+            let acc' = acc /\ cTypeSpecInsts cTypeSpec
             in  aux acc' hsTypes
           HsByteArray{} ->
             let acc' = acc /\ Set.fromList [Hs.Eq, Hs.Ord, Hs.Show]
@@ -326,11 +326,11 @@ getInstances instanceMap name = aux
       , Hs.Show
       ]
 
-    typeSpecInsts :: BindingSpec.TypeSpec -> Set Hs.TypeClass
-    typeSpecInsts typeSpec = Set.fromAscList [
+    cTypeSpecInsts :: BindingSpec.CTypeSpec -> Set Hs.TypeClass
+    cTypeSpecInsts cTypeSpec = Set.fromAscList [
         cls
       | (cls, BindingSpec.Require{}) <-
-           Map.toAscList (BindingSpec.typeSpecInstances typeSpec)
+           Map.toAscList (BindingSpec.cTypeSpecInstances cTypeSpec)
       ]
 
 {-------------------------------------------------------------------------------

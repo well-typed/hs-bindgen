@@ -32,13 +32,13 @@ module HsBindgen.BindingSpec (
   , BindingSpec.version
     -- ** Types
   , Common.Omittable(..)
-  , BindingSpec.TypeSpec(..)
+  , BindingSpec.CTypeSpec(..)
   , BindingSpec.InstanceSpec(..)
   , BindingSpec.StrategySpec(..)
   , BindingSpec.ConstraintSpec(..)
     -- ** Query
-  , getTypes
-  , lookupTypeSpec
+  , getCTypes
+  , lookupCTypeSpec
   ) where
 
 import Data.ByteString qualified as BSS
@@ -219,15 +219,15 @@ encodeBindingSpecYaml = BindingSpec.encodeYaml . bindingSpecUnresolved
   Internal API
 -------------------------------------------------------------------------------}
 
--- | Get the types in a binding specification
-getTypes :: BindingSpec -> Map C.QualName [Set SourcePath]
-getTypes = BindingSpec.getTypes . bindingSpecResolved
+-- | Get the C types in a binding specification
+getCTypes :: BindingSpec -> Map C.QualName [Set SourcePath]
+getCTypes = BindingSpec.getCTypes . bindingSpecResolved
 
--- | Lookup the @'Common.Omittable' 'TypeSpec'@ associated with a C type
-lookupTypeSpec ::
+-- | Lookup the @'Common.Omittable' 'CTypeSpec'@ associated with a C type
+lookupCTypeSpec ::
      C.QualName
   -> Set SourcePath
   -> BindingSpec
-  -> Maybe (Common.Omittable BindingSpec.TypeSpec)
-lookupTypeSpec cQualName headers =
-    BindingSpec.lookupTypeSpec cQualName headers . bindingSpecResolved
+  -> Maybe (Common.Omittable BindingSpec.CTypeSpec)
+lookupCTypeSpec cQualName headers =
+    BindingSpec.lookupCTypeSpec cQualName headers . bindingSpecResolved

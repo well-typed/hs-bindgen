@@ -33,11 +33,11 @@ TranslationUnit {
               PrimInt
               Unsigned)},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -81,12 +81,13 @@ TranslationUnit {
                       "Example",
                     extRefIdentifier = Identifier
                       "Uint64_t"},
-                  extHsSpec = TypeSpec {
-                    typeSpecModule = Just
+                  extHsSpec = CTypeSpec {
+                    cTypeSpecModule = Just
                       (ModuleName "Example"),
-                    typeSpecIdentifier = Just
+                    cTypeSpecIdentifier = Just
                       (Identifier "Uint64_t"),
-                    typeSpecInstances = Map.fromList
+                    cTypeSpecInstances =
+                    Map.fromList
                       [
                         _×_
                           Bits
@@ -188,11 +189,11 @@ TranslationUnit {
               structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}}],
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}}],
   unitDeps = [
     "stdint",
     "alltypes",

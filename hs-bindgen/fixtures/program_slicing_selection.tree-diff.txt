@@ -95,11 +95,11 @@ TranslationUnit {
                 fieldComment = Nothing},
               enumConstantValue = `-1`}]},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -165,13 +165,14 @@ TranslationUnit {
                       "HsBindgen.Runtime.Prelude",
                     extRefIdentifier = Identifier
                       "CSize"},
-                  extHsSpec = TypeSpec {
-                    typeSpecModule = Just
+                  extHsSpec = CTypeSpec {
+                    cTypeSpecModule = Just
                       (ModuleName
                         "HsBindgen.Runtime.Prelude"),
-                    typeSpecIdentifier = Just
+                    cTypeSpecIdentifier = Just
                       (Identifier "CSize"),
-                    typeSpecInstances = Map.fromList
+                    cTypeSpecInstances =
+                    Map.fromList
                       [
                         _×_
                           Bits
@@ -274,11 +275,11 @@ TranslationUnit {
               structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -317,14 +318,14 @@ TranslationUnit {
                         "HsBindgen.Runtime.Prelude",
                       extRefIdentifier = Identifier
                         "CFile"},
-                    extHsSpec = TypeSpec {
-                      typeSpecModule = Just
+                    extHsSpec = CTypeSpec {
+                      cTypeSpecModule = Just
                         (ModuleName
                           "HsBindgen.Runtime.Prelude"),
-                      typeSpecIdentifier = Just
+                      cTypeSpecIdentifier = Just
                         (Identifier "CFile"),
-                      typeSpecInstances = Map.fromList
-                        []}})),
+                      cTypeSpecInstances =
+                      Map.fromList []}})),
             _×_
               (Just
                 NamePair {
@@ -349,13 +350,14 @@ TranslationUnit {
                       "HsBindgen.Runtime.Prelude",
                     extRefIdentifier = Identifier
                       "CSize"},
-                  extHsSpec = TypeSpec {
-                    typeSpecModule = Just
+                  extHsSpec = CTypeSpec {
+                    cTypeSpecModule = Just
                       (ModuleName
                         "HsBindgen.Runtime.Prelude"),
-                    typeSpecIdentifier = Just
+                    cTypeSpecIdentifier = Just
                       (Identifier "CSize"),
-                    typeSpecInstances = Map.fromList
+                    cTypeSpecInstances =
+                    Map.fromList
                       [
                         _×_
                           Bits
@@ -465,11 +467,11 @@ TranslationUnit {
                 "FileOperationStatus"}
             NameOriginInSource},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}}],
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}}],
   unitDeps = [
     "stdint",
     "alltypes",

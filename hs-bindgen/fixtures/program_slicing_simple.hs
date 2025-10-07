@@ -48,11 +48,11 @@
                 PrimInt
                 Unsigned)},
         declSpec = DeclSpec
-          TypeSpec {
-            typeSpecModule = Nothing,
-            typeSpecIdentifier = Nothing,
-            typeSpecInstances = Map.fromList
-              []}},
+          CTypeSpec {
+            cTypeSpecModule = Nothing,
+            cTypeSpecIdentifier = Nothing,
+            cTypeSpecInstances =
+            Map.fromList []}},
       newtypeInstances = Set.fromList
         [
           Bits,
@@ -231,12 +231,13 @@
                 "Example",
               extRefIdentifier = Identifier
                 "Uint64_t"}
-            TypeSpec {
-              typeSpecModule = Just
+            CTypeSpec {
+              cTypeSpecModule = Just
                 (ModuleName "Example"),
-              typeSpecIdentifier = Just
+              cTypeSpecIdentifier = Just
                 (Identifier "Uint64_t"),
-              typeSpecInstances = Map.fromList
+              cTypeSpecInstances =
+              Map.fromList
                 [
                   _×_
                     Bits
@@ -338,12 +339,13 @@
                       "Example",
                     extRefIdentifier = Identifier
                       "Uint64_t"},
-                  extHsSpec = TypeSpec {
-                    typeSpecModule = Just
+                  extHsSpec = CTypeSpec {
+                    cTypeSpecModule = Just
                       (ModuleName "Example"),
-                    typeSpecIdentifier = Just
+                    cTypeSpecIdentifier = Just
                       (Identifier "Uint64_t"),
-                    typeSpecInstances = Map.fromList
+                    cTypeSpecInstances =
+                    Map.fromList
                       [
                         _×_
                           Bits
@@ -524,12 +526,13 @@
                           "Example",
                         extRefIdentifier = Identifier
                           "Uint64_t"},
-                      extHsSpec = TypeSpec {
-                        typeSpecModule = Just
+                      extHsSpec = CTypeSpec {
+                        cTypeSpecModule = Just
                           (ModuleName "Example"),
-                        typeSpecIdentifier = Just
+                        cTypeSpecIdentifier = Just
                           (Identifier "Uint64_t"),
-                        typeSpecInstances = Map.fromList
+                        cTypeSpecInstances =
+                        Map.fromList
                           [
                             _×_
                               Bits
@@ -631,11 +634,11 @@
                   structFieldWidth = Nothing}],
               structFlam = Nothing},
           declSpec = DeclSpec
-            TypeSpec {
-              typeSpecModule = Nothing,
-              typeSpecIdentifier = Nothing,
-              typeSpecInstances = Map.fromList
-                []}},
+            CTypeSpec {
+              cTypeSpecModule = Nothing,
+              cTypeSpecIdentifier = Nothing,
+              cTypeSpecInstances =
+              Map.fromList []}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
@@ -673,12 +676,13 @@
                     "Example",
                   extRefIdentifier = Identifier
                     "Uint64_t"}
-                TypeSpec {
-                  typeSpecModule = Just
+                CTypeSpec {
+                  cTypeSpecModule = Just
                     (ModuleName "Example"),
-                  typeSpecIdentifier = Just
+                  cTypeSpecIdentifier = Just
                     (Identifier "Uint64_t"),
-                  typeSpecInstances = Map.fromList
+                  cTypeSpecInstances =
+                  Map.fromList
                     [
                       _×_
                         Bits
@@ -780,12 +784,13 @@
                           "Example",
                         extRefIdentifier = Identifier
                           "Uint64_t"},
-                      extHsSpec = TypeSpec {
-                        typeSpecModule = Just
+                      extHsSpec = CTypeSpec {
+                        cTypeSpecModule = Just
                           (ModuleName "Example"),
-                        typeSpecIdentifier = Just
+                        cTypeSpecIdentifier = Just
                           (Identifier "Uint64_t"),
-                        typeSpecInstances = Map.fromList
+                        cTypeSpecInstances =
+                        Map.fromList
                           [
                             _×_
                               Bits
@@ -966,12 +971,13 @@
                               "Example",
                             extRefIdentifier = Identifier
                               "Uint64_t"},
-                          extHsSpec = TypeSpec {
-                            typeSpecModule = Just
+                          extHsSpec = CTypeSpec {
+                            cTypeSpecModule = Just
                               (ModuleName "Example"),
-                            typeSpecIdentifier = Just
+                            cTypeSpecIdentifier = Just
                               (Identifier "Uint64_t"),
-                            typeSpecInstances = Map.fromList
+                            cTypeSpecInstances =
+                            Map.fromList
                               [
                                 _×_
                                   Bits
@@ -1073,11 +1079,11 @@
                       structFieldWidth = Nothing}],
                   structFlam = Nothing},
               declSpec = DeclSpec
-                TypeSpec {
-                  typeSpecModule = Nothing,
-                  typeSpecIdentifier = Nothing,
-                  typeSpecInstances = Map.fromList
-                    []}},
+                CTypeSpec {
+                  cTypeSpecModule = Nothing,
+                  cTypeSpecIdentifier = Nothing,
+                  cTypeSpecInstances =
+                  Map.fromList []}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
@@ -1118,12 +1124,13 @@
                             "Example",
                           extRefIdentifier = Identifier
                             "Uint64_t"}
-                        TypeSpec {
-                          typeSpecModule = Just
+                        CTypeSpec {
+                          cTypeSpecModule = Just
                             (ModuleName "Example"),
-                          typeSpecIdentifier = Just
+                          cTypeSpecIdentifier = Just
                             (Identifier "Uint64_t"),
-                          typeSpecInstances = Map.fromList
+                          cTypeSpecInstances =
+                          Map.fromList
                             [
                               _×_
                                 Bits
@@ -1225,12 +1232,13 @@
                                   "Example",
                                 extRefIdentifier = Identifier
                                   "Uint64_t"},
-                              extHsSpec = TypeSpec {
-                                typeSpecModule = Just
+                              extHsSpec = CTypeSpec {
+                                cTypeSpecModule = Just
                                   (ModuleName "Example"),
-                                typeSpecIdentifier = Just
+                                cTypeSpecIdentifier = Just
                                   (Identifier "Uint64_t"),
-                                typeSpecInstances = Map.fromList
+                                cTypeSpecInstances =
+                                Map.fromList
                                   [
                                     _×_
                                       Bits
@@ -1411,12 +1419,13 @@
                                       "Example",
                                     extRefIdentifier = Identifier
                                       "Uint64_t"},
-                                  extHsSpec = TypeSpec {
-                                    typeSpecModule = Just
+                                  extHsSpec = CTypeSpec {
+                                    cTypeSpecModule = Just
                                       (ModuleName "Example"),
-                                    typeSpecIdentifier = Just
+                                    cTypeSpecIdentifier = Just
                                       (Identifier "Uint64_t"),
-                                    typeSpecInstances = Map.fromList
+                                    cTypeSpecInstances =
+                                    Map.fromList
                                       [
                                         _×_
                                           Bits
@@ -1518,11 +1527,11 @@
                               structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
-                        TypeSpec {
-                          typeSpecModule = Nothing,
-                          typeSpecIdentifier = Nothing,
-                          typeSpecInstances = Map.fromList
-                            []}},
+                        CTypeSpec {
+                          cTypeSpecModule = Nothing,
+                          cTypeSpecIdentifier = Nothing,
+                          cTypeSpecInstances =
+                          Map.fromList []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
@@ -1565,12 +1574,13 @@
                             "Example",
                           extRefIdentifier = Identifier
                             "Uint64_t"}
-                        TypeSpec {
-                          typeSpecModule = Just
+                        CTypeSpec {
+                          cTypeSpecModule = Just
                             (ModuleName "Example"),
-                          typeSpecIdentifier = Just
+                          cTypeSpecIdentifier = Just
                             (Identifier "Uint64_t"),
-                          typeSpecInstances = Map.fromList
+                          cTypeSpecInstances =
+                          Map.fromList
                             [
                               _×_
                                 Bits
@@ -1672,12 +1682,13 @@
                                   "Example",
                                 extRefIdentifier = Identifier
                                   "Uint64_t"},
-                              extHsSpec = TypeSpec {
-                                typeSpecModule = Just
+                              extHsSpec = CTypeSpec {
+                                cTypeSpecModule = Just
                                   (ModuleName "Example"),
-                                typeSpecIdentifier = Just
+                                cTypeSpecIdentifier = Just
                                   (Identifier "Uint64_t"),
-                                typeSpecInstances = Map.fromList
+                                cTypeSpecInstances =
+                                Map.fromList
                                   [
                                     _×_
                                       Bits
@@ -1858,12 +1869,13 @@
                                       "Example",
                                     extRefIdentifier = Identifier
                                       "Uint64_t"},
-                                  extHsSpec = TypeSpec {
-                                    typeSpecModule = Just
+                                  extHsSpec = CTypeSpec {
+                                    cTypeSpecModule = Just
                                       (ModuleName "Example"),
-                                    typeSpecIdentifier = Just
+                                    cTypeSpecIdentifier = Just
                                       (Identifier "Uint64_t"),
-                                    typeSpecInstances = Map.fromList
+                                    cTypeSpecInstances =
+                                    Map.fromList
                                       [
                                         _×_
                                           Bits
@@ -1965,11 +1977,11 @@
                               structFieldWidth = Nothing}],
                           structFlam = Nothing},
                       declSpec = DeclSpec
-                        TypeSpec {
-                          typeSpecModule = Nothing,
-                          typeSpecIdentifier = Nothing,
-                          typeSpecInstances = Map.fromList
-                            []}},
+                        CTypeSpec {
+                          cTypeSpecModule = Nothing,
+                          cTypeSpecIdentifier = Nothing,
+                          cTypeSpecInstances =
+                          Map.fromList []}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just

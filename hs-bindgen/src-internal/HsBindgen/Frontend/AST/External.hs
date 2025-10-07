@@ -148,7 +148,7 @@ data DeclKind =
 -- functions, etc.). When we do, we should not associate them with the top-level
 -- 'Decl' but instead with specific 'DeclKind's. When we change this, this will
 -- have consequences for "HsBindgen.Language.Haskell.Origin" also.
-newtype DeclSpec = DeclSpec BindingSpec.TypeSpec
+newtype DeclSpec = DeclSpec BindingSpec.CTypeSpec
   deriving stock (Show, Eq, Generic)
 
 {-------------------------------------------------------------------------------

@@ -98,7 +98,7 @@ instance ToExpr C.TypedefRef
 instance ToExpr C.Union
 instance ToExpr C.UnionField
 
-instance ToExpr BindingSpec.TypeSpec
+instance ToExpr BindingSpec.CTypeSpec
 instance ToExpr BindingSpec.InstanceSpec
 instance ToExpr BindingSpec.StrategySpec
 instance ToExpr BindingSpec.ConstraintSpec

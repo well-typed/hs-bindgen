@@ -126,7 +126,7 @@ initMState :: PrescriptiveBindingSpec -> UseDeclGraph -> MState
 initMState pSpec useDeclGraph = MState {
       stateErrors    = []
     , stateExtTypes  = Map.empty
-    , stateNoPTypes  = BindingSpec.getTypes pSpec
+    , stateNoPTypes  = BindingSpec.getCTypes pSpec
     , stateOmitTypes = Map.empty
     , stateUseDecl   = useDeclGraph
     }
@@ -190,7 +190,7 @@ resolveDecls = mapM (uncurry resolveDeep) <=< mapMaybeM resolveTop
 -- specification when applicable.
 resolveTop ::
      C.Decl NameAnon
-  -> M (Maybe (C.Decl NameAnon, Maybe BindingSpec.TypeSpec))
+  -> M (Maybe (C.Decl NameAnon, Maybe BindingSpec.CTypeSpec))
 resolveTop decl = RWS.ask >>= \MEnv{..} -> do
     let cQualName  = C.declQualName decl
         sourcePath = singleLocPath $ C.declLoc (C.declInfo decl)
@@ -198,10 +198,10 @@ resolveTop decl = RWS.ask >>= \MEnv{..} -> do
     isExt <- isJust <$> resolveExtBinding cQualName declPaths
     if isExt
       then return Nothing
-      else case BindingSpec.lookupTypeSpec cQualName declPaths envPSpec of
-        Just (BindingSpec.Require typeSpec) -> do
+      else case BindingSpec.lookupCTypeSpec cQualName declPaths envPSpec of
+        Just (BindingSpec.Require cTypeSpec) -> do
           RWS.modify' $ deleteNoPType cQualName sourcePath
-          return $ Just (decl, Just typeSpec)
+          return $ Just (decl, Just cTypeSpec)
         Just BindingSpec.Omit -> do
           RWS.modify' $
               deleteNoPType cQualName sourcePath
@@ -215,9 +215,9 @@ resolveTop decl = RWS.ask >>= \MEnv{..} -> do
 -- current pass.
 resolveDeep ::
      C.Decl NameAnon
-  -> Maybe BindingSpec.TypeSpec
+  -> Maybe BindingSpec.CTypeSpec
   -> M (C.Decl ResolveBindingSpecs)
-resolveDeep decl@C.Decl{..} mTypeSpec = do
+resolveDeep decl@C.Decl{..} mCTypeSpec = do
     (depIds, decl') <- fmap reassemble <$> resolve declKind
     unless (Set.null depIds) . RWS.modify' $
       deleteDeps (C.declOrigNsPrelimDeclId decl) (Set.toList depIds)
@@ -227,7 +227,7 @@ resolveDeep decl@C.Decl{..} mTypeSpec = do
     reassemble declKind' = C.Decl {
         declInfo = coercePass declInfo
       , declKind = declKind'
-      , declAnn  = fromMaybe def mTypeSpec
+      , declAnn  = fromMaybe def mCTypeSpec
       }
 
 {-------------------------------------------------------------------------------
@@ -461,14 +461,14 @@ resolveExtBinding ::
   -> M (Maybe ResolvedExtBinding)
 resolveExtBinding cQualName declPaths  = do
     MEnv{envExtSpec} <- RWS.ask
-    case BindingSpec.lookupTypeSpec cQualName declPaths envExtSpec of
-      Just (BindingSpec.Require typeSpec) ->
-        case getHsExtRef cQualName typeSpec of
+    case BindingSpec.lookupCTypeSpec cQualName declPaths envExtSpec of
+      Just (BindingSpec.Require cTypeSpec) ->
+        case getHsExtRef cQualName cTypeSpec of
           Right ref -> do
             let resolved = ResolvedExtBinding {
                     extCName  = cQualName
                   , extHsRef  = ref
-                  , extHsSpec = typeSpec
+                  , extHsSpec = cTypeSpec
                   }
             RWS.modify' $ insertExtType cQualName (C.TypeExtBinding resolved)
             return (Just resolved)
@@ -484,13 +484,13 @@ resolveExtBinding cQualName declPaths  = do
 
 getHsExtRef ::
      C.QualName
-  -> BindingSpec.TypeSpec
+  -> BindingSpec.CTypeSpec
   -> Either (Msg ResolveBindingSpecs) Hs.ExtRef
-getHsExtRef cQualName typeSpec = do
+getHsExtRef cQualName cTypeSpec = do
     extRefModule <-
       maybe (Left (ResolveBindingSpecsExtHsRefNoModule cQualName)) Right $
-        BindingSpec.typeSpecModule typeSpec
+        BindingSpec.cTypeSpecModule cTypeSpec
     extRefIdentifier <-
       maybe (Left (ResolveBindingSpecsExtHsRefNoIdentifier cQualName)) Right $
-        BindingSpec.typeSpecIdentifier typeSpec
+        BindingSpec.cTypeSpecIdentifier cTypeSpec
     return Hs.ExtRef{extRefModule, extRefIdentifier}

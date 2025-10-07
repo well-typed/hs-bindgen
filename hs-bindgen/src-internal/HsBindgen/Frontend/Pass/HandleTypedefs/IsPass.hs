@@ -25,7 +25,7 @@ data HandleTypedefs a deriving anyclass ValidPass
 
 type family AnnHandleTypedefs ix where
   AnnHandleTypedefs "TranslationUnit" = SelectDeclMeta
-  AnnHandleTypedefs "Decl"            = BindingSpec.TypeSpec
+  AnnHandleTypedefs "Decl"            = BindingSpec.CTypeSpec
   AnnHandleTypedefs _                 = NoAnn
 
 instance IsPass HandleTypedefs where

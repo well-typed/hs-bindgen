@@ -30,12 +30,13 @@ TranslationUnit {
               (PrimSignImplicit
                 (Just Signed)))},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Just
+        CTypeSpec {
+          cTypeSpecModule = Just
             (ModuleName "Generated"),
-          typeSpecIdentifier = Just
+          cTypeSpecIdentifier = Just
             (Identifier "Sym"),
-          typeSpecInstances = Map.fromList
+          cTypeSpecInstances =
+          Map.fromList
             [
               _×_
                 Bits
