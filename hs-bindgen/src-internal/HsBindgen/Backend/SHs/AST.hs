@@ -16,6 +16,7 @@ module HsBindgen.Backend.SHs.AST (
     ClosedType,
     SType (..),
     Var (..),
+    Function (..),
     Instance (..),
     Field (..),
     Record (..),
@@ -263,6 +264,7 @@ data SDecl =
   | DEmptyData EmptyData
   | DDerivingInstance DerivingInstance
   | DForeignImport ForeignImport
+  | DFunction Function
   | DPatternSynonym PatternSynonym
   | DPragma Pragma
   deriving stock (Show)
@@ -397,6 +399,15 @@ data Safety = Safe | Unsafe
 
 instance Default Safety where
   def = Safe
+
+data Function = Function {
+      functionName       :: Hs.Name Hs.NsVar
+    , functionParameters :: [FunctionParameter]
+    , functionResultType :: ClosedType
+    , functionBody       :: ClosedExpr
+    , functionComment    :: Maybe HsDoc.Comment
+    }
+  deriving stock (Show)
 
 data FunctionParameter = FunctionParameter
   { functionParameterName    :: Maybe (Hs.Name Hs.NsVar)

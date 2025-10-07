@@ -61,6 +61,7 @@ translateDecl (Hs.DeclDefineInstance i) = singleton $ translateDefineInstanceDec
 translateDecl (Hs.DeclDeriveInstance i) = singleton $ translateDeriveInstance i
 translateDecl (Hs.DeclVar v) = singleton $ translateVarDecl v
 translateDecl (Hs.DeclForeignImport i) = translateForeignImportDecl i
+translateDecl (Hs.DeclFunction f) = singleton $ translateFunctionDecl f
 translateDecl (Hs.DeclPatSyn ps) = singleton $ translatePatSyn ps
 translateDecl (Hs.DeclUnionGetter u) = singleton $ translateUnionGetter u
 translateDecl (Hs.DeclUnionSetter u) = singleton $ translateUnionSetter u
@@ -206,6 +207,23 @@ translateForeignImportDecl Hs.ForeignImportDecl { foreignImportParameters = args
         , ..
         }
     ]
+
+translateFunctionDecl :: Hs.FunctionDecl -> SDecl
+translateFunctionDecl Hs.FunctionDecl {..} = DFunction
+  Function { functionName       = functionDeclName
+           , functionParameters = map translateFunctionParameter functionDeclParameters
+           , functionResultType = translateType functionDeclResultType
+           , functionBody       = functionDeclBody
+           , functionComment    = functionDeclComment
+           }
+  where
+    translateFunctionParameter :: Hs.FunctionParameter -> FunctionParameter
+    translateFunctionParameter Hs.FunctionParameter{..} =
+      FunctionParameter
+        { functionParameterType = translateType functionParameterType
+        , ..
+        }
+
 
 translatePatSyn :: Hs.PatSyn -> SDecl
 translatePatSyn Hs.PatSyn {..} = DPatternSynonym
