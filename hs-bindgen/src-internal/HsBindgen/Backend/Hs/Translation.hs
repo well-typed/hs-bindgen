@@ -1264,41 +1264,47 @@ wrapperDecl innerName wrapperName res args
     callArgs :: Env ctx' WrappedType -> Env ctx' (Idx ctx) -> [PC.Expr ctx]
     callArgs tys ids = toList (zipWithEnv f tys ids) where f ty idx = if isWrappedHeap ty then PC.DeRef (PC.Var idx) else PC.Var idx
 
-hsWrapperDecl
+-- | Generate a 'DeclFunction' for a high-level wrapper function
+--
+hsWrapperDeclFunction
     :: Map C.Name C.Type
-    -> Hs.Name Hs.NsVar   -- ^ haskell name
-    -> Hs.Name Hs.NsVar   -- ^ low-level import name
-    -> WrappedType    -- ^ result type
-    -> [WrappedType]  -- ^ arguments
-    -> Maybe HsDoc.Comment
-    -> SHs.SDecl
-hsWrapperDecl typedefs hiName loName res args mbComment = case res of
-  HeapType {} ->
-    SHs.DVar
-      SHs.Var {
-        varName    = hiName
-      , varType    = SHs.translateType hsty
-      , varExpr    = goA EmptyEnv args
-      , varComment = mbComment
-      }
+    -> Hs.Name Hs.NsVar       -- ^ high-level name
+    -> Hs.Name Hs.NsVar       -- ^ low-level import name
+    -> WrappedType            -- ^ result type
+    -> [WrappedType]          -- ^ arguments
+    -> [Hs.FunctionParameter] -- ^ function parameter with comments
+    -> C.Function             -- ^ original C function
+    -> Maybe HsDoc.Comment    -- ^ function comment
+    -> Hs.Decl
+hsWrapperDeclFunction typedefs hiName loName res wrappedArgs wrapperParams cFunc mbComment =
+  let resType = typ' CFunRes typedefs $ unwrapOrigType res
+   in case res of
+        HeapType {} ->
+          Hs.DeclFunction $ Hs.FunctionDecl
+            { functionDeclName       = hiName
+            , functionDeclParameters = wrapperParams
+            , functionDeclResultType = HsIO resType
+            , functionDeclBody       = goA EmptyEnv wrappedArgs
+            , functionDeclOrigin     = Origin.Function cFunc
+            , functionDeclComment    = mbComment
+            }
 
-  WrapType {} ->
-    SHs.DVar
-      SHs.Var {
-        varName    = hiName
-      , varType    = SHs.translateType hsty
-      , varExpr    = goB EmptyEnv args
-      , varComment = mbComment
-      }
+        WrapType {} ->
+          Hs.DeclFunction $ Hs.FunctionDecl
+            { functionDeclName       = hiName
+            , functionDeclParameters = wrapperParams
+            , functionDeclResultType = HsIO resType
+            , functionDeclBody       = goB EmptyEnv wrappedArgs
+            , functionDeclOrigin     = Origin.Function cFunc
+            , functionDeclComment    = mbComment
+            }
 
-  CAType {} ->
-    panicPure "ConstantArray cannot occur as a result type"
+        CAType {} ->
+          panicPure "ConstantArray cannot occur as a result type"
 
-  AType {} ->
-    panicPure "Array cannot occur as a result type"
+        AType {} ->
+          panicPure "Array cannot occur as a result type"
   where
-    hsty = foldr HsFun (HsIO $ typ' CFunRes typedefs $ unwrapOrigType res) (typ' CFunArg typedefs . unwrapOrigType <$> args)
-
     -- wrapper for fancy result
     goA :: Env ctx WrappedType -> [WrappedType] -> SHs.SExpr ctx
     goA env []     = goA' env (tabulateEnv (sizeEnv env) id) []
@@ -1372,7 +1378,7 @@ functionDecs ::
   -> [Hs.Decl]
 functionDecs safety opts haddockConfig moduleName typedefs info f _spec =
     funDecl : [
-        Hs.DeclSimple $ hsWrapperDecl typedefs highlevelName importName res wrappedArgTypes mbFIComment
+        hsWrapperDeclFunction typedefs highlevelName importName res wrappedArgTypes wrapParsedArgs f mbWrapComment
       | areFancy
       ]
   where
@@ -1381,11 +1387,11 @@ functionDecs safety opts haddockConfig moduleName typedefs info f _spec =
     funDecl = Hs.DeclForeignImport $ Hs.ForeignImportDecl
         { foreignImportName       = importName
         , foreignImportResultType = resType
-        , foreignImportParameters = parsedArgs
+        , foreignImportParameters = ffiParsedArgs
         , foreignImportOrigName   = T.pack wrapperName
         , foreignImportCallConv   = CallConvUserlandCAPI userlandCapiWrapper
         , foreignImportOrigin     = Origin.Function f
-        , foreignImportComment    = mbFIComment <> ioComment
+        , foreignImportComment    = mbFFIComment <> ioComment
         , foreignImportSafety     = safety
         }
 
@@ -1403,16 +1409,31 @@ functionDecs safety opts haddockConfig moduleName typedefs info f _spec =
         | otherwise = highlevelName
 
     res = wrapType typedefs $ C.functionRes f
-    (mbFIComment, parsedArgs) =
-      generateHaddocksWithInfoParams haddockConfig info args
 
-    args = [ Hs.FunctionParameter
-              { functionParameterName    = fmap C.nameHs mbName
-              , functionParameterType    = typ' CFunArg typedefs (unwrapType (wrapType typedefs ty))
-              , functionParameterComment = Nothing
-              }
-           | (mbName, ty) <- C.functionArgs f
-           ]
+    -- Parameters for FFI import
+    ffiParams = [ Hs.FunctionParameter
+                   { functionParameterName    = fmap C.nameHs mbName
+                   , functionParameterType    = typ' CFunArg typedefs (unwrapType (wrapType typedefs ty))
+                   , functionParameterComment = Nothing
+                   }
+                | (mbName, ty) <- C.functionArgs f
+                ]
+
+    (mbFFIComment, ffiParsedArgs) =
+      generateHaddocksWithInfoParams haddockConfig info ffiParams
+
+    -- Parameters for wrapper decl
+    wrapperParams = [ Hs.FunctionParameter
+                     { functionParameterName    = fmap C.nameHs mbName
+                     , functionParameterType    = typ' CFunArg typedefs ty
+                     , functionParameterComment = Nothing
+                     }
+                  | (mbName, ty) <- C.functionArgs f
+                  ]
+
+    (mbWrapComment, wrapParsedArgs) =
+      generateHaddocksWithInfoParams haddockConfig info wrapperParams
+
     wrappedArgTypes =
       [ wrapType typedefs ty
       | (_, ty) <- C.functionArgs f
