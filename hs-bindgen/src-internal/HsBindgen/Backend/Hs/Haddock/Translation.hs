@@ -15,6 +15,7 @@ import Text.Read (readMaybe)
 
 import Clang.HighLevel.Documentation qualified as CDoc
 import Clang.HighLevel.Types qualified as C
+
 import Clang.Paths qualified as C
 
 import HsBindgen.Backend.Hs.AST qualified as Hs

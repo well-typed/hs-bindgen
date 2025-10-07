@@ -14,12 +14,11 @@ module HsBindgen.Artefact (
 where
 
 import Control.Monad.Trans.Reader (ReaderT (runReaderT))
+import Generics.SOP (I (..), NP (..))
 import Text.SimplePrettyPrint ((<+>))
 import Text.SimplePrettyPrint qualified as PP
 
 import Clang.Paths
-
-import Generics.SOP (I (..), NP (..))
 
 import HsBindgen.Backend
 import HsBindgen.Backend.Hs.AST qualified as Hs

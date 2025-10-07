@@ -19,8 +19,11 @@ import Test.HsBindgen.Resources
 import Test.Tasty
 
 import Clang.Args
+
 import Clang.Enum.Simple
+
 import Clang.LowLevel.Core
+
 import Clang.Version
 
 import HsBindgen.BindingSpec qualified as BindingSpec

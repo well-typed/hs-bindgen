@@ -21,6 +21,7 @@ import GHC.Float (castDoubleToWord64, castFloatToWord32)
 import Text.SimplePrettyPrint
 
 import C.Char qualified as CExpr.Runtime
+
 import C.Expr.Syntax qualified as CExpr.DSL
 
 import Clang.HighLevel.Types

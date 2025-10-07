@@ -22,13 +22,12 @@ import Options.Applicative hiding (info)
 import Options.Applicative qualified as O
 import Text.Read (readMaybe)
 
+import HsBindgen
 import HsBindgen.App
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Config
 import HsBindgen.Errors
 import HsBindgen.Frontend.RootHeader
-
-import HsBindgen
 
 {-------------------------------------------------------------------------------
   CLI help
