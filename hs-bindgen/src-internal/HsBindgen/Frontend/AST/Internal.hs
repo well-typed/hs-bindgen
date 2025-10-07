@@ -33,6 +33,11 @@ module HsBindgen.Frontend.AST.Internal (
   , CheckedMacroExpr(..)
     -- * Types (at use sites)
   , Type(..)
+    -- * Haskell names
+  , NamePair(..)
+  , nameHs
+  , RecordNames(..)
+  , NewtypeNames(..)
     -- * Show
   , ValidPass
     -- * Helper functions
@@ -56,9 +61,10 @@ import Clang.HighLevel.Types
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.RootHeader
+import HsBindgen.Frontend.RootHeader (HashIncludeArg)
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
+import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -413,6 +419,43 @@ data Type p =
     -- | A complex floating-point type, such as @float complex@ or
     -- @double complex@. This also allows one to define, e.g. @char complex@
   | TypeComplex C.PrimType
+
+{-------------------------------------------------------------------------------
+  Haskell names
+-------------------------------------------------------------------------------}
+
+-- | Pair of a C name and the corresponding Haskell name
+--
+-- Invariant: the 'Hs.Identifier' must satisfy the rules for legal Haskell
+-- names, for its intended use (constructor, variable, ..).
+data NamePair = NamePair {
+      nameC       :: C.Name
+    , nameHsIdent :: Hs.Identifier
+    }
+  deriving stock (Show, Eq, Ord, Generic)
+
+-- | Extract namespaced Haskell name
+--
+-- The invariant on 'NamePair' justifies this otherwise unsafe operation.
+nameHs :: NamePair -> Hs.Name ns
+nameHs NamePair{nameHsIdent = Hs.Identifier name} = Hs.Name name
+
+-- | Names for a Haskell record type
+--
+-- This is used in addition to a 'NamePair'.
+data RecordNames = RecordNames {
+      recordConstr :: Hs.Name Hs.NsConstr
+    }
+  deriving stock (Show, Eq, Ord, Generic)
+
+-- | Names for a Haskell newtype
+--
+-- This is used in addition to a 'NamePair'.
+data NewtypeNames = NewtypeNames {
+      newtypeConstr :: Hs.Name Hs.NsConstr
+    , newtypeField  :: Hs.Name Hs.NsVar
+    }
+  deriving stock (Show, Eq, Ord, Generic)
 
 {-------------------------------------------------------------------------------
   Instances

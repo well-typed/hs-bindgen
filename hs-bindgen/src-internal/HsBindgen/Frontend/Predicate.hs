@@ -26,7 +26,8 @@ import Text.Regex.PCRE.Text ()
 
 import Clang.Paths
 
-import HsBindgen.Frontend.AST.External qualified as C
+import HsBindgen.Frontend.AST.Internal qualified as C
+import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
