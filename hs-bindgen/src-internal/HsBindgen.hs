@@ -141,8 +141,8 @@ writeBindingsMultiple hsOutputDir = Lift (FinalModuleBaseName :* getBindingsMult
 -- | Write binding specifications to file.
 writeBindingSpec :: FilePath -> Artefact ()
 writeBindingSpec path =
-  Lift (FinalModuleBaseName :* HashIncludeArgs :* HsDecls :* Nil) $
-    \(I moduleBaseName :* I hashIncludeArgs :* I hsDecls :* Nil) -> do
+  Lift (FinalModuleBaseName :* GetMainHeaders :* OmitTypes :* HsDecls :* Nil) $
+    \(I moduleBaseName :* I getMainHeaders :* I omitTypes :* I hsDecls :* Nil) -> do
       tracer <- artefactTracer <$> ask
       liftIO $ do
         traceWith tracer $ RunArtefactWriteFile "binding specifications" path
@@ -150,7 +150,7 @@ writeBindingSpec path =
         -- category 'BType'. If, in the future, we generate binding
         -- specifications for other binding categories, we need to take care of
         -- the final module names (e.g., @Generated.Safe@).
-        genBindingSpec moduleBaseName hashIncludeArgs path $
+        genBindingSpec moduleBaseName path getMainHeaders omitTypes $
           fromMaybe (panicPure "binding category BType is missing")
             (Map.lookup BType $ unByCategory hsDecls)
 

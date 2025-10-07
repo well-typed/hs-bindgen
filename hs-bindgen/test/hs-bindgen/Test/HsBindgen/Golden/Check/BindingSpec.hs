@@ -10,7 +10,6 @@ import Test.HsBindgen.Resources
 import Test.Tasty (TestTree)
 
 import HsBindgen.BindingSpec.Gen qualified as BindingSpec
-import HsBindgen.Frontend.RootHeader
 import HsBindgen.Language.Haskell qualified as Hs
 
 import HsBindgen
@@ -22,15 +21,19 @@ import HsBindgen
 check :: IO TestResources -> TestCase -> TestTree
 check testResources test =
     goldenAnsiDiff "bindingspec" fixture $ \report -> do
-      (I decls :* Nil) <- runTestHsBindgen report testResources test (HsDecls :* Nil)
+      (I getMainHeaders :* I omitTypes :* I hsDecls :* Nil) <-
+        runTestHsBindgen report testResources test $
+          GetMainHeaders :* OmitTypes :* HsDecls :* Nil
 
       let output :: String
           output = UTF8.toString $
-              BindingSpec.genBindingSpecYaml [HashIncludeArg $ testInputInclude test]
+              BindingSpec.genBindingSpecYaml
                 (Hs.ModuleName "Example")
+                getMainHeaders
+                omitTypes
                 -- TODO https://github.com/well-typed/hs-bindgen/issues/1089:
                 -- Test all binding categories.
-                (concat decls)
+                (concat hsDecls)
 
       return $ ActualValue output
   where

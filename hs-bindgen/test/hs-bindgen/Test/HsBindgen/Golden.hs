@@ -537,6 +537,9 @@ testCases = manualTestCases ++ [
     , (defaultTest "named_vs_anon"){
           testClangVersion = Just (>= (19, 1, 0))
         }
+    , (defaultTest "binding_spec_simple"){
+          testPrescriptiveBindingSpec = Just "examples/golden/binding_spec_simple.yaml"
+        }
     , (defaultTest "program_slicing_simple"){
           -- Check that program slicing generates bindings for uint32_t and
           -- uint64_t if we only provide external binding specifications for

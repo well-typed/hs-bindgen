@@ -38,7 +38,10 @@ resolveBindingSpecs ::
      ExternalBindingSpec
   -> PrescriptiveBindingSpec
   -> C.TranslationUnit NameAnon
-  -> (C.TranslationUnit ResolveBindingSpecs, [Msg ResolveBindingSpecs])
+  -> ( C.TranslationUnit ResolveBindingSpecs
+     , Map C.QualName SourcePath
+     , [Msg ResolveBindingSpecs]
+     )
 resolveBindingSpecs
   extSpec
   pSpec
@@ -52,7 +55,10 @@ resolveBindingSpecs
             (declNonParsed unitAnn)
             (resolveDecls unitDecls)
         notUsedErrs = ResolveBindingSpecsTypeNotUsed <$> Map.keys stateNoPTypes
-    in  (reassemble decls stateUseDecl, reverse stateErrors ++ notUsedErrs)
+    in  ( reassemble decls stateUseDecl
+        , stateOmitTypes
+        , reverse stateErrors ++ notUsedErrs
+        )
   where
     reassemble ::
          [C.Decl ResolveBindingSpecs]
@@ -111,7 +117,7 @@ data MState = MState {
       stateErrors    :: [Msg ResolveBindingSpecs] -- ^ Stored in reverse order
     , stateExtTypes  :: Map C.QualName (C.Type ResolveBindingSpecs)
     , stateNoPTypes  :: Map C.QualName [Set SourcePath]
-    , stateOmitTypes :: Set C.QualName
+    , stateOmitTypes :: Map C.QualName SourcePath
     , stateUseDecl   :: UseDeclGraph
     }
   deriving (Show)
@@ -121,7 +127,7 @@ initMState pSpec useDeclGraph = MState {
       stateErrors    = []
     , stateExtTypes  = Map.empty
     , stateNoPTypes  = BindingSpec.getTypes pSpec
-    , stateOmitTypes = Set.empty
+    , stateOmitTypes = Map.empty
     , stateUseDecl   = useDeclGraph
     }
 
@@ -154,9 +160,9 @@ deleteNoPType cQualName path st = st {
         | otherwise -> aux (s : acc) ss
       [] -> Just acc
 
-insertOmittedType :: C.QualName -> MState -> MState
-insertOmittedType cQualName st = st {
-      stateOmitTypes = Set.insert cQualName (stateOmitTypes st)
+insertOmittedType :: C.QualName -> SourcePath -> MState -> MState
+insertOmittedType cQualName path st = st {
+      stateOmitTypes = Map.insert cQualName path (stateOmitTypes st)
     }
 
 deleteDeps :: C.NsPrelimDeclId -> [C.NsPrelimDeclId] -> MState -> MState
@@ -199,7 +205,7 @@ resolveTop decl = RWS.ask >>= \MEnv{..} -> do
         Just BindingSpec.Omit -> do
           RWS.modify' $
               deleteNoPType cQualName sourcePath
-            . insertOmittedType cQualName
+            . insertOmittedType cQualName sourcePath
           return Nothing
         Nothing -> return $ Just (decl, Nothing)
 
@@ -419,7 +425,7 @@ instance Resolve C.Type where
           let cQualName = C.QualName qualDeclIdName qualDeclIdKind
               nsid = C.qualDeclIdNsPrelimDeclId cQualDeclId
           -- check for type omitted by binding specification
-          when (Set.member cQualName stateOmitTypes) $
+          when (Map.member cQualName stateOmitTypes) $
             RWS.modify' $
               insertError (ResolveBindingSpecsOmittedTypeUse cQualName)
           -- check for selected external binding

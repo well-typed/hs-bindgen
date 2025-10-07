@@ -1,6 +1,8 @@
 module HsBindgen.Frontend.ProcessIncludes (
     GetMainHeadersAndInclude
   , processIncludes
+  , GetMainHeaders
+  , toGetMainHeaders
     -- * Auxiliary
   , getIncludeTo
   ) where
@@ -163,6 +165,12 @@ processIncludes unit = do
       , isInMainHeaderDir
       , getMainHeadersAndInclude
       )
+
+-- | Function to get the main headers that (transitively) include a source path
+type GetMainHeaders = SourcePath -> Either String (NonEmpty HashIncludeArg)
+
+toGetMainHeaders :: GetMainHeadersAndInclude -> GetMainHeaders
+toGetMainHeaders f = fmap fst . f
 
 {-------------------------------------------------------------------------------
   Process inclusion directives

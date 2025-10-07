@@ -112,10 +112,15 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
           isInMainHeaderDir
           getMainHeadersAndInclude
           unit
-        pure (reifiedUnit, isMainHeader, isInMainHeaderDir)
+        pure
+          ( reifiedUnit
+          , isMainHeader
+          , isInMainHeaderDir
+          , toGetMainHeaders getMainHeadersAndInclude
+          )
 
     sortPass <- cache "sort" $ do
-      (afterParse, _, _) <- parsePass
+      (afterParse, _, _, _) <- parsePass
       let (afterSort, msgsSort) = sortDecls afterParse
       forM_ msgsSort $ traceWith tracer . FrontendSort
       pure afterSort
@@ -136,17 +141,17 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
       afterNameAnon <- nameAnonPass
       extlSpec <- bootExternalBindingSpec
       presSpec <- bootPrescriptiveBindingSpec
-      let (afterResolveBindingSpecs, msgsResolveBindingSpecs) =
+      let (afterResolveBindingSpecs, omitTypes, msgsResolveBindingSpecs) =
             resolveBindingSpecs
               extlSpec
               presSpec
               afterNameAnon
       forM_ msgsResolveBindingSpecs $ traceWith tracer . FrontendResolveBindingSpecs
-      pure afterResolveBindingSpecs
+      pure (afterResolveBindingSpecs, omitTypes)
 
     selectPass <- cache "select" $ do
-      (_, isMainHeader, isInMainHeaderDir) <- parsePass
-      afterResolveBindingSpecs             <- resolveBindingSpecsPass
+      (_, isMainHeader, isInMainHeaderDir, _) <- parsePass
+      (afterResolveBindingSpecs, _)           <- resolveBindingSpecsPass
       let (afterSelect, msgsSelect) =
             selectDecls
               isMainHeader
@@ -175,7 +180,7 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
 
     -- Include graph predicate.
     getIncludeGraphP <- cache "getIncludeGraphP" $ do
-      (_, isMainHeader, isInMainHeaderDir) <- parsePass
+      (_, isMainHeader, isInMainHeaderDir, _) <- parsePass
       pure $ \path ->
         matchParse isMainHeader isInMainHeaderDir path frontendParsePredicate
         && path /= name
@@ -183,14 +188,21 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
     -- Graphs.
     frontendIncludeGraph <- cache "frontendIncludeGraph" $ do
       includeGraphP <- getIncludeGraphP
-      (afterParse, _, _) <- parsePass
+      (afterParse, _, _, _) <- parsePass
       pure (includeGraphP, unitIncludeGraph afterParse)
+    frontendGetMainHeaders <- cache "frontendGetMainHeaders" $ do
+      (_, _, _, getMainHeaders) <- parsePass
+      pure getMainHeaders
     frontendIndex <- cache "frontendIndex" $
       declIndex . unitAnn <$> sortPass
     frontendUseDeclGraph <- cache "frontendUseDeclGraph" $
       declUseDecl . unitAnn <$> sortPass
     frontendDeclUseGraph <- cache "frontendDeclUseGraph" $
       declDeclUse . unitAnn <$> sortPass
+
+    -- Omitted types
+    frontendOmitTypes <- cache "frontendOmitTypes" $
+      snd <$> resolveBindingSpecsPass
 
     -- Declarations.
     frontendCDecls <- cache "frontendDecls" $
@@ -232,8 +244,14 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
       , unitAnn          = emptyParseDeclMeta
       }
 
-    emptyParseResult :: (TranslationUnit Parse, IsMainHeader, IsInMainHeaderDir)
-    emptyParseResult = (emptyTranslationUnit, const False, const False)
+    emptyParseResult ::
+      (TranslationUnit Parse, IsMainHeader, IsInMainHeaderDir, GetMainHeaders)
+    emptyParseResult =
+      ( emptyTranslationUnit
+      , const False
+      , const False
+      , const (Left "empty")
+      )
 
     cache :: String -> IO a -> IO (IO a)
     cache = cacheWith (contramap (FrontendCache . SafeTrace) tracer) . Just
@@ -243,12 +261,14 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
 -------------------------------------------------------------------------------}
 
 data FrontendArtefact = FrontendArtefact {
-    frontendIncludeGraph :: IO (IncludeGraph.Predicate, IncludeGraph.IncludeGraph)
-  , frontendIndex        :: IO DeclIndex.DeclIndex
-  , frontendUseDeclGraph :: IO UseDeclGraph.UseDeclGraph
-  , frontendDeclUseGraph :: IO DeclUseGraph.DeclUseGraph
-  , frontendCDecls       :: IO [C.Decl]
-  , frontendDependencies :: IO [SourcePath]
+    frontendIncludeGraph   :: IO (IncludeGraph.Predicate, IncludeGraph.IncludeGraph)
+  , frontendGetMainHeaders :: IO GetMainHeaders
+  , frontendIndex          :: IO DeclIndex.DeclIndex
+  , frontendUseDeclGraph   :: IO UseDeclGraph.UseDeclGraph
+  , frontendDeclUseGraph   :: IO DeclUseGraph.DeclUseGraph
+  , frontendOmitTypes      :: IO (Map C.QualName SourcePath)
+  , frontendCDecls         :: IO [C.Decl]
+  , frontendDependencies   :: IO [SourcePath]
   }
 
 {-------------------------------------------------------------------------------

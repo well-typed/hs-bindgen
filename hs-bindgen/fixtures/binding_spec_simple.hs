@@ -1,0 +1,292 @@
+[
+  DeclNewtype
+    Newtype {
+      newtypeName = Name
+        "@NsTypeConstr"
+        "Sym",
+      newtypeConstr = Name
+        "@NsConstr"
+        "Sym",
+      newtypeField = Field {
+        fieldName = Name
+          "@NsVar"
+          "un_Sym",
+        fieldType = HsPrimType
+          HsPrimCChar,
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "binding_spec_simple.h:1:14",
+          declId = NamePair {
+            nameC = Name "sym",
+            nameHsIdent = Identifier "Sym"},
+          declOrigin = NameOriginInSource,
+          declAliases = [],
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["binding_spec_simple.h"],
+              headerInclude =
+              "binding_spec_simple.h"},
+          declComment = Nothing},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = Name
+                "@NsConstr"
+                "Sym",
+              newtypeField = Name
+                "@NsVar"
+                "un_Sym"},
+            typedefType = TypePrim
+              (PrimChar
+                (PrimSignImplicit
+                  (Just Signed)))},
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Just
+              (ModuleName "Generated"),
+            typeSpecIdentifier = Just
+              (Identifier "Sym"),
+            typeSpecInstances = Map.fromList
+              [
+                _×_
+                  Eq
+                  (Require
+                    InstanceSpec {
+                      instanceSpecStrategy = Nothing,
+                      instanceSpecConstraints = []}),
+                _×_
+                  Ord
+                  (Require
+                    InstanceSpec {
+                      instanceSpecStrategy = Nothing,
+                      instanceSpecConstraints = []}),
+                _×_
+                  Enum
+                  (Require
+                    InstanceSpec {
+                      instanceSpecStrategy = Nothing,
+                      instanceSpecConstraints = []}),
+                _×_
+                  Ix
+                  (Require
+                    InstanceSpec {
+                      instanceSpecStrategy = Nothing,
+                      instanceSpecConstraints = []}),
+                _×_
+                  Bounded
+                  (Require
+                    InstanceSpec {
+                      instanceSpecStrategy = Nothing,
+                      instanceSpecConstraints = []}),
+                _×_
+                  Read
+                  (Require
+                    InstanceSpec {
+                      instanceSpecStrategy = Nothing,
+                      instanceSpecConstraints = []}),
+                _×_
+                  Show
+                  (Require
+                    InstanceSpec {
+                      instanceSpecStrategy = Nothing,
+                      instanceSpecConstraints = []}),
+                _×_
+                  Bits
+                  (Require
+                    InstanceSpec {
+                      instanceSpecStrategy = Nothing,
+                      instanceSpecConstraints = []}),
+                _×_
+                  FiniteBits
+                  (Require
+                    InstanceSpec {
+                      instanceSpecStrategy = Nothing,
+                      instanceSpecConstraints = []}),
+                _×_
+                  Integral
+                  (Require
+                    InstanceSpec {
+                      instanceSpecStrategy = Nothing,
+                      instanceSpecConstraints = []}),
+                _×_
+                  Num
+                  (Require
+                    InstanceSpec {
+                      instanceSpecStrategy = Nothing,
+                      instanceSpecConstraints = []}),
+                _×_
+                  Real
+                  (Require
+                    InstanceSpec {
+                      instanceSpecStrategy = Nothing,
+                      instanceSpecConstraints = []}),
+                _×_
+                  Storable
+                  (Require
+                    InstanceSpec {
+                      instanceSpecStrategy = Nothing,
+                      instanceSpecConstraints = [
+                        ]})]}},
+      newtypeInstances = Set.fromList
+        [
+          Eq,
+          Ord,
+          Enum,
+          Ix,
+          Bounded,
+          Read,
+          Show,
+          Bits,
+          FiniteBits,
+          Integral,
+          Num,
+          Real,
+          Storable],
+      newtypeComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "sym",
+          commentLocation = Just
+            "binding_spec_simple.h:1:14",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["binding_spec_simple.h"],
+              headerInclude =
+              "binding_spec_simple.h"},
+          commentChildren = []}},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Storable,
+      deriveInstanceName = Name
+        "@NsTypeConstr"
+        "Sym",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Eq,
+      deriveInstanceName = Name
+        "@NsTypeConstr"
+        "Sym",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Ord,
+      deriveInstanceName = Name
+        "@NsTypeConstr"
+        "Sym",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Read,
+      deriveInstanceName = Name
+        "@NsTypeConstr"
+        "Sym",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Show,
+      deriveInstanceName = Name
+        "@NsTypeConstr"
+        "Sym",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Enum,
+      deriveInstanceName = Name
+        "@NsTypeConstr"
+        "Sym",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Ix,
+      deriveInstanceName = Name
+        "@NsTypeConstr"
+        "Sym",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Bounded,
+      deriveInstanceName = Name
+        "@NsTypeConstr"
+        "Sym",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Bits,
+      deriveInstanceName = Name
+        "@NsTypeConstr"
+        "Sym",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass =
+      FiniteBits,
+      deriveInstanceName = Name
+        "@NsTypeConstr"
+        "Sym",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Integral,
+      deriveInstanceName = Name
+        "@NsTypeConstr"
+        "Sym",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Num,
+      deriveInstanceName = Name
+        "@NsTypeConstr"
+        "Sym",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Real,
+      deriveInstanceName = Name
+        "@NsTypeConstr"
+        "Sym",
+      deriveInstanceComment =
+      Nothing}]

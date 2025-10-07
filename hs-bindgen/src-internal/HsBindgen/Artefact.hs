@@ -34,6 +34,7 @@ import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.External qualified as C
+import HsBindgen.Frontend.ProcessIncludes qualified as ProcessIncludes
 import HsBindgen.Frontend.RootHeader (HashIncludeArg)
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
@@ -49,9 +50,11 @@ data Artefact (a :: Star) where
   HashIncludeArgs     :: Artefact [HashIncludeArg]
   -- * Frontend
   IncludeGraph        :: Artefact (IncludeGraph.Predicate, IncludeGraph.IncludeGraph)
+  GetMainHeaders      :: Artefact ProcessIncludes.GetMainHeaders
   DeclIndex           :: Artefact DeclIndex.DeclIndex
   UseDeclGraph        :: Artefact UseDeclGraph.UseDeclGraph
   DeclUseGraph        :: Artefact DeclUseGraph.DeclUseGraph
+  OmitTypes           :: Artefact (Map C.QualName SourcePath)
   ReifiedC            :: Artefact [C.Decl]
   Dependencies        :: Artefact [SourcePath]
   -- * Backend
@@ -115,9 +118,11 @@ runArtefacts
       HashIncludeArgs     -> liftIO bootHashIncludeArgs
       -- Frontend.
       IncludeGraph        -> liftIO frontendIncludeGraph
+      GetMainHeaders      -> liftIO frontendGetMainHeaders
       DeclIndex           -> liftIO frontendIndex
       UseDeclGraph        -> liftIO frontendUseDeclGraph
       DeclUseGraph        -> liftIO frontendDeclUseGraph
+      OmitTypes           -> liftIO frontendOmitTypes
       ReifiedC            -> liftIO frontendCDecls
       Dependencies        -> liftIO frontendDependencies
       -- Backend.

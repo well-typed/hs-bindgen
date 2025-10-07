@@ -1,0 +1,25 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+types:
+- omit:
+    headers: binding_spec_simple.h
+    cname: struct pt
+- headers: binding_spec_simple.h
+  cname: sym
+  module: Example
+  hsname: Sym
+  instances:
+  - Eq
+  - Ord
+  - Enum
+  - Ix
+  - Bounded
+  - Read
+  - Show
+  - Bits
+  - FiniteBits
+  - Integral
+  - Num
+  - Real
+  - Storable
