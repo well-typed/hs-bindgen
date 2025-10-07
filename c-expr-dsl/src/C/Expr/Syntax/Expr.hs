@@ -169,22 +169,6 @@ data MTerm p =
     --
     -- This might be a macro argument, or another macro.
   | MVar ( XVar p ) Name [MExpr p]
-
-    -- | Stringizing
-    --
-    -- See
-    --
-    -- * Section 6.10.3.2, "The # operator" of the spec
-    -- * <https://gcc.gnu.org/onlinedocs/cpp/Stringizing.html>
-  | MStringize Name
-
-    -- | Concatenation
-    --
-    -- See
-    --
-    -- * Section 6.10.3.3, "The ## operator" of the spec
-    -- * <https://gcc.gnu.org/onlinedocs/cpp/Concatenation.html>
-  | MConcat ( MTerm p ) ( MTerm p )
   deriving stock Generic
 deriving stock instance ( Eq ( XApp p ), Eq ( XVar p ) ) => Eq ( MTerm p )
 deriving stock instance ( Ord ( XApp p ), Ord ( XVar p ) ) => Ord ( MTerm p )

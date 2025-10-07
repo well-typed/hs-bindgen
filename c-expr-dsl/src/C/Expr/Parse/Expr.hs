@@ -3,17 +3,19 @@
 module C.Expr.Parse.Expr (parseExpr) where
 
 import Control.Monad
+import Data.Functor.Identity
 import Data.Type.Nat
 import Data.Vec.Lazy
 import Text.Parsec
 import Text.Parsec.Expr
 
+import Clang.HighLevel.Types
+import Clang.LowLevel.Core
+
 import C.Expr.Parse.Infra
 import C.Expr.Parse.Literal
 import C.Expr.Parse.Name
 import C.Expr.Syntax
-
-import Clang.LowLevel.Core
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -69,10 +71,10 @@ mTerm =
       , MChar       <$> literalChar
       , MString     <$> literalString
       , MVar NoXVar <$> var <*> option [] actualArgs
-      , MStringize  <$  punctuation "#" <*> var
       ]
 
-    ops = [[Infix (MConcat <$ punctuation "##") AssocLeft]]
+    ops :: OperatorTable [Token TokenSpelling] ParserState Identity (MTerm Ps)
+    ops = []
 
 var :: Parser Name
 var = parseName

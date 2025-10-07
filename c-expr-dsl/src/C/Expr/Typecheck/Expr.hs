@@ -787,14 +787,6 @@ inferTerm = \case
   MVar NoXVar fun argsList -> Vec.reifyList argsList $ \ args ->
     do ( funVal, ( args', resTy ) ) <- inferApp ( Fun $ Left fun ) args
        return ( resTy, MVar ( XVarTc funVal ) fun ( Vec.toList args' ) )
-  MStringize nm -> return ( String, MStringize nm )
-  MConcat a1 a2 -> do
-    ( ty1, b1 ) <- inferTerm a1
-    ( ty2, b2 ) <- inferTerm a2
-    let orig = AppOrigin "##"
-    liftUnifyM $ unifyType orig NotSwapped ty1 String
-    liftUnifyM $ unifyType orig NotSwapped ty2 String
-    return ( String, MConcat b1 b2 )
 
 -- | Infer the type of an application of a function to arguments.
 --
@@ -1876,8 +1868,6 @@ evaluateTerm argVals tyEnv = \case
   -- TODO: not dealing with these for now
   MChar   {} -> NoValue
   MString {} -> NoValue
-  MStringize {} -> NoValue
-  MConcat {} -> NoValue
 
 naturalMaybe :: ValSType ty -> ty -> Maybe Natural
 naturalMaybe ( ValSType ty ) i =

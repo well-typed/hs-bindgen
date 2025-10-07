@@ -4,6 +4,7 @@
 module C.Expr.Parse.Infra (
     -- * Parser type
     Parser
+  , ParserState -- opaque
   , runParser
     -- * Parse errors
   , MacroParseError(..)
