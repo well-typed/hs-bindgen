@@ -43,6 +43,8 @@ module HsBindgen.Backend.Hs.AST (
     -- ** Foreign imports
   , ForeignImportDecl(..)
   , FunctionParameter(..)
+    -- ** Function declarations
+  , FunctionDecl(..)
     -- ** 'ToFunPtr'
   , ToFunPtrInstance(..)
     -- ** 'FromFunPtr'
@@ -143,6 +145,16 @@ data FunctionParameter = FunctionParameter
   }
   deriving stock (Generic, Show)
 
+data FunctionDecl = FunctionDecl
+  { functionDeclName       :: Hs.Name Hs.NsVar
+  , functionDeclParameters :: [FunctionParameter]
+  , functionDeclResultType :: HsType
+  , functionDeclBody       :: SHs.ClosedExpr
+  , functionDeclOrigin     :: Origin.ForeignImport
+  , functionDeclComment    :: Maybe HsDoc.Comment
+  }
+  deriving stock (Generic, Show)
+
 data UnionGetter = UnionGetter
   { unionGetterName    :: Hs.Name Hs.NsVar
   , unionGetterType    :: HsType
@@ -198,6 +210,7 @@ data Decl where
     DeclDefineInstance  :: DefineInstance -> Decl
     DeclDeriveInstance  :: DeriveInstance -> Decl
     DeclForeignImport   :: ForeignImportDecl -> Decl
+    DeclFunction        :: FunctionDecl -> Decl
     DeclVar             :: VarDecl -> Decl
     DeclUnionGetter     :: UnionGetter -> Decl
     DeclUnionSetter     :: UnionSetter -> Decl

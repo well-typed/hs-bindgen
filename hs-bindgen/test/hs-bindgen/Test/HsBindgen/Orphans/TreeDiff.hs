@@ -150,6 +150,18 @@ instance ToExpr Hs.Field
 instance ToExpr Hs.ForeignImportDecl
 instance ToExpr SHs.Safety
 instance ToExpr Hs.FunctionParameter
+
+-- | Doesn't print the function body
+--
+instance ToExpr Hs.FunctionDecl where
+  toExpr Hs.FunctionDecl{..} =
+    Expr.App "FunctionDecl" [ toExpr functionDeclName
+                            , toExpr functionDeclParameters
+                            , toExpr functionDeclResultType
+                            , toExpr functionDeclOrigin
+                            , toExpr functionDeclComment
+                            ]
+
 instance ToExpr a => ToExpr (HsType.ResultType a)
 instance ToExpr Hs.Newtype
 instance ToExpr Hs.PatSyn
@@ -196,6 +208,8 @@ instance ToExpr Hs.Decl where
       Expr.App "DeclNewtypeInstance" [toExpr di]
     Hs.DeclForeignImport foreignImport ->
       Expr.App "DeclForeignImport" [toExpr foreignImport]
+    Hs.DeclFunction functionDecl ->
+      Expr.App "DeclFunction" [toExpr functionDecl]
     Hs.DeclVar v ->
       Expr.App "DeclVar" [toExpr v]
     Hs.DeclUnionGetter ug ->
