@@ -73,19 +73,9 @@ instance F.Storable Complex_object_t where
               >> F.pokeByteOff ptr0 (8 :: Int) complex_object_t_position3
               >> F.pokeByteOff ptr0 (24 :: Int) complex_object_t_id4
 
-{-| __C declaration:__ @multiply_complex_f@
-
-    __defined at:__ @hsb_complex_test.h:21:16@
-
-    __exported by:__ @hsb_complex_test.h@
--}
 foreign import ccall safe "hs_bindgen_test_hsb_complex_test_b84ea846e04d5fd6" multiply_complex_f_wrapper
   :: Ptr.Ptr (Data.Complex.Complex FC.CFloat)
-     {- ^ __C declaration:__ @a@
-     -}
   -> Ptr.Ptr (Data.Complex.Complex FC.CFloat)
-     {- ^ __C declaration:__ @b@
-     -}
   -> Ptr.Ptr (Data.Complex.Complex FC.CFloat)
   -> IO ()
 
@@ -95,7 +85,14 @@ foreign import ccall safe "hs_bindgen_test_hsb_complex_test_b84ea846e04d5fd6" mu
 
     __exported by:__ @hsb_complex_test.h@
 -}
-multiply_complex_f :: (Data.Complex.Complex FC.CFloat) -> (Data.Complex.Complex FC.CFloat) -> IO (Data.Complex.Complex FC.CFloat)
+multiply_complex_f
+  :: Data.Complex.Complex FC.CFloat
+     {- ^ __C declaration:__ @a@
+     -}
+  -> Data.Complex.Complex FC.CFloat
+     {- ^ __C declaration:__ @b@
+     -}
+  -> IO (Data.Complex.Complex FC.CFloat)
 multiply_complex_f =
   \x0 ->
     \x1 ->
@@ -104,19 +101,9 @@ multiply_complex_f =
                                 HsBindgen.Runtime.CAPI.allocaAndPeek (\z4 ->
                                                                         multiply_complex_f_wrapper y3 y2 z4)))
 
-{-| __C declaration:__ @add_complex@
-
-    __defined at:__ @hsb_complex_test.h:22:16@
-
-    __exported by:__ @hsb_complex_test.h@
--}
 foreign import ccall safe "hs_bindgen_test_hsb_complex_test_8dd079d1707c36b3" add_complex_wrapper
   :: Ptr.Ptr (Data.Complex.Complex FC.CDouble)
-     {- ^ __C declaration:__ @a@
-     -}
   -> Ptr.Ptr (Data.Complex.Complex FC.CDouble)
-     {- ^ __C declaration:__ @b@
-     -}
   -> Ptr.Ptr (Data.Complex.Complex FC.CDouble)
   -> IO ()
 
@@ -126,7 +113,14 @@ foreign import ccall safe "hs_bindgen_test_hsb_complex_test_8dd079d1707c36b3" ad
 
     __exported by:__ @hsb_complex_test.h@
 -}
-add_complex :: (Data.Complex.Complex FC.CDouble) -> (Data.Complex.Complex FC.CDouble) -> IO (Data.Complex.Complex FC.CDouble)
+add_complex
+  :: Data.Complex.Complex FC.CDouble
+     {- ^ __C declaration:__ @a@
+     -}
+  -> Data.Complex.Complex FC.CDouble
+     {- ^ __C declaration:__ @b@
+     -}
+  -> IO (Data.Complex.Complex FC.CDouble)
 add_complex =
   \x0 ->
     \x1 ->

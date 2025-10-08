@@ -855,25 +855,15 @@
             (Name "@NsVar" "a"),
           functionParameterType = HsPtr
             (HsComplexType HsPrimCFloat),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "a",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}},
+          functionParameterComment =
+          Nothing},
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "b"),
           functionParameterType = HsPtr
             (HsComplexType HsPrimCFloat),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "b",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}}],
+          functionParameterComment =
+          Nothing}],
       foreignImportResultType =
       HeapResultType
         (HsPtr
@@ -909,7 +899,63 @@
             ImpureFunction,
           functionRes = TypeComplex
             (PrimFloating PrimFloat)},
-      foreignImportComment = Just
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
+  DeclFunction
+    (FunctionDecl
+      (Name
+        "@NsVar"
+        "multiply_complex_f")
+      [
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "a"),
+          functionParameterType =
+          HsComplexType HsPrimCFloat,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "a",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "b"),
+          functionParameterType =
+          HsComplexType HsPrimCFloat,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "b",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}]
+      (HsIO
+        (HsComplexType HsPrimCFloat))
+      (Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "a",
+                  nameHsIdent = Identifier "a"})
+              (TypeComplex
+                (PrimFloating PrimFloat)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "b",
+                  nameHsIdent = Identifier "b"})
+              (TypeComplex
+                (PrimFloating PrimFloat))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeComplex
+            (PrimFloating PrimFloat)})
+      (Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just
@@ -922,9 +968,7 @@
                 ["hsb_complex_test.h"],
               headerInclude =
               "hsb_complex_test.h"},
-          commentChildren = []},
-      foreignImportSafety = Safe},
-  DeclSimple,
+          commentChildren = []})),
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -936,25 +980,15 @@
             (Name "@NsVar" "a"),
           functionParameterType = HsPtr
             (HsComplexType HsPrimCDouble),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "a",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}},
+          functionParameterComment =
+          Nothing},
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "b"),
           functionParameterType = HsPtr
             (HsComplexType HsPrimCDouble),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "b",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}}],
+          functionParameterComment =
+          Nothing}],
       foreignImportResultType =
       HeapResultType
         (HsPtr
@@ -990,7 +1024,61 @@
             ImpureFunction,
           functionRes = TypeComplex
             (PrimFloating PrimDouble)},
-      foreignImportComment = Just
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
+  DeclFunction
+    (FunctionDecl
+      (Name "@NsVar" "add_complex")
+      [
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "a"),
+          functionParameterType =
+          HsComplexType HsPrimCDouble,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "a",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "b"),
+          functionParameterType =
+          HsComplexType HsPrimCDouble,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "b",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}]
+      (HsIO
+        (HsComplexType HsPrimCDouble))
+      (Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "a",
+                  nameHsIdent = Identifier "a"})
+              (TypeComplex
+                (PrimFloating PrimDouble)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "b",
+                  nameHsIdent = Identifier "b"})
+              (TypeComplex
+                (PrimFloating PrimDouble))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeComplex
+            (PrimFloating PrimDouble)})
+      (Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just
@@ -1003,9 +1091,7 @@
                 ["hsb_complex_test.h"],
               headerInclude =
               "hsb_complex_test.h"},
-          commentChildren = []},
-      foreignImportSafety = Safe},
-  DeclSimple,
+          commentChildren = []})),
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -1017,25 +1103,15 @@
             (Name "@NsVar" "a"),
           functionParameterType = HsPtr
             (HsComplexType HsPrimCFloat),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "a",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}},
+          functionParameterComment =
+          Nothing},
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "b"),
           functionParameterType = HsPtr
             (HsComplexType HsPrimCFloat),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "b",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}}],
+          functionParameterComment =
+          Nothing}],
       foreignImportResultType =
       HeapResultType
         (HsPtr
@@ -1071,7 +1147,63 @@
             ImpureFunction,
           functionRes = TypeComplex
             (PrimFloating PrimFloat)},
-      foreignImportComment = Just
+      foreignImportComment = Nothing,
+      foreignImportSafety = Unsafe},
+  DeclFunction
+    (FunctionDecl
+      (Name
+        "@NsVar"
+        "multiply_complex_f")
+      [
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "a"),
+          functionParameterType =
+          HsComplexType HsPrimCFloat,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "a",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "b"),
+          functionParameterType =
+          HsComplexType HsPrimCFloat,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "b",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}]
+      (HsIO
+        (HsComplexType HsPrimCFloat))
+      (Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "a",
+                  nameHsIdent = Identifier "a"})
+              (TypeComplex
+                (PrimFloating PrimFloat)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "b",
+                  nameHsIdent = Identifier "b"})
+              (TypeComplex
+                (PrimFloating PrimFloat))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeComplex
+            (PrimFloating PrimFloat)})
+      (Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just
@@ -1084,9 +1216,7 @@
                 ["hsb_complex_test.h"],
               headerInclude =
               "hsb_complex_test.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
+          commentChildren = []})),
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -1098,25 +1228,15 @@
             (Name "@NsVar" "a"),
           functionParameterType = HsPtr
             (HsComplexType HsPrimCDouble),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "a",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}},
+          functionParameterComment =
+          Nothing},
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "b"),
           functionParameterType = HsPtr
             (HsComplexType HsPrimCDouble),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "b",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}}],
+          functionParameterComment =
+          Nothing}],
       foreignImportResultType =
       HeapResultType
         (HsPtr
@@ -1152,7 +1272,61 @@
             ImpureFunction,
           functionRes = TypeComplex
             (PrimFloating PrimDouble)},
-      foreignImportComment = Just
+      foreignImportComment = Nothing,
+      foreignImportSafety = Unsafe},
+  DeclFunction
+    (FunctionDecl
+      (Name "@NsVar" "add_complex")
+      [
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "a"),
+          functionParameterType =
+          HsComplexType HsPrimCDouble,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "a",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "b"),
+          functionParameterType =
+          HsComplexType HsPrimCDouble,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "b",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}]
+      (HsIO
+        (HsComplexType HsPrimCDouble))
+      (Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "a",
+                  nameHsIdent = Identifier "a"})
+              (TypeComplex
+                (PrimFloating PrimDouble)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "b",
+                  nameHsIdent = Identifier "b"})
+              (TypeComplex
+                (PrimFloating PrimDouble))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeComplex
+            (PrimFloating PrimDouble)})
+      (Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just
@@ -1165,9 +1339,7 @@
                 ["hsb_complex_test.h"],
               headerInclude =
               "hsb_complex_test.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
+          commentChildren = []})),
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name

@@ -569,7 +569,9 @@ __defined at:__ @doxygen_docs.h:282:13@
 
 __exported by:__ @doxygen_docs.h@
 -}
-get_data_union_t_as_int :: Data_union_t -> HsBindgen.Runtime.Prelude.Int32
+get_data_union_t_as_int
+  :: Data_union_t
+  -> HsBindgen.Runtime.Prelude.Int32
 get_data_union_t_as_int =
   HsBindgen.Runtime.ByteArray.getUnionPayload
 
@@ -578,7 +580,9 @@ get_data_union_t_as_int =
   __See:__ 'get_data_union_t_as_int'
 
 -}
-set_data_union_t_as_int :: HsBindgen.Runtime.Prelude.Int32 -> Data_union_t
+set_data_union_t_as_int
+  :: HsBindgen.Runtime.Prelude.Int32
+  -> Data_union_t
 set_data_union_t_as_int =
   HsBindgen.Runtime.ByteArray.setUnionPayload
 
@@ -594,7 +598,9 @@ __defined at:__ @doxygen_docs.h:283:11@
 
 __exported by:__ @doxygen_docs.h@
 -}
-get_data_union_t_as_float :: Data_union_t -> FC.CFloat
+get_data_union_t_as_float
+  :: Data_union_t
+  -> FC.CFloat
 get_data_union_t_as_float =
   HsBindgen.Runtime.ByteArray.getUnionPayload
 
@@ -603,7 +609,9 @@ get_data_union_t_as_float =
   __See:__ 'get_data_union_t_as_float'
 
 -}
-set_data_union_t_as_float :: FC.CFloat -> Data_union_t
+set_data_union_t_as_float
+  :: FC.CFloat
+  -> Data_union_t
 set_data_union_t_as_float =
   HsBindgen.Runtime.ByteArray.setUnionPayload
 
@@ -619,7 +627,9 @@ __defined at:__ @doxygen_docs.h:284:13@
 
 __exported by:__ @doxygen_docs.h@
 -}
-get_data_union_t_as_bytes :: Data_union_t -> (HsBindgen.Runtime.ConstantArray.ConstantArray 4) HsBindgen.Runtime.Prelude.Word8
+get_data_union_t_as_bytes
+  :: Data_union_t
+  -> (HsBindgen.Runtime.ConstantArray.ConstantArray 4) HsBindgen.Runtime.Prelude.Word8
 get_data_union_t_as_bytes =
   HsBindgen.Runtime.ByteArray.getUnionPayload
 
@@ -628,7 +638,9 @@ get_data_union_t_as_bytes =
   __See:__ 'get_data_union_t_as_bytes'
 
 -}
-set_data_union_t_as_bytes :: ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) HsBindgen.Runtime.Prelude.Word8) -> Data_union_t
+set_data_union_t_as_bytes
+  :: (HsBindgen.Runtime.ConstantArray.ConstantArray 4) HsBindgen.Runtime.Prelude.Word8
+  -> Data_union_t
 set_data_union_t_as_bytes =
   HsBindgen.Runtime.ByteArray.setUnionPayload
 
@@ -642,7 +654,9 @@ __defined at:__ @doxygen_docs.h:293:30@
 
 __exported by:__ @doxygen_docs.h@
 -}
-get_data_union_t_as_parts :: Data_union_t -> Data_union_t_as_parts
+get_data_union_t_as_parts
+  :: Data_union_t
+  -> Data_union_t_as_parts
 get_data_union_t_as_parts =
   HsBindgen.Runtime.ByteArray.getUnionPayload
 
@@ -651,7 +665,9 @@ get_data_union_t_as_parts =
   __See:__ 'get_data_union_t_as_parts'
 
 -}
-set_data_union_t_as_parts :: Data_union_t_as_parts -> Data_union_t
+set_data_union_t_as_parts
+  :: Data_union_t_as_parts
+  -> Data_union_t
 set_data_union_t_as_parts =
   HsBindgen.Runtime.ByteArray.setUnionPayload
 

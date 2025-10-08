@@ -252,24 +252,10 @@ foreign import ccall safe "hs_bindgen_test_array_2280ecc4c152a73f" isSolved
      -}
   -> IO FC.CInt
 
-{-| Array of known size
-
-__C declaration:__ @fun_1_const@
-
-__defined at:__ @array.h:149:5@
-
-__exported by:__ @array.h@
--}
 foreign import ccall safe "hs_bindgen_test_array_f1d120f83dc61db5" fun_1_const_wrapper
   :: FC.CInt
-     {- ^ __C declaration:__ @x@
-     -}
   -> Ptr.Ptr FC.CInt
-     {- ^ __C declaration:__ @xs@
-     -}
   -> Ptr.Ptr FC.CInt
-     {- ^ __C declaration:__ @ys@
-     -}
   -> IO FC.CInt
 
 {-| Array of known size
@@ -280,7 +266,17 @@ __defined at:__ @array.h:149:5@
 
 __exported by:__ @array.h@
 -}
-fun_1_const :: FC.CInt -> (Ptr.Ptr FC.CInt) -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt) -> IO FC.CInt
+fun_1_const
+  :: FC.CInt
+     {- ^ __C declaration:__ @x@
+     -}
+  -> (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
+     {- ^ __C declaration:__ @xs@
+     -}
+  -> (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt
+     {- ^ __C declaration:__ @ys@
+     -}
+  -> IO FC.CInt
 fun_1_const =
   \x0 ->
     \x1 ->
@@ -288,21 +284,9 @@ fun_1_const =
         HsBindgen.Runtime.ConstantArray.withPtr x2 (\ptr3 ->
                                                       fun_1_const_wrapper x0 x1 ptr3)
 
-{-| Array of known size, typedef
-
-__C declaration:__ @fun_2_const@
-
-__defined at:__ @array.h:152:5@
-
-__exported by:__ @array.h@
--}
 foreign import ccall safe "hs_bindgen_test_array_f15760e6f3596189" fun_2_const_wrapper
   :: Ptr.Ptr FC.CInt
-     {- ^ __C declaration:__ @xs@
-     -}
   -> Ptr.Ptr FC.CInt
-     {- ^ __C declaration:__ @ys@
-     -}
   -> IO FC.CInt
 
 {-| Array of known size, typedef
@@ -313,28 +297,23 @@ __defined at:__ @array.h:152:5@
 
 __exported by:__ @array.h@
 -}
-fun_2_const :: (Ptr.Ptr FC.CInt) -> Triplet -> IO FC.CInt
+fun_2_const
+  :: Triplet
+     {- ^ __C declaration:__ @xs@
+     -}
+  -> Triplet
+     {- ^ __C declaration:__ @ys@
+     -}
+  -> IO FC.CInt
 fun_2_const =
   \x0 ->
     \x1 ->
       HsBindgen.Runtime.ConstantArray.withPtr x1 (\ptr2 ->
                                                     fun_2_const_wrapper x0 ptr2)
 
-{-| Array of unknown size
-
-__C declaration:__ @fun_3_const@
-
-__defined at:__ @array.h:155:5@
-
-__exported by:__ @array.h@
--}
 foreign import ccall safe "hs_bindgen_test_array_0ad99f041fc4f5ca" fun_3_const_wrapper
   :: Ptr.Ptr FC.CInt
-     {- ^ __C declaration:__ @xs@
-     -}
   -> Ptr.Ptr FC.CInt
-     {- ^ __C declaration:__ @ys@
-     -}
   -> IO FC.CInt
 
 {-| Array of unknown size
@@ -345,28 +324,23 @@ __defined at:__ @array.h:155:5@
 
 __exported by:__ @array.h@
 -}
-fun_3_const :: (Ptr.Ptr FC.CInt) -> (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt) -> IO FC.CInt
+fun_3_const
+  :: HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt
+     {- ^ __C declaration:__ @xs@
+     -}
+  -> HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt
+     {- ^ __C declaration:__ @ys@
+     -}
+  -> IO FC.CInt
 fun_3_const =
   \x0 ->
     \x1 ->
       HsBindgen.Runtime.IncompleteArray.withPtr x1 (\ptr2 ->
                                                       fun_3_const_wrapper x0 ptr2)
 
-{-| Array of unknown size, typedef
-
-__C declaration:__ @fun_4_const@
-
-__defined at:__ @array.h:158:5@
-
-__exported by:__ @array.h@
--}
 foreign import ccall safe "hs_bindgen_test_array_d61f2b8777e6ca19" fun_4_const_wrapper
   :: Ptr.Ptr FC.CInt
-     {- ^ __C declaration:__ @xs@
-     -}
   -> Ptr.Ptr FC.CInt
-     {- ^ __C declaration:__ @ys@
-     -}
   -> IO FC.CInt
 
 {-| Array of unknown size, typedef
@@ -377,28 +351,23 @@ __defined at:__ @array.h:158:5@
 
 __exported by:__ @array.h@
 -}
-fun_4_const :: (Ptr.Ptr FC.CInt) -> List -> IO FC.CInt
+fun_4_const
+  :: List
+     {- ^ __C declaration:__ @xs@
+     -}
+  -> List
+     {- ^ __C declaration:__ @ys@
+     -}
+  -> IO FC.CInt
 fun_4_const =
   \x0 ->
     \x1 ->
       HsBindgen.Runtime.IncompleteArray.withPtr x1 (\ptr2 ->
                                                       fun_4_const_wrapper x0 ptr2)
 
-{-| Multi-dimensional array of known size
-
-__C declaration:__ @fun_5_const@
-
-__defined at:__ @array.h:161:5@
-
-__exported by:__ @array.h@
--}
 foreign import ccall safe "hs_bindgen_test_array_9e1f66e6a0369c45" fun_5_const_wrapper
   :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
-     {- ^ __C declaration:__ @xss@
-     -}
   -> Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
-     {- ^ __C declaration:__ @yss@
-     -}
   -> IO FC.CInt
 
 {-| Multi-dimensional array of known size
@@ -409,28 +378,23 @@ __defined at:__ @array.h:161:5@
 
 __exported by:__ @array.h@
 -}
-fun_5_const :: (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)) -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)) -> IO FC.CInt
+fun_5_const
+  :: (HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+     {- ^ __C declaration:__ @xss@
+     -}
+  -> (HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+     {- ^ __C declaration:__ @yss@
+     -}
+  -> IO FC.CInt
 fun_5_const =
   \x0 ->
     \x1 ->
       HsBindgen.Runtime.ConstantArray.withPtr x1 (\ptr2 ->
                                                     fun_5_const_wrapper x0 ptr2)
 
-{-| Multi-dimensional array of known size, typedef
-
-__C declaration:__ @fun_6_const@
-
-__defined at:__ @array.h:164:5@
-
-__exported by:__ @array.h@
--}
 foreign import ccall safe "hs_bindgen_test_array_5b4bd3c6cee83e61" fun_6_const_wrapper
   :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
-     {- ^ __C declaration:__ @xss@
-     -}
   -> Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
-     {- ^ __C declaration:__ @yss@
-     -}
   -> IO FC.CInt
 
 {-| Multi-dimensional array of known size, typedef
@@ -441,28 +405,23 @@ __defined at:__ @array.h:164:5@
 
 __exported by:__ @array.h@
 -}
-fun_6_const :: (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)) -> Matrix -> IO FC.CInt
+fun_6_const
+  :: Matrix
+     {- ^ __C declaration:__ @xss@
+     -}
+  -> Matrix
+     {- ^ __C declaration:__ @yss@
+     -}
+  -> IO FC.CInt
 fun_6_const =
   \x0 ->
     \x1 ->
       HsBindgen.Runtime.ConstantArray.withPtr x1 (\ptr2 ->
                                                     fun_6_const_wrapper x0 ptr2)
 
-{-| Multi-dimensional array of unknown size
-
-__C declaration:__ @fun_7_const@
-
-__defined at:__ @array.h:167:5@
-
-__exported by:__ @array.h@
--}
 foreign import ccall safe "hs_bindgen_test_array_b551069ce9e1f12e" fun_7_const_wrapper
   :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
-     {- ^ __C declaration:__ @xss@
-     -}
   -> Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
-     {- ^ __C declaration:__ @yss@
-     -}
   -> IO FC.CInt
 
 {-| Multi-dimensional array of unknown size
@@ -473,28 +432,23 @@ __defined at:__ @array.h:167:5@
 
 __exported by:__ @array.h@
 -}
-fun_7_const :: (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)) -> (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)) -> IO FC.CInt
+fun_7_const
+  :: HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+     {- ^ __C declaration:__ @xss@
+     -}
+  -> HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+     {- ^ __C declaration:__ @yss@
+     -}
+  -> IO FC.CInt
 fun_7_const =
   \x0 ->
     \x1 ->
       HsBindgen.Runtime.IncompleteArray.withPtr x1 (\ptr2 ->
                                                       fun_7_const_wrapper x0 ptr2)
 
-{-| Multi-dimensional array of unknown size, typedef
-
-__C declaration:__ @fun_8_const@
-
-__defined at:__ @array.h:170:5@
-
-__exported by:__ @array.h@
--}
 foreign import ccall safe "hs_bindgen_test_array_4ac495707a95aa13" fun_8_const_wrapper
   :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
-     {- ^ __C declaration:__ @xss@
-     -}
   -> Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
-     {- ^ __C declaration:__ @yss@
-     -}
   -> IO FC.CInt
 
 {-| Multi-dimensional array of unknown size, typedef
@@ -505,28 +459,23 @@ __defined at:__ @array.h:170:5@
 
 __exported by:__ @array.h@
 -}
-fun_8_const :: (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)) -> Tripletlist -> IO FC.CInt
+fun_8_const
+  :: Tripletlist
+     {- ^ __C declaration:__ @xss@
+     -}
+  -> Tripletlist
+     {- ^ __C declaration:__ @yss@
+     -}
+  -> IO FC.CInt
 fun_8_const =
   \x0 ->
     \x1 ->
       HsBindgen.Runtime.IncompleteArray.withPtr x1 (\ptr2 ->
                                                       fun_8_const_wrapper x0 ptr2)
 
-{-| Typedef-in-typedef
-
-__C declaration:__ @isSolved_const@
-
-__defined at:__ @array.h:173:5@
-
-__exported by:__ @array.h@
--}
 foreign import ccall safe "hs_bindgen_test_array_1bdcfcd7aca9a2f6" isSolved_const_wrapper
   :: Ptr.Ptr Triplet
-     {- ^ __C declaration:__ @xss@
-     -}
   -> Ptr.Ptr Triplet
-     {- ^ __C declaration:__ @yss@
-     -}
   -> IO FC.CInt
 
 {-| Typedef-in-typedef
@@ -537,7 +486,14 @@ __defined at:__ @array.h:173:5@
 
 __exported by:__ @array.h@
 -}
-isSolved_const :: (Ptr.Ptr Triplet) -> Sudoku -> IO FC.CInt
+isSolved_const
+  :: Sudoku
+     {- ^ __C declaration:__ @xss@
+     -}
+  -> Sudoku
+     {- ^ __C declaration:__ @yss@
+     -}
+  -> IO FC.CInt
 isSolved_const =
   \x0 ->
     \x1 ->

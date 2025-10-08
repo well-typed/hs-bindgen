@@ -144,7 +144,9 @@ __defined at:__ @decls_in_signature.h:20:33@
 
 __exported by:__ @decls_in_signature.h@
 -}
-get_named_union_x :: Named_union -> FC.CInt
+get_named_union_x
+  :: Named_union
+  -> FC.CInt
 get_named_union_x =
   HsBindgen.Runtime.ByteArray.getUnionPayload
 
@@ -153,7 +155,9 @@ get_named_union_x =
   __See:__ 'get_named_union_x'
 
 -}
-set_named_union_x :: FC.CInt -> Named_union
+set_named_union_x
+  :: FC.CInt
+  -> Named_union
 set_named_union_x =
   HsBindgen.Runtime.ByteArray.setUnionPayload
 
@@ -167,7 +171,9 @@ __defined at:__ @decls_in_signature.h:20:41@
 
 __exported by:__ @decls_in_signature.h@
 -}
-get_named_union_y :: Named_union -> FC.CChar
+get_named_union_y
+  :: Named_union
+  -> FC.CChar
 get_named_union_y =
   HsBindgen.Runtime.ByteArray.getUnionPayload
 
@@ -176,9 +182,17 @@ get_named_union_y =
   __See:__ 'get_named_union_y'
 
 -}
-set_named_union_y :: FC.CChar -> Named_union
+set_named_union_y
+  :: FC.CChar
+  -> Named_union
 set_named_union_y =
   HsBindgen.Runtime.ByteArray.setUnionPayload
+
+foreign import ccall safe "hs_bindgen_test_decls_in_signature_001a08d4459ec455" normal_wrapper
+  :: Ptr.Ptr Opaque
+  -> Ptr.Ptr Outside
+  -> Ptr.Ptr Outside
+  -> IO ()
 
 {-| __C declaration:__ @normal@
 
@@ -186,44 +200,24 @@ set_named_union_y =
 
     __exported by:__ @decls_in_signature.h@
 -}
-foreign import ccall safe "hs_bindgen_test_decls_in_signature_001a08d4459ec455" normal_wrapper
+normal
   :: Ptr.Ptr Opaque
      {- ^ __C declaration:__ @ptr_to_opaque@
      -}
   -> Ptr.Ptr Outside
      {- ^ __C declaration:__ @ptr_to_defined@
      -}
-  -> Ptr.Ptr Outside
+  -> Outside
      {- ^ __C declaration:__ @by_value@
      -}
   -> IO ()
-
-{-| __C declaration:__ @normal@
-
-    __defined at:__ @decls_in_signature.h:7:6@
-
-    __exported by:__ @decls_in_signature.h@
--}
-normal :: (Ptr.Ptr Opaque) -> (Ptr.Ptr Outside) -> Outside -> IO ()
 normal =
   \x0 ->
     \x1 ->
       \x2 -> F.with x2 (\y3 -> normal_wrapper x0 x1 y3)
 
-{-| Error cases
-
-  See 'UnexpectedAnonInSignature' for discussion (of both these error cases and the edge cases below).
-
-__C declaration:__ @f1@
-
-__defined at:__ @decls_in_signature.h:17:6@
-
-__exported by:__ @decls_in_signature.h@
--}
 foreign import ccall safe "hs_bindgen_test_decls_in_signature_a2f84d2570ef3892" f1_wrapper
   :: Ptr.Ptr Named_struct
-     {- ^ __C declaration:__ @arg@
-     -}
   -> IO ()
 
 {-| Error cases
@@ -236,19 +230,15 @@ __defined at:__ @decls_in_signature.h:17:6@
 
 __exported by:__ @decls_in_signature.h@
 -}
-f1 :: Named_struct -> IO ()
-f1 = \x0 -> F.with x0 (\y1 -> f1_wrapper y1)
-
-{-| __C declaration:__ @f2@
-
-    __defined at:__ @decls_in_signature.h:20:6@
-
-    __exported by:__ @decls_in_signature.h@
--}
-foreign import ccall safe "hs_bindgen_test_decls_in_signature_1d043de05a457e90" f2_wrapper
-  :: Ptr.Ptr Named_union
+f1
+  :: Named_struct
      {- ^ __C declaration:__ @arg@
      -}
+  -> IO ()
+f1 = \x0 -> F.with x0 (\y1 -> f1_wrapper y1)
+
+foreign import ccall safe "hs_bindgen_test_decls_in_signature_1d043de05a457e90" f2_wrapper
+  :: Ptr.Ptr Named_union
   -> IO ()
 
 {-| __C declaration:__ @f2@
@@ -257,7 +247,11 @@ foreign import ccall safe "hs_bindgen_test_decls_in_signature_1d043de05a457e90" 
 
     __exported by:__ @decls_in_signature.h@
 -}
-f2 :: Named_union -> IO ()
+f2
+  :: Named_union
+     {- ^ __C declaration:__ @arg@
+     -}
+  -> IO ()
 f2 = \x0 -> F.with x0 (\y1 -> f2_wrapper y1)
 
 foreign import ccall unsafe "hs_bindgen_test_decls_in_signature_b040d51578b7b05e" hs_bindgen_test_decls_in_signature_b040d51578b7b05e

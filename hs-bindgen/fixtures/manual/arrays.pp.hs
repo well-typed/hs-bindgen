@@ -56,19 +56,9 @@ newtype Triplet_ptrs = Triplet_ptrs
   }
   deriving stock (Eq, Show)
 
-{-| __C declaration:__ @transpose@
-
-    __defined at:__ @manual\/arrays.h:36:6@
-
-    __exported by:__ @manual\/arrays.h@
--}
 foreign import ccall safe "hs_bindgen_test_manualarrays_f3d0c8dd1a83b3d0" transpose_wrapper
   :: Ptr.Ptr Triplet
-     {- ^ __C declaration:__ @input@
-     -}
   -> Ptr.Ptr Triplet
-     {- ^ __C declaration:__ @output@
-     -}
   -> IO ()
 
 {-| __C declaration:__ @transpose@
@@ -77,7 +67,14 @@ foreign import ccall safe "hs_bindgen_test_manualarrays_f3d0c8dd1a83b3d0" transp
 
     __exported by:__ @manual\/arrays.h@
 -}
-transpose :: Matrix -> (Ptr.Ptr Triplet) -> IO ()
+transpose
+  :: Matrix
+     {- ^ __C declaration:__ @input@
+     -}
+  -> Matrix
+     {- ^ __C declaration:__ @output@
+     -}
+  -> IO ()
 transpose =
   \x0 ->
     \x1 ->

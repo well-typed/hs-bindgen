@@ -1637,14 +1637,8 @@
               (Name
                 "@NsTypeConstr"
                 "Opaque")),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just
-                "ptr_to_opaque",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}},
+          functionParameterComment =
+          Nothing},
         FunctionParameter {
           functionParameterName = Just
             (Name
@@ -1655,14 +1649,8 @@
               (Name
                 "@NsTypeConstr"
                 "Outside")),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just
-                "ptr_to_defined",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}},
+          functionParameterComment =
+          Nothing},
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "by_value"),
@@ -1671,13 +1659,8 @@
               (Name
                 "@NsTypeConstr"
                 "Outside")),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "by_value",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}}],
+          functionParameterComment =
+          Nothing}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimUnit)),
@@ -1735,168 +1718,12 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "normal",
-          commentLocation = Just
-            "decls_in_signature.h:7:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["decls_in_signature.h"],
-              headerInclude =
-              "decls_in_signature.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Safe},
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = Name
-        "@NsVar"
-        "f1_wrapper",
-      foreignImportParameters = [
-        FunctionParameter {
-          functionParameterName = Just
-            (Name "@NsVar" "arg"),
-          functionParameterType = HsPtr
-            (HsTypRef
-              (Name
-                "@NsTypeConstr"
-                "Named_struct")),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "arg",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}}],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO (HsPrimType HsPrimUnit)),
-      foreignImportOrigName =
-      "hs_bindgen_test_decls_in_signature_a2f84d2570ef3892",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_decls_in_signature_a2f84d2570ef3892 (struct named_struct *arg1) { f1(*arg1); }",
-          capiWrapperImport =
-          "decls_in_signature.h"},
-      foreignImportOrigin = Function
-        Function {
-          functionArgs = [
-            _×_
-              (Just
-                NamePair {
-                  nameC = Name "arg",
-                  nameHsIdent = Identifier "arg"})
-              (TypeStruct
-                NamePair {
-                  nameC = Name "named_struct",
-                  nameHsIdent = Identifier
-                    "Named_struct"}
-                NameOriginInSource)],
-          functionAttrs =
-          FunctionAttributes
-            ImpureFunction,
-          functionRes = TypeVoid},
-      foreignImportComment =
-      Just
-        Comment {
-          commentTitle = Just
-            [TextContent "Error cases"],
-          commentOrigin = Just "f1",
-          commentLocation = Just
-            "decls_in_signature.h:17:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["decls_in_signature.h"],
-              headerInclude =
-              "decls_in_signature.h"},
-          commentChildren =
-          [
-            Paragraph
-              [
-                TextContent
-                  "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
-                TextContent
-                  "and the edge cases below)."]]},
-      foreignImportSafety = Safe},
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = Name
-        "@NsVar"
-        "f2_wrapper",
-      foreignImportParameters = [
-        FunctionParameter {
-          functionParameterName = Just
-            (Name "@NsVar" "arg"),
-          functionParameterType = HsPtr
-            (HsTypRef
-              (Name
-                "@NsTypeConstr"
-                "Named_union")),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "arg",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}}],
-      foreignImportResultType =
-      NormalResultType
-        (HsIO (HsPrimType HsPrimUnit)),
-      foreignImportOrigName =
-      "hs_bindgen_test_decls_in_signature_1d043de05a457e90",
-      foreignImportCallConv =
-      CallConvUserlandCAPI
-        UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_decls_in_signature_1d043de05a457e90 (union named_union *arg1) { f2(*arg1); }",
-          capiWrapperImport =
-          "decls_in_signature.h"},
-      foreignImportOrigin = Function
-        Function {
-          functionArgs = [
-            _×_
-              (Just
-                NamePair {
-                  nameC = Name "arg",
-                  nameHsIdent = Identifier "arg"})
-              (TypeUnion
-                NamePair {
-                  nameC = Name "named_union",
-                  nameHsIdent = Identifier
-                    "Named_union"}
-                NameOriginInSource)],
-          functionAttrs =
-          FunctionAttributes
-            ImpureFunction,
-          functionRes = TypeVoid},
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "f2",
-          commentLocation = Just
-            "decls_in_signature.h:20:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["decls_in_signature.h"],
-              headerInclude =
-              "decls_in_signature.h"},
-          commentChildren = []},
-      foreignImportSafety = Safe},
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = Name
-        "@NsVar"
-        "normal_wrapper",
-      foreignImportParameters = [
+  DeclFunction
+    (FunctionDecl
+      (Name "@NsVar" "normal")
+      [
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "ptr_to_opaque"),
@@ -1934,18 +1761,318 @@
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "by_value"),
-          functionParameterType = HsPtr
-            (HsTypRef
-              (Name
-                "@NsTypeConstr"
-                "Outside")),
+          functionParameterType = HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Outside"),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
               commentOrigin = Just "by_value",
               commentLocation = Nothing,
               commentHeaderInfo = Nothing,
-              commentChildren = []}}],
+              commentChildren = []}}]
+      (HsIO (HsPrimType HsPrimUnit))
+      (Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "ptr_to_opaque",
+                  nameHsIdent = Identifier
+                    "ptr_to_opaque"})
+              (TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "opaque",
+                    nameHsIdent = Identifier
+                      "Opaque"}
+                  NameOriginInSource)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "ptr_to_defined",
+                  nameHsIdent = Identifier
+                    "ptr_to_defined"})
+              (TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "outside",
+                    nameHsIdent = Identifier
+                      "Outside"}
+                  NameOriginInSource)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "by_value",
+                  nameHsIdent = Identifier
+                    "by_value"})
+              (TypeStruct
+                NamePair {
+                  nameC = Name "outside",
+                  nameHsIdent = Identifier
+                    "Outside"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid})
+      (Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "normal",
+          commentLocation = Just
+            "decls_in_signature.h:7:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["decls_in_signature.h"],
+              headerInclude =
+              "decls_in_signature.h"},
+          commentChildren = []})),
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "f1_wrapper",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "arg"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Named_struct")),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
+      foreignImportOrigName =
+      "hs_bindgen_test_decls_in_signature_a2f84d2570ef3892",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_decls_in_signature_a2f84d2570ef3892 (struct named_struct *arg1) { f1(*arg1); }",
+          capiWrapperImport =
+          "decls_in_signature.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg",
+                  nameHsIdent = Identifier "arg"})
+              (TypeStruct
+                NamePair {
+                  nameC = Name "named_struct",
+                  nameHsIdent = Identifier
+                    "Named_struct"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
+  DeclFunction
+    (FunctionDecl
+      (Name "@NsVar" "f1")
+      [
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "arg"),
+          functionParameterType = HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Named_struct"),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "arg",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}]
+      (HsIO (HsPrimType HsPrimUnit))
+      (Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg",
+                  nameHsIdent = Identifier "arg"})
+              (TypeStruct
+                NamePair {
+                  nameC = Name "named_struct",
+                  nameHsIdent = Identifier
+                    "Named_struct"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid})
+      (Just
+        Comment {
+          commentTitle = Just
+            [TextContent "Error cases"],
+          commentOrigin = Just "f1",
+          commentLocation = Just
+            "decls_in_signature.h:17:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["decls_in_signature.h"],
+              headerInclude =
+              "decls_in_signature.h"},
+          commentChildren =
+          [
+            Paragraph
+              [
+                TextContent
+                  "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
+                TextContent
+                  "and the edge cases below)."]]})),
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "f2_wrapper",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "arg"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Named_union")),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
+      foreignImportOrigName =
+      "hs_bindgen_test_decls_in_signature_1d043de05a457e90",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_decls_in_signature_1d043de05a457e90 (union named_union *arg1) { f2(*arg1); }",
+          capiWrapperImport =
+          "decls_in_signature.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg",
+                  nameHsIdent = Identifier "arg"})
+              (TypeUnion
+                NamePair {
+                  nameC = Name "named_union",
+                  nameHsIdent = Identifier
+                    "Named_union"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
+  DeclFunction
+    (FunctionDecl
+      (Name "@NsVar" "f2")
+      [
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "arg"),
+          functionParameterType = HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Named_union"),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "arg",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}]
+      (HsIO (HsPrimType HsPrimUnit))
+      (Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg",
+                  nameHsIdent = Identifier "arg"})
+              (TypeUnion
+                NamePair {
+                  nameC = Name "named_union",
+                  nameHsIdent = Identifier
+                    "Named_union"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid})
+      (Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "f2",
+          commentLocation = Just
+            "decls_in_signature.h:20:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["decls_in_signature.h"],
+              headerInclude =
+              "decls_in_signature.h"},
+          commentChildren = []})),
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "normal_wrapper",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "ptr_to_opaque"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Opaque")),
+          functionParameterComment =
+          Nothing},
+        FunctionParameter {
+          functionParameterName = Just
+            (Name
+              "@NsVar"
+              "ptr_to_defined"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Outside")),
+          functionParameterComment =
+          Nothing},
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "by_value"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Outside")),
+          functionParameterComment =
+          Nothing}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimUnit)),
@@ -2003,7 +2130,107 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Just
+      foreignImportComment = Nothing,
+      foreignImportSafety = Unsafe},
+  DeclFunction
+    (FunctionDecl
+      (Name "@NsVar" "normal")
+      [
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "ptr_to_opaque"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Opaque")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "ptr_to_opaque",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (Name
+              "@NsVar"
+              "ptr_to_defined"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Outside")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "ptr_to_defined",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "by_value"),
+          functionParameterType = HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Outside"),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "by_value",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}]
+      (HsIO (HsPrimType HsPrimUnit))
+      (Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "ptr_to_opaque",
+                  nameHsIdent = Identifier
+                    "ptr_to_opaque"})
+              (TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "opaque",
+                    nameHsIdent = Identifier
+                      "Opaque"}
+                  NameOriginInSource)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "ptr_to_defined",
+                  nameHsIdent = Identifier
+                    "ptr_to_defined"})
+              (TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "outside",
+                    nameHsIdent = Identifier
+                      "Outside"}
+                  NameOriginInSource)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "by_value",
+                  nameHsIdent = Identifier
+                    "by_value"})
+              (TypeStruct
+                NamePair {
+                  nameC = Name "outside",
+                  nameHsIdent = Identifier
+                    "Outside"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid})
+      (Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "normal",
@@ -2015,9 +2242,7 @@
                 ["decls_in_signature.h"],
               headerInclude =
               "decls_in_signature.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
+          commentChildren = []})),
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -2032,13 +2257,8 @@
               (Name
                 "@NsTypeConstr"
                 "Named_struct")),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "arg",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}}],
+          functionParameterComment =
+          Nothing}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimUnit)),
@@ -2069,8 +2289,46 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment =
-      Just
+      foreignImportComment = Nothing,
+      foreignImportSafety = Unsafe},
+  DeclFunction
+    (FunctionDecl
+      (Name "@NsVar" "f1")
+      [
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "arg"),
+          functionParameterType = HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Named_struct"),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "arg",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}]
+      (HsIO (HsPrimType HsPrimUnit))
+      (Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg",
+                  nameHsIdent = Identifier "arg"})
+              (TypeStruct
+                NamePair {
+                  nameC = Name "named_struct",
+                  nameHsIdent = Identifier
+                    "Named_struct"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid})
+      (Just
         Comment {
           commentTitle = Just
             [TextContent "Error cases"],
@@ -2090,9 +2348,7 @@
                 TextContent
                   "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
                 TextContent
-                  "and the edge cases below)."]]},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
+                  "and the edge cases below)."]]})),
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -2107,13 +2363,8 @@
               (Name
                 "@NsTypeConstr"
                 "Named_union")),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "arg",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}}],
+          functionParameterComment =
+          Nothing}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimUnit)),
@@ -2144,7 +2395,46 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Just
+      foreignImportComment = Nothing,
+      foreignImportSafety = Unsafe},
+  DeclFunction
+    (FunctionDecl
+      (Name "@NsVar" "f2")
+      [
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "arg"),
+          functionParameterType = HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Named_union"),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "arg",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}]
+      (HsIO (HsPrimType HsPrimUnit))
+      (Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "arg",
+                  nameHsIdent = Identifier "arg"})
+              (TypeUnion
+                NamePair {
+                  nameC = Name "named_union",
+                  nameHsIdent = Identifier
+                    "Named_union"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid})
+      (Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "f2",
@@ -2156,9 +2446,7 @@
                 ["decls_in_signature.h"],
               headerInclude =
               "decls_in_signature.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
+          commentChildren = []})),
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
