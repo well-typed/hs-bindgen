@@ -9,6 +9,7 @@ import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
 import Clang.HighLevel.Types
+
 import Clang.Paths
 
 import HsBindgen.BindingSpec (ExternalBindingSpec, PrescriptiveBindingSpec)

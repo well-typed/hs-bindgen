@@ -9,9 +9,8 @@ import Test.HsBindgen.Orphans.TreeDiff ()
 import Test.HsBindgen.Resources
 import Test.Tasty (TestTree)
 
-import HsBindgen.Frontend.AST.External qualified as C
-
 import HsBindgen
+import HsBindgen.Frontend.AST.External qualified as C
 
 {-------------------------------------------------------------------------------
   Tests

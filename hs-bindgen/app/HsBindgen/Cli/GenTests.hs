@@ -16,11 +16,10 @@ module HsBindgen.Cli.GenTests (
 import Control.Monad (void)
 import Options.Applicative hiding (info)
 
+import HsBindgen
 import HsBindgen.App
 import HsBindgen.Config
 import HsBindgen.Frontend.RootHeader
-
-import HsBindgen
 
 {-------------------------------------------------------------------------------
   CLI help

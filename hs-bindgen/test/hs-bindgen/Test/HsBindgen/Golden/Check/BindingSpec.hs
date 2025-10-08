@@ -9,11 +9,10 @@ import Test.HsBindgen.Golden.TestCase
 import Test.HsBindgen.Resources
 import Test.Tasty (TestTree)
 
+import HsBindgen
 import HsBindgen.BindingSpec.Gen qualified as BindingSpec
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Language.Haskell qualified as Hs
-
-import HsBindgen
 
 {-------------------------------------------------------------------------------
   Tests

@@ -64,6 +64,7 @@ import Data.Text qualified as Text
 import Data.Yaml.Pretty qualified
 
 import Clang.Args
+
 import Clang.Paths
 
 import HsBindgen.BindingSpec.Private.Common

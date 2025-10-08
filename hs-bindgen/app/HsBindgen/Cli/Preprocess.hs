@@ -18,13 +18,12 @@ import Data.Maybe (maybeToList)
 import GHC.Generics (Generic)
 import Options.Applicative hiding (info)
 
+import HsBindgen
 import HsBindgen.App
 import HsBindgen.Artefact
 import HsBindgen.Config
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend.RootHeader
-
-import HsBindgen
 
 {-------------------------------------------------------------------------------
   CLI help

@@ -65,6 +65,7 @@ import Data.Type.Nat (SNat, SNatI, snat)
 import Data.Type.Nat qualified as Nat
 
 import C.Char qualified as CExpr.Runtime
+
 import C.Expr.Syntax qualified as CExpr.DSL
 
 import HsBindgen.Backend.Hs.AST.SigmaType

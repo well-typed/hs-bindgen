@@ -33,6 +33,7 @@ import Test.Tasty (TestName)
 
 import Clang.HighLevel.Types qualified as Clang
 
+import HsBindgen
 import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.BindingSpec
 import HsBindgen.Config.ClangArgs
@@ -42,8 +43,6 @@ import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
-
-import HsBindgen
 
 {-------------------------------------------------------------------------------
   Definition

@@ -11,10 +11,9 @@ import Test.HsBindgen.Golden.TestCase
 import Test.HsBindgen.Resources
 import Test.Tasty
 
+import HsBindgen
 import HsBindgen.Imports
 import HsBindgen.TH.Internal
-
-import HsBindgen
 
 {-------------------------------------------------------------------------------
   Tests

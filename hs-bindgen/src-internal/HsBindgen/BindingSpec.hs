@@ -47,6 +47,7 @@ import Data.ByteString.Lazy qualified as BSL
 import Data.Map.Strict qualified as Map
 
 import Clang.Args (ClangArgs)
+
 import Clang.Paths (SourcePath)
 
 import HsBindgen.BindingSpec.Private.Common qualified as Common

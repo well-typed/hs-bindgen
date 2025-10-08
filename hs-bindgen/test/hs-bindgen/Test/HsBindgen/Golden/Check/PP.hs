@@ -8,9 +8,8 @@ import Test.HsBindgen.Golden.TestCase
 import Test.HsBindgen.Resources
 import Test.Tasty
 
-import HsBindgen.Backend.SHs.AST (Safety (Safe))
-
 import HsBindgen
+import HsBindgen.Backend.SHs.AST (Safety (Safe))
 
 {-------------------------------------------------------------------------------
   Tests

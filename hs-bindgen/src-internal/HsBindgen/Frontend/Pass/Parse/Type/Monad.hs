@@ -24,6 +24,7 @@ import Text.SimplePrettyPrint ((><))
 import Text.SimplePrettyPrint qualified as PP
 
 import Clang.Enum.Simple
+
 import Clang.LowLevel.Core
 
 import HsBindgen.Errors

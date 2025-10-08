@@ -20,6 +20,7 @@ import System.FilePath ((</>))
 
 import Clang.Paths
 
+import HsBindgen
 import HsBindgen.Backend.Extensions
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Translation
@@ -35,8 +36,6 @@ import HsBindgen.Guasi
 import HsBindgen.Imports
 import HsBindgen.Util.TH
 import HsBindgen.Util.Tracer
-
-import HsBindgen
 
 {-------------------------------------------------------------------------------
   Template Haskell API

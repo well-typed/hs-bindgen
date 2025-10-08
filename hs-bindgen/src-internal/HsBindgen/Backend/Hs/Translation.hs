@@ -5,6 +5,7 @@ module HsBindgen.Backend.Hs.Translation (
   ) where
 
 import Control.Monad.State qualified as State
+import Crypto.Hash.SHA256 (hash)
 import Data.ByteString (ByteString)
 import Data.ByteString.Base16 qualified as B16
 import Data.ByteString.Char8 qualified as B
@@ -21,11 +22,11 @@ import GHC.Exts qualified as IsList (IsList (..))
 import GHC.Unicode (isDigit)
 
 import C.Char qualified as CExpr.Runtime
+
 import C.Expr.Syntax qualified as CExpr.DSL
 import C.Expr.Typecheck.Type qualified as CExpr.DSL
-import C.Type qualified as CExpr.Runtime
 
-import Crypto.Hash.SHA256 (hash)
+import C.Type qualified as CExpr.Runtime
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
