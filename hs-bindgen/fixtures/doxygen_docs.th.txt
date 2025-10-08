@@ -1204,22 +1204,6 @@ __exported by:__ @doxygen_docs.h@
 -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_e655a7662e006c99" versioned_function :: CInt ->
                                                                                                 IO CInt
-{-|
-
-  Static array parameter
-
-  [__@buffer@ /(input)/__]: Buffer with minimum size
-
-  [__@size@ /(input)/__]: Actual buffer size
-
-  __returns:__ Number of bytes written
-
-__C declaration:__ @process_buffer@
-
-__defined at:__ @doxygen_docs.h:332:5@
-
-__exported by:__ @doxygen_docs.h@
--}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_d8a2703f133ce8c2" process_buffer_wrapper :: Ptr CChar ->
                                                                                                     HsBindgen.Runtime.Prelude.CSize ->
                                                                                                     IO CInt
@@ -1608,22 +1592,6 @@ __exported by:__ @doxygen_docs.h@
 -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_7760ce72dbe3dbbb" versioned_function :: CInt ->
                                                                                                 IO CInt
-{-|
-
-  Static array parameter
-
-  [__@buffer@ /(input)/__]: Buffer with minimum size
-
-  [__@size@ /(input)/__]: Actual buffer size
-
-  __returns:__ Number of bytes written
-
-__C declaration:__ @process_buffer@
-
-__defined at:__ @doxygen_docs.h:332:5@
-
-__exported by:__ @doxygen_docs.h@
--}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_75f51ea0caca0775" process_buffer_wrapper :: Ptr CChar ->
                                                                                                     HsBindgen.Runtime.Prelude.CSize ->
                                                                                                     IO CInt

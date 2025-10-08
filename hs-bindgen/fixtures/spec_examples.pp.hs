@@ -205,28 +205,12 @@ instance F.Storable A where
             >> F.pokeByteOff ptr0 (144 :: Int) a_b5
             >> F.pokeByteOff ptr0 (144 :: Int) a_c6
 
-{-| __C declaration:__ @resample@
-
-    __defined at:__ @spec_examples.h:31:6@
-
-    __exported by:__ @spec_examples.h@
--}
 foreign import ccall safe "hs_bindgen_test_spec_examples_7d4128962cfce15d" resample_wrapper
   :: Ptr.Ptr Int32_T
-     {- ^ __C declaration:__ @res_m_num_valid_samples@
-     -}
   -> Ptr.Ptr Cint16_T
-     {- ^ __C declaration:__ @res_m_iq_int@
-     -}
   -> Int64_T
-     {- ^ __C declaration:__ @res_m_old_rate@
-     -}
   -> Int64_T
-     {- ^ __C declaration:__ @res_m_new_rate@
-     -}
   -> Ptr.Ptr Cint16_T
-     {- ^ __C declaration:__ @res_m_iq_resampled_int@
-     -}
   -> IO ()
 
 {-| __C declaration:__ @resample@
@@ -235,7 +219,23 @@ foreign import ccall safe "hs_bindgen_test_spec_examples_7d4128962cfce15d" resam
 
     __exported by:__ @spec_examples.h@
 -}
-resample :: (Ptr.Ptr Int32_T) -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> Int64_T -> Int64_T -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> IO ()
+resample
+  :: Ptr.Ptr Int32_T
+     {- ^ __C declaration:__ @res_m_num_valid_samples@
+     -}
+  -> (HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T
+     {- ^ __C declaration:__ @res_m_iq_int@
+     -}
+  -> Int64_T
+     {- ^ __C declaration:__ @res_m_old_rate@
+     -}
+  -> Int64_T
+     {- ^ __C declaration:__ @res_m_new_rate@
+     -}
+  -> (HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T
+     {- ^ __C declaration:__ @res_m_iq_resampled_int@
+     -}
+  -> IO ()
 resample =
   \x0 ->
     \x1 ->

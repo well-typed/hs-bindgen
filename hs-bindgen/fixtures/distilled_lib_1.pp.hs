@@ -529,22 +529,10 @@ newtype Callback_t = Callback_t
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
 
-{-| __C declaration:__ @some_fun@
-
-    __defined at:__ @distilled_lib_1.h:72:9@
-
-    __exported by:__ @distilled_lib_1.h@
--}
 foreign import ccall safe "hs_bindgen_test_distilled_lib_1_29c178c31334688f" some_fun_wrapper
   :: Ptr.Ptr A_type_t
-     {- ^ __C declaration:__ @i@
-     -}
   -> HsBindgen.Runtime.Prelude.Word32
-     {- ^ __C declaration:__ @j@
-     -}
   -> Ptr.Ptr HsBindgen.Runtime.Prelude.Word8
-     {- ^ __C declaration:__ @k@
-     -}
   -> IO HsBindgen.Runtime.Prelude.Int32
 
 {-| __C declaration:__ @some_fun@
@@ -553,7 +541,17 @@ foreign import ccall safe "hs_bindgen_test_distilled_lib_1_29c178c31334688f" som
 
     __exported by:__ @distilled_lib_1.h@
 -}
-some_fun :: (Ptr.Ptr A_type_t) -> HsBindgen.Runtime.Prelude.Word32 -> (HsBindgen.Runtime.IncompleteArray.IncompleteArray HsBindgen.Runtime.Prelude.Word8) -> IO HsBindgen.Runtime.Prelude.Int32
+some_fun
+  :: Ptr.Ptr A_type_t
+     {- ^ __C declaration:__ @i@
+     -}
+  -> HsBindgen.Runtime.Prelude.Word32
+     {- ^ __C declaration:__ @j@
+     -}
+  -> HsBindgen.Runtime.IncompleteArray.IncompleteArray HsBindgen.Runtime.Prelude.Word8
+     {- ^ __C declaration:__ @k@
+     -}
+  -> IO HsBindgen.Runtime.Prelude.Int32
 some_fun =
   \x0 ->
     \x1 ->

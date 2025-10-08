@@ -225,7 +225,9 @@ __defined at:__ @type_attributes.h:28:8@
 
 __exported by:__ @type_attributes.h@
 -}
-get_wait_status_ptr_t___ip :: Wait_status_ptr_t -> Ptr.Ptr FC.CInt
+get_wait_status_ptr_t___ip
+  :: Wait_status_ptr_t
+  -> Ptr.Ptr FC.CInt
 get_wait_status_ptr_t___ip =
   HsBindgen.Runtime.ByteArray.getUnionPayload
 
@@ -234,7 +236,9 @@ get_wait_status_ptr_t___ip =
   __See:__ 'get_wait_status_ptr_t___ip'
 
 -}
-set_wait_status_ptr_t___ip :: (Ptr.Ptr FC.CInt) -> Wait_status_ptr_t
+set_wait_status_ptr_t___ip
+  :: Ptr.Ptr FC.CInt
+  -> Wait_status_ptr_t
 set_wait_status_ptr_t___ip =
   HsBindgen.Runtime.ByteArray.setUnionPayload
 
@@ -248,7 +252,9 @@ __defined at:__ @type_attributes.h:29:15@
 
 __exported by:__ @type_attributes.h@
 -}
-get_wait_status_ptr_t___up :: Wait_status_ptr_t -> Ptr.Ptr Wait
+get_wait_status_ptr_t___up
+  :: Wait_status_ptr_t
+  -> Ptr.Ptr Wait
 get_wait_status_ptr_t___up =
   HsBindgen.Runtime.ByteArray.getUnionPayload
 
@@ -257,7 +263,9 @@ get_wait_status_ptr_t___up =
   __See:__ 'get_wait_status_ptr_t___up'
 
 -}
-set_wait_status_ptr_t___up :: (Ptr.Ptr Wait) -> Wait_status_ptr_t
+set_wait_status_ptr_t___up
+  :: Ptr.Ptr Wait
+  -> Wait_status_ptr_t
 set_wait_status_ptr_t___up =
   HsBindgen.Runtime.ByteArray.setUnionPayload
 

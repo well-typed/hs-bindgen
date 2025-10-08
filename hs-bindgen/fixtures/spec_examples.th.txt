@@ -197,12 +197,6 @@ instance Storable A
                                      a_samples_5
                                      a_b_6
                                      a_c_7 -> pokeByteOff ptr_1 (0 :: Int) a_x_3 >> (pokeByteOff ptr_1 (8 :: Int) a_label_4 >> (pokeByteOff ptr_1 (16 :: Int) a_samples_5 >> (pokeByteOff ptr_1 (144 :: Int) a_b_6 >> pokeByteOff ptr_1 (144 :: Int) a_c_7)))
-{-| __C declaration:__ @resample@
-
-    __defined at:__ @spec_examples.h:31:6@
-
-    __exported by:__ @spec_examples.h@
--}
 foreign import ccall safe "hs_bindgen_test_spec_examples_7d4128962cfce15d" resample_wrapper :: Ptr Int32_T ->
                                                                                                Ptr Cint16_T ->
                                                                                                Int64_T ->
@@ -225,12 +219,6 @@ resample :: Ptr Int32_T ->
     __exported by:__ @spec_examples.h@
 -}
 resample = \x_0 -> \x_1 -> \x_2 -> \x_3 -> \x_4 -> withPtr x_4 (\ptr_5 -> withPtr x_1 (\ptr_6 -> resample_wrapper x_0 ptr_6 x_2 x_3 ptr_5))
-{-| __C declaration:__ @resample@
-
-    __defined at:__ @spec_examples.h:31:6@
-
-    __exported by:__ @spec_examples.h@
--}
 foreign import ccall safe "hs_bindgen_test_spec_examples_f31d4400b3244637" resample_wrapper :: Ptr Int32_T ->
                                                                                                Ptr Cint16_T ->
                                                                                                Int64_T ->

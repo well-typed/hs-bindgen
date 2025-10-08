@@ -82,7 +82,9 @@ __defined at:__ @manual\/function_pointers.h:42:16@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
-get_apply1Union_apply1_nopointer_union_field :: Apply1Union -> Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> FC.CInt -> IO FC.CInt)
+get_apply1Union_apply1_nopointer_union_field
+  :: Apply1Union
+  -> Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> FC.CInt -> IO FC.CInt)
 get_apply1Union_apply1_nopointer_union_field =
   HsBindgen.Runtime.ByteArray.getUnionPayload
 
@@ -91,7 +93,9 @@ get_apply1Union_apply1_nopointer_union_field =
   __See:__ 'get_apply1Union_apply1_nopointer_union_field'
 
 -}
-set_apply1Union_apply1_nopointer_union_field :: (Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> FC.CInt -> IO FC.CInt)) -> Apply1Union
+set_apply1Union_apply1_nopointer_union_field
+  :: Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> FC.CInt -> IO FC.CInt)
+  -> Apply1Union
 set_apply1Union_apply1_nopointer_union_field =
   HsBindgen.Runtime.ByteArray.setUnionPayload
 
