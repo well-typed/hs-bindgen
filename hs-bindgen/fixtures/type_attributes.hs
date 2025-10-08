@@ -2733,48 +2733,6 @@
         "My_packed_struct",
       deriveInstanceComment =
       Nothing},
-  DeclEmpty
-    EmptyData {
-      emptyDataName = Name
-        "@NsTypeConstr"
-        "Wait",
-      emptyDataOrigin = Decl {
-        declInfo = DeclInfo {
-          declLoc =
-          "type_attributes.h:29:9",
-          declId = NamePair {
-            nameC = Name "wait",
-            nameHsIdent = Identifier
-              "Wait"},
-          declOrigin = NameOriginInSource,
-          declAliases = [],
-          declHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["type_attributes.h"],
-              headerInclude =
-              "type_attributes.h"},
-          declComment = Nothing},
-        declKind = OpaqueUnion,
-        declSpec = DeclSpec
-          TypeSpec {
-            typeSpecModule = Nothing,
-            typeSpecIdentifier = Nothing,
-            typeSpecInstances = Map.fromList
-              []}},
-      emptyDataComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "wait",
-          commentLocation = Just
-            "type_attributes.h:29:9",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["type_attributes.h"],
-              headerInclude =
-              "type_attributes.h"},
-          commentChildren = []}},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -2984,6 +2942,48 @@
                 Bold [TextContent "See:"],
                 Identifier
                   "get_wait_status_ptr_t___up"]]}},
+  DeclEmpty
+    EmptyData {
+      emptyDataName = Name
+        "@NsTypeConstr"
+        "Wait",
+      emptyDataOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "type_attributes.h:29:9",
+          declId = NamePair {
+            nameC = Name "wait",
+            nameHsIdent = Identifier
+              "Wait"},
+          declOrigin = NameOriginInSource,
+          declAliases = [],
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["type_attributes.h"],
+              headerInclude =
+              "type_attributes.h"},
+          declComment = Nothing},
+        declKind = OpaqueUnion,
+        declSpec = DeclSpec
+          TypeSpec {
+            typeSpecModule = Nothing,
+            typeSpecIdentifier = Nothing,
+            typeSpecInstances = Map.fromList
+              []}},
+      emptyDataComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "wait",
+          commentLocation = Just
+            "type_attributes.h:29:9",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["type_attributes.h"],
+              headerInclude =
+              "type_attributes.h"},
+          commentChildren = []}},
   DeclNewtype
     Newtype {
       newtypeName = Name

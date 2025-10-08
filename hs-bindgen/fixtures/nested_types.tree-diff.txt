@@ -240,6 +240,67 @@ TranslationUnit {
             []}},
     Decl {
       declInfo = DeclInfo {
+        declLoc = "nested_types.h:22:8",
+        declId = NamePair {
+          nameC = Name "ex4_odd",
+          nameHsIdent = Identifier
+            "Ex4_odd"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["nested_types.h"],
+            headerInclude =
+            "nested_types.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "Ex4_odd"),
+          structSizeof = 16,
+          structAlignment = 8,
+          structFields = [
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "nested_types.h:23:9",
+                fieldName = NamePair {
+                  nameC = Name "value",
+                  nameHsIdent = Identifier
+                    "ex4_odd_value"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "nested_types.h:27:8",
+                fieldName = NamePair {
+                  nameC = Name "next",
+                  nameHsIdent = Identifier
+                    "ex4_odd_next"},
+                fieldComment = Nothing},
+              structFieldType = TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "ex4_even",
+                    nameHsIdent = Identifier
+                      "Ex4_even"}
+                  NameOriginInSource),
+              structFieldOffset = 64,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
         declLoc =
         "nested_types.h:24:12",
         declId = NamePair {
@@ -290,67 +351,6 @@ TranslationUnit {
                     nameC = Name "ex4_odd",
                     nameHsIdent = Identifier
                       "Ex4_odd"}
-                  NameOriginInSource),
-              structFieldOffset = 64,
-              structFieldWidth = Nothing}],
-          structFlam = Nothing},
-      declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
-    Decl {
-      declInfo = DeclInfo {
-        declLoc = "nested_types.h:22:8",
-        declId = NamePair {
-          nameC = Name "ex4_odd",
-          nameHsIdent = Identifier
-            "Ex4_odd"},
-        declOrigin = NameOriginInSource,
-        declAliases = [],
-        declHeaderInfo = Just
-          HeaderInfo {
-            headerMainHeaders = NE.fromList
-              ["nested_types.h"],
-            headerInclude =
-            "nested_types.h"},
-        declComment = Nothing},
-      declKind = DeclStruct
-        Struct {
-          structNames = RecordNames
-            (Name "@NsConstr" "Ex4_odd"),
-          structSizeof = 16,
-          structAlignment = 8,
-          structFields = [
-            StructField {
-              structFieldInfo = FieldInfo {
-                fieldLoc =
-                "nested_types.h:23:9",
-                fieldName = NamePair {
-                  nameC = Name "value",
-                  nameHsIdent = Identifier
-                    "ex4_odd_value"},
-                fieldComment = Nothing},
-              structFieldType = TypePrim
-                (PrimIntegral PrimInt Signed),
-              structFieldOffset = 0,
-              structFieldWidth = Nothing},
-            StructField {
-              structFieldInfo = FieldInfo {
-                fieldLoc =
-                "nested_types.h:27:8",
-                fieldName = NamePair {
-                  nameC = Name "next",
-                  nameHsIdent = Identifier
-                    "ex4_odd_next"},
-                fieldComment = Nothing},
-              structFieldType = TypePointer
-                (TypeStruct
-                  NamePair {
-                    nameC = Name "ex4_even",
-                    nameHsIdent = Identifier
-                      "Ex4_even"}
                   NameOriginInSource),
               structFieldOffset = 64,
               structFieldWidth = Nothing}],

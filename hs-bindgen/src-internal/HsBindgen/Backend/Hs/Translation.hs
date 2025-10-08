@@ -180,7 +180,8 @@ generateDeclarations' opts haddockConfig moduleName decs =
 type InstanceMap = Map (Hs.Name Hs.NsTypeConstr) (Set Hs.TypeClass)
 
 getInstances ::
-     InstanceMap             -- ^ Current state
+     HasCallStack
+  => InstanceMap             -- ^ Current state
   -> Hs.Name Hs.NsTypeConstr -- ^ Name of current type
   -> Set Hs.TypeClass        -- ^ Candidate instances
   -> [HsType]                -- ^ Dependencies
@@ -982,7 +983,7 @@ typedefDecs opts haddockConfig typedefs info typedef spec = do
 --
 -- TODO https://github.com/well-typed/hs-bindgen/issues/1050: Should we panic on
 -- unbound typedefs?
-getUnderlyingType :: Map C.Name C.Type -> C.Type -> C.Type
+getUnderlyingType :: HasCallStack => Map C.Name C.Type -> C.Type -> C.Type
 getUnderlyingType typedefs = go
   where
     go (C.TypeTypedef ref) = case ref of
@@ -1265,7 +1266,8 @@ wrapperDecl innerName wrapperName res args
     callArgs tys ids = toList (zipWithEnv f tys ids) where f ty idx = if isWrappedHeap ty then PC.DeRef (PC.Var idx) else PC.Var idx
 
 hsWrapperDecl
-    :: Map C.Name C.Type
+    :: HasCallStack
+    => Map C.Name C.Type
     -> Hs.Name Hs.NsVar   -- ^ haskell name
     -> Hs.Name Hs.NsVar   -- ^ low-level import name
     -> WrappedType    -- ^ result type
@@ -1361,7 +1363,8 @@ shsApps :: SHs.SExpr ctx -> [SHs.SExpr ctx] -> SHs.SExpr ctx
 shsApps = foldl' SHs.EApp
 
 functionDecs ::
-     SHs.Safety
+     HasCallStack
+  => SHs.Safety
   -> TranslationOpts
   -> HaddockConfig
   -> Hs.ModuleName
@@ -1477,7 +1480,7 @@ functionDecs safety opts haddockConfig moduleName typedefs info f _spec =
     wrapperName = unUniqueSymbolId $
       getUniqueSymbolId (translationUniqueId opts) moduleName (Just safety) innerName
 
-getMainHashIncludeArg :: C.DeclInfo -> HashIncludeArg
+getMainHashIncludeArg :: HasCallStack => C.DeclInfo -> HashIncludeArg
 getMainHashIncludeArg declInfo = case C.declHeaderInfo declInfo of
     Nothing -> panicPure "no main header for builtin"
     Just C.HeaderInfo{headerMainHeaders} -> NonEmpty.head headerMainHeaders
@@ -1749,7 +1752,8 @@ macroVarDecs haddockConfig info macroExpr = [
     hsVarName :: Hs.Name Hs.NsVar
     hsVarName = C.nameHs (C.declId info)
 
-quantTyHsTy :: CExpr.DSL.Quant ( CExpr.DSL.Type CExpr.DSL.Ty ) -> Hs.SigmaType
+quantTyHsTy :: HasCallStack
+  => CExpr.DSL.Quant ( CExpr.DSL.Type CExpr.DSL.Ty ) -> Hs.SigmaType
 quantTyHsTy qty@(CExpr.DSL.Quant @kis _) =
   case CExpr.DSL.mkQuantTyBody qty of
     CExpr.DSL.QuantTyBody { quantTyQuant = cts, quantTyBody = ty } -> do
@@ -1866,7 +1870,7 @@ macroExprHsExpr = goExpr where
 -- | Construct Haskell name for macro
 --
 -- TODO: This should be done as part of the NameMangler frontend pass.
-macroName :: CExpr.DSL.Name -> Hs.Name Hs.NsVar
+macroName :: HasCallStack => CExpr.DSL.Name -> Hs.Name Hs.NsVar
 macroName (CExpr.DSL.Name cName) =
     case FixCandidate.fixCandidate fix cName of
       Just hsName -> hsName

@@ -113,7 +113,10 @@ toDecls index (Wrap graph) =
     -- without a corresponding entry in 'useDeclIndex': for example, this can
     -- happen when we areusing external binding specifications.
     mapMaybe (`DeclIndex.lookup` index) . DynGraph.postorderForest $
-      DynGraph.dff graph
+      DynGraph.dff $ DynGraph.filterEdges usedByVal graph
+  where
+    usedByVal :: Usage -> Bool
+    usedByVal = (== ByValue) . usageMode
 
 getTransitiveDeps :: UseDeclGraph -> [C.NsPrelimDeclId] -> Set C.NsPrelimDeclId
 getTransitiveDeps = DynGraph.reaches . unwrap

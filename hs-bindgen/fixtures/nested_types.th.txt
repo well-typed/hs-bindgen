@@ -135,41 +135,6 @@ instance Storable Ex3
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Ex3 ex3_ex3_struct_3
                                        ex3_ex3_c_4 -> pokeByteOff ptr_1 (0 :: Int) ex3_ex3_struct_3 >> pokeByteOff ptr_1 (8 :: Int) ex3_ex3_c_4
-{-| __C declaration:__ @ex4_even@
-
-    __defined at:__ @nested_types.h:24:12@
-
-    __exported by:__ @nested_types.h@
--}
-data Ex4_even
-    = Ex4_even {ex4_even_value :: CDouble
-                {- ^ __C declaration:__ @value@
-
-                     __defined at:__ @nested_types.h:25:16@
-
-                     __exported by:__ @nested_types.h@
-                -},
-                ex4_even_next :: (Ptr Ex4_odd)
-                {- ^ __C declaration:__ @next@
-
-                     __defined at:__ @nested_types.h:26:25@
-
-                     __exported by:__ @nested_types.h@
-                -}}
-      {- ^ __C declaration:__ @ex4_even@
-
-           __defined at:__ @nested_types.h:24:12@
-
-           __exported by:__ @nested_types.h@
-      -}
-    deriving stock (Eq, Show)
-instance Storable Ex4_even
-    where sizeOf = \_ -> 16 :: Int
-          alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> (pure Ex4_even <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int)
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Ex4_even ex4_even_value_3
-                                            ex4_even_next_4 -> pokeByteOff ptr_1 (0 :: Int) ex4_even_value_3 >> pokeByteOff ptr_1 (8 :: Int) ex4_even_next_4
 {-| __C declaration:__ @ex4_odd@
 
     __defined at:__ @nested_types.h:22:8@
@@ -205,3 +170,38 @@ instance Storable Ex4_odd
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Ex4_odd ex4_odd_value_3
                                            ex4_odd_next_4 -> pokeByteOff ptr_1 (0 :: Int) ex4_odd_value_3 >> pokeByteOff ptr_1 (8 :: Int) ex4_odd_next_4
+{-| __C declaration:__ @ex4_even@
+
+    __defined at:__ @nested_types.h:24:12@
+
+    __exported by:__ @nested_types.h@
+-}
+data Ex4_even
+    = Ex4_even {ex4_even_value :: CDouble
+                {- ^ __C declaration:__ @value@
+
+                     __defined at:__ @nested_types.h:25:16@
+
+                     __exported by:__ @nested_types.h@
+                -},
+                ex4_even_next :: (Ptr Ex4_odd)
+                {- ^ __C declaration:__ @next@
+
+                     __defined at:__ @nested_types.h:26:25@
+
+                     __exported by:__ @nested_types.h@
+                -}}
+      {- ^ __C declaration:__ @ex4_even@
+
+           __defined at:__ @nested_types.h:24:12@
+
+           __exported by:__ @nested_types.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable Ex4_even
+    where sizeOf = \_ -> 16 :: Int
+          alignment = \_ -> 8 :: Int
+          peek = \ptr_0 -> (pure Ex4_even <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Ex4_even ex4_even_value_3
+                                            ex4_even_next_4 -> pokeByteOff ptr_1 (0 :: Int) ex4_even_value_3 >> pokeByteOff ptr_1 (8 :: Int) ex4_even_next_4

@@ -126,14 +126,6 @@ instance F.Storable B where
         case s1 of
           B -> return ()
 
-{-| __C declaration:__ @C@
-
-    __defined at:__ @spec_examples.h:28:10@
-
-    __exported by:__ @spec_examples.h@
--}
-data C
-
 {-| __C declaration:__ @A@
 
     __defined at:__ @spec_examples.h:23:8@
@@ -204,6 +196,14 @@ instance F.Storable A where
             >> F.pokeByteOff ptr0 (16 :: Int) a_samples4
             >> F.pokeByteOff ptr0 (144 :: Int) a_b5
             >> F.pokeByteOff ptr0 (144 :: Int) a_c6
+
+{-| __C declaration:__ @C@
+
+    __defined at:__ @spec_examples.h:28:10@
+
+    __exported by:__ @spec_examples.h@
+-}
+data C
 
 {-| __C declaration:__ @resample@
 

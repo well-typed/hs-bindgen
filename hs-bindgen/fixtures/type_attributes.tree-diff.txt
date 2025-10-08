@@ -271,30 +271,6 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "type_attributes.h:29:9",
-        declId = NamePair {
-          nameC = Name "wait",
-          nameHsIdent = Identifier
-            "Wait"},
-        declOrigin = NameOriginInSource,
-        declAliases = [],
-        declHeaderInfo = Just
-          HeaderInfo {
-            headerMainHeaders = NE.fromList
-              ["type_attributes.h"],
-            headerInclude =
-            "type_attributes.h"},
-        declComment = Nothing},
-      declKind = DeclUnionOpaque,
-      declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
-    Decl {
-      declInfo = DeclInfo {
-        declLoc =
         "type_attributes.h:26:9",
         declId = NamePair {
           nameC = Name
@@ -352,6 +328,30 @@ TranslationUnit {
                     nameC = Name "wait",
                     nameHsIdent = Identifier "Wait"}
                   NameOriginInSource)}]},
+      declSpec = DeclSpec
+        TypeSpec {
+          typeSpecModule = Nothing,
+          typeSpecIdentifier = Nothing,
+          typeSpecInstances = Map.fromList
+            []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "type_attributes.h:29:9",
+        declId = NamePair {
+          nameC = Name "wait",
+          nameHsIdent = Identifier
+            "Wait"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["type_attributes.h"],
+            headerInclude =
+            "type_attributes.h"},
+        declComment = Nothing},
+      declKind = DeclUnionOpaque,
       declSpec = DeclSpec
         TypeSpec {
           typeSpecModule = Nothing,

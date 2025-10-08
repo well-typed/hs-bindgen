@@ -154,37 +154,6 @@ instance Storable S2
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    S2 s2_inner_3
                                       s2_d_4 -> pokeByteOff ptr_1 (0 :: Int) s2_inner_3 >> pokeByteOff ptr_1 (8 :: Int) s2_d_4
-{-| __defined at:__ @anonymous.h:25:3@
-
-    __exported by:__ @anonymous.h@
--}
-data S3_c
-    = S3_c {s3_c_a :: CInt
-            {- ^ __C declaration:__ @a@
-
-                 __defined at:__ @anonymous.h:26:9@
-
-                 __exported by:__ @anonymous.h@
-            -},
-            s3_c_b :: CInt
-            {- ^ __C declaration:__ @b@
-
-                 __defined at:__ @anonymous.h:27:9@
-
-                 __exported by:__ @anonymous.h@
-            -}}
-      {- ^ __defined at:__ @anonymous.h:25:3@
-
-           __exported by:__ @anonymous.h@
-      -}
-    deriving stock (Eq, Show)
-instance Storable S3_c
-    where sizeOf = \_ -> 8 :: Int
-          alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure S3_c <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int)
-          poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   S3_c s3_c_a_3
-                                        s3_c_b_4 -> pokeByteOff ptr_1 (0 :: Int) s3_c_a_3 >> pokeByteOff ptr_1 (4 :: Int) s3_c_b_4
 {-| __C declaration:__ @S3@
 
     __defined at:__ @anonymous.h:24:8@
@@ -220,3 +189,34 @@ instance Storable S3
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    S3 s3_c_3
                                       s3_d_4 -> pokeByteOff ptr_1 (0 :: Int) s3_c_3 >> pokeByteOff ptr_1 (8 :: Int) s3_d_4
+{-| __defined at:__ @anonymous.h:25:3@
+
+    __exported by:__ @anonymous.h@
+-}
+data S3_c
+    = S3_c {s3_c_a :: CInt
+            {- ^ __C declaration:__ @a@
+
+                 __defined at:__ @anonymous.h:26:9@
+
+                 __exported by:__ @anonymous.h@
+            -},
+            s3_c_b :: CInt
+            {- ^ __C declaration:__ @b@
+
+                 __defined at:__ @anonymous.h:27:9@
+
+                 __exported by:__ @anonymous.h@
+            -}}
+      {- ^ __defined at:__ @anonymous.h:25:3@
+
+           __exported by:__ @anonymous.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable S3_c
+    where sizeOf = \_ -> 8 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> (pure S3_c <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   S3_c s3_c_a_3
+                                        s3_c_b_4 -> pokeByteOff ptr_1 (0 :: Int) s3_c_a_3 >> pokeByteOff ptr_1 (4 :: Int) s3_c_b_4

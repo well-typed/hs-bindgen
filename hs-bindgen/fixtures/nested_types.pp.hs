@@ -182,50 +182,6 @@ instance F.Storable Ex3 where
                F.pokeByteOff ptr0 (0 :: Int) ex3_ex3_struct2
             >> F.pokeByteOff ptr0 (8 :: Int) ex3_ex3_c3
 
-{-| __C declaration:__ @ex4_even@
-
-    __defined at:__ @nested_types.h:24:12@
-
-    __exported by:__ @nested_types.h@
--}
-data Ex4_even = Ex4_even
-  { ex4_even_value :: FC.CDouble
-    {- ^ __C declaration:__ @value@
-
-         __defined at:__ @nested_types.h:25:16@
-
-         __exported by:__ @nested_types.h@
-    -}
-  , ex4_even_next :: Ptr.Ptr Ex4_odd
-    {- ^ __C declaration:__ @next@
-
-         __defined at:__ @nested_types.h:26:25@
-
-         __exported by:__ @nested_types.h@
-    -}
-  }
-  deriving stock (Eq, Show)
-
-instance F.Storable Ex4_even where
-
-  sizeOf = \_ -> (16 :: Int)
-
-  alignment = \_ -> (8 :: Int)
-
-  peek =
-    \ptr0 ->
-          pure Ex4_even
-      <*> F.peekByteOff ptr0 (0 :: Int)
-      <*> F.peekByteOff ptr0 (8 :: Int)
-
-  poke =
-    \ptr0 ->
-      \s1 ->
-        case s1 of
-          Ex4_even ex4_even_value2 ex4_even_next3 ->
-               F.pokeByteOff ptr0 (0 :: Int) ex4_even_value2
-            >> F.pokeByteOff ptr0 (8 :: Int) ex4_even_next3
-
 {-| __C declaration:__ @ex4_odd@
 
     __defined at:__ @nested_types.h:22:8@
@@ -269,3 +225,47 @@ instance F.Storable Ex4_odd where
           Ex4_odd ex4_odd_value2 ex4_odd_next3 ->
                F.pokeByteOff ptr0 (0 :: Int) ex4_odd_value2
             >> F.pokeByteOff ptr0 (8 :: Int) ex4_odd_next3
+
+{-| __C declaration:__ @ex4_even@
+
+    __defined at:__ @nested_types.h:24:12@
+
+    __exported by:__ @nested_types.h@
+-}
+data Ex4_even = Ex4_even
+  { ex4_even_value :: FC.CDouble
+    {- ^ __C declaration:__ @value@
+
+         __defined at:__ @nested_types.h:25:16@
+
+         __exported by:__ @nested_types.h@
+    -}
+  , ex4_even_next :: Ptr.Ptr Ex4_odd
+    {- ^ __C declaration:__ @next@
+
+         __defined at:__ @nested_types.h:26:25@
+
+         __exported by:__ @nested_types.h@
+    -}
+  }
+  deriving stock (Eq, Show)
+
+instance F.Storable Ex4_even where
+
+  sizeOf = \_ -> (16 :: Int)
+
+  alignment = \_ -> (8 :: Int)
+
+  peek =
+    \ptr0 ->
+          pure Ex4_even
+      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> F.peekByteOff ptr0 (8 :: Int)
+
+  poke =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          Ex4_even ex4_even_value2 ex4_even_next3 ->
+               F.pokeByteOff ptr0 (0 :: Int) ex4_even_value2
+            >> F.pokeByteOff ptr0 (8 :: Int) ex4_even_next3

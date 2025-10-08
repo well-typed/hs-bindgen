@@ -1,6 +1,7 @@
 module HsBindgen.Frontend.AST.Deps (
     Usage(..)
   , ValOrRef(..)
+  , usageMode
   , depsOfDecl
   , depsOfType
   ) where
@@ -24,6 +25,13 @@ data Usage =
 
 data ValOrRef = ByValue | ByRef
   deriving stock (Show, Eq, Ord)
+
+usageMode :: Usage -> ValOrRef
+usageMode = \case
+    (UsedInTypedef  x  ) -> x
+    (UsedInField    x _) -> x
+    (UsedInFunction x  ) -> x
+    (UsedInVar      x  ) -> x
 
 {-------------------------------------------------------------------------------
   Get all dependencies
