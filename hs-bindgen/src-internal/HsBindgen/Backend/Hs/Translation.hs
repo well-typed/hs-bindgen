@@ -1387,11 +1387,11 @@ functionDecs safety opts haddockConfig moduleName typedefs info f _spec =
     funDecl = Hs.DeclForeignImport $ Hs.ForeignImportDecl
         { foreignImportName       = importName
         , foreignImportResultType = resType
-        , foreignImportParameters = ffiParsedArgs
+        , foreignImportParameters = if areFancy then ffiParams else ffiParsedArgs
         , foreignImportOrigName   = T.pack wrapperName
         , foreignImportCallConv   = CallConvUserlandCAPI userlandCapiWrapper
         , foreignImportOrigin     = Origin.Function f
-        , foreignImportComment    = mbFFIComment <> ioComment
+        , foreignImportComment    = (if areFancy then Nothing else mbFFIComment) <> ioComment
         , foreignImportSafety     = safety
         }
 
