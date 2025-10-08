@@ -48,49 +48,41 @@ import DeBruijn (Add, Ctx, EmptyCtx, Idx)
   Backend representation
 -------------------------------------------------------------------------------}
 
+-- TODO_PR: Why do we need 'Ord'? The ordering is not particularly meaningful,
+-- is it? (I guess only to use these as keys of maps?)
+
 data Global =
+    GTypeConst TypeConst
+  | GTypeClass TypeClass
+  | GTermVar TermVar
+  | GTermConst TermConst
+  deriving stock (Eq, Ord, Show)
+
+data TypeConst =
     Tuple_type Word
-  | Tuple_constructor Word
-  | Applicative_pure
-  | Applicative_seq
-  | Monad_return
-  | Monad_seq
-  | StaticSize_class
-  | ReadRaw_class
-  | WriteRaw_class
-  | ToFunPtr_class
-  | ToFunPtr_toFunPtr
-  | FromFunPtr_class
-  | FromFunPtr_fromFunPtr
-  | Storable_class
-  | Storable_sizeOf
-  | Storable_alignment
-  | Storable_peekByteOff
-  | Storable_pokeByteOff
-  | Storable_peek
-  | Storable_poke
   | Foreign_Ptr
-  | Ptr_constructor
   | Foreign_FunPtr
   | ConstantArray
   | IncompleteArray
   | IO_type
-  | HasFlexibleArrayMember_class
-  | HasFlexibleArrayMember_offset
-  | Bitfield_peekBitOffWidth
-  | Bitfield_pokeBitOffWidth
   | CharValue_tycon
-  | CharValue_constructor
-  | CharValue_fromAddr
-  | ByteArray_setUnionPayload
-  | ByteArray_getUnionPayload
-  | CAPI_with
-  | CAPI_allocaAndPeek
-  | ConstantArray_withPtr
-  | IncompleteArray_withPtr
+  | AsCEnum_type
+  | AsSequentialCEnum_type
+  | ByteArray_type
+  | SizedByteArray_type
+  | Block_type
+  | PrimType HsPrimType
+  | ComplexType
+  deriving stock (Eq, Ord, Show)
 
-    -- Unsafe
-  | IO_unsafePerformIO
+data TypeClass =
+    StaticSize_class
+  | ReadRaw_class
+  | WriteRaw_class
+  | ToFunPtr_class
+  | FromFunPtr_class
+  | Storable_class
+  | HasFlexibleArrayMember_class
 
     -- Other type classes
   | Bits_class
@@ -105,78 +97,104 @@ data Global =
   | Num_class
   | Ord_class
   | Read_class
-  | Read_readPrec
-  | Read_readList
-  | Read_readListPrec
   | Real_class
   | RealFloat_class
   | RealFrac_class
   | Show_class
-  | Show_showsPrec
-
     -- | Primitive (unboxed) type equality
   | NomEq_class
-
   | Not_class
-  | Not_not
   | Logical_class
+  | RelEq_class
+  | RelOrd_class
+  | Plus_class
+  | Minus_class
+  | Add_class
+  | Sub_class
+  | Mult_class
+  | Div_class
+  | Rem_class
+  | Complement_class
+  | Bitwise_class
+  | Shift_class
+  | CEnum_class
+
+  | SequentialCEnum_class
+  deriving stock (Eq, Ord, Show)
+
+data TermVar =
+    Applicative_pure
+  | Applicative_seq
+  | Monad_return
+  | Monad_seq
+  | ToFunPtr_toFunPtr
+  | FromFunPtr_fromFunPtr
+  | Storable_sizeOf
+  | Storable_alignment
+  | Storable_peekByteOff
+  | Storable_pokeByteOff
+  | Storable_peek
+  | Storable_poke
+  | HasFlexibleArrayMember_offset
+  | Bitfield_peekBitOffWidth
+  | Bitfield_pokeBitOffWidth
+  | CharValue_fromAddr
+  | ByteArray_setUnionPayload
+  | ByteArray_getUnionPayload
+  | CAPI_with
+  | CAPI_allocaAndPeek
+  | ConstantArray_withPtr
+  | IncompleteArray_withPtr
+
+    -- Unsafe
+  | IO_unsafePerformIO
+
+    -- Other type classes
+  | Read_readPrec
+  | Read_readList
+  | Read_readListPrec
+  | Show_showsPrec
+  | Not_not
   | Logical_and
   | Logical_or
-  | RelEq_class
   | RelEq_eq
   | RelEq_uneq
-  | RelOrd_class
   | RelOrd_lt
   | RelOrd_le
   | RelOrd_gt
   | RelOrd_ge
-  | Plus_class
   | Plus_resTyCon
   | Plus_plus
-  | Minus_class
   | Minus_resTyCon
   | Minus_negate
-  | Add_class
   | Add_resTyCon
   | Add_add
-  | Sub_class
   | Sub_resTyCon
   | Sub_minus
-  | Mult_class
   | Mult_resTyCon
   | Mult_mult
-  | Div_class
   | Div_div
   | Div_resTyCon
-  | Rem_class
   | Rem_resTyCon
   | Rem_rem
-  | Complement_class
   | Complement_resTyCon
   | Complement_complement
-  | Bitwise_class
   | Bitwise_resTyCon
   | Bitwise_and
   | Bitwise_or
   | Bitwise_xor
-  | Shift_class
   | Shift_resTyCon
   | Shift_shiftL
   | Shift_shiftR
 
-  | CFloat_constructor
-  | CDouble_constructor
   | GHC_Float_castWord32ToFloat
   | GHC_Float_castWord64ToDouble
 
-  | NonEmpty_constructor
   | NonEmpty_singleton
   | Map_fromList
   | Read_readListDefault
   | Read_readListPrecDefault
 
-  | CEnum_class
-  | CEnumZ_tycon
   | CEnum_toCEnum
   | CEnum_fromCEnum
   | CEnum_declaredValues
@@ -184,7 +202,7 @@ data Global =
   | CEnum_readPrecUndeclared
   | CEnum_isDeclared
   | CEnum_mkDeclared
-  | SequentialCEnum_class
+
   | SequentialCEnum_minDeclaredValue
   | SequentialCEnum_maxDeclaredValue
   | CEnum_declaredValuesFromList
@@ -194,14 +212,22 @@ data Global =
   | CEnum_readPrecWrappedUndeclared
   | CEnum_seqIsDeclared
   | CEnum_seqMkDeclared
-  | AsCEnum_type
-  | AsSequentialCEnum_type
+  deriving stock (Eq, Ord, Show)
 
-  | ByteArray_type
-  | SizedByteArray_type
-  | Block_type
-  | PrimType HsPrimType
-  | ComplexType
+data TermConst =
+    Tuple_constructor Word
+  | Ptr_constructor
+  | CharValue_constructor
+
+  | CFloat_constructor
+  | CDouble_constructor
+
+  | NonEmpty_constructor
+
+  -- TODO_PR: The name of the 'CEnumZ_tycon' data constructor is confusing, or
+  -- there was/is a bug. 'CEnumZ_tycon' is a data constructor, but
+  -- 'CharValue_tycon' is a type constructor?
+  | CEnumZ_tycon
   deriving stock (Eq, Ord, Show)
 
 type ClosedExpr = SExpr EmptyCtx
