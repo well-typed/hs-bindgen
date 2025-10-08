@@ -2943,14 +2943,8 @@
               (Name
                 "@NsTypeConstr"
                 "Int32_T")),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just
-                "res_m_num_valid_samples",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}},
+          functionParameterComment =
+          Nothing},
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "res_m_iq_int"),
@@ -2959,14 +2953,8 @@
               (Name
                 "@NsTypeConstr"
                 "Cint16_T")),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just
-                "res_m_iq_int",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}},
+          functionParameterComment =
+          Nothing},
         FunctionParameter {
           functionParameterName = Just
             (Name
@@ -2976,14 +2964,8 @@
             (Name
               "@NsTypeConstr"
               "Int64_T"),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just
-                "res_m_old_rate",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}},
+          functionParameterComment =
+          Nothing},
         FunctionParameter {
           functionParameterName = Just
             (Name
@@ -2993,14 +2975,8 @@
             (Name
               "@NsTypeConstr"
               "Int64_T"),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just
-                "res_m_new_rate",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}},
+          functionParameterComment =
+          Nothing},
         FunctionParameter {
           functionParameterName = Just
             (Name
@@ -3011,14 +2987,8 @@
               (Name
                 "@NsTypeConstr"
                 "Cint16_T")),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just
-                "res_m_iq_resampled_int",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}}],
+          functionParameterComment =
+          Nothing}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimUnit)),
@@ -3115,27 +3085,12 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Just
-        Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just "resample",
-          commentLocation = Just
-            "spec_examples.h:31:6",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["spec_examples.h"],
-              headerInclude =
-              "spec_examples.h"},
-          commentChildren = []},
+      foreignImportComment = Nothing,
       foreignImportSafety = Safe},
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = Name
-        "@NsVar"
-        "resample_wrapper",
-      foreignImportParameters = [
+  DeclFunction
+    (FunctionDecl
+      (Name "@NsVar" "resample")
+      [
         FunctionParameter {
           functionParameterName = Just
             (Name
@@ -3157,7 +3112,9 @@
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "res_m_iq_int"),
-          functionParameterType = HsPtr
+          functionParameterType =
+          HsConstArray
+            30720000
             (HsTypRef
               (Name
                 "@NsTypeConstr"
@@ -3209,7 +3166,9 @@
             (Name
               "@NsVar"
               "res_m_iq_resampled_int"),
-          functionParameterType = HsPtr
+          functionParameterType =
+          HsConstArray
+            30720000
             (HsTypRef
               (Name
                 "@NsTypeConstr"
@@ -3221,7 +3180,167 @@
                 "res_m_iq_resampled_int",
               commentLocation = Nothing,
               commentHeaderInfo = Nothing,
-              commentChildren = []}}],
+              commentChildren = []}}]
+      (HsIO (HsPrimType HsPrimUnit))
+      (Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name
+                    "res_m_num_valid_samples",
+                  nameHsIdent = Identifier
+                    "res_m_num_valid_samples"})
+              (TypePointer
+                (TypeTypedef
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "int32_T",
+                      nameHsIdent = Identifier
+                        "Int32_T"}))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "res_m_iq_int",
+                  nameHsIdent = Identifier
+                    "res_m_iq_int"})
+              (TypeConstArray
+                30720000
+                (TypeTypedef
+                  (TypedefSquashed
+                    (Name "cint16_T")
+                    (TypeStruct
+                      NamePair {
+                        nameC = Name "cint16_T",
+                        nameHsIdent = Identifier
+                          "Cint16_T"}
+                      (NameOriginGenerated
+                        (AnonId
+                          "spec_examples.h:14:9")))))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "res_m_old_rate",
+                  nameHsIdent = Identifier
+                    "res_m_old_rate"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "int64_T",
+                    nameHsIdent = Identifier
+                      "Int64_T"})),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "res_m_new_rate",
+                  nameHsIdent = Identifier
+                    "res_m_new_rate"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "int64_T",
+                    nameHsIdent = Identifier
+                      "Int64_T"})),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name
+                    "res_m_iq_resampled_int",
+                  nameHsIdent = Identifier
+                    "res_m_iq_resampled_int"})
+              (TypeConstArray
+                30720000
+                (TypeTypedef
+                  (TypedefSquashed
+                    (Name "cint16_T")
+                    (TypeStruct
+                      NamePair {
+                        nameC = Name "cint16_T",
+                        nameHsIdent = Identifier
+                          "Cint16_T"}
+                      (NameOriginGenerated
+                        (AnonId
+                          "spec_examples.h:14:9"))))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid})
+      (Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "resample",
+          commentLocation = Just
+            "spec_examples.h:31:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["spec_examples.h"],
+              headerInclude =
+              "spec_examples.h"},
+          commentChildren = []})),
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "resample_wrapper",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (Name
+              "@NsVar"
+              "res_m_num_valid_samples"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Int32_T")),
+          functionParameterComment =
+          Nothing},
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "res_m_iq_int"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Cint16_T")),
+          functionParameterComment =
+          Nothing},
+        FunctionParameter {
+          functionParameterName = Just
+            (Name
+              "@NsVar"
+              "res_m_old_rate"),
+          functionParameterType = HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Int64_T"),
+          functionParameterComment =
+          Nothing},
+        FunctionParameter {
+          functionParameterName = Just
+            (Name
+              "@NsVar"
+              "res_m_new_rate"),
+          functionParameterType = HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Int64_T"),
+          functionParameterComment =
+          Nothing},
+        FunctionParameter {
+          functionParameterName = Just
+            (Name
+              "@NsVar"
+              "res_m_iq_resampled_int"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Cint16_T")),
+          functionParameterComment =
+          Nothing}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimUnit)),
@@ -3318,7 +3437,188 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Just
+      foreignImportComment = Nothing,
+      foreignImportSafety = Unsafe},
+  DeclFunction
+    (FunctionDecl
+      (Name "@NsVar" "resample")
+      [
+        FunctionParameter {
+          functionParameterName = Just
+            (Name
+              "@NsVar"
+              "res_m_num_valid_samples"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Int32_T")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "res_m_num_valid_samples",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "res_m_iq_int"),
+          functionParameterType =
+          HsConstArray
+            30720000
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Cint16_T")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "res_m_iq_int",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (Name
+              "@NsVar"
+              "res_m_old_rate"),
+          functionParameterType = HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Int64_T"),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "res_m_old_rate",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (Name
+              "@NsVar"
+              "res_m_new_rate"),
+          functionParameterType = HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Int64_T"),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "res_m_new_rate",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (Name
+              "@NsVar"
+              "res_m_iq_resampled_int"),
+          functionParameterType =
+          HsConstArray
+            30720000
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Cint16_T")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "res_m_iq_resampled_int",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}]
+      (HsIO (HsPrimType HsPrimUnit))
+      (Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name
+                    "res_m_num_valid_samples",
+                  nameHsIdent = Identifier
+                    "res_m_num_valid_samples"})
+              (TypePointer
+                (TypeTypedef
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "int32_T",
+                      nameHsIdent = Identifier
+                        "Int32_T"}))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "res_m_iq_int",
+                  nameHsIdent = Identifier
+                    "res_m_iq_int"})
+              (TypeConstArray
+                30720000
+                (TypeTypedef
+                  (TypedefSquashed
+                    (Name "cint16_T")
+                    (TypeStruct
+                      NamePair {
+                        nameC = Name "cint16_T",
+                        nameHsIdent = Identifier
+                          "Cint16_T"}
+                      (NameOriginGenerated
+                        (AnonId
+                          "spec_examples.h:14:9")))))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "res_m_old_rate",
+                  nameHsIdent = Identifier
+                    "res_m_old_rate"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "int64_T",
+                    nameHsIdent = Identifier
+                      "Int64_T"})),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "res_m_new_rate",
+                  nameHsIdent = Identifier
+                    "res_m_new_rate"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "int64_T",
+                    nameHsIdent = Identifier
+                      "Int64_T"})),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name
+                    "res_m_iq_resampled_int",
+                  nameHsIdent = Identifier
+                    "res_m_iq_resampled_int"})
+              (TypeConstArray
+                30720000
+                (TypeTypedef
+                  (TypedefSquashed
+                    (Name "cint16_T")
+                    (TypeStruct
+                      NamePair {
+                        nameC = Name "cint16_T",
+                        nameHsIdent = Identifier
+                          "Cint16_T"}
+                      (NameOriginGenerated
+                        (AnonId
+                          "spec_examples.h:14:9"))))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid})
+      (Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "resample",
@@ -3330,9 +3630,7 @@
                 ["spec_examples.h"],
               headerInclude =
               "spec_examples.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
+          commentChildren = []})),
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name

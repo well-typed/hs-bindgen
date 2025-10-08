@@ -48,6 +48,11 @@ requiredExtensions = \case
                    foreignImportParameters
         <> typeExtensions (extractResultType foreignImportResultType)
       ]
+    DFunction Function {..} -> mconcat $ [
+           foldMap (typeExtensions . functionParameterType) functionParameters
+        <> typeExtensions functionResultType
+      , Set.fromList [TH.MagicHash | isECString functionBody]
+      ]
     DPatternSynonym{} -> mconcat [
         ext TH.PatternSynonyms
       ]

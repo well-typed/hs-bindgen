@@ -160,14 +160,6 @@ instance Storable Example
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Example example_triple_3
                                            example_sudoku_4 -> pokeByteOff ptr_1 (0 :: Int) example_triple_3 >> pokeByteOff ptr_1 (12 :: Int) example_sudoku_4
-{-| Array of known size
-
-__C declaration:__ @fun_1@
-
-__defined at:__ @array.h:87:5@
-
-__exported by:__ @array.h@
--}
 foreign import ccall safe "hs_bindgen_test_array_5d1be223fd040c3b" fun_1_wrapper :: CInt ->
                                                                                     Ptr CInt ->
                                                                                     IO CInt
@@ -189,14 +181,6 @@ __defined at:__ @array.h:87:5@
 __exported by:__ @array.h@
 -}
 fun_1 = \x_0 -> \x_1 -> withPtr x_1 (\ptr_2 -> fun_1_wrapper x_0 ptr_2)
-{-| Array of known size, typedef
-
-__C declaration:__ @fun_2@
-
-__defined at:__ @array.h:90:5@
-
-__exported by:__ @array.h@
--}
 foreign import ccall safe "hs_bindgen_test_array_cabe35537b18e986" fun_2_wrapper :: Ptr CInt ->
                                                                                     IO CInt
 {-| Array of known size, typedef
@@ -217,14 +201,6 @@ __defined at:__ @array.h:90:5@
 __exported by:__ @array.h@
 -}
 fun_2 = \x_0 -> withPtr x_0 (\ptr_1 -> fun_2_wrapper ptr_1)
-{-| Array of unknown size
-
-__C declaration:__ @fun_3@
-
-__defined at:__ @array.h:93:5@
-
-__exported by:__ @array.h@
--}
 foreign import ccall safe "hs_bindgen_test_array_4cdbf10236e78984" fun_3_wrapper :: Ptr CInt ->
                                                                                     IO CInt
 {-| Array of unknown size
@@ -245,14 +221,6 @@ __defined at:__ @array.h:93:5@
 __exported by:__ @array.h@
 -}
 fun_3 = \x_0 -> withPtr x_0 (\ptr_1 -> fun_3_wrapper ptr_1)
-{-| Array of unknown size, typedef
-
-__C declaration:__ @fun_4@
-
-__defined at:__ @array.h:96:5@
-
-__exported by:__ @array.h@
--}
 foreign import ccall safe "hs_bindgen_test_array_e356c5ddb2608063" fun_4_wrapper :: Ptr CInt ->
                                                                                     IO CInt
 {-| Array of unknown size, typedef
@@ -273,14 +241,6 @@ __defined at:__ @array.h:96:5@
 __exported by:__ @array.h@
 -}
 fun_4 = \x_0 -> withPtr x_0 (\ptr_1 -> fun_4_wrapper ptr_1)
-{-| Multi-dimensional array of known size
-
-__C declaration:__ @fun_5@
-
-__defined at:__ @array.h:99:5@
-
-__exported by:__ @array.h@
--}
 foreign import ccall safe "hs_bindgen_test_array_f5ccf2c8d2e60be5" fun_5_wrapper :: Ptr (ConstantArray 3
                                                                                                        CInt) ->
                                                                                     IO CInt
@@ -302,14 +262,6 @@ __defined at:__ @array.h:99:5@
 __exported by:__ @array.h@
 -}
 fun_5 = \x_0 -> withPtr x_0 (\ptr_1 -> fun_5_wrapper ptr_1)
-{-| Multi-dimensional array of known size, typedef
-
-__C declaration:__ @fun_6@
-
-__defined at:__ @array.h:102:5@
-
-__exported by:__ @array.h@
--}
 foreign import ccall safe "hs_bindgen_test_array_2b3a983697999524" fun_6_wrapper :: Ptr (ConstantArray 3
                                                                                                        CInt) ->
                                                                                     IO CInt
@@ -331,14 +283,6 @@ __defined at:__ @array.h:102:5@
 __exported by:__ @array.h@
 -}
 fun_6 = \x_0 -> withPtr x_0 (\ptr_1 -> fun_6_wrapper ptr_1)
-{-| Multi-dimensional array of unknown size
-
-__C declaration:__ @fun_7@
-
-__defined at:__ @array.h:105:5@
-
-__exported by:__ @array.h@
--}
 foreign import ccall safe "hs_bindgen_test_array_72e9371a1b8b8907" fun_7_wrapper :: Ptr (ConstantArray 3
                                                                                                        CInt) ->
                                                                                     IO CInt
@@ -360,14 +304,6 @@ __defined at:__ @array.h:105:5@
 __exported by:__ @array.h@
 -}
 fun_7 = \x_0 -> withPtr x_0 (\ptr_1 -> fun_7_wrapper ptr_1)
-{-| Multi-dimensional array of unknown size, typedef
-
-__C declaration:__ @fun_8@
-
-__defined at:__ @array.h:108:5@
-
-__exported by:__ @array.h@
--}
 foreign import ccall safe "hs_bindgen_test_array_62ad87463d9a75de" fun_8_wrapper :: Ptr (ConstantArray 3
                                                                                                        CInt) ->
                                                                                     IO CInt
@@ -465,14 +401,6 @@ __defined at:__ @array.h:141:14@
 __exported by:__ @array.h@
 -}
 foreign import ccall safe "hs_bindgen_test_array_ca0e7c51654fef12" fun_16 :: IO (Ptr Tripletlist)
-{-| Array of known size
-
-__C declaration:__ @fun_1@
-
-__defined at:__ @array.h:87:5@
-
-__exported by:__ @array.h@
--}
 foreign import ccall safe "hs_bindgen_test_array_38d1e706888c6509" fun_1_wrapper :: CInt ->
                                                                                     Ptr CInt ->
                                                                                     IO CInt
@@ -494,14 +422,6 @@ __defined at:__ @array.h:87:5@
 __exported by:__ @array.h@
 -}
 fun_1 = \x_0 -> \x_1 -> withPtr x_1 (\ptr_2 -> fun_1_wrapper x_0 ptr_2)
-{-| Array of known size, typedef
-
-__C declaration:__ @fun_2@
-
-__defined at:__ @array.h:90:5@
-
-__exported by:__ @array.h@
--}
 foreign import ccall safe "hs_bindgen_test_array_39ee469929b167e2" fun_2_wrapper :: Ptr CInt ->
                                                                                     IO CInt
 {-| Array of known size, typedef
@@ -522,14 +442,6 @@ __defined at:__ @array.h:90:5@
 __exported by:__ @array.h@
 -}
 fun_2 = \x_0 -> withPtr x_0 (\ptr_1 -> fun_2_wrapper ptr_1)
-{-| Array of unknown size
-
-__C declaration:__ @fun_3@
-
-__defined at:__ @array.h:93:5@
-
-__exported by:__ @array.h@
--}
 foreign import ccall safe "hs_bindgen_test_array_2aa49d73d177f65b" fun_3_wrapper :: Ptr CInt ->
                                                                                     IO CInt
 {-| Array of unknown size
@@ -550,14 +462,6 @@ __defined at:__ @array.h:93:5@
 __exported by:__ @array.h@
 -}
 fun_3 = \x_0 -> withPtr x_0 (\ptr_1 -> fun_3_wrapper ptr_1)
-{-| Array of unknown size, typedef
-
-__C declaration:__ @fun_4@
-
-__defined at:__ @array.h:96:5@
-
-__exported by:__ @array.h@
--}
 foreign import ccall safe "hs_bindgen_test_array_c3b2941d43616704" fun_4_wrapper :: Ptr CInt ->
                                                                                     IO CInt
 {-| Array of unknown size, typedef
@@ -578,14 +482,6 @@ __defined at:__ @array.h:96:5@
 __exported by:__ @array.h@
 -}
 fun_4 = \x_0 -> withPtr x_0 (\ptr_1 -> fun_4_wrapper ptr_1)
-{-| Multi-dimensional array of known size
-
-__C declaration:__ @fun_5@
-
-__defined at:__ @array.h:99:5@
-
-__exported by:__ @array.h@
--}
 foreign import ccall safe "hs_bindgen_test_array_69ec2f59c3c40de4" fun_5_wrapper :: Ptr (ConstantArray 3
                                                                                                        CInt) ->
                                                                                     IO CInt
@@ -607,14 +503,6 @@ __defined at:__ @array.h:99:5@
 __exported by:__ @array.h@
 -}
 fun_5 = \x_0 -> withPtr x_0 (\ptr_1 -> fun_5_wrapper ptr_1)
-{-| Multi-dimensional array of known size, typedef
-
-__C declaration:__ @fun_6@
-
-__defined at:__ @array.h:102:5@
-
-__exported by:__ @array.h@
--}
 foreign import ccall safe "hs_bindgen_test_array_a4600c666e12a07a" fun_6_wrapper :: Ptr (ConstantArray 3
                                                                                                        CInt) ->
                                                                                     IO CInt
@@ -636,14 +524,6 @@ __defined at:__ @array.h:102:5@
 __exported by:__ @array.h@
 -}
 fun_6 = \x_0 -> withPtr x_0 (\ptr_1 -> fun_6_wrapper ptr_1)
-{-| Multi-dimensional array of unknown size
-
-__C declaration:__ @fun_7@
-
-__defined at:__ @array.h:105:5@
-
-__exported by:__ @array.h@
--}
 foreign import ccall safe "hs_bindgen_test_array_b903c9d5ebf4f21f" fun_7_wrapper :: Ptr (ConstantArray 3
                                                                                                        CInt) ->
                                                                                     IO CInt
@@ -665,14 +545,6 @@ __defined at:__ @array.h:105:5@
 __exported by:__ @array.h@
 -}
 fun_7 = \x_0 -> withPtr x_0 (\ptr_1 -> fun_7_wrapper ptr_1)
-{-| Multi-dimensional array of unknown size, typedef
-
-__C declaration:__ @fun_8@
-
-__defined at:__ @array.h:108:5@
-
-__exported by:__ @array.h@
--}
 foreign import ccall safe "hs_bindgen_test_array_88af789e5a205473" fun_8_wrapper :: Ptr (ConstantArray 3
                                                                                                        CInt) ->
                                                                                     IO CInt
