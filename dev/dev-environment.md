@@ -5,10 +5,10 @@ Linux, NixOS, and macOS.
 
 ## General Prerequisites
 
-All platforms require:
+All platforms require (last updated October 9, 2025):
 - GHC 9.4.8 or greater (or compatible version)
 - Cabal (latest version)
-- LLVM/Clang (version 16 recommended)
+- LLVM/Clang (version 14 - 21)
 
 ## Linux (Ubuntu)
 
