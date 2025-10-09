@@ -36,6 +36,7 @@ import HsBindgen.Frontend.Pass.Select
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Pass.Sort
 import HsBindgen.Frontend.Pass.Sort.IsPass
+import HsBindgen.Frontend.Pass.Sort.IsPass qualified as Sort
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.ProcessIncludes
 import HsBindgen.Frontend.RootHeader
@@ -194,11 +195,11 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
       (_, _, _, getMainHeaders) <- parsePass
       pure getMainHeaders
     frontendIndex <- cache "frontendIndex" $
-      declIndex . unitAnn <$> sortPass
+      Sort.declIndex   . unitAnn <$> sortPass
     frontendUseDeclGraph <- cache "frontendUseDeclGraph" $
-      declUseDecl . unitAnn <$> sortPass
+      Sort.declUseDecl . unitAnn <$> sortPass
     frontendDeclUseGraph <- cache "frontendDeclUseGraph" $
-      declDeclUse . unitAnn <$> sortPass
+      Sort.declDeclUse . unitAnn <$> sortPass
 
     -- Omitted types
     frontendOmitTypes <- cache "frontendOmitTypes" $

@@ -392,9 +392,10 @@ TranslationUnit {
         declLoc =
         "fun_attributes.h:46:5",
         declId = NamePair {
-          nameC = Name "old_fn",
+          nameC = Name
+            "old_fn_deprecated",
           nameHsIdent = Identifier
-            "old_fn"},
+            "old_fn_deprecated"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -421,7 +422,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:57:1",
+        "fun_attributes.h:62:1",
         declId = NamePair {
           nameC = Name "my_dgettext",
           nameHsIdent = Identifier
@@ -478,7 +479,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:68:9",
+        "fun_attributes.h:73:9",
         declId = NamePair {
           nameC = Name "fdopen",
           nameHsIdent = Identifier
@@ -530,7 +531,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:72:65",
+        "fun_attributes.h:77:65",
         declId = NamePair {
           nameC = Name "f2",
           nameHsIdent = Identifier "f2"},
@@ -559,7 +560,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:78:1",
+        "fun_attributes.h:83:1",
         declId = NamePair {
           nameC = Name "my_memcpy",
           nameHsIdent = Identifier
@@ -615,7 +616,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:95:6",
+        "fun_attributes.h:100:6",
         declId = NamePair {
           nameC = Name "fatal",
           nameHsIdent = Identifier
@@ -645,7 +646,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:103:5",
+        "fun_attributes.h:108:5",
         declId = NamePair {
           nameC = Name "hash",
           nameHsIdent = Identifier
@@ -683,7 +684,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:108:1",
+        "fun_attributes.h:113:1",
         declId = NamePair {
           nameC = Name "mymalloc",
           nameHsIdent = Identifier
@@ -725,7 +726,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:112:13",
+        "fun_attributes.h:117:13",
         declId = NamePair {
           nameC = Name "foobar",
           nameHsIdent = Identifier
@@ -755,7 +756,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:119:5",
+        "fun_attributes.h:124:5",
         declId = NamePair {
           nameC = Name "core2_func",
           nameHsIdent = Identifier
@@ -786,7 +787,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:120:5",
+        "fun_attributes.h:125:5",
         declId = NamePair {
           nameC = Name "sse3_func",
           nameHsIdent = Identifier
@@ -817,7 +818,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:124:49",
+        "fun_attributes.h:129:49",
         declId = NamePair {
           nameC = Name "f3",
           nameHsIdent = Identifier "f3"},
@@ -846,7 +847,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:125:5",
+        "fun_attributes.h:130:5",
         declId = NamePair {
           nameC = Name "i",
           nameHsIdent = Identifier "i"},
@@ -871,7 +872,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:129:5",
+        "fun_attributes.h:134:5",
         declId = NamePair {
           nameC = Name "fn",
           nameHsIdent = Identifier "fn"},
@@ -901,7 +902,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:135:12",
+        "fun_attributes.h:140:12",
         declId = NamePair {
           nameC = Name "y",
           nameHsIdent = Identifier "y"},
@@ -931,7 +932,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:138:12",
+        "fun_attributes.h:143:12",
         declId = NamePair {
           nameC = Name "x1",
           nameHsIdent = Identifier "x1"},
@@ -961,7 +962,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "fun_attributes.h:141:12",
+        "fun_attributes.h:146:12",
         declId = NamePair {
           nameC = Name "x2",
           nameHsIdent = Identifier "x2"},

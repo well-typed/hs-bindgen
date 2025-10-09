@@ -1,3 +1,4 @@
+
 module HsBindgen.Frontend.Pass.NameAnon (
     nameAnon
   ) where
@@ -16,7 +17,7 @@ import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.NameAnon.IsPass
-import HsBindgen.Frontend.Pass.Parse.IsPass (ParseMsgKey (..), mapParseMsgs)
+import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Imports
 
@@ -28,13 +29,10 @@ import HsBindgen.Imports
 nameAnon ::
       C.TranslationUnit HandleMacros
   -> (C.TranslationUnit NameAnon, [Msg NameAnon])
-nameAnon C.TranslationUnit{..} = (
+nameAnon C.TranslationUnit{unitAnn = SortDeclMeta{..}, ..} = (
       C.TranslationUnit{
           unitDecls = unitDecls'
-        , unitAnn = unitAnn {
-            declParseMsgs = mapParseMsgs (getDeclIdParseMsgKey env) $
-              declParseMsgs unitAnn
-          }
+        , unitAnn = nameAnonDeclMeta
         , ..
         }
     , msgs
@@ -46,8 +44,16 @@ nameAnon C.TranslationUnit{..} = (
 
     env :: RenameEnv
     env = RenameEnv{
-          envDeclIndex = declIndex unitAnn
-        , envDeclUse   = declDeclUse unitAnn
+          envDeclIndex = declIndex
+        , envDeclUse   = declDeclUse
+        }
+
+    nameAnonDeclMeta :: NameAnonDeclMeta
+    nameAnonDeclMeta = NameAnonDeclMeta {
+          declIndex
+        , declUseDecl
+        , declDeclUse
+        , declParseStatus = nameParseStatus env declParseStatus
         }
 
 {-------------------------------------------------------------------------------
@@ -122,18 +128,19 @@ getDeclId env nsid declId =
      C.PrelimDeclIdBuiltin name ->
        Right $ C.DeclId name C.NameOriginInSource
 
-getDeclIdParseMsgKey :: RenameEnv -> ParseMsgKey HandleMacros -> ParseMsgKey NameAnon
-getDeclIdParseMsgKey env key = key{parseMsgDeclId = declId'}
-  where
-    declId :: Id HandleMacros
-    declId = parseMsgDeclId key
+-- TODO_PR
+-- getDeclIdParseMsgKey :: RenameEnv -> ParseMsgKey HandleMacros -> ParseMsgKey NameAnon
+-- getDeclIdParseMsgKey env key = key{parseMsgDeclId = declId'}
+--   where
+--     declId :: Id HandleMacros
+--     declId = parseMsgDeclId key
 
-    nsId :: C.NsPrelimDeclId
-    nsId = C.nsPrelimDeclId declId $
-      C.nameKindTypeNamespace (parseMsgDeclKind key)
+--     nsId :: C.NsPrelimDeclId
+--     nsId = C.nsPrelimDeclId declId $
+--       C.nameKindTypeNamespace (parseMsgDeclKind key)
 
-    declId' :: Id NameAnon
-    declId' = either id id $ getDeclId env nsId declId
+--     declId' :: Id NameAnon
+--     declId' = either id id $ getDeclId env nsId declId
 
 {-------------------------------------------------------------------------------
   Use sites
@@ -279,7 +286,7 @@ instance NameUseSites C.Type where
           Nothing -> panicPure "impossible"
 
 {-------------------------------------------------------------------------------
-  ParseStatus
+  Parse status
 -------------------------------------------------------------------------------}
 
 -- | Name 'C.QualPrelimDeclId'
@@ -287,11 +294,11 @@ instance NameUseSites C.Type where
 -- This function returns 'Nothing' if the declaration is anonymous and unused.
 -- Such declarations that are parsed/reified already get 'NameAnonSkipped'
 -- messages when processing the declaration.
-_nameQualPrelimDeclId ::
+nameQualPrelimDeclId ::
      RenameEnv
   -> C.QualPrelimDeclId
   -> Maybe C.QualDeclId
-_nameQualPrelimDeclId env = \case
+nameQualPrelimDeclId env = \case
     C.QualPrelimDeclIdNamed name nameKind ->
       Just $ C.QualDeclId name C.NameOriginInSource nameKind
     C.QualPrelimDeclIdAnon anonId tagKind ->
@@ -305,15 +312,16 @@ _nameQualPrelimDeclId env = \case
     C.QualPrelimDeclIdBuiltin name ->
       Just $ C.QualDeclId name C.NameOriginBuiltin C.NameKindOrdinary
 
--- TODO implement with the newtype wrappers
-_nameParseStatus ::
+nameParseStatus ::
      RenameEnv
-  -> [(C.QualPrelimDeclId, a)]         -- TODO ParseStatusParse
-  -> Map C.QualName (C.NameOrigin, a)  -- TODO ParseStatusNameAnon
-_nameParseStatus env = Map.fromList . mapMaybe aux
+  -> ParseParseStatus
+  -> NameAnonParseStatus
+-- TODO_PR: What do we do with duplicates? Silently ignore them? There is one
+-- test case "tentative_definitions" that expects one trace twice.
+nameParseStatus env = NameAnonParseStatus . Map.fromList . mapMaybe aux . unParseParseStatus
   where
     aux :: (C.QualPrelimDeclId, a) -> Maybe (C.QualName, (C.NameOrigin, a))
-    aux (qpDeclId, x) = case _nameQualPrelimDeclId env qpDeclId of
+    aux (qpDeclId, x) = case nameQualPrelimDeclId env qpDeclId of
       Just C.QualDeclId{..} -> Just $
         (C.QualName qualDeclIdName qualDeclIdKind, (qualDeclIdOrigin, x))
       Nothing -> Nothing

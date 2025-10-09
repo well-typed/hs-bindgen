@@ -1,3 +1,5 @@
+{-# LANGUAGE OverloadedLabels #-}
+
 module HsBindgen.Frontend.Pass.ResolveBindingSpecs (
     resolveBindingSpecs
   ) where
@@ -7,6 +9,7 @@ import Control.Monad.RWS (MonadReader, MonadState, RWS)
 import Control.Monad.RWS qualified as RWS
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
+import Optics.Core ((&), (.~))
 
 import Clang.HighLevel.Types
 import Clang.Paths
@@ -20,12 +23,10 @@ import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
-import HsBindgen.Frontend.NonParsedDecls (NonParsedDecls)
-import HsBindgen.Frontend.NonParsedDecls qualified as NonParsedDecls
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.NameAnon.IsPass
+import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
-import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Monad (mapMaybeM)
@@ -51,8 +52,8 @@ resolveBindingSpecs
             extSpec
             pSpec
             unitIncludeGraph
-            (declUseDecl unitAnn)
-            (declNonParsed unitAnn)
+            (unitAnn.declUseDecl)
+            (unitAnn.declParseStatus)
             (resolveDecls unitDecls)
         notUsedErrs = ResolveBindingSpecsTypeNotUsed <$> Map.keys stateNoPTypes
     in  ( reassemble decls stateUseDecl
@@ -64,10 +65,13 @@ resolveBindingSpecs
          [C.Decl ResolveBindingSpecs]
       -> UseDeclGraph
       -> C.TranslationUnit ResolveBindingSpecs
-    reassemble decls' useDeclGraph = C.TranslationUnit{
+    reassemble decls' useDeclGraph =
+      let unitAnn' :: NameAnonDeclMeta
+          unitAnn' = unitAnn & #declUseDecl .~ useDeclGraph
+      in  C.TranslationUnit{
         unitDecls = decls'
       , unitIncludeGraph
-      , unitAnn = coerceDeclMeta $ unitAnn { declUseDecl = useDeclGraph }
+      , unitAnn = unitAnn'
       }
 
 {-------------------------------------------------------------------------------
@@ -88,11 +92,11 @@ runM ::
   -> PrescriptiveBindingSpec
   -> IncludeGraph
   -> UseDeclGraph
-  -> NonParsedDecls
+  -> NameAnonParseStatus
   -> M a
   -> (a, MState)
-runM extSpec pSpec includeGraph useDeclGraph nonParsedDecls (WrapM m) =
-    let env        = MEnv extSpec pSpec includeGraph nonParsedDecls
+runM extSpec pSpec includeGraph useDeclGraph parseStatus (WrapM m) =
+    let env        = MEnv extSpec pSpec includeGraph parseStatus
         state0     = initMState pSpec useDeclGraph
         (x, s, ()) = RWS.runRWS m env state0
     in  (x, s)
@@ -105,7 +109,7 @@ data MEnv = MEnv {
       envExtSpec        :: ExternalBindingSpec
     , envPSpec          :: PrescriptiveBindingSpec
     , envIncludeGraph   :: IncludeGraph
-    , envNonParsedDecls :: NonParsedDecls
+    , envParseStatus    :: NameAnonParseStatus
     }
   deriving (Show)
 
@@ -424,26 +428,30 @@ instance Resolve C.Type where
         RWS.ask >>= \MEnv{..} -> RWS.get >>= \MState{..} -> do
           let cQualName = C.QualName qualDeclIdName qualDeclIdKind
               nsid = C.qualDeclIdNsPrelimDeclId cQualDeclId
-          -- check for type omitted by binding specification
+          -- Check for type omitted by binding specification
           when (Map.member cQualName stateOmitTypes) $
             RWS.modify' $
               insertError (ResolveBindingSpecsOmittedTypeUse cQualName)
-          -- check for selected external binding
+          -- Check for selected external binding
           case Map.lookup cQualName stateExtTypes of
             Just ty -> return (Set.singleton nsid, ty)
-            Nothing -> do
-              -- check for external binding of non-selected type
-              case NonParsedDecls.lookup cQualName envNonParsedDecls of
-                Nothing -> return (Set.empty, mk qualDeclIdName)
-                Just sourcePath -> do
+            Nothing ->
+              -- Check for external binding of non-parsed type
+              let mStatus :: Maybe ParseStatusValue
+                  mStatus = snd <$>
+                              Map.lookup cQualName
+                                (unNameAnonParseStatus envParseStatus)
+              in case mStatus of
+                Just (ParseStatusValue loc _ (ParseNotAttempted _)) -> do
                   let declPaths =
-                        IncludeGraph.reaches envIncludeGraph sourcePath
+                        IncludeGraph.reaches envIncludeGraph loc.singleLocPath
                   resolveExtBinding cQualName declPaths >>= \case
                     Just resolved -> do
                       let ty = C.TypeExtBinding resolved
                       RWS.modify' $ insertExtType cQualName ty
                       return (Set.singleton nsid, ty)
                     Nothing -> return (Set.empty, mk qualDeclIdName)
+                _otherwise -> return (Set.empty, mk qualDeclIdName)
 
 {-------------------------------------------------------------------------------
   Internal: auxiliary functions

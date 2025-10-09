@@ -43,7 +43,7 @@ topLevelDecl = foldWithHandler handleTypeException parseDecl
       -> ParseDecl (Maybe [C.Decl Parse])
     handleTypeException curr err = do
         info <- getDeclInfo curr
-        recordDelayedTrace info contextNameKind $
+        recordFailedDecl info contextNameKind $
           ParseUnsupportedType (parseException err)
         return Nothing
       where
@@ -148,22 +148,19 @@ parseDecl = \curr -> do
           -> ParseDecl (Next ParseDecl [C.Decl Parse])
         parseWith parser kind
           | isBuiltin = do
-              -- TODO Support builtin macros (#1087)
-              let trace = ParseNotAttempted "builtin declaration" info
-              recordUnattachedTrace trace
-              recordNonParsedDecl info kind >> foldContinue
+              -- TODO: Support builtin macros (#1087)
+              recordDecl info kind (ParseNotAttempted OmittedBuiltin)
+              foldContinue
           | isUnavailable = do
-              let trace = ParseNotAttemptedUnexpected "declaration is unavailable" info
-              recordUnattachedTrace trace
-              recordNonParsedDecl info kind >> foldContinue
+              recordDecl info kind $ ParseNotAttempted DeclarationUnavailable
+              foldContinue
           | otherwise = do
               matched <- evalPredicate info
               if matched
               then parser info curr
               else do
-                let trace = ParseNotAttempted "parse predicate did not match" info
-                recordUnattachedTrace trace
-                recordNonParsedDecl info kind >> foldContinue
+                recordDecl info kind $ ParseNotAttempted ParsePredicateNotMatched
+                foldContinue
 
     dispatch curr $ \case
       -- Ordinary kinds that we parse
@@ -244,11 +241,8 @@ structDecl info = \curr -> do
                  Either [C.Decl Parse] (C.StructField Parse)]
               -> ParseDecl (Maybe ([C.Decl Parse], [C.StructField Parse]))
             partitionChildren xs
-              | null unused = return $ Just (used, fields)
-              | otherwise   = do
-                  recordDelayedTrace info (NameKindTagged TagKindStruct)
-                    ParseUnsupportedImplicitFields
-                  return Nothing
+              | null unused = pure $ Just (used, fields)
+              | otherwise   = pure Nothing
               where
                 otherDecls :: [C.Decl Parse]
                 fields     :: [C.StructField Parse]
@@ -260,10 +254,13 @@ structDecl info = \curr -> do
         foldRecurseWith (declOrFieldDecl $ structFieldDecl info) $ \xs -> do
           mPartitioned <- partitionChildren xs
           case mPartitioned of
-            Just (decls, fields) ->
+            Just (decls, fields) -> do
+              recordDecl info (NameKindTagged TagKindStruct) $ ParseSucceeded []
               return $ decls ++ [mkStruct fields]
-            Nothing ->
+            Nothing -> do
               -- If the struct has implicit fields, don't generate anything.
+              recordFailedDecl info (NameKindTagged TagKindStruct) $
+                ParseUnsupportedImplicitFields
               return []
       DefinitionUnavailable -> do
         let decl :: C.Decl Parse
@@ -309,11 +306,8 @@ unionDecl info = \curr -> do
                  [Either [C.Decl Parse] (C.UnionField Parse)]
               -> ParseDecl (Maybe ([C.Decl Parse], [C.UnionField Parse]))
             partitionChildren xs
-              | null unused = return $ Just (used, fields)
-              | otherwise   = do
-                  recordDelayedTrace info (NameKindTagged TagKindUnion)
-                    ParseUnsupportedImplicitFields
-                  return Nothing
+              | null unused = pure $ Just (used, fields)
+              | otherwise   = pure Nothing
               where
                 otherDecls :: [C.Decl Parse]
                 fields     :: [C.UnionField Parse]
@@ -325,10 +319,14 @@ unionDecl info = \curr -> do
         foldRecurseWith (declOrFieldDecl $ unionFieldDecl info) $ \xs -> do
            mPartitioned <- partitionChildren xs
            case mPartitioned of
-             Just (decls, fields) ->
+             Just (decls, fields) -> do
+               recordDecl info (NameKindTagged TagKindUnion) $
+                 ParseSucceeded []
                return $ decls ++ [mkUnion fields]
-             Nothing ->
+             Nothing -> do
                -- If the struct has implicit fields, don't generate anything.
+               recordFailedDecl info (NameKindTagged TagKindUnion) $
+                 ParseUnsupportedImplicitFields
                return []
       DefinitionUnavailable -> do
         let decl :: C.Decl Parse
@@ -507,17 +505,28 @@ functionDecl info = \curr -> do
             let isDefn = declCls == Definition
 
             if not (null anonDecls) then do
-              recordDelayedTrace info NameKindOrdinary
-                ParseUnexpectedAnonInSignature
+              -- TODO_PR: Record `anonDecls` and `otherDecls`? Comment enough,
+              -- but below we have the same problem.
+              --
+              -- We only record the failed declaration, probably skipping over
+              -- `anonDecls` and `otherDecls`. We consider this not a problem
+              -- because we think the case is seldom enough.
+              recordFailedDecl info NameKindOrdinary ParseUnexpectedAnonInSignature
               return []
             else do
-              when (visibilityCanCauseErrors visibility linkage isDefn) $
-                recordDelayedTrace info NameKindOrdinary
-                  ParseNonPublicVisibility
-              when (isDefn && linkage == ExternalLinkage) $
-                recordDelayedTrace info NameKindOrdinary $
-                  ParsePotentialDuplicateSymbol (visibility == PublicVisibility)
-              return $ otherDecls ++ [mkDecl purity]
+              let nonPublicVisibility = [
+                      ParseNonPublicVisibility
+                    | visibilityCanCauseErrors visibility linkage isDefn
+                    ]
+                  potentialDuplicate = [
+                      ParsePotentialDuplicateSymbol (visibility == PublicVisibility)
+                    | isDefn && linkage == ExternalLinkage
+                    ]
+              let funDecl = mkDecl purity
+              -- TODO_PR: Record `anonDecls` and `otherDecls`?
+              recordDecl info NameKindOrdinary $
+                ParseSucceeded $ nonPublicVisibility ++ potentialDuplicate
+              return $ otherDecls ++ [funDecl]
   where
     guardTypeFunction ::
          CXCursor
@@ -538,7 +547,7 @@ functionDecl info = \curr -> do
               return (mbArgName, argCType)
             pure $ Just (args', res)
           C.TypeTypedef{} -> do
-            recordDelayedTrace info NameKindOrdinary ParseFunctionOfTypeTypedef
+            recordFailedDecl info NameKindOrdinary ParseFunctionOfTypeTypedef
             pure Nothing
           otherType ->
             panicIO $ "Expected function type, but got " <> show otherType
@@ -621,25 +630,34 @@ varDecl info = \curr -> do
                    || (isTentative && declCls == DefinitionUnavailable)
 
         if not (null anonDecls) then do
-          recordDelayedTrace info NameKindOrdinary ParseUnexpectedAnonInExtern
+          recordFailedDecl info NameKindOrdinary ParseUnexpectedAnonInExtern
           return []
         else (otherDecls ++) <$> do
-          when (visibilityCanCauseErrors visibility linkage isDefn) $
-            recordDelayedTrace info NameKindOrdinary ParseNonPublicVisibility
-          when (isDefn && linkage == ExternalLinkage) $
-            recordDelayedTrace info NameKindOrdinary $
-              ParsePotentialDuplicateSymbol (visibility == PublicVisibility)
+          let nonPublicVisibility = [
+                  ParseNonPublicVisibility
+                | visibilityCanCauseErrors visibility linkage isDefn
+                ]
+              potentialDuplicate = [
+                  ParsePotentialDuplicateSymbol (visibility == PublicVisibility)
+                | isDefn && linkage == ExternalLinkage
+                ]
+              recordDeclWith = recordDecl info NameKindOrdinary
           case cls of
             VarGlobal -> do
+              recordDeclWith $ ParseSucceeded $
+                nonPublicVisibility ++ potentialDuplicate
               return [mkDecl $ C.DeclGlobal typ]
             VarConst -> do
+              recordDeclWith $ ParseSucceeded $
+                nonPublicVisibility ++ potentialDuplicate
               return [mkDecl $ C.DeclGlobal typ]
             VarThreadLocal -> do
-              recordDelayedTrace info NameKindOrdinary ParseUnsupportedTLS
+              recordDeclWith $ ParseFailed $ ParseUnsupportedTLS :|
+                nonPublicVisibility ++ potentialDuplicate
               return []
             VarUnsupported storage -> do
-              recordDelayedTrace info NameKindOrdinary $
-                ParseUnknownStorageClass storage
+              recordDeclWith $ ParseFailed $ ParseUnknownStorageClass storage :|
+                nonPublicVisibility ++ potentialDuplicate
               return []
   where
     -- Look for nested declarations inside the global variable type

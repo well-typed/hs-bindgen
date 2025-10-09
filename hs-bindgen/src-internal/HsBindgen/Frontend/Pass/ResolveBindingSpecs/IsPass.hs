@@ -10,7 +10,7 @@ import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.Pass.Sort.IsPass (DeclMeta)
+import HsBindgen.Frontend.Pass.NameAnon.IsPass (NameAnonDeclMeta)
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer
@@ -33,7 +33,7 @@ type ResolveBindingSpecs :: Pass
 data ResolveBindingSpecs a deriving anyclass (ValidPass)
 
 type family AnnResolveBindingSpecs ix where
-  AnnResolveBindingSpecs "TranslationUnit" = DeclMeta ResolveBindingSpecs
+  AnnResolveBindingSpecs "TranslationUnit" = NameAnonDeclMeta
   AnnResolveBindingSpecs "Decl"            = BindingSpec.CTypeSpec
   AnnResolveBindingSpecs _                 = NoAnn
 

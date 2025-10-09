@@ -17,10 +17,10 @@ module HsBindgen.Frontend.Pass.Parse.Decl.Monad (
     -- ** "State"
   , recordMacroExpansionAt
   , checkHasMacroExpansion
-  , recordNonParsedDecl
+  , recordDecl
+  , recordFailedDecl
     -- ** Logging
   , recordUnattachedTrace
-  , recordDelayedTrace
     -- ** Errors
   , unknownCursorKind
     -- * Utility: dispatching
@@ -28,6 +28,7 @@ module HsBindgen.Frontend.Pass.Parse.Decl.Monad (
   ) where
 
 import Data.IORef
+import Data.List.NonEmpty qualified as NonEmpty
 import Data.Set qualified as Set
 import Data.Text qualified as Text
 
@@ -41,8 +42,6 @@ import HsBindgen.Eff
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
-import HsBindgen.Frontend.NonParsedDecls (NonParsedDecls)
-import HsBindgen.Frontend.NonParsedDecls qualified as NonParsedDecls
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Predicate
@@ -78,8 +77,7 @@ run env f = do
     x <- unwrapEff f support
     state <- readIORef (parseState support)
     let meta = ParseDeclMeta {
-            parseDeclNonParsed = stateNonParsedDecls state
-          , parseDeclParseMsg  = stateParseMsgs state
+            parseStatus = stateParseStatus state
           }
     pure (meta, x)
 
@@ -125,26 +123,23 @@ data ParseState = ParseState {
       -- Declarations with expanded macros need to be reparsed.
       stateMacroExpansions :: Set SingleLoc
 
-      -- | Non-parsed declarations
+      -- | Parse status of declarations
       --
-      -- We need to track which header each excluded declaration is declared in
-      -- so that we can resolve external bindings.
-    , stateNonParsedDecls :: NonParsedDecls
-
-      -- | Some traces are linked to specific declarations. However, we only
-      -- select and process a subset of all parsed declarations. To reduce
-      -- noise, we only emit traces linked to selected and processed
-      -- declarations. Since we change the info object between passes, we link
-      -- messages to source locations. For a given declaration, the source
-      -- location should be constant across all passes.
-    , stateParseMsgs :: ParseMsgs Parse
+      -- We track the parse status of all declarations.
+      --
+      -- For example, if we do not parse a declaration because the parse
+      -- predicate does not match, we need to know which header the declaration
+      -- is declared in so that we can resolve external bindings.
+      --
+      -- Moreover, we link parse traces to specific declarations. We only emit
+      -- parse traces linked to selected and processed declarations.
+    , stateParseStatus :: ParseParseStatus
     }
 
 initParseState :: ParseState
 initParseState = ParseState{
       stateMacroExpansions = Set.empty
-    , stateNonParsedDecls  = NonParsedDecls.empty
-    , stateParseMsgs       = emptyParseMsgs
+    , stateParseStatus     = mempty
     }
 
 recordMacroExpansionAt :: SingleLoc -> ParseDecl ()
@@ -176,29 +171,49 @@ checkHasMacroExpansion extent = do
       , any (\e -> fromMaybe False (rangeContainsLoc range e)) expansions
       ]
 
-recordNonParsedDecl :: C.DeclInfo Parse -> C.NameKind -> ParseDecl ()
-recordNonParsedDecl declInfo nameKind =
-    case declName of
-      Just cname -> do
-        let cQualName  = C.QualName cname nameKind
-            sourcePath = singleLocPath (C.declLoc declInfo)
-        wrapEff $ \ParseSupport{parseState} ->
-          modifyIORef parseState $ \st -> st{
-              stateNonParsedDecls =
-                NonParsedDecls.insert cQualName sourcePath $
-                  stateNonParsedDecls st
-            }
-      Nothing ->
-        -- We __do not track unselected anonymous declarations__. If we want to
-        -- use descriptive binding specification with anonymous declarations, we
-        -- __must__ select these declarations.
-        return ()
+-- TODO_PR: We should ensure that we call `recordDecl` for all declarations.
+recordDecl :: C.DeclInfo Parse -> C.NameKind -> DeclStatus -> ParseDecl ()
+recordDecl info@C.DeclInfo{..} kind declStatus =
+    let -- TODO_PR: We add a deprecation trace for all successful parses. We
+        -- should do this in a better place.
+        declStatus' :: DeclStatus
+        declStatus'      = case (declAvailability, declStatus) of
+          (C.Deprecated, ParseSucceeded msgs) ->
+            ParseSucceeded $ ParseDeprecated : msgs
+          _otherwise ->
+            declStatus
+
+        parseStatusValue :: ParseStatusValue
+        parseStatusValue = ParseStatusValue declLoc declAvailability declStatus'
+    in wrapEff $ \ParseSupport{parseState} ->
+      modifyIORef parseState $ \st -> st{
+          stateParseStatus = addParseParseStatus
+                              (qualPrelimDeclId, parseStatusValue)
+                              (stateParseStatus st)
+        }
   where
-    declName :: Maybe C.Name
-    declName = case C.declId declInfo of
-      C.PrelimDeclIdNamed   cname   -> Just cname
-      C.PrelimDeclIdAnon{}          -> Nothing
-      C.PrelimDeclIdBuiltin builtin -> Just builtin
+    qualPrelimDeclId :: C.QualPrelimDeclId
+    qualPrelimDeclId = case (declId, kind) of
+      (C.PrelimDeclIdNamed   n, k                 ) -> C.QualPrelimDeclIdNamed n k
+      -- TODO_PR: Should this be a panic? I guess it should be a warning trace instead?
+      -- Edsko agrees with me that a panic is OK, but we get a CI error:
+      --
+      -- https://github.com/well-typed/hs-bindgen/actions/runs/18343147007/job/52243182474?pr=1192
+      --
+      -- anonymous declaration without tag kind: (unnamed at /usr/include/x86_64-linux-gnu/bits/cmathcalls.h:130:1)
+      --
+      -- I can not reproduce the error locally, I think because I am using a
+      -- newer version of LLVM.
+      (C.PrelimDeclIdAnon    _, C.NameKindOrdinary) -> errAnonymousNoTagKind
+      (C.PrelimDeclIdAnon    n, C.NameKindTagged t) -> C.QualPrelimDeclIdAnon  n t
+      (C.PrelimDeclIdBuiltin n, _                 ) -> C.QualPrelimDeclIdBuiltin n
+
+    errAnonymousNoTagKind :: a
+    errAnonymousNoTagKind = panicPure $
+      "anonymous declaration without tag kind: " <> show (prettyForTrace info)
+
+recordFailedDecl :: C.DeclInfo Parse -> C.NameKind -> DelayedParseMsg -> ParseDecl ()
+recordFailedDecl i k m = recordDecl i k $ ParseFailed $ NonEmpty.singleton m
 
 {-------------------------------------------------------------------------------
   Logging
@@ -209,14 +224,6 @@ recordNonParsedDecl declInfo nameKind =
 recordUnattachedTrace :: UnattachedParseMsg -> ParseDecl ()
 recordUnattachedTrace trace = wrapEff $ \ParseSupport{parseEnv} ->
   traceWith (envTracer parseEnv) trace
-
--- | Attach a delayed parse message to a declaration. We only emit the parse
--- message when we select the declaration.
-recordDelayedTrace :: C.DeclInfo Parse -> C.NameKind -> DelayedParseMsg -> ParseDecl ()
-recordDelayedTrace info kind trace = wrapEff $ \ParseSupport{parseState} ->
-    modifyIORef parseState $ \st -> st{
-        stateParseMsgs = recordParseMsg info kind trace (stateParseMsgs st)
-      }
 
 {-------------------------------------------------------------------------------
   Errors
