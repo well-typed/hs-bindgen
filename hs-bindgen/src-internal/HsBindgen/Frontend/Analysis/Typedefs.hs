@@ -161,19 +161,19 @@ analyseTypedef declUseGraph uid typedef =
     go :: ValOrRef -> C.Type Select -> TypedefAnalysis
     go valOrRef ty | Just taggedTypeId <- toTaggedTypeId ty =
         typedefOfTagged (C.declIdName uid) valOrRef taggedTypeId $
-          getUseSites (origNsPrelimDeclId taggedTypeId)
+          getUseSites (C.taggedTypeIdToQualPrelimDeclId taggedTypeId)
     go _ (C.TypePointer ty) =
         go ByRef ty
     go _ _otherType =
         mempty
 
     -- Get use sites, except any self-references
-    getUseSites :: C.NsPrelimDeclId -> [(C.NsPrelimDeclId, Usage)]
+    getUseSites :: C.QualPrelimDeclId -> [(C.QualPrelimDeclId, Usage)]
     getUseSites nsid =
         let allUseSites = DeclUseGraph.getUseSites declUseGraph nsid
         in filter (not . isSelfReference) allUseSites
       where
-        isSelfReference :: (C.NsPrelimDeclId, Usage) -> Bool
+        isSelfReference :: (C.QualPrelimDeclId, Usage) -> Bool
         isSelfReference (nsid', _usage) = nsid == nsid'
 
 -- | Typedef of some tagged datatype
@@ -181,7 +181,7 @@ typedefOfTagged ::
      C.Name                      -- ^ Name of the typedef
   -> ValOrRef                    -- ^ Does the typedef wrap the datatype directly?
   -> C.TaggedTypeId              -- ^ Tagged type information
-  -> [(C.NsPrelimDeclId, Usage)] -- ^ All use sites of the struct
+  -> [(C.QualPrelimDeclId, Usage)] -- ^ All use sites of the struct
   -> TypedefAnalysis
 typedefOfTagged typedefName valOrRef taggedType@C.TaggedTypeId{..} useSites
     -- Struct and typedef same name, no intervening pointers
@@ -239,11 +239,11 @@ updateOrigin oldName = \case
 toTaggedTypeId :: C.Type Select -> Maybe C.TaggedTypeId
 toTaggedTypeId = \case
     C.TypeStruct C.DeclId{..} -> Just $
-      C.TaggedTypeId declIdName C.TagKindStruct declIdOrigin
+      C.TaggedTypeId declIdName declIdOrigin C.TagKindStruct
     C.TypeUnion  C.DeclId{..} -> Just $
-      C.TaggedTypeId declIdName C.TagKindUnion  declIdOrigin
+      C.TaggedTypeId declIdName declIdOrigin C.TagKindUnion
     C.TypeEnum   C.DeclId{..} -> Just $
-      C.TaggedTypeId declIdName C.TagKindEnum   declIdOrigin
+      C.TaggedTypeId declIdName declIdOrigin C.TagKindEnum
     _otherwise                -> Nothing
 
 fromTaggedTypeId :: C.TaggedTypeId -> C.Type HandleTypedefs
@@ -254,14 +254,3 @@ fromTaggedTypeId C.TaggedTypeId{..} = case taggedTypeIdKind of
   where
     uid :: C.DeclId
     uid = C.DeclId taggedTypeIdName taggedTypeIdOrigin
-
-origNsPrelimDeclId :: C.TaggedTypeId -> C.NsPrelimDeclId
-origNsPrelimDeclId C.TaggedTypeId{..} = case taggedTypeIdOrigin of
-    C.NameOriginInSource ->
-      C.NsPrelimDeclIdNamed taggedTypeIdName C.TypeNamespaceTag
-    C.NameOriginRenamedFrom orig ->
-      C.NsPrelimDeclIdNamed orig C.TypeNamespaceTag
-    C.NameOriginGenerated anonId ->
-      C.NsPrelimDeclIdAnon anonId
-    C.NameOriginBuiltin ->
-      C.NsPrelimDeclIdBuiltin taggedTypeIdName

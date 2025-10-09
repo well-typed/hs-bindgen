@@ -3,7 +3,6 @@ module HsBindgen.Frontend.Pass.NameAnon (
   ) where
 
 import Data.Either (partitionEithers)
-import Data.Map.Strict qualified as Map
 
 import HsBindgen.Errors
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
@@ -59,11 +58,11 @@ data RenameEnv = RenameEnv {
     , envDeclUse   :: DeclUseGraph
     }
 
-findNamedUseOf :: RenameEnv -> C.NsPrelimDeclId -> Maybe UseOfDecl
+findNamedUseOf :: RenameEnv -> C.QualPrelimDeclId -> Maybe UseOfDecl
 findNamedUseOf RenameEnv{envDeclIndex, envDeclUse} nsid =
     DeclUseGraph.findNamedUseOf envDeclIndex envDeclUse nsid
 
-findAliasesOf :: RenameEnv -> C.NsPrelimDeclId -> [C.Name]
+findAliasesOf :: RenameEnv -> C.QualPrelimDeclId -> [C.Name]
 findAliasesOf RenameEnv{envDeclUse} = DeclUseGraph.findAliasesOf envDeclUse
 
 {-------------------------------------------------------------------------------
@@ -96,8 +95,8 @@ nameDecl env decl = do
     C.Decl{declInfo, declKind, declAnn} = decl
     C.DeclInfo{..} = declInfo
 
-    nsId :: C.NsPrelimDeclId
-    nsId = C.declNsPrelimDeclId decl
+    nsId :: C.QualPrelimDeclId
+    nsId = C.declQualPrelimDeclId decl
 
 -- Get the declaration identifier. May fail for anonymous declarations, if they
 -- have no use sites; in which case we used to return 'Nothing'. However, we do
@@ -106,7 +105,7 @@ nameDecl env decl = do
 -- https://github.com/well-typed/hs-bindgen/issues/1036.
 getDeclId ::
      RenameEnv
-  -> C.NsPrelimDeclId
+  -> C.QualPrelimDeclId
   -> Id HandleMacros
   -> Either (Id NameAnon) (Id NameAnon)
 getDeclId env nsid declId =
@@ -128,9 +127,8 @@ getDeclIdParseMsgKey env key = key{parseMsgDeclId = declId'}
     declId :: Id HandleMacros
     declId = parseMsgDeclId key
 
-    nsId :: C.NsPrelimDeclId
-    nsId = C.nsPrelimDeclId declId $
-      C.nameKindTypeNamespace (parseMsgDeclKind key)
+    nsId :: C.QualPrelimDeclId
+    nsId = C.qualPrelimDeclId declId (parseMsgDeclKind key)
 
     declId' :: Id NameAnon
     declId' = either id id $ getDeclId env nsId declId
@@ -242,13 +240,13 @@ instance NameUseSites C.Type where
 
       -- Cases where we actually need to do work
       go (C.TypeStruct uid) = C.TypeStruct . nameUseSite $
-        C.nsPrelimDeclId uid C.TypeNamespaceTag
+        C.qualPrelimDeclId uid (C.NameKindTagged C.TagKindStruct)
       go (C.TypeUnion uid) = C.TypeUnion . nameUseSite $
-        C.nsPrelimDeclId uid C.TypeNamespaceTag
+        C.qualPrelimDeclId uid (C.NameKindTagged C.TagKindUnion)
       go (C.TypeEnum uid) = C.TypeEnum . nameUseSite $
-        C.nsPrelimDeclId uid C.TypeNamespaceTag
+        C.qualPrelimDeclId uid (C.NameKindTagged C.TagKindEnum)
       go (C.TypeMacroTypedef uid) = C.TypeMacroTypedef . nameUseSite $
-        C.nsPrelimDeclId uid C.TypeNamespaceOrdinary
+        C.qualPrelimDeclId uid C.NameKindOrdinary
 
       -- Recursive cases
       go (C.TypePointer ty)         = C.TypePointer (go ty)
@@ -265,58 +263,17 @@ instance NameUseSites C.Type where
       go (C.TypeExtBinding ext) = absurd ext
       go (C.TypeComplex prim)   = C.TypeComplex prim
 
-
       -- Rename specific use site
       --
       -- NOTE: there /must/ be at least one use site, because we are renaming one!
-      nameUseSite :: C.NsPrelimDeclId -> C.DeclId
+      nameUseSite :: C.QualPrelimDeclId -> C.DeclId
       nameUseSite nsid = case nsid of
-        C.NsPrelimDeclIdNamed name _ns -> C.DeclId name C.NameOriginInSource
-        C.NsPrelimDeclIdBuiltin name   -> C.DeclId name C.NameOriginBuiltin
-        C.NsPrelimDeclIdAnon anonId    -> case findNamedUseOf env nsid of
+        C.QualPrelimDeclIdNamed   name   _ns -> C.DeclId name C.NameOriginInSource
+        C.QualPrelimDeclIdBuiltin name       -> C.DeclId name C.NameOriginBuiltin
+        C.QualPrelimDeclIdAnon    anonId _tk -> case findNamedUseOf env nsid of
           Just useOfAnon ->
             C.DeclId (nameForAnon useOfAnon) (C.NameOriginGenerated anonId)
           Nothing -> panicPure "impossible"
-
-{-------------------------------------------------------------------------------
-  ParseStatus
--------------------------------------------------------------------------------}
-
--- | Name 'C.QualPrelimDeclId'
---
--- This function returns 'Nothing' if the declaration is anonymous and unused.
--- Such declarations that are parsed/reified already get 'NameAnonSkipped'
--- messages when processing the declaration.
-_nameQualPrelimDeclId ::
-     RenameEnv
-  -> C.QualPrelimDeclId
-  -> Maybe C.QualDeclId
-_nameQualPrelimDeclId env = \case
-    C.QualPrelimDeclIdNamed name nameKind ->
-      Just $ C.QualDeclId name C.NameOriginInSource nameKind
-    C.QualPrelimDeclIdAnon anonId tagKind ->
-      case findNamedUseOf env (C.NsPrelimDeclIdAnon anonId) of
-        Just useOfAnon -> Just $
-          C.QualDeclId
-            (nameForAnon useOfAnon)
-            (C.NameOriginGenerated anonId)
-            (C.NameKindTagged tagKind)
-        Nothing -> Nothing
-    C.QualPrelimDeclIdBuiltin name ->
-      Just $ C.QualDeclId name C.NameOriginBuiltin C.NameKindOrdinary
-
--- TODO implement with the newtype wrappers
-_nameParseStatus ::
-     RenameEnv
-  -> [(C.QualPrelimDeclId, a)]         -- TODO ParseStatusParse
-  -> Map C.QualName (C.NameOrigin, a)  -- TODO ParseStatusNameAnon
-_nameParseStatus env = Map.fromList . mapMaybe aux
-  where
-    aux :: (C.QualPrelimDeclId, a) -> Maybe (C.QualName, (C.NameOrigin, a))
-    aux (qpDeclId, x) = case _nameQualPrelimDeclId env qpDeclId of
-      Just C.QualDeclId{..} -> Just $
-        (C.QualName qualDeclIdName qualDeclIdKind, (qualDeclIdOrigin, x))
-      Nothing -> Nothing
 
 {-------------------------------------------------------------------------------
   Name generation

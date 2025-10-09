@@ -37,15 +37,11 @@ module HsBindgen.Frontend.Naming (
     -- * Name
     Name(..)
 
-    -- * TypeNamespace
-  , TypeNamespace(..)
-
     -- * TagKind
   , TagKind(..)
 
     -- * NameKind
   , NameKind(..)
-  , nameKindTypeNamespace
 
     -- * QualName
   , QualName(..)
@@ -58,9 +54,6 @@ module HsBindgen.Frontend.Naming (
     -- * PrelimDeclId
   , PrelimDeclId(..)
   , getPrelimDeclId
-    -- ** NsPrelimDeclId
-  , NsPrelimDeclId(..)
-  , nsPrelimDeclId
     -- ** QualPrelimDeclId
   , QualPrelimDeclId(..)
   , qualPrelimDeclId
@@ -73,11 +66,12 @@ module HsBindgen.Frontend.Naming (
     -- ** QualDeclId
   , QualDeclId(..)
   , qualDeclId
+  , qualDeclIdToQualPrelimDeclId
   , qualDeclIdText
-  , qualDeclIdNsPrelimDeclId
 
     -- * TaggedTypeId
   , TaggedTypeId(..)
+  , taggedTypeIdToQualPrelimDeclId
 
     -- * Located
   , Located(..)
@@ -115,27 +109,6 @@ newtype Name = Name {
 
 instance PrettyForTrace Name where
   prettyForTrace (Name name) = "'" >< PP.textToCtxDoc name >< "'"
-
-{-------------------------------------------------------------------------------
-  TypeNamespace
--------------------------------------------------------------------------------}
-
--- | C type namespaces
---
--- C namespaces include:
---
--- * Ordinary namespace: a single namespace that includes @typedef@ names,
---   variable names, function names, @enum@ constant names, etc.
--- * Tag namespace: a single namespace that includes all @struct@, @union@, and
---   @enum@ tags
--- * Field namespaces: a separate namespace per @struct@/@union@ of field names
--- * Label namespace: a single namespace of @goto@ labels
---
--- A type name is in the ordinary or tag namespace.
-data TypeNamespace =
-    TypeNamespaceOrdinary
-  | TypeNamespaceTag
-  deriving stock (Show, Eq, Ord, Generic)
 
 {-------------------------------------------------------------------------------
   TagKind
@@ -204,12 +177,6 @@ instance Enum NameKind where
 
 instance PrettyForTrace NameKind where
   prettyForTrace = PP.showToCtxDoc
-
--- | Get the 'TypeNamespace' for a 'NameKind'
-nameKindTypeNamespace :: NameKind -> TypeNamespace
-nameKindTypeNamespace = \case
-    NameKindOrdinary -> TypeNamespaceOrdinary
-    NameKindTagged{} -> TypeNamespaceTag
 
 nameKindPrefix :: NameKind -> Maybe Text
 nameKindPrefix = \case
@@ -325,35 +292,6 @@ getPrelimDeclId curr = do
           <$> HighLevel.clang_getCursorLocation curr
       ClangBuiltin name ->
         return $ PrelimDeclIdBuiltin (Name name)
-
-{-------------------------------------------------------------------------------
-  NsPrelimDeclId
--------------------------------------------------------------------------------}
-
--- | Preliminary declaration identifier, with named identifiers qualified by
--- 'TypeNamespace'
---
--- This type is used when names in different namespaces must be distinguished
--- but we do not want to distinguish different tag kinds.
-data NsPrelimDeclId =
-    NsPrelimDeclIdNamed Name TypeNamespace
-  | NsPrelimDeclIdAnon AnonId
-  | NsPrelimDeclIdBuiltin Name
-  deriving stock (Show, Eq, Ord)
-
-instance PrettyForTrace NsPrelimDeclId where
-  prettyForTrace = \case
-    NsPrelimDeclIdNamed name ns -> prettyForTrace name >< case ns of
-      TypeNamespaceOrdinary -> " (ordinary)"
-      TypeNamespaceTag      -> " (tag)"
-    NsPrelimDeclIdAnon    anonId -> PP.parens (prettyForTrace anonId)
-    NsPrelimDeclIdBuiltin name   -> prettyForTrace name
-
-nsPrelimDeclId :: PrelimDeclId -> TypeNamespace -> NsPrelimDeclId
-nsPrelimDeclId prelimDeclId ns = case prelimDeclId of
-    PrelimDeclIdNamed   name   -> NsPrelimDeclIdNamed name ns
-    PrelimDeclIdAnon    anonId -> NsPrelimDeclIdAnon anonId
-    PrelimDeclIdBuiltin name   -> NsPrelimDeclIdBuiltin name
 
 {-------------------------------------------------------------------------------
   QualPrelimDeclId
@@ -473,20 +411,20 @@ qualDeclId DeclId{..} nameKind = QualDeclId {
     , qualDeclIdKind   = nameKind
     }
 
+qualDeclIdToQualPrelimDeclId :: QualDeclId -> QualPrelimDeclId
+qualDeclIdToQualPrelimDeclId QualDeclId{..} =
+    qualPrelimDeclId prelimDeclId qualDeclIdKind
+  where
+    prelimDeclId = case qualDeclIdOrigin of
+        NameOriginGenerated   anonId   -> PrelimDeclIdAnon    anonId
+        NameOriginRenamedFrom origName -> PrelimDeclIdNamed   origName
+        NameOriginBuiltin              -> PrelimDeclIdBuiltin qualDeclIdName
+        NameOriginInSource             -> PrelimDeclIdNamed   qualDeclIdName
+
 qualDeclIdText :: QualDeclId -> Text
 qualDeclIdText QualDeclId{..} = case qualDeclIdOrigin of
     NameOriginGenerated{} -> "anon:" <> getName qualDeclIdName
     _otherwise -> qualNameText $ QualName qualDeclIdName qualDeclIdKind
-
-qualDeclIdNsPrelimDeclId :: QualDeclId -> NsPrelimDeclId
-qualDeclIdNsPrelimDeclId QualDeclId{..} = case qualDeclIdOrigin of
-    NameOriginInSource             -> NsPrelimDeclIdNamed qualDeclIdName ns
-    NameOriginRenamedFrom origName -> NsPrelimDeclIdNamed origName ns
-    NameOriginGenerated   anonId   -> NsPrelimDeclIdAnon anonId
-    NameOriginBuiltin              -> NsPrelimDeclIdBuiltin qualDeclIdName
-  where
-    ns :: TypeNamespace
-    ns = nameKindTypeNamespace qualDeclIdKind
 
 {-------------------------------------------------------------------------------
   TaggedTypeId
@@ -495,10 +433,14 @@ qualDeclIdNsPrelimDeclId QualDeclId{..} = case qualDeclIdOrigin of
 -- | C tagged type name, tag kind, and origin
 data TaggedTypeId = TaggedTypeId {
       taggedTypeIdName   :: Name
-    , taggedTypeIdKind   :: TagKind
     , taggedTypeIdOrigin :: NameOrigin
+    , taggedTypeIdKind   :: TagKind
     }
   deriving stock (Eq, Generic, Ord, Show)
+
+taggedTypeIdToQualPrelimDeclId :: TaggedTypeId -> QualPrelimDeclId
+taggedTypeIdToQualPrelimDeclId (TaggedTypeId n no tk) =
+    qualDeclIdToQualPrelimDeclId $ QualDeclId n no (NameKindTagged tk)
 
 {-------------------------------------------------------------------------------
   Located

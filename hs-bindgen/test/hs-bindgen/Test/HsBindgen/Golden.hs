@@ -164,11 +164,11 @@ testCases = manualTestCases ++ [
           Just $ expectFromKey key
         _otherwise ->
           Nothing
-    , let declsWithMsgs :: [C.NsPrelimDeclId]
+    , let declsWithMsgs :: [C.QualPrelimDeclId]
           declsWithMsgs = [
-                C.NsPrelimDeclIdNamed "stdin" C.TypeNamespaceOrdinary
-              , C.NsPrelimDeclIdNamed "stdout" C.TypeNamespaceOrdinary
-              , C.NsPrelimDeclIdNamed "stderr" C.TypeNamespaceOrdinary
+                C.QualPrelimDeclIdNamed "stdin"  C.NameKindOrdinary
+              , C.QualPrelimDeclIdNamed "stdout" C.NameKindOrdinary
+              , C.QualPrelimDeclIdNamed "stderr" C.NameKindOrdinary
               ]
       in testTraceCustom "macro_redefines_global" declsWithMsgs $ \case
         TraceFrontend (FrontendSort (SortErrorDeclIndex (Redeclaration {redeclarationId = x}))) ->
@@ -575,9 +575,9 @@ testCases = manualTestCases ++ [
             , "selected FileOperationStatus"
             , "selected read_file_chunk"
               -- Macro redefines a global variable
-            , "NsPrelimDeclIdNamed \"stdin\" TypeNamespaceOrdinary"
-            , "NsPrelimDeclIdNamed \"stdout\" TypeNamespaceOrdinary"
-            , "NsPrelimDeclIdNamed \"stderr\" TypeNamespaceOrdinary"
+            , "QualPrelimDeclIdNamed \"stdin\" NameKindOrdinary"
+            , "QualPrelimDeclIdNamed \"stdout\" NameKindOrdinary"
+            , "QualPrelimDeclIdNamed \"stderr\" NameKindOrdinary"
             ] $ \case
             TraceFrontend (FrontendSelect (SelectSelected SelectionRoot info)) ->
               expectSelected info $ Set.fromList [

@@ -41,9 +41,8 @@ module HsBindgen.Frontend.AST.Internal (
     -- * Show
   , ValidPass
     -- * Helper functions
-  , declNsPrelimDeclId
-  , declOrigNsPrelimDeclId
   , declQualPrelimDeclId
+  , declOrigQualPrelimDeclId
   , declQualName
   , declQualDeclId
   , declKindNameKind
@@ -564,17 +563,16 @@ instance PrettyForTrace (C.Located (Id p)) => PrettyForTrace (DeclInfo p) where
   Helper functions
 -------------------------------------------------------------------------------}
 
-declNsPrelimDeclId :: Id p ~ C.PrelimDeclId => Decl p -> C.NsPrelimDeclId
-declNsPrelimDeclId Decl{declInfo = DeclInfo{declId}, declKind} =
-    C.nsPrelimDeclId declId $
-      C.nameKindTypeNamespace (declKindNameKind declKind)
-
-declOrigNsPrelimDeclId :: Id p ~ C.DeclId => Decl p -> C.NsPrelimDeclId
-declOrigNsPrelimDeclId = C.qualDeclIdNsPrelimDeclId . declQualDeclId
-
 declQualPrelimDeclId :: Id p ~ C.PrelimDeclId => Decl p -> C.QualPrelimDeclId
 declQualPrelimDeclId Decl{declInfo = DeclInfo{declId}, declKind} =
     C.qualPrelimDeclId declId (declKindNameKind declKind)
+
+declOrigQualPrelimDeclId :: Id p ~ C.DeclId => Decl p -> C.QualPrelimDeclId
+declOrigQualPrelimDeclId Decl{declInfo = DeclInfo{declId}, declKind} =
+    C.qualDeclIdToQualPrelimDeclId $
+      C.QualDeclId declIdName declIdOrigin (declKindNameKind declKind)
+  where
+    C.DeclId{..} = declId
 
 declQualDeclId :: Id p ~ C.DeclId => Decl p -> C.QualDeclId
 declQualDeclId Decl{declInfo = DeclInfo{declId}, declKind} = C.QualDeclId {

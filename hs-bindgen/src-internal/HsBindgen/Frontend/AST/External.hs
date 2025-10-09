@@ -42,10 +42,8 @@ module HsBindgen.Frontend.AST.External (
   , isVoid
     -- * Names
   , C.Name(..)
-  , C.TypeNamespace(..)
   , C.TagKind(..)
   , C.NameKind(..)
-  , C.nameKindTypeNamespace
   , C.QualName(..)
   , C.qualNameText
   , C.parseQualName
