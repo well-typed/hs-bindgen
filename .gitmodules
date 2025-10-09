@@ -4,3 +4,6 @@
 [submodule "alternatives/c2hs"]
 	path = alternatives/tools/c2hs
 	url = https://github.com/haskell/c2hs.git
+[submodule "examples/c-qrcode/QR-Code-generator"]
+	path = examples/c-qrcode/QR-Code-generator
+	url = https://github.com/nayuki/QR-Code-generator.git
