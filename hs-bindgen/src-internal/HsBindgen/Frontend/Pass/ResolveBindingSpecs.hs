@@ -1,5 +1,5 @@
-module HsBindgen.Frontend.Pass.ResolveBindingSpec (
-    resolveBindingSpec
+module HsBindgen.Frontend.Pass.ResolveBindingSpecs (
+    resolveBindingSpecs
   ) where
 
 import Control.Monad ((<=<))
@@ -24,7 +24,7 @@ import HsBindgen.Frontend.NonParsedDecls (NonParsedDecls)
 import HsBindgen.Frontend.NonParsedDecls qualified as NonParsedDecls
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.NameAnon.IsPass
-import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass
+import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
@@ -34,12 +34,15 @@ import HsBindgen.Util.Monad (mapMaybeM)
   Top-level
 -------------------------------------------------------------------------------}
 
-resolveBindingSpec ::
+resolveBindingSpecs ::
      ExternalBindingSpec
   -> PrescriptiveBindingSpec
   -> C.TranslationUnit NameAnon
-  -> (C.TranslationUnit ResolveBindingSpec, [Msg ResolveBindingSpec])
-resolveBindingSpec
+  -> ( C.TranslationUnit ResolveBindingSpecs
+     , Map C.QualName SourcePath
+     , [Msg ResolveBindingSpecs]
+     )
+resolveBindingSpecs
   extSpec
   pSpec
   C.TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
@@ -51,14 +54,16 @@ resolveBindingSpec
             (declUseDecl unitAnn)
             (declNonParsed unitAnn)
             (resolveDecls unitDecls)
-        notUsedErrs =
-          ResolveBindingSpecTypeNotUsed <$> Set.toAscList stateNoPTypes
-    in  (reassemble decls stateUseDecl, reverse stateErrors ++ notUsedErrs)
+        notUsedErrs = ResolveBindingSpecsTypeNotUsed <$> Map.keys stateNoPTypes
+    in  ( reassemble decls stateUseDecl
+        , stateOmitTypes
+        , reverse stateErrors ++ notUsedErrs
+        )
   where
     reassemble ::
-         [C.Decl ResolveBindingSpec]
+         [C.Decl ResolveBindingSpecs]
       -> UseDeclGraph
-      -> C.TranslationUnit ResolveBindingSpec
+      -> C.TranslationUnit ResolveBindingSpecs
     reassemble decls' useDeclGraph = C.TranslationUnit{
         unitDecls = decls'
       , unitIncludeGraph
@@ -109,10 +114,10 @@ data MEnv = MEnv {
 -------------------------------------------------------------------------------}
 
 data MState = MState {
-      stateErrors    :: [Msg ResolveBindingSpec] -- ^ Stored in reverse order
-    , stateExtTypes  :: Map C.QualName (C.Type ResolveBindingSpec)
-    , stateNoPTypes  :: Set C.QualName
-    , stateOmitTypes :: Set C.QualName
+      stateErrors    :: [Msg ResolveBindingSpecs] -- ^ Stored in reverse order
+    , stateExtTypes  :: Map C.QualName (C.Type ResolveBindingSpecs)
+    , stateNoPTypes  :: Map C.QualName [Set SourcePath]
+    , stateOmitTypes :: Map C.QualName SourcePath
     , stateUseDecl   :: UseDeclGraph
     }
   deriving (Show)
@@ -121,33 +126,43 @@ initMState :: PrescriptiveBindingSpec -> UseDeclGraph -> MState
 initMState pSpec useDeclGraph = MState {
       stateErrors    = []
     , stateExtTypes  = Map.empty
-    , stateNoPTypes  = BindingSpec.getTypes pSpec
-    , stateOmitTypes = Set.empty
+    , stateNoPTypes  = BindingSpec.getCTypes pSpec
+    , stateOmitTypes = Map.empty
     , stateUseDecl   = useDeclGraph
     }
 
-insertError :: Msg ResolveBindingSpec -> MState -> MState
+insertError :: Msg ResolveBindingSpecs -> MState -> MState
 insertError e st = st {
       stateErrors = e : stateErrors st
     }
 
 insertExtType ::
      C.QualName
-  -> C.Type ResolveBindingSpec
+  -> C.Type ResolveBindingSpecs
   -> MState
   -> MState
 insertExtType cQualName typ st = st {
       stateExtTypes = Map.insert cQualName typ (stateExtTypes st)
     }
 
-deleteNoPType :: C.QualName -> MState -> MState
-deleteNoPType cQualName st = st {
-      stateNoPTypes = Set.delete cQualName (stateNoPTypes st)
+deleteNoPType :: C.QualName -> SourcePath -> MState -> MState
+deleteNoPType cQualName path st = st {
+      stateNoPTypes = Map.update (aux []) cQualName (stateNoPTypes st)
     }
+  where
+    aux :: [Set SourcePath] -> [Set SourcePath] -> Maybe [Set SourcePath]
+    aux acc = \case
+      s : ss
+        | Set.member path s ->
+            case ss ++ acc of
+              []  -> Nothing
+              ss' -> Just ss'
+        | otherwise -> aux (s : acc) ss
+      [] -> Just acc
 
-insertOmittedType :: C.QualName -> MState -> MState
-insertOmittedType cQualName st = st {
-      stateOmitTypes = Set.insert cQualName (stateOmitTypes st)
+insertOmittedType :: C.QualName -> SourcePath -> MState -> MState
+insertOmittedType cQualName path st = st {
+      stateOmitTypes = Map.insert cQualName path (stateOmitTypes st)
     }
 
 deleteDeps :: C.NsPrelimDeclId -> [C.NsPrelimDeclId] -> MState -> MState
@@ -160,7 +175,7 @@ deleteDeps declId depIds st = st {
 -------------------------------------------------------------------------------}
 
 -- Resolve declarations, in two passes
-resolveDecls :: [C.Decl NameAnon] -> M [C.Decl ResolveBindingSpec]
+resolveDecls :: [C.Decl NameAnon] -> M [C.Decl ResolveBindingSpecs]
 resolveDecls = mapM (uncurry resolveDeep) <=< mapMaybeM resolveTop
 
 -- Pass one: top-level
@@ -175,7 +190,7 @@ resolveDecls = mapM (uncurry resolveDeep) <=< mapMaybeM resolveTop
 -- specification when applicable.
 resolveTop ::
      C.Decl NameAnon
-  -> M (Maybe (C.Decl NameAnon, Maybe BindingSpec.TypeSpec))
+  -> M (Maybe (C.Decl NameAnon, Maybe BindingSpec.CTypeSpec))
 resolveTop decl = RWS.ask >>= \MEnv{..} -> do
     let cQualName  = C.declQualName decl
         sourcePath = singleLocPath $ C.declLoc (C.declInfo decl)
@@ -183,12 +198,14 @@ resolveTop decl = RWS.ask >>= \MEnv{..} -> do
     isExt <- isJust <$> resolveExtBinding cQualName declPaths
     if isExt
       then return Nothing
-      else case BindingSpec.lookupTypeSpec cQualName declPaths envPSpec of
-        Just (BindingSpec.Require typeSpec) -> do
-          RWS.modify' $ deleteNoPType cQualName
-          return $ Just (decl, Just typeSpec)
+      else case BindingSpec.lookupCTypeSpec cQualName declPaths envPSpec of
+        Just (BindingSpec.Require cTypeSpec) -> do
+          RWS.modify' $ deleteNoPType cQualName sourcePath
+          return $ Just (decl, Just cTypeSpec)
         Just BindingSpec.Omit -> do
-          RWS.modify' $ deleteNoPType cQualName . insertOmittedType cQualName
+          RWS.modify' $
+              deleteNoPType cQualName sourcePath
+            . insertOmittedType cQualName sourcePath
           return Nothing
         Nothing -> return $ Just (decl, Nothing)
 
@@ -198,19 +215,19 @@ resolveTop decl = RWS.ask >>= \MEnv{..} -> do
 -- current pass.
 resolveDeep ::
      C.Decl NameAnon
-  -> Maybe BindingSpec.TypeSpec
-  -> M (C.Decl ResolveBindingSpec)
-resolveDeep decl@C.Decl{..} mTypeSpec = do
+  -> Maybe BindingSpec.CTypeSpec
+  -> M (C.Decl ResolveBindingSpecs)
+resolveDeep decl@C.Decl{..} mCTypeSpec = do
     (depIds, decl') <- fmap reassemble <$> resolve declKind
     unless (Set.null depIds) . RWS.modify' $
       deleteDeps (C.declOrigNsPrelimDeclId decl) (Set.toList depIds)
     return decl'
   where
-    reassemble :: C.DeclKind ResolveBindingSpec -> C.Decl ResolveBindingSpec
+    reassemble :: C.DeclKind ResolveBindingSpecs -> C.Decl ResolveBindingSpecs
     reassemble declKind' = C.Decl {
         declInfo = coercePass declInfo
       , declKind = declKind'
-      , declAnn  = fromMaybe BindingSpec.defaultTypeSpec mTypeSpec
+      , declAnn  = fromMaybe def mCTypeSpec
       }
 
 {-------------------------------------------------------------------------------
@@ -218,28 +235,26 @@ resolveDeep decl@C.Decl{..} mTypeSpec = do
 -------------------------------------------------------------------------------}
 
 class Resolve a where
-  resolve :: a NameAnon -> M (Set C.NsPrelimDeclId, a ResolveBindingSpec)
+  resolve :: a NameAnon -> M (Set C.NsPrelimDeclId, a ResolveBindingSpecs)
 
 instance Resolve C.DeclKind where
   resolve = \case
-      C.DeclStruct struct   -> fmap C.DeclStruct   <$> resolve struct
-      C.DeclStructOpaque    -> return (Set.empty, C.DeclStructOpaque)
-      C.DeclUnion union     -> fmap C.DeclUnion    <$> resolve union
-      C.DeclUnionOpaque     -> return (Set.empty, C.DeclUnionOpaque)
-      C.DeclTypedef typedef -> fmap C.DeclTypedef  <$> resolve typedef
-      C.DeclEnum enum       -> fmap C.DeclEnum     <$> resolve enum
-      C.DeclEnumOpaque      -> return (Set.empty, C.DeclEnumOpaque)
-      C.DeclMacro macro     -> fmap C.DeclMacro    <$> resolve macro
-      C.DeclFunction fun    -> fmap C.DeclFunction <$> resolve fun
-      C.DeclGlobal ty       -> fmap C.DeclGlobal   <$> resolve ty
+      C.DeclStruct struct    -> fmap C.DeclStruct   <$> resolve struct
+      C.DeclUnion union      -> fmap C.DeclUnion    <$> resolve union
+      C.DeclTypedef typedef  -> fmap C.DeclTypedef  <$> resolve typedef
+      C.DeclEnum enum        -> fmap C.DeclEnum     <$> resolve enum
+      C.DeclOpaque cNameKind -> return (Set.empty, C.DeclOpaque cNameKind)
+      C.DeclMacro macro      -> fmap C.DeclMacro    <$> resolve macro
+      C.DeclFunction fun     -> fmap C.DeclFunction <$> resolve fun
+      C.DeclGlobal ty        -> fmap C.DeclGlobal   <$> resolve ty
 
 instance Resolve C.Struct where
   resolve C.Struct{..} =
       bimap Set.unions reassemble . unzip <$> mapM resolve structFields
     where
       reassemble ::
-           [C.StructField ResolveBindingSpec]
-        -> C.Struct ResolveBindingSpec
+           [C.StructField ResolveBindingSpecs]
+        -> C.Struct ResolveBindingSpecs
       reassemble structFields' = C.Struct {
           structFields = structFields'
         , ..
@@ -251,8 +266,8 @@ instance Resolve C.StructField where
     where
       C.FieldInfo{..} = structFieldInfo
       reassemble ::
-           C.Type ResolveBindingSpec
-        -> C.StructField ResolveBindingSpec
+           C.Type ResolveBindingSpecs
+        -> C.StructField ResolveBindingSpecs
       reassemble structFieldType' = C.StructField {
           structFieldInfo =
             C.FieldInfo {
@@ -268,8 +283,8 @@ instance Resolve C.Union where
       bimap Set.unions reassemble . unzip <$> mapM resolve unionFields
     where
       reassemble ::
-           [C.UnionField ResolveBindingSpec]
-        -> C.Union ResolveBindingSpec
+           [C.UnionField ResolveBindingSpecs]
+        -> C.Union ResolveBindingSpecs
       reassemble unionFields' = C.Union {
           unionFields = unionFields'
         , ..
@@ -280,8 +295,8 @@ instance Resolve C.UnionField where
       fmap reassemble <$> resolve unionFieldType
     where
       C.FieldInfo{..} = unionFieldInfo
-      reassemble :: C.Type ResolveBindingSpec
-                 -> C.UnionField ResolveBindingSpec
+      reassemble :: C.Type ResolveBindingSpecs
+                 -> C.UnionField ResolveBindingSpecs
       reassemble unionFieldType' = C.UnionField {
           unionFieldInfo =
             C.FieldInfo {
@@ -296,7 +311,7 @@ instance Resolve C.Enum where
   resolve C.Enum{..} =
       fmap reassemble <$> resolve enumType
     where
-      reassemble :: C.Type ResolveBindingSpec -> C.Enum ResolveBindingSpec
+      reassemble :: C.Type ResolveBindingSpecs -> C.Enum ResolveBindingSpecs
       reassemble enumType' = C.Enum {
           enumType      = enumType'
         , enumConstants = map coercePass enumConstants
@@ -307,7 +322,7 @@ instance Resolve C.Typedef where
   resolve C.Typedef{..} =
       fmap reassemble <$> resolve typedefType
     where
-      reassemble :: C.Type ResolveBindingSpec -> C.Typedef ResolveBindingSpec
+      reassemble :: C.Type ResolveBindingSpecs -> C.Typedef ResolveBindingSpecs
       reassemble typedefType' = C.Typedef {
             typedefType = typedefType'
           , ..
@@ -327,9 +342,9 @@ instance Resolve C.Function where
         (Set.union argsDepIds resDepIds, reassemble functionArgs' functionRes')
     where
       reassemble ::
-           [(ArgumentName ResolveBindingSpec, C.Type ResolveBindingSpec)]
-        -> C.Type ResolveBindingSpec
-        -> C.Function ResolveBindingSpec
+           [(ArgumentName ResolveBindingSpecs, C.Type ResolveBindingSpecs)]
+        -> C.Type ResolveBindingSpecs
+        -> C.Function ResolveBindingSpecs
       reassemble functionArgs' functionRes' = C.Function {
           functionArgs = functionArgs'
         , functionRes  = functionRes'
@@ -346,8 +361,8 @@ instance Resolve C.CheckedMacroType where
       fmap reassemble <$> resolve macroType
     where
       reassemble ::
-           C.Type ResolveBindingSpec
-        -> C.CheckedMacroType ResolveBindingSpec
+           C.Type ResolveBindingSpecs
+        -> C.CheckedMacroType ResolveBindingSpecs
       reassemble macroType' = C.CheckedMacroType {
           macroType = macroType'
         , ..
@@ -384,17 +399,17 @@ instance Resolve C.Type where
       C.TypeComplex t      -> return (Set.empty, C.TypeComplex t)
     where
       auxU ::
-           (Id ResolveBindingSpec -> C.Type ResolveBindingSpec)
+           (Id ResolveBindingSpecs -> C.Type ResolveBindingSpecs)
         -> Id NameAnon
         -> C.NameKind
-        -> M (Set C.NsPrelimDeclId, C.Type ResolveBindingSpec)
+        -> M (Set C.NsPrelimDeclId, C.Type ResolveBindingSpecs)
       auxU mk uid = aux (const (mk uid)) . C.qualDeclId uid
 
       auxN ::
-           (C.Name -> C.Type ResolveBindingSpec)
+           (C.Name -> C.Type ResolveBindingSpecs)
         -> C.Name
         -> C.NameKind
-        -> M (Set C.NsPrelimDeclId, C.Type ResolveBindingSpec)
+        -> M (Set C.NsPrelimDeclId, C.Type ResolveBindingSpecs)
       auxN mk cName cNameKind = aux mk C.QualDeclId {
           qualDeclIdName   = cName
         , qualDeclIdOrigin = C.NameOriginInSource
@@ -402,17 +417,17 @@ instance Resolve C.Type where
         }
 
       aux ::
-           (C.Name -> C.Type ResolveBindingSpec)
+           (C.Name -> C.Type ResolveBindingSpecs)
         -> C.QualDeclId
-        -> M (Set C.NsPrelimDeclId, C.Type ResolveBindingSpec)
+        -> M (Set C.NsPrelimDeclId, C.Type ResolveBindingSpecs)
       aux mk cQualDeclId@C.QualDeclId{..} =
         RWS.ask >>= \MEnv{..} -> RWS.get >>= \MState{..} -> do
           let cQualName = C.QualName qualDeclIdName qualDeclIdKind
               nsid = C.qualDeclIdNsPrelimDeclId cQualDeclId
           -- check for type omitted by binding specification
-          when (Set.member cQualName stateOmitTypes) $
+          when (Map.member cQualName stateOmitTypes) $
             RWS.modify' $
-              insertError (ResolveBindingSpecOmittedTypeUse cQualName)
+              insertError (ResolveBindingSpecsOmittedTypeUse cQualName)
           -- check for selected external binding
           case Map.lookup cQualName stateExtTypes of
             Just ty -> return (Set.singleton nsid, ty)
@@ -435,7 +450,7 @@ instance Resolve C.Type where
 -------------------------------------------------------------------------------}
 
 resolveCommentReference :: C.Comment NameAnon
-                        -> C.Comment ResolveBindingSpec
+                        -> C.Comment ResolveBindingSpecs
 resolveCommentReference (C.Comment comment) =
   C.Comment (fmap (\(C.ById i) -> C.ById i) comment)
 
@@ -446,14 +461,14 @@ resolveExtBinding ::
   -> M (Maybe ResolvedExtBinding)
 resolveExtBinding cQualName declPaths  = do
     MEnv{envExtSpec} <- RWS.ask
-    case BindingSpec.lookupTypeSpec cQualName declPaths envExtSpec of
-      Just (BindingSpec.Require typeSpec) ->
-        case getHsExtRef cQualName typeSpec of
+    case BindingSpec.lookupCTypeSpec cQualName declPaths envExtSpec of
+      Just (BindingSpec.Require cTypeSpec) ->
+        case getHsExtRef cQualName cTypeSpec of
           Right ref -> do
             let resolved = ResolvedExtBinding {
                     extCName  = cQualName
                   , extHsRef  = ref
-                  , extHsSpec = typeSpec
+                  , extHsSpec = cTypeSpec
                   }
             RWS.modify' $ insertExtType cQualName (C.TypeExtBinding resolved)
             return (Just resolved)
@@ -462,20 +477,20 @@ resolveExtBinding cQualName declPaths  = do
             return Nothing
       Just BindingSpec.Omit -> do
         RWS.modify' $
-          insertError (ResolveBindingSpecOmittedTypeUse cQualName)
+          insertError (ResolveBindingSpecsOmittedTypeUse cQualName)
         return Nothing
       Nothing ->
         return Nothing
 
 getHsExtRef ::
      C.QualName
-  -> BindingSpec.TypeSpec
-  -> Either (Msg ResolveBindingSpec) Hs.ExtRef
-getHsExtRef cQualName typeSpec = do
+  -> BindingSpec.CTypeSpec
+  -> Either (Msg ResolveBindingSpecs) Hs.ExtRef
+getHsExtRef cQualName cTypeSpec = do
     extRefModule <-
-      maybe (Left (ResolveBindingSpecExtHsRefNoModule cQualName)) Right $
-        BindingSpec.typeSpecModule typeSpec
+      maybe (Left (ResolveBindingSpecsExtHsRefNoModule cQualName)) Right $
+        BindingSpec.cTypeSpecModule cTypeSpec
     extRefIdentifier <-
-      maybe (Left (ResolveBindingSpecExtHsRefNoIdentifier cQualName)) Right $
-        BindingSpec.typeSpecIdentifier typeSpec
+      maybe (Left (ResolveBindingSpecsExtHsRefNoIdentifier cQualName)) Right $
+        BindingSpec.cTypeSpecIdentifier cTypeSpec
     return Hs.ExtRef{extRefModule, extRefIdentifier}

@@ -5,7 +5,7 @@ types:
 - headers: program_slicing_simple.h
   cname: struct foo
   module: Example
-  identifier: Foo
+  hsname: Foo
   instances:
   - Eq
   - Show
@@ -13,18 +13,18 @@ types:
 - headers: program_slicing_simple.h
   cname: uint32_t
   module: Example
-  identifier: Uint32_t
+  hsname: Uint32_t
   instances:
-  - Eq
-  - Ord
-  - Enum
-  - Ix
-  - Bounded
-  - Read
-  - Show
   - Bits
+  - Bounded
+  - Enum
+  - Eq
   - FiniteBits
   - Integral
+  - Ix
   - Num
+  - Ord
+  - Read
   - Real
+  - Show
   - Storable

@@ -15,8 +15,8 @@ module Data.DynGraph.Labelled (
   , dff
   , dfFindMember
   , findTrailFrom
-  , findTargets
-  , FindTargetsResult(..)
+  , findEdges
+  , FindEdgesResult(..)
     -- * Deletion
   , deleteEdges
   , filterEdges
@@ -192,76 +192,40 @@ findTrailFrom DynGraph{..} f = go
             next   <- Set.toList <$> IntMap.lookup currIx edges
             return $ map (first (idxMap IntMap.!)) next
 
--- | Find all target vertices reachable from the specified starting vertex
---
--- When target vertices are found, a label from an edge from the starting
--- vertex is also returned.
-findTargets :: forall l a.
+-- | Find edges from the specified starting vertex and edges to terminal
+-- vertices in paths from that starting vertex
+findEdges :: forall l a.
      Ord a
-  => Set a
-  -> DynGraph l a
+  => DynGraph l a
   -> a
-  -> FindTargetsResult l a
-findTargets targets DynGraph{..} v
-    | v `Set.member` targets = FindTargetsTarget
-    | Set.size targets /= IntSet.size targetIxs = FindTargetsInvalid
-    | Just ix <- Map.lookup v vtxMap =
-        run (0, Map.size vtxMap - 1) $ \(check :: Int -> ST s Bool) ->
-
-          let findInit ::
-                   [(Int, l)]  -- Remaining edges from starting vertex
-                -> ST s (FindTargetsResult l a)
-              findInit ((ix', l) : rest) = findFirst l [ix'] rest
-              findInit []                = return FindTargetsNotFound
-
-              findFirst ::
-                   l           -- Label of edge from starting vertex
-                -> [Int]       -- Remaining vertices to explore
-                -> [(Int, l)]  -- Remaining edges from starting vertex
-                -> ST s (FindTargetsResult l a)
-              findFirst l (ix' : ixs') rest = check ix' >>= \case
-                True -> findFirst l ixs' rest
-                False
-                  | ix' `IntSet.member` targetIxs ->
-                      case IntMap.lookup ix' idxMap of
-                        Just v' -> findRest l (NonEmpty.singleton v') $
-                          (ixs' ++ map fst rest)
-                        Nothing -> return FindTargetsInvalid
-                  | otherwise ->
-                      case Set.toList <$> IntMap.lookup ix' edges of
-                        Just ps -> findFirst l (map fst ps ++ ixs') rest
-                        Nothing -> findFirst l ixs' rest
-              findFirst _ [] rest = findInit rest
-
-              findRest ::
-                   l           -- Label of edge from starting vertex
-                -> NonEmpty a  -- Found target vertices (reversed)
-                -> [Int]       -- Remaining vertices to explore
-                -> ST s (FindTargetsResult l a)
-              findRest l acc (ix' : ixs') = check ix' >>= \case
-                True -> findRest l acc ixs'
-                False
-                  | ix' `IntSet.member` targetIxs ->
-                      case IntMap.lookup ix' idxMap of
-                        Just v' -> findRest l (NonEmpty.cons v' acc) ixs'
-                        Nothing -> return FindTargetsInvalid
-                  | otherwise ->
-                      case Set.toList <$> IntMap.lookup ix' edges of
-                        Just ps -> findRest l acc (map fst ps ++ ixs')
-                        Nothing -> findRest l acc ixs'
-              findRest l acc [] =
-                return $ FindTargetsFound (NonEmpty.reverse acc) l
-
-          in  case Set.toList <$> IntMap.lookup ix edges of
-                Just ps -> findInit ps
-                Nothing -> return FindTargetsNotFound
-
-    | otherwise = FindTargetsInvalid
+  -> FindEdgesResult l
+findEdges DynGraph{..} startV =
+    run (0, Map.size vtxMap - 1) $ \(check :: Int -> ST s Bool) ->
+      let step ::
+               NonEmpty l  -- edges from starting vertex
+            -> IntSet      -- terminal vertices
+            -> [l]         -- accumulated list of edges to terminal vertices
+            -> [(Int, l)]  -- frontier
+            -> ST s (FindEdgesResult l)
+          step startEdges termIxs acc ((ix, l) : rest)
+            | IntSet.member ix termIxs = step startEdges termIxs (l : acc) rest
+            | otherwise = check ix >>= \case
+                True -> step startEdges termIxs acc rest
+                False -> case Set.toList <$> IntMap.lookup ix edges of
+                  Just ps | not (null ps) ->
+                    step startEdges termIxs acc (ps ++ rest)
+                  _otherwise ->
+                    step startEdges (IntSet.insert ix termIxs) (l : acc) rest
+          step startEdges _termIxs acc [] = return $
+            FindEdgesFound startEdges (NonEmpty.fromList (List.reverse acc))
+      in  case Map.lookup startV vtxMap of
+            Nothing -> return FindEdgesInvalid
+            Just ix -> case Set.toList <$> IntMap.lookup ix edges of
+              Just ps -> case fmap snd <$> NonEmpty.nonEmpty ps of
+                Just startEdges -> step startEdges IntSet.empty [] ps
+                Nothing -> return FindEdgesNone
+              Nothing -> return FindEdgesNone
   where
-    targetIxs :: IntSet
-    targetIxs = IntSet.fromList $
-      mapMaybe (`Map.lookup` vtxMap) (Set.toList targets)
-
     run :: forall x.
          (Int, Int)
       -> (forall s. (Int -> ST s Bool) -> ST s x)
@@ -273,19 +237,16 @@ findTargets targets DynGraph{..} v
             unless visited $ Array.writeArray m idx True
             return visited
 
--- | 'findTargets' result
-data FindTargetsResult l a  =
+-- | 'findEdges' result
+data FindEdgesResult l =
     -- | Invalid graph: one or more vertex not found
-    FindTargetsInvalid
+    FindEdgesInvalid
 
-    -- | Starting vertex is a target vertex
-  | FindTargetsTarget
+    -- | Starting vertex has no edges
+  | FindEdgesNone
 
-    -- | No target vertices are reachable
-  | FindTargetsNotFound
-
-    -- | Reachable target vertices and label
-  | FindTargetsFound (NonEmpty a) l
+    -- | Edges from starting vertex and edges to terminal vertices
+  | FindEdgesFound (NonEmpty l) (NonEmpty l)
 
 {-------------------------------------------------------------------------------
   Deletion

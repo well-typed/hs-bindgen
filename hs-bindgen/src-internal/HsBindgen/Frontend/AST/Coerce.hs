@@ -84,12 +84,10 @@ instance (
     ) => CoercePass DeclKind p p' where
   coercePass = \case
     DeclStruct struct     -> DeclStruct (coercePass struct)
-    DeclStructOpaque      -> DeclStructOpaque
     DeclUnion union       -> DeclUnion (coercePass union)
-    DeclUnionOpaque       -> DeclUnionOpaque
     DeclTypedef typedef   -> DeclTypedef (coercePass typedef)
     DeclEnum enum         -> DeclEnum (coercePass enum)
-    DeclEnumOpaque        -> DeclEnumOpaque
+    DeclOpaque cNameKind  -> DeclOpaque cNameKind
     DeclMacro macro       -> DeclMacro macro
     DeclFunction function -> DeclFunction (coercePass function)
     DeclGlobal ty         -> DeclGlobal (coercePass ty)

@@ -5,25 +5,25 @@ types:
 - headers: distilled_lib_1.h
   cname: a_type_t
   module: Example
-  identifier: A_type_t
+  hsname: A_type_t
   instances:
-  - Eq
-  - Ord
-  - Enum
-  - Ix
-  - Bounded
-  - Read
-  - Show
   - Bits
+  - Bounded
+  - Enum
+  - Eq
   - FiniteBits
   - Integral
+  - Ix
   - Num
+  - Ord
+  - Read
   - Real
+  - Show
   - Storable
 - headers: distilled_lib_1.h
   cname: a_typedef_enum_e
   module: Example
-  identifier: A_typedef_enum_e
+  hsname: A_typedef_enum_e
   instances:
   - Eq
   - Ord
@@ -33,7 +33,7 @@ types:
 - headers: distilled_lib_1.h
   cname: struct a_typedef_struct
   module: Example
-  identifier: A_typedef_struct_t
+  hsname: A_typedef_struct_t
   instances:
   - Eq
   - Show
@@ -41,7 +41,7 @@ types:
 - headers: distilled_lib_1.h
   cname: another_typedef_enum_e
   module: Example
-  identifier: Another_typedef_enum_e
+  hsname: Another_typedef_enum_e
   instances:
   - Eq
   - Ord
@@ -51,7 +51,7 @@ types:
 - headers: distilled_lib_1.h
   cname: another_typedef_struct_t
   module: Example
-  identifier: Another_typedef_struct_t
+  hsname: Another_typedef_struct_t
   instances:
   - Eq
   - Show
@@ -59,7 +59,7 @@ types:
 - headers: distilled_lib_1.h
   cname: callback_t
   module: Example
-  identifier: Callback_t
+  hsname: Callback_t
   instances:
   - Eq
   - Ord
@@ -68,22 +68,22 @@ types:
 - headers: distilled_lib_1.h
   cname: callback_t_Deref
   module: Example
-  identifier: Callback_t_Deref
+  hsname: Callback_t_Deref
 - headers: distilled_lib_1.h
   cname: var_t
   module: Example
-  identifier: Var_t
+  hsname: Var_t
   instances:
-  - Eq
-  - Ord
-  - Enum
-  - Ix
-  - Bounded
-  - Read
-  - Show
   - Bits
+  - Bounded
+  - Enum
+  - Eq
   - FiniteBits
   - Integral
+  - Ix
   - Num
+  - Ord
+  - Read
   - Real
+  - Show
   - Storable

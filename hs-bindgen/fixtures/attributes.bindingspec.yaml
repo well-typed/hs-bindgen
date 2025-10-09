@@ -5,7 +5,7 @@ types:
 - headers: attributes.h
   cname: struct __sFILE
   module: Example
-  identifier: FILE
+  hsname: FILE
   instances:
   - Eq
   - Show
@@ -13,7 +13,7 @@ types:
 - headers: attributes.h
   cname: struct bar
   module: Example
-  identifier: Bar
+  hsname: Bar
   instances:
   - Eq
   - Show
@@ -21,7 +21,7 @@ types:
 - headers: attributes.h
   cname: baz
   module: Example
-  identifier: Baz
+  hsname: Baz
   instances:
   - Eq
   - Show
@@ -29,7 +29,7 @@ types:
 - headers: attributes.h
   cname: struct foo
   module: Example
-  identifier: Foo
+  hsname: Foo
   instances:
   - Eq
   - Show
@@ -37,7 +37,7 @@ types:
 - headers: attributes.h
   cname: qux
   module: Example
-  identifier: Qux
+  hsname: Qux
   instances:
   - Eq
   - Show

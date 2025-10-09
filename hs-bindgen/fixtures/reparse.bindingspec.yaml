@@ -5,61 +5,61 @@ types:
 - headers: reparse.h
   cname: A
   module: Example
-  identifier: A
+  hsname: A
   instances:
-  - Eq
-  - Ord
-  - Enum
-  - Ix
-  - Bounded
-  - Read
-  - Show
   - Bits
+  - Bounded
+  - Enum
+  - Eq
   - FiniteBits
   - Integral
+  - Ix
   - Num
+  - Ord
+  - Read
   - Real
+  - Show
   - Storable
 - headers: reparse.h
   cname: BOOL
   module: Example
-  identifier: BOOL
+  hsname: BOOL
   instances:
-  - Eq
-  - Ord
-  - Enum
-  - Ix
-  - Bounded
-  - Read
-  - Show
   - Bits
+  - Bounded
+  - Enum
+  - Eq
   - FiniteBits
   - Integral
+  - Ix
   - Num
+  - Ord
+  - Read
   - Real
+  - Show
   - Storable
 - headers: reparse.h
   cname: INT
   module: Example
-  identifier: INT
+  hsname: INT
   instances:
-  - Eq
-  - Ord
-  - Enum
-  - Ix
-  - Bounded
-  - Read
-  - Show
   - Bits
+  - Bounded
+  - Enum
+  - Eq
   - FiniteBits
   - Integral
+  - Ix
   - Num
+  - Ord
+  - Read
   - Real
+  - Show
   - Storable
 - headers: reparse.h
   cname: INTCP
   module: Example
-  identifier: INTCP
+  hsname: INTCP
   instances:
   - Eq
   - Ord
@@ -68,7 +68,7 @@ types:
 - headers: reparse.h
   cname: INTP
   module: Example
-  identifier: INTP
+  hsname: INTP
   instances:
   - Eq
   - Ord
@@ -77,21 +77,21 @@ types:
 - headers: reparse.h
   cname: arr_typedef1
   module: Example
-  identifier: Arr_typedef1
+  hsname: Arr_typedef1
   instances:
   - Eq
   - Show
 - headers: reparse.h
   cname: arr_typedef2
   module: Example
-  identifier: Arr_typedef2
+  hsname: Arr_typedef2
   instances:
   - Eq
   - Show
 - headers: reparse.h
   cname: arr_typedef3
   module: Example
-  identifier: Arr_typedef3
+  hsname: Arr_typedef3
   instances:
   - Eq
   - Show
@@ -99,7 +99,7 @@ types:
 - headers: reparse.h
   cname: arr_typedef4
   module: Example
-  identifier: Arr_typedef4
+  hsname: Arr_typedef4
   instances:
   - Eq
   - Show
@@ -107,25 +107,25 @@ types:
 - headers: reparse.h
   cname: comments2
   module: Example
-  identifier: Comments2
+  hsname: Comments2
   instances:
-  - Eq
-  - Ord
-  - Enum
-  - Ix
-  - Bounded
-  - Read
-  - Show
   - Bits
+  - Bounded
+  - Enum
+  - Eq
   - FiniteBits
   - Integral
+  - Ix
   - Num
+  - Ord
+  - Read
   - Real
+  - Show
   - Storable
 - headers: reparse.h
   cname: const_funptr1
   module: Example
-  identifier: Const_funptr1
+  hsname: Const_funptr1
   instances:
   - Eq
   - Ord
@@ -134,11 +134,11 @@ types:
 - headers: reparse.h
   cname: const_funptr1_Deref
   module: Example
-  identifier: Const_funptr1_Deref
+  hsname: Const_funptr1_Deref
 - headers: reparse.h
   cname: const_funptr2
   module: Example
-  identifier: Const_funptr2
+  hsname: Const_funptr2
   instances:
   - Eq
   - Ord
@@ -147,11 +147,11 @@ types:
 - headers: reparse.h
   cname: const_funptr2_Deref
   module: Example
-  identifier: Const_funptr2_Deref
+  hsname: Const_funptr2_Deref
 - headers: reparse.h
   cname: const_funptr3
   module: Example
-  identifier: Const_funptr3
+  hsname: Const_funptr3
   instances:
   - Eq
   - Ord
@@ -160,11 +160,11 @@ types:
 - headers: reparse.h
   cname: const_funptr3_Deref
   module: Example
-  identifier: Const_funptr3_Deref
+  hsname: Const_funptr3_Deref
 - headers: reparse.h
   cname: const_funptr4
   module: Example
-  identifier: Const_funptr4
+  hsname: Const_funptr4
   instances:
   - Eq
   - Ord
@@ -173,11 +173,11 @@ types:
 - headers: reparse.h
   cname: const_funptr4_Deref
   module: Example
-  identifier: Const_funptr4_Deref
+  hsname: Const_funptr4_Deref
 - headers: reparse.h
   cname: const_funptr5
   module: Example
-  identifier: Const_funptr5
+  hsname: Const_funptr5
   instances:
   - Eq
   - Ord
@@ -186,11 +186,11 @@ types:
 - headers: reparse.h
   cname: const_funptr5_Deref
   module: Example
-  identifier: Const_funptr5_Deref
+  hsname: Const_funptr5_Deref
 - headers: reparse.h
   cname: const_funptr6
   module: Example
-  identifier: Const_funptr6
+  hsname: Const_funptr6
   instances:
   - Eq
   - Ord
@@ -199,11 +199,11 @@ types:
 - headers: reparse.h
   cname: const_funptr6_Deref
   module: Example
-  identifier: Const_funptr6_Deref
+  hsname: Const_funptr6_Deref
 - headers: reparse.h
   cname: const_funptr7
   module: Example
-  identifier: Const_funptr7
+  hsname: Const_funptr7
   instances:
   - Eq
   - Ord
@@ -212,47 +212,47 @@ types:
 - headers: reparse.h
   cname: const_funptr7_Deref
   module: Example
-  identifier: Const_funptr7_Deref
+  hsname: Const_funptr7_Deref
 - headers: reparse.h
   cname: const_typedef1
   module: Example
-  identifier: Const_typedef1
+  hsname: Const_typedef1
   instances:
-  - Eq
-  - Ord
-  - Enum
-  - Ix
-  - Bounded
-  - Read
-  - Show
   - Bits
+  - Bounded
+  - Enum
+  - Eq
   - FiniteBits
   - Integral
+  - Ix
   - Num
+  - Ord
+  - Read
   - Real
+  - Show
   - Storable
 - headers: reparse.h
   cname: const_typedef2
   module: Example
-  identifier: Const_typedef2
+  hsname: Const_typedef2
   instances:
-  - Eq
-  - Ord
-  - Enum
-  - Ix
-  - Bounded
-  - Read
-  - Show
   - Bits
+  - Bounded
+  - Enum
+  - Eq
   - FiniteBits
   - Integral
+  - Ix
   - Num
+  - Ord
+  - Read
   - Real
+  - Show
   - Storable
 - headers: reparse.h
   cname: const_typedef3
   module: Example
-  identifier: Const_typedef3
+  hsname: Const_typedef3
   instances:
   - Eq
   - Ord
@@ -261,7 +261,7 @@ types:
 - headers: reparse.h
   cname: const_typedef4
   module: Example
-  identifier: Const_typedef4
+  hsname: Const_typedef4
   instances:
   - Eq
   - Ord
@@ -270,7 +270,7 @@ types:
 - headers: reparse.h
   cname: const_typedef5
   module: Example
-  identifier: Const_typedef5
+  hsname: Const_typedef5
   instances:
   - Eq
   - Ord
@@ -279,7 +279,7 @@ types:
 - headers: reparse.h
   cname: const_typedef6
   module: Example
-  identifier: Const_typedef6
+  hsname: Const_typedef6
   instances:
   - Eq
   - Ord
@@ -288,7 +288,7 @@ types:
 - headers: reparse.h
   cname: const_typedef7
   module: Example
-  identifier: Const_typedef7
+  hsname: Const_typedef7
   instances:
   - Eq
   - Ord
@@ -297,7 +297,7 @@ types:
 - headers: reparse.h
   cname: struct example_struct
   module: Example
-  identifier: Example_struct
+  hsname: Example_struct
   instances:
   - Eq
   - Show
@@ -305,7 +305,7 @@ types:
 - headers: reparse.h
   cname: struct example_struct_with_const
   module: Example
-  identifier: Example_struct_with_const
+  hsname: Example_struct_with_const
   instances:
   - Eq
   - Show
@@ -313,7 +313,7 @@ types:
 - headers: reparse.h
   cname: funptr_typedef1
   module: Example
-  identifier: Funptr_typedef1
+  hsname: Funptr_typedef1
   instances:
   - Eq
   - Ord
@@ -322,11 +322,11 @@ types:
 - headers: reparse.h
   cname: funptr_typedef1_Deref
   module: Example
-  identifier: Funptr_typedef1_Deref
+  hsname: Funptr_typedef1_Deref
 - headers: reparse.h
   cname: funptr_typedef2
   module: Example
-  identifier: Funptr_typedef2
+  hsname: Funptr_typedef2
   instances:
   - Eq
   - Ord
@@ -335,11 +335,11 @@ types:
 - headers: reparse.h
   cname: funptr_typedef2_Deref
   module: Example
-  identifier: Funptr_typedef2_Deref
+  hsname: Funptr_typedef2_Deref
 - headers: reparse.h
   cname: funptr_typedef3
   module: Example
-  identifier: Funptr_typedef3
+  hsname: Funptr_typedef3
   instances:
   - Eq
   - Ord
@@ -348,11 +348,11 @@ types:
 - headers: reparse.h
   cname: funptr_typedef3_Deref
   module: Example
-  identifier: Funptr_typedef3_Deref
+  hsname: Funptr_typedef3_Deref
 - headers: reparse.h
   cname: funptr_typedef4
   module: Example
-  identifier: Funptr_typedef4
+  hsname: Funptr_typedef4
   instances:
   - Eq
   - Ord
@@ -361,11 +361,11 @@ types:
 - headers: reparse.h
   cname: funptr_typedef4_Deref
   module: Example
-  identifier: Funptr_typedef4_Deref
+  hsname: Funptr_typedef4_Deref
 - headers: reparse.h
   cname: funptr_typedef5
   module: Example
-  identifier: Funptr_typedef5
+  hsname: Funptr_typedef5
   instances:
   - Eq
   - Ord
@@ -374,11 +374,11 @@ types:
 - headers: reparse.h
   cname: funptr_typedef5_Deref
   module: Example
-  identifier: Funptr_typedef5_Deref
+  hsname: Funptr_typedef5_Deref
 - headers: reparse.h
   cname: enum some_enum
   module: Example
-  identifier: Some_enum
+  hsname: Some_enum
   instances:
   - Eq
   - Ord
@@ -388,7 +388,7 @@ types:
 - headers: reparse.h
   cname: struct some_struct
   module: Example
-  identifier: Some_struct
+  hsname: Some_struct
   instances:
   - Eq
   - Show
@@ -396,31 +396,31 @@ types:
 - headers: reparse.h
   cname: union some_union
   module: Example
-  identifier: Some_union
+  hsname: Some_union
   instances:
   - Storable
 - headers: reparse.h
   cname: typedef1
   module: Example
-  identifier: Typedef1
+  hsname: Typedef1
   instances:
-  - Eq
-  - Ord
-  - Enum
-  - Ix
-  - Bounded
-  - Read
-  - Show
   - Bits
+  - Bounded
+  - Enum
+  - Eq
   - FiniteBits
   - Integral
+  - Ix
   - Num
+  - Ord
+  - Read
   - Real
+  - Show
   - Storable
 - headers: reparse.h
   cname: typedef2
   module: Example
-  identifier: Typedef2
+  hsname: Typedef2
   instances:
   - Eq
   - Ord
@@ -429,7 +429,7 @@ types:
 - headers: reparse.h
   cname: typedef3
   module: Example
-  identifier: Typedef3
+  hsname: Typedef3
   instances:
   - Eq
   - Ord

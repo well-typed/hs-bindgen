@@ -26,11 +26,11 @@ TranslationUnit {
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "globals.h:12:8",
@@ -79,11 +79,11 @@ TranslationUnit {
               structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "globals.h:16:22",
@@ -107,11 +107,11 @@ TranslationUnit {
               "Config"}
           NameOriginInSource),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "globals.h:19:15",
@@ -162,11 +162,11 @@ TranslationUnit {
               structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "globals.h:19:47",
@@ -190,11 +190,11 @@ TranslationUnit {
               "Inline_struct"}
           NameOriginInSource),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo =
       DeclInfo {
@@ -242,11 +242,11 @@ TranslationUnit {
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "globals.h:36:9",
@@ -266,11 +266,11 @@ TranslationUnit {
         (TypePrim
           (PrimFloating PrimFloat)),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "globals.h:38:9",
@@ -293,11 +293,11 @@ TranslationUnit {
               (PrimSignImplicit
                 (Just Signed))))),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "globals.h:39:9",
@@ -321,11 +321,11 @@ TranslationUnit {
               (PrimSignImplicit
                 (Just Signed))))),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "globals.h:40:9",
@@ -347,11 +347,11 @@ TranslationUnit {
             (PrimSignImplicit
               (Just Signed)))),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "globals.h:41:9",
@@ -371,11 +371,11 @@ TranslationUnit {
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "globals.h:42:9",
@@ -395,11 +395,11 @@ TranslationUnit {
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "globals.h:43:9",
@@ -419,11 +419,11 @@ TranslationUnit {
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "globals.h:44:9",
@@ -443,11 +443,11 @@ TranslationUnit {
         (TypePrim
           (PrimIntegral PrimInt Signed)),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "globals.h:45:9",
@@ -467,11 +467,11 @@ TranslationUnit {
         (TypePrim
           (PrimFloating PrimFloat)),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "globals.h:46:9",
@@ -492,11 +492,11 @@ TranslationUnit {
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "globals.h:47:9",
@@ -526,34 +526,17 @@ TranslationUnit {
                   "HsBindgen.Runtime.Prelude",
                 extRefIdentifier = Identifier
                   "Word8"},
-              extHsSpec = TypeSpec {
-                typeSpecModule = Just
+              extHsSpec = CTypeSpec {
+                cTypeSpecModule = Just
                   (ModuleName
                     "HsBindgen.Runtime.Prelude"),
-                typeSpecIdentifier = Just
+                cTypeSpecIdentifier = Just
                   (Identifier "Word8"),
-                typeSpecInstances = Map.fromList
+                cTypeSpecInstances =
+                Map.fromList
                   [
                     _×_
-                      Eq
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Ord
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Enum
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Ix
+                      Bits
                       (Require
                         InstanceSpec {
                           instanceSpecStrategy = Nothing,
@@ -565,19 +548,13 @@ TranslationUnit {
                           instanceSpecStrategy = Nothing,
                           instanceSpecConstraints = []}),
                     _×_
-                      Read
+                      Enum
                       (Require
                         InstanceSpec {
                           instanceSpecStrategy = Nothing,
                           instanceSpecConstraints = []}),
                     _×_
-                      Show
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Bits
+                      Eq
                       (Require
                         InstanceSpec {
                           instanceSpecStrategy = Nothing,
@@ -595,19 +572,25 @@ TranslationUnit {
                           instanceSpecStrategy = Nothing,
                           instanceSpecConstraints = []}),
                     _×_
+                      Ix
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
                       Num
                       (Require
                         InstanceSpec {
                           instanceSpecStrategy = Nothing,
                           instanceSpecConstraints = []}),
                     _×_
-                      Real
+                      Ord
                       (Require
                         InstanceSpec {
                           instanceSpecStrategy = Nothing,
                           instanceSpecConstraints = []}),
                     _×_
-                      StaticSize
+                      Read
                       (Require
                         InstanceSpec {
                           instanceSpecStrategy = Nothing,
@@ -619,7 +602,19 @@ TranslationUnit {
                           instanceSpecStrategy = Nothing,
                           instanceSpecConstraints = []}),
                     _×_
-                      WriteRaw
+                      Real
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Show
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      StaticSize
                       (Require
                         InstanceSpec {
                           instanceSpecStrategy = Nothing,
@@ -629,14 +624,20 @@ TranslationUnit {
                       (Require
                         InstanceSpec {
                           instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      WriteRaw
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
                           instanceSpecConstraints = [
                             ]})]}})),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "globals.h:48:9",
@@ -655,11 +656,11 @@ TranslationUnit {
       declKind = DeclGlobal
         (TypePrim PrimBool),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo =
       DeclInfo {
@@ -716,34 +717,17 @@ TranslationUnit {
                   "HsBindgen.Runtime.Prelude",
                 extRefIdentifier = Identifier
                   "Word8"},
-              extHsSpec = TypeSpec {
-                typeSpecModule = Just
+              extHsSpec = CTypeSpec {
+                cTypeSpecModule = Just
                   (ModuleName
                     "HsBindgen.Runtime.Prelude"),
-                typeSpecIdentifier = Just
+                cTypeSpecIdentifier = Just
                   (Identifier "Word8"),
-                typeSpecInstances = Map.fromList
+                cTypeSpecInstances =
+                Map.fromList
                   [
                     _×_
-                      Eq
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Ord
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Enum
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Ix
+                      Bits
                       (Require
                         InstanceSpec {
                           instanceSpecStrategy = Nothing,
@@ -755,19 +739,13 @@ TranslationUnit {
                           instanceSpecStrategy = Nothing,
                           instanceSpecConstraints = []}),
                     _×_
-                      Read
+                      Enum
                       (Require
                         InstanceSpec {
                           instanceSpecStrategy = Nothing,
                           instanceSpecConstraints = []}),
                     _×_
-                      Show
-                      (Require
-                        InstanceSpec {
-                          instanceSpecStrategy = Nothing,
-                          instanceSpecConstraints = []}),
-                    _×_
-                      Bits
+                      Eq
                       (Require
                         InstanceSpec {
                           instanceSpecStrategy = Nothing,
@@ -785,19 +763,25 @@ TranslationUnit {
                           instanceSpecStrategy = Nothing,
                           instanceSpecConstraints = []}),
                     _×_
+                      Ix
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
                       Num
                       (Require
                         InstanceSpec {
                           instanceSpecStrategy = Nothing,
                           instanceSpecConstraints = []}),
                     _×_
-                      Real
+                      Ord
                       (Require
                         InstanceSpec {
                           instanceSpecStrategy = Nothing,
                           instanceSpecConstraints = []}),
                     _×_
-                      StaticSize
+                      Read
                       (Require
                         InstanceSpec {
                           instanceSpecStrategy = Nothing,
@@ -809,7 +793,19 @@ TranslationUnit {
                           instanceSpecStrategy = Nothing,
                           instanceSpecConstraints = []}),
                     _×_
-                      WriteRaw
+                      Real
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Show
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      StaticSize
                       (Require
                         InstanceSpec {
                           instanceSpecStrategy = Nothing,
@@ -819,14 +815,20 @@ TranslationUnit {
                       (Require
                         InstanceSpec {
                           instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      WriteRaw
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
                           instanceSpecConstraints = [
                             ]})]}})),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "globals.h:404:10",
@@ -854,34 +856,17 @@ TranslationUnit {
                 "HsBindgen.Runtime.Prelude",
               extRefIdentifier = Identifier
                 "Word32"},
-            extHsSpec = TypeSpec {
-              typeSpecModule = Just
+            extHsSpec = CTypeSpec {
+              cTypeSpecModule = Just
                 (ModuleName
                   "HsBindgen.Runtime.Prelude"),
-              typeSpecIdentifier = Just
+              cTypeSpecIdentifier = Just
                 (Identifier "Word32"),
-              typeSpecInstances = Map.fromList
+              cTypeSpecInstances =
+              Map.fromList
                 [
                   _×_
-                    Eq
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Ord
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Enum
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Ix
+                    Bits
                     (Require
                       InstanceSpec {
                         instanceSpecStrategy = Nothing,
@@ -893,19 +878,13 @@ TranslationUnit {
                         instanceSpecStrategy = Nothing,
                         instanceSpecConstraints = []}),
                   _×_
-                    Read
+                    Enum
                     (Require
                       InstanceSpec {
                         instanceSpecStrategy = Nothing,
                         instanceSpecConstraints = []}),
                   _×_
-                    Show
-                    (Require
-                      InstanceSpec {
-                        instanceSpecStrategy = Nothing,
-                        instanceSpecConstraints = []}),
-                  _×_
-                    Bits
+                    Eq
                     (Require
                       InstanceSpec {
                         instanceSpecStrategy = Nothing,
@@ -923,19 +902,25 @@ TranslationUnit {
                         instanceSpecStrategy = Nothing,
                         instanceSpecConstraints = []}),
                   _×_
+                    Ix
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
                     Num
                     (Require
                       InstanceSpec {
                         instanceSpecStrategy = Nothing,
                         instanceSpecConstraints = []}),
                   _×_
-                    Real
+                    Ord
                     (Require
                       InstanceSpec {
                         instanceSpecStrategy = Nothing,
                         instanceSpecConstraints = []}),
                   _×_
-                    StaticSize
+                    Read
                     (Require
                       InstanceSpec {
                         instanceSpecStrategy = Nothing,
@@ -947,7 +932,19 @@ TranslationUnit {
                         instanceSpecStrategy = Nothing,
                         instanceSpecConstraints = []}),
                   _×_
-                    WriteRaw
+                    Real
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Show
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    StaticSize
                     (Require
                       InstanceSpec {
                         instanceSpecStrategy = Nothing,
@@ -957,14 +954,20 @@ TranslationUnit {
                     (Require
                       InstanceSpec {
                         instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    WriteRaw
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
                         instanceSpecConstraints = [
                           ]})]}}),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "globals.h:406:9",
@@ -1008,34 +1011,17 @@ TranslationUnit {
                       "HsBindgen.Runtime.Prelude",
                     extRefIdentifier = Identifier
                       "Word8"},
-                  extHsSpec = TypeSpec {
-                    typeSpecModule = Just
+                  extHsSpec = CTypeSpec {
+                    cTypeSpecModule = Just
                       (ModuleName
                         "HsBindgen.Runtime.Prelude"),
-                    typeSpecIdentifier = Just
+                    cTypeSpecIdentifier = Just
                       (Identifier "Word8"),
-                    typeSpecInstances = Map.fromList
+                    cTypeSpecInstances =
+                    Map.fromList
                       [
                         _×_
-                          Eq
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Ord
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Enum
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Ix
+                          Bits
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
@@ -1047,19 +1033,13 @@ TranslationUnit {
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
-                          Read
+                          Enum
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
-                          Show
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Bits
+                          Eq
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
@@ -1077,19 +1057,25 @@ TranslationUnit {
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
+                          Ix
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
                           Num
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
-                          Real
+                          Ord
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
-                          StaticSize
+                          Read
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
@@ -1101,13 +1087,31 @@ TranslationUnit {
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
-                          WriteRaw
+                          Real
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Show
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          StaticSize
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
                           Storable
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          WriteRaw
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
@@ -1134,34 +1138,17 @@ TranslationUnit {
                       "HsBindgen.Runtime.Prelude",
                     extRefIdentifier = Identifier
                       "Word16"},
-                  extHsSpec = TypeSpec {
-                    typeSpecModule = Just
+                  extHsSpec = CTypeSpec {
+                    cTypeSpecModule = Just
                       (ModuleName
                         "HsBindgen.Runtime.Prelude"),
-                    typeSpecIdentifier = Just
+                    cTypeSpecIdentifier = Just
                       (Identifier "Word16"),
-                    typeSpecInstances = Map.fromList
+                    cTypeSpecInstances =
+                    Map.fromList
                       [
                         _×_
-                          Eq
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Ord
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Enum
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Ix
+                          Bits
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
@@ -1173,19 +1160,13 @@ TranslationUnit {
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
-                          Read
+                          Enum
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
-                          Show
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Bits
+                          Eq
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
@@ -1203,19 +1184,25 @@ TranslationUnit {
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
+                          Ix
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
                           Num
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
-                          Real
+                          Ord
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
-                          StaticSize
+                          Read
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
@@ -1227,13 +1214,31 @@ TranslationUnit {
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
-                          WriteRaw
+                          Real
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Show
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          StaticSize
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
                           Storable
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          WriteRaw
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
@@ -1260,34 +1265,17 @@ TranslationUnit {
                       "HsBindgen.Runtime.Prelude",
                     extRefIdentifier = Identifier
                       "Word8"},
-                  extHsSpec = TypeSpec {
-                    typeSpecModule = Just
+                  extHsSpec = CTypeSpec {
+                    cTypeSpecModule = Just
                       (ModuleName
                         "HsBindgen.Runtime.Prelude"),
-                    typeSpecIdentifier = Just
+                    cTypeSpecIdentifier = Just
                       (Identifier "Word8"),
-                    typeSpecInstances = Map.fromList
+                    cTypeSpecInstances =
+                    Map.fromList
                       [
                         _×_
-                          Eq
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Ord
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Enum
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Ix
+                          Bits
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
@@ -1299,19 +1287,13 @@ TranslationUnit {
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
-                          Read
+                          Enum
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
-                          Show
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Bits
+                          Eq
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
@@ -1329,19 +1311,25 @@ TranslationUnit {
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
+                          Ix
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
                           Num
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
-                          Real
+                          Ord
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
-                          StaticSize
+                          Read
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
@@ -1353,7 +1341,19 @@ TranslationUnit {
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
-                          WriteRaw
+                          Real
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Show
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          StaticSize
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
@@ -1363,17 +1363,23 @@ TranslationUnit {
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          WriteRaw
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = [
                                 ]})]}},
               structFieldOffset = 32,
               structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "globals.h:413:9",
@@ -1417,34 +1423,17 @@ TranslationUnit {
                       "HsBindgen.Runtime.Prelude",
                     extRefIdentifier = Identifier
                       "Word16"},
-                  extHsSpec = TypeSpec {
-                    typeSpecModule = Just
+                  extHsSpec = CTypeSpec {
+                    cTypeSpecModule = Just
                       (ModuleName
                         "HsBindgen.Runtime.Prelude"),
-                    typeSpecIdentifier = Just
+                    cTypeSpecIdentifier = Just
                       (Identifier "Word16"),
-                    typeSpecInstances = Map.fromList
+                    cTypeSpecInstances =
+                    Map.fromList
                       [
                         _×_
-                          Eq
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Ord
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Enum
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Ix
+                          Bits
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
@@ -1456,19 +1445,13 @@ TranslationUnit {
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
-                          Read
+                          Enum
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
-                          Show
-                          (Require
-                            InstanceSpec {
-                              instanceSpecStrategy = Nothing,
-                              instanceSpecConstraints = []}),
-                        _×_
-                          Bits
+                          Eq
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
@@ -1486,19 +1469,25 @@ TranslationUnit {
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
+                          Ix
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
                           Num
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
-                          Real
+                          Ord
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
-                          StaticSize
+                          Read
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
@@ -1510,13 +1499,31 @@ TranslationUnit {
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
-                          WriteRaw
+                          Real
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          Show
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          StaticSize
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
                               instanceSpecConstraints = []}),
                         _×_
                           Storable
+                          (Require
+                            InstanceSpec {
+                              instanceSpecStrategy = Nothing,
+                              instanceSpecConstraints = []}),
+                        _×_
+                          WriteRaw
                           (Require
                             InstanceSpec {
                               instanceSpecStrategy = Nothing,
@@ -1558,11 +1565,11 @@ TranslationUnit {
               structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "globals.h:420:9",
@@ -1609,11 +1616,11 @@ TranslationUnit {
               structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "globals.h:425:11",
@@ -1642,11 +1649,11 @@ TranslationUnit {
               (NameOriginGenerated
                 (AnonId "globals.h:420:9"))))),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo =
       DeclInfo {
@@ -1678,11 +1685,11 @@ TranslationUnit {
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "globals.h:448:19",
@@ -1717,11 +1724,11 @@ TranslationUnit {
             (TypePrim
               (PrimIntegral PrimInt Signed))},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "globals.h:449:17",
@@ -1746,11 +1753,11 @@ TranslationUnit {
               nameHsIdent = Identifier
                 "ConstInt"})),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo =
       DeclInfo {
@@ -1783,11 +1790,11 @@ TranslationUnit {
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "globals.h:457:11",
@@ -1814,11 +1821,11 @@ TranslationUnit {
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "globals.h:460:18",
@@ -1849,11 +1856,11 @@ TranslationUnit {
                 PrimInt
                 Signed)))),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "globals.h:463:19",
@@ -1892,11 +1899,11 @@ TranslationUnit {
                   PrimInt
                   Signed)))},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "globals.h:464:22",
@@ -1920,11 +1927,11 @@ TranslationUnit {
               nameHsIdent = Identifier
                 "ConstIntArray"})),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "globals.h:466:8",
@@ -1974,11 +1981,11 @@ TranslationUnit {
               structFieldWidth = Nothing}],
           structFlam = Nothing},
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "globals.h:468:27",
@@ -2009,11 +2016,11 @@ TranslationUnit {
                 "Tuple"}
             NameOriginInSource)),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "globals.h:470:21",
@@ -2043,11 +2050,11 @@ TranslationUnit {
               "Tuple"}
           NameOriginInSource),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "globals.h:473:20",
@@ -2077,11 +2084,11 @@ TranslationUnit {
                 PrimInt
                 Signed)))),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "globals.h:475:20",
@@ -2111,11 +2118,11 @@ TranslationUnit {
                 PrimInt
                 Signed)))),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}},
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "globals.h:477:26",
@@ -2147,11 +2154,11 @@ TranslationUnit {
                   PrimInt
                   Signed))))),
       declSpec = DeclSpec
-        TypeSpec {
-          typeSpecModule = Nothing,
-          typeSpecIdentifier = Nothing,
-          typeSpecInstances = Map.fromList
-            []}}],
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}}],
   unitDeps = [
     "stdbool",
     "stdint",

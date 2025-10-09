@@ -11,9 +11,6 @@ import Data.Proxy
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config.FixCandidate (FixCandidate (..))
 import HsBindgen.Config.FixCandidate qualified as FixCandidate
-import HsBindgen.Frontend.AST.External (DeclSpec (..), NamePair (..),
-                                        NewtypeNames (..), RecordNames (..),
-                                        nameHs)
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
@@ -71,7 +68,7 @@ nameForDecl ::
   -> C.Decl HandleTypedefs
   -> ((C.QualName, Hs.Identifier), Maybe (Msg MangleNames))
 nameForDecl fc decl =
-    case typeSpecIdentifier of
+    case cTypeSpecIdentifier of
       Just hsName -> (choose hsName, Nothing)
       Nothing     -> withDeclNamespace declKind $ \ns ->
                        first choose $ fromCName fc ns cName
@@ -81,7 +78,7 @@ nameForDecl fc decl =
       , declKind
       , declAnn
       } = decl
-    BindingSpec.TypeSpec{typeSpecIdentifier} = declAnn
+    BindingSpec.CTypeSpec{cTypeSpecIdentifier} = declAnn
 
     choose :: Hs.Identifier -> (C.QualName, Hs.Identifier)
     choose hsName = (C.declQualName decl, hsName)
@@ -141,11 +138,11 @@ class MangleDecl a where
        C.DeclInfo MangleNames
     -> a HandleTypedefs -> M (a MangleNames)
 
-mangleQualName :: C.QualName -> C.NameOrigin -> M (NamePair, C.NameOrigin)
+mangleQualName :: C.QualName -> C.NameOrigin -> M (C.NamePair, C.NameOrigin)
 mangleQualName cQualName@(C.QualName cName _namespace) nameOrigin = do
     nm <- asks envNameMap
     case Map.lookup cQualName nm of
-      Just hsName -> return (NamePair cName hsName, nameOrigin)
+      Just hsName -> return (C.NamePair cName hsName, nameOrigin)
       Nothing     -> do
         -- NB: We did not register any declaration with the given ID. This is
         -- most likely because the user did not select the declaration. If the
@@ -153,7 +150,7 @@ mangleQualName cQualName@(C.QualName cName _namespace) nameOrigin = do
         -- already.
         modify (MangleNamesMissingDeclaration cQualName :)
         -- Use a fake Haskell ID.
-        return (NamePair cName (Hs.Identifier "MissingDeclaration"), nameOrigin)
+        return (C.NamePair cName (Hs.Identifier "MissingDeclaration"), nameOrigin)
 
 {-------------------------------------------------------------------------------
   Additional name mangling functionality
@@ -161,42 +158,42 @@ mangleQualName cQualName@(C.QualName cName _namespace) nameOrigin = do
   TODO: Perhaps some (or all) of this should be configurable.
 -------------------------------------------------------------------------------}
 
-mangleFieldName :: C.DeclInfo MangleNames -> C.Name -> M NamePair
+mangleFieldName :: C.DeclInfo MangleNames -> C.Name -> M C.NamePair
 mangleFieldName info fieldCName = do
     fc <- asks envFixCandidate
     let candidate = declCName <> "_" <> fieldCName
     let (fieldHsName, mError) = fromCName fc (Proxy @Hs.NsVar) candidate
     forM_ mError $ modify . (:)
-    return $ NamePair fieldCName fieldHsName
+    return $ C.NamePair fieldCName fieldHsName
   where
-    C.DeclInfo{declId = (NamePair declCName _declHsName, _origin)} = info
+    C.DeclInfo{declId = (C.NamePair declCName _declHsName, _origin)} = info
 
 -- | Mangle enum constant name
 --
 -- Since these live in the global namespace, we do not prepend the name of
 -- the enclosing enum.
-mangleEnumConstant :: C.DeclInfo MangleNames -> C.Name -> M NamePair
+mangleEnumConstant :: C.DeclInfo MangleNames -> C.Name -> M C.NamePair
 mangleEnumConstant _info cName = do
     fc <- asks envFixCandidate
     let (hsName, mError) = fromCName fc (Proxy @Hs.NsConstr) cName
     forM_ mError $ modify . (:)
-    return $ NamePair cName hsName
+    return $ C.NamePair cName hsName
 
 -- | Struct names
 --
 -- Right now we reuse the name of the type also for the constructor.
-mkStructNames :: C.DeclInfo MangleNames -> RecordNames
-mkStructNames info = RecordNames{
-      recordConstr = nameHs namePair
+mkStructNames :: C.DeclInfo MangleNames -> C.RecordNames
+mkStructNames info = C.RecordNames{
+      recordConstr = C.nameHs namePair
     }
   where
     C.DeclInfo{declId = (namePair, _origin)} = info
 
 -- | Generic construction of newtype names, given only the type name
-mkNewtypeNames :: C.DeclInfo MangleNames -> NewtypeNames
-mkNewtypeNames info = NewtypeNames{
-      newtypeConstr = nameHs namePair
-    , newtypeField  = "un_" <> nameHs namePair
+mkNewtypeNames :: C.DeclInfo MangleNames -> C.NewtypeNames
+mkNewtypeNames info = C.NewtypeNames{
+      newtypeConstr = C.nameHs namePair
+    , newtypeField  = "un_" <> C.nameHs namePair
     }
   where
     C.DeclInfo{declId = (namePair, _origin)} = info
@@ -204,25 +201,25 @@ mkNewtypeNames info = NewtypeNames{
 -- | Union names
 --
 -- A union is represented by a newtype around the raw bytes.
-mkUnionNames :: C.DeclInfo MangleNames -> NewtypeNames
+mkUnionNames :: C.DeclInfo MangleNames -> C.NewtypeNames
 mkUnionNames = mkNewtypeNames
 
 -- | Enum names
 --
 -- An enum is represented by a newtype around an integral value.
-mkEnumNames :: C.DeclInfo MangleNames -> NewtypeNames
+mkEnumNames :: C.DeclInfo MangleNames -> C.NewtypeNames
 mkEnumNames = mkNewtypeNames
 
 -- | Typedef
 --
 -- Typedefs are represented by newtypes
-mkTypedefNames :: C.DeclInfo MangleNames -> NewtypeNames
+mkTypedefNames :: C.DeclInfo MangleNames -> C.NewtypeNames
 mkTypedefNames = mkNewtypeNames
 
 -- | Macro types
 --
 -- These behave like typedefs.
-mkMacroTypeNames :: C.DeclInfo MangleNames -> NewtypeNames
+mkMacroTypeNames :: C.DeclInfo MangleNames -> C.NewtypeNames
 mkMacroTypeNames = mkNewtypeNames
 
 -- | Mangle function argument name
@@ -230,12 +227,12 @@ mkMacroTypeNames = mkNewtypeNames
 -- Function argument names are not really used when generating Haskell code.
 -- They are more relevant for documentation purposes so we don't do any
 -- mangling.
-mangleArgumentName :: C.Name -> M NamePair
+mangleArgumentName :: C.Name -> M C.NamePair
 mangleArgumentName argName = do
     fc <- asks envFixCandidate
     let (hsName, mError) = fromCName fc (Proxy @Hs.NsVar) argName
     forM_ mError $ modify . (:)
-    return $ NamePair argName hsName
+    return $ C.NamePair argName hsName
 
 {-------------------------------------------------------------------------------
   Instances
@@ -262,7 +259,7 @@ instance Mangle C.Decl where
           mk declKind' = C.Decl{
                 declInfo = info
               , declKind = declKind'
-              , declAnn  = DeclSpec declAnn
+              , declAnn  = declAnn
               }
 
       mk <$> mangleDecl info declKind
@@ -272,18 +269,14 @@ instance Mangle C.Decl where
 instance MangleDecl C.DeclKind where
   mangleDecl info (C.DeclStruct struct) =
       C.DeclStruct <$> mangleDecl info struct
-  mangleDecl _ C.DeclStructOpaque =
-      return $ C.DeclStructOpaque
   mangleDecl info (C.DeclUnion union) =
       C.DeclUnion <$> mangleDecl info union
-  mangleDecl _ C.DeclUnionOpaque =
-      return $ C.DeclUnionOpaque
   mangleDecl info (C.DeclTypedef typedef) =
       C.DeclTypedef <$> mangleDecl info typedef
   mangleDecl info (C.DeclEnum enum) =
       C.DeclEnum <$> mangleDecl info enum
-  mangleDecl _ C.DeclEnumOpaque =
-      return $ C.DeclEnumOpaque
+  mangleDecl _ (C.DeclOpaque cNameKind) =
+      return $ C.DeclOpaque cNameKind
   mangleDecl info (C.DeclFunction fun) =
       C.DeclFunction <$> mangleDecl info fun
   mangleDecl info (C.DeclMacro macro) =
@@ -299,7 +292,7 @@ instance Mangle C.CommentRef where
                     | nameKind <- [minBound .. maxBound]
                     ]
     case lookupResults of
-      (hsName:_) -> return $ C.ById (NamePair declIdName hsName, declIdOrigin)
+      (hsName:_) -> return $ C.ById (C.NamePair declIdName hsName, declIdOrigin)
       []         -> do
         -- NB: If we hit this case it means that we tried all possible name
         -- kinds and still didn't find any result. This might be because of a
@@ -308,7 +301,7 @@ instance Mangle C.CommentRef where
         modify (MangleNamesMissingIdentifier (C.getName declIdName) :)
         --
         -- Use the fake Haskell ID.
-        return $ C.ById $ (NamePair declIdName (Hs.Identifier (C.getName declIdName)), declIdOrigin)
+        return $ C.ById $ (C.NamePair declIdName (Hs.Identifier (C.getName declIdName)), declIdOrigin)
 
 instance Mangle C.Comment where
   mangle (C.Comment comment) =
@@ -395,7 +388,7 @@ instance MangleDecl C.Enum where
 
 instance MangleDecl C.EnumConstant where
   mangleDecl info C.EnumConstant{..} = do
-      let mk :: NamePair
+      let mk :: C.NamePair
              -> Maybe (C.Comment MangleNames)
              -> C.EnumConstant MangleNames
           mk enumConstantName' enumConstantComment' = C.EnumConstant{
@@ -423,7 +416,7 @@ instance MangleDecl C.Typedef where
 instance MangleDecl C.Function where
   mangleDecl _info C.Function{..} = do
       let mk ::
-               [(Maybe NamePair, C.Type MangleNames)]
+               [(Maybe C.NamePair, C.Type MangleNames)]
             -> C.Type MangleNames
             -> C.Function MangleNames
           mk functionArgs' functionRes' = C.Function{
@@ -497,15 +490,13 @@ withDeclNamespace ::
   -> r
 withDeclNamespace kind k =
     case kind of
-      C.DeclStruct{}       -> k (Proxy @Hs.NsTypeConstr)
-      C.DeclStructOpaque{} -> k (Proxy @Hs.NsTypeConstr)
-      C.DeclUnion{}        -> k (Proxy @Hs.NsTypeConstr)
-      C.DeclUnionOpaque{}  -> k (Proxy @Hs.NsTypeConstr)
-      C.DeclTypedef{}      -> k (Proxy @Hs.NsTypeConstr)
-      C.DeclEnum{}         -> k (Proxy @Hs.NsTypeConstr)
-      C.DeclEnumOpaque{}   -> k (Proxy @Hs.NsTypeConstr)
-      C.DeclFunction{}     -> k (Proxy @Hs.NsVar)
-      C.DeclGlobal{}       -> k (Proxy @Hs.NsVar)
+      C.DeclStruct{}   -> k (Proxy @Hs.NsTypeConstr)
+      C.DeclUnion{}    -> k (Proxy @Hs.NsTypeConstr)
+      C.DeclTypedef{}  -> k (Proxy @Hs.NsTypeConstr)
+      C.DeclEnum{}     -> k (Proxy @Hs.NsTypeConstr)
+      C.DeclOpaque{}   -> k (Proxy @Hs.NsTypeConstr)
+      C.DeclFunction{} -> k (Proxy @Hs.NsVar)
+      C.DeclGlobal{}   -> k (Proxy @Hs.NsVar)
 
       C.DeclMacro macro ->
         case macro of

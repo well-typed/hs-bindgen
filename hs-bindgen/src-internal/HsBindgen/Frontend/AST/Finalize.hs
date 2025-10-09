@@ -50,7 +50,7 @@ instance Finalize Int.Decl where
   finalize decl = Ext.Decl{
         declInfo = finalize declInfo
       , declKind = finalize declKind
-      , declSpec = declAnn
+      , declSpec = Ext.DeclSpec declAnn
       }
     where
       Int.Decl {
@@ -97,16 +97,14 @@ instance Finalize Int.FieldInfo where
 instance Finalize Int.DeclKind where
   type Finalized Int.DeclKind = Ext.DeclKind
 
-  finalize (Int.DeclStruct struct)   = Ext.DeclStruct (finalize struct)
-  finalize (Int.DeclStructOpaque)    = Ext.DeclStructOpaque
-  finalize (Int.DeclUnion union)     = Ext.DeclUnion (finalize union)
-  finalize (Int.DeclUnionOpaque)     = Ext.DeclUnionOpaque
-  finalize (Int.DeclEnum enum)       = Ext.DeclEnum (finalize enum)
-  finalize (Int.DeclEnumOpaque)      = Ext.DeclEnumOpaque
-  finalize (Int.DeclTypedef typedef) = Ext.DeclTypedef (finalize typedef)
-  finalize (Int.DeclMacro macro)     = Ext.DeclMacro (finalize macro)
-  finalize (Int.DeclFunction func)   = Ext.DeclFunction (finalize func)
-  finalize (Int.DeclGlobal ty)       = Ext.DeclGlobal (finalize ty)
+  finalize (Int.DeclStruct struct)    = Ext.DeclStruct (finalize struct)
+  finalize (Int.DeclUnion union)      = Ext.DeclUnion (finalize union)
+  finalize (Int.DeclEnum enum)        = Ext.DeclEnum (finalize enum)
+  finalize (Int.DeclTypedef typedef)  = Ext.DeclTypedef (finalize typedef)
+  finalize (Int.DeclOpaque cNameKind) = Ext.DeclOpaque cNameKind
+  finalize (Int.DeclMacro macro)      = Ext.DeclMacro (finalize macro)
+  finalize (Int.DeclFunction func)    = Ext.DeclFunction (finalize func)
+  finalize (Int.DeclGlobal ty)        = Ext.DeclGlobal (finalize ty)
 
 instance Finalize Int.CommentRef where
   type Finalized Int.CommentRef = Ext.CommentRef

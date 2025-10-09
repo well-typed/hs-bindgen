@@ -1,7 +1,7 @@
-module HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass (
-    ResolveBindingSpec
+module HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass (
+    ResolveBindingSpecs
   , ResolvedExtBinding(..)
-  , ResolveBindingSpecMsg(..)
+  , ResolveBindingSpecsMsg(..)
   ) where
 
 import Text.SimplePrettyPrint ((<+>))
@@ -19,7 +19,7 @@ import HsBindgen.Util.Tracer
   Definition
 -------------------------------------------------------------------------------}
 
--- | Resolve binding specification
+-- | Resolve binding specifications
 --
 -- For every C name, we resolve:
 --
@@ -29,23 +29,23 @@ import HsBindgen.Util.Tracer
 --   removed from the AST.
 -- * Prescriptive binding specification, which is used to configure how bindings
 --   are generated.  This information is added to the AST as annotations.
-type ResolveBindingSpec :: Pass
-data ResolveBindingSpec a deriving anyclass (ValidPass)
+type ResolveBindingSpecs :: Pass
+data ResolveBindingSpecs a deriving anyclass (ValidPass)
 
-type family AnnResolveBindingSpec ix where
-  AnnResolveBindingSpec "TranslationUnit" = DeclMeta ResolveBindingSpec
-  AnnResolveBindingSpec "Decl"            = BindingSpec.TypeSpec
-  AnnResolveBindingSpec _                 = NoAnn
+type family AnnResolveBindingSpecs ix where
+  AnnResolveBindingSpecs "TranslationUnit" = DeclMeta ResolveBindingSpecs
+  AnnResolveBindingSpecs "Decl"            = BindingSpec.CTypeSpec
+  AnnResolveBindingSpecs _                 = NoAnn
 
-instance IsPass ResolveBindingSpec where
-  type Id           ResolveBindingSpec = C.DeclId
-  type FieldName    ResolveBindingSpec = C.Name
-  type ArgumentName ResolveBindingSpec = Maybe C.Name
-  type TypedefRef   ResolveBindingSpec = C.Name
-  type MacroBody    ResolveBindingSpec = CheckedMacro ResolveBindingSpec
-  type ExtBinding   ResolveBindingSpec = ResolvedExtBinding
-  type Ann ix       ResolveBindingSpec = AnnResolveBindingSpec ix
-  type Msg          ResolveBindingSpec = ResolveBindingSpecMsg
+instance IsPass ResolveBindingSpecs where
+  type Id           ResolveBindingSpecs = C.DeclId
+  type FieldName    ResolveBindingSpecs = C.Name
+  type ArgumentName ResolveBindingSpecs = Maybe C.Name
+  type TypedefRef   ResolveBindingSpecs = C.Name
+  type MacroBody    ResolveBindingSpecs = CheckedMacro ResolveBindingSpecs
+  type ExtBinding   ResolveBindingSpecs = ResolvedExtBinding
+  type Ann ix       ResolveBindingSpecs = AnnResolveBindingSpecs ix
+  type Msg          ResolveBindingSpecs = ResolveBindingSpecsMsg
 
 data ResolvedExtBinding = ResolvedExtBinding{
       -- | Name of the C declaration for which we are using this binding
@@ -55,7 +55,7 @@ data ResolvedExtBinding = ResolvedExtBinding{
     , extHsRef :: Hs.ExtRef
 
       -- | Additional information about the Haskell type
-    , extHsSpec :: BindingSpec.TypeSpec
+    , extHsSpec :: BindingSpec.CTypeSpec
     }
   deriving stock (Show, Eq, Generic)
 
@@ -63,29 +63,29 @@ data ResolvedExtBinding = ResolvedExtBinding{
   Trace messages
 -------------------------------------------------------------------------------}
 
-data ResolveBindingSpecMsg =
-    ResolveBindingSpecExtHsRefNoModule     C.QualName
-  | ResolveBindingSpecExtHsRefNoIdentifier C.QualName
-  | ResolveBindingSpecOmittedTypeUse       C.QualName
-  | ResolveBindingSpecTypeNotUsed          C.QualName
+data ResolveBindingSpecsMsg =
+    ResolveBindingSpecsExtHsRefNoModule     C.QualName
+  | ResolveBindingSpecsExtHsRefNoIdentifier C.QualName
+  | ResolveBindingSpecsOmittedTypeUse       C.QualName
+  | ResolveBindingSpecsTypeNotUsed          C.QualName
   deriving stock (Show)
 
-instance PrettyForTrace ResolveBindingSpecMsg where
+instance PrettyForTrace ResolveBindingSpecsMsg where
   prettyForTrace = \case
-      ResolveBindingSpecExtHsRefNoModule cQualName ->
+      ResolveBindingSpecsExtHsRefNoModule cQualName ->
         "Haskell module not specified in binding specification:"
           <+> prettyForTrace cQualName
-      ResolveBindingSpecExtHsRefNoIdentifier cQualName ->
+      ResolveBindingSpecsExtHsRefNoIdentifier cQualName ->
         "Haskell identifier not specified in binding specification:"
           <+> prettyForTrace cQualName
-      ResolveBindingSpecOmittedTypeUse cQualName ->
+      ResolveBindingSpecsOmittedTypeUse cQualName ->
         "type omitted by binding specification used:"
           <+> prettyForTrace cQualName
-      ResolveBindingSpecTypeNotUsed cQualName ->
+      ResolveBindingSpecsTypeNotUsed cQualName ->
         "binding specification for type not used:"
           <+> prettyForTrace cQualName
 
-instance IsTrace Level ResolveBindingSpecMsg where
+instance IsTrace Level ResolveBindingSpecsMsg where
   getDefaultLogLevel = const Error
   getSource          = const HsBindgen
-  getTraceId         = const "resolve-binding-spec"
+  getTraceId         = const "resolve-binding-specs"

@@ -79,8 +79,11 @@ data TestCase = TestCase {
       -- | Configure if the @stdlib@ binding specification should be used
     , testStdlibSpec :: EnableStdlibBindingSpec
 
-      -- | Modify the default binding specification configuration
+      -- | Modify the default external binding specification configuration
     , testExtBindingSpecs :: [FilePath]
+
+      -- | Modify the default prescriptive binding specification configuration
+    , testPrescriptiveBindingSpec :: Maybe FilePath
 
       -- | Should we expect rust-bindgen to throw an error on this test?
       --
@@ -126,17 +129,18 @@ defaultTest ::
      String --  ^ Filename without the @.h@ extension
   -> TestCase
 defaultTest filename = TestCase{
-      testName                = filename
-    , testDir                 = "examples/golden"
-    , testTracePredicate      = defaultTracePredicate
-    , testHasOutput           = True
-    , testClangVersion        = Nothing
-    , testOnBootConfig        = id
-    , testOnFrontendConfig    = id
-    , testStdlibSpec          = EnableStdlibBindingSpec
-    , testExtBindingSpecs     = []
-    , testRustBindgen         = RustBindgenRun
-    , testPathStyle           = Short
+      testName                    = filename
+    , testDir                     = "examples/golden"
+    , testTracePredicate          = defaultTracePredicate
+    , testHasOutput               = True
+    , testClangVersion            = Nothing
+    , testOnBootConfig            = id
+    , testOnFrontendConfig        = id
+    , testStdlibSpec              = EnableStdlibBindingSpec
+    , testExtBindingSpecs         = []
+    , testPrescriptiveBindingSpec = Nothing
+    , testRustBindgen             = RustBindgenRun
+    , testPathStyle               = Short
     }
 
 testTrace :: String -> TracePredicate TraceMsg -> TestCase
@@ -215,7 +219,7 @@ getTestBootConfig testResources TestCase{..} = do
             stdlibSpec              = testStdlibSpec
           , compatibility           = BindingSpecStrict
           , extBindingSpecs         = map (root </>) testExtBindingSpecs
-          , prescriptiveBindingSpec = Nothing
+          , prescriptiveBindingSpec = (root </>) <$> testPrescriptiveBindingSpec
           }
       }
 

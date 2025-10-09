@@ -5,7 +5,7 @@ types:
 - headers: doxygen_docs.h
   cname: bitfield_t
   module: Example
-  identifier: Bitfield_t
+  hsname: Bitfield_t
   instances:
   - Eq
   - Show
@@ -13,7 +13,7 @@ types:
 - headers: doxygen_docs.h
   cname: enum color_enum
   module: Example
-  identifier: Color_enum
+  hsname: Color_enum
   instances:
   - Eq
   - Ord
@@ -23,7 +23,7 @@ types:
 - headers: doxygen_docs.h
   cname: config_t
   module: Example
-  identifier: Config_t
+  hsname: Config_t
   instances:
   - Eq
   - Show
@@ -31,13 +31,13 @@ types:
 - headers: doxygen_docs.h
   cname: data_union_t
   module: Example
-  identifier: Data_union_t
+  hsname: Data_union_t
   instances:
   - Storable
 - headers: doxygen_docs.h
   cname: data_union_t_as_parts
   module: Example
-  identifier: Data_union_t_as_parts
+  hsname: Data_union_t_as_parts
   instances:
   - Eq
   - Show
@@ -45,7 +45,7 @@ types:
 - headers: doxygen_docs.h
   cname: event_callback_t
   module: Example
-  identifier: Event_callback_t
+  hsname: Event_callback_t
   instances:
   - Eq
   - Ord
@@ -54,11 +54,11 @@ types:
 - headers: doxygen_docs.h
   cname: event_callback_t_Deref
   module: Example
-  identifier: Event_callback_t_Deref
+  hsname: Event_callback_t_Deref
 - headers: doxygen_docs.h
   cname: filename_t
   module: Example
-  identifier: Filename_t
+  hsname: Filename_t
   instances:
   - Eq
   - Show
@@ -66,7 +66,7 @@ types:
 - headers: doxygen_docs.h
   cname: struct flexible_array
   module: Example
-  identifier: Flexible_array
+  hsname: Flexible_array
   instances:
   - Eq
   - Show
@@ -74,15 +74,15 @@ types:
 - headers: doxygen_docs.h
   cname: struct forward_declared_struct
   module: Example
-  identifier: Forward_declared_struct
+  hsname: Forward_declared_struct
 - headers: doxygen_docs.h
   cname: union forward_declared_union
   module: Example
-  identifier: Forward_declared_union
+  hsname: Forward_declared_union
 - headers: doxygen_docs.h
   cname: processor_fn_t
   module: Example
-  identifier: Processor_fn_t
+  hsname: Processor_fn_t
   instances:
   - Eq
   - Ord
@@ -91,29 +91,29 @@ types:
 - headers: doxygen_docs.h
   cname: processor_fn_t_Deref
   module: Example
-  identifier: Processor_fn_t_Deref
+  hsname: Processor_fn_t_Deref
 - headers: doxygen_docs.h
   cname: size_type
   module: Example
-  identifier: Size_type
+  hsname: Size_type
   instances:
-  - Eq
-  - Ord
-  - Enum
-  - Ix
-  - Bounded
-  - Read
-  - Show
   - Bits
+  - Bounded
+  - Enum
+  - Eq
   - FiniteBits
   - Integral
+  - Ix
   - Num
+  - Ord
+  - Read
   - Real
+  - Show
   - Storable
 - headers: doxygen_docs.h
   cname: status_code_t
   module: Example
-  identifier: Status_code_t
+  hsname: Status_code_t
   instances:
   - Eq
   - Ord

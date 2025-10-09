@@ -5,12 +5,12 @@ types:
 - headers: iterator.h
   cname: Counter
   module: Example
-  identifier: Counter
+  hsname: Counter
 - headers: iterator.h
   cname: Toggle
   module: Example
-  identifier: Toggle
+  hsname: Toggle
 - headers: iterator.h
   cname: VarCounter
   module: Example
-  identifier: VarCounter
+  hsname: VarCounter

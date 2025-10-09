@@ -209,8 +209,8 @@ getInstances instanceMap name = aux
           HsFunPtr{} -> aux (acc /\ ptrInsts) hsTypes
           HsIO{} -> Set.empty
           HsFun{} -> Set.empty
-          HsExtBinding _ref typeSpec ->
-            let acc' = acc /\ typeSpecInsts typeSpec
+          HsExtBinding _ref cTypeSpec ->
+            let acc' = acc /\ cTypeSpecInsts cTypeSpec
             in  aux acc' hsTypes
           HsByteArray{} ->
             let acc' = acc /\ Set.fromList [Hs.Eq, Hs.Ord, Hs.Show]
@@ -326,11 +326,11 @@ getInstances instanceMap name = aux
       , Hs.Show
       ]
 
-    typeSpecInsts :: BindingSpec.TypeSpec -> Set Hs.TypeClass
-    typeSpecInsts typeSpec = Set.fromAscList [
+    cTypeSpecInsts :: BindingSpec.CTypeSpec -> Set Hs.TypeClass
+    cTypeSpecInsts cTypeSpec = Set.fromAscList [
         cls
       | (cls, BindingSpec.Require{}) <-
-           Map.toAscList (BindingSpec.typeSpecInstances typeSpec)
+           Map.toAscList (BindingSpec.cTypeSpecInstances cTypeSpec)
       ]
 
 {-------------------------------------------------------------------------------
@@ -350,18 +350,14 @@ generateDecs opts haddockConfig moduleName typedefs (C.Decl info kind spec) =
     case kind of
       C.DeclStruct struct -> withCategoryM BType $
         reifyStructFields struct $ structDecs opts haddockConfig typedefs info struct spec
-      C.DeclStructOpaque -> withCategoryM BType $
-        opaqueStructDecs haddockConfig info spec
       C.DeclUnion union -> withCategoryM BType $
         unionDecs haddockConfig typedefs info union spec
-      C.DeclUnionOpaque -> withCategoryM BType $
-        opaqueUnionDecs haddockConfig info spec
       C.DeclEnum e -> withCategoryM BType $
         enumDecs opts haddockConfig typedefs info e spec
-      C.DeclEnumOpaque -> withCategoryM BType $
-        opaqueEnumDecs haddockConfig info spec
       C.DeclTypedef d -> withCategoryM BType $
         typedefDecs opts haddockConfig typedefs info d spec
+      C.DeclOpaque cNameKind -> withCategoryM BType $
+        opaqueDecs cNameKind haddockConfig info spec
       C.DeclFunction f ->
         let funDeclsWith safety =
               functionDecs safety opts haddockConfig moduleName typedefs info f spec
@@ -518,12 +514,12 @@ pokeStructField ptr f i = case C.structFieldWidth f of
 
 opaqueDecs ::
      State.MonadState InstanceMap m
-  => Origin.EmptyData
+  => C.NameKind
   -> HaddockConfig
   -> C.DeclInfo
   -> C.DeclSpec
   -> m [Hs.Decl]
-opaqueDecs origin haddockConfig info spec = do
+opaqueDecs cNameKind haddockConfig info spec = do
     State.modify' $ Map.insert name Set.empty
     return [decl]
   where
@@ -535,35 +531,11 @@ opaqueDecs origin haddockConfig info spec = do
         emptyDataName   = name
       , emptyDataOrigin = Origin.Decl{
             declInfo = info
-          , declKind = origin
+          , declKind = Origin.Opaque cNameKind
           , declSpec = spec
           }
       , emptyDataComment = generateHaddocksWithInfo haddockConfig info
       }
-
-opaqueStructDecs ::
-     State.MonadState InstanceMap m
-  => HaddockConfig
-  -> C.DeclInfo
-  -> C.DeclSpec
-  -> m [Hs.Decl]
-opaqueStructDecs = opaqueDecs Origin.OpaqueStruct
-
-opaqueEnumDecs ::
-     State.MonadState InstanceMap m
-  => HaddockConfig
-  -> C.DeclInfo
-  -> C.DeclSpec
-  -> m [Hs.Decl]
-opaqueEnumDecs = opaqueDecs Origin.OpaqueEnum
-
-opaqueUnionDecs ::
-     State.MonadState InstanceMap m
-  => HaddockConfig
-  -> C.DeclInfo
-  -> C.DeclSpec
-  -> m [Hs.Decl]
-opaqueUnionDecs = opaqueDecs Origin.OpaqueUnion
 
 {-------------------------------------------------------------------------------
   Unions

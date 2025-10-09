@@ -30,8 +30,8 @@ import HsBindgen.Frontend.Pass.NameAnon
 import HsBindgen.Frontend.Pass.NameAnon.IsPass
 import HsBindgen.Frontend.Pass.Parse
 import HsBindgen.Frontend.Pass.Parse.IsPass
-import HsBindgen.Frontend.Pass.ResolveBindingSpec
-import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass
+import HsBindgen.Frontend.Pass.ResolveBindingSpecs
+import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.Select
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Pass.Sort
@@ -50,7 +50,7 @@ import HsBindgen.Util.Tracer
 -- 2. 'Sort'
 -- 3. 'HandleMacros'
 -- 4. 'NameAnon'
--- 5. 'ResolveBindingSpec'
+-- 5. 'ResolveBindingSpecs'
 -- 6. 'Select'
 -- 7. 'HandleTypedefs'
 -- 8. 'MangleNames'
@@ -77,19 +77,19 @@ import HsBindgen.Util.Tracer
 --   to avoid confusion, it is therefore cleaner to run macro parsing and
 --   declaration reparsing /prior/ to this transformation.
 --
--- - 'NameAnon' must come before 'ResolveBindingSpec' because it enables users
+-- - 'NameAnon' must come before 'ResolveBindingSpecs' because it enables users
 --   to configure anonymous types using our generated names for them.
 --
--- - 'ResolveBindingSpec' must come before 'HandleTypedefs' to enable users to
+-- - 'ResolveBindingSpecs' must come before 'HandleTypedefs' to enable users to
 --   configure if a specific typedef is squashed for not.
 --
--- - 'Select' must come after 'ResolveBindingSpec' so that selection is done
+-- - 'Select' must come after 'ResolveBindingSpecs' so that selection is done
 --   after declarations have been omitted via prescriptive binding
 --   specification.  It must come before 'HandleTypedefs' because selection
---   should be done before renaming to be consistent with 'ResolveBindingSpec'.
+--   should be done before renaming to be consistent with 'ResolveBindingSpecs'.
 --
 -- - 'MangleNames': Name mangling depends on information from the binding spec,
---   and must therefore happen after 'ResolveBindingSpec'. It could be put into
+--   and must therefore happen after 'ResolveBindingSpecs'. It could be put into
 --   the 'Hs' phase, but we have to draw the line somewhere.
 frontend ::
      Tracer IO FrontendMsg
@@ -112,10 +112,15 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
           isInMainHeaderDir
           getMainHeadersAndInclude
           unit
-        pure (reifiedUnit, isMainHeader, isInMainHeaderDir)
+        pure
+          ( reifiedUnit
+          , isMainHeader
+          , isInMainHeaderDir
+          , toGetMainHeaders getMainHeadersAndInclude
+          )
 
     sortPass <- cache "sort" $ do
-      (afterParse, _, _) <- parsePass
+      (afterParse, _, _, _) <- parsePass
       let (afterSort, msgsSort) = sortDecls afterParse
       forM_ msgsSort $ traceWith tracer . FrontendSort
       pure afterSort
@@ -132,27 +137,27 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
       forM_ msgsNameAnon $ traceWith tracer . FrontendNameAnon
       pure afterNameAnon
 
-    resolveBindingSpecPass <- cache "resolveBindingSpec" $ do
+    resolveBindingSpecsPass <- cache "resolveBindingSpecs" $ do
       afterNameAnon <- nameAnonPass
       extlSpec <- bootExternalBindingSpec
       presSpec <- bootPrescriptiveBindingSpec
-      let (afterResolveBindingSpec, msgsResolveBindingSpecs) =
-            resolveBindingSpec
+      let (afterResolveBindingSpecs, omitTypes, msgsResolveBindingSpecs) =
+            resolveBindingSpecs
               extlSpec
               presSpec
               afterNameAnon
       forM_ msgsResolveBindingSpecs $ traceWith tracer . FrontendResolveBindingSpecs
-      pure afterResolveBindingSpec
+      pure (afterResolveBindingSpecs, omitTypes)
 
     selectPass <- cache "select" $ do
-      (_, isMainHeader, isInMainHeaderDir) <- parsePass
-      afterResolveBindingSpec              <- resolveBindingSpecPass
+      (_, isMainHeader, isInMainHeaderDir, _) <- parsePass
+      (afterResolveBindingSpecs, _)           <- resolveBindingSpecsPass
       let (afterSelect, msgsSelect) =
             selectDecls
               isMainHeader
               isInMainHeaderDir
               selectConfig
-              afterResolveBindingSpec
+              afterResolveBindingSpecs
       forM_ msgsSelect $ traceWith tracer . FrontendSelect
       pure afterSelect
 
@@ -175,7 +180,7 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
 
     -- Include graph predicate.
     getIncludeGraphP <- cache "getIncludeGraphP" $ do
-      (_, isMainHeader, isInMainHeaderDir) <- parsePass
+      (_, isMainHeader, isInMainHeaderDir, _) <- parsePass
       pure $ \path ->
         matchParse isMainHeader isInMainHeaderDir path frontendParsePredicate
         && path /= name
@@ -183,14 +188,21 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
     -- Graphs.
     frontendIncludeGraph <- cache "frontendIncludeGraph" $ do
       includeGraphP <- getIncludeGraphP
-      (afterParse, _, _) <- parsePass
+      (afterParse, _, _, _) <- parsePass
       pure (includeGraphP, unitIncludeGraph afterParse)
+    frontendGetMainHeaders <- cache "frontendGetMainHeaders" $ do
+      (_, _, _, getMainHeaders) <- parsePass
+      pure getMainHeaders
     frontendIndex <- cache "frontendIndex" $
       declIndex . unitAnn <$> sortPass
     frontendUseDeclGraph <- cache "frontendUseDeclGraph" $
       declUseDecl . unitAnn <$> sortPass
     frontendDeclUseGraph <- cache "frontendDeclUseGraph" $
       declDeclUse . unitAnn <$> sortPass
+
+    -- Omitted types
+    frontendOmitTypes <- cache "frontendOmitTypes" $
+      snd <$> resolveBindingSpecsPass
 
     -- Declarations.
     frontendCDecls <- cache "frontendDecls" $
@@ -232,8 +244,14 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
       , unitAnn          = emptyParseDeclMeta
       }
 
-    emptyParseResult :: (TranslationUnit Parse, IsMainHeader, IsInMainHeaderDir)
-    emptyParseResult = (emptyTranslationUnit, const False, const False)
+    emptyParseResult ::
+      (TranslationUnit Parse, IsMainHeader, IsInMainHeaderDir, GetMainHeaders)
+    emptyParseResult =
+      ( emptyTranslationUnit
+      , const False
+      , const False
+      , const (Left "empty")
+      )
 
     cache :: String -> IO a -> IO (IO a)
     cache = cacheWith (contramap (FrontendCache . SafeTrace) tracer) . Just
@@ -243,12 +261,14 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
 -------------------------------------------------------------------------------}
 
 data FrontendArtefact = FrontendArtefact {
-    frontendIncludeGraph :: IO (IncludeGraph.Predicate, IncludeGraph.IncludeGraph)
-  , frontendIndex        :: IO DeclIndex.DeclIndex
-  , frontendUseDeclGraph :: IO UseDeclGraph.UseDeclGraph
-  , frontendDeclUseGraph :: IO DeclUseGraph.DeclUseGraph
-  , frontendCDecls       :: IO [C.Decl]
-  , frontendDependencies :: IO [SourcePath]
+    frontendIncludeGraph   :: IO (IncludeGraph.Predicate, IncludeGraph.IncludeGraph)
+  , frontendGetMainHeaders :: IO GetMainHeaders
+  , frontendIndex          :: IO DeclIndex.DeclIndex
+  , frontendUseDeclGraph   :: IO UseDeclGraph.UseDeclGraph
+  , frontendDeclUseGraph   :: IO DeclUseGraph.DeclUseGraph
+  , frontendOmitTypes      :: IO (Map C.QualName SourcePath)
+  , frontendCDecls         :: IO [C.Decl]
+  , frontendDependencies   :: IO [SourcePath]
   }
 
 {-------------------------------------------------------------------------------
@@ -264,7 +284,7 @@ data FrontendMsg =
   | FrontendSort (Msg Sort)
   | FrontendHandleMacros (Msg HandleMacros)
   | FrontendNameAnon (Msg NameAnon)
-  | FrontendResolveBindingSpecs (Msg ResolveBindingSpec)
+  | FrontendResolveBindingSpecs (Msg ResolveBindingSpecs)
   | FrontendSelect (Msg Select)
   | FrontendHandleTypedefs (Msg HandleTypedefs)
   | FrontendMangleNames (Msg MangleNames)

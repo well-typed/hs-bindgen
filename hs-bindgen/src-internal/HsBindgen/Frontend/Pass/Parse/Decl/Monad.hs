@@ -39,7 +39,6 @@ import Clang.Paths
 
 import HsBindgen.Eff
 import HsBindgen.Errors
-import HsBindgen.Frontend.AST.External (NameKind)
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.NonParsedDecls (NonParsedDecls)
@@ -213,7 +212,7 @@ recordUnattachedTrace trace = wrapEff $ \ParseSupport{parseEnv} ->
 
 -- | Attach a delayed parse message to a declaration. We only emit the parse
 -- message when we select the declaration.
-recordDelayedTrace :: C.DeclInfo Parse -> NameKind -> DelayedParseMsg -> ParseDecl ()
+recordDelayedTrace :: C.DeclInfo Parse -> C.NameKind -> DelayedParseMsg -> ParseDecl ()
 recordDelayedTrace info kind trace = wrapEff $ \ParseSupport{parseState} ->
     modifyIORef parseState $ \st -> st{
         stateParseMsgs = recordParseMsg info kind trace (stateParseMsgs st)

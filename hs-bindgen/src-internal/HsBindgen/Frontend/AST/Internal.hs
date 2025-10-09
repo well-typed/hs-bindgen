@@ -33,6 +33,11 @@ module HsBindgen.Frontend.AST.Internal (
   , CheckedMacroExpr(..)
     -- * Types (at use sites)
   , Type(..)
+    -- * Haskell names
+  , NamePair(..)
+  , nameHs
+  , RecordNames(..)
+  , NewtypeNames(..)
     -- * Show
   , ValidPass
     -- * Helper functions
@@ -56,9 +61,10 @@ import Clang.HighLevel.Types
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
-import HsBindgen.Frontend.RootHeader
+import HsBindgen.Frontend.RootHeader (HashIncludeArg)
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
+import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -80,7 +86,7 @@ data TranslationUnit p = TranslationUnit{
       -- * If program slicing is enabled, the 'Slice' pass filters selected
       --   declarations and their transitive dependencies.
       --
-      -- * The 'ResolveBindingSpec' pass removes declarations for which we have
+      -- * The 'ResolveBindingSpecs' pass removes declarations for which we have
       --   existing external bindings, as well as declarations omitted by a
       --   prescriptive binding specification.
       unitDecls :: [Decl p]
@@ -161,12 +167,15 @@ data FieldInfo p = FieldInfo {
 
 data DeclKind p =
     DeclStruct (Struct p)
-  | DeclStructOpaque
   | DeclUnion (Union p)
-  | DeclUnionOpaque
   | DeclTypedef (Typedef p)
   | DeclEnum (Enum p)
-  | DeclEnumOpaque
+    -- | Opaque type
+    --
+    -- When parsing, a C @struct@, @union@, or @enum@ may be opaque.  Users may
+    -- specify any kind of type to be opaque using a prescriptive binding
+    -- specification, however, including @typedef@ types.
+  | DeclOpaque C.NameKind
   | DeclMacro (MacroBody p)
   | DeclFunction (Function p)
     -- | A global variable, whether it be declared @extern@, @static@ or neither.
@@ -412,6 +421,43 @@ data Type p =
   | TypeComplex C.PrimType
 
 {-------------------------------------------------------------------------------
+  Haskell names
+-------------------------------------------------------------------------------}
+
+-- | Pair of a C name and the corresponding Haskell name
+--
+-- Invariant: the 'Hs.Identifier' must satisfy the rules for legal Haskell
+-- names, for its intended use (constructor, variable, ..).
+data NamePair = NamePair {
+      nameC       :: C.Name
+    , nameHsIdent :: Hs.Identifier
+    }
+  deriving stock (Show, Eq, Ord, Generic)
+
+-- | Extract namespaced Haskell name
+--
+-- The invariant on 'NamePair' justifies this otherwise unsafe operation.
+nameHs :: NamePair -> Hs.Name ns
+nameHs NamePair{nameHsIdent = Hs.Identifier name} = Hs.Name name
+
+-- | Names for a Haskell record type
+--
+-- This is used in addition to a 'NamePair'.
+data RecordNames = RecordNames {
+      recordConstr :: Hs.Name Hs.NsConstr
+    }
+  deriving stock (Show, Eq, Ord, Generic)
+
+-- | Names for a Haskell newtype
+--
+-- This is used in addition to a 'NamePair'.
+data NewtypeNames = NewtypeNames {
+      newtypeConstr :: Hs.Name Hs.NsConstr
+    , newtypeField  :: Hs.Name Hs.NsVar
+    }
+  deriving stock (Show, Eq, Ord, Generic)
+
+{-------------------------------------------------------------------------------
   Instances
 -------------------------------------------------------------------------------}
 
@@ -543,10 +589,8 @@ declQualName Decl{declInfo = DeclInfo{declId}, declKind} =
 
 declKindNameKind :: DeclKind p -> C.NameKind
 declKindNameKind = \case
-    DeclStruct{}       -> C.NameKindTagged C.TagKindStruct
-    DeclStructOpaque{} -> C.NameKindTagged C.TagKindStruct
-    DeclUnion{}        -> C.NameKindTagged C.TagKindUnion
-    DeclUnionOpaque{}  -> C.NameKindTagged C.TagKindUnion
-    DeclEnum{}         -> C.NameKindTagged C.TagKindEnum
-    DeclEnumOpaque{}   -> C.NameKindTagged C.TagKindEnum
-    _otherwise         -> C.NameKindOrdinary
+    DeclStruct{}         -> C.NameKindTagged C.TagKindStruct
+    DeclUnion{}          -> C.NameKindTagged C.TagKindUnion
+    DeclEnum{}           -> C.NameKindTagged C.TagKindEnum
+    DeclOpaque cNameKind -> cNameKind
+    _otherwise           -> C.NameKindOrdinary

@@ -5,7 +5,7 @@ types:
 - headers: named_vs_anon.h
   cname: struct a
   module: Example
-  identifier: A
+  hsname: A
   instances:
   - Eq
   - Show
@@ -13,7 +13,7 @@ types:
 - headers: named_vs_anon.h
   cname: struct b_s
   module: Example
-  identifier: B_s
+  hsname: B_s
   instances:
   - Eq
   - Show
@@ -21,7 +21,7 @@ types:
 - headers: named_vs_anon.h
   cname: struct c
   module: Example
-  identifier: C
+  hsname: C
   instances:
   - Eq
   - Show
@@ -29,7 +29,7 @@ types:
 - headers: named_vs_anon.h
   cname: struct d
   module: Example
-  identifier: D
+  hsname: D
   instances:
   - Eq
   - Show
@@ -37,7 +37,7 @@ types:
 - headers: named_vs_anon.h
   cname: struct e_s
   module: Example
-  identifier: E_s
+  hsname: E_s
   instances:
   - Eq
   - Show
@@ -45,7 +45,7 @@ types:
 - headers: named_vs_anon.h
   cname: f
   module: Example
-  identifier: F
+  hsname: F
   instances:
   - Eq
   - Show
@@ -53,7 +53,7 @@ types:
 - headers: named_vs_anon.h
   cname: g
   module: Example
-  identifier: G
+  hsname: G
   instances:
   - Eq
   - Show
@@ -61,7 +61,7 @@ types:
 - headers: named_vs_anon.h
   cname: h
   module: Example
-  identifier: H
+  hsname: H
   instances:
   - Eq
   - Show
@@ -69,7 +69,7 @@ types:
 - headers: named_vs_anon.h
   cname: struct struct1
   module: Example
-  identifier: Struct1
+  hsname: Struct1
   instances:
   - Eq
   - Show
@@ -77,7 +77,7 @@ types:
 - headers: named_vs_anon.h
   cname: struct struct2_s
   module: Example
-  identifier: Struct2_s
+  hsname: Struct2_s
   instances:
   - Eq
   - Show
@@ -85,7 +85,7 @@ types:
 - headers: named_vs_anon.h
   cname: struct struct3
   module: Example
-  identifier: Struct3
+  hsname: Struct3
   instances:
   - Eq
   - Show
@@ -93,7 +93,7 @@ types:
 - headers: named_vs_anon.h
   cname: struct struct4
   module: Example
-  identifier: Struct4
+  hsname: Struct4
   instances:
   - Eq
   - Show
@@ -101,7 +101,7 @@ types:
 - headers: named_vs_anon.h
   cname: struct struct5_s
   module: Example
-  identifier: Struct5_s
+  hsname: Struct5_s
   instances:
   - Eq
   - Show
@@ -109,7 +109,7 @@ types:
 - headers: named_vs_anon.h
   cname: typedef1
   module: Example
-  identifier: Typedef1
+  hsname: Typedef1
   instances:
   - Eq
   - Show
@@ -117,7 +117,7 @@ types:
 - headers: named_vs_anon.h
   cname: typedef2
   module: Example
-  identifier: Typedef2
+  hsname: Typedef2
   instances:
   - Eq
   - Show
@@ -125,7 +125,7 @@ types:
 - headers: named_vs_anon.h
   cname: typedef3
   module: Example
-  identifier: Typedef3
+  hsname: Typedef3
   instances:
   - Eq
   - Show

@@ -44,11 +44,11 @@
               (TypePrim
                 (PrimIntegral PrimInt Signed))},
         declSpec = DeclSpec
-          TypeSpec {
-            typeSpecModule = Nothing,
-            typeSpecIdentifier = Nothing,
-            typeSpecInstances = Map.fromList
-              []}},
+          CTypeSpec {
+            cTypeSpecModule = Nothing,
+            cTypeSpecIdentifier = Nothing,
+            cTypeSpecInstances =
+            Map.fromList []}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Show, Storable],
       newtypeComment = Just
@@ -152,11 +152,11 @@
                   (PrimChar
                     (PrimSignImplicit Nothing))))},
         declSpec = DeclSpec
-          TypeSpec {
-            typeSpecModule = Nothing,
-            typeSpecIdentifier = Nothing,
-            typeSpecInstances = Map.fromList
-              []}},
+          CTypeSpec {
+            cTypeSpecModule = Nothing,
+            cTypeSpecIdentifier = Nothing,
+            cTypeSpecInstances =
+            Map.fromList []}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Show, Storable],
       newtypeComment = Just
@@ -256,24 +256,24 @@
             macroType = TypePrim
               (PrimFloating PrimFloat)},
         declSpec = DeclSpec
-          TypeSpec {
-            typeSpecModule = Nothing,
-            typeSpecIdentifier = Nothing,
-            typeSpecInstances = Map.fromList
-              []}},
+          CTypeSpec {
+            cTypeSpecModule = Nothing,
+            cTypeSpecIdentifier = Nothing,
+            cTypeSpecInstances =
+            Map.fromList []}},
       newtypeInstances = Set.fromList
         [
-          Eq,
-          Ord,
           Enum,
-          Read,
-          Show,
+          Eq,
           Floating,
           Fractional,
           Num,
+          Ord,
+          Read,
           Real,
           RealFloat,
           RealFrac,
+          Show,
           Storable],
       newtypeComment = Just
         Comment {
@@ -455,24 +455,24 @@
                 nameHsIdent = Identifier "MTy"}
               NameOriginInSource},
         declSpec = DeclSpec
-          TypeSpec {
-            typeSpecModule = Nothing,
-            typeSpecIdentifier = Nothing,
-            typeSpecInstances = Map.fromList
-              []}},
+          CTypeSpec {
+            cTypeSpecModule = Nothing,
+            cTypeSpecIdentifier = Nothing,
+            cTypeSpecInstances =
+            Map.fromList []}},
       newtypeInstances = Set.fromList
         [
-          Eq,
-          Ord,
           Enum,
-          Read,
-          Show,
+          Eq,
           Floating,
           Fractional,
           Num,
+          Ord,
+          Read,
           Real,
           RealFloat,
           RealFrac,
+          Show,
           Storable],
       newtypeComment = Just
         Comment {
@@ -653,25 +653,25 @@
               (PrimChar
                 (PrimSignExplicit Unsigned))},
         declSpec = DeclSpec
-          TypeSpec {
-            typeSpecModule = Nothing,
-            typeSpecIdentifier = Nothing,
-            typeSpecInstances = Map.fromList
-              []}},
+          CTypeSpec {
+            cTypeSpecModule = Nothing,
+            cTypeSpecIdentifier = Nothing,
+            cTypeSpecInstances =
+            Map.fromList []}},
       newtypeInstances = Set.fromList
         [
-          Eq,
-          Ord,
-          Enum,
-          Ix,
-          Bounded,
-          Read,
-          Show,
           Bits,
+          Bounded,
+          Enum,
+          Eq,
           FiniteBits,
           Integral,
+          Ix,
           Num,
+          Ord,
+          Read,
           Real,
+          Show,
           Storable],
       newtypeComment = Just
         Comment {
@@ -867,25 +867,25 @@
                   "UINT8_T"}
               NameOriginInSource},
         declSpec = DeclSpec
-          TypeSpec {
-            typeSpecModule = Nothing,
-            typeSpecIdentifier = Nothing,
-            typeSpecInstances = Map.fromList
-              []}},
+          CTypeSpec {
+            cTypeSpecModule = Nothing,
+            cTypeSpecIdentifier = Nothing,
+            cTypeSpecInstances =
+            Map.fromList []}},
       newtypeInstances = Set.fromList
         [
-          Eq,
-          Ord,
-          Enum,
-          Ix,
-          Bounded,
-          Read,
-          Show,
           Bits,
+          Bounded,
+          Enum,
+          Eq,
           FiniteBits,
           Integral,
+          Ix,
           Num,
+          Ord,
+          Read,
           Real,
+          Show,
           Storable],
       newtypeComment = Just
         Comment {
@@ -1082,25 +1082,25 @@
                   "BOOLEAN_T"}
               NameOriginInSource},
         declSpec = DeclSpec
-          TypeSpec {
-            typeSpecModule = Nothing,
-            typeSpecIdentifier = Nothing,
-            typeSpecInstances = Map.fromList
-              []}},
+          CTypeSpec {
+            cTypeSpecModule = Nothing,
+            cTypeSpecIdentifier = Nothing,
+            cTypeSpecInstances =
+            Map.fromList []}},
       newtypeInstances = Set.fromList
         [
-          Eq,
-          Ord,
-          Enum,
-          Ix,
-          Bounded,
-          Read,
-          Show,
           Bits,
+          Bounded,
+          Enum,
+          Eq,
           FiniteBits,
           Integral,
+          Ix,
           Num,
+          Ord,
+          Read,
           Real,
+          Show,
           Storable],
       newtypeComment = Just
         Comment {

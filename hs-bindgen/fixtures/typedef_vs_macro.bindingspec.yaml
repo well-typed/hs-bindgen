@@ -5,7 +5,7 @@ types:
 - headers: typedef_vs_macro.h
   cname: struct ExampleStruct
   module: Example
-  identifier: ExampleStruct
+  hsname: ExampleStruct
   instances:
   - Eq
   - Show
@@ -13,43 +13,43 @@ types:
 - headers: typedef_vs_macro.h
   cname: M1
   module: Example
-  identifier: M1
+  hsname: M1
   instances:
-  - Eq
-  - Ord
-  - Enum
-  - Ix
-  - Bounded
-  - Read
-  - Show
   - Bits
+  - Bounded
+  - Enum
+  - Eq
   - FiniteBits
   - Integral
+  - Ix
   - Num
+  - Ord
+  - Read
   - Real
+  - Show
   - Storable
 - headers: typedef_vs_macro.h
   cname: M2
   module: Example
-  identifier: M2
+  hsname: M2
   instances:
-  - Eq
-  - Ord
-  - Enum
-  - Ix
-  - Bounded
-  - Read
-  - Show
   - Bits
+  - Bounded
+  - Enum
+  - Eq
   - FiniteBits
   - Integral
+  - Ix
   - Num
+  - Ord
+  - Read
   - Real
+  - Show
   - Storable
 - headers: typedef_vs_macro.h
   cname: M3
   module: Example
-  identifier: M3
+  hsname: M3
   instances:
   - Eq
   - Ord
@@ -58,43 +58,43 @@ types:
 - headers: typedef_vs_macro.h
   cname: T1
   module: Example
-  identifier: T1
+  hsname: T1
   instances:
-  - Eq
-  - Ord
-  - Enum
-  - Ix
-  - Bounded
-  - Read
-  - Show
   - Bits
+  - Bounded
+  - Enum
+  - Eq
   - FiniteBits
   - Integral
+  - Ix
   - Num
+  - Ord
+  - Read
   - Real
+  - Show
   - Storable
 - headers: typedef_vs_macro.h
   cname: T2
   module: Example
-  identifier: T2
+  hsname: T2
   instances:
-  - Eq
-  - Ord
-  - Enum
-  - Ix
-  - Bounded
-  - Read
-  - Show
   - Bits
+  - Bounded
+  - Enum
+  - Eq
   - FiniteBits
   - Integral
+  - Ix
   - Num
+  - Ord
+  - Read
   - Real
+  - Show
   - Storable
 - headers: typedef_vs_macro.h
   cname: struct foo
   module: Example
-  identifier: Foo
+  hsname: Foo
   instances:
   - Eq
   - Show
@@ -102,18 +102,18 @@ types:
 - headers: typedef_vs_macro.h
   cname: uint64_t
   module: Example
-  identifier: Uint64_t
+  hsname: Uint64_t
   instances:
-  - Eq
-  - Ord
-  - Enum
-  - Ix
-  - Bounded
-  - Read
-  - Show
   - Bits
+  - Bounded
+  - Enum
+  - Eq
   - FiniteBits
   - Integral
+  - Ix
   - Num
+  - Ord
+  - Read
   - Real
+  - Show
   - Storable

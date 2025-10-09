@@ -5,7 +5,7 @@ types:
 - headers: flam.h
   cname: struct diff
   module: Example
-  identifier: Diff
+  hsname: Diff
   instances:
   - Eq
   - Show
@@ -13,7 +13,7 @@ types:
 - headers: flam.h
   cname: struct foo
   module: Example
-  identifier: Foo
+  hsname: Foo
   instances:
   - Eq
   - Show
@@ -21,7 +21,7 @@ types:
 - headers: flam.h
   cname: foo_bar
   module: Example
-  identifier: Foo_bar
+  hsname: Foo_bar
   instances:
   - Eq
   - Show
@@ -29,7 +29,7 @@ types:
 - headers: flam.h
   cname: struct pascal
   module: Example
-  identifier: Pascal
+  hsname: Pascal
   instances:
   - Eq
   - Show
@@ -37,7 +37,7 @@ types:
 - headers: flam.h
   cname: struct triplets
   module: Example
-  identifier: Triplets
+  hsname: Triplets
   instances:
   - Eq
   - Show

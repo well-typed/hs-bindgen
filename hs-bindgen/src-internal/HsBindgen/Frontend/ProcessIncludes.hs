@@ -1,6 +1,8 @@
 module HsBindgen.Frontend.ProcessIncludes (
     GetMainHeadersAndInclude
   , processIncludes
+  , GetMainHeaders
+  , toGetMainHeaders
     -- * Auxiliary
   , getIncludeTo
   ) where
@@ -135,11 +137,6 @@ processIncludes unit = do
         mainPathMap :: Map SourcePath HashIncludeArg
         mainPathMap = Map.fromList mainPathPairs
 
-        lookupMainPath :: SourcePath -> Either String HashIncludeArg
-        lookupMainPath path = case Map.lookup path mainPathMap of
-          Just header -> Right header
-          Nothing     -> Left $ "main path not found: " ++ show path
-
         mainPaths :: Set SourcePath
         mainPaths = Map.keysSet mainPathMap
 
@@ -154,15 +151,13 @@ processIncludes unit = do
           let error' msg = Left $
                 "getMainHeadersAndInclude failed for " ++ show path ++ ": "
                   ++ msg
-          in  case IncludeGraph.getIncludes mainPaths includeGraph path of
-                DynGraph.FindTargetsFound headers include -> do
-                  headers' <- mapM lookupMainPath headers
-                  return (headers', IncludeGraph.includeArg include)
-                DynGraph.FindTargetsTarget -> do
-                  header <- lookupMainPath path
-                  return (NonEmpty.singleton header, header)
-                DynGraph.FindTargetsNotFound -> error' "not found"
-                DynGraph.FindTargetsInvalid  -> error' "invalid"
+          in  case IncludeGraph.getIncludes includeGraph path of
+                DynGraph.FindEdgesFound startIncludes termIncludes -> Right $
+                  ( IncludeGraph.includeArg <$> termIncludes
+                  , IncludeGraph.includeArg (NonEmpty.head startIncludes)
+                  )
+                DynGraph.FindEdgesNone    -> error' "none"
+                DynGraph.FindEdgesInvalid -> error' "invalid"
 
     return (
         includeGraph
@@ -170,6 +165,12 @@ processIncludes unit = do
       , isInMainHeaderDir
       , getMainHeadersAndInclude
       )
+
+-- | Function to get the main headers that (transitively) include a source path
+type GetMainHeaders = SourcePath -> Either String (NonEmpty HashIncludeArg)
+
+toGetMainHeaders :: GetMainHeadersAndInclude -> GetMainHeaders
+toGetMainHeaders f = fmap fst . f
 
 {-------------------------------------------------------------------------------
   Process inclusion directives

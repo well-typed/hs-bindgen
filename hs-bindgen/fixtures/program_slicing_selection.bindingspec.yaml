@@ -5,7 +5,7 @@ types:
 - headers: program_slicing_selection.h
   cname: struct FileOperationRecord
   module: Example
-  identifier: FileOperationRecord
+  hsname: FileOperationRecord
   instances:
   - Eq
   - Show
@@ -13,7 +13,7 @@ types:
 - headers: program_slicing_selection.h
   cname: enum FileOperationStatus
   module: Example
-  identifier: FileOperationStatus
+  hsname: FileOperationStatus
   instances:
   - Eq
   - Ord

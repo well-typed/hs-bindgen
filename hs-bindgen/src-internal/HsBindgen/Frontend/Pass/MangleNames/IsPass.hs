@@ -6,13 +6,12 @@ module HsBindgen.Frontend.Pass.MangleNames.IsPass (
 
 import Text.SimplePrettyPrint
 
-import HsBindgen.Frontend.AST.External (DeclSpec, NamePair, NewtypeNames,
-                                        RecordNames)
-import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
+import HsBindgen.BindingSpec qualified as BindingSpec
+import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass
-import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass (ResolvedExtBinding)
+import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass (ResolvedExtBinding)
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
@@ -23,24 +22,24 @@ import HsBindgen.Util.Tracer
 
 -- | Mangle names pass
 type MangleNames :: Pass
-data MangleNames a deriving anyclass (ValidPass)
+data MangleNames a deriving anyclass (C.ValidPass)
 
 type family AnnMangleNames ix where
   AnnMangleNames "TranslationUnit"  = SelectDeclMeta
-  AnnMangleNames "Decl"             = DeclSpec
-  AnnMangleNames "Struct"           = RecordNames
-  AnnMangleNames "Union"            = NewtypeNames
-  AnnMangleNames "Enum"             = NewtypeNames
-  AnnMangleNames "Typedef"          = NewtypeNames
-  AnnMangleNames "CheckedMacroType" = NewtypeNames
+  AnnMangleNames "Decl"             = BindingSpec.CTypeSpec
+  AnnMangleNames "Struct"           = C.RecordNames
+  AnnMangleNames "Union"            = C.NewtypeNames
+  AnnMangleNames "Enum"             = C.NewtypeNames
+  AnnMangleNames "Typedef"          = C.NewtypeNames
+  AnnMangleNames "CheckedMacroType" = C.NewtypeNames
   AnnMangleNames _                  = NoAnn
 
 instance IsPass MangleNames where
-  type Id           MangleNames = (NamePair, C.NameOrigin)
-  type FieldName    MangleNames = NamePair
-  type ArgumentName MangleNames = Maybe NamePair
+  type Id           MangleNames = (C.NamePair, C.NameOrigin)
+  type FieldName    MangleNames = C.NamePair
+  type ArgumentName MangleNames = Maybe C.NamePair
   type TypedefRef   MangleNames = RenamedTypedefRef MangleNames
-  type MacroBody    MangleNames = CheckedMacro MangleNames
+  type MacroBody    MangleNames = C.CheckedMacro MangleNames
   type ExtBinding   MangleNames = ResolvedExtBinding
   type Ann ix       MangleNames = AnnMangleNames ix
   type Msg          MangleNames = MangleNamesMsg

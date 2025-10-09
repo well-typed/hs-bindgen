@@ -5,25 +5,25 @@ types:
 - headers: bool.h
   cname: BOOL
   module: Example
-  identifier: BOOL
+  hsname: BOOL
   instances:
-  - Eq
-  - Ord
-  - Enum
-  - Ix
-  - Bounded
-  - Read
-  - Show
   - Bits
+  - Bounded
+  - Enum
+  - Eq
   - FiniteBits
   - Integral
+  - Ix
   - Num
+  - Ord
+  - Read
   - Real
+  - Show
   - Storable
 - headers: bool.h
   cname: struct bools1
   module: Example
-  identifier: Bools1
+  hsname: Bools1
   instances:
   - Eq
   - Show
@@ -31,7 +31,7 @@ types:
 - headers: bool.h
   cname: struct bools2
   module: Example
-  identifier: Bools2
+  hsname: Bools2
   instances:
   - Eq
   - Show
@@ -39,7 +39,7 @@ types:
 - headers: bool.h
   cname: struct bools3
   module: Example
-  identifier: Bools3
+  hsname: Bools3
   instances:
   - Eq
   - Show

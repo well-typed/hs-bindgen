@@ -5,7 +5,7 @@ types:
 - headers: primitive_types.h
   cname: struct primitive
   module: Example
-  identifier: Primitive
+  hsname: Primitive
   instances:
   - Eq
   - Show

@@ -5,7 +5,7 @@ types:
 - headers: typedefs.h
   cname: FunctionPointer_Function
   module: Example
-  identifier: FunctionPointer_Function
+  hsname: FunctionPointer_Function
   instances:
   - Eq
   - Ord
@@ -14,15 +14,15 @@ types:
 - headers: typedefs.h
   cname: FunctionPointer_Function_Deref
   module: Example
-  identifier: FunctionPointer_Function_Deref
+  hsname: FunctionPointer_Function_Deref
 - headers: typedefs.h
   cname: NonFunctionPointer_Function
   module: Example
-  identifier: NonFunctionPointer_Function
+  hsname: NonFunctionPointer_Function
 - headers: typedefs.h
   cname: f1
   module: Example
-  identifier: F1
+  hsname: F1
   instances:
   - Eq
   - Ord
@@ -31,15 +31,15 @@ types:
 - headers: typedefs.h
   cname: f1_Deref
   module: Example
-  identifier: F1_Deref
+  hsname: F1_Deref
 - headers: typedefs.h
   cname: g1
   module: Example
-  identifier: G1
+  hsname: G1
 - headers: typedefs.h
   cname: g2
   module: Example
-  identifier: G2
+  hsname: G2
   instances:
   - Eq
   - Ord
@@ -48,15 +48,15 @@ types:
 - headers: typedefs.h
   cname: h1
   module: Example
-  identifier: H1
+  hsname: H1
 - headers: typedefs.h
   cname: h2
   module: Example
-  identifier: H2
+  hsname: H2
 - headers: typedefs.h
   cname: h3
   module: Example
-  identifier: H3
+  hsname: H3
   instances:
   - Eq
   - Ord
@@ -65,11 +65,11 @@ types:
 - headers: typedefs.h
   cname: int2int
   module: Example
-  identifier: Int2int
+  hsname: Int2int
 - headers: typedefs.h
   cname: intptr
   module: Example
-  identifier: Intptr
+  hsname: Intptr
   instances:
   - Eq
   - Ord
@@ -78,18 +78,18 @@ types:
 - headers: typedefs.h
   cname: myint
   module: Example
-  identifier: Myint
+  hsname: Myint
   instances:
-  - Eq
-  - Ord
-  - Enum
-  - Ix
-  - Bounded
-  - Read
-  - Show
   - Bits
+  - Bounded
+  - Enum
+  - Eq
   - FiniteBits
   - Integral
+  - Ix
   - Num
+  - Ord
+  - Read
   - Real
+  - Show
   - Storable

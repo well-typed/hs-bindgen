@@ -17,6 +17,7 @@ module HsBindgen.BindingSpec.Private.Common (
     -- * Omittable
   , Omittable(..)
   , AOmittable(..)
+  , AOmittable'
     -- * File API
   , Format(..)
   , getFormat
@@ -216,19 +217,33 @@ data Omittable a =
   deriving stock (Eq, Generic, Show)
 
 -- | Aeson representation of 'Omittable'
-data AOmittable a = ARequire a | AOmit a
+--
+-- A value of type @r@ is required by specifying it as usual.
+--
+-- A value of type @o@ is omitted by wrapping it in an object as the value for
+-- single key @omit@.
+--
+-- The wrapped types differ because omitted values may not require as much
+-- information as required values.
+data AOmittable o r = AOmit o | ARequire r
   deriving stock Show
 
-instance Aeson.FromJSON a => Aeson.FromJSON (AOmittable a) where
-  parseJSON = \case
-    Aeson.Object o | KM.size o == 1 && KM.member "omit" o ->
-      AOmit <$> o .: "omit"
-    v -> ARequire <$> Aeson.parseJSON v
+instance
+     (Aeson.FromJSON o, Aeson.FromJSON r)
+  => Aeson.FromJSON (AOmittable o r)
+  where
+    parseJSON = \case
+      Aeson.Object o | KM.size o == 1 && KM.member "omit" o ->
+        AOmit <$> o .: "omit"
+      v -> ARequire <$> Aeson.parseJSON v
 
-instance Aeson.ToJSON a => Aeson.ToJSON (AOmittable a) where
+instance (Aeson.ToJSON o, Aeson.ToJSON r) => Aeson.ToJSON (AOmittable o r) where
   toJSON = \case
     ARequire x -> Aeson.toJSON x
     AOmit    x -> Aeson.object ["omit" .= x]
+
+-- | Aeson representation of 'Omittable' with same omitted and required type
+type AOmittable' a = AOmittable a a
 
 {-------------------------------------------------------------------------------
   File API

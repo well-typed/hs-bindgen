@@ -5,18 +5,18 @@ types:
 - headers: macro_redefines_global.h
   cname: FILE
   module: Example
-  identifier: FILE
+  hsname: FILE
   instances:
-  - Eq
-  - Ord
-  - Enum
-  - Ix
-  - Bounded
-  - Read
-  - Show
   - Bits
+  - Bounded
+  - Enum
+  - Eq
   - FiniteBits
   - Integral
+  - Ix
   - Num
+  - Ord
+  - Read
   - Real
+  - Show
   - Storable

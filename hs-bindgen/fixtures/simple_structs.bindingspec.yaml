@@ -5,7 +5,7 @@ types:
 - headers: simple_structs.h
   cname: struct S1
   module: Example
-  identifier: S1
+  hsname: S1
   instances:
   - Eq
   - Show
@@ -13,7 +13,7 @@ types:
 - headers: simple_structs.h
   cname: struct S2
   module: Example
-  identifier: S2_t
+  hsname: S2_t
   instances:
   - Eq
   - Show
@@ -21,7 +21,7 @@ types:
 - headers: simple_structs.h
   cname: S3_t
   module: Example
-  identifier: S3_t
+  hsname: S3_t
   instances:
   - Eq
   - Show
@@ -29,7 +29,7 @@ types:
 - headers: simple_structs.h
   cname: struct S4
   module: Example
-  identifier: S4
+  hsname: S4
   instances:
   - Eq
   - Show
@@ -37,7 +37,7 @@ types:
 - headers: simple_structs.h
   cname: struct S5
   module: Example
-  identifier: S5
+  hsname: S5
   instances:
   - Eq
   - Show
@@ -45,7 +45,7 @@ types:
 - headers: simple_structs.h
   cname: struct S6
   module: Example
-  identifier: S6
+  hsname: S6
   instances:
   - Eq
   - Show
@@ -53,7 +53,7 @@ types:
 - headers: simple_structs.h
   cname: S7a
   module: Example
-  identifier: S7a
+  hsname: S7a
   instances:
   - Eq
   - Ord
@@ -62,7 +62,7 @@ types:
 - headers: simple_structs.h
   cname: S7a_Deref
   module: Example
-  identifier: S7a_Deref
+  hsname: S7a_Deref
   instances:
   - Eq
   - Show
@@ -70,7 +70,7 @@ types:
 - headers: simple_structs.h
   cname: S7b
   module: Example
-  identifier: S7b
+  hsname: S7b
   instances:
   - Eq
   - Ord
@@ -79,7 +79,7 @@ types:
 - headers: simple_structs.h
   cname: S7b_Deref
   module: Example
-  identifier: S7b_Deref
+  hsname: S7b_Deref
   instances:
   - Eq
   - Show

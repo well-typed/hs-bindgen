@@ -5,43 +5,43 @@ types:
 - headers: macro_in_fundecl_vs_typedef.h
   cname: MC
   module: Example
-  identifier: MC
+  hsname: MC
   instances:
-  - Eq
-  - Ord
-  - Enum
-  - Ix
-  - Bounded
-  - Read
-  - Show
   - Bits
+  - Bounded
+  - Enum
+  - Eq
   - FiniteBits
   - Integral
+  - Ix
   - Num
+  - Ord
+  - Read
   - Real
+  - Show
   - Storable
 - headers: macro_in_fundecl_vs_typedef.h
   cname: TC
   module: Example
-  identifier: TC
+  hsname: TC
   instances:
-  - Eq
-  - Ord
-  - Enum
-  - Ix
-  - Bounded
-  - Read
-  - Show
   - Bits
+  - Bounded
+  - Enum
+  - Eq
   - FiniteBits
   - Integral
+  - Ix
   - Num
+  - Ord
+  - Read
   - Real
+  - Show
   - Storable
 - headers: macro_in_fundecl_vs_typedef.h
   cname: struct struct1
   module: Example
-  identifier: Struct1
+  hsname: Struct1
   instances:
   - Eq
   - Show
@@ -49,7 +49,7 @@ types:
 - headers: macro_in_fundecl_vs_typedef.h
   cname: struct2
   module: Example
-  identifier: Struct2
+  hsname: Struct2
   instances:
   - Eq
   - Show
@@ -57,7 +57,7 @@ types:
 - headers: macro_in_fundecl_vs_typedef.h
   cname: struct struct3
   module: Example
-  identifier: Struct3
+  hsname: Struct3
   instances:
   - Eq
   - Show
@@ -65,7 +65,7 @@ types:
 - headers: macro_in_fundecl_vs_typedef.h
   cname: struct3_t
   module: Example
-  identifier: Struct3_t
+  hsname: Struct3_t
   instances:
   - Eq
   - Show
@@ -73,7 +73,7 @@ types:
 - headers: macro_in_fundecl_vs_typedef.h
   cname: struct struct4
   module: Example
-  identifier: Struct4
+  hsname: Struct4
   instances:
   - Eq
   - Show

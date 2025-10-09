@@ -12,12 +12,11 @@ import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.Coerce (CoercePass (coercePass))
-import HsBindgen.Frontend.AST.External (QualDeclId (qualDeclIdOrigin))
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
-import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass
+import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Frontend.Predicate
@@ -28,7 +27,7 @@ selectDecls ::
      IsMainHeader
   -> IsInMainHeaderDir
   -> Config Select
-  -> C.TranslationUnit ResolveBindingSpec
+  -> C.TranslationUnit ResolveBindingSpecs
   -> (C.TranslationUnit Select, [Msg Select])
 selectDecls isMainHeader isInMainHeaderDir SelectConfig{..} unitRBS =
     let matchedDecls, unmatchedDecls :: [C.Decl Select]
@@ -93,7 +92,7 @@ selectDecls isMainHeader isInMainHeaderDir SelectConfig{..} unitRBS =
     decls :: [C.Decl Select]
     decls = C.unitDecls unitSelect
 
-    ann :: DeclMeta ResolveBindingSpec
+    ann :: DeclMeta ResolveBindingSpecs
     ann = C.unitAnn unitRBS
 
     useDeclGraph :: UseDeclGraph
@@ -170,7 +169,7 @@ getSelectMsgs selectedRootsIds transitiveDeps selectedDecls unmatchedDecls =
 type Key = ParseMsgKey Select
 
 getDelayedParseMsgs ::
-     DeclMeta ResolveBindingSpec
+     DeclMeta ResolveBindingSpecs
   -> (ParseMsgKey Select -> Bool)
   -> [C.Decl Select]
   -> [Msg Select]

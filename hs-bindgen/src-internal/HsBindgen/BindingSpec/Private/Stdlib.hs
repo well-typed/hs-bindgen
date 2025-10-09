@@ -39,7 +39,7 @@ bindingSpec = BindingSpec.BindingSpec{..}
     bindingSpecTypes ::
       Map
         C.QualName
-        [(Set HashIncludeArg, Omittable BindingSpec.TypeSpec)]
+        [(Set HashIncludeArg, Omittable BindingSpec.CTypeSpec)]
     bindingSpecTypes = Map.fromList [
         -- Integral types
         mkT "int8_t"         "Int8"     intI inttypesH
@@ -173,17 +173,17 @@ mkT ::
   -> [Hs.TypeClass]
   -> Set HashIncludeArg
   -> ( C.QualName
-     , [(Set HashIncludeArg , Omittable BindingSpec.TypeSpec)]
+     , [(Set HashIncludeArg , Omittable BindingSpec.CTypeSpec)]
      )
 mkT t hsId insts headers = case C.parseQualName t of
     Just cQualName -> (cQualName, [(headers, Require typeSpec)])
     Nothing -> panicPure $ "invalid qualified name: " ++ show t
   where
-    typeSpec :: BindingSpec.TypeSpec
-    typeSpec = BindingSpec.TypeSpec {
-        typeSpecModule     = Just "HsBindgen.Runtime.Prelude"
-      , typeSpecIdentifier = Just hsId
-      , typeSpecInstances  = Map.fromList [
+    typeSpec :: BindingSpec.CTypeSpec
+    typeSpec = BindingSpec.CTypeSpec {
+        cTypeSpecModule     = Just "HsBindgen.Runtime.Prelude"
+      , cTypeSpecIdentifier = Just hsId
+      , cTypeSpecInstances  = Map.fromList [
             (inst, Require instanceSpec)
           | inst <- insts
           ]

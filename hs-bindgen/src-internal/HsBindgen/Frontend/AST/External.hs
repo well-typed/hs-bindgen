@@ -38,7 +38,7 @@ module HsBindgen.Frontend.AST.External (
   , Int.FunctionPurity(..)
     -- * Types
   , Type(..)
-  , ResolveBindingSpec.ResolvedExtBinding(..)
+  , ResolveBindingSpecs.ResolvedExtBinding(..)
   , isVoid
     -- * Names
   , C.Name(..)
@@ -54,10 +54,10 @@ module HsBindgen.Frontend.AST.External (
   , C.QualPrelimDeclId(..)
   , C.QualDeclId(..)
   , C.qualDeclIdText
-  , NamePair(..)
-  , nameHs
-  , RecordNames(..)
-  , NewtypeNames(..)
+  , Int.NamePair(..)
+  , Int.nameHs
+  , Int.RecordNames(..)
+  , Int.NewtypeNames(..)
   ) where
 
 import Prelude hiding (Enum)
@@ -69,10 +69,9 @@ import Clang.Paths
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.AST.Internal qualified as Int
 import HsBindgen.Frontend.Naming qualified as C
-import HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass qualified as ResolveBindingSpec
+import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass qualified as ResolveBindingSpecs
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
-import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
   Top-level
@@ -101,7 +100,7 @@ data Decl = Decl {
 
 data DeclInfo = DeclInfo {
       declLoc        :: SingleLoc
-    , declId         :: NamePair
+    , declId         :: Int.NamePair
     , declOrigin     :: C.NameOrigin
     , declAliases    :: [C.Name]
     , declHeaderInfo :: Maybe Int.HeaderInfo
@@ -111,19 +110,22 @@ data DeclInfo = DeclInfo {
 
 data FieldInfo = FieldInfo {
       fieldLoc     :: SingleLoc
-    , fieldName    :: NamePair
+    , fieldName    :: Int.NamePair
     , fieldComment :: Maybe (CDoc.Comment CommentRef)
     }
   deriving stock (Show, Eq, Generic)
 
 data DeclKind =
     DeclStruct Struct
-  | DeclStructOpaque
   | DeclUnion Union
-  | DeclUnionOpaque
   | DeclTypedef Typedef
   | DeclEnum Enum
-  | DeclEnumOpaque
+    -- | Opaque type
+    --
+    -- When parsing, a C @struct@, @union@, or @enum@ may be opaque.  Users may
+    -- specify any kind of type to be opaque using a prescriptive binding
+    -- specification, however, including @typedef@ types.
+  | DeclOpaque C.NameKind
   | DeclMacro CheckedMacro
   | DeclFunction Function
     -- | A global variable, whether it be declared @extern@, @static@ or neither.
@@ -145,8 +147,8 @@ data DeclKind =
 -- specifications for different classes of things (declarations of types,
 -- functions, etc.). When we do, we should not associate them with the top-level
 -- 'Decl' but instead with specific 'DeclKind's. When we change this, this will
--- have consequences for "Hs.Origin" also.
-newtype DeclSpec = DeclSpec BindingSpec.TypeSpec
+-- have consequences for "HsBindgen.Language.Haskell.Origin" also.
+newtype DeclSpec = DeclSpec BindingSpec.CTypeSpec
   deriving stock (Show, Eq, Generic)
 
 {-------------------------------------------------------------------------------
@@ -155,7 +157,7 @@ newtype DeclSpec = DeclSpec BindingSpec.TypeSpec
 
 -- | Definition of a struct
 data Struct = Struct {
-      structNames     :: RecordNames
+      structNames     :: Int.RecordNames
     , structSizeof    :: Int
     , structAlignment :: Int
     , structFields    :: [StructField]
@@ -179,7 +181,7 @@ data StructField = StructField {
 
 -- | Definition of an union
 data Union = Union {
-      unionNames     :: NewtypeNames
+      unionNames     :: Int.NewtypeNames
     , unionSizeof    :: Int
     , unionAlignment :: Int
     , unionFields    :: [UnionField]
@@ -197,7 +199,7 @@ data UnionField = UnionField {
 -------------------------------------------------------------------------------}
 
 data Enum = Enum {
-      enumNames     :: NewtypeNames
+      enumNames     :: Int.NewtypeNames
     , enumType      :: Type
     , enumSizeof    :: Int
     , enumAlignment :: Int
@@ -216,7 +218,7 @@ data EnumConstant = EnumConstant {
 -------------------------------------------------------------------------------}
 
 data Typedef = Typedef {
-      typedefNames   :: NewtypeNames
+      typedefNames   :: Int.NewtypeNames
     , typedefType    :: Type
     }
   deriving stock (Show, Eq, Generic)
@@ -226,7 +228,7 @@ data Typedef = Typedef {
 -------------------------------------------------------------------------------}
 
 data Function = Function {
-      functionArgs    :: [(Maybe NamePair, Type)]
+      functionArgs    :: [(Maybe Int.NamePair, Type)]
     , functionAttrs   :: Int.FunctionAttributes
     , functionRes     :: Type
     }
@@ -241,7 +243,7 @@ data Function = Function {
 -- passes through all the name mangling passes so that in the end we have
 -- access to the right name to reference.
 --
-newtype CommentRef = ById NamePair
+newtype CommentRef = ById Int.NamePair
   deriving stock (Show, Eq, Generic)
 
 {-------------------------------------------------------------------------------
@@ -254,7 +256,7 @@ data CheckedMacro =
   deriving stock (Show, Eq, Generic)
 
 data CheckedMacroType = CheckedMacroType {
-      macroTypeNames   :: NewtypeNames
+      macroTypeNames   :: Int.NewtypeNames
     , macroType        :: Type
     }
   deriving stock (Show, Eq, Generic)
@@ -268,11 +270,11 @@ data CheckedMacroType = CheckedMacroType {
 -- For type /declarations/ see 'Decl'.
 data Type =
     TypePrim C.PrimType
-  | TypeStruct NamePair C.NameOrigin
-  | TypeUnion NamePair C.NameOrigin
-  | TypeEnum NamePair C.NameOrigin
+  | TypeStruct Int.NamePair C.NameOrigin
+  | TypeUnion Int.NamePair C.NameOrigin
+  | TypeEnum Int.NamePair C.NameOrigin
   | TypeTypedef TypedefRef
-  | TypeMacroTypedef NamePair C.NameOrigin
+  | TypeMacroTypedef Int.NamePair C.NameOrigin
   | TypePointer Type
   | TypeConstArray Natural Type
   | TypeFun [Type] Type
@@ -295,54 +297,15 @@ data Type =
   | TypeIncompleteArray Type
   | TypeBlock Type
   | TypeConst Type
-  | TypeExtBinding ResolveBindingSpec.ResolvedExtBinding
+  | TypeExtBinding ResolveBindingSpecs.ResolvedExtBinding
   | TypeComplex C.PrimType
   deriving stock (Show, Eq, Generic)
 
 data TypedefRef =
-    TypedefRegular NamePair
+    TypedefRegular Int.NamePair
   | TypedefSquashed C.Name Type
   deriving stock (Show, Eq, Generic)
 
 isVoid :: Type -> Bool
 isVoid TypeVoid = True
 isVoid _        = False
-
-{-------------------------------------------------------------------------------
-  Identifiers
--------------------------------------------------------------------------------}
-
--- | Pair of a C name and the corresponding Haskell name
---
--- Invariant: the 'Hs.Identifier' must satisfy the rules for legal Haskell
--- names, for its intended use (constructor, variable, ..).
-data NamePair = NamePair {
-      nameC       :: C.Name
-    , nameHsIdent :: Hs.Identifier
-    }
-  deriving stock (Show, Eq, Ord, Generic)
-
--- | Extract namespaced Haskell name
---
--- The invariant on 'NamePair' justifies this otherwise unsafe operation.
-nameHs :: NamePair -> Hs.Name ns
-nameHs NamePair{nameHsIdent = Hs.Identifier name} = Hs.Name name
-
-{-------------------------------------------------------------------------------
-  Additional names
-
-  This is in addition to the 'NamePair's already embedded in the AST.
--------------------------------------------------------------------------------}
-
--- | Names for a Haskell record type
-data RecordNames = RecordNames {
-      recordConstr :: Hs.Name Hs.NsConstr
-    }
-  deriving stock (Show, Eq, Ord, Generic)
-
--- | Names for a Haskell newtype
-data NewtypeNames = NewtypeNames {
-      newtypeConstr :: Hs.Name Hs.NsConstr
-    , newtypeField  :: Hs.Name Hs.NsVar
-    }
-  deriving stock (Show, Eq, Ord, Generic)

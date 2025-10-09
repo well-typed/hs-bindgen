@@ -92,12 +92,10 @@ toSortedList (IncludeGraph graph) =
     List.delete RootHeader.name $ DynGraph.topSort graph
 
 getIncludes ::
-     Set SourcePath
-  -> IncludeGraph
+     IncludeGraph
   -> SourcePath
-  -> DynGraph.FindTargetsResult Include SourcePath
-getIncludes mainPaths (IncludeGraph graph) =
-    DynGraph.findTargets mainPaths graph
+  -> DynGraph.FindEdgesResult Include
+getIncludes (IncludeGraph graph) = DynGraph.findEdges graph
 
 {-------------------------------------------------------------------------------
   Debugging

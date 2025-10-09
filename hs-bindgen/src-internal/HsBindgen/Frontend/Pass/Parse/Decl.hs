@@ -269,7 +269,7 @@ structDecl info = \curr -> do
         let decl :: C.Decl Parse
             decl = C.Decl{
                 declInfo = info
-              , declKind = C.DeclStructOpaque
+              , declKind = C.DeclOpaque (C.NameKindTagged C.TagKindStruct)
               , declAnn  = NoAnn
               }
         foldContinueWith [decl]
@@ -334,7 +334,7 @@ unionDecl info = \curr -> do
         let decl :: C.Decl Parse
             decl = C.Decl{
                 declInfo = info
-              , declKind = C.DeclUnionOpaque
+              , declKind = C.DeclOpaque (C.NameKindTagged C.TagKindUnion)
               , declAnn  = NoAnn
               }
         foldContinueWith [decl]
@@ -445,7 +445,7 @@ enumDecl info = \curr -> do
         let decl :: C.Decl Parse
             decl = C.Decl{
                 declInfo = info
-              , declKind = C.DeclEnumOpaque
+              , declKind = C.DeclOpaque (C.NameKindTagged C.TagKindEnum)
               , declAnn  = NoAnn
               }
         foldContinueWith [decl]

@@ -5,7 +5,7 @@ types:
 - headers: opaque_declaration.h
   cname: struct bar
   module: Example
-  identifier: Bar
+  hsname: Bar
   instances:
   - Eq
   - Show
@@ -13,7 +13,7 @@ types:
 - headers: opaque_declaration.h
   cname: struct baz
   module: Example
-  identifier: Baz
+  hsname: Baz
   instances:
   - Eq
   - Show
@@ -21,12 +21,12 @@ types:
 - headers: opaque_declaration.h
   cname: struct foo
   module: Example
-  identifier: Foo
+  hsname: Foo
 - headers: opaque_declaration.h
   cname: union opaque_union
   module: Example
-  identifier: Opaque_union
+  hsname: Opaque_union
 - headers: opaque_declaration.h
   cname: enum quu
   module: Example
-  identifier: Quu
+  hsname: Quu

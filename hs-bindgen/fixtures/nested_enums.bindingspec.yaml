@@ -5,7 +5,7 @@ types:
 - headers: nested_enums.h
   cname: enum enumA
   module: Example
-  identifier: EnumA
+  hsname: EnumA
   instances:
   - Eq
   - Ord
@@ -15,7 +15,7 @@ types:
 - headers: nested_enums.h
   cname: struct exA
   module: Example
-  identifier: ExA
+  hsname: ExA
   instances:
   - Eq
   - Show
@@ -23,7 +23,7 @@ types:
 - headers: nested_enums.h
   cname: struct exB
   module: Example
-  identifier: ExB
+  hsname: ExB
   instances:
   - Eq
   - Show
@@ -31,7 +31,7 @@ types:
 - headers: nested_enums.h
   cname: exB_fieldB1
   module: Example
-  identifier: ExB_fieldB1
+  hsname: ExB_fieldB1
   instances:
   - Eq
   - Ord

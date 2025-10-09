@@ -5,24 +5,24 @@ types:
 - headers: typenames.h
   cname: foo
   module: Example
-  identifier: Foo
+  hsname: Foo
   instances:
-  - Eq
-  - Ord
   - Enum
-  - Read
-  - Show
+  - Eq
   - Floating
   - Fractional
   - Num
+  - Ord
+  - Read
   - Real
   - RealFloat
   - RealFrac
+  - Show
   - Storable
 - headers: typenames.h
   cname: enum foo
   module: Example
-  identifier: Foo
+  hsname: Foo
   instances:
   - Eq
   - Ord

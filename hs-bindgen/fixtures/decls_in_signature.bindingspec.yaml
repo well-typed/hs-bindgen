@@ -5,7 +5,7 @@ types:
 - headers: decls_in_signature.h
   cname: struct named_struct
   module: Example
-  identifier: Named_struct
+  hsname: Named_struct
   instances:
   - Eq
   - Show
@@ -13,17 +13,17 @@ types:
 - headers: decls_in_signature.h
   cname: union named_union
   module: Example
-  identifier: Named_union
+  hsname: Named_union
   instances:
   - Storable
 - headers: decls_in_signature.h
   cname: struct opaque
   module: Example
-  identifier: Opaque
+  hsname: Opaque
 - headers: decls_in_signature.h
   cname: struct outside
   module: Example
-  identifier: Outside
+  hsname: Outside
   instances:
   - Eq
   - Show

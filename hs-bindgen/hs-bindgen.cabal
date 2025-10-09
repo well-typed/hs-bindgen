@@ -150,8 +150,8 @@ library internal
       HsBindgen.Frontend.Pass.Parse.IsPass
       HsBindgen.Frontend.Pass.Parse.Type
       HsBindgen.Frontend.Pass.Parse.Type.Monad
-      HsBindgen.Frontend.Pass.ResolveBindingSpec
-      HsBindgen.Frontend.Pass.ResolveBindingSpec.IsPass
+      HsBindgen.Frontend.Pass.ResolveBindingSpecs
+      HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
       HsBindgen.Frontend.Pass.Select
       HsBindgen.Frontend.Pass.Select.IsPass
       HsBindgen.Frontend.Pass.Sort

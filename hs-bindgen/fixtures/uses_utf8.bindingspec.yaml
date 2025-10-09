@@ -5,7 +5,7 @@ types:
 - headers: uses_utf8.h
   cname: enum MyEnum
   module: Example
-  identifier: MyEnum
+  hsname: MyEnum
   instances:
   - Eq
   - Ord

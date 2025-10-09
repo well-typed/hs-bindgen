@@ -304,7 +304,7 @@ data SType ctx =
   | TCon (Hs.Name Hs.NsTypeConstr)
   | TFun (SType ctx) (SType ctx)
   | TLit Natural
-  | TExt Hs.ExtRef BindingSpec.TypeSpec
+  | TExt Hs.ExtRef BindingSpec.CTypeSpec
   | TBound (Idx ctx)
   | TApp (SType ctx) (SType ctx)
   | forall n ctx'. TForall (Vec n NameHint) (Add n ctx ctx') [SType ctx'] (SType ctx')

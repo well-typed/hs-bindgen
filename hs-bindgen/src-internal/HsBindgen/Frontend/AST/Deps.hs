@@ -40,21 +40,17 @@ usageMode = \case
 depsOfDecl :: DeclKind Parse -> [(Usage, C.NsPrelimDeclId)]
 depsOfDecl (DeclStruct Struct{..}) =
     concatMap (depsOfField (fieldName . structFieldInfo) structFieldType) structFields
-depsOfDecl DeclStructOpaque =
-    []
 depsOfDecl (DeclUnion Union{..}) =
     concatMap (depsOfField (fieldName . unionFieldInfo) unionFieldType) unionFields
-depsOfDecl DeclUnionOpaque =
-    []
 depsOfDecl (DeclEnum _) =
-    []
-depsOfDecl DeclEnumOpaque =
     []
 depsOfDecl (DeclTypedef ty) =
     map (uncurry aux) $ depsOfTypedef ty
   where
     aux :: ValOrRef -> C.NsPrelimDeclId -> (Usage, C.NsPrelimDeclId)
     aux isPtr nsid = (UsedInTypedef isPtr, nsid)
+depsOfDecl (DeclOpaque _) =
+    []
 depsOfDecl (DeclMacro _ts) =
     -- We cannot know the dependencies of a macro until we parse it, but we
     -- can't parse it until we have sorted all declarations, which requires
