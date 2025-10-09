@@ -16,3 +16,7 @@ types:
   hsname: Apply1Union
   instances:
   - Storable
+- headers: manual/function_pointers.h
+  cname: int2int
+  module: Example
+  hsname: Int2int

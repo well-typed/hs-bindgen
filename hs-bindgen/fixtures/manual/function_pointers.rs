@@ -29,12 +29,13 @@ unsafe extern "C" {
         y: ::std::os::raw::c_int,
     ) -> ::std::os::raw::c_int;
 }
+pub type int2int = ::std::option::Option<
+    unsafe extern "C" fn(arg1: ::std::os::raw::c_int) -> ::std::os::raw::c_int,
+>;
 unsafe extern "C" {
     ///! Basically the same as apply1(), but here for illustratory purposes.
     pub fn apply1_pointer_arg(
-        arg1: ::std::option::Option<
-            unsafe extern "C" fn(arg1: ::std::os::raw::c_int) -> ::std::os::raw::c_int,
-        >,
+        arg1: int2int,
         arg2: ::std::os::raw::c_int,
     ) -> ::std::os::raw::c_int;
 }
@@ -42,9 +43,7 @@ unsafe extern "C" {
     /**! A version of apply1_pointer_arg() that declares to take a argument of
 ! function type, rather than a pointer-to-function type.*/
     pub fn apply1_nopointer_arg(
-        arg1: ::std::option::Option<
-            unsafe extern "C" fn(arg1: ::std::os::raw::c_int) -> ::std::os::raw::c_int,
-        >,
+        arg1: int2int,
         arg2: ::std::os::raw::c_int,
     ) -> ::std::os::raw::c_int;
 }
@@ -52,11 +51,7 @@ unsafe extern "C" {
     ///! A function returning a pointer to a function like apply1_nopointer().
     pub fn apply1_nopointer_res() -> ::std::option::Option<
         unsafe extern "C" fn(
-            arg1: ::std::option::Option<
-                unsafe extern "C" fn(
-                    arg1: ::std::os::raw::c_int,
-                ) -> ::std::os::raw::c_int,
-            >,
+            arg1: int2int,
             arg2: ::std::os::raw::c_int,
         ) -> ::std::os::raw::c_int,
     >;
@@ -65,11 +60,7 @@ unsafe extern "C" {
     ///! A global variable pointing to a function like apply1_nopointer().
     pub static apply1_nopointer_var: ::std::option::Option<
         unsafe extern "C" fn(
-            arg1: ::std::option::Option<
-                unsafe extern "C" fn(
-                    arg1: ::std::os::raw::c_int,
-                ) -> ::std::os::raw::c_int,
-            >,
+            arg1: int2int,
             arg2: ::std::os::raw::c_int,
         ) -> ::std::os::raw::c_int,
     >;
@@ -80,11 +71,7 @@ unsafe extern "C" {
 pub struct Apply1Struct {
     pub apply1_nopointer_struct_field: ::std::option::Option<
         unsafe extern "C" fn(
-            arg1: ::std::option::Option<
-                unsafe extern "C" fn(
-                    arg1: ::std::os::raw::c_int,
-                ) -> ::std::os::raw::c_int,
-            >,
+            arg1: int2int,
             arg2: ::std::os::raw::c_int,
         ) -> ::std::os::raw::c_int,
     >,
@@ -106,11 +93,7 @@ unsafe extern "C" {
 pub union Apply1Union {
     pub apply1_nopointer_union_field: ::std::option::Option<
         unsafe extern "C" fn(
-            arg1: ::std::option::Option<
-                unsafe extern "C" fn(
-                    arg1: ::std::os::raw::c_int,
-                ) -> ::std::os::raw::c_int,
-            >,
+            arg1: int2int,
             arg2: ::std::os::raw::c_int,
         ) -> ::std::os::raw::c_int,
     >,

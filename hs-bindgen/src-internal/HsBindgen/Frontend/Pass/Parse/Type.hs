@@ -188,14 +188,17 @@ blockPointer ty = do
 adjustFunctionTypesToPointers :: C.Type Parse -> C.Type Parse
 adjustFunctionTypesToPointers = go False
   where
+    go :: Bool -> C.Type Parse -> C.Type Parse
     go ctx = \case
       C.TypePrim pt -> C.TypePrim pt
       C.TypeStruct n -> C.TypeStruct n
       C.TypeUnion n -> C.TypeUnion n
       C.TypeEnum n -> C.TypeEnum n
-      -- TODO: this should look through typedefs. See issue
-      -- #1142 and issue #1033.
-      C.TypeTypedef ref ->  C.TypeTypedef ref
+      C.TypeTypedef (OrigTypedefRef n uTy)
+          | isCanonicalFunctionType uTy && not ctx
+          -> C.TypePointer $ C.TypeTypedef (OrigTypedefRef n (go True uTy))
+          | otherwise
+          -> C.TypeTypedef (OrigTypedefRef n (go True uTy))
       C.TypeMacroTypedef n -> C.TypeMacroTypedef n
       C.TypePointer t -> C.TypePointer $ go True t
       C.TypeFun args res -> do
@@ -214,3 +217,10 @@ adjustFunctionTypesToPointers = go False
       C.TypeBlock t -> C.TypeBlock $ go True t
       C.TypeConst t -> C.TypeConst $ go ctx t
       C.TypeComplex pt -> C.TypeComplex pt
+
+    -- | Canonical types have all typedefs and type qualifiers removed.
+    isCanonicalFunctionType :: C.Type Parse -> Bool
+    isCanonicalFunctionType (C.TypeTypedef (OrigTypedefRef _ uTy)) = isCanonicalFunctionType uTy
+    isCanonicalFunctionType (C.TypeConst ty) = isCanonicalFunctionType ty
+    isCanonicalFunctionType (C.TypeFun{}) = True
+    isCanonicalFunctionType _ = False

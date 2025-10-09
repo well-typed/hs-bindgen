@@ -189,10 +189,48 @@ TranslationUnit {
           cTypeSpecInstances =
           Map.fromList []}},
     Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "function_pointers.h:19:13",
+        declId = NamePair {
+          nameC = Name "int2int",
+          nameHsIdent = Identifier
+            "Int2int"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["manual/function_pointers.h"],
+            headerInclude =
+            "manual/function_pointers.h"},
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = Name
+              "@NsConstr"
+              "Int2int",
+            newtypeField = Name
+              "@NsVar"
+              "un_Int2int"},
+          typedefType = TypeFun
+            [
+              TypePrim
+                (PrimIntegral PrimInt Signed)]
+            (TypePrim
+              (PrimIntegral PrimInt Signed))},
+      declSpec = DeclSpec
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
+    Decl {
       declInfo =
       DeclInfo {
         declLoc =
-        "function_pointers.h:20:12",
+        "function_pointers.h:22:12",
         declId = NamePair {
           nameC = Name
             "apply1_pointer_arg",
@@ -220,14 +258,20 @@ TranslationUnit {
             _×_
               Nothing
               (TypePointer
-                (TypeFun
-                  [
-                    TypePrim
-                      (PrimIntegral PrimInt Signed)]
-                  (TypePrim
-                    (PrimIntegral
-                      PrimInt
-                      Signed)))),
+                (TypeTypedef
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "int2int",
+                      nameHsIdent = Identifier
+                        "Int2int"}
+                    (TypeFun
+                      [
+                        TypePrim
+                          (PrimIntegral PrimInt Signed)]
+                      (TypePrim
+                        (PrimIntegral
+                          PrimInt
+                          Signed)))))),
             _×_
               Nothing
               (TypePrim
@@ -247,7 +291,7 @@ TranslationUnit {
       declInfo =
       DeclInfo {
         declLoc =
-        "function_pointers.h:24:12",
+        "function_pointers.h:26:12",
         declId = NamePair {
           nameC = Name
             "apply1_nopointer_arg",
@@ -277,14 +321,20 @@ TranslationUnit {
             _×_
               Nothing
               (TypePointer
-                (TypeFun
-                  [
-                    TypePrim
-                      (PrimIntegral PrimInt Signed)]
-                  (TypePrim
-                    (PrimIntegral
-                      PrimInt
-                      Signed)))),
+                (TypeTypedef
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "int2int",
+                      nameHsIdent = Identifier
+                        "Int2int"}
+                    (TypeFun
+                      [
+                        TypePrim
+                          (PrimIntegral PrimInt Signed)]
+                      (TypePrim
+                        (PrimIntegral
+                          PrimInt
+                          Signed)))))),
             _×_
               Nothing
               (TypePrim
@@ -304,7 +354,7 @@ TranslationUnit {
       declInfo =
       DeclInfo {
         declLoc =
-        "function_pointers.h:29:21",
+        "function_pointers.h:31:21",
         declId = NamePair {
           nameC = Name
             "apply1_nopointer_res",
@@ -338,12 +388,20 @@ TranslationUnit {
               (TypeFun
                 [
                   TypePointer
-                    (TypeFun
-                      [
-                        TypePrim
-                          (PrimIntegral PrimInt Signed)]
-                      (TypePrim
-                        (PrimIntegral PrimInt Signed))),
+                    (TypeTypedef
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name "int2int",
+                          nameHsIdent = Identifier
+                            "Int2int"}
+                        (TypeFun
+                          [
+                            TypePrim
+                              (PrimIntegral PrimInt Signed)]
+                          (TypePrim
+                            (PrimIntegral
+                              PrimInt
+                              Signed))))),
                   TypePrim
                     (PrimIntegral PrimInt Signed)]
                 (TypePrim
@@ -360,7 +418,7 @@ TranslationUnit {
       declInfo =
       DeclInfo {
         declLoc =
-        "function_pointers.h:32:21",
+        "function_pointers.h:34:21",
         declId = NamePair {
           nameC = Name
             "apply1_nopointer_var",
@@ -389,12 +447,20 @@ TranslationUnit {
             (TypeFun
               [
                 TypePointer
-                  (TypeFun
-                    [
-                      TypePrim
-                        (PrimIntegral PrimInt Signed)]
-                    (TypePrim
-                      (PrimIntegral PrimInt Signed))),
+                  (TypeTypedef
+                    (TypedefRegular
+                      NamePair {
+                        nameC = Name "int2int",
+                        nameHsIdent = Identifier
+                          "Int2int"}
+                      (TypeFun
+                        [
+                          TypePrim
+                            (PrimIntegral PrimInt Signed)]
+                        (TypePrim
+                          (PrimIntegral
+                            PrimInt
+                            Signed))))),
                 TypePrim
                   (PrimIntegral PrimInt Signed)]
               (TypePrim
@@ -411,7 +477,7 @@ TranslationUnit {
       declInfo =
       DeclInfo {
         declLoc =
-        "function_pointers.h:35:8",
+        "function_pointers.h:37:8",
         declId = NamePair {
           nameC = Name "Apply1Struct",
           nameHsIdent = Identifier
@@ -444,7 +510,7 @@ TranslationUnit {
             StructField {
               structFieldInfo = FieldInfo {
                 fieldLoc =
-                "function_pointers.h:36:16",
+                "function_pointers.h:38:16",
                 fieldName = NamePair {
                   nameC = Name
                     "apply1_nopointer_struct_field",
@@ -457,12 +523,20 @@ TranslationUnit {
                   (TypeFun
                     [
                       TypePointer
-                        (TypeFun
-                          [
-                            TypePrim
-                              (PrimIntegral PrimInt Signed)]
-                          (TypePrim
-                            (PrimIntegral PrimInt Signed))),
+                        (TypeTypedef
+                          (TypedefRegular
+                            NamePair {
+                              nameC = Name "int2int",
+                              nameHsIdent = Identifier
+                                "Int2int"}
+                            (TypeFun
+                              [
+                                TypePrim
+                                  (PrimIntegral PrimInt Signed)]
+                              (TypePrim
+                                (PrimIntegral
+                                  PrimInt
+                                  Signed))))),
                       TypePrim
                         (PrimIntegral PrimInt Signed)]
                     (TypePrim
@@ -481,7 +555,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "function_pointers.h:38:34",
+        "function_pointers.h:40:34",
         declId = NamePair {
           nameC = Name "apply1_struct",
           nameHsIdent = Identifier
@@ -514,7 +588,7 @@ TranslationUnit {
       declInfo =
       DeclInfo {
         declLoc =
-        "function_pointers.h:41:7",
+        "function_pointers.h:43:7",
         declId = NamePair {
           nameC = Name "Apply1Union",
           nameHsIdent = Identifier
@@ -550,7 +624,7 @@ TranslationUnit {
             UnionField {
               unionFieldInfo = FieldInfo {
                 fieldLoc =
-                "function_pointers.h:42:16",
+                "function_pointers.h:44:16",
                 fieldName = NamePair {
                   nameC = Name
                     "apply1_nopointer_union_field",
@@ -563,12 +637,20 @@ TranslationUnit {
                   (TypeFun
                     [
                       TypePointer
-                        (TypeFun
-                          [
-                            TypePrim
-                              (PrimIntegral PrimInt Signed)]
-                          (TypePrim
-                            (PrimIntegral PrimInt Signed))),
+                        (TypeTypedef
+                          (TypedefRegular
+                            NamePair {
+                              nameC = Name "int2int",
+                              nameHsIdent = Identifier
+                                "Int2int"}
+                            (TypeFun
+                              [
+                                TypePrim
+                                  (PrimIntegral PrimInt Signed)]
+                              (TypePrim
+                                (PrimIntegral
+                                  PrimInt
+                                  Signed))))),
                       TypePrim
                         (PrimIntegral PrimInt Signed)]
                     (TypePrim
@@ -584,7 +666,7 @@ TranslationUnit {
     Decl {
       declInfo = DeclInfo {
         declLoc =
-        "function_pointers.h:44:32",
+        "function_pointers.h:46:32",
         declId = NamePair {
           nameC = Name "apply1_union",
           nameHsIdent = Identifier
