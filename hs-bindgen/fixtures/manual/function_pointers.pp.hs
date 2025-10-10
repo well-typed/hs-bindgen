@@ -15,7 +15,7 @@ import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.ByteArray
-import qualified HsBindgen.Runtime.FunPtr
+import qualified HsBindgen.Runtime.FunPtr.Class
 import qualified HsBindgen.Runtime.Prelude
 import qualified HsBindgen.Runtime.SizedByteArray
 import Prelude ((<*>), Eq, IO, Int, Show, pure)
@@ -40,11 +40,11 @@ foreign import ccall safe "dynamic" fromInt2int
   :: Ptr.FunPtr Int2int
   -> Int2int
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr Int2int where
+instance HsBindgen.Runtime.FunPtr.Class.ToFunPtr Int2int where
 
   toFunPtr = toInt2int
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr Int2int where
+instance HsBindgen.Runtime.FunPtr.Class.FromFunPtr Int2int where
 
   fromFunPtr = fromInt2int
 
