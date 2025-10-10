@@ -53,6 +53,7 @@ library
       HsBindgen.Runtime.ConstantArray
       HsBindgen.Runtime.FlexibleArrayMember
       HsBindgen.Runtime.FunPtr
+      HsBindgen.Runtime.FunPtr.Class
       HsBindgen.Runtime.IncompleteArray
       HsBindgen.Runtime.LibC
       HsBindgen.Runtime.Marshal
