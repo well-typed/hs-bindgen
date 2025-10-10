@@ -1,0 +1,14 @@
+name: libpcap example
+description: Build and run the libpcap example
+
+runs:
+  using: composite
+  steps:
+    - name: Install dependencies
+      shell: bash
+      run: sudo apt-get update && sudo apt-get install -y cmake flex bison
+
+    - name: Run generation and build script
+      shell: bash
+      working-directory: ./examples/libpcap
+      run: ./generate-and-run.sh

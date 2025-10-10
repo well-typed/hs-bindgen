@@ -9,15 +9,6 @@ The project structure is similar to the example on [MiniSat](../c-minisat); see 
 
 ## Prerequisites
 
-Download and extract the `libpcap` source code:
-
-```bash
-wget https://www.tcpdump.org/release/libpcap-1.10.5.tar.xz
-tar -xf libpcap-1.10.5.tar.xz
-mv libpcap-1.10.5 libpcap
-rm libpcap-1.10.5.tar.xz
-```
-
 Install the build requirements `cmake`, `flex`, and `bison`. For example, on
 NixOS:
 
