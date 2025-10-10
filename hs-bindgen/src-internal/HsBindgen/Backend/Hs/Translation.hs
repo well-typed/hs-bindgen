@@ -1058,7 +1058,7 @@ typ' ctx = go ctx
       -- Use a 'FunPtr' if the type is a function type. We inspect the
       -- /canonical/ type because we want to see through typedefs and type
       -- qualifiers like @const@.
-      | C.isCanonicalFunctionType t
+      | C.isCanonicalTypeFunction t
       = Hs.HsFunPtr (go CPtrArg t)
       | otherwise
       = Hs.HsPtr (go CPtrArg t)
@@ -1488,7 +1488,7 @@ global ::
 global opts haddockConfig moduleName instsMap info ty _spec
     -- Generate getter if the type is @const@-qualified. We inspect the /erased/
     -- type because we want to see through newtypes as well.
-    | C.isErasedConstQualifiedType ty = stubDecs ++ getConstGetterOfType ty
+    | C.isErasedTypeConstQualified ty = stubDecs ++ getConstGetterOfType ty
       -- Otherwise, do not generate a getter
     | otherwise = stubDecs
   where

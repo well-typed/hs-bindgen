@@ -7288,6 +7288,8 @@
       foreignImportSafety = Unsafe},
   DeclSimple,
   DeclSimple,
+  DeclSimple,
+  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name

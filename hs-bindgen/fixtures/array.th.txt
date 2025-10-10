@@ -2442,6 +2442,9 @@ __defined at:__ @array.h:102:18@
 __exported by:__ @array.h@
 -}
 arr_5_const_ptr = unsafePerformIO hs_bindgen_test_array_46b406e096f6c9c1
+{-# NOINLINE arr_5_const #-}
+arr_5_const :: ConstantArray 4 (ConstantArray 3 CInt)
+arr_5_const = unsafePerformIO (peek arr_5_const_ptr)
 foreign import ccall safe "hs_bindgen_test_array_ceb7f2027865ce12" hs_bindgen_test_array_ceb7f2027865ce12 :: IO (Ptr Matrix)
 {-# NOINLINE arr_6_const_ptr #-}
 {-| Multi-dimensional array of known size, typedef
