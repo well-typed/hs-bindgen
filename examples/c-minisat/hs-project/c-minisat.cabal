@@ -58,11 +58,11 @@ library
     import:           warnings
 
     -- Modules exported by the library.
-    exposed-modules:  Minisat.Generated
-                      Minisat.Generated.Safe
-                      Minisat.Generated.Unsafe
-                      Minisat.Generated.Global
-                      Minisat.Generated.FunPtr
+    exposed-modules:  Generated.Minisat
+                      Generated.Minisat.Safe
+                      Generated.Minisat.Unsafe
+                      Generated.Minisat.Global
+                      Generated.Minisat.FunPtr
 
     -- Modules included in this library but not exported.
     -- other-modules:

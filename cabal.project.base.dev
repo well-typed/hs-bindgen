@@ -1,0 +1,8 @@
+package clang
+  flags: +dev
+
+package hs-bindgen
+  flags: +dev
+
+tests: True
+benchmarks: True

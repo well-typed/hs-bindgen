@@ -137,6 +137,10 @@ runs:
       if: runner.os == 'Linux'
       uses: ./.github/actions/examples/c-minisat
 
+    - name: Build libpcap example (Ubuntu)
+      if: runner.os == 'Linux'
+      uses: ./.github/actions/examples/libpcap
+
     # Save the cache after building the project AND the manual.
     - name: Save cache
       uses: actions/cache/save@v4

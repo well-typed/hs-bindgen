@@ -8,10 +8,6 @@ runs:
       shell: bash
       run: sudo apt-get update && sudo apt-get install -y minisat
 
-    - name: Initialize git submodules
-      shell: bash
-      run: git submodule update --init --recursive examples/c-minisat/minisat-c-bindings
-
     - name: Run generation and build script
       shell: bash
       working-directory: ./examples/c-minisat

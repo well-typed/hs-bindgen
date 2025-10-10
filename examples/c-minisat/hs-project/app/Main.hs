@@ -3,8 +3,8 @@ module Main where
 import Data.Functor (void)
 import Foreign.Ptr qualified as F
 
-import Minisat.Generated qualified as Minisat
-import Minisat.Generated.Safe qualified as Minisat
+import Generated.Minisat qualified as Minisat
+import Generated.Minisat.Safe qualified as Minisat
 
 -- Adds a list of literals
 --

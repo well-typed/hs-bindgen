@@ -6,7 +6,7 @@ open-source SAT solver.
 
 ## Prerequisites
 
-You need the MiniSat library installed on your system. For example, on NixOS:
+Install the MiniSat library on your system. For example, on NixOS:
 
 ```bash
 nix-shell -p minisat
