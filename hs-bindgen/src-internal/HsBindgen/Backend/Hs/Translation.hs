@@ -4,6 +4,7 @@ module HsBindgen.Backend.Hs.Translation (
   , generateDeclarations
   ) where
 
+import Control.Arrow
 import Control.Monad.State qualified as State
 import Data.ByteString (ByteString)
 import Data.ByteString.Base16 qualified as B16
@@ -860,8 +861,21 @@ typedefDecs opts haddockConfig info typedef spec = do
                ]
         _ -> []
       where
-        hasUnsupportedType :: C.Type -> Bool
-        hasUnsupportedType = anyFancy . singleton . wrapType
+        hasUnsupportedType :: C.GetCanonicalType t => t -> Bool
+        hasUnsupportedType = C.getCanonicalType >>> \case
+            C.TypeStruct {}          -> True
+            C.TypeUnion {}           -> True
+            C.TypeComplex {}         -> True
+            C.TypeConstArray {}      -> True
+            C.TypeIncompleteArray {} -> True
+            C.TypePrim {}            -> False
+            C.TypeEnum {}            -> False
+            C.TypeMacroTypedef {}    -> False
+            C.TypePointer {}         -> False
+            C.TypeFun {}             -> False
+            C.TypeVoid               -> False
+            C.TypeBlock {}           -> False
+            C.TypeExtBinding {}      -> False
 
         wrapperParam hsType = Hs.FunctionParameter
           { functionParameterName    = Nothing
