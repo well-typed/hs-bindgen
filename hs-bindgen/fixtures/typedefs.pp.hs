@@ -10,7 +10,7 @@ import qualified Data.Ix as Ix
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.FunPtr
+import qualified HsBindgen.Runtime.FunPtr.Class
 import Data.Bits (FiniteBits)
 import Prelude (Bounded, Enum, Eq, IO, Integral, Num, Ord, Read, Real, Show)
 
@@ -56,11 +56,11 @@ foreign import ccall safe "dynamic" fromInt2int
   :: Ptr.FunPtr Int2int
   -> Int2int
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr Int2int where
+instance HsBindgen.Runtime.FunPtr.Class.ToFunPtr Int2int where
 
   toFunPtr = toInt2int
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr Int2int where
+instance HsBindgen.Runtime.FunPtr.Class.FromFunPtr Int2int where
 
   fromFunPtr = fromInt2int
 
@@ -82,11 +82,11 @@ foreign import ccall safe "dynamic" fromFunctionPointer_Function_Deref
   :: Ptr.FunPtr FunctionPointer_Function_Deref
   -> FunctionPointer_Function_Deref
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr FunctionPointer_Function_Deref where
+instance HsBindgen.Runtime.FunPtr.Class.ToFunPtr FunctionPointer_Function_Deref where
 
   toFunPtr = toFunctionPointer_Function_Deref
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr FunctionPointer_Function_Deref where
+instance HsBindgen.Runtime.FunPtr.Class.FromFunPtr FunctionPointer_Function_Deref where
 
   fromFunPtr = fromFunctionPointer_Function_Deref
 
@@ -120,11 +120,11 @@ foreign import ccall safe "dynamic" fromNonFunctionPointer_Function
   :: Ptr.FunPtr NonFunctionPointer_Function
   -> NonFunctionPointer_Function
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr NonFunctionPointer_Function where
+instance HsBindgen.Runtime.FunPtr.Class.ToFunPtr NonFunctionPointer_Function where
 
   toFunPtr = toNonFunctionPointer_Function
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr NonFunctionPointer_Function where
+instance HsBindgen.Runtime.FunPtr.Class.FromFunPtr NonFunctionPointer_Function where
 
   fromFunPtr = fromNonFunctionPointer_Function
 
@@ -146,11 +146,11 @@ foreign import ccall safe "dynamic" fromF1_Deref
   :: Ptr.FunPtr F1_Deref
   -> F1_Deref
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr F1_Deref where
+instance HsBindgen.Runtime.FunPtr.Class.ToFunPtr F1_Deref where
 
   toFunPtr = toF1_Deref
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr F1_Deref where
+instance HsBindgen.Runtime.FunPtr.Class.FromFunPtr F1_Deref where
 
   fromFunPtr = fromF1_Deref
 
@@ -184,11 +184,11 @@ foreign import ccall safe "dynamic" fromG1
   :: Ptr.FunPtr G1
   -> G1
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr G1 where
+instance HsBindgen.Runtime.FunPtr.Class.ToFunPtr G1 where
 
   toFunPtr = toG1
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr G1 where
+instance HsBindgen.Runtime.FunPtr.Class.FromFunPtr G1 where
 
   fromFunPtr = fromG1
 
@@ -222,11 +222,11 @@ foreign import ccall safe "dynamic" fromH1
   :: Ptr.FunPtr H1
   -> H1
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr H1 where
+instance HsBindgen.Runtime.FunPtr.Class.ToFunPtr H1 where
 
   toFunPtr = toH1
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr H1 where
+instance HsBindgen.Runtime.FunPtr.Class.FromFunPtr H1 where
 
   fromFunPtr = fromH1
 

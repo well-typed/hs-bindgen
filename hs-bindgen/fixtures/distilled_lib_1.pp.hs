@@ -20,7 +20,7 @@ import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.ConstantArray
-import qualified HsBindgen.Runtime.FunPtr
+import qualified HsBindgen.Runtime.FunPtr.Class
 import qualified HsBindgen.Runtime.IncompleteArray
 import qualified HsBindgen.Runtime.Prelude
 import qualified Text.Read
@@ -509,11 +509,11 @@ foreign import ccall safe "dynamic" fromCallback_t_Deref
   :: Ptr.FunPtr Callback_t_Deref
   -> Callback_t_Deref
 
-instance HsBindgen.Runtime.FunPtr.ToFunPtr Callback_t_Deref where
+instance HsBindgen.Runtime.FunPtr.Class.ToFunPtr Callback_t_Deref where
 
   toFunPtr = toCallback_t_Deref
 
-instance HsBindgen.Runtime.FunPtr.FromFunPtr Callback_t_Deref where
+instance HsBindgen.Runtime.FunPtr.Class.FromFunPtr Callback_t_Deref where
 
   fromFunPtr = fromCallback_t_Deref
 
