@@ -2253,6 +2253,414 @@
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
+        "funPtr_8b272628_to",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsFun
+            (HsPtr
+              (HsTypRef
+                (Name
+                  "@NsTypeConstr"
+                  "Measurement")))
+            (HsFun
+              (HsFunPtr
+                (HsFun
+                  (HsPrimType HsPrimCDouble)
+                  (HsFun
+                    (HsPrimType HsPrimCInt)
+                    (HsIO
+                      (HsPrimType HsPrimCDouble)))))
+              (HsFun
+                (HsPrimType HsPrimCInt)
+                (HsIO
+                  (HsPrimType HsPrimUnit)))),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPtr
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "Measurement")))
+              (HsFun
+                (HsFunPtr
+                  (HsFun
+                    (HsPrimType HsPrimCDouble)
+                    (HsFun
+                      (HsPrimType HsPrimCInt)
+                      (HsIO
+                        (HsPrimType HsPrimCDouble)))))
+                (HsFun
+                  (HsPrimType HsPrimCInt)
+                  (HsIO
+                    (HsPrimType HsPrimUnit))))))),
+      foreignImportOrigName =
+      "wrapper",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin = ToFunPtr
+        (TypePointer
+          (TypeFun
+            [
+              TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "Measurement",
+                    nameHsIdent = Identifier
+                      "Measurement"}
+                  NameOriginInSource),
+              TypePointer
+                (TypeFun
+                  [
+                    TypePrim
+                      (PrimFloating PrimDouble),
+                    TypePrim
+                      (PrimIntegral PrimInt Signed)]
+                  (TypePrim
+                    (PrimFloating PrimDouble))),
+              TypePrim
+                (PrimIntegral PrimInt Signed)]
+            TypeVoid)),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "funPtr_8b272628_from",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsFunPtr
+            (HsFun
+              (HsPtr
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "Measurement")))
+              (HsFun
+                (HsFunPtr
+                  (HsFun
+                    (HsPrimType HsPrimCDouble)
+                    (HsFun
+                      (HsPrimType HsPrimCInt)
+                      (HsIO
+                        (HsPrimType HsPrimCDouble)))))
+                (HsFun
+                  (HsPrimType HsPrimCInt)
+                  (HsIO
+                    (HsPrimType HsPrimUnit))))),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsFun
+          (HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Measurement")))
+          (HsFun
+            (HsFunPtr
+              (HsFun
+                (HsPrimType HsPrimCDouble)
+                (HsFun
+                  (HsPrimType HsPrimCInt)
+                  (HsIO
+                    (HsPrimType HsPrimCDouble)))))
+            (HsFun
+              (HsPrimType HsPrimCInt)
+              (HsIO
+                (HsPrimType HsPrimUnit))))),
+      foreignImportOrigName =
+      "dynamic",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin = FromFunPtr
+        (TypePointer
+          (TypeFun
+            [
+              TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "Measurement",
+                    nameHsIdent = Identifier
+                      "Measurement"}
+                  NameOriginInSource),
+              TypePointer
+                (TypeFun
+                  [
+                    TypePrim
+                      (PrimFloating PrimDouble),
+                    TypePrim
+                      (PrimIntegral PrimInt Signed)]
+                  (TypePrim
+                    (PrimFloating PrimDouble))),
+              TypePrim
+                (PrimIntegral PrimInt Signed)]
+            TypeVoid)),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceToFunPtr
+        ToFunPtrInstance {
+          toFunPtrInstanceType = HsFun
+            (HsPtr
+              (HsTypRef
+                (Name
+                  "@NsTypeConstr"
+                  "Measurement")))
+            (HsFun
+              (HsFunPtr
+                (HsFun
+                  (HsPrimType HsPrimCDouble)
+                  (HsFun
+                    (HsPrimType HsPrimCInt)
+                    (HsIO
+                      (HsPrimType HsPrimCDouble)))))
+              (HsFun
+                (HsPrimType HsPrimCInt)
+                (HsIO
+                  (HsPrimType HsPrimUnit)))),
+          toFunPtrInstanceBody = Name
+            "@NsVar"
+            "funPtr_8b272628_to"},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceFromFunPtr
+        FromFunPtrInstance {
+          fromFunPtrInstanceType = HsFun
+            (HsPtr
+              (HsTypRef
+                (Name
+                  "@NsTypeConstr"
+                  "Measurement")))
+            (HsFun
+              (HsFunPtr
+                (HsFun
+                  (HsPrimType HsPrimCDouble)
+                  (HsFun
+                    (HsPrimType HsPrimCInt)
+                    (HsIO
+                      (HsPrimType HsPrimCDouble)))))
+              (HsFun
+                (HsPrimType HsPrimCInt)
+                (HsIO
+                  (HsPrimType HsPrimUnit)))),
+          fromFunPtrInstanceBody = Name
+            "@NsVar"
+            "funPtr_8b272628_from"},
+      defineInstanceComment =
+      Nothing},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "funPtr_ac6a854e_to",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsFun
+            (HsPtr
+              (HsTypRef
+                (Name
+                  "@NsTypeConstr"
+                  "Measurement")))
+            (HsFun
+              (HsTypRef
+                (Name
+                  "@NsTypeConstr"
+                  "FileOpenedNotification"))
+              (HsFun
+                (HsPrimType HsPrimCInt)
+                (HsIO
+                  (HsPrimType HsPrimUnit)))),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPtr
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "Measurement")))
+              (HsFun
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "FileOpenedNotification"))
+                (HsFun
+                  (HsPrimType HsPrimCInt)
+                  (HsIO
+                    (HsPrimType HsPrimUnit))))))),
+      foreignImportOrigName =
+      "wrapper",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin = ToFunPtr
+        (TypePointer
+          (TypeFun
+            [
+              TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "Measurement",
+                    nameHsIdent = Identifier
+                      "Measurement"}
+                  NameOriginInSource),
+              TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name
+                      "FileOpenedNotification",
+                    nameHsIdent = Identifier
+                      "FileOpenedNotification"}
+                  (TypePointer
+                    (TypeFun [] TypeVoid))),
+              TypePrim
+                (PrimIntegral PrimInt Signed)]
+            TypeVoid)),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "funPtr_ac6a854e_from",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsFunPtr
+            (HsFun
+              (HsPtr
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "Measurement")))
+              (HsFun
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "FileOpenedNotification"))
+                (HsFun
+                  (HsPrimType HsPrimCInt)
+                  (HsIO
+                    (HsPrimType HsPrimUnit))))),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsFun
+          (HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Measurement")))
+          (HsFun
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "FileOpenedNotification"))
+            (HsFun
+              (HsPrimType HsPrimCInt)
+              (HsIO
+                (HsPrimType HsPrimUnit))))),
+      foreignImportOrigName =
+      "dynamic",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin = FromFunPtr
+        (TypePointer
+          (TypeFun
+            [
+              TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "Measurement",
+                    nameHsIdent = Identifier
+                      "Measurement"}
+                  NameOriginInSource),
+              TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name
+                      "FileOpenedNotification",
+                    nameHsIdent = Identifier
+                      "FileOpenedNotification"}
+                  (TypePointer
+                    (TypeFun [] TypeVoid))),
+              TypePrim
+                (PrimIntegral PrimInt Signed)]
+            TypeVoid)),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceToFunPtr
+        ToFunPtrInstance {
+          toFunPtrInstanceType = HsFun
+            (HsPtr
+              (HsTypRef
+                (Name
+                  "@NsTypeConstr"
+                  "Measurement")))
+            (HsFun
+              (HsTypRef
+                (Name
+                  "@NsTypeConstr"
+                  "FileOpenedNotification"))
+              (HsFun
+                (HsPrimType HsPrimCInt)
+                (HsIO
+                  (HsPrimType HsPrimUnit)))),
+          toFunPtrInstanceBody = Name
+            "@NsVar"
+            "funPtr_ac6a854e_to"},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceFromFunPtr
+        FromFunPtrInstance {
+          fromFunPtrInstanceType = HsFun
+            (HsPtr
+              (HsTypRef
+                (Name
+                  "@NsTypeConstr"
+                  "Measurement")))
+            (HsFun
+              (HsTypRef
+                (Name
+                  "@NsTypeConstr"
+                  "FileOpenedNotification"))
+              (HsFun
+                (HsPrimType HsPrimCInt)
+                (HsIO
+                  (HsPrimType HsPrimUnit)))),
+          fromFunPtrInstanceBody = Name
+            "@NsVar"
+            "funPtr_ac6a854e_from"},
+      defineInstanceComment =
+      Nothing},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
         "readFileWithProcessor",
       foreignImportParameters = [
         FunctionParameter {
@@ -2876,6 +3284,224 @@
             "onBufferReady",
           commentLocation = Just
             "callbacks.h:26:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["callbacks.h"],
+              headerInclude = "callbacks.h"},
+          commentChildren = []},
+      foreignImportSafety = Safe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "transformMeasurement",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "data'"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Measurement")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "data'",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "transformer"),
+          functionParameterType = HsFunPtr
+            (HsFun
+              (HsPtr
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "Measurement")))
+              (HsFun
+                (HsFunPtr
+                  (HsFun
+                    (HsPrimType HsPrimCDouble)
+                    (HsFun
+                      (HsPrimType HsPrimCInt)
+                      (HsIO
+                        (HsPrimType HsPrimCDouble)))))
+                (HsFun
+                  (HsPrimType HsPrimCInt)
+                  (HsIO
+                    (HsPrimType HsPrimUnit))))),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "transformer",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
+      foreignImportOrigName =
+      "hs_bindgen_test_callbacks_0b6a9249f49b986f",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_callbacks_0b6a9249f49b986f (struct Measurement *arg1, void (*arg2) (struct Measurement *arg1, double (*arg2) (double arg1, signed int arg2), signed int arg3)) { transformMeasurement(arg1, arg2); }",
+          capiWrapperImport =
+          "callbacks.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "data",
+                  nameHsIdent = Identifier
+                    "data'"})
+              (TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "Measurement",
+                    nameHsIdent = Identifier
+                      "Measurement"}
+                  NameOriginInSource)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "transformer",
+                  nameHsIdent = Identifier
+                    "transformer"})
+              (TypePointer
+                (TypeFun
+                  [
+                    TypePointer
+                      (TypeStruct
+                        NamePair {
+                          nameC = Name "Measurement",
+                          nameHsIdent = Identifier
+                            "Measurement"}
+                        NameOriginInSource),
+                    TypePointer
+                      (TypeFun
+                        [
+                          TypePrim
+                            (PrimFloating PrimDouble),
+                          TypePrim
+                            (PrimIntegral PrimInt Signed)]
+                        (TypePrim
+                          (PrimFloating PrimDouble))),
+                    TypePrim
+                      (PrimIntegral PrimInt Signed)]
+                  TypeVoid))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "transformMeasurement",
+          commentLocation = Just
+            "callbacks.h:29:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["callbacks.h"],
+              headerInclude = "callbacks.h"},
+          commentChildren = []},
+      foreignImportSafety = Safe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "processWithCallbacks",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "handler"),
+          functionParameterType = HsFunPtr
+            (HsFun
+              (HsPtr
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "Measurement")))
+              (HsFun
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "FileOpenedNotification"))
+                (HsFun
+                  (HsPrimType HsPrimCInt)
+                  (HsIO
+                    (HsPrimType HsPrimUnit))))),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "handler",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
+      foreignImportOrigName =
+      "hs_bindgen_test_callbacks_2c3e0e84ae9cde51",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_callbacks_2c3e0e84ae9cde51 (void (*arg1) (struct Measurement *arg1, FileOpenedNotification arg2, signed int arg3)) { processWithCallbacks(arg1); }",
+          capiWrapperImport =
+          "callbacks.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "handler",
+                  nameHsIdent = Identifier
+                    "handler"})
+              (TypePointer
+                (TypeFun
+                  [
+                    TypePointer
+                      (TypeStruct
+                        NamePair {
+                          nameC = Name "Measurement",
+                          nameHsIdent = Identifier
+                            "Measurement"}
+                        NameOriginInSource),
+                    TypeTypedef
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name
+                            "FileOpenedNotification",
+                          nameHsIdent = Identifier
+                            "FileOpenedNotification"}
+                        (TypePointer
+                          (TypeFun [] TypeVoid))),
+                    TypePrim
+                      (PrimIntegral PrimInt Signed)]
+                  TypeVoid))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "processWithCallbacks",
+          commentLocation = Just
+            "callbacks.h:32:6",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -3521,6 +4147,224 @@
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
+        "transformMeasurement",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "data'"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Measurement")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "data'",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "transformer"),
+          functionParameterType = HsFunPtr
+            (HsFun
+              (HsPtr
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "Measurement")))
+              (HsFun
+                (HsFunPtr
+                  (HsFun
+                    (HsPrimType HsPrimCDouble)
+                    (HsFun
+                      (HsPrimType HsPrimCInt)
+                      (HsIO
+                        (HsPrimType HsPrimCDouble)))))
+                (HsFun
+                  (HsPrimType HsPrimCInt)
+                  (HsIO
+                    (HsPrimType HsPrimUnit))))),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just
+                "transformer",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
+      foreignImportOrigName =
+      "hs_bindgen_test_callbacks_0e22183e51a42eab",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_callbacks_0e22183e51a42eab (struct Measurement *arg1, void (*arg2) (struct Measurement *arg1, double (*arg2) (double arg1, signed int arg2), signed int arg3)) { transformMeasurement(arg1, arg2); }",
+          capiWrapperImport =
+          "callbacks.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "data",
+                  nameHsIdent = Identifier
+                    "data'"})
+              (TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "Measurement",
+                    nameHsIdent = Identifier
+                      "Measurement"}
+                  NameOriginInSource)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "transformer",
+                  nameHsIdent = Identifier
+                    "transformer"})
+              (TypePointer
+                (TypeFun
+                  [
+                    TypePointer
+                      (TypeStruct
+                        NamePair {
+                          nameC = Name "Measurement",
+                          nameHsIdent = Identifier
+                            "Measurement"}
+                        NameOriginInSource),
+                    TypePointer
+                      (TypeFun
+                        [
+                          TypePrim
+                            (PrimFloating PrimDouble),
+                          TypePrim
+                            (PrimIntegral PrimInt Signed)]
+                        (TypePrim
+                          (PrimFloating PrimDouble))),
+                    TypePrim
+                      (PrimIntegral PrimInt Signed)]
+                  TypeVoid))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "transformMeasurement",
+          commentLocation = Just
+            "callbacks.h:29:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["callbacks.h"],
+              headerInclude = "callbacks.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "processWithCallbacks",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "handler"),
+          functionParameterType = HsFunPtr
+            (HsFun
+              (HsPtr
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "Measurement")))
+              (HsFun
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "FileOpenedNotification"))
+                (HsFun
+                  (HsPrimType HsPrimCInt)
+                  (HsIO
+                    (HsPrimType HsPrimUnit))))),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "handler",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
+      foreignImportOrigName =
+      "hs_bindgen_test_callbacks_9b4727ea289ff135",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_callbacks_9b4727ea289ff135 (void (*arg1) (struct Measurement *arg1, FileOpenedNotification arg2, signed int arg3)) { processWithCallbacks(arg1); }",
+          capiWrapperImport =
+          "callbacks.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "handler",
+                  nameHsIdent = Identifier
+                    "handler"})
+              (TypePointer
+                (TypeFun
+                  [
+                    TypePointer
+                      (TypeStruct
+                        NamePair {
+                          nameC = Name "Measurement",
+                          nameHsIdent = Identifier
+                            "Measurement"}
+                        NameOriginInSource),
+                    TypeTypedef
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name
+                            "FileOpenedNotification",
+                          nameHsIdent = Identifier
+                            "FileOpenedNotification"}
+                        (TypePointer
+                          (TypeFun [] TypeVoid))),
+                    TypePrim
+                      (PrimIntegral PrimInt Signed)]
+                  TypeVoid))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "processWithCallbacks",
+          commentLocation = Just
+            "callbacks.h:32:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["callbacks.h"],
+              headerInclude = "callbacks.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
         "hs_bindgen_test_callbacks_c4b06d89a94616dd",
       foreignImportParameters = [],
       foreignImportResultType =
@@ -3895,6 +4739,158 @@
                         (TypePrim
                           (PrimIntegral PrimInt Signed))]
                     TypeVoid)))]
+          TypeVoid),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "hs_bindgen_test_callbacks_6c9fe4dae03a37fa",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPtr
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "Measurement")))
+              (HsFun
+                (HsFunPtr
+                  (HsFun
+                    (HsPtr
+                      (HsTypRef
+                        (Name
+                          "@NsTypeConstr"
+                          "Measurement")))
+                    (HsFun
+                      (HsFunPtr
+                        (HsFun
+                          (HsPrimType HsPrimCDouble)
+                          (HsFun
+                            (HsPrimType HsPrimCInt)
+                            (HsIO
+                              (HsPrimType HsPrimCDouble)))))
+                      (HsFun
+                        (HsPrimType HsPrimCInt)
+                        (HsIO
+                          (HsPrimType HsPrimUnit))))))
+                (HsIO
+                  (HsPrimType HsPrimUnit)))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_callbacks_6c9fe4dae03a37fa",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_transformMeasurement_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_6c9fe4dae03a37fa (void)) (struct Measurement *arg1, void (*arg2) (struct Measurement *arg1, double (*arg2) (double arg1, signed int arg2), signed int arg3)) { return &transformMeasurement; } ",
+          capiWrapperImport =
+          "callbacks.h"},
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePointer
+              (TypeStruct
+                NamePair {
+                  nameC = Name "Measurement",
+                  nameHsIdent = Identifier
+                    "Measurement"}
+                NameOriginInSource),
+            TypePointer
+              (TypeFun
+                [
+                  TypePointer
+                    (TypeStruct
+                      NamePair {
+                        nameC = Name "Measurement",
+                        nameHsIdent = Identifier
+                          "Measurement"}
+                      NameOriginInSource),
+                  TypePointer
+                    (TypeFun
+                      [
+                        TypePrim
+                          (PrimFloating PrimDouble),
+                        TypePrim
+                          (PrimIntegral PrimInt Signed)]
+                      (TypePrim
+                        (PrimFloating PrimDouble))),
+                  TypePrim
+                    (PrimIntegral PrimInt Signed)]
+                TypeVoid)]
+          TypeVoid),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "hs_bindgen_test_callbacks_2ee8d8889cd31fb7",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsFunPtr
+                (HsFun
+                  (HsPtr
+                    (HsTypRef
+                      (Name
+                        "@NsTypeConstr"
+                        "Measurement")))
+                  (HsFun
+                    (HsTypRef
+                      (Name
+                        "@NsTypeConstr"
+                        "FileOpenedNotification"))
+                    (HsFun
+                      (HsPrimType HsPrimCInt)
+                      (HsIO
+                        (HsPrimType HsPrimUnit))))))
+              (HsIO
+                (HsPrimType HsPrimUnit))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_callbacks_2ee8d8889cd31fb7",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_processWithCallbacks_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_2ee8d8889cd31fb7 (void)) (void (*arg1) (struct Measurement *arg1, FileOpenedNotification arg2, signed int arg3)) { return &processWithCallbacks; } ",
+          capiWrapperImport =
+          "callbacks.h"},
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePointer
+              (TypeFun
+                [
+                  TypePointer
+                    (TypeStruct
+                      NamePair {
+                        nameC = Name "Measurement",
+                        nameHsIdent = Identifier
+                          "Measurement"}
+                      NameOriginInSource),
+                  TypeTypedef
+                    (TypedefRegular
+                      NamePair {
+                        nameC = Name
+                          "FileOpenedNotification",
+                        nameHsIdent = Identifier
+                          "FileOpenedNotification"}
+                      (TypePointer
+                        (TypeFun [] TypeVoid))),
+                  TypePrim
+                    (PrimIntegral PrimInt Signed)]
+                TypeVoid)]
           TypeVoid),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},

@@ -70,3 +70,28 @@ pub type SampleBufferFull = ::std::option::Option<
 unsafe extern "C" {
     pub fn onBufferReady(handler: SampleBufferFull);
 }
+unsafe extern "C" {
+    pub fn transformMeasurement(
+        data: *mut Measurement,
+        transformer: ::std::option::Option<
+            unsafe extern "C" fn(
+                m: *mut Measurement,
+                scale: ::std::option::Option<
+                    unsafe extern "C" fn(arg1: f64, arg2: ::std::os::raw::c_int) -> f64,
+                >,
+                factor: ::std::os::raw::c_int,
+            ),
+        >,
+    );
+}
+unsafe extern "C" {
+    pub fn processWithCallbacks(
+        handler: ::std::option::Option<
+            unsafe extern "C" fn(
+                m: *mut Measurement,
+                notify: FileOpenedNotification,
+                priority: ::std::os::raw::c_int,
+            ),
+        >,
+    );
+}

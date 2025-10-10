@@ -1030,5 +1030,132 @@ TranslationUnit {
           cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
+          Map.fromList []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "callbacks.h:29:6",
+        declId = NamePair {
+          nameC = Name
+            "transformMeasurement",
+          nameHsIdent = Identifier
+            "transformMeasurement"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["callbacks.h"],
+            headerInclude = "callbacks.h"},
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "data",
+                  nameHsIdent = Identifier
+                    "data'"})
+              (TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "Measurement",
+                    nameHsIdent = Identifier
+                      "Measurement"}
+                  NameOriginInSource)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "transformer",
+                  nameHsIdent = Identifier
+                    "transformer"})
+              (TypePointer
+                (TypeFun
+                  [
+                    TypePointer
+                      (TypeStruct
+                        NamePair {
+                          nameC = Name "Measurement",
+                          nameHsIdent = Identifier
+                            "Measurement"}
+                        NameOriginInSource),
+                    TypePointer
+                      (TypeFun
+                        [
+                          TypePrim
+                            (PrimFloating PrimDouble),
+                          TypePrim
+                            (PrimIntegral PrimInt Signed)]
+                        (TypePrim
+                          (PrimFloating PrimDouble))),
+                    TypePrim
+                      (PrimIntegral PrimInt Signed)]
+                  TypeVoid))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "callbacks.h:32:6",
+        declId = NamePair {
+          nameC = Name
+            "processWithCallbacks",
+          nameHsIdent = Identifier
+            "processWithCallbacks"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["callbacks.h"],
+            headerInclude = "callbacks.h"},
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "handler",
+                  nameHsIdent = Identifier
+                    "handler"})
+              (TypePointer
+                (TypeFun
+                  [
+                    TypePointer
+                      (TypeStruct
+                        NamePair {
+                          nameC = Name "Measurement",
+                          nameHsIdent = Identifier
+                            "Measurement"}
+                        NameOriginInSource),
+                    TypeTypedef
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name
+                            "FileOpenedNotification",
+                          nameHsIdent = Identifier
+                            "FileOpenedNotification"}
+                        (TypePointer
+                          (TypeFun [] TypeVoid))),
+                    TypePrim
+                      (PrimIntegral PrimInt Signed)]
+                  TypeVoid))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
           Map.fromList []}}],
   unitDeps = ["callbacks"]}
