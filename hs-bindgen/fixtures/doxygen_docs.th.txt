@@ -1220,44 +1220,9 @@ __defined at:__ @doxygen_docs.h:332:5@
 
 __exported by:__ @doxygen_docs.h@
 -}
-foreign import ccall safe "hs_bindgen_test_doxygen_docs_d8a2703f133ce8c2" process_buffer_wrapper :: Ptr CChar ->
-                                                                                                    HsBindgen.Runtime.Prelude.CSize ->
-                                                                                                    IO CInt
-{-|
-
-  Static array parameter
-
-  [__@buffer@ /(input)/__]: Buffer with minimum size
-
-  [__@size@ /(input)/__]: Actual buffer size
-
-  __returns:__ Number of bytes written
-
-__C declaration:__ @process_buffer@
-
-__defined at:__ @doxygen_docs.h:332:5@
-
-__exported by:__ @doxygen_docs.h@
--}
-process_buffer :: ConstantArray 64 CChar ->
-                  HsBindgen.Runtime.Prelude.CSize -> IO CInt
-{-|
-
-  Static array parameter
-
-  [__@buffer@ /(input)/__]: Buffer with minimum size
-
-  [__@size@ /(input)/__]: Actual buffer size
-
-  __returns:__ Number of bytes written
-
-__C declaration:__ @process_buffer@
-
-__defined at:__ @doxygen_docs.h:332:5@
-
-__exported by:__ @doxygen_docs.h@
--}
-process_buffer = \x_0 -> \x_1 -> withPtr x_0 (\ptr_2 -> process_buffer_wrapper ptr_2 x_1)
+foreign import ccall safe "hs_bindgen_test_doxygen_docs_d8a2703f133ce8c2" process_buffer :: Ptr CChar ->
+                                                                                            HsBindgen.Runtime.Prelude.CSize ->
+                                                                                            IO CInt
 {-|
 
   Function with restrict pointers
@@ -1624,44 +1589,9 @@ __defined at:__ @doxygen_docs.h:332:5@
 
 __exported by:__ @doxygen_docs.h@
 -}
-foreign import ccall safe "hs_bindgen_test_doxygen_docs_75f51ea0caca0775" process_buffer_wrapper :: Ptr CChar ->
-                                                                                                    HsBindgen.Runtime.Prelude.CSize ->
-                                                                                                    IO CInt
-{-|
-
-  Static array parameter
-
-  [__@buffer@ /(input)/__]: Buffer with minimum size
-
-  [__@size@ /(input)/__]: Actual buffer size
-
-  __returns:__ Number of bytes written
-
-__C declaration:__ @process_buffer@
-
-__defined at:__ @doxygen_docs.h:332:5@
-
-__exported by:__ @doxygen_docs.h@
--}
-process_buffer :: ConstantArray 64 CChar ->
-                  HsBindgen.Runtime.Prelude.CSize -> IO CInt
-{-|
-
-  Static array parameter
-
-  [__@buffer@ /(input)/__]: Buffer with minimum size
-
-  [__@size@ /(input)/__]: Actual buffer size
-
-  __returns:__ Number of bytes written
-
-__C declaration:__ @process_buffer@
-
-__defined at:__ @doxygen_docs.h:332:5@
-
-__exported by:__ @doxygen_docs.h@
--}
-process_buffer = \x_0 -> \x_1 -> withPtr x_0 (\ptr_2 -> process_buffer_wrapper ptr_2 x_1)
+foreign import ccall safe "hs_bindgen_test_doxygen_docs_75f51ea0caca0775" process_buffer :: Ptr CChar ->
+                                                                                            HsBindgen.Runtime.Prelude.CSize ->
+                                                                                            IO CInt
 {-|
 
   Function with restrict pointers

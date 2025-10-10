@@ -4,7 +4,7 @@
 
 #include "structs.h"
 
-struct surname *surname_alloc(char nm[]) {
+struct surname *surname_alloc(const char nm[]) {
   size_t n = strlen(nm);
   struct surname *ptr = malloc(sizeof(struct surname) + n * sizeof(char));
   if (ptr) {

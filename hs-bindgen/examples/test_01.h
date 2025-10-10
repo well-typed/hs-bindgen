@@ -371,9 +371,9 @@ static inline struct thing thing_fun_3(struct thing x) {
  * // arr is now {2, 2, 3}
  * @endcode
  */
-static inline int sum3(int x, int xs[3]) {
-    xs[0] *= 2;
-    return x + xs[0] + xs[1] + xs[2];
+static inline int sum3(int x, const int xs[3]) {
+    const int x0 = xs[0] * 2;
+    return x + x0 + xs[1] + xs[2];
 }
 
 /**
@@ -407,9 +407,9 @@ typedef int triple[3];
  *
  * @see sum3()
  */
-static inline int sum3b(int x, triple xs) {
-    xs[0] *= 3;
-    return x + xs[0] + xs[1] + xs[2];
+static inline int sum3b(int x, const triple xs) {
+    int x0 = xs[0] * 3;
+    return x + x0 + xs[1] + xs[2];
 }
 
 #endif /* TEST_01_H */

@@ -12064,7 +12064,7 @@
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "some_fun_wrapper",
+        "some_fun",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
@@ -12849,12 +12849,11 @@
               "distilled_lib_1.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "some_fun_wrapper",
+        "some_fun",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
@@ -13639,7 +13638,6 @@
               "distilled_lib_1.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
-  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name

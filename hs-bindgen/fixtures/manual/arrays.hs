@@ -376,26 +376,28 @@
                   nameC = Name "input",
                   nameHsIdent = Identifier
                     "input"})
-              (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "matrix",
-                    nameHsIdent = Identifier
-                      "Matrix"}
-                  (TypeConstArray
-                    3
-                    (TypeTypedef
-                      (TypedefRegular
-                        NamePair {
-                          nameC = Name "triplet",
-                          nameHsIdent = Identifier
-                            "Triplet"}
-                        (TypeConstArray
-                          3
-                          (TypePrim
-                            (PrimIntegral
-                              PrimInt
-                              Signed)))))))),
+              (TypeQualified
+                TypeQualifierConst
+                (TypeTypedef
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "matrix",
+                      nameHsIdent = Identifier
+                        "Matrix"}
+                    (TypeConstArray
+                      3
+                      (TypeTypedef
+                        (TypedefRegular
+                          NamePair {
+                            nameC = Name "triplet",
+                            nameHsIdent = Identifier
+                              "Triplet"}
+                          (TypeConstArray
+                            3
+                            (TypePrim
+                              (PrimIntegral
+                                PrimInt
+                                Signed))))))))),
             _×_
               (Just
                 NamePair {
@@ -446,7 +448,7 @@
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "pretty_print_triplets_wrapper",
+        "pretty_print_triplets",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
@@ -519,7 +521,6 @@
               "manual/arrays.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -577,26 +578,28 @@
                   nameC = Name "input",
                   nameHsIdent = Identifier
                     "input"})
-              (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "matrix",
-                    nameHsIdent = Identifier
-                      "Matrix"}
-                  (TypeConstArray
-                    3
-                    (TypeTypedef
-                      (TypedefRegular
-                        NamePair {
-                          nameC = Name "triplet",
-                          nameHsIdent = Identifier
-                            "Triplet"}
-                        (TypeConstArray
-                          3
-                          (TypePrim
-                            (PrimIntegral
-                              PrimInt
-                              Signed)))))))),
+              (TypeQualified
+                TypeQualifierConst
+                (TypeTypedef
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "matrix",
+                      nameHsIdent = Identifier
+                        "Matrix"}
+                    (TypeConstArray
+                      3
+                      (TypeTypedef
+                        (TypedefRegular
+                          NamePair {
+                            nameC = Name "triplet",
+                            nameHsIdent = Identifier
+                              "Triplet"}
+                          (TypeConstArray
+                            3
+                            (TypePrim
+                              (PrimIntegral
+                                PrimInt
+                                Signed))))))))),
             _×_
               (Just
                 NamePair {
@@ -647,7 +650,7 @@
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "pretty_print_triplets_wrapper",
+        "pretty_print_triplets",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
@@ -720,7 +723,6 @@
               "manual/arrays.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
-  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -745,32 +747,34 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_transpose_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_manualarrays_fc1dad225b555299 (void)) (matrix arg1, matrix arg2) { return &transpose; } ",
+          "/* get_transpose_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_manualarrays_fc1dad225b555299 (void)) (matrix const arg1, matrix arg2) { return &transpose; } ",
           capiWrapperImport =
           "manual/arrays.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
-            TypeTypedef
-              (TypedefRegular
-                NamePair {
-                  nameC = Name "matrix",
-                  nameHsIdent = Identifier
-                    "Matrix"}
-                (TypeConstArray
-                  3
-                  (TypeTypedef
-                    (TypedefRegular
-                      NamePair {
-                        nameC = Name "triplet",
-                        nameHsIdent = Identifier
-                          "Triplet"}
-                      (TypeConstArray
-                        3
-                        (TypePrim
-                          (PrimIntegral
-                            PrimInt
-                            Signed))))))),
+            TypeQualified
+              TypeQualifierConst
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "matrix",
+                    nameHsIdent = Identifier
+                      "Matrix"}
+                  (TypeConstArray
+                    3
+                    (TypeTypedef
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name "triplet",
+                          nameHsIdent = Identifier
+                            "Triplet"}
+                        (TypeConstArray
+                          3
+                          (TypePrim
+                            (PrimIntegral
+                              PrimInt
+                              Signed)))))))),
             TypeTypedef
               (TypedefRegular
                 NamePair {

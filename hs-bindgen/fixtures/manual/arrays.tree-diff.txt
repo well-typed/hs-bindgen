@@ -281,26 +281,28 @@ TranslationUnit {
                   nameC = Name "input",
                   nameHsIdent = Identifier
                     "input"})
-              (TypeTypedef
-                (TypedefRegular
-                  NamePair {
-                    nameC = Name "matrix",
-                    nameHsIdent = Identifier
-                      "Matrix"}
-                  (TypeConstArray
-                    3
-                    (TypeTypedef
-                      (TypedefRegular
-                        NamePair {
-                          nameC = Name "triplet",
-                          nameHsIdent = Identifier
-                            "Triplet"}
-                        (TypeConstArray
-                          3
-                          (TypePrim
-                            (PrimIntegral
-                              PrimInt
-                              Signed)))))))),
+              (TypeQualified
+                TypeQualifierConst
+                (TypeTypedef
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "matrix",
+                      nameHsIdent = Identifier
+                        "Matrix"}
+                    (TypeConstArray
+                      3
+                      (TypeTypedef
+                        (TypedefRegular
+                          NamePair {
+                            nameC = Name "triplet",
+                            nameHsIdent = Identifier
+                              "Triplet"}
+                          (TypeConstArray
+                            3
+                            (TypePrim
+                              (PrimIntegral
+                                PrimInt
+                                Signed))))))))),
             _×_
               (Just
                 NamePair {

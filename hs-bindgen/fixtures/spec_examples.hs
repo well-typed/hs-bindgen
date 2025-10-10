@@ -2996,7 +2996,7 @@
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "resample_wrapper",
+        "resample",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
@@ -3206,12 +3206,11 @@
               "spec_examples.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "resample_wrapper",
+        "resample",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
@@ -3421,7 +3420,6 @@
               "spec_examples.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
-  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name

@@ -1158,7 +1158,7 @@
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "fun_1_wrapper",
+        "fun_1",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
@@ -1237,12 +1237,11 @@
               headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "fun_2_wrapper",
+        "fun_2",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
@@ -1308,12 +1307,11 @@
               headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "fun_3_wrapper",
+        "fun_3",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
@@ -1372,12 +1370,11 @@
               headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "fun_4_wrapper",
+        "fun_4",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
@@ -1441,12 +1438,11 @@
               headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "fun_5_wrapper",
+        "fun_5",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
@@ -1510,12 +1506,11 @@
               headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "fun_6_wrapper",
+        "fun_6",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
@@ -1585,12 +1580,11 @@
               headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "fun_7_wrapper",
+        "fun_7",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
@@ -1653,12 +1647,11 @@
               headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "fun_8_wrapper",
+        "fun_8",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
@@ -1727,12 +1720,11 @@
               headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "isSolved_wrapper",
+        "isSolved",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
@@ -1809,7 +1801,6 @@
               headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -1939,10 +1930,8 @@
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "ys"),
-          functionParameterType = HsTypRef
-            (Name
-              "@NsTypeConstr"
-              "Triplet"),
+          functionParameterType = HsPtr
+            (HsPrimType HsPrimCInt),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -1959,7 +1948,7 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_f15760e6f3596189 (signed int *arg1, triplet const arg2) { return fun_2_const(arg1, arg2); }",
+          "signed int hs_bindgen_test_array_f15760e6f3596189 (signed int *arg1, signed int *arg2) { return fun_2_const(arg1, arg2); }",
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -2131,8 +2120,8 @@
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "ys"),
-          functionParameterType = HsTypRef
-            (Name "@NsTypeConstr" "List"),
+          functionParameterType = HsPtr
+            (HsPrimType HsPrimCInt),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -2149,7 +2138,7 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_d61f2b8777e6ca19 (signed int *arg1, list const arg2) { return fun_4_const(arg1, arg2); }",
+          "signed int hs_bindgen_test_array_d61f2b8777e6ca19 (signed int *arg1, signed int *arg2) { return fun_4_const(arg1, arg2); }",
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -2331,8 +2320,10 @@
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "yss"),
-          functionParameterType = HsTypRef
-            (Name "@NsTypeConstr" "Matrix"),
+          functionParameterType = HsPtr
+            (HsConstArray
+              3
+              (HsPrimType HsPrimCInt)),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -2349,7 +2340,7 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_5b4bd3c6cee83e61 (signed int (*arg1)[3], matrix const arg2) { return fun_6_const(arg1, arg2); }",
+          "signed int hs_bindgen_test_array_5b4bd3c6cee83e61 (signed int (*arg1)[3], signed int (*arg2)[3]) { return fun_6_const(arg1, arg2); }",
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -2537,10 +2528,10 @@
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "yss"),
-          functionParameterType = HsTypRef
-            (Name
-              "@NsTypeConstr"
-              "Tripletlist"),
+          functionParameterType = HsPtr
+            (HsConstArray
+              3
+              (HsPrimType HsPrimCInt)),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -2557,7 +2548,7 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_4ac495707a95aa13 (signed int (*arg1)[3], tripletlist const arg2) { return fun_8_const(arg1, arg2); }",
+          "signed int hs_bindgen_test_array_4ac495707a95aa13 (signed int (*arg1)[3], signed int (*arg2)[3]) { return fun_8_const(arg1, arg2); }",
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -2647,8 +2638,11 @@
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "yss"),
-          functionParameterType = HsTypRef
-            (Name "@NsTypeConstr" "Sudoku"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Triplet")),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -2665,7 +2659,7 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_1bdcfcd7aca9a2f6 (triplet *arg1, sudoku const arg2) { return isSolved_const(arg1, arg2); }",
+          "signed int hs_bindgen_test_array_1bdcfcd7aca9a2f6 (triplet *arg1, triplet *arg2) { return isSolved_const(arg1, arg2); }",
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -3247,7 +3241,7 @@
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "fun_1_wrapper",
+        "fun_1",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
@@ -3326,12 +3320,11 @@
               headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
-  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "fun_2_wrapper",
+        "fun_2",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
@@ -3397,12 +3390,11 @@
               headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
-  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "fun_3_wrapper",
+        "fun_3",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
@@ -3461,12 +3453,11 @@
               headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
-  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "fun_4_wrapper",
+        "fun_4",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
@@ -3530,12 +3521,11 @@
               headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
-  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "fun_5_wrapper",
+        "fun_5",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
@@ -3599,12 +3589,11 @@
               headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
-  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "fun_6_wrapper",
+        "fun_6",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
@@ -3674,12 +3663,11 @@
               headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
-  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "fun_7_wrapper",
+        "fun_7",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
@@ -3742,12 +3730,11 @@
               headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
-  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "fun_8_wrapper",
+        "fun_8",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
@@ -3816,12 +3803,11 @@
               headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
-  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "isSolved_wrapper",
+        "isSolved",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
@@ -3898,7 +3884,6 @@
               headerInclude = "array.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
-  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -4028,10 +4013,8 @@
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "ys"),
-          functionParameterType = HsTypRef
-            (Name
-              "@NsTypeConstr"
-              "Triplet"),
+          functionParameterType = HsPtr
+            (HsPrimType HsPrimCInt),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -4048,7 +4031,7 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_5fe603fc3c41a066 (signed int *arg1, triplet const arg2) { return fun_2_const(arg1, arg2); }",
+          "signed int hs_bindgen_test_array_5fe603fc3c41a066 (signed int *arg1, signed int *arg2) { return fun_2_const(arg1, arg2); }",
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -4220,8 +4203,8 @@
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "ys"),
-          functionParameterType = HsTypRef
-            (Name "@NsTypeConstr" "List"),
+          functionParameterType = HsPtr
+            (HsPrimType HsPrimCInt),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -4238,7 +4221,7 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_a7499ca2f044e9ce (signed int *arg1, list const arg2) { return fun_4_const(arg1, arg2); }",
+          "signed int hs_bindgen_test_array_a7499ca2f044e9ce (signed int *arg1, signed int *arg2) { return fun_4_const(arg1, arg2); }",
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -4420,8 +4403,10 @@
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "yss"),
-          functionParameterType = HsTypRef
-            (Name "@NsTypeConstr" "Matrix"),
+          functionParameterType = HsPtr
+            (HsConstArray
+              3
+              (HsPrimType HsPrimCInt)),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -4438,7 +4423,7 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_870ee33752c078df (signed int (*arg1)[3], matrix const arg2) { return fun_6_const(arg1, arg2); }",
+          "signed int hs_bindgen_test_array_870ee33752c078df (signed int (*arg1)[3], signed int (*arg2)[3]) { return fun_6_const(arg1, arg2); }",
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -4626,10 +4611,10 @@
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "yss"),
-          functionParameterType = HsTypRef
-            (Name
-              "@NsTypeConstr"
-              "Tripletlist"),
+          functionParameterType = HsPtr
+            (HsConstArray
+              3
+              (HsPrimType HsPrimCInt)),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -4646,7 +4631,7 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_94591138e958ffe1 (signed int (*arg1)[3], tripletlist const arg2) { return fun_8_const(arg1, arg2); }",
+          "signed int hs_bindgen_test_array_94591138e958ffe1 (signed int (*arg1)[3], signed int (*arg2)[3]) { return fun_8_const(arg1, arg2); }",
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -4736,8 +4721,11 @@
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "yss"),
-          functionParameterType = HsTypRef
-            (Name "@NsTypeConstr" "Sudoku"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Triplet")),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -4754,7 +4742,7 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_ec99b7cbbed57b25 (triplet *arg1, sudoku const arg2) { return isSolved_const(arg1, arg2); }",
+          "signed int hs_bindgen_test_array_ec99b7cbbed57b25 (triplet *arg1, triplet *arg2) { return isSolved_const(arg1, arg2); }",
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {

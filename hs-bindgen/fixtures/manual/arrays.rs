@@ -24,7 +24,7 @@ unsafe extern "C" {
 pub type triplet = [::std::os::raw::c_int; 3usize];
 pub type matrix = [triplet; 3usize];
 unsafe extern "C" {
-    pub fn transpose(input: *mut triplet, output: *mut triplet);
+    pub fn transpose(input: *const triplet, output: *mut triplet);
 }
 /**! A typedef representing a an array of unknown size, where each element is a
 ! pointer to an array of known size 3, where each element is an int.*/
