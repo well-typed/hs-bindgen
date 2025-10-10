@@ -28,7 +28,7 @@ triplet baz = {9,1,8};
  * Matrix transpose
  */
 
-void transpose (matrix input, matrix output) {
+void transpose (const matrix input, matrix output) {
   int i, j;
   for (i = 0; i < 3; i++)
       for (j = 0; j < 3; j++)

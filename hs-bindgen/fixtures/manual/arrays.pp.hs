@@ -17,7 +17,7 @@ import qualified HsBindgen.Runtime.IncompleteArray
 import qualified HsBindgen.Runtime.Prelude
 import Prelude (Eq, IO, Show)
 
-$(HsBindgen.Runtime.Prelude.addCSource "#include <manual/arrays.h>\nvoid hs_bindgen_test_manualarrays_f3d0c8dd1a83b3d0 (triplet *arg1, triplet *arg2) { transpose(arg1, arg2); }\nvoid hs_bindgen_test_manualarrays_27135f4747eb87db (signed int (**arg1)[3]) { pretty_print_triplets(arg1); }\n/* get_transpose_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_manualarrays_fc1dad225b555299 (void)) (matrix arg1, matrix arg2) { return &transpose; } \n/* get_pretty_print_triplets_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_manualarrays_0b485cea747ee35d (void)) (triplet_ptrs arg1) { return &pretty_print_triplets; } \n/* get_arr1_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_manualarrays_1693226264ba4aeb (void))[1] { return &arr1; } \n/* get_arr2_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_manualarrays_dafcf99a73b93389 (void))[3] { return &arr2; } \n/* get_arr3_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_manualarrays_ca1016acc3449dee (void))[] { return &arr3; } \n/* get_sudoku_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_manualarrays_76857c9492b9374d (void))[3][3] { return &sudoku; } \n/* get_triplets_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_manualarrays_76f4df4c63822352 (void))[][3] { return &triplets; } \n/* get_global_triplet_ptrs_ptr */ __attribute__ ((const)) triplet_ptrs *hs_bindgen_test_manualarrays_f5de5a56e036b125 (void) { return &global_triplet_ptrs; } \n")
+$(HsBindgen.Runtime.Prelude.addCSource "#include <manual/arrays.h>\nvoid hs_bindgen_test_manualarrays_f3d0c8dd1a83b3d0 (triplet *arg1, triplet *arg2) { transpose(arg1, arg2); }\nvoid hs_bindgen_test_manualarrays_27135f4747eb87db (signed int (**arg1)[3]) { pretty_print_triplets(arg1); }\n/* get_transpose_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_manualarrays_fc1dad225b555299 (void)) (matrix const arg1, matrix arg2) { return &transpose; } \n/* get_pretty_print_triplets_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_manualarrays_0b485cea747ee35d (void)) (triplet_ptrs arg1) { return &pretty_print_triplets; } \n/* get_arr1_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_manualarrays_1693226264ba4aeb (void))[1] { return &arr1; } \n/* get_arr2_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_manualarrays_dafcf99a73b93389 (void))[3] { return &arr2; } \n/* get_arr3_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_manualarrays_ca1016acc3449dee (void))[] { return &arr3; } \n/* get_sudoku_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_manualarrays_76857c9492b9374d (void))[3][3] { return &sudoku; } \n/* get_triplets_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_manualarrays_76f4df4c63822352 (void))[][3] { return &triplets; } \n/* get_global_triplet_ptrs_ptr */ __attribute__ ((const)) triplet_ptrs *hs_bindgen_test_manualarrays_f5de5a56e036b125 (void) { return &global_triplet_ptrs; } \n")
 
 {-| __C declaration:__ @triplet@
 
@@ -77,13 +77,12 @@ foreign import ccall safe "hs_bindgen_test_manualarrays_f3d0c8dd1a83b3d0" transp
 
     __exported by:__ @manual\/arrays.h@
 -}
-transpose :: Matrix -> Matrix -> IO ()
+transpose :: Matrix -> (Ptr.Ptr Triplet) -> IO ()
 transpose =
   \x0 ->
     \x1 ->
-      HsBindgen.Runtime.ConstantArray.withPtr x1 (\ptr2 ->
-                                                    HsBindgen.Runtime.ConstantArray.withPtr x0 (\ptr3 ->
-                                                                                                  transpose_wrapper ptr3 ptr2))
+      HsBindgen.Runtime.ConstantArray.withPtr x0 (\ptr2 ->
+                                                    transpose_wrapper ptr2 x1)
 
 {-| A function that prints the given triplet_ptrs
 
@@ -93,25 +92,11 @@ __defined at:__ @manual\/arrays.h:50:13@
 
 __exported by:__ @manual\/arrays.h@
 -}
-foreign import ccall safe "hs_bindgen_test_manualarrays_27135f4747eb87db" pretty_print_triplets_wrapper
+foreign import ccall safe "hs_bindgen_test_manualarrays_27135f4747eb87db" pretty_print_triplets
   :: Ptr.Ptr (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
      {- ^ __C declaration:__ @x@
      -}
   -> IO ()
-
-{-| A function that prints the given triplet_ptrs
-
-__C declaration:__ @pretty_print_triplets@
-
-__defined at:__ @manual\/arrays.h:50:13@
-
-__exported by:__ @manual\/arrays.h@
--}
-pretty_print_triplets :: Triplet_ptrs -> IO ()
-pretty_print_triplets =
-  \x0 ->
-    HsBindgen.Runtime.IncompleteArray.withPtr x0 (\ptr1 ->
-                                                    pretty_print_triplets_wrapper ptr1)
 
 foreign import ccall unsafe "hs_bindgen_test_manualarrays_fc1dad225b555299" hs_bindgen_test_manualarrays_fc1dad225b555299
   :: IO (Ptr.FunPtr (Matrix -> Matrix -> IO ()))

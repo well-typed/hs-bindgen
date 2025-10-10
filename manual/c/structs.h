@@ -57,7 +57,7 @@ struct surname {
   char data[];
 };
 
-struct surname *surname_alloc(char nm[]);
+struct surname *surname_alloc(const char nm[]);
 
 void surname_free(struct surname *ptr);
 

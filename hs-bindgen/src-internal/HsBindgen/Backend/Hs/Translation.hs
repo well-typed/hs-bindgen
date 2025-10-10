@@ -1119,7 +1119,17 @@ floatingType = \case
 data WrappedType
     = WrapType C.Type -- ^ ordinary, "primitive" types which can be handled by Haskell FFI directly
     | HeapType C.Type -- ^ types passed on heap
-    | CAType C.Type Natural C.Type -- ^ constant arrays. The C ABI is to pass these as pointers, but we need a wrapper on Haskell side.
+      -- | An array of known size, with const-qualified array elements
+      --
+      -- Only if the array elements are const qualified do we know for sure that
+      -- the array is read-only. In such cases, we generate a high-level
+      -- wrapper.
+    | CAType C.Type Natural C.Type
+      -- | An array of unknown size, with const-qualified array elements
+      --
+      -- Only if the array elements are const qualified do we know for sure that
+      -- the array is read-only. In such cases, we generate a high-level
+      -- wrapper.
     | AType C.Type C.Type
   deriving Show
 
@@ -1135,25 +1145,25 @@ anyFancy types = any p types where
 
 -- | Types that we cannot directly pass via C FFI.
 wrapType ::  C.Type -> WrappedType
-wrapType ty = go ty
-  where
-    go = \case
-      C.TypeStruct {}             -> HeapType ty
-      C.TypeUnion {}              -> HeapType ty
-      C.TypeComplex {}            -> HeapType ty
-      (C.TypeConstArray n ty')    -> CAType   ty n ty'
-      (C.TypeIncompleteArray ty') -> AType    ty ty'
-      -- Note: we're only interested in finding the first non-typedef type
-      -- to determine which method of wrapping to use (.e.g, heap type or
-      -- primitive type or array type). As such, we erase typedefs only one
-      -- at a time. If we used 'C.getErasedType' we would erroneously remove
-      -- typedefs in other places as well, such as in the element types of
-      -- arrays. We want to keep typedefs there!
-      (C.TypeTypedef ref)         -> go $ C.eraseTypedef ref
-      -- TODO: macros should get annotations with underlying types just like
-      -- typedefs, so that we can look through (i.e., erase) them here as well.
-      -- See issue #1200.
-      _                           -> WrapType ty
+wrapType ty
+  -- Heap types
+  | C.isCanonicalTypeStruct ty ||
+    C.isCanonicalTypeUnion ty ||
+    C.isCanonicalTypeComplex ty
+  = HeapType ty
+
+  -- Array types
+  | Just aTy <- C.isCanonicalTypeArray ty
+  = if C.isErasedTypeConstQualified ty then
+      case aTy of
+        C.ConstantArrayClassification n eTy -> CAType ty n eTy
+        C.IncompleteArrayClassification eTy -> AType ty eTy
+    else
+      WrapType $ C.TypePointer (C.getArrayElementType aTy)
+
+  -- Other types
+  | otherwise
+  = WrapType ty
 
 -- | Type in low-level Haskell wrapper
 unwrapType :: WrappedType -> C.Type

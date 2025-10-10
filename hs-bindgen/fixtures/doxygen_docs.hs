@@ -18132,7 +18132,7 @@
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "process_buffer_wrapper",
+        "process_buffer",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
@@ -18490,7 +18490,6 @@
                 TextContent
                   "Number of bytes written"]]},
       foreignImportSafety = Safe},
-  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -21710,7 +21709,7 @@
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "process_buffer_wrapper",
+        "process_buffer",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
@@ -22068,7 +22067,6 @@
                 TextContent
                   "Number of bytes written"]]},
       foreignImportSafety = Unsafe},
-  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name

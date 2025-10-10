@@ -46,6 +46,12 @@ module HsBindgen.Frontend.AST.External (
   , isVoid
   , isErasedTypeConstQualified
   , isCanonicalTypeFunction
+  , isCanonicalTypeStruct
+  , isCanonicalTypeUnion
+  , isCanonicalTypeComplex
+  , ArrayClassification(..)
+  , getArrayElementType
+  , isCanonicalTypeArray
     -- ** Erasure
   , FullType
   , Full
@@ -354,6 +360,61 @@ isCanonicalTypeFunction :: GetCanonicalType t => t -> Bool
 isCanonicalTypeFunction ty = case getCanonicalType ty of
     TypeFun{} -> True
     _ -> False
+
+-- | Is the canonical type a struct type?
+isCanonicalTypeStruct :: GetCanonicalType t => t -> Bool
+isCanonicalTypeStruct ty = case getCanonicalType ty of
+    TypeStruct{} -> True
+    _ -> False
+
+-- | Is the canonical type a union type?
+isCanonicalTypeUnion :: GetCanonicalType t => t -> Bool
+isCanonicalTypeUnion ty = case getCanonicalType ty of
+    TypeUnion{} -> True
+    _ -> False
+
+-- | Is the canonical type a complex type?
+isCanonicalTypeComplex :: GetCanonicalType t => t -> Bool
+isCanonicalTypeComplex ty = case getCanonicalType ty of
+    TypeComplex{} -> True
+    _ -> False
+
+-- | An array of known size or unknown size
+data ArrayClassification t =
+    -- | Array of known size
+    ConstantArrayClassification
+      -- | Array size
+      Natural
+      -- | Array element type
+      t
+    -- | Array of unkown size
+  | IncompleteArrayClassification
+      -- | Array element type
+      t
+
+getArrayElementType :: ArrayClassification t -> t
+getArrayElementType (ConstantArrayClassification _ ty) = ty
+getArrayElementType (IncompleteArrayClassification ty) = ty
+
+-- | Is the canonical type an array type? If so, is it an array of known size or
+-- unknown size? And what is the /full type/ of the array elements?
+isCanonicalTypeArray :: FullType -> Maybe (ArrayClassification FullType)
+isCanonicalTypeArray ty = case ty of
+    TypePrim _pt -> Nothing
+    TypeStruct _np _no -> Nothing
+    TypeUnion _np _no -> Nothing
+    TypeEnum _np _no -> Nothing
+    TypeTypedef ref -> isCanonicalTypeArray (eraseTypedef ref)
+    TypeMacroTypedef _np _no -> Nothing
+    TypePointer _t -> Nothing
+    TypeConstArray n t -> Just (ConstantArrayClassification n t)
+    TypeFun _args _res -> Nothing
+    TypeVoid -> Nothing
+    TypeIncompleteArray t -> Just (IncompleteArrayClassification t)
+    TypeBlock _t -> Nothing
+    TypeQualified _q t -> isCanonicalTypeArray t
+    TypeExtBinding _reb -> Nothing
+    TypeComplex _pt -> Nothing
 
 {-------------------------------------------------------------------------------
   Types: Trees That Shrink

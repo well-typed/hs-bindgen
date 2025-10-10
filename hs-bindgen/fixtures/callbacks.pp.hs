@@ -247,6 +247,22 @@ newtype SampleBufferFull_Deref = SampleBufferFull_Deref
   { un_SampleBufferFull_Deref :: ((HsBindgen.Runtime.ConstantArray.ConstantArray 10) FC.CInt) -> IO ()
   }
 
+foreign import ccall safe "wrapper" toSampleBufferFull_Deref
+  :: SampleBufferFull_Deref
+  -> IO (Ptr.FunPtr SampleBufferFull_Deref)
+
+foreign import ccall safe "dynamic" fromSampleBufferFull_Deref
+  :: Ptr.FunPtr SampleBufferFull_Deref
+  -> SampleBufferFull_Deref
+
+instance HsBindgen.Runtime.FunPtr.ToFunPtr SampleBufferFull_Deref where
+
+  toFunPtr = toSampleBufferFull_Deref
+
+instance HsBindgen.Runtime.FunPtr.FromFunPtr SampleBufferFull_Deref where
+
+  fromFunPtr = fromSampleBufferFull_Deref
+
 {-| __C declaration:__ @SampleBufferFull@
 
     __defined at:__ @callbacks.h:25:16@

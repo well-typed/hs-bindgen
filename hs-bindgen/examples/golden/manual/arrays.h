@@ -33,7 +33,7 @@ typedef int triplet[3];
 
 typedef triplet matrix[3];
 
-void transpose (matrix input, matrix output);
+void transpose (const matrix input, matrix output);
 
 /*
  * Complex example
@@ -48,4 +48,3 @@ extern triplet_ptrs global_triplet_ptrs;
 
 //! A function that prints the given triplet_ptrs
 extern void pretty_print_triplets (triplet_ptrs x);
-

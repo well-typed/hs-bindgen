@@ -217,7 +217,7 @@ main = do
 --------------------------------------------------------------------------------
     section "Structs"
 
-    bracket (withCString "Rich" $ \cstr -> surname_alloc_wrapper cstr) surname_free $
+    bracket (surname_alloc $ IA.fromList $ fmap FC.castCharToCChar "Rich") surname_free $
       \ptr -> do
         (surname :: Structs.Surname) <- peek ptr
         putStrLn $ "The length of the surname is: " <> show (surname_len surname)
@@ -324,7 +324,7 @@ main = do
       let tripletAddresses = [advancePtr (IA.isFirstElem Arrays.triplets_ptr) n | n <- [0..]]
       print (zip (IA.toList ts) tripletAddresses)
       print =<< IA.peekArray 3 Arrays.global_triplet_ptrs_ptr
-      Arrays.pretty_print_triplets_wrapper (castPtr Arrays.global_triplet_ptrs_ptr)
+      Arrays.pretty_print_triplets (castPtr Arrays.global_triplet_ptrs_ptr)
 
 --------------------------------------------------------------------------------
     section "Function pointers"
