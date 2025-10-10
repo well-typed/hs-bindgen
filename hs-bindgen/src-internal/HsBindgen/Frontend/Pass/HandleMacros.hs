@@ -239,7 +239,7 @@ processTypedef info C.Typedef{typedefType, typedefAnn} = do
       _otherwise            -> panicPure "unexpected anonymous typedef"
 
     updateEnv :: LanC.ReparseEnv HandleMacros -> LanC.ReparseEnv HandleMacros
-    updateEnv = Map.insert name (C.TypeTypedef name)
+    updateEnv = Map.insert name (C.TypeTypedef (OrigTypedefRef name (coercePass typedefType)))
 
     withoutReparse :: M (C.Decl HandleMacros)
     withoutReparse = return C.Decl{

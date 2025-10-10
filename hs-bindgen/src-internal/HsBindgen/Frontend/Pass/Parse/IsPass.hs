@@ -2,6 +2,8 @@ module HsBindgen.Frontend.Pass.Parse.IsPass (
     Parse
   , ParseDeclMeta(..)
   , emptyParseDeclMeta
+    -- * Typedefs
+  , OrigTypedefRef(..)
     -- * Macros
   , UnparsedMacro(..)
   , ReparseInfo(..)
@@ -57,7 +59,7 @@ instance IsPass Parse where
   type Id           Parse = C.PrelimDeclId
   type FieldName    Parse = C.Name
   type ArgumentName Parse = Maybe C.Name
-  type TypedefRef   Parse = C.Name
+  type TypedefRef   Parse = OrigTypedefRef Parse
   type MacroBody    Parse = UnparsedMacro
   type ExtBinding   Parse = Void
   type Ann ix       Parse = AnnParse ix
@@ -78,6 +80,51 @@ emptyParseDeclMeta = ParseDeclMeta {
       parseDeclNonParsed = NonParsedDecls.empty
     , parseDeclParseMsg  = emptyParseMsgs
     }
+
+{-------------------------------------------------------------------------------
+  Typedefs
+-------------------------------------------------------------------------------}
+
+-- A typedef reference.
+--
+-- In the example C code below, the type of global variable @x@ is a reference
+-- to the typedef @bar@, which is in turn a reference to the typedef @foo@,
+-- which is in turn a @const int@.
+--
+-- > typedef const int foo;
+-- > typedef foo bar;
+-- > bar x;
+--
+-- In Haskell, the reference to @bar@ records the name of the reference but also
+-- the underlying type of @bar@, which is a reference to the typedef @foo@. In
+-- turn, the reference to @foo@ records the name of the reference but also the
+-- underlying type of @foo@, which is @const int@. The Haskell representation of
+-- the type of variable @x@ will look roughly like:
+--
+-- > OrigTypedefRef "bar" (OrigTypedefRef "foo" "const int")
+--
+-- The underlying type is included so that it can be inspected locally without
+-- requiring global information. This is primarily used in the backend, where
+-- Haskell binding generation depends on what types look like with all typedefs
+-- erased.
+data OrigTypedefRef p = OrigTypedefRef
+    -- | Name of the referenced typedef declaration
+    C.Name
+    -- | The underlying type of the referenced typedef declaration
+    --
+    -- NOTE: the underlying type can arbitrarily reference other types,
+    -- including typedefs that we have not parsed. Use the underlying type with
+    -- care!
+    (C.Type p)
+  deriving stock (Show, Eq, Generic)
+
+instance (
+      Id p ~ Id p'
+    , ArgumentName p ~ ArgumentName p'
+    , CoercePass TypedefRefWrapper p p'
+    , ExtBinding p ~ ExtBinding p'
+    ) => CoercePass OrigTypedefRef p p' where
+  coercePass (OrigTypedefRef n uTy) = OrigTypedefRef n (coercePass uTy)
 
 {-------------------------------------------------------------------------------
   Macros

@@ -132,7 +132,8 @@ TranslationUnit {
             headerInclude = "adios.h"},
         declComment = Nothing},
       declKind = DeclGlobal
-        (TypeConst
+        (TypeQualified
+          TypeQualifierConst
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       declSpec = DeclSpec

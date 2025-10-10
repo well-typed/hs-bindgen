@@ -763,7 +763,8 @@
           "/* get_\978\978\978_ptr */ __attribute__ ((const)) signed int const *hs_bindgen_test_adios_c538a25ba7055dd4 (void) { return &\978\978\978; } ",
           capiWrapperImport = "adios.h"},
       foreignImportOrigin = Global
-        (TypeConst
+        (TypeQualified
+          TypeQualifierConst
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       foreignImportComment = Nothing,

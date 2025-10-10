@@ -199,7 +199,7 @@ TranslationUnit {
           nameHsIdent = Identifier
             "Triplet"},
         declOrigin = NameOriginInSource,
-        declAliases = [],
+        declAliases = [Name "sudoku"],
         declHeaderInfo = Just
           HeaderInfo {
             headerMainHeaders = NE.fromList
@@ -396,7 +396,57 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "array.h:59:12",
+        declLoc = "array.h:55:17",
+        declId = NamePair {
+          nameC = Name "sudoku",
+          nameHsIdent = Identifier
+            "Sudoku"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "Typedef-in-typedef"]])},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = Name
+              "@NsConstr"
+              "Sudoku",
+            newtypeField = Name
+              "@NsVar"
+              "un_Sudoku"},
+          typedefType = TypeConstArray
+            3
+            (TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "triplet",
+                  nameHsIdent = Identifier
+                    "Triplet"}
+                (TypeConstArray
+                  3
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed)))))},
+      declSpec = DeclSpec
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "array.h:62:12",
         declId = NamePair {
           nameC = Name "arr_1",
           nameHsIdent = Identifier
@@ -428,7 +478,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "array.h:62:16",
+        declLoc = "array.h:65:16",
         declId = NamePair {
           nameC = Name "arr_2",
           nameHsIdent = Identifier
@@ -453,7 +503,13 @@ TranslationUnit {
             NamePair {
               nameC = Name "triplet",
               nameHsIdent = Identifier
-                "Triplet"})),
+                "Triplet"}
+            (TypeConstArray
+              3
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed))))),
       declSpec = DeclSpec
         CTypeSpec {
           cTypeSpecModule = Nothing,
@@ -462,7 +518,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "array.h:65:12",
+        declLoc = "array.h:68:12",
         declId = NamePair {
           nameC = Name "arr_3",
           nameHsIdent = Identifier
@@ -493,7 +549,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "array.h:68:13",
+        declLoc = "array.h:71:13",
         declId = NamePair {
           nameC = Name "arr_4",
           nameHsIdent = Identifier
@@ -517,8 +573,12 @@ TranslationUnit {
           (TypedefRegular
             NamePair {
               nameC = Name "list",
-              nameHsIdent = Identifier
-                "List"})),
+              nameHsIdent = Identifier "List"}
+            (TypeIncompleteArray
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed))))),
       declSpec = DeclSpec
         CTypeSpec {
           cTypeSpecModule = Nothing,
@@ -527,7 +587,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "array.h:71:12",
+        declLoc = "array.h:74:12",
         declId = NamePair {
           nameC = Name "arr_5",
           nameHsIdent = Identifier
@@ -563,7 +623,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "array.h:74:15",
+        declLoc = "array.h:77:15",
         declId = NamePair {
           nameC = Name "arr_6",
           nameHsIdent = Identifier
@@ -588,7 +648,15 @@ TranslationUnit {
             NamePair {
               nameC = Name "matrix",
               nameHsIdent = Identifier
-                "Matrix"})),
+                "Matrix"}
+            (TypeConstArray
+              4
+              (TypeConstArray
+                3
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))))),
       declSpec = DeclSpec
         CTypeSpec {
           cTypeSpecModule = Nothing,
@@ -597,7 +665,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "array.h:77:12",
+        declLoc = "array.h:80:12",
         declId = NamePair {
           nameC = Name "arr_7",
           nameHsIdent = Identifier
@@ -632,7 +700,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "array.h:80:20",
+        declLoc = "array.h:83:20",
         declId = NamePair {
           nameC = Name "arr_8",
           nameHsIdent = Identifier
@@ -657,7 +725,14 @@ TranslationUnit {
             NamePair {
               nameC = Name "tripletlist",
               nameHsIdent = Identifier
-                "Tripletlist"})),
+                "Tripletlist"}
+            (TypeIncompleteArray
+              (TypeConstArray
+                3
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))))),
       declSpec = DeclSpec
         CTypeSpec {
           cTypeSpecModule = Nothing,
@@ -666,7 +741,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "array.h:87:5",
+        declLoc = "array.h:90:5",
         declId = NamePair {
           nameC = Name "fun_1",
           nameHsIdent = Identifier
@@ -719,7 +794,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "array.h:90:5",
+        declLoc = "array.h:93:5",
         declId = NamePair {
           nameC = Name "fun_2",
           nameHsIdent = Identifier
@@ -751,7 +826,13 @@ TranslationUnit {
                   NamePair {
                     nameC = Name "triplet",
                     nameHsIdent = Identifier
-                      "Triplet"}))],
+                      "Triplet"}
+                  (TypeConstArray
+                    3
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed)))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -765,7 +846,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "array.h:93:5",
+        declLoc = "array.h:96:5",
         declId = NamePair {
           nameC = Name "fun_3",
           nameHsIdent = Identifier
@@ -810,7 +891,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "array.h:96:5",
+        declLoc = "array.h:99:5",
         declId = NamePair {
           nameC = Name "fun_4",
           nameHsIdent = Identifier
@@ -841,8 +922,12 @@ TranslationUnit {
                 (TypedefRegular
                   NamePair {
                     nameC = Name "list",
-                    nameHsIdent = Identifier
-                      "List"}))],
+                    nameHsIdent = Identifier "List"}
+                  (TypeIncompleteArray
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed)))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -856,7 +941,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "array.h:99:5",
+        declLoc = "array.h:102:5",
         declId = NamePair {
           nameC = Name "fun_5",
           nameHsIdent = Identifier
@@ -904,7 +989,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "array.h:102:5",
+        declLoc = "array.h:105:5",
         declId = NamePair {
           nameC = Name "fun_6",
           nameHsIdent = Identifier
@@ -936,7 +1021,15 @@ TranslationUnit {
                   NamePair {
                     nameC = Name "matrix",
                     nameHsIdent = Identifier
-                      "Matrix"}))],
+                      "Matrix"}
+                  (TypeConstArray
+                    4
+                    (TypeConstArray
+                      3
+                      (TypePrim
+                        (PrimIntegral
+                          PrimInt
+                          Signed))))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -950,7 +1043,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "array.h:105:5",
+        declLoc = "array.h:108:5",
         declId = NamePair {
           nameC = Name "fun_7",
           nameHsIdent = Identifier
@@ -997,7 +1090,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "array.h:108:5",
+        declLoc = "array.h:111:5",
         declId = NamePair {
           nameC = Name "fun_8",
           nameHsIdent = Identifier
@@ -1029,7 +1122,14 @@ TranslationUnit {
                   NamePair {
                     nameC = Name "tripletlist",
                     nameHsIdent = Identifier
-                      "Tripletlist"}))],
+                      "Tripletlist"}
+                  (TypeIncompleteArray
+                    (TypeConstArray
+                      3
+                      (TypePrim
+                        (PrimIntegral
+                          PrimInt
+                          Signed))))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -1043,7 +1143,67 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "array.h:120:7",
+        declLoc = "array.h:114:5",
+        declId = NamePair {
+          nameC = Name "isSolved",
+          nameHsIdent = Identifier
+            "isSolved"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "Typedef-in-typedef"]])},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "xss",
+                  nameHsIdent = Identifier "xss"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "sudoku",
+                    nameHsIdent = Identifier
+                      "Sudoku"}
+                  (TypeConstArray
+                    3
+                    (TypeTypedef
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name "triplet",
+                          nameHsIdent = Identifier
+                            "Triplet"}
+                        (TypeConstArray
+                          3
+                          (TypePrim
+                            (PrimIntegral
+                              PrimInt
+                              Signed))))))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "array.h:126:7",
         declId = NamePair {
           nameC = Name "fun_9",
           nameHsIdent = Identifier
@@ -1083,7 +1243,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "array.h:123:10",
+        declLoc = "array.h:129:10",
         declId = NamePair {
           nameC = Name "fun_10",
           nameHsIdent = Identifier
@@ -1114,7 +1274,13 @@ TranslationUnit {
                 NamePair {
                   nameC = Name "triplet",
                   nameHsIdent = Identifier
-                    "Triplet"}))},
+                    "Triplet"}
+                (TypeConstArray
+                  3
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed)))))},
       declSpec = DeclSpec
         CTypeSpec {
           cTypeSpecModule = Nothing,
@@ -1123,7 +1289,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "array.h:126:7",
+        declLoc = "array.h:132:7",
         declId = NamePair {
           nameC = Name "fun_11",
           nameHsIdent = Identifier
@@ -1162,7 +1328,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "array.h:129:7",
+        declLoc = "array.h:135:7",
         declId = NamePair {
           nameC = Name "fun_12",
           nameHsIdent = Identifier
@@ -1192,8 +1358,12 @@ TranslationUnit {
               (TypedefRegular
                 NamePair {
                   nameC = Name "list",
-                  nameHsIdent = Identifier
-                    "List"}))},
+                  nameHsIdent = Identifier "List"}
+                (TypeIncompleteArray
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed)))))},
       declSpec = DeclSpec
         CTypeSpec {
           cTypeSpecModule = Nothing,
@@ -1202,7 +1372,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "array.h:132:7",
+        declLoc = "array.h:138:7",
         declId = NamePair {
           nameC = Name "fun_13",
           nameHsIdent = Identifier
@@ -1244,7 +1414,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "array.h:135:9",
+        declLoc = "array.h:141:9",
         declId = NamePair {
           nameC = Name "fun_14",
           nameHsIdent = Identifier
@@ -1275,7 +1445,15 @@ TranslationUnit {
                 NamePair {
                   nameC = Name "matrix",
                   nameHsIdent = Identifier
-                    "Matrix"}))},
+                    "Matrix"}
+                (TypeConstArray
+                  4
+                  (TypeConstArray
+                    3
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed))))))},
       declSpec = DeclSpec
         CTypeSpec {
           cTypeSpecModule = Nothing,
@@ -1284,7 +1462,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "array.h:138:7",
+        declLoc = "array.h:144:7",
         declId = NamePair {
           nameC = Name "fun_15",
           nameHsIdent = Identifier
@@ -1325,7 +1503,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "array.h:141:14",
+        declLoc = "array.h:147:14",
         declId = NamePair {
           nameC = Name "fun_16",
           nameHsIdent = Identifier
@@ -1356,7 +1534,68 @@ TranslationUnit {
                 NamePair {
                   nameC = Name "tripletlist",
                   nameHsIdent = Identifier
-                    "Tripletlist"}))},
+                    "Tripletlist"}
+                (TypeIncompleteArray
+                  (TypeConstArray
+                    3
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed))))))},
+      declSpec = DeclSpec
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "array.h:150:10",
+        declId = NamePair {
+          nameC = Name "solve",
+          nameHsIdent = Identifier
+            "solve"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "Typedef-in-typedef"]])},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            (TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "sudoku",
+                  nameHsIdent = Identifier
+                    "Sudoku"}
+                (TypeConstArray
+                  3
+                  (TypeTypedef
+                    (TypedefRegular
+                      NamePair {
+                        nameC = Name "triplet",
+                        nameHsIdent = Identifier
+                          "Triplet"}
+                      (TypeConstArray
+                        3
+                        (TypePrim
+                          (PrimIntegral
+                            PrimInt
+                            Signed))))))))},
       declSpec = DeclSpec
         CTypeSpec {
           cTypeSpecModule = Nothing,

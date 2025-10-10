@@ -221,7 +221,8 @@
                     nameC = Name
                       "FileOpenedNotification_Deref",
                     nameHsIdent = Identifier
-                      "FileOpenedNotification_Deref"}))},
+                      "FileOpenedNotification_Deref"}
+                  (TypeFun [] TypeVoid)))},
         declSpec = DeclSpec
           CTypeSpec {
             cTypeSpecModule = Nothing,
@@ -513,7 +514,12 @@
                     nameC = Name
                       "ProgressUpdate_Deref",
                     nameHsIdent = Identifier
-                      "ProgressUpdate_Deref"}))},
+                      "ProgressUpdate_Deref"}
+                  (TypeFun
+                    [
+                      TypePrim
+                        (PrimIntegral PrimInt Signed)]
+                    TypeVoid)))},
         declSpec = DeclSpec
           CTypeSpec {
             cTypeSpecModule = Nothing,
@@ -808,7 +814,15 @@
                     nameC = Name
                       "DataValidator_Deref",
                     nameHsIdent = Identifier
-                      "DataValidator_Deref"}))},
+                      "DataValidator_Deref"}
+                  (TypeFun
+                    [
+                      TypePrim
+                        (PrimIntegral PrimInt Signed)]
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed)))))},
         declSpec = DeclSpec
           CTypeSpec {
             cTypeSpecModule = Nothing,
@@ -1741,7 +1755,17 @@
                     nameC = Name
                       "MeasurementReceived_Deref",
                     nameHsIdent = Identifier
-                      "MeasurementReceived_Deref"}))},
+                      "MeasurementReceived_Deref"}
+                  (TypeFun
+                    [
+                      TypePointer
+                        (TypeStruct
+                          NamePair {
+                            nameC = Name "Measurement",
+                            nameHsIdent = Identifier
+                              "Measurement"}
+                          NameOriginInSource)]
+                    TypeVoid)))},
         declSpec = DeclSpec
           CTypeSpec {
             cTypeSpecModule = Nothing,
@@ -1947,7 +1971,16 @@
                     nameC = Name
                       "MeasurementReceived2_Deref",
                     nameHsIdent = Identifier
-                      "MeasurementReceived2_Deref"}))},
+                      "MeasurementReceived2_Deref"}
+                  (TypeFun
+                    [
+                      TypeStruct
+                        NamePair {
+                          nameC = Name "Measurement",
+                          nameHsIdent = Identifier
+                            "Measurement"}
+                        NameOriginInSource]
+                    TypeVoid)))},
         declSpec = DeclSpec
           CTypeSpec {
             cTypeSpecModule = Nothing,
@@ -2147,7 +2180,14 @@
                     nameC = Name
                       "SampleBufferFull_Deref",
                     nameHsIdent = Identifier
-                      "SampleBufferFull_Deref"}))},
+                      "SampleBufferFull_Deref"}
+                  (TypeFun
+                    [
+                      TypeConstArray
+                        10
+                        (TypePrim
+                          (PrimIntegral PrimInt Signed))]
+                    TypeVoid)))},
         declSpec = DeclSpec
           CTypeSpec {
             cTypeSpecModule = Nothing,
@@ -2429,7 +2469,9 @@
                     nameC = Name
                       "FileOpenedNotification",
                     nameHsIdent = Identifier
-                      "FileOpenedNotification"}))],
+                      "FileOpenedNotification"}
+                  (TypePointer
+                    (TypeFun [] TypeVoid))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -2494,7 +2536,13 @@
                   NamePair {
                     nameC = Name "ProgressUpdate",
                     nameHsIdent = Identifier
-                      "ProgressUpdate"}))],
+                      "ProgressUpdate"}
+                  (TypePointer
+                    (TypeFun
+                      [
+                        TypePrim
+                          (PrimIntegral PrimInt Signed)]
+                      TypeVoid))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -2572,7 +2620,16 @@
                   NamePair {
                     nameC = Name "DataValidator",
                     nameHsIdent = Identifier
-                      "DataValidator"})),
+                      "DataValidator"}
+                  (TypePointer
+                    (TypeFun
+                      [
+                        TypePrim
+                          (PrimIntegral PrimInt Signed)]
+                      (TypePrim
+                        (PrimIntegral
+                          PrimInt
+                          Signed)))))),
             _×_
               (Just
                 NamePair {
@@ -2647,7 +2704,18 @@
                     nameC = Name
                       "MeasurementReceived",
                     nameHsIdent = Identifier
-                      "MeasurementReceived"}))],
+                      "MeasurementReceived"}
+                  (TypePointer
+                    (TypeFun
+                      [
+                        TypePointer
+                          (TypeStruct
+                            NamePair {
+                              nameC = Name "Measurement",
+                              nameHsIdent = Identifier
+                                "Measurement"}
+                            NameOriginInSource)]
+                      TypeVoid))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -2713,7 +2781,17 @@
                     nameC = Name
                       "MeasurementReceived2",
                     nameHsIdent = Identifier
-                      "MeasurementReceived2"}))],
+                      "MeasurementReceived2"}
+                  (TypePointer
+                    (TypeFun
+                      [
+                        TypeStruct
+                          NamePair {
+                            nameC = Name "Measurement",
+                            nameHsIdent = Identifier
+                              "Measurement"}
+                          NameOriginInSource]
+                      TypeVoid))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -2778,7 +2856,15 @@
                   NamePair {
                     nameC = Name "SampleBufferFull",
                     nameHsIdent = Identifier
-                      "SampleBufferFull"}))],
+                      "SampleBufferFull"}
+                  (TypePointer
+                    (TypeFun
+                      [
+                        TypeConstArray
+                          10
+                          (TypePrim
+                            (PrimIntegral PrimInt Signed))]
+                      TypeVoid))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -3017,7 +3103,9 @@
                     nameC = Name
                       "FileOpenedNotification",
                     nameHsIdent = Identifier
-                      "FileOpenedNotification"}))],
+                      "FileOpenedNotification"}
+                  (TypePointer
+                    (TypeFun [] TypeVoid))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -3082,7 +3170,13 @@
                   NamePair {
                     nameC = Name "ProgressUpdate",
                     nameHsIdent = Identifier
-                      "ProgressUpdate"}))],
+                      "ProgressUpdate"}
+                  (TypePointer
+                    (TypeFun
+                      [
+                        TypePrim
+                          (PrimIntegral PrimInt Signed)]
+                      TypeVoid))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -3160,7 +3254,16 @@
                   NamePair {
                     nameC = Name "DataValidator",
                     nameHsIdent = Identifier
-                      "DataValidator"})),
+                      "DataValidator"}
+                  (TypePointer
+                    (TypeFun
+                      [
+                        TypePrim
+                          (PrimIntegral PrimInt Signed)]
+                      (TypePrim
+                        (PrimIntegral
+                          PrimInt
+                          Signed)))))),
             _×_
               (Just
                 NamePair {
@@ -3235,7 +3338,18 @@
                     nameC = Name
                       "MeasurementReceived",
                     nameHsIdent = Identifier
-                      "MeasurementReceived"}))],
+                      "MeasurementReceived"}
+                  (TypePointer
+                    (TypeFun
+                      [
+                        TypePointer
+                          (TypeStruct
+                            NamePair {
+                              nameC = Name "Measurement",
+                              nameHsIdent = Identifier
+                                "Measurement"}
+                            NameOriginInSource)]
+                      TypeVoid))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -3301,7 +3415,17 @@
                     nameC = Name
                       "MeasurementReceived2",
                     nameHsIdent = Identifier
-                      "MeasurementReceived2"}))],
+                      "MeasurementReceived2"}
+                  (TypePointer
+                    (TypeFun
+                      [
+                        TypeStruct
+                          NamePair {
+                            nameC = Name "Measurement",
+                            nameHsIdent = Identifier
+                              "Measurement"}
+                          NameOriginInSource]
+                      TypeVoid))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -3366,7 +3490,15 @@
                   NamePair {
                     nameC = Name "SampleBufferFull",
                     nameHsIdent = Identifier
-                      "SampleBufferFull"}))],
+                      "SampleBufferFull"}
+                  (TypePointer
+                    (TypeFun
+                      [
+                        TypeConstArray
+                          10
+                          (TypePrim
+                            (PrimIntegral PrimInt Signed))]
+                      TypeVoid))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -3509,7 +3641,9 @@
                   nameC = Name
                     "FileOpenedNotification",
                   nameHsIdent = Identifier
-                    "FileOpenedNotification"})]
+                    "FileOpenedNotification"}
+                (TypePointer
+                  (TypeFun [] TypeVoid)))]
           TypeVoid),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
@@ -3549,7 +3683,13 @@
                 NamePair {
                   nameC = Name "ProgressUpdate",
                   nameHsIdent = Identifier
-                    "ProgressUpdate"})]
+                    "ProgressUpdate"}
+                (TypePointer
+                  (TypeFun
+                    [
+                      TypePrim
+                        (PrimIntegral PrimInt Signed)]
+                    TypeVoid)))]
           TypeVoid),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
@@ -3591,7 +3731,16 @@
                 NamePair {
                   nameC = Name "DataValidator",
                   nameHsIdent = Identifier
-                    "DataValidator"}),
+                    "DataValidator"}
+                (TypePointer
+                  (TypeFun
+                    [
+                      TypePrim
+                        (PrimIntegral PrimInt Signed)]
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed))))),
             TypePrim
               (PrimIntegral PrimInt Signed)]
           (TypePrim
@@ -3635,7 +3784,18 @@
                   nameC = Name
                     "MeasurementReceived",
                   nameHsIdent = Identifier
-                    "MeasurementReceived"})]
+                    "MeasurementReceived"}
+                (TypePointer
+                  (TypeFun
+                    [
+                      TypePointer
+                        (TypeStruct
+                          NamePair {
+                            nameC = Name "Measurement",
+                            nameHsIdent = Identifier
+                              "Measurement"}
+                          NameOriginInSource)]
+                    TypeVoid)))]
           TypeVoid),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
@@ -3676,7 +3836,17 @@
                   nameC = Name
                     "MeasurementReceived2",
                   nameHsIdent = Identifier
-                    "MeasurementReceived2"})]
+                    "MeasurementReceived2"}
+                (TypePointer
+                  (TypeFun
+                    [
+                      TypeStruct
+                        NamePair {
+                          nameC = Name "Measurement",
+                          nameHsIdent = Identifier
+                            "Measurement"}
+                        NameOriginInSource]
+                    TypeVoid)))]
           TypeVoid),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
@@ -3716,7 +3886,15 @@
                 NamePair {
                   nameC = Name "SampleBufferFull",
                   nameHsIdent = Identifier
-                    "SampleBufferFull"})]
+                    "SampleBufferFull"}
+                (TypePointer
+                  (TypeFun
+                    [
+                      TypeConstArray
+                        10
+                        (TypePrim
+                          (PrimIntegral PrimInt Signed))]
+                    TypeVoid)))]
           TypeVoid),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},

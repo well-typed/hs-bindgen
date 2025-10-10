@@ -33,7 +33,8 @@
                   nameHsIdent = Identifier
                     "apply1Struct_apply1_nopointer_struct_field"},
                 fieldComment = Nothing},
-              structFieldType = TypeConst
+              structFieldType = TypeQualified
+                TypeQualifierConst
                 (TypePointer
                   (TypeFun
                     [
@@ -112,7 +113,8 @@
                       nameHsIdent = Identifier
                         "apply1Struct_apply1_nopointer_struct_field"},
                     fieldComment = Nothing},
-                  structFieldType = TypeConst
+                  structFieldType = TypeQualified
+                    TypeQualifierConst
                     (TypePointer
                       (TypeFun
                         [
@@ -196,7 +198,8 @@
                       nameHsIdent = Identifier
                         "apply1Struct_apply1_nopointer_struct_field"},
                     fieldComment = Nothing},
-                  structFieldType = TypeConst
+                  structFieldType = TypeQualified
+                    TypeQualifierConst
                     (TypePointer
                       (TypeFun
                         [
@@ -275,7 +278,8 @@
                           nameHsIdent = Identifier
                             "apply1Struct_apply1_nopointer_struct_field"},
                         fieldComment = Nothing},
-                      structFieldType = TypeConst
+                      structFieldType = TypeQualified
+                        TypeQualifierConst
                         (TypePointer
                           (TypeFun
                             [
@@ -363,7 +367,8 @@
                               nameHsIdent = Identifier
                                 "apply1Struct_apply1_nopointer_struct_field"},
                             fieldComment = Nothing},
-                          structFieldType = TypeConst
+                          structFieldType = TypeQualified
+                            TypeQualifierConst
                             (TypePointer
                               (TypeFun
                                 [
@@ -447,7 +452,8 @@
                                   Identifier
                                     "apply1Struct_apply1_nopointer_struct_field"},
                                 fieldComment = Nothing},
-                              structFieldType = TypeConst
+                              structFieldType = TypeQualified
+                                TypeQualifierConst
                                 (TypePointer
                                   (TypeFun
                                     [
@@ -535,7 +541,8 @@
                               nameHsIdent = Identifier
                                 "apply1Struct_apply1_nopointer_struct_field"},
                             fieldComment = Nothing},
-                          structFieldType = TypeConst
+                          structFieldType = TypeQualified
+                            TypeQualifierConst
                             (TypePointer
                               (TypeFun
                                 [
@@ -619,7 +626,8 @@
                                   Identifier
                                     "apply1Struct_apply1_nopointer_struct_field"},
                                 fieldComment = Nothing},
-                              structFieldType = TypeConst
+                              structFieldType = TypeQualified
+                                TypeQualifierConst
                                 (TypePointer
                                   (TypeFun
                                     [
@@ -758,7 +766,8 @@
                     nameHsIdent = Identifier
                       "apply1Union_apply1_nopointer_union_field"},
                   fieldComment = Nothing},
-                unionFieldType = TypeConst
+                unionFieldType = TypeQualified
+                  TypeQualifierConst
                   (TypePointer
                     (TypeFun
                       [
@@ -1374,7 +1383,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeConst
+          functionRes = TypeQualified
+            TypeQualifierConst
             (TypePointer
               (TypeFun
                 [
@@ -1905,7 +1915,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeConst
+          functionRes = TypeQualified
+            TypeQualifierConst
             (TypePointer
               (TypeFun
                 [
@@ -2240,7 +2251,8 @@
       foreignImportOrigin = Global
         (TypeFun
           []
-          (TypeConst
+          (TypeQualified
+            TypeQualifierConst
             (TypePointer
               (TypeFun
                 [
@@ -2291,7 +2303,8 @@
           capiWrapperImport =
           "manual/function_pointers.h"},
       foreignImportOrigin = Global
-        (TypeConst
+        (TypeQualified
+          TypeQualifierConst
           (TypePointer
             (TypeFun
               [
@@ -2338,7 +2351,8 @@
           capiWrapperImport =
           "manual/function_pointers.h"},
       foreignImportOrigin = Global
-        (TypeConst
+        (TypeQualified
+          TypeQualifierConst
           (TypeStruct
             NamePair {
               nameC = Name "Apply1Struct",
@@ -2375,7 +2389,8 @@
           capiWrapperImport =
           "manual/function_pointers.h"},
       foreignImportOrigin = Global
-        (TypeConst
+        (TypeQualified
+          TypeQualifierConst
           (TypeUnion
             NamePair {
               nameC = Name "Apply1Union",

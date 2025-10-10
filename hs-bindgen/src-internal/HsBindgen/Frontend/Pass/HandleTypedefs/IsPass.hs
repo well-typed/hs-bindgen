@@ -44,8 +44,16 @@ instance IsPass HandleTypedefs where
 
 -- | Reference to a typedef type
 data RenamedTypedefRef p =
-    -- | Regular reference
-    TypedefRegular (Id p)
+    -- | Regular reference (see 'TypedefRefRegular' for more information).
+    TypedefRegular
+      -- | Name of the referenced typedef declaration
+      (Id p)
+      -- | The underlying type of the referenced typedef declaration
+      --
+      -- NOTE: the underlying type can arbitrarily reference other types,
+      -- including typedefs that we have not parsed. Use the underlying type with
+      -- care!
+      (C.Type p)
 
     -- When we have a typedef around an anonymous declaration:
     --

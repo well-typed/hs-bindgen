@@ -112,8 +112,11 @@ TranslationUnit {
                 (TypedefRegular
                   NamePair {
                     nameC = Name "TC",
-                    nameHsIdent = Identifier
-                      "TC"}))],
+                    nameHsIdent = Identifier "TC"}
+                  (TypePrim
+                    (PrimChar
+                      (PrimSignImplicit
+                        (Just Signed))))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -172,8 +175,11 @@ TranslationUnit {
             (TypedefRegular
               NamePair {
                 nameC = Name "TC",
-                nameHsIdent = Identifier
-                  "TC"})},
+                nameHsIdent = Identifier "TC"}
+              (TypePrim
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed)))))},
       declSpec = DeclSpec
         CTypeSpec {
           cTypeSpecModule = Nothing,
@@ -218,8 +224,11 @@ TranslationUnit {
                   (TypedefRegular
                     NamePair {
                       nameC = Name "TC",
-                      nameHsIdent = Identifier
-                        "TC"})))],
+                      nameHsIdent = Identifier "TC"}
+                    (TypePrim
+                      (PrimChar
+                        (PrimSignImplicit
+                          (Just Signed)))))))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
@@ -282,8 +291,11 @@ TranslationUnit {
               (TypedefRegular
                 NamePair {
                   nameC = Name "TC",
-                  nameHsIdent = Identifier
-                    "TC"}))},
+                  nameHsIdent = Identifier "TC"}
+                (TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed))))))},
       declSpec = DeclSpec
         CTypeSpec {
           cTypeSpecModule = Nothing,
@@ -602,7 +614,13 @@ TranslationUnit {
                     NamePair {
                       nameC = Name "struct3_t",
                       nameHsIdent = Identifier
-                        "Struct3_t"}))),
+                        "Struct3_t"}
+                    (TypeStruct
+                      NamePair {
+                        nameC = Name "struct3",
+                        nameHsIdent = Identifier
+                          "Struct3"}
+                      NameOriginInSource)))),
             _×_
               (Just
                 NamePair {

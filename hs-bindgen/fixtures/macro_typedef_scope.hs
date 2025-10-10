@@ -463,8 +463,11 @@
               (TypedefRegular
                 NamePair {
                   nameC = Name "T2",
-                  nameHsIdent = Identifier
-                    "T2"})},
+                  nameHsIdent = Identifier "T2"}
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))},
         declSpec = DeclSpec
           CTypeSpec {
             cTypeSpecModule = Nothing,

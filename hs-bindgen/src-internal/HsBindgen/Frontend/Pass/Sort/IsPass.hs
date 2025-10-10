@@ -8,6 +8,7 @@ module HsBindgen.Frontend.Pass.Sort.IsPass (
 import HsBindgen.Frontend.Analysis.DeclIndex
 import HsBindgen.Frontend.Analysis.DeclUseGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph
+import HsBindgen.Frontend.AST.Coerce (CoercePass (..))
 import HsBindgen.Frontend.AST.Internal (ValidPass)
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.NonParsedDecls
@@ -38,7 +39,7 @@ instance IsPass Sort where
   type Id           Sort = C.PrelimDeclId
   type FieldName    Sort = C.Name
   type ArgumentName Sort = Maybe C.Name
-  type TypedefRef   Sort = C.Name
+  type TypedefRef   Sort = OrigTypedefRef Sort
   type MacroBody    Sort = UnparsedMacro
   type ExtBinding   Sort = Void
   type Ann ix       Sort = AnnSort ix
@@ -72,3 +73,10 @@ data SortMsg =
     SortErrorDeclIndex DeclIndexError
   deriving stock    (Show, Generic)
   deriving anyclass (PrettyForTrace, IsTrace Level)
+
+{-------------------------------------------------------------------------------
+  CoercePass
+-------------------------------------------------------------------------------}
+
+instance CoercePass TypedefRefWrapper Parse Sort where
+  coercePass (TypedefRefWrapper p) = TypedefRefWrapper (coercePass p)

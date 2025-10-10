@@ -109,14 +109,14 @@ fromDecl ty = do
       CXCursor_EnumDecl    -> return $ C.TypeEnum   declId
       CXCursor_StructDecl  -> return $ C.TypeStruct declId
       CXCursor_UnionDecl   -> return $ C.TypeUnion  declId
-      CXCursor_TypedefDecl
-        | declId == C.PrelimDeclIdNamed "va_list" ->
-            getUnderlyingTypeCursorSpelling decl >>= \case
-              ClangBuiltin "__builtin_va_list" ->
-                throwError UnsupportedVariadicFunction
-              _otherwise ->
-                C.TypeTypedef <$> typedefName declId
-        | otherwise -> C.TypeTypedef <$> typedefName declId
+      CXCursor_TypedefDecl -> do
+        getUnderlyingTypeCursorSpelling decl >>= \case
+          ClangBuiltin "__builtin_va_list" | declId == C.PrelimDeclIdNamed "va_list" ->
+            throwError UnsupportedVariadicFunction
+          _ -> do
+            uTy <- cxtype =<< getUnderlyingCXType decl
+            n <- typedefName declId
+            pure (C.TypeTypedef $ OrigTypedefRef n uTy)
       kind                 -> throwError $ UnexpectedTypeDecl (Right kind)
   where
     typedefName :: C.PrelimDeclId -> ParseType C.Name
@@ -125,15 +125,19 @@ fromDecl ty = do
       C.PrelimDeclIdAnon{}       -> panicPure "Unexpected anonymous typedef"
       C.PrelimDeclIdBuiltin name -> throwError $ UnsupportedBuiltin name
 
+    getUnderlyingCXType :: MonadIO m => CXCursor -> m CXType
+    getUnderlyingCXType typedefCurr = do
+      uTy  <- clang_getTypedefDeclUnderlyingType typedefCurr
+      -- Later versions of Clang use elaborated types, earlier versions do not
+      case fromSimpleEnum (cxtKind uTy) of
+        Right CXType_Elaborated -> clang_Type_getNamedType uTy
+        Right{}                 -> return uTy
+        _otherwise              -> panicPure "Invalid underlying type"
+
     getUnderlyingTypeCursorSpelling :: MonadIO m => CXCursor -> m CursorSpelling
     getUnderlyingTypeCursorSpelling typedefCurr = do
-      uType  <- clang_getTypedefDeclUnderlyingType typedefCurr
-      -- Later versions of Clang use elaborated types, earlier versions do not
-      uType' <- case fromSimpleEnum (cxtKind uType) of
-        Right CXType_Elaborated -> clang_Type_getNamedType uType
-        Right{}                 -> return uType
-        _otherwise              -> panicPure "Invalid underlying type"
-      uDecl  <-clang_getTypeDeclaration uType'
+      uTy <- getUnderlyingCXType typedefCurr
+      uDecl  <- clang_getTypeDeclaration uTy
       HighLevel.clang_getCursorSpelling uDecl
 
 function :: Bool -> CXType -> ParseType (C.Type Parse)

@@ -91,7 +91,7 @@ depsOfType = \case
     TypeStruct uid         -> [(ByValue, C.qualPrelimDeclId uid (C.NameKindTagged C.TagKindStruct))]
     TypeUnion uid          -> [(ByValue, C.qualPrelimDeclId uid (C.NameKindTagged C.TagKindUnion))]
     TypeEnum uid           -> [(ByValue, C.qualPrelimDeclId uid (C.NameKindTagged C.TagKindEnum))]
-    TypeTypedef name       -> [
+    TypeTypedef (OrigTypedefRef name _) -> [
         ( ByValue
         , C.qualPrelimDeclId (C.PrelimDeclIdNamed name) C.NameKindOrdinary
         )

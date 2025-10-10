@@ -1681,7 +1681,8 @@ TranslationUnit {
                     "Although this is a constant, we don't expect an initializer (since it's",
                   TextContent "`extern`)."]])},
       declKind = DeclGlobal
-        (TypeConst
+        (TypeQualified
+          TypeQualifierConst
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       declSpec = DeclSpec
@@ -1720,7 +1721,8 @@ TranslationUnit {
             newtypeField = Name
               "@NsVar"
               "un_ConstInt"},
-          typedefType = TypeConst
+          typedefType = TypeQualified
+            TypeQualifierConst
             (TypePrim
               (PrimIntegral PrimInt Signed))},
       declSpec = DeclSpec
@@ -1751,7 +1753,13 @@ TranslationUnit {
             NamePair {
               nameC = Name "ConstInt",
               nameHsIdent = Identifier
-                "ConstInt"})),
+                "ConstInt"}
+            (TypeQualified
+              TypeQualifierConst
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed))))),
       declSpec = DeclSpec
         CTypeSpec {
           cTypeSpecModule = Nothing,
@@ -1786,7 +1794,8 @@ TranslationUnit {
                   TextContent
                     "Unlike with `extern`, in this we _do_ expect an initializer."]])},
       declKind = DeclGlobal
-        (TypeConst
+        (TypeQualified
+          TypeQualifierConst
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       declSpec = DeclSpec
@@ -1817,7 +1826,8 @@ TranslationUnit {
                   TextContent
                     "No storage class specified"]])},
       declKind = DeclGlobal
-        (TypeConst
+        (TypeQualified
+          TypeQualifierConst
           (TypePrim
             (PrimIntegral PrimInt Signed))),
       declSpec = DeclSpec
@@ -1850,7 +1860,8 @@ TranslationUnit {
       declKind = DeclGlobal
         (TypeConstArray
           4
-          (TypeConst
+          (TypeQualified
+            TypeQualifierConst
             (TypePrim
               (PrimIntegral
                 PrimInt
@@ -1893,7 +1904,8 @@ TranslationUnit {
               "un_ConstIntArray"},
           typedefType =
           TypeIncompleteArray
-            (TypeConst
+            (TypeQualified
+              TypeQualifierConst
               (TypePrim
                 (PrimIntegral
                   PrimInt
@@ -1925,7 +1937,14 @@ TranslationUnit {
             NamePair {
               nameC = Name "ConstIntArray",
               nameHsIdent = Identifier
-                "ConstIntArray"})),
+                "ConstIntArray"}
+            (TypeIncompleteArray
+              (TypeQualified
+                TypeQualifierConst
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))))),
       declSpec = DeclSpec
         CTypeSpec {
           cTypeSpecModule = Nothing,
@@ -1974,7 +1993,8 @@ TranslationUnit {
                   nameHsIdent = Identifier
                     "tuple_y"},
                 fieldComment = Nothing},
-              structFieldType = TypeConst
+              structFieldType = TypeQualified
+                TypeQualifierConst
                 (TypePrim
                   (PrimIntegral PrimInt Signed)),
               structFieldOffset = 32,
@@ -2008,7 +2028,8 @@ TranslationUnit {
                   TextContent
                     "A constant tuple"]])},
       declKind = DeclGlobal
-        (TypeConst
+        (TypeQualified
+          TypeQualifierConst
           (TypeStruct
             NamePair {
               nameC = Name "tuple",
@@ -2078,7 +2099,8 @@ TranslationUnit {
                     "A pointer to const int"]])},
       declKind = DeclGlobal
         (TypePointer
-          (TypeConst
+          (TypeQualified
+            TypeQualifierConst
             (TypePrim
               (PrimIntegral
                 PrimInt
@@ -2111,7 +2133,8 @@ TranslationUnit {
                   TextContent
                     "A const pointer to int"]])},
       declKind = DeclGlobal
-        (TypeConst
+        (TypeQualified
+          TypeQualifierConst
           (TypePointer
             (TypePrim
               (PrimIntegral
@@ -2146,9 +2169,11 @@ TranslationUnit {
                   TextContent
                     "A const pointer to const int"]])},
       declKind = DeclGlobal
-        (TypeConst
+        (TypeQualified
+          TypeQualifierConst
           (TypePointer
-            (TypeConst
+            (TypeQualified
+              TypeQualifierConst
               (TypePrim
                 (PrimIntegral
                   PrimInt

@@ -15,7 +15,8 @@ import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.NameAnon.IsPass
-import HsBindgen.Frontend.Pass.Parse.IsPass (ParseMsgKey (..), mapParseMsgs)
+import HsBindgen.Frontend.Pass.Parse.IsPass (OrigTypedefRef (..),
+                                             ParseMsgKey (..), mapParseMsgs)
 import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Imports
 
@@ -258,7 +259,7 @@ instance NameUseSites C.Type where
 
       -- Simple cases
       go (C.TypePrim prim)      = C.TypePrim prim
-      go (C.TypeTypedef name)   = C.TypeTypedef name
+      go (C.TypeTypedef ref)   = C.TypeTypedef (nameUseSitesTypedefRef env ref)
       go (C.TypeVoid)           = C.TypeVoid
       go (C.TypeExtBinding ext) = absurd ext
       go (C.TypeComplex prim)   = C.TypeComplex prim
@@ -274,6 +275,13 @@ instance NameUseSites C.Type where
           Just useOfAnon ->
             C.DeclId (nameForAnon useOfAnon) (C.NameOriginGenerated anonId)
           Nothing -> panicPure "impossible"
+
+nameUseSitesTypedefRef :: RenameEnv -> TypedefRef HandleMacros -> TypedefRef NameAnon
+nameUseSitesTypedefRef env = unTypedefRefWrapper . nameUseSites env . TypedefRefWrapper
+
+instance NameUseSites TypedefRefWrapper where
+  nameUseSites env (TypedefRefWrapper (OrigTypedefRef n uTy)) =
+      TypedefRefWrapper (OrigTypedefRef n (nameUseSites env uTy))
 
 {-------------------------------------------------------------------------------
   Name generation
