@@ -8,7 +8,6 @@ module HsBindgen.Backend.HsModule.Translation (
     -- * HsModule
   , HsModule(..)
     -- * Translation
-  , HsModuleOpts(..)
   , defModuleName
   , translateModuleMultiple
   , translateModuleSingle
@@ -69,16 +68,6 @@ data HsModule = HsModule {
 {-------------------------------------------------------------------------------
   Translation
 -------------------------------------------------------------------------------}
-
-data HsModuleOpts = HsModuleOpts {
-      hsModuleOptsBaseName :: Hs.ModuleName
-    }
-  deriving stock (Show, Eq, Generic)
-
-instance Default HsModuleOpts where
-  def = HsModuleOpts {
-      hsModuleOptsBaseName = defModuleName
-    }
 
 defModuleName :: Hs.ModuleName
 defModuleName = "Generated"
