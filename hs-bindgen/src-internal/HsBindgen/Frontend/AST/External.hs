@@ -44,11 +44,14 @@ module HsBindgen.Frontend.AST.External (
   , TypeQualifier(..)
   , ResolveBindingSpecs.ResolvedExtBinding(..)
   , isVoid
-  , isErasedConstQualifiedType
-  , isCanonicalFunctionType
+  , isErasedTypeConstQualified
+  , isCanonicalTypeFunction
     -- ** Erasure
+  , FullType
   , Full
+  , ErasedType
   , Erased
+  , CanonicalType
   , Canonical
   , GetErasedType(..)
   , GetCanonicalType(..)
@@ -334,19 +337,21 @@ isVoid TypeVoid = True
 isVoid _        = False
 
 -- | Is the erased type @const@-qualified?
-isErasedConstQualifiedType :: GetErasedType t => t -> Bool
-isErasedConstQualifiedType ty = case getErasedType ty of
+isErasedTypeConstQualified :: GetErasedType t => t -> Bool
+isErasedTypeConstQualified ty = case getErasedType ty of
     -- Types can be directly @const@-qualified,
     TypeQualified TypeQualifierConst _ -> True
-    -- but arrays are also @const@-qualified if their element type is,
-    TypeConstArray _ (TypeQualified TypeQualifierConst _) -> True
-    TypeIncompleteArray (TypeQualified TypeQualifierConst _) -> True
-    -- and otherwise, the type is not considered to be @const@-qualified.
+    -- but arrays are also @const@-qualified if their element type is. Note that
+    -- elements of arrays can themselves be arrays, hence we recurse into the
+    -- array element type.
+    TypeConstArray _ ty' -> isErasedTypeConstQualified ty'
+    TypeIncompleteArray ty' -> isErasedTypeConstQualified ty'
+    -- And otherwise, the type is not considered to be @const@-qualified.
     _ -> False
 
 -- | Is the canonical type a function type?
-isCanonicalFunctionType :: GetCanonicalType t => t -> Bool
-isCanonicalFunctionType ty = case getCanonicalType ty of
+isCanonicalTypeFunction :: GetCanonicalType t => t -> Bool
+isCanonicalTypeFunction ty = case getCanonicalType ty of
     TypeFun{} -> True
     _ -> False
 

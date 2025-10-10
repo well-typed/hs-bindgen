@@ -1568,6 +1568,12 @@ arr_5_const_ptr :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((
 arr_5_const_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_array_46b406e096f6c9c1
 
+{-# NOINLINE arr_5_const #-}
+
+arr_5_const :: (HsBindgen.Runtime.ConstantArray.ConstantArray 4) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
+arr_5_const =
+  GHC.IO.Unsafe.unsafePerformIO (F.peek arr_5_const_ptr)
+
 foreign import ccall unsafe "hs_bindgen_test_array_ceb7f2027865ce12" hs_bindgen_test_array_ceb7f2027865ce12
   :: IO (Ptr.Ptr Matrix)
 
