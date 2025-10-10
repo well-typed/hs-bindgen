@@ -93,6 +93,38 @@ unsafe extern "C" {
 }
 unsafe extern "C" {
     ///! Array of known size
+    pub static arr_1_const: [::std::os::raw::c_int; 3usize];
+}
+unsafe extern "C" {
+    ///! Array of known size, typedef
+    pub static arr_2_const: triplet;
+}
+unsafe extern "C" {
+    ///! Array of unknown size
+    pub static arr_3_const: [::std::os::raw::c_int; 0usize];
+}
+unsafe extern "C" {
+    ///! Array of unknown size, typedef
+    pub static arr_4_const: list;
+}
+unsafe extern "C" {
+    ///! Multi-dimensional array of known size
+    pub static mut arr_5_const: [[::std::os::raw::c_int; 3usize]; 4usize];
+}
+unsafe extern "C" {
+    ///! Multi-dimensional array of known size, typedef
+    pub static arr_6_const: matrix;
+}
+unsafe extern "C" {
+    ///! Multi-dimensional array of unknown size
+    pub static mut arr_7_const: [[::std::os::raw::c_int; 3usize]; 0usize];
+}
+unsafe extern "C" {
+    ///! Multi-dimensional array of unknown size, typedef
+    pub static arr_8_const: tripletlist;
+}
+unsafe extern "C" {
+    ///! Array of known size
     pub fn fun_1(
         x: ::std::os::raw::c_int,
         xs: *mut ::std::os::raw::c_int,
@@ -129,6 +161,70 @@ unsafe extern "C" {
 unsafe extern "C" {
     ///! Typedef-in-typedef
     pub fn isSolved(xss: *mut triplet) -> ::std::os::raw::c_int;
+}
+unsafe extern "C" {
+    ///! Array of known size
+    pub fn fun_1_const(
+        x: ::std::os::raw::c_int,
+        xs: *mut ::std::os::raw::c_int,
+        ys: *const ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+unsafe extern "C" {
+    ///! Array of known size, typedef
+    pub fn fun_2_const(
+        xs: *mut ::std::os::raw::c_int,
+        ys: *const ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+unsafe extern "C" {
+    ///! Array of unknown size
+    pub fn fun_3_const(
+        xs: *mut ::std::os::raw::c_int,
+        ys: *const ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+unsafe extern "C" {
+    ///! Array of unknown size, typedef
+    pub fn fun_4_const(
+        xs: *mut ::std::os::raw::c_int,
+        ys: *const ::std::os::raw::c_int,
+    ) -> ::std::os::raw::c_int;
+}
+unsafe extern "C" {
+    ///! Multi-dimensional array of known size
+    pub fn fun_5_const(
+        xss: *mut [::std::os::raw::c_int; 3usize],
+        yss: *const [::std::os::raw::c_int; 3usize],
+    ) -> ::std::os::raw::c_int;
+}
+unsafe extern "C" {
+    ///! Multi-dimensional array of known size, typedef
+    pub fn fun_6_const(
+        xss: *mut [::std::os::raw::c_int; 3usize],
+        yss: *const [::std::os::raw::c_int; 3usize],
+    ) -> ::std::os::raw::c_int;
+}
+unsafe extern "C" {
+    ///! Multi-dimensional array of unknown size
+    pub fn fun_7_const(
+        xss: *mut [::std::os::raw::c_int; 3usize],
+        yss: *const [::std::os::raw::c_int; 3usize],
+    ) -> ::std::os::raw::c_int;
+}
+unsafe extern "C" {
+    ///! Multi-dimensional array of unknown size, typedef
+    pub fn fun_8_const(
+        xss: *mut [::std::os::raw::c_int; 3usize],
+        yss: *const [::std::os::raw::c_int; 3usize],
+    ) -> ::std::os::raw::c_int;
+}
+unsafe extern "C" {
+    ///! Typedef-in-typedef
+    pub fn isSolved_const(
+        xss: *mut triplet,
+        yss: *const triplet,
+    ) -> ::std::os::raw::c_int;
 }
 unsafe extern "C" {
     ///! Array of known size

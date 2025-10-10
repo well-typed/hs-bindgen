@@ -502,54 +502,20 @@ newtype Callback_t
 
     __exported by:__ @distilled_lib_1.h@
 -}
-foreign import ccall safe "hs_bindgen_test_distilled_lib_1_29c178c31334688f" some_fun_wrapper :: Ptr A_type_t ->
-                                                                                                 HsBindgen.Runtime.Prelude.Word32 ->
-                                                                                                 Ptr HsBindgen.Runtime.Prelude.Word8 ->
-                                                                                                 IO HsBindgen.Runtime.Prelude.Int32
+foreign import ccall safe "hs_bindgen_test_distilled_lib_1_29c178c31334688f" some_fun :: Ptr A_type_t ->
+                                                                                         HsBindgen.Runtime.Prelude.Word32 ->
+                                                                                         Ptr HsBindgen.Runtime.Prelude.Word8 ->
+                                                                                         IO HsBindgen.Runtime.Prelude.Int32
 {-| __C declaration:__ @some_fun@
 
     __defined at:__ @distilled_lib_1.h:72:9@
 
     __exported by:__ @distilled_lib_1.h@
 -}
-some_fun :: Ptr A_type_t ->
-            HsBindgen.Runtime.Prelude.Word32 ->
-            IncompleteArray HsBindgen.Runtime.Prelude.Word8 ->
-            IO HsBindgen.Runtime.Prelude.Int32
-{-| __C declaration:__ @some_fun@
-
-    __defined at:__ @distilled_lib_1.h:72:9@
-
-    __exported by:__ @distilled_lib_1.h@
--}
-some_fun = \x_0 -> \x_1 -> \x_2 -> withPtr x_2 (\ptr_3 -> some_fun_wrapper x_0 x_1 ptr_3)
-{-| __C declaration:__ @some_fun@
-
-    __defined at:__ @distilled_lib_1.h:72:9@
-
-    __exported by:__ @distilled_lib_1.h@
--}
-foreign import ccall safe "hs_bindgen_test_distilled_lib_1_efd27157959bd4b3" some_fun_wrapper :: Ptr A_type_t ->
-                                                                                                 HsBindgen.Runtime.Prelude.Word32 ->
-                                                                                                 Ptr HsBindgen.Runtime.Prelude.Word8 ->
-                                                                                                 IO HsBindgen.Runtime.Prelude.Int32
-{-| __C declaration:__ @some_fun@
-
-    __defined at:__ @distilled_lib_1.h:72:9@
-
-    __exported by:__ @distilled_lib_1.h@
--}
-some_fun :: Ptr A_type_t ->
-            HsBindgen.Runtime.Prelude.Word32 ->
-            IncompleteArray HsBindgen.Runtime.Prelude.Word8 ->
-            IO HsBindgen.Runtime.Prelude.Int32
-{-| __C declaration:__ @some_fun@
-
-    __defined at:__ @distilled_lib_1.h:72:9@
-
-    __exported by:__ @distilled_lib_1.h@
--}
-some_fun = \x_0 -> \x_1 -> \x_2 -> withPtr x_2 (\ptr_3 -> some_fun_wrapper x_0 x_1 ptr_3)
+foreign import ccall safe "hs_bindgen_test_distilled_lib_1_efd27157959bd4b3" some_fun :: Ptr A_type_t ->
+                                                                                         HsBindgen.Runtime.Prelude.Word32 ->
+                                                                                         Ptr HsBindgen.Runtime.Prelude.Word8 ->
+                                                                                         IO HsBindgen.Runtime.Prelude.Int32
 foreign import ccall safe "hs_bindgen_test_distilled_lib_1_969c7d0305e0614c" hs_bindgen_test_distilled_lib_1_969c7d0305e0614c :: IO (FunPtr (Ptr A_type_t ->
                                                                                                                                              HsBindgen.Runtime.Prelude.Word32 ->
                                                                                                                                              IncompleteArray HsBindgen.Runtime.Prelude.Word8 ->

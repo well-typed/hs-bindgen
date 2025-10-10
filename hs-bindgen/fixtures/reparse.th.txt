@@ -74,16 +74,16 @@
 -- void hs_bindgen_test_reparse_3f5a39bd9a93581a (A arg1, float const arg2) { const_withoutSign_before1(arg1, arg2); }
 -- void hs_bindgen_test_reparse_5a190462ddfe8168 (A arg1, double const arg2) { const_withoutSign_before2(arg1, arg2); }
 -- void hs_bindgen_test_reparse_70a40d82bb46c21c (A arg1, _Bool const arg2) { const_withoutSign_before3(arg1, arg2); }
--- void hs_bindgen_test_reparse_81ce15a9b9be53f8 (A arg1, struct some_struct const arg2) { const_withoutSign_before4(arg1, arg2); }
--- void hs_bindgen_test_reparse_39c58819fdca0585 (A arg1, union some_union const arg2) { const_withoutSign_before5(arg1, arg2); }
+-- void hs_bindgen_test_reparse_81ce15a9b9be53f8 (A arg1, struct some_struct const *arg2) { const_withoutSign_before4(arg1, *arg2); }
+-- void hs_bindgen_test_reparse_39c58819fdca0585 (A arg1, union some_union const *arg2) { const_withoutSign_before5(arg1, *arg2); }
 -- void hs_bindgen_test_reparse_4c5a32cae31a651c (A arg1, enum some_enum const arg2) { const_withoutSign_before6(arg1, arg2); }
 -- void hs_bindgen_test_reparse_0341b56dd9dde729 (A arg1, _Bool const arg2) { const_withoutSign_before7(arg1, arg2); }
 -- void hs_bindgen_test_reparse_d43c37be4d91bd6c (A arg1, size_t const arg2) { const_withoutSign_before8(arg1, arg2); }
 -- void hs_bindgen_test_reparse_f456a2b015543748 (A arg1, float const arg2) { const_withoutSign_after1(arg1, arg2); }
 -- void hs_bindgen_test_reparse_729c897c9a9bfc92 (A arg1, double const arg2) { const_withoutSign_after2(arg1, arg2); }
 -- void hs_bindgen_test_reparse_5e46eebba0299b49 (A arg1, _Bool const arg2) { const_withoutSign_after3(arg1, arg2); }
--- void hs_bindgen_test_reparse_18b842a824ecef09 (A arg1, struct some_struct const arg2) { const_withoutSign_after4(arg1, arg2); }
--- void hs_bindgen_test_reparse_75feb5260081201b (A arg1, union some_union const arg2) { const_withoutSign_after5(arg1, arg2); }
+-- void hs_bindgen_test_reparse_18b842a824ecef09 (A arg1, struct some_struct const *arg2) { const_withoutSign_after4(arg1, *arg2); }
+-- void hs_bindgen_test_reparse_75feb5260081201b (A arg1, union some_union const *arg2) { const_withoutSign_after5(arg1, *arg2); }
 -- void hs_bindgen_test_reparse_3375ca58017bcbeb (A arg1, enum some_enum const arg2) { const_withoutSign_after6(arg1, arg2); }
 -- void hs_bindgen_test_reparse_5da184668d3e18ba (A arg1, _Bool const arg2) { const_withoutSign_after7(arg1, arg2); }
 -- void hs_bindgen_test_reparse_3cae7641509d64fa (A arg1, size_t const arg2) { const_withoutSign_after8(arg1, arg2); }
@@ -185,16 +185,16 @@
 -- void hs_bindgen_test_reparse_9f70419bf10f327e (A arg1, float const arg2) { const_withoutSign_before1(arg1, arg2); }
 -- void hs_bindgen_test_reparse_7867bb0d71ef4b6d (A arg1, double const arg2) { const_withoutSign_before2(arg1, arg2); }
 -- void hs_bindgen_test_reparse_80de805eb016225b (A arg1, _Bool const arg2) { const_withoutSign_before3(arg1, arg2); }
--- void hs_bindgen_test_reparse_69cef8742b4b119b (A arg1, struct some_struct const arg2) { const_withoutSign_before4(arg1, arg2); }
--- void hs_bindgen_test_reparse_1ad5aadb8be4d493 (A arg1, union some_union const arg2) { const_withoutSign_before5(arg1, arg2); }
+-- void hs_bindgen_test_reparse_69cef8742b4b119b (A arg1, struct some_struct const *arg2) { const_withoutSign_before4(arg1, *arg2); }
+-- void hs_bindgen_test_reparse_1ad5aadb8be4d493 (A arg1, union some_union const *arg2) { const_withoutSign_before5(arg1, *arg2); }
 -- void hs_bindgen_test_reparse_7106059de99b7682 (A arg1, enum some_enum const arg2) { const_withoutSign_before6(arg1, arg2); }
 -- void hs_bindgen_test_reparse_b61cf3c21bf8b00b (A arg1, _Bool const arg2) { const_withoutSign_before7(arg1, arg2); }
 -- void hs_bindgen_test_reparse_47573f5eb4cb92a9 (A arg1, size_t const arg2) { const_withoutSign_before8(arg1, arg2); }
 -- void hs_bindgen_test_reparse_ffb1a87ed1f94b31 (A arg1, float const arg2) { const_withoutSign_after1(arg1, arg2); }
 -- void hs_bindgen_test_reparse_1ec7c37faacfcd64 (A arg1, double const arg2) { const_withoutSign_after2(arg1, arg2); }
 -- void hs_bindgen_test_reparse_34233036f1e22371 (A arg1, _Bool const arg2) { const_withoutSign_after3(arg1, arg2); }
--- void hs_bindgen_test_reparse_4c909292e290aa0a (A arg1, struct some_struct const arg2) { const_withoutSign_after4(arg1, arg2); }
--- void hs_bindgen_test_reparse_ab1abd31c91696b9 (A arg1, union some_union const arg2) { const_withoutSign_after5(arg1, arg2); }
+-- void hs_bindgen_test_reparse_4c909292e290aa0a (A arg1, struct some_struct const *arg2) { const_withoutSign_after4(arg1, *arg2); }
+-- void hs_bindgen_test_reparse_ab1abd31c91696b9 (A arg1, union some_union const *arg2) { const_withoutSign_after5(arg1, *arg2); }
 -- void hs_bindgen_test_reparse_342c1139871906f3 (A arg1, enum some_enum const arg2) { const_withoutSign_after6(arg1, arg2); }
 -- void hs_bindgen_test_reparse_446758003fdc3418 (A arg1, _Bool const arg2) { const_withoutSign_after7(arg1, arg2); }
 -- void hs_bindgen_test_reparse_161f0b5d4c06966c (A arg1, size_t const arg2) { const_withoutSign_after8(arg1, arg2); }
@@ -1952,92 +1952,32 @@ __defined at:__ @reparse.h:104:6@
 
 __exported by:__ @reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_reparse_69045f97d21cfcd3" arr_args1_wrapper :: Ptr A ->
-                                                                                          IO Unit
-{-| Arrays
-
-__C declaration:__ @arr_args1@
-
-__defined at:__ @reparse.h:104:6@
-
-__exported by:__ @reparse.h@
--}
-arr_args1 :: IncompleteArray A -> IO Unit
-{-| Arrays
-
-__C declaration:__ @arr_args1@
-
-__defined at:__ @reparse.h:104:6@
-
-__exported by:__ @reparse.h@
--}
-arr_args1 = \x_0 -> withPtr x_0 (\ptr_1 -> arr_args1_wrapper ptr_1)
+foreign import ccall safe "hs_bindgen_test_reparse_69045f97d21cfcd3" arr_args1 :: Ptr A ->
+                                                                                  IO Unit
 {-| __C declaration:__ @arr_args2@
 
     __defined at:__ @reparse.h:105:6@
 
     __exported by:__ @reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_reparse_75b7d6fa15700a72" arr_args2_wrapper :: Ptr (Ptr A) ->
-                                                                                          IO Unit
-{-| __C declaration:__ @arr_args2@
-
-    __defined at:__ @reparse.h:105:6@
-
-    __exported by:__ @reparse.h@
--}
-arr_args2 :: IncompleteArray (Ptr A) -> IO Unit
-{-| __C declaration:__ @arr_args2@
-
-    __defined at:__ @reparse.h:105:6@
-
-    __exported by:__ @reparse.h@
--}
-arr_args2 = \x_0 -> withPtr x_0 (\ptr_1 -> arr_args2_wrapper ptr_1)
+foreign import ccall safe "hs_bindgen_test_reparse_75b7d6fa15700a72" arr_args2 :: Ptr (Ptr A) ->
+                                                                                  IO Unit
 {-| __C declaration:__ @arr_args3@
 
     __defined at:__ @reparse.h:106:6@
 
     __exported by:__ @reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_reparse_64bcbef92728339f" arr_args3_wrapper :: Ptr A ->
-                                                                                          IO Unit
-{-| __C declaration:__ @arr_args3@
-
-    __defined at:__ @reparse.h:106:6@
-
-    __exported by:__ @reparse.h@
--}
-arr_args3 :: ConstantArray 5 A -> IO Unit
-{-| __C declaration:__ @arr_args3@
-
-    __defined at:__ @reparse.h:106:6@
-
-    __exported by:__ @reparse.h@
--}
-arr_args3 = \x_0 -> withPtr x_0 (\ptr_1 -> arr_args3_wrapper ptr_1)
+foreign import ccall safe "hs_bindgen_test_reparse_64bcbef92728339f" arr_args3 :: Ptr A ->
+                                                                                  IO Unit
 {-| __C declaration:__ @arr_args4@
 
     __defined at:__ @reparse.h:107:6@
 
     __exported by:__ @reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_reparse_1635b68f717cc6df" arr_args4_wrapper :: Ptr (Ptr A) ->
-                                                                                          IO Unit
-{-| __C declaration:__ @arr_args4@
-
-    __defined at:__ @reparse.h:107:6@
-
-    __exported by:__ @reparse.h@
--}
-arr_args4 :: ConstantArray 5 (Ptr A) -> IO Unit
-{-| __C declaration:__ @arr_args4@
-
-    __defined at:__ @reparse.h:107:6@
-
-    __exported by:__ @reparse.h@
--}
-arr_args4 = \x_0 -> withPtr x_0 (\ptr_1 -> arr_args4_wrapper ptr_1)
+foreign import ccall safe "hs_bindgen_test_reparse_1635b68f717cc6df" arr_args4 :: Ptr (Ptr A) ->
+                                                                                  IO Unit
 {-| Function pointers
 
 __C declaration:__ @funptr_args1@
@@ -2193,18 +2133,46 @@ foreign import ccall safe "hs_bindgen_test_reparse_70a40d82bb46c21c" const_witho
 
     __exported by:__ @reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_reparse_81ce15a9b9be53f8" const_withoutSign_before4 :: A ->
-                                                                                                  Some_struct ->
-                                                                                                  IO Unit
+foreign import ccall safe "hs_bindgen_test_reparse_81ce15a9b9be53f8" const_withoutSign_before4_wrapper :: A ->
+                                                                                                          Ptr Some_struct ->
+                                                                                                          IO Unit
+{-| __C declaration:__ @const_withoutSign_before4@
+
+    __defined at:__ @reparse.h:191:6@
+
+    __exported by:__ @reparse.h@
+-}
+const_withoutSign_before4 :: A -> Some_struct -> IO Unit
+{-| __C declaration:__ @const_withoutSign_before4@
+
+    __defined at:__ @reparse.h:191:6@
+
+    __exported by:__ @reparse.h@
+-}
+const_withoutSign_before4 = \x_0 -> \x_1 -> with x_1 (\y_2 -> const_withoutSign_before4_wrapper x_0 y_2)
 {-| __C declaration:__ @const_withoutSign_before5@
 
     __defined at:__ @reparse.h:192:6@
 
     __exported by:__ @reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_reparse_39c58819fdca0585" const_withoutSign_before5 :: A ->
-                                                                                                  Some_union ->
-                                                                                                  IO Unit
+foreign import ccall safe "hs_bindgen_test_reparse_39c58819fdca0585" const_withoutSign_before5_wrapper :: A ->
+                                                                                                          Ptr Some_union ->
+                                                                                                          IO Unit
+{-| __C declaration:__ @const_withoutSign_before5@
+
+    __defined at:__ @reparse.h:192:6@
+
+    __exported by:__ @reparse.h@
+-}
+const_withoutSign_before5 :: A -> Some_union -> IO Unit
+{-| __C declaration:__ @const_withoutSign_before5@
+
+    __defined at:__ @reparse.h:192:6@
+
+    __exported by:__ @reparse.h@
+-}
+const_withoutSign_before5 = \x_0 -> \x_1 -> with x_1 (\y_2 -> const_withoutSign_before5_wrapper x_0 y_2)
 {-| __C declaration:__ @const_withoutSign_before6@
 
     __defined at:__ @reparse.h:193:6@
@@ -2265,18 +2233,46 @@ foreign import ccall safe "hs_bindgen_test_reparse_5e46eebba0299b49" const_witho
 
     __exported by:__ @reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_reparse_18b842a824ecef09" const_withoutSign_after4 :: A ->
-                                                                                                 Some_struct ->
-                                                                                                 IO Unit
+foreign import ccall safe "hs_bindgen_test_reparse_18b842a824ecef09" const_withoutSign_after4_wrapper :: A ->
+                                                                                                         Ptr Some_struct ->
+                                                                                                         IO Unit
+{-| __C declaration:__ @const_withoutSign_after4@
+
+    __defined at:__ @reparse.h:200:6@
+
+    __exported by:__ @reparse.h@
+-}
+const_withoutSign_after4 :: A -> Some_struct -> IO Unit
+{-| __C declaration:__ @const_withoutSign_after4@
+
+    __defined at:__ @reparse.h:200:6@
+
+    __exported by:__ @reparse.h@
+-}
+const_withoutSign_after4 = \x_0 -> \x_1 -> with x_1 (\y_2 -> const_withoutSign_after4_wrapper x_0 y_2)
 {-| __C declaration:__ @const_withoutSign_after5@
 
     __defined at:__ @reparse.h:201:6@
 
     __exported by:__ @reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_reparse_75feb5260081201b" const_withoutSign_after5 :: A ->
-                                                                                                 Some_union ->
-                                                                                                 IO Unit
+foreign import ccall safe "hs_bindgen_test_reparse_75feb5260081201b" const_withoutSign_after5_wrapper :: A ->
+                                                                                                         Ptr Some_union ->
+                                                                                                         IO Unit
+{-| __C declaration:__ @const_withoutSign_after5@
+
+    __defined at:__ @reparse.h:201:6@
+
+    __exported by:__ @reparse.h@
+-}
+const_withoutSign_after5 :: A -> Some_union -> IO Unit
+{-| __C declaration:__ @const_withoutSign_after5@
+
+    __defined at:__ @reparse.h:201:6@
+
+    __exported by:__ @reparse.h@
+-}
+const_withoutSign_after5 = \x_0 -> \x_1 -> with x_1 (\y_2 -> const_withoutSign_after5_wrapper x_0 y_2)
 {-| __C declaration:__ @const_withoutSign_after6@
 
     __defined at:__ @reparse.h:202:6@
@@ -2417,22 +2413,8 @@ const_array_elem1 = \x_0 -> withPtr x_0 (\ptr_1 -> const_array_elem1_wrapper ptr
 
     __exported by:__ @reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_reparse_1c0be30090d3f0b4" const_array_elem2_wrapper :: Ptr (Ptr A) ->
-                                                                                                  IO Unit
-{-| __C declaration:__ @const_array_elem2@
-
-    __defined at:__ @reparse.h:247:6@
-
-    __exported by:__ @reparse.h@
--}
-const_array_elem2 :: IncompleteArray (Ptr A) -> IO Unit
-{-| __C declaration:__ @const_array_elem2@
-
-    __defined at:__ @reparse.h:247:6@
-
-    __exported by:__ @reparse.h@
--}
-const_array_elem2 = \x_0 -> withPtr x_0 (\ptr_1 -> const_array_elem2_wrapper ptr_1)
+foreign import ccall safe "hs_bindgen_test_reparse_1c0be30090d3f0b4" const_array_elem2 :: Ptr (Ptr A) ->
+                                                                                          IO Unit
 {-| __C declaration:__ @const_array_elem3@
 
     __defined at:__ @reparse.h:248:6@
@@ -3137,92 +3119,32 @@ __defined at:__ @reparse.h:104:6@
 
 __exported by:__ @reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_reparse_802c66e1efc0f556" arr_args1_wrapper :: Ptr A ->
-                                                                                          IO Unit
-{-| Arrays
-
-__C declaration:__ @arr_args1@
-
-__defined at:__ @reparse.h:104:6@
-
-__exported by:__ @reparse.h@
--}
-arr_args1 :: IncompleteArray A -> IO Unit
-{-| Arrays
-
-__C declaration:__ @arr_args1@
-
-__defined at:__ @reparse.h:104:6@
-
-__exported by:__ @reparse.h@
--}
-arr_args1 = \x_0 -> withPtr x_0 (\ptr_1 -> arr_args1_wrapper ptr_1)
+foreign import ccall safe "hs_bindgen_test_reparse_802c66e1efc0f556" arr_args1 :: Ptr A ->
+                                                                                  IO Unit
 {-| __C declaration:__ @arr_args2@
 
     __defined at:__ @reparse.h:105:6@
 
     __exported by:__ @reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_reparse_f516070848930af9" arr_args2_wrapper :: Ptr (Ptr A) ->
-                                                                                          IO Unit
-{-| __C declaration:__ @arr_args2@
-
-    __defined at:__ @reparse.h:105:6@
-
-    __exported by:__ @reparse.h@
--}
-arr_args2 :: IncompleteArray (Ptr A) -> IO Unit
-{-| __C declaration:__ @arr_args2@
-
-    __defined at:__ @reparse.h:105:6@
-
-    __exported by:__ @reparse.h@
--}
-arr_args2 = \x_0 -> withPtr x_0 (\ptr_1 -> arr_args2_wrapper ptr_1)
+foreign import ccall safe "hs_bindgen_test_reparse_f516070848930af9" arr_args2 :: Ptr (Ptr A) ->
+                                                                                  IO Unit
 {-| __C declaration:__ @arr_args3@
 
     __defined at:__ @reparse.h:106:6@
 
     __exported by:__ @reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_reparse_c0db4046bcf7da77" arr_args3_wrapper :: Ptr A ->
-                                                                                          IO Unit
-{-| __C declaration:__ @arr_args3@
-
-    __defined at:__ @reparse.h:106:6@
-
-    __exported by:__ @reparse.h@
--}
-arr_args3 :: ConstantArray 5 A -> IO Unit
-{-| __C declaration:__ @arr_args3@
-
-    __defined at:__ @reparse.h:106:6@
-
-    __exported by:__ @reparse.h@
--}
-arr_args3 = \x_0 -> withPtr x_0 (\ptr_1 -> arr_args3_wrapper ptr_1)
+foreign import ccall safe "hs_bindgen_test_reparse_c0db4046bcf7da77" arr_args3 :: Ptr A ->
+                                                                                  IO Unit
 {-| __C declaration:__ @arr_args4@
 
     __defined at:__ @reparse.h:107:6@
 
     __exported by:__ @reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_reparse_881ede0e81c9ed45" arr_args4_wrapper :: Ptr (Ptr A) ->
-                                                                                          IO Unit
-{-| __C declaration:__ @arr_args4@
-
-    __defined at:__ @reparse.h:107:6@
-
-    __exported by:__ @reparse.h@
--}
-arr_args4 :: ConstantArray 5 (Ptr A) -> IO Unit
-{-| __C declaration:__ @arr_args4@
-
-    __defined at:__ @reparse.h:107:6@
-
-    __exported by:__ @reparse.h@
--}
-arr_args4 = \x_0 -> withPtr x_0 (\ptr_1 -> arr_args4_wrapper ptr_1)
+foreign import ccall safe "hs_bindgen_test_reparse_881ede0e81c9ed45" arr_args4 :: Ptr (Ptr A) ->
+                                                                                  IO Unit
 {-| Function pointers
 
 __C declaration:__ @funptr_args1@
@@ -3378,18 +3300,46 @@ foreign import ccall safe "hs_bindgen_test_reparse_80de805eb016225b" const_witho
 
     __exported by:__ @reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_reparse_69cef8742b4b119b" const_withoutSign_before4 :: A ->
-                                                                                                  Some_struct ->
-                                                                                                  IO Unit
+foreign import ccall safe "hs_bindgen_test_reparse_69cef8742b4b119b" const_withoutSign_before4_wrapper :: A ->
+                                                                                                          Ptr Some_struct ->
+                                                                                                          IO Unit
+{-| __C declaration:__ @const_withoutSign_before4@
+
+    __defined at:__ @reparse.h:191:6@
+
+    __exported by:__ @reparse.h@
+-}
+const_withoutSign_before4 :: A -> Some_struct -> IO Unit
+{-| __C declaration:__ @const_withoutSign_before4@
+
+    __defined at:__ @reparse.h:191:6@
+
+    __exported by:__ @reparse.h@
+-}
+const_withoutSign_before4 = \x_0 -> \x_1 -> with x_1 (\y_2 -> const_withoutSign_before4_wrapper x_0 y_2)
 {-| __C declaration:__ @const_withoutSign_before5@
 
     __defined at:__ @reparse.h:192:6@
 
     __exported by:__ @reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_reparse_1ad5aadb8be4d493" const_withoutSign_before5 :: A ->
-                                                                                                  Some_union ->
-                                                                                                  IO Unit
+foreign import ccall safe "hs_bindgen_test_reparse_1ad5aadb8be4d493" const_withoutSign_before5_wrapper :: A ->
+                                                                                                          Ptr Some_union ->
+                                                                                                          IO Unit
+{-| __C declaration:__ @const_withoutSign_before5@
+
+    __defined at:__ @reparse.h:192:6@
+
+    __exported by:__ @reparse.h@
+-}
+const_withoutSign_before5 :: A -> Some_union -> IO Unit
+{-| __C declaration:__ @const_withoutSign_before5@
+
+    __defined at:__ @reparse.h:192:6@
+
+    __exported by:__ @reparse.h@
+-}
+const_withoutSign_before5 = \x_0 -> \x_1 -> with x_1 (\y_2 -> const_withoutSign_before5_wrapper x_0 y_2)
 {-| __C declaration:__ @const_withoutSign_before6@
 
     __defined at:__ @reparse.h:193:6@
@@ -3450,18 +3400,46 @@ foreign import ccall safe "hs_bindgen_test_reparse_34233036f1e22371" const_witho
 
     __exported by:__ @reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_reparse_4c909292e290aa0a" const_withoutSign_after4 :: A ->
-                                                                                                 Some_struct ->
-                                                                                                 IO Unit
+foreign import ccall safe "hs_bindgen_test_reparse_4c909292e290aa0a" const_withoutSign_after4_wrapper :: A ->
+                                                                                                         Ptr Some_struct ->
+                                                                                                         IO Unit
+{-| __C declaration:__ @const_withoutSign_after4@
+
+    __defined at:__ @reparse.h:200:6@
+
+    __exported by:__ @reparse.h@
+-}
+const_withoutSign_after4 :: A -> Some_struct -> IO Unit
+{-| __C declaration:__ @const_withoutSign_after4@
+
+    __defined at:__ @reparse.h:200:6@
+
+    __exported by:__ @reparse.h@
+-}
+const_withoutSign_after4 = \x_0 -> \x_1 -> with x_1 (\y_2 -> const_withoutSign_after4_wrapper x_0 y_2)
 {-| __C declaration:__ @const_withoutSign_after5@
 
     __defined at:__ @reparse.h:201:6@
 
     __exported by:__ @reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_reparse_ab1abd31c91696b9" const_withoutSign_after5 :: A ->
-                                                                                                 Some_union ->
-                                                                                                 IO Unit
+foreign import ccall safe "hs_bindgen_test_reparse_ab1abd31c91696b9" const_withoutSign_after5_wrapper :: A ->
+                                                                                                         Ptr Some_union ->
+                                                                                                         IO Unit
+{-| __C declaration:__ @const_withoutSign_after5@
+
+    __defined at:__ @reparse.h:201:6@
+
+    __exported by:__ @reparse.h@
+-}
+const_withoutSign_after5 :: A -> Some_union -> IO Unit
+{-| __C declaration:__ @const_withoutSign_after5@
+
+    __defined at:__ @reparse.h:201:6@
+
+    __exported by:__ @reparse.h@
+-}
+const_withoutSign_after5 = \x_0 -> \x_1 -> with x_1 (\y_2 -> const_withoutSign_after5_wrapper x_0 y_2)
 {-| __C declaration:__ @const_withoutSign_after6@
 
     __defined at:__ @reparse.h:202:6@
@@ -3602,22 +3580,8 @@ const_array_elem1 = \x_0 -> withPtr x_0 (\ptr_1 -> const_array_elem1_wrapper ptr
 
     __exported by:__ @reparse.h@
 -}
-foreign import ccall safe "hs_bindgen_test_reparse_dd69ef198e368a38" const_array_elem2_wrapper :: Ptr (Ptr A) ->
-                                                                                                  IO Unit
-{-| __C declaration:__ @const_array_elem2@
-
-    __defined at:__ @reparse.h:247:6@
-
-    __exported by:__ @reparse.h@
--}
-const_array_elem2 :: IncompleteArray (Ptr A) -> IO Unit
-{-| __C declaration:__ @const_array_elem2@
-
-    __defined at:__ @reparse.h:247:6@
-
-    __exported by:__ @reparse.h@
--}
-const_array_elem2 = \x_0 -> withPtr x_0 (\ptr_1 -> const_array_elem2_wrapper ptr_1)
+foreign import ccall safe "hs_bindgen_test_reparse_dd69ef198e368a38" const_array_elem2 :: Ptr (Ptr A) ->
+                                                                                          IO Unit
 {-| __C declaration:__ @const_array_elem3@
 
     __defined at:__ @reparse.h:248:6@

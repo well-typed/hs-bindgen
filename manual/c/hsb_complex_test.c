@@ -40,7 +40,7 @@ void swap_velocity_position(complex_object_t *obj) {
     obj->velocity = temp;
 }
 
-double complex sum_complex_array(double complex arr[10]) {
+double complex sum_complex_array(const double complex arr[10]) {
     double complex sum = 0.0 + 0.0 * I;
 
     for (int i = 0; i < 10; i++) {

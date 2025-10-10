@@ -83,6 +83,34 @@ extern int arr_7[][3];
 extern tripletlist arr_8;
 
 /*
+ * Globals: const
+ */
+
+ //! Array of known size
+extern const int arr_1_const[3];
+
+//! Array of known size, typedef
+extern const triplet arr_2_const;
+
+//! Array of unknown size
+extern const int arr_3_const[];
+
+//! Array of unknown size, typedef
+extern const list arr_4_const;
+
+//! Multi-dimensional array of known size
+extern const int arr_5_const[4][3];
+
+//! Multi-dimensional array of known size, typedef
+extern const matrix arr_6_const;
+
+//! Multi-dimensional array of unknown size
+extern const int arr_7_const[][3];
+
+//! Multi-dimensional array of unknown size, typedef
+extern const tripletlist arr_8_const;
+
+/*
  * Function arguments
  */
 
@@ -112,6 +140,37 @@ int fun_8(tripletlist xss);
 
 //! Typedef-in-typedef
 int isSolved(sudoku xss);
+
+/*
+ * Function arguments: const
+ */
+
+//! Array of known size
+int fun_1_const(int x, int xs[3], const int ys[3]);
+
+//! Array of known size, typedef
+int fun_2_const (triplet xs, const triplet ys);
+
+//! Array of unknown size
+int fun_3_const (int xs[], const int ys[]);
+
+//! Array of unknown size, typedef
+int fun_4_const (list xs, const list ys);
+
+//! Multi-dimensional array of known size
+int fun_5_const (int xss[4][3], const int yss[4][3]);
+
+//! Multi-dimensional array of known size, typedef
+int fun_6_const (matrix xss, const matrix yss);
+
+//! Multi-dimensional array of unknown size
+int fun_7_const (int xss[][3], const int yss[][3]);
+
+//! Multi-dimensional array of unknown size, typedef
+int fun_8_const (tripletlist xss, const tripletlist yss);
+
+//! Typedef-in-typedef
+int isSolved_const (sudoku xss, const sudoku yss);
 
 /*
  * Function results
