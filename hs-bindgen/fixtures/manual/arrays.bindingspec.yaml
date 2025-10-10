@@ -1,0 +1,27 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+types:
+- headers: manual/arrays.h
+  cname: matrix
+  module: Example
+  hsname: Matrix
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: manual/arrays.h
+  cname: triplet
+  module: Example
+  hsname: Triplet
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: manual/arrays.h
+  cname: triplet_ptrs
+  module: Example
+  hsname: Triplet_ptrs
+  instances:
+  - Eq
+  - Show
