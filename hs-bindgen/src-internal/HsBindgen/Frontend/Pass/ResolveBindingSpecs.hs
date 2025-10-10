@@ -165,7 +165,7 @@ insertOmittedType cQualName path st = st {
       stateOmitTypes = Map.insert cQualName path (stateOmitTypes st)
     }
 
-deleteDeps :: C.NsPrelimDeclId -> [C.NsPrelimDeclId] -> MState -> MState
+deleteDeps :: C.QualPrelimDeclId -> [C.QualPrelimDeclId] -> MState -> MState
 deleteDeps declId depIds st = st {
       stateUseDecl = UseDeclGraph.deleteDeps declId depIds (stateUseDecl st)
     }
@@ -220,7 +220,7 @@ resolveDeep ::
 resolveDeep decl@C.Decl{..} mCTypeSpec = do
     (depIds, decl') <- fmap reassemble <$> resolve declKind
     unless (Set.null depIds) . RWS.modify' $
-      deleteDeps (C.declOrigNsPrelimDeclId decl) (Set.toList depIds)
+      deleteDeps (C.declOrigQualPrelimDeclId decl) (Set.toList depIds)
     return decl'
   where
     reassemble :: C.DeclKind ResolveBindingSpecs -> C.Decl ResolveBindingSpecs
@@ -235,7 +235,7 @@ resolveDeep decl@C.Decl{..} mCTypeSpec = do
 -------------------------------------------------------------------------------}
 
 class Resolve a where
-  resolve :: a NameAnon -> M (Set C.NsPrelimDeclId, a ResolveBindingSpecs)
+  resolve :: a NameAnon -> M (Set C.QualPrelimDeclId, a ResolveBindingSpecs)
 
 instance Resolve C.DeclKind where
   resolve = \case
@@ -402,14 +402,14 @@ instance Resolve C.Type where
            (Id ResolveBindingSpecs -> C.Type ResolveBindingSpecs)
         -> Id NameAnon
         -> C.NameKind
-        -> M (Set C.NsPrelimDeclId, C.Type ResolveBindingSpecs)
+        -> M (Set C.QualPrelimDeclId, C.Type ResolveBindingSpecs)
       auxU mk uid = aux (const (mk uid)) . C.qualDeclId uid
 
       auxN ::
            (C.Name -> C.Type ResolveBindingSpecs)
         -> C.Name
         -> C.NameKind
-        -> M (Set C.NsPrelimDeclId, C.Type ResolveBindingSpecs)
+        -> M (Set C.QualPrelimDeclId, C.Type ResolveBindingSpecs)
       auxN mk cName cNameKind = aux mk C.QualDeclId {
           qualDeclIdName   = cName
         , qualDeclIdOrigin = C.NameOriginInSource
@@ -419,18 +419,18 @@ instance Resolve C.Type where
       aux ::
            (C.Name -> C.Type ResolveBindingSpecs)
         -> C.QualDeclId
-        -> M (Set C.NsPrelimDeclId, C.Type ResolveBindingSpecs)
+        -> M (Set C.QualPrelimDeclId, C.Type ResolveBindingSpecs)
       aux mk cQualDeclId@C.QualDeclId{..} =
         RWS.ask >>= \MEnv{..} -> RWS.get >>= \MState{..} -> do
           let cQualName = C.QualName qualDeclIdName qualDeclIdKind
-              nsid = C.qualDeclIdNsPrelimDeclId cQualDeclId
+              qualPrelimDeclId = C.qualDeclIdToQualPrelimDeclId cQualDeclId
           -- check for type omitted by binding specification
           when (Map.member cQualName stateOmitTypes) $
             RWS.modify' $
               insertError (ResolveBindingSpecsOmittedTypeUse cQualName)
           -- check for selected external binding
           case Map.lookup cQualName stateExtTypes of
-            Just ty -> return (Set.singleton nsid, ty)
+            Just ty -> return (Set.singleton qualPrelimDeclId, ty)
             Nothing -> do
               -- check for external binding of non-selected type
               case NonParsedDecls.lookup cQualName envNonParsedDecls of
@@ -442,7 +442,7 @@ instance Resolve C.Type where
                     Just resolved -> do
                       let ty = C.TypeExtBinding resolved
                       RWS.modify' $ insertExtType cQualName ty
-                      return (Set.singleton nsid, ty)
+                      return (Set.singleton qualPrelimDeclId, ty)
                     Nothing -> return (Set.empty, mk qualDeclIdName)
 
 {-------------------------------------------------------------------------------

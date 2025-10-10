@@ -783,11 +783,11 @@ detectStructImplicitFields nestedDecls outerFields =
           C.DeclUnion union   -> map Right (C.unionFields union)
           _otherwise          -> []
 
-    fieldDeps :: [C.NsPrelimDeclId]
+    fieldDeps :: [C.QualPrelimDeclId]
     fieldDeps = map snd $ concatMap (depsOfType . either C.structFieldType C.unionFieldType) allFields
 
     declIsUsed :: C.Decl Parse -> Bool
-    declIsUsed decl = C.declNsPrelimDeclId decl `elem` fieldDeps
+    declIsUsed decl = C.declQualPrelimDeclId decl `elem` fieldDeps
 
 -- | Detect implicit fields inside a union
 --
@@ -814,11 +814,11 @@ detectUnionImplicitFields nestedDecls outerFields =
           C.DeclUnion union   -> map Right (C.unionFields union)
           _otherwise          -> []
 
-    fieldDeps :: [C.NsPrelimDeclId]
+    fieldDeps :: [C.QualPrelimDeclId]
     fieldDeps = map snd $ concatMap (depsOfType . either C.structFieldType C.unionFieldType) allFields
 
     declIsUsed :: C.Decl Parse -> Bool
-    declIsUsed decl = C.declNsPrelimDeclId decl `elem` fieldDeps
+    declIsUsed decl = C.declQualPrelimDeclId decl `elem` fieldDeps
 
 data VarClassification =
     -- | The simplest case: a simple global variable

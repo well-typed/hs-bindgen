@@ -33,10 +33,10 @@ selectDecls isMainHeader isInMainHeaderDir SelectConfig{..} unitRBS =
     let matchedDecls, unmatchedDecls :: [C.Decl Select]
         (matchedDecls, unmatchedDecls) = partition matchDecl decls
 
-        selectedRoots :: [C.NsPrelimDeclId]
-        selectedRoots = map C.declOrigNsPrelimDeclId matchedDecls
+        selectedRoots :: [C.QualPrelimDeclId]
+        selectedRoots = map C.declOrigQualPrelimDeclId matchedDecls
 
-        transitiveDeps :: Set C.NsPrelimDeclId
+        transitiveDeps :: Set C.QualPrelimDeclId
         transitiveDeps = case selectConfigProgramSlicing of
           DisableProgramSlicing ->
             Set.empty
@@ -50,13 +50,13 @@ selectDecls isMainHeader isInMainHeaderDir SelectConfig{..} unitRBS =
           EnableProgramSlicing ->
             -- NOTE: Careful, we need to maintain the order of declarations so
             -- that children come before parents. 'filter' does that for us.
-            filter ((`Set.member` transitiveDeps) . C.declOrigNsPrelimDeclId) decls
+            filter ((`Set.member` transitiveDeps) . C.declOrigQualPrelimDeclId) decls
 
         parseMsgs :: [Msg Select]
         parseMsgs = getDelayedParseMsgs' selectedDecls
 
         selectMsgs :: [Msg Select]
-        unavailableTransitiveDeps :: Set C.NsPrelimDeclId
+        unavailableTransitiveDeps :: Set C.QualPrelimDeclId
         (selectMsgs, unavailableTransitiveDeps) =
           getSelectMsgs selectedRoots transitiveDeps selectedDecls unmatchedDecls
 
@@ -66,7 +66,7 @@ selectDecls isMainHeader isInMainHeaderDir SelectConfig{..} unitRBS =
             )
        else panicPure $ errorMsgWith unavailableTransitiveDeps
   where
-    errorMsgWith :: Set C.NsPrelimDeclId -> String
+    errorMsgWith :: Set C.QualPrelimDeclId -> String
     errorMsgWith xs = unlines $
         "Unavailable transitive dependencies: "
       : map (show . prettyForTrace) (Set.toList xs)
@@ -132,27 +132,27 @@ selectDecls isMainHeader isInMainHeaderDir SelectConfig{..} unitRBS =
 -------------------------------------------------------------------------------}
 
 getSelectMsgs
-  :: [C.NsPrelimDeclId]
-  -> Set C.NsPrelimDeclId
+  :: [C.QualPrelimDeclId]
+  -> Set C.QualPrelimDeclId
   -> [C.Decl Select]
   -> [C.Decl Select]
-  -> ([Msg Select], Set C.NsPrelimDeclId)
+  -> ([Msg Select], Set C.QualPrelimDeclId)
 getSelectMsgs selectedRootsIds transitiveDeps selectedDecls unmatchedDecls =
     (excludeMsgs ++ selectRootMsgs ++ selectTransMsgs, unavailableTransitiveDeps)
   where
-    unavailableTransitiveDeps :: Set C.NsPrelimDeclId
+    unavailableTransitiveDeps :: Set C.QualPrelimDeclId
     unavailableTransitiveDeps =
       transitiveDeps `Set.difference`
-        (Set.fromList $ map C.declOrigNsPrelimDeclId selectedDecls)
+        (Set.fromList $ map C.declOrigQualPrelimDeclId selectedDecls)
 
     unselectedDecls :: [C.Decl Select]
     unselectedDecls =
       filter
-        ((`Set.notMember` transitiveDeps) . C.declOrigNsPrelimDeclId)
+        ((`Set.notMember` transitiveDeps) . C.declOrigQualPrelimDeclId)
         unmatchedDecls
 
     isRoot :: C.Decl Select -> Bool
-    isRoot x = Set.member (C.declOrigNsPrelimDeclId x) (Set.fromList selectedRootsIds)
+    isRoot x = Set.member (C.declOrigQualPrelimDeclId x) (Set.fromList selectedRootsIds)
 
     -- | Strict transitive dependencies are not selection roots.
     selectedRoots, transitiveDepsStrict :: [C.Decl Select]

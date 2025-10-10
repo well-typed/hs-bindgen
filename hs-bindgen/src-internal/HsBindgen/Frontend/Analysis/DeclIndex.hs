@@ -36,7 +36,7 @@ import HsBindgen.Util.Tracer
 
 -- | Index of all declarations we have parsed
 newtype DeclIndex = Wrap {
-      unwrap :: Map C.NsPrelimDeclId (C.Decl Parse)
+      unwrap :: Map C.QualPrelimDeclId (C.Decl Parse)
     }
   deriving stock (Show)
 
@@ -46,8 +46,8 @@ newtype DeclIndex = Wrap {
 
 -- | Construction state (internal type)
 data PartialIndex = PartialIndex{
-      index  :: !(Map C.NsPrelimDeclId (C.Decl Parse))
-    , errors :: !(Map C.NsPrelimDeclId DeclIndexError)
+      index  :: !(Map C.QualPrelimDeclId (C.Decl Parse))
+    , errors :: !(Map C.QualPrelimDeclId DeclIndexError)
     }
 
 fromDecls :: [C.Decl Parse] -> (DeclIndex, [DeclIndexError])
@@ -64,21 +64,21 @@ fromDecls decls =
 
     aux :: C.Decl Parse -> State PartialIndex ()
     aux decl = modify' $ \oldState@PartialIndex{index, errors} ->
-        if Map.member nsid errors then
+        if Map.member qualPrelimDeclId errors then
           -- Ignore further definitions of the same ID after an error
           oldState
         else
           let (index', mErr) = flip runState Nothing $
-                 Map.alterF (insert decl) nsid index
+                 Map.alterF (insert decl) qualPrelimDeclId index
           in PartialIndex{
               index  = index'
             , errors = case mErr of
                          Nothing -> errors
-                         Just e  -> Map.insert nsid e errors
+                         Just e  -> Map.insert qualPrelimDeclId e errors
             }
      where
-       nsid :: C.NsPrelimDeclId
-       nsid = C.declNsPrelimDeclId decl
+       qualPrelimDeclId :: C.QualPrelimDeclId
+       qualPrelimDeclId = C.declQualPrelimDeclId decl
 
     insert ::
          C.Decl Parse
@@ -113,7 +113,7 @@ fromDecls decls =
                 --
                 -- See issue #1155.
                 failure $ Redeclaration{
-                    redeclarationId  = C.declNsPrelimDeclId new
+                    redeclarationId  = C.declQualPrelimDeclId new
                   , redeclarationOld = C.declLoc $ C.declInfo old
                   , redeclarationNew = C.declLoc $ C.declInfo new
                   }
@@ -144,7 +144,7 @@ sameMacro = (==) `on` (map tokenSpelling . unparsedTokens)
 
 data DeclIndexError =
     Redeclaration {
-        redeclarationId  :: C.NsPrelimDeclId
+        redeclarationId  :: C.QualPrelimDeclId
       , redeclarationOld :: SingleLoc
       , redeclarationNew :: SingleLoc
       }
@@ -172,10 +172,10 @@ instance IsTrace Level DeclIndexError where
   Query
 -------------------------------------------------------------------------------}
 
-lookup :: C.NsPrelimDeclId -> DeclIndex -> Maybe (C.Decl Parse)
-lookup nsid = Map.lookup nsid . unwrap
+lookup :: C.QualPrelimDeclId -> DeclIndex -> Maybe (C.Decl Parse)
+lookup qualPrelimDeclId = Map.lookup qualPrelimDeclId . unwrap
 
-(!) :: HasCallStack => DeclIndex -> C.NsPrelimDeclId -> C.Decl Parse
+(!) :: HasCallStack => DeclIndex -> C.QualPrelimDeclId -> C.Decl Parse
 (!) declIndex nsid =
     fromMaybe (panicPure $ "Unknown key: " ++ show nsid) $
        lookup nsid declIndex

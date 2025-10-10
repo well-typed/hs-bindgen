@@ -43,7 +43,7 @@ import HsBindgen.Imports
 --
 -- This graph has edges from def sites to use sites.
 newtype DeclUseGraph = Wrap {
-      unwrap :: DynGraph Usage C.NsPrelimDeclId
+      unwrap :: DynGraph Usage C.QualPrelimDeclId
     }
   deriving stock (Show, Eq)
 
@@ -67,7 +67,7 @@ data UseOfDecl =
 findNamedUseOf ::
      DeclIndex
   -> DeclUseGraph
-  -> C.NsPrelimDeclId
+  -> C.QualPrelimDeclId
   -> Maybe UseOfDecl
 findNamedUseOf declIndex (Wrap graph) =
       flip evalState id
@@ -79,7 +79,7 @@ findNamedUseOf declIndex (Wrap graph) =
          [(C.Decl Parse, Usage)] -- ^ Direct use sites
       -> State
            (UseOfDecl -> UseOfDecl)
-           (Either C.NsPrelimDeclId (Maybe UseOfDecl))
+           (Either C.QualPrelimDeclId (Maybe UseOfDecl))
     aux [(d, u)] = do
         let uid = C.declId (C.declInfo d)
             mName =
@@ -93,8 +93,8 @@ findNamedUseOf declIndex (Wrap graph) =
             return $ Right . Just $ f (UsedByNamed u name)
           Nothing -> do
             modify (. usedByAnon d u)
-            return . Left . C.nsPrelimDeclId uid $
-              C.nameKindTypeNamespace (C.declKindNameKind (C.declKind d))
+            return . Left . C.qualPrelimDeclId uid $
+              (C.declKindNameKind (C.declKind d))
     aux [] =
         return $ Right Nothing
     aux (_:_:_) =
@@ -111,14 +111,14 @@ findNamedUseOf declIndex (Wrap graph) =
   Simple queries
 -------------------------------------------------------------------------------}
 
-getUseSites :: DeclUseGraph -> C.NsPrelimDeclId -> [(C.NsPrelimDeclId, Usage)]
+getUseSites :: DeclUseGraph -> C.QualPrelimDeclId -> [(C.QualPrelimDeclId, Usage)]
 getUseSites (Wrap graph) = Set.toList . DynGraph.neighbors graph
 
-findAliasesOf :: DeclUseGraph -> C.NsPrelimDeclId -> [C.Name]
+findAliasesOf :: DeclUseGraph -> C.QualPrelimDeclId -> [C.Name]
 findAliasesOf graph =
     mapMaybe (uncurry aux) . getUseSites graph
   where
-    aux :: C.NsPrelimDeclId -> Usage -> Maybe C.Name
-    aux (C.NsPrelimDeclIdNamed cname _) (UsedInTypedef UseDeclGraph.ByValue) =
+    aux :: C.QualPrelimDeclId -> Usage -> Maybe C.Name
+    aux (C.QualPrelimDeclIdNamed cname _) (UsedInTypedef UseDeclGraph.ByValue) =
       Just cname
     aux _ _ = Nothing
