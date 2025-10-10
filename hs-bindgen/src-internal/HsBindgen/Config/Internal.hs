@@ -13,7 +13,6 @@ module HsBindgen.Config.Internal
 
 import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.Backend.Hs.Translation
-import HsBindgen.Backend.HsModule.Translation
 import HsBindgen.Backend.UniqueId
 import HsBindgen.BindingSpec
 import HsBindgen.Config.ClangArgs
@@ -78,7 +77,6 @@ data FrontendConfig = FrontendConfig {
 -- See also the notes at 'FrontendConfig'.
 data BackendConfig = BackendConfig {
       backendTranslationOpts :: TranslationOpts
-    , backendHsModuleOpts    :: HsModuleOpts
     , backendHaddockConfig   :: HaddockConfig
     }
   deriving stock (Show, Eq, Generic)

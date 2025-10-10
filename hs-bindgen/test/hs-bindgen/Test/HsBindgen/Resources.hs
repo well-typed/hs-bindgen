@@ -24,7 +24,6 @@ import Clang.Args
 
 import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.Backend.Hs.Translation
-import HsBindgen.Backend.HsModule.Translation
 import HsBindgen.Backend.UniqueId
 import HsBindgen.Config.ClangArgs
 import HsBindgen.Config.Internal
@@ -112,9 +111,6 @@ getTestDefaultBackendConfig :: TestName -> PathStyle -> BackendConfig
 getTestDefaultBackendConfig testName pathStyle = def{
       backendTranslationOpts = def {
         translationUniqueId = UniqueId $ "test." ++ testName
-      }
-    , backendHsModuleOpts = HsModuleOpts{
-        hsModuleOptsBaseName  = "Example"
       }
     , backendHaddockConfig = HaddockConfig pathStyle
     }

@@ -14,6 +14,8 @@ module HsBindgen.App (
   , parseConfigPP
     -- ** Clang arguments
   , parseClangArgsConfig
+    -- ** Module option
+  , parseHsModuleName
     -- ** Output options
   , parseHsOutputDir
   , parseGenBindingSpec
@@ -159,9 +161,7 @@ parseConfig = Config
     <*> parsePathStyle
 
 parseConfigPP :: Parser ConfigPP
-parseConfigPP = ConfigPP
-    <$> optional parseUniqueId
-    <*> parseHsModuleName
+parseConfigPP = ConfigPP <$> optional parseUniqueId
 
 {-------------------------------------------------------------------------------
   Binding specifications
@@ -476,7 +476,7 @@ parseUniqueId = fmap UniqueId . strOption $ mconcat [
     ]
 
 {-------------------------------------------------------------------------------
-  Pretty printer options
+  Module option
 -------------------------------------------------------------------------------}
 
 parseHsModuleName :: Parser Hs.ModuleName
@@ -484,7 +484,7 @@ parseHsModuleName = strOption $ mconcat [
       long "module"
     , metavar "NAME"
     , showDefault
-    , value $ hsModuleOptsBaseName def
+    , value defModuleName
     , help "Base name of the generated Haskell modules"
     ]
 
