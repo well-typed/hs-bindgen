@@ -150,7 +150,27 @@ generateDeclarations' ::
   -> [WithCategory Hs.Decl]
 generateDeclarations' opts haddockConfig moduleName decs =
     flip State.evalState Map.empty $
-      concat <$> mapM (generateDecs opts haddockConfig moduleName) decs
+      concat <$> mapM (generateDecs opts haddockConfig moduleName isDefinedInCurrentModule) decs
+  where
+    -- | Check if a type is defined in the current module
+    isDefinedInCurrentModule :: C.Type -> Bool
+    isDefinedInCurrentModule ty = case ty of
+      C.TypeStruct namePair _   -> namePairInDecs namePair
+      C.TypeUnion namePair _    -> namePairInDecs namePair
+      C.TypeEnum namePair _     -> namePairInDecs namePair
+      C.TypeTypedef ref         -> typedefRefInDecs ref
+      C.TypePointer t           -> isDefinedInCurrentModule t
+      _                         -> False
+
+    namePairInDecs :: C.NamePair -> Bool
+    namePairInDecs np = any (declDefinesNamePair np) decs
+
+    typedefRefInDecs :: C.TypedefRef -> Bool
+    typedefRefInDecs (C.TypedefRegular np _) = namePairInDecs np
+    typedefRefInDecs (C.TypedefSquashed _ _) = True -- Squashed typedefs are always local
+
+    declDefinesNamePair :: C.NamePair -> C.Decl -> Bool
+    declDefinesNamePair np (C.Decl info _ _) = C.declId info == np
 
 {-------------------------------------------------------------------------------
   Instance Map
@@ -322,9 +342,10 @@ generateDecs ::
   => TranslationOpts
   -> HaddockConfig
   -> Hs.ModuleName
+  -> (C.Type -> Bool) -- ^ Check if type is defined in current module
   -> C.Decl
   -> m [WithCategory Hs.Decl]
-generateDecs opts haddockConfig moduleName (C.Decl info kind spec) =
+generateDecs opts haddockConfig moduleName isDefinedInCurrentModule (C.Decl info kind spec) =
     case kind of
       C.DeclStruct struct -> withCategoryM BType $
         reifyStructFields struct $ structDecs opts haddockConfig info struct spec
@@ -344,9 +365,14 @@ generateDecs opts haddockConfig moduleName (C.Decl info kind spec) =
             -- functions that take a function pointer of the appropriate type.
             funPtrDecls = fst $
               addressStubDecs opts haddockConfig moduleName info funType spec
+            -- Generate ToFunPtr/FromFunPtr instances for nested callback types
+            -- These go in the main module to avoid orphan instances
+            fFIStubsAndFunPtrInstances =
+              functionTypeFFIStubsAndFunPtrInstances isDefinedInCurrentModule f
         in  pure $ withCategory BSafe   (funDeclsWith SHs.Safe)
                 ++ withCategory BUnsafe (funDeclsWith SHs.Unsafe)
                 ++ withCategory BFunPtr  funPtrDecls
+                ++ withCategory BType    fFIStubsAndFunPtrInstances
       C.DeclMacro macro -> withCategoryM BType $
         macroDecs opts haddockConfig info macro spec
       C.DeclGlobal ty ->
@@ -877,12 +903,6 @@ typedefDecs opts haddockConfig info typedef spec = do
             C.TypeBlock {}           -> False
             C.TypeExtBinding {}      -> False
 
-        wrapperParam hsType = Hs.FunctionParameter
-          { functionParameterName    = Nothing
-          , functionParameterType    = hsType
-          , functionParameterComment = Nothing
-          }
-
     -- everything in aux is state-dependent
     aux :: InstanceMap -> (Set Hs.TypeClass, [Hs.Decl])
     aux instanceMap = (insts,) $
@@ -1330,6 +1350,21 @@ hsWrapperDeclFunction hiName loName res wrappedArgs wrapperParams cFunc mbCommen
 shsApps :: SHs.SExpr ctx -> [SHs.SExpr ctx] -> SHs.SExpr ctx
 shsApps = foldl' SHs.EApp
 
+wrapperParam :: HsType -> Hs.FunctionParameter
+wrapperParam hsType = Hs.FunctionParameter
+  { functionParameterName    = Nothing
+  , functionParameterType    = hsType
+  , functionParameterComment = Nothing
+  }
+-- | Generate a unique name for FFI stubs based on function signature
+genNameFromArgs :: [C.Type] -> C.Type -> String -> Hs.Name 'Hs.NsVar
+genNameFromArgs args' res' suffix =
+  Hs.Name $ T.pack $ "funPtr_" ++ typeHash args' res' ++ "_" ++ suffix
+  where
+    typeHash :: [C.Type] -> C.Type -> String
+    typeHash args res = B.unpack $ B.take 8 $ B16.encode $
+      hash $ B.pack $ show (args, res)
+
 functionDecs ::
      HasCallStack
   => SHs.Safety
@@ -1478,6 +1513,75 @@ functionDecs safety opts haddockConfig moduleName info f _spec =
     wrapperName :: String
     wrapperName = unUniqueSymbolId $
       getUniqueSymbolId (translationUniqueId opts) moduleName (Just safety) innerName
+
+-- | Generate ToFunPtr/FromFunPtr instances for nested function pointer types
+--
+-- This function analyses the function declaration arguments and return types,
+-- and for each function pointer argument/return type containing at least one
+-- non-orphan type, generates the FFI wrapper and dynamic stubs along with
+-- the respective ToFunPtr and FromFunPtr instances.
+--
+-- These instances are placed in the main module to avoid orphan instances.
+functionTypeFFIStubsAndFunPtrInstances ::
+     (C.Type -> Bool) -- ^ Check if type is defined in current module
+  -> C.Function
+  -> [Hs.Decl]
+functionTypeFFIStubsAndFunPtrInstances isDefinedInCurrentModule f = concat
+  [ [ Hs.DeclForeignImport Hs.ForeignImportDecl
+      { foreignImportName       = ffiStubTo
+      , foreignImportResultType = NormalResultType $ HsIO $ tfHsType
+      , foreignImportParameters = [wrapperParam ftHsType]
+      , foreignImportOrigName   = "wrapper"
+      , foreignImportCallConv   = CallConvGhcCCall ImportAsValue
+      , foreignImportOrigin     = Origin.ToFunPtr tf
+      , foreignImportComment    = Nothing
+      , foreignImportSafety     = SHs.Safe
+      }
+    , Hs.DeclForeignImport Hs.ForeignImportDecl
+      { foreignImportName       = ffiStubFrom
+      , foreignImportResultType = NormalResultType ftHsType
+      , foreignImportParameters = [wrapperParam tfHsType]
+      , foreignImportOrigName   = "dynamic"
+      , foreignImportCallConv   = CallConvGhcCCall ImportAsValue
+      , foreignImportOrigin     = Origin.FromFunPtr tf
+      , foreignImportComment    = Nothing
+      , foreignImportSafety     = SHs.Safe
+      }
+    , Hs.DeclDefineInstance $ Hs.DefineInstance
+      { defineInstanceDeclarations = Hs.InstanceToFunPtr
+        Hs.ToFunPtrInstance
+        { toFunPtrInstanceType = ftHsType
+        , toFunPtrInstanceBody = ffiStubTo
+        }
+      , defineInstanceComment = Nothing
+      }
+    , Hs.DeclDefineInstance $ Hs.DefineInstance
+      { defineInstanceDeclarations = Hs.InstanceFromFunPtr
+        Hs.FromFunPtrInstance
+        { fromFunPtrInstanceType = ftHsType
+        , fromFunPtrInstanceBody = ffiStubFrom
+        }
+      , defineInstanceComment = Nothing
+      }
+    ]
+  | tf@(C.TypePointer ft@(C.TypeFun args' res')) <- C.functionRes f : (map snd (C.functionArgs f))
+  , argsType <- res' : args'
+    -- Only select function types which arguments contain at least
+    -- one custom non-orphan types or pointers to these.
+  , case argsType of
+      C.TypeStruct _ _                   -> isDefinedInCurrentModule argsType
+      C.TypeEnum _ _                     -> isDefinedInCurrentModule argsType
+      C.TypeUnion _ _                    -> isDefinedInCurrentModule argsType
+      C.TypePointer t@(C.TypeStruct _ _) -> isDefinedInCurrentModule t
+      C.TypePointer t@(C.TypeEnum _ _  ) -> isDefinedInCurrentModule t
+      C.TypePointer t@(C.TypeUnion _ _ ) -> isDefinedInCurrentModule t
+      C.TypePointer t@(C.TypeTypedef _ ) -> isDefinedInCurrentModule t
+      _                                  -> False
+  , let tfHsType    = typ tf
+        ftHsType    = typ ft
+        ffiStubTo   = genNameFromArgs args' res' "to"
+        ffiStubFrom = genNameFromArgs args' res' "from"
+  ]
 
 getMainHashIncludeArg :: HasCallStack => C.DeclInfo -> HashIncludeArg
 getMainHashIncludeArg declInfo = case C.declHeaderInfo declInfo of
