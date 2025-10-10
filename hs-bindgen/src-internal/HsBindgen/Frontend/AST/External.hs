@@ -287,7 +287,10 @@ data TypeF tag =
   | TypeStruct Int.NamePair C.NameOrigin
   | TypeUnion Int.NamePair C.NameOrigin
   | TypeEnum Int.NamePair C.NameOrigin
-  | TypeTypedef (TypedefRefF tag)
+  | TypeTypedef
+    -- | NOTE: has a strictness annotation, which allows GHC to infer that
+    -- pattern matches are redundant when @TypedefRefF tag ~ Void@.
+    !(TypedefRefF tag)
     -- TODO: macros should get annotations with underlying types just like
     -- typedefs, so that we can erase the macro types and replace them with
     -- their underlying type. See issue #1200.
@@ -296,24 +299,13 @@ data TypeF tag =
   | TypeConstArray Natural (TypeF tag)
   | TypeFun [TypeF tag] (TypeF tag)
   | TypeVoid
-
-    -- | Arrays of unknown size
-    --
-    -- Arrays normally have a known size, but not always:
-    --
-    -- * Arrays of unknown size are allowed as function arguments; such arrays
-    --   are interpreted as pointers.
-    -- * Arrays of unknown size may be declared for externs; this is considered
-    --   an incomplete type.
-    -- * Structs may contain an array of undefined size as their last field,
-    --   known as a "flexible array member" (FLAM).
-    --
-    -- We treat the FLAM case separately.
-    --
-    -- See <https://en.cppreference.com/w/c/language/array#Arrays_of_unknown_size>
   | TypeIncompleteArray (TypeF tag)
   | TypeBlock (TypeF tag)
-  | TypeQualified (TypeQualifierF tag) (TypeF tag)
+  | TypeQualified
+      -- | NOTE: has a strictness annotation, which allows GHC to infer that
+      -- pattern matches are redundant when @TypeQualifierF tag ~ Void@.
+      !(TypeQualifierF tag)
+      (TypeF tag)
   | TypeExtBinding ResolveBindingSpecs.ResolvedExtBinding
   | TypeComplex C.PrimType
   deriving stock Generic
@@ -405,24 +397,10 @@ instance GetErasedType  ErasedType where
   getErasedType = id
 
 instance GetErasedType Type where
-  getErasedType = go
+  getErasedType = mapTypeF fRef fQual
     where
-      go ty = case ty of
-        TypePrim pt -> TypePrim pt
-        TypeStruct np no -> TypeStruct np no
-        TypeUnion np no -> TypeUnion np no
-        TypeEnum np no -> TypeEnum np no
-        TypeTypedef ref -> go (eraseTypedef ref)
-        TypeMacroTypedef np no -> TypeMacroTypedef np no
-        TypePointer t -> TypePointer $ go t
-        TypeConstArray n t -> TypeConstArray n $ go t
-        TypeFun args res -> TypeFun (go <$> args) (go res)
-        TypeVoid -> TypeVoid
-        TypeIncompleteArray t -> TypeIncompleteArray (go t)
-        TypeBlock t -> TypeBlock (go t)
-        TypeQualified q t -> TypeQualified q (go t)
-        TypeExtBinding reb -> TypeExtBinding reb
-        TypeComplex pt -> TypeComplex pt
+      fRef = getErasedType . eraseTypedef
+      fQual q t = TypeQualified q (getErasedType t)
 
 -- | Note: canonicalise types.
 --
@@ -437,24 +415,10 @@ instance GetCanonicalType CanonicalType where
   getCanonicalType = id
 
 instance GetCanonicalType Type where
-  getCanonicalType = go
+  getCanonicalType = mapTypeF fRef fQual
     where
-      go ty = case ty of
-        TypePrim pt -> TypePrim pt
-        TypeStruct np no -> TypeStruct np no
-        TypeUnion np no -> TypeUnion np no
-        TypeEnum np no -> TypeEnum np no
-        TypeTypedef ref -> go (eraseTypedef ref)
-        TypeMacroTypedef np no -> TypeMacroTypedef np no
-        TypePointer t -> TypePointer $ go t
-        TypeConstArray n t -> TypeConstArray n $ go t
-        TypeFun args res -> TypeFun (go <$> args) (go res)
-        TypeVoid -> TypeVoid
-        TypeIncompleteArray t -> TypeIncompleteArray (go t)
-        TypeBlock t -> TypeBlock (go t)
-        TypeQualified _q t -> go t
-        TypeExtBinding reb -> TypeExtBinding reb
-        TypeComplex pt -> TypeComplex pt
+      fRef = getCanonicalType . eraseTypedef
+      fQual _ t = getCanonicalType t
 
 -- | Erase one layer of a typedef, replacing it by its underlying type.
 --
@@ -464,3 +428,32 @@ eraseTypedef :: TypedefRef -> Type
 eraseTypedef = \case
       TypedefRegular _ t' -> t'
       TypedefSquashed _ t' -> t'
+
+-- | Map 'TypeF's from one tag to another
+mapTypeF ::
+     forall tag tag'.
+     -- | What to do when encountering a typedef reference.
+     (TypedefRefF tag -> TypeF tag')
+     -- | What to do when encountering a type qualifier.
+  -> (TypeQualifierF tag -> TypeF tag -> TypeF tag')
+  -> TypeF tag
+  -> TypeF tag'
+mapTypeF fRef fQual = go
+  where
+    go :: TypeF tag -> TypeF tag'
+    go ty = case ty of
+      TypePrim pt -> TypePrim pt
+      TypeStruct np no -> TypeStruct np no
+      TypeUnion np no -> TypeUnion np no
+      TypeEnum np no -> TypeEnum np no
+      TypeTypedef ref -> fRef ref
+      TypeMacroTypedef np no -> TypeMacroTypedef np no
+      TypePointer t -> TypePointer $ go t
+      TypeConstArray n t -> TypeConstArray n $ go t
+      TypeFun args res -> TypeFun (go <$> args) (go res)
+      TypeVoid -> TypeVoid
+      TypeIncompleteArray t -> TypeIncompleteArray (go t)
+      TypeBlock t -> TypeBlock (go t)
+      TypeQualified q t -> fQual q t
+      TypeExtBinding reb -> TypeExtBinding reb
+      TypeComplex pt -> TypeComplex pt
