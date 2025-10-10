@@ -39,6 +39,7 @@ import HsBindgen.Runtime.CEnum (AsCEnum (..), AsSequentialCEnum (..))
 import HsBindgen.Runtime.ConstantArray qualified as CA
 import HsBindgen.Runtime.FlexibleArrayMember qualified as FLAM
 import HsBindgen.Runtime.IncompleteArray qualified as IA
+import HsBindgen.Runtime.FunPtr
 
 import Manual.Tools
 
@@ -56,7 +57,6 @@ import Structs
 
 import Callbacks
 import Callbacks.Safe
-import HsBindgen.Runtime.FunPtr
 
 {-------------------------------------------------------------------------------
   Simple struct
@@ -340,32 +340,32 @@ main = do
       subsection "Implicit function to pointer conversion"
       do
         -- function pointer type in function parameter
-        print =<< FunPtr.apply1_pointer_arg FunPtr.square_ptr 4
-        print =<< FunPtr.apply1_pointer_arg FunPtr.square_ptr 5
-        print =<< FunPtr.apply1_pointer_arg FunPtr.square_ptr 6
+        print =<< FunPtr.apply1_pointer_arg (F.castFunPtr FunPtr.square_ptr) 4
+        print =<< FunPtr.apply1_pointer_arg (F.castFunPtr FunPtr.square_ptr) 5
+        print =<< FunPtr.apply1_pointer_arg (F.castFunPtr FunPtr.square_ptr) 6
 
         -- function type in function parameter
-        print =<< FunPtr.apply1_nopointer_arg FunPtr.square_ptr 4
-        print =<< FunPtr.apply1_nopointer_arg FunPtr.square_ptr 5
-        print =<< FunPtr.apply1_nopointer_arg FunPtr.square_ptr 6
+        print =<< FunPtr.apply1_nopointer_arg (F.castFunPtr FunPtr.square_ptr) 4
+        print =<< FunPtr.apply1_nopointer_arg (F.castFunPtr FunPtr.square_ptr) 5
+        print =<< FunPtr.apply1_nopointer_arg (F.castFunPtr FunPtr.square_ptr) 6
 
         subsubsection "Parameters of function type can occur almost anywhere!"
         do -- function type in function result
           apply1FunPtr <- FunPtr.apply1_nopointer_res
-          let apply1Fun = mkApply1Fun apply1FunPtr
-          print =<< apply1Fun FunPtr.square_ptr 4
+          let apply1Fun = fromFunPtr apply1FunPtr
+          print =<< apply1Fun (F.castFunPtr FunPtr.square_ptr) 4
         do -- function type in global
           let apply1FunPtr = FunPtr.apply1_nopointer_var
-              apply1Fun = mkApply1Fun apply1FunPtr
-          print =<< apply1Fun FunPtr.square_ptr 5
+              apply1Fun = fromFunPtr apply1FunPtr
+          print =<< apply1Fun (F.castFunPtr FunPtr.square_ptr) 5
         do -- function type in struct field
           let apply1FunPtr = FunPtr.apply1Struct_apply1_nopointer_struct_field FunPtr.apply1_struct
-              apply1Fun = mkApply1Fun apply1FunPtr
-          print =<< apply1Fun FunPtr.square_ptr 6
+              apply1Fun = fromFunPtr apply1FunPtr
+          print =<< apply1Fun (F.castFunPtr FunPtr.square_ptr) 6
         do -- function type in union field
           let apply1FunPtr = FunPtr.get_apply1Union_apply1_nopointer_union_field FunPtr.apply1_union
-              apply1Fun = mkApply1Fun apply1FunPtr
-          print =<< apply1Fun FunPtr.square_ptr 7
+              apply1Fun = fromFunPtr apply1FunPtr
+          print =<< apply1Fun (F.castFunPtr FunPtr.square_ptr) 7
 
 --------------------------------------------------------------------------------
     section "Complex types"
@@ -583,7 +583,10 @@ transposeMatrix inputMatrix =
 -------------------------------------------------------------------------------}
 
 foreign import ccall "dynamic" mkApply1Fun ::
-     F.FunPtr ((F.FunPtr (FC.CInt -> IO FC.CInt)) -> FC.CInt -> IO FC.CInt)
-  -> F.FunPtr (FC.CInt -> IO FC.CInt)
+     F.FunPtr (F.FunPtr FunPtr.Int2int -> FC.CInt -> IO FC.CInt)
+  -> F.FunPtr FunPtr.Int2int
   -> FC.CInt
   -> IO FC.CInt
+
+instance FromFunPtr (F.FunPtr FunPtr.Int2int -> FC.CInt -> IO FC.CInt) where
+  fromFunPtr = mkApply1Fun

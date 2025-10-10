@@ -15,25 +15,52 @@ import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.ByteArray
+import qualified HsBindgen.Runtime.FunPtr
 import qualified HsBindgen.Runtime.Prelude
 import qualified HsBindgen.Runtime.SizedByteArray
 import Prelude ((<*>), Eq, IO, Int, Show, pure)
 
-$(HsBindgen.Runtime.Prelude.addCSource "#include <manual/function_pointers.h>\nsigned int hs_bindgen_test_manualfunction_pointers_55e5eb89e54abf83 (signed int arg1) { return square(arg1); }\nsigned int hs_bindgen_test_manualfunction_pointers_680daf766a044980 (signed int arg1, signed int arg2) { return plus(arg1, arg2); }\nsigned int hs_bindgen_test_manualfunction_pointers_abcb860034253564 (signed int (*arg1) (signed int arg1), signed int arg2) { return apply1(arg1, arg2); }\nsigned int hs_bindgen_test_manualfunction_pointers_1ad13c166a710f40 (signed int (*arg1) (signed int arg1, signed int arg2), signed int arg2, signed int arg3) { return apply2(arg1, arg2, arg3); }\nsigned int hs_bindgen_test_manualfunction_pointers_a8ef4d9e6ce68f54 (signed int (*arg1) (signed int arg1), signed int arg2) { return apply1_pointer_arg(arg1, arg2); }\nsigned int hs_bindgen_test_manualfunction_pointers_7dc4caa1f7f0caf0 (signed int (*arg1) (signed int arg1), signed int arg2) { return apply1_nopointer_arg(arg1, arg2); }\nsigned int (*const hs_bindgen_test_manualfunction_pointers_3612aa0d10e36d5b (void)) (signed int (*arg1) (signed int arg1), signed int arg2) { return apply1_nopointer_res(); }\n/* get_square_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_manualfunction_pointers_c41111f40a04cdc9 (void)) (signed int arg1) { return &square; } \n/* get_plus_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_manualfunction_pointers_bf838c747898dc42 (void)) (signed int arg1, signed int arg2) { return &plus; } \n/* get_apply1_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_manualfunction_pointers_4d1935e01bc37070 (void)) (signed int (*arg1) (signed int arg1), signed int arg2) { return &apply1; } \n/* get_apply2_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_manualfunction_pointers_40cb8952bacd236a (void)) (signed int (*arg1) (signed int arg1, signed int arg2), signed int arg2, signed int arg3) { return &apply2; } \n/* get_apply1_pointer_arg_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_manualfunction_pointers_653c5bde7704c3ca (void)) (signed int (*arg1) (signed int arg1), signed int arg2) { return &apply1_pointer_arg; } \n/* get_apply1_nopointer_arg_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_manualfunction_pointers_3bb9417cd7afec81 (void)) (signed int (*arg1) (signed int arg1), signed int arg2) { return &apply1_nopointer_arg; } \n/* get_apply1_nopointer_res_ptr */ __attribute__ ((const)) signed int (*const (*hs_bindgen_test_manualfunction_pointers_f7a08d090f6f7b0f (void)) (void)) (signed int (*arg1) (signed int arg1), signed int arg2) { return &apply1_nopointer_res; } \n/* get_apply1_nopointer_var_ptr */ __attribute__ ((const)) signed int (*const *hs_bindgen_test_manualfunction_pointers_c4bb317da29227a6 (void)) (signed int (*arg1) (signed int arg1), signed int arg2) { return &apply1_nopointer_var; } \n/* get_apply1_struct_ptr */ __attribute__ ((const)) struct Apply1Struct const *hs_bindgen_test_manualfunction_pointers_6799ff6bc99dff2a (void) { return &apply1_struct; } \n/* get_apply1_union_ptr */ __attribute__ ((const)) union Apply1Union const *hs_bindgen_test_manualfunction_pointers_d32b4879673188b6 (void) { return &apply1_union; } \n")
+$(HsBindgen.Runtime.Prelude.addCSource "#include <manual/function_pointers.h>\nsigned int hs_bindgen_test_manualfunction_pointers_55e5eb89e54abf83 (signed int arg1) { return square(arg1); }\nsigned int hs_bindgen_test_manualfunction_pointers_680daf766a044980 (signed int arg1, signed int arg2) { return plus(arg1, arg2); }\nsigned int hs_bindgen_test_manualfunction_pointers_abcb860034253564 (signed int (*arg1) (signed int arg1), signed int arg2) { return apply1(arg1, arg2); }\nsigned int hs_bindgen_test_manualfunction_pointers_1ad13c166a710f40 (signed int (*arg1) (signed int arg1, signed int arg2), signed int arg2, signed int arg3) { return apply2(arg1, arg2, arg3); }\nsigned int hs_bindgen_test_manualfunction_pointers_a8ef4d9e6ce68f54 (int2int *arg1, signed int arg2) { return apply1_pointer_arg(arg1, arg2); }\nsigned int hs_bindgen_test_manualfunction_pointers_7dc4caa1f7f0caf0 (int2int *arg1, signed int arg2) { return apply1_nopointer_arg(arg1, arg2); }\nsigned int (*const hs_bindgen_test_manualfunction_pointers_3612aa0d10e36d5b (void)) (int2int *arg1, signed int arg2) { return apply1_nopointer_res(); }\n/* get_square_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_manualfunction_pointers_c41111f40a04cdc9 (void)) (signed int arg1) { return &square; } \n/* get_plus_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_manualfunction_pointers_bf838c747898dc42 (void)) (signed int arg1, signed int arg2) { return &plus; } \n/* get_apply1_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_manualfunction_pointers_4d1935e01bc37070 (void)) (signed int (*arg1) (signed int arg1), signed int arg2) { return &apply1; } \n/* get_apply2_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_manualfunction_pointers_40cb8952bacd236a (void)) (signed int (*arg1) (signed int arg1, signed int arg2), signed int arg2, signed int arg3) { return &apply2; } \n/* get_apply1_pointer_arg_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_manualfunction_pointers_653c5bde7704c3ca (void)) (int2int *arg1, signed int arg2) { return &apply1_pointer_arg; } \n/* get_apply1_nopointer_arg_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_manualfunction_pointers_3bb9417cd7afec81 (void)) (int2int *arg1, signed int arg2) { return &apply1_nopointer_arg; } \n/* get_apply1_nopointer_res_ptr */ __attribute__ ((const)) signed int (*const (*hs_bindgen_test_manualfunction_pointers_f7a08d090f6f7b0f (void)) (void)) (int2int *arg1, signed int arg2) { return &apply1_nopointer_res; } \n/* get_apply1_nopointer_var_ptr */ __attribute__ ((const)) signed int (*const *hs_bindgen_test_manualfunction_pointers_c4bb317da29227a6 (void)) (int2int *arg1, signed int arg2) { return &apply1_nopointer_var; } \n/* get_apply1_struct_ptr */ __attribute__ ((const)) struct Apply1Struct const *hs_bindgen_test_manualfunction_pointers_6799ff6bc99dff2a (void) { return &apply1_struct; } \n/* get_apply1_union_ptr */ __attribute__ ((const)) union Apply1Union const *hs_bindgen_test_manualfunction_pointers_d32b4879673188b6 (void) { return &apply1_union; } \n")
+
+{-| __C declaration:__ @int2int@
+
+    __defined at:__ @manual\/function_pointers.h:19:13@
+
+    __exported by:__ @manual\/function_pointers.h@
+-}
+newtype Int2int = Int2int
+  { un_Int2int :: FC.CInt -> IO FC.CInt
+  }
+
+foreign import ccall safe "wrapper" toInt2int
+  :: Int2int
+  -> IO (Ptr.FunPtr Int2int)
+
+foreign import ccall safe "dynamic" fromInt2int
+  :: Ptr.FunPtr Int2int
+  -> Int2int
+
+instance HsBindgen.Runtime.FunPtr.ToFunPtr Int2int where
+
+  toFunPtr = toInt2int
+
+instance HsBindgen.Runtime.FunPtr.FromFunPtr Int2int where
+
+  fromFunPtr = fromInt2int
 
 {-| A struct field pointing to a function like apply1_nopointer().
 
 __C declaration:__ @Apply1Struct@
 
-__defined at:__ @manual\/function_pointers.h:35:8@
+__defined at:__ @manual\/function_pointers.h:37:8@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
 data Apply1Struct = Apply1Struct
-  { apply1Struct_apply1_nopointer_struct_field :: Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> FC.CInt -> IO FC.CInt)
+  { apply1Struct_apply1_nopointer_struct_field :: Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)
     {- ^ __C declaration:__ @apply1_nopointer_struct_field@
 
-         __defined at:__ @manual\/function_pointers.h:36:16@
+         __defined at:__ @manual\/function_pointers.h:38:16@
 
          __exported by:__ @manual\/function_pointers.h@
     -}
@@ -62,7 +89,7 @@ instance F.Storable Apply1Struct where
 
 __C declaration:__ @Apply1Union@
 
-__defined at:__ @manual\/function_pointers.h:41:7@
+__defined at:__ @manual\/function_pointers.h:43:7@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
@@ -78,11 +105,11 @@ deriving via (HsBindgen.Runtime.SizedByteArray.SizedByteArray 8) 8 instance F.St
 
 __C declaration:__ @apply1_nopointer_union_field@
 
-__defined at:__ @manual\/function_pointers.h:42:16@
+__defined at:__ @manual\/function_pointers.h:44:16@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
-get_apply1Union_apply1_nopointer_union_field :: Apply1Union -> Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> FC.CInt -> IO FC.CInt)
+get_apply1Union_apply1_nopointer_union_field :: Apply1Union -> Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)
 get_apply1Union_apply1_nopointer_union_field =
   HsBindgen.Runtime.ByteArray.getUnionPayload
 
@@ -91,7 +118,7 @@ get_apply1Union_apply1_nopointer_union_field =
   __See:__ 'get_apply1Union_apply1_nopointer_union_field'
 
 -}
-set_apply1Union_apply1_nopointer_union_field :: (Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> FC.CInt -> IO FC.CInt)) -> Apply1Union
+set_apply1Union_apply1_nopointer_union_field :: (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)) -> Apply1Union
 set_apply1Union_apply1_nopointer_union_field =
   HsBindgen.Runtime.ByteArray.setUnionPayload
 
@@ -153,12 +180,12 @@ foreign import ccall safe "hs_bindgen_test_manualfunction_pointers_1ad13c166a710
 
 __C declaration:__ @apply1_pointer_arg@
 
-__defined at:__ @manual\/function_pointers.h:20:12@
+__defined at:__ @manual\/function_pointers.h:22:12@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
 foreign import ccall safe "hs_bindgen_test_manualfunction_pointers_a8ef4d9e6ce68f54" apply1_pointer_arg
-  :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
+  :: Ptr.FunPtr Int2int
   -> FC.CInt
   -> IO FC.CInt
 
@@ -166,12 +193,12 @@ foreign import ccall safe "hs_bindgen_test_manualfunction_pointers_a8ef4d9e6ce68
 
 __C declaration:__ @apply1_nopointer_arg@
 
-__defined at:__ @manual\/function_pointers.h:24:12@
+__defined at:__ @manual\/function_pointers.h:26:12@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
 foreign import ccall safe "hs_bindgen_test_manualfunction_pointers_7dc4caa1f7f0caf0" apply1_nopointer_arg
-  :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
+  :: Ptr.FunPtr Int2int
   -> FC.CInt
   -> IO FC.CInt
 
@@ -179,12 +206,12 @@ foreign import ccall safe "hs_bindgen_test_manualfunction_pointers_7dc4caa1f7f0c
 
 __C declaration:__ @apply1_nopointer_res@
 
-__defined at:__ @manual\/function_pointers.h:29:21@
+__defined at:__ @manual\/function_pointers.h:31:21@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
 foreign import ccall safe "hs_bindgen_test_manualfunction_pointers_3612aa0d10e36d5b" apply1_nopointer_res
-  :: IO (Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> FC.CInt -> IO FC.CInt))
+  :: IO (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt))
 
 foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_c41111f40a04cdc9" hs_bindgen_test_manualfunction_pointers_c41111f40a04cdc9
   :: IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
@@ -247,7 +274,7 @@ apply2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualfunction_pointers_40cb8952bacd236a
 
 foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_653c5bde7704c3ca" hs_bindgen_test_manualfunction_pointers_653c5bde7704c3ca
-  :: IO (Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> FC.CInt -> IO FC.CInt))
+  :: IO (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt))
 
 {-# NOINLINE apply1_pointer_arg_ptr #-}
 
@@ -255,16 +282,16 @@ foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_653c5bde770
 
 __C declaration:__ @apply1_pointer_arg@
 
-__defined at:__ @manual\/function_pointers.h:20:12@
+__defined at:__ @manual\/function_pointers.h:22:12@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
-apply1_pointer_arg_ptr :: Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> FC.CInt -> IO FC.CInt)
+apply1_pointer_arg_ptr :: Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)
 apply1_pointer_arg_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualfunction_pointers_653c5bde7704c3ca
 
 foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_3bb9417cd7afec81" hs_bindgen_test_manualfunction_pointers_3bb9417cd7afec81
-  :: IO (Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> FC.CInt -> IO FC.CInt))
+  :: IO (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt))
 
 {-# NOINLINE apply1_nopointer_arg_ptr #-}
 
@@ -272,16 +299,16 @@ foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_3bb9417cd7a
 
 __C declaration:__ @apply1_nopointer_arg@
 
-__defined at:__ @manual\/function_pointers.h:24:12@
+__defined at:__ @manual\/function_pointers.h:26:12@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
-apply1_nopointer_arg_ptr :: Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> FC.CInt -> IO FC.CInt)
+apply1_nopointer_arg_ptr :: Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)
 apply1_nopointer_arg_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualfunction_pointers_3bb9417cd7afec81
 
 foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_f7a08d090f6f7b0f" hs_bindgen_test_manualfunction_pointers_f7a08d090f6f7b0f
-  :: IO (Ptr.FunPtr (IO (Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> FC.CInt -> IO FC.CInt))))
+  :: IO (Ptr.FunPtr (IO (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt))))
 
 {-# NOINLINE apply1_nopointer_res_ptr #-}
 
@@ -289,16 +316,16 @@ foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_f7a08d090f6
 
 __C declaration:__ @apply1_nopointer_res@
 
-__defined at:__ @manual\/function_pointers.h:29:21@
+__defined at:__ @manual\/function_pointers.h:31:21@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
-apply1_nopointer_res_ptr :: Ptr.FunPtr (IO (Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> FC.CInt -> IO FC.CInt)))
+apply1_nopointer_res_ptr :: Ptr.FunPtr (IO (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)))
 apply1_nopointer_res_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualfunction_pointers_f7a08d090f6f7b0f
 
 foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_c4bb317da29227a6" hs_bindgen_test_manualfunction_pointers_c4bb317da29227a6
-  :: IO (Ptr.Ptr (Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> FC.CInt -> IO FC.CInt)))
+  :: IO (Ptr.Ptr (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)))
 
 {-# NOINLINE apply1_nopointer_var_ptr #-}
 
@@ -306,17 +333,17 @@ foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_c4bb317da29
 
 __C declaration:__ @apply1_nopointer_var@
 
-__defined at:__ @manual\/function_pointers.h:32:21@
+__defined at:__ @manual\/function_pointers.h:34:21@
 
 __exported by:__ @manual\/function_pointers.h@
 -}
-apply1_nopointer_var_ptr :: Ptr.Ptr (Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> FC.CInt -> IO FC.CInt))
+apply1_nopointer_var_ptr :: Ptr.Ptr (Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt))
 apply1_nopointer_var_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualfunction_pointers_c4bb317da29227a6
 
 {-# NOINLINE apply1_nopointer_var #-}
 
-apply1_nopointer_var :: Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO FC.CInt)) -> FC.CInt -> IO FC.CInt)
+apply1_nopointer_var :: Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)
 apply1_nopointer_var =
   GHC.IO.Unsafe.unsafePerformIO (F.peek apply1_nopointer_var_ptr)
 
@@ -327,7 +354,7 @@ foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_6799ff6bc99
 
 {-| __C declaration:__ @apply1_struct@
 
-    __defined at:__ @manual\/function_pointers.h:38:34@
+    __defined at:__ @manual\/function_pointers.h:40:34@
 
     __exported by:__ @manual\/function_pointers.h@
 -}
@@ -348,7 +375,7 @@ foreign import ccall unsafe "hs_bindgen_test_manualfunction_pointers_d32b4879673
 
 {-| __C declaration:__ @apply1_union@
 
-    __defined at:__ @manual\/function_pointers.h:44:32@
+    __defined at:__ @manual\/function_pointers.h:46:32@
 
     __exported by:__ @manual\/function_pointers.h@
 -}

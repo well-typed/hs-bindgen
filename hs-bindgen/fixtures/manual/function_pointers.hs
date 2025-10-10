@@ -1,4 +1,172 @@
 [
+  DeclNewtype
+    Newtype {
+      newtypeName = Name
+        "@NsTypeConstr"
+        "Int2int",
+      newtypeConstr = Name
+        "@NsConstr"
+        "Int2int",
+      newtypeField = Field {
+        fieldName = Name
+          "@NsVar"
+          "un_Int2int",
+        fieldType = HsFun
+          (HsPrimType HsPrimCInt)
+          (HsIO (HsPrimType HsPrimCInt)),
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc =
+          "function_pointers.h:19:13",
+          declId = NamePair {
+            nameC = Name "int2int",
+            nameHsIdent = Identifier
+              "Int2int"},
+          declOrigin = NameOriginInSource,
+          declAliases = [],
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["manual/function_pointers.h"],
+              headerInclude =
+              "manual/function_pointers.h"},
+          declComment = Nothing},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = Name
+                "@NsConstr"
+                "Int2int",
+              newtypeField = Name
+                "@NsVar"
+                "un_Int2int"},
+            typedefType = TypeFun
+              [
+                TypePrim
+                  (PrimIntegral PrimInt Signed)]
+              (TypePrim
+                (PrimIntegral PrimInt Signed))},
+        declSpec = DeclSpec
+          CTypeSpec {
+            cTypeSpecModule = Nothing,
+            cTypeSpecIdentifier = Nothing,
+            cTypeSpecInstances =
+            Map.fromList []}},
+      newtypeInstances = Set.fromList
+        [],
+      newtypeComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "int2int",
+          commentLocation = Just
+            "function_pointers.h:19:13",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["manual/function_pointers.h"],
+              headerInclude =
+              "manual/function_pointers.h"},
+          commentChildren = []}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "toInt2int",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Int2int"),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Int2int")))),
+      foreignImportOrigName =
+      "wrapper",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin = ToFunPtr
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimInt Signed)]
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "fromInt2int",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Int2int")),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsTypRef
+          (Name
+            "@NsTypeConstr"
+            "Int2int")),
+      foreignImportOrigName =
+      "dynamic",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin = FromFunPtr
+        (TypeFun
+          [
+            TypePrim
+              (PrimIntegral PrimInt Signed)]
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceToFunPtr
+        ToFunPtrInstance {
+          toFunPtrInstanceType = HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Int2int"),
+          toFunPtrInstanceBody = Name
+            "@NsVar"
+            "toInt2int"},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceFromFunPtr
+        FromFunPtrInstance {
+          fromFunPtrInstanceType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Int2int"),
+          fromFunPtrInstanceBody = Name
+            "@NsVar"
+            "fromInt2int"},
+      defineInstanceComment =
+      Nothing},
   DeclData
     Struct {
       structName = Name
@@ -15,9 +183,10 @@
           fieldType = HsFunPtr
             (HsFun
               (HsFunPtr
-                (HsFun
-                  (HsPrimType HsPrimCInt)
-                  (HsIO (HsPrimType HsPrimCInt))))
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "Int2int")))
               (HsFun
                 (HsPrimType HsPrimCInt)
                 (HsIO
@@ -26,7 +195,7 @@
             StructField {
               structFieldInfo = FieldInfo {
                 fieldLoc =
-                "function_pointers.h:36:16",
+                "function_pointers.h:38:16",
                 fieldName = NamePair {
                   nameC = Name
                     "apply1_nopointer_struct_field",
@@ -39,12 +208,20 @@
                   (TypeFun
                     [
                       TypePointer
-                        (TypeFun
-                          [
-                            TypePrim
-                              (PrimIntegral PrimInt Signed)]
-                          (TypePrim
-                            (PrimIntegral PrimInt Signed))),
+                        (TypeTypedef
+                          (TypedefRegular
+                            NamePair {
+                              nameC = Name "int2int",
+                              nameHsIdent = Identifier
+                                "Int2int"}
+                            (TypeFun
+                              [
+                                TypePrim
+                                  (PrimIntegral PrimInt Signed)]
+                              (TypePrim
+                                (PrimIntegral
+                                  PrimInt
+                                  Signed))))),
                       TypePrim
                         (PrimIntegral PrimInt Signed)]
                     (TypePrim
@@ -59,7 +236,7 @@
               commentOrigin = Just
                 "apply1_nopointer_struct_field",
               commentLocation = Just
-                "function_pointers.h:36:16",
+                "function_pointers.h:38:16",
               commentHeaderInfo = Just
                 HeaderInfo {
                   headerMainHeaders = NE.fromList
@@ -73,7 +250,7 @@
           declInfo =
           DeclInfo {
             declLoc =
-            "function_pointers.h:35:8",
+            "function_pointers.h:37:8",
             declId = NamePair {
               nameC = Name "Apply1Struct",
               nameHsIdent = Identifier
@@ -106,7 +283,7 @@
                 StructField {
                   structFieldInfo = FieldInfo {
                     fieldLoc =
-                    "function_pointers.h:36:16",
+                    "function_pointers.h:38:16",
                     fieldName = NamePair {
                       nameC = Name
                         "apply1_nopointer_struct_field",
@@ -119,12 +296,20 @@
                       (TypeFun
                         [
                           TypePointer
-                            (TypeFun
-                              [
-                                TypePrim
-                                  (PrimIntegral PrimInt Signed)]
-                              (TypePrim
-                                (PrimIntegral PrimInt Signed))),
+                            (TypeTypedef
+                              (TypedefRegular
+                                NamePair {
+                                  nameC = Name "int2int",
+                                  nameHsIdent = Identifier
+                                    "Int2int"}
+                                (TypeFun
+                                  [
+                                    TypePrim
+                                      (PrimIntegral PrimInt Signed)]
+                                  (TypePrim
+                                    (PrimIntegral
+                                      PrimInt
+                                      Signed))))),
                           TypePrim
                             (PrimIntegral PrimInt Signed)]
                         (TypePrim
@@ -153,7 +338,7 @@
           commentOrigin = Just
             "Apply1Struct",
           commentLocation = Just
-            "function_pointers.h:35:8",
+            "function_pointers.h:37:8",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -180,9 +365,10 @@
               fieldType = HsFunPtr
                 (HsFun
                   (HsFunPtr
-                    (HsFun
-                      (HsPrimType HsPrimCInt)
-                      (HsIO (HsPrimType HsPrimCInt))))
+                    (HsTypRef
+                      (Name
+                        "@NsTypeConstr"
+                        "Int2int")))
                   (HsFun
                     (HsPrimType HsPrimCInt)
                     (HsIO
@@ -191,7 +377,7 @@
                 StructField {
                   structFieldInfo = FieldInfo {
                     fieldLoc =
-                    "function_pointers.h:36:16",
+                    "function_pointers.h:38:16",
                     fieldName = NamePair {
                       nameC = Name
                         "apply1_nopointer_struct_field",
@@ -204,12 +390,20 @@
                       (TypeFun
                         [
                           TypePointer
-                            (TypeFun
-                              [
-                                TypePrim
-                                  (PrimIntegral PrimInt Signed)]
-                              (TypePrim
-                                (PrimIntegral PrimInt Signed))),
+                            (TypeTypedef
+                              (TypedefRegular
+                                NamePair {
+                                  nameC = Name "int2int",
+                                  nameHsIdent = Identifier
+                                    "Int2int"}
+                                (TypeFun
+                                  [
+                                    TypePrim
+                                      (PrimIntegral PrimInt Signed)]
+                                  (TypePrim
+                                    (PrimIntegral
+                                      PrimInt
+                                      Signed))))),
                           TypePrim
                             (PrimIntegral PrimInt Signed)]
                         (TypePrim
@@ -224,7 +418,7 @@
                   commentOrigin = Just
                     "apply1_nopointer_struct_field",
                   commentLocation = Just
-                    "function_pointers.h:36:16",
+                    "function_pointers.h:38:16",
                   commentHeaderInfo = Just
                     HeaderInfo {
                       headerMainHeaders = NE.fromList
@@ -238,7 +432,7 @@
               declInfo =
               DeclInfo {
                 declLoc =
-                "function_pointers.h:35:8",
+                "function_pointers.h:37:8",
                 declId = NamePair {
                   nameC = Name "Apply1Struct",
                   nameHsIdent = Identifier
@@ -271,7 +465,7 @@
                     StructField {
                       structFieldInfo = FieldInfo {
                         fieldLoc =
-                        "function_pointers.h:36:16",
+                        "function_pointers.h:38:16",
                         fieldName = NamePair {
                           nameC = Name
                             "apply1_nopointer_struct_field",
@@ -284,12 +478,20 @@
                           (TypeFun
                             [
                               TypePointer
-                                (TypeFun
-                                  [
-                                    TypePrim
-                                      (PrimIntegral PrimInt Signed)]
-                                  (TypePrim
-                                    (PrimIntegral PrimInt Signed))),
+                                (TypeTypedef
+                                  (TypedefRegular
+                                    NamePair {
+                                      nameC = Name "int2int",
+                                      nameHsIdent = Identifier
+                                        "Int2int"}
+                                    (TypeFun
+                                      [
+                                        TypePrim
+                                          (PrimIntegral PrimInt Signed)]
+                                      (TypePrim
+                                        (PrimIntegral
+                                          PrimInt
+                                          Signed))))),
                               TypePrim
                                 (PrimIntegral PrimInt Signed)]
                             (TypePrim
@@ -318,7 +520,7 @@
               commentOrigin = Just
                 "Apply1Struct",
               commentLocation = Just
-                "function_pointers.h:35:8",
+                "function_pointers.h:37:8",
               commentHeaderInfo = Just
                 HeaderInfo {
                   headerMainHeaders = NE.fromList
@@ -349,9 +551,10 @@
                       fieldType = HsFunPtr
                         (HsFun
                           (HsFunPtr
-                            (HsFun
-                              (HsPrimType HsPrimCInt)
-                              (HsIO (HsPrimType HsPrimCInt))))
+                            (HsTypRef
+                              (Name
+                                "@NsTypeConstr"
+                                "Int2int")))
                           (HsFun
                             (HsPrimType HsPrimCInt)
                             (HsIO
@@ -360,7 +563,7 @@
                         StructField {
                           structFieldInfo = FieldInfo {
                             fieldLoc =
-                            "function_pointers.h:36:16",
+                            "function_pointers.h:38:16",
                             fieldName = NamePair {
                               nameC = Name
                                 "apply1_nopointer_struct_field",
@@ -373,12 +576,20 @@
                               (TypeFun
                                 [
                                   TypePointer
-                                    (TypeFun
-                                      [
-                                        TypePrim
-                                          (PrimIntegral PrimInt Signed)]
-                                      (TypePrim
-                                        (PrimIntegral PrimInt Signed))),
+                                    (TypeTypedef
+                                      (TypedefRegular
+                                        NamePair {
+                                          nameC = Name "int2int",
+                                          nameHsIdent = Identifier
+                                            "Int2int"}
+                                        (TypeFun
+                                          [
+                                            TypePrim
+                                              (PrimIntegral PrimInt Signed)]
+                                          (TypePrim
+                                            (PrimIntegral
+                                              PrimInt
+                                              Signed))))),
                                   TypePrim
                                     (PrimIntegral PrimInt Signed)]
                                 (TypePrim
@@ -393,7 +604,7 @@
                           commentOrigin = Just
                             "apply1_nopointer_struct_field",
                           commentLocation = Just
-                            "function_pointers.h:36:16",
+                            "function_pointers.h:38:16",
                           commentHeaderInfo = Just
                             HeaderInfo {
                               headerMainHeaders = NE.fromList
@@ -407,7 +618,7 @@
                       declInfo =
                       DeclInfo {
                         declLoc =
-                        "function_pointers.h:35:8",
+                        "function_pointers.h:37:8",
                         declId = NamePair {
                           nameC = Name "Apply1Struct",
                           nameHsIdent = Identifier
@@ -443,7 +654,7 @@
                               structFieldInfo =
                               FieldInfo {
                                 fieldLoc =
-                                "function_pointers.h:36:16",
+                                "function_pointers.h:38:16",
                                 fieldName =
                                 NamePair {
                                   nameC = Name
@@ -458,12 +669,20 @@
                                   (TypeFun
                                     [
                                       TypePointer
-                                        (TypeFun
-                                          [
-                                            TypePrim
-                                              (PrimIntegral PrimInt Signed)]
-                                          (TypePrim
-                                            (PrimIntegral PrimInt Signed))),
+                                        (TypeTypedef
+                                          (TypedefRegular
+                                            NamePair {
+                                              nameC = Name "int2int",
+                                              nameHsIdent = Identifier
+                                                "Int2int"}
+                                            (TypeFun
+                                              [
+                                                TypePrim
+                                                  (PrimIntegral PrimInt Signed)]
+                                              (TypePrim
+                                                (PrimIntegral
+                                                  PrimInt
+                                                  Signed))))),
                                       TypePrim
                                         (PrimIntegral PrimInt Signed)]
                                     (TypePrim
@@ -492,7 +711,7 @@
                       commentOrigin = Just
                         "Apply1Struct",
                       commentLocation = Just
-                        "function_pointers.h:35:8",
+                        "function_pointers.h:37:8",
                       commentHeaderInfo = Just
                         HeaderInfo {
                           headerMainHeaders = NE.fromList
@@ -523,9 +742,10 @@
                       fieldType = HsFunPtr
                         (HsFun
                           (HsFunPtr
-                            (HsFun
-                              (HsPrimType HsPrimCInt)
-                              (HsIO (HsPrimType HsPrimCInt))))
+                            (HsTypRef
+                              (Name
+                                "@NsTypeConstr"
+                                "Int2int")))
                           (HsFun
                             (HsPrimType HsPrimCInt)
                             (HsIO
@@ -534,7 +754,7 @@
                         StructField {
                           structFieldInfo = FieldInfo {
                             fieldLoc =
-                            "function_pointers.h:36:16",
+                            "function_pointers.h:38:16",
                             fieldName = NamePair {
                               nameC = Name
                                 "apply1_nopointer_struct_field",
@@ -547,12 +767,20 @@
                               (TypeFun
                                 [
                                   TypePointer
-                                    (TypeFun
-                                      [
-                                        TypePrim
-                                          (PrimIntegral PrimInt Signed)]
-                                      (TypePrim
-                                        (PrimIntegral PrimInt Signed))),
+                                    (TypeTypedef
+                                      (TypedefRegular
+                                        NamePair {
+                                          nameC = Name "int2int",
+                                          nameHsIdent = Identifier
+                                            "Int2int"}
+                                        (TypeFun
+                                          [
+                                            TypePrim
+                                              (PrimIntegral PrimInt Signed)]
+                                          (TypePrim
+                                            (PrimIntegral
+                                              PrimInt
+                                              Signed))))),
                                   TypePrim
                                     (PrimIntegral PrimInt Signed)]
                                 (TypePrim
@@ -567,7 +795,7 @@
                           commentOrigin = Just
                             "apply1_nopointer_struct_field",
                           commentLocation = Just
-                            "function_pointers.h:36:16",
+                            "function_pointers.h:38:16",
                           commentHeaderInfo = Just
                             HeaderInfo {
                               headerMainHeaders = NE.fromList
@@ -581,7 +809,7 @@
                       declInfo =
                       DeclInfo {
                         declLoc =
-                        "function_pointers.h:35:8",
+                        "function_pointers.h:37:8",
                         declId = NamePair {
                           nameC = Name "Apply1Struct",
                           nameHsIdent = Identifier
@@ -617,7 +845,7 @@
                               structFieldInfo =
                               FieldInfo {
                                 fieldLoc =
-                                "function_pointers.h:36:16",
+                                "function_pointers.h:38:16",
                                 fieldName =
                                 NamePair {
                                   nameC = Name
@@ -632,12 +860,20 @@
                                   (TypeFun
                                     [
                                       TypePointer
-                                        (TypeFun
-                                          [
-                                            TypePrim
-                                              (PrimIntegral PrimInt Signed)]
-                                          (TypePrim
-                                            (PrimIntegral PrimInt Signed))),
+                                        (TypeTypedef
+                                          (TypedefRegular
+                                            NamePair {
+                                              nameC = Name "int2int",
+                                              nameHsIdent = Identifier
+                                                "Int2int"}
+                                            (TypeFun
+                                              [
+                                                TypePrim
+                                                  (PrimIntegral PrimInt Signed)]
+                                              (TypePrim
+                                                (PrimIntegral
+                                                  PrimInt
+                                                  Signed))))),
                                       TypePrim
                                         (PrimIntegral PrimInt Signed)]
                                     (TypePrim
@@ -666,7 +902,7 @@
                       commentOrigin = Just
                         "Apply1Struct",
                       commentLocation = Just
-                        "function_pointers.h:35:8",
+                        "function_pointers.h:37:8",
                       commentHeaderInfo = Just
                         HeaderInfo {
                           headerMainHeaders = NE.fromList
@@ -723,7 +959,7 @@
         declInfo =
         DeclInfo {
           declLoc =
-          "function_pointers.h:41:7",
+          "function_pointers.h:43:7",
           declId = NamePair {
             nameC = Name "Apply1Union",
             nameHsIdent = Identifier
@@ -759,7 +995,7 @@
               UnionField {
                 unionFieldInfo = FieldInfo {
                   fieldLoc =
-                  "function_pointers.h:42:16",
+                  "function_pointers.h:44:16",
                   fieldName = NamePair {
                     nameC = Name
                       "apply1_nopointer_union_field",
@@ -772,12 +1008,20 @@
                     (TypeFun
                       [
                         TypePointer
-                          (TypeFun
-                            [
-                              TypePrim
-                                (PrimIntegral PrimInt Signed)]
-                            (TypePrim
-                              (PrimIntegral PrimInt Signed))),
+                          (TypeTypedef
+                            (TypedefRegular
+                              NamePair {
+                                nameC = Name "int2int",
+                                nameHsIdent = Identifier
+                                  "Int2int"}
+                              (TypeFun
+                                [
+                                  TypePrim
+                                    (PrimIntegral PrimInt Signed)]
+                                (TypePrim
+                                  (PrimIntegral
+                                    PrimInt
+                                    Signed))))),
                         TypePrim
                           (PrimIntegral PrimInt Signed)]
                       (TypePrim
@@ -803,7 +1047,7 @@
           commentOrigin = Just
             "Apply1Union",
           commentLocation = Just
-            "function_pointers.h:41:7",
+            "function_pointers.h:43:7",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -830,9 +1074,10 @@
       unionGetterType = HsFunPtr
         (HsFun
           (HsFunPtr
-            (HsFun
-              (HsPrimType HsPrimCInt)
-              (HsIO (HsPrimType HsPrimCInt))))
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Int2int")))
           (HsFun
             (HsPrimType HsPrimCInt)
             (HsIO
@@ -846,7 +1091,7 @@
           commentOrigin = Just
             "apply1_nopointer_union_field",
           commentLocation = Just
-            "function_pointers.h:42:16",
+            "function_pointers.h:44:16",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -867,9 +1112,10 @@
       unionSetterType = HsFunPtr
         (HsFun
           (HsFunPtr
-            (HsFun
-              (HsPrimType HsPrimCInt)
-              (HsIO (HsPrimType HsPrimCInt))))
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Int2int")))
           (HsFun
             (HsPrimType HsPrimCInt)
             (HsIO
@@ -1206,9 +1452,10 @@
         FunctionParameter {
           functionParameterName = Nothing,
           functionParameterType = HsFunPtr
-            (HsFun
-              (HsPrimType HsPrimCInt)
-              (HsIO (HsPrimType HsPrimCInt))),
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Int2int")),
           functionParameterComment =
           Nothing},
         FunctionParameter {
@@ -1226,7 +1473,7 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int hs_bindgen_test_manualfunction_pointers_a8ef4d9e6ce68f54 (signed int (*arg1) (signed int arg1), signed int arg2) { return apply1_pointer_arg(arg1, arg2); }",
+          "signed int hs_bindgen_test_manualfunction_pointers_a8ef4d9e6ce68f54 (int2int *arg1, signed int arg2) { return apply1_pointer_arg(arg1, arg2); }",
           capiWrapperImport =
           "manual/function_pointers.h"},
       foreignImportOrigin = Function
@@ -1235,14 +1482,20 @@
             _×_
               Nothing
               (TypePointer
-                (TypeFun
-                  [
-                    TypePrim
-                      (PrimIntegral PrimInt Signed)]
-                  (TypePrim
-                    (PrimIntegral
-                      PrimInt
-                      Signed)))),
+                (TypeTypedef
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "int2int",
+                      nameHsIdent = Identifier
+                        "Int2int"}
+                    (TypeFun
+                      [
+                        TypePrim
+                          (PrimIntegral PrimInt Signed)]
+                      (TypePrim
+                        (PrimIntegral
+                          PrimInt
+                          Signed)))))),
             _×_
               Nothing
               (TypePrim
@@ -1263,7 +1516,7 @@
           commentOrigin = Just
             "apply1_pointer_arg",
           commentLocation = Just
-            "function_pointers.h:20:12",
+            "function_pointers.h:22:12",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1281,9 +1534,10 @@
         FunctionParameter {
           functionParameterName = Nothing,
           functionParameterType = HsFunPtr
-            (HsFun
-              (HsPrimType HsPrimCInt)
-              (HsIO (HsPrimType HsPrimCInt))),
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Int2int")),
           functionParameterComment =
           Nothing},
         FunctionParameter {
@@ -1301,7 +1555,7 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int hs_bindgen_test_manualfunction_pointers_7dc4caa1f7f0caf0 (signed int (*arg1) (signed int arg1), signed int arg2) { return apply1_nopointer_arg(arg1, arg2); }",
+          "signed int hs_bindgen_test_manualfunction_pointers_7dc4caa1f7f0caf0 (int2int *arg1, signed int arg2) { return apply1_nopointer_arg(arg1, arg2); }",
           capiWrapperImport =
           "manual/function_pointers.h"},
       foreignImportOrigin = Function
@@ -1310,14 +1564,20 @@
             _×_
               Nothing
               (TypePointer
-                (TypeFun
-                  [
-                    TypePrim
-                      (PrimIntegral PrimInt Signed)]
-                  (TypePrim
-                    (PrimIntegral
-                      PrimInt
-                      Signed)))),
+                (TypeTypedef
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "int2int",
+                      nameHsIdent = Identifier
+                        "Int2int"}
+                    (TypeFun
+                      [
+                        TypePrim
+                          (PrimIntegral PrimInt Signed)]
+                      (TypePrim
+                        (PrimIntegral
+                          PrimInt
+                          Signed)))))),
             _×_
               Nothing
               (TypePrim
@@ -1340,7 +1600,7 @@
           commentOrigin = Just
             "apply1_nopointer_arg",
           commentLocation = Just
-            "function_pointers.h:24:12",
+            "function_pointers.h:26:12",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1361,9 +1621,10 @@
           (HsFunPtr
             (HsFun
               (HsFunPtr
-                (HsFun
-                  (HsPrimType HsPrimCInt)
-                  (HsIO (HsPrimType HsPrimCInt))))
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "Int2int")))
               (HsFun
                 (HsPrimType HsPrimCInt)
                 (HsIO
@@ -1374,7 +1635,7 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int (*const hs_bindgen_test_manualfunction_pointers_3612aa0d10e36d5b (void)) (signed int (*arg1) (signed int arg1), signed int arg2) { return apply1_nopointer_res(); }",
+          "signed int (*const hs_bindgen_test_manualfunction_pointers_3612aa0d10e36d5b (void)) (int2int *arg1, signed int arg2) { return apply1_nopointer_res(); }",
           capiWrapperImport =
           "manual/function_pointers.h"},
       foreignImportOrigin = Function
@@ -1389,12 +1650,20 @@
               (TypeFun
                 [
                   TypePointer
-                    (TypeFun
-                      [
-                        TypePrim
-                          (PrimIntegral PrimInt Signed)]
-                      (TypePrim
-                        (PrimIntegral PrimInt Signed))),
+                    (TypeTypedef
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name "int2int",
+                          nameHsIdent = Identifier
+                            "Int2int"}
+                        (TypeFun
+                          [
+                            TypePrim
+                              (PrimIntegral PrimInt Signed)]
+                          (TypePrim
+                            (PrimIntegral
+                              PrimInt
+                              Signed))))),
                   TypePrim
                     (PrimIntegral PrimInt Signed)]
                 (TypePrim
@@ -1412,7 +1681,7 @@
           commentOrigin = Just
             "apply1_nopointer_res",
           commentLocation = Just
-            "function_pointers.h:29:21",
+            "function_pointers.h:31:21",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1738,9 +2007,10 @@
         FunctionParameter {
           functionParameterName = Nothing,
           functionParameterType = HsFunPtr
-            (HsFun
-              (HsPrimType HsPrimCInt)
-              (HsIO (HsPrimType HsPrimCInt))),
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Int2int")),
           functionParameterComment =
           Nothing},
         FunctionParameter {
@@ -1758,7 +2028,7 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int hs_bindgen_test_manualfunction_pointers_2d5144fc06502862 (signed int (*arg1) (signed int arg1), signed int arg2) { return apply1_pointer_arg(arg1, arg2); }",
+          "signed int hs_bindgen_test_manualfunction_pointers_2d5144fc06502862 (int2int *arg1, signed int arg2) { return apply1_pointer_arg(arg1, arg2); }",
           capiWrapperImport =
           "manual/function_pointers.h"},
       foreignImportOrigin = Function
@@ -1767,14 +2037,20 @@
             _×_
               Nothing
               (TypePointer
-                (TypeFun
-                  [
-                    TypePrim
-                      (PrimIntegral PrimInt Signed)]
-                  (TypePrim
-                    (PrimIntegral
-                      PrimInt
-                      Signed)))),
+                (TypeTypedef
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "int2int",
+                      nameHsIdent = Identifier
+                        "Int2int"}
+                    (TypeFun
+                      [
+                        TypePrim
+                          (PrimIntegral PrimInt Signed)]
+                      (TypePrim
+                        (PrimIntegral
+                          PrimInt
+                          Signed)))))),
             _×_
               Nothing
               (TypePrim
@@ -1795,7 +2071,7 @@
           commentOrigin = Just
             "apply1_pointer_arg",
           commentLocation = Just
-            "function_pointers.h:20:12",
+            "function_pointers.h:22:12",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1813,9 +2089,10 @@
         FunctionParameter {
           functionParameterName = Nothing,
           functionParameterType = HsFunPtr
-            (HsFun
-              (HsPrimType HsPrimCInt)
-              (HsIO (HsPrimType HsPrimCInt))),
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Int2int")),
           functionParameterComment =
           Nothing},
         FunctionParameter {
@@ -1833,7 +2110,7 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int hs_bindgen_test_manualfunction_pointers_b7597a0c4856ebb3 (signed int (*arg1) (signed int arg1), signed int arg2) { return apply1_nopointer_arg(arg1, arg2); }",
+          "signed int hs_bindgen_test_manualfunction_pointers_b7597a0c4856ebb3 (int2int *arg1, signed int arg2) { return apply1_nopointer_arg(arg1, arg2); }",
           capiWrapperImport =
           "manual/function_pointers.h"},
       foreignImportOrigin = Function
@@ -1842,14 +2119,20 @@
             _×_
               Nothing
               (TypePointer
-                (TypeFun
-                  [
-                    TypePrim
-                      (PrimIntegral PrimInt Signed)]
-                  (TypePrim
-                    (PrimIntegral
-                      PrimInt
-                      Signed)))),
+                (TypeTypedef
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "int2int",
+                      nameHsIdent = Identifier
+                        "Int2int"}
+                    (TypeFun
+                      [
+                        TypePrim
+                          (PrimIntegral PrimInt Signed)]
+                      (TypePrim
+                        (PrimIntegral
+                          PrimInt
+                          Signed)))))),
             _×_
               Nothing
               (TypePrim
@@ -1872,7 +2155,7 @@
           commentOrigin = Just
             "apply1_nopointer_arg",
           commentLocation = Just
-            "function_pointers.h:24:12",
+            "function_pointers.h:26:12",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1893,9 +2176,10 @@
           (HsFunPtr
             (HsFun
               (HsFunPtr
-                (HsFun
-                  (HsPrimType HsPrimCInt)
-                  (HsIO (HsPrimType HsPrimCInt))))
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "Int2int")))
               (HsFun
                 (HsPrimType HsPrimCInt)
                 (HsIO
@@ -1906,7 +2190,7 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int (*const hs_bindgen_test_manualfunction_pointers_be3907895c70597f (void)) (signed int (*arg1) (signed int arg1), signed int arg2) { return apply1_nopointer_res(); }",
+          "signed int (*const hs_bindgen_test_manualfunction_pointers_be3907895c70597f (void)) (int2int *arg1, signed int arg2) { return apply1_nopointer_res(); }",
           capiWrapperImport =
           "manual/function_pointers.h"},
       foreignImportOrigin = Function
@@ -1921,12 +2205,20 @@
               (TypeFun
                 [
                   TypePointer
-                    (TypeFun
-                      [
-                        TypePrim
-                          (PrimIntegral PrimInt Signed)]
-                      (TypePrim
-                        (PrimIntegral PrimInt Signed))),
+                    (TypeTypedef
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name "int2int",
+                          nameHsIdent = Identifier
+                            "Int2int"}
+                        (TypeFun
+                          [
+                            TypePrim
+                              (PrimIntegral PrimInt Signed)]
+                          (TypePrim
+                            (PrimIntegral
+                              PrimInt
+                              Signed))))),
                   TypePrim
                     (PrimIntegral PrimInt Signed)]
                 (TypePrim
@@ -1944,7 +2236,7 @@
           commentOrigin = Just
             "apply1_nopointer_res",
           commentLocation = Just
-            "function_pointers.h:29:21",
+            "function_pointers.h:31:21",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -2138,9 +2430,10 @@
           (HsFunPtr
             (HsFun
               (HsFunPtr
-                (HsFun
-                  (HsPrimType HsPrimCInt)
-                  (HsIO (HsPrimType HsPrimCInt))))
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "Int2int")))
               (HsFun
                 (HsPrimType HsPrimCInt)
                 (HsIO
@@ -2151,19 +2444,27 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_apply1_pointer_arg_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_manualfunction_pointers_653c5bde7704c3ca (void)) (signed int (*arg1) (signed int arg1), signed int arg2) { return &apply1_pointer_arg; } ",
+          "/* get_apply1_pointer_arg_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_manualfunction_pointers_653c5bde7704c3ca (void)) (int2int *arg1, signed int arg2) { return &apply1_pointer_arg; } ",
           capiWrapperImport =
           "manual/function_pointers.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
             TypePointer
-              (TypeFun
-                [
-                  TypePrim
-                    (PrimIntegral PrimInt Signed)]
-                (TypePrim
-                  (PrimIntegral PrimInt Signed))),
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "int2int",
+                    nameHsIdent = Identifier
+                      "Int2int"}
+                  (TypeFun
+                    [
+                      TypePrim
+                        (PrimIntegral PrimInt Signed)]
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed))))),
             TypePrim
               (PrimIntegral PrimInt Signed)]
           (TypePrim
@@ -2184,9 +2485,10 @@
           (HsFunPtr
             (HsFun
               (HsFunPtr
-                (HsFun
-                  (HsPrimType HsPrimCInt)
-                  (HsIO (HsPrimType HsPrimCInt))))
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "Int2int")))
               (HsFun
                 (HsPrimType HsPrimCInt)
                 (HsIO
@@ -2197,19 +2499,27 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_apply1_nopointer_arg_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_manualfunction_pointers_3bb9417cd7afec81 (void)) (signed int (*arg1) (signed int arg1), signed int arg2) { return &apply1_nopointer_arg; } ",
+          "/* get_apply1_nopointer_arg_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_manualfunction_pointers_3bb9417cd7afec81 (void)) (int2int *arg1, signed int arg2) { return &apply1_nopointer_arg; } ",
           capiWrapperImport =
           "manual/function_pointers.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
             TypePointer
-              (TypeFun
-                [
-                  TypePrim
-                    (PrimIntegral PrimInt Signed)]
-                (TypePrim
-                  (PrimIntegral PrimInt Signed))),
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "int2int",
+                    nameHsIdent = Identifier
+                      "Int2int"}
+                  (TypeFun
+                    [
+                      TypePrim
+                        (PrimIntegral PrimInt Signed)]
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed))))),
             TypePrim
               (PrimIntegral PrimInt Signed)]
           (TypePrim
@@ -2232,9 +2542,10 @@
               (HsFunPtr
                 (HsFun
                   (HsFunPtr
-                    (HsFun
-                      (HsPrimType HsPrimCInt)
-                      (HsIO (HsPrimType HsPrimCInt))))
+                    (HsTypRef
+                      (Name
+                        "@NsTypeConstr"
+                        "Int2int")))
                   (HsFun
                     (HsPrimType HsPrimCInt)
                     (HsIO
@@ -2245,7 +2556,7 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_apply1_nopointer_res_ptr */ __attribute__ ((const)) signed int (*const (*hs_bindgen_test_manualfunction_pointers_f7a08d090f6f7b0f (void)) (void)) (signed int (*arg1) (signed int arg1), signed int arg2) { return &apply1_nopointer_res; } ",
+          "/* get_apply1_nopointer_res_ptr */ __attribute__ ((const)) signed int (*const (*hs_bindgen_test_manualfunction_pointers_f7a08d090f6f7b0f (void)) (void)) (int2int *arg1, signed int arg2) { return &apply1_nopointer_res; } ",
           capiWrapperImport =
           "manual/function_pointers.h"},
       foreignImportOrigin = Global
@@ -2257,12 +2568,20 @@
               (TypeFun
                 [
                   TypePointer
-                    (TypeFun
-                      [
-                        TypePrim
-                          (PrimIntegral PrimInt Signed)]
-                      (TypePrim
-                        (PrimIntegral PrimInt Signed))),
+                    (TypeTypedef
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name "int2int",
+                          nameHsIdent = Identifier
+                            "Int2int"}
+                        (TypeFun
+                          [
+                            TypePrim
+                              (PrimIntegral PrimInt Signed)]
+                          (TypePrim
+                            (PrimIntegral
+                              PrimInt
+                              Signed))))),
                   TypePrim
                     (PrimIntegral PrimInt Signed)]
                 (TypePrim
@@ -2286,9 +2605,10 @@
             (HsFunPtr
               (HsFun
                 (HsFunPtr
-                  (HsFun
-                    (HsPrimType HsPrimCInt)
-                    (HsIO (HsPrimType HsPrimCInt))))
+                  (HsTypRef
+                    (Name
+                      "@NsTypeConstr"
+                      "Int2int")))
                 (HsFun
                   (HsPrimType HsPrimCInt)
                   (HsIO
@@ -2299,7 +2619,7 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_apply1_nopointer_var_ptr */ __attribute__ ((const)) signed int (*const *hs_bindgen_test_manualfunction_pointers_c4bb317da29227a6 (void)) (signed int (*arg1) (signed int arg1), signed int arg2) { return &apply1_nopointer_var; } ",
+          "/* get_apply1_nopointer_var_ptr */ __attribute__ ((const)) signed int (*const *hs_bindgen_test_manualfunction_pointers_c4bb317da29227a6 (void)) (int2int *arg1, signed int arg2) { return &apply1_nopointer_var; } ",
           capiWrapperImport =
           "manual/function_pointers.h"},
       foreignImportOrigin = Global
@@ -2309,12 +2629,20 @@
             (TypeFun
               [
                 TypePointer
-                  (TypeFun
-                    [
-                      TypePrim
-                        (PrimIntegral PrimInt Signed)]
-                    (TypePrim
-                      (PrimIntegral PrimInt Signed))),
+                  (TypeTypedef
+                    (TypedefRegular
+                      NamePair {
+                        nameC = Name "int2int",
+                        nameHsIdent = Identifier
+                          "Int2int"}
+                      (TypeFun
+                        [
+                          TypePrim
+                            (PrimIntegral PrimInt Signed)]
+                        (TypePrim
+                          (PrimIntegral
+                            PrimInt
+                            Signed))))),
                 TypePrim
                   (PrimIntegral PrimInt Signed)]
               (TypePrim
