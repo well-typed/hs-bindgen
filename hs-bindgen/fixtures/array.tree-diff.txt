@@ -741,7 +741,322 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "array.h:90:5",
+        declLoc = "array.h:90:18",
+        declId = NamePair {
+          nameC = Name "arr_1_const",
+          nameHsIdent = Identifier
+            "arr_1_const"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "Array of known size"]])},
+      declKind = DeclGlobal
+        (TypeConstArray
+          3
+          (TypeQualified
+            TypeQualifierConst
+            (TypePrim
+              (PrimIntegral
+                PrimInt
+                Signed)))),
+      declSpec = DeclSpec
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "array.h:93:22",
+        declId = NamePair {
+          nameC = Name "arr_2_const",
+          nameHsIdent = Identifier
+            "arr_2_const"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "Array of known size, typedef"]])},
+      declKind = DeclGlobal
+        (TypeQualified
+          TypeQualifierConst
+          (TypeTypedef
+            (TypedefRegular
+              NamePair {
+                nameC = Name "triplet",
+                nameHsIdent = Identifier
+                  "Triplet"}
+              (TypeConstArray
+                3
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))))),
+      declSpec = DeclSpec
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "array.h:96:18",
+        declId = NamePair {
+          nameC = Name "arr_3_const",
+          nameHsIdent = Identifier
+            "arr_3_const"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "Array of unknown size"]])},
+      declKind = DeclGlobal
+        (TypeIncompleteArray
+          (TypeQualified
+            TypeQualifierConst
+            (TypePrim
+              (PrimIntegral
+                PrimInt
+                Signed)))),
+      declSpec = DeclSpec
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "array.h:99:19",
+        declId = NamePair {
+          nameC = Name "arr_4_const",
+          nameHsIdent = Identifier
+            "arr_4_const"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "Array of unknown size, typedef"]])},
+      declKind = DeclGlobal
+        (TypeQualified
+          TypeQualifierConst
+          (TypeTypedef
+            (TypedefRegular
+              NamePair {
+                nameC = Name "list",
+                nameHsIdent = Identifier "List"}
+              (TypeIncompleteArray
+                (TypePrim
+                  (PrimIntegral
+                    PrimInt
+                    Signed)))))),
+      declSpec = DeclSpec
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "array.h:102:18",
+        declId = NamePair {
+          nameC = Name "arr_5_const",
+          nameHsIdent = Identifier
+            "arr_5_const"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "Multi-dimensional array of known size"]])},
+      declKind = DeclGlobal
+        (TypeConstArray
+          4
+          (TypeConstArray
+            3
+            (TypeQualified
+              TypeQualifierConst
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed))))),
+      declSpec = DeclSpec
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "array.h:105:21",
+        declId = NamePair {
+          nameC = Name "arr_6_const",
+          nameHsIdent = Identifier
+            "arr_6_const"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "Multi-dimensional array of known size, typedef"]])},
+      declKind = DeclGlobal
+        (TypeQualified
+          TypeQualifierConst
+          (TypeTypedef
+            (TypedefRegular
+              NamePair {
+                nameC = Name "matrix",
+                nameHsIdent = Identifier
+                  "Matrix"}
+              (TypeConstArray
+                4
+                (TypeConstArray
+                  3
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))))),
+      declSpec = DeclSpec
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "array.h:108:18",
+        declId = NamePair {
+          nameC = Name "arr_7_const",
+          nameHsIdent = Identifier
+            "arr_7_const"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "Multi-dimensional array of unknown size"]])},
+      declKind = DeclGlobal
+        (TypeIncompleteArray
+          (TypeConstArray
+            3
+            (TypeQualified
+              TypeQualifierConst
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed))))),
+      declSpec = DeclSpec
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "array.h:111:26",
+        declId = NamePair {
+          nameC = Name "arr_8_const",
+          nameHsIdent = Identifier
+            "arr_8_const"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "Multi-dimensional array of unknown size, typedef"]])},
+      declKind = DeclGlobal
+        (TypeQualified
+          TypeQualifierConst
+          (TypeTypedef
+            (TypedefRegular
+              NamePair {
+                nameC = Name "tripletlist",
+                nameHsIdent = Identifier
+                  "Tripletlist"}
+              (TypeIncompleteArray
+                (TypeConstArray
+                  3
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))))),
+      declSpec = DeclSpec
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "array.h:118:5",
         declId = NamePair {
           nameC = Name "fun_1",
           nameHsIdent = Identifier
@@ -794,7 +1109,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "array.h:93:5",
+        declLoc = "array.h:121:5",
         declId = NamePair {
           nameC = Name "fun_2",
           nameHsIdent = Identifier
@@ -846,7 +1161,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "array.h:96:5",
+        declLoc = "array.h:124:5",
         declId = NamePair {
           nameC = Name "fun_3",
           nameHsIdent = Identifier
@@ -891,7 +1206,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "array.h:99:5",
+        declLoc = "array.h:127:5",
         declId = NamePair {
           nameC = Name "fun_4",
           nameHsIdent = Identifier
@@ -941,7 +1256,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "array.h:102:5",
+        declLoc = "array.h:130:5",
         declId = NamePair {
           nameC = Name "fun_5",
           nameHsIdent = Identifier
@@ -989,7 +1304,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "array.h:105:5",
+        declLoc = "array.h:133:5",
         declId = NamePair {
           nameC = Name "fun_6",
           nameHsIdent = Identifier
@@ -1043,7 +1358,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "array.h:108:5",
+        declLoc = "array.h:136:5",
         declId = NamePair {
           nameC = Name "fun_7",
           nameHsIdent = Identifier
@@ -1090,7 +1405,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "array.h:111:5",
+        declLoc = "array.h:139:5",
         declId = NamePair {
           nameC = Name "fun_8",
           nameHsIdent = Identifier
@@ -1143,7 +1458,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "array.h:114:5",
+        declLoc = "array.h:142:5",
         declId = NamePair {
           nameC = Name "isSolved",
           nameHsIdent = Identifier
@@ -1203,7 +1518,623 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "array.h:126:7",
+        declLoc = "array.h:149:5",
+        declId = NamePair {
+          nameC = Name "fun_1_const",
+          nameHsIdent = Identifier
+            "fun_1_const"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "Array of known size"]])},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = Identifier "x"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "xs",
+                  nameHsIdent = Identifier "xs"})
+              (TypeConstArray
+                3
+                (TypePrim
+                  (PrimIntegral PrimInt Signed))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "ys",
+                  nameHsIdent = Identifier "ys"})
+              (TypeConstArray
+                3
+                (TypeQualified
+                  TypeQualifierConst
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "array.h:152:5",
+        declId = NamePair {
+          nameC = Name "fun_2_const",
+          nameHsIdent = Identifier
+            "fun_2_const"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "Array of known size, typedef"]])},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "xs",
+                  nameHsIdent = Identifier "xs"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "triplet",
+                    nameHsIdent = Identifier
+                      "Triplet"}
+                  (TypeConstArray
+                    3
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed))))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "ys",
+                  nameHsIdent = Identifier "ys"})
+              (TypeQualified
+                TypeQualifierConst
+                (TypeTypedef
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "triplet",
+                      nameHsIdent = Identifier
+                        "Triplet"}
+                    (TypeConstArray
+                      3
+                      (TypePrim
+                        (PrimIntegral
+                          PrimInt
+                          Signed))))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "array.h:155:5",
+        declId = NamePair {
+          nameC = Name "fun_3_const",
+          nameHsIdent = Identifier
+            "fun_3_const"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "Array of unknown size"]])},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "xs",
+                  nameHsIdent = Identifier "xs"})
+              (TypeIncompleteArray
+                (TypePrim
+                  (PrimIntegral PrimInt Signed))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "ys",
+                  nameHsIdent = Identifier "ys"})
+              (TypeIncompleteArray
+                (TypeQualified
+                  TypeQualifierConst
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "array.h:158:5",
+        declId = NamePair {
+          nameC = Name "fun_4_const",
+          nameHsIdent = Identifier
+            "fun_4_const"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "Array of unknown size, typedef"]])},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "xs",
+                  nameHsIdent = Identifier "xs"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "list",
+                    nameHsIdent = Identifier "List"}
+                  (TypeIncompleteArray
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed))))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "ys",
+                  nameHsIdent = Identifier "ys"})
+              (TypeQualified
+                TypeQualifierConst
+                (TypeTypedef
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "list",
+                      nameHsIdent = Identifier "List"}
+                    (TypeIncompleteArray
+                      (TypePrim
+                        (PrimIntegral
+                          PrimInt
+                          Signed))))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "array.h:161:5",
+        declId = NamePair {
+          nameC = Name "fun_5_const",
+          nameHsIdent = Identifier
+            "fun_5_const"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "Multi-dimensional array of known size"]])},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "xss",
+                  nameHsIdent = Identifier "xss"})
+              (TypeConstArray
+                4
+                (TypeConstArray
+                  3
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed)))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "yss",
+                  nameHsIdent = Identifier "yss"})
+              (TypeConstArray
+                4
+                (TypeConstArray
+                  3
+                  (TypeQualified
+                    TypeQualifierConst
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed)))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "array.h:164:5",
+        declId = NamePair {
+          nameC = Name "fun_6_const",
+          nameHsIdent = Identifier
+            "fun_6_const"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "Multi-dimensional array of known size, typedef"]])},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "xss",
+                  nameHsIdent = Identifier "xss"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "matrix",
+                    nameHsIdent = Identifier
+                      "Matrix"}
+                  (TypeConstArray
+                    4
+                    (TypeConstArray
+                      3
+                      (TypePrim
+                        (PrimIntegral
+                          PrimInt
+                          Signed)))))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "yss",
+                  nameHsIdent = Identifier "yss"})
+              (TypeQualified
+                TypeQualifierConst
+                (TypeTypedef
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "matrix",
+                      nameHsIdent = Identifier
+                        "Matrix"}
+                    (TypeConstArray
+                      4
+                      (TypeConstArray
+                        3
+                        (TypePrim
+                          (PrimIntegral
+                            PrimInt
+                            Signed)))))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "array.h:167:5",
+        declId = NamePair {
+          nameC = Name "fun_7_const",
+          nameHsIdent = Identifier
+            "fun_7_const"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "Multi-dimensional array of unknown size"]])},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "xss",
+                  nameHsIdent = Identifier "xss"})
+              (TypeIncompleteArray
+                (TypeConstArray
+                  3
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed)))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "yss",
+                  nameHsIdent = Identifier "yss"})
+              (TypeIncompleteArray
+                (TypeConstArray
+                  3
+                  (TypeQualified
+                    TypeQualifierConst
+                    (TypePrim
+                      (PrimIntegral
+                        PrimInt
+                        Signed)))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "array.h:170:5",
+        declId = NamePair {
+          nameC = Name "fun_8_const",
+          nameHsIdent = Identifier
+            "fun_8_const"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "Multi-dimensional array of unknown size, typedef"]])},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "xss",
+                  nameHsIdent = Identifier "xss"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "tripletlist",
+                    nameHsIdent = Identifier
+                      "Tripletlist"}
+                  (TypeIncompleteArray
+                    (TypeConstArray
+                      3
+                      (TypePrim
+                        (PrimIntegral
+                          PrimInt
+                          Signed)))))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "yss",
+                  nameHsIdent = Identifier "yss"})
+              (TypeQualified
+                TypeQualifierConst
+                (TypeTypedef
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "tripletlist",
+                      nameHsIdent = Identifier
+                        "Tripletlist"}
+                    (TypeIncompleteArray
+                      (TypeConstArray
+                        3
+                        (TypePrim
+                          (PrimIntegral
+                            PrimInt
+                            Signed)))))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "array.h:173:5",
+        declId = NamePair {
+          nameC = Name "isSolved_const",
+          nameHsIdent = Identifier
+            "isSolved_const"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["array.h"],
+            headerInclude = "array.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "Typedef-in-typedef"]])},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "xss",
+                  nameHsIdent = Identifier "xss"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "sudoku",
+                    nameHsIdent = Identifier
+                      "Sudoku"}
+                  (TypeConstArray
+                    3
+                    (TypeTypedef
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name "triplet",
+                          nameHsIdent = Identifier
+                            "Triplet"}
+                        (TypeConstArray
+                          3
+                          (TypePrim
+                            (PrimIntegral
+                              PrimInt
+                              Signed)))))))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "yss",
+                  nameHsIdent = Identifier "yss"})
+              (TypeQualified
+                TypeQualifierConst
+                (TypeTypedef
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "sudoku",
+                      nameHsIdent = Identifier
+                        "Sudoku"}
+                    (TypeConstArray
+                      3
+                      (TypeTypedef
+                        (TypedefRegular
+                          NamePair {
+                            nameC = Name "triplet",
+                            nameHsIdent = Identifier
+                              "Triplet"}
+                          (TypeConstArray
+                            3
+                            (TypePrim
+                              (PrimIntegral
+                                PrimInt
+                                Signed)))))))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "array.h:185:7",
         declId = NamePair {
           nameC = Name "fun_9",
           nameHsIdent = Identifier
@@ -1243,7 +2174,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "array.h:129:10",
+        declLoc = "array.h:188:10",
         declId = NamePair {
           nameC = Name "fun_10",
           nameHsIdent = Identifier
@@ -1289,7 +2220,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "array.h:132:7",
+        declLoc = "array.h:191:7",
         declId = NamePair {
           nameC = Name "fun_11",
           nameHsIdent = Identifier
@@ -1328,7 +2259,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "array.h:135:7",
+        declLoc = "array.h:194:7",
         declId = NamePair {
           nameC = Name "fun_12",
           nameHsIdent = Identifier
@@ -1372,7 +2303,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "array.h:138:7",
+        declLoc = "array.h:197:7",
         declId = NamePair {
           nameC = Name "fun_13",
           nameHsIdent = Identifier
@@ -1414,7 +2345,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "array.h:141:9",
+        declLoc = "array.h:200:9",
         declId = NamePair {
           nameC = Name "fun_14",
           nameHsIdent = Identifier
@@ -1462,7 +2393,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "array.h:144:7",
+        declLoc = "array.h:203:7",
         declId = NamePair {
           nameC = Name "fun_15",
           nameHsIdent = Identifier
@@ -1503,7 +2434,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "array.h:147:14",
+        declLoc = "array.h:206:14",
         declId = NamePair {
           nameC = Name "fun_16",
           nameHsIdent = Identifier
@@ -1550,7 +2481,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "array.h:150:10",
+        declLoc = "array.h:209:10",
         declId = NamePair {
           nameC = Name "solve",
           nameHsIdent = Identifier
