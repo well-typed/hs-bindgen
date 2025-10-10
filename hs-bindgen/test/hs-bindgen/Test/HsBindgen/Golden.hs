@@ -621,9 +621,8 @@ testCases = manualTestCases ++ [
 -- | Test cases for header files used in the manual
 manualTestCases :: [TestCase]
 manualTestCases = [
-      testTraceCustom "manual/function_pointers" ([]  :: [String]) $ \case
-        _otherwise ->
-          Nothing
+      defaultTest "manual/arrays"
+    , defaultTest "manual/function_pointers"
     ]
 
 expectFromKey :: ParseMsgKey Select -> TraceExpectation Text
