@@ -4,6 +4,9 @@
 [submodule "alternatives/c2hs"]
 	path = alternatives/tools/c2hs
 	url = https://github.com/haskell/c2hs.git
+[submodule "examples/c-rogueutil/rogueutil"]
+	path = examples/c-rogueutil/rogueutil
+	url = https://github.com/sakhmatd/rogueutil.git
 [submodule "examples/c-minisat/minisat-c-bindings"]
 	path = examples/c-minisat/minisat-c-bindings
 	url = https://github.com/niklasso/minisat-c-bindings.git
