@@ -19,6 +19,7 @@ import HsBindgen.Config.ClangArgs qualified as ClangArgs
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
+import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer
 
 -- | Boot phase.
@@ -31,9 +32,14 @@ import HsBindgen.Util.Tracer
 boot ::
      Tracer IO BootMsg
   -> BindgenConfig
+  -> Hs.ModuleName
   -> [UncheckedHashIncludeArg]
   -> IO BootArtefact
-boot tracer bindgenConfig@BindgenConfig{..} uncheckedHashIncludeArgs = do
+boot
+  tracer
+  bindgenConfig@BindgenConfig{..}
+  hsModuleName
+  uncheckedHashIncludeArgs = do
     traceStatus $ BootStatusStart bindgenConfig
 
     checkBackendConfig (contramap BootBackendConfig tracer) bindgenBackendConfig
@@ -61,7 +67,8 @@ boot tracer bindgenConfig@BindgenConfig{..} uncheckedHashIncludeArgs = do
       withTrace BootStatusExternalBindingSpec $ fmap snd getBindingSpecs
 
     pure BootArtefact {
-          bootClangArgs               = getClangArgs'
+          bootModule                  = hsModuleName
+        , bootClangArgs               = getClangArgs'
         , bootHashIncludeArgs         = getHashIncludeArgs
         , bootExternalBindingSpec     = getExternalBindingSpec
         , bootPrescriptiveBindingSpec = getPrescriptiveBindingSpec
@@ -100,7 +107,8 @@ getClangArgs tracer config = do
 -------------------------------------------------------------------------------}
 
 data BootArtefact = BootArtefact {
-    bootClangArgs               :: IO ClangArgs
+    bootModule                  :: Hs.ModuleName
+  , bootClangArgs               :: IO ClangArgs
   , bootHashIncludeArgs         :: IO [HashIncludeArg]
   , bootExternalBindingSpec     :: IO ExternalBindingSpec
   , bootPrescriptiveBindingSpec :: IO PrescriptiveBindingSpec

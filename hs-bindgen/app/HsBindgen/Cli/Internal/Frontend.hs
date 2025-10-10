@@ -18,6 +18,7 @@ import Options.Applicative hiding (info)
 import HsBindgen.App
 import HsBindgen.Config
 import HsBindgen.Frontend.RootHeader
+import HsBindgen.Language.Haskell qualified as Hs
 
 import HsBindgen
 
@@ -33,9 +34,10 @@ info = progDesc "Parse C headers (all Frontend passes)"
 -------------------------------------------------------------------------------}
 
 data Opts = Opts {
-      config   :: Config
-    , configPP :: ConfigPP
-    , inputs   :: [UncheckedHashIncludeArg]
+      config       :: Config
+    , configPP     :: ConfigPP
+    , hsModuleName :: Hs.ModuleName
+    , inputs       :: [UncheckedHashIncludeArg]
     }
 
 parseOpts :: Parser Opts
@@ -43,6 +45,7 @@ parseOpts =
     Opts
       <$> parseConfig
       <*> parseConfigPP
+      <*> parseHsModuleName
       <*> parseInputs
 
 {-------------------------------------------------------------------------------
@@ -54,5 +57,5 @@ exec GlobalOpts{..} Opts{..} = do
     let artefacts = ReifiedC :* Nil
         bindgenConfig = toBindgenConfigPP config configPP
     (I decls :* Nil) <-
-      hsBindgen tracerConfig bindgenConfig inputs artefacts
+      hsBindgen tracerConfig bindgenConfig hsModuleName inputs artefacts
     print decls

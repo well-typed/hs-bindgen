@@ -11,6 +11,7 @@ import HsBindgen.Backend.HsModule.Translation
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.SHs.Simplify qualified as SHs
 import HsBindgen.Backend.SHs.Translation qualified as SHs
+import HsBindgen.Boot
 import HsBindgen.Cache
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend
@@ -22,8 +23,12 @@ import HsBindgen.Util.Tracer
 -- declarations.
 --
 -- The backend is pure and should not emit warnings or errors.
-backend :: Tracer IO BackendMsg -> BackendConfig -> FrontendArtefact -> IO BackendArtefact
-backend tracer BackendConfig{..} FrontendArtefact{..} = do
+backend :: Tracer IO BackendMsg
+  -> BackendConfig
+  -> BootArtefact
+  -> FrontendArtefact
+  -> IO BackendArtefact
+backend tracer BackendConfig{..} BootArtefact{..} FrontendArtefact{..} = do
     -- 1. Reified C declarations to @Hs@ declarations.
     backendHsDecls <- cache $
       Hs.generateDeclarations
@@ -51,7 +56,7 @@ backend tracer BackendConfig{..} FrontendArtefact{..} = do
     , ..
     }
   where
-    moduleBaseName = hsModuleOptsBaseName backendHsModuleOpts
+    moduleBaseName = bootModule
 
     cache :: IO a -> IO (IO a)
     cache = cacheWith (contramap BackendCache tracer) Nothing
