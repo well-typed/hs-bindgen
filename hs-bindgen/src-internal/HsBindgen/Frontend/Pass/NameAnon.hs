@@ -60,8 +60,8 @@ data RenameEnv = RenameEnv {
     }
 
 findNamedUseOf :: RenameEnv -> C.QualPrelimDeclId -> Maybe UseOfDecl
-findNamedUseOf RenameEnv{envDeclIndex, envDeclUse} nsid =
-    DeclUseGraph.findNamedUseOf envDeclIndex envDeclUse nsid
+findNamedUseOf RenameEnv{envDeclIndex, envDeclUse} qualPrelimDeclId =
+    DeclUseGraph.findNamedUseOf envDeclIndex envDeclUse qualPrelimDeclId
 
 findAliasesOf :: RenameEnv -> C.QualPrelimDeclId -> [C.Name]
 findAliasesOf RenameEnv{envDeclUse} = DeclUseGraph.findAliasesOf envDeclUse
@@ -78,12 +78,12 @@ nameDecl ::
   -> C.Decl HandleMacros
   -> Either (Msg NameAnon) (C.Decl NameAnon)
 nameDecl env decl = do
-    case getDeclId env nsId declId of
+    case getDeclId env qualPrelimDeclId declId of
       Left _        -> Left  $ NameAnonSkipped (coercePass declInfo)
       Right declId' -> Right $ C.Decl{
         declInfo = C.DeclInfo{
             declId = declId'
-          , declAliases = findAliasesOf env nsId
+          , declAliases = findAliasesOf env qualPrelimDeclId
           , declLoc
           , declHeaderInfo
           , declAvailability
@@ -96,8 +96,8 @@ nameDecl env decl = do
     C.Decl{declInfo, declKind, declAnn} = decl
     C.DeclInfo{..} = declInfo
 
-    nsId :: C.QualPrelimDeclId
-    nsId = C.declQualPrelimDeclId decl
+    qualPrelimDeclId :: C.QualPrelimDeclId
+    qualPrelimDeclId = C.declQualPrelimDeclId decl
 
 -- Get the declaration identifier. May fail for anonymous declarations, if they
 -- have no use sites; in which case we used to return 'Nothing'. However, we do
@@ -109,14 +109,14 @@ getDeclId ::
   -> C.QualPrelimDeclId
   -> Id HandleMacros
   -> Either (Id NameAnon) (Id NameAnon)
-getDeclId env nsid declId =
+getDeclId env qualPrelimDeclId declId =
    case declId of
      C.PrelimDeclIdNamed n ->
        Right $ C.DeclId n C.NameOriginInSource
      C.PrelimDeclIdAnon anonId ->
        let orig :: C.NameOrigin
            orig = C.NameOriginGenerated anonId
-       in  case nameForAnon <$> findNamedUseOf env nsid of
+       in  case nameForAnon <$> findNamedUseOf env qualPrelimDeclId of
              Nothing   -> Left  $ C.DeclId "unused_anonymous_declaration" orig
              Just name -> Right $ C.DeclId name                           orig
      C.PrelimDeclIdBuiltin name ->
@@ -128,11 +128,11 @@ getDeclIdParseMsgKey env key = key{parseMsgDeclId = declId'}
     declId :: Id HandleMacros
     declId = parseMsgDeclId key
 
-    nsId :: C.QualPrelimDeclId
-    nsId = C.qualPrelimDeclId declId (parseMsgDeclKind key)
+    qualPrelimDeclId :: C.QualPrelimDeclId
+    qualPrelimDeclId = C.qualPrelimDeclId declId (parseMsgDeclKind key)
 
     declId' :: Id NameAnon
-    declId' = either id id $ getDeclId env nsId declId
+    declId' = either id id $ getDeclId env qualPrelimDeclId declId
 
 {-------------------------------------------------------------------------------
   Use sites
@@ -163,7 +163,7 @@ instance NameUseSites C.CommentRef where
   nameUseSites _ (C.ById t) = C.ById (nameUseSite t)
     where
       nameUseSite :: C.PrelimDeclId -> C.DeclId
-      nameUseSite nsid = case nsid of
+      nameUseSite qualPrelimDeclId = case qualPrelimDeclId of
         C.PrelimDeclIdNamed name   -> C.DeclId name C.NameOriginInSource
         C.PrelimDeclIdBuiltin name -> C.DeclId name C.NameOriginBuiltin
         C.PrelimDeclIdAnon _       -> panicPure "Anonymous reference"
@@ -268,10 +268,10 @@ instance NameUseSites C.Type where
       --
       -- NOTE: there /must/ be at least one use site, because we are renaming one!
       nameUseSite :: C.QualPrelimDeclId -> C.DeclId
-      nameUseSite nsid = case nsid of
+      nameUseSite qualPrelimDeclId = case qualPrelimDeclId of
         C.QualPrelimDeclIdNamed   name   _ns -> C.DeclId name C.NameOriginInSource
         C.QualPrelimDeclIdBuiltin name       -> C.DeclId name C.NameOriginBuiltin
-        C.QualPrelimDeclIdAnon    anonId _tk -> case findNamedUseOf env nsid of
+        C.QualPrelimDeclIdAnon    anonId _tk -> case findNamedUseOf env qualPrelimDeclId of
           Just useOfAnon ->
             C.DeclId (nameForAnon useOfAnon) (C.NameOriginGenerated anonId)
           Nothing -> panicPure "impossible"

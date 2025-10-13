@@ -169,12 +169,13 @@ analyseTypedef declUseGraph uid typedef =
 
     -- Get use sites, except any self-references
     getUseSites :: C.QualPrelimDeclId -> [(C.QualPrelimDeclId, Usage)]
-    getUseSites nsid =
-        let allUseSites = DeclUseGraph.getUseSites declUseGraph nsid
+    getUseSites qualPrelimDeclId =
+        let allUseSites = DeclUseGraph.getUseSites declUseGraph qualPrelimDeclId
         in filter (not . isSelfReference) allUseSites
       where
         isSelfReference :: (C.QualPrelimDeclId, Usage) -> Bool
-        isSelfReference (nsid', _usage) = nsid == nsid'
+        isSelfReference (qualPrelimDeclId', _usage) =
+          qualPrelimDeclId == qualPrelimDeclId'
 
 -- | Typedef of some tagged datatype
 typedefOfTagged ::

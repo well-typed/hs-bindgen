@@ -48,7 +48,7 @@ depsOfDecl (DeclTypedef ty) =
     map (uncurry aux) $ depsOfTypedef ty
   where
     aux :: ValOrRef -> C.QualPrelimDeclId -> (Usage, C.QualPrelimDeclId)
-    aux isPtr nsid = (UsedInTypedef isPtr, nsid)
+    aux isPtr qualPrelimDeclId = (UsedInTypedef isPtr, qualPrelimDeclId)
 depsOfDecl (DeclOpaque _) =
     []
 depsOfDecl (DeclMacro _ts) =
@@ -61,7 +61,7 @@ depsOfDecl (DeclFunction (Function {..})) =
     map (uncurry aux) $ concatMap depsOfType (functionRes : map snd functionArgs)
   where
     aux :: ValOrRef -> C.QualPrelimDeclId -> (Usage, C.QualPrelimDeclId)
-    aux isPtr nsid = (UsedInFunction isPtr, nsid)
+    aux isPtr qualPrelimDeclId = (UsedInFunction isPtr, qualPrelimDeclId)
 depsOfDecl (DeclGlobal ty) =
     map (first UsedInVar) $ depsOfType ty
 
@@ -74,7 +74,7 @@ depsOfField getName getType field =
     map (uncurry aux) $ depsOfType $ getType field
   where
     aux :: ValOrRef -> C.QualPrelimDeclId -> (Usage, C.QualPrelimDeclId)
-    aux isPtr nsid = (UsedInField isPtr (getName field), nsid)
+    aux isPtr qualPrelimDeclId = (UsedInField isPtr (getName field), qualPrelimDeclId)
 
 depsOfTypedef :: Typedef Parse -> [(ValOrRef, C.QualPrelimDeclId)]
 depsOfTypedef = depsOfType . typedefType
