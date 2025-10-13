@@ -1,0 +1,44 @@
+cabal-version:      3.0
+name:               zero-copy
+version:            0.1.0
+license:            BSD-3-Clause
+license-file:       LICENSE
+author:             Edsko de Vries
+maintainer:         edsko@well-typed.com
+build-type:         Simple
+
+common lang
+  default-language: GHC2021
+  build-depends:    base ^>=4.17.2.1
+
+  ghc-options:
+      -Wall
+      -Wredundant-constraints
+      -Wprepositive-qualified-module
+
+  default-extensions:
+      DataKinds
+      DerivingStrategies
+      DerivingVia
+      TypeFamilies
+      UndecidableInstances
+
+executable zero-copy
+  import:         lang
+  main-is:        Main.hs
+  hs-source-dirs: app
+
+  other-modules:
+      Generated
+      ZeroCopy
+
+  build-depends:
+      hs-bindgen-runtime
+
+  build-tool-depends:
+      hs-bindgen:hs-bindgen-cli
+
+  -- C
+  c-sources:    cbits/cbits.c
+  include-dirs: cbits
+  cc-options:   -Wall
