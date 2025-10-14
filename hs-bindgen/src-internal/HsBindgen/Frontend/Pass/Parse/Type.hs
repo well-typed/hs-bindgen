@@ -8,10 +8,8 @@ import Data.Data (Typeable)
 import GHC.Stack
 
 import Clang.Enum.Simple
-
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types (CursorSpelling (..))
-
 import Clang.LowLevel.Core
 
 import HsBindgen.Errors

@@ -23,10 +23,8 @@ import Text.SimplePrettyPrint (CtxDoc, (<+>), (><))
 import Text.SimplePrettyPrint qualified as PP
 
 import Clang.Enum.Simple
-
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
-
 import Clang.LowLevel.Core
 
 import HsBindgen.Frontend.AST.Coerce (CoercePass (..))

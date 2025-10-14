@@ -64,7 +64,6 @@ import Prelude hiding (Enum)
 
 import Clang.HighLevel.Documentation qualified as CDoc
 import Clang.HighLevel.Types
-
 import Clang.Paths
 
 import HsBindgen.BindingSpec qualified as BindingSpec

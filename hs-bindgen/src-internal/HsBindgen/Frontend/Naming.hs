@@ -90,7 +90,6 @@ import Text.SimplePrettyPrint qualified as PP
 import Clang.HighLevel (ShowFile (..))
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
-
 import Clang.LowLevel.Core
 
 import HsBindgen.Errors

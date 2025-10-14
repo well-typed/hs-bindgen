@@ -22,11 +22,10 @@ import GHC.Exts qualified as IsList (IsList (..))
 import GHC.Unicode (isDigit)
 
 import C.Char qualified as CExpr.Runtime
+import C.Type qualified as CExpr.Runtime
 
 import C.Expr.Syntax qualified as CExpr.DSL
 import C.Expr.Typecheck.Type qualified as CExpr.DSL
-
-import C.Type qualified as CExpr.Runtime
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type

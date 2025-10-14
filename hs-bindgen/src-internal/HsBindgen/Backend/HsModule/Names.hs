@@ -31,29 +31,18 @@ import System.IO.Unsafe qualified
 import Text.Read qualified
 
 import C.Char qualified as CExpr.Runtime
-
 import C.Expr.HostPlatform qualified as CExpr.Runtime
 
 import HsBindgen.Runtime.Bitfield qualified
-
 import HsBindgen.Runtime.Block qualified
-
 import HsBindgen.Runtime.ByteArray qualified
-
 import HsBindgen.Runtime.CAPI qualified
-
 import HsBindgen.Runtime.CEnum qualified
-
 import HsBindgen.Runtime.ConstantArray qualified
-
 import HsBindgen.Runtime.FlexibleArrayMember qualified
-
 import HsBindgen.Runtime.FunPtr qualified
-
 import HsBindgen.Runtime.IncompleteArray qualified
-
 import HsBindgen.Runtime.Marshal qualified
-
 import HsBindgen.Runtime.SizedByteArray qualified
 
 import HsBindgen.Backend.Hs.AST.Type

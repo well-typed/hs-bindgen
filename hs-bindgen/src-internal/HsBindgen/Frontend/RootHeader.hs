@@ -29,7 +29,6 @@ import System.FilePath qualified as FilePath
 import Text.SimplePrettyPrint qualified as PP
 
 import Clang.HighLevel.Types
-
 import Clang.Paths
 
 import HsBindgen.Imports

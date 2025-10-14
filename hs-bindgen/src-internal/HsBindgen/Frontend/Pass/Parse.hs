@@ -4,7 +4,6 @@ module HsBindgen.Frontend.Pass.Parse (
   ) where
 
 import Clang.HighLevel qualified as HighLevel
-
 import Clang.LowLevel.Core
 
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)

@@ -26,11 +26,8 @@ import Language.C qualified as LanC
 import Language.C.Data.Position qualified as LanC
 
 import Clang.Enum.Simple qualified as Clang
-
 import Clang.HighLevel.Types qualified as Clang
-
 import Clang.LowLevel.Core qualified as Clang
-
 import Clang.Paths qualified as Clang
 
 import HsBindgen.Errors

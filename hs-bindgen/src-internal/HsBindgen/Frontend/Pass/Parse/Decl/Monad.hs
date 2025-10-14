@@ -32,12 +32,9 @@ import Data.Set qualified as Set
 import Data.Text qualified as Text
 
 import Clang.Enum.Simple
-
 import Clang.HighLevel qualified as HighLevel
 import Clang.HighLevel.Types
-
 import Clang.LowLevel.Core
-
 import Clang.Paths
 
 import HsBindgen.Eff

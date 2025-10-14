@@ -108,9 +108,7 @@ import Data.Word qualified
 import Foreign.C qualified
 
 import HsBindgen.Runtime.CAPI
-
 import HsBindgen.Runtime.LibC qualified as LibC
-
 import HsBindgen.Runtime.SizedByteArray qualified as SizedByteArray
 
 {-------------------------------------------------------------------------------

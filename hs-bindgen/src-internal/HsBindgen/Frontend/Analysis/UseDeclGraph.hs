@@ -28,7 +28,6 @@ import Data.List qualified as List
 import Data.Map qualified as Map
 
 import Clang.HighLevel.Types
-
 import Clang.Paths
 
 import HsBindgen.Errors

@@ -300,12 +300,11 @@ steps:
         # because both standalone modules and submodules should be grouped together.
         # Using \. would exclude standalone imports like "import Optics".
         - match: "^(Control\\.|Data\\.|System\\.|Text\\.|GHC\\.|Foreign|Foreign\\.|Unsafe\\.|Debug\\.|Network\\.|Test\\.|Numeric\\.|Options\\.|Language\\.|Optics\\>|Generics\\>|Crypto\\>|DeBruijn\\.|Prettyprinter\\.)"
-        - match: "^C\\."
-          sub_group: "^C\\.[^.]+"
-        - match: "^Clang\\."
-          sub_group: "^Clang\\.[^.]+"
-        - match: "^HsBindgen\\.Runtime\\."
-          sub_group: "^HsBindgen\\.Runtime\\.[^.]+"
+        # - match: "^C\\."
+        - match: "^(C\\.Char|C\\.Type|C\\.Expr\\.HostPlatform)"
+        - match: "^C\\.Expr\\.[^.]+"
+        - match: "^Clang\\>"
+        - match: "^HsBindgen\\.Runtime\\>"
         - match: "^HsBindgen\\>"
 
 # A common setting is the number of columns (parts of) code will be wrapped
