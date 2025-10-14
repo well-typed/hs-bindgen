@@ -66,3 +66,29 @@ void onNewMeasurement(MeasurementReceived handler) {
         handler(&sample);  // Send the measurement
     }
 }
+
+void transformMeasurement(struct Measurement *data, void (*transformer)(struct Measurement *m, double (*scale)(double, int), int factor)) {
+    if (data == NULL || transformer == NULL) {
+        printf("Error: NULL pointer in transformMeasurement\n");
+        return;
+    }
+
+    printf("Transforming measurement with value: %.2f\n", data->value);
+
+    // Create a simple scaling function to pass to the transformer
+    // Note: In a real implementation, this would be more dynamic
+    transformer(data, NULL, 2);
+}
+
+void processWithCallbacks(void (*handler)(struct Measurement *m, FileOpenedNotification notify, int priority)) {
+    if (handler == NULL) {
+        printf("Error: NULL handler in processWithCallbacks\n");
+        return;
+    }
+
+    struct Measurement sample = {99.9, 1111111111.0};
+
+    // Create a simple notification callback
+    printf("Processing with callbacks...\n");
+    handler(&sample, NULL, 5);
+}

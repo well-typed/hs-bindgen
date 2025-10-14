@@ -517,6 +517,51 @@ main = do
         (MeasurementReceived_Deref $ peek >=> print)
         (onNewMeasurement . MeasurementReceived)
 
+      putStrLn ""
+      subsection "Nested callbacks"
+
+      alloca $ \measurementPtr -> do
+        poke measurementPtr $ Measurement { measurement_value = 100.0, measurement_timestamp = 1.0 }
+
+        transformerFunPtr <- toFunPtr $ \mPtr innerScaleFunPtr factor -> do
+          m <- peek mPtr
+          putStrLn $ "  Transforming measurement: " ++ show (measurement_value m) ++ ", factor=" ++ show factor
+          newValue <- if innerScaleFunPtr == F.nullFunPtr
+                      then do
+                        putStrLn "  (Scaling function was NULL, using direct multiplication)"
+                        return $ measurement_value m * fromIntegral factor
+                      else do
+                        putStrLn "  (Using provided scaling function)"
+                        let scaleFun = fromFunPtr innerScaleFunPtr
+                        scaleFun (measurement_value m) factor
+          poke mPtr $ m { measurement_value = newValue }
+          putStrLn $ "  New value: " ++ show newValue
+
+        putStrLn "Testing transformMeasurement with nested callbacks:"
+        transformMeasurement measurementPtr transformerFunPtr
+
+        finalMeasurement <- peek measurementPtr
+        putStrLn $ "Final measurement: " ++ show finalMeasurement
+
+      putStrLn ""
+      alloca $ \measurementPtr -> do
+        poke measurementPtr $ Measurement { measurement_value = 42.0, measurement_timestamp = 2.0 }
+
+        handlerFunPtr <- toFunPtr $ \(mPtr :: Ptr Measurement)
+                                     (notify :: FileOpenedNotification)
+                                     (priority :: FC.CInt) -> do
+          m <- peek mPtr
+          putStrLn $ "  Handler called: value=" ++ show (measurement_value m)
+                  ++ ", priority=" ++ show priority
+          if un_FileOpenedNotification notify /= F.nullFunPtr
+            then do
+              let (FileOpenedNotification_Deref notifyFn) = fromFunPtr (un_FileOpenedNotification notify)
+              notifyFn
+            else putStrLn "  (Notification callback was NULL)"
+
+        putStrLn "Testing processWithCallbacks with multiple callbacks:"
+        processWithCallbacks handlerFunPtr
+
 {-------------------------------------------------------------------------------
   Arrays
 -------------------------------------------------------------------------------}
@@ -590,3 +635,20 @@ foreign import ccall "dynamic" mkApply1Fun ::
 
 instance FromFunPtr (F.FunPtr FunPtr.Int2int -> FC.CInt -> IO FC.CInt) where
   fromFunPtr = mkApply1Fun
+
+-- Manual instances for nested callback scaling function
+foreign import ccall "wrapper" mkScaleFunPtr ::
+     (FC.CDouble -> FC.CInt -> IO FC.CDouble)
+  -> IO (F.FunPtr (FC.CDouble -> FC.CInt -> IO FC.CDouble))
+
+foreign import ccall "dynamic" fromScaleFunPtr ::
+     F.FunPtr (FC.CDouble -> FC.CInt -> IO FC.CDouble)
+  -> FC.CDouble
+  -> FC.CInt
+  -> IO FC.CDouble
+
+instance ToFunPtr (FC.CDouble -> FC.CInt -> IO FC.CDouble) where
+  toFunPtr = mkScaleFunPtr
+
+instance FromFunPtr (FC.CDouble -> FC.CInt -> IO FC.CDouble) where
+  fromFunPtr = fromScaleFunPtr

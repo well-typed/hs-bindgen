@@ -19,9 +19,8 @@ struct Measurement {
 typedef void (*MeasurementReceived)(struct Measurement *data);
 void onNewMeasurement(MeasurementReceived handler);
 
-// Callbacks with fixed-length arrays not supported as well as passing structs
-// by value
-//
-// typedef void (*SampleBufferFull)(int samples[10]);
-// void onBufferReady(SampleBufferFull handler);
+// Function pointers that take other function pointers as arguments
+void transformMeasurement(struct Measurement *data, void (*transformer)(struct Measurement *m, double (*scale)(double, int), int factor));
 
+// Multiple nested callbacks with custom types
+void processWithCallbacks(void (*handler)(struct Measurement *m, FileOpenedNotification notify, int priority));
