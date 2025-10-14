@@ -274,7 +274,7 @@ instance NameUseSites C.Type where
         C.QualPrelimDeclIdAnon    anonId _tk -> case findNamedUseOf env qualPrelimDeclId of
           Just useOfAnon ->
             C.DeclId (nameForAnon useOfAnon) (C.NameOriginGenerated anonId)
-          Nothing -> panicPure "impossible"
+          Nothing -> panicPure "unused anonymous declaration?"
 
 nameUseSitesTypedefRef :: RenameEnv -> TypedefRef HandleMacros -> TypedefRef NameAnon
 nameUseSitesTypedefRef env = unTypedefRefWrapper . nameUseSites env . TypedefRefWrapper

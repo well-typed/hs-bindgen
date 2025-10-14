@@ -175,13 +175,13 @@ matchSelect ::
      IsMainHeader
   -> IsInMainHeaderDir
   -> SourcePath
-  -> C.QualDeclId
+  -> C.QualName
   -> C.Availability
   -> Boolean SelectPredicate
   -> Bool
-matchSelect isMainHeader isInMainHeaderDir path qid availability = eval $ \case
+matchSelect isMainHeader isInMainHeaderDir path qualName availability = eval $ \case
     SelectHeader p -> matchHeaderPath isMainHeader isInMainHeaderDir path p
-    SelectDecl   p -> matchDecl qid availability p
+    SelectDecl   p -> matchDecl qualName availability p
 
 {-------------------------------------------------------------------------------
   Merging
@@ -256,9 +256,9 @@ matchHeaderPath isMainHeader isInMainHeaderDir path@(SourcePath pathT) = \case
     HeaderPathMatches re -> matchTest re pathT
 
 -- | Match 'DeclPredicate' predicates
-matchDecl :: C.QualDeclId -> C.Availability -> DeclPredicate -> Bool
-matchDecl qid availability = \case
-    DeclNameMatches re -> matchTest re $ C.qualDeclIdText qid
+matchDecl :: C.QualName -> C.Availability -> DeclPredicate -> Bool
+matchDecl qualName availability = \case
+    DeclNameMatches re -> matchTest re $ C.qualNameText qualName
     DeclDeprecated     -> isDeprecated
   where
     isDeprecated = case availability of

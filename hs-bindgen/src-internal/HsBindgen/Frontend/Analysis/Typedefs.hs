@@ -166,16 +166,11 @@ analyseTypedef declUseGraph uid typedef =
         go ByRef ty
     go _ _otherType =
         mempty
-
+-- typedef (struct { };) abc_syn
     -- Get use sites, except any self-references
     getUseSites :: C.QualPrelimDeclId -> [(C.QualPrelimDeclId, Usage)]
     getUseSites qualPrelimDeclId =
-        let allUseSites = DeclUseGraph.getUseSites declUseGraph qualPrelimDeclId
-        in filter (not . isSelfReference) allUseSites
-      where
-        isSelfReference :: (C.QualPrelimDeclId, Usage) -> Bool
-        isSelfReference (qualPrelimDeclId', _usage) =
-          qualPrelimDeclId == qualPrelimDeclId'
+       DeclUseGraph.getUseSitesNoSelfReferences declUseGraph qualPrelimDeclId
 
 -- | Typedef of some tagged datatype
 typedefOfTagged ::

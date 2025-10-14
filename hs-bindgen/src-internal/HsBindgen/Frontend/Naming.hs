@@ -67,7 +67,6 @@ module HsBindgen.Frontend.Naming (
   , QualDeclId(..)
   , qualDeclId
   , qualDeclIdToQualPrelimDeclId
-  , qualDeclIdText
 
     -- * TaggedTypeId
   , TaggedTypeId(..)
@@ -420,11 +419,6 @@ qualDeclIdToQualPrelimDeclId QualDeclId{..} =
         NameOriginRenamedFrom origName -> PrelimDeclIdNamed   origName
         NameOriginBuiltin              -> PrelimDeclIdBuiltin qualDeclIdName
         NameOriginInSource             -> PrelimDeclIdNamed   qualDeclIdName
-
-qualDeclIdText :: QualDeclId -> Text
-qualDeclIdText QualDeclId{..} = case qualDeclIdOrigin of
-    NameOriginGenerated{} -> "anon:" <> getName qualDeclIdName
-    _otherwise -> qualNameText $ QualName qualDeclIdName qualDeclIdKind
 
 {-------------------------------------------------------------------------------
   TaggedTypeId

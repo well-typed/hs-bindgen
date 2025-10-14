@@ -6,6 +6,7 @@ module HsBindgen.Frontend.Pass.Select.IsPass (
   , SelectConfig(..)
     -- * Trace messages
   , SelectReason(..)
+  , SelectStatus(..)
   , SelectMsg(..)
   ) where
 
@@ -107,10 +108,14 @@ instance PrettyForTrace SelectReason where
     SelectionRoot        -> "selection root"
     TransitiveDependency -> "transitive dependency"
 
+data SelectStatus =
+    NotSelected
+  | Selected SelectReason
+  deriving stock (Show)
+
 -- | Select trace messages
 data SelectMsg =
-    SelectNotSelected (C.DeclInfo Select)
-  | SelectSelected SelectReason (C.DeclInfo Select)
+    SelectSelectStatus SelectStatus (C.DeclInfo Select)
     -- | Delayed parse message for actually selected declarations.
   | SelectParse  (ParseMsgKey Select) DelayedParseMsg
     -- | Delayed parse message for declarations that the user wanted to select,
@@ -122,9 +127,9 @@ data SelectMsg =
 
 instance PrettyForTrace SelectMsg where
   prettyForTrace = \case
-    SelectNotSelected info ->
+    SelectSelectStatus NotSelected info ->
       prettyForTrace info >< " not selected"
-    SelectSelected reason info ->
+    SelectSelectStatus (Selected reason) info ->
       prettyForTrace info >< " selected (" >< prettyForTrace reason >< ")"
     SelectParse  k x -> "During parse:" <+> prettyDelayedParseMsg k x
     SelectFailed k x -> "Failed to select declaration declaration:" <+> prettyDelayedParseMsg k x
@@ -138,10 +143,9 @@ instance PrettyForTrace SelectMsg where
 
 instance IsTrace Level SelectMsg where
   getDefaultLogLevel = \case
-    SelectNotSelected{} -> Info
-    SelectSelected{}    -> Info
-    SelectParse  _ x    -> getDefaultLogLevel x
-    SelectFailed _ x    -> getDefaultLogLevel x
+    SelectSelectStatus{} -> Info
+    SelectParse  _ x     -> getDefaultLogLevel x
+    SelectFailed _ x     -> getDefaultLogLevel x
   getSource  = const HsBindgen
   getTraceId = \case
     SelectParse  _ x -> "select-parse-"   <> getTraceId x
