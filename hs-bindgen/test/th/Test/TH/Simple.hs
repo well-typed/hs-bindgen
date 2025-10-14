@@ -7,10 +7,11 @@
 
 module Test.TH.Simple where
 
-import HsBindgen.Runtime.Prelude qualified
-import HsBindgen.TH
-
 import Optics ((%), (&), (.~))
+
+import HsBindgen.Runtime.Prelude qualified
+
+import HsBindgen.TH
 
 let cfg :: Config
     cfg = def & #clang % #extraIncludeDirs .~ [

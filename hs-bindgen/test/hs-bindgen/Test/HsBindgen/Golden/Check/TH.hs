@@ -24,13 +24,12 @@ import Text.SimplePrettyPrint
 
 import Clang.Version
 
+import HsBindgen
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.HsModule.Render
 import HsBindgen.Guasi
 import HsBindgen.Imports
 import HsBindgen.TH.Internal
-
-import HsBindgen
 
 {-------------------------------------------------------------------------------
   Tests

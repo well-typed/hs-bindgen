@@ -10,10 +10,9 @@ import Test.HsBindgen.Resources
 import Test.Tasty (TestTree)
 import Test.Tasty.HUnit
 
+import HsBindgen
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
-
-import HsBindgen
 
 {-------------------------------------------------------------------------------
   Tests

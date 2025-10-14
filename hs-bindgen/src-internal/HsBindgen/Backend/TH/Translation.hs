@@ -31,18 +31,9 @@ import Text.Read qualified
 
 import C.Char qualified as CExpr.Runtime
 import C.Expr.HostPlatform qualified as CExpr.Runtime
+
 import C.Expr.Syntax qualified as CExpr.DSL
 
-import HsBindgen.Backend.Hs.AST qualified as Hs
-import HsBindgen.Backend.Hs.AST.Type
-import HsBindgen.Backend.Hs.CallConv
-import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
-import HsBindgen.Backend.SHs.AST
-import HsBindgen.Errors
-import HsBindgen.Guasi
-import HsBindgen.Imports
-import HsBindgen.Language.Haskell qualified as Hs
-import HsBindgen.NameHint
 import HsBindgen.Runtime.Bitfield qualified
 import HsBindgen.Runtime.Block qualified
 import HsBindgen.Runtime.ByteArray qualified
@@ -54,6 +45,17 @@ import HsBindgen.Runtime.FunPtr qualified
 import HsBindgen.Runtime.IncompleteArray qualified
 import HsBindgen.Runtime.Marshal qualified
 import HsBindgen.Runtime.SizedByteArray qualified
+
+import HsBindgen.Backend.Hs.AST qualified as Hs
+import HsBindgen.Backend.Hs.AST.Type
+import HsBindgen.Backend.Hs.CallConv
+import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
+import HsBindgen.Backend.SHs.AST
+import HsBindgen.Errors
+import HsBindgen.Guasi
+import HsBindgen.Imports
+import HsBindgen.Language.Haskell qualified as Hs
+import HsBindgen.NameHint
 
 import DeBruijn (Add (..), EmptyCtx, Env (..), lookupEnv)
 

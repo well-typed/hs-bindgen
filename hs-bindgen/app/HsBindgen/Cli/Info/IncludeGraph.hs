@@ -15,12 +15,11 @@ module HsBindgen.Cli.Info.IncludeGraph (
 
 import Options.Applicative hiding (info)
 
+import HsBindgen
 import HsBindgen.App
 import HsBindgen.Config
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
-
-import HsBindgen
 
 {-------------------------------------------------------------------------------
   CLI help

@@ -33,9 +33,6 @@ import Text.Read qualified
 import C.Char qualified as CExpr.Runtime
 import C.Expr.HostPlatform qualified as CExpr.Runtime
 
-import HsBindgen.Backend.Hs.AST.Type
-import HsBindgen.Backend.SHs.AST
-import HsBindgen.Imports
 import HsBindgen.Runtime.Bitfield qualified
 import HsBindgen.Runtime.Block qualified
 import HsBindgen.Runtime.ByteArray qualified
@@ -47,6 +44,10 @@ import HsBindgen.Runtime.FunPtr qualified
 import HsBindgen.Runtime.IncompleteArray qualified
 import HsBindgen.Runtime.Marshal qualified
 import HsBindgen.Runtime.SizedByteArray qualified
+
+import HsBindgen.Backend.Hs.AST.Type
+import HsBindgen.Backend.SHs.AST
+import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
   Imports

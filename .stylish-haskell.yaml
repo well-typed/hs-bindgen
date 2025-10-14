@@ -296,17 +296,16 @@ steps:
       # 7. hs-bindgen modules sub-grouped by module hierarchy
       group_rules:
         - match: "^Prelude$"
-        - match: "^(Control\\.|Data\\.|System\\.|Text\\.|GHC\\.|Foreign|Foreign\\.|Unsafe\\.|Debug\\.|Network\\.|Test\\.|Numeric\\.|Options\\.|Language\\.|Optics\\.|DeBruijn\\.|Prettyprinter\\.)"
-        - match: "^[A-Z][a-zA-Z0-9_]*\\."
-          sub_group: "^[^.]+"
-        - match: "^C\\."
-          sub_group: "^C\\.[^.]+"
-        - match: "^Clang\\."
-          sub_group: "^Clang\\.[^.]+"
-        - match: "^HsBindgen\\.Runtime\\."
-          sub_group: "^HsBindgen\\.Runtime\\.[^.]+"
-        - match: "^HsBindgen\\."
-          sub_group: "^HsBindgen\\.[^.]+"
+        # Note: Optics, Generics, and Crypto use \> (word boundary) instead of \.
+        # because both standalone modules and submodules should be grouped together.
+        # Using \. would exclude standalone imports like "import Optics".
+        - match: "^(Control\\.|Data\\.|System\\.|Text\\.|GHC\\.|Foreign|Foreign\\.|Unsafe\\.|Debug\\.|Network\\.|Test\\.|Numeric\\.|Options\\.|Language\\.|Optics\\>|Generics\\>|Crypto\\>|DeBruijn\\.|Prettyprinter\\.)"
+        # - match: "^C\\."
+        - match: "^(C\\.Char|C\\.Type|C\\.Expr\\.HostPlatform)"
+        - match: "^C\\.Expr\\.[^.]+"
+        - match: "^Clang\\>"
+        - match: "^HsBindgen\\.Runtime\\>"
+        - match: "^HsBindgen\\>"
 
 # A common setting is the number of columns (parts of) code will be wrapped
 # to. Different steps take this into account.

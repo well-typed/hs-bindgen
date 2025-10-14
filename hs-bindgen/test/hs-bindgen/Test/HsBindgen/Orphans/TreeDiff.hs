@@ -12,9 +12,10 @@ import Foreign.C
 import System.FilePath qualified as FilePath
 
 import C.Char qualified as CExpr.Runtime
+import C.Type qualified as CExpr.Runtime
+
 import C.Expr.Syntax qualified as CExpr.DSL
 import C.Expr.Typecheck.Expr qualified as CExpr.DSL
-import C.Type qualified as CExpr.Runtime
 
 import Clang.Enum.Simple
 import Clang.HighLevel.Documentation qualified as CDoc
