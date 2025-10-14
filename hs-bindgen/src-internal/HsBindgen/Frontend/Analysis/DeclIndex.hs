@@ -176,6 +176,6 @@ lookup :: C.QualPrelimDeclId -> DeclIndex -> Maybe (C.Decl Parse)
 lookup qualPrelimDeclId = Map.lookup qualPrelimDeclId . unwrap
 
 (!) :: HasCallStack => DeclIndex -> C.QualPrelimDeclId -> C.Decl Parse
-(!) declIndex nsid =
-    fromMaybe (panicPure $ "Unknown key: " ++ show nsid) $
-       lookup nsid declIndex
+(!) declIndex qualPrelimDeclId =
+    fromMaybe (panicPure $ "Unknown key: " ++ show qualPrelimDeclId) $
+       lookup qualPrelimDeclId declIndex

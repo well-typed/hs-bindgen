@@ -555,9 +555,9 @@ testCases = manualTestCases ++ [
               "selected foo"
             , "selected uint32_t"
             ] $ \case
-            TraceFrontend (FrontendSelect (SelectSelected SelectionRoot info)) ->
+            TraceFrontend (FrontendSelect (SelectSelectStatus (Selected SelectionRoot) info)) ->
               expectSelected info $ Set.singleton "foo"
-            TraceFrontend (FrontendSelect (SelectSelected TransitiveDependency info)) ->
+            TraceFrontend (FrontendSelect (SelectSelectStatus (Selected TransitiveDependency) info)) ->
               expectSelected info $ Set.singleton "uint32_t"
             _otherwise ->
               Nothing
@@ -579,12 +579,12 @@ testCases = manualTestCases ++ [
             , "QualPrelimDeclIdNamed \"stdout\" NameKindOrdinary"
             , "QualPrelimDeclIdNamed \"stderr\" NameKindOrdinary"
             ] $ \case
-            TraceFrontend (FrontendSelect (SelectSelected SelectionRoot info)) ->
+            TraceFrontend (FrontendSelect (SelectSelectStatus (Selected SelectionRoot) info)) ->
               expectSelected info $ Set.fromList [
                   "FileOperationRecord"
                 , "read_file_chunk"
                 ]
-            TraceFrontend (FrontendSelect (SelectSelected TransitiveDependency info)) ->
+            TraceFrontend (FrontendSelect (SelectSelectStatus (Selected TransitiveDependency) info)) ->
               expectSelected info $ Set.singleton "FileOperationStatus"
             TraceFrontend (FrontendSort (SortErrorDeclIndex (Redeclaration {redeclarationId = x}))) ->
               Just $ Expected (show x)

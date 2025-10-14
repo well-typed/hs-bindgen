@@ -9,6 +9,10 @@ import Data.Set qualified as Set
 import Clang.HighLevel.Types
 
 import HsBindgen.Errors (panicPure)
+import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
+import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
+import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
+import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.Coerce (CoercePass (coercePass))
@@ -98,31 +102,74 @@ selectDecls isMainHeader isInMainHeaderDir SelectConfig{..} unitRBS =
     useDeclGraph :: UseDeclGraph
     useDeclGraph = declUseDecl ann
 
-    match :: SingleLoc -> C.QualDeclId -> C.Availability -> Bool
-    match loc qualDeclId availability =
-      matchSelect
-        isMainHeader
-        isInMainHeaderDir
-        (singleLocPath loc)
-        qualDeclId
-        availability
-        selectConfigPredicate
-
     matchDecl :: C.Decl Select -> Bool
-    matchDecl decl =
+    matchDecl decl = isSelected $
       match
+        (C.declOrigQualPrelimDeclId decl)
         (C.declLoc $ C.declInfo decl)
-        (C.declQualDeclId decl)
         (C.declAvailability $ C.declInfo decl)
 
-    matchKey :: Key -> Bool
+    match :: C.QualPrelimDeclId -> SingleLoc -> C.Availability -> SelectStatus
+    match = \declId -> go declId declId
+      where
+        -- We compare the use sites of anonymous declarations with the original
+        -- @declId@, so we can detect cycles involving anonymous declarations in
+        -- the use-decl graph. We believe these cycles can not exist.
+        go originalDeclId declId loc availability = case declId of
+            C.QualPrelimDeclIdNamed name kind ->
+                if matchSelect
+                     isMainHeader
+                     isInMainHeaderDir
+                     (singleLocPath loc)
+                     (C.QualName name kind)
+                     availability
+                     selectConfigPredicate
+                then Selected SelectionRoot
+                else NotSelected
+            -- Apply the select predicate to the use site.
+            anon@(C.QualPrelimDeclIdAnon{}) -> matchAnon anon
+            -- Never select builtins.
+            C.QualPrelimDeclIdBuiltin _ -> NotSelected
+          where
+            declUseGraph :: DeclUseGraph
+            declUseGraph = declDeclUse (C.unitAnn unitRBS)
+
+            index :: DeclIndex
+            index = declIndex (C.unitAnn unitRBS)
+
+            matchAnon :: C.QualPrelimDeclId -> SelectStatus
+            matchAnon anon =
+              case DeclUseGraph.getUseSites declUseGraph anon of
+                [x] ->
+                  matchUseSite $ fst x
+                []  ->
+                  panicPure "anonymous declaration without use site"
+                xs  ->
+                  panicPure $
+                    "anonymous declaration with multiple use sites" ++ show xs
+
+            matchUseSite :: C.QualPrelimDeclId -> SelectStatus
+            matchUseSite declIdUseSite
+              | declIdUseSite == originalDeclId =
+                  panicPure $
+                    "unexpected cycle involving anonymous declaration: "
+                      ++ show originalDeclId
+              | otherwise =
+              case DeclIndex.lookup declIdUseSite index of
+                Nothing   -> panicPure "did not find declaration"
+                Just decl -> match
+                               declIdUseSite
+                               (C.declLoc $ C.declInfo decl)
+                               (C.declAvailability $ C.declInfo decl)
+
+    matchKey :: Key -> SelectStatus
     matchKey (ParseMsgKey loc declId declKind declAvailability) =
       let qualDeclId = C.QualDeclId {
             qualDeclIdName   = C.declIdName declId
           , qualDeclIdOrigin = C.declIdOrigin declId
           , qualDeclIdKind   = declKind
           }
-      in match loc qualDeclId declAvailability
+      in match (C.qualDeclIdToQualPrelimDeclId qualDeclId) loc declAvailability
 
     getDelayedParseMsgs' :: [C.Decl Select] -> [Msg Select]
     getDelayedParseMsgs' = getDelayedParseMsgs ann matchKey
@@ -160,20 +207,20 @@ getSelectMsgs selectedRootsIds transitiveDeps selectedDecls unmatchedDecls =
 
     excludeMsgs, selectRootMsgs, selectTransMsgs :: [Msg Select]
     excludeMsgs =
-      map (SelectNotSelected                   . C.declInfo) unselectedDecls
+      map (SelectSelectStatus NotSelected . C.declInfo) unselectedDecls
     selectRootMsgs =
-      map (SelectSelected SelectionRoot        . C.declInfo) selectedRoots
+      map (SelectSelectStatus (Selected SelectionRoot) . C.declInfo) selectedRoots
     selectTransMsgs =
-      map (SelectSelected TransitiveDependency . C.declInfo) transitiveDepsStrict
+      map (SelectSelectStatus (Selected TransitiveDependency) . C.declInfo) transitiveDepsStrict
 
 type Key = ParseMsgKey Select
 
 getDelayedParseMsgs ::
      DeclMeta ResolveBindingSpecs
-  -> (ParseMsgKey Select -> Bool)
+  -> (ParseMsgKey Select -> SelectStatus)
   -> [C.Decl Select]
   -> [Msg Select]
-getDelayedParseMsgs meta match decls =
+getDelayedParseMsgs meta matchKey decls =
         map (uncurry SelectParse)  (flatten selectedMsgs)
      ++ map (uncurry SelectFailed) (flatten failedMsgs)
   where
@@ -198,7 +245,7 @@ getDelayedParseMsgs meta match decls =
     -- selected keys, in which some keys may be missing because parsing has
     -- failed.
     desiredSelectedKeys :: Set Key
-    desiredSelectedKeys = Set.filter match allKeys
+    desiredSelectedKeys = Set.filter (isSelected . matchKey) allKeys
 
     -- Failed declarations are declarations we desired to select, but that we
     -- failed to reify during parse/reification. See the documentation of
@@ -214,3 +261,11 @@ getDelayedParseMsgs meta match decls =
 
     flatten :: Map a [b] -> [(a, b)]
     flatten = concatMap (\(k, xs) -> map (k,) xs) . Map.toList
+
+{-------------------------------------------------------------------------------
+  Helpers
+-------------------------------------------------------------------------------}
+
+isSelected :: SelectStatus -> Bool
+isSelected NotSelected        = False
+isSelected (Selected _reason) = True

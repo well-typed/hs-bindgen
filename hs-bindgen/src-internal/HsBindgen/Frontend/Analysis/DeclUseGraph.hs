@@ -15,6 +15,7 @@ module HsBindgen.Frontend.Analysis.DeclUseGraph (
   , findNamedUseOf
     -- ** Direct usage
   , getUseSites
+  , getUseSitesNoSelfReferences
   , findAliasesOf
   ) where
 
@@ -98,14 +99,14 @@ findNamedUseOf declIndex (Wrap graph) =
     aux [] =
         return $ Right Nothing
     aux (_:_:_) =
-        panicPure "findUseOfAnon: impossible multiple use of anon decl"
+        panicPure "findNamedUseOf: impossible multiple use of anon decl"
 
     usedByAnon :: C.Decl Parse -> Usage -> UseOfDecl -> UseOfDecl
     usedByAnon _ (UsedInField valOrRef name) =
         UsedByFieldOfAnon valOrRef name
     usedByAnon d _otherwise =
         -- Anonymous functions or typedefs do not exist
-        panicPure $ "Unexpected anonymous " ++ show d
+        panicPure $ "unexpected anonymous " ++ show d
 
 {-------------------------------------------------------------------------------
   Simple queries
@@ -113,6 +114,14 @@ findNamedUseOf declIndex (Wrap graph) =
 
 getUseSites :: DeclUseGraph -> C.QualPrelimDeclId -> [(C.QualPrelimDeclId, Usage)]
 getUseSites (Wrap graph) = Set.toList . DynGraph.neighbors graph
+
+getUseSitesNoSelfReferences :: DeclUseGraph -> C.QualPrelimDeclId -> [(C.QualPrelimDeclId, Usage)]
+getUseSitesNoSelfReferences graph qualPrelimDeclId =
+  filter (not . isSelfReference) $ getUseSites graph qualPrelimDeclId
+    where
+      isSelfReference :: (C.QualPrelimDeclId, Usage) -> Bool
+      isSelfReference (qualPrelimDeclId', _usage) =
+        qualPrelimDeclId == qualPrelimDeclId'
 
 findAliasesOf :: DeclUseGraph -> C.QualPrelimDeclId -> [C.Name]
 findAliasesOf graph =
