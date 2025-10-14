@@ -14150,7 +14150,7 @@
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "arr_args1_wrapper",
+        "arr_args1",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
@@ -14211,12 +14211,11 @@
               headerInclude = "reparse.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "arr_args2_wrapper",
+        "arr_args2",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
@@ -14278,12 +14277,11 @@
               headerInclude = "reparse.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "arr_args3_wrapper",
+        "arr_args3",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
@@ -14344,12 +14342,11 @@
               headerInclude = "reparse.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "arr_args4_wrapper",
+        "arr_args4",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
@@ -14412,7 +14409,6 @@
               headerInclude = "reparse.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -15709,7 +15705,7 @@
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "const_withoutSign_before4",
+        "const_withoutSign_before4_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
@@ -15726,10 +15722,11 @@
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "arg2"),
-          functionParameterType = HsTypRef
-            (Name
-              "@NsTypeConstr"
-              "Some_struct"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Some_struct")),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -15746,7 +15743,7 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_81ce15a9b9be53f8 (A arg1, struct some_struct const arg2) { const_withoutSign_before4(arg1, arg2); }",
+          "void hs_bindgen_test_reparse_81ce15a9b9be53f8 (A arg1, struct some_struct const *arg2) { const_withoutSign_before4(arg1, *arg2); }",
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -15795,11 +15792,12 @@
               headerInclude = "reparse.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
+  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "const_withoutSign_before5",
+        "const_withoutSign_before5_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
@@ -15816,10 +15814,11 @@
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "arg2"),
-          functionParameterType = HsTypRef
-            (Name
-              "@NsTypeConstr"
-              "Some_union"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Some_union")),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -15836,7 +15835,7 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_39c58819fdca0585 (A arg1, union some_union const arg2) { const_withoutSign_before5(arg1, arg2); }",
+          "void hs_bindgen_test_reparse_39c58819fdca0585 (A arg1, union some_union const *arg2) { const_withoutSign_before5(arg1, *arg2); }",
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -15885,6 +15884,7 @@
               headerInclude = "reparse.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
+  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -16396,7 +16396,7 @@
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "const_withoutSign_after4",
+        "const_withoutSign_after4_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
@@ -16413,10 +16413,11 @@
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "arg2"),
-          functionParameterType = HsTypRef
-            (Name
-              "@NsTypeConstr"
-              "Some_struct"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Some_struct")),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -16433,7 +16434,7 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_18b842a824ecef09 (A arg1, struct some_struct const arg2) { const_withoutSign_after4(arg1, arg2); }",
+          "void hs_bindgen_test_reparse_18b842a824ecef09 (A arg1, struct some_struct const *arg2) { const_withoutSign_after4(arg1, *arg2); }",
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -16482,11 +16483,12 @@
               headerInclude = "reparse.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
+  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "const_withoutSign_after5",
+        "const_withoutSign_after5_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
@@ -16503,10 +16505,11 @@
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "arg2"),
-          functionParameterType = HsTypRef
-            (Name
-              "@NsTypeConstr"
-              "Some_union"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Some_union")),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -16523,7 +16526,7 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_75feb5260081201b (A arg1, union some_union const arg2) { const_withoutSign_after5(arg1, arg2); }",
+          "void hs_bindgen_test_reparse_75feb5260081201b (A arg1, union some_union const *arg2) { const_withoutSign_after5(arg1, *arg2); }",
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -16572,6 +16575,7 @@
               headerInclude = "reparse.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
+  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -17692,7 +17696,7 @@
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "const_array_elem2_wrapper",
+        "const_array_elem2",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
@@ -17756,7 +17760,6 @@
               headerInclude = "reparse.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -22678,7 +22681,7 @@
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "arr_args1_wrapper",
+        "arr_args1",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
@@ -22739,12 +22742,11 @@
               headerInclude = "reparse.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
-  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "arr_args2_wrapper",
+        "arr_args2",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
@@ -22806,12 +22808,11 @@
               headerInclude = "reparse.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
-  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "arr_args3_wrapper",
+        "arr_args3",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
@@ -22872,12 +22873,11 @@
               headerInclude = "reparse.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
-  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "arr_args4_wrapper",
+        "arr_args4",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
@@ -22940,7 +22940,6 @@
               headerInclude = "reparse.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
-  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -24237,7 +24236,7 @@
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "const_withoutSign_before4",
+        "const_withoutSign_before4_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
@@ -24254,10 +24253,11 @@
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "arg2"),
-          functionParameterType = HsTypRef
-            (Name
-              "@NsTypeConstr"
-              "Some_struct"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Some_struct")),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -24274,7 +24274,7 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_69cef8742b4b119b (A arg1, struct some_struct const arg2) { const_withoutSign_before4(arg1, arg2); }",
+          "void hs_bindgen_test_reparse_69cef8742b4b119b (A arg1, struct some_struct const *arg2) { const_withoutSign_before4(arg1, *arg2); }",
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -24323,11 +24323,12 @@
               headerInclude = "reparse.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
+  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "const_withoutSign_before5",
+        "const_withoutSign_before5_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
@@ -24344,10 +24345,11 @@
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "arg2"),
-          functionParameterType = HsTypRef
-            (Name
-              "@NsTypeConstr"
-              "Some_union"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Some_union")),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -24364,7 +24366,7 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_1ad5aadb8be4d493 (A arg1, union some_union const arg2) { const_withoutSign_before5(arg1, arg2); }",
+          "void hs_bindgen_test_reparse_1ad5aadb8be4d493 (A arg1, union some_union const *arg2) { const_withoutSign_before5(arg1, *arg2); }",
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -24413,6 +24415,7 @@
               headerInclude = "reparse.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
+  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -24924,7 +24927,7 @@
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "const_withoutSign_after4",
+        "const_withoutSign_after4_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
@@ -24941,10 +24944,11 @@
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "arg2"),
-          functionParameterType = HsTypRef
-            (Name
-              "@NsTypeConstr"
-              "Some_struct"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Some_struct")),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -24961,7 +24965,7 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_4c909292e290aa0a (A arg1, struct some_struct const arg2) { const_withoutSign_after4(arg1, arg2); }",
+          "void hs_bindgen_test_reparse_4c909292e290aa0a (A arg1, struct some_struct const *arg2) { const_withoutSign_after4(arg1, *arg2); }",
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -25010,11 +25014,12 @@
               headerInclude = "reparse.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
+  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "const_withoutSign_after5",
+        "const_withoutSign_after5_wrapper",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
@@ -25031,10 +25036,11 @@
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "arg2"),
-          functionParameterType = HsTypRef
-            (Name
-              "@NsTypeConstr"
-              "Some_union"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Some_union")),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -25051,7 +25057,7 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_ab1abd31c91696b9 (A arg1, union some_union const arg2) { const_withoutSign_after5(arg1, arg2); }",
+          "void hs_bindgen_test_reparse_ab1abd31c91696b9 (A arg1, union some_union const *arg2) { const_withoutSign_after5(arg1, *arg2); }",
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -25100,6 +25106,7 @@
               headerInclude = "reparse.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
+  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -26220,7 +26227,7 @@
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "const_array_elem2_wrapper",
+        "const_array_elem2",
       foreignImportParameters = [
         FunctionParameter {
           functionParameterName = Just
@@ -26284,7 +26291,6 @@
               headerInclude = "reparse.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
-  DeclSimple,
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name

@@ -44,11 +44,20 @@ module HsBindgen.Frontend.AST.External (
   , TypeQualifier(..)
   , ResolveBindingSpecs.ResolvedExtBinding(..)
   , isVoid
-  , isErasedConstQualifiedType
-  , isCanonicalFunctionType
+  , isErasedTypeConstQualified
+  , isCanonicalTypeFunction
+  , isCanonicalTypeStruct
+  , isCanonicalTypeUnion
+  , isCanonicalTypeComplex
+  , ArrayClassification(..)
+  , getArrayElementType
+  , isCanonicalTypeArray
     -- ** Erasure
+  , FullType
   , Full
+  , ErasedType
   , Erased
+  , CanonicalType
   , Canonical
   , GetErasedType(..)
   , GetCanonicalType(..)
@@ -286,7 +295,10 @@ data TypeF tag =
   | TypeStruct Int.NamePair C.NameOrigin
   | TypeUnion Int.NamePair C.NameOrigin
   | TypeEnum Int.NamePair C.NameOrigin
-  | TypeTypedef (TypedefRefF tag)
+  | TypeTypedef
+    -- | NOTE: has a strictness annotation, which allows GHC to infer that
+    -- pattern matches are redundant when @TypedefRefF tag ~ Void@.
+    !(TypedefRefF tag)
     -- TODO: macros should get annotations with underlying types just like
     -- typedefs, so that we can erase the macro types and replace them with
     -- their underlying type. See issue #1200.
@@ -295,24 +307,13 @@ data TypeF tag =
   | TypeConstArray Natural (TypeF tag)
   | TypeFun [TypeF tag] (TypeF tag)
   | TypeVoid
-
-    -- | Arrays of unknown size
-    --
-    -- Arrays normally have a known size, but not always:
-    --
-    -- * Arrays of unknown size are allowed as function arguments; such arrays
-    --   are interpreted as pointers.
-    -- * Arrays of unknown size may be declared for externs; this is considered
-    --   an incomplete type.
-    -- * Structs may contain an array of undefined size as their last field,
-    --   known as a "flexible array member" (FLAM).
-    --
-    -- We treat the FLAM case separately.
-    --
-    -- See <https://en.cppreference.com/w/c/language/array#Arrays_of_unknown_size>
   | TypeIncompleteArray (TypeF tag)
   | TypeBlock (TypeF tag)
-  | TypeQualified (TypeQualifierF tag) (TypeF tag)
+  | TypeQualified
+      -- | NOTE: has a strictness annotation, which allows GHC to infer that
+      -- pattern matches are redundant when @TypeQualifierF tag ~ Void@.
+      !(TypeQualifierF tag)
+      (TypeF tag)
   | TypeExtBinding ResolveBindingSpecs.ResolvedExtBinding
   | TypeComplex C.PrimType
   deriving stock Generic
@@ -341,21 +342,78 @@ isVoid TypeVoid = True
 isVoid _        = False
 
 -- | Is the erased type @const@-qualified?
-isErasedConstQualifiedType :: GetErasedType t => t -> Bool
-isErasedConstQualifiedType ty = case getErasedType ty of
+isErasedTypeConstQualified :: GetErasedType t => t -> Bool
+isErasedTypeConstQualified ty = case getErasedType ty of
     -- Types can be directly @const@-qualified,
     TypeQualified TypeQualifierConst _ -> True
-    -- but arrays are also @const@-qualified if their element type is,
-    TypeConstArray _ (TypeQualified TypeQualifierConst _) -> True
-    TypeIncompleteArray (TypeQualified TypeQualifierConst _) -> True
-    -- and otherwise, the type is not considered to be @const@-qualified.
+    -- but arrays are also @const@-qualified if their element type is. Note that
+    -- elements of arrays can themselves be arrays, hence we recurse into the
+    -- array element type.
+    TypeConstArray _ ty' -> isErasedTypeConstQualified ty'
+    TypeIncompleteArray ty' -> isErasedTypeConstQualified ty'
+    -- And otherwise, the type is not considered to be @const@-qualified.
     _ -> False
 
 -- | Is the canonical type a function type?
-isCanonicalFunctionType :: GetCanonicalType t => t -> Bool
-isCanonicalFunctionType ty = case getCanonicalType ty of
+isCanonicalTypeFunction :: GetCanonicalType t => t -> Bool
+isCanonicalTypeFunction ty = case getCanonicalType ty of
     TypeFun{} -> True
     _ -> False
+
+-- | Is the canonical type a struct type?
+isCanonicalTypeStruct :: GetCanonicalType t => t -> Bool
+isCanonicalTypeStruct ty = case getCanonicalType ty of
+    TypeStruct{} -> True
+    _ -> False
+
+-- | Is the canonical type a union type?
+isCanonicalTypeUnion :: GetCanonicalType t => t -> Bool
+isCanonicalTypeUnion ty = case getCanonicalType ty of
+    TypeUnion{} -> True
+    _ -> False
+
+-- | Is the canonical type a complex type?
+isCanonicalTypeComplex :: GetCanonicalType t => t -> Bool
+isCanonicalTypeComplex ty = case getCanonicalType ty of
+    TypeComplex{} -> True
+    _ -> False
+
+-- | An array of known size or unknown size
+data ArrayClassification t =
+    -- | Array of known size
+    ConstantArrayClassification
+      -- | Array size
+      Natural
+      -- | Array element type
+      t
+    -- | Array of unkown size
+  | IncompleteArrayClassification
+      -- | Array element type
+      t
+
+getArrayElementType :: ArrayClassification t -> t
+getArrayElementType (ConstantArrayClassification _ ty) = ty
+getArrayElementType (IncompleteArrayClassification ty) = ty
+
+-- | Is the canonical type an array type? If so, is it an array of known size or
+-- unknown size? And what is the /full type/ of the array elements?
+isCanonicalTypeArray :: FullType -> Maybe (ArrayClassification FullType)
+isCanonicalTypeArray ty = case ty of
+    TypePrim _pt -> Nothing
+    TypeStruct _np _no -> Nothing
+    TypeUnion _np _no -> Nothing
+    TypeEnum _np _no -> Nothing
+    TypeTypedef ref -> isCanonicalTypeArray (eraseTypedef ref)
+    TypeMacroTypedef _np _no -> Nothing
+    TypePointer _t -> Nothing
+    TypeConstArray n t -> Just (ConstantArrayClassification n t)
+    TypeFun _args _res -> Nothing
+    TypeVoid -> Nothing
+    TypeIncompleteArray t -> Just (IncompleteArrayClassification t)
+    TypeBlock _t -> Nothing
+    TypeQualified _q t -> isCanonicalTypeArray t
+    TypeExtBinding _reb -> Nothing
+    TypeComplex _pt -> Nothing
 
 {-------------------------------------------------------------------------------
   Types: Trees That Shrink
@@ -404,24 +462,10 @@ instance GetErasedType  ErasedType where
   getErasedType = id
 
 instance GetErasedType Type where
-  getErasedType = go
+  getErasedType = mapTypeF fRef fQual
     where
-      go ty = case ty of
-        TypePrim pt -> TypePrim pt
-        TypeStruct np no -> TypeStruct np no
-        TypeUnion np no -> TypeUnion np no
-        TypeEnum np no -> TypeEnum np no
-        TypeTypedef ref -> go (eraseTypedef ref)
-        TypeMacroTypedef np no -> TypeMacroTypedef np no
-        TypePointer t -> TypePointer $ go t
-        TypeConstArray n t -> TypeConstArray n $ go t
-        TypeFun args res -> TypeFun (go <$> args) (go res)
-        TypeVoid -> TypeVoid
-        TypeIncompleteArray t -> TypeIncompleteArray (go t)
-        TypeBlock t -> TypeBlock (go t)
-        TypeQualified q t -> TypeQualified q (go t)
-        TypeExtBinding reb -> TypeExtBinding reb
-        TypeComplex pt -> TypeComplex pt
+      fRef = getErasedType . eraseTypedef
+      fQual q t = TypeQualified q (getErasedType t)
 
 -- | Note: canonicalise types.
 --
@@ -436,24 +480,10 @@ instance GetCanonicalType CanonicalType where
   getCanonicalType = id
 
 instance GetCanonicalType Type where
-  getCanonicalType = go
+  getCanonicalType = mapTypeF fRef fQual
     where
-      go ty = case ty of
-        TypePrim pt -> TypePrim pt
-        TypeStruct np no -> TypeStruct np no
-        TypeUnion np no -> TypeUnion np no
-        TypeEnum np no -> TypeEnum np no
-        TypeTypedef ref -> go (eraseTypedef ref)
-        TypeMacroTypedef np no -> TypeMacroTypedef np no
-        TypePointer t -> TypePointer $ go t
-        TypeConstArray n t -> TypeConstArray n $ go t
-        TypeFun args res -> TypeFun (go <$> args) (go res)
-        TypeVoid -> TypeVoid
-        TypeIncompleteArray t -> TypeIncompleteArray (go t)
-        TypeBlock t -> TypeBlock (go t)
-        TypeQualified _q t -> go t
-        TypeExtBinding reb -> TypeExtBinding reb
-        TypeComplex pt -> TypeComplex pt
+      fRef = getCanonicalType . eraseTypedef
+      fQual _ t = getCanonicalType t
 
 -- | Erase one layer of a typedef, replacing it by its underlying type.
 --
@@ -463,3 +493,32 @@ eraseTypedef :: TypedefRef -> Type
 eraseTypedef = \case
       TypedefRegular _ t' -> t'
       TypedefSquashed _ t' -> t'
+
+-- | Map 'TypeF's from one tag to another
+mapTypeF ::
+     forall tag tag'.
+     -- | What to do when encountering a typedef reference.
+     (TypedefRefF tag -> TypeF tag')
+     -- | What to do when encountering a type qualifier.
+  -> (TypeQualifierF tag -> TypeF tag -> TypeF tag')
+  -> TypeF tag
+  -> TypeF tag'
+mapTypeF fRef fQual = go
+  where
+    go :: TypeF tag -> TypeF tag'
+    go ty = case ty of
+      TypePrim pt -> TypePrim pt
+      TypeStruct np no -> TypeStruct np no
+      TypeUnion np no -> TypeUnion np no
+      TypeEnum np no -> TypeEnum np no
+      TypeTypedef ref -> fRef ref
+      TypeMacroTypedef np no -> TypeMacroTypedef np no
+      TypePointer t -> TypePointer $ go t
+      TypeConstArray n t -> TypeConstArray n $ go t
+      TypeFun args res -> TypeFun (go <$> args) (go res)
+      TypeVoid -> TypeVoid
+      TypeIncompleteArray t -> TypeIncompleteArray (go t)
+      TypeBlock t -> TypeBlock (go t)
+      TypeQualified q t -> fQual q t
+      TypeExtBinding reb -> TypeExtBinding reb
+      TypeComplex pt -> TypeComplex pt

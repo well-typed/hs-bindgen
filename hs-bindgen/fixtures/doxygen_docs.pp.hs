@@ -1187,7 +1187,7 @@ __defined at:__ @doxygen_docs.h:332:5@
 
 __exported by:__ @doxygen_docs.h@
 -}
-foreign import ccall safe "hs_bindgen_test_doxygen_docs_d8a2703f133ce8c2" process_buffer_wrapper
+foreign import ccall safe "hs_bindgen_test_doxygen_docs_d8a2703f133ce8c2" process_buffer
   :: Ptr.Ptr FC.CChar
      {- ^
 
@@ -1203,29 +1203,6 @@ foreign import ccall safe "hs_bindgen_test_doxygen_docs_d8a2703f133ce8c2" proces
      __C declaration:__ @size@
      -}
   -> IO FC.CInt
-
-{-|
-
-  Static array parameter
-
-  [__@buffer@ /(input)/__]: Buffer with minimum size
-
-  [__@size@ /(input)/__]: Actual buffer size
-
-  __returns:__ Number of bytes written
-
-__C declaration:__ @process_buffer@
-
-__defined at:__ @doxygen_docs.h:332:5@
-
-__exported by:__ @doxygen_docs.h@
--}
-process_buffer :: ((HsBindgen.Runtime.ConstantArray.ConstantArray 64) FC.CChar) -> HsBindgen.Runtime.Prelude.CSize -> IO FC.CInt
-process_buffer =
-  \x0 ->
-    \x1 ->
-      HsBindgen.Runtime.ConstantArray.withPtr x0 (\ptr2 ->
-                                                    process_buffer_wrapper ptr2 x1)
 
 {-|
 

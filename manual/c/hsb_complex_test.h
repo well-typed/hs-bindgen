@@ -28,4 +28,4 @@ void swap_velocity_position(complex_object_t *obj);
 extern float  complex complex_float_array[10];
 extern double complex complex_double_array[10];
 
-double complex sum_complex_array(double complex arr[10]);
+double complex sum_complex_array(const double complex arr[10]);
