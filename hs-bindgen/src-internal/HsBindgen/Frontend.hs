@@ -123,8 +123,8 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
 
     sortPass <- cache "sort" $ do
       (afterParse, includeGraph, _, _, _) <- parsePass
-      -- TODO_PR: Rename to @ConstructTranslationUnit@.
-      let (afterConstructTranslationUnit, msgsConstructTranslationUnit) = constructTranslationUnit afterParse
+      let (afterConstructTranslationUnit, msgsConstructTranslationUnit) =
+            constructTranslationUnit afterParse includeGraph
       forM_ msgsConstructTranslationUnit $ traceWith tracer . FrontendConstructTranslationUnit
       pure afterConstructTranslationUnit
 
@@ -153,7 +153,7 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
       pure (afterResolveBindingSpecs, omitTypes)
 
     selectPass <- cache "select" $ do
-      (_, isMainHeader, isInMainHeaderDir, _) <- parsePass
+      (_, _, isMainHeader, isInMainHeaderDir, _) <- parsePass
       (afterResolveBindingSpecs, _)           <- resolveBindingSpecsPass
       let (afterSelect, msgsSelect) =
             selectDecls
@@ -183,7 +183,7 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
 
     -- Include graph predicate.
     getIncludeGraphP <- cache "getIncludeGraphP" $ do
-      (_, isMainHeader, isInMainHeaderDir, _) <- parsePass
+      (_, _, isMainHeader, isInMainHeaderDir, _) <- parsePass
       pure $ \path ->
         matchParse isMainHeader isInMainHeaderDir path frontendParsePredicate
         && path /= name
@@ -191,10 +191,10 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
     -- Graphs.
     frontendIncludeGraph <- cache "frontendIncludeGraph" $ do
       includeGraphP <- getIncludeGraphP
-      (afterParse, _, _, _) <- parsePass
-      pure (includeGraphP, unitIncludeGraph afterParse)
+      (_, includeGraph, _, _, _) <- parsePass
+      pure (includeGraphP, includeGraph)
     frontendGetMainHeaders <- cache "frontendGetMainHeaders" $ do
-      (_, _, _, getMainHeaders) <- parsePass
+      (_, _, _, _, getMainHeaders) <- parsePass
       pure getMainHeaders
     frontendIndex <- cache "frontendIndex" $
       ConstructTranslationUnit.declIndex   . unitAnn <$> sortPass

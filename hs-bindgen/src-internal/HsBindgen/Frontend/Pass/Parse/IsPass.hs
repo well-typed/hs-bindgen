@@ -131,17 +131,9 @@ getDecl = \case
   ParseSucceeded{..} -> Right psDecl
   other              -> Left other
 
--- TODO_PR: Probably not required.
 getQualPrelimDeclId :: ParseResult -> QualPrelimDeclId
 getQualPrelimDeclId = \case
-  ParseSucceeded{..} ->
-    let declId = C.declId $ C.declInfo psDecl
-        nameKind = case C.declKind psDecl of
-          C.DeclEnum   _ -> C.NameKindTagged C.TagKindEnum
-          C.DeclStruct _ -> C.NameKindTagged C.TagKindStruct
-          C.DeclUnion  _ -> C.NameKindTagged C.TagKindUnion
-          _              -> C.NameKindOrdinary
-    in  C.qualPrelimDeclId declId nameKind
+  ParseSucceeded{..}     -> C.declQualPrelimDeclId psDecl
   ParseNotAttempted{..}  -> pnaQualPrelimDeclId
   ParseFailed{..}        -> pfQualPrelimDeclId
 
@@ -411,10 +403,6 @@ data DelayedParseMsg =
     --
     -- <https://github.com/well-typed/hs-bindgen/issues/1034>
   | ParseFunctionOfTypeTypedef
-
-    -- | Inform the user that we this declaration is deprecated. Maybe they want
-    -- to de-select deprecated declarations?
-  | ParseDeprecated
   deriving stock (Show, Eq, Ord)
 
 instance PrettyForTrace DelayedParseMsg where
@@ -450,8 +438,6 @@ instance PrettyForTrace DelayedParseMsg where
         ]
       ParseFunctionOfTypeTypedef -> noBindingsGenerated $
         "unsupported function declared with a typedef type"
-      ParseDeprecated ->
-        "Declaration is deprecated; you may want to de-select it"
     where
       noBindingsGenerated :: CtxDoc -> CtxDoc
       noBindingsGenerated reason = PP.hcat [ "no bindings generated: ", reason ]
@@ -468,6 +454,5 @@ instance IsTrace Level DelayedParseMsg where
       ParsePotentialDuplicateSymbol{}  -> Notice
       ParseNonPublicVisibility{}       -> Warning
       ParseFunctionOfTypeTypedef{}     -> Warning
-      ParseDeprecated                  -> Notice
   getSource  = const HsBindgen
   getTraceId = const "parse-delayed"

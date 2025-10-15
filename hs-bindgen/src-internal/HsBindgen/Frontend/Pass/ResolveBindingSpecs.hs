@@ -16,6 +16,8 @@ import Clang.Paths
 
 import HsBindgen.BindingSpec (ExternalBindingSpec, PrescriptiveBindingSpec)
 import HsBindgen.BindingSpec qualified as BindingSpec
+import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
+import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
@@ -53,7 +55,8 @@ resolveBindingSpecs
             extSpec
             pSpec
             unitIncludeGraph
-            (unitAnn.declUseDecl)
+            unitAnn.declIndex
+            unitAnn.declUseDecl
             (resolveDecls unitDecls)
         notUsedErrs = ResolveBindingSpecsTypeNotUsed <$> Map.keys stateNoPTypes
     in  ( reassemble decls stateUseDecl
@@ -91,11 +94,12 @@ runM ::
      ExternalBindingSpec
   -> PrescriptiveBindingSpec
   -> IncludeGraph
+  -> DeclIndex
   -> UseDeclGraph
   -> M a
   -> (a, MState)
-runM extSpec pSpec includeGraph useDeclGraph (WrapM m) =
-    let env        = MEnv extSpec pSpec includeGraph
+runM extSpec pSpec includeGraph declIndex useDeclGraph (WrapM m) =
+    let env        = MEnv extSpec pSpec includeGraph declIndex
         state0     = initMState pSpec useDeclGraph
         (x, s, ()) = RWS.runRWS m env state0
     in  (x, s)
@@ -108,6 +112,7 @@ data MEnv = MEnv {
       envExtSpec        :: ExternalBindingSpec
     , envPSpec          :: PrescriptiveBindingSpec
     , envIncludeGraph   :: IncludeGraph
+    , envDeclIndex      :: DeclIndex
     }
   deriving (Show)
 
@@ -426,34 +431,29 @@ instance Resolve C.Type where
         -> C.QualDeclId
         -> M (Set C.QualPrelimDeclId, C.Type ResolveBindingSpecs)
       aux mk cQualDeclId@C.QualDeclId{..} =
-        -- TODO_PR (get things from env, needed below)
-        RWS.ask >>= \MEnv{} -> RWS.get >>= \MState{..} -> do
-          let cQualName = C.QualName qualDeclIdName qualDeclIdKind
+        RWS.ask >>= \MEnv{..} -> RWS.get >>= \MState{..} -> do
+          let qualName = C.QualName qualDeclIdName qualDeclIdKind
               qualPrelimDeclId = C.qualDeclIdToQualPrelimDeclId cQualDeclId
           -- Check for type omitted by binding specification
-          when (Map.member cQualName stateOmitTypes) $
+          when (Map.member qualName stateOmitTypes) $
             RWS.modify' $
-              insertError (ResolveBindingSpecsOmittedTypeUse cQualName)
+              insertError (ResolveBindingSpecsOmittedTypeUse qualName)
           -- Check for selected external binding
-          case Map.lookup cQualName stateExtTypes of
+          case Map.lookup qualName stateExtTypes of
             Just ty -> return (Set.singleton qualPrelimDeclId, ty)
             Nothing -> do
-              -- TODO_PR.
-              return (Set.empty, mk qualDeclIdName)
-              -- -- Check for external binding of non-selected type
-              -- -- TODO_PR.
-              -- case NonParsedDecls.lookup cQualName envNonParsedDecls of
-              --   Nothing -> return (Set.empty, mk qualDeclIdName)
-              --   Just sourcePath -> do
-              --     let declPaths =
-              --           IncludeGraph.reaches envIncludeGraph loc.singleLocPath
-              --     resolveExtBinding cQualName declPaths >>= \case
-              --       Just resolved -> do
-              --         let ty = C.TypeExtBinding resolved
-              --         RWS.modify' $ insertExtType cQualName ty
-              --         return (Set.singleton qualPrelimDeclId, ty)
-              --       Nothing -> return (Set.empty, mk qualDeclIdName)
-              --   _otherwise -> return (Set.empty, mk qualDeclIdName)
+              -- Check for external binding of type that we did not attempt to parse
+              case DeclIndex.lookupNotAttempted qualPrelimDeclId envDeclIndex of
+                Nothing -> return (Set.empty, mk qualDeclIdName)
+                Just loc -> do
+                  let declPaths =
+                        IncludeGraph.reaches envIncludeGraph loc.singleLocPath
+                  resolveExtBinding qualName declPaths >>= \case
+                    Just resolved -> do
+                      let ty = C.TypeExtBinding resolved
+                      RWS.modify' $ insertExtType qualName ty
+                      return (Set.singleton qualPrelimDeclId, ty)
+                    Nothing -> return (Set.empty, mk qualDeclIdName)
 
 {-------------------------------------------------------------------------------
   Internal: auxiliary functions

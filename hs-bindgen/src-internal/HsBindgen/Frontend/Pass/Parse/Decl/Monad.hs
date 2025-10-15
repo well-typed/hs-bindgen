@@ -151,14 +151,6 @@ checkHasMacroExpansion extent = do
       , any (\e -> fromMaybe False (rangeContainsLoc range e)) expansions
       ]
 
--- TODO_PR: Warn when we select a deprecated declaration in the `Select` pass.
---     declStatus' :: DeclStatus
---     declStatus'      = case (declAvailability, declStatus) of
---       (C.Deprecated, ParseSucceeded msgs) ->
---         ParseSucceeded $ ParseDeprecated : msgs
---       _otherwise ->
---         declStatus
-
 {-------------------------------------------------------------------------------
   Logging
 -------------------------------------------------------------------------------}

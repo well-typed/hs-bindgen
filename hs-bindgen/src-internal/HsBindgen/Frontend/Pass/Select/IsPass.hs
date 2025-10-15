@@ -98,14 +98,17 @@ data SelectStatus =
 -- | Select trace messages
 data SelectMsg =
     SelectSelectStatus SelectStatus (C.DeclInfo Select)
+    -- | Inform the user that they select a deprecated declaration. Maybe they
+    -- want to de-select deprecated declaration?
+  | SelectDeprecated (C.DeclInfo Select)
     -- | Delayed parse message for actually selected declarations.
-  | SelectParse C.QualName C.NameOrigin SingleLoc DelayedParseMsg
+  | SelectParse (C.DeclInfo Select) DelayedParseMsg
     -- | Delayred parse message for declarations the user wants to select, but
     -- we have not attempted to parse.
-  | SelectParseNotAttempted C.QualName C.NameOrigin SingleLoc ParseOmissionReason
+  | SelectParseNotAttempted C.QualPrelimDeclId SingleLoc ParseOmissionReason
     -- | Delayed parse message for declarations the user wants to select, but
     -- we have failed to parse.
-  | SelectParseFailed C.QualName C.NameOrigin SingleLoc DelayedParseMsg
+  | SelectParseFailed C.QualPrelimDeclId SingleLoc DelayedParseMsg
   deriving stock (Show)
 
 instance PrettyForTrace SelectMsg where
@@ -114,22 +117,25 @@ instance PrettyForTrace SelectMsg where
       prettyForTrace info >< " not selected"
     SelectSelectStatus (Selected reason) info ->
       prettyForTrace info >< " selected (" >< prettyForTrace reason >< ")"
-    SelectParse n o l x ->
-      "During parse:" <+> prettyInfo n o l
-      <+> prettyForTrace x
-    SelectParseNotAttempted n o l r -> PP.vcat [
-      "Failed to select declaration:" <+> prettyInfo n o l
+    SelectDeprecated info -> PP.hcat [
+        "Selected a deprecated declaration: "
+      , prettyForTrace info
+      , "; you may want to de-select it"
+      ]
+    SelectParse i x ->
+      "During parse:" <+> prettyForTrace i <+> prettyForTrace x
+    SelectParseNotAttempted n l r -> PP.vcat [
+      "Failed to select declaration:" <+> prettyInfo n l
       , "Parse not attempted:" <+> prettyForTrace r
       ]
-    SelectParseFailed n o l x ->
+    SelectParseFailed n l x ->
       "Failed to select declaration; during parse:"
-      <+> prettyInfo n o l
+      <+> prettyInfo n l
       <+> prettyForTrace x
     where
-      prettyInfo :: C.QualName -> C.NameOrigin -> SingleLoc -> CtxDoc
-      prettyInfo n o l = PP.hsep [
+      prettyInfo :: C.QualPrelimDeclId -> SingleLoc -> CtxDoc
+      prettyInfo n l = PP.hsep [
           prettyForTrace n
-        , prettyForTrace o
         , "at"
         , PP.showToCtxDoc l
         ] >< ":"
@@ -137,15 +143,17 @@ instance PrettyForTrace SelectMsg where
 instance IsTrace Level SelectMsg where
   getDefaultLogLevel = \case
     SelectSelectStatus{}      -> Info
-    SelectParse       _ _ _ x -> getDefaultLogLevel x
+    SelectDeprecated{}        -> Notice
+    SelectParse       _   x   -> getDefaultLogLevel x
     SelectParseNotAttempted{} -> Error
-    SelectParseFailed _ _ _ x -> getDefaultLogLevel x
+    SelectParseFailed _ _ x   -> getDefaultLogLevel x
   getSource  = const HsBindgen
   getTraceId = \case
     SelectSelectStatus{}      -> "select"
-    SelectParse       _ _ _ x -> "select-" <> getTraceId x
+    SelectDeprecated{}        -> "select"
+    SelectParse       _   x   -> "select-" <> getTraceId x
     SelectParseNotAttempted{} -> "select-parse"
-    SelectParseFailed _ _ _ x -> "select-" <> getTraceId x
+    SelectParseFailed _ _ x   -> "select-" <> getTraceId x
 
 {-------------------------------------------------------------------------------
   CoercePass
