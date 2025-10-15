@@ -13,7 +13,7 @@ import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.ConstantArray
-import qualified HsBindgen.Runtime.FunPtr.Class
+import qualified HsBindgen.Runtime.FunPtr
 import qualified HsBindgen.Runtime.Prelude
 import Prelude ((<*>), (>>), Eq, IO, Int, Ord, Show, pure)
 
@@ -37,11 +37,11 @@ foreign import ccall safe "dynamic" fromFileOpenedNotification_Deref
   :: Ptr.FunPtr FileOpenedNotification_Deref
   -> FileOpenedNotification_Deref
 
-instance HsBindgen.Runtime.FunPtr.Class.ToFunPtr FileOpenedNotification_Deref where
+instance HsBindgen.Runtime.FunPtr.ToFunPtr FileOpenedNotification_Deref where
 
   toFunPtr = toFileOpenedNotification_Deref
 
-instance HsBindgen.Runtime.FunPtr.Class.FromFunPtr FileOpenedNotification_Deref where
+instance HsBindgen.Runtime.FunPtr.FromFunPtr FileOpenedNotification_Deref where
 
   fromFunPtr = fromFileOpenedNotification_Deref
 
@@ -75,11 +75,11 @@ foreign import ccall safe "dynamic" fromProgressUpdate_Deref
   :: Ptr.FunPtr ProgressUpdate_Deref
   -> ProgressUpdate_Deref
 
-instance HsBindgen.Runtime.FunPtr.Class.ToFunPtr ProgressUpdate_Deref where
+instance HsBindgen.Runtime.FunPtr.ToFunPtr ProgressUpdate_Deref where
 
   toFunPtr = toProgressUpdate_Deref
 
-instance HsBindgen.Runtime.FunPtr.Class.FromFunPtr ProgressUpdate_Deref where
+instance HsBindgen.Runtime.FunPtr.FromFunPtr ProgressUpdate_Deref where
 
   fromFunPtr = fromProgressUpdate_Deref
 
@@ -113,11 +113,11 @@ foreign import ccall safe "dynamic" fromDataValidator_Deref
   :: Ptr.FunPtr DataValidator_Deref
   -> DataValidator_Deref
 
-instance HsBindgen.Runtime.FunPtr.Class.ToFunPtr DataValidator_Deref where
+instance HsBindgen.Runtime.FunPtr.ToFunPtr DataValidator_Deref where
 
   toFunPtr = toDataValidator_Deref
 
-instance HsBindgen.Runtime.FunPtr.Class.FromFunPtr DataValidator_Deref where
+instance HsBindgen.Runtime.FunPtr.FromFunPtr DataValidator_Deref where
 
   fromFunPtr = fromDataValidator_Deref
 
@@ -195,11 +195,11 @@ foreign import ccall safe "dynamic" fromMeasurementReceived_Deref
   :: Ptr.FunPtr MeasurementReceived_Deref
   -> MeasurementReceived_Deref
 
-instance HsBindgen.Runtime.FunPtr.Class.ToFunPtr MeasurementReceived_Deref where
+instance HsBindgen.Runtime.FunPtr.ToFunPtr MeasurementReceived_Deref where
 
   toFunPtr = toMeasurementReceived_Deref
 
-instance HsBindgen.Runtime.FunPtr.Class.FromFunPtr MeasurementReceived_Deref where
+instance HsBindgen.Runtime.FunPtr.FromFunPtr MeasurementReceived_Deref where
 
   fromFunPtr = fromMeasurementReceived_Deref
 

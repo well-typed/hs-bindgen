@@ -28,7 +28,7 @@ import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.FlexibleArrayMember
-import qualified HsBindgen.Runtime.FunPtr.Class
+import qualified HsBindgen.Runtime.FunPtr
 import qualified HsBindgen.Runtime.Prelude
 import qualified HsBindgen.Runtime.SizedByteArray
 import qualified Text.Read
@@ -218,11 +218,11 @@ foreign import ccall safe "dynamic" fromEvent_callback_t_Deref
   :: Ptr.FunPtr Event_callback_t_Deref
   -> Event_callback_t_Deref
 
-instance HsBindgen.Runtime.FunPtr.Class.ToFunPtr Event_callback_t_Deref where
+instance HsBindgen.Runtime.FunPtr.ToFunPtr Event_callback_t_Deref where
 
   toFunPtr = toEvent_callback_t_Deref
 
-instance HsBindgen.Runtime.FunPtr.Class.FromFunPtr Event_callback_t_Deref where
+instance HsBindgen.Runtime.FunPtr.FromFunPtr Event_callback_t_Deref where
 
   fromFunPtr = fromEvent_callback_t_Deref
 
@@ -761,11 +761,11 @@ foreign import ccall safe "dynamic" fromProcessor_fn_t_Deref
   :: Ptr.FunPtr Processor_fn_t_Deref
   -> Processor_fn_t_Deref
 
-instance HsBindgen.Runtime.FunPtr.Class.ToFunPtr Processor_fn_t_Deref where
+instance HsBindgen.Runtime.FunPtr.ToFunPtr Processor_fn_t_Deref where
 
   toFunPtr = toProcessor_fn_t_Deref
 
-instance HsBindgen.Runtime.FunPtr.Class.FromFunPtr Processor_fn_t_Deref where
+instance HsBindgen.Runtime.FunPtr.FromFunPtr Processor_fn_t_Deref where
 
   fromFunPtr = fromProcessor_fn_t_Deref
 

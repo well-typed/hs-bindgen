@@ -7,7 +7,7 @@ module Example where
 
 import qualified Foreign as F
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.FunPtr.Class
+import qualified HsBindgen.Runtime.FunPtr
 import Prelude ((<*>), Eq, IO, Int, Ord, Show, pure)
 
 {-| Auxiliary type used by 'Fun_ptr'
@@ -28,11 +28,11 @@ foreign import ccall safe "dynamic" fromFun_ptr_Deref
   :: Ptr.FunPtr Fun_ptr_Deref
   -> Fun_ptr_Deref
 
-instance HsBindgen.Runtime.FunPtr.Class.ToFunPtr Fun_ptr_Deref where
+instance HsBindgen.Runtime.FunPtr.ToFunPtr Fun_ptr_Deref where
 
   toFunPtr = toFun_ptr_Deref
 
-instance HsBindgen.Runtime.FunPtr.Class.FromFunPtr Fun_ptr_Deref where
+instance HsBindgen.Runtime.FunPtr.FromFunPtr Fun_ptr_Deref where
 
   fromFunPtr = fromFun_ptr_Deref
 

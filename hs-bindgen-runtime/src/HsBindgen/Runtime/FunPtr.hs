@@ -7,7 +7,9 @@
 --
 module HsBindgen.Runtime.FunPtr (
     -- * Re-exports from "HsBindgen.Runtime.FunPtr.Class"
-    module HsBindgen.Runtime.FunPtr.Class
+    ToFunPtr (..)
+  , FromFunPtr (..)
+  , withToFunPtr
     -- * Template Haskell generated instances
     --
     -- The instances are defined in "HsBindgen.Runtime.TH.Instances"
