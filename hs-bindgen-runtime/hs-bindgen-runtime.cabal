@@ -59,8 +59,9 @@ library
       HsBindgen.Runtime.Prelude
       HsBindgen.Runtime.SizedByteArray
   other-modules:
-      HsBindgen.Runtime.TH.Types
+      HsBindgen.Runtime.FunPtr.Class
       HsBindgen.Runtime.TH.Instances
+      HsBindgen.Runtime.TH.Types
   hs-source-dirs:
       src
   build-depends:

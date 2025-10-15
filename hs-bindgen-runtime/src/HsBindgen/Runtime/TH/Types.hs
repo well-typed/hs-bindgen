@@ -24,7 +24,7 @@ import Foreign.C.Types
 import GHC.Ptr qualified as Ptr
 import Language.Haskell.TH
 
-import HsBindgen.Runtime.FunPtr
+import HsBindgen.Runtime.FunPtr.Class
 
 -- | Get primitive marshallable types
 --

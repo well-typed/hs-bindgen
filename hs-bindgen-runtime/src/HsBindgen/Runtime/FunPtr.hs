@@ -1,44 +1,20 @@
-{-# LANGUAGE TemplateHaskell #-}
-{-# LANGUAGE TypeApplications #-}
-
--- | Function pointer utilities and type class for converting Haskell functions
--- to C function pointers.
+-- | Function pointer utilities and type classes with pre-generated instances.
 --
--- This module provides a type class 'ToFunPtr' that allows for a uniform
--- interface to convert Haskell functions to C function pointers.
+-- This module provides the 'ToFunPtr' and 'FromFunPtr' type classes along with
+-- Template Haskell generated instances for common function signatures.
+--
+-- Users should import this module to get both the type classes and the instances.
 --
 module HsBindgen.Runtime.FunPtr (
-    -- * Type class
-    ToFunPtr(..)
-  , FromFunPtr(..)
-
-    -- * Utilities
+    -- * Re-exports from "HsBindgen.Runtime.FunPtr.Class"
+    ToFunPtr (..)
+  , FromFunPtr (..)
   , withToFunPtr
-
+    -- * Template Haskell generated instances
+    --
+    -- The instances are defined in "HsBindgen.Runtime.TH.Instances"
+  , module HsBindgen.Runtime.TH.Instances
   ) where
 
-import Control.Exception (bracket)
-import Foreign qualified as F
-import GHC.Ptr qualified as Ptr
-
--- | Type class for converting Haskell functions to C function pointers.
---
-class ToFunPtr a where
-  -- | Convert a Haskell function to a C function pointer.
-  --
-  -- The caller is responsible for freeing the function pointer using
-  -- 'F.freeHaskellFunPtr' when it is no longer needed.
-  --
-  toFunPtr :: a -> IO (F.FunPtr a)
-
--- | Type class for converting C function pointers to Haskell functions.
---
-class FromFunPtr a where
-  -- | Convert C function pointer into a Haskell function.
-  fromFunPtr :: F.FunPtr a -> a
-
--- | This function makes sure that 'freeHaskellFunPtr' is called after
--- 'toFunPtr' has allocated memory for a 'FunPtr'.
---
-withToFunPtr :: ToFunPtr a => a -> (Ptr.FunPtr a -> IO b) -> IO b
-withToFunPtr x = bracket (toFunPtr x) F.freeHaskellFunPtr
+import HsBindgen.Runtime.FunPtr.Class
+import HsBindgen.Runtime.TH.Instances

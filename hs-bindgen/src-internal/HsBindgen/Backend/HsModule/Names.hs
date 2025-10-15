@@ -40,7 +40,6 @@ import HsBindgen.Runtime.CAPI qualified
 import HsBindgen.Runtime.CEnum qualified
 import HsBindgen.Runtime.ConstantArray qualified
 import HsBindgen.Runtime.FlexibleArrayMember qualified
-import HsBindgen.Runtime.FunPtr qualified
 import HsBindgen.Runtime.IncompleteArray qualified
 import HsBindgen.Runtime.Marshal qualified
 import HsBindgen.Runtime.SizedByteArray qualified
@@ -208,10 +207,43 @@ resolveGlobal = \case
     StaticSize_class              -> importQ ''HsBindgen.Runtime.Marshal.StaticSize
     ReadRaw_class                 -> importQ ''HsBindgen.Runtime.Marshal.ReadRaw
     WriteRaw_class                -> importQ ''HsBindgen.Runtime.Marshal.WriteRaw
-    ToFunPtr_class                -> importQ ''HsBindgen.Runtime.FunPtr.ToFunPtr
-    ToFunPtr_toFunPtr             -> importQ 'HsBindgen.Runtime.FunPtr.toFunPtr
-    FromFunPtr_class              -> importQ ''HsBindgen.Runtime.FunPtr.FromFunPtr
-    FromFunPtr_fromFunPtr         -> importQ 'HsBindgen.Runtime.FunPtr.fromFunPtr
+
+    -- TODO: If we use the TH resolution mechanism it is going to pick up
+    -- HsBindgen.Runtime.FunPtr.Class which is not exposed and leads to
+    -- generated code not compiling. So we have to construct the ResolvedName
+    -- records by hand here.
+    --
+    -- However, once #1061 is addressed this should no longer be a problem
+    --
+    ToFunPtr_class                -> let s = "ToFunPtr"
+                                         m = Just "HsBindgen.Runtime.FunPtr"
+                                      in ResolvedName
+                                          { resolvedNameString = s
+                                          , resolvedNameType   = nameType s
+                                          , resolvedNameImport = fmap (QualifiedHsImport . moduleOf s) m
+                                          }
+    ToFunPtr_toFunPtr             -> let s = "toFunPtr"
+                                         m = Just "HsBindgen.Runtime.FunPtr"
+                                      in ResolvedName
+                                          { resolvedNameString = s
+                                          , resolvedNameType   = nameType s
+                                          , resolvedNameImport = fmap (QualifiedHsImport . moduleOf s) m
+                                          }
+    FromFunPtr_class              -> let s = "FromFunPtr"
+                                         m = Just "HsBindgen.Runtime.FunPtr"
+                                      in ResolvedName
+                                          { resolvedNameString = s
+                                          , resolvedNameType   = nameType s
+                                          , resolvedNameImport = fmap (QualifiedHsImport . moduleOf s) m
+                                          }
+    FromFunPtr_fromFunPtr         -> let s = "fromFunPtr"
+                                         m = Just "HsBindgen.Runtime.FunPtr"
+                                      in ResolvedName
+                                          { resolvedNameString = s
+                                          , resolvedNameType   = nameType s
+                                          , resolvedNameImport = fmap (QualifiedHsImport . moduleOf s) m
+                                          }
+
     Storable_class                -> importQ ''Foreign.Storable
     Storable_sizeOf               -> importQ 'Foreign.sizeOf
     Storable_alignment            -> importQ 'Foreign.alignment
