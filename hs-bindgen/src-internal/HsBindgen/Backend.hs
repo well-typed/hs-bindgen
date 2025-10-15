@@ -29,8 +29,8 @@ backend tracer BackendConfig{..} FrontendArtefact{..} = do
       Hs.generateDeclarations
         backendTranslationOpts
         backendHaddockConfig
-        moduleBaseName <$>
-        frontendCDecls
+        moduleBaseName <$> frontendIndex
+                       <*> frontendCDecls
 
     -- 2. @Hs@ declarations to simple @Hs@ declarations.
     sHsDecls <- cache $ SHs.translateDecls <$> backendHsDecls

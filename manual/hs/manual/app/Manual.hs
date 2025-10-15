@@ -5,7 +5,7 @@
 module Manual (main) where
 
 import Control.Exception (bracket)
-import Control.Monad (forM_, (<=<), (>=>))
+import Control.Monad (forM_, when, (<=<), (>=>))
 import Data.Complex
 import Data.Vector.Storable qualified as VS
 import Foreign as F
@@ -561,6 +561,128 @@ main = do
 
         putStrLn "Testing processWithCallbacks with multiple callbacks:"
         processWithCallbacks handlerFunPtr
+
+      putStrLn ""
+      subsection "Callbacks with structs and unions"
+
+      putStrLn ""
+      -- Test MeasurementHandler struct (struct with function pointers)
+      putStrLn "Testing registerHandler (struct with multiple function pointers):"
+      alloca $ \handlerPtr -> do
+        onReceivedFunPtr <- toFunPtr $ \mPtr -> do
+          m <- peek mPtr
+          putStrLn $ "  [onReceived] Measurement: " ++ show (measurement_value m)
+
+        validateFunPtr <- toFunPtr $ \mPtr -> do
+          m <- peek mPtr
+          let isValid = measurement_value m > 0
+          putStrLn $ "  [validate] Measurement value " ++ show (measurement_value m)
+                  ++ " is " ++ (if isValid then "valid" else "invalid")
+          return $ if isValid then 1 else 0
+
+        onErrorFunPtr <- toFunPtr $ \errorCode -> do
+          putStrLn $ "  [onError] Error code: " ++ show errorCode
+
+        poke handlerPtr $ MeasurementHandler
+          { measurementHandler_onReceived = onReceivedFunPtr
+          , measurementHandler_validate = validateFunPtr
+          , measurementHandler_onError = onErrorFunPtr
+          }
+
+        registerHandler handlerPtr
+
+      putStrLn ""
+      -- Test DataPipeline struct (struct with nested callback types)
+      putStrLn "Testing executePipeline (struct with nested function pointer types):"
+      alloca $ \measurementPtr -> do
+        poke measurementPtr $ Measurement { measurement_value = 50.0, measurement_timestamp = 3.0 }
+
+        alloca $ \pipelinePtr -> do
+          preProcessFunPtr <- toFunPtr $ \mPtr validator -> do
+            m <- peek mPtr
+            putStrLn $ "  [preProcess] Processing measurement: " ++ show (measurement_value m)
+            putStrLn $ "  [preProcess] Validator present: " ++ show (un_DataValidator validator /= F.nullFunPtr)
+
+          processFunPtr <- toFunPtr $ \mPtr -> do
+            m <- peek mPtr
+            let newValue = measurement_value m * 2
+            poke mPtr $ m { measurement_value = newValue }
+            putStrLn $ "  [process] Doubled value to: " ++ show newValue
+
+          postProcessFunPtr <- toFunPtr $ \mPtr progressUpdate -> do
+            m <- peek mPtr
+            putStrLn $ "  [postProcess] Final value: " ++ show (measurement_value m)
+            putStrLn $ "  [postProcess] ProgressUpdate present: " ++ show (un_ProgressUpdate progressUpdate /= F.nullFunPtr)
+
+          poke pipelinePtr $ DataPipeline
+            { dataPipeline_preProcess = preProcessFunPtr
+            , dataPipeline_process = processFunPtr
+            , dataPipeline_postProcess = postProcessFunPtr
+            }
+
+          executePipeline measurementPtr pipelinePtr
+          finalMeasurement <- peek measurementPtr
+          putStrLn $ "  Final measurement after pipeline: " ++ show finalMeasurement
+
+      putStrLn ""
+      -- Test Processor struct (union with function pointers)
+      putStrLn "Testing runProcessor (struct with union of function pointers):"
+      alloca $ \measurementPtr -> do
+        poke measurementPtr $ Measurement { measurement_value = 25.0, measurement_timestamp = 4.0 }
+
+        -- Test MODE_SIMPLE
+        alloca $ \processorPtr -> do
+          simpleFunPtr <- toFunPtr $ \mPtr -> do
+            m <- peek mPtr
+            putStrLn $ "  [simple] Processing: " ++ show (measurement_value m)
+
+          let callback = set_processorCallback_simple simpleFunPtr
+          poke processorPtr $ Processor
+            { processor_mode = MODE_SIMPLE
+            , processor_callback = callback
+            }
+
+          putStrLn "  Testing MODE_SIMPLE:"
+          runProcessor measurementPtr processorPtr
+
+        -- Test MODE_VALIDATED
+        alloca $ \processorPtr -> do
+          validatedFunPtr <- toFunPtr $ \mPtr validator -> do
+            m <- peek mPtr
+            putStrLn $ "  [withValidator] Processing: " ++ show (measurement_value m)
+            putStrLn $ "  [withValidator] Validator present: " ++ show (un_DataValidator validator /= F.nullFunPtr)
+
+          let callback = set_processorCallback_withValidator validatedFunPtr
+          poke processorPtr $ Processor
+            { processor_mode = MODE_VALIDATED
+            , processor_callback = callback
+            }
+
+          putStrLn "  Testing MODE_VALIDATED:"
+          runProcessor measurementPtr processorPtr
+
+      putStrLn ""
+      subsection "Third-order callbacks"
+
+      -- Test processMeasurementWithValidation (deeply nested callbacks)
+      putStrLn "Testing processMeasurementWithValidation (third-order function):"
+      alloca $ \measurementPtr -> do
+        poke measurementPtr $ Measurement { measurement_value = 75.0, measurement_timestamp = 5.0 }
+
+        processorFunPtr <- toFunPtr $ \mPtr transformerFunPtr validatorFunPtr -> do
+          m <- peek mPtr
+          putStrLn $ "  [processor] Processing measurement: " ++ show (measurement_value m)
+          putStrLn $ "  [processor] Transformer present: " ++ show (transformerFunPtr /= F.nullFunPtr)
+          putStrLn $ "  [processor] Validator present: " ++ show (un_DataValidator validatorFunPtr /= F.nullFunPtr)
+
+          when (transformerFunPtr /= F.nullFunPtr) $ do
+            let transformerFun = fromFunPtr transformerFunPtr
+            transformerFun mPtr validatorFunPtr 10
+
+        processMeasurementWithValidation measurementPtr processorFunPtr
+
+        finalMeasurement <- peek measurementPtr
+        putStrLn $ "  Final measurement: " ++ show finalMeasurement
 
 {-------------------------------------------------------------------------------
   Arrays

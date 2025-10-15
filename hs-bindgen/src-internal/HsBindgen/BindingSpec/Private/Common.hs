@@ -214,7 +214,7 @@ data BindingSpecMsg =
 data Omittable a =
     Require a
   | Omit
-  deriving stock (Eq, Generic, Show)
+  deriving stock (Eq, Ord, Generic, Show)
 
 -- | Aeson representation of 'Omittable'
 --
