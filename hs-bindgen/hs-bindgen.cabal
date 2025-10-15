@@ -155,8 +155,8 @@ library internal
       HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
       HsBindgen.Frontend.Pass.Select
       HsBindgen.Frontend.Pass.Select.IsPass
-      HsBindgen.Frontend.Pass.Sort
-      HsBindgen.Frontend.Pass.Sort.IsPass
+      HsBindgen.Frontend.Pass.ConstructTranslationUnit
+      HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
       HsBindgen.Frontend.Predicate
       HsBindgen.Frontend.ProcessIncludes
       HsBindgen.Frontend.RootHeader

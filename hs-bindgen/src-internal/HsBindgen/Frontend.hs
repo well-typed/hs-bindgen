@@ -21,6 +21,9 @@ import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.AST.Finalize
 import HsBindgen.Frontend.AST.Internal hiding (Type)
 import HsBindgen.Frontend.Pass hiding (Config)
+import HsBindgen.Frontend.Pass.ConstructTranslationUnit
+import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
+import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass qualified as ConstructTranslationUnit
 import HsBindgen.Frontend.Pass.HandleMacros
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.HandleTypedefs
@@ -35,9 +38,6 @@ import HsBindgen.Frontend.Pass.ResolveBindingSpecs
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.Select
 import HsBindgen.Frontend.Pass.Select.IsPass
-import HsBindgen.Frontend.Pass.Sort
-import HsBindgen.Frontend.Pass.Sort.IsPass
-import HsBindgen.Frontend.Pass.Sort.IsPass qualified as Sort
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.ProcessIncludes
 import HsBindgen.Frontend.RootHeader
@@ -49,7 +49,7 @@ import HsBindgen.Util.Tracer
 -- Overview of passes (see documentation of 'HsBindgen.Frontend.Pass.IsPass'):
 --
 -- 1. 'Parse' (impure; all other passes are pure)
--- 2. 'Sort'
+-- 2. 'ConstructTranslationUnit'
 -- 3. 'HandleMacros'
 -- 4. 'NameAnon'
 -- 5. 'ResolveBindingSpecs'
@@ -60,7 +60,7 @@ import HsBindgen.Util.Tracer
 -- Although the passes and their order are subject to change, we have to honor
 -- various constraints:
 --
--- - 'Sort' must come before the following passes because we need to process
+-- - 'ConstructTranslationUnit' must come before the following passes because we need to process
 --   declarations before their uses.
 --
 -- - 'HandleMacros': The macro parser needs to know which things are in scope
@@ -124,13 +124,13 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
     sortPass <- cache "sort" $ do
       (afterParse, includeGraph, _, _, _) <- parsePass
       -- TODO_PR: Rename to @ConstructTranslationUnit@.
-      let (afterSort, msgsSort) = sortDecls afterParse
-      forM_ msgsSort $ traceWith tracer . FrontendSort
-      pure afterSort
+      let (afterConstructTranslationUnit, msgsConstructTranslationUnit) = constructTranslationUnit afterParse
+      forM_ msgsConstructTranslationUnit $ traceWith tracer . FrontendConstructTranslationUnit
+      pure afterConstructTranslationUnit
 
     handleMacrosPass <- cache "handleMacros" $ do
-      afterSort <- sortPass
-      let (afterHandleMacros, msgsHandleMacros) = handleMacros afterSort
+      afterConstructTranslationUnit <- sortPass
+      let (afterHandleMacros, msgsHandleMacros) = handleMacros afterConstructTranslationUnit
       forM_ msgsHandleMacros $ traceWith tracer . FrontendHandleMacros
       pure afterHandleMacros
 
@@ -197,11 +197,11 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
       (_, _, _, getMainHeaders) <- parsePass
       pure getMainHeaders
     frontendIndex <- cache "frontendIndex" $
-      Sort.declIndex   . unitAnn <$> sortPass
+      ConstructTranslationUnit.declIndex   . unitAnn <$> sortPass
     frontendUseDeclGraph <- cache "frontendUseDeclGraph" $
-      Sort.declUseDecl . unitAnn <$> sortPass
+      ConstructTranslationUnit.declUseDecl . unitAnn <$> sortPass
     frontendDeclUseGraph <- cache "frontendDeclUseGraph" $
-      Sort.declDeclUse . unitAnn <$> sortPass
+      ConstructTranslationUnit.declDeclUse . unitAnn <$> sortPass
 
     -- Omitted types
     frontendOmitTypes <- cache "frontendOmitTypes" $
@@ -283,7 +283,7 @@ data FrontendArtefact = FrontendArtefact {
 data FrontendMsg =
     FrontendClang ClangMsg
   | FrontendParse (Msg Parse)
-  | FrontendSort (Msg Sort)
+  | FrontendConstructTranslationUnit (Msg ConstructTranslationUnit)
   | FrontendHandleMacros (Msg HandleMacros)
   | FrontendNameAnon (Msg NameAnon)
   | FrontendResolveBindingSpecs (Msg ResolveBindingSpecs)

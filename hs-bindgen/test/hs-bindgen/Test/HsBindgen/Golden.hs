@@ -171,7 +171,7 @@ testCases = manualTestCases ++ [
               , C.QualPrelimDeclIdNamed "stderr" C.NameKindOrdinary
               ]
       in testTraceCustom "macro_redefines_global" declsWithMsgs $ \case
-        TraceFrontend (FrontendSort (SortErrorDeclIndex (Redeclaration {redeclarationId = x}))) ->
+        TraceFrontend (FrontendConstructTranslationUnit (ConstructTranslationUnitErrorDeclIndex (Redeclaration {redeclarationId = x}))) ->
           Just $ Expected x
         _otherwise ->
           Nothing
@@ -296,7 +296,7 @@ testCases = manualTestCases ++ [
         _otherwise ->
           Nothing
     , failingTestSimple "redeclaration_different" $ \case
-        TraceFrontend (FrontendSort (SortErrorDeclIndex (Redeclaration {}))) ->
+        TraceFrontend (FrontendConstructTranslationUnit (ConstructTranslationUnitErrorDeclIndex (Redeclaration {}))) ->
           Just (Expected ())
         TraceFrontend (FrontendClang (ClangDiagnostic x)) ->
           if "macro redefined" `Text.isInfixOf` diagnosticSpelling x
@@ -598,7 +598,7 @@ testCases = manualTestCases ++ [
                 ]
             TraceFrontend (FrontendSelect (SelectSelectStatus (Selected TransitiveDependency) info)) ->
               expectSelected info $ Set.singleton "FileOperationStatus"
-            TraceFrontend (FrontendSort (SortErrorDeclIndex (Redeclaration {redeclarationId = x}))) ->
+            TraceFrontend (FrontendConstructTranslationUnit (ConstructTranslationUnitErrorDeclIndex (Redeclaration {redeclarationId = x}))) ->
               Just $ Expected (show x)
             _otherwise ->
               Nothing

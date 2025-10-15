@@ -9,8 +9,8 @@ import HsBindgen.Frontend.AST.Internal (ValidPass)
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
+import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass
-import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
@@ -22,7 +22,7 @@ type NameAnon :: Pass
 data NameAnon a deriving anyclass ValidPass
 
 type family AnnNameAnon ix where
-  AnnNameAnon "TranslationUnit" = SortDeclMeta
+  AnnNameAnon "TranslationUnit" = DeclMeta
   AnnNameAnon _                 = NoAnn
 
 instance IsPass NameAnon where

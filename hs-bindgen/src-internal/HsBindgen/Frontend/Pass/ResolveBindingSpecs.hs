@@ -24,10 +24,10 @@ import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
+import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.NameAnon.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass (OrigTypedefRef (..))
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
-import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Monad (mapMaybeM)
@@ -66,7 +66,7 @@ resolveBindingSpecs
       -> UseDeclGraph
       -> C.TranslationUnit ResolveBindingSpecs
     reassemble decls' useDeclGraph =
-      let unitAnn' :: SortDeclMeta
+      let unitAnn' :: DeclMeta
           unitAnn' = unitAnn & #declUseDecl .~ useDeclGraph
       in  C.TranslationUnit{
         unitDecls = decls'

@@ -21,9 +21,9 @@ import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
+import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
-import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Util.Tracer
 
@@ -35,7 +35,7 @@ type Select :: Pass
 data Select a deriving anyclass ValidPass
 
 type family AnnSelect ix where
-  AnnSelect "TranslationUnit" = SortDeclMeta
+  AnnSelect "TranslationUnit" = DeclMeta
   AnnSelect "Decl"            = BindingSpec.CTypeSpec
   AnnSelect _                 = NoAnn
 

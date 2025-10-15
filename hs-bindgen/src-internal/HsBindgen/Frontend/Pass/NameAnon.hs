@@ -14,10 +14,10 @@ import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
+import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.NameAnon.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass (OrigTypedefRef (..))
-import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------

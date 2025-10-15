@@ -10,9 +10,9 @@ import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
+import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
-import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
@@ -25,7 +25,7 @@ type MangleNames :: Pass
 data MangleNames a deriving anyclass (C.ValidPass)
 
 type family AnnMangleNames ix where
-  AnnMangleNames "TranslationUnit"  = SortDeclMeta
+  AnnMangleNames "TranslationUnit"  = DeclMeta
   AnnMangleNames "Decl"             = BindingSpec.CTypeSpec
   AnnMangleNames "Struct"           = C.RecordNames
   AnnMangleNames "Union"            = C.NewtypeNames

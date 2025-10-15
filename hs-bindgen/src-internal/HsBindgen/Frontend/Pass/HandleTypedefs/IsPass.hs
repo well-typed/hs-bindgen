@@ -11,8 +11,8 @@ import HsBindgen.Frontend.AST.Internal (ValidPass)
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
+import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
-import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
@@ -24,7 +24,7 @@ type HandleTypedefs :: Pass
 data HandleTypedefs a deriving anyclass ValidPass
 
 type family AnnHandleTypedefs ix where
-  AnnHandleTypedefs "TranslationUnit" = SortDeclMeta
+  AnnHandleTypedefs "TranslationUnit" = DeclMeta
   AnnHandleTypedefs "Decl"            = BindingSpec.CTypeSpec
   AnnHandleTypedefs _                 = NoAnn
 
