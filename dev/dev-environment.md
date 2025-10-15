@@ -42,8 +42,10 @@ For NixOS users, a flake is available that provides a complete development
 environment:
 
 ```bash
-# Use the community flake
-nix develop git+https://github.com/dschrempf/hs-bindgen-flake/
+# If you have the project checked out:
+nix develop
+# Or directly use the repository:
+nix develop git+https://github.com/well-typed/hs-bindgen/
 ```
 
 ## macOS
