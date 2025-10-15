@@ -39,11 +39,8 @@ instance Storable Thing
           peek = \ptr_0 -> pure Thing <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Thing thing_x_3 -> pokeByteOff ptr_1 (0 :: Int) thing_x_3
-{-| __C declaration:__ @thing_fun_1@
+{-| Pointer-based API for 'thing_fun_1'
 
-    __defined at:__ @struct_arg.h:6:5@
-
-    __exported by:__ @struct_arg.h@
 -}
 foreign import ccall safe "hs_bindgen_test_struct_arg_61dfa2c4506feb8f" thing_fun_1_wrapper :: Ptr Thing ->
                                                                                                IO CInt
@@ -61,11 +58,8 @@ thing_fun_1 :: Thing -> IO CInt
     __exported by:__ @struct_arg.h@
 -}
 thing_fun_1 = \x_0 -> with x_0 (\y_1 -> thing_fun_1_wrapper y_1)
-{-| __C declaration:__ @thing_fun_2@
+{-| Pointer-based API for 'thing_fun_2'
 
-    __defined at:__ @struct_arg.h:7:14@
-
-    __exported by:__ @struct_arg.h@
 -}
 foreign import ccall safe "hs_bindgen_test_struct_arg_022cc8107f565c95" thing_fun_2_wrapper :: CInt ->
                                                                                                Ptr Thing ->
@@ -84,11 +78,8 @@ thing_fun_2 :: CInt -> IO Thing
     __exported by:__ @struct_arg.h@
 -}
 thing_fun_2 = \x_0 -> allocaAndPeek (\z_1 -> thing_fun_2_wrapper x_0 z_1)
-{-| __C declaration:__ @thing_fun_3a@
+{-| Pointer-based API for 'thing_fun_3a'
 
-    __defined at:__ @struct_arg.h:9:14@
-
-    __exported by:__ @struct_arg.h@
 -}
 foreign import ccall safe "hs_bindgen_test_struct_arg_4d9304280cca3098" thing_fun_3a_wrapper :: CInt ->
                                                                                                 Ptr Thing ->
@@ -109,11 +100,8 @@ thing_fun_3a :: CInt -> Thing -> CDouble -> IO Thing
     __exported by:__ @struct_arg.h@
 -}
 thing_fun_3a = \x_0 -> \x_1 -> \x_2 -> with x_1 (\y_3 -> allocaAndPeek (\z_4 -> thing_fun_3a_wrapper x_0 y_3 x_2 z_4))
-{-| __C declaration:__ @thing_fun_3b@
+{-| Pointer-based API for 'thing_fun_3b'
 
-    __defined at:__ @struct_arg.h:10:6@
-
-    __exported by:__ @struct_arg.h@
 -}
 foreign import ccall safe "hs_bindgen_test_struct_arg_f39687b254852452" thing_fun_3b_wrapper :: CInt ->
                                                                                                 Ptr Thing ->
@@ -133,11 +121,8 @@ thing_fun_3b :: CInt -> Thing -> CDouble -> IO CChar
     __exported by:__ @struct_arg.h@
 -}
 thing_fun_3b = \x_0 -> \x_1 -> \x_2 -> with x_1 (\y_3 -> thing_fun_3b_wrapper x_0 y_3 x_2)
-{-| __C declaration:__ @thing_fun_1@
+{-| Pointer-based API for 'thing_fun_1'
 
-    __defined at:__ @struct_arg.h:6:5@
-
-    __exported by:__ @struct_arg.h@
 -}
 foreign import ccall safe "hs_bindgen_test_struct_arg_409d8c948bf989f6" thing_fun_1_wrapper :: Ptr Thing ->
                                                                                                IO CInt
@@ -155,11 +140,8 @@ thing_fun_1 :: Thing -> IO CInt
     __exported by:__ @struct_arg.h@
 -}
 thing_fun_1 = \x_0 -> with x_0 (\y_1 -> thing_fun_1_wrapper y_1)
-{-| __C declaration:__ @thing_fun_2@
+{-| Pointer-based API for 'thing_fun_2'
 
-    __defined at:__ @struct_arg.h:7:14@
-
-    __exported by:__ @struct_arg.h@
 -}
 foreign import ccall safe "hs_bindgen_test_struct_arg_2d20059791239ef2" thing_fun_2_wrapper :: CInt ->
                                                                                                Ptr Thing ->
@@ -178,11 +160,8 @@ thing_fun_2 :: CInt -> IO Thing
     __exported by:__ @struct_arg.h@
 -}
 thing_fun_2 = \x_0 -> allocaAndPeek (\z_1 -> thing_fun_2_wrapper x_0 z_1)
-{-| __C declaration:__ @thing_fun_3a@
+{-| Pointer-based API for 'thing_fun_3a'
 
-    __defined at:__ @struct_arg.h:9:14@
-
-    __exported by:__ @struct_arg.h@
 -}
 foreign import ccall safe "hs_bindgen_test_struct_arg_ce442967da2c37cd" thing_fun_3a_wrapper :: CInt ->
                                                                                                 Ptr Thing ->
@@ -203,11 +182,8 @@ thing_fun_3a :: CInt -> Thing -> CDouble -> IO Thing
     __exported by:__ @struct_arg.h@
 -}
 thing_fun_3a = \x_0 -> \x_1 -> \x_2 -> with x_1 (\y_3 -> allocaAndPeek (\z_4 -> thing_fun_3a_wrapper x_0 y_3 x_2 z_4))
-{-| __C declaration:__ @thing_fun_3b@
+{-| Pointer-based API for 'thing_fun_3b'
 
-    __defined at:__ @struct_arg.h:10:6@
-
-    __exported by:__ @struct_arg.h@
 -}
 foreign import ccall safe "hs_bindgen_test_struct_arg_e8bc8fce45854092" thing_fun_3b_wrapper :: CInt ->
                                                                                                 Ptr Thing ->

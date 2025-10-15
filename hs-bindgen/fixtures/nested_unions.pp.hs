@@ -35,7 +35,9 @@ __defined at:__ @nested_unions.h:3:21@
 
 __exported by:__ @nested_unions.h@
 -}
-get_unionA_a :: UnionA -> FC.CInt
+get_unionA_a ::
+     UnionA
+  -> FC.CInt
 get_unionA_a =
   HsBindgen.Runtime.ByteArray.getUnionPayload
 
@@ -44,7 +46,9 @@ get_unionA_a =
   __See:__ 'get_unionA_a'
 
 -}
-set_unionA_a :: FC.CInt -> UnionA
+set_unionA_a ::
+     FC.CInt
+  -> UnionA
 set_unionA_a =
   HsBindgen.Runtime.ByteArray.setUnionPayload
 
@@ -58,7 +62,9 @@ __defined at:__ @nested_unions.h:4:22@
 
 __exported by:__ @nested_unions.h@
 -}
-get_unionA_b :: UnionA -> FC.CChar
+get_unionA_b ::
+     UnionA
+  -> FC.CChar
 get_unionA_b =
   HsBindgen.Runtime.ByteArray.getUnionPayload
 
@@ -67,7 +73,9 @@ get_unionA_b =
   __See:__ 'get_unionA_b'
 
 -}
-set_unionA_b :: FC.CChar -> UnionA
+set_unionA_b ::
+     FC.CChar
+  -> UnionA
 set_unionA_b =
   HsBindgen.Runtime.ByteArray.setUnionPayload
 
@@ -125,7 +133,9 @@ __defined at:__ @nested_unions.h:10:21@
 
 __exported by:__ @nested_unions.h@
 -}
-get_exB_fieldB1_a :: ExB_fieldB1 -> FC.CInt
+get_exB_fieldB1_a ::
+     ExB_fieldB1
+  -> FC.CInt
 get_exB_fieldB1_a =
   HsBindgen.Runtime.ByteArray.getUnionPayload
 
@@ -134,7 +144,9 @@ get_exB_fieldB1_a =
   __See:__ 'get_exB_fieldB1_a'
 
 -}
-set_exB_fieldB1_a :: FC.CInt -> ExB_fieldB1
+set_exB_fieldB1_a ::
+     FC.CInt
+  -> ExB_fieldB1
 set_exB_fieldB1_a =
   HsBindgen.Runtime.ByteArray.setUnionPayload
 
@@ -148,7 +160,9 @@ __defined at:__ @nested_unions.h:11:22@
 
 __exported by:__ @nested_unions.h@
 -}
-get_exB_fieldB1_b :: ExB_fieldB1 -> FC.CChar
+get_exB_fieldB1_b ::
+     ExB_fieldB1
+  -> FC.CChar
 get_exB_fieldB1_b =
   HsBindgen.Runtime.ByteArray.getUnionPayload
 
@@ -157,7 +171,9 @@ get_exB_fieldB1_b =
   __See:__ 'get_exB_fieldB1_b'
 
 -}
-set_exB_fieldB1_b :: FC.CChar -> ExB_fieldB1
+set_exB_fieldB1_b ::
+     FC.CChar
+  -> ExB_fieldB1
 set_exB_fieldB1_b =
   HsBindgen.Runtime.ByteArray.setUnionPayload
 

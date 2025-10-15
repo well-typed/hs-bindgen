@@ -49,8 +49,8 @@ newtype C数字 = C数字
 
     __exported by:__ @adios.h@
 -}
-foreign import ccall safe "hs_bindgen_test_adios_1f928c1e5a3ea8be" cϒ
-  :: IO ()
+foreign import ccall safe "hs_bindgen_test_adios_1f928c1e5a3ea8be" cϒ ::
+     IO ()
 
 {-| __C declaration:__ @拜拜@
 
@@ -58,8 +58,8 @@ foreign import ccall safe "hs_bindgen_test_adios_1f928c1e5a3ea8be" cϒ
 
     __exported by:__ @adios.h@
 -}
-foreign import ccall safe "hs_bindgen_test_adios_912e938ac6370f83" 拜拜
-  :: IO ()
+foreign import ccall safe "hs_bindgen_test_adios_912e938ac6370f83" 拜拜 ::
+     IO ()
 
 {-| __C declaration:__ @Say拜拜@
 
@@ -67,11 +67,11 @@ foreign import ccall safe "hs_bindgen_test_adios_912e938ac6370f83" 拜拜
 
     __exported by:__ @adios.h@
 -}
-foreign import ccall safe "hs_bindgen_test_adios_cc7cd7984d0bfaee" say拜拜
-  :: IO ()
+foreign import ccall safe "hs_bindgen_test_adios_cc7cd7984d0bfaee" say拜拜 ::
+     IO ()
 
-foreign import ccall unsafe "hs_bindgen_test_adios_857cc80028e9fd4d" hs_bindgen_test_adios_857cc80028e9fd4d
-  :: IO (Ptr.FunPtr (IO ()))
+foreign import ccall unsafe "hs_bindgen_test_adios_857cc80028e9fd4d" hs_bindgen_test_adios_857cc80028e9fd4d ::
+     IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE cϒ_ptr #-}
 
@@ -85,8 +85,8 @@ cϒ_ptr :: Ptr.FunPtr (IO ())
 cϒ_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_adios_857cc80028e9fd4d
 
-foreign import ccall unsafe "hs_bindgen_test_adios_8b289d4c7ae2c2a7" hs_bindgen_test_adios_8b289d4c7ae2c2a7
-  :: IO (Ptr.FunPtr (IO ()))
+foreign import ccall unsafe "hs_bindgen_test_adios_8b289d4c7ae2c2a7" hs_bindgen_test_adios_8b289d4c7ae2c2a7 ::
+     IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE 拜拜_ptr #-}
 
@@ -100,8 +100,8 @@ foreign import ccall unsafe "hs_bindgen_test_adios_8b289d4c7ae2c2a7" hs_bindgen_
 拜拜_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_adios_8b289d4c7ae2c2a7
 
-foreign import ccall unsafe "hs_bindgen_test_adios_2879b42f75005d3b" hs_bindgen_test_adios_2879b42f75005d3b
-  :: IO (Ptr.FunPtr (IO ()))
+foreign import ccall unsafe "hs_bindgen_test_adios_2879b42f75005d3b" hs_bindgen_test_adios_2879b42f75005d3b ::
+     IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE say拜拜_ptr #-}
 
@@ -115,8 +115,8 @@ say拜拜_ptr :: Ptr.FunPtr (IO ())
 say拜拜_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_adios_2879b42f75005d3b
 
-foreign import ccall unsafe "hs_bindgen_test_adios_e4b974661ff038a0" hs_bindgen_test_adios_e4b974661ff038a0
-  :: IO (Ptr.Ptr FC.CInt)
+foreign import ccall unsafe "hs_bindgen_test_adios_e4b974661ff038a0" hs_bindgen_test_adios_e4b974661ff038a0 ::
+     IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE cϒϒ_ptr #-}
 
@@ -130,8 +130,8 @@ cϒϒ_ptr :: Ptr.Ptr FC.CInt
 cϒϒ_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_adios_e4b974661ff038a0
 
-foreign import ccall unsafe "hs_bindgen_test_adios_c538a25ba7055dd4" hs_bindgen_test_adios_c538a25ba7055dd4
-  :: IO (Ptr.Ptr FC.CInt)
+foreign import ccall unsafe "hs_bindgen_test_adios_c538a25ba7055dd4" hs_bindgen_test_adios_c538a25ba7055dd4 ::
+     IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE cϒϒϒ_ptr #-}
 

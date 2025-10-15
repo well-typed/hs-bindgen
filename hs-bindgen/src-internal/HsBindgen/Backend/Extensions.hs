@@ -13,10 +13,9 @@ import HsBindgen.Imports
 -- | Which GHC language extensions this declarations needs.
 requiredExtensions :: SDecl -> Set TH.Extension
 requiredExtensions = \case
-    DVar Var {..} -> mconcat $ [
-        typeExtensions varType
-      , Set.fromList [TH.MagicHash | isECString varExpr]
-      ]
+    DVar Var {..} ->
+         typeExtensions varType
+      <> exprExtensions varExpr
     DInst x -> mconcat . concat $ [
         [ext TH.MultiParamTypeClasses | length (instanceArgs x) >= 2]
       , [ext TH.TypeFamilies          | not (null (instanceTypes x))]
@@ -48,6 +47,10 @@ requiredExtensions = \case
                    foreignImportParameters
         <> typeExtensions (extractResultType foreignImportResultType)
       ]
+    DFunction Function {..} ->
+         foldMap (typeExtensions . functionParameterType) functionParameters
+      <> typeExtensions functionResultType
+      <> exprExtensions functionBody
     DPatternSynonym{} -> mconcat [
         ext TH.PatternSynonyms
       ]
@@ -56,11 +59,6 @@ requiredExtensions = \case
   where
     ext :: TH.Extension -> Set TH.Extension
     ext = Set.singleton
-
-    isECString :: SExpr ctx -> Bool
-    isECString = \case
-      (ECString _) -> True
-      _otherExpr   -> False
 
 -- | Extensions for deriving clauses that are part of the datatype declaration
 nestedDeriving :: [(Strategy ClosedType, [Global])] -> Set TH.Extension
@@ -73,6 +71,15 @@ recordExtensions r = foldMap fieldExtensions (dataFields r)
 
 fieldExtensions :: Field -> Set TH.Extension
 fieldExtensions f = typeExtensions (fieldType f)
+
+exprExtensions :: ClosedExpr -> Set TH.Extension
+exprExtensions expr = Set.fromList [TH.MagicHash | isECString expr]
+  where
+    isECString :: SExpr ctx -> Bool
+    isECString = \case
+      (ECString _) -> True
+      _otherExpr   -> False
+
 
 -- Note: We don't recognise whether we need RankNTypes.
 -- We probably don't generate such types

@@ -439,13 +439,8 @@
           functionParameterType = HsPtr
             (HsTypRef
               (Name "@NsTypeConstr" "Thing")),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "x",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}}],
+          functionParameterComment =
+          Nothing}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
@@ -479,6 +474,59 @@
             (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
         Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Pointer-based API for",
+              Identifier "thing_fun_1"],
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = []},
+      foreignImportSafety = Safe},
+  DeclFunction
+    FunctionDecl {
+      functionDeclName = Name
+        "@NsVar"
+        "thing_fun_1",
+      functionDeclParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "x"),
+          functionParameterType = HsTypRef
+            (Name "@NsTypeConstr" "Thing"),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      functionDeclResultType = HsIO
+        (HsPrimType HsPrimCInt),
+      functionDeclBody =
+      `ELam "x" (EApp (EApp (EGlobal CAPI_with) (EBound 0)) (ELam "y" (EApp (EFree "thing_fun_1_wrapper") (EBound 0))))`,
+      functionDeclOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = Identifier "x"})
+              (TypeStruct
+                NamePair {
+                  nameC = Name "thing",
+                  nameHsIdent = Identifier
+                    "Thing"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      functionDeclComment = Just
+        Comment {
           commentTitle = Nothing,
           commentOrigin = Just
             "thing_fun_1",
@@ -489,9 +537,7 @@
               headerMainHeaders = NE.fromList
                 ["struct_arg.h"],
               headerInclude = "struct_arg.h"},
-          commentChildren = []},
-      foreignImportSafety = Safe},
-  DeclSimple,
+          commentChildren = []}},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -503,13 +549,8 @@
             (Name "@NsVar" "x"),
           functionParameterType =
           HsPrimType HsPrimCInt,
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "x",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}}],
+          functionParameterComment =
+          Nothing}],
       foreignImportResultType =
       HeapResultType
         (HsPtr
@@ -547,25 +588,22 @@
             NameOriginInSource},
       foreignImportComment = Just
         Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "thing_fun_2",
-          commentLocation = Just
-            "struct_arg.h:7:14",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["struct_arg.h"],
-              headerInclude = "struct_arg.h"},
+          commentTitle = Just
+            [
+              TextContent
+                "Pointer-based API for",
+              Identifier "thing_fun_2"],
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = Name
+  DeclFunction
+    FunctionDecl {
+      functionDeclName = Name
         "@NsVar"
-        "thing_fun_3a_wrapper",
-      foreignImportParameters = [
+        "thing_fun_2",
+      functionDeclParameters = [
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "x"),
@@ -577,32 +615,72 @@
               commentOrigin = Just "x",
               commentLocation = Nothing,
               commentHeaderInfo = Nothing,
-              commentChildren = []}},
+              commentChildren = []}}],
+      functionDeclResultType = HsIO
+        (HsTypRef
+          (Name "@NsTypeConstr" "Thing")),
+      functionDeclBody =
+      `ELam "x" (EApp (EGlobal CAPI_allocaAndPeek) (ELam "z" (EApp (EApp (EFree "thing_fun_2_wrapper") (EBound 1)) (EBound 0))))`,
+      functionDeclOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = Identifier "x"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeStruct
+            NamePair {
+              nameC = Name "thing",
+              nameHsIdent = Identifier
+                "Thing"}
+            NameOriginInSource},
+      functionDeclComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "thing_fun_2",
+          commentLocation = Just
+            "struct_arg.h:7:14",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["struct_arg.h"],
+              headerInclude = "struct_arg.h"},
+          commentChildren = []}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "thing_fun_3a_wrapper",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "x"),
+          functionParameterType =
+          HsPrimType HsPrimCInt,
+          functionParameterComment =
+          Nothing},
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "y"),
           functionParameterType = HsPtr
             (HsTypRef
               (Name "@NsTypeConstr" "Thing")),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "y",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}},
+          functionParameterComment =
+          Nothing},
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "z"),
           functionParameterType =
           HsPrimType HsPrimCDouble,
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "z",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}}],
+          functionParameterComment =
+          Nothing}],
       foreignImportResultType =
       HeapResultType
         (HsPtr
@@ -658,25 +736,22 @@
             NameOriginInSource},
       foreignImportComment = Just
         Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "thing_fun_3a",
-          commentLocation = Just
-            "struct_arg.h:9:14",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["struct_arg.h"],
-              headerInclude = "struct_arg.h"},
+          commentTitle = Just
+            [
+              TextContent
+                "Pointer-based API for",
+              Identifier "thing_fun_3a"],
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
           commentChildren = []},
       foreignImportSafety = Safe},
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = Name
+  DeclFunction
+    FunctionDecl {
+      functionDeclName = Name
         "@NsVar"
-        "thing_fun_3b_wrapper",
-      foreignImportParameters = [
+        "thing_fun_3a",
+      functionDeclParameters = [
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "x"),
@@ -692,9 +767,8 @@
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "y"),
-          functionParameterType = HsPtr
-            (HsTypRef
-              (Name "@NsTypeConstr" "Thing")),
+          functionParameterType = HsTypRef
+            (Name "@NsTypeConstr" "Thing"),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -714,6 +788,89 @@
               commentLocation = Nothing,
               commentHeaderInfo = Nothing,
               commentChildren = []}}],
+      functionDeclResultType = HsIO
+        (HsTypRef
+          (Name "@NsTypeConstr" "Thing")),
+      functionDeclBody =
+      `ELam "x" (ELam "x" (ELam "x" (EApp (EApp (EGlobal CAPI_with) (EBound 1)) (ELam "y" (EApp (EGlobal CAPI_allocaAndPeek) (ELam "z" (EApp (EApp (EApp (EApp (EFree "thing_fun_3a_wrapper") (EBound 4)) (EBound 1)) (EBound 2)) (EBound 0))))))))`,
+      functionDeclOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = Identifier "x"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = Identifier "y"})
+              (TypeStruct
+                NamePair {
+                  nameC = Name "thing",
+                  nameHsIdent = Identifier
+                    "Thing"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "z",
+                  nameHsIdent = Identifier "z"})
+              (TypePrim
+                (PrimFloating PrimDouble))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeStruct
+            NamePair {
+              nameC = Name "thing",
+              nameHsIdent = Identifier
+                "Thing"}
+            NameOriginInSource},
+      functionDeclComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "thing_fun_3a",
+          commentLocation = Just
+            "struct_arg.h:9:14",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["struct_arg.h"],
+              headerInclude = "struct_arg.h"},
+          commentChildren = []}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "thing_fun_3b_wrapper",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "x"),
+          functionParameterType =
+          HsPrimType HsPrimCInt,
+          functionParameterComment =
+          Nothing},
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "y"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (Name "@NsTypeConstr" "Thing")),
+          functionParameterComment =
+          Nothing},
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "z"),
+          functionParameterType =
+          HsPrimType HsPrimCDouble,
+          functionParameterComment =
+          Nothing}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimCChar)),
@@ -763,6 +920,99 @@
                 (Just Signed)))},
       foreignImportComment = Just
         Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Pointer-based API for",
+              Identifier "thing_fun_3b"],
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = []},
+      foreignImportSafety = Safe},
+  DeclFunction
+    FunctionDecl {
+      functionDeclName = Name
+        "@NsVar"
+        "thing_fun_3b",
+      functionDeclParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "x"),
+          functionParameterType =
+          HsPrimType HsPrimCInt,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "y"),
+          functionParameterType = HsTypRef
+            (Name "@NsTypeConstr" "Thing"),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "y",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "z"),
+          functionParameterType =
+          HsPrimType HsPrimCDouble,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "z",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      functionDeclResultType = HsIO
+        (HsPrimType HsPrimCChar),
+      functionDeclBody =
+      `ELam "x" (ELam "x" (ELam "x" (EApp (EApp (EGlobal CAPI_with) (EBound 1)) (ELam "y" (EApp (EApp (EApp (EFree "thing_fun_3b_wrapper") (EBound 3)) (EBound 0)) (EBound 1))))))`,
+      functionDeclOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = Identifier "x"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = Identifier "y"})
+              (TypeStruct
+                NamePair {
+                  nameC = Name "thing",
+                  nameHsIdent = Identifier
+                    "Thing"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "z",
+                  nameHsIdent = Identifier "z"})
+              (TypePrim
+                (PrimFloating PrimDouble))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimChar
+              (PrimSignImplicit
+                (Just Signed)))},
+      functionDeclComment = Just
+        Comment {
           commentTitle = Nothing,
           commentOrigin = Just
             "thing_fun_3b",
@@ -773,9 +1023,7 @@
               headerMainHeaders = NE.fromList
                 ["struct_arg.h"],
               headerInclude = "struct_arg.h"},
-          commentChildren = []},
-      foreignImportSafety = Safe},
-  DeclSimple,
+          commentChildren = []}},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -788,13 +1036,8 @@
           functionParameterType = HsPtr
             (HsTypRef
               (Name "@NsTypeConstr" "Thing")),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "x",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}}],
+          functionParameterComment =
+          Nothing}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimCInt)),
@@ -828,6 +1071,59 @@
             (PrimIntegral PrimInt Signed)},
       foreignImportComment = Just
         Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Pointer-based API for",
+              Identifier "thing_fun_1"],
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclFunction
+    FunctionDecl {
+      functionDeclName = Name
+        "@NsVar"
+        "thing_fun_1",
+      functionDeclParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "x"),
+          functionParameterType = HsTypRef
+            (Name "@NsTypeConstr" "Thing"),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      functionDeclResultType = HsIO
+        (HsPrimType HsPrimCInt),
+      functionDeclBody =
+      `ELam "x" (EApp (EApp (EGlobal CAPI_with) (EBound 0)) (ELam "y" (EApp (EFree "thing_fun_1_wrapper") (EBound 0))))`,
+      functionDeclOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = Identifier "x"})
+              (TypeStruct
+                NamePair {
+                  nameC = Name "thing",
+                  nameHsIdent = Identifier
+                    "Thing"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      functionDeclComment = Just
+        Comment {
           commentTitle = Nothing,
           commentOrigin = Just
             "thing_fun_1",
@@ -838,9 +1134,7 @@
               headerMainHeaders = NE.fromList
                 ["struct_arg.h"],
               headerInclude = "struct_arg.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
+          commentChildren = []}},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -852,13 +1146,8 @@
             (Name "@NsVar" "x"),
           functionParameterType =
           HsPrimType HsPrimCInt,
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "x",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}}],
+          functionParameterComment =
+          Nothing}],
       foreignImportResultType =
       HeapResultType
         (HsPtr
@@ -896,25 +1185,22 @@
             NameOriginInSource},
       foreignImportComment = Just
         Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "thing_fun_2",
-          commentLocation = Just
-            "struct_arg.h:7:14",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["struct_arg.h"],
-              headerInclude = "struct_arg.h"},
+          commentTitle = Just
+            [
+              TextContent
+                "Pointer-based API for",
+              Identifier "thing_fun_2"],
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
           commentChildren = []},
       foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = Name
+  DeclFunction
+    FunctionDecl {
+      functionDeclName = Name
         "@NsVar"
-        "thing_fun_3a_wrapper",
-      foreignImportParameters = [
+        "thing_fun_2",
+      functionDeclParameters = [
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "x"),
@@ -926,32 +1212,72 @@
               commentOrigin = Just "x",
               commentLocation = Nothing,
               commentHeaderInfo = Nothing,
-              commentChildren = []}},
+              commentChildren = []}}],
+      functionDeclResultType = HsIO
+        (HsTypRef
+          (Name "@NsTypeConstr" "Thing")),
+      functionDeclBody =
+      `ELam "x" (EApp (EGlobal CAPI_allocaAndPeek) (ELam "z" (EApp (EApp (EFree "thing_fun_2_wrapper") (EBound 1)) (EBound 0))))`,
+      functionDeclOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = Identifier "x"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeStruct
+            NamePair {
+              nameC = Name "thing",
+              nameHsIdent = Identifier
+                "Thing"}
+            NameOriginInSource},
+      functionDeclComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "thing_fun_2",
+          commentLocation = Just
+            "struct_arg.h:7:14",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["struct_arg.h"],
+              headerInclude = "struct_arg.h"},
+          commentChildren = []}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "thing_fun_3a_wrapper",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "x"),
+          functionParameterType =
+          HsPrimType HsPrimCInt,
+          functionParameterComment =
+          Nothing},
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "y"),
           functionParameterType = HsPtr
             (HsTypRef
               (Name "@NsTypeConstr" "Thing")),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "y",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}},
+          functionParameterComment =
+          Nothing},
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "z"),
           functionParameterType =
           HsPrimType HsPrimCDouble,
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "z",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}}],
+          functionParameterComment =
+          Nothing}],
       foreignImportResultType =
       HeapResultType
         (HsPtr
@@ -1007,25 +1333,22 @@
             NameOriginInSource},
       foreignImportComment = Just
         Comment {
-          commentTitle = Nothing,
-          commentOrigin = Just
-            "thing_fun_3a",
-          commentLocation = Just
-            "struct_arg.h:9:14",
-          commentHeaderInfo = Just
-            HeaderInfo {
-              headerMainHeaders = NE.fromList
-                ["struct_arg.h"],
-              headerInclude = "struct_arg.h"},
+          commentTitle = Just
+            [
+              TextContent
+                "Pointer-based API for",
+              Identifier "thing_fun_3a"],
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
           commentChildren = []},
       foreignImportSafety = Unsafe},
-  DeclSimple,
-  DeclForeignImport
-    ForeignImportDecl {
-      foreignImportName = Name
+  DeclFunction
+    FunctionDecl {
+      functionDeclName = Name
         "@NsVar"
-        "thing_fun_3b_wrapper",
-      foreignImportParameters = [
+        "thing_fun_3a",
+      functionDeclParameters = [
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "x"),
@@ -1041,9 +1364,8 @@
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "y"),
-          functionParameterType = HsPtr
-            (HsTypRef
-              (Name "@NsTypeConstr" "Thing")),
+          functionParameterType = HsTypRef
+            (Name "@NsTypeConstr" "Thing"),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -1063,6 +1385,89 @@
               commentLocation = Nothing,
               commentHeaderInfo = Nothing,
               commentChildren = []}}],
+      functionDeclResultType = HsIO
+        (HsTypRef
+          (Name "@NsTypeConstr" "Thing")),
+      functionDeclBody =
+      `ELam "x" (ELam "x" (ELam "x" (EApp (EApp (EGlobal CAPI_with) (EBound 1)) (ELam "y" (EApp (EGlobal CAPI_allocaAndPeek) (ELam "z" (EApp (EApp (EApp (EApp (EFree "thing_fun_3a_wrapper") (EBound 4)) (EBound 1)) (EBound 2)) (EBound 0))))))))`,
+      functionDeclOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = Identifier "x"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = Identifier "y"})
+              (TypeStruct
+                NamePair {
+                  nameC = Name "thing",
+                  nameHsIdent = Identifier
+                    "Thing"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "z",
+                  nameHsIdent = Identifier "z"})
+              (TypePrim
+                (PrimFloating PrimDouble))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeStruct
+            NamePair {
+              nameC = Name "thing",
+              nameHsIdent = Identifier
+                "Thing"}
+            NameOriginInSource},
+      functionDeclComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just
+            "thing_fun_3a",
+          commentLocation = Just
+            "struct_arg.h:9:14",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["struct_arg.h"],
+              headerInclude = "struct_arg.h"},
+          commentChildren = []}},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "thing_fun_3b_wrapper",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "x"),
+          functionParameterType =
+          HsPrimType HsPrimCInt,
+          functionParameterComment =
+          Nothing},
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "y"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (Name "@NsTypeConstr" "Thing")),
+          functionParameterComment =
+          Nothing},
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "z"),
+          functionParameterType =
+          HsPrimType HsPrimCDouble,
+          functionParameterComment =
+          Nothing}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimCChar)),
@@ -1112,6 +1517,99 @@
                 (Just Signed)))},
       foreignImportComment = Just
         Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Pointer-based API for",
+              Identifier "thing_fun_3b"],
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclFunction
+    FunctionDecl {
+      functionDeclName = Name
+        "@NsVar"
+        "thing_fun_3b",
+      functionDeclParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "x"),
+          functionParameterType =
+          HsPrimType HsPrimCInt,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "x",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "y"),
+          functionParameterType = HsTypRef
+            (Name "@NsTypeConstr" "Thing"),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "y",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "z"),
+          functionParameterType =
+          HsPrimType HsPrimCDouble,
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "z",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      functionDeclResultType = HsIO
+        (HsPrimType HsPrimCChar),
+      functionDeclBody =
+      `ELam "x" (ELam "x" (ELam "x" (EApp (EApp (EGlobal CAPI_with) (EBound 1)) (ELam "y" (EApp (EApp (EApp (EFree "thing_fun_3b_wrapper") (EBound 3)) (EBound 0)) (EBound 1))))))`,
+      functionDeclOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = Identifier "x"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = Identifier "y"})
+              (TypeStruct
+                NamePair {
+                  nameC = Name "thing",
+                  nameHsIdent = Identifier
+                    "Thing"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "z",
+                  nameHsIdent = Identifier "z"})
+              (TypePrim
+                (PrimFloating PrimDouble))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimChar
+              (PrimSignImplicit
+                (Just Signed)))},
+      functionDeclComment = Just
+        Comment {
           commentTitle = Nothing,
           commentOrigin = Just
             "thing_fun_3b",
@@ -1122,9 +1620,7 @@
               headerMainHeaders = NE.fromList
                 ["struct_arg.h"],
               headerInclude = "struct_arg.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
+          commentChildren = []}},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name

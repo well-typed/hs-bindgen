@@ -64,8 +64,8 @@ newtype Size_t = Size_t
 
     __exported by:__ @fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_fun_attributes_8de545512324157b" __f1
-  :: IO ()
+foreign import ccall safe "hs_bindgen_test_fun_attributes_8de545512324157b" __f1 ::
+     IO ()
 
 {-| __C declaration:__ @f1@
 
@@ -73,8 +73,8 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_8de545512324157b" __f1
 
     __exported by:__ @fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_fun_attributes_a2f84d2570ef3892" f1
-  :: IO ()
+foreign import ccall safe "hs_bindgen_test_fun_attributes_a2f84d2570ef3892" f1 ::
+     IO ()
 
 {-| __C declaration:__ @my_memalign@
 
@@ -82,8 +82,8 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_a2f84d2570ef3892" f1
 
     __exported by:__ @fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_fun_attributes_cefda6b95395d829" my_memalign
-  :: Size_t
+foreign import ccall safe "hs_bindgen_test_fun_attributes_cefda6b95395d829" my_memalign ::
+     Size_t
   -> Size_t
   -> IO (Ptr.Ptr Void)
 
@@ -93,8 +93,8 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_cefda6b95395d829" my_m
 
     __exported by:__ @fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_fun_attributes_e25f06c3ebec2536" my_calloc
-  :: Size_t
+foreign import ccall safe "hs_bindgen_test_fun_attributes_e25f06c3ebec2536" my_calloc ::
+     Size_t
   -> Size_t
   -> IO (Ptr.Ptr Void)
 
@@ -104,8 +104,8 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_e25f06c3ebec2536" my_c
 
     __exported by:__ @fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_fun_attributes_51fa664668350a00" my_realloc
-  :: Ptr.Ptr Void
+foreign import ccall safe "hs_bindgen_test_fun_attributes_51fa664668350a00" my_realloc ::
+     Ptr.Ptr Void
   -> Size_t
   -> IO (Ptr.Ptr Void)
 
@@ -115,8 +115,8 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_51fa664668350a00" my_r
 
     __exported by:__ @fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_fun_attributes_93a5d6b7d4e02c33" my_alloc1
-  :: Size_t
+foreign import ccall safe "hs_bindgen_test_fun_attributes_93a5d6b7d4e02c33" my_alloc1 ::
+     Size_t
   -> IO (Ptr.Ptr Void)
 
 {-| __C declaration:__ @my_alloc2@
@@ -125,8 +125,8 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_93a5d6b7d4e02c33" my_a
 
     __exported by:__ @fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_fun_attributes_c948fd867be322fa" my_alloc2
-  :: Size_t
+foreign import ccall safe "hs_bindgen_test_fun_attributes_c948fd867be322fa" my_alloc2 ::
+     Size_t
   -> IO (Ptr.Ptr Void)
 
 {-| __C declaration:__ @square@
@@ -135,8 +135,8 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_c948fd867be322fa" my_a
 
     __exported by:__ @fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_fun_attributes_55e5eb89e54abf83" square
-  :: FC.CInt
+foreign import ccall safe "hs_bindgen_test_fun_attributes_55e5eb89e54abf83" square ::
+     FC.CInt
   -> FC.CInt
 
 {-| __C declaration:__ @old_fn@
@@ -145,8 +145,8 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_55e5eb89e54abf83" squa
 
     __exported by:__ @fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_fun_attributes_1040c24c74db8069" old_fn
-  :: IO FC.CInt
+foreign import ccall safe "hs_bindgen_test_fun_attributes_1040c24c74db8069" old_fn ::
+     IO FC.CInt
 
 {-| __C declaration:__ @my_dgettext@
 
@@ -154,8 +154,8 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_1040c24c74db8069" old_
 
     __exported by:__ @fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_fun_attributes_023f7813e909f518" my_dgettext
-  :: Ptr.Ptr FC.CChar
+foreign import ccall safe "hs_bindgen_test_fun_attributes_023f7813e909f518" my_dgettext ::
+     Ptr.Ptr FC.CChar
      {- ^ __C declaration:__ @my_domain@
      -}
   -> Ptr.Ptr FC.CChar
@@ -169,8 +169,8 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_023f7813e909f518" my_d
 
     __exported by:__ @fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_fun_attributes_e39bbd59f1c96c14" fdopen
-  :: FC.CInt
+foreign import ccall safe "hs_bindgen_test_fun_attributes_e39bbd59f1c96c14" fdopen ::
+     FC.CInt
   -> Ptr.Ptr FC.CChar
   -> IO (Ptr.Ptr FILE)
 
@@ -180,8 +180,8 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_e39bbd59f1c96c14" fdop
 
     __exported by:__ @fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_fun_attributes_1d043de05a457e90" f2
-  :: IO ()
+foreign import ccall safe "hs_bindgen_test_fun_attributes_1d043de05a457e90" f2 ::
+     IO ()
 
 {-| __C declaration:__ @my_memcpy@
 
@@ -189,8 +189,8 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_1d043de05a457e90" f2
 
     __exported by:__ @fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_fun_attributes_4b3bfd2d72a2db5d" my_memcpy
-  :: Ptr.Ptr Void
+foreign import ccall safe "hs_bindgen_test_fun_attributes_4b3bfd2d72a2db5d" my_memcpy ::
+     Ptr.Ptr Void
      {- ^ __C declaration:__ @dest@
      -}
   -> Ptr.Ptr Void
@@ -207,8 +207,8 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_4b3bfd2d72a2db5d" my_m
 
     __exported by:__ @fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_fun_attributes_348fe595d62421cf" fatal
-  :: IO ()
+foreign import ccall safe "hs_bindgen_test_fun_attributes_348fe595d62421cf" fatal ::
+     IO ()
 
 {-|
 
@@ -220,8 +220,8 @@ __defined at:__ @fun_attributes.h:103:5@
 
 __exported by:__ @fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_fun_attributes_e30754e2591f701a" hash
-  :: Ptr.Ptr FC.CChar
+foreign import ccall safe "hs_bindgen_test_fun_attributes_e30754e2591f701a" hash ::
+     Ptr.Ptr FC.CChar
   -> IO FC.CInt
 
 {-| __C declaration:__ @mymalloc@
@@ -230,8 +230,8 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_e30754e2591f701a" hash
 
     __exported by:__ @fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_fun_attributes_f6f68a022a15937a" mymalloc
-  :: Size_t
+foreign import ccall safe "hs_bindgen_test_fun_attributes_f6f68a022a15937a" mymalloc ::
+     Size_t
      {- ^ __C declaration:__ @len@
      -}
   -> IO (Ptr.Ptr Void)
@@ -242,8 +242,8 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_f6f68a022a15937a" myma
 
     __exported by:__ @fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_fun_attributes_d1bf41da7ab64db1" foobar
-  :: IO ()
+foreign import ccall safe "hs_bindgen_test_fun_attributes_d1bf41da7ab64db1" foobar ::
+     IO ()
 
 {-| __C declaration:__ @core2_func@
 
@@ -251,8 +251,8 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_d1bf41da7ab64db1" foob
 
     __exported by:__ @fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_fun_attributes_00405e83bcb9b271" core2_func
-  :: IO FC.CInt
+foreign import ccall safe "hs_bindgen_test_fun_attributes_00405e83bcb9b271" core2_func ::
+     IO FC.CInt
 
 {-| __C declaration:__ @sse3_func@
 
@@ -260,8 +260,8 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_00405e83bcb9b271" core
 
     __exported by:__ @fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_fun_attributes_06e7d2f8bcf43684" sse3_func
-  :: IO FC.CInt
+foreign import ccall safe "hs_bindgen_test_fun_attributes_06e7d2f8bcf43684" sse3_func ::
+     IO FC.CInt
 
 {-| __C declaration:__ @f3@
 
@@ -269,8 +269,8 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_06e7d2f8bcf43684" sse3
 
     __exported by:__ @fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_fun_attributes_e23eff1955ebb459" f3
-  :: IO ()
+foreign import ccall safe "hs_bindgen_test_fun_attributes_e23eff1955ebb459" f3 ::
+     IO ()
 
 {-| __C declaration:__ @fn@
 
@@ -278,8 +278,8 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_e23eff1955ebb459" f3
 
     __exported by:__ @fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_fun_attributes_ef0eea5f61ef9228" fn
-  :: IO FC.CInt
+foreign import ccall safe "hs_bindgen_test_fun_attributes_ef0eea5f61ef9228" fn ::
+     IO FC.CInt
 
 {-| __C declaration:__ @y@
 
@@ -287,8 +287,8 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_ef0eea5f61ef9228" fn
 
     __exported by:__ @fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_fun_attributes_b007466f7ff1cf28" y
-  :: IO FC.CInt
+foreign import ccall safe "hs_bindgen_test_fun_attributes_b007466f7ff1cf28" y ::
+     IO FC.CInt
 
 {-| __C declaration:__ @x1@
 
@@ -296,8 +296,8 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_b007466f7ff1cf28" y
 
     __exported by:__ @fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_fun_attributes_8c9825e1b20a7ea1" x1
-  :: IO FC.CInt
+foreign import ccall safe "hs_bindgen_test_fun_attributes_8c9825e1b20a7ea1" x1 ::
+     IO FC.CInt
 
 {-| __C declaration:__ @x2@
 
@@ -305,11 +305,11 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_8c9825e1b20a7ea1" x1
 
     __exported by:__ @fun_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_fun_attributes_c80d61b7727dab77" x2
-  :: IO FC.CInt
+foreign import ccall safe "hs_bindgen_test_fun_attributes_c80d61b7727dab77" x2 ::
+     IO FC.CInt
 
-foreign import ccall unsafe "hs_bindgen_test_fun_attributes_7003b306f73c174b" hs_bindgen_test_fun_attributes_7003b306f73c174b
-  :: IO (Ptr.FunPtr (IO ()))
+foreign import ccall unsafe "hs_bindgen_test_fun_attributes_7003b306f73c174b" hs_bindgen_test_fun_attributes_7003b306f73c174b ::
+     IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE __f1_ptr #-}
 
@@ -323,8 +323,8 @@ __f1_ptr :: Ptr.FunPtr (IO ())
 __f1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_fun_attributes_7003b306f73c174b
 
-foreign import ccall unsafe "hs_bindgen_test_fun_attributes_5469bdc0395f86c1" hs_bindgen_test_fun_attributes_5469bdc0395f86c1
-  :: IO (Ptr.FunPtr (IO ()))
+foreign import ccall unsafe "hs_bindgen_test_fun_attributes_5469bdc0395f86c1" hs_bindgen_test_fun_attributes_5469bdc0395f86c1 ::
+     IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE f1_ptr #-}
 
@@ -338,8 +338,8 @@ f1_ptr :: Ptr.FunPtr (IO ())
 f1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_fun_attributes_5469bdc0395f86c1
 
-foreign import ccall unsafe "hs_bindgen_test_fun_attributes_b3c956e53724162c" hs_bindgen_test_fun_attributes_b3c956e53724162c
-  :: IO (Ptr.FunPtr (Size_t -> Size_t -> IO (Ptr.Ptr Void)))
+foreign import ccall unsafe "hs_bindgen_test_fun_attributes_b3c956e53724162c" hs_bindgen_test_fun_attributes_b3c956e53724162c ::
+     IO (Ptr.FunPtr (Size_t -> Size_t -> IO (Ptr.Ptr Void)))
 
 {-# NOINLINE my_memalign_ptr #-}
 
@@ -353,8 +353,8 @@ my_memalign_ptr :: Ptr.FunPtr (Size_t -> Size_t -> IO (Ptr.Ptr Void))
 my_memalign_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_fun_attributes_b3c956e53724162c
 
-foreign import ccall unsafe "hs_bindgen_test_fun_attributes_733646ca96f39979" hs_bindgen_test_fun_attributes_733646ca96f39979
-  :: IO (Ptr.FunPtr (Size_t -> Size_t -> IO (Ptr.Ptr Void)))
+foreign import ccall unsafe "hs_bindgen_test_fun_attributes_733646ca96f39979" hs_bindgen_test_fun_attributes_733646ca96f39979 ::
+     IO (Ptr.FunPtr (Size_t -> Size_t -> IO (Ptr.Ptr Void)))
 
 {-# NOINLINE my_calloc_ptr #-}
 
@@ -368,8 +368,8 @@ my_calloc_ptr :: Ptr.FunPtr (Size_t -> Size_t -> IO (Ptr.Ptr Void))
 my_calloc_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_fun_attributes_733646ca96f39979
 
-foreign import ccall unsafe "hs_bindgen_test_fun_attributes_94e8271f186110fd" hs_bindgen_test_fun_attributes_94e8271f186110fd
-  :: IO (Ptr.FunPtr ((Ptr.Ptr Void) -> Size_t -> IO (Ptr.Ptr Void)))
+foreign import ccall unsafe "hs_bindgen_test_fun_attributes_94e8271f186110fd" hs_bindgen_test_fun_attributes_94e8271f186110fd ::
+     IO (Ptr.FunPtr ((Ptr.Ptr Void) -> Size_t -> IO (Ptr.Ptr Void)))
 
 {-# NOINLINE my_realloc_ptr #-}
 
@@ -383,8 +383,8 @@ my_realloc_ptr :: Ptr.FunPtr ((Ptr.Ptr Void) -> Size_t -> IO (Ptr.Ptr Void))
 my_realloc_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_fun_attributes_94e8271f186110fd
 
-foreign import ccall unsafe "hs_bindgen_test_fun_attributes_48d9862d70f58e70" hs_bindgen_test_fun_attributes_48d9862d70f58e70
-  :: IO (Ptr.FunPtr (Size_t -> IO (Ptr.Ptr Void)))
+foreign import ccall unsafe "hs_bindgen_test_fun_attributes_48d9862d70f58e70" hs_bindgen_test_fun_attributes_48d9862d70f58e70 ::
+     IO (Ptr.FunPtr (Size_t -> IO (Ptr.Ptr Void)))
 
 {-# NOINLINE my_alloc1_ptr #-}
 
@@ -398,8 +398,8 @@ my_alloc1_ptr :: Ptr.FunPtr (Size_t -> IO (Ptr.Ptr Void))
 my_alloc1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_fun_attributes_48d9862d70f58e70
 
-foreign import ccall unsafe "hs_bindgen_test_fun_attributes_17a11fd10dc57357" hs_bindgen_test_fun_attributes_17a11fd10dc57357
-  :: IO (Ptr.FunPtr (Size_t -> IO (Ptr.Ptr Void)))
+foreign import ccall unsafe "hs_bindgen_test_fun_attributes_17a11fd10dc57357" hs_bindgen_test_fun_attributes_17a11fd10dc57357 ::
+     IO (Ptr.FunPtr (Size_t -> IO (Ptr.Ptr Void)))
 
 {-# NOINLINE my_alloc2_ptr #-}
 
@@ -413,8 +413,8 @@ my_alloc2_ptr :: Ptr.FunPtr (Size_t -> IO (Ptr.Ptr Void))
 my_alloc2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_fun_attributes_17a11fd10dc57357
 
-foreign import ccall unsafe "hs_bindgen_test_fun_attributes_c41111f40a04cdc9" hs_bindgen_test_fun_attributes_c41111f40a04cdc9
-  :: IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
+foreign import ccall unsafe "hs_bindgen_test_fun_attributes_c41111f40a04cdc9" hs_bindgen_test_fun_attributes_c41111f40a04cdc9 ::
+     IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
 
 {-# NOINLINE square_ptr #-}
 
@@ -428,8 +428,8 @@ square_ptr :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
 square_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_fun_attributes_c41111f40a04cdc9
 
-foreign import ccall unsafe "hs_bindgen_test_fun_attributes_3add0261fa83e1dd" hs_bindgen_test_fun_attributes_3add0261fa83e1dd
-  :: IO (Ptr.FunPtr (IO FC.CInt))
+foreign import ccall unsafe "hs_bindgen_test_fun_attributes_3add0261fa83e1dd" hs_bindgen_test_fun_attributes_3add0261fa83e1dd ::
+     IO (Ptr.FunPtr (IO FC.CInt))
 
 {-# NOINLINE old_fn_ptr #-}
 
@@ -443,8 +443,8 @@ old_fn_ptr :: Ptr.FunPtr (IO FC.CInt)
 old_fn_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_fun_attributes_3add0261fa83e1dd
 
-foreign import ccall unsafe "hs_bindgen_test_fun_attributes_a0be4f488601c252" hs_bindgen_test_fun_attributes_a0be4f488601c252
-  :: IO (Ptr.FunPtr ((Ptr.Ptr FC.CChar) -> (Ptr.Ptr FC.CChar) -> IO (Ptr.Ptr FC.CChar)))
+foreign import ccall unsafe "hs_bindgen_test_fun_attributes_a0be4f488601c252" hs_bindgen_test_fun_attributes_a0be4f488601c252 ::
+     IO (Ptr.FunPtr ((Ptr.Ptr FC.CChar) -> (Ptr.Ptr FC.CChar) -> IO (Ptr.Ptr FC.CChar)))
 
 {-# NOINLINE my_dgettext_ptr #-}
 
@@ -458,8 +458,8 @@ my_dgettext_ptr :: Ptr.FunPtr ((Ptr.Ptr FC.CChar) -> (Ptr.Ptr FC.CChar) -> IO (P
 my_dgettext_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_fun_attributes_a0be4f488601c252
 
-foreign import ccall unsafe "hs_bindgen_test_fun_attributes_2b987c3b5c01a326" hs_bindgen_test_fun_attributes_2b987c3b5c01a326
-  :: IO (Ptr.FunPtr (FC.CInt -> (Ptr.Ptr FC.CChar) -> IO (Ptr.Ptr FILE)))
+foreign import ccall unsafe "hs_bindgen_test_fun_attributes_2b987c3b5c01a326" hs_bindgen_test_fun_attributes_2b987c3b5c01a326 ::
+     IO (Ptr.FunPtr (FC.CInt -> (Ptr.Ptr FC.CChar) -> IO (Ptr.Ptr FILE)))
 
 {-# NOINLINE fdopen_ptr #-}
 
@@ -473,8 +473,8 @@ fdopen_ptr :: Ptr.FunPtr (FC.CInt -> (Ptr.Ptr FC.CChar) -> IO (Ptr.Ptr FILE))
 fdopen_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_fun_attributes_2b987c3b5c01a326
 
-foreign import ccall unsafe "hs_bindgen_test_fun_attributes_490ca7e8c8282a69" hs_bindgen_test_fun_attributes_490ca7e8c8282a69
-  :: IO (Ptr.FunPtr (IO ()))
+foreign import ccall unsafe "hs_bindgen_test_fun_attributes_490ca7e8c8282a69" hs_bindgen_test_fun_attributes_490ca7e8c8282a69 ::
+     IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE f2_ptr #-}
 
@@ -488,8 +488,8 @@ f2_ptr :: Ptr.FunPtr (IO ())
 f2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_fun_attributes_490ca7e8c8282a69
 
-foreign import ccall unsafe "hs_bindgen_test_fun_attributes_e2e8b5d5ac435de8" hs_bindgen_test_fun_attributes_e2e8b5d5ac435de8
-  :: IO (Ptr.FunPtr ((Ptr.Ptr Void) -> (Ptr.Ptr Void) -> Size_t -> IO (Ptr.Ptr Void)))
+foreign import ccall unsafe "hs_bindgen_test_fun_attributes_e2e8b5d5ac435de8" hs_bindgen_test_fun_attributes_e2e8b5d5ac435de8 ::
+     IO (Ptr.FunPtr ((Ptr.Ptr Void) -> (Ptr.Ptr Void) -> Size_t -> IO (Ptr.Ptr Void)))
 
 {-# NOINLINE my_memcpy_ptr #-}
 
@@ -503,8 +503,8 @@ my_memcpy_ptr :: Ptr.FunPtr ((Ptr.Ptr Void) -> (Ptr.Ptr Void) -> Size_t -> IO (P
 my_memcpy_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_fun_attributes_e2e8b5d5ac435de8
 
-foreign import ccall unsafe "hs_bindgen_test_fun_attributes_ea0bb781f9eca7f5" hs_bindgen_test_fun_attributes_ea0bb781f9eca7f5
-  :: IO (Ptr.FunPtr (IO ()))
+foreign import ccall unsafe "hs_bindgen_test_fun_attributes_ea0bb781f9eca7f5" hs_bindgen_test_fun_attributes_ea0bb781f9eca7f5 ::
+     IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE fatal_ptr #-}
 
@@ -518,8 +518,8 @@ fatal_ptr :: Ptr.FunPtr (IO ())
 fatal_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_fun_attributes_ea0bb781f9eca7f5
 
-foreign import ccall unsafe "hs_bindgen_test_fun_attributes_4de9606eb9c5dd01" hs_bindgen_test_fun_attributes_4de9606eb9c5dd01
-  :: IO (Ptr.FunPtr ((Ptr.Ptr FC.CChar) -> IO FC.CInt))
+foreign import ccall unsafe "hs_bindgen_test_fun_attributes_4de9606eb9c5dd01" hs_bindgen_test_fun_attributes_4de9606eb9c5dd01 ::
+     IO (Ptr.FunPtr ((Ptr.Ptr FC.CChar) -> IO FC.CInt))
 
 {-# NOINLINE hash_ptr #-}
 
@@ -533,8 +533,8 @@ hash_ptr :: Ptr.FunPtr ((Ptr.Ptr FC.CChar) -> IO FC.CInt)
 hash_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_fun_attributes_4de9606eb9c5dd01
 
-foreign import ccall unsafe "hs_bindgen_test_fun_attributes_4ce141c884649d49" hs_bindgen_test_fun_attributes_4ce141c884649d49
-  :: IO (Ptr.FunPtr (Size_t -> IO (Ptr.Ptr Void)))
+foreign import ccall unsafe "hs_bindgen_test_fun_attributes_4ce141c884649d49" hs_bindgen_test_fun_attributes_4ce141c884649d49 ::
+     IO (Ptr.FunPtr (Size_t -> IO (Ptr.Ptr Void)))
 
 {-# NOINLINE mymalloc_ptr #-}
 
@@ -548,8 +548,8 @@ mymalloc_ptr :: Ptr.FunPtr (Size_t -> IO (Ptr.Ptr Void))
 mymalloc_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_fun_attributes_4ce141c884649d49
 
-foreign import ccall unsafe "hs_bindgen_test_fun_attributes_5c243ced544ab0aa" hs_bindgen_test_fun_attributes_5c243ced544ab0aa
-  :: IO (Ptr.FunPtr (IO ()))
+foreign import ccall unsafe "hs_bindgen_test_fun_attributes_5c243ced544ab0aa" hs_bindgen_test_fun_attributes_5c243ced544ab0aa ::
+     IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE foobar_ptr #-}
 
@@ -563,8 +563,8 @@ foobar_ptr :: Ptr.FunPtr (IO ())
 foobar_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_fun_attributes_5c243ced544ab0aa
 
-foreign import ccall unsafe "hs_bindgen_test_fun_attributes_14ef55245a14f816" hs_bindgen_test_fun_attributes_14ef55245a14f816
-  :: IO (Ptr.FunPtr (IO FC.CInt))
+foreign import ccall unsafe "hs_bindgen_test_fun_attributes_14ef55245a14f816" hs_bindgen_test_fun_attributes_14ef55245a14f816 ::
+     IO (Ptr.FunPtr (IO FC.CInt))
 
 {-# NOINLINE core2_func_ptr #-}
 
@@ -578,8 +578,8 @@ core2_func_ptr :: Ptr.FunPtr (IO FC.CInt)
 core2_func_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_fun_attributes_14ef55245a14f816
 
-foreign import ccall unsafe "hs_bindgen_test_fun_attributes_72956748bb6eee67" hs_bindgen_test_fun_attributes_72956748bb6eee67
-  :: IO (Ptr.FunPtr (IO FC.CInt))
+foreign import ccall unsafe "hs_bindgen_test_fun_attributes_72956748bb6eee67" hs_bindgen_test_fun_attributes_72956748bb6eee67 ::
+     IO (Ptr.FunPtr (IO FC.CInt))
 
 {-# NOINLINE sse3_func_ptr #-}
 
@@ -593,8 +593,8 @@ sse3_func_ptr :: Ptr.FunPtr (IO FC.CInt)
 sse3_func_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_fun_attributes_72956748bb6eee67
 
-foreign import ccall unsafe "hs_bindgen_test_fun_attributes_38506a9ac5626bf2" hs_bindgen_test_fun_attributes_38506a9ac5626bf2
-  :: IO (Ptr.FunPtr (IO ()))
+foreign import ccall unsafe "hs_bindgen_test_fun_attributes_38506a9ac5626bf2" hs_bindgen_test_fun_attributes_38506a9ac5626bf2 ::
+     IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE f3_ptr #-}
 
@@ -608,8 +608,8 @@ f3_ptr :: Ptr.FunPtr (IO ())
 f3_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_fun_attributes_38506a9ac5626bf2
 
-foreign import ccall unsafe "hs_bindgen_test_fun_attributes_5929da82079150d1" hs_bindgen_test_fun_attributes_5929da82079150d1
-  :: IO (Ptr.FunPtr (IO FC.CInt))
+foreign import ccall unsafe "hs_bindgen_test_fun_attributes_5929da82079150d1" hs_bindgen_test_fun_attributes_5929da82079150d1 ::
+     IO (Ptr.FunPtr (IO FC.CInt))
 
 {-# NOINLINE fn_ptr #-}
 
@@ -623,8 +623,8 @@ fn_ptr :: Ptr.FunPtr (IO FC.CInt)
 fn_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_fun_attributes_5929da82079150d1
 
-foreign import ccall unsafe "hs_bindgen_test_fun_attributes_7bcb4a1873e6ece6" hs_bindgen_test_fun_attributes_7bcb4a1873e6ece6
-  :: IO (Ptr.FunPtr (IO FC.CInt))
+foreign import ccall unsafe "hs_bindgen_test_fun_attributes_7bcb4a1873e6ece6" hs_bindgen_test_fun_attributes_7bcb4a1873e6ece6 ::
+     IO (Ptr.FunPtr (IO FC.CInt))
 
 {-# NOINLINE y_ptr #-}
 
@@ -638,8 +638,8 @@ y_ptr :: Ptr.FunPtr (IO FC.CInt)
 y_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_fun_attributes_7bcb4a1873e6ece6
 
-foreign import ccall unsafe "hs_bindgen_test_fun_attributes_11098262b345351a" hs_bindgen_test_fun_attributes_11098262b345351a
-  :: IO (Ptr.FunPtr (IO FC.CInt))
+foreign import ccall unsafe "hs_bindgen_test_fun_attributes_11098262b345351a" hs_bindgen_test_fun_attributes_11098262b345351a ::
+     IO (Ptr.FunPtr (IO FC.CInt))
 
 {-# NOINLINE x1_ptr #-}
 
@@ -653,8 +653,8 @@ x1_ptr :: Ptr.FunPtr (IO FC.CInt)
 x1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_fun_attributes_11098262b345351a
 
-foreign import ccall unsafe "hs_bindgen_test_fun_attributes_0d19f83087f278f9" hs_bindgen_test_fun_attributes_0d19f83087f278f9
-  :: IO (Ptr.FunPtr (IO FC.CInt))
+foreign import ccall unsafe "hs_bindgen_test_fun_attributes_0d19f83087f278f9" hs_bindgen_test_fun_attributes_0d19f83087f278f9 ::
+     IO (Ptr.FunPtr (IO FC.CInt))
 
 {-# NOINLINE x2_ptr #-}
 
@@ -668,8 +668,8 @@ x2_ptr :: Ptr.FunPtr (IO FC.CInt)
 x2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_fun_attributes_0d19f83087f278f9
 
-foreign import ccall unsafe "hs_bindgen_test_fun_attributes_cdc30ae5fb72cd6e" hs_bindgen_test_fun_attributes_cdc30ae5fb72cd6e
-  :: IO (Ptr.Ptr FC.CInt)
+foreign import ccall unsafe "hs_bindgen_test_fun_attributes_cdc30ae5fb72cd6e" hs_bindgen_test_fun_attributes_cdc30ae5fb72cd6e ::
+     IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE i_ptr #-}
 

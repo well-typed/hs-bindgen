@@ -177,11 +177,8 @@ set_named_union_y :: CChar -> Named_union
 
 -}
 set_named_union_y = setUnionPayload
-{-| __C declaration:__ @normal@
+{-| Pointer-based API for 'normal'
 
-    __defined at:__ @decls_in_signature.h:7:6@
-
-    __exported by:__ @decls_in_signature.h@
 -}
 foreign import ccall safe "hs_bindgen_test_decls_in_signature_001a08d4459ec455" normal_wrapper :: Ptr Opaque ->
                                                                                                   Ptr Outside ->
@@ -201,15 +198,8 @@ normal :: Ptr Opaque -> Ptr Outside -> Outside -> IO Unit
     __exported by:__ @decls_in_signature.h@
 -}
 normal = \x_0 -> \x_1 -> \x_2 -> with x_2 (\y_3 -> normal_wrapper x_0 x_1 y_3)
-{-| Error cases
+{-| Pointer-based API for 'f1'
 
-  See 'UnexpectedAnonInSignature' for discussion (of both these error cases and the edge cases below).
-
-__C declaration:__ @f1@
-
-__defined at:__ @decls_in_signature.h:17:6@
-
-__exported by:__ @decls_in_signature.h@
 -}
 foreign import ccall safe "hs_bindgen_test_decls_in_signature_a2f84d2570ef3892" f1_wrapper :: Ptr Named_struct ->
                                                                                               IO Unit
@@ -235,11 +225,8 @@ __defined at:__ @decls_in_signature.h:17:6@
 __exported by:__ @decls_in_signature.h@
 -}
 f1 = \x_0 -> with x_0 (\y_1 -> f1_wrapper y_1)
-{-| __C declaration:__ @f2@
+{-| Pointer-based API for 'f2'
 
-    __defined at:__ @decls_in_signature.h:20:6@
-
-    __exported by:__ @decls_in_signature.h@
 -}
 foreign import ccall safe "hs_bindgen_test_decls_in_signature_1d043de05a457e90" f2_wrapper :: Ptr Named_union ->
                                                                                               IO Unit
@@ -257,11 +244,8 @@ f2 :: Named_union -> IO Unit
     __exported by:__ @decls_in_signature.h@
 -}
 f2 = \x_0 -> with x_0 (\y_1 -> f2_wrapper y_1)
-{-| __C declaration:__ @normal@
+{-| Pointer-based API for 'normal'
 
-    __defined at:__ @decls_in_signature.h:7:6@
-
-    __exported by:__ @decls_in_signature.h@
 -}
 foreign import ccall safe "hs_bindgen_test_decls_in_signature_35c28995abc46de4" normal_wrapper :: Ptr Opaque ->
                                                                                                   Ptr Outside ->
@@ -281,15 +265,8 @@ normal :: Ptr Opaque -> Ptr Outside -> Outside -> IO Unit
     __exported by:__ @decls_in_signature.h@
 -}
 normal = \x_0 -> \x_1 -> \x_2 -> with x_2 (\y_3 -> normal_wrapper x_0 x_1 y_3)
-{-| Error cases
+{-| Pointer-based API for 'f1'
 
-  See 'UnexpectedAnonInSignature' for discussion (of both these error cases and the edge cases below).
-
-__C declaration:__ @f1@
-
-__defined at:__ @decls_in_signature.h:17:6@
-
-__exported by:__ @decls_in_signature.h@
 -}
 foreign import ccall safe "hs_bindgen_test_decls_in_signature_c1788128a5b1c813" f1_wrapper :: Ptr Named_struct ->
                                                                                               IO Unit
@@ -315,11 +292,8 @@ __defined at:__ @decls_in_signature.h:17:6@
 __exported by:__ @decls_in_signature.h@
 -}
 f1 = \x_0 -> with x_0 (\y_1 -> f1_wrapper y_1)
-{-| __C declaration:__ @f2@
+{-| Pointer-based API for 'f2'
 
-    __defined at:__ @decls_in_signature.h:20:6@
-
-    __exported by:__ @decls_in_signature.h@
 -}
 foreign import ccall safe "hs_bindgen_test_decls_in_signature_14361e995fb5684a" f2_wrapper :: Ptr Named_union ->
                                                                                               IO Unit

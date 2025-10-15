@@ -358,16 +358,27 @@ instance Pretty SDecl where
 
           prettyFunctionComment = maybe empty (pretty . TopLevelComment) foreignImportComment
 
-      in   prettyFunctionComment
-       $$  hsep [ "foreign import"
-                , callconv
-                , safety foreignImportSafety
-                , "\"" >< impent >< "\""
-                , pretty foreignImportName
-                ]
-       $$  nest 2 "::"
-       <+> prettyForeignImportType foreignImportResultType
-                                   foreignImportParameters
+      in  prettyFunctionComment
+       $$ hsep [ "foreign import"
+               , callconv
+               , safety foreignImportSafety
+               , "\"" >< impent >< "\""
+               , pretty foreignImportName
+               , "::"
+               ]
+       $$ nest 5 (prettyForeignImportType foreignImportResultType
+                                          foreignImportParameters)
+
+    DFunction Function{..} ->
+      let prettyTopLevelComment = maybe empty (pretty . TopLevelComment) functionComment
+       in  prettyTopLevelComment
+        $$ pretty functionName <+> "::"
+        $$ nest 5 (prettyForeignImportType (NormalResultType functionResultType)
+                                           functionParameters)
+        $$ fsep
+             [ pretty functionName <+> char '='
+             , nest 2 $ pretty functionBody
+             ]
 
     DDerivingInstance DerivingInstance {..} -> maybe empty (pretty . TopLevelComment) derivingInstanceComment
                                             $$ "deriving" <+> strategy derivingInstanceStrategy

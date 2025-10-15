@@ -3,7 +3,7 @@
 module Test.HsBindgen.Orphans.TreeDiff () where
 
 import Data.Foldable (toList)
-import Data.TreeDiff.Class (ToExpr (..))
+import Data.TreeDiff.Class (ToExpr (..), defaultExprViaShow)
 import Data.TreeDiff.Expr qualified as Expr
 import Data.TreeDiff.OMap qualified as OMap
 import Data.Vec.Lazy (Vec)
@@ -150,6 +150,14 @@ instance ToExpr Hs.Field
 instance ToExpr Hs.ForeignImportDecl
 instance ToExpr SHs.Safety
 instance ToExpr Hs.FunctionParameter
+
+-- | Note: We can't write a proper instance here because 'ClosedExpr' has
+-- existential types
+--
+instance ToExpr SHs.ClosedExpr where
+  toExpr = defaultExprViaShow
+instance ToExpr Hs.FunctionDecl where
+
 instance ToExpr a => ToExpr (HsType.ResultType a)
 instance ToExpr Hs.Newtype
 instance ToExpr Hs.PatSyn
@@ -196,6 +204,8 @@ instance ToExpr Hs.Decl where
       Expr.App "DeclNewtypeInstance" [toExpr di]
     Hs.DeclForeignImport foreignImport ->
       Expr.App "DeclForeignImport" [toExpr foreignImport]
+    Hs.DeclFunction functionDecl ->
+      Expr.App "DeclFunction" [toExpr functionDecl]
     Hs.DeclVar v ->
       Expr.App "DeclVar" [toExpr v]
     Hs.DeclUnionGetter ug ->

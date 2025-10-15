@@ -649,6 +649,18 @@ mkDecl = \case
                 <*> pure (hsNameToTH foreignImportName)
                 <*> mkType EmptyEnv importType
 
+      DFunction Function {..} -> do
+        let thFunctionName = hsNameToTH functionName
+
+            functionType = foldr (TFun . functionParameterType) functionResultType functionParameters
+
+        sequence $
+          [ withDecDoc functionComment $
+              TH.SigD <$> pure thFunctionName
+                      <*> mkType EmptyEnv functionType
+          , simpleDecl thFunctionName functionBody
+          ]
+
       DPatternSynonym ps -> do
         let thPatSynName = hsNameToTH (patSynName ps)
 

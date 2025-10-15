@@ -64,11 +64,8 @@ newtype Triplet_ptrs
       __exported by:__ @manual\/arrays.h@
       -}
     deriving stock (Eq, Show)
-{-| __C declaration:__ @transpose@
+{-| Pointer-based API for 'transpose'
 
-    __defined at:__ @manual\/arrays.h:36:6@
-
-    __exported by:__ @manual\/arrays.h@
 -}
 foreign import ccall safe "hs_bindgen_test_manualarrays_f3d0c8dd1a83b3d0" transpose_wrapper :: Ptr Triplet ->
                                                                                                Ptr Triplet ->
@@ -98,11 +95,8 @@ __exported by:__ @manual\/arrays.h@
 foreign import ccall safe "hs_bindgen_test_manualarrays_27135f4747eb87db" pretty_print_triplets :: Ptr (Ptr (ConstantArray 3
                                                                                                                            CInt)) ->
                                                                                                    IO Unit
-{-| __C declaration:__ @transpose@
+{-| Pointer-based API for 'transpose'
 
-    __defined at:__ @manual\/arrays.h:36:6@
-
-    __exported by:__ @manual\/arrays.h@
 -}
 foreign import ccall safe "hs_bindgen_test_manualarrays_d7aa7016f1b951b2" transpose_wrapper :: Ptr Triplet ->
                                                                                                Ptr Triplet ->

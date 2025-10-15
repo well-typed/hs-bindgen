@@ -60,11 +60,8 @@ instance Storable Complex_object_t
                                    Complex_object_t complex_object_t_velocity_3
                                                     complex_object_t_position_4
                                                     complex_object_t_id_5 -> pokeByteOff ptr_1 (0 :: Int) complex_object_t_velocity_3 >> (pokeByteOff ptr_1 (8 :: Int) complex_object_t_position_4 >> pokeByteOff ptr_1 (24 :: Int) complex_object_t_id_5)
-{-| __C declaration:__ @multiply_complex_f@
+{-| Pointer-based API for 'multiply_complex_f'
 
-    __defined at:__ @hsb_complex_test.h:21:16@
-
-    __exported by:__ @hsb_complex_test.h@
 -}
 foreign import ccall safe "hs_bindgen_test_hsb_complex_test_b84ea846e04d5fd6" multiply_complex_f_wrapper :: Ptr (Complex CFloat) ->
                                                                                                             Ptr (Complex CFloat) ->
@@ -85,11 +82,8 @@ multiply_complex_f :: Complex CFloat ->
     __exported by:__ @hsb_complex_test.h@
 -}
 multiply_complex_f = \x_0 -> \x_1 -> with x_1 (\y_2 -> with x_0 (\y_3 -> allocaAndPeek (\z_4 -> multiply_complex_f_wrapper y_3 y_2 z_4)))
-{-| __C declaration:__ @add_complex@
+{-| Pointer-based API for 'add_complex'
 
-    __defined at:__ @hsb_complex_test.h:22:16@
-
-    __exported by:__ @hsb_complex_test.h@
 -}
 foreign import ccall safe "hs_bindgen_test_hsb_complex_test_8dd079d1707c36b3" add_complex_wrapper :: Ptr (Complex CDouble) ->
                                                                                                      Ptr (Complex CDouble) ->
@@ -110,11 +104,8 @@ add_complex :: Complex CDouble ->
     __exported by:__ @hsb_complex_test.h@
 -}
 add_complex = \x_0 -> \x_1 -> with x_1 (\y_2 -> with x_0 (\y_3 -> allocaAndPeek (\z_4 -> add_complex_wrapper y_3 y_2 z_4)))
-{-| __C declaration:__ @multiply_complex_f@
+{-| Pointer-based API for 'multiply_complex_f'
 
-    __defined at:__ @hsb_complex_test.h:21:16@
-
-    __exported by:__ @hsb_complex_test.h@
 -}
 foreign import ccall safe "hs_bindgen_test_hsb_complex_test_5b05fdb10924da35" multiply_complex_f_wrapper :: Ptr (Complex CFloat) ->
                                                                                                             Ptr (Complex CFloat) ->
@@ -135,11 +126,8 @@ multiply_complex_f :: Complex CFloat ->
     __exported by:__ @hsb_complex_test.h@
 -}
 multiply_complex_f = \x_0 -> \x_1 -> with x_1 (\y_2 -> with x_0 (\y_3 -> allocaAndPeek (\z_4 -> multiply_complex_f_wrapper y_3 y_2 z_4)))
-{-| __C declaration:__ @add_complex@
+{-| Pointer-based API for 'add_complex'
 
-    __defined at:__ @hsb_complex_test.h:22:16@
-
-    __exported by:__ @hsb_complex_test.h@
 -}
 foreign import ccall safe "hs_bindgen_test_hsb_complex_test_59f299d5d991ed72" add_complex_wrapper :: Ptr (Complex CDouble) ->
                                                                                                      Ptr (Complex CDouble) ->

@@ -211,8 +211,8 @@ data C
 
     __exported by:__ @spec_examples.h@
 -}
-foreign import ccall safe "hs_bindgen_test_spec_examples_7d4128962cfce15d" resample
-  :: Ptr.Ptr Int32_T
+foreign import ccall safe "hs_bindgen_test_spec_examples_7d4128962cfce15d" resample ::
+     Ptr.Ptr Int32_T
      {- ^ __C declaration:__ @res_m_num_valid_samples@
      -}
   -> Ptr.Ptr Cint16_T
@@ -229,8 +229,8 @@ foreign import ccall safe "hs_bindgen_test_spec_examples_7d4128962cfce15d" resam
      -}
   -> IO ()
 
-foreign import ccall unsafe "hs_bindgen_test_spec_examples_46b04422dcd0bbd5" hs_bindgen_test_spec_examples_46b04422dcd0bbd5
-  :: IO (Ptr.FunPtr ((Ptr.Ptr Int32_T) -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> Int64_T -> Int64_T -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> IO ()))
+foreign import ccall unsafe "hs_bindgen_test_spec_examples_46b04422dcd0bbd5" hs_bindgen_test_spec_examples_46b04422dcd0bbd5 ::
+     IO (Ptr.FunPtr ((Ptr.Ptr Int32_T) -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> Int64_T -> Int64_T -> ((HsBindgen.Runtime.ConstantArray.ConstantArray 30720000) Cint16_T) -> IO ()))
 
 {-# NOINLINE resample_ptr #-}
 

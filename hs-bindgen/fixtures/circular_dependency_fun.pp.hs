@@ -20,12 +20,12 @@ newtype Fun_ptr_Deref = Fun_ptr_Deref
   { un_Fun_ptr_Deref :: (Ptr.Ptr Forward_declaration) -> IO ()
   }
 
-foreign import ccall safe "wrapper" toFun_ptr_Deref
-  :: Fun_ptr_Deref
+foreign import ccall safe "wrapper" toFun_ptr_Deref ::
+     Fun_ptr_Deref
   -> IO (Ptr.FunPtr Fun_ptr_Deref)
 
-foreign import ccall safe "dynamic" fromFun_ptr_Deref
-  :: Ptr.FunPtr Fun_ptr_Deref
+foreign import ccall safe "dynamic" fromFun_ptr_Deref ::
+     Ptr.FunPtr Fun_ptr_Deref
   -> Fun_ptr_Deref
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr Fun_ptr_Deref where

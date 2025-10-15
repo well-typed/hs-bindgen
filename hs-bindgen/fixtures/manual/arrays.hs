@@ -333,13 +333,8 @@
               (Name
                 "@NsTypeConstr"
                 "Triplet")),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "input",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}},
+          functionParameterComment =
+          Nothing},
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "output"),
@@ -348,13 +343,8 @@
               (Name
                 "@NsTypeConstr"
                 "Triplet")),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "output",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}}],
+          functionParameterComment =
+          Nothing}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimUnit)),
@@ -430,6 +420,116 @@
           functionRes = TypeVoid},
       foreignImportComment = Just
         Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Pointer-based API for",
+              Identifier "transpose"],
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = []},
+      foreignImportSafety = Safe},
+  DeclFunction
+    FunctionDecl {
+      functionDeclName = Name
+        "@NsVar"
+        "transpose",
+      functionDeclParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "input"),
+          functionParameterType = HsTypRef
+            (Name "@NsTypeConstr" "Matrix"),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "input",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "output"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Triplet")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "output",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      functionDeclResultType = HsIO
+        (HsPrimType HsPrimUnit),
+      functionDeclBody =
+      `ELam "x" (ELam "x" (EApp (EApp (EGlobal ConstantArray_withPtr) (EBound 1)) (ELam "ptr" (EApp (EApp (EFree "transpose_wrapper") (EBound 0)) (EBound 1)))))`,
+      functionDeclOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "input",
+                  nameHsIdent = Identifier
+                    "input"})
+              (TypeQualified
+                TypeQualifierConst
+                (TypeTypedef
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "matrix",
+                      nameHsIdent = Identifier
+                        "Matrix"}
+                    (TypeConstArray
+                      3
+                      (TypeTypedef
+                        (TypedefRegular
+                          NamePair {
+                            nameC = Name "triplet",
+                            nameHsIdent = Identifier
+                              "Triplet"}
+                          (TypeConstArray
+                            3
+                            (TypePrim
+                              (PrimIntegral
+                                PrimInt
+                                Signed))))))))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "output",
+                  nameHsIdent = Identifier
+                    "output"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "matrix",
+                    nameHsIdent = Identifier
+                      "Matrix"}
+                  (TypeConstArray
+                    3
+                    (TypeTypedef
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name "triplet",
+                          nameHsIdent = Identifier
+                            "Triplet"}
+                        (TypeConstArray
+                          3
+                          (TypePrim
+                            (PrimIntegral
+                              PrimInt
+                              Signed))))))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      functionDeclComment = Just
+        Comment {
           commentTitle = Nothing,
           commentOrigin = Just
             "transpose",
@@ -441,9 +541,7 @@
                 ["manual/arrays.h"],
               headerInclude =
               "manual/arrays.h"},
-          commentChildren = []},
-      foreignImportSafety = Safe},
-  DeclSimple,
+          commentChildren = []}},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -535,13 +633,8 @@
               (Name
                 "@NsTypeConstr"
                 "Triplet")),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "input",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}},
+          functionParameterComment =
+          Nothing},
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "output"),
@@ -550,13 +643,8 @@
               (Name
                 "@NsTypeConstr"
                 "Triplet")),
-          functionParameterComment = Just
-            Comment {
-              commentTitle = Nothing,
-              commentOrigin = Just "output",
-              commentLocation = Nothing,
-              commentHeaderInfo = Nothing,
-              commentChildren = []}}],
+          functionParameterComment =
+          Nothing}],
       foreignImportResultType =
       NormalResultType
         (HsIO (HsPrimType HsPrimUnit)),
@@ -632,6 +720,116 @@
           functionRes = TypeVoid},
       foreignImportComment = Just
         Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Pointer-based API for",
+              Identifier "transpose"],
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclFunction
+    FunctionDecl {
+      functionDeclName = Name
+        "@NsVar"
+        "transpose",
+      functionDeclParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "input"),
+          functionParameterType = HsTypRef
+            (Name "@NsTypeConstr" "Matrix"),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "input",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}},
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "output"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Triplet")),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "output",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      functionDeclResultType = HsIO
+        (HsPrimType HsPrimUnit),
+      functionDeclBody =
+      `ELam "x" (ELam "x" (EApp (EApp (EGlobal ConstantArray_withPtr) (EBound 1)) (ELam "ptr" (EApp (EApp (EFree "transpose_wrapper") (EBound 0)) (EBound 1)))))`,
+      functionDeclOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "input",
+                  nameHsIdent = Identifier
+                    "input"})
+              (TypeQualified
+                TypeQualifierConst
+                (TypeTypedef
+                  (TypedefRegular
+                    NamePair {
+                      nameC = Name "matrix",
+                      nameHsIdent = Identifier
+                        "Matrix"}
+                    (TypeConstArray
+                      3
+                      (TypeTypedef
+                        (TypedefRegular
+                          NamePair {
+                            nameC = Name "triplet",
+                            nameHsIdent = Identifier
+                              "Triplet"}
+                          (TypeConstArray
+                            3
+                            (TypePrim
+                              (PrimIntegral
+                                PrimInt
+                                Signed))))))))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "output",
+                  nameHsIdent = Identifier
+                    "output"})
+              (TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "matrix",
+                    nameHsIdent = Identifier
+                      "Matrix"}
+                  (TypeConstArray
+                    3
+                    (TypeTypedef
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name "triplet",
+                          nameHsIdent = Identifier
+                            "Triplet"}
+                        (TypeConstArray
+                          3
+                          (TypePrim
+                            (PrimIntegral
+                              PrimInt
+                              Signed))))))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      functionDeclComment = Just
+        Comment {
           commentTitle = Nothing,
           commentOrigin = Just
             "transpose",
@@ -643,9 +841,7 @@
                 ["manual/arrays.h"],
               headerInclude =
               "manual/arrays.h"},
-          commentChildren = []},
-      foreignImportSafety = Unsafe},
-  DeclSimple,
+          commentChildren = []}},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
