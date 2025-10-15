@@ -63,8 +63,8 @@ instance F.Storable Vector where
 
     __exported by:__ @vector.h@
 -}
-foreign import ccall safe "hs_bindgen_test_vector_c8cd49ec7dbcac25" new_vector
-  :: FC.CDouble
+foreign import ccall safe "hs_bindgen_test_vector_c8cd49ec7dbcac25" new_vector ::
+     FC.CDouble
      {- ^ __C declaration:__ @x@
      -}
   -> FC.CDouble
@@ -72,8 +72,8 @@ foreign import ccall safe "hs_bindgen_test_vector_c8cd49ec7dbcac25" new_vector
      -}
   -> IO (Ptr.Ptr Vector)
 
-foreign import ccall unsafe "hs_bindgen_test_vector_7672b9e7f001c998" hs_bindgen_test_vector_7672b9e7f001c998
-  :: IO (Ptr.FunPtr (FC.CDouble -> FC.CDouble -> IO (Ptr.Ptr Vector)))
+foreign import ccall unsafe "hs_bindgen_test_vector_7672b9e7f001c998" hs_bindgen_test_vector_7672b9e7f001c998 ::
+     IO (Ptr.FunPtr (FC.CDouble -> FC.CDouble -> IO (Ptr.Ptr Vector)))
 
 {-# NOINLINE new_vector_ptr #-}
 

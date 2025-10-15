@@ -29,12 +29,12 @@ newtype FileOpenedNotification_Deref = FileOpenedNotification_Deref
   { un_FileOpenedNotification_Deref :: IO ()
   }
 
-foreign import ccall safe "wrapper" toFileOpenedNotification_Deref
-  :: FileOpenedNotification_Deref
+foreign import ccall safe "wrapper" toFileOpenedNotification_Deref ::
+     FileOpenedNotification_Deref
   -> IO (Ptr.FunPtr FileOpenedNotification_Deref)
 
-foreign import ccall safe "dynamic" fromFileOpenedNotification_Deref
-  :: Ptr.FunPtr FileOpenedNotification_Deref
+foreign import ccall safe "dynamic" fromFileOpenedNotification_Deref ::
+     Ptr.FunPtr FileOpenedNotification_Deref
   -> FileOpenedNotification_Deref
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr FileOpenedNotification_Deref where
@@ -67,12 +67,12 @@ newtype ProgressUpdate_Deref = ProgressUpdate_Deref
   { un_ProgressUpdate_Deref :: FC.CInt -> IO ()
   }
 
-foreign import ccall safe "wrapper" toProgressUpdate_Deref
-  :: ProgressUpdate_Deref
+foreign import ccall safe "wrapper" toProgressUpdate_Deref ::
+     ProgressUpdate_Deref
   -> IO (Ptr.FunPtr ProgressUpdate_Deref)
 
-foreign import ccall safe "dynamic" fromProgressUpdate_Deref
-  :: Ptr.FunPtr ProgressUpdate_Deref
+foreign import ccall safe "dynamic" fromProgressUpdate_Deref ::
+     Ptr.FunPtr ProgressUpdate_Deref
   -> ProgressUpdate_Deref
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr ProgressUpdate_Deref where
@@ -105,12 +105,12 @@ newtype DataValidator_Deref = DataValidator_Deref
   { un_DataValidator_Deref :: FC.CInt -> IO FC.CInt
   }
 
-foreign import ccall safe "wrapper" toDataValidator_Deref
-  :: DataValidator_Deref
+foreign import ccall safe "wrapper" toDataValidator_Deref ::
+     DataValidator_Deref
   -> IO (Ptr.FunPtr DataValidator_Deref)
 
-foreign import ccall safe "dynamic" fromDataValidator_Deref
-  :: Ptr.FunPtr DataValidator_Deref
+foreign import ccall safe "dynamic" fromDataValidator_Deref ::
+     Ptr.FunPtr DataValidator_Deref
   -> DataValidator_Deref
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr DataValidator_Deref where
@@ -187,12 +187,12 @@ newtype MeasurementReceived_Deref = MeasurementReceived_Deref
   { un_MeasurementReceived_Deref :: (Ptr.Ptr Measurement) -> IO ()
   }
 
-foreign import ccall safe "wrapper" toMeasurementReceived_Deref
-  :: MeasurementReceived_Deref
+foreign import ccall safe "wrapper" toMeasurementReceived_Deref ::
+     MeasurementReceived_Deref
   -> IO (Ptr.FunPtr MeasurementReceived_Deref)
 
-foreign import ccall safe "dynamic" fromMeasurementReceived_Deref
-  :: Ptr.FunPtr MeasurementReceived_Deref
+foreign import ccall safe "dynamic" fromMeasurementReceived_Deref ::
+     Ptr.FunPtr MeasurementReceived_Deref
   -> MeasurementReceived_Deref
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr MeasurementReceived_Deref where
@@ -265,8 +265,8 @@ newtype SampleBufferFull = SampleBufferFull
 
     __exported by:__ @callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_callbacks_a0a59181c714c131" readFileWithProcessor
-  :: Ptr.FunPtr (FC.CInt -> IO ())
+foreign import ccall safe "hs_bindgen_test_callbacks_a0a59181c714c131" readFileWithProcessor ::
+     Ptr.FunPtr (FC.CInt -> IO ())
      {- ^ __C declaration:__ @processLine@
      -}
   -> FC.CInt
@@ -280,8 +280,8 @@ foreign import ccall safe "hs_bindgen_test_callbacks_a0a59181c714c131" readFileW
 
     __exported by:__ @callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_callbacks_d59e6698796971ea" watchTemperature
-  :: Ptr.FunPtr (FC.CInt -> IO ())
+foreign import ccall safe "hs_bindgen_test_callbacks_d59e6698796971ea" watchTemperature ::
+     Ptr.FunPtr (FC.CInt -> IO ())
      {- ^ __C declaration:__ @onTempChange@
      -}
   -> FC.CInt
@@ -295,8 +295,8 @@ foreign import ccall safe "hs_bindgen_test_callbacks_d59e6698796971ea" watchTemp
 
     __exported by:__ @callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_callbacks_c9fb8fdc3d0d3978" onFileOpened
-  :: FileOpenedNotification
+foreign import ccall safe "hs_bindgen_test_callbacks_c9fb8fdc3d0d3978" onFileOpened ::
+     FileOpenedNotification
      {- ^ __C declaration:__ @notify@
      -}
   -> IO ()
@@ -307,8 +307,8 @@ foreign import ccall safe "hs_bindgen_test_callbacks_c9fb8fdc3d0d3978" onFileOpe
 
     __exported by:__ @callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_callbacks_7921ad1b219190e4" onProgressChanged
-  :: ProgressUpdate
+foreign import ccall safe "hs_bindgen_test_callbacks_7921ad1b219190e4" onProgressChanged ::
+     ProgressUpdate
      {- ^ __C declaration:__ @update@
      -}
   -> IO ()
@@ -319,8 +319,8 @@ foreign import ccall safe "hs_bindgen_test_callbacks_7921ad1b219190e4" onProgres
 
     __exported by:__ @callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_callbacks_ae19d658f098584a" validateInput
-  :: DataValidator
+foreign import ccall safe "hs_bindgen_test_callbacks_ae19d658f098584a" validateInput ::
+     DataValidator
      {- ^ __C declaration:__ @validator@
      -}
   -> FC.CInt
@@ -334,8 +334,8 @@ foreign import ccall safe "hs_bindgen_test_callbacks_ae19d658f098584a" validateI
 
     __exported by:__ @callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_callbacks_d2fdffe85523b3ef" onNewMeasurement
-  :: MeasurementReceived
+foreign import ccall safe "hs_bindgen_test_callbacks_d2fdffe85523b3ef" onNewMeasurement ::
+     MeasurementReceived
      {- ^ __C declaration:__ @handler@
      -}
   -> IO ()
@@ -346,8 +346,8 @@ foreign import ccall safe "hs_bindgen_test_callbacks_d2fdffe85523b3ef" onNewMeas
 
     __exported by:__ @callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_callbacks_c5b555bbc07b808d" onNewMeasurement2
-  :: MeasurementReceived2
+foreign import ccall safe "hs_bindgen_test_callbacks_c5b555bbc07b808d" onNewMeasurement2 ::
+     MeasurementReceived2
      {- ^ __C declaration:__ @handler@
      -}
   -> IO ()
@@ -358,14 +358,14 @@ foreign import ccall safe "hs_bindgen_test_callbacks_c5b555bbc07b808d" onNewMeas
 
     __exported by:__ @callbacks.h@
 -}
-foreign import ccall safe "hs_bindgen_test_callbacks_65927c77229ad893" onBufferReady
-  :: SampleBufferFull
+foreign import ccall safe "hs_bindgen_test_callbacks_65927c77229ad893" onBufferReady ::
+     SampleBufferFull
      {- ^ __C declaration:__ @handler@
      -}
   -> IO ()
 
-foreign import ccall unsafe "hs_bindgen_test_callbacks_c4b06d89a94616dd" hs_bindgen_test_callbacks_c4b06d89a94616dd
-  :: IO (Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO ())) -> FC.CInt -> IO FC.CInt))
+foreign import ccall unsafe "hs_bindgen_test_callbacks_c4b06d89a94616dd" hs_bindgen_test_callbacks_c4b06d89a94616dd ::
+     IO (Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO ())) -> FC.CInt -> IO FC.CInt))
 
 {-# NOINLINE readFileWithProcessor_ptr #-}
 
@@ -379,8 +379,8 @@ readFileWithProcessor_ptr :: Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO ())) -> FC.C
 readFileWithProcessor_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_callbacks_c4b06d89a94616dd
 
-foreign import ccall unsafe "hs_bindgen_test_callbacks_22c54726df44b640" hs_bindgen_test_callbacks_22c54726df44b640
-  :: IO (Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO ())) -> FC.CInt -> IO ()))
+foreign import ccall unsafe "hs_bindgen_test_callbacks_22c54726df44b640" hs_bindgen_test_callbacks_22c54726df44b640 ::
+     IO (Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO ())) -> FC.CInt -> IO ()))
 
 {-# NOINLINE watchTemperature_ptr #-}
 
@@ -394,8 +394,8 @@ watchTemperature_ptr :: Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO ())) -> FC.CInt -
 watchTemperature_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_callbacks_22c54726df44b640
 
-foreign import ccall unsafe "hs_bindgen_test_callbacks_8167a5b82d621c9d" hs_bindgen_test_callbacks_8167a5b82d621c9d
-  :: IO (Ptr.FunPtr (FileOpenedNotification -> IO ()))
+foreign import ccall unsafe "hs_bindgen_test_callbacks_8167a5b82d621c9d" hs_bindgen_test_callbacks_8167a5b82d621c9d ::
+     IO (Ptr.FunPtr (FileOpenedNotification -> IO ()))
 
 {-# NOINLINE onFileOpened_ptr #-}
 
@@ -409,8 +409,8 @@ onFileOpened_ptr :: Ptr.FunPtr (FileOpenedNotification -> IO ())
 onFileOpened_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_callbacks_8167a5b82d621c9d
 
-foreign import ccall unsafe "hs_bindgen_test_callbacks_ef51ad75ce9862a3" hs_bindgen_test_callbacks_ef51ad75ce9862a3
-  :: IO (Ptr.FunPtr (ProgressUpdate -> IO ()))
+foreign import ccall unsafe "hs_bindgen_test_callbacks_ef51ad75ce9862a3" hs_bindgen_test_callbacks_ef51ad75ce9862a3 ::
+     IO (Ptr.FunPtr (ProgressUpdate -> IO ()))
 
 {-# NOINLINE onProgressChanged_ptr #-}
 
@@ -424,8 +424,8 @@ onProgressChanged_ptr :: Ptr.FunPtr (ProgressUpdate -> IO ())
 onProgressChanged_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_callbacks_ef51ad75ce9862a3
 
-foreign import ccall unsafe "hs_bindgen_test_callbacks_9eaedb1b1c5b3fdb" hs_bindgen_test_callbacks_9eaedb1b1c5b3fdb
-  :: IO (Ptr.FunPtr (DataValidator -> FC.CInt -> IO FC.CInt))
+foreign import ccall unsafe "hs_bindgen_test_callbacks_9eaedb1b1c5b3fdb" hs_bindgen_test_callbacks_9eaedb1b1c5b3fdb ::
+     IO (Ptr.FunPtr (DataValidator -> FC.CInt -> IO FC.CInt))
 
 {-# NOINLINE validateInput_ptr #-}
 
@@ -439,8 +439,8 @@ validateInput_ptr :: Ptr.FunPtr (DataValidator -> FC.CInt -> IO FC.CInt)
 validateInput_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_callbacks_9eaedb1b1c5b3fdb
 
-foreign import ccall unsafe "hs_bindgen_test_callbacks_f9f4f5ec3dd82431" hs_bindgen_test_callbacks_f9f4f5ec3dd82431
-  :: IO (Ptr.FunPtr (MeasurementReceived -> IO ()))
+foreign import ccall unsafe "hs_bindgen_test_callbacks_f9f4f5ec3dd82431" hs_bindgen_test_callbacks_f9f4f5ec3dd82431 ::
+     IO (Ptr.FunPtr (MeasurementReceived -> IO ()))
 
 {-# NOINLINE onNewMeasurement_ptr #-}
 
@@ -454,8 +454,8 @@ onNewMeasurement_ptr :: Ptr.FunPtr (MeasurementReceived -> IO ())
 onNewMeasurement_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_callbacks_f9f4f5ec3dd82431
 
-foreign import ccall unsafe "hs_bindgen_test_callbacks_9c5afeda25ede1ce" hs_bindgen_test_callbacks_9c5afeda25ede1ce
-  :: IO (Ptr.FunPtr (MeasurementReceived2 -> IO ()))
+foreign import ccall unsafe "hs_bindgen_test_callbacks_9c5afeda25ede1ce" hs_bindgen_test_callbacks_9c5afeda25ede1ce ::
+     IO (Ptr.FunPtr (MeasurementReceived2 -> IO ()))
 
 {-# NOINLINE onNewMeasurement2_ptr #-}
 
@@ -469,8 +469,8 @@ onNewMeasurement2_ptr :: Ptr.FunPtr (MeasurementReceived2 -> IO ())
 onNewMeasurement2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_callbacks_9c5afeda25ede1ce
 
-foreign import ccall unsafe "hs_bindgen_test_callbacks_8091188123328aa8" hs_bindgen_test_callbacks_8091188123328aa8
-  :: IO (Ptr.FunPtr (SampleBufferFull -> IO ()))
+foreign import ccall unsafe "hs_bindgen_test_callbacks_8091188123328aa8" hs_bindgen_test_callbacks_8091188123328aa8 ::
+     IO (Ptr.FunPtr (SampleBufferFull -> IO ()))
 
 {-# NOINLINE onBufferReady_ptr #-}
 

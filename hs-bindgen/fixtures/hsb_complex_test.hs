@@ -899,14 +899,25 @@
             ImpureFunction,
           functionRes = TypeComplex
             (PrimFloating PrimFloat)},
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Pointer-based API for",
+              Identifier
+                "multiply_complex_f"],
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclFunction
-    (FunctionDecl
-      (Name
+    FunctionDecl {
+      functionDeclName = Name
         "@NsVar"
-        "multiply_complex_f")
-      [
+        "multiply_complex_f",
+      functionDeclParameters = [
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "a"),
@@ -930,10 +941,12 @@
               commentOrigin = Just "b",
               commentLocation = Nothing,
               commentHeaderInfo = Nothing,
-              commentChildren = []}}]
-      (HsIO
-        (HsComplexType HsPrimCFloat))
-      (Function
+              commentChildren = []}}],
+      functionDeclResultType = HsIO
+        (HsComplexType HsPrimCFloat),
+      functionDeclBody =
+      `ELam "x" (ELam "x" (EApp (EApp (EGlobal CAPI_with) (EBound 0)) (ELam "y" (EApp (EApp (EGlobal CAPI_with) (EBound 2)) (ELam "y" (EApp (EGlobal CAPI_allocaAndPeek) (ELam "z" (EApp (EApp (EApp (EFree "multiply_complex_f_wrapper") (EBound 1)) (EBound 2)) (EBound 0)))))))))`,
+      functionDeclOrigin = Function
         Function {
           functionArgs = [
             _×_
@@ -954,8 +967,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeComplex
-            (PrimFloating PrimFloat)})
-      (Just
+            (PrimFloating PrimFloat)},
+      functionDeclComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just
@@ -968,7 +981,7 @@
                 ["hsb_complex_test.h"],
               headerInclude =
               "hsb_complex_test.h"},
-          commentChildren = []})),
+          commentChildren = []}},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -1024,12 +1037,24 @@
             ImpureFunction,
           functionRes = TypeComplex
             (PrimFloating PrimDouble)},
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Pointer-based API for",
+              Identifier "add_complex"],
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclFunction
-    (FunctionDecl
-      (Name "@NsVar" "add_complex")
-      [
+    FunctionDecl {
+      functionDeclName = Name
+        "@NsVar"
+        "add_complex",
+      functionDeclParameters = [
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "a"),
@@ -1053,10 +1078,12 @@
               commentOrigin = Just "b",
               commentLocation = Nothing,
               commentHeaderInfo = Nothing,
-              commentChildren = []}}]
-      (HsIO
-        (HsComplexType HsPrimCDouble))
-      (Function
+              commentChildren = []}}],
+      functionDeclResultType = HsIO
+        (HsComplexType HsPrimCDouble),
+      functionDeclBody =
+      `ELam "x" (ELam "x" (EApp (EApp (EGlobal CAPI_with) (EBound 0)) (ELam "y" (EApp (EApp (EGlobal CAPI_with) (EBound 2)) (ELam "y" (EApp (EGlobal CAPI_allocaAndPeek) (ELam "z" (EApp (EApp (EApp (EFree "add_complex_wrapper") (EBound 1)) (EBound 2)) (EBound 0)))))))))`,
+      functionDeclOrigin = Function
         Function {
           functionArgs = [
             _×_
@@ -1077,8 +1104,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeComplex
-            (PrimFloating PrimDouble)})
-      (Just
+            (PrimFloating PrimDouble)},
+      functionDeclComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just
@@ -1091,7 +1118,7 @@
                 ["hsb_complex_test.h"],
               headerInclude =
               "hsb_complex_test.h"},
-          commentChildren = []})),
+          commentChildren = []}},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -1147,14 +1174,25 @@
             ImpureFunction,
           functionRes = TypeComplex
             (PrimFloating PrimFloat)},
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Pointer-based API for",
+              Identifier
+                "multiply_complex_f"],
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclFunction
-    (FunctionDecl
-      (Name
+    FunctionDecl {
+      functionDeclName = Name
         "@NsVar"
-        "multiply_complex_f")
-      [
+        "multiply_complex_f",
+      functionDeclParameters = [
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "a"),
@@ -1178,10 +1216,12 @@
               commentOrigin = Just "b",
               commentLocation = Nothing,
               commentHeaderInfo = Nothing,
-              commentChildren = []}}]
-      (HsIO
-        (HsComplexType HsPrimCFloat))
-      (Function
+              commentChildren = []}}],
+      functionDeclResultType = HsIO
+        (HsComplexType HsPrimCFloat),
+      functionDeclBody =
+      `ELam "x" (ELam "x" (EApp (EApp (EGlobal CAPI_with) (EBound 0)) (ELam "y" (EApp (EApp (EGlobal CAPI_with) (EBound 2)) (ELam "y" (EApp (EGlobal CAPI_allocaAndPeek) (ELam "z" (EApp (EApp (EApp (EFree "multiply_complex_f_wrapper") (EBound 1)) (EBound 2)) (EBound 0)))))))))`,
+      functionDeclOrigin = Function
         Function {
           functionArgs = [
             _×_
@@ -1202,8 +1242,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeComplex
-            (PrimFloating PrimFloat)})
-      (Just
+            (PrimFloating PrimFloat)},
+      functionDeclComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just
@@ -1216,7 +1256,7 @@
                 ["hsb_complex_test.h"],
               headerInclude =
               "hsb_complex_test.h"},
-          commentChildren = []})),
+          commentChildren = []}},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -1272,12 +1312,24 @@
             ImpureFunction,
           functionRes = TypeComplex
             (PrimFloating PrimDouble)},
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Pointer-based API for",
+              Identifier "add_complex"],
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclFunction
-    (FunctionDecl
-      (Name "@NsVar" "add_complex")
-      [
+    FunctionDecl {
+      functionDeclName = Name
+        "@NsVar"
+        "add_complex",
+      functionDeclParameters = [
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "a"),
@@ -1301,10 +1353,12 @@
               commentOrigin = Just "b",
               commentLocation = Nothing,
               commentHeaderInfo = Nothing,
-              commentChildren = []}}]
-      (HsIO
-        (HsComplexType HsPrimCDouble))
-      (Function
+              commentChildren = []}}],
+      functionDeclResultType = HsIO
+        (HsComplexType HsPrimCDouble),
+      functionDeclBody =
+      `ELam "x" (ELam "x" (EApp (EApp (EGlobal CAPI_with) (EBound 0)) (ELam "y" (EApp (EApp (EGlobal CAPI_with) (EBound 2)) (ELam "y" (EApp (EGlobal CAPI_allocaAndPeek) (ELam "z" (EApp (EApp (EApp (EFree "add_complex_wrapper") (EBound 1)) (EBound 2)) (EBound 0)))))))))`,
+      functionDeclOrigin = Function
         Function {
           functionArgs = [
             _×_
@@ -1325,8 +1379,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeComplex
-            (PrimFloating PrimDouble)})
-      (Just
+            (PrimFloating PrimDouble)},
+      functionDeclComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just
@@ -1339,7 +1393,7 @@
                 ["hsb_complex_test.h"],
               headerInclude =
               "hsb_complex_test.h"},
-          commentChildren = []})),
+          commentChildren = []}},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name

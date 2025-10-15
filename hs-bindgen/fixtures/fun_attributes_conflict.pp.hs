@@ -23,8 +23,8 @@ __defined at:__ @fun_attributes_conflict.h:9:5@
 
 __exported by:__ @fun_attributes_conflict.h@
 -}
-foreign import ccall safe "hs_bindgen_test_fun_attributes_conflict_5f961556d5c4089a" square_cp
-  :: FC.CInt
+foreign import ccall safe "hs_bindgen_test_fun_attributes_conflict_5f961556d5c4089a" square_cp ::
+     FC.CInt
      {- ^ __C declaration:__ @x@
      -}
   -> FC.CInt
@@ -35,8 +35,8 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_conflict_5f961556d5c40
 
     __exported by:__ @fun_attributes_conflict.h@
 -}
-foreign import ccall safe "hs_bindgen_test_fun_attributes_conflict_7dbcbb58ce184f13" square_pc
-  :: FC.CInt
+foreign import ccall safe "hs_bindgen_test_fun_attributes_conflict_7dbcbb58ce184f13" square_pc ::
+     FC.CInt
      {- ^ __C declaration:__ @x@
      -}
   -> FC.CInt
@@ -47,8 +47,8 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_conflict_7dbcbb58ce184
 
     __exported by:__ @fun_attributes_conflict.h@
 -}
-foreign import ccall safe "hs_bindgen_test_fun_attributes_conflict_79823cdb6d9c52ff" square_cc
-  :: FC.CInt
+foreign import ccall safe "hs_bindgen_test_fun_attributes_conflict_79823cdb6d9c52ff" square_cc ::
+     FC.CInt
      {- ^ __C declaration:__ @x@
      -}
   -> FC.CInt
@@ -63,14 +63,14 @@ __defined at:__ @fun_attributes_conflict.h:15:5@
 
 __exported by:__ @fun_attributes_conflict.h@
 -}
-foreign import ccall safe "hs_bindgen_test_fun_attributes_conflict_3dd09f52296e7452" square_pp
-  :: FC.CInt
+foreign import ccall safe "hs_bindgen_test_fun_attributes_conflict_3dd09f52296e7452" square_pp ::
+     FC.CInt
      {- ^ __C declaration:__ @x@
      -}
   -> IO FC.CInt
 
-foreign import ccall unsafe "hs_bindgen_test_fun_attributes_conflict_a488b67527d299f8" hs_bindgen_test_fun_attributes_conflict_a488b67527d299f8
-  :: IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
+foreign import ccall unsafe "hs_bindgen_test_fun_attributes_conflict_a488b67527d299f8" hs_bindgen_test_fun_attributes_conflict_a488b67527d299f8 ::
+     IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
 
 {-# NOINLINE square_cp_ptr #-}
 
@@ -88,8 +88,8 @@ square_cp_ptr :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
 square_cp_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_fun_attributes_conflict_a488b67527d299f8
 
-foreign import ccall unsafe "hs_bindgen_test_fun_attributes_conflict_c4cea088a40be2f5" hs_bindgen_test_fun_attributes_conflict_c4cea088a40be2f5
-  :: IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
+foreign import ccall unsafe "hs_bindgen_test_fun_attributes_conflict_c4cea088a40be2f5" hs_bindgen_test_fun_attributes_conflict_c4cea088a40be2f5 ::
+     IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
 
 {-# NOINLINE square_pc_ptr #-}
 
@@ -103,8 +103,8 @@ square_pc_ptr :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
 square_pc_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_fun_attributes_conflict_c4cea088a40be2f5
 
-foreign import ccall unsafe "hs_bindgen_test_fun_attributes_conflict_3bc327fede4fc009" hs_bindgen_test_fun_attributes_conflict_3bc327fede4fc009
-  :: IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
+foreign import ccall unsafe "hs_bindgen_test_fun_attributes_conflict_3bc327fede4fc009" hs_bindgen_test_fun_attributes_conflict_3bc327fede4fc009 ::
+     IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
 
 {-# NOINLINE square_cc_ptr #-}
 
@@ -118,8 +118,8 @@ square_cc_ptr :: Ptr.FunPtr (FC.CInt -> IO FC.CInt)
 square_cc_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_fun_attributes_conflict_3bc327fede4fc009
 
-foreign import ccall unsafe "hs_bindgen_test_fun_attributes_conflict_dca75c8c02c209b2" hs_bindgen_test_fun_attributes_conflict_dca75c8c02c209b2
-  :: IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
+foreign import ccall unsafe "hs_bindgen_test_fun_attributes_conflict_dca75c8c02c209b2" hs_bindgen_test_fun_attributes_conflict_dca75c8c02c209b2 ::
+     IO (Ptr.FunPtr (FC.CInt -> IO FC.CInt))
 
 {-# NOINLINE square_pp_ptr #-}
 

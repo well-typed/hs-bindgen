@@ -19,8 +19,8 @@ $(HsBindgen.Runtime.Prelude.addCSource "#include <visibility_attributes.h>\nvoid
 
     __exported by:__ @visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_visibility_attributes_e8fda12159f2be9f" f0
-  :: IO ()
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_e8fda12159f2be9f" f0 ::
+     IO ()
 
 {-| __C declaration:__ @f1@
 
@@ -28,8 +28,8 @@ foreign import ccall safe "hs_bindgen_test_visibility_attributes_e8fda12159f2be9
 
     __exported by:__ @visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_visibility_attributes_a2f84d2570ef3892" f1
-  :: IO ()
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_a2f84d2570ef3892" f1 ::
+     IO ()
 
 {-| __C declaration:__ @f2@
 
@@ -37,8 +37,8 @@ foreign import ccall safe "hs_bindgen_test_visibility_attributes_a2f84d2570ef389
 
     __exported by:__ @visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_visibility_attributes_1d043de05a457e90" f2
-  :: IO ()
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_1d043de05a457e90" f2 ::
+     IO ()
 
 {-| __C declaration:__ @f3@
 
@@ -46,8 +46,8 @@ foreign import ccall safe "hs_bindgen_test_visibility_attributes_1d043de05a457e9
 
     __exported by:__ @visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_visibility_attributes_e23eff1955ebb459" f3
-  :: IO ()
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_e23eff1955ebb459" f3 ::
+     IO ()
 
 {-| __C declaration:__ @f4@
 
@@ -55,8 +55,8 @@ foreign import ccall safe "hs_bindgen_test_visibility_attributes_e23eff1955ebb45
 
     __exported by:__ @visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_visibility_attributes_ce219a1a5351d14e" f4
-  :: IO ()
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_ce219a1a5351d14e" f4 ::
+     IO ()
 
 {-| __C declaration:__ @f5@
 
@@ -64,8 +64,8 @@ foreign import ccall safe "hs_bindgen_test_visibility_attributes_ce219a1a5351d14
 
     __exported by:__ @visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_visibility_attributes_caebbc1a0babf9c3" f5
-  :: IO ()
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_caebbc1a0babf9c3" f5 ::
+     IO ()
 
 {-| __C declaration:__ @f6@
 
@@ -73,8 +73,8 @@ foreign import ccall safe "hs_bindgen_test_visibility_attributes_caebbc1a0babf9c
 
     __exported by:__ @visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_visibility_attributes_0e94ab16fe1245e4" f6
-  :: IO ()
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_0e94ab16fe1245e4" f6 ::
+     IO ()
 
 {-| __C declaration:__ @f7@
 
@@ -82,8 +82,8 @@ foreign import ccall safe "hs_bindgen_test_visibility_attributes_0e94ab16fe1245e
 
     __exported by:__ @visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_visibility_attributes_595393c65507c7b2" f7
-  :: IO ()
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_595393c65507c7b2" f7 ::
+     IO ()
 
 {-| __C declaration:__ @f8@
 
@@ -91,8 +91,8 @@ foreign import ccall safe "hs_bindgen_test_visibility_attributes_595393c65507c7b
 
     __exported by:__ @visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_visibility_attributes_2e6297cc5a3e79e0" f8
-  :: IO ()
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_2e6297cc5a3e79e0" f8 ::
+     IO ()
 
 {-| __C declaration:__ @f9@
 
@@ -100,8 +100,8 @@ foreign import ccall safe "hs_bindgen_test_visibility_attributes_2e6297cc5a3e79e
 
     __exported by:__ @visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_visibility_attributes_7d6b88eb048c2261" f9
-  :: IO ()
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_7d6b88eb048c2261" f9 ::
+     IO ()
 
 {-| __C declaration:__ @f10@
 
@@ -109,8 +109,8 @@ foreign import ccall safe "hs_bindgen_test_visibility_attributes_7d6b88eb048c226
 
     __exported by:__ @visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_visibility_attributes_4ef53db381225865" f10
-  :: IO ()
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_4ef53db381225865" f10 ::
+     IO ()
 
 {-| __C declaration:__ @f11@
 
@@ -118,8 +118,8 @@ foreign import ccall safe "hs_bindgen_test_visibility_attributes_4ef53db38122586
 
     __exported by:__ @visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_visibility_attributes_c626c8c382be7e47" f11
-  :: IO ()
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_c626c8c382be7e47" f11 ::
+     IO ()
 
 {-| __C declaration:__ @f12@
 
@@ -127,8 +127,8 @@ foreign import ccall safe "hs_bindgen_test_visibility_attributes_c626c8c382be7e4
 
     __exported by:__ @visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_visibility_attributes_09bc3cf816a85839" f12
-  :: IO ()
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_09bc3cf816a85839" f12 ::
+     IO ()
 
 {-| __C declaration:__ @f13@
 
@@ -136,8 +136,8 @@ foreign import ccall safe "hs_bindgen_test_visibility_attributes_09bc3cf816a8583
 
     __exported by:__ @visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_visibility_attributes_eadf3eb9d39365cf" f13
-  :: IO ()
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_eadf3eb9d39365cf" f13 ::
+     IO ()
 
 {-| __C declaration:__ @f14@
 
@@ -145,8 +145,8 @@ foreign import ccall safe "hs_bindgen_test_visibility_attributes_eadf3eb9d39365c
 
     __exported by:__ @visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_visibility_attributes_24313656b5162754" f14
-  :: IO ()
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_24313656b5162754" f14 ::
+     IO ()
 
 {-| __C declaration:__ @f15@
 
@@ -154,8 +154,8 @@ foreign import ccall safe "hs_bindgen_test_visibility_attributes_24313656b516275
 
     __exported by:__ @visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_visibility_attributes_db09067813df28c1" f15
-  :: IO ()
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_db09067813df28c1" f15 ::
+     IO ()
 
 {-| __C declaration:__ @f16@
 
@@ -163,8 +163,8 @@ foreign import ccall safe "hs_bindgen_test_visibility_attributes_db09067813df28c
 
     __exported by:__ @visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_visibility_attributes_4ce3176c4406cf10" f16
-  :: IO ()
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_4ce3176c4406cf10" f16 ::
+     IO ()
 
 {-| __C declaration:__ @f17@
 
@@ -172,8 +172,8 @@ foreign import ccall safe "hs_bindgen_test_visibility_attributes_4ce3176c4406cf1
 
     __exported by:__ @visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_visibility_attributes_2354b7b245be3629" f17
-  :: IO ()
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_2354b7b245be3629" f17 ::
+     IO ()
 
 {-| __C declaration:__ @f18@
 
@@ -181,8 +181,8 @@ foreign import ccall safe "hs_bindgen_test_visibility_attributes_2354b7b245be362
 
     __exported by:__ @visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_visibility_attributes_a24f6e8ea1a74456" f18
-  :: IO ()
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_a24f6e8ea1a74456" f18 ::
+     IO ()
 
 {-| __C declaration:__ @f19@
 
@@ -190,8 +190,8 @@ foreign import ccall safe "hs_bindgen_test_visibility_attributes_a24f6e8ea1a7445
 
     __exported by:__ @visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_visibility_attributes_e14cdae313c9647d" f19
-  :: IO ()
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_e14cdae313c9647d" f19 ::
+     IO ()
 
 {-| __C declaration:__ @f20@
 
@@ -199,8 +199,8 @@ foreign import ccall safe "hs_bindgen_test_visibility_attributes_e14cdae313c9647
 
     __exported by:__ @visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_visibility_attributes_d973493c824fdf05" f20
-  :: IO ()
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_d973493c824fdf05" f20 ::
+     IO ()
 
 {-| __C declaration:__ @f21@
 
@@ -208,8 +208,8 @@ foreign import ccall safe "hs_bindgen_test_visibility_attributes_d973493c824fdf0
 
     __exported by:__ @visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_visibility_attributes_cc1b3614f810260c" f21
-  :: IO ()
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_cc1b3614f810260c" f21 ::
+     IO ()
 
 {-| __C declaration:__ @f22@
 
@@ -217,8 +217,8 @@ foreign import ccall safe "hs_bindgen_test_visibility_attributes_cc1b3614f810260
 
     __exported by:__ @visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_visibility_attributes_cb764aa14ed3e34c" f22
-  :: IO ()
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_cb764aa14ed3e34c" f22 ::
+     IO ()
 
 {-| __C declaration:__ @f23@
 
@@ -226,8 +226,8 @@ foreign import ccall safe "hs_bindgen_test_visibility_attributes_cb764aa14ed3e34
 
     __exported by:__ @visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_visibility_attributes_dc225cc74f4331bf" f23
-  :: IO ()
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_dc225cc74f4331bf" f23 ::
+     IO ()
 
 {-| __C declaration:__ @f24@
 
@@ -235,8 +235,8 @@ foreign import ccall safe "hs_bindgen_test_visibility_attributes_dc225cc74f4331b
 
     __exported by:__ @visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_visibility_attributes_88449e6c03902cdf" f24
-  :: IO ()
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_88449e6c03902cdf" f24 ::
+     IO ()
 
 {-| __C declaration:__ @f25@
 
@@ -244,8 +244,8 @@ foreign import ccall safe "hs_bindgen_test_visibility_attributes_88449e6c03902cd
 
     __exported by:__ @visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_visibility_attributes_7370ca6009a58826" f25
-  :: IO ()
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_7370ca6009a58826" f25 ::
+     IO ()
 
 {-| __C declaration:__ @f26@
 
@@ -253,8 +253,8 @@ foreign import ccall safe "hs_bindgen_test_visibility_attributes_7370ca6009a5882
 
     __exported by:__ @visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_visibility_attributes_a67323b70e59146d" f26
-  :: IO ()
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_a67323b70e59146d" f26 ::
+     IO ()
 
 {-| __C declaration:__ @f27@
 
@@ -262,8 +262,8 @@ foreign import ccall safe "hs_bindgen_test_visibility_attributes_a67323b70e59146
 
     __exported by:__ @visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_visibility_attributes_968a7a3827f17839" f27
-  :: IO ()
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_968a7a3827f17839" f27 ::
+     IO ()
 
 {-| __C declaration:__ @f28@
 
@@ -271,8 +271,8 @@ foreign import ccall safe "hs_bindgen_test_visibility_attributes_968a7a3827f1783
 
     __exported by:__ @visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_visibility_attributes_fbb18ffa92c2c5be" f28
-  :: IO ()
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_fbb18ffa92c2c5be" f28 ::
+     IO ()
 
 {-| __C declaration:__ @f29@
 
@@ -280,11 +280,11 @@ foreign import ccall safe "hs_bindgen_test_visibility_attributes_fbb18ffa92c2c5b
 
     __exported by:__ @visibility_attributes.h@
 -}
-foreign import ccall safe "hs_bindgen_test_visibility_attributes_60afc98eb89b8a2d" f29
-  :: IO ()
+foreign import ccall safe "hs_bindgen_test_visibility_attributes_60afc98eb89b8a2d" f29 ::
+     IO ()
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_a03f2cbeac50b3d3" hs_bindgen_test_visibility_attributes_a03f2cbeac50b3d3
-  :: IO (Ptr.FunPtr (IO ()))
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_a03f2cbeac50b3d3" hs_bindgen_test_visibility_attributes_a03f2cbeac50b3d3 ::
+     IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE f0_ptr #-}
 
@@ -298,8 +298,8 @@ f0_ptr :: Ptr.FunPtr (IO ())
 f0_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_a03f2cbeac50b3d3
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_5469bdc0395f86c1" hs_bindgen_test_visibility_attributes_5469bdc0395f86c1
-  :: IO (Ptr.FunPtr (IO ()))
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_5469bdc0395f86c1" hs_bindgen_test_visibility_attributes_5469bdc0395f86c1 ::
+     IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE f1_ptr #-}
 
@@ -313,8 +313,8 @@ f1_ptr :: Ptr.FunPtr (IO ())
 f1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_5469bdc0395f86c1
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_490ca7e8c8282a69" hs_bindgen_test_visibility_attributes_490ca7e8c8282a69
-  :: IO (Ptr.FunPtr (IO ()))
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_490ca7e8c8282a69" hs_bindgen_test_visibility_attributes_490ca7e8c8282a69 ::
+     IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE f2_ptr #-}
 
@@ -328,8 +328,8 @@ f2_ptr :: Ptr.FunPtr (IO ())
 f2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_490ca7e8c8282a69
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_38506a9ac5626bf2" hs_bindgen_test_visibility_attributes_38506a9ac5626bf2
-  :: IO (Ptr.FunPtr (IO ()))
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_38506a9ac5626bf2" hs_bindgen_test_visibility_attributes_38506a9ac5626bf2 ::
+     IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE f3_ptr #-}
 
@@ -343,8 +343,8 @@ f3_ptr :: Ptr.FunPtr (IO ())
 f3_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_38506a9ac5626bf2
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_10e5fac8fefa811b" hs_bindgen_test_visibility_attributes_10e5fac8fefa811b
-  :: IO (Ptr.FunPtr (IO ()))
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_10e5fac8fefa811b" hs_bindgen_test_visibility_attributes_10e5fac8fefa811b ::
+     IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE f4_ptr #-}
 
@@ -358,8 +358,8 @@ f4_ptr :: Ptr.FunPtr (IO ())
 f4_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_10e5fac8fefa811b
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_3f137e2ee71fd73b" hs_bindgen_test_visibility_attributes_3f137e2ee71fd73b
-  :: IO (Ptr.FunPtr (IO ()))
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_3f137e2ee71fd73b" hs_bindgen_test_visibility_attributes_3f137e2ee71fd73b ::
+     IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE f5_ptr #-}
 
@@ -373,8 +373,8 @@ f5_ptr :: Ptr.FunPtr (IO ())
 f5_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_3f137e2ee71fd73b
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_b69720e01b3b7ccd" hs_bindgen_test_visibility_attributes_b69720e01b3b7ccd
-  :: IO (Ptr.FunPtr (IO ()))
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_b69720e01b3b7ccd" hs_bindgen_test_visibility_attributes_b69720e01b3b7ccd ::
+     IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE f6_ptr #-}
 
@@ -388,8 +388,8 @@ f6_ptr :: Ptr.FunPtr (IO ())
 f6_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_b69720e01b3b7ccd
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_97be5f53b506f3b5" hs_bindgen_test_visibility_attributes_97be5f53b506f3b5
-  :: IO (Ptr.FunPtr (IO ()))
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_97be5f53b506f3b5" hs_bindgen_test_visibility_attributes_97be5f53b506f3b5 ::
+     IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE f7_ptr #-}
 
@@ -403,8 +403,8 @@ f7_ptr :: Ptr.FunPtr (IO ())
 f7_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_97be5f53b506f3b5
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_ae7ef3d579d77d0b" hs_bindgen_test_visibility_attributes_ae7ef3d579d77d0b
-  :: IO (Ptr.FunPtr (IO ()))
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_ae7ef3d579d77d0b" hs_bindgen_test_visibility_attributes_ae7ef3d579d77d0b ::
+     IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE f8_ptr #-}
 
@@ -418,8 +418,8 @@ f8_ptr :: Ptr.FunPtr (IO ())
 f8_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_ae7ef3d579d77d0b
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_ef6d611329a20b40" hs_bindgen_test_visibility_attributes_ef6d611329a20b40
-  :: IO (Ptr.FunPtr (IO ()))
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_ef6d611329a20b40" hs_bindgen_test_visibility_attributes_ef6d611329a20b40 ::
+     IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE f9_ptr #-}
 
@@ -433,8 +433,8 @@ f9_ptr :: Ptr.FunPtr (IO ())
 f9_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_ef6d611329a20b40
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_45797238134784ac" hs_bindgen_test_visibility_attributes_45797238134784ac
-  :: IO (Ptr.FunPtr (IO ()))
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_45797238134784ac" hs_bindgen_test_visibility_attributes_45797238134784ac ::
+     IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE f10_ptr #-}
 
@@ -448,8 +448,8 @@ f10_ptr :: Ptr.FunPtr (IO ())
 f10_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_45797238134784ac
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_f09c80553786e039" hs_bindgen_test_visibility_attributes_f09c80553786e039
-  :: IO (Ptr.FunPtr (IO ()))
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_f09c80553786e039" hs_bindgen_test_visibility_attributes_f09c80553786e039 ::
+     IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE f11_ptr #-}
 
@@ -463,8 +463,8 @@ f11_ptr :: Ptr.FunPtr (IO ())
 f11_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_f09c80553786e039
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_2e9999eac1cab3da" hs_bindgen_test_visibility_attributes_2e9999eac1cab3da
-  :: IO (Ptr.FunPtr (IO ()))
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_2e9999eac1cab3da" hs_bindgen_test_visibility_attributes_2e9999eac1cab3da ::
+     IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE f12_ptr #-}
 
@@ -478,8 +478,8 @@ f12_ptr :: Ptr.FunPtr (IO ())
 f12_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_2e9999eac1cab3da
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_32e5be8a3f3ac037" hs_bindgen_test_visibility_attributes_32e5be8a3f3ac037
-  :: IO (Ptr.FunPtr (IO ()))
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_32e5be8a3f3ac037" hs_bindgen_test_visibility_attributes_32e5be8a3f3ac037 ::
+     IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE f13_ptr #-}
 
@@ -493,8 +493,8 @@ f13_ptr :: Ptr.FunPtr (IO ())
 f13_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_32e5be8a3f3ac037
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_0b00a23924c6dc70" hs_bindgen_test_visibility_attributes_0b00a23924c6dc70
-  :: IO (Ptr.FunPtr (IO ()))
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_0b00a23924c6dc70" hs_bindgen_test_visibility_attributes_0b00a23924c6dc70 ::
+     IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE f14_ptr #-}
 
@@ -508,8 +508,8 @@ f14_ptr :: Ptr.FunPtr (IO ())
 f14_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_0b00a23924c6dc70
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_0d2891732562e5ef" hs_bindgen_test_visibility_attributes_0d2891732562e5ef
-  :: IO (Ptr.FunPtr (IO ()))
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_0d2891732562e5ef" hs_bindgen_test_visibility_attributes_0d2891732562e5ef ::
+     IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE f15_ptr #-}
 
@@ -523,8 +523,8 @@ f15_ptr :: Ptr.FunPtr (IO ())
 f15_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_0d2891732562e5ef
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_f25227febbe8db15" hs_bindgen_test_visibility_attributes_f25227febbe8db15
-  :: IO (Ptr.FunPtr (IO ()))
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_f25227febbe8db15" hs_bindgen_test_visibility_attributes_f25227febbe8db15 ::
+     IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE f16_ptr #-}
 
@@ -538,8 +538,8 @@ f16_ptr :: Ptr.FunPtr (IO ())
 f16_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_f25227febbe8db15
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_b90b1824c2839fd2" hs_bindgen_test_visibility_attributes_b90b1824c2839fd2
-  :: IO (Ptr.FunPtr (IO ()))
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_b90b1824c2839fd2" hs_bindgen_test_visibility_attributes_b90b1824c2839fd2 ::
+     IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE f17_ptr #-}
 
@@ -553,8 +553,8 @@ f17_ptr :: Ptr.FunPtr (IO ())
 f17_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_b90b1824c2839fd2
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_24ba8b98fe453a5c" hs_bindgen_test_visibility_attributes_24ba8b98fe453a5c
-  :: IO (Ptr.FunPtr (IO ()))
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_24ba8b98fe453a5c" hs_bindgen_test_visibility_attributes_24ba8b98fe453a5c ::
+     IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE f18_ptr #-}
 
@@ -568,8 +568,8 @@ f18_ptr :: Ptr.FunPtr (IO ())
 f18_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_24ba8b98fe453a5c
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_b857c57c0cf79909" hs_bindgen_test_visibility_attributes_b857c57c0cf79909
-  :: IO (Ptr.FunPtr (IO ()))
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_b857c57c0cf79909" hs_bindgen_test_visibility_attributes_b857c57c0cf79909 ::
+     IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE f19_ptr #-}
 
@@ -583,8 +583,8 @@ f19_ptr :: Ptr.FunPtr (IO ())
 f19_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_b857c57c0cf79909
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_d695cc521dd39753" hs_bindgen_test_visibility_attributes_d695cc521dd39753
-  :: IO (Ptr.FunPtr (IO ()))
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_d695cc521dd39753" hs_bindgen_test_visibility_attributes_d695cc521dd39753 ::
+     IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE f20_ptr #-}
 
@@ -598,8 +598,8 @@ f20_ptr :: Ptr.FunPtr (IO ())
 f20_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_d695cc521dd39753
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_7311dbbdd00abedc" hs_bindgen_test_visibility_attributes_7311dbbdd00abedc
-  :: IO (Ptr.FunPtr (IO ()))
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_7311dbbdd00abedc" hs_bindgen_test_visibility_attributes_7311dbbdd00abedc ::
+     IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE f21_ptr #-}
 
@@ -613,8 +613,8 @@ f21_ptr :: Ptr.FunPtr (IO ())
 f21_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_7311dbbdd00abedc
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_4246b9344ad4db0d" hs_bindgen_test_visibility_attributes_4246b9344ad4db0d
-  :: IO (Ptr.FunPtr (IO ()))
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_4246b9344ad4db0d" hs_bindgen_test_visibility_attributes_4246b9344ad4db0d ::
+     IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE f22_ptr #-}
 
@@ -628,8 +628,8 @@ f22_ptr :: Ptr.FunPtr (IO ())
 f22_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_4246b9344ad4db0d
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_dcef056ccb5953f9" hs_bindgen_test_visibility_attributes_dcef056ccb5953f9
-  :: IO (Ptr.FunPtr (IO ()))
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_dcef056ccb5953f9" hs_bindgen_test_visibility_attributes_dcef056ccb5953f9 ::
+     IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE f23_ptr #-}
 
@@ -643,8 +643,8 @@ f23_ptr :: Ptr.FunPtr (IO ())
 f23_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_dcef056ccb5953f9
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_9ab6df359be6d370" hs_bindgen_test_visibility_attributes_9ab6df359be6d370
-  :: IO (Ptr.FunPtr (IO ()))
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_9ab6df359be6d370" hs_bindgen_test_visibility_attributes_9ab6df359be6d370 ::
+     IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE f24_ptr #-}
 
@@ -658,8 +658,8 @@ f24_ptr :: Ptr.FunPtr (IO ())
 f24_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_9ab6df359be6d370
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_80cad6f0afd3f1fc" hs_bindgen_test_visibility_attributes_80cad6f0afd3f1fc
-  :: IO (Ptr.FunPtr (IO ()))
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_80cad6f0afd3f1fc" hs_bindgen_test_visibility_attributes_80cad6f0afd3f1fc ::
+     IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE f25_ptr #-}
 
@@ -673,8 +673,8 @@ f25_ptr :: Ptr.FunPtr (IO ())
 f25_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_80cad6f0afd3f1fc
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_b1580cdccf30f552" hs_bindgen_test_visibility_attributes_b1580cdccf30f552
-  :: IO (Ptr.FunPtr (IO ()))
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_b1580cdccf30f552" hs_bindgen_test_visibility_attributes_b1580cdccf30f552 ::
+     IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE f26_ptr #-}
 
@@ -688,8 +688,8 @@ f26_ptr :: Ptr.FunPtr (IO ())
 f26_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_b1580cdccf30f552
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_2e4891a5e2afe0df" hs_bindgen_test_visibility_attributes_2e4891a5e2afe0df
-  :: IO (Ptr.FunPtr (IO ()))
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_2e4891a5e2afe0df" hs_bindgen_test_visibility_attributes_2e4891a5e2afe0df ::
+     IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE f27_ptr #-}
 
@@ -703,8 +703,8 @@ f27_ptr :: Ptr.FunPtr (IO ())
 f27_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_2e4891a5e2afe0df
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_e2949a9b7b7cbfc0" hs_bindgen_test_visibility_attributes_e2949a9b7b7cbfc0
-  :: IO (Ptr.FunPtr (IO ()))
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_e2949a9b7b7cbfc0" hs_bindgen_test_visibility_attributes_e2949a9b7b7cbfc0 ::
+     IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE f28_ptr #-}
 
@@ -718,8 +718,8 @@ f28_ptr :: Ptr.FunPtr (IO ())
 f28_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_e2949a9b7b7cbfc0
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_1224b39f0e8e72cd" hs_bindgen_test_visibility_attributes_1224b39f0e8e72cd
-  :: IO (Ptr.FunPtr (IO ()))
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_1224b39f0e8e72cd" hs_bindgen_test_visibility_attributes_1224b39f0e8e72cd ::
+     IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE f29_ptr #-}
 
@@ -733,8 +733,8 @@ f29_ptr :: Ptr.FunPtr (IO ())
 f29_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_1224b39f0e8e72cd
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_216496b15d8f3143" hs_bindgen_test_visibility_attributes_216496b15d8f3143
-  :: IO (Ptr.Ptr FC.CInt)
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_216496b15d8f3143" hs_bindgen_test_visibility_attributes_216496b15d8f3143 ::
+     IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE i0_ptr #-}
 
@@ -748,8 +748,8 @@ i0_ptr :: Ptr.Ptr FC.CInt
 i0_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_216496b15d8f3143
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_8a4a155fb4b3e983" hs_bindgen_test_visibility_attributes_8a4a155fb4b3e983
-  :: IO (Ptr.Ptr FC.CInt)
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_8a4a155fb4b3e983" hs_bindgen_test_visibility_attributes_8a4a155fb4b3e983 ::
+     IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE i1_ptr #-}
 
@@ -763,8 +763,8 @@ i1_ptr :: Ptr.Ptr FC.CInt
 i1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_8a4a155fb4b3e983
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_8a341976b53c3159" hs_bindgen_test_visibility_attributes_8a341976b53c3159
-  :: IO (Ptr.Ptr FC.CInt)
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_8a341976b53c3159" hs_bindgen_test_visibility_attributes_8a341976b53c3159 ::
+     IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE i2_ptr #-}
 
@@ -778,8 +778,8 @@ i2_ptr :: Ptr.Ptr FC.CInt
 i2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_8a341976b53c3159
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_8a18e8a325536dc5" hs_bindgen_test_visibility_attributes_8a18e8a325536dc5
-  :: IO (Ptr.Ptr FC.CInt)
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_8a18e8a325536dc5" hs_bindgen_test_visibility_attributes_8a18e8a325536dc5 ::
+     IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE i3_ptr #-}
 
@@ -793,8 +793,8 @@ i3_ptr :: Ptr.Ptr FC.CInt
 i3_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_8a18e8a325536dc5
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_8a083f6803595ed2" hs_bindgen_test_visibility_attributes_8a083f6803595ed2
-  :: IO (Ptr.Ptr FC.CInt)
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_8a083f6803595ed2" hs_bindgen_test_visibility_attributes_8a083f6803595ed2 ::
+     IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE i4_ptr #-}
 
@@ -808,8 +808,8 @@ i4_ptr :: Ptr.Ptr FC.CInt
 i4_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_8a083f6803595ed2
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_b9d322a4c171d6fa" hs_bindgen_test_visibility_attributes_b9d322a4c171d6fa
-  :: IO (Ptr.Ptr FC.CInt)
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_b9d322a4c171d6fa" hs_bindgen_test_visibility_attributes_b9d322a4c171d6fa ::
+     IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE i5_ptr #-}
 
@@ -823,8 +823,8 @@ i5_ptr :: Ptr.Ptr FC.CInt
 i5_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_b9d322a4c171d6fa
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_2c4836056a76ae78" hs_bindgen_test_visibility_attributes_2c4836056a76ae78
-  :: IO (Ptr.Ptr FC.CInt)
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_2c4836056a76ae78" hs_bindgen_test_visibility_attributes_2c4836056a76ae78 ::
+     IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE i6_ptr #-}
 
@@ -838,8 +838,8 @@ i6_ptr :: Ptr.Ptr FC.CInt
 i6_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_2c4836056a76ae78
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_b9d40a2f9eb7062e" hs_bindgen_test_visibility_attributes_b9d40a2f9eb7062e
-  :: IO (Ptr.Ptr FC.CInt)
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_b9d40a2f9eb7062e" hs_bindgen_test_visibility_attributes_b9d40a2f9eb7062e ::
+     IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE i7_ptr #-}
 
@@ -853,8 +853,8 @@ i7_ptr :: Ptr.Ptr FC.CInt
 i7_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_b9d40a2f9eb7062e
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_3fd4c67173dc11ce" hs_bindgen_test_visibility_attributes_3fd4c67173dc11ce
-  :: IO (Ptr.Ptr FC.CInt)
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_3fd4c67173dc11ce" hs_bindgen_test_visibility_attributes_3fd4c67173dc11ce ::
+     IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE i8_ptr #-}
 
@@ -868,8 +868,8 @@ i8_ptr :: Ptr.Ptr FC.CInt
 i8_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_3fd4c67173dc11ce
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_b9ff2784975e7295" hs_bindgen_test_visibility_attributes_b9ff2784975e7295
-  :: IO (Ptr.Ptr FC.CInt)
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_b9ff2784975e7295" hs_bindgen_test_visibility_attributes_b9ff2784975e7295 ::
+     IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE i9_ptr #-}
 
@@ -883,8 +883,8 @@ i9_ptr :: Ptr.Ptr FC.CInt
 i9_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_b9ff2784975e7295
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_17a29f1f8c101878" hs_bindgen_test_visibility_attributes_17a29f1f8c101878
-  :: IO (Ptr.Ptr FC.CInt)
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_17a29f1f8c101878" hs_bindgen_test_visibility_attributes_17a29f1f8c101878 ::
+     IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE i10_ptr #-}
 
@@ -898,8 +898,8 @@ i10_ptr :: Ptr.Ptr FC.CInt
 i10_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_17a29f1f8c101878
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_4e591df5ac4216c9" hs_bindgen_test_visibility_attributes_4e591df5ac4216c9
-  :: IO (Ptr.Ptr FC.CInt)
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_4e591df5ac4216c9" hs_bindgen_test_visibility_attributes_4e591df5ac4216c9 ::
+     IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE i11_ptr #-}
 
@@ -913,8 +913,8 @@ i11_ptr :: Ptr.Ptr FC.CInt
 i11_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_4e591df5ac4216c9
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_7a8621a15e9246c4" hs_bindgen_test_visibility_attributes_7a8621a15e9246c4
-  :: IO (Ptr.Ptr FC.CInt)
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_7a8621a15e9246c4" hs_bindgen_test_visibility_attributes_7a8621a15e9246c4 ::
+     IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE i12_ptr #-}
 
@@ -928,8 +928,8 @@ i12_ptr :: Ptr.Ptr FC.CInt
 i12_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_7a8621a15e9246c4
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_96cb39c8a898775e" hs_bindgen_test_visibility_attributes_96cb39c8a898775e
-  :: IO (Ptr.Ptr FC.CInt)
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_96cb39c8a898775e" hs_bindgen_test_visibility_attributes_96cb39c8a898775e ::
+     IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE i13_ptr #-}
 
@@ -943,8 +943,8 @@ i13_ptr :: Ptr.Ptr FC.CInt
 i13_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_96cb39c8a898775e
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_9f817ee25723fbcd" hs_bindgen_test_visibility_attributes_9f817ee25723fbcd
-  :: IO (Ptr.Ptr FC.CInt)
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_9f817ee25723fbcd" hs_bindgen_test_visibility_attributes_9f817ee25723fbcd ::
+     IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE i14_ptr #-}
 
@@ -958,8 +958,8 @@ i14_ptr :: Ptr.Ptr FC.CInt
 i14_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_9f817ee25723fbcd
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_0f8755cf60822f2e" hs_bindgen_test_visibility_attributes_0f8755cf60822f2e
-  :: IO (Ptr.Ptr FC.CInt)
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_0f8755cf60822f2e" hs_bindgen_test_visibility_attributes_0f8755cf60822f2e ::
+     IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE i15_ptr #-}
 
@@ -973,8 +973,8 @@ i15_ptr :: Ptr.Ptr FC.CInt
 i15_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_0f8755cf60822f2e
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_3023a5c63e753d58" hs_bindgen_test_visibility_attributes_3023a5c63e753d58
-  :: IO (Ptr.Ptr FC.CInt)
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_3023a5c63e753d58" hs_bindgen_test_visibility_attributes_3023a5c63e753d58 ::
+     IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE i16_ptr #-}
 
@@ -988,8 +988,8 @@ i16_ptr :: Ptr.Ptr FC.CInt
 i16_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_3023a5c63e753d58
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_b5610fa653ca61e6" hs_bindgen_test_visibility_attributes_b5610fa653ca61e6
-  :: IO (Ptr.Ptr FC.CInt)
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_b5610fa653ca61e6" hs_bindgen_test_visibility_attributes_b5610fa653ca61e6 ::
+     IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE i17_ptr #-}
 
@@ -1003,8 +1003,8 @@ i17_ptr :: Ptr.Ptr FC.CInt
 i17_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_b5610fa653ca61e6
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_17edf053c36e012c" hs_bindgen_test_visibility_attributes_17edf053c36e012c
-  :: IO (Ptr.Ptr FC.CInt)
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_17edf053c36e012c" hs_bindgen_test_visibility_attributes_17edf053c36e012c ::
+     IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE i18_ptr #-}
 
@@ -1018,8 +1018,8 @@ i18_ptr :: Ptr.Ptr FC.CInt
 i18_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_visibility_attributes_17edf053c36e012c
 
-foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_df1c0751f896e6b8" hs_bindgen_test_visibility_attributes_df1c0751f896e6b8
-  :: IO (Ptr.Ptr FC.CInt)
+foreign import ccall unsafe "hs_bindgen_test_visibility_attributes_df1c0751f896e6b8" hs_bindgen_test_visibility_attributes_df1c0751f896e6b8 ::
+     IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE i19_ptr #-}
 

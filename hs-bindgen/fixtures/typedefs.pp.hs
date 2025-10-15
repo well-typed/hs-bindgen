@@ -48,12 +48,12 @@ newtype Int2int = Int2int
   { un_Int2int :: FC.CInt -> IO FC.CInt
   }
 
-foreign import ccall safe "wrapper" toInt2int
-  :: Int2int
+foreign import ccall safe "wrapper" toInt2int ::
+     Int2int
   -> IO (Ptr.FunPtr Int2int)
 
-foreign import ccall safe "dynamic" fromInt2int
-  :: Ptr.FunPtr Int2int
+foreign import ccall safe "dynamic" fromInt2int ::
+     Ptr.FunPtr Int2int
   -> Int2int
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr Int2int where
@@ -74,12 +74,12 @@ newtype FunctionPointer_Function_Deref = FunctionPointer_Function_Deref
   { un_FunctionPointer_Function_Deref :: IO ()
   }
 
-foreign import ccall safe "wrapper" toFunctionPointer_Function_Deref
-  :: FunctionPointer_Function_Deref
+foreign import ccall safe "wrapper" toFunctionPointer_Function_Deref ::
+     FunctionPointer_Function_Deref
   -> IO (Ptr.FunPtr FunctionPointer_Function_Deref)
 
-foreign import ccall safe "dynamic" fromFunctionPointer_Function_Deref
-  :: Ptr.FunPtr FunctionPointer_Function_Deref
+foreign import ccall safe "dynamic" fromFunctionPointer_Function_Deref ::
+     Ptr.FunPtr FunctionPointer_Function_Deref
   -> FunctionPointer_Function_Deref
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr FunctionPointer_Function_Deref where
@@ -112,12 +112,12 @@ newtype NonFunctionPointer_Function = NonFunctionPointer_Function
   { un_NonFunctionPointer_Function :: FC.CInt -> IO FC.CInt
   }
 
-foreign import ccall safe "wrapper" toNonFunctionPointer_Function
-  :: NonFunctionPointer_Function
+foreign import ccall safe "wrapper" toNonFunctionPointer_Function ::
+     NonFunctionPointer_Function
   -> IO (Ptr.FunPtr NonFunctionPointer_Function)
 
-foreign import ccall safe "dynamic" fromNonFunctionPointer_Function
-  :: Ptr.FunPtr NonFunctionPointer_Function
+foreign import ccall safe "dynamic" fromNonFunctionPointer_Function ::
+     Ptr.FunPtr NonFunctionPointer_Function
   -> NonFunctionPointer_Function
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr NonFunctionPointer_Function where
@@ -138,12 +138,12 @@ newtype F1_Deref = F1_Deref
   { un_F1_Deref :: IO ()
   }
 
-foreign import ccall safe "wrapper" toF1_Deref
-  :: F1_Deref
+foreign import ccall safe "wrapper" toF1_Deref ::
+     F1_Deref
   -> IO (Ptr.FunPtr F1_Deref)
 
-foreign import ccall safe "dynamic" fromF1_Deref
-  :: Ptr.FunPtr F1_Deref
+foreign import ccall safe "dynamic" fromF1_Deref ::
+     Ptr.FunPtr F1_Deref
   -> F1_Deref
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr F1_Deref where
@@ -176,12 +176,12 @@ newtype G1 = G1
   { un_G1 :: IO ()
   }
 
-foreign import ccall safe "wrapper" toG1
-  :: G1
+foreign import ccall safe "wrapper" toG1 ::
+     G1
   -> IO (Ptr.FunPtr G1)
 
-foreign import ccall safe "dynamic" fromG1
-  :: Ptr.FunPtr G1
+foreign import ccall safe "dynamic" fromG1 ::
+     Ptr.FunPtr G1
   -> G1
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr G1 where
@@ -214,12 +214,12 @@ newtype H1 = H1
   { un_H1 :: IO ()
   }
 
-foreign import ccall safe "wrapper" toH1
-  :: H1
+foreign import ccall safe "wrapper" toH1 ::
+     H1
   -> IO (Ptr.FunPtr H1)
 
-foreign import ccall safe "dynamic" fromH1
-  :: Ptr.FunPtr H1
+foreign import ccall safe "dynamic" fromH1 ::
+     Ptr.FunPtr H1
   -> H1
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr H1 where

@@ -1876,12 +1876,24 @@
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Pointer-based API for",
+              Identifier "fun_1_const"],
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclFunction
-    (FunctionDecl
-      (Name "@NsVar" "fun_1_const")
-      [
+    FunctionDecl {
+      functionDeclName = Name
+        "@NsVar"
+        "fun_1_const",
+      functionDeclParameters = [
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "x"),
@@ -1897,9 +1909,7 @@
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "xs"),
-          functionParameterType =
-          HsConstArray
-            3
+          functionParameterType = HsPtr
             (HsPrimType HsPrimCInt),
           functionParameterComment = Just
             Comment {
@@ -1921,9 +1931,12 @@
               commentOrigin = Just "ys",
               commentLocation = Nothing,
               commentHeaderInfo = Nothing,
-              commentChildren = []}}]
-      (HsIO (HsPrimType HsPrimCInt))
-      (Function
+              commentChildren = []}}],
+      functionDeclResultType = HsIO
+        (HsPrimType HsPrimCInt),
+      functionDeclBody =
+      `ELam "x" (ELam "x" (ELam "x" (EApp (EApp (EGlobal ConstantArray_withPtr) (EBound 0)) (ELam "ptr" (EApp (EApp (EApp (EFree "fun_1_const_wrapper") (EBound 3)) (EBound 2)) (EBound 0))))))`,
+      functionDeclOrigin = Function
         Function {
           functionArgs = [
             _×_
@@ -1959,8 +1972,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)})
-      (Just
+            (PrimIntegral PrimInt Signed)},
+      functionDeclComment = Just
         Comment {
           commentTitle = Just
             [
@@ -1975,7 +1988,7 @@
               headerMainHeaders = NE.fromList
                 ["array.h"],
               headerInclude = "array.h"},
-          commentChildren = []})),
+          commentChildren = []}},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -2051,19 +2064,29 @@
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Pointer-based API for",
+              Identifier "fun_2_const"],
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclFunction
-    (FunctionDecl
-      (Name "@NsVar" "fun_2_const")
-      [
+    FunctionDecl {
+      functionDeclName = Name
+        "@NsVar"
+        "fun_2_const",
+      functionDeclParameters = [
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "xs"),
-          functionParameterType = HsTypRef
-            (Name
-              "@NsTypeConstr"
-              "Triplet"),
+          functionParameterType = HsPtr
+            (HsPrimType HsPrimCInt),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -2084,9 +2107,12 @@
               commentOrigin = Just "ys",
               commentLocation = Nothing,
               commentHeaderInfo = Nothing,
-              commentChildren = []}}]
-      (HsIO (HsPrimType HsPrimCInt))
-      (Function
+              commentChildren = []}}],
+      functionDeclResultType = HsIO
+        (HsPrimType HsPrimCInt),
+      functionDeclBody =
+      `ELam "x" (ELam "x" (EApp (EApp (EGlobal ConstantArray_withPtr) (EBound 0)) (ELam "ptr" (EApp (EApp (EFree "fun_2_const_wrapper") (EBound 2)) (EBound 0)))))`,
+      functionDeclOrigin = Function
         Function {
           functionArgs = [
             _×_
@@ -2129,8 +2155,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)})
-      (Just
+            (PrimIntegral PrimInt Signed)},
+      functionDeclComment = Just
         Comment {
           commentTitle = Just
             [
@@ -2145,7 +2171,7 @@
               headerMainHeaders = NE.fromList
                 ["array.h"],
               headerInclude = "array.h"},
-          commentChildren = []})),
+          commentChildren = []}},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -2205,17 +2231,28 @@
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Pointer-based API for",
+              Identifier "fun_3_const"],
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclFunction
-    (FunctionDecl
-      (Name "@NsVar" "fun_3_const")
-      [
+    FunctionDecl {
+      functionDeclName = Name
+        "@NsVar"
+        "fun_3_const",
+      functionDeclParameters = [
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "xs"),
-          functionParameterType =
-          HsIncompleteArray
+          functionParameterType = HsPtr
             (HsPrimType HsPrimCInt),
           functionParameterComment = Just
             Comment {
@@ -2236,9 +2273,12 @@
               commentOrigin = Just "ys",
               commentLocation = Nothing,
               commentHeaderInfo = Nothing,
-              commentChildren = []}}]
-      (HsIO (HsPrimType HsPrimCInt))
-      (Function
+              commentChildren = []}}],
+      functionDeclResultType = HsIO
+        (HsPrimType HsPrimCInt),
+      functionDeclBody =
+      `ELam "x" (ELam "x" (EApp (EApp (EGlobal IncompleteArray_withPtr) (EBound 0)) (ELam "ptr" (EApp (EApp (EFree "fun_3_const_wrapper") (EBound 2)) (EBound 0)))))`,
+      functionDeclOrigin = Function
         Function {
           functionArgs = [
             _×_
@@ -2265,8 +2305,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)})
-      (Just
+            (PrimIntegral PrimInt Signed)},
+      functionDeclComment = Just
         Comment {
           commentTitle = Just
             [
@@ -2281,7 +2321,7 @@
               headerMainHeaders = NE.fromList
                 ["array.h"],
               headerInclude = "array.h"},
-          commentChildren = []})),
+          commentChildren = []}},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -2353,17 +2393,29 @@
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Pointer-based API for",
+              Identifier "fun_4_const"],
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclFunction
-    (FunctionDecl
-      (Name "@NsVar" "fun_4_const")
-      [
+    FunctionDecl {
+      functionDeclName = Name
+        "@NsVar"
+        "fun_4_const",
+      functionDeclParameters = [
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "xs"),
-          functionParameterType = HsTypRef
-            (Name "@NsTypeConstr" "List"),
+          functionParameterType = HsPtr
+            (HsPrimType HsPrimCInt),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -2382,9 +2434,12 @@
               commentOrigin = Just "ys",
               commentLocation = Nothing,
               commentHeaderInfo = Nothing,
-              commentChildren = []}}]
-      (HsIO (HsPrimType HsPrimCInt))
-      (Function
+              commentChildren = []}}],
+      functionDeclResultType = HsIO
+        (HsPrimType HsPrimCInt),
+      functionDeclBody =
+      `ELam "x" (ELam "x" (EApp (EApp (EGlobal IncompleteArray_withPtr) (EBound 0)) (ELam "ptr" (EApp (EApp (EFree "fun_4_const_wrapper") (EBound 2)) (EBound 0)))))`,
+      functionDeclOrigin = Function
         Function {
           functionArgs = [
             _×_
@@ -2423,8 +2478,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)})
-      (Just
+            (PrimIntegral PrimInt Signed)},
+      functionDeclComment = Just
         Comment {
           commentTitle = Just
             [
@@ -2439,7 +2494,7 @@
               headerMainHeaders = NE.fromList
                 ["array.h"],
               headerInclude = "array.h"},
-          commentChildren = []})),
+          commentChildren = []}},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -2511,18 +2566,28 @@
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Pointer-based API for",
+              Identifier "fun_5_const"],
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclFunction
-    (FunctionDecl
-      (Name "@NsVar" "fun_5_const")
-      [
+    FunctionDecl {
+      functionDeclName = Name
+        "@NsVar"
+        "fun_5_const",
+      functionDeclParameters = [
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "xss"),
-          functionParameterType =
-          HsConstArray
-            4
+          functionParameterType = HsPtr
             (HsConstArray
               3
               (HsPrimType HsPrimCInt)),
@@ -2548,9 +2613,12 @@
               commentOrigin = Just "yss",
               commentLocation = Nothing,
               commentHeaderInfo = Nothing,
-              commentChildren = []}}]
-      (HsIO (HsPrimType HsPrimCInt))
-      (Function
+              commentChildren = []}}],
+      functionDeclResultType = HsIO
+        (HsPrimType HsPrimCInt),
+      functionDeclBody =
+      `ELam "x" (ELam "x" (EApp (EApp (EGlobal ConstantArray_withPtr) (EBound 0)) (ELam "ptr" (EApp (EApp (EFree "fun_5_const_wrapper") (EBound 2)) (EBound 0)))))`,
+      functionDeclOrigin = Function
         Function {
           functionArgs = [
             _×_
@@ -2585,8 +2653,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)})
-      (Just
+            (PrimIntegral PrimInt Signed)},
+      functionDeclComment = Just
         Comment {
           commentTitle = Just
             [
@@ -2601,7 +2669,7 @@
               headerMainHeaders = NE.fromList
                 ["array.h"],
               headerInclude = "array.h"},
-          commentChildren = []})),
+          commentChildren = []}},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -2685,17 +2753,31 @@
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Pointer-based API for",
+              Identifier "fun_6_const"],
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclFunction
-    (FunctionDecl
-      (Name "@NsVar" "fun_6_const")
-      [
+    FunctionDecl {
+      functionDeclName = Name
+        "@NsVar"
+        "fun_6_const",
+      functionDeclParameters = [
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "xss"),
-          functionParameterType = HsTypRef
-            (Name "@NsTypeConstr" "Matrix"),
+          functionParameterType = HsPtr
+            (HsConstArray
+              3
+              (HsPrimType HsPrimCInt)),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -2714,9 +2796,12 @@
               commentOrigin = Just "yss",
               commentLocation = Nothing,
               commentHeaderInfo = Nothing,
-              commentChildren = []}}]
-      (HsIO (HsPrimType HsPrimCInt))
-      (Function
+              commentChildren = []}}],
+      functionDeclResultType = HsIO
+        (HsPrimType HsPrimCInt),
+      functionDeclBody =
+      `ELam "x" (ELam "x" (EApp (EApp (EGlobal ConstantArray_withPtr) (EBound 0)) (ELam "ptr" (EApp (EApp (EFree "fun_6_const_wrapper") (EBound 2)) (EBound 0)))))`,
+      functionDeclOrigin = Function
         Function {
           functionArgs = [
             _×_
@@ -2763,8 +2848,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)})
-      (Just
+            (PrimIntegral PrimInt Signed)},
+      functionDeclComment = Just
         Comment {
           commentTitle = Just
             [
@@ -2779,7 +2864,7 @@
               headerMainHeaders = NE.fromList
                 ["array.h"],
               headerInclude = "array.h"},
-          commentChildren = []})),
+          commentChildren = []}},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -2849,17 +2934,28 @@
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Pointer-based API for",
+              Identifier "fun_7_const"],
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclFunction
-    (FunctionDecl
-      (Name "@NsVar" "fun_7_const")
-      [
+    FunctionDecl {
+      functionDeclName = Name
+        "@NsVar"
+        "fun_7_const",
+      functionDeclParameters = [
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "xss"),
-          functionParameterType =
-          HsIncompleteArray
+          functionParameterType = HsPtr
             (HsConstArray
               3
               (HsPrimType HsPrimCInt)),
@@ -2884,9 +2980,12 @@
               commentOrigin = Just "yss",
               commentLocation = Nothing,
               commentHeaderInfo = Nothing,
-              commentChildren = []}}]
-      (HsIO (HsPrimType HsPrimCInt))
-      (Function
+              commentChildren = []}}],
+      functionDeclResultType = HsIO
+        (HsPrimType HsPrimCInt),
+      functionDeclBody =
+      `ELam "x" (ELam "x" (EApp (EApp (EGlobal IncompleteArray_withPtr) (EBound 0)) (ELam "ptr" (EApp (EApp (EFree "fun_7_const_wrapper") (EBound 2)) (EBound 0)))))`,
+      functionDeclOrigin = Function
         Function {
           functionArgs = [
             _×_
@@ -2919,8 +3018,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)})
-      (Just
+            (PrimIntegral PrimInt Signed)},
+      functionDeclComment = Just
         Comment {
           commentTitle = Just
             [
@@ -2935,7 +3034,7 @@
               headerMainHeaders = NE.fromList
                 ["array.h"],
               headerInclude = "array.h"},
-          commentChildren = []})),
+          commentChildren = []}},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -3017,19 +3116,31 @@
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Pointer-based API for",
+              Identifier "fun_8_const"],
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclFunction
-    (FunctionDecl
-      (Name "@NsVar" "fun_8_const")
-      [
+    FunctionDecl {
+      functionDeclName = Name
+        "@NsVar"
+        "fun_8_const",
+      functionDeclParameters = [
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "xss"),
-          functionParameterType = HsTypRef
-            (Name
-              "@NsTypeConstr"
-              "Tripletlist"),
+          functionParameterType = HsPtr
+            (HsConstArray
+              3
+              (HsPrimType HsPrimCInt)),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -3050,9 +3161,12 @@
               commentOrigin = Just "yss",
               commentLocation = Nothing,
               commentHeaderInfo = Nothing,
-              commentChildren = []}}]
-      (HsIO (HsPrimType HsPrimCInt))
-      (Function
+              commentChildren = []}}],
+      functionDeclResultType = HsIO
+        (HsPrimType HsPrimCInt),
+      functionDeclBody =
+      `ELam "x" (ELam "x" (EApp (EApp (EGlobal IncompleteArray_withPtr) (EBound 0)) (ELam "ptr" (EApp (EApp (EFree "fun_8_const_wrapper") (EBound 2)) (EBound 0)))))`,
+      functionDeclOrigin = Function
         Function {
           functionArgs = [
             _×_
@@ -3097,8 +3211,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)})
-      (Just
+            (PrimIntegral PrimInt Signed)},
+      functionDeclComment = Just
         Comment {
           commentTitle = Just
             [
@@ -3113,7 +3227,7 @@
               headerMainHeaders = NE.fromList
                 ["array.h"],
               headerInclude = "array.h"},
-          commentChildren = []})),
+          commentChildren = []}},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -3211,17 +3325,32 @@
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Pointer-based API for",
+              Identifier "isSolved_const"],
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclFunction
-    (FunctionDecl
-      (Name "@NsVar" "isSolved_const")
-      [
+    FunctionDecl {
+      functionDeclName = Name
+        "@NsVar"
+        "isSolved_const",
+      functionDeclParameters = [
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "xss"),
-          functionParameterType = HsTypRef
-            (Name "@NsTypeConstr" "Sudoku"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Triplet")),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -3240,9 +3369,12 @@
               commentOrigin = Just "yss",
               commentLocation = Nothing,
               commentHeaderInfo = Nothing,
-              commentChildren = []}}]
-      (HsIO (HsPrimType HsPrimCInt))
-      (Function
+              commentChildren = []}}],
+      functionDeclResultType = HsIO
+        (HsPrimType HsPrimCInt),
+      functionDeclBody =
+      `ELam "x" (ELam "x" (EApp (EApp (EGlobal ConstantArray_withPtr) (EBound 0)) (ELam "ptr" (EApp (EApp (EFree "isSolved_const_wrapper") (EBound 2)) (EBound 0)))))`,
+      functionDeclOrigin = Function
         Function {
           functionArgs = [
             _×_
@@ -3301,8 +3433,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)})
-      (Just
+            (PrimIntegral PrimInt Signed)},
+      functionDeclComment = Just
         Comment {
           commentTitle = Just
             [
@@ -3317,7 +3449,7 @@
               headerMainHeaders = NE.fromList
                 ["array.h"],
               headerInclude = "array.h"},
-          commentChildren = []})),
+          commentChildren = []}},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -4538,12 +4670,24 @@
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Pointer-based API for",
+              Identifier "fun_1_const"],
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclFunction
-    (FunctionDecl
-      (Name "@NsVar" "fun_1_const")
-      [
+    FunctionDecl {
+      functionDeclName = Name
+        "@NsVar"
+        "fun_1_const",
+      functionDeclParameters = [
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "x"),
@@ -4559,9 +4703,7 @@
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "xs"),
-          functionParameterType =
-          HsConstArray
-            3
+          functionParameterType = HsPtr
             (HsPrimType HsPrimCInt),
           functionParameterComment = Just
             Comment {
@@ -4583,9 +4725,12 @@
               commentOrigin = Just "ys",
               commentLocation = Nothing,
               commentHeaderInfo = Nothing,
-              commentChildren = []}}]
-      (HsIO (HsPrimType HsPrimCInt))
-      (Function
+              commentChildren = []}}],
+      functionDeclResultType = HsIO
+        (HsPrimType HsPrimCInt),
+      functionDeclBody =
+      `ELam "x" (ELam "x" (ELam "x" (EApp (EApp (EGlobal ConstantArray_withPtr) (EBound 0)) (ELam "ptr" (EApp (EApp (EApp (EFree "fun_1_const_wrapper") (EBound 3)) (EBound 2)) (EBound 0))))))`,
+      functionDeclOrigin = Function
         Function {
           functionArgs = [
             _×_
@@ -4621,8 +4766,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)})
-      (Just
+            (PrimIntegral PrimInt Signed)},
+      functionDeclComment = Just
         Comment {
           commentTitle = Just
             [
@@ -4637,7 +4782,7 @@
               headerMainHeaders = NE.fromList
                 ["array.h"],
               headerInclude = "array.h"},
-          commentChildren = []})),
+          commentChildren = []}},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -4713,19 +4858,29 @@
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Pointer-based API for",
+              Identifier "fun_2_const"],
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclFunction
-    (FunctionDecl
-      (Name "@NsVar" "fun_2_const")
-      [
+    FunctionDecl {
+      functionDeclName = Name
+        "@NsVar"
+        "fun_2_const",
+      functionDeclParameters = [
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "xs"),
-          functionParameterType = HsTypRef
-            (Name
-              "@NsTypeConstr"
-              "Triplet"),
+          functionParameterType = HsPtr
+            (HsPrimType HsPrimCInt),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -4746,9 +4901,12 @@
               commentOrigin = Just "ys",
               commentLocation = Nothing,
               commentHeaderInfo = Nothing,
-              commentChildren = []}}]
-      (HsIO (HsPrimType HsPrimCInt))
-      (Function
+              commentChildren = []}}],
+      functionDeclResultType = HsIO
+        (HsPrimType HsPrimCInt),
+      functionDeclBody =
+      `ELam "x" (ELam "x" (EApp (EApp (EGlobal ConstantArray_withPtr) (EBound 0)) (ELam "ptr" (EApp (EApp (EFree "fun_2_const_wrapper") (EBound 2)) (EBound 0)))))`,
+      functionDeclOrigin = Function
         Function {
           functionArgs = [
             _×_
@@ -4791,8 +4949,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)})
-      (Just
+            (PrimIntegral PrimInt Signed)},
+      functionDeclComment = Just
         Comment {
           commentTitle = Just
             [
@@ -4807,7 +4965,7 @@
               headerMainHeaders = NE.fromList
                 ["array.h"],
               headerInclude = "array.h"},
-          commentChildren = []})),
+          commentChildren = []}},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -4867,17 +5025,28 @@
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Pointer-based API for",
+              Identifier "fun_3_const"],
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclFunction
-    (FunctionDecl
-      (Name "@NsVar" "fun_3_const")
-      [
+    FunctionDecl {
+      functionDeclName = Name
+        "@NsVar"
+        "fun_3_const",
+      functionDeclParameters = [
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "xs"),
-          functionParameterType =
-          HsIncompleteArray
+          functionParameterType = HsPtr
             (HsPrimType HsPrimCInt),
           functionParameterComment = Just
             Comment {
@@ -4898,9 +5067,12 @@
               commentOrigin = Just "ys",
               commentLocation = Nothing,
               commentHeaderInfo = Nothing,
-              commentChildren = []}}]
-      (HsIO (HsPrimType HsPrimCInt))
-      (Function
+              commentChildren = []}}],
+      functionDeclResultType = HsIO
+        (HsPrimType HsPrimCInt),
+      functionDeclBody =
+      `ELam "x" (ELam "x" (EApp (EApp (EGlobal IncompleteArray_withPtr) (EBound 0)) (ELam "ptr" (EApp (EApp (EFree "fun_3_const_wrapper") (EBound 2)) (EBound 0)))))`,
+      functionDeclOrigin = Function
         Function {
           functionArgs = [
             _×_
@@ -4927,8 +5099,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)})
-      (Just
+            (PrimIntegral PrimInt Signed)},
+      functionDeclComment = Just
         Comment {
           commentTitle = Just
             [
@@ -4943,7 +5115,7 @@
               headerMainHeaders = NE.fromList
                 ["array.h"],
               headerInclude = "array.h"},
-          commentChildren = []})),
+          commentChildren = []}},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -5015,17 +5187,29 @@
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Pointer-based API for",
+              Identifier "fun_4_const"],
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclFunction
-    (FunctionDecl
-      (Name "@NsVar" "fun_4_const")
-      [
+    FunctionDecl {
+      functionDeclName = Name
+        "@NsVar"
+        "fun_4_const",
+      functionDeclParameters = [
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "xs"),
-          functionParameterType = HsTypRef
-            (Name "@NsTypeConstr" "List"),
+          functionParameterType = HsPtr
+            (HsPrimType HsPrimCInt),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -5044,9 +5228,12 @@
               commentOrigin = Just "ys",
               commentLocation = Nothing,
               commentHeaderInfo = Nothing,
-              commentChildren = []}}]
-      (HsIO (HsPrimType HsPrimCInt))
-      (Function
+              commentChildren = []}}],
+      functionDeclResultType = HsIO
+        (HsPrimType HsPrimCInt),
+      functionDeclBody =
+      `ELam "x" (ELam "x" (EApp (EApp (EGlobal IncompleteArray_withPtr) (EBound 0)) (ELam "ptr" (EApp (EApp (EFree "fun_4_const_wrapper") (EBound 2)) (EBound 0)))))`,
+      functionDeclOrigin = Function
         Function {
           functionArgs = [
             _×_
@@ -5085,8 +5272,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)})
-      (Just
+            (PrimIntegral PrimInt Signed)},
+      functionDeclComment = Just
         Comment {
           commentTitle = Just
             [
@@ -5101,7 +5288,7 @@
               headerMainHeaders = NE.fromList
                 ["array.h"],
               headerInclude = "array.h"},
-          commentChildren = []})),
+          commentChildren = []}},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -5173,18 +5360,28 @@
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Pointer-based API for",
+              Identifier "fun_5_const"],
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclFunction
-    (FunctionDecl
-      (Name "@NsVar" "fun_5_const")
-      [
+    FunctionDecl {
+      functionDeclName = Name
+        "@NsVar"
+        "fun_5_const",
+      functionDeclParameters = [
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "xss"),
-          functionParameterType =
-          HsConstArray
-            4
+          functionParameterType = HsPtr
             (HsConstArray
               3
               (HsPrimType HsPrimCInt)),
@@ -5210,9 +5407,12 @@
               commentOrigin = Just "yss",
               commentLocation = Nothing,
               commentHeaderInfo = Nothing,
-              commentChildren = []}}]
-      (HsIO (HsPrimType HsPrimCInt))
-      (Function
+              commentChildren = []}}],
+      functionDeclResultType = HsIO
+        (HsPrimType HsPrimCInt),
+      functionDeclBody =
+      `ELam "x" (ELam "x" (EApp (EApp (EGlobal ConstantArray_withPtr) (EBound 0)) (ELam "ptr" (EApp (EApp (EFree "fun_5_const_wrapper") (EBound 2)) (EBound 0)))))`,
+      functionDeclOrigin = Function
         Function {
           functionArgs = [
             _×_
@@ -5247,8 +5447,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)})
-      (Just
+            (PrimIntegral PrimInt Signed)},
+      functionDeclComment = Just
         Comment {
           commentTitle = Just
             [
@@ -5263,7 +5463,7 @@
               headerMainHeaders = NE.fromList
                 ["array.h"],
               headerInclude = "array.h"},
-          commentChildren = []})),
+          commentChildren = []}},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -5347,17 +5547,31 @@
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Pointer-based API for",
+              Identifier "fun_6_const"],
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclFunction
-    (FunctionDecl
-      (Name "@NsVar" "fun_6_const")
-      [
+    FunctionDecl {
+      functionDeclName = Name
+        "@NsVar"
+        "fun_6_const",
+      functionDeclParameters = [
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "xss"),
-          functionParameterType = HsTypRef
-            (Name "@NsTypeConstr" "Matrix"),
+          functionParameterType = HsPtr
+            (HsConstArray
+              3
+              (HsPrimType HsPrimCInt)),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -5376,9 +5590,12 @@
               commentOrigin = Just "yss",
               commentLocation = Nothing,
               commentHeaderInfo = Nothing,
-              commentChildren = []}}]
-      (HsIO (HsPrimType HsPrimCInt))
-      (Function
+              commentChildren = []}}],
+      functionDeclResultType = HsIO
+        (HsPrimType HsPrimCInt),
+      functionDeclBody =
+      `ELam "x" (ELam "x" (EApp (EApp (EGlobal ConstantArray_withPtr) (EBound 0)) (ELam "ptr" (EApp (EApp (EFree "fun_6_const_wrapper") (EBound 2)) (EBound 0)))))`,
+      functionDeclOrigin = Function
         Function {
           functionArgs = [
             _×_
@@ -5425,8 +5642,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)})
-      (Just
+            (PrimIntegral PrimInt Signed)},
+      functionDeclComment = Just
         Comment {
           commentTitle = Just
             [
@@ -5441,7 +5658,7 @@
               headerMainHeaders = NE.fromList
                 ["array.h"],
               headerInclude = "array.h"},
-          commentChildren = []})),
+          commentChildren = []}},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -5511,17 +5728,28 @@
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Pointer-based API for",
+              Identifier "fun_7_const"],
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclFunction
-    (FunctionDecl
-      (Name "@NsVar" "fun_7_const")
-      [
+    FunctionDecl {
+      functionDeclName = Name
+        "@NsVar"
+        "fun_7_const",
+      functionDeclParameters = [
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "xss"),
-          functionParameterType =
-          HsIncompleteArray
+          functionParameterType = HsPtr
             (HsConstArray
               3
               (HsPrimType HsPrimCInt)),
@@ -5546,9 +5774,12 @@
               commentOrigin = Just "yss",
               commentLocation = Nothing,
               commentHeaderInfo = Nothing,
-              commentChildren = []}}]
-      (HsIO (HsPrimType HsPrimCInt))
-      (Function
+              commentChildren = []}}],
+      functionDeclResultType = HsIO
+        (HsPrimType HsPrimCInt),
+      functionDeclBody =
+      `ELam "x" (ELam "x" (EApp (EApp (EGlobal IncompleteArray_withPtr) (EBound 0)) (ELam "ptr" (EApp (EApp (EFree "fun_7_const_wrapper") (EBound 2)) (EBound 0)))))`,
+      functionDeclOrigin = Function
         Function {
           functionArgs = [
             _×_
@@ -5581,8 +5812,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)})
-      (Just
+            (PrimIntegral PrimInt Signed)},
+      functionDeclComment = Just
         Comment {
           commentTitle = Just
             [
@@ -5597,7 +5828,7 @@
               headerMainHeaders = NE.fromList
                 ["array.h"],
               headerInclude = "array.h"},
-          commentChildren = []})),
+          commentChildren = []}},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -5679,19 +5910,31 @@
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Pointer-based API for",
+              Identifier "fun_8_const"],
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclFunction
-    (FunctionDecl
-      (Name "@NsVar" "fun_8_const")
-      [
+    FunctionDecl {
+      functionDeclName = Name
+        "@NsVar"
+        "fun_8_const",
+      functionDeclParameters = [
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "xss"),
-          functionParameterType = HsTypRef
-            (Name
-              "@NsTypeConstr"
-              "Tripletlist"),
+          functionParameterType = HsPtr
+            (HsConstArray
+              3
+              (HsPrimType HsPrimCInt)),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -5712,9 +5955,12 @@
               commentOrigin = Just "yss",
               commentLocation = Nothing,
               commentHeaderInfo = Nothing,
-              commentChildren = []}}]
-      (HsIO (HsPrimType HsPrimCInt))
-      (Function
+              commentChildren = []}}],
+      functionDeclResultType = HsIO
+        (HsPrimType HsPrimCInt),
+      functionDeclBody =
+      `ELam "x" (ELam "x" (EApp (EApp (EGlobal IncompleteArray_withPtr) (EBound 0)) (ELam "ptr" (EApp (EApp (EFree "fun_8_const_wrapper") (EBound 2)) (EBound 0)))))`,
+      functionDeclOrigin = Function
         Function {
           functionArgs = [
             _×_
@@ -5759,8 +6005,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)})
-      (Just
+            (PrimIntegral PrimInt Signed)},
+      functionDeclComment = Just
         Comment {
           commentTitle = Just
             [
@@ -5775,7 +6021,7 @@
               headerMainHeaders = NE.fromList
                 ["array.h"],
               headerInclude = "array.h"},
-          commentChildren = []})),
+          commentChildren = []}},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -5873,17 +6119,32 @@
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Pointer-based API for",
+              Identifier "isSolved_const"],
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclFunction
-    (FunctionDecl
-      (Name "@NsVar" "isSolved_const")
-      [
+    FunctionDecl {
+      functionDeclName = Name
+        "@NsVar"
+        "isSolved_const",
+      functionDeclParameters = [
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "xss"),
-          functionParameterType = HsTypRef
-            (Name "@NsTypeConstr" "Sudoku"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Triplet")),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
@@ -5902,9 +6163,12 @@
               commentOrigin = Just "yss",
               commentLocation = Nothing,
               commentHeaderInfo = Nothing,
-              commentChildren = []}}]
-      (HsIO (HsPrimType HsPrimCInt))
-      (Function
+              commentChildren = []}}],
+      functionDeclResultType = HsIO
+        (HsPrimType HsPrimCInt),
+      functionDeclBody =
+      `ELam "x" (ELam "x" (EApp (EApp (EGlobal ConstantArray_withPtr) (EBound 0)) (ELam "ptr" (EApp (EApp (EFree "isSolved_const_wrapper") (EBound 2)) (EBound 0)))))`,
+      functionDeclOrigin = Function
         Function {
           functionArgs = [
             _×_
@@ -5963,8 +6227,8 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypePrim
-            (PrimIntegral PrimInt Signed)})
-      (Just
+            (PrimIntegral PrimInt Signed)},
+      functionDeclComment = Just
         Comment {
           commentTitle = Just
             [
@@ -5979,7 +6243,7 @@
               headerMainHeaders = NE.fromList
                 ["array.h"],
               headerInclude = "array.h"},
-          commentChildren = []})),
+          commentChildren = []}},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name

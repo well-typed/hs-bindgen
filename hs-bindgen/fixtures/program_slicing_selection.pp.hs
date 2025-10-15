@@ -192,8 +192,8 @@ instance F.Storable FileOperationRecord where
 
     __exported by:__ @program_slicing_selection.h@
 -}
-foreign import ccall safe "hs_bindgen_test_program_slicing_selection_13b0ed81415a625a" read_file_chunk
-  :: Ptr.Ptr HsBindgen.Runtime.Prelude.CFile
+foreign import ccall safe "hs_bindgen_test_program_slicing_selection_13b0ed81415a625a" read_file_chunk ::
+     Ptr.Ptr HsBindgen.Runtime.Prelude.CFile
      {- ^ __C declaration:__ @file_ptr@
      -}
   -> Ptr.Ptr Void
@@ -204,8 +204,8 @@ foreign import ccall safe "hs_bindgen_test_program_slicing_selection_13b0ed81415
      -}
   -> IO FileOperationStatus
 
-foreign import ccall unsafe "hs_bindgen_test_program_slicing_selection_cc45351e6b02b3b4" hs_bindgen_test_program_slicing_selection_cc45351e6b02b3b4
-  :: IO (Ptr.FunPtr ((Ptr.Ptr HsBindgen.Runtime.Prelude.CFile) -> (Ptr.Ptr Void) -> HsBindgen.Runtime.Prelude.CSize -> IO FileOperationStatus))
+foreign import ccall unsafe "hs_bindgen_test_program_slicing_selection_cc45351e6b02b3b4" hs_bindgen_test_program_slicing_selection_cc45351e6b02b3b4 ::
+     IO (Ptr.FunPtr ((Ptr.Ptr HsBindgen.Runtime.Prelude.CFile) -> (Ptr.Ptr Void) -> HsBindgen.Runtime.Prelude.CSize -> IO FileOperationStatus))
 
 {-# NOINLINE read_file_chunk_ptr #-}
 

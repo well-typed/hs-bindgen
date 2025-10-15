@@ -3,7 +3,7 @@
 module Test.HsBindgen.Orphans.TreeDiff () where
 
 import Data.Foldable (toList)
-import Data.TreeDiff.Class (ToExpr (..))
+import Data.TreeDiff.Class (ToExpr (..), defaultExprViaShow)
 import Data.TreeDiff.Expr qualified as Expr
 import Data.TreeDiff.OMap qualified as OMap
 import Data.Vec.Lazy (Vec)
@@ -151,16 +151,12 @@ instance ToExpr Hs.ForeignImportDecl
 instance ToExpr SHs.Safety
 instance ToExpr Hs.FunctionParameter
 
--- | Doesn't print the function body
+-- | Note: We can't write a proper instance here because 'ClosedExpr' has
+-- existential types
 --
+instance ToExpr SHs.ClosedExpr where
+  toExpr = defaultExprViaShow
 instance ToExpr Hs.FunctionDecl where
-  toExpr Hs.FunctionDecl{..} =
-    Expr.App "FunctionDecl" [ toExpr functionDeclName
-                            , toExpr functionDeclParameters
-                            , toExpr functionDeclResultType
-                            , toExpr functionDeclOrigin
-                            , toExpr functionDeclComment
-                            ]
 
 instance ToExpr a => ToExpr (HsType.ResultType a)
 instance ToExpr Hs.Newtype

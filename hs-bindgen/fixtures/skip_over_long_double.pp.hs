@@ -56,12 +56,12 @@ instance F.Storable Struct2 where
 
     __exported by:__ @skip_over_long_double.h@
 -}
-foreign import ccall safe "hs_bindgen_test_skip_over_long_double_fb32cb593bc1f7b8" fun2
-  :: FC.CInt
+foreign import ccall safe "hs_bindgen_test_skip_over_long_double_fb32cb593bc1f7b8" fun2 ::
+     FC.CInt
   -> IO ()
 
-foreign import ccall unsafe "hs_bindgen_test_skip_over_long_double_d1bf59c1516f6bfa" hs_bindgen_test_skip_over_long_double_d1bf59c1516f6bfa
-  :: IO (Ptr.FunPtr (FC.CInt -> IO ()))
+foreign import ccall unsafe "hs_bindgen_test_skip_over_long_double_d1bf59c1516f6bfa" hs_bindgen_test_skip_over_long_double_d1bf59c1516f6bfa ::
+     IO (Ptr.FunPtr (FC.CInt -> IO ()))
 
 {-# NOINLINE fun2_ptr #-}
 

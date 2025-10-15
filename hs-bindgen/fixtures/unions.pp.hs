@@ -132,8 +132,8 @@ __defined at:__ @unions.h:13:17@
 
 __exported by:__ @unions.h@
 -}
-get_dimPayload_dim2
-  :: DimPayload
+get_dimPayload_dim2 ::
+     DimPayload
   -> Dim2
 get_dimPayload_dim2 =
   HsBindgen.Runtime.ByteArray.getUnionPayload
@@ -143,8 +143,8 @@ get_dimPayload_dim2 =
   __See:__ 'get_dimPayload_dim2'
 
 -}
-set_dimPayload_dim2
-  :: Dim2
+set_dimPayload_dim2 ::
+     Dim2
   -> DimPayload
 set_dimPayload_dim2 =
   HsBindgen.Runtime.ByteArray.setUnionPayload
@@ -159,8 +159,8 @@ __defined at:__ @unions.h:14:17@
 
 __exported by:__ @unions.h@
 -}
-get_dimPayload_dim3
-  :: DimPayload
+get_dimPayload_dim3 ::
+     DimPayload
   -> Dim2
 get_dimPayload_dim3 =
   HsBindgen.Runtime.ByteArray.getUnionPayload
@@ -170,8 +170,8 @@ get_dimPayload_dim3 =
   __See:__ 'get_dimPayload_dim3'
 
 -}
-set_dimPayload_dim3
-  :: Dim2
+set_dimPayload_dim3 ::
+     Dim2
   -> DimPayload
 set_dimPayload_dim3 =
   HsBindgen.Runtime.ByteArray.setUnionPayload
@@ -241,8 +241,8 @@ __defined at:__ @unions.h:24:17@
 
 __exported by:__ @unions.h@
 -}
-get_dimPayloadB_dim2
-  :: DimPayloadB
+get_dimPayloadB_dim2 ::
+     DimPayloadB
   -> Dim2
 get_dimPayloadB_dim2 =
   HsBindgen.Runtime.ByteArray.getUnionPayload
@@ -252,8 +252,8 @@ get_dimPayloadB_dim2 =
   __See:__ 'get_dimPayloadB_dim2'
 
 -}
-set_dimPayloadB_dim2
-  :: Dim2
+set_dimPayloadB_dim2 ::
+     Dim2
   -> DimPayloadB
 set_dimPayloadB_dim2 =
   HsBindgen.Runtime.ByteArray.setUnionPayload
@@ -268,8 +268,8 @@ __defined at:__ @unions.h:25:17@
 
 __exported by:__ @unions.h@
 -}
-get_dimPayloadB_dim3
-  :: DimPayloadB
+get_dimPayloadB_dim3 ::
+     DimPayloadB
   -> Dim2
 get_dimPayloadB_dim3 =
   HsBindgen.Runtime.ByteArray.getUnionPayload
@@ -279,8 +279,8 @@ get_dimPayloadB_dim3 =
   __See:__ 'get_dimPayloadB_dim3'
 
 -}
-set_dimPayloadB_dim3
-  :: Dim2
+set_dimPayloadB_dim3 ::
+     Dim2
   -> DimPayloadB
 set_dimPayloadB_dim3 =
   HsBindgen.Runtime.ByteArray.setUnionPayload
@@ -434,8 +434,8 @@ __defined at:__ @unions.h:35:36@
 
 __exported by:__ @unions.h@
 -}
-get_anonA_xy
-  :: AnonA
+get_anonA_xy ::
+     AnonA
   -> AnonA_xy
 get_anonA_xy =
   HsBindgen.Runtime.ByteArray.getUnionPayload
@@ -445,8 +445,8 @@ get_anonA_xy =
   __See:__ 'get_anonA_xy'
 
 -}
-set_anonA_xy
-  :: AnonA_xy
+set_anonA_xy ::
+     AnonA_xy
   -> AnonA
 set_anonA_xy =
   HsBindgen.Runtime.ByteArray.setUnionPayload
@@ -461,8 +461,8 @@ __defined at:__ @unions.h:36:36@
 
 __exported by:__ @unions.h@
 -}
-get_anonA_polar
-  :: AnonA
+get_anonA_polar ::
+     AnonA
   -> AnonA_polar
 get_anonA_polar =
   HsBindgen.Runtime.ByteArray.getUnionPayload
@@ -472,8 +472,8 @@ get_anonA_polar =
   __See:__ 'get_anonA_polar'
 
 -}
-set_anonA_polar
-  :: AnonA_polar
+set_anonA_polar ::
+     AnonA_polar
   -> AnonA
 set_anonA_polar =
   HsBindgen.Runtime.ByteArray.setUnionPayload

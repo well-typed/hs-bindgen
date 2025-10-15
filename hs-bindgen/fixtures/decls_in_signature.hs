@@ -1718,12 +1718,24 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Pointer-based API for",
+              Identifier "normal"],
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclFunction
-    (FunctionDecl
-      (Name "@NsVar" "normal")
-      [
+    FunctionDecl {
+      functionDeclName = Name
+        "@NsVar"
+        "normal",
+      functionDeclParameters = [
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "ptr_to_opaque"),
@@ -1771,9 +1783,12 @@
               commentOrigin = Just "by_value",
               commentLocation = Nothing,
               commentHeaderInfo = Nothing,
-              commentChildren = []}}]
-      (HsIO (HsPrimType HsPrimUnit))
-      (Function
+              commentChildren = []}}],
+      functionDeclResultType = HsIO
+        (HsPrimType HsPrimUnit),
+      functionDeclBody =
+      `ELam "x" (ELam "x" (ELam "x" (EApp (EApp (EGlobal CAPI_with) (EBound 0)) (ELam "y" (EApp (EApp (EApp (EFree "normal_wrapper") (EBound 3)) (EBound 2)) (EBound 0))))))`,
+      functionDeclOrigin = Function
         Function {
           functionArgs = [
             _×_
@@ -1817,8 +1832,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid})
-      (Just
+          functionRes = TypeVoid},
+      functionDeclComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "normal",
@@ -1830,7 +1845,7 @@
                 ["decls_in_signature.h"],
               headerInclude =
               "decls_in_signature.h"},
-          commentChildren = []})),
+          commentChildren = []}},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -1877,12 +1892,24 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Pointer-based API for",
+              Identifier "f1"],
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclFunction
-    (FunctionDecl
-      (Name "@NsVar" "f1")
-      [
+    FunctionDecl {
+      functionDeclName = Name
+        "@NsVar"
+        "f1",
+      functionDeclParameters = [
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "arg"),
@@ -1896,9 +1923,12 @@
               commentOrigin = Just "arg",
               commentLocation = Nothing,
               commentHeaderInfo = Nothing,
-              commentChildren = []}}]
-      (HsIO (HsPrimType HsPrimUnit))
-      (Function
+              commentChildren = []}}],
+      functionDeclResultType = HsIO
+        (HsPrimType HsPrimUnit),
+      functionDeclBody =
+      `ELam "x" (EApp (EApp (EGlobal CAPI_with) (EBound 0)) (ELam "y" (EApp (EFree "f1_wrapper") (EBound 0))))`,
+      functionDeclOrigin = Function
         Function {
           functionArgs = [
             _×_
@@ -1915,8 +1945,9 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid})
-      (Just
+          functionRes = TypeVoid},
+      functionDeclComment =
+      Just
         Comment {
           commentTitle = Just
             [TextContent "Error cases"],
@@ -1936,7 +1967,7 @@
                 TextContent
                   "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
                 TextContent
-                  "and the edge cases below)."]]})),
+                  "and the edge cases below)."]]}},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -1983,12 +2014,24 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Pointer-based API for",
+              Identifier "f2"],
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclFunction
-    (FunctionDecl
-      (Name "@NsVar" "f2")
-      [
+    FunctionDecl {
+      functionDeclName = Name
+        "@NsVar"
+        "f2",
+      functionDeclParameters = [
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "arg"),
@@ -2002,9 +2045,12 @@
               commentOrigin = Just "arg",
               commentLocation = Nothing,
               commentHeaderInfo = Nothing,
-              commentChildren = []}}]
-      (HsIO (HsPrimType HsPrimUnit))
-      (Function
+              commentChildren = []}}],
+      functionDeclResultType = HsIO
+        (HsPrimType HsPrimUnit),
+      functionDeclBody =
+      `ELam "x" (EApp (EApp (EGlobal CAPI_with) (EBound 0)) (ELam "y" (EApp (EFree "f2_wrapper") (EBound 0))))`,
+      functionDeclOrigin = Function
         Function {
           functionArgs = [
             _×_
@@ -2021,8 +2067,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid})
-      (Just
+          functionRes = TypeVoid},
+      functionDeclComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "f2",
@@ -2034,7 +2080,7 @@
                 ["decls_in_signature.h"],
               headerInclude =
               "decls_in_signature.h"},
-          commentChildren = []})),
+          commentChildren = []}},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -2130,12 +2176,24 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Pointer-based API for",
+              Identifier "normal"],
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclFunction
-    (FunctionDecl
-      (Name "@NsVar" "normal")
-      [
+    FunctionDecl {
+      functionDeclName = Name
+        "@NsVar"
+        "normal",
+      functionDeclParameters = [
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "ptr_to_opaque"),
@@ -2183,9 +2241,12 @@
               commentOrigin = Just "by_value",
               commentLocation = Nothing,
               commentHeaderInfo = Nothing,
-              commentChildren = []}}]
-      (HsIO (HsPrimType HsPrimUnit))
-      (Function
+              commentChildren = []}}],
+      functionDeclResultType = HsIO
+        (HsPrimType HsPrimUnit),
+      functionDeclBody =
+      `ELam "x" (ELam "x" (ELam "x" (EApp (EApp (EGlobal CAPI_with) (EBound 0)) (ELam "y" (EApp (EApp (EApp (EFree "normal_wrapper") (EBound 3)) (EBound 2)) (EBound 0))))))`,
+      functionDeclOrigin = Function
         Function {
           functionArgs = [
             _×_
@@ -2229,8 +2290,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid})
-      (Just
+          functionRes = TypeVoid},
+      functionDeclComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "normal",
@@ -2242,7 +2303,7 @@
                 ["decls_in_signature.h"],
               headerInclude =
               "decls_in_signature.h"},
-          commentChildren = []})),
+          commentChildren = []}},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -2289,12 +2350,24 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Pointer-based API for",
+              Identifier "f1"],
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclFunction
-    (FunctionDecl
-      (Name "@NsVar" "f1")
-      [
+    FunctionDecl {
+      functionDeclName = Name
+        "@NsVar"
+        "f1",
+      functionDeclParameters = [
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "arg"),
@@ -2308,9 +2381,12 @@
               commentOrigin = Just "arg",
               commentLocation = Nothing,
               commentHeaderInfo = Nothing,
-              commentChildren = []}}]
-      (HsIO (HsPrimType HsPrimUnit))
-      (Function
+              commentChildren = []}}],
+      functionDeclResultType = HsIO
+        (HsPrimType HsPrimUnit),
+      functionDeclBody =
+      `ELam "x" (EApp (EApp (EGlobal CAPI_with) (EBound 0)) (ELam "y" (EApp (EFree "f1_wrapper") (EBound 0))))`,
+      functionDeclOrigin = Function
         Function {
           functionArgs = [
             _×_
@@ -2327,8 +2403,9 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid})
-      (Just
+          functionRes = TypeVoid},
+      functionDeclComment =
+      Just
         Comment {
           commentTitle = Just
             [TextContent "Error cases"],
@@ -2348,7 +2425,7 @@
                 TextContent
                   "See 'UnexpectedAnonInSignature' for discussion (of both these error cases",
                 TextContent
-                  "and the edge cases below)."]]})),
+                  "and the edge cases below)."]]}},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -2395,12 +2472,24 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Pointer-based API for",
+              Identifier "f2"],
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclFunction
-    (FunctionDecl
-      (Name "@NsVar" "f2")
-      [
+    FunctionDecl {
+      functionDeclName = Name
+        "@NsVar"
+        "f2",
+      functionDeclParameters = [
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "arg"),
@@ -2414,9 +2503,12 @@
               commentOrigin = Just "arg",
               commentLocation = Nothing,
               commentHeaderInfo = Nothing,
-              commentChildren = []}}]
-      (HsIO (HsPrimType HsPrimUnit))
-      (Function
+              commentChildren = []}}],
+      functionDeclResultType = HsIO
+        (HsPrimType HsPrimUnit),
+      functionDeclBody =
+      `ELam "x" (EApp (EApp (EGlobal CAPI_with) (EBound 0)) (ELam "y" (EApp (EFree "f2_wrapper") (EBound 0))))`,
+      functionDeclOrigin = Function
         Function {
           functionArgs = [
             _×_
@@ -2433,8 +2525,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid})
-      (Just
+          functionRes = TypeVoid},
+      functionDeclComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "f2",
@@ -2446,7 +2538,7 @@
                 ["decls_in_signature.h"],
               headerInclude =
               "decls_in_signature.h"},
-          commentChildren = []})),
+          commentChildren = []}},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name

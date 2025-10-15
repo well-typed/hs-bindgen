@@ -13,8 +13,8 @@ import Prelude (IO)
 
 $(HsBindgen.Runtime.Prelude.addCSource "#include <bool_c23.h>\n/* get_b_ptr */ __attribute__ ((const)) _Bool *hs_bindgen_test_bool_c23_fcd0c984d664f6ee (void) { return &b; } \n")
 
-foreign import ccall unsafe "hs_bindgen_test_bool_c23_fcd0c984d664f6ee" hs_bindgen_test_bool_c23_fcd0c984d664f6ee
-  :: IO (Ptr.Ptr FC.CBool)
+foreign import ccall unsafe "hs_bindgen_test_bool_c23_fcd0c984d664f6ee" hs_bindgen_test_bool_c23_fcd0c984d664f6ee ::
+     IO (Ptr.Ptr FC.CBool)
 
 {-# NOINLINE b_ptr #-}
 

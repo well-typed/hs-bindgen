@@ -418,12 +418,24 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Pointer-based API for",
+              Identifier "transpose"],
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = []},
       foreignImportSafety = Safe},
   DeclFunction
-    (FunctionDecl
-      (Name "@NsVar" "transpose")
-      [
+    FunctionDecl {
+      functionDeclName = Name
+        "@NsVar"
+        "transpose",
+      functionDeclParameters = [
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "input"),
@@ -439,17 +451,23 @@
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "output"),
-          functionParameterType = HsTypRef
-            (Name "@NsTypeConstr" "Matrix"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Triplet")),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
               commentOrigin = Just "output",
               commentLocation = Nothing,
               commentHeaderInfo = Nothing,
-              commentChildren = []}}]
-      (HsIO (HsPrimType HsPrimUnit))
-      (Function
+              commentChildren = []}}],
+      functionDeclResultType = HsIO
+        (HsPrimType HsPrimUnit),
+      functionDeclBody =
+      `ELam "x" (ELam "x" (EApp (EApp (EGlobal ConstantArray_withPtr) (EBound 1)) (ELam "ptr" (EApp (EApp (EFree "transpose_wrapper") (EBound 0)) (EBound 1)))))`,
+      functionDeclOrigin = Function
         Function {
           functionArgs = [
             _×_
@@ -509,8 +527,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid})
-      (Just
+          functionRes = TypeVoid},
+      functionDeclComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just
@@ -523,7 +541,7 @@
                 ["manual/arrays.h"],
               headerInclude =
               "manual/arrays.h"},
-          commentChildren = []})),
+          commentChildren = []}},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -700,12 +718,24 @@
           FunctionAttributes
             ImpureFunction,
           functionRes = TypeVoid},
-      foreignImportComment = Nothing,
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Just
+            [
+              TextContent
+                "Pointer-based API for",
+              Identifier "transpose"],
+          commentOrigin = Nothing,
+          commentLocation = Nothing,
+          commentHeaderInfo = Nothing,
+          commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclFunction
-    (FunctionDecl
-      (Name "@NsVar" "transpose")
-      [
+    FunctionDecl {
+      functionDeclName = Name
+        "@NsVar"
+        "transpose",
+      functionDeclParameters = [
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "input"),
@@ -721,17 +751,23 @@
         FunctionParameter {
           functionParameterName = Just
             (Name "@NsVar" "output"),
-          functionParameterType = HsTypRef
-            (Name "@NsTypeConstr" "Matrix"),
+          functionParameterType = HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Triplet")),
           functionParameterComment = Just
             Comment {
               commentTitle = Nothing,
               commentOrigin = Just "output",
               commentLocation = Nothing,
               commentHeaderInfo = Nothing,
-              commentChildren = []}}]
-      (HsIO (HsPrimType HsPrimUnit))
-      (Function
+              commentChildren = []}}],
+      functionDeclResultType = HsIO
+        (HsPrimType HsPrimUnit),
+      functionDeclBody =
+      `ELam "x" (ELam "x" (EApp (EApp (EGlobal ConstantArray_withPtr) (EBound 1)) (ELam "ptr" (EApp (EApp (EFree "transpose_wrapper") (EBound 0)) (EBound 1)))))`,
+      functionDeclOrigin = Function
         Function {
           functionArgs = [
             _×_
@@ -791,8 +827,8 @@
           functionAttrs =
           FunctionAttributes
             ImpureFunction,
-          functionRes = TypeVoid})
-      (Just
+          functionRes = TypeVoid},
+      functionDeclComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just
@@ -805,7 +841,7 @@
                 ["manual/arrays.h"],
               headerInclude =
               "manual/arrays.h"},
-          commentChildren = []})),
+          commentChildren = []}},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name

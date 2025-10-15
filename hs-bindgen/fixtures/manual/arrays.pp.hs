@@ -56,8 +56,11 @@ newtype Triplet_ptrs = Triplet_ptrs
   }
   deriving stock (Eq, Show)
 
-foreign import ccall safe "hs_bindgen_test_manualarrays_f3d0c8dd1a83b3d0" transpose_wrapper
-  :: Ptr.Ptr Triplet
+{-| Pointer-based API for 'transpose'
+
+-}
+foreign import ccall safe "hs_bindgen_test_manualarrays_f3d0c8dd1a83b3d0" transpose_wrapper ::
+     Ptr.Ptr Triplet
   -> Ptr.Ptr Triplet
   -> IO ()
 
@@ -67,11 +70,11 @@ foreign import ccall safe "hs_bindgen_test_manualarrays_f3d0c8dd1a83b3d0" transp
 
     __exported by:__ @manual\/arrays.h@
 -}
-transpose
-  :: Matrix
+transpose ::
+     Matrix
      {- ^ __C declaration:__ @input@
      -}
-  -> Matrix
+  -> Ptr.Ptr Triplet
      {- ^ __C declaration:__ @output@
      -}
   -> IO ()
@@ -89,14 +92,14 @@ __defined at:__ @manual\/arrays.h:50:13@
 
 __exported by:__ @manual\/arrays.h@
 -}
-foreign import ccall safe "hs_bindgen_test_manualarrays_27135f4747eb87db" pretty_print_triplets
-  :: Ptr.Ptr (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
+foreign import ccall safe "hs_bindgen_test_manualarrays_27135f4747eb87db" pretty_print_triplets ::
+     Ptr.Ptr (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
      {- ^ __C declaration:__ @x@
      -}
   -> IO ()
 
-foreign import ccall unsafe "hs_bindgen_test_manualarrays_fc1dad225b555299" hs_bindgen_test_manualarrays_fc1dad225b555299
-  :: IO (Ptr.FunPtr (Matrix -> Matrix -> IO ()))
+foreign import ccall unsafe "hs_bindgen_test_manualarrays_fc1dad225b555299" hs_bindgen_test_manualarrays_fc1dad225b555299 ::
+     IO (Ptr.FunPtr (Matrix -> Matrix -> IO ()))
 
 {-# NOINLINE transpose_ptr #-}
 
@@ -110,8 +113,8 @@ transpose_ptr :: Ptr.FunPtr (Matrix -> Matrix -> IO ())
 transpose_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualarrays_fc1dad225b555299
 
-foreign import ccall unsafe "hs_bindgen_test_manualarrays_0b485cea747ee35d" hs_bindgen_test_manualarrays_0b485cea747ee35d
-  :: IO (Ptr.FunPtr (Triplet_ptrs -> IO ()))
+foreign import ccall unsafe "hs_bindgen_test_manualarrays_0b485cea747ee35d" hs_bindgen_test_manualarrays_0b485cea747ee35d ::
+     IO (Ptr.FunPtr (Triplet_ptrs -> IO ()))
 
 {-# NOINLINE pretty_print_triplets_ptr #-}
 
@@ -127,8 +130,8 @@ pretty_print_triplets_ptr :: Ptr.FunPtr (Triplet_ptrs -> IO ())
 pretty_print_triplets_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualarrays_0b485cea747ee35d
 
-foreign import ccall unsafe "hs_bindgen_test_manualarrays_1693226264ba4aeb" hs_bindgen_test_manualarrays_1693226264ba4aeb
-  :: IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 1) FC.CInt))
+foreign import ccall unsafe "hs_bindgen_test_manualarrays_1693226264ba4aeb" hs_bindgen_test_manualarrays_1693226264ba4aeb ::
+     IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 1) FC.CInt))
 
 {-# NOINLINE arr1_ptr #-}
 
@@ -144,8 +147,8 @@ arr1_ptr :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 1) FC.CInt)
 arr1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualarrays_1693226264ba4aeb
 
-foreign import ccall unsafe "hs_bindgen_test_manualarrays_dafcf99a73b93389" hs_bindgen_test_manualarrays_dafcf99a73b93389
-  :: IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
+foreign import ccall unsafe "hs_bindgen_test_manualarrays_dafcf99a73b93389" hs_bindgen_test_manualarrays_dafcf99a73b93389 ::
+     IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt))
 
 {-# NOINLINE arr2_ptr #-}
 
@@ -161,8 +164,8 @@ arr2_ptr :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)
 arr2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualarrays_dafcf99a73b93389
 
-foreign import ccall unsafe "hs_bindgen_test_manualarrays_ca1016acc3449dee" hs_bindgen_test_manualarrays_ca1016acc3449dee
-  :: IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt))
+foreign import ccall unsafe "hs_bindgen_test_manualarrays_ca1016acc3449dee" hs_bindgen_test_manualarrays_ca1016acc3449dee ::
+     IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt))
 
 {-# NOINLINE arr3_ptr #-}
 
@@ -178,8 +181,8 @@ arr3_ptr :: Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray FC.CInt)
 arr3_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualarrays_ca1016acc3449dee
 
-foreign import ccall unsafe "hs_bindgen_test_manualarrays_76857c9492b9374d" hs_bindgen_test_manualarrays_76857c9492b9374d
-  :: IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
+foreign import ccall unsafe "hs_bindgen_test_manualarrays_76857c9492b9374d" hs_bindgen_test_manualarrays_76857c9492b9374d ::
+     IO (Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
 
 {-# NOINLINE sudoku_ptr #-}
 
@@ -195,8 +198,8 @@ sudoku_ptr :: Ptr.Ptr ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) ((HsBin
 sudoku_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualarrays_76857c9492b9374d
 
-foreign import ccall unsafe "hs_bindgen_test_manualarrays_76f4df4c63822352" hs_bindgen_test_manualarrays_76f4df4c63822352
-  :: IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
+foreign import ccall unsafe "hs_bindgen_test_manualarrays_76f4df4c63822352" hs_bindgen_test_manualarrays_76f4df4c63822352 ::
+     IO (Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt)))
 
 {-# NOINLINE triplets_ptr #-}
 
@@ -212,8 +215,8 @@ triplets_ptr :: Ptr.Ptr (HsBindgen.Runtime.IncompleteArray.IncompleteArray ((HsB
 triplets_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_manualarrays_76f4df4c63822352
 
-foreign import ccall unsafe "hs_bindgen_test_manualarrays_f5de5a56e036b125" hs_bindgen_test_manualarrays_f5de5a56e036b125
-  :: IO (Ptr.Ptr Triplet_ptrs)
+foreign import ccall unsafe "hs_bindgen_test_manualarrays_f5de5a56e036b125" hs_bindgen_test_manualarrays_f5de5a56e036b125 ::
+     IO (Ptr.Ptr Triplet_ptrs)
 
 {-# NOINLINE global_triplet_ptrs_ptr #-}
 

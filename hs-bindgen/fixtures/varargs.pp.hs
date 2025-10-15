@@ -18,11 +18,11 @@ $(HsBindgen.Runtime.Prelude.addCSource "#include <varargs.h>\nvoid hs_bindgen_te
 
     __exported by:__ @varargs.h@
 -}
-foreign import ccall safe "hs_bindgen_test_varargs_a17c4f0272bbe42a" h
-  :: IO ()
+foreign import ccall safe "hs_bindgen_test_varargs_a17c4f0272bbe42a" h ::
+     IO ()
 
-foreign import ccall unsafe "hs_bindgen_test_varargs_6344539fe0b25338" hs_bindgen_test_varargs_6344539fe0b25338
-  :: IO (Ptr.FunPtr (IO ()))
+foreign import ccall unsafe "hs_bindgen_test_varargs_6344539fe0b25338" hs_bindgen_test_varargs_6344539fe0b25338 ::
+     IO (Ptr.FunPtr (IO ()))
 
 {-# NOINLINE h_ptr #-}
 

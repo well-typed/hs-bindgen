@@ -102,8 +102,8 @@ __defined at:__ @redeclaration.h:30:15@
 
 __exported by:__ @redeclaration.h@
 -}
-get_y_m
-  :: Y
+get_y_m ::
+     Y
   -> FC.CInt
 get_y_m = HsBindgen.Runtime.ByteArray.getUnionPayload
 
@@ -112,8 +112,8 @@ get_y_m = HsBindgen.Runtime.ByteArray.getUnionPayload
   __See:__ 'get_y_m'
 
 -}
-set_y_m
-  :: FC.CInt
+set_y_m ::
+     FC.CInt
   -> Y
 set_y_m = HsBindgen.Runtime.ByteArray.setUnionPayload
 
@@ -127,8 +127,8 @@ __defined at:__ @redeclaration.h:30:22@
 
 __exported by:__ @redeclaration.h@
 -}
-get_y_o
-  :: Y
+get_y_o ::
+     Y
   -> FC.CInt
 get_y_o = HsBindgen.Runtime.ByteArray.getUnionPayload
 
@@ -137,13 +137,13 @@ get_y_o = HsBindgen.Runtime.ByteArray.getUnionPayload
   __See:__ 'get_y_o'
 
 -}
-set_y_o
-  :: FC.CInt
+set_y_o ::
+     FC.CInt
   -> Y
 set_y_o = HsBindgen.Runtime.ByteArray.setUnionPayload
 
-foreign import ccall unsafe "hs_bindgen_test_redeclaration_10b125673bf2041b" hs_bindgen_test_redeclaration_10b125673bf2041b
-  :: IO (Ptr.Ptr FC.CInt)
+foreign import ccall unsafe "hs_bindgen_test_redeclaration_10b125673bf2041b" hs_bindgen_test_redeclaration_10b125673bf2041b ::
+     IO (Ptr.Ptr FC.CInt)
 
 {-# NOINLINE x_ptr #-}
 

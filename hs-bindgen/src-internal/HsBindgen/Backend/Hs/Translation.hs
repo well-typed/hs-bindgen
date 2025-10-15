@@ -1355,7 +1355,7 @@ functionDecs safety opts haddockConfig moduleName info f _spec =
         , foreignImportOrigName   = T.pack wrapperName
         , foreignImportCallConv   = CallConvUserlandCAPI userlandCapiWrapper
         , foreignImportOrigin     = Origin.Function f
-        , foreignImportComment    = (if areFancy then Nothing else mbFFIComment) <> ioComment
+        , foreignImportComment    = (if areFancy then Just nonFancyComment else mbFFIComment) <> ioComment
         , foreignImportSafety     = safety
         }
 
@@ -1389,7 +1389,7 @@ functionDecs safety opts haddockConfig moduleName info f _spec =
     -- Parameters for wrapper decl
     wrapperParams = [ Hs.FunctionParameter
                      { functionParameterName    = fmap C.nameHs mbName
-                     , functionParameterType    = typ' CFunArg ty
+                     , functionParameterType    = typ' CFunArg (unwrapOrigType (wrapType ty))
                      , functionParameterComment = Nothing
                      }
                   | (mbName, ty) <- C.functionArgs f
@@ -1415,6 +1415,23 @@ functionDecs safety opts haddockConfig moduleName info f _spec =
 
         AType {} ->
             panicPure "Array cannot occur as a result type"
+
+    -- | A comment to put on wrapper functions
+    --
+    -- "Pointer-based API for '<function>'"
+    nonFancyComment :: HsDoc.Comment
+    nonFancyComment =
+      HsDoc.Comment {
+        HsDoc.commentTitle      = Just
+          [ HsDoc.TextContent "Pointer-based API for"
+          , HsDoc.Identifier (Hs.getName highlevelName)
+          ]
+      , HsDoc.commentOrigin     = Nothing
+      , HsDoc.commentLocation   = Nothing
+      , HsDoc.commentHeaderInfo = Nothing
+      , HsDoc.commentChildren   = []
+
+      }
 
     -- | Decide based on the function attributes whether to include 'IO' in the
     -- result type of the foreign import. See the documentation on

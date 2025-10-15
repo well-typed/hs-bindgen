@@ -501,12 +501,12 @@ newtype Callback_t_Deref = Callback_t_Deref
   { un_Callback_t_Deref :: (Ptr.Ptr Void) -> HsBindgen.Runtime.Prelude.Word32 -> IO HsBindgen.Runtime.Prelude.Word32
   }
 
-foreign import ccall safe "wrapper" toCallback_t_Deref
-  :: Callback_t_Deref
+foreign import ccall safe "wrapper" toCallback_t_Deref ::
+     Callback_t_Deref
   -> IO (Ptr.FunPtr Callback_t_Deref)
 
-foreign import ccall safe "dynamic" fromCallback_t_Deref
-  :: Ptr.FunPtr Callback_t_Deref
+foreign import ccall safe "dynamic" fromCallback_t_Deref ::
+     Ptr.FunPtr Callback_t_Deref
   -> Callback_t_Deref
 
 instance HsBindgen.Runtime.FunPtr.ToFunPtr Callback_t_Deref where
@@ -535,8 +535,8 @@ newtype Callback_t = Callback_t
 
     __exported by:__ @distilled_lib_1.h@
 -}
-foreign import ccall safe "hs_bindgen_test_distilled_lib_1_29c178c31334688f" some_fun
-  :: Ptr.Ptr A_type_t
+foreign import ccall safe "hs_bindgen_test_distilled_lib_1_29c178c31334688f" some_fun ::
+     Ptr.Ptr A_type_t
      {- ^ __C declaration:__ @i@
      -}
   -> HsBindgen.Runtime.Prelude.Word32
@@ -547,8 +547,8 @@ foreign import ccall safe "hs_bindgen_test_distilled_lib_1_29c178c31334688f" som
      -}
   -> IO HsBindgen.Runtime.Prelude.Int32
 
-foreign import ccall unsafe "hs_bindgen_test_distilled_lib_1_969c7d0305e0614c" hs_bindgen_test_distilled_lib_1_969c7d0305e0614c
-  :: IO (Ptr.FunPtr ((Ptr.Ptr A_type_t) -> HsBindgen.Runtime.Prelude.Word32 -> (HsBindgen.Runtime.IncompleteArray.IncompleteArray HsBindgen.Runtime.Prelude.Word8) -> IO HsBindgen.Runtime.Prelude.Int32))
+foreign import ccall unsafe "hs_bindgen_test_distilled_lib_1_969c7d0305e0614c" hs_bindgen_test_distilled_lib_1_969c7d0305e0614c ::
+     IO (Ptr.FunPtr ((Ptr.Ptr A_type_t) -> HsBindgen.Runtime.Prelude.Word32 -> (HsBindgen.Runtime.IncompleteArray.IncompleteArray HsBindgen.Runtime.Prelude.Word8) -> IO HsBindgen.Runtime.Prelude.Int32))
 
 {-# NOINLINE some_fun_ptr #-}
 
@@ -562,8 +562,8 @@ some_fun_ptr :: Ptr.FunPtr ((Ptr.Ptr A_type_t) -> HsBindgen.Runtime.Prelude.Word
 some_fun_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_distilled_lib_1_969c7d0305e0614c
 
-foreign import ccall unsafe "hs_bindgen_test_distilled_lib_1_b9e65c51f976c6f6" hs_bindgen_test_distilled_lib_1_b9e65c51f976c6f6
-  :: IO (Ptr.Ptr Var_t)
+foreign import ccall unsafe "hs_bindgen_test_distilled_lib_1_b9e65c51f976c6f6" hs_bindgen_test_distilled_lib_1_b9e65c51f976c6f6 ::
+     IO (Ptr.Ptr Var_t)
 
 {-# NOINLINE v_ptr #-}
 
