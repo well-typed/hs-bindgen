@@ -56,6 +56,7 @@ data Global =
   | Applicative_seq
   | Monad_return
   | Monad_seq
+  | Maybe_type
   | StaticSize_class
   | ReadRaw_class
   | WriteRaw_class

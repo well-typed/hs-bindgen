@@ -7,7 +7,7 @@ module Example where
 import qualified C.Char
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
-import Prelude (Int)
+import Prelude (Int, Maybe(..))
 
 {-| __C declaration:__ @C1@
 

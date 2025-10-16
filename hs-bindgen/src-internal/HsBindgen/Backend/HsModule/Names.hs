@@ -204,6 +204,7 @@ resolveGlobal = \case
     Applicative_seq               -> importU '(<*>)
     Monad_return                  -> importU 'return
     Monad_seq                     -> importU '(>>)
+    Maybe_type                    -> ResolvedName "Maybe(..)" IdentifierName (Just (UnqualifiedHsImport iPrelude))
     StaticSize_class              -> importQ ''HsBindgen.Runtime.Marshal.StaticSize
     ReadRaw_class                 -> importQ ''HsBindgen.Runtime.Marshal.ReadRaw
     WriteRaw_class                -> importQ ''HsBindgen.Runtime.Marshal.WriteRaw

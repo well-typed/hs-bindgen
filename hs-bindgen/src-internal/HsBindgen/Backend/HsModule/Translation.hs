@@ -278,6 +278,7 @@ resolveExprImports = \case
                   [ CharValue_tycon
                   , CharValue_constructor
                   , CharValue_fromAddr
+                  , Maybe_type
                   ]
     EString {} -> mempty
     ECString {} -> resolvePrimTypeImports Hs.HsPrimCStringLen

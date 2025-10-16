@@ -71,6 +71,7 @@ mkGlobal = \case
       Applicative_seq       -> '(<*>)
       Monad_return          -> 'return
       Monad_seq             -> '(>>)
+      Maybe_type            -> ''Maybe
       StaticSize_class      -> ''HsBindgen.Runtime.Marshal.StaticSize
       ReadRaw_class         -> ''HsBindgen.Runtime.Marshal.ReadRaw
       WriteRaw_class        -> ''HsBindgen.Runtime.Marshal.WriteRaw
@@ -266,6 +267,7 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     Applicative_seq       -> TH.varE name
     Monad_return          -> TH.varE name
     Monad_seq             -> TH.varE name
+    Maybe_type            -> panicPure "type in expression"
     StaticSize_class      -> panicPure "class in expression"
     ReadRaw_class         -> panicPure "class in expression"
     WriteRaw_class        -> panicPure "class in expression"
