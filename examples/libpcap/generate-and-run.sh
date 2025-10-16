@@ -34,7 +34,7 @@ echo "# Creating cabal.project.local"
 echo "# "
 
 cat >hs-project/cabal.project.local <<EOF
-package hs-pcap
+package libpcap
     extra-include-dirs:
         $LIBPCAP_DIR
     extra-lib-dirs:
@@ -54,6 +54,6 @@ echo "# "
     export LD_LIBRARY_PATH
 
     cd "hs-project"
-    cabal build
-    cabal run hs-pcap-bin
+    cabal build libpcap-bin
+    cabal run libpcap-bin
 )

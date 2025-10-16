@@ -1,5 +1,5 @@
 cabal-version:      3.4
-name:               hs-pcap
+name:               libpcap
 version:            0.1.0.0
 license:            BSD-3-Clause
 license-file:       LICENSE
@@ -30,7 +30,7 @@ library
     , c-expr-runtime
     , hs-bindgen-runtime
 
-executable hs-pcap-bin
+executable libpcap-bin
   import:          common
   main-is:         Pcap.hs
   hs-source-dirs:  app
@@ -40,4 +40,4 @@ executable hs-pcap-bin
   extra-libraries: pcap
   build-depends:
     , base >=4.7 && <5
-    , hs-pcap
+    , libpcap
