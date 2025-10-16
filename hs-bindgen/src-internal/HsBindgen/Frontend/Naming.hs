@@ -315,12 +315,13 @@ instance PrettyForTrace QualPrelimDeclId where
       PP.textToCtxDoc (tagKindPrefix kind) <+> PP.parens (prettyForTrace anonId)
     QualPrelimDeclIdBuiltin name   -> prettyForTrace name
 
-qualPrelimDeclId :: PrelimDeclId -> NameKind -> QualPrelimDeclId
+qualPrelimDeclId :: HasCallStack => PrelimDeclId -> NameKind -> QualPrelimDeclId
 qualPrelimDeclId prelimDeclId kind = case prelimDeclId of
     PrelimDeclIdNamed   name   -> QualPrelimDeclIdNamed name kind
     PrelimDeclIdAnon    anonId -> case kind of
       NameKindTagged tagKind -> QualPrelimDeclIdAnon anonId tagKind
-      NameKindOrdinary       -> panicPure "qualPrelimDeclId ordinary anonymous"
+      NameKindOrdinary       -> panicPure $
+        "qualPrelimDeclId: ordinary anonymous: " ++ show anonId
     PrelimDeclIdBuiltin name   -> QualPrelimDeclIdBuiltin name
 
 {-------------------------------------------------------------------------------

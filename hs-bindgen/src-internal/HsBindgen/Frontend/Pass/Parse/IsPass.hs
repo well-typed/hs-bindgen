@@ -141,7 +141,11 @@ parseSucceed :: C.Decl Parse -> ParseResult
 parseSucceed decl = ParseSucceeded decl []
 
 parseDoNotAttempt ::
-  C.DeclInfo Parse -> C.NameKind -> ParseOmissionReason -> ParseResult
+     HasCallStack
+  => C.DeclInfo Parse
+  -> C.NameKind
+  -> ParseOmissionReason
+  -> ParseResult
 parseDoNotAttempt C.DeclInfo{..} kind reason =
     ParseNotAttempted
       (C.qualPrelimDeclId declId kind)
@@ -154,7 +158,11 @@ parseFail ::
 parseFail info kind msg = parseFailWith info kind (NonEmpty.singleton msg)
 
 parseFailWith ::
-  C.DeclInfo Parse -> C.NameKind -> NonEmpty DelayedParseMsg -> ParseResult
+     HasCallStack
+  => C.DeclInfo Parse
+  -> C.NameKind
+  -> NonEmpty DelayedParseMsg
+  -> ParseResult
 parseFailWith C.DeclInfo{..} kind msgs =
     ParseFailed
       (C.qualPrelimDeclId declId kind)

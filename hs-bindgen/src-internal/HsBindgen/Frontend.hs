@@ -23,7 +23,6 @@ import HsBindgen.Frontend.AST.Internal hiding (Type)
 import HsBindgen.Frontend.Pass hiding (Config)
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
-import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass qualified as ConstructTranslationUnit
 import HsBindgen.Frontend.Pass.HandleMacros
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.HandleTypedefs
@@ -197,11 +196,11 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
       (_, _, _, _, getMainHeaders) <- parsePass
       pure getMainHeaders
     frontendIndex <- cache "frontendIndex" $
-      ConstructTranslationUnit.declIndex   . unitAnn <$> sortPass
+      declIndex   . unitAnn <$> sortPass
     frontendUseDeclGraph <- cache "frontendUseDeclGraph" $
-      ConstructTranslationUnit.declUseDecl . unitAnn <$> sortPass
+      declUseDecl . unitAnn <$> sortPass
     frontendDeclUseGraph <- cache "frontendDeclUseGraph" $
-      ConstructTranslationUnit.declDeclUse . unitAnn <$> sortPass
+      declDeclUse . unitAnn <$> sortPass
 
     -- Omitted types
     frontendOmitTypes <- cache "frontendOmitTypes" $

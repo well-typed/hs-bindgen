@@ -45,18 +45,22 @@ import HsBindgen.Util.Tracer
 -- | Index of all declarations
 data DeclIndex = DeclIndex {
       succeeded ::
-        !(Map C.QualPrelimDeclId (C.Decl Parse, [DelayedParseMsg]))
+        !(Map C.QualPrelimDeclId
+            (C.Decl Parse, [DelayedParseMsg]))
     , notAttempted ::
-        !(Map C.QualPrelimDeclId (SingleLoc, C.Availability, ParseOmissionReason))
+        !(Map C.QualPrelimDeclId
+            (SingleLoc, C.Availability, ParseOmissionReason))
     , failed  ::
-        !(Map C.QualPrelimDeclId (SingleLoc, C.Availability, NonEmpty DelayedParseMsg))
+        !(Map C.QualPrelimDeclId
+            (SingleLoc, C.Availability, NonEmpty DelayedParseMsg))
     }
   deriving stock (Show, Generic)
 
 emptyIndex :: DeclIndex
 emptyIndex = DeclIndex Map.empty Map.empty Map.empty
 
-getNotAttempted :: DeclIndex -> Map C.QualPrelimDeclId (SingleLoc, C.Availability, ParseOmissionReason)
+getNotAttempted ::
+  DeclIndex -> Map C.QualPrelimDeclId (SingleLoc, C.Availability, ParseOmissionReason)
 getNotAttempted = notAttempted
 
 getFailed :: DeclIndex -> Map C.QualPrelimDeclId (SingleLoc, C.Availability, NonEmpty DelayedParseMsg)
@@ -101,21 +105,30 @@ fromParseResults results =
                     Nothing  -> errors
                     Just err -> Map.insert qualPrelimDeclId err errors
                 }
+          -- TODO_PR: On failures, we simply insert the value into the
+          -- respective index maps, preferring existing, previously inserted
+          -- key-value pairs.
           ParseNotAttempted{..} ->
             let val = (pnaSingleLoc, pnaAvailability, pnaParseOmissionReason)
             in  over
                   ( #index % #notAttempted )
-                  ( Map.insert qualPrelimDeclId val )
+                  ( insertPreferOld qualPrelimDeclId val )
                   oldIndex
           ParseFailed{..} ->
             let val = (pfSingleLoc, pfAvailability, pfDelayedParseMsgs)
             in  over
                   ( #index % #failed )
-                  ( Map.insert qualPrelimDeclId val )
+                  ( insertPreferOld qualPrelimDeclId val )
                   oldIndex
       where
         qualPrelimDeclId :: C.QualPrelimDeclId
         qualPrelimDeclId = getQualPrelimDeclId parse
+
+    insertPreferOld :: Ord k => k -> a -> Map k a -> Map k a
+    insertPreferOld key new =
+      Map.alter (\case
+        Nothing  -> Just new
+        Just old -> Just old) key
 
     insert ::
          C.Decl Parse

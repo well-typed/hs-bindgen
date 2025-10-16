@@ -131,7 +131,7 @@ getReparseInfo = \curr -> do
 type Parser = CXCursor -> ParseDecl (Next ParseDecl [ParseResult])
 
 -- | Declarations
-parseDecl :: Parser
+parseDecl :: HasCallStack => Parser
 parseDecl = \curr -> do
     info <- getDeclInfo curr
     let isBuiltin = case C.declId info of

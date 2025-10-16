@@ -27,7 +27,7 @@ import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
-type MatchFun = C.QualPrelimDeclId -> SingleLoc -> C.Availability -> SelectStatus
+type MatchFun = C.QualPrelimDeclId -> SingleLoc -> C.Availability -> Bool
 
 selectDecls ::
      IsMainHeader
@@ -71,11 +71,11 @@ selectDecls isMainHeader isInMainHeaderDir SelectConfig{..} unit =
 
     in if Set.null unavailableTransitiveDeps
        then ( unitSelectWith selectedDecls
-            ,    getSelectMsgs selectedRoots selectedDecls
-              ++ getExcludeMsgs transitiveDeps unmatchedDecls
-              ++ getDelayedParseMsgs selectedDecls index
+            ,    getSelectMsgs            selectedRoots  selectedDecls
+              ++ getExcludeMsgs           transitiveDeps unmatchedDecls
+              ++ getDelayedParseMsgs      selectedDecls  index
               ++ getParseNotAttemptedMsgs match index
-              ++ getParseFailedMsgs match index
+              ++ getParseFailedMsgs       match index
             )
        else panicPure $ errorMsgWith unavailableTransitiveDeps
   where
@@ -102,7 +102,7 @@ selectDecls isMainHeader isInMainHeaderDir SelectConfig{..} unit =
           }
 
     matchDecl :: Id p ~ C.DeclId => C.Decl p -> Bool
-    matchDecl decl = isSelected $
+    matchDecl decl =
       match
         (C.declOrigQualPrelimDeclId decl)
         (C.declLoc $ C.declInfo decl)
@@ -116,21 +116,19 @@ selectDecls isMainHeader isInMainHeaderDir SelectConfig{..} unit =
         -- the use-decl graph. We believe these cycles can not exist.
         go originalDeclId declId loc availability = case declId of
             C.QualPrelimDeclIdNamed name kind ->
-                if matchSelect
-                     isMainHeader
-                     isInMainHeaderDir
-                     (singleLocPath loc)
-                     (C.QualName name kind)
-                     availability
-                     selectConfigPredicate
-                then Selected SelectionRoot
-                else NotSelected
+              matchSelect
+                isMainHeader
+                isInMainHeaderDir
+                (singleLocPath loc)
+                (C.QualName name kind)
+                availability
+                selectConfigPredicate
             -- Apply the select predicate to the use site.
             anon@(C.QualPrelimDeclIdAnon{}) -> matchAnon anon
             -- Never select builtins.
-            C.QualPrelimDeclIdBuiltin _ -> NotSelected
+            C.QualPrelimDeclIdBuiltin _ -> False
           where
-            matchAnon :: C.QualPrelimDeclId -> SelectStatus
+            matchAnon :: C.QualPrelimDeclId -> Bool
             matchAnon anon =
               case DeclUseGraph.getUseSites unit.unitAnn.declDeclUse anon of
                 [x] ->
@@ -140,13 +138,13 @@ selectDecls isMainHeader isInMainHeaderDir SelectConfig{..} unit =
                   -- anonymous declaration without use site: QualPrelimDeclIdAnon (AnonId "/nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/stdlib.h:77:23") TagKindStruct
                   -- panicPure $
                   --   "anonymous declaration without use site: " ++ show anon
-                  NotSelected
+                  False
                 xs  ->
                   panicPure $
                     "anonymous declaration with multiple use sites: "
                     ++ show anon ++ " used by " ++ show xs
 
-            matchUseSite :: C.QualPrelimDeclId -> SelectStatus
+            matchUseSite :: C.QualPrelimDeclId -> Bool
             matchUseSite declIdUseSite
               | declIdUseSite == originalDeclId =
                   panicPure $
@@ -227,9 +225,7 @@ getParseNotAttemptedMsgs match = Map.foldlWithKey addMsg [] . DeclIndex.getNotAt
       -> [SelectMsg]
     addMsg xs qualPrelimDeclId (loc, availability, reason) =
       [ SelectParseNotAttempted qualPrelimDeclId loc reason
-      | case match qualPrelimDeclId loc availability of
-          NotSelected -> False
-          Selected _  -> True
+      | match qualPrelimDeclId loc availability
       ] ++ xs
 
 getParseFailedMsgs :: MatchFun -> DeclIndex -> [Msg Select]
@@ -242,12 +238,6 @@ getParseFailedMsgs match = Map.foldlWithKey addMsg [] . DeclIndex.getFailed
       -> [SelectMsg]
     addMsg xs qualPrelimDeclId (loc, availability, msgs) =
       [ SelectParseFailed qualPrelimDeclId loc msg
-      | case match qualPrelimDeclId loc availability of
-            NotSelected -> False
-            Selected _  -> True
+      | match qualPrelimDeclId loc availability
       , msg <- NonEmpty.toList msgs
       ] ++ xs
-
-isSelected :: SelectStatus -> Bool
-isSelected NotSelected        = False
-isSelected (Selected _reason) = True
