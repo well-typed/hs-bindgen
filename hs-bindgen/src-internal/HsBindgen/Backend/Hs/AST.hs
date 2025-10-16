@@ -28,13 +28,7 @@ module HsBindgen.Backend.Hs.AST (
   , DefineInstance(..)
   , DeriveInstance(..)
     -- ** Variable declarations
-  , VarDecl(..)
-  , SigmaType(..)
-  , PhiType(..)
-  , TauType(..)
-  , PredType(..)
-  , ATyCon(..)
-  , AClass(..)
+  , MacroExpr(..)
   , VarDeclRHS(..)
   , VarDeclRHSAppHead(..)
     -- ** Deriving instances
@@ -70,13 +64,13 @@ import C.Char qualified as CExpr.Runtime
 
 import C.Expr.Syntax qualified as CExpr.DSL
 
-import HsBindgen.Backend.Hs.AST.SigmaType
 import HsBindgen.Backend.Hs.AST.Strategy
 import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.Hs.Origin qualified as Origin
 import HsBindgen.Backend.SHs.AST qualified as SHs
+import HsBindgen.Frontend.AST.External (CheckedMacroExpr)
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint
@@ -211,7 +205,7 @@ data Decl where
     DeclDeriveInstance  :: DeriveInstance -> Decl
     DeclForeignImport   :: ForeignImportDecl -> Decl
     DeclFunction        :: FunctionDecl -> Decl
-    DeclVar             :: VarDecl -> Decl
+    DeclMacroExpr       :: MacroExpr -> Decl
     DeclUnionGetter     :: UnionGetter -> Decl
     DeclUnionSetter     :: UnionSetter -> Decl
     DeclSimple          :: SHs.SDecl -> Decl
@@ -247,17 +241,16 @@ data InstanceDecl where
 
 deriving instance Show InstanceDecl
 
--- | Variable or function declaration.
-type VarDecl :: Star
-data VarDecl =
-  VarDecl
+-- | Macro expresson
+type MacroExpr :: Star
+data MacroExpr =
+  MacroExpr
     -- | Name of variable/function.
-    { varDeclName    :: Hs.Name Hs.NsVar
+    { macroExprName    :: Hs.Name Hs.NsVar
     -- | Type of variable/function.
-    , varDeclType    :: SigmaType
+    , macroExprBody    :: CheckedMacroExpr
     -- | RHS of variable/function.
-    , varDeclBody    :: VarDeclRHS EmptyCtx
-    , varDeclComment :: Maybe HsDoc.Comment
+    , macroExprComment :: Maybe HsDoc.Comment
     }
   deriving stock (Generic, Show)
 

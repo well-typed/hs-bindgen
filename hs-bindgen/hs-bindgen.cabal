@@ -81,7 +81,6 @@ library internal
       HsBindgen.Backend
       HsBindgen.Backend.Extensions
       HsBindgen.Backend.Hs.AST
-      HsBindgen.Backend.Hs.AST.SigmaType
       HsBindgen.Backend.Hs.AST.Strategy
       HsBindgen.Backend.Hs.AST.Type
       HsBindgen.Backend.Hs.CallConv
@@ -95,6 +94,7 @@ library internal
       HsBindgen.Backend.HsModule.Render
       HsBindgen.Backend.HsModule.Translation
       HsBindgen.Backend.SHs.AST
+      HsBindgen.Backend.SHs.Macro
       HsBindgen.Backend.SHs.Simplify
       HsBindgen.Backend.SHs.Translation
       HsBindgen.Backend.TH.Translation

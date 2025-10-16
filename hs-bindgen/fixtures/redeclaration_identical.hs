@@ -1,28 +1,21 @@
 [
   DeclVar
-    VarDecl {
-      varDeclName = Name "@NsVar" "a",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon IntLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (IntLikeTyCon
-                        (CIntegralType
-                          (IntLike (Int Signed)))))))
-                []]}},
-      varDeclBody = VarDeclIntegral
-        5
-        HsPrimCInt,
-      varDeclComment = Just
+    MacroExpr {
+      macroExprName = Name
+        "@NsVar"
+        "a",
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MInt
+            IntegerLiteral {
+              integerLiteralText = "5",
+              integerLiteralType = Int Signed,
+              integerLiteralValue = 5}),
+        macroExprType =
+        "IntLike (CIntegralType (IntLike (Int Signed)))"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "A",

@@ -1062,29 +1062,22 @@
               "distilled_lib_1.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name "@NsVar" "a",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon IntLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (IntLikeTyCon
-                        (CIntegralType
-                          (IntLike (Int Signed)))))))
-                []]}},
-      varDeclBody = VarDeclIntegral
-        5
-        HsPrimCInt,
-      varDeclComment = Just
+    MacroExpr {
+      macroExprName = Name
+        "@NsVar"
+        "a",
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MInt
+            IntegerLiteral {
+              integerLiteralText = "5",
+              integerLiteralType = Int Signed,
+              integerLiteralValue = 5}),
+        macroExprType =
+        "IntLike (CIntegralType (IntLike (Int Signed)))"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "A",
@@ -1098,29 +1091,22 @@
               "distilled_lib_1.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name "@NsVar" "b",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon IntLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (IntLikeTyCon
-                        (CIntegralType
-                          (IntLike (Int Signed)))))))
-                []]}},
-      varDeclBody = VarDeclIntegral
-        3
-        HsPrimCInt,
-      varDeclComment = Just
+    MacroExpr {
+      macroExprName = Name
+        "@NsVar"
+        "b",
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MInt
+            IntegerLiteral {
+              integerLiteralText = "3",
+              integerLiteralType = Int Signed,
+              integerLiteralValue = 3}),
+        macroExprType =
+        "IntLike (CIntegralType (IntLike (Int Signed)))"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "B",
@@ -1134,31 +1120,22 @@
               "distilled_lib_1.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "sOME_DEFINED_CONSTANT",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon IntLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (IntLikeTyCon
-                        (CIntegralType
-                          (IntLike (Int Signed)))))))
-                []]}},
-      varDeclBody = VarDeclIntegral
-        4
-        HsPrimCInt,
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MInt
+            IntegerLiteral {
+              integerLiteralText = "4",
+              integerLiteralType = Int Signed,
+              integerLiteralValue = 4}),
+        macroExprType =
+        "IntLike (CIntegralType (IntLike (Int Signed)))"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just
@@ -9936,31 +9913,22 @@
       deriveInstanceComment =
       Nothing},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "a_DEFINE_0",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon IntLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (IntLikeTyCon
-                        (CIntegralType
-                          (IntLike (Int Signed)))))))
-                []]}},
-      varDeclBody = VarDeclIntegral
-        0
-        HsPrimCInt,
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MInt
+            IntegerLiteral {
+              integerLiteralText = "0x00",
+              integerLiteralType = Int Signed,
+              integerLiteralValue = 0}),
+        macroExprType =
+        "IntLike (CIntegralType (IntLike (Int Signed)))"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just
@@ -9975,31 +9943,23 @@
               "distilled_lib_1.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "a_DEFINE_1",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon IntLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (IntLikeTyCon
-                        (CIntegralType
-                          (IntLike (Int Unsigned)))))))
-                []]}},
-      varDeclBody = VarDeclIntegral
-        20560
-        HsPrimCUInt,
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MInt
+            IntegerLiteral {
+              integerLiteralText = "0x5050U",
+              integerLiteralType = Int
+                Unsigned,
+              integerLiteralValue = 20560}),
+        macroExprType =
+        "IntLike (CIntegralType (IntLike (Int Unsigned)))"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just
@@ -10014,31 +9974,22 @@
               "distilled_lib_1.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "a_DEFINE_2",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon IntLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (IntLikeTyCon
-                        (CIntegralType
-                          (IntLike (Int Signed)))))))
-                []]}},
-      varDeclBody = VarDeclIntegral
-        2
-        HsPrimCInt,
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MInt
+            IntegerLiteral {
+              integerLiteralText = "2",
+              integerLiteralType = Int Signed,
+              integerLiteralValue = 2}),
+        macroExprType =
+        "IntLike (CIntegralType (IntLike (Int Signed)))"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just
@@ -10053,55 +10004,31 @@
               "distilled_lib_1.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "tWO_ARGS",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon (TupleTyCon 2))))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon IntLikeTyCon)))
-                [
-                  TyConAppTy
-                    (ATyCon
-                      (GenerativeTyCon
-                        (DataTyCon
-                          (IntLikeTyCon
-                            (CIntegralType
-                              (IntLike (Int Signed)))))))
-                    []],
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon IntLikeTyCon)))
-                [
-                  TyConAppTy
-                    (ATyCon
-                      (GenerativeTyCon
-                        (DataTyCon
-                          (IntLikeTyCon
-                            (CIntegralType
-                              (IntLike (Int Signed)))))))
-                    []]]}},
-      varDeclBody = VarDeclApp
-        (InfixAppHead MTuple)
-        [
-          VarDeclIntegral
-            13398
-            HsPrimCInt,
-          VarDeclIntegral
-            30874
-            HsPrimCInt],
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MApp
+          MTuple
+          [
+            MTerm
+              (MInt
+                IntegerLiteral {
+                  integerLiteralText = "0x3456",
+                  integerLiteralType = Int Signed,
+                  integerLiteralValue = 13398}),
+            MTerm
+              (MInt
+                IntegerLiteral {
+                  integerLiteralText = "0x789A",
+                  integerLiteralType = Int Signed,
+                  integerLiteralValue = 30874})],
+        macroExprType =
+        "Tuple2 (IntLike (CIntegralType (IntLike (Int Signed)))) (IntLike (CIntegralType (IntLike (Int Signed))))"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "TWO_ARGS",

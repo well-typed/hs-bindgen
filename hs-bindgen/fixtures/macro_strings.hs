@@ -1,24 +1,22 @@
 [
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "c1",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon CharLitTyCon)))
-            []}},
-      varDeclBody = VarDeclChar
-        CharValue {
-          charValue =
-          Prim.byteArrayFromList [97],
-          unicodeCodePoint = Just 'a'},
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MChar
+            CharLiteral {
+              charLiteralText = "'a'",
+              charLiteralValue = CharValue {
+                charValue =
+                Prim.byteArrayFromList [97],
+                unicodeCodePoint = Just 'a'}}),
+        macroExprType = "CharLit"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "C1",
@@ -32,25 +30,24 @@
               "macro_strings.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "c2",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon CharLitTyCon)))
-            []}},
-      varDeclBody = VarDeclChar
-        CharValue {
-          charValue =
-          Prim.byteArrayFromList [34],
-          unicodeCodePoint = Just `'"'`},
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MChar
+            CharLiteral {
+              charLiteralText = "'\"'",
+              charLiteralValue = CharValue {
+                charValue =
+                Prim.byteArrayFromList [34],
+                unicodeCodePoint = Just
+                  `'"'`}}),
+        macroExprType = "CharLit"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "C2",
@@ -64,25 +61,23 @@
               "macro_strings.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "c3",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon CharLitTyCon)))
-            []}},
-      varDeclBody = VarDeclChar
-        CharValue {
-          charValue =
-          Prim.byteArrayFromList [9],
-          unicodeCodePoint = Just '\t'},
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MChar
+            CharLiteral {
+              charLiteralText = "'\\t'",
+              charLiteralValue = CharValue {
+                charValue =
+                Prim.byteArrayFromList [9],
+                unicodeCodePoint = Just '\t'}}),
+        macroExprType = "CharLit"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "C3",
@@ -96,25 +91,24 @@
               "macro_strings.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "c4",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon CharLitTyCon)))
-            []}},
-      varDeclBody = VarDeclChar
-        CharValue {
-          charValue =
-          Prim.byteArrayFromList [0],
-          unicodeCodePoint = Just '\NUL'},
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MChar
+            CharLiteral {
+              charLiteralText = "'\\0'",
+              charLiteralValue = CharValue {
+                charValue =
+                Prim.byteArrayFromList [0],
+                unicodeCodePoint = Just
+                  '\NUL'}}),
+        macroExprType = "CharLit"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "C4",
@@ -128,25 +122,23 @@
               "macro_strings.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "c5",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon CharLitTyCon)))
-            []}},
-      varDeclBody = VarDeclChar
-        CharValue {
-          charValue =
-          Prim.byteArrayFromList [39],
-          unicodeCodePoint = Just '\''},
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MChar
+            CharLiteral {
+              charLiteralText = "'\\''",
+              charLiteralValue = CharValue {
+                charValue =
+                Prim.byteArrayFromList [39],
+                unicodeCodePoint = Just '\''}}),
+        macroExprType = "CharLit"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "C5",
@@ -160,25 +152,23 @@
               "macro_strings.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "c6",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon CharLitTyCon)))
-            []}},
-      varDeclBody = VarDeclChar
-        CharValue {
-          charValue =
-          Prim.byteArrayFromList [63],
-          unicodeCodePoint = Just '?'},
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MChar
+            CharLiteral {
+              charLiteralText = "'\\?'",
+              charLiteralValue = CharValue {
+                charValue =
+                Prim.byteArrayFromList [63],
+                unicodeCodePoint = Just '?'}}),
+        macroExprType = "CharLit"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "C6",
@@ -192,25 +182,23 @@
               "macro_strings.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "c7",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon CharLitTyCon)))
-            []}},
-      varDeclBody = VarDeclChar
-        CharValue {
-          charValue =
-          Prim.byteArrayFromList [83],
-          unicodeCodePoint = Nothing},
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MChar
+            CharLiteral {
+              charLiteralText = "'\\123'",
+              charLiteralValue = CharValue {
+                charValue =
+                Prim.byteArrayFromList [83],
+                unicodeCodePoint = Nothing}}),
+        macroExprType = "CharLit"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "C7",
@@ -224,25 +212,23 @@
               "macro_strings.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "c8",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon CharLitTyCon)))
-            []}},
-      varDeclBody = VarDeclChar
-        CharValue {
-          charValue =
-          Prim.byteArrayFromList [83],
-          unicodeCodePoint = Nothing},
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MChar
+            CharLiteral {
+              charLiteralText = "'\\x53'",
+              charLiteralValue = CharValue {
+                charValue =
+                Prim.byteArrayFromList [83],
+                unicodeCodePoint = Nothing}}),
+        macroExprType = "CharLit"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "C8",
@@ -256,23 +242,23 @@
               "macro_strings.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name "@NsVar" "d",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon CharLitTyCon)))
-            []}},
-      varDeclBody = VarDeclChar
-        CharValue {
-          charValue =
-          Prim.byteArrayFromList [1, 255],
-          unicodeCodePoint = Nothing},
-      varDeclComment = Just
+    MacroExpr {
+      macroExprName = Name
+        "@NsVar"
+        "d",
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MChar
+            CharLiteral {
+              charLiteralText = "'\\777'",
+              charLiteralValue = CharValue {
+                charValue =
+                Prim.byteArrayFromList [1, 255],
+                unicodeCodePoint = Nothing}}),
+        macroExprType = "CharLit"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "D",
@@ -286,27 +272,25 @@
               "macro_strings.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "j1",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon CharLitTyCon)))
-            []}},
-      varDeclBody = VarDeclChar
-        CharValue {
-          charValue =
-          Prim.byteArrayFromList
-            [227, 129, 130],
-          unicodeCodePoint = Just
-            '\12354'},
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MChar
+            CharLiteral {
+              charLiteralText = "'\12354'",
+              charLiteralValue = CharValue {
+                charValue =
+                Prim.byteArrayFromList
+                  [227, 129, 130],
+                unicodeCodePoint = Just
+                  '\12354'}}),
+        macroExprType = "CharLit"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "J1",
@@ -320,27 +304,25 @@
               "macro_strings.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "j2",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon CharLitTyCon)))
-            []}},
-      varDeclBody = VarDeclChar
-        CharValue {
-          charValue =
-          Prim.byteArrayFromList
-            [227, 129, 130],
-          unicodeCodePoint = Just
-            '\12354'},
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MChar
+            CharLiteral {
+              charLiteralText = "'\\u3042'",
+              charLiteralValue = CharValue {
+                charValue =
+                Prim.byteArrayFromList
+                  [227, 129, 130],
+                unicodeCodePoint = Just
+                  '\12354'}}),
+        macroExprType = "CharLit"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "J2",
@@ -354,26 +336,25 @@
               "macro_strings.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "j3",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon CharLitTyCon)))
-            []}},
-      varDeclBody = VarDeclChar
-        CharValue {
-          charValue =
-          Prim.byteArrayFromList
-            [227, 129, 130],
-          unicodeCodePoint = Nothing},
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MChar
+            CharLiteral {
+              charLiteralText =
+              "'\\xE3\\x81\\x82'",
+              charLiteralValue = CharValue {
+                charValue =
+                Prim.byteArrayFromList
+                  [227, 129, 130],
+                unicodeCodePoint = Nothing}}),
+        macroExprType = "CharLit"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "J3",
@@ -387,51 +368,25 @@
               "macro_strings.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "s1",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon (TupleTyCon 2))))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon PtrTyCon)))
-                [
-                  TyConAppTy
-                    (ATyCon
-                      (GenerativeTyCon
-                        (DataTyCon IntLikeTyCon)))
-                    [
-                      TyConAppTy
-                        (ATyCon
-                          (GenerativeTyCon
-                            (DataTyCon
-                              (IntLikeTyCon
-                                (CIntegralType
-                                  (CharLike Char))))))
-                        []]],
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon IntLikeTyCon)))
-                [
-                  TyConAppTy
-                    (ATyCon
-                      (GenerativeTyCon
-                        (DataTyCon
-                          (IntLikeTyCon HsIntType))))
-                    []]]}},
-      varDeclBody = VarDeclString
-        (Prim.byteArrayFromList [97]),
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MString
+            StringLiteral {
+              stringLiteralText = "\"a\"",
+              stringLiteralValue = [
+                CharValue {
+                  charValue =
+                  Prim.byteArrayFromList [97],
+                  unicodeCodePoint = Just 'a'}]}),
+        macroExprType =
+        "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "S1",
@@ -445,51 +400,26 @@
               "macro_strings.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "s2",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon (TupleTyCon 2))))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon PtrTyCon)))
-                [
-                  TyConAppTy
-                    (ATyCon
-                      (GenerativeTyCon
-                        (DataTyCon IntLikeTyCon)))
-                    [
-                      TyConAppTy
-                        (ATyCon
-                          (GenerativeTyCon
-                            (DataTyCon
-                              (IntLikeTyCon
-                                (CIntegralType
-                                  (CharLike Char))))))
-                        []]],
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon IntLikeTyCon)))
-                [
-                  TyConAppTy
-                    (ATyCon
-                      (GenerativeTyCon
-                        (DataTyCon
-                          (IntLikeTyCon HsIntType))))
-                    []]]}},
-      varDeclBody = VarDeclString
-        (Prim.byteArrayFromList [39]),
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MString
+            StringLiteral {
+              stringLiteralText = "\"'\"",
+              stringLiteralValue = [
+                CharValue {
+                  charValue =
+                  Prim.byteArrayFromList [39],
+                  unicodeCodePoint = Just
+                    '\''}]}),
+        macroExprType =
+        "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "S2",
@@ -503,51 +433,26 @@
               "macro_strings.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "s3",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon (TupleTyCon 2))))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon PtrTyCon)))
-                [
-                  TyConAppTy
-                    (ATyCon
-                      (GenerativeTyCon
-                        (DataTyCon IntLikeTyCon)))
-                    [
-                      TyConAppTy
-                        (ATyCon
-                          (GenerativeTyCon
-                            (DataTyCon
-                              (IntLikeTyCon
-                                (CIntegralType
-                                  (CharLike Char))))))
-                        []]],
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon IntLikeTyCon)))
-                [
-                  TyConAppTy
-                    (ATyCon
-                      (GenerativeTyCon
-                        (DataTyCon
-                          (IntLikeTyCon HsIntType))))
-                    []]]}},
-      varDeclBody = VarDeclString
-        (Prim.byteArrayFromList [9]),
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MString
+            StringLiteral {
+              stringLiteralText = "\"\\t\"",
+              stringLiteralValue = [
+                CharValue {
+                  charValue =
+                  Prim.byteArrayFromList [9],
+                  unicodeCodePoint = Just
+                    '\t'}]}),
+        macroExprType =
+        "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "S3",
@@ -561,51 +466,26 @@
               "macro_strings.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "s4",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon (TupleTyCon 2))))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon PtrTyCon)))
-                [
-                  TyConAppTy
-                    (ATyCon
-                      (GenerativeTyCon
-                        (DataTyCon IntLikeTyCon)))
-                    [
-                      TyConAppTy
-                        (ATyCon
-                          (GenerativeTyCon
-                            (DataTyCon
-                              (IntLikeTyCon
-                                (CIntegralType
-                                  (CharLike Char))))))
-                        []]],
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon IntLikeTyCon)))
-                [
-                  TyConAppTy
-                    (ATyCon
-                      (GenerativeTyCon
-                        (DataTyCon
-                          (IntLikeTyCon HsIntType))))
-                    []]]}},
-      varDeclBody = VarDeclString
-        (Prim.byteArrayFromList [0]),
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MString
+            StringLiteral {
+              stringLiteralText = "\"\\0\"",
+              stringLiteralValue = [
+                CharValue {
+                  charValue =
+                  Prim.byteArrayFromList [0],
+                  unicodeCodePoint = Just
+                    '\NUL'}]}),
+        macroExprType =
+        "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "S4",
@@ -619,51 +499,26 @@
               "macro_strings.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "s5",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon (TupleTyCon 2))))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon PtrTyCon)))
-                [
-                  TyConAppTy
-                    (ATyCon
-                      (GenerativeTyCon
-                        (DataTyCon IntLikeTyCon)))
-                    [
-                      TyConAppTy
-                        (ATyCon
-                          (GenerativeTyCon
-                            (DataTyCon
-                              (IntLikeTyCon
-                                (CIntegralType
-                                  (CharLike Char))))))
-                        []]],
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon IntLikeTyCon)))
-                [
-                  TyConAppTy
-                    (ATyCon
-                      (GenerativeTyCon
-                        (DataTyCon
-                          (IntLikeTyCon HsIntType))))
-                    []]]}},
-      varDeclBody = VarDeclString
-        (Prim.byteArrayFromList [39]),
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MString
+            StringLiteral {
+              stringLiteralText = "\"\\'\"",
+              stringLiteralValue = [
+                CharValue {
+                  charValue =
+                  Prim.byteArrayFromList [39],
+                  unicodeCodePoint = Just
+                    '\''}]}),
+        macroExprType =
+        "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "S5",
@@ -677,51 +532,25 @@
               "macro_strings.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "s6",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon (TupleTyCon 2))))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon PtrTyCon)))
-                [
-                  TyConAppTy
-                    (ATyCon
-                      (GenerativeTyCon
-                        (DataTyCon IntLikeTyCon)))
-                    [
-                      TyConAppTy
-                        (ATyCon
-                          (GenerativeTyCon
-                            (DataTyCon
-                              (IntLikeTyCon
-                                (CIntegralType
-                                  (CharLike Char))))))
-                        []]],
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon IntLikeTyCon)))
-                [
-                  TyConAppTy
-                    (ATyCon
-                      (GenerativeTyCon
-                        (DataTyCon
-                          (IntLikeTyCon HsIntType))))
-                    []]]}},
-      varDeclBody = VarDeclString
-        (Prim.byteArrayFromList [63]),
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MString
+            StringLiteral {
+              stringLiteralText = "\"\\?\"",
+              stringLiteralValue = [
+                CharValue {
+                  charValue =
+                  Prim.byteArrayFromList [63],
+                  unicodeCodePoint = Just '?'}]}),
+        macroExprType =
+        "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "S6",
@@ -735,51 +564,25 @@
               "macro_strings.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "s7",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon (TupleTyCon 2))))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon PtrTyCon)))
-                [
-                  TyConAppTy
-                    (ATyCon
-                      (GenerativeTyCon
-                        (DataTyCon IntLikeTyCon)))
-                    [
-                      TyConAppTy
-                        (ATyCon
-                          (GenerativeTyCon
-                            (DataTyCon
-                              (IntLikeTyCon
-                                (CIntegralType
-                                  (CharLike Char))))))
-                        []]],
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon IntLikeTyCon)))
-                [
-                  TyConAppTy
-                    (ATyCon
-                      (GenerativeTyCon
-                        (DataTyCon
-                          (IntLikeTyCon HsIntType))))
-                    []]]}},
-      varDeclBody = VarDeclString
-        (Prim.byteArrayFromList [83]),
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MString
+            StringLiteral {
+              stringLiteralText = "\"\\123\"",
+              stringLiteralValue = [
+                CharValue {
+                  charValue =
+                  Prim.byteArrayFromList [83],
+                  unicodeCodePoint = Nothing}]}),
+        macroExprType =
+        "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "S7",
@@ -793,51 +596,25 @@
               "macro_strings.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "s8",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon (TupleTyCon 2))))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon PtrTyCon)))
-                [
-                  TyConAppTy
-                    (ATyCon
-                      (GenerativeTyCon
-                        (DataTyCon IntLikeTyCon)))
-                    [
-                      TyConAppTy
-                        (ATyCon
-                          (GenerativeTyCon
-                            (DataTyCon
-                              (IntLikeTyCon
-                                (CIntegralType
-                                  (CharLike Char))))))
-                        []]],
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon IntLikeTyCon)))
-                [
-                  TyConAppTy
-                    (ATyCon
-                      (GenerativeTyCon
-                        (DataTyCon
-                          (IntLikeTyCon HsIntType))))
-                    []]]}},
-      varDeclBody = VarDeclString
-        (Prim.byteArrayFromList [83]),
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MString
+            StringLiteral {
+              stringLiteralText = "\"\\x53\"",
+              stringLiteralValue = [
+                CharValue {
+                  charValue =
+                  Prim.byteArrayFromList [83],
+                  unicodeCodePoint = Nothing}]}),
+        macroExprType =
+        "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "S8",
@@ -851,52 +628,28 @@
               "macro_strings.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "t1",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon (TupleTyCon 2))))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon PtrTyCon)))
-                [
-                  TyConAppTy
-                    (ATyCon
-                      (GenerativeTyCon
-                        (DataTyCon IntLikeTyCon)))
-                    [
-                      TyConAppTy
-                        (ATyCon
-                          (GenerativeTyCon
-                            (DataTyCon
-                              (IntLikeTyCon
-                                (CIntegralType
-                                  (CharLike Char))))))
-                        []]],
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon IntLikeTyCon)))
-                [
-                  TyConAppTy
-                    (ATyCon
-                      (GenerativeTyCon
-                        (DataTyCon
-                          (IntLikeTyCon HsIntType))))
-                    []]]}},
-      varDeclBody = VarDeclString
-        (Prim.byteArrayFromList
-          [227, 129, 130]),
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MString
+            StringLiteral {
+              stringLiteralText =
+              "\"\12354\"",
+              stringLiteralValue = [
+                CharValue {
+                  charValue =
+                  Prim.byteArrayFromList
+                    [227, 129, 130],
+                  unicodeCodePoint = Just
+                    '\12354'}]}),
+        macroExprType =
+        "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "T1",
@@ -910,52 +663,28 @@
               "macro_strings.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "t2",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon (TupleTyCon 2))))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon PtrTyCon)))
-                [
-                  TyConAppTy
-                    (ATyCon
-                      (GenerativeTyCon
-                        (DataTyCon IntLikeTyCon)))
-                    [
-                      TyConAppTy
-                        (ATyCon
-                          (GenerativeTyCon
-                            (DataTyCon
-                              (IntLikeTyCon
-                                (CIntegralType
-                                  (CharLike Char))))))
-                        []]],
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon IntLikeTyCon)))
-                [
-                  TyConAppTy
-                    (ATyCon
-                      (GenerativeTyCon
-                        (DataTyCon
-                          (IntLikeTyCon HsIntType))))
-                    []]]}},
-      varDeclBody = VarDeclString
-        (Prim.byteArrayFromList
-          [227, 129, 130]),
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MString
+            StringLiteral {
+              stringLiteralText =
+              "\"\\u3042\"",
+              stringLiteralValue = [
+                CharValue {
+                  charValue =
+                  Prim.byteArrayFromList
+                    [227, 129, 130],
+                  unicodeCodePoint = Just
+                    '\12354'}]}),
+        macroExprType =
+        "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "T2",
@@ -969,52 +698,34 @@
               "macro_strings.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "t3",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon (TupleTyCon 2))))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon PtrTyCon)))
-                [
-                  TyConAppTy
-                    (ATyCon
-                      (GenerativeTyCon
-                        (DataTyCon IntLikeTyCon)))
-                    [
-                      TyConAppTy
-                        (ATyCon
-                          (GenerativeTyCon
-                            (DataTyCon
-                              (IntLikeTyCon
-                                (CIntegralType
-                                  (CharLike Char))))))
-                        []]],
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon IntLikeTyCon)))
-                [
-                  TyConAppTy
-                    (ATyCon
-                      (GenerativeTyCon
-                        (DataTyCon
-                          (IntLikeTyCon HsIntType))))
-                    []]]}},
-      varDeclBody = VarDeclString
-        (Prim.byteArrayFromList
-          [227, 129, 130]),
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MString
+            StringLiteral {
+              stringLiteralText =
+              "\"\\xE3\\x81\\x82\"",
+              stringLiteralValue = [
+                CharValue {
+                  charValue =
+                  Prim.byteArrayFromList [227],
+                  unicodeCodePoint = Nothing},
+                CharValue {
+                  charValue =
+                  Prim.byteArrayFromList [129],
+                  unicodeCodePoint = Nothing},
+                CharValue {
+                  charValue =
+                  Prim.byteArrayFromList [130],
+                  unicodeCodePoint = Nothing}]}),
+        macroExprType =
+        "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "T3",
@@ -1028,58 +739,38 @@
               "macro_strings.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name "@NsVar" "u",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon (TupleTyCon 2))))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon PtrTyCon)))
-                [
-                  TyConAppTy
-                    (ATyCon
-                      (GenerativeTyCon
-                        (DataTyCon IntLikeTyCon)))
-                    [
-                      TyConAppTy
-                        (ATyCon
-                          (GenerativeTyCon
-                            (DataTyCon
-                              (IntLikeTyCon
-                                (CIntegralType
-                                  (CharLike Char))))))
-                        []]],
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon IntLikeTyCon)))
-                [
-                  TyConAppTy
-                    (ATyCon
-                      (GenerativeTyCon
-                        (DataTyCon
-                          (IntLikeTyCon HsIntType))))
-                    []]]}},
-      varDeclBody = VarDeclString
-        (Prim.byteArrayFromList
-          [
-            1,
-            255,
-            1,
-            255,
-            1,
-            255,
-            1,
-            255]),
-      varDeclComment = Just
+    MacroExpr {
+      macroExprName = Name
+        "@NsVar"
+        "u",
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MString
+            StringLiteral {
+              stringLiteralText =
+              "\"\\777\\777\\777\\777\"",
+              stringLiteralValue = [
+                CharValue {
+                  charValue =
+                  Prim.byteArrayFromList [1, 255],
+                  unicodeCodePoint = Nothing},
+                CharValue {
+                  charValue =
+                  Prim.byteArrayFromList [1, 255],
+                  unicodeCodePoint = Nothing},
+                CharValue {
+                  charValue =
+                  Prim.byteArrayFromList [1, 255],
+                  unicodeCodePoint = Nothing},
+                CharValue {
+                  charValue =
+                  Prim.byteArrayFromList [1, 255],
+                  unicodeCodePoint = Nothing}]}),
+        macroExprType =
+        "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "U",
@@ -1093,50 +784,46 @@
               "macro_strings.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name "@NsVar" "v",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon (TupleTyCon 2))))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon PtrTyCon)))
-                [
-                  TyConAppTy
-                    (ATyCon
-                      (GenerativeTyCon
-                        (DataTyCon IntLikeTyCon)))
-                    [
-                      TyConAppTy
-                        (ATyCon
-                          (GenerativeTyCon
-                            (DataTyCon
-                              (IntLikeTyCon
-                                (CIntegralType
-                                  (CharLike Char))))))
-                        []]],
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon IntLikeTyCon)))
-                [
-                  TyConAppTy
-                    (ATyCon
-                      (GenerativeTyCon
-                        (DataTyCon
-                          (IntLikeTyCon HsIntType))))
-                    []]]}},
-      varDeclBody = VarDeclString
-        (Prim.byteArrayFromList
-          [1, 2, 3, 4, 5, 6]),
-      varDeclComment = Just
+    MacroExpr {
+      macroExprName = Name
+        "@NsVar"
+        "v",
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MString
+            StringLiteral {
+              stringLiteralText =
+              "\"\\1\\2\\3\\4\\5\\6\"",
+              stringLiteralValue = [
+                CharValue {
+                  charValue =
+                  Prim.byteArrayFromList [1],
+                  unicodeCodePoint = Nothing},
+                CharValue {
+                  charValue =
+                  Prim.byteArrayFromList [2],
+                  unicodeCodePoint = Nothing},
+                CharValue {
+                  charValue =
+                  Prim.byteArrayFromList [3],
+                  unicodeCodePoint = Nothing},
+                CharValue {
+                  charValue =
+                  Prim.byteArrayFromList [4],
+                  unicodeCodePoint = Nothing},
+                CharValue {
+                  charValue =
+                  Prim.byteArrayFromList [5],
+                  unicodeCodePoint = Nothing},
+                CharValue {
+                  charValue =
+                  Prim.byteArrayFromList [6],
+                  unicodeCodePoint = Nothing}]}),
+        macroExprType =
+        "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "V",
@@ -1150,52 +837,39 @@
               "macro_strings.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "w1",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon (TupleTyCon 2))))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon PtrTyCon)))
-                [
-                  TyConAppTy
-                    (ATyCon
-                      (GenerativeTyCon
-                        (DataTyCon IntLikeTyCon)))
-                    [
-                      TyConAppTy
-                        (ATyCon
-                          (GenerativeTyCon
-                            (DataTyCon
-                              (IntLikeTyCon
-                                (CIntegralType
-                                  (CharLike Char))))))
-                        []]],
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon IntLikeTyCon)))
-                [
-                  TyConAppTy
-                    (ATyCon
-                      (GenerativeTyCon
-                        (DataTyCon
-                          (IntLikeTyCon HsIntType))))
-                    []]]}},
-      varDeclBody = VarDeclString
-        (Prim.byteArrayFromList
-          [104, 105, 106, 0]),
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MString
+            StringLiteral {
+              stringLiteralText =
+              "\"hij\\0\"",
+              stringLiteralValue = [
+                CharValue {
+                  charValue =
+                  Prim.byteArrayFromList [104],
+                  unicodeCodePoint = Just 'h'},
+                CharValue {
+                  charValue =
+                  Prim.byteArrayFromList [105],
+                  unicodeCodePoint = Just 'i'},
+                CharValue {
+                  charValue =
+                  Prim.byteArrayFromList [106],
+                  unicodeCodePoint = Just 'j'},
+                CharValue {
+                  charValue =
+                  Prim.byteArrayFromList [0],
+                  unicodeCodePoint = Just
+                    '\NUL'}]}),
+        macroExprType =
+        "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "W1",
@@ -1209,61 +883,58 @@
               "macro_strings.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "w2",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon (TupleTyCon 2))))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon PtrTyCon)))
-                [
-                  TyConAppTy
-                    (ATyCon
-                      (GenerativeTyCon
-                        (DataTyCon IntLikeTyCon)))
-                    [
-                      TyConAppTy
-                        (ATyCon
-                          (GenerativeTyCon
-                            (DataTyCon
-                              (IntLikeTyCon
-                                (CIntegralType
-                                  (CharLike Char))))))
-                        []]],
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon IntLikeTyCon)))
-                [
-                  TyConAppTy
-                    (ATyCon
-                      (GenerativeTyCon
-                        (DataTyCon
-                          (IntLikeTyCon HsIntType))))
-                    []]]}},
-      varDeclBody = VarDeclString
-        (Prim.byteArrayFromList
-          [
-            97,
-            98,
-            99,
-            0,
-            100,
-            101,
-            102,
-            0,
-            103]),
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MString
+            StringLiteral {
+              stringLiteralText =
+              "\"abc\\0def\\0g\"",
+              stringLiteralValue = [
+                CharValue {
+                  charValue =
+                  Prim.byteArrayFromList [97],
+                  unicodeCodePoint = Just 'a'},
+                CharValue {
+                  charValue =
+                  Prim.byteArrayFromList [98],
+                  unicodeCodePoint = Just 'b'},
+                CharValue {
+                  charValue =
+                  Prim.byteArrayFromList [99],
+                  unicodeCodePoint = Just 'c'},
+                CharValue {
+                  charValue =
+                  Prim.byteArrayFromList [0],
+                  unicodeCodePoint = Just '\NUL'},
+                CharValue {
+                  charValue =
+                  Prim.byteArrayFromList [100],
+                  unicodeCodePoint = Just 'd'},
+                CharValue {
+                  charValue =
+                  Prim.byteArrayFromList [101],
+                  unicodeCodePoint = Just 'e'},
+                CharValue {
+                  charValue =
+                  Prim.byteArrayFromList [102],
+                  unicodeCodePoint = Just 'f'},
+                CharValue {
+                  charValue =
+                  Prim.byteArrayFromList [0],
+                  unicodeCodePoint = Just '\NUL'},
+                CharValue {
+                  charValue =
+                  Prim.byteArrayFromList [103],
+                  unicodeCodePoint = Just 'g'}]}),
+        macroExprType =
+        "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "W2",

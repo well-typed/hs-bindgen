@@ -5,7 +5,6 @@ module Test.HsBindgen.Orphans.TreeDiff () where
 import Data.Foldable (toList)
 import Data.TreeDiff.Class (ToExpr (..), defaultExprViaShow)
 import Data.TreeDiff.Expr qualified as Expr
-import Data.TreeDiff.OMap qualified as OMap
 import Data.Vec.Lazy (Vec)
 import Data.Vec.Lazy qualified as Vec
 import Foreign.C
@@ -163,7 +162,7 @@ instance ToExpr Hs.Newtype
 instance ToExpr Hs.PatSyn
 instance ToExpr Hs.StorableInstance
 instance ToExpr t => ToExpr (Hs.Strategy t)
-instance ToExpr Hs.VarDecl
+instance ToExpr Hs.MacroExpr
 instance ToExpr Hs.UnionGetter
 instance ToExpr Hs.UnionSetter
 instance ToExpr Hs.DefineInstance
@@ -178,10 +177,8 @@ instance ToExpr Origin.PatSyn
 instance ToExpr Origin.ForeignImport
 
 instance ToExpr (Hs.PeekByteOff ctx)
-instance ToExpr (Hs.PhiType ctx)
 instance ToExpr (Hs.PokeByteOff ctx)
 instance ToExpr (Hs.Struct n)
-instance ToExpr (Hs.TauType ctx)
 instance ToExpr (Hs.VarDeclRHS ctx)
 instance ToExpr (t ctx) => ToExpr (Hs.Seq t ctx)
 
@@ -206,7 +203,7 @@ instance ToExpr Hs.Decl where
       Expr.App "DeclForeignImport" [toExpr foreignImport]
     Hs.DeclFunction functionDecl ->
       Expr.App "DeclFunction" [toExpr functionDecl]
-    Hs.DeclVar v ->
+    Hs.DeclMacroExpr v ->
       Expr.App "DeclVar" [toExpr v]
     Hs.DeclUnionGetter ug ->
       Expr.App "DeclUnionGetter" [toExpr ug]
@@ -258,33 +255,12 @@ instance ToExpr NameHint where
 instance ToExpr (Hs.StructCon ctx) where
   toExpr (Hs.StructCon struct) = Expr.App "StructCon" [toExpr struct]
 
-instance ToExpr Hs.SigmaType where
-  toExpr Hs.ForallTy {..} = Expr.Rec "ForallTy" $ OMap.fromList [
-      ("forallTyBinders", toExpr forallTyBinders)
-    , ("forallTy", toExpr forallTy)
-    ]
-
 instance ToExpr Hs.VarDeclRHSAppHead where
   toExpr = \case
     Hs.InfixAppHead mfun ->
       Expr.App "InfixAppHead" [toExpr mfun]
     Hs.VarAppHead name ->
       Expr.App "VarAppHead" [toExpr name]
-
-instance ToExpr (Hs.PredType ctx) where
-  toExpr = \case
-    Hs.DictTy cls args ->
-      Expr.App "ClassTy" [toExpr cls, toExpr args]
-    Hs.NomEqTy l r ->
-      Expr.App "NomEqTy" [toExpr l, toExpr r]
-
-instance ToExpr Hs.ATyCon where
-  toExpr (Hs.ATyCon tc) =
-    Expr.App "ATyCon" [toExpr tc]
-
-instance ToExpr Hs.AClass where
-  toExpr (Hs.AClass tc) =
-    Expr.App "AClass" [toExpr tc]
 
 {-------------------------------------------------------------------------------
   hs-bindgen-runtime
