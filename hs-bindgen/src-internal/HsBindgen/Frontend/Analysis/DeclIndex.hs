@@ -7,17 +7,14 @@
 -- > import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 -- > import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 module HsBindgen.Frontend.Analysis.DeclIndex (
-    DeclIndex -- opaque
-  , getParseOmissions
-  , getParseFailures
+    DeclIndex(..)
     -- * Construction
   , DeclIndexError(..)
   , fromParseResults
     -- * Query
   , lookup
   , (!)
-  , lookupDelayedParseMsgs
-  , lookupMissing
+  , lookupAttachedParseMsgs
   , getDecls
   ) where
 
@@ -26,8 +23,8 @@ import Prelude hiding (lookup)
 import Control.Monad.State
 import Data.Function
 import Data.List.NonEmpty ((<|))
-import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
+import Data.Set qualified as Set
 import Optics.Core (over, set, (%))
 import Text.SimplePrettyPrint (hcat, showToCtxDoc)
 
@@ -47,20 +44,13 @@ import HsBindgen.Util.Tracer
 -- | Index of all declarations
 data DeclIndex = DeclIndex {
       succeeded    :: !(Map C.QualPrelimDeclId ParseSuccess)
-    , omitted      :: !(Map C.QualPrelimDeclId (NonEmpty ParseOmission))
+    , omitted      :: !(Map C.QualPrelimDeclId (NonEmpty ParseNotAttempted))
     , failed       :: !(Map C.QualPrelimDeclId (NonEmpty ParseFailure))
     }
   deriving stock (Show, Generic)
 
 emptyIndex :: DeclIndex
 emptyIndex = DeclIndex Map.empty Map.empty Map.empty
-
-getParseOmissions ::
-  DeclIndex -> Map C.QualPrelimDeclId (NonEmpty ParseOmission)
-getParseOmissions = omitted
-
-getParseFailures :: DeclIndex -> Map C.QualPrelimDeclId (NonEmpty ParseFailure)
-getParseFailures = failed
 
 {-------------------------------------------------------------------------------
   Construction
@@ -80,8 +70,19 @@ fromParseResults results =
     $ mapM_ aux results
   where
     fromPartialIndex :: PartialIndex -> (DeclIndex, [DeclIndexError])
-    fromPartialIndex p = (p.index , Map.elems p.errors
-      )
+    fromPartialIndex (PartialIndex i e) =
+      -- We assert that no key is used twice. This assertion is not strictly
+      -- necessary, and we may want to remove it in the future.
+      let ss = Map.keysSet i.succeeded
+          os = Map.keysSet i.omitted
+          fs = Map.keysSet i.failed
+          is = Set.intersection
+          sharedKeys = Set.unions [is ss os, is ss fs, is os fs]
+      in  if sharedKeys == Set.empty then
+            (i, Map.elems e)
+          else
+            panicPure $
+              "DeclIndex.fromParseResults: shared keys: " <> show sharedKeys
 
     aux :: ParseResult -> State PartialIndex ()
     aux parse = modify' $ \oldIndex@PartialIndex{..} ->
@@ -89,7 +90,7 @@ fromParseResults results =
           -- Ignore further definitions of the same ID after an error
           oldIndex
         else case parse of
-          ParseSucceeded x ->
+          ParseResultSuccess x ->
               let (succeeded', mErr) = flip runState Nothing $
                      Map.alterF
                        (insert x)
@@ -101,12 +102,12 @@ fromParseResults results =
                     Nothing  -> errors
                     Just err -> Map.insert qualPrelimDeclId err errors
                 }
-          ParseOmitted x ->
+          ParseResultNotAttempted x ->
             over
               ( #index % #omitted )
               ( alter qualPrelimDeclId x )
               oldIndex
-          ParseFailed x ->
+          ParseResultFailure x ->
             over
               ( #index % #failed )
               ( alter qualPrelimDeclId x )
@@ -136,7 +137,7 @@ fromParseResults results =
                 -- Redeclaration but with the same definition. This can happen,
                 -- for example for opaque structs. We stick with the first but
                 -- add the parse messages of the second.
-                success $ over #psDelayedMsgs (++ new.psDelayedMsgs) old
+                success $ over #psAttachedMsgs (++ new.psAttachedMsgs) old
 
             | otherwise ->
                 -- Redeclaration with a /different/ value. This is only legal
@@ -222,19 +223,9 @@ lookup qualPrelimDeclId =
     fromMaybe (panicPure $ "Unknown key: " ++ show qualPrelimDeclId) $
        lookup qualPrelimDeclId declIndex
 
-lookupDelayedParseMsgs :: C.QualPrelimDeclId -> DeclIndex -> [DelayedParseMsg]
-lookupDelayedParseMsgs qualPrelimDeclId =
-  maybe [] psDelayedMsgs . Map.lookup qualPrelimDeclId . succeeded
-
--- | For a given declaration ID, look up the source locations of omitted or
--- failed parses.
-lookupMissing :: C.QualPrelimDeclId -> DeclIndex -> [SingleLoc]
-lookupMissing qualPrelimDeclId index =
-  (maybe [] (map poSingleLoc . NonEmpty.toList) $
-    Map.lookup qualPrelimDeclId $ index.omitted)
-  ++
-  (maybe [] (map pfSingleLoc . NonEmpty.toList) $
-    Map.lookup qualPrelimDeclId $ index.failed)
+lookupAttachedParseMsgs :: C.QualPrelimDeclId -> DeclIndex -> [AttachedParseMsg]
+lookupAttachedParseMsgs qualPrelimDeclId =
+  maybe [] psAttachedMsgs . Map.lookup qualPrelimDeclId . succeeded
 
 getDecls :: DeclIndex -> [C.Decl Parse]
 getDecls = map psDecl . Map.elems . succeeded

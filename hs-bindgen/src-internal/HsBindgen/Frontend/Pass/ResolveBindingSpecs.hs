@@ -7,6 +7,7 @@ module HsBindgen.Frontend.Pass.ResolveBindingSpecs (
 import Control.Monad ((<=<))
 import Control.Monad.RWS (MonadReader, MonadState, RWS)
 import Control.Monad.RWS qualified as RWS
+import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 import Optics.Core ((&), (.~))
@@ -28,7 +29,7 @@ import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.NameAnon.IsPass
-import HsBindgen.Frontend.Pass.Parse.IsPass (OrigTypedefRef (..))
+import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
@@ -449,7 +450,7 @@ instance Resolve C.Type where
             Nothing -> do
               -- Check for external binding of type that we omitted or failed to
               -- parse.
-              case DeclIndex.lookupMissing qualPrelimDeclId envDeclIndex of
+              case lookupMissing qualPrelimDeclId envDeclIndex of
                 [] -> return (Set.empty, mk qualDeclIdName)
                 locs -> do
                   let declPaths =
@@ -512,3 +513,13 @@ getHsExtRef cQualName cTypeSpec = do
       maybe (Left (ResolveBindingSpecsExtHsRefNoIdentifier cQualName)) Right $
         BindingSpec.cTypeSpecIdentifier cTypeSpec
     return Hs.ExtRef{extRefModule, extRefIdentifier}
+
+-- For a given declaration ID, look up the source locations of "not attempted"
+-- or "failed" parses.
+lookupMissing :: C.QualPrelimDeclId -> DeclIndex -> [SingleLoc]
+lookupMissing qualPrelimDeclId index =
+  (maybe [] (map poSingleLoc . NonEmpty.toList) $
+    Map.lookup qualPrelimDeclId $ index.omitted)
+  ++
+  (maybe [] (map pfSingleLoc . NonEmpty.toList) $
+    Map.lookup qualPrelimDeclId $ index.failed)

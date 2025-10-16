@@ -8,13 +8,14 @@ module HsBindgen.Frontend.Pass.Parse.IsPass (
   , getUnparsedMacro
     -- * Trace messages
   , ParseSuccess(..)
-  , ParseOmissionReason(..)
-  , ParseOmission(..)
+  , ParseNotAttemptedReason(..)
+  , ParseNotAttempted(..)
   , ParseFailure(..)
   , ParseResult(..)
   , getDecl
   , getQualPrelimDeclId
   , parseSucceed
+  , parseSucceedWith
   , parseDoNotAttempt
   , parseFail
   , parseFailWith
@@ -71,13 +72,13 @@ instance IsPass Parse where
 -------------------------------------------------------------------------------}
 
 data ParseSuccess = ParseSuccess {
-      psDecl        :: C.Decl Parse
-    , psDelayedMsgs :: [DelayedParseMsg]
+      psDecl         :: C.Decl Parse
+    , psAttachedMsgs :: [AttachedParseMsg]
     }
   deriving stock (Show, Generic)
 
 -- | Why did we not attempt to parse a declaration?
-data ParseOmissionReason =
+data ParseNotAttemptedReason =
     -- | We do not parse builtin declarations.
     OmittedBuiltin
 
@@ -102,7 +103,7 @@ data ParseOmissionReason =
   | ParsePredicateNotMatched
   deriving stock (Show, Eq, Ord)
 
-instance PrettyForTrace ParseOmissionReason where
+instance PrettyForTrace ParseNotAttemptedReason where
   prettyForTrace = \case
     OmittedBuiltin           -> "Builtin declaration"
     DeclarationUnavailable   -> "Declaration is 'unavailable' on this platform"
@@ -112,11 +113,11 @@ instance PrettyForTrace ParseOmissionReason where
 --
 -- We need this information when selecting declarations: Does the user want to
 -- select declarations we did not attempt to parse?
-data ParseOmission = ParseOmission {
-      poQualPrelimDeclId    :: QualPrelimDeclId
-    , poSingleLoc           :: SingleLoc
-    , poAvailability        :: C.Availability
-    , poParseOmissionReason :: ParseOmissionReason
+data ParseNotAttempted = ParseNotAttempted {
+      poQualPrelimDeclId        :: QualPrelimDeclId
+    , poSingleLoc               :: SingleLoc
+    , poAvailability            :: C.Availability
+    , poParseNotAttemptedReason :: ParseNotAttemptedReason
     }
   deriving stock (Show, Generic)
 
@@ -129,38 +130,43 @@ data ParseFailure = ParseFailure {
       pfQualPrelimDeclId :: QualPrelimDeclId
     , pfSingleLoc        :: SingleLoc
     , pfAvailability     :: C.Availability
-    , pfDelayedParseMsgs :: NonEmpty DelayedParseMsg
+    , pfDelayedParseMsgs :: NonEmpty AttachedParseMsg
     }
   deriving stock (Show, Generic)
 
 data ParseResult =
-    ParseSucceeded ParseSuccess
-  | ParseOmitted ParseOmission
-  | ParseFailed ParseFailure
+    ParseResultSuccess      ParseSuccess
+  | ParseResultNotAttempted ParseNotAttempted
+  | ParseResultFailure      ParseFailure
   deriving stock (Show, Generic)
 
 getDecl :: ParseResult -> Either ParseResult (C.Decl Parse)
 getDecl = \case
-  ParseSucceeded ParseSuccess{..} -> Right psDecl
-  other                           -> Left other
+  ParseResultSuccess ParseSuccess{..} -> Right psDecl
+  other                               -> Left other
 
 getQualPrelimDeclId :: ParseResult -> QualPrelimDeclId
 getQualPrelimDeclId = \case
-  ParseSucceeded ParseSuccess{..}  -> C.declQualPrelimDeclId psDecl
-  ParseOmitted   ParseOmission{..} -> poQualPrelimDeclId
-  ParseFailed    ParseFailure{..}  -> pfQualPrelimDeclId
+  ParseResultSuccess        ParseSuccess{..}      -> C.declQualPrelimDeclId psDecl
+  ParseResultNotAttempted   ParseNotAttempted{..} -> poQualPrelimDeclId
+  ParseResultFailure        ParseFailure{..}      -> pfQualPrelimDeclId
 
 parseSucceed :: C.Decl Parse -> ParseResult
-parseSucceed decl = ParseSucceeded $ ParseSuccess decl []
+parseSucceed = parseSucceedWith []
+
+parseSucceedWith :: [DelayedParseMsg] -> C.Decl Parse -> ParseResult
+parseSucceedWith msgs decl =
+  ParseResultSuccess $ ParseSuccess decl $
+    map (AttachedParseMsg decl.declInfo) msgs
 
 parseDoNotAttempt ::
      HasCallStack
   => C.DeclInfo Parse
   -> C.NameKind
-  -> ParseOmissionReason
+  -> ParseNotAttemptedReason
   -> ParseResult
 parseDoNotAttempt C.DeclInfo{..} kind reason =
-    ParseOmitted $ ParseOmission
+    ParseResultNotAttempted $ ParseNotAttempted
       (C.qualPrelimDeclId declId kind)
       declLoc
       declAvailability
@@ -176,12 +182,12 @@ parseFailWith ::
   -> C.NameKind
   -> NonEmpty DelayedParseMsg
   -> ParseResult
-parseFailWith C.DeclInfo{..} kind msgs =
-    ParseFailed $ ParseFailure
+parseFailWith info@C.DeclInfo{..} kind msgs =
+    ParseResultFailure $ ParseFailure
       (C.qualPrelimDeclId declId kind)
       declLoc
       declAvailability
-      msgs
+      (NonEmpty.map (AttachedParseMsg info) msgs)
 
 {-------------------------------------------------------------------------------
   Typedefs
@@ -298,15 +304,15 @@ instance IsTrace Level UnattachedParseMsg where
   getTraceId = const "parse-unattached"
 
 data AttachedParseMsg = AttachedParseMsg (C.DeclInfo Parse) DelayedParseMsg
-  deriving stock (Generic)
+  deriving stock (Show, Generic)
 
 instance PrettyForTrace AttachedParseMsg where
   prettyForTrace (AttachedParseMsg i x) = prettyForTrace i <+> prettyForTrace x
 
 instance IsTrace Level AttachedParseMsg where
   getDefaultLogLevel (AttachedParseMsg _ x) = getDefaultLogLevel x
-  getSource (AttachedParseMsg _ x)          = getSource x
-  getTraceId (AttachedParseMsg _ x)         = getTraceId x
+  getSource          (AttachedParseMsg _ x) = getSource x
+  getTraceId         (AttachedParseMsg _ x) = getTraceId x
 
 -- | Delayed parse messages
 --

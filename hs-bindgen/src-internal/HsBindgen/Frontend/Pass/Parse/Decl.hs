@@ -201,7 +201,7 @@ macroDefinition info = \curr -> do
           , declAnn  = NoAnn
           }
     decl <- mkDecl <$> getUnparsedMacro unit curr
-    foldContinueWith [ParseSucceeded $ ParseSuccess decl []]
+    foldContinueWith [ParseResultSuccess $ ParseSuccess decl []]
 
 structDecl :: C.DeclInfo Parse -> Parser
 structDecl info = \curr -> do
@@ -260,7 +260,7 @@ structDecl info = \curr -> do
               , declKind = C.DeclOpaque (C.NameKindTagged C.TagKindStruct)
               , declAnn  = NoAnn
               }
-        in  foldContinueWith [ParseSucceeded $ ParseSuccess decl []]
+        in  foldContinueWith [ParseResultSuccess $ ParseSuccess decl []]
       DefinitionElsewhere _ ->
         foldContinue
 
@@ -505,11 +505,10 @@ functionDecl info = \curr -> do
                         ParsePotentialDuplicateSymbol (visibility == PublicVisibility)
                       | isDefn && linkage == ExternalLinkage
                       ]
-                    funDecl = mkDecl purity
-                in  map parseSucceed otherDecls ++
-                      [ ParseSucceeded $ ParseSuccess funDecl $
-                          nonPublicVisibility ++ potentialDuplicate
-                      ]
+                    funDeclResult =
+                      parseSucceedWith
+                        (nonPublicVisibility ++ potentialDuplicate) $ mkDecl purity
+                in map parseSucceed otherDecls ++ [funDeclResult]
   where
     guardTypeFunction ::
          CXCursor
@@ -631,11 +630,11 @@ varDecl info = \curr -> do
 
             in  case cls of
               VarGlobal ->
-                singleton $ ParseSucceeded $
-                  ParseSuccess (mkDecl $ C.DeclGlobal typ) msgs
+                singleton $
+                  parseSucceedWith msgs (mkDecl $ C.DeclGlobal typ)
               VarConst ->
-                singleton $ ParseSucceeded $
-                  ParseSuccess (mkDecl $ C.DeclGlobal typ) msgs
+                singleton $
+                  parseSucceedWith msgs (mkDecl $ C.DeclGlobal typ)
               VarThreadLocal ->
                 singleton $
                   parseFailWith' $ ParseUnsupportedTLS :| msgs
