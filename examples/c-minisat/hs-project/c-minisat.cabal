@@ -82,7 +82,7 @@ library
 
     extra-libraries: minisat-c
 
-executable c-minisat
+executable c-minisat-bin
     -- Import common warning flags.
     import:           warnings
 

@@ -65,6 +65,6 @@ echo "# "
     cd "$SCRIPT_DIR/hs-project"
     LD_LIBRARY_PATH="$SCRIPT_DIR/minisat-c-bindings/build/dynamic/lib:$LD_LIBRARY_PATH"
     export LD_LIBRARY_PATH
-    cabal build
-    cabal run c-minisat
+    cabal build c-minisat-bin
+    cabal run c-minisat-bin
 )

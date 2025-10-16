@@ -1,0 +1,140 @@
+name: Examples
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  merge_group:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build-and-test-example:
+    name: Build and test ${{ matrix.example }} example (${{ matrix.runner }}, GHC ${{ matrix.ghc-version }}, Cabal ${{ matrix.cabal-version }}, LLVM ${{matrix.llvm-version }})
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 30
+
+    strategy:
+      fail-fast: false
+      # We run each example only once per workflow trigger (push/PR/MQ), always
+      # on Ubuntu, and with fixed GHC/Cabal/LLVM versions. This should be
+      # sufficient, since we already test hs-bindgen more extensively in the
+      # haskell-simple-* workflows.
+      matrix:
+        runner: ['ubuntu-latest']
+        ghc-version: ['9.4']
+        cabal-version: ['3.16']
+        llvm-version: ['15']
+        # NOTE: add new example projects here. The example project has to
+        # satisfy some requirements for this workflow to work correctly. See
+        # ./examples/README.md (with respect to the repository root).
+        example: ['c-minisat', 'libpcap']
+
+    env:
+      # We assume that the example executable lives in this directory
+      hs-project-directory: './examples/${{matrix.example}}/hs-project'
+
+    steps:
+    - name: 📥 Checkout repository
+      uses: actions/checkout@v5
+
+    - name: 🛠️ Setup Haskell
+      id: setup-haskell
+      uses: haskell-actions/setup@v2
+      with:
+        ghc-version: ${{ matrix.ghc-version }}
+        cabal-version: ${{ matrix.cabal-version }}
+
+    - name: 🛠️ Setup LLVM/Clang
+      uses: ./.github/actions/setup-llvm
+      with:
+        version: ${{ matrix.llvm-version }}
+
+    # The hs-bindgen-cli executable and the example executable are built using
+    # different environments. The former using the top-level project file, the
+    # latter using its own local project file. For this reason, we generate two
+    # build plans that we later combine in the cache-cabal-restore step.
+    #
+    # NOTE: the use of "cabal build all" is intentional.
+
+    - name: 💾 Generate Cabal plan (hs-bindgen-cli)
+      run: |
+        cabal build all --dry-run --disable-test --disable-benchmark
+
+    - name: 💾 Generate Cabal plan (${{ matrix.example }})
+      working-directory: ${{ env.hs-project-directory }}
+      run: |
+        cabal build all --dry-run --disable-test --disable-benchmark
+
+    # Here is where we hash the two build plan files together and include the
+    # hash in the cache key. If either build plan changes, then the hash
+    # changes, and we'll save a new cache.
+    - name: 💾 Restore Cabal dependencies
+      id: cache-cabal-restore
+      uses: actions/cache/restore@v4
+      env:
+        key: build-example-${{ matrix.example }}-${{ matrix.runner }}-ghc-${{ steps.setup-haskell.outputs.ghc-version }}-cabal-${{ steps.setup-haskell.outputs.cabal-version }}-llvm-${{ matrix.llvm-version }}
+        plan-file-hs-bindgen-cli: './dist-newstyle/cache/plan.json'
+        plan-file-example: '${{env.hs-project-directory}}/dist-newstyle/cache/plan.json'
+      with:
+        path: ${{ steps.setup-haskell.outputs.cabal-store }}
+        key: ${{ env.key }}-plan-${{ hashFiles(env.plan-file-hs-bindgen-cli, env.plan-file-example) }}
+        restore-keys: ${{ env.key }}-
+
+    # The hs-bindgen-cli executable and the example executable are built using
+    # different environments, so we build their dependencies separately. They
+    # will be stored in the same Cabal store.
+    #
+    # NOTE: the use of "cabal build all" is intentional.
+
+    - name: 🛠️ Build Cabal dependencies (hs-bindgen-cli)
+      run: |
+        cabal build all --only-dependencies --disable-test --disable-benchmark
+
+    - name: 🛠️ Build Cabal dependencies (${{ matrix.example }})
+      working-directory: ${{ env.hs-project-directory }}
+      run: |
+        cabal build all --only-dependencies --disable-test --disable-benchmark
+
+    # Only save a new cache if it does not exist yet
+    - name: 💾 Save Cabal dependencies
+      uses: actions/cache/save@v4
+      if: ${{ steps.cache-cabal-restore.outputs.cache-hit != 'true' }}
+      with:
+        path: ${{ steps.setup-haskell.outputs.cabal-store }}
+        key: ${{ steps.cache-cabal-restore.outputs.cache-primary-key }}
+
+    - name: 🏗️ Build (hs-bindgen-cli)
+      run: |
+        cabal build hs-bindgen-cli --disable-test --disable-benchmark
+
+    - name: 🧪 Debug (hs-bindgen-cli)
+      run: |
+        echo '### Version'
+        cabal run hs-bindgen-cli -- --version
+        echo '### libclang -v'
+        cabal run hs-bindgen-cli -- info libclang --clang-option=-v
+        echo '### Resolve (clang)'
+        cabal run hs-bindgen-cli -- info resolve-header -v4 --builtin-include-dir=clang stdint.h
+
+    - name: 🧪 Build and run c-minisat example
+      if: ${{ matrix.example == 'c-minisat' }}
+      uses: ./.github/actions/examples/c-minisat
+
+    - name: 🧪 Build and run libpcap example
+      if: ${{ matrix.example == 'libpcap' }}
+      uses: ./.github/actions/examples/libpcap
