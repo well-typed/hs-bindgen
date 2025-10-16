@@ -3,6 +3,7 @@
 # Examples:
 */Setup.hs
 dist-newstyle/**/*.hs
+**/dist-newstyle/**/*.hs
 alternatives/**/*.hs
 hs-bindgen/fixtures/*.hs
 hs-bindgen/src-internal/HsBindgen/Frontend/Macro/**/*
