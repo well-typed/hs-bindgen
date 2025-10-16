@@ -1,3 +1,5 @@
+index-state: 2025-09-16T04:55:58Z
+
 -- Note: this should point to a commit on libclang's main branch
 source-repository-package
     type: git
