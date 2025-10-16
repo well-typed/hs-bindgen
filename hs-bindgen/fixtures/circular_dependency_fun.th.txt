@@ -65,3 +65,14 @@ instance Storable Forward_declaration
           peek = \ptr_0 -> pure Forward_declaration <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Forward_declaration forward_declaration_f_3 -> pokeByteOff ptr_1 (0 :: Int) forward_declaration_f_3
+foreign import ccall safe "wrapper" funPtr_fbe60ed6_to :: (Ptr Forward_declaration ->
+                                                           IO Unit) ->
+                                                          IO (FunPtr (Ptr Forward_declaration ->
+                                                                      IO Unit))
+foreign import ccall safe "dynamic" funPtr_fbe60ed6_from :: FunPtr (Ptr Forward_declaration ->
+                                                                    IO Unit) ->
+                                                            Ptr Forward_declaration -> IO Unit
+instance ToFunPtr (Ptr Forward_declaration -> IO Unit)
+    where toFunPtr = funPtr_fbe60ed6_to
+instance FromFunPtr (Ptr Forward_declaration -> IO Unit)
+    where fromFunPtr = funPtr_fbe60ed6_from

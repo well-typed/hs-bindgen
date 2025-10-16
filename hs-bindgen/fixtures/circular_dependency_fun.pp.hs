@@ -82,3 +82,19 @@ instance F.Storable Forward_declaration where
         case s1 of
           Forward_declaration forward_declaration_f2 ->
             F.pokeByteOff ptr0 (0 :: Int) forward_declaration_f2
+
+foreign import ccall safe "wrapper" funPtr_fbe60ed6_to ::
+     ((Ptr.Ptr Forward_declaration) -> IO ())
+  -> IO (Ptr.FunPtr ((Ptr.Ptr Forward_declaration) -> IO ()))
+
+foreign import ccall safe "dynamic" funPtr_fbe60ed6_from ::
+     Ptr.FunPtr ((Ptr.Ptr Forward_declaration) -> IO ())
+  -> (Ptr.Ptr Forward_declaration) -> IO ()
+
+instance HsBindgen.Runtime.FunPtr.ToFunPtr ((Ptr.Ptr Forward_declaration) -> IO ()) where
+
+  toFunPtr = funPtr_fbe60ed6_to
+
+instance HsBindgen.Runtime.FunPtr.FromFunPtr ((Ptr.Ptr Forward_declaration) -> IO ()) where
+
+  fromFunPtr = funPtr_fbe60ed6_from

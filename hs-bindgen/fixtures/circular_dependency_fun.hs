@@ -931,4 +931,132 @@
         "@NsTypeConstr"
         "Forward_declaration",
       deriveInstanceComment =
+      Nothing},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "funPtr_fbe60ed6_to",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsFun
+            (HsPtr
+              (HsTypRef
+                (Name
+                  "@NsTypeConstr"
+                  "Forward_declaration")))
+            (HsIO (HsPrimType HsPrimUnit)),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsPtr
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "Forward_declaration")))
+              (HsIO
+                (HsPrimType HsPrimUnit))))),
+      foreignImportOrigName =
+      "wrapper",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin = ToFunPtr
+        (TypePointer
+          (TypeFun
+            [
+              TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name
+                      "forward_declaration",
+                    nameHsIdent = Identifier
+                      "Forward_declaration"}
+                  NameOriginInSource)]
+            TypeVoid)),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "funPtr_fbe60ed6_from",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsFunPtr
+            (HsFun
+              (HsPtr
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "Forward_declaration")))
+              (HsIO (HsPrimType HsPrimUnit))),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsFun
+          (HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Forward_declaration")))
+          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportOrigName =
+      "dynamic",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin = FromFunPtr
+        (TypePointer
+          (TypeFun
+            [
+              TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name
+                      "forward_declaration",
+                    nameHsIdent = Identifier
+                      "Forward_declaration"}
+                  NameOriginInSource)]
+            TypeVoid)),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceToFunPtr
+        ToFunPtrInstance {
+          toFunPtrInstanceType = HsFun
+            (HsPtr
+              (HsTypRef
+                (Name
+                  "@NsTypeConstr"
+                  "Forward_declaration")))
+            (HsIO (HsPrimType HsPrimUnit)),
+          toFunPtrInstanceBody = Name
+            "@NsVar"
+            "funPtr_fbe60ed6_to"},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceFromFunPtr
+        FromFunPtrInstance {
+          fromFunPtrInstanceType = HsFun
+            (HsPtr
+              (HsTypRef
+                (Name
+                  "@NsTypeConstr"
+                  "Forward_declaration")))
+            (HsIO (HsPrimType HsPrimUnit)),
+          fromFunPtrInstanceBody = Name
+            "@NsVar"
+            "funPtr_fbe60ed6_from"},
+      defineInstanceComment =
       Nothing}]
