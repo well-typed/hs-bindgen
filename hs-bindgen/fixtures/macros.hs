@@ -1,30 +1,21 @@
 [
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "oBJECTLIKE1",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon IntLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (IntLikeTyCon
-                        (CIntegralType
-                          (IntLike (Int Signed)))))))
-                []]}},
-      varDeclBody = VarDeclIntegral
-        1
-        HsPrimCInt,
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MInt
+            IntegerLiteral {
+              integerLiteralText = "1",
+              integerLiteralType = Int Signed,
+              integerLiteralValue = 1}),
+        macroExprType =
+        "IntLike (CIntegralType (IntLike (Int Signed)))"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just
@@ -38,31 +29,22 @@
               headerInclude = "macros.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "oBJECTLIKE2",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon IntLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (IntLikeTyCon
-                        (CIntegralType
-                          (IntLike (Int Signed)))))))
-                []]}},
-      varDeclBody = VarDeclIntegral
-        2
-        HsPrimCInt,
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MInt
+            IntegerLiteral {
+              integerLiteralText = "2",
+              integerLiteralType = Int Signed,
+              integerLiteralValue = 2}),
+        macroExprType =
+        "IntLike (CIntegralType (IntLike (Int Signed)))"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just
@@ -76,33 +58,31 @@
               headerInclude = "macros.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "oBJECTLIKE3",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon IntLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (IntLikeTyCon
-                        (CIntegralType
-                          (IntLike (Int Signed)))))))
-                []]}},
-      varDeclBody = VarDeclApp
-        (InfixAppHead MAdd)
-        [
-          VarDeclIntegral 3 HsPrimCInt,
-          VarDeclIntegral 3 HsPrimCInt],
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MApp
+          MAdd
+          [
+            MTerm
+              (MInt
+                IntegerLiteral {
+                  integerLiteralText = "3",
+                  integerLiteralType = Int Signed,
+                  integerLiteralValue = 3}),
+            MTerm
+              (MInt
+                IntegerLiteral {
+                  integerLiteralText = "3",
+                  integerLiteralType = Int Signed,
+                  integerLiteralValue = 3})],
+        macroExprType =
+        "IntLike (CIntegralType (IntLike (Int Signed)))"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just
@@ -116,33 +96,31 @@
               headerInclude = "macros.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "oBJECTLIKE4",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon IntLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (IntLikeTyCon
-                        (CIntegralType
-                          (IntLike (Int Signed)))))))
-                []]}},
-      varDeclBody = VarDeclApp
-        (InfixAppHead MAdd)
-        [
-          VarDeclIntegral 4 HsPrimCInt,
-          VarDeclIntegral 4 HsPrimCInt],
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MApp
+          MAdd
+          [
+            MTerm
+              (MInt
+                IntegerLiteral {
+                  integerLiteralText = "4",
+                  integerLiteralType = Int Signed,
+                  integerLiteralValue = 4}),
+            MTerm
+              (MInt
+                IntegerLiteral {
+                  integerLiteralText = "4",
+                  integerLiteralType = Int Signed,
+                  integerLiteralValue = 4})],
+        macroExprType =
+        "IntLike (CIntegralType (IntLike (Int Signed)))"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just
@@ -156,31 +134,22 @@
               headerInclude = "macros.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "mEANING_OF_LIFE1",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon IntLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (IntLikeTyCon
-                        (CIntegralType
-                          (IntLike (Int Signed)))))))
-                []]}},
-      varDeclBody = VarDeclIntegral
-        42
-        HsPrimCInt,
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MInt
+            IntegerLiteral {
+              integerLiteralText = "42",
+              integerLiteralType = Int Signed,
+              integerLiteralValue = 42}),
+        macroExprType =
+        "IntLike (CIntegralType (IntLike (Int Signed)))"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just
@@ -194,31 +163,22 @@
               headerInclude = "macros.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "mEANING_OF_LIFE2",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon IntLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (IntLikeTyCon
-                        (CIntegralType
-                          (IntLike (Int Signed)))))))
-                []]}},
-      varDeclBody = VarDeclIntegral
-        42
-        HsPrimCInt,
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MInt
+            IntegerLiteral {
+              integerLiteralText = "052",
+              integerLiteralType = Int Signed,
+              integerLiteralValue = 42}),
+        macroExprType =
+        "IntLike (CIntegralType (IntLike (Int Signed)))"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just
@@ -232,31 +192,22 @@
               headerInclude = "macros.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "mEANING_OF_LIFE3",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon IntLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (IntLikeTyCon
-                        (CIntegralType
-                          (IntLike (Int Signed)))))))
-                []]}},
-      varDeclBody = VarDeclIntegral
-        42
-        HsPrimCInt,
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MInt
+            IntegerLiteral {
+              integerLiteralText = "0x2a",
+              integerLiteralType = Int Signed,
+              integerLiteralValue = 42}),
+        macroExprType =
+        "IntLike (CIntegralType (IntLike (Int Signed)))"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just
@@ -270,31 +221,22 @@
               headerInclude = "macros.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "mEANING_OF_LIFE4",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon IntLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (IntLikeTyCon
-                        (CIntegralType
-                          (IntLike (Int Signed)))))))
-                []]}},
-      varDeclBody = VarDeclIntegral
-        42
-        HsPrimCInt,
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MInt
+            IntegerLiteral {
+              integerLiteralText = "0X2A",
+              integerLiteralType = Int Signed,
+              integerLiteralValue = 42}),
+        macroExprType =
+        "IntLike (CIntegralType (IntLike (Int Signed)))"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just
@@ -308,31 +250,22 @@
               headerInclude = "macros.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "mEANING_OF_LIFE5",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon IntLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (IntLikeTyCon
-                        (CIntegralType
-                          (IntLike (Int Signed)))))))
-                []]}},
-      varDeclBody = VarDeclIntegral
-        42
-        HsPrimCInt,
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MInt
+            IntegerLiteral {
+              integerLiteralText = "0b101010",
+              integerLiteralType = Int Signed,
+              integerLiteralValue = 42}),
+        macroExprType =
+        "IntLike (CIntegralType (IntLike (Int Signed)))"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just
@@ -346,32 +279,25 @@
               headerInclude = "macros.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "lONG_INT_TOKEN1",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon IntLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (IntLikeTyCon
-                        (CIntegralType
-                          (IntLike
-                            (LongLong Unsigned)))))))
-                []]}},
-      varDeclBody = VarDeclIntegral
-        18446744073709550592
-        HsPrimCULLong,
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MInt
+            IntegerLiteral {
+              integerLiteralText =
+              "18446744073709550592ull",
+              integerLiteralType = LongLong
+                Unsigned,
+              integerLiteralValue =
+              18446744073709550592}),
+        macroExprType =
+        "IntLike (CIntegralType (IntLike (LongLong Unsigned)))"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just
@@ -385,32 +311,25 @@
               headerInclude = "macros.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "lONG_INT_TOKEN2",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon IntLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (IntLikeTyCon
-                        (CIntegralType
-                          (IntLike
-                            (LongLong Unsigned)))))))
-                []]}},
-      varDeclBody = VarDeclIntegral
-        18446744073709550592
-        HsPrimCULLong,
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MInt
+            IntegerLiteral {
+              integerLiteralText =
+              "18'446'744'073'709'550'592llu",
+              integerLiteralType = LongLong
+                Unsigned,
+              integerLiteralValue =
+              18446744073709550592}),
+        macroExprType =
+        "IntLike (CIntegralType (IntLike (LongLong Unsigned)))"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just
@@ -424,32 +343,25 @@
               headerInclude = "macros.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "lONG_INT_TOKEN3",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon IntLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (IntLikeTyCon
-                        (CIntegralType
-                          (IntLike
-                            (LongLong Unsigned)))))))
-                []]}},
-      varDeclBody = VarDeclIntegral
-        18446744073709550592
-        HsPrimCULLong,
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MInt
+            IntegerLiteral {
+              integerLiteralText =
+              "1844'6744'0737'0955'0592uLL",
+              integerLiteralType = LongLong
+                Unsigned,
+              integerLiteralValue =
+              18446744073709550592}),
+        macroExprType =
+        "IntLike (CIntegralType (IntLike (LongLong Unsigned)))"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just
@@ -463,32 +375,25 @@
               headerInclude = "macros.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "lONG_INT_TOKEN4",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon IntLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (IntLikeTyCon
-                        (CIntegralType
-                          (IntLike
-                            (LongLong Unsigned)))))))
-                []]}},
-      varDeclBody = VarDeclIntegral
-        18446744073709550592
-        HsPrimCULLong,
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MInt
+            IntegerLiteral {
+              integerLiteralText =
+              "184467'440737'0'95505'92LLU",
+              integerLiteralType = LongLong
+                Unsigned,
+              integerLiteralValue =
+              18446744073709550592}),
+        macroExprType =
+        "IntLike (CIntegralType (IntLike (LongLong Unsigned)))"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just
@@ -502,51 +407,31 @@
               headerInclude = "macros.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "tUPLE1",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon (TupleTyCon 2))))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon IntLikeTyCon)))
-                [
-                  TyConAppTy
-                    (ATyCon
-                      (GenerativeTyCon
-                        (DataTyCon
-                          (IntLikeTyCon
-                            (CIntegralType
-                              (IntLike (Int Signed)))))))
-                    []],
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon IntLikeTyCon)))
-                [
-                  TyConAppTy
-                    (ATyCon
-                      (GenerativeTyCon
-                        (DataTyCon
-                          (IntLikeTyCon
-                            (CIntegralType
-                              (IntLike (Int Signed)))))))
-                    []]]}},
-      varDeclBody = VarDeclApp
-        (InfixAppHead MTuple)
-        [
-          VarDeclIntegral 1 HsPrimCInt,
-          VarDeclIntegral 2 HsPrimCInt],
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MApp
+          MTuple
+          [
+            MTerm
+              (MInt
+                IntegerLiteral {
+                  integerLiteralText = "1",
+                  integerLiteralType = Int Signed,
+                  integerLiteralValue = 1}),
+            MTerm
+              (MInt
+                IntegerLiteral {
+                  integerLiteralText = "2",
+                  integerLiteralType = Int Signed,
+                  integerLiteralValue = 2})],
+        macroExprType =
+        "Tuple2 (IntLike (CIntegralType (IntLike (Int Signed)))) (IntLike (CIntegralType (IntLike (Int Signed))))"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "TUPLE1",
@@ -559,51 +444,31 @@
               headerInclude = "macros.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "tUPLE2",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon (TupleTyCon 2))))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon IntLikeTyCon)))
-                [
-                  TyConAppTy
-                    (ATyCon
-                      (GenerativeTyCon
-                        (DataTyCon
-                          (IntLikeTyCon
-                            (CIntegralType
-                              (IntLike (Int Signed)))))))
-                    []],
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon IntLikeTyCon)))
-                [
-                  TyConAppTy
-                    (ATyCon
-                      (GenerativeTyCon
-                        (DataTyCon
-                          (IntLikeTyCon
-                            (CIntegralType
-                              (IntLike (Int Signed)))))))
-                    []]]}},
-      varDeclBody = VarDeclApp
-        (InfixAppHead MTuple)
-        [
-          VarDeclIntegral 3 HsPrimCInt,
-          VarDeclIntegral 4 HsPrimCInt],
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MApp
+          MTuple
+          [
+            MTerm
+              (MInt
+                IntegerLiteral {
+                  integerLiteralText = "3",
+                  integerLiteralType = Int Signed,
+                  integerLiteralValue = 3}),
+            MTerm
+              (MInt
+                IntegerLiteral {
+                  integerLiteralText = "4",
+                  integerLiteralType = Int Signed,
+                  integerLiteralValue = 4})],
+        macroExprType =
+        "Tuple2 (IntLike (CIntegralType (IntLike (Int Signed)))) (IntLike (CIntegralType (IntLike (Int Signed))))"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "TUPLE2",
@@ -616,51 +481,31 @@
               headerInclude = "macros.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "tUPLE3",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon (TupleTyCon 2))))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon IntLikeTyCon)))
-                [
-                  TyConAppTy
-                    (ATyCon
-                      (GenerativeTyCon
-                        (DataTyCon
-                          (IntLikeTyCon
-                            (CIntegralType
-                              (IntLike (Int Signed)))))))
-                    []],
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon IntLikeTyCon)))
-                [
-                  TyConAppTy
-                    (ATyCon
-                      (GenerativeTyCon
-                        (DataTyCon
-                          (IntLikeTyCon
-                            (CIntegralType
-                              (IntLike (Int Signed)))))))
-                    []]]}},
-      varDeclBody = VarDeclApp
-        (InfixAppHead MTuple)
-        [
-          VarDeclIntegral 5 HsPrimCInt,
-          VarDeclIntegral 6 HsPrimCInt],
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MApp
+          MTuple
+          [
+            MTerm
+              (MInt
+                IntegerLiteral {
+                  integerLiteralText = "5",
+                  integerLiteralType = Int Signed,
+                  integerLiteralValue = 5}),
+            MTerm
+              (MInt
+                IntegerLiteral {
+                  integerLiteralText = "6",
+                  integerLiteralType = Int Signed,
+                  integerLiteralValue = 6})],
+        macroExprType =
+        "Tuple2 (IntLike (CIntegralType (IntLike (Int Signed)))) (IntLike (CIntegralType (IntLike (Int Signed))))"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "TUPLE3",
@@ -673,28 +518,26 @@
               headerInclude = "macros.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "fLT1_1",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon FloatLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (FloatLikeTyCon DoubleType))))
-                []]}},
-      varDeclBody = VarDeclDouble
-        110000.0,
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MFloat
+            FloatingLiteral {
+              floatingLiteralText = "11e4",
+              floatingLiteralType =
+              DoubleType,
+              floatingLiteralFloatValue =
+              110000.0,
+              floatingLiteralDoubleValue =
+              110000.0}),
+        macroExprType =
+        "FloatLike DoubleType"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "FLT1_1",
@@ -707,28 +550,26 @@
               headerInclude = "macros.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "fLT1_2",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon FloatLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (FloatLikeTyCon DoubleType))))
-                []]}},
-      varDeclBody = VarDeclDouble
-        1.2e-2,
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MFloat
+            FloatingLiteral {
+              floatingLiteralText = "12E-3",
+              floatingLiteralType =
+              DoubleType,
+              floatingLiteralFloatValue =
+              1.2e-2,
+              floatingLiteralDoubleValue =
+              1.2e-2}),
+        macroExprType =
+        "FloatLike DoubleType"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "FLT1_2",
@@ -741,28 +582,25 @@
               headerInclude = "macros.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "fLT1_3",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon FloatLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (FloatLikeTyCon FloatType))))
-                []]}},
-      varDeclBody = VarDeclFloat
-        1.3e-2,
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MFloat
+            FloatingLiteral {
+              floatingLiteralText = "13e-03f",
+              floatingLiteralType = FloatType,
+              floatingLiteralFloatValue =
+              1.3e-2,
+              floatingLiteralDoubleValue =
+              1.3e-2}),
+        macroExprType =
+        "FloatLike FloatType"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "FLT1_3",
@@ -775,28 +613,26 @@
               headerInclude = "macros.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "fLT2_1",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon FloatLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (FloatLikeTyCon DoubleType))))
-                []]}},
-      varDeclBody = VarDeclDouble
-        21.0,
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MFloat
+            FloatingLiteral {
+              floatingLiteralText = "21.",
+              floatingLiteralType =
+              DoubleType,
+              floatingLiteralFloatValue =
+              21.0,
+              floatingLiteralDoubleValue =
+              21.0}),
+        macroExprType =
+        "FloatLike DoubleType"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "FLT2_1",
@@ -809,28 +645,26 @@
               headerInclude = "macros.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "fLT2_2",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon FloatLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (FloatLikeTyCon DoubleType))))
-                []]}},
-      varDeclBody = VarDeclDouble
-        2200.0,
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MFloat
+            FloatingLiteral {
+              floatingLiteralText = "22.e2",
+              floatingLiteralType =
+              DoubleType,
+              floatingLiteralFloatValue =
+              2200.0,
+              floatingLiteralDoubleValue =
+              2200.0}),
+        macroExprType =
+        "FloatLike DoubleType"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "FLT2_2",
@@ -843,27 +677,25 @@
               headerInclude = "macros.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "fLT2_3",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon FloatLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (FloatLikeTyCon FloatType))))
-                []]}},
-      varDeclBody = VarDeclFloat 23.0,
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MFloat
+            FloatingLiteral {
+              floatingLiteralText = "23.f",
+              floatingLiteralType = FloatType,
+              floatingLiteralFloatValue =
+              23.0,
+              floatingLiteralDoubleValue =
+              23.0}),
+        macroExprType =
+        "FloatLike FloatType"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "FLT2_3",
@@ -876,28 +708,26 @@
               headerInclude = "macros.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "fLT3_1",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon FloatLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (FloatLikeTyCon DoubleType))))
-                []]}},
-      varDeclBody = VarDeclDouble
-        31.0,
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MFloat
+            FloatingLiteral {
+              floatingLiteralText = "31.0",
+              floatingLiteralType =
+              DoubleType,
+              floatingLiteralFloatValue =
+              31.0,
+              floatingLiteralDoubleValue =
+              31.0}),
+        macroExprType =
+        "FloatLike DoubleType"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "FLT3_1",
@@ -910,28 +740,26 @@
               headerInclude = "macros.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "fLT3_2",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon FloatLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (FloatLikeTyCon DoubleType))))
-                []]}},
-      varDeclBody = VarDeclDouble
-        0.32,
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MFloat
+            FloatingLiteral {
+              floatingLiteralText = ".32",
+              floatingLiteralType =
+              DoubleType,
+              floatingLiteralFloatValue =
+              0.32,
+              floatingLiteralDoubleValue =
+              0.32}),
+        macroExprType =
+        "FloatLike DoubleType"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "FLT3_2",
@@ -944,28 +772,26 @@
               headerInclude = "macros.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "fLT3_3",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon FloatLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (FloatLikeTyCon DoubleType))))
-                []]}},
-      varDeclBody = VarDeclDouble
-        33.0,
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MFloat
+            FloatingLiteral {
+              floatingLiteralText = ".33e2",
+              floatingLiteralType =
+              DoubleType,
+              floatingLiteralFloatValue =
+              33.0,
+              floatingLiteralDoubleValue =
+              33.0}),
+        macroExprType =
+        "FloatLike DoubleType"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "FLT3_3",
@@ -978,28 +804,25 @@
               headerInclude = "macros.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "fLT3_4",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon FloatLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (FloatLikeTyCon FloatType))))
-                []]}},
-      varDeclBody = VarDeclFloat
-        3.4e-3,
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MFloat
+            FloatingLiteral {
+              floatingLiteralText = ".34e-2f",
+              floatingLiteralType = FloatType,
+              floatingLiteralFloatValue =
+              3.4e-3,
+              floatingLiteralDoubleValue =
+              3.4e-3}),
+        macroExprType =
+        "FloatLike FloatType"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "FLT3_4",
@@ -1012,28 +835,26 @@
               headerInclude = "macros.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "fLT4_1",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon FloatLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (FloatLikeTyCon DoubleType))))
-                []]}},
-      varDeclBody = VarDeclDouble
-        650000.0,
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MFloat
+            FloatingLiteral {
+              floatingLiteralText = "0x41p4",
+              floatingLiteralType =
+              DoubleType,
+              floatingLiteralFloatValue =
+              650000.0,
+              floatingLiteralDoubleValue =
+              650000.0}),
+        macroExprType =
+        "FloatLike DoubleType"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "FLT4_1",
@@ -1046,28 +867,26 @@
               headerInclude = "macros.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "fLT4_2",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon FloatLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (FloatLikeTyCon DoubleType))))
-                []]}},
-      varDeclBody = VarDeclDouble
-        6.6e-2,
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MFloat
+            FloatingLiteral {
+              floatingLiteralText = "0x42P-3",
+              floatingLiteralType =
+              DoubleType,
+              floatingLiteralFloatValue =
+              6.6e-2,
+              floatingLiteralDoubleValue =
+              6.6e-2}),
+        macroExprType =
+        "FloatLike DoubleType"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "FLT4_2",
@@ -1080,28 +899,26 @@
               headerInclude = "macros.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "fLT4_3",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon FloatLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (FloatLikeTyCon FloatType))))
-                []]}},
-      varDeclBody = VarDeclFloat
-        6.7e-2,
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MFloat
+            FloatingLiteral {
+              floatingLiteralText =
+              "0x43p-03f",
+              floatingLiteralType = FloatType,
+              floatingLiteralFloatValue =
+              6.7e-2,
+              floatingLiteralDoubleValue =
+              6.7e-2}),
+        macroExprType =
+        "FloatLike FloatType"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "FLT4_3",
@@ -1114,28 +931,26 @@
               headerInclude = "macros.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "fLT5_1",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon FloatLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (FloatLikeTyCon DoubleType))))
-                []]}},
-      varDeclBody = VarDeclDouble
-        81.0,
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MFloat
+            FloatingLiteral {
+              floatingLiteralText = "0x51.p0",
+              floatingLiteralType =
+              DoubleType,
+              floatingLiteralFloatValue =
+              81.0,
+              floatingLiteralDoubleValue =
+              81.0}),
+        macroExprType =
+        "FloatLike DoubleType"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "FLT5_1",
@@ -1148,27 +963,26 @@
               headerInclude = "macros.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "fLT5_2",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon FloatLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (FloatLikeTyCon FloatType))))
-                []]}},
-      varDeclBody = VarDeclFloat 82.0,
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MFloat
+            FloatingLiteral {
+              floatingLiteralText =
+              "0x52.P0f",
+              floatingLiteralType = FloatType,
+              floatingLiteralFloatValue =
+              82.0,
+              floatingLiteralDoubleValue =
+              82.0}),
+        macroExprType =
+        "FloatLike FloatType"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "FLT5_2",
@@ -1181,28 +995,27 @@
               headerInclude = "macros.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "fLT6_1",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon FloatLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (FloatLikeTyCon DoubleType))))
-                []]}},
-      varDeclBody = VarDeclDouble
-        15520.0,
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MFloat
+            FloatingLiteral {
+              floatingLiteralText =
+              "0x61.0P2",
+              floatingLiteralType =
+              DoubleType,
+              floatingLiteralFloatValue =
+              15520.0,
+              floatingLiteralDoubleValue =
+              15520.0}),
+        macroExprType =
+        "FloatLike DoubleType"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "FLT6_1",
@@ -1215,28 +1028,26 @@
               headerInclude = "macros.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "fLT6_2",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon FloatLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (FloatLikeTyCon DoubleType))))
-                []]}},
-      varDeclBody = VarDeclDouble
-        98.0,
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MFloat
+            FloatingLiteral {
+              floatingLiteralText = "0x.62p2",
+              floatingLiteralType =
+              DoubleType,
+              floatingLiteralFloatValue =
+              98.0,
+              floatingLiteralDoubleValue =
+              98.0}),
+        macroExprType =
+        "FloatLike DoubleType"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "FLT6_2",
@@ -1249,28 +1060,26 @@
               headerInclude = "macros.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "fLT6_3",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon FloatLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (FloatLikeTyCon FloatType))))
-                []]}},
-      varDeclBody = VarDeclFloat
-        9.9e-3,
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MTerm
+          (MFloat
+            FloatingLiteral {
+              floatingLiteralText =
+              "0x.63p-2f",
+              floatingLiteralType = FloatType,
+              floatingLiteralFloatValue =
+              9.9e-3,
+              floatingLiteralDoubleValue =
+              9.9e-3}),
+        macroExprType =
+        "FloatLike FloatType"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "FLT6_3",
@@ -1283,31 +1092,34 @@
               headerInclude = "macros.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "bAD1",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon FloatLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (FloatLikeTyCon DoubleType))))
-                []]}},
-      varDeclBody = VarDeclApp
-        (InfixAppHead MAdd)
-        [
-          VarDeclDouble 0.1,
-          VarDeclIntegral 1 HsPrimCInt],
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MApp
+          MAdd
+          [
+            MTerm
+              (MFloat
+                FloatingLiteral {
+                  floatingLiteralText = "0.1",
+                  floatingLiteralType =
+                  DoubleType,
+                  floatingLiteralFloatValue = 0.1,
+                  floatingLiteralDoubleValue =
+                  0.1}),
+            MTerm
+              (MInt
+                IntegerLiteral {
+                  integerLiteralText = "1",
+                  integerLiteralType = Int Signed,
+                  integerLiteralValue = 1})],
+        macroExprType =
+        "FloatLike DoubleType"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "BAD1",
@@ -1320,33 +1132,33 @@
               headerInclude = "macros.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "bAD2",
-      varDeclType = ForallTy {
-        forallTyBinders = [],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = TyConAppTy
-            (ATyCon
-              (GenerativeTyCon
-                (DataTyCon IntLikeTyCon)))
-            [
-              TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon
-                      (IntLikeTyCon
-                        (CIntegralType
-                          (IntLike (Long Unsigned)))))))
-                []]}},
-      varDeclBody = VarDeclApp
-        (InfixAppHead MMult)
-        [
-          VarDeclIntegral 2 HsPrimCLong,
-          VarDeclIntegral 2 HsPrimCULong],
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [],
+        macroExprBody = MApp
+          MMult
+          [
+            MTerm
+              (MInt
+                IntegerLiteral {
+                  integerLiteralText = "2l",
+                  integerLiteralType = Long
+                    Signed,
+                  integerLiteralValue = 2}),
+            MTerm
+              (MInt
+                IntegerLiteral {
+                  integerLiteralText = "2ul",
+                  integerLiteralType = Long
+                    Unsigned,
+                  integerLiteralValue = 2})],
+        macroExprType =
+        "IntLike (CIntegralType (IntLike (Long Unsigned)))"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "BAD2",

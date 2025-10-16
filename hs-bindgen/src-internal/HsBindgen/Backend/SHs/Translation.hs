@@ -4,29 +4,21 @@ module HsBindgen.Backend.SHs.Translation (
     translateType,
 ) where
 
--- previously Backend.Common.Translation
-
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
 import Data.Text qualified as T
-import Data.Type.Nat qualified as Fin
 import Data.Vec.Lazy qualified as Vec
-import DeBruijn.Internal.Size (Size (UnsafeSize))
-
-import C.Expr.Syntax qualified as CExpr.DSL
-import C.Expr.Typecheck.Type qualified as CExpr.DSL
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.Hs.CallConv
 import HsBindgen.Backend.Hs.Haddock.Documentation qualified as HsDoc
 import HsBindgen.Backend.SHs.AST
+import HsBindgen.Backend.SHs.Macro
 import HsBindgen.Errors
 import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint
-
-import DeBruijn (rzeroAdd)
 
 {-------------------------------------------------------------------------------
   Declarations
@@ -59,7 +51,7 @@ translateDecl (Hs.DeclEmpty d) = singleton $ translateDeclEmpty d
 translateDecl (Hs.DeclNewtype n) = singleton $ translateNewtype n
 translateDecl (Hs.DeclDefineInstance i) = singleton $ translateDefineInstanceDecl i
 translateDecl (Hs.DeclDeriveInstance i) = singleton $ translateDeriveInstance i
-translateDecl (Hs.DeclVar v) = singleton $ translateVarDecl v
+translateDecl (Hs.DeclMacroExpr e) = singleton $ translateMacroExpr e
 translateDecl (Hs.DeclForeignImport i) = translateForeignImportDecl i
 translateDecl (Hs.DeclFunction f) = singleton $ translateFunctionDecl f
 translateDecl (Hs.DeclPatSyn ps) = singleton $ translatePatSyn ps
@@ -180,14 +172,6 @@ translateTypeClass Hs.StaticSize = TGlobal StaticSize_class
 translateTypeClass Hs.Storable   = TGlobal Storable_class
 translateTypeClass Hs.WriteRaw   = TGlobal WriteRaw_class
 
-translateVarDecl :: Hs.VarDecl -> SDecl
-translateVarDecl Hs.VarDecl {..} = DVar
-  Var { varName    = varDeclName
-      , varType    = translateSigma varDeclType
-      , varExpr    = translateBody varDeclBody
-      , varComment = varDeclComment
-      }
-
 translateForeignImportDecl :: Hs.ForeignImportDecl -> [SDecl]
 translateForeignImportDecl Hs.ForeignImportDecl { foreignImportParameters = args
                                                 , foreignImportResultType = resType
@@ -254,158 +238,6 @@ translateType = \case
     Hs.HsSizedByteArray n m -> TGlobal SizedByteArray_type `TApp` TLit n `TApp` TLit m
     Hs.HsBlock t            -> TGlobal Block_type `TApp` translateType t
     Hs.HsComplexType t      -> TApp (TGlobal ComplexType) (translateType (HsPrimType t))
-
-{-------------------------------------------------------------------------------
-  Sigma/Phi/Tau types
--------------------------------------------------------------------------------}
-
-translateSigma :: Hs.SigmaType -> ClosedType
-translateSigma (Hs.ForallTy hints (Hs.QuantTy cts ty)) =
-  TForall
-    hints
-    (rzeroAdd $ UnsafeSize $ length hints)
-    (map translatePredTy cts)
-    (translateTau ty)
-
-translatePredTy :: Hs.PredType ctx -> SType ctx
-translatePredTy (Hs.DictTy (Hs.AClass cls) args) =
-  foldl' TApp (tyConGlobal cls) (fmap translateTau args)
-translatePredTy (Hs.NomEqTy a b) =
-  TGlobal NomEq_class `TApp` translateTau a `TApp` translateTau b
-
-translateTau :: Hs.TauType ctx -> SType ctx
-translateTau = \case
-  Hs.FunTy a b -> TFun (translateTau a) (translateTau b)
-  Hs.TyVarTy x -> TBound x
-  Hs.TyConAppTy (Hs.ATyCon tc) args
-    | Just ty <- simpleTyConApp tc args
-    -> ty
-    | otherwise
-    -> foldl' TApp (tyConGlobal tc) (fmap translateTau args)
-
--- | Convert @IntLike inty@ and @FloatLike floaty@ to Haskell types.
---
--- The macro typechecker will never produce a type such as @IntLike a@ for
--- a skolem type variable @a@, because this type has no Haskell counterpart.
---
--- See 'HsBindgen.C.Tc.Macro.isAtomicType'.
-simpleTyConApp :: CExpr.DSL.TyCon args CExpr.DSL.Ty -> [Hs.TauType ctx] -> Maybe (SType ctx)
-simpleTyConApp
-  (CExpr.DSL.GenerativeTyCon (CExpr.DSL.DataTyCon CExpr.DSL.IntLikeTyCon))
-  [Hs.TyConAppTy (Hs.ATyCon (CExpr.DSL.GenerativeTyCon (CExpr.DSL.DataTyCon (CExpr.DSL.PrimIntInfoTyCon inty)))) []]
-    = Just $ TGlobal $ PrimType $
-        case inty of
-          CExpr.DSL.HsIntType -> HsPrimInt
-          CExpr.DSL.CIntegralType primIntTy -> hsPrimIntTy primIntTy
-simpleTyConApp
-  (CExpr.DSL.GenerativeTyCon (CExpr.DSL.DataTyCon CExpr.DSL.FloatLikeTyCon))
-  [Hs.TyConAppTy (Hs.ATyCon (CExpr.DSL.GenerativeTyCon (CExpr.DSL.DataTyCon (CExpr.DSL.PrimFloatInfoTyCon floaty)))) []]
-    = Just $ TGlobal $ PrimType $ hsPrimFloatTy floaty
-simpleTyConApp _ _ = Nothing
-
-tyConGlobal :: CExpr.DSL.TyCon args res -> SType ctx
-tyConGlobal = \case
-  CExpr.DSL.GenerativeTyCon tc ->
-    case tc of
-      CExpr.DSL.DataTyCon dc ->
-        case dc of
-          CExpr.DSL.TupleTyCon n ->
-            TGlobal $ Tuple_type n
-          CExpr.DSL.VoidTyCon ->
-            TGlobal $ PrimType HsPrimVoid
-          CExpr.DSL.PrimIntInfoTyCon inty ->
-            TGlobal $ PrimType $
-              case inty of
-                CExpr.DSL.CIntegralType primIntTy -> hsPrimIntTy primIntTy
-                CExpr.DSL.HsIntType -> HsPrimInt
-          CExpr.DSL.PrimFloatInfoTyCon floaty ->
-            TGlobal $ PrimType $ hsPrimFloatTy floaty
-          CExpr.DSL.PtrTyCon ->
-            TGlobal Foreign_Ptr
-          CExpr.DSL.CharLitTyCon ->
-            TGlobal CharValue_tycon
-
-          -- These two TyCons are handled by 'simpleTyConApp'.
-          CExpr.DSL.IntLikeTyCon   ->
-            panicPure "tyConGlobal IntLikeTyCon"
-          CExpr.DSL.FloatLikeTyCon ->
-            panicPure "tyConGlobal FloatLikeTyCon"
-
-      CExpr.DSL.ClassTyCon cls -> TGlobal $
-        case cls of
-          CExpr.DSL.NotTyCon        -> Not_class
-          CExpr.DSL.LogicalTyCon    -> Logical_class
-          CExpr.DSL.RelEqTyCon      -> RelEq_class
-          CExpr.DSL.RelOrdTyCon     -> RelOrd_class
-          CExpr.DSL.PlusTyCon       -> Plus_class
-          CExpr.DSL.MinusTyCon      -> Minus_class
-          CExpr.DSL.AddTyCon        -> Add_class
-          CExpr.DSL.SubTyCon        -> Sub_class
-          CExpr.DSL.MultTyCon       -> Mult_class
-          CExpr.DSL.DivTyCon        -> Div_class
-          CExpr.DSL.RemTyCon        -> Rem_class
-          CExpr.DSL.ComplementTyCon -> Complement_class
-          CExpr.DSL.BitwiseTyCon    -> Bitwise_class
-          CExpr.DSL.ShiftTyCon      -> Shift_class
-  CExpr.DSL.FamilyTyCon tc -> TGlobal $
-    case tc of
-      CExpr.DSL.PlusResTyCon       -> Plus_resTyCon
-      CExpr.DSL.MinusResTyCon      -> Minus_resTyCon
-      CExpr.DSL.AddResTyCon        -> Add_resTyCon
-      CExpr.DSL.SubResTyCon        -> Sub_resTyCon
-      CExpr.DSL.MultResTyCon       -> Mult_resTyCon
-      CExpr.DSL.DivResTyCon        -> Div_resTyCon
-      CExpr.DSL.RemResTyCon        -> Rem_resTyCon
-      CExpr.DSL.ComplementResTyCon -> Complement_resTyCon
-      CExpr.DSL.BitsResTyCon       -> Bitwise_resTyCon
-      CExpr.DSL.ShiftResTyCon      -> Shift_resTyCon
-
-mfunGlobal :: CExpr.DSL.MFun arity -> Global
-mfunGlobal = \case
-  CExpr.DSL.MUnaryPlus  -> Plus_plus
-  CExpr.DSL.MUnaryMinus -> Minus_negate
-  CExpr.DSL.MLogicalNot -> Not_not
-  CExpr.DSL.MBitwiseNot -> Complement_complement
-  CExpr.DSL.MMult       -> Mult_mult
-  CExpr.DSL.MDiv        -> Div_div
-  CExpr.DSL.MRem        -> Rem_rem
-  CExpr.DSL.MAdd        -> Add_add
-  CExpr.DSL.MSub        -> Sub_minus
-  CExpr.DSL.MShiftLeft  -> Shift_shiftL
-  CExpr.DSL.MShiftRight -> Shift_shiftR
-  CExpr.DSL.MRelLT      -> RelOrd_lt
-  CExpr.DSL.MRelLE      -> RelOrd_le
-  CExpr.DSL.MRelGT      -> RelOrd_gt
-  CExpr.DSL.MRelGE      -> RelOrd_ge
-  CExpr.DSL.MRelEQ      -> RelEq_eq
-  CExpr.DSL.MRelNE      -> RelEq_uneq
-  CExpr.DSL.MBitwiseAnd -> Bitwise_and
-  CExpr.DSL.MBitwiseXor -> Bitwise_xor
-  CExpr.DSL.MBitwiseOr  -> Bitwise_or
-  CExpr.DSL.MLogicalAnd -> Logical_and
-  CExpr.DSL.MLogicalOr  -> Logical_or
-  CExpr.DSL.MTuple @n   -> Tuple_constructor $ 2 + Fin.reflectToNum @n Proxy
-
-{-------------------------------------------------------------------------------
- VarDeclRHS
--------------------------------------------------------------------------------}
-
-translateBody :: Hs.VarDeclRHS ctx -> SExpr ctx
-translateBody (Hs.VarDeclVar x)                     = EBound x
-translateBody (Hs.VarDeclFloat f)                   = EFloat f HsPrimCFloat
-translateBody (Hs.VarDeclDouble d)                  = EDouble d HsPrimCDouble
-translateBody (Hs.VarDeclIntegral i ty)             = EIntegral i (Just ty)
-translateBody (Hs.VarDeclChar c)                    = EChar c
-translateBody (Hs.VarDeclString s)                  = ECString s
-translateBody (Hs.VarDeclLambda (Hs.Lambda hint b)) = ELam hint (translateBody b)
-translateBody (Hs.VarDeclApp f as)                  = foldl' EApp (translateAppHead f) (map translateBody as)
-
-translateAppHead :: Hs.VarDeclRHSAppHead -> SExpr ctx
-translateAppHead = \case
-  Hs.InfixAppHead mfun ->
-    EGlobal $ mfunGlobal mfun
-  Hs.VarAppHead macroNm -> do
-    EFree macroNm
 
 {-------------------------------------------------------------------------------
   'Storable'

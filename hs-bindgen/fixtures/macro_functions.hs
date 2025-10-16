@@ -1,62 +1,26 @@
 [
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "iNCR",
-      varDeclType = ForallTy {
-        forallTyBinders = [
-          NameHint "a"],
-        forallTy = QuantTy {
-          quantTyCts = [
-            ClassTy
-              (AClass
-                (GenerativeTyCon
-                  (ClassTyCon AddTyCon)))
-              [
-                TyVarTy (Idx 0),
-                TyConAppTy
-                  (ATyCon
-                    (GenerativeTyCon
-                      (DataTyCon IntLikeTyCon)))
-                  [
-                    TyConAppTy
-                      (ATyCon
-                        (GenerativeTyCon
-                          (DataTyCon
-                            (IntLikeTyCon
-                              (CIntegralType
-                                (IntLike (Int Signed)))))))
-                      []]]],
-          quantTyBody = FunTy
-            (TyVarTy (Idx 0))
-            (TyConAppTy
-              (ATyCon
-                (FamilyTyCon AddResTyCon))
-              [
-                TyVarTy (Idx 0),
-                TyConAppTy
-                  (ATyCon
-                    (GenerativeTyCon
-                      (DataTyCon IntLikeTyCon)))
-                  [
-                    TyConAppTy
-                      (ATyCon
-                        (GenerativeTyCon
-                          (DataTyCon
-                            (IntLikeTyCon
-                              (CIntegralType
-                                (IntLike (Int Signed)))))))
-                      []]])}},
-      varDeclBody = VarDeclLambda
-        (Lambda
-          (NameHint "x")
-          (VarDeclApp
-            (InfixAppHead MAdd)
-            [
-              VarDeclVar (Idx 0),
-              VarDeclIntegral 1 HsPrimCInt])),
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [Name "x"],
+        macroExprBody = MApp
+          MAdd
+          [
+            MTerm
+              (MVar NoXVar (Name "x") []),
+            MTerm
+              (MInt
+                IntegerLiteral {
+                  integerLiteralText = "1",
+                  integerLiteralType = Int Signed,
+                  integerLiteralValue = 1})],
+        macroExprType =
+        "(forall a. Add a (IntLike (CIntegralType (IntLike (Int Signed)))) => (a -> AddRes a (IntLike (CIntegralType (IntLike (Int Signed))))))"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "INCR",
@@ -70,45 +34,25 @@
               "macro_functions.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "aDD",
-      varDeclType = ForallTy {
-        forallTyBinders = [
-          NameHint "a",
-          NameHint "b"],
-        forallTy = QuantTy {
-          quantTyCts = [
-            ClassTy
-              (AClass
-                (GenerativeTyCon
-                  (ClassTyCon AddTyCon)))
-              [
-                TyVarTy (Idx 0),
-                TyVarTy (Idx 1)]],
-          quantTyBody = FunTy
-            (TyVarTy (Idx 0))
-            (FunTy
-              (TyVarTy (Idx 1))
-              (TyConAppTy
-                (ATyCon
-                  (FamilyTyCon AddResTyCon))
-                [
-                  TyVarTy (Idx 0),
-                  TyVarTy (Idx 1)]))}},
-      varDeclBody = VarDeclLambda
-        (Lambda
-          (NameHint "x")
-          (VarDeclLambda
-            (Lambda
-              (NameHint "y")
-              (VarDeclApp
-                (InfixAppHead MAdd)
-                [
-                  VarDeclVar (Idx 1),
-                  VarDeclVar (Idx 0)])))),
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [
+          Name "x",
+          Name "y"],
+        macroExprBody = MApp
+          MAdd
+          [
+            MTerm
+              (MVar NoXVar (Name "x") []),
+            MTerm
+              (MVar NoXVar (Name "y") [])],
+        macroExprType =
+        "(forall a b. Add a b => (a -> b -> AddRes a b))"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "ADD",
@@ -122,23 +66,18 @@
               "macro_functions.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "iD",
-      varDeclType = ForallTy {
-        forallTyBinders = [
-          NameHint "a"],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = FunTy
-            (TyVarTy (Idx 0))
-            (TyVarTy (Idx 0))}},
-      varDeclBody = VarDeclLambda
-        (Lambda
-          (NameHint "x")
-          (VarDeclVar (Idx 0))),
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [Name "X"],
+        macroExprBody = MTerm
+          (MVar NoXVar (Name "X") []),
+        macroExprType =
+        "(forall a. (a -> a))"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "ID",
@@ -152,29 +91,20 @@
               "macro_functions.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "cONST",
-      varDeclType = ForallTy {
-        forallTyBinders = [
-          NameHint "a",
-          NameHint "b"],
-        forallTy = QuantTy {
-          quantTyCts = [],
-          quantTyBody = FunTy
-            (TyVarTy (Idx 0))
-            (FunTy
-              (TyVarTy (Idx 1))
-              (TyVarTy (Idx 0)))}},
-      varDeclBody = VarDeclLambda
-        (Lambda
-          (NameHint "x")
-          (VarDeclLambda
-            (Lambda
-              (NameHint "y")
-              (VarDeclVar (Idx 1))))),
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [
+          Name "X",
+          Name "Y"],
+        macroExprBody = MTerm
+          (MVar NoXVar (Name "X") []),
+        macroExprType =
+        "(forall a b. (a -> b -> a))"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "CONST",
@@ -188,52 +118,25 @@
               "macro_functions.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "cMP",
-      varDeclType = ForallTy {
-        forallTyBinders = [
-          NameHint "a",
-          NameHint "b"],
-        forallTy = QuantTy {
-          quantTyCts = [
-            ClassTy
-              (AClass
-                (GenerativeTyCon
-                  (ClassTyCon RelOrdTyCon)))
-              [
-                TyVarTy (Idx 0),
-                TyVarTy (Idx 1)]],
-          quantTyBody = FunTy
-            (TyVarTy (Idx 0))
-            (FunTy
-              (TyVarTy (Idx 1))
-              (TyConAppTy
-                (ATyCon
-                  (GenerativeTyCon
-                    (DataTyCon IntLikeTyCon)))
-                [
-                  TyConAppTy
-                    (ATyCon
-                      (GenerativeTyCon
-                        (DataTyCon
-                          (IntLikeTyCon
-                            (CIntegralType
-                              (IntLike (Int Signed)))))))
-                    []]))}},
-      varDeclBody = VarDeclLambda
-        (Lambda
-          (NameHint "x")
-          (VarDeclLambda
-            (Lambda
-              (NameHint "y")
-              (VarDeclApp
-                (InfixAppHead MRelLT)
-                [
-                  VarDeclVar (Idx 1),
-                  VarDeclVar (Idx 0)])))),
-      varDeclComment = Just
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [
+          Name "X",
+          Name "Y"],
+        macroExprBody = MApp
+          MRelLT
+          [
+            MTerm
+              (MVar NoXVar (Name "X") []),
+            MTerm
+              (MVar NoXVar (Name "Y") [])],
+        macroExprType =
+        "(forall a b. RelOrd a b => (a -> b -> IntLike (CIntegralType (IntLike (Int Signed)))))"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "CMP",
@@ -247,107 +150,35 @@
               "macro_functions.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "fUN1",
-      varDeclType = ForallTy {
-        forallTyBinders = [
-          NameHint "a",
-          NameHint "b"],
-        forallTy = QuantTy {
-          quantTyCts = [
-            ClassTy
-              (AClass
-                (GenerativeTyCon
-                  (ClassTyCon AddTyCon)))
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [
+          Name "X",
+          Name "Y"],
+        macroExprBody = MApp
+          MAdd
+          [
+            MTerm
+              (MVar NoXVar (Name "X") []),
+            MApp
+              MMult
               [
-                TyVarTy (Idx 0),
-                TyConAppTy
-                  (ATyCon
-                    (FamilyTyCon MultResTyCon))
-                  [
-                    TyConAppTy
-                      (ATyCon
-                        (GenerativeTyCon
-                          (DataTyCon IntLikeTyCon)))
-                      [
-                        TyConAppTy
-                          (ATyCon
-                            (GenerativeTyCon
-                              (DataTyCon
-                                (IntLikeTyCon
-                                  (CIntegralType
-                                    (IntLike
-                                      (LongLong Unsigned)))))))
-                          []],
-                    TyVarTy (Idx 1)]],
-            ClassTy
-              (AClass
-                (GenerativeTyCon
-                  (ClassTyCon MultTyCon)))
-              [
-                TyConAppTy
-                  (ATyCon
-                    (GenerativeTyCon
-                      (DataTyCon IntLikeTyCon)))
-                  [
-                    TyConAppTy
-                      (ATyCon
-                        (GenerativeTyCon
-                          (DataTyCon
-                            (IntLikeTyCon
-                              (CIntegralType
-                                (IntLike
-                                  (LongLong Unsigned)))))))
-                      []],
-                TyVarTy (Idx 1)]],
-          quantTyBody = FunTy
-            (TyVarTy (Idx 0))
-            (FunTy
-              (TyVarTy (Idx 1))
-              (TyConAppTy
-                (ATyCon
-                  (FamilyTyCon AddResTyCon))
-                [
-                  TyVarTy (Idx 0),
-                  TyConAppTy
-                    (ATyCon
-                      (FamilyTyCon MultResTyCon))
-                    [
-                      TyConAppTy
-                        (ATyCon
-                          (GenerativeTyCon
-                            (DataTyCon IntLikeTyCon)))
-                        [
-                          TyConAppTy
-                            (ATyCon
-                              (GenerativeTyCon
-                                (DataTyCon
-                                  (IntLikeTyCon
-                                    (CIntegralType
-                                      (IntLike
-                                        (LongLong Unsigned)))))))
-                            []],
-                      TyVarTy (Idx 1)]]))}},
-      varDeclBody = VarDeclLambda
-        (Lambda
-          (NameHint "x")
-          (VarDeclLambda
-            (Lambda
-              (NameHint "y")
-              (VarDeclApp
-                (InfixAppHead MAdd)
-                [
-                  VarDeclVar (Idx 1),
-                  VarDeclApp
-                    (InfixAppHead MMult)
-                    [
-                      VarDeclIntegral
-                        12
-                        HsPrimCULLong,
-                      VarDeclVar (Idx 0)]])))),
-      varDeclComment = Just
+                MTerm
+                  (MInt
+                    IntegerLiteral {
+                      integerLiteralText = "12ull",
+                      integerLiteralType = LongLong
+                        Unsigned,
+                      integerLiteralValue = 12}),
+                MTerm
+                  (MVar NoXVar (Name "Y") [])]],
+        macroExprType =
+        "(forall a b. Add a (MultRes (IntLike (CIntegralType (IntLike (LongLong Unsigned)))) b) => Mult (IntLike (CIntegralType (IntLike (LongLong Unsigned)))) b => (a -> b -> AddRes a (MultRes (IntLike (CIntegralType (IntLike (LongLong Unsigned)))) b)))"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "FUN1",
@@ -361,85 +192,35 @@
               "macro_functions.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "fUN2",
-      varDeclType = ForallTy {
-        forallTyBinders = [
-          NameHint "a",
-          NameHint "b"],
-        forallTy = QuantTy {
-          quantTyCts = [
-            ClassTy
-              (AClass
-                (GenerativeTyCon
-                  (ClassTyCon MultTyCon)))
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [
+          Name "X",
+          Name "Y"],
+        macroExprBody = MApp
+          MShiftLeft
+          [
+            MTerm
+              (MVar NoXVar (Name "X") []),
+            MApp
+              MMult
               [
-                TyConAppTy
-                  (ATyCon
-                    (GenerativeTyCon
-                      (DataTyCon IntLikeTyCon)))
-                  [
-                    TyConAppTy
-                      (ATyCon
-                        (GenerativeTyCon
-                          (DataTyCon
-                            (IntLikeTyCon
-                              (CIntegralType
-                                (IntLike
-                                  (LongLong Unsigned)))))))
-                      []],
-                TyVarTy (Idx 1)],
-            ClassTy
-              (AClass
-                (GenerativeTyCon
-                  (ClassTyCon ShiftTyCon)))
-              [
-                TyVarTy (Idx 0),
-                TyConAppTy
-                  (ATyCon
-                    (FamilyTyCon MultResTyCon))
-                  [
-                    TyConAppTy
-                      (ATyCon
-                        (GenerativeTyCon
-                          (DataTyCon IntLikeTyCon)))
-                      [
-                        TyConAppTy
-                          (ATyCon
-                            (GenerativeTyCon
-                              (DataTyCon
-                                (IntLikeTyCon
-                                  (CIntegralType
-                                    (IntLike
-                                      (LongLong Unsigned)))))))
-                          []],
-                    TyVarTy (Idx 1)]]],
-          quantTyBody = FunTy
-            (TyVarTy (Idx 0))
-            (FunTy
-              (TyVarTy (Idx 1))
-              (TyConAppTy
-                (ATyCon
-                  (FamilyTyCon ShiftResTyCon))
-                [TyVarTy (Idx 0)]))}},
-      varDeclBody = VarDeclLambda
-        (Lambda
-          (NameHint "x")
-          (VarDeclLambda
-            (Lambda
-              (NameHint "y")
-              (VarDeclApp
-                (InfixAppHead MShiftLeft)
-                [
-                  VarDeclVar (Idx 1),
-                  VarDeclApp
-                    (InfixAppHead MMult)
-                    [
-                      VarDeclIntegral 3 HsPrimCULLong,
-                      VarDeclVar (Idx 0)]])))),
-      varDeclComment = Just
+                MTerm
+                  (MInt
+                    IntegerLiteral {
+                      integerLiteralText = "3ull",
+                      integerLiteralType = LongLong
+                        Unsigned,
+                      integerLiteralValue = 3}),
+                MTerm
+                  (MVar NoXVar (Name "Y") [])]],
+        macroExprType =
+        "(forall a b. Mult (IntLike (CIntegralType (IntLike (LongLong Unsigned)))) b => Shift a (MultRes (IntLike (CIntegralType (IntLike (LongLong Unsigned)))) b) => (a -> b -> ShiftRes a))"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "FUN2",
@@ -453,74 +234,37 @@
               "macro_functions.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name "@NsVar" "g",
-      varDeclType = ForallTy {
-        forallTyBinders = [
-          NameHint "a",
-          NameHint "b"],
-        forallTy = QuantTy {
-          quantTyCts = [
-            ClassTy
-              (AClass
-                (GenerativeTyCon
-                  (ClassTyCon AddTyCon)))
-              [
-                TyVarTy (Idx 0),
-                TyConAppTy
-                  (ATyCon
-                    (GenerativeTyCon
-                      (DataTyCon IntLikeTyCon)))
+    MacroExpr {
+      macroExprName = Name
+        "@NsVar"
+        "g",
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [
+          Name "X",
+          Name "Y"],
+        macroExprBody = MTerm
+          (MVar
+            NoXVar
+            (Name "CONST")
+            [
+              MTerm
+                (MVar
+                  NoXVar
+                  (Name "INCR")
                   [
-                    TyConAppTy
-                      (ATyCon
-                        (GenerativeTyCon
-                          (DataTyCon
-                            (IntLikeTyCon
-                              (CIntegralType
-                                (IntLike (Int Signed)))))))
-                      []]]],
-          quantTyBody = FunTy
-            (TyVarTy (Idx 1))
-            (FunTy
-              (TyVarTy (Idx 0))
-              (TyConAppTy
-                (ATyCon
-                  (FamilyTyCon AddResTyCon))
-                [
-                  TyVarTy (Idx 0),
-                  TyConAppTy
-                    (ATyCon
-                      (GenerativeTyCon
-                        (DataTyCon IntLikeTyCon)))
-                    [
-                      TyConAppTy
-                        (ATyCon
-                          (GenerativeTyCon
-                            (DataTyCon
-                              (IntLikeTyCon
-                                (CIntegralType
-                                  (IntLike (Int Signed)))))))
-                        []]]))}},
-      varDeclBody = VarDeclLambda
-        (Lambda
-          (NameHint "x")
-          (VarDeclLambda
-            (Lambda
-              (NameHint "y")
-              (VarDeclApp
-                (VarAppHead
-                  (Name "@NsVar" "cONST"))
-                [
-                  VarDeclApp
-                    (VarAppHead
-                      (Name "@NsVar" "iNCR"))
-                    [VarDeclVar (Idx 0)],
-                  VarDeclApp
-                    (VarAppHead
-                      (Name "@NsVar" "iD"))
-                    [VarDeclVar (Idx 1)]])))),
-      varDeclComment = Just
+                    MTerm
+                      (MVar NoXVar (Name "Y") [])]),
+              MTerm
+                (MVar
+                  NoXVar
+                  (Name "ID")
+                  [
+                    MTerm
+                      (MVar NoXVar (Name "X") [])])]),
+        macroExprType =
+        "(forall a b. Add a (IntLike (CIntegralType (IntLike (Int Signed)))) => (b -> a -> AddRes a (IntLike (CIntegralType (IntLike (Int Signed))))))"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "G",
@@ -534,104 +278,35 @@
               "macro_functions.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "dIV1",
-      varDeclType = ForallTy {
-        forallTyBinders = [
-          NameHint "a",
-          NameHint "b"],
-        forallTy = QuantTy {
-          quantTyCts = [
-            ClassTy
-              (AClass
-                (GenerativeTyCon
-                  (ClassTyCon AddTyCon)))
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [
+          Name "X",
+          Name "Y"],
+        macroExprBody = MApp
+          MDiv
+          [
+            MTerm
+              (MVar NoXVar (Name "X") []),
+            MApp
+              MAdd
               [
-                TyVarTy (Idx 1),
-                TyConAppTy
-                  (ATyCon
-                    (GenerativeTyCon
-                      (DataTyCon IntLikeTyCon)))
-                  [
-                    TyConAppTy
-                      (ATyCon
-                        (GenerativeTyCon
-                          (DataTyCon
-                            (IntLikeTyCon
-                              (CIntegralType
-                                (IntLike (Int Unsigned)))))))
-                      []]],
-            ClassTy
-              (AClass
-                (GenerativeTyCon
-                  (ClassTyCon DivTyCon)))
-              [
-                TyVarTy (Idx 0),
-                TyConAppTy
-                  (ATyCon
-                    (FamilyTyCon AddResTyCon))
-                  [
-                    TyVarTy (Idx 1),
-                    TyConAppTy
-                      (ATyCon
-                        (GenerativeTyCon
-                          (DataTyCon IntLikeTyCon)))
-                      [
-                        TyConAppTy
-                          (ATyCon
-                            (GenerativeTyCon
-                              (DataTyCon
-                                (IntLikeTyCon
-                                  (CIntegralType
-                                    (IntLike (Int Unsigned)))))))
-                          []]]]],
-          quantTyBody = FunTy
-            (TyVarTy (Idx 0))
-            (FunTy
-              (TyVarTy (Idx 1))
-              (TyConAppTy
-                (ATyCon
-                  (FamilyTyCon DivResTyCon))
-                [
-                  TyVarTy (Idx 0),
-                  TyConAppTy
-                    (ATyCon
-                      (FamilyTyCon AddResTyCon))
-                    [
-                      TyVarTy (Idx 1),
-                      TyConAppTy
-                        (ATyCon
-                          (GenerativeTyCon
-                            (DataTyCon IntLikeTyCon)))
-                        [
-                          TyConAppTy
-                            (ATyCon
-                              (GenerativeTyCon
-                                (DataTyCon
-                                  (IntLikeTyCon
-                                    (CIntegralType
-                                      (IntLike (Int Unsigned)))))))
-                            []]]]))}},
-      varDeclBody = VarDeclLambda
-        (Lambda
-          (NameHint "x")
-          (VarDeclLambda
-            (Lambda
-              (NameHint "y")
-              (VarDeclApp
-                (InfixAppHead MDiv)
-                [
-                  VarDeclVar (Idx 1),
-                  VarDeclApp
-                    (InfixAppHead MAdd)
-                    [
-                      VarDeclVar (Idx 0),
-                      VarDeclIntegral
-                        12
-                        HsPrimCUInt]])))),
-      varDeclComment = Just
+                MTerm
+                  (MVar NoXVar (Name "Y") []),
+                MTerm
+                  (MInt
+                    IntegerLiteral {
+                      integerLiteralText = "12u",
+                      integerLiteralType = Int
+                        Unsigned,
+                      integerLiteralValue = 12})]],
+        macroExprType =
+        "(forall a b. Add b (IntLike (CIntegralType (IntLike (Int Unsigned)))) => Div a (AddRes b (IntLike (CIntegralType (IntLike (Int Unsigned))))) => (a -> b -> DivRes a (AddRes b (IntLike (CIntegralType (IntLike (Int Unsigned)))))))"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "DIV1",
@@ -645,96 +320,37 @@
               "macro_functions.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "dIV2",
-      varDeclType = ForallTy {
-        forallTyBinders = [
-          NameHint "a",
-          NameHint "b"],
-        forallTy = QuantTy {
-          quantTyCts = [
-            ClassTy
-              (AClass
-                (GenerativeTyCon
-                  (ClassTyCon MultTyCon)))
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [
+          Name "X",
+          Name "Y"],
+        macroExprBody = MApp
+          MDiv
+          [
+            MApp
+              MMult
               [
-                TyConAppTy
-                  (ATyCon
-                    (GenerativeTyCon
-                      (DataTyCon FloatLikeTyCon)))
-                  [
-                    TyConAppTy
-                      (ATyCon
-                        (GenerativeTyCon
-                          (DataTyCon
-                            (FloatLikeTyCon FloatType))))
-                      []],
-                TyVarTy (Idx 0)],
-            ClassTy
-              (AClass
-                (GenerativeTyCon
-                  (ClassTyCon DivTyCon)))
-              [
-                TyConAppTy
-                  (ATyCon
-                    (FamilyTyCon MultResTyCon))
-                  [
-                    TyConAppTy
-                      (ATyCon
-                        (GenerativeTyCon
-                          (DataTyCon FloatLikeTyCon)))
-                      [
-                        TyConAppTy
-                          (ATyCon
-                            (GenerativeTyCon
-                              (DataTyCon
-                                (FloatLikeTyCon FloatType))))
-                          []],
-                    TyVarTy (Idx 0)],
-                TyVarTy (Idx 1)]],
-          quantTyBody = FunTy
-            (TyVarTy (Idx 0))
-            (FunTy
-              (TyVarTy (Idx 1))
-              (TyConAppTy
-                (ATyCon
-                  (FamilyTyCon DivResTyCon))
-                [
-                  TyConAppTy
-                    (ATyCon
-                      (FamilyTyCon MultResTyCon))
-                    [
-                      TyConAppTy
-                        (ATyCon
-                          (GenerativeTyCon
-                            (DataTyCon FloatLikeTyCon)))
-                        [
-                          TyConAppTy
-                            (ATyCon
-                              (GenerativeTyCon
-                                (DataTyCon
-                                  (FloatLikeTyCon FloatType))))
-                            []],
-                      TyVarTy (Idx 0)],
-                  TyVarTy (Idx 1)]))}},
-      varDeclBody = VarDeclLambda
-        (Lambda
-          (NameHint "x")
-          (VarDeclLambda
-            (Lambda
-              (NameHint "y")
-              (VarDeclApp
-                (InfixAppHead MDiv)
-                [
-                  VarDeclApp
-                    (InfixAppHead MMult)
-                    [
-                      VarDeclFloat 10.0,
-                      VarDeclVar (Idx 1)],
-                  VarDeclVar (Idx 0)])))),
-      varDeclComment = Just
+                MTerm
+                  (MFloat
+                    FloatingLiteral {
+                      floatingLiteralText = "10.0f",
+                      floatingLiteralType = FloatType,
+                      floatingLiteralFloatValue =
+                      10.0,
+                      floatingLiteralDoubleValue =
+                      10.0}),
+                MTerm
+                  (MVar NoXVar (Name "X") [])],
+            MTerm
+              (MVar NoXVar (Name "Y") [])],
+        macroExprType =
+        "(forall a b. Mult (FloatLike FloatType) a => Div (MultRes (FloatLike FloatType) a) b => (a -> b -> DivRes (MultRes (FloatLike FloatType) a) b))"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "DIV2",
@@ -748,178 +364,60 @@
               "macro_functions.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "sWAP32",
-      varDeclType = ForallTy {
-        forallTyBinders = [
-          NameHint "a"],
-        forallTy = QuantTy {
-          quantTyCts = [
-            ClassTy
-              (AClass
-                (GenerativeTyCon
-                  (ClassTyCon BitwiseTyCon)))
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [Name "w"],
+        macroExprBody = MApp
+          MBitwiseOr
+          [
+            MApp
+              MBitwiseAnd
               [
-                TyConAppTy
-                  (ATyCon
-                    (FamilyTyCon BitsResTyCon))
+                MApp
+                  MShiftRight
                   [
-                    TyConAppTy
-                      (ATyCon
-                        (FamilyTyCon ShiftResTyCon))
-                      [TyVarTy (Idx 0)],
-                    TyConAppTy
-                      (ATyCon
-                        (GenerativeTyCon
-                          (DataTyCon IntLikeTyCon)))
-                      [
-                        TyConAppTy
-                          (ATyCon
-                            (GenerativeTyCon
-                              (DataTyCon
-                                (IntLikeTyCon
-                                  (CIntegralType
-                                    (IntLike (Int Signed)))))))
-                          []]],
-                TyConAppTy
-                  (ATyCon
-                    (FamilyTyCon BitsResTyCon))
-                  [
-                    TyConAppTy
-                      (ATyCon
-                        (FamilyTyCon ShiftResTyCon))
-                      [TyVarTy (Idx 0)],
-                    TyConAppTy
-                      (ATyCon
-                        (GenerativeTyCon
-                          (DataTyCon IntLikeTyCon)))
-                      [
-                        TyConAppTy
-                          (ATyCon
-                            (GenerativeTyCon
-                              (DataTyCon
-                                (IntLikeTyCon
-                                  (CIntegralType
-                                    (IntLike (Int Signed)))))))
-                          []]]],
-            ClassTy
-              (AClass
-                (GenerativeTyCon
-                  (ClassTyCon BitwiseTyCon)))
+                    MTerm
+                      (MVar NoXVar (Name "w") []),
+                    MTerm
+                      (MInt
+                        IntegerLiteral {
+                          integerLiteralText = "24",
+                          integerLiteralType = Int Signed,
+                          integerLiteralValue = 24})],
+                MTerm
+                  (MInt
+                    IntegerLiteral {
+                      integerLiteralText = "0xff",
+                      integerLiteralType = Int Signed,
+                      integerLiteralValue = 255})],
+            MApp
+              MBitwiseAnd
               [
-                TyConAppTy
-                  (ATyCon
-                    (FamilyTyCon ShiftResTyCon))
-                  [TyVarTy (Idx 0)],
-                TyConAppTy
-                  (ATyCon
-                    (GenerativeTyCon
-                      (DataTyCon IntLikeTyCon)))
+                MApp
+                  MShiftLeft
                   [
-                    TyConAppTy
-                      (ATyCon
-                        (GenerativeTyCon
-                          (DataTyCon
-                            (IntLikeTyCon
-                              (CIntegralType
-                                (IntLike (Int Signed)))))))
-                      []]],
-            ClassTy
-              (AClass
-                (GenerativeTyCon
-                  (ClassTyCon ShiftTyCon)))
-              [
-                TyVarTy (Idx 0),
-                TyConAppTy
-                  (ATyCon
-                    (GenerativeTyCon
-                      (DataTyCon IntLikeTyCon)))
-                  [
-                    TyConAppTy
-                      (ATyCon
-                        (GenerativeTyCon
-                          (DataTyCon
-                            (IntLikeTyCon
-                              (CIntegralType
-                                (IntLike (Int Signed)))))))
-                      []]]],
-          quantTyBody = FunTy
-            (TyVarTy (Idx 0))
-            (TyConAppTy
-              (ATyCon
-                (FamilyTyCon BitsResTyCon))
-              [
-                TyConAppTy
-                  (ATyCon
-                    (FamilyTyCon BitsResTyCon))
-                  [
-                    TyConAppTy
-                      (ATyCon
-                        (FamilyTyCon ShiftResTyCon))
-                      [TyVarTy (Idx 0)],
-                    TyConAppTy
-                      (ATyCon
-                        (GenerativeTyCon
-                          (DataTyCon IntLikeTyCon)))
-                      [
-                        TyConAppTy
-                          (ATyCon
-                            (GenerativeTyCon
-                              (DataTyCon
-                                (IntLikeTyCon
-                                  (CIntegralType
-                                    (IntLike (Int Signed)))))))
-                          []]],
-                TyConAppTy
-                  (ATyCon
-                    (FamilyTyCon BitsResTyCon))
-                  [
-                    TyConAppTy
-                      (ATyCon
-                        (FamilyTyCon ShiftResTyCon))
-                      [TyVarTy (Idx 0)],
-                    TyConAppTy
-                      (ATyCon
-                        (GenerativeTyCon
-                          (DataTyCon IntLikeTyCon)))
-                      [
-                        TyConAppTy
-                          (ATyCon
-                            (GenerativeTyCon
-                              (DataTyCon
-                                (IntLikeTyCon
-                                  (CIntegralType
-                                    (IntLike (Int Signed)))))))
-                          []]]])}},
-      varDeclBody = VarDeclLambda
-        (Lambda
-          (NameHint "w")
-          (VarDeclApp
-            (InfixAppHead MBitwiseOr)
-            [
-              VarDeclApp
-                (InfixAppHead MBitwiseAnd)
-                [
-                  VarDeclApp
-                    (InfixAppHead MShiftRight)
-                    [
-                      VarDeclVar (Idx 0),
-                      VarDeclIntegral 24 HsPrimCInt],
-                  VarDeclIntegral 255 HsPrimCInt],
-              VarDeclApp
-                (InfixAppHead MBitwiseAnd)
-                [
-                  VarDeclApp
-                    (InfixAppHead MShiftLeft)
-                    [
-                      VarDeclVar (Idx 0),
-                      VarDeclIntegral 8 HsPrimCInt],
-                  VarDeclIntegral
-                    16711680
-                    HsPrimCInt]])),
-      varDeclComment = Just
+                    MTerm
+                      (MVar NoXVar (Name "w") []),
+                    MTerm
+                      (MInt
+                        IntegerLiteral {
+                          integerLiteralText = "8",
+                          integerLiteralType = Int Signed,
+                          integerLiteralValue = 8})],
+                MTerm
+                  (MInt
+                    IntegerLiteral {
+                      integerLiteralText = "0xff0000",
+                      integerLiteralType = Int Signed,
+                      integerLiteralValue =
+                      16711680})]],
+        macroExprType =
+        "(forall a. Bitwise (BitsRes (ShiftRes a) (IntLike (CIntegralType (IntLike (Int Signed))))) (BitsRes (ShiftRes a) (IntLike (CIntegralType (IntLike (Int Signed))))) => Bitwise (ShiftRes a) (IntLike (CIntegralType (IntLike (Int Signed)))) => Shift a (IntLike (CIntegralType (IntLike (Int Signed)))) => (a -> BitsRes (BitsRes (ShiftRes a) (IntLike (CIntegralType (IntLike (Int Signed))))) (BitsRes (ShiftRes a) (IntLike (CIntegralType (IntLike (Int Signed)))))))"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just "SWAP32",
@@ -933,136 +431,49 @@
               "macro_functions.h"},
           commentChildren = []}},
   DeclVar
-    VarDecl {
-      varDeclName = Name
+    MacroExpr {
+      macroExprName = Name
         "@NsVar"
         "aV_VERSION_INT",
-      varDeclType = ForallTy {
-        forallTyBinders = [
-          NameHint "a",
-          NameHint "b",
-          NameHint "c"],
-        forallTy = QuantTy {
-          quantTyCts = [
-            ClassTy
-              (AClass
-                (GenerativeTyCon
-                  (ClassTyCon BitwiseTyCon)))
+      macroExprBody =
+      CheckedMacroExpr {
+        macroExprArgs = [
+          Name "a",
+          Name "b",
+          Name "c"],
+        macroExprBody = MApp
+          MBitwiseOr
+          [
+            MApp
+              MBitwiseOr
               [
-                TyConAppTy
-                  (ATyCon
-                    (FamilyTyCon ShiftResTyCon))
-                  [TyVarTy (Idx 0)],
-                TyConAppTy
-                  (ATyCon
-                    (FamilyTyCon ShiftResTyCon))
-                  [TyVarTy (Idx 1)]],
-            ClassTy
-              (AClass
-                (GenerativeTyCon
-                  (ClassTyCon BitwiseTyCon)))
-              [
-                TyConAppTy
-                  (ATyCon
-                    (FamilyTyCon BitsResTyCon))
+                MApp
+                  MShiftLeft
                   [
-                    TyConAppTy
-                      (ATyCon
-                        (FamilyTyCon ShiftResTyCon))
-                      [TyVarTy (Idx 0)],
-                    TyConAppTy
-                      (ATyCon
-                        (FamilyTyCon ShiftResTyCon))
-                      [TyVarTy (Idx 1)]],
-                TyVarTy (Idx 2)],
-            ClassTy
-              (AClass
-                (GenerativeTyCon
-                  (ClassTyCon ShiftTyCon)))
-              [
-                TyVarTy (Idx 1),
-                TyConAppTy
-                  (ATyCon
-                    (GenerativeTyCon
-                      (DataTyCon IntLikeTyCon)))
+                    MTerm
+                      (MVar NoXVar (Name "a") []),
+                    MTerm
+                      (MInt
+                        IntegerLiteral {
+                          integerLiteralText = "16",
+                          integerLiteralType = Int Signed,
+                          integerLiteralValue = 16})],
+                MApp
+                  MShiftLeft
                   [
-                    TyConAppTy
-                      (ATyCon
-                        (GenerativeTyCon
-                          (DataTyCon
-                            (IntLikeTyCon
-                              (CIntegralType
-                                (IntLike (Int Signed)))))))
-                      []]],
-            ClassTy
-              (AClass
-                (GenerativeTyCon
-                  (ClassTyCon ShiftTyCon)))
-              [
-                TyVarTy (Idx 0),
-                TyConAppTy
-                  (ATyCon
-                    (GenerativeTyCon
-                      (DataTyCon IntLikeTyCon)))
-                  [
-                    TyConAppTy
-                      (ATyCon
-                        (GenerativeTyCon
-                          (DataTyCon
-                            (IntLikeTyCon
-                              (CIntegralType
-                                (IntLike (Int Signed)))))))
-                      []]]],
-          quantTyBody = FunTy
-            (TyVarTy (Idx 0))
-            (FunTy
-              (TyVarTy (Idx 1))
-              (FunTy
-                (TyVarTy (Idx 2))
-                (TyConAppTy
-                  (ATyCon
-                    (FamilyTyCon BitsResTyCon))
-                  [
-                    TyConAppTy
-                      (ATyCon
-                        (FamilyTyCon BitsResTyCon))
-                      [
-                        TyConAppTy
-                          (ATyCon
-                            (FamilyTyCon ShiftResTyCon))
-                          [TyVarTy (Idx 0)],
-                        TyConAppTy
-                          (ATyCon
-                            (FamilyTyCon ShiftResTyCon))
-                          [TyVarTy (Idx 1)]],
-                    TyVarTy (Idx 2)])))}},
-      varDeclBody = VarDeclLambda
-        (Lambda
-          (NameHint "a")
-          (VarDeclLambda
-            (Lambda
-              (NameHint "b")
-              (VarDeclLambda
-                (Lambda
-                  (NameHint "c")
-                  (VarDeclApp
-                    (InfixAppHead MBitwiseOr)
-                    [
-                      VarDeclApp
-                        (InfixAppHead MBitwiseOr)
-                        [
-                          VarDeclApp
-                            (InfixAppHead MShiftLeft)
-                            [
-                              VarDeclVar (Idx 2),
-                              VarDeclIntegral 16 HsPrimCInt],
-                          VarDeclApp
-                            (InfixAppHead MShiftLeft)
-                            [
-                              VarDeclVar (Idx 1),
-                              VarDeclIntegral 8 HsPrimCInt]],
-                      VarDeclVar (Idx 0)])))))),
-      varDeclComment = Just
+                    MTerm
+                      (MVar NoXVar (Name "b") []),
+                    MTerm
+                      (MInt
+                        IntegerLiteral {
+                          integerLiteralText = "8",
+                          integerLiteralType = Int Signed,
+                          integerLiteralValue = 8})]],
+            MTerm
+              (MVar NoXVar (Name "c") [])],
+        macroExprType =
+        "(forall a b c. Bitwise (ShiftRes a) (ShiftRes b) => Bitwise (BitsRes (ShiftRes a) (ShiftRes b)) c => Shift b (IntLike (CIntegralType (IntLike (Int Signed)))) => Shift a (IntLike (CIntegralType (IntLike (Int Signed)))) => (a -> b -> c -> BitsRes (BitsRes (ShiftRes a) (ShiftRes b)) c))"},
+      macroExprComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just

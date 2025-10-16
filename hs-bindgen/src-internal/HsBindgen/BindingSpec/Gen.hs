@@ -112,7 +112,7 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes = foldr aux omitSpec
       Hs.DeclDeriveInstance{} -> id
       Hs.DeclForeignImport{}  -> id
       Hs.DeclFunction{}       -> id
-      Hs.DeclVar{}            -> id
+      Hs.DeclMacroExpr{}      -> id
       Hs.DeclUnionGetter{}    -> id
       Hs.DeclUnionSetter{}    -> id
       Hs.DeclSimple{}         -> id
