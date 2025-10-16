@@ -201,7 +201,7 @@ macroDefinition info = \curr -> do
           , declAnn  = NoAnn
           }
     decl <- mkDecl <$> getUnparsedMacro unit curr
-    foldContinueWith [ParseSucceeded decl []]
+    foldContinueWith [ParseSucceeded $ ParseSuccess decl []]
 
 structDecl :: C.DeclInfo Parse -> Parser
 structDecl info = \curr -> do
@@ -260,7 +260,7 @@ structDecl info = \curr -> do
               , declKind = C.DeclOpaque (C.NameKindTagged C.TagKindStruct)
               , declAnn  = NoAnn
               }
-        in  foldContinueWith [ParseSucceeded decl []]
+        in  foldContinueWith [ParseSucceeded $ ParseSuccess decl []]
       DefinitionElsewhere _ ->
         foldContinue
 
@@ -507,7 +507,7 @@ functionDecl info = \curr -> do
                       ]
                     funDecl = mkDecl purity
                 in  map parseSucceed otherDecls ++
-                      [ ParseSucceeded funDecl $
+                      [ ParseSucceeded $ ParseSuccess funDecl $
                           nonPublicVisibility ++ potentialDuplicate
                       ]
   where
@@ -631,11 +631,11 @@ varDecl info = \curr -> do
 
             in  case cls of
               VarGlobal ->
-                singleton $
-                  ParseSucceeded (mkDecl $ C.DeclGlobal typ) msgs
+                singleton $ ParseSucceeded $
+                  ParseSuccess (mkDecl $ C.DeclGlobal typ) msgs
               VarConst ->
-                singleton $
-                  ParseSucceeded (mkDecl $ C.DeclGlobal typ) msgs
+                singleton $ ParseSucceeded $
+                  ParseSuccess (mkDecl $ C.DeclGlobal typ) msgs
               VarThreadLocal ->
                 singleton $
                   parseFailWith' $ ParseUnsupportedTLS :| msgs

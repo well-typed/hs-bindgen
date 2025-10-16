@@ -44,6 +44,7 @@ resolveBindingSpecs ::
   -> C.TranslationUnit NameAnon
   -> ( C.TranslationUnit ResolveBindingSpecs
      , Map C.QualName SourcePath
+     , Set C.QualName
      , [Msg ResolveBindingSpecs]
      )
 resolveBindingSpecs
@@ -59,8 +60,12 @@ resolveBindingSpecs
             unitAnn.declUseDecl
             (resolveDecls unitDecls)
         notUsedErrs = ResolveBindingSpecsTypeNotUsed <$> Map.keys stateNoPTypes
+        declsWithExternalBindingSpecs :: Set C.QualName
+        declsWithExternalBindingSpecs =
+          Map.keysSet stateOmitTypes `Set.union` Map.keysSet stateExtTypes
     in  ( reassemble decls stateUseDecl
         , stateOmitTypes
+        , declsWithExternalBindingSpecs
         , reverse stateErrors ++ notUsedErrs
         )
   where
@@ -442,19 +447,15 @@ instance Resolve C.Type where
           case Map.lookup qualName stateExtTypes of
             Just ty -> return (Set.singleton qualPrelimDeclId, ty)
             Nothing -> do
-              -- Check for external binding of type that we did not attempt to parse
-              --
-              -- TODO_PR: Here we only have a look at "not attempted" parses.
-              -- Should we also analyze "failed" parses?
-              --
-              -- TODO_PR: Also, even if we replace a "not attempted" parse with
-              -- a binding specification, we will emit an @Error@ (?) trace in
-              -- the @Select@ pass.
-              case DeclIndex.lookupNotAttempted qualPrelimDeclId envDeclIndex of
-                Nothing -> return (Set.empty, mk qualDeclIdName)
-                Just loc -> do
+              -- Check for external binding of type that we omitted or failed to
+              -- parse.
+              case DeclIndex.lookupMissing qualPrelimDeclId envDeclIndex of
+                [] -> return (Set.empty, mk qualDeclIdName)
+                locs -> do
                   let declPaths =
-                        IncludeGraph.reaches envIncludeGraph loc.singleLocPath
+                        foldMap
+                          (IncludeGraph.reaches envIncludeGraph . singleLocPath)
+                          locs
                   resolveExtBinding qualName declPaths >>= \case
                     Just resolved -> do
                       let ty = C.TypeExtBinding resolved

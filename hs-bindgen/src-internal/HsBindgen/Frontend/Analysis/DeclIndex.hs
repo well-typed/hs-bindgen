@@ -8,8 +8,8 @@
 -- > import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 module HsBindgen.Frontend.Analysis.DeclIndex (
     DeclIndex -- opaque
-  , getNotAttempted
-  , getFailed
+  , getParseOmissions
+  , getParseFailures
     -- * Construction
   , DeclIndexError(..)
   , fromParseResults
@@ -17,7 +17,7 @@ module HsBindgen.Frontend.Analysis.DeclIndex (
   , lookup
   , (!)
   , lookupDelayedParseMsgs
-  , lookupNotAttempted
+  , lookupMissing
   , getDecls
   ) where
 
@@ -25,8 +25,10 @@ import Prelude hiding (lookup)
 
 import Control.Monad.State
 import Data.Function
+import Data.List.NonEmpty ((<|))
+import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
-import Optics.Core (_1, over, set, view, (%))
+import Optics.Core (over, set, (%))
 import Text.SimplePrettyPrint (hcat, showToCtxDoc)
 
 import Clang.HighLevel.Types
@@ -44,27 +46,21 @@ import HsBindgen.Util.Tracer
 
 -- | Index of all declarations
 data DeclIndex = DeclIndex {
-      succeeded ::
-        !(Map C.QualPrelimDeclId
-            (C.Decl Parse, [DelayedParseMsg]))
-    , notAttempted ::
-        !(Map C.QualPrelimDeclId
-            (SingleLoc, C.Availability, ParseOmissionReason))
-    , failed  ::
-        !(Map C.QualPrelimDeclId
-            (SingleLoc, C.Availability, NonEmpty DelayedParseMsg))
+      succeeded    :: !(Map C.QualPrelimDeclId ParseSuccess)
+    , omitted      :: !(Map C.QualPrelimDeclId (NonEmpty ParseOmission))
+    , failed       :: !(Map C.QualPrelimDeclId (NonEmpty ParseFailure))
     }
   deriving stock (Show, Generic)
 
 emptyIndex :: DeclIndex
 emptyIndex = DeclIndex Map.empty Map.empty Map.empty
 
-getNotAttempted ::
-  DeclIndex -> Map C.QualPrelimDeclId (SingleLoc, C.Availability, ParseOmissionReason)
-getNotAttempted = notAttempted
+getParseOmissions ::
+  DeclIndex -> Map C.QualPrelimDeclId (NonEmpty ParseOmission)
+getParseOmissions = omitted
 
-getFailed :: DeclIndex -> Map C.QualPrelimDeclId (SingleLoc, C.Availability, NonEmpty DelayedParseMsg)
-getFailed = failed
+getParseFailures :: DeclIndex -> Map C.QualPrelimDeclId (NonEmpty ParseFailure)
+getParseFailures = failed
 
 {-------------------------------------------------------------------------------
   Construction
@@ -93,10 +89,10 @@ fromParseResults results =
           -- Ignore further definitions of the same ID after an error
           oldIndex
         else case parse of
-          ParseSucceeded{..} ->
+          ParseSucceeded x ->
               let (succeeded', mErr) = flip runState Nothing $
                      Map.alterF
-                       (insert psDecl psDelayedMsgs)
+                       (insert x)
                        qualPrelimDeclId
                        index.succeeded
               in PartialIndex{
@@ -105,48 +101,42 @@ fromParseResults results =
                     Nothing  -> errors
                     Just err -> Map.insert qualPrelimDeclId err errors
                 }
-          -- TODO_PR: On failures, we simply insert the value into the
-          -- respective index maps, preferring existing, previously inserted
-          -- key-value pairs.
-          ParseNotAttempted{..} ->
-            let val = (pnaSingleLoc, pnaAvailability, pnaParseOmissionReason)
-            in  over
-                  ( #index % #notAttempted )
-                  ( insertPreferOld qualPrelimDeclId val )
-                  oldIndex
-          ParseFailed{..} ->
-            let val = (pfSingleLoc, pfAvailability, pfDelayedParseMsgs)
-            in  over
-                  ( #index % #failed )
-                  ( insertPreferOld qualPrelimDeclId val )
-                  oldIndex
+          ParseOmitted x ->
+            over
+              ( #index % #omitted )
+              ( alter qualPrelimDeclId x )
+              oldIndex
+          ParseFailed x ->
+            over
+              ( #index % #failed )
+              ( alter qualPrelimDeclId x )
+              oldIndex
       where
         qualPrelimDeclId :: C.QualPrelimDeclId
         qualPrelimDeclId = getQualPrelimDeclId parse
 
-    insertPreferOld :: Ord k => k -> a -> Map k a -> Map k a
-    insertPreferOld key new =
+    alter :: Ord k => k -> a -> Map k (NonEmpty a) -> Map k (NonEmpty a)
+    alter key x =
       Map.alter (\case
-        Nothing  -> Just new
-        Just old -> Just old) key
+        Nothing -> Just $ x :| []
+        Just xs -> Just $ x <| xs) key
 
     insert ::
-         C.Decl Parse
-      -> [DelayedParseMsg]
-      -> Maybe (C.Decl Parse, [DelayedParseMsg])
-      -> State (Maybe DeclIndexError) (Maybe (C.Decl Parse, [DelayedParseMsg]))
-    insert new newMsgs mOld = state $ \_ ->
+         ParseSuccess
+      -> Maybe ParseSuccess
+      -> State (Maybe DeclIndexError) (Maybe ParseSuccess)
+    insert new mOld = state $ \_ ->
         case mOld of
           Nothing ->
               -- The normal case: no previous declaration exists
-              success (new, newMsgs)
+              success new
 
-          Just (old, oldMsgs)
-            | sameDefinition (C.declKind new) (C.declKind old) ->
+          Just old
+            | sameDefinition new.psDecl.declKind old.psDecl.declKind ->
                 -- Redeclaration but with the same definition. This can happen,
                 -- for example for opaque structs. We stick with the first but
                 -- add the parse messages of the second.
-                success (old, oldMsgs ++ newMsgs)
+                success $ over #psDelayedMsgs (++ new.psDelayedMsgs) old
 
             | otherwise ->
                 -- Redeclaration with a /different/ value. This is only legal
@@ -165,9 +155,9 @@ fromParseResults results =
                 --
                 -- See issue #1155.
                 failure $ Redeclaration{
-                    redeclarationId  = C.declQualPrelimDeclId new
-                  , redeclarationOld = C.declLoc $ C.declInfo old
-                  , redeclarationNew = C.declLoc $ C.declInfo new
+                    redeclarationId  = C.declQualPrelimDeclId $ new.psDecl
+                  , redeclarationOld = old.psDecl.declInfo.declLoc
+                  , redeclarationNew = new.psDecl.declInfo.declLoc
                   }
      where
        -- No errors; set (or replace) value in the map
@@ -225,8 +215,7 @@ instance IsTrace Level DeclIndexError where
 
 lookup :: C.QualPrelimDeclId -> DeclIndex -> Maybe (C.Decl Parse)
 lookup qualPrelimDeclId =
-  fmap fst . Map.lookup qualPrelimDeclId . succeeded
-
+  fmap psDecl . Map.lookup qualPrelimDeclId . succeeded
 
 (!) :: HasCallStack => DeclIndex -> C.QualPrelimDeclId -> C.Decl Parse
 (!) declIndex qualPrelimDeclId =
@@ -235,11 +224,17 @@ lookup qualPrelimDeclId =
 
 lookupDelayedParseMsgs :: C.QualPrelimDeclId -> DeclIndex -> [DelayedParseMsg]
 lookupDelayedParseMsgs qualPrelimDeclId =
-  maybe [] snd . Map.lookup qualPrelimDeclId . succeeded
+  maybe [] psDelayedMsgs . Map.lookup qualPrelimDeclId . succeeded
 
-lookupNotAttempted :: C.QualPrelimDeclId -> DeclIndex -> Maybe SingleLoc
-lookupNotAttempted qualPrelimDeclId =
-  fmap (view _1) . Map.lookup qualPrelimDeclId . notAttempted
+-- | For a given declaration ID, look up the source locations of omitted or
+-- failed parses.
+lookupMissing :: C.QualPrelimDeclId -> DeclIndex -> [SingleLoc]
+lookupMissing qualPrelimDeclId index =
+  (maybe [] (map poSingleLoc . NonEmpty.toList) $
+    Map.lookup qualPrelimDeclId $ index.omitted)
+  ++
+  (maybe [] (map pfSingleLoc . NonEmpty.toList) $
+    Map.lookup qualPrelimDeclId $ index.failed)
 
 getDecls :: DeclIndex -> [C.Decl Parse]
-getDecls = map fst . Map.elems . succeeded
+getDecls = map psDecl . Map.elems . succeeded

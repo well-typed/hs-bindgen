@@ -5,7 +5,6 @@ module HsBindgen.Frontend.Pass.Select (
 import Data.Foldable qualified as Foldable
 import Data.List (partition)
 import Data.List.NonEmpty qualified as NonEmpty
-import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
 import Clang.HighLevel.Types
@@ -32,10 +31,16 @@ type MatchFun = C.QualPrelimDeclId -> SingleLoc -> C.Availability -> Bool
 selectDecls ::
      IsMainHeader
   -> IsInMainHeaderDir
+  -> Set C.QualName
   -> Config Select
   -> C.TranslationUnit ResolveBindingSpecs
   -> (C.TranslationUnit Select, [Msg Select])
-selectDecls isMainHeader isInMainHeaderDir SelectConfig{..} unit =
+selectDecls
+  isMainHeader
+  isInMainHeaderDir
+  declsWithExternalBindingSpec
+  SelectConfig{..}
+  unit =
     let matchedDecls, unmatchedDecls :: [C.Decl Select]
         (matchedDecls, unmatchedDecls) = partition matchDecl decls
 
@@ -74,8 +79,8 @@ selectDecls isMainHeader isInMainHeaderDir SelectConfig{..} unit =
             ,    getSelectMsgs            selectedRoots  selectedDecls
               ++ getExcludeMsgs           transitiveDeps unmatchedDecls
               ++ getDelayedParseMsgs      selectedDecls  index
-              ++ getParseNotAttemptedMsgs match index
-              ++ getParseFailedMsgs       match index
+              ++ getParseNotAttemptedMsgs match          index
+              ++ getParseFailedMsgs       match          index
             )
        else panicPure $ errorMsgWith unavailableTransitiveDeps
   where
@@ -134,10 +139,10 @@ selectDecls isMainHeader isInMainHeaderDir SelectConfig{..} unit =
                 [x] ->
                   matchUseSite $ fst x
                 []  ->
-                  -- TODO_PR: Triggered by stdlib.h:
-                  -- anonymous declaration without use site: QualPrelimDeclIdAnon (AnonId "/nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/stdlib.h:77:23") TagKindStruct
-                  -- panicPure $
-                  --   "anonymous declaration without use site: " ++ show anon
+                  -- Unused anonymous declarations are removed in the @NameAnon@
+                  -- pass. Here we are using the decl-use graph to find use
+                  -- sites, and so we still can encounter unused anonymous
+                  -- declarations.
                   False
                 xs  ->
                   panicPure $
@@ -214,30 +219,31 @@ getDelayedParseMsgs selectedDecls index =
     toSelectMsg :: C.Decl Select -> DelayedParseMsg -> Msg Select
     toSelectMsg decl = SelectParse decl.declInfo
 
-
 getParseNotAttemptedMsgs :: MatchFun -> DeclIndex -> [Msg Select]
-getParseNotAttemptedMsgs match = Map.foldlWithKey addMsg [] . DeclIndex.getNotAttempted
+getParseNotAttemptedMsgs match =
+  Foldable.foldl' (Foldable.foldl' addMsg) []
+    . DeclIndex.getParseOmissions
   where
     addMsg ::
          [SelectMsg]
-      -> C.QualPrelimDeclId
-      -> (SingleLoc, C.Availability, ParseOmissionReason)
+      -> ParseOmission
       -> [SelectMsg]
-    addMsg xs qualPrelimDeclId (loc, availability, reason) =
-      [ SelectParseNotAttempted qualPrelimDeclId loc reason
-      | match qualPrelimDeclId loc availability
+    addMsg xs (ParseOmission i l a r) =
+      [ SelectParseNotAttempted i l r
+      | match i l a
       ] ++ xs
 
 getParseFailedMsgs :: MatchFun -> DeclIndex -> [Msg Select]
-getParseFailedMsgs match = Map.foldlWithKey addMsg [] . DeclIndex.getFailed
+getParseFailedMsgs match =
+  Foldable.foldl' (Foldable.foldl' addMsg) []
+    . DeclIndex.getParseFailures
   where
     addMsg ::
          [SelectMsg]
-      -> C.QualPrelimDeclId
-      -> (SingleLoc, C.Availability, NonEmpty DelayedParseMsg)
+      -> ParseFailure
       -> [SelectMsg]
-    addMsg xs qualPrelimDeclId (loc, availability, msgs) =
-      [ SelectParseFailed qualPrelimDeclId loc msg
-      | match qualPrelimDeclId loc availability
+    addMsg xs (ParseFailure i l a msgs) =
+      [ SelectParseFailed i l msg
+      | match i l a
       , msg <- NonEmpty.toList msgs
       ] ++ xs

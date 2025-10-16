@@ -4,6 +4,8 @@ module HsBindgen.Frontend
   , FrontendMsg(..)
   ) where
 
+import Optics.Core (_2, view)
+
 import Clang.Enum.Bitfield
 import Clang.LowLevel.Core
 import Clang.Paths
@@ -143,21 +145,27 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
       afterNameAnon <- nameAnonPass
       extlSpec <- bootExternalBindingSpec
       presSpec <- bootPrescriptiveBindingSpec
-      let (afterResolveBindingSpecs, omitTypes, msgsResolveBindingSpecs) =
+      let (   afterResolveBindingSpecs
+            , omitTypes
+            , declsWithExternalBindingSpecs
+            , msgsResolveBindingSpecs
+            ) =
             resolveBindingSpecs
               extlSpec
               presSpec
               afterNameAnon
       forM_ msgsResolveBindingSpecs $ traceWith tracer . FrontendResolveBindingSpecs
-      pure (afterResolveBindingSpecs, omitTypes)
+      pure (afterResolveBindingSpecs, omitTypes, declsWithExternalBindingSpecs)
 
     selectPass <- cache "select" $ do
       (_, _, isMainHeader, isInMainHeaderDir, _) <- parsePass
-      (afterResolveBindingSpecs, _)           <- resolveBindingSpecsPass
+      (afterResolveBindingSpecs, _, declsWithExternalBindingSpecs) <-
+        resolveBindingSpecsPass
       let (afterSelect, msgsSelect) =
             selectDecls
               isMainHeader
               isInMainHeaderDir
+              declsWithExternalBindingSpecs
               selectConfig
               afterResolveBindingSpecs
       forM_ msgsSelect $ traceWith tracer . FrontendSelect
@@ -204,7 +212,7 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
 
     -- Omitted types
     frontendOmitTypes <- cache "frontendOmitTypes" $
-      snd <$> resolveBindingSpecsPass
+      view _2 <$> resolveBindingSpecsPass
 
     -- Declarations.
     frontendCDecls <- cache "frontendDecls" $
