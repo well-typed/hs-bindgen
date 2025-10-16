@@ -10,7 +10,3 @@ unversioned
 
 *.dll
 *.log
-
-/examples/c-minisat/hs-project/src/
-/examples/libpcap/libpcap/
-/examples/libpcap/hs-project/src/

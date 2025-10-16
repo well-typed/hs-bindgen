@@ -7,3 +7,6 @@
 [submodule "examples/c-minisat/minisat-c-bindings"]
 	path = examples/c-minisat/minisat-c-bindings
 	url = https://github.com/niklasso/minisat-c-bindings.git
+[submodule "examples/botan/botan"]
+	path = examples/botan/botan
+	url = https://github.com/randombit/botan

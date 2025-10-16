@@ -5,8 +5,6 @@ on:
     branches:
       - main
   pull_request:
-    branches:
-      - main
   merge_group:
     branches:
       - main
@@ -42,7 +40,7 @@ jobs:
         # NOTE: add new example projects here. The example project has to
         # satisfy some requirements for this workflow to work correctly. See
         # ./examples/README.md (with respect to the repository root).
-        example: ['c-minisat', 'libpcap']
+        example: ['botan', 'c-minisat', 'libpcap']
 
     env:
       # We assume that the example executable lives in this directory
@@ -130,6 +128,10 @@ jobs:
         cabal run hs-bindgen-cli -- info libclang --clang-option=-v
         echo '### Resolve (clang)'
         cabal run hs-bindgen-cli -- info resolve-header -v4 --builtin-include-dir=clang stdint.h
+
+    - name: 🧪 Build and run botan example
+      if: ${{ matrix.example == 'botan' }}
+      uses: ./.github/actions/examples/botan
 
     - name: 🧪 Build and run c-minisat example
       if: ${{ matrix.example == 'c-minisat' }}

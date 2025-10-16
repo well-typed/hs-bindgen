@@ -1,0 +1,24 @@
+name: botan example
+description: Build and run the botan example
+
+runs:
+  using: composite
+  steps:
+    # The use of ccache drastically improves build times.
+    #
+    # Copied and adapted from
+    # https://github.com/haskell-cryptography/botan/blob/main/.github/actions/setup-botan/action.yml
+    - name: 💾 Cache using ccache
+      uses: hendrikmuhs/ccache-action@v1.2
+      with:
+        create-symlink: true
+        variant: 'ccache'
+        key: setup-botan
+        append-timestamp: false
+        evict-old-files: 'job'
+        max-size: 50M
+
+    - name: Run generation and build script
+      shell: bash
+      working-directory: ./examples/botan
+      run: ./generate-and-run.sh

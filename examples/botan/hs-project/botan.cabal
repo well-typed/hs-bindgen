@@ -1,0 +1,58 @@
+cabal-version:   3.0
+name:            botan
+version:         0.1.0.0
+license:         BSD-3-Clause
+license-file:    LICENSE
+author:          Joris Dral
+maintainer:      joris@well-typed.com
+build-type:      Simple
+extra-doc-files: CHANGELOG.md
+
+common warnings
+  ghc-options:
+    -Wall -Wcompat -Wincomplete-uni-patterns
+    -Wincomplete-record-updates -Wpartial-fields -Widentities
+    -Wredundant-constraints -Wmissing-export-lists
+    -Wno-unticked-promoted-constructors -Wunused-packages
+    -Wmissing-deriving-strategies
+
+common language
+  default-language:   GHC2021
+  default-extensions:
+    DerivingStrategies
+    ImportQualifiedPost
+    LambdaCase
+    PatternSynonyms
+    RecordWildCards
+    RoleAnnotations
+    ViewPatterns
+
+library
+  import:          warnings, language
+  exposed-modules: Botan
+  other-modules:
+    Generated.Botan
+    Generated.Botan.FunPtr
+    Generated.Botan.Safe
+    Generated.Botan.Unsafe
+
+  build-depends:
+    , base
+    , hs-bindgen-runtime
+    , vector
+
+  hs-source-dirs:  src
+  extra-libraries: botan-3
+  ghc-options:     -Wno-missing-export-lists
+
+executable botan
+  import:         warnings, language
+  main-is:        Main.hs
+  build-depends:
+    , async
+    , base
+    , botan
+    , containers
+
+  hs-source-dirs: app
+  ghc-options:    -threaded
