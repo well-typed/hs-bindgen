@@ -4,18 +4,16 @@ module HsBindgen.Backend.SHs.Macro (
 
 import Data.Map.Strict qualified as Map
 import Data.Text qualified as T
-import Data.Type.Nat (SNatI, induction)
 import Data.Type.Nat qualified as Fin
-import Data.Vec.Lazy qualified as Vec
-import DeBruijn.Internal.Size (Size (UnsafeSize))
-import GHC.Exts qualified as IsList (IsList (..))
 
-import C.Char qualified as CExpr.Runtime
-import C.Type qualified as CExpr.Runtime
+import C.Char qualified as Runtime
+import C.Type (Sign (Signed, Unsigned))
+import C.Type qualified as Runtime
 
-import C.Expr.Syntax qualified as CExpr.DSL
-import C.Expr.Typecheck.Type qualified as CExpr.DSL
-import C.Expr.Util.TestEquality qualified as CExpr.DSL
+import C.Expr.Syntax (Ps)
+import C.Expr.Syntax qualified as DSL
+import C.Expr.Typecheck.Type (Kind (Ct, Ty))
+import C.Expr.Typecheck.Type qualified as DSL
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
@@ -28,24 +26,17 @@ import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.NameHint
 
-import DeBruijn (Ctx, EmptyCtx, Idx (..), rzeroAdd)
+import DeBruijn (EmptyCtx, Idx (..), Size (..), rzeroAdd)
 
 {-------------------------------------------------------------------------------
   External API
-
-  TODO: This module should be cleaned up. In particular, both compositions
-
-  * @translateSigma . quantTyHsTy@
-  * @translateBody . macroLamHsExpr@
-
-  should be fused. I think once that is done, 'SigmaType' and co can go.
 -------------------------------------------------------------------------------}
 
 translateMacroExpr :: Hs.MacroExpr -> SDecl
 translateMacroExpr expr = DVar Var{
       varName    = name
-    , varType    = translateSigma . quantTyHsTy $ macroExprType
-    , varExpr    = translateBody . macroLamHsExpr $ (macroExprArgs, macroExprBody)
+    , varType    = translateType macroExprType
+    , varExpr    = translateBody macroExprArgs macroExprBody
     , varComment = comment
     }
   where
@@ -55,197 +46,133 @@ translateMacroExpr expr = DVar Var{
       , macroExprComment = comment
       } = expr
 
-    macroExprArgs :: [CExpr.DSL.Name]
-    macroExprBody :: CExpr.DSL.MExpr CExpr.DSL.Ps
-    macroExprType :: CExpr.DSL.Quant (CExpr.DSL.Type CExpr.DSL.Ty)
+    macroExprArgs :: [DSL.Name]
+    macroExprBody :: DSL.MExpr Ps
+    macroExprType :: DSL.Quant (DSL.Type Ty)
     C.CheckedMacroExpr{macroExprArgs, macroExprBody, macroExprType} = body
 
 {-------------------------------------------------------------------------------
-  Internal auxiliary: SigmaType
+  Translate type
 -------------------------------------------------------------------------------}
 
--- | A σ-type, of the form @forall tvs. ctxt => body@.
-type SigmaType :: Star
-data SigmaType where
-  ForallTy ::
-    { forallTyBinders :: Vec n NameHint
-    , forallTy        :: PhiType n
-    }
-    -> SigmaType
+translateType :: DSL.Quant (DSL.Type Ty) -> ClosedType
+translateType qty@(DSL.Quant @n _) =
+    case DSL.mkQuantTyBody qty of
+      DSL.QuantTyBody{quantTyQuant = cts, quantTyBody = ty} ->
+        quantTyBody (snd <$> DSL.tyVarNames @n) cts ty
 
-deriving stock instance Show SigmaType
+quantTyBody :: Vec n Text -> [DSL.Type Ct] -> DSL.Type Ty -> ClosedType
+quantTyBody args cts body =
+    topLevelForall nameHint args $ \env -> (
+        map (typeCt env) cts
+      , typeTy env body
+      )
+  where
+    nameHint :: Text -> NameHint
+    nameHint = fromString . T.unpack
 
--- | A φ-type, of the form @ctxt => body@.
-type PhiType :: Ctx -> Star
-data PhiType ctx
-  = QuantTy
-  { quantTyCts  :: [PredType ctx]
-  , quantTyBody :: TauType ctx
-  }
-  deriving stock (Generic, Show)
+typeCt :: Map Text (Idx ctx) -> DSL.Type Ct -> SType ctx
+typeCt env = \case
+    DSL.TyConAppTy cls as ->
+      tAppN (TGlobal $ tyCon cls) (typeTy env <$> as)
+    DSL.NomEqPred a b ->
+      tAppN (TGlobal NomEq_class) [typeTy env a, typeTy env b]
 
--- | A τ-type: no quantification or contexts (i.e. no @forall@, no @=>@ arrows).
-type TauType :: Ctx -> Star
-data TauType ctx
-  = FunTy (TauType ctx) (TauType ctx)
-  | TyVarTy (Idx ctx)
-  | TyConAppTy ATyCon [TauType ctx]
-  deriving stock (Eq, Generic, Show)
+typeTy :: forall ctx. Map Text (Idx ctx) -> DSL.Type Ty -> SType ctx
+typeTy env = go
+  where
+    go :: DSL.Type Ty -> SType ctx
+    go (DSL.TyVarTy tv) =
+        case Map.lookup (DSL.tyVarName tv) env of
+          Just n  -> TBound n
+          Nothing -> panicPure $ "typeT: unbound type variable " ++ show tv
+    go (DSL.FunTy as r) =
+        foldr (TFun . go) (go r) as
+    go (DSL.TyConAppTy tc as) =
+        case simpleTyConApp tc as of
+          Just ty -> TGlobal $ PrimType ty
+          Nothing -> tAppN (TGlobal $ tyCon tc) (go <$> as)
 
--- | A predicate/constraint τ-type.
-type PredType :: Ctx -> Star
-data PredType ctx
-  = DictTy AClass [TauType ctx]
-  | NomEqTy (TauType ctx) (TauType ctx)
-  deriving stock Show
+-- | Convert @IntLike t@ and @FloatLike t@ to Haskell types.
+--
+-- The macro typechecker will never produce a type such as @IntLike a@ for
+-- a skolem type variable @a@, because this type has no Haskell counterpart.
+--
+-- See 'C.Expr.Typecheck.Expr.isAtomicType'.
+simpleTyConApp ::
+     DSL.TyCon n Ty
+  -> Vec n (DSL.Type Ty)
+  -> Maybe HsPrimType
+simpleTyConApp (DSL.GenerativeTyCon (DSL.DataTyCon tc)) (arg ::: VNil) =
+    case (tc, arg) of
 
-instance Eq (PredType ctx) where
-  DictTy cls1 tys1 == DictTy cls2 tys2 =
-    cls1 == cls2 && tys1 == tys2
-  NomEqTy l1 r1 == NomEqTy l2 r2 =
-    l1 == l2 && r1 == r2
-  _ == _ = False
+      (   DSL.IntLikeTyCon
+        , DSL.TyConAppTy
+            (DSL.GenerativeTyCon (DSL.DataTyCon (DSL.PrimIntInfoTyCon t)))
+            VNil
+        ) -> Just $ dslIntegral t
 
-data ATyCon where
-  ATyCon :: CExpr.DSL.TyCon args CExpr.DSL.Ty -> ATyCon
-instance Show ATyCon where
-  show ( ATyCon tc ) = show tc
-instance Eq ATyCon where
-  ATyCon tc1 == ATyCon tc2 =
-    isJust $ CExpr.DSL.equals2 tc1 tc2
+      (     DSL.FloatLikeTyCon
+          , DSL.TyConAppTy
+              (DSL.GenerativeTyCon (DSL.DataTyCon (DSL.PrimFloatInfoTyCon t)))
+              VNil
+        ) -> Just $ runtimeFloating t
 
-data AClass where
-  AClass :: CExpr.DSL.TyCon args CExpr.DSL.Ct -> AClass
-instance Show AClass where
-  show ( AClass tc ) = show tc
-instance Eq AClass where
-  AClass ( CExpr.DSL.GenerativeTyCon ( CExpr.DSL.ClassTyCon cls1 ) )
-    ==
-    AClass ( CExpr.DSL.GenerativeTyCon ( CExpr.DSL.ClassTyCon cls2 ) ) =
-      isJust $ CExpr.DSL.equals1 cls1 cls2
+      _otherwise ->
+        Nothing
+
+simpleTyConApp _ _ =
+    Nothing
 
 {-------------------------------------------------------------------------------
-  Internal auxiliary
+  Translate body
 -------------------------------------------------------------------------------}
 
-quantTyHsTy :: CExpr.DSL.Quant ( CExpr.DSL.Type CExpr.DSL.Ty ) -> SigmaType
-quantTyHsTy qty@(CExpr.DSL.Quant @kis _) =
-  case CExpr.DSL.mkQuantTyBody qty of
-    CExpr.DSL.QuantTyBody { quantTyQuant = cts, quantTyBody = ty } -> do
-      goForallTy (CExpr.DSL.tyVarNames @kis) cts ty
+translateBody ::
+     [DSL.Name]
+  -> DSL.MExpr p
+  -> SExpr EmptyCtx
+translateBody macroArgs expr =
+    topLevelLambdaN cnameToHint macroArgs (flip mexpr expr)
+
+mexpr :: forall ctx p.
+     Map DSL.Name (Idx ctx)
+  -> DSL.MExpr p
+  -> SExpr ctx
+mexpr env =
+    goExpr
   where
+    goExpr :: DSL.MExpr p -> SExpr ctx
+    goExpr = \case
+        DSL.MTerm t     -> goTerm t
+        DSL.MApp _ f xs -> eAppN (EGlobal $ mfun f) (goExpr <$> xs)
 
-    goCt :: Map Text (Idx ctx) -> CExpr.DSL.Type CExpr.DSL.Ct -> PredType ctx
-    goCt env (CExpr.DSL.TyConAppTy cls as) =
-      DictTy (AClass cls) (goTys env as)
-    goCt env (CExpr.DSL.NomEqPred a b) =
-      NomEqTy (goTy env a) (goTy env b)
+    goTerm :: DSL.MTerm p -> SExpr ctx
+    goTerm = \case
+        -- Literals
+        DSL.MInt    x -> integerLiteral  x
+        DSL.MFloat  x -> floatingLiteral x
+        DSL.MChar   x -> charLiteral     x
+        DSL.MString x -> stringLiteral   x
 
-    goTy :: Map Text (Idx ctx) -> CExpr.DSL.Type CExpr.DSL.Ty -> TauType ctx
-    goTy env (CExpr.DSL.TyVarTy tv) =
-      case Map.lookup (CExpr.DSL.tyVarName tv) env of
-        Just hsTv ->
-          TyVarTy hsTv
-        Nothing ->
-          panicPure $ unlines
-            [ "quantTyHsTy: unbound type variable " ++ show tv
-            , "env: " ++ show env
-            , "macro: " ++ show (CExpr.DSL.mkQuantTyBody qty)
-            ]
-    goTy env (CExpr.DSL.FunTy as r) =
-      foldr (FunTy . goTy env) (goTy env r) as
-    goTy env (CExpr.DSL.TyConAppTy tc as) =
-      TyConAppTy (ATyCon tc) (goTys env as)
+        -- Variables
+        DSL.MVar _ cname args ->
+          case Map.lookup cname env of
+            Just i  -> EBound i
+            Nothing -> eAppN (EFree $ macroName cname) (goExpr <$> args)
 
-    goTys :: Map Text (Idx ctx) -> Vec n ( CExpr.DSL.Type CExpr.DSL.Ty ) -> [ TauType ctx ]
-    goTys env as = toList $ fmap (goTy env) as
+{-------------------------------------------------------------------------------
+  Names
+-------------------------------------------------------------------------------}
 
-    goForallTy :: forall n. SNatI n => Vec n (Int, Text) -> [ CExpr.DSL.Type CExpr.DSL.Ct ] -> CExpr.DSL.Type CExpr.DSL.Ty -> SigmaType
-    goForallTy args cts body =
-        let
-          env :: Map Text (Idx n)
-          env = Map.fromList $ toList $ Vec.zipWith (,) ( fmap snd args ) qtvs
-          qtvs :: Vec n (Idx n)
-          qtvs = unU (induction (U VNil) (\(U v) -> U (IZ ::: fmap IS v)))
-        in
-          ForallTy
-            { forallTyBinders = fmap (fromString . T.unpack . snd) args
-            , forallTy        = QuantTy
-                { quantTyCts  = fmap (goCt env) cts
-                , quantTyBody = goTy env body
-                }
-            }
-
-newtype U n = U { unU :: Vec n (Idx n) }
-
-macroLamHsExpr ::
-     ([CExpr.DSL.Name], CExpr.DSL.MExpr p)
-  -> Hs.VarDeclRHS EmptyCtx
-macroLamHsExpr (macroArgs, expr) =
-    makeNames macroArgs Map.empty
-  where
-    makeNames :: [CExpr.DSL.Name] -> Map CExpr.DSL.Name (Idx ctx) -> Hs.VarDeclRHS ctx
-    makeNames []     env = macroExprHsExpr env expr
-    makeNames (n:ns) env = Hs.VarDeclLambda . Hs.Lambda (cnameToHint n) $ makeNames ns (Map.insert n IZ (fmap IS env))
-
-cnameToHint :: CExpr.DSL.Name -> NameHint
-cnameToHint (CExpr.DSL.Name t) = fromString (T.unpack t)
-
-macroExprHsExpr ::
-     Map CExpr.DSL.Name (Idx ctx)
-  -> CExpr.DSL.MExpr p
-  -> Hs.VarDeclRHS ctx
-macroExprHsExpr = goExpr where
-    goExpr :: Map CExpr.DSL.Name (Idx ctx) -> CExpr.DSL.MExpr p -> Hs.VarDeclRHS ctx
-    goExpr env = \case
-      CExpr.DSL.MTerm tm -> goTerm env tm
-      CExpr.DSL.MApp _xapp fun args ->
-        goApp env (Hs.InfixAppHead fun) (toList args)
-
-    goTerm :: Map CExpr.DSL.Name (Idx ctx) -> CExpr.DSL.MTerm p -> Hs.VarDeclRHS ctx
-    goTerm env = \case
-      CExpr.DSL.MInt i -> goInt i
-      CExpr.DSL.MFloat f -> goFloat f
-      CExpr.DSL.MChar c -> goChar c
-      CExpr.DSL.MString s -> goString s
-      CExpr.DSL.MVar _xvar cname args ->
-        --  TODO: removed the macro argument used as a function check.
-        case Map.lookup cname env of
-          Just i  -> Hs.VarDeclVar i
-          Nothing ->
-            let hsVar = macroName cname -- mangle nm $ NameVar cname
-            in  goApp env (Hs.VarAppHead hsVar) args
-
-    goApp :: Map CExpr.DSL.Name (Idx ctx) -> Hs.VarDeclRHSAppHead -> [CExpr.DSL.MExpr p] -> Hs.VarDeclRHS ctx
-    goApp env appHead args =
-      let args' = map (goExpr env) args
-       in Hs.VarDeclApp appHead args'
-
-    goInt :: CExpr.DSL.IntegerLiteral -> Hs.VarDeclRHS ctx
-    goInt (CExpr.DSL.IntegerLiteral { integerLiteralType = intyTy, integerLiteralValue = i }) =
-      Hs.VarDeclIntegral i $
-        hsPrimIntTy $ CExpr.Runtime.IntLike intyTy
-
-    goChar :: CExpr.DSL.CharLiteral -> Hs.VarDeclRHS ctx
-    goChar (CExpr.DSL.CharLiteral { charLiteralValue = c }) =
-      Hs.VarDeclChar c
-
-    goString :: CExpr.DSL.StringLiteral -> Hs.VarDeclRHS ctx
-    goString (CExpr.DSL.StringLiteral { stringLiteralValue = s }) =
-      let bytes = concatMap (IsList.toList . CExpr.Runtime.charValue) s
-       in Hs.VarDeclString (IsList.fromList bytes)
-
-    goFloat :: CExpr.DSL.FloatingLiteral -> Hs.VarDeclRHS ctx
-    goFloat flt@(CExpr.DSL.FloatingLiteral { floatingLiteralType = fty }) =
-      case fty of
-        CExpr.Runtime.FloatType  -> Hs.VarDeclFloat (CExpr.DSL.floatingLiteralFloatValue flt)
-        CExpr.Runtime.DoubleType -> Hs.VarDeclDouble (CExpr.DSL.floatingLiteralDoubleValue flt)
+cnameToHint :: DSL.Name -> NameHint
+cnameToHint (DSL.Name t) = fromString (T.unpack t)
 
 -- | Construct Haskell name for macro
 --
 -- TODO: This should be done as part of the NameMangler frontend pass.
-macroName :: CExpr.DSL.Name -> Hs.Name Hs.NsVar
-macroName (CExpr.DSL.Name cName) =
+macroName :: DSL.Name -> Hs.Name Hs.NsVar
+macroName (DSL.Name cName) =
     case FixCandidate.fixCandidate fix cName of
       Just hsName -> hsName
       Nothing     ->
@@ -254,147 +181,200 @@ macroName (CExpr.DSL.Name cName) =
     fix :: FixCandidate Maybe
     fix = FixCandidate.fixCandidateDefault
 
-translateSigma :: SigmaType -> ClosedType
-translateSigma (ForallTy hints (QuantTy cts ty)) =
-  TForall
-    hints
-    (rzeroAdd $ UnsafeSize $ length hints)
-    (map translatePredTy cts)
-    (translateTau ty)
+{-------------------------------------------------------------------------------
+  Literals
+-------------------------------------------------------------------------------}
 
-translatePredTy :: PredType ctx -> SType ctx
-translatePredTy (DictTy (AClass cls) args) =
-  foldl' TApp (tyConGlobal cls) (fmap translateTau args)
-translatePredTy (NomEqTy a b) =
-  TGlobal NomEq_class `TApp` translateTau a `TApp` translateTau b
+integerLiteral :: DSL.IntegerLiteral -> SExpr ctx
+integerLiteral lit =
+    EIntegral (DSL.integerLiteralValue lit) $
+      Just $ runtimeIntegral $ Runtime.IntLike (DSL.integerLiteralType lit)
 
-translateTau :: TauType ctx -> SType ctx
-translateTau = \case
-  FunTy a b -> TFun (translateTau a) (translateTau b)
-  TyVarTy x -> TBound x
-  TyConAppTy (ATyCon tc) args
-    | Just ty <- simpleTyConApp tc args
-    -> ty
-    | otherwise
-    -> foldl' TApp (tyConGlobal tc) (fmap translateTau args)
+charLiteral :: DSL.CharLiteral -> SExpr ctx
+charLiteral lit =
+    EChar $ DSL.charLiteralValue lit
 
--- | Convert @IntLike inty@ and @FloatLike floaty@ to Haskell types.
---
--- The macro typechecker will never produce a type such as @IntLike a@ for
--- a skolem type variable @a@, because this type has no Haskell counterpart.
---
--- See 'HsBindgen.C.Tc.Macro.isAtomicType'.
-simpleTyConApp :: CExpr.DSL.TyCon args CExpr.DSL.Ty -> [TauType ctx] -> Maybe (SType ctx)
-simpleTyConApp
-  (CExpr.DSL.GenerativeTyCon (CExpr.DSL.DataTyCon CExpr.DSL.IntLikeTyCon))
-  [TyConAppTy (ATyCon (CExpr.DSL.GenerativeTyCon (CExpr.DSL.DataTyCon (CExpr.DSL.PrimIntInfoTyCon inty)))) []]
-    = Just $ TGlobal $ PrimType $
-        case inty of
-          CExpr.DSL.HsIntType -> HsPrimInt
-          CExpr.DSL.CIntegralType primIntTy -> hsPrimIntTy primIntTy
-simpleTyConApp
-  (CExpr.DSL.GenerativeTyCon (CExpr.DSL.DataTyCon CExpr.DSL.FloatLikeTyCon))
-  [TyConAppTy (ATyCon (CExpr.DSL.GenerativeTyCon (CExpr.DSL.DataTyCon (CExpr.DSL.PrimFloatInfoTyCon floaty)))) []]
-    = Just $ TGlobal $ PrimType $ hsPrimFloatTy floaty
-simpleTyConApp _ _ = Nothing
+stringLiteral :: DSL.StringLiteral -> SExpr ctx
+stringLiteral lit =
+    ECString $ foldMap Runtime.charValue (DSL.stringLiteralValue lit)
 
-tyConGlobal :: CExpr.DSL.TyCon args res -> SType ctx
-tyConGlobal = \case
-  CExpr.DSL.GenerativeTyCon tc ->
-    case tc of
-      CExpr.DSL.DataTyCon dc ->
-        case dc of
-          CExpr.DSL.TupleTyCon n ->
-            TGlobal $ Tuple_type n
-          CExpr.DSL.VoidTyCon ->
-            TGlobal $ PrimType HsPrimVoid
-          CExpr.DSL.PrimIntInfoTyCon inty ->
-            TGlobal $ PrimType $
-              case inty of
-                CExpr.DSL.CIntegralType primIntTy -> hsPrimIntTy primIntTy
-                CExpr.DSL.HsIntType -> HsPrimInt
-          CExpr.DSL.PrimFloatInfoTyCon floaty ->
-            TGlobal $ PrimType $ hsPrimFloatTy floaty
-          CExpr.DSL.PtrTyCon ->
-            TGlobal Foreign_Ptr
-          CExpr.DSL.CharLitTyCon ->
-            TGlobal CharValue_tycon
+floatingLiteral :: DSL.FloatingLiteral -> SExpr ctx
+floatingLiteral lit =
+    case DSL.floatingLiteralType lit of
+      Runtime.FloatType ->
+        EFloat  (DSL.floatingLiteralFloatValue  lit) HsPrimCFloat
+      Runtime.DoubleType ->
+        EDouble (DSL.floatingLiteralDoubleValue lit) HsPrimCDouble
 
-          -- These two TyCons are handled by 'simpleTyConApp'.
-          CExpr.DSL.IntLikeTyCon   ->
-            panicPure "tyConGlobal IntLikeTyCon"
-          CExpr.DSL.FloatLikeTyCon ->
-            panicPure "tyConGlobal FloatLikeTyCon"
+{-------------------------------------------------------------------------------
+  Primitive types
+-------------------------------------------------------------------------------}
 
-      CExpr.DSL.ClassTyCon cls -> TGlobal $
-        case cls of
-          CExpr.DSL.NotTyCon        -> Not_class
-          CExpr.DSL.LogicalTyCon    -> Logical_class
-          CExpr.DSL.RelEqTyCon      -> RelEq_class
-          CExpr.DSL.RelOrdTyCon     -> RelOrd_class
-          CExpr.DSL.PlusTyCon       -> Plus_class
-          CExpr.DSL.MinusTyCon      -> Minus_class
-          CExpr.DSL.AddTyCon        -> Add_class
-          CExpr.DSL.SubTyCon        -> Sub_class
-          CExpr.DSL.MultTyCon       -> Mult_class
-          CExpr.DSL.DivTyCon        -> Div_class
-          CExpr.DSL.RemTyCon        -> Rem_class
-          CExpr.DSL.ComplementTyCon -> Complement_class
-          CExpr.DSL.BitwiseTyCon    -> Bitwise_class
-          CExpr.DSL.ShiftTyCon      -> Shift_class
-  CExpr.DSL.FamilyTyCon tc -> TGlobal $
-    case tc of
-      CExpr.DSL.PlusResTyCon       -> Plus_resTyCon
-      CExpr.DSL.MinusResTyCon      -> Minus_resTyCon
-      CExpr.DSL.AddResTyCon        -> Add_resTyCon
-      CExpr.DSL.SubResTyCon        -> Sub_resTyCon
-      CExpr.DSL.MultResTyCon       -> Mult_resTyCon
-      CExpr.DSL.DivResTyCon        -> Div_resTyCon
-      CExpr.DSL.RemResTyCon        -> Rem_resTyCon
-      CExpr.DSL.ComplementResTyCon -> Complement_resTyCon
-      CExpr.DSL.BitsResTyCon       -> Bitwise_resTyCon
-      CExpr.DSL.ShiftResTyCon      -> Shift_resTyCon
+dslIntegral :: DSL.IntegralType -> HsPrimType
+dslIntegral = \case
+    DSL.CIntegralType primIntTy -> runtimeIntegral primIntTy
+    DSL.HsIntType               -> HsPrimInt
 
-mfunGlobal :: CExpr.DSL.MFun arity -> Global
-mfunGlobal = \case
-  CExpr.DSL.MUnaryPlus  -> Plus_plus
-  CExpr.DSL.MUnaryMinus -> Minus_negate
-  CExpr.DSL.MLogicalNot -> Not_not
-  CExpr.DSL.MBitwiseNot -> Complement_complement
-  CExpr.DSL.MMult       -> Mult_mult
-  CExpr.DSL.MDiv        -> Div_div
-  CExpr.DSL.MRem        -> Rem_rem
-  CExpr.DSL.MAdd        -> Add_add
-  CExpr.DSL.MSub        -> Sub_minus
-  CExpr.DSL.MShiftLeft  -> Shift_shiftL
-  CExpr.DSL.MShiftRight -> Shift_shiftR
-  CExpr.DSL.MRelLT      -> RelOrd_lt
-  CExpr.DSL.MRelLE      -> RelOrd_le
-  CExpr.DSL.MRelGT      -> RelOrd_gt
-  CExpr.DSL.MRelGE      -> RelOrd_ge
-  CExpr.DSL.MRelEQ      -> RelEq_eq
-  CExpr.DSL.MRelNE      -> RelEq_uneq
-  CExpr.DSL.MBitwiseAnd -> Bitwise_and
-  CExpr.DSL.MBitwiseXor -> Bitwise_xor
-  CExpr.DSL.MBitwiseOr  -> Bitwise_or
-  CExpr.DSL.MLogicalAnd -> Logical_and
-  CExpr.DSL.MLogicalOr  -> Logical_or
-  CExpr.DSL.MTuple @n   -> Tuple_constructor $ 2 + Fin.reflectToNum @n Proxy
+runtimeIntegral :: Runtime.IntegralType -> HsPrimType
+runtimeIntegral = \case
+    Runtime.Bool       -> HsPrimCBool
+    Runtime.CharLike c -> runtimeCharLike c
+    Runtime.IntLike i  -> runtimeIntLike i
 
-translateBody :: Hs.VarDeclRHS ctx -> SExpr ctx
-translateBody (Hs.VarDeclVar x)                     = EBound x
-translateBody (Hs.VarDeclFloat f)                   = EFloat f HsPrimCFloat
-translateBody (Hs.VarDeclDouble d)                  = EDouble d HsPrimCDouble
-translateBody (Hs.VarDeclIntegral i ty)             = EIntegral i (Just ty)
-translateBody (Hs.VarDeclChar c)                    = EChar c
-translateBody (Hs.VarDeclString s)                  = ECString s
-translateBody (Hs.VarDeclLambda (Hs.Lambda hint b)) = ELam hint (translateBody b)
-translateBody (Hs.VarDeclApp f as)                  = foldl' EApp (translateAppHead f) (map translateBody as)
+runtimeCharLike :: Runtime.CharLikeType -> HsPrimType
+runtimeCharLike = \case
+    Runtime.Char  -> HsPrimCChar
+    Runtime.SChar -> HsPrimCSChar
+    Runtime.UChar -> HsPrimCUChar
 
-translateAppHead :: Hs.VarDeclRHSAppHead -> SExpr ctx
-translateAppHead = \case
-  Hs.InfixAppHead mfun ->
-    EGlobal $ mfunGlobal mfun
-  Hs.VarAppHead macroNm -> do
-    EFree macroNm
+runtimeIntLike :: Runtime.IntLikeType -> HsPrimType
+runtimeIntLike = \case
+    Runtime.Short    Signed   -> HsPrimCShort
+    Runtime.Short    Unsigned -> HsPrimCUShort
+    Runtime.Int      Signed   -> HsPrimCInt
+    Runtime.Int      Unsigned -> HsPrimCUInt
+    Runtime.Long     Signed   -> HsPrimCLong
+    Runtime.Long     Unsigned -> HsPrimCULong
+    Runtime.LongLong Signed   -> HsPrimCLLong
+    Runtime.LongLong Unsigned -> HsPrimCULLong
+    Runtime.PtrDiff           -> HsPrimCPtrDiff
+    Runtime.Size              -> HsPrimCSize
 
+runtimeFloating :: Runtime.FloatingType -> HsPrimType
+runtimeFloating = \case
+    Runtime.FloatType  -> HsPrimCFloat
+    Runtime.DoubleType -> HsPrimCDouble
+
+{-------------------------------------------------------------------------------
+  Globals
+-------------------------------------------------------------------------------}
+
+tyCon :: DSL.TyCon args res -> Global
+tyCon (DSL.GenerativeTyCon (DSL.DataTyCon tc))  = dataTyCon   tc
+tyCon (DSL.GenerativeTyCon (DSL.ClassTyCon tc)) = classTyCon  tc
+tyCon (DSL.FamilyTyCon tc)                      = familyTyCon tc
+
+dataTyCon :: DSL.DataTyCon n -> Global
+dataTyCon = \case
+    DSL.TupleTyCon n          -> Tuple_type n
+    DSL.VoidTyCon             -> PrimType HsPrimVoid
+    DSL.PrimIntInfoTyCon tc   -> PrimType $ dslIntegral tc
+    DSL.PrimFloatInfoTyCon tc -> PrimType $ runtimeFloating tc
+    DSL.PtrTyCon              -> Foreign_Ptr
+    DSL.CharLitTyCon          -> CharValue_tycon
+
+    -- Handled by 'simpleTyConApp'
+    DSL.IntLikeTyCon   -> panicPure "dataTyCon IntLikeTyCon"
+    DSL.FloatLikeTyCon -> panicPure "dataTyCon FloatLikeTyCon"
+
+classTyCon :: DSL.ClassTyCon args -> Global
+classTyCon = \case
+    DSL.NotTyCon        -> Not_class
+    DSL.LogicalTyCon    -> Logical_class
+    DSL.RelEqTyCon      -> RelEq_class
+    DSL.RelOrdTyCon     -> RelOrd_class
+    DSL.PlusTyCon       -> Plus_class
+    DSL.MinusTyCon      -> Minus_class
+    DSL.AddTyCon        -> Add_class
+    DSL.SubTyCon        -> Sub_class
+    DSL.MultTyCon       -> Mult_class
+    DSL.DivTyCon        -> Div_class
+    DSL.RemTyCon        -> Rem_class
+    DSL.ComplementTyCon -> Complement_class
+    DSL.BitwiseTyCon    -> Bitwise_class
+    DSL.ShiftTyCon      -> Shift_class
+
+familyTyCon :: DSL.FamilyTyCon args -> Global
+familyTyCon = \case
+    DSL.PlusResTyCon       -> Plus_resTyCon
+    DSL.MinusResTyCon      -> Minus_resTyCon
+    DSL.AddResTyCon        -> Add_resTyCon
+    DSL.SubResTyCon        -> Sub_resTyCon
+    DSL.MultResTyCon       -> Mult_resTyCon
+    DSL.DivResTyCon        -> Div_resTyCon
+    DSL.RemResTyCon        -> Rem_resTyCon
+    DSL.ComplementResTyCon -> Complement_resTyCon
+    DSL.BitsResTyCon       -> Bitwise_resTyCon
+    DSL.ShiftResTyCon      -> Shift_resTyCon
+
+mfun :: DSL.MFun arity -> Global
+mfun = \case
+    DSL.MUnaryPlus  -> Plus_plus
+    DSL.MUnaryMinus -> Minus_negate
+    DSL.MLogicalNot -> Not_not
+    DSL.MBitwiseNot -> Complement_complement
+    DSL.MMult       -> Mult_mult
+    DSL.MDiv        -> Div_div
+    DSL.MRem        -> Rem_rem
+    DSL.MAdd        -> Add_add
+    DSL.MSub        -> Sub_minus
+    DSL.MShiftLeft  -> Shift_shiftL
+    DSL.MShiftRight -> Shift_shiftR
+    DSL.MRelLT      -> RelOrd_lt
+    DSL.MRelLE      -> RelOrd_le
+    DSL.MRelGT      -> RelOrd_gt
+    DSL.MRelGE      -> RelOrd_ge
+    DSL.MRelEQ      -> RelEq_eq
+    DSL.MRelNE      -> RelEq_uneq
+    DSL.MBitwiseAnd -> Bitwise_and
+    DSL.MBitwiseXor -> Bitwise_xor
+    DSL.MBitwiseOr  -> Bitwise_or
+    DSL.MLogicalAnd -> Logical_and
+    DSL.MLogicalOr  -> Logical_or
+    DSL.MTuple @n   -> Tuple_constructor $ 2 + Fin.reflectToNum @n Proxy
+
+{-------------------------------------------------------------------------------
+  Auxiliary: AST construction
+
+  TODO: Should this live somewhere more general?
+-------------------------------------------------------------------------------}
+
+-- | Construct n-ary application
+eAppN :: Foldable f => SExpr ctx -> f (SExpr ctx) -> SExpr ctx
+eAppN = foldl' EApp
+
+-- | Construct n-ary type application
+tAppN :: Foldable f => SType ctx -> f (SType ctx) -> SType ctx
+tAppN = foldl' TApp
+
+-- | Construct n-ary top-level lambda
+topLevelLambdaN :: forall a.
+     Ord a
+  => (a -> NameHint)
+  -> [a]
+  -> (forall ctx. Map a (Idx ctx) -> SExpr ctx)
+  -> SExpr EmptyCtx
+topLevelLambdaN nameHint args body =
+    go Map.empty args
+  where
+    go :: forall ctx. Map a (Idx ctx) -> [a] -> SExpr ctx
+    go env []     = body env
+    go env (n:ns) = ELam (nameHint n) $ go (Map.insert n IZ (fmap IS env)) ns
+
+-- | Top-level quantified type
+topLevelForall :: forall n a.
+     Ord a
+  => (a -> NameHint)
+  -> Vec n a
+  -> (Map a (Idx n) -> ([SType n], SType n)) -- ^ Constraints and type
+  -> SType EmptyCtx
+topLevelForall nameHint args body =
+    uncurry (TForall (nameHint <$> args) (rzeroAdd $ vecSize args))$ body env
+  where
+    qtvs :: Vec n (a, Idx n)
+    qtvs = addIndices args
+
+    env :: Map a (Idx n)
+    env = Map.fromList $ toList qtvs
+
+{-------------------------------------------------------------------------------
+  Auxiliary de Bruijn
+-------------------------------------------------------------------------------}
+
+vecSize :: Vec n a -> Size n
+vecSize VNil       = SZ
+vecSize (_ ::: xs) = SS (vecSize xs)
+
+addIndices :: Vec n a -> Vec n (a, Idx n)
+addIndices VNil       = VNil
+addIndices (x ::: xs) = (x, IZ) ::: fmap (second IS) (addIndices xs)

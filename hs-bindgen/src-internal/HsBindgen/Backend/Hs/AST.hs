@@ -255,6 +255,8 @@ data MacroExpr =
   deriving stock (Generic, Show)
 
 -- | RHS of a variable or function declaration.
+--
+-- TODO: Do we need this, or could we just use SExpr instead?
 type VarDeclRHS :: Ctx -> Star
 data VarDeclRHS ctx
   = VarDeclIntegral Integer HsPrimType

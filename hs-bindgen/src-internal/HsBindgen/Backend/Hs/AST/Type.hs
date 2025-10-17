@@ -3,11 +3,7 @@ module HsBindgen.Backend.Hs.AST.Type (
   HsType (..),
   ResultType(..),
   extractResultType,
-  hsPrimIntTy,
-  hsPrimFloatTy
 ) where
-
-import C.Type qualified as CExpr.Runtime
 
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Imports
@@ -89,36 +85,3 @@ extractResultType :: ResultType a -> a
 extractResultType (NormalResultType t) = t
 extractResultType (HeapResultType t)   = t
 
-hsPrimIntTy :: CExpr.Runtime.IntegralType -> HsPrimType
-hsPrimIntTy = \case
-  CExpr.Runtime.Bool -> HsPrimCBool
-  CExpr.Runtime.CharLike c ->
-    case c of
-      CExpr.Runtime.Char  -> HsPrimCChar
-      CExpr.Runtime.SChar -> HsPrimCSChar
-      CExpr.Runtime.UChar -> HsPrimCUChar
-  CExpr.Runtime.IntLike i ->
-    case i of
-      CExpr.Runtime.Short    s ->
-        case s of
-          CExpr.Runtime.Signed   -> HsPrimCShort
-          CExpr.Runtime.Unsigned -> HsPrimCUShort
-      CExpr.Runtime.Int      s ->
-        case s of
-          CExpr.Runtime.Signed   -> HsPrimCInt
-          CExpr.Runtime.Unsigned -> HsPrimCUInt
-      CExpr.Runtime.Long     s ->
-        case s of
-          CExpr.Runtime.Signed   -> HsPrimCLong
-          CExpr.Runtime.Unsigned -> HsPrimCULong
-      CExpr.Runtime.LongLong s ->
-        case s of
-          CExpr.Runtime.Signed   -> HsPrimCLLong
-          CExpr.Runtime.Unsigned -> HsPrimCULLong
-      CExpr.Runtime.PtrDiff    -> HsPrimCPtrDiff
-      CExpr.Runtime.Size       -> HsPrimCSize
-
-hsPrimFloatTy :: CExpr.Runtime.FloatingType -> HsPrimType
-hsPrimFloatTy = \case
-  CExpr.Runtime.FloatType  -> HsPrimCFloat
-  CExpr.Runtime.DoubleType -> HsPrimCDouble
