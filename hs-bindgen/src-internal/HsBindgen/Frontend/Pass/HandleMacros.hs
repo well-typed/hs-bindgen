@@ -20,9 +20,9 @@ import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.LanguageC qualified as LanC
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
+import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass
-import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
@@ -31,7 +31,7 @@ import HsBindgen.Imports
 
 -- | Sort and typecheck macros, and reparse declarations
 handleMacros ::
-      C.TranslationUnit Sort
+      C.TranslationUnit ConstructTranslationUnit
   -> (C.TranslationUnit HandleMacros, [Msg HandleMacros])
 handleMacros C.TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
     first reassemble $ runM . fmap catMaybes $ mapM processDecl unitDecls
@@ -40,10 +40,10 @@ handleMacros C.TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
     reassemble decls' = C.TranslationUnit{
           unitDecls = decls'
         , unitIncludeGraph
-        , unitAnn = coerceDeclMeta unitAnn
+        , unitAnn
         }
 
-processDecl :: C.Decl Sort -> M (Maybe (C.Decl HandleMacros))
+processDecl :: C.Decl ConstructTranslationUnit -> M (Maybe (C.Decl HandleMacros))
 processDecl C.Decl{declInfo, declKind} =
     case declKind of
       C.DeclMacro macro      -> processMacro info' macro
@@ -64,7 +64,7 @@ processDecl C.Decl{declInfo, declKind} =
 
 processStruct ::
      C.DeclInfo HandleMacros
-  -> C.Struct Sort
+  -> C.Struct ConstructTranslationUnit
   -> M (C.Decl HandleMacros)
 processStruct info C.Struct{..} =
     mkDecl <$> mapM processStructField structFields
@@ -76,7 +76,7 @@ processStruct info C.Struct{..} =
         , declAnn  = NoAnn
         }
 
-processStructField :: C.StructField Sort -> M (C.StructField HandleMacros)
+processStructField :: C.StructField ConstructTranslationUnit -> M (C.StructField HandleMacros)
 processStructField C.StructField{..} =
     case structFieldAnn of
       ReparseNotNeeded ->
@@ -115,7 +115,7 @@ processStructField C.StructField{..} =
 
 processUnion ::
      C.DeclInfo HandleMacros
-  -> C.Union Sort
+  -> C.Union ConstructTranslationUnit
   -> M (C.Decl HandleMacros)
 processUnion info C.Union{..} =
     combineFields <$> mapM processUnionField unionFields
@@ -127,7 +127,7 @@ processUnion info C.Union{..} =
         , declAnn  = NoAnn
         }
 
-processUnionField :: C.UnionField Sort -> M (C.UnionField HandleMacros)
+processUnionField :: C.UnionField ConstructTranslationUnit -> M (C.UnionField HandleMacros)
 processUnionField C.UnionField{..} =
     case unionFieldAnn of
       ReparseNotNeeded ->
@@ -176,7 +176,7 @@ processOpaque kind info =
 
 processEnum ::
      C.DeclInfo HandleMacros
-  -> C.Enum Sort
+  -> C.Enum ConstructTranslationUnit
   -> M (C.Decl HandleMacros)
 processEnum info C.Enum{..} =
     mkDecl <$> mapM processEnumConstant enumConstants
@@ -193,7 +193,7 @@ processEnum info C.Enum{..} =
         }
 
 processEnumConstant ::
-     C.EnumConstant Sort
+     C.EnumConstant ConstructTranslationUnit
   -> M (C.EnumConstant HandleMacros)
 processEnumConstant C.EnumConstant{..} = return
   C.EnumConstant {
@@ -209,7 +209,7 @@ processEnumConstant C.EnumConstant{..} = return
 
 processTypedef ::
      C.DeclInfo HandleMacros
-  -> C.Typedef Sort
+  -> C.Typedef ConstructTranslationUnit
   -> M (C.Decl HandleMacros)
 processTypedef info C.Typedef{typedefType, typedefAnn} = do
     modify $ \st -> st{
@@ -282,7 +282,7 @@ processMacro info (UnparsedMacro tokens) = do
 
 processFunction ::
      C.DeclInfo HandleMacros
-  -> C.Function Sort
+  -> C.Function ConstructTranslationUnit
   -> M (C.Decl HandleMacros)
 processFunction info C.Function {..} =
     case functionAnn of
@@ -326,7 +326,7 @@ processFunction info C.Function {..} =
 processGlobal ::
      C.DeclInfo HandleMacros
   -> (C.Type HandleMacros -> C.DeclKind HandleMacros)
-  -> C.Type Sort
+  -> C.Type ConstructTranslationUnit
   -> M (C.Decl HandleMacros)
 processGlobal info f ty =
     return $ C.Decl{

@@ -4,6 +4,8 @@ module HsBindgen.Frontend
   , FrontendMsg(..)
   ) where
 
+import Optics.Core (_2, view)
+
 import Clang.Enum.Bitfield
 import Clang.LowLevel.Core
 import Clang.Paths
@@ -14,12 +16,15 @@ import HsBindgen.Clang
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
+import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.External qualified as C
 import HsBindgen.Frontend.AST.Finalize
 import HsBindgen.Frontend.AST.Internal hiding (Type)
 import HsBindgen.Frontend.Pass hiding (Config)
+import HsBindgen.Frontend.Pass.ConstructTranslationUnit
+import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.HandleMacros
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.HandleTypedefs
@@ -34,8 +39,6 @@ import HsBindgen.Frontend.Pass.ResolveBindingSpecs
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.Select
 import HsBindgen.Frontend.Pass.Select.IsPass
-import HsBindgen.Frontend.Pass.Sort
-import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.ProcessIncludes
 import HsBindgen.Frontend.RootHeader
@@ -47,7 +50,7 @@ import HsBindgen.Util.Tracer
 -- Overview of passes (see documentation of 'HsBindgen.Frontend.Pass.IsPass'):
 --
 -- 1. 'Parse' (impure; all other passes are pure)
--- 2. 'Sort'
+-- 2. 'ConstructTranslationUnit'
 -- 3. 'HandleMacros'
 -- 4. 'NameAnon'
 -- 5. 'ResolveBindingSpecs'
@@ -58,7 +61,7 @@ import HsBindgen.Util.Tracer
 -- Although the passes and their order are subject to change, we have to honor
 -- various constraints:
 --
--- - 'Sort' must come before the following passes because we need to process
+-- - 'ConstructTranslationUnit' must come before the following passes because we need to process
 --   declarations before their uses.
 --
 -- - 'HandleMacros': The macro parser needs to know which things are in scope
@@ -103,31 +106,32 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
         (includeGraph, isMainHeader, isInMainHeaderDir, getMainHeadersAndInclude) <-
           processIncludes unit
         rootHeader <- getRootHeader
-        reifiedUnit <- parseDecls
+        parseResults <- parseDecls
           (contramap FrontendParse tracer)
           rootHeader
           frontendParsePredicate
-          includeGraph
           isMainHeader
           isInMainHeaderDir
           getMainHeadersAndInclude
           unit
         pure
-          ( reifiedUnit
+          ( parseResults
+          , includeGraph
           , isMainHeader
           , isInMainHeaderDir
           , toGetMainHeaders getMainHeadersAndInclude
           )
 
     sortPass <- cache "sort" $ do
-      (afterParse, _, _, _) <- parsePass
-      let (afterSort, msgsSort) = sortDecls afterParse
-      forM_ msgsSort $ traceWith tracer . FrontendSort
-      pure afterSort
+      (afterParse, includeGraph, _, _, _) <- parsePass
+      let (afterConstructTranslationUnit, msgsConstructTranslationUnit) =
+            constructTranslationUnit afterParse includeGraph
+      forM_ msgsConstructTranslationUnit $ traceWith tracer . FrontendConstructTranslationUnit
+      pure afterConstructTranslationUnit
 
     handleMacrosPass <- cache "handleMacros" $ do
-      afterSort <- sortPass
-      let (afterHandleMacros, msgsHandleMacros) = handleMacros afterSort
+      afterConstructTranslationUnit <- sortPass
+      let (afterHandleMacros, msgsHandleMacros) = handleMacros afterConstructTranslationUnit
       forM_ msgsHandleMacros $ traceWith tracer . FrontendHandleMacros
       pure afterHandleMacros
 
@@ -141,21 +145,27 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
       afterNameAnon <- nameAnonPass
       extlSpec <- bootExternalBindingSpec
       presSpec <- bootPrescriptiveBindingSpec
-      let (afterResolveBindingSpecs, omitTypes, msgsResolveBindingSpecs) =
+      let (   afterResolveBindingSpecs
+            , omitTypes
+            , declsWithExternalBindingSpecs
+            , msgsResolveBindingSpecs
+            ) =
             resolveBindingSpecs
               extlSpec
               presSpec
               afterNameAnon
       forM_ msgsResolveBindingSpecs $ traceWith tracer . FrontendResolveBindingSpecs
-      pure (afterResolveBindingSpecs, omitTypes)
+      pure (afterResolveBindingSpecs, omitTypes, declsWithExternalBindingSpecs)
 
     selectPass <- cache "select" $ do
-      (_, isMainHeader, isInMainHeaderDir, _) <- parsePass
-      (afterResolveBindingSpecs, _)           <- resolveBindingSpecsPass
+      (_, _, isMainHeader, isInMainHeaderDir, _) <- parsePass
+      (afterResolveBindingSpecs, _, declsWithExternalBindingSpecs) <-
+        resolveBindingSpecsPass
       let (afterSelect, msgsSelect) =
             selectDecls
               isMainHeader
               isInMainHeaderDir
+              declsWithExternalBindingSpecs
               selectConfig
               afterResolveBindingSpecs
       forM_ msgsSelect $ traceWith tracer . FrontendSelect
@@ -180,7 +190,7 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
 
     -- Include graph predicate.
     getIncludeGraphP <- cache "getIncludeGraphP" $ do
-      (_, isMainHeader, isInMainHeaderDir, _) <- parsePass
+      (_, _, isMainHeader, isInMainHeaderDir, _) <- parsePass
       pure $ \path ->
         matchParse isMainHeader isInMainHeaderDir path frontendParsePredicate
         && path /= name
@@ -188,13 +198,13 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
     -- Graphs.
     frontendIncludeGraph <- cache "frontendIncludeGraph" $ do
       includeGraphP <- getIncludeGraphP
-      (afterParse, _, _, _) <- parsePass
-      pure (includeGraphP, unitIncludeGraph afterParse)
+      (_, includeGraph, _, _, _) <- parsePass
+      pure (includeGraphP, includeGraph)
     frontendGetMainHeaders <- cache "frontendGetMainHeaders" $ do
-      (_, _, _, getMainHeaders) <- parsePass
+      (_, _, _, _, getMainHeaders) <- parsePass
       pure getMainHeaders
     frontendIndex <- cache "frontendIndex" $
-      declIndex . unitAnn <$> sortPass
+      declIndex   . unitAnn <$> sortPass
     frontendUseDeclGraph <- cache "frontendUseDeclGraph" $
       declUseDecl . unitAnn <$> sortPass
     frontendDeclUseGraph <- cache "frontendDeclUseGraph" $
@@ -202,7 +212,7 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
 
     -- Omitted types
     frontendOmitTypes <- cache "frontendOmitTypes" $
-      snd <$> resolveBindingSpecsPass
+      view _2 <$> resolveBindingSpecsPass
 
     -- Declarations.
     frontendCDecls <- cache "frontendDecls" $
@@ -237,17 +247,16 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
     selectConfig =
       SelectConfig frontendProgramSlicing frontendSelectPredicate
 
-    emptyTranslationUnit :: TranslationUnit Parse
-    emptyTranslationUnit = TranslationUnit {
-        unitDecls = []
-      , unitIncludeGraph = IncludeGraph.empty
-      , unitAnn          = emptyParseDeclMeta
-      }
-
-    emptyParseResult ::
-      (TranslationUnit Parse, IsMainHeader, IsInMainHeaderDir, GetMainHeaders)
+    emptyParseResult :: (
+        [ParseResult]
+      , IncludeGraph
+      , IsMainHeader
+      , IsInMainHeaderDir
+      , GetMainHeaders
+      )
     emptyParseResult =
-      ( emptyTranslationUnit
+      ( []
+      , IncludeGraph.empty
       , const False
       , const False
       , const (Left "empty")
@@ -281,7 +290,7 @@ data FrontendArtefact = FrontendArtefact {
 data FrontendMsg =
     FrontendClang ClangMsg
   | FrontendParse (Msg Parse)
-  | FrontendSort (Msg Sort)
+  | FrontendConstructTranslationUnit (Msg ConstructTranslationUnit)
   | FrontendHandleMacros (Msg HandleMacros)
   | FrontendNameAnon (Msg NameAnon)
   | FrontendResolveBindingSpecs (Msg ResolveBindingSpecs)

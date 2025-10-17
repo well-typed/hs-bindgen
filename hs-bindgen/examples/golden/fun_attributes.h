@@ -43,7 +43,12 @@ int square (int) __attribute__ ((const));
 // deprecated
 // deprecated (msg)
 
-int old_fn () __attribute__ ((deprecated));
+int old_fn_deprecated () __attribute__ ((deprecated("Use new_function instead")));
+
+// unavailable
+// unavailable (msg)
+
+int old_fn_unavailable () __attribute__((unavailable("Use new_function instead")));
 
 // format (archetype, string-index, first-to-check)
 

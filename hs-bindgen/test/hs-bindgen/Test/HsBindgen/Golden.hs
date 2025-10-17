@@ -128,15 +128,15 @@ testCases = manualTestCases ++ [
       --
 
     , testTraceCustom "decls_in_signature" ["f3", "f4", "f5"] $ \case
-        TraceFrontend (FrontendSelect (SelectFailed key ParseUnexpectedAnonInSignature)) ->
-          Just $ expectFromKey key
+        TraceFrontend (FrontendSelect (SelectParseFailure (AttachedParseMsg i ParseUnexpectedAnonInSignature))) ->
+          Just $ expectFromDeclInfoParse i
         TraceFrontend (FrontendClang (ClangDiagnostic _diag)) ->
           Just Tolerated
         _otherwise ->
           Nothing
     , testTraceCustom "definitions" ["foo", "n"] $ \case
-        TraceFrontend (FrontendSelect (SelectParse key (ParsePotentialDuplicateSymbol _isPublic))) ->
-          Just $ expectFromKey key
+        TraceFrontend (FrontendSelect (SelectParseSuccess (AttachedParseMsg i (ParsePotentialDuplicateSymbol{})))) ->
+          Just $ expectFromDeclInfoParse i
         _otherwise ->
           Nothing
     , let declsWithMsgs = [
@@ -148,20 +148,20 @@ testCases = manualTestCases ++ [
             , "wam"
             ]
       in testTraceCustom "macro_in_fundecl" declsWithMsgs $ \case
-        TraceFrontend (FrontendSelect (SelectParse key (ParsePotentialDuplicateSymbol _isPublic))) ->
-          Just $ expectFromKey key
+        TraceFrontend (FrontendSelect (SelectParseSuccess (AttachedParseMsg i ParsePotentialDuplicateSymbol{}))) ->
+          Just $ expectFromDeclInfoParse i
         _otherwise ->
           Nothing
     , testTraceCustom "macro_in_fundecl_vs_typedef" ["quux1", "quux2", "wam1", "wam2"] $ \case
-        TraceFrontend (FrontendSelect (SelectParse key (ParsePotentialDuplicateSymbol _isPublic))) ->
-          Just $ expectFromKey key
+        TraceFrontend (FrontendSelect (SelectParseSuccess (AttachedParseMsg i ParsePotentialDuplicateSymbol{}))) ->
+          Just $ expectFromDeclInfoParse i
         _otherwise ->
           Nothing
     , testTraceCustom "redeclaration" ["x", "n"] $ \case
-        TraceFrontend (FrontendSelect (SelectParse key (ParsePotentialDuplicateSymbol _isPublic))) ->
-          Just $ expectFromKey key
-        TraceFrontend (FrontendSelect (SelectFailed key (ParseUnknownStorageClass (unsafeFromSimpleEnum -> CX_SC_Static)))) ->
-          Just $ expectFromKey key
+        TraceFrontend (FrontendSelect (SelectParseSuccess (AttachedParseMsg i ParsePotentialDuplicateSymbol{}))) ->
+          Just $ expectFromDeclInfoParse i
+        TraceFrontend (FrontendSelect (SelectParseFailure (AttachedParseMsg i (ParseUnknownStorageClass (unsafeFromSimpleEnum -> CX_SC_Static))))) ->
+          Just $ expectFromDeclInfoParse i
         _otherwise ->
           Nothing
     , let declsWithMsgs :: [C.QualPrelimDeclId]
@@ -171,22 +171,22 @@ testCases = manualTestCases ++ [
               , C.QualPrelimDeclIdNamed "stderr" C.NameKindOrdinary
               ]
       in testTraceCustom "macro_redefines_global" declsWithMsgs $ \case
-        TraceFrontend (FrontendSort (SortErrorDeclIndex (Redeclaration {redeclarationId = x}))) ->
+        TraceFrontend (FrontendConstructTranslationUnit (ConstructTranslationUnitErrorDeclIndex (Redeclaration {redeclarationId = x}))) ->
           Just $ Expected x
         _otherwise ->
           Nothing
     , testTraceCustom "skip_over_long_double" ["fun1", "struct1"] $ \case
-        TraceFrontend (FrontendSelect (SelectFailed key (ParseUnsupportedType UnsupportedLongDouble))) ->
-          Just $ expectFromKey key
+        TraceFrontend (FrontendSelect (SelectParseFailure (AttachedParseMsg i (ParseUnsupportedType UnsupportedLongDouble)))) ->
+          Just $ expectFromDeclInfoParse i
         _otherwise ->
           Nothing
     , testTraceCustom "tentative_definitions" ["i1", "i2", "i3", "i3"] $ \case
-        TraceFrontend (FrontendSelect (SelectParse key (ParsePotentialDuplicateSymbol _isPublic))) ->
-          Just $ expectFromKey key
-        TraceFrontend (FrontendSelect (SelectFailed key (ParsePotentialDuplicateSymbol _isPublic))) ->
-          Just $ expectFromKey key
-        TraceFrontend (FrontendSelect (SelectFailed key (ParseUnknownStorageClass (unsafeFromSimpleEnum -> CX_SC_Static)))) ->
-          Just $ expectFromKey key
+        TraceFrontend (FrontendSelect (SelectParseSuccess (AttachedParseMsg i ParsePotentialDuplicateSymbol{}))) ->
+          Just $ expectFromDeclInfoParse i
+        TraceFrontend (FrontendSelect (SelectParseFailure (AttachedParseMsg i ParsePotentialDuplicateSymbol{}))) ->
+          Just $ expectFromDeclInfoParse i
+        TraceFrontend (FrontendSelect (SelectParseFailure (AttachedParseMsg i (ParseUnknownStorageClass (unsafeFromSimpleEnum -> CX_SC_Static))))) ->
+          Just $ expectFromDeclInfoParse i
         TraceFrontend (FrontendClang (ClangDiagnostic Diagnostic {diagnosticOption = Just "-Wno-extern-initializer"})) ->
           Just Tolerated
         _otherwise ->
@@ -219,13 +219,13 @@ testCases = manualTestCases ++ [
         _otherwise ->
           Nothing
     , testTraceCustom "typedefs" ["foo"] $ \case
-        TraceFrontend (FrontendSelect (SelectFailed key ParseFunctionOfTypeTypedef)) ->
-          Just $ expectFromKey key
+        TraceFrontend (FrontendSelect (SelectParseFailure (AttachedParseMsg i ParseFunctionOfTypeTypedef))) ->
+          Just $ expectFromDeclInfoParse i
         _otherwise ->
           Nothing
     , testTraceCustom "varargs" ["f", "g"] $ \case
-        TraceFrontend (FrontendSelect (SelectFailed key (ParseUnsupportedType UnsupportedVariadicFunction))) ->
-          Just $ expectFromKey key
+        TraceFrontend (FrontendSelect (SelectParseFailure (AttachedParseMsg i (ParseUnsupportedType UnsupportedVariadicFunction)))) ->
+          Just $ expectFromDeclInfoParse i
         _otherwise ->
           Nothing
     , let declsWithWarnings = [
@@ -257,12 +257,12 @@ testCases = manualTestCases ++ [
                   (BNot (BIf (SelectDecl DeclDeprecated)))
             }
         , testTracePredicate = customTracePredicate' declsWithWarnings $ \case
-            TraceFrontend (FrontendSelect (SelectParse key (ParsePotentialDuplicateSymbol _isPublic))) ->
-              Just $ expectFromKey key
-            TraceFrontend (FrontendSelect (SelectParse key ParseNonPublicVisibility)) ->
-              Just $ expectFromKey key
-            TraceFrontend (FrontendSelect (SelectFailed key (ParseUnknownStorageClass (unsafeFromSimpleEnum -> CX_SC_Static)))) ->
-              Just $ expectFromKey key
+            TraceFrontend (FrontendSelect (SelectParseSuccess (AttachedParseMsg i ParsePotentialDuplicateSymbol{}))) ->
+              Just $ expectFromDeclInfoParse i
+            TraceFrontend (FrontendSelect (SelectParseSuccess (AttachedParseMsg i ParseNonPublicVisibility))) ->
+              Just $ expectFromDeclInfoParse i
+            TraceFrontend (FrontendSelect (SelectParseFailure (AttachedParseMsg i (ParseUnknownStorageClass (unsafeFromSimpleEnum -> CX_SC_Static))))) ->
+              Just $ expectFromDeclInfoParse i
             TraceFrontend (FrontendClang (ClangDiagnostic Diagnostic {diagnosticOption = Just "-Wno-extern-initializer"})) ->
               Just Tolerated
             _otherwise ->
@@ -274,17 +274,17 @@ testCases = manualTestCases ++ [
       --
 
     , failingTestSimple "long_double" $ \case
-        TraceFrontend (FrontendSelect (SelectFailed _ (ParseUnsupportedType UnsupportedLongDouble))) ->
+        TraceFrontend (FrontendSelect (SelectParseFailure (AttachedParseMsg _ (ParseUnsupportedType UnsupportedLongDouble)))) ->
           Just $ Expected ()
         _otherwise ->
           Nothing
     , failingTestSimple "implicit_fields_struct" $ \case
-        TraceFrontend (FrontendSelect (SelectFailed _ ParseUnsupportedImplicitFields)) ->
+        TraceFrontend (FrontendSelect (SelectParseFailure (AttachedParseMsg _ ParseUnsupportedImplicitFields))) ->
           Just $ Expected ()
         _otherwise ->
           Nothing
     , failingTestSimple "implicit_fields_union" $ \case
-        TraceFrontend (FrontendSelect (SelectFailed _ ParseUnsupportedImplicitFields)) ->
+        TraceFrontend (FrontendSelect (SelectParseFailure (AttachedParseMsg _ ParseUnsupportedImplicitFields))) ->
           Just $ Expected ()
         _otherwise ->
           Nothing
@@ -294,7 +294,7 @@ testCases = manualTestCases ++ [
         _otherwise ->
           Nothing
     , failingTestSimple "redeclaration_different" $ \case
-        TraceFrontend (FrontendSort (SortErrorDeclIndex (Redeclaration {}))) ->
+        TraceFrontend (FrontendConstructTranslationUnit (ConstructTranslationUnitErrorDeclIndex (Redeclaration {}))) ->
           Just (Expected ())
         TraceFrontend (FrontendClang (ClangDiagnostic x)) ->
           if "macro redefined" `Text.isInfixOf` diagnosticSpelling x
@@ -310,7 +310,7 @@ testCases = manualTestCases ++ [
         _otherwise ->
           Nothing
     , failingTestSimple "unsupported_builtin" $ \case
-        TraceFrontend (FrontendSelect (SelectFailed _ (ParseUnsupportedType (UnsupportedBuiltin "__builtin_va_list")))) ->
+        TraceFrontend (FrontendSelect (SelectParseFailure (AttachedParseMsg _ (ParseUnsupportedType (UnsupportedBuiltin "__builtin_va_list"))))) ->
           Just $ Expected ()
         _otherwise ->
           Nothing
@@ -407,14 +407,14 @@ testCases = manualTestCases ++ [
       in (defaultTest "array") {
           testClangVersion = Just (>= (19, 0, 0))
         , testTracePredicate = customTracePredicate' declsWithWarnings $ \case
-            TraceFrontend (FrontendSelect (SelectParse key (ParsePotentialDuplicateSymbol _isPublic))) ->
-               Just $ expectFromKey key
+            TraceFrontend (FrontendSelect (SelectParseSuccess (AttachedParseMsg i ParsePotentialDuplicateSymbol{}))) ->
+               Just $ expectFromDeclInfoParse i
             TraceFrontend (FrontendClang (ClangDiagnostic Diagnostic {diagnosticOption = Just "-Wno-extern-initializer"})) ->
                Just Tolerated
             TraceFrontend (FrontendClang (ClangDiagnostic Diagnostic {diagnosticOption = Just "-Wno-tentative-definition-array"})) ->
                Just Tolerated
-            TraceFrontend (FrontendSelect (SelectFailed key (ParseUnknownStorageClass (unsafeFromSimpleEnum -> CX_SC_Static)))) ->
-               Just $ expectFromKey key
+            TraceFrontend (FrontendSelect (SelectParseFailure (AttachedParseMsg i (ParseUnknownStorageClass (unsafeFromSimpleEnum -> CX_SC_Static))))) ->
+               Just $ expectFromDeclInfoParse i
             _otherwise ->
                Nothing
         }
@@ -434,10 +434,10 @@ testCases = manualTestCases ++ [
             , "long_double_s"
             , "nested_long_double_s"
             ] $ \case
-            TraceFrontend (FrontendSelect (SelectFailed key (ParseUnsupportedType UnsupportedLongDouble))) ->
-               Just $ expectFromKey key
-            TraceFrontend (FrontendSelect (SelectFailed key (ParseUnsupportedType UnsupportedVariadicFunction))) ->
-               Just $ expectFromKey key
+            TraceFrontend (FrontendSelect (SelectParseFailure (AttachedParseMsg i (ParseUnsupportedType UnsupportedLongDouble)))) ->
+               Just $ expectFromDeclInfoParse i
+            TraceFrontend (FrontendSelect (SelectParseFailure (AttachedParseMsg i (ParseUnsupportedType UnsupportedVariadicFunction)))) ->
+               Just $ expectFromDeclInfoParse i
             _otherwise ->
                Nothing
         }
@@ -456,13 +456,23 @@ testCases = manualTestCases ++ [
         }
     , (defaultTest "fun_attributes") {
           testClangVersion = Just (>= (15, 0, 0))
-        , testTracePredicate = customTracePredicate' ["my_printf", "i", "f3"] $ \case
-            TraceFrontend (FrontendSelect (SelectFailed key (ParseUnsupportedType UnsupportedVariadicFunction))) ->
-              Just $ expectFromKey key
-            TraceFrontend (FrontendSelect (SelectParse key ParseNonPublicVisibility)) ->
-              Just $ expectFromKey key
-            TraceFrontend (FrontendSelect (SelectParse key (ParsePotentialDuplicateSymbol _isPublic))) ->
-              Just $ expectFromKey key
+        , testTracePredicate = customTracePredicate' [
+                "my_printf"
+              , "i"
+              , "f3"
+              , "old_fn_deprecated"
+              , "old_fn_unavailable"
+              ] $ \case
+            TraceFrontend (FrontendSelect (SelectParseFailure (AttachedParseMsg i (ParseUnsupportedType UnsupportedVariadicFunction)))) ->
+              Just $ expectFromDeclInfoParse i
+            TraceFrontend (FrontendSelect (SelectParseSuccess (AttachedParseMsg i ParseNonPublicVisibility))) ->
+              Just $ expectFromDeclInfoParse i
+            TraceFrontend (FrontendSelect (SelectParseSuccess (AttachedParseMsg i ParsePotentialDuplicateSymbol{}))) ->
+              Just $ expectFromDeclInfoParse i
+            TraceFrontend (FrontendSelect (SelectDeprecated i)) ->
+              Just $ expectFromDeclInfoSelect i
+            TraceFrontend (FrontendSelect (SelectParseNotAttempted n _ DeclarationUnavailable)) ->
+              Just $ expectFromQualPrelimDeclId n
             _otherwise ->
               Nothing
         , testRustBindgen = RustBindgenFail
@@ -516,10 +526,10 @@ testCases = manualTestCases ++ [
           -- different llvm version? For now we just disable it.
           testRustBindgen    = RustBindgenIgnore
         , testTracePredicate = customTracePredicate' declsWithWarnings $ \case
-            TraceFrontend (FrontendSelect (SelectParse key (ParsePotentialDuplicateSymbol _isPublic))) ->
-              Just $ expectFromKey key
-            TraceFrontend (FrontendSelect (SelectFailed key ParseUnexpectedAnonInExtern)) ->
-              Just $ expectFromKey key
+            TraceFrontend (FrontendSelect (SelectParseSuccess (AttachedParseMsg i ParsePotentialDuplicateSymbol{}))) ->
+              Just $ expectFromDeclInfoParse i
+            TraceFrontend (FrontendSelect (SelectParseFailure (AttachedParseMsg i ParseUnexpectedAnonInExtern))) ->
+              Just $ expectFromDeclInfoParse i
             _otherwise ->
               Nothing
         }
@@ -586,7 +596,7 @@ testCases = manualTestCases ++ [
                 ]
             TraceFrontend (FrontendSelect (SelectSelectStatus (Selected TransitiveDependency) info)) ->
               expectSelected info $ Set.singleton "FileOperationStatus"
-            TraceFrontend (FrontendSort (SortErrorDeclIndex (Redeclaration {redeclarationId = x}))) ->
+            TraceFrontend (FrontendConstructTranslationUnit (ConstructTranslationUnitErrorDeclIndex (Redeclaration {redeclarationId = x}))) ->
               Just $ Expected (show x)
             _otherwise ->
               Nothing
@@ -597,13 +607,18 @@ testCases = manualTestCases ++ [
     , (defaultFailingTest "thread_local"){
           testClangVersion   = Just (>= (16, 0, 0))
         , testTracePredicate = singleTracePredicate $ \case
-            TraceFrontend (FrontendSelect (SelectFailed _ ParseUnsupportedTLS)) ->
+            TraceFrontend (FrontendSelect (SelectParseFailure (AttachedParseMsg _ ParseUnsupportedTLS))) ->
               Just $ Expected ()
             _otherwise ->
               Nothing
         }
     , (defaultTest "type_attributes") {
           testRustBindgen = RustBindgenFail
+        , testTracePredicate = singleTracePredicate $ \case
+            TraceFrontend (FrontendSelect (SelectDeprecated _)) ->
+              Just $ Expected ()
+            _otherwise ->
+              Nothing
         }
     ]
   where
@@ -625,5 +640,17 @@ manualTestCases = [
     , defaultTest "manual/function_pointers"
     ]
 
-expectFromKey :: ParseMsgKey Select -> TraceExpectation Text
-expectFromKey = Expected . C.getName . C.declIdName . parseMsgDeclId
+expectFromQualPrelimDeclId :: C.QualPrelimDeclId -> TraceExpectation Text
+expectFromQualPrelimDeclId = Expected . \case
+  C.QualPrelimDeclIdNamed   n _ -> C.getName n
+  C.QualPrelimDeclIdAnon    n _ -> Text.pack $ show n
+  C.QualPrelimDeclIdBuiltin n   -> C.getName n
+
+expectFromDeclInfoParse :: C.DeclInfo Parse -> TraceExpectation Text
+expectFromDeclInfoParse info = case info.declId of
+  C.PrelimDeclIdNamed n   -> Expected $ C.getName n
+  C.PrelimDeclIdAnon  _   -> Unexpected
+  C.PrelimDeclIdBuiltin n -> Expected $ C.getName n
+
+expectFromDeclInfoSelect :: C.DeclInfo Select -> TraceExpectation Text
+expectFromDeclInfoSelect = Expected . C.getName . C.declIdName . C.declId

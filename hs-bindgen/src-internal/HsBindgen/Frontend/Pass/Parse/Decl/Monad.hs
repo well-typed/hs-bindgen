@@ -1,3 +1,5 @@
+{-# LANGUAGE OverloadedLabels #-}
+
 -- | Monad for parsing declarations
 --
 -- Intended for unqualified import (unless context is unambiguous).
@@ -17,10 +19,8 @@ module HsBindgen.Frontend.Pass.Parse.Decl.Monad (
     -- ** "State"
   , recordMacroExpansionAt
   , checkHasMacroExpansion
-  , recordNonParsedDecl
     -- ** Logging
   , recordUnattachedTrace
-  , recordDelayedTrace
     -- ** Errors
   , unknownCursorKind
     -- * Utility: dispatching
@@ -40,10 +40,6 @@ import Clang.Paths
 import HsBindgen.Eff
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Internal qualified as C
-import HsBindgen.Frontend.Naming qualified as C
-import HsBindgen.Frontend.NonParsedDecls (NonParsedDecls)
-import HsBindgen.Frontend.NonParsedDecls qualified as NonParsedDecls
-import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Frontend.ProcessIncludes (GetMainHeadersAndInclude)
@@ -72,16 +68,10 @@ data ParseSupport = ParseSupport {
 
 type instance Support ParseDeclMonad = ParseSupport
 
-run :: Env -> ParseDecl a -> IO (Ann "TranslationUnit" Parse, a)
+run :: Env -> ParseDecl a -> IO a
 run env f = do
     support <- ParseSupport env <$> newIORef initParseState
-    x <- unwrapEff f support
-    state <- readIORef (parseState support)
-    let meta = ParseDeclMeta {
-            parseDeclNonParsed = stateNonParsedDecls state
-          , parseDeclParseMsg  = stateParseMsgs state
-          }
-    pure (meta, x)
+    unwrapEff f support
 
 {-------------------------------------------------------------------------------
   "Reader"
@@ -123,28 +113,13 @@ data ParseState = ParseState {
       -- | Where did clang expand macros?
       --
       -- Declarations with expanded macros need to be reparsed.
-      stateMacroExpansions :: Set SingleLoc
-
-      -- | Non-parsed declarations
-      --
-      -- We need to track which header each excluded declaration is declared in
-      -- so that we can resolve external bindings.
-    , stateNonParsedDecls :: NonParsedDecls
-
-      -- | Some traces are linked to specific declarations. However, we only
-      -- select and process a subset of all parsed declarations. To reduce
-      -- noise, we only emit traces linked to selected and processed
-      -- declarations. Since we change the info object between passes, we link
-      -- messages to source locations. For a given declaration, the source
-      -- location should be constant across all passes.
-    , stateParseMsgs :: ParseMsgs Parse
+      stateMacroExpansions        :: Set SingleLoc
     }
+  deriving (Generic)
 
 initParseState :: ParseState
 initParseState = ParseState{
-      stateMacroExpansions = Set.empty
-    , stateNonParsedDecls  = NonParsedDecls.empty
-    , stateParseMsgs       = emptyParseMsgs
+      stateMacroExpansions        = Set.empty
     }
 
 recordMacroExpansionAt :: SingleLoc -> ParseDecl ()
@@ -176,30 +151,6 @@ checkHasMacroExpansion extent = do
       , any (\e -> fromMaybe False (rangeContainsLoc range e)) expansions
       ]
 
-recordNonParsedDecl :: C.DeclInfo Parse -> C.NameKind -> ParseDecl ()
-recordNonParsedDecl declInfo nameKind =
-    case declName of
-      Just cname -> do
-        let cQualName  = C.QualName cname nameKind
-            sourcePath = singleLocPath (C.declLoc declInfo)
-        wrapEff $ \ParseSupport{parseState} ->
-          modifyIORef parseState $ \st -> st{
-              stateNonParsedDecls =
-                NonParsedDecls.insert cQualName sourcePath $
-                  stateNonParsedDecls st
-            }
-      Nothing ->
-        -- We __do not track unselected anonymous declarations__. If we want to
-        -- use descriptive binding specification with anonymous declarations, we
-        -- __must__ select these declarations.
-        return ()
-  where
-    declName :: Maybe C.Name
-    declName = case C.declId declInfo of
-      C.PrelimDeclIdNamed   cname   -> Just cname
-      C.PrelimDeclIdAnon{}          -> Nothing
-      C.PrelimDeclIdBuiltin builtin -> Just builtin
-
 {-------------------------------------------------------------------------------
   Logging
 -------------------------------------------------------------------------------}
@@ -209,14 +160,6 @@ recordNonParsedDecl declInfo nameKind =
 recordUnattachedTrace :: UnattachedParseMsg -> ParseDecl ()
 recordUnattachedTrace trace = wrapEff $ \ParseSupport{parseEnv} ->
   traceWith (envTracer parseEnv) trace
-
--- | Attach a delayed parse message to a declaration. We only emit the parse
--- message when we select the declaration.
-recordDelayedTrace :: C.DeclInfo Parse -> C.NameKind -> DelayedParseMsg -> ParseDecl ()
-recordDelayedTrace info kind trace = wrapEff $ \ParseSupport{parseState} ->
-    modifyIORef parseState $ \st -> st{
-        stateParseMsgs = recordParseMsg info kind trace (stateParseMsgs st)
-      }
 
 {-------------------------------------------------------------------------------
   Errors

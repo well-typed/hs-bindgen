@@ -6,8 +6,6 @@ module HsBindgen.Frontend.Pass.Parse (
 import Clang.HighLevel qualified as HighLevel
 import Clang.LowLevel.Core
 
-import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
-import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Pass.Parse.Decl
 import HsBindgen.Frontend.Pass.Parse.Decl.Monad qualified as ParseDecl
 import HsBindgen.Frontend.Pass.Parse.IsPass
@@ -24,17 +22,15 @@ parseDecls ::
      Tracer IO UnattachedParseMsg
   -> RootHeader
   -> Boolean ParsePredicate
-  -> IncludeGraph
   -> IsMainHeader
   -> IsInMainHeaderDir
   -> GetMainHeadersAndInclude
   -> CXTranslationUnit
-  -> IO (C.TranslationUnit Parse)
+  -> IO [ParseResult]
 parseDecls
   tracer
   rootHeader
   predicate
-  includeGraph
   isMainHeader
   isInMainHeaderDir
   getMainHeadersAndInclude
@@ -50,11 +46,5 @@ parseDecls
           , envTracer                   = tracer
           }
     root  <- clang_getTranslationUnitCursor unit
-    (omittedDecls, decls) <- fmap (fmap concat) . ParseDecl.run parseEnv $
+    fmap concat . ParseDecl.run parseEnv $
       HighLevel.clang_visitChildren root topLevelDecl
-    let reifiedUnit = C.TranslationUnit{
-        unitDecls        = decls
-      , unitIncludeGraph = includeGraph
-      , unitAnn          = omittedDecls
-      }
-    pure reifiedUnit

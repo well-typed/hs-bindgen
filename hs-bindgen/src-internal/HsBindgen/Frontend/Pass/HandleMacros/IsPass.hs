@@ -15,8 +15,9 @@ import HsBindgen.Frontend.AST.Internal (CheckedMacro, ValidPass)
 import HsBindgen.Frontend.LanguageC qualified as LanC
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
+import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass (ConstructTranslationUnit,
+                                                                DeclMeta)
 import HsBindgen.Frontend.Pass.Parse.IsPass (OrigTypedefRef (..))
-import HsBindgen.Frontend.Pass.Sort.IsPass (DeclMeta, Sort)
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
@@ -29,7 +30,7 @@ data HandleMacros a deriving anyclass ValidPass
 
 -- We do not need the @ReparseInfo@ anymore, so we drop it from the annotations.
 type family AnnHandleMacros (ix :: Symbol) :: Star where
-  AnnHandleMacros "TranslationUnit" = DeclMeta HandleMacros
+  AnnHandleMacros "TranslationUnit" = DeclMeta
   AnnHandleMacros _                 = NoAnn
 
 instance IsPass HandleMacros where
@@ -109,5 +110,5 @@ instance IsTrace Level HandleMacrosMsg where
   CoercePass
 -------------------------------------------------------------------------------}
 
-instance CoercePass TypedefRefWrapper Sort HandleMacros where
+instance CoercePass TypedefRefWrapper ConstructTranslationUnit HandleMacros where
   coercePass (TypedefRefWrapper ref) = TypedefRefWrapper (coercePass ref)

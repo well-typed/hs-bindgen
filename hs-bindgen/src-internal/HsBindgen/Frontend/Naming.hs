@@ -57,6 +57,7 @@ module HsBindgen.Frontend.Naming (
     -- ** QualPrelimDeclId
   , QualPrelimDeclId(..)
   , qualPrelimDeclId
+  , qualPrelimDeclIdSafe
 
     -- * NameOrigin
   , NameOrigin(..)
@@ -315,12 +316,27 @@ instance PrettyForTrace QualPrelimDeclId where
       PP.textToCtxDoc (tagKindPrefix kind) <+> PP.parens (prettyForTrace anonId)
     QualPrelimDeclIdBuiltin name   -> prettyForTrace name
 
-qualPrelimDeclId :: PrelimDeclId -> NameKind -> QualPrelimDeclId
+qualPrelimDeclId :: HasCallStack => PrelimDeclId -> NameKind -> QualPrelimDeclId
 qualPrelimDeclId prelimDeclId kind = case prelimDeclId of
     PrelimDeclIdNamed   name   -> QualPrelimDeclIdNamed name kind
     PrelimDeclIdAnon    anonId -> case kind of
       NameKindTagged tagKind -> QualPrelimDeclIdAnon anonId tagKind
-      NameKindOrdinary       -> panicPure "qualPrelimDeclId ordinary anonymous"
+      NameKindOrdinary       -> panicPure $
+        "qualPrelimDeclId: ordinary anonymous: " ++ show anonId
+    PrelimDeclIdBuiltin name   -> QualPrelimDeclIdBuiltin name
+
+-- TODO #1220.
+qualPrelimDeclIdSafe :: PrelimDeclId -> NameKind -> QualPrelimDeclId
+qualPrelimDeclIdSafe prelimDeclId kind = case prelimDeclId of
+    PrelimDeclIdNamed   name   -> QualPrelimDeclIdNamed name kind
+    PrelimDeclIdAnon    anonId -> case kind of
+      NameKindTagged tagKind -> QualPrelimDeclIdAnon anonId tagKind
+      NameKindOrdinary       ->
+        QualPrelimDeclIdNamed
+          (Name $ Text.pack $
+             "qualPrelimDeclIdSafe: impossible ordinary anonymous: "
+             ++ show anonId)
+          NameKindOrdinary
     PrelimDeclIdBuiltin name   -> QualPrelimDeclIdBuiltin name
 
 {-------------------------------------------------------------------------------

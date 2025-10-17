@@ -2,270 +2,257 @@ module HsBindgen.Frontend.Pass.Select (
     selectDecls
   ) where
 
-import Data.List (partition)
-import Data.Map qualified as Map
+import Data.Foldable qualified as Foldable
+import Data.List.NonEmpty qualified as NonEmpty
 import Data.Set qualified as Set
 
 import Clang.HighLevel.Types
 
 import HsBindgen.Errors (panicPure)
-import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
+import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex (..))
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
-import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
-import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.Coerce (CoercePass (coercePass))
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
+import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.Select.IsPass
-import HsBindgen.Frontend.Pass.Sort.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
-import HsBindgen.Util.Tracer
+
+-- Identifier of a declaration.
+type I = C.QualPrelimDeclId
+
+-- Declaration itself.
+type D = C.Decl Select
+
+-- Match function to find selection roots.
+type Match = I -> SingleLoc -> C.Availability -> Bool
 
 selectDecls ::
      IsMainHeader
   -> IsInMainHeaderDir
+  -> Set C.QualName
   -> Config Select
   -> C.TranslationUnit ResolveBindingSpecs
   -> (C.TranslationUnit Select, [Msg Select])
-selectDecls isMainHeader isInMainHeaderDir SelectConfig{..} unitRBS =
-    let matchedDecls, unmatchedDecls :: [C.Decl Select]
-        (matchedDecls, unmatchedDecls) = partition matchDecl decls
+selectDecls
+  isMainHeader
+  isInMainHeaderDir
+  declsWithExternalBindingSpecs
+  SelectConfig{..}
+  unit =
+    let -- Identifiers of selection roots.
+        rootIds :: Set I
+        rootIds = getSelectedRoots match index
 
-        selectedRoots :: [C.QualPrelimDeclId]
-        selectedRoots = map C.declOrigQualPrelimDeclId matchedDecls
-
-        transitiveDeps :: Set C.QualPrelimDeclId
-        transitiveDeps = case selectConfigProgramSlicing of
+        -- Identifiers of transitive dependencies (without roots), and all
+        -- selected declarations.
+        transIds, selIds :: Set I
+        (transIds, selIds) = case selectConfigProgramSlicing of
           DisableProgramSlicing ->
-            Set.empty
+            (Set.empty, rootIds)
           EnableProgramSlicing ->
-            UseDeclGraph.getTransitiveDeps useDeclGraph selectedRoots
+            let rootAndTransIds =
+                  UseDeclGraph.getTransitiveDeps unit.unitAnn.declUseDecl $
+                    Set.toList rootIds
+            in  (rootAndTransIds Set.\\ rootIds, rootAndTransIds)
 
-        selectedDecls :: [C.Decl Select]
-        selectedDecls = case selectConfigProgramSlicing of
-          DisableProgramSlicing ->
-            matchedDecls
-          EnableProgramSlicing ->
-            -- NOTE: Careful, we need to maintain the order of declarations so
-            -- that children come before parents. 'filter' does that for us.
-            filter ((`Set.member` transitiveDeps) . C.declOrigQualPrelimDeclId) decls
+        Acc {
+            selDs = selDeclsReversed
+            -- TODO: #1037.
+          , rIds  = _unavailableRootIds
+          , tIds  = _unavailableTransIds
+          , msgs  = selectStatusMsgs
+          } = foldDecls rootIds transIds decls
 
-        parseMsgs :: [Msg Select]
-        parseMsgs = getDelayedParseMsgs' selectedDecls
-
-        selectMsgs :: [Msg Select]
-        unavailableTransitiveDeps :: Set C.QualPrelimDeclId
-        (selectMsgs, unavailableTransitiveDeps) =
-          getSelectMsgs selectedRoots transitiveDeps selectedDecls unmatchedDecls
-
-    in if Set.null unavailableTransitiveDeps
-       then ( unitSelect { C.unitDecls = selectedDecls }
-            , parseMsgs ++ selectMsgs
-            )
-       else panicPure $ errorMsgWith unavailableTransitiveDeps
+    in (    unitSelectWith $ reverse selDeclsReversed
+       ,    selectStatusMsgs
+         -- TODO: #1037.
+         -- ++ toUnavailableMsgs        unavailableRootIds
+         -- ++ toUnavailableMsgs        unavailableTransIds
+         ++ getDelayedParseMsgs      selIds index
+         ++ getParseNotAttemptedMsgs match hasExternalBindingSpec index
+         ++ getParseFailureMsgs      match hasExternalBindingSpec index
+       )
   where
-    errorMsgWith :: Set C.QualPrelimDeclId -> String
-    errorMsgWith xs = unlines $
-        "Unavailable transitive dependencies: "
-      : map (show . prettyForTrace) (Set.toList xs)
-      ++ [
-           "This is an indication that declarations have been removed after parse."
-         , "Please remove unsupported declarations in the parse pass, and not later!"
-         ]
+    decls :: [D]
+    decls = map coercePass unit.unitDecls
 
-    unitSelect :: C.TranslationUnit Select
-    unitSelect =
-      let C.TranslationUnit{..} = unitRBS
-      in  C.TranslationUnit {
-            C.unitDecls = map coercePass unitDecls
-          , C.unitIncludeGraph = unitIncludeGraph
-          , C.unitAnn = SelectDeclMeta {
-                selectDeclIndex     = declIndex unitAnn
-              , selectDeclUseDecl   = declUseDecl unitAnn
-              , selectDeclDeclUse   = declDeclUse unitAnn
-              , selectDeclNonParsed = declNonParsed unitAnn
-              }
+    hasExternalBindingSpec :: I -> Bool
+    hasExternalBindingSpec = \case
+          C.QualPrelimDeclIdNamed n k ->
+            Set.member (C.QualName n k) declsWithExternalBindingSpecs
+          _otherwise -> False
+
+    -- TODO: #1037.
+    _toUnavailableMsgs :: Set I -> [Msg Select]
+    _toUnavailableMsgs = map SelectUnavailableDeclaration
+      . Set.toList
+      . Set.filter (not . hasExternalBindingSpec)
+
+    index :: DeclIndex
+    index = unit.unitAnn.declIndex
+
+    unitSelectWith :: [D] -> C.TranslationUnit Select
+    unitSelectWith xs = C.TranslationUnit {
+            C.unitDecls = xs
+          , C.unitIncludeGraph = unit.unitIncludeGraph
+          , C.unitAnn = unit.unitAnn
           }
 
-    decls :: [C.Decl Select]
-    decls = C.unitDecls unitSelect
-
-    ann :: DeclMeta ResolveBindingSpecs
-    ann = C.unitAnn unitRBS
-
-    useDeclGraph :: UseDeclGraph
-    useDeclGraph = declUseDecl ann
-
-    matchDecl :: C.Decl Select -> Bool
-    matchDecl decl = isSelected $
-      match
-        (C.declOrigQualPrelimDeclId decl)
-        (C.declLoc $ C.declInfo decl)
-        (C.declAvailability $ C.declInfo decl)
-
-    match :: C.QualPrelimDeclId -> SingleLoc -> C.Availability -> SelectStatus
+    match :: Match
     match = \declId -> go declId declId
       where
         -- We compare the use sites of anonymous declarations with the original
         -- @declId@, so we can detect cycles involving anonymous declarations in
         -- the use-decl graph. We believe these cycles can not exist.
-        go originalDeclId declId loc availability = case declId of
+        go origDeclId declId loc availability = case declId of
             C.QualPrelimDeclIdNamed name kind ->
-                if matchSelect
-                     isMainHeader
-                     isInMainHeaderDir
-                     (singleLocPath loc)
-                     (C.QualName name kind)
-                     availability
-                     selectConfigPredicate
-                then Selected SelectionRoot
-                else NotSelected
+              matchSelect
+                isMainHeader
+                isInMainHeaderDir
+                (singleLocPath loc)
+                (C.QualName name kind)
+                availability
+                selectConfigPredicate
             -- Apply the select predicate to the use site.
-            anon@(C.QualPrelimDeclIdAnon{}) -> matchAnon anon
+            anon@(C.QualPrelimDeclIdAnon{}) -> matchAnon origDeclId anon
             -- Never select builtins.
-            C.QualPrelimDeclIdBuiltin _ -> NotSelected
-          where
-            declUseGraph :: DeclUseGraph
-            declUseGraph = declDeclUse (C.unitAnn unitRBS)
+            C.QualPrelimDeclIdBuiltin _ -> False
 
-            index :: DeclIndex
-            index = declIndex (C.unitAnn unitRBS)
+        matchAnon :: I -> I -> Bool
+        matchAnon origDeclId anon =
+          case DeclUseGraph.getUseSites unit.unitAnn.declDeclUse anon of
+            [(declId, _)] -> matchUseSite origDeclId declId
+            -- Unused anonymous declarations are removed in the @NameAnon@
+            -- pass. Here we are using the decl-use graph to find use sites,
+            -- and so we still can encounter unused anonymous declarations.
+            []            -> False
+            xs            -> panicPure $
+              "anonymous declaration with multiple use sites: "
+              ++ show anon ++ " used by " ++ show xs
 
-            matchAnon :: C.QualPrelimDeclId -> SelectStatus
-            matchAnon anon =
-              case DeclUseGraph.getUseSites declUseGraph anon of
-                [x] ->
-                  matchUseSite $ fst x
-                []  ->
-                  panicPure "anonymous declaration without use site"
-                xs  ->
-                  panicPure $
-                    "anonymous declaration with multiple use sites" ++ show xs
-
-            matchUseSite :: C.QualPrelimDeclId -> SelectStatus
-            matchUseSite declIdUseSite
-              | declIdUseSite == originalDeclId =
-                  panicPure $
-                    "unexpected cycle involving anonymous declaration: "
-                      ++ show originalDeclId
-              | otherwise =
-              case DeclIndex.lookup declIdUseSite index of
-                Nothing   -> panicPure "did not find declaration"
-                Just decl -> match
-                               declIdUseSite
-                               (C.declLoc $ C.declInfo decl)
-                               (C.declAvailability $ C.declInfo decl)
-
-    matchKey :: Key -> SelectStatus
-    matchKey (ParseMsgKey loc declId declKind declAvailability) =
-      let qualDeclId = C.QualDeclId {
-            qualDeclIdName   = C.declIdName declId
-          , qualDeclIdOrigin = C.declIdOrigin declId
-          , qualDeclIdKind   = declKind
-          }
-      in match (C.qualDeclIdToQualPrelimDeclId qualDeclId) loc declAvailability
-
-    getDelayedParseMsgs' :: [C.Decl Select] -> [Msg Select]
-    getDelayedParseMsgs' = getDelayedParseMsgs ann matchKey
+        matchUseSite :: I -> I -> Bool
+        matchUseSite origDeclId declIdUseSite
+          | declIdUseSite == origDeclId = panicPure $
+              "unexpected cycle involving anonymous declaration: "
+              ++ show origDeclId
+          | otherwise =
+          case DeclIndex.lookup declIdUseSite index of
+            Nothing   -> panicPure "did not find declaration"
+            Just decl -> match
+                           declIdUseSite
+                           (C.declLoc $ C.declInfo decl)
+                           (C.declAvailability $ C.declInfo decl)
 
 {-------------------------------------------------------------------------------
   Trace messages
 -------------------------------------------------------------------------------}
 
-getSelectMsgs
-  :: [C.QualPrelimDeclId]
-  -> Set C.QualPrelimDeclId
-  -> [C.Decl Select]
-  -> [C.Decl Select]
-  -> ([Msg Select], Set C.QualPrelimDeclId)
-getSelectMsgs selectedRootsIds transitiveDeps selectedDecls unmatchedDecls =
-    (excludeMsgs ++ selectRootMsgs ++ selectTransMsgs, unavailableTransitiveDeps)
+getSelectedRoots :: Match -> DeclIndex -> Set I
+getSelectedRoots match index = Foldable.foldl' addMatch Set.empty index.succeeded
   where
-    unavailableTransitiveDeps :: Set C.QualPrelimDeclId
-    unavailableTransitiveDeps =
-      transitiveDeps `Set.difference`
-        (Set.fromList $ map C.declOrigQualPrelimDeclId selectedDecls)
+   addMatch :: Set I -> ParseSuccess -> Set I
+   addMatch xs (ParseSuccess decl _) =
+     let info = decl.declInfo
+         qualPrelimDeclId = C.declQualPrelimDeclId decl
+         isSelected = match qualPrelimDeclId info.declLoc info.declAvailability
+     in  if isSelected then
+           Set.insert qualPrelimDeclId xs
+         else xs
 
-    unselectedDecls :: [C.Decl Select]
-    unselectedDecls =
-      filter
-        ((`Set.notMember` transitiveDeps) . C.declOrigQualPrelimDeclId)
-        unmatchedDecls
+data Acc = Acc {
+      -- Selected declarations
+      selDs    :: [D]
+      -- Identifiers of selection roots yet to be selected. Identifiers
+      -- remaining after the fold are unavailable and lead to error traces.
+    , rIds     :: Set I
+      -- Identifiers of transitive dependencies yet to be selected. Identifiers
+      -- remaining after the fold are unavailable and lead to error traces.
+    , tIds     :: Set I
+      -- @SelectSelectStatus@ trace messages.
+    , msgs     :: [Msg Select]
+    }
 
-    isRoot :: C.Decl Select -> Bool
-    isRoot x = Set.member (C.declOrigQualPrelimDeclId x) (Set.fromList selectedRootsIds)
-
-    -- | Strict transitive dependencies are not selection roots.
-    selectedRoots, transitiveDepsStrict :: [C.Decl Select]
-    (selectedRoots, transitiveDepsStrict) = partition isRoot selectedDecls
-
-    excludeMsgs, selectRootMsgs, selectTransMsgs :: [Msg Select]
-    excludeMsgs =
-      map (SelectSelectStatus NotSelected . C.declInfo) unselectedDecls
-    selectRootMsgs =
-      map (SelectSelectStatus (Selected SelectionRoot) . C.declInfo) selectedRoots
-    selectTransMsgs =
-      map (SelectSelectStatus (Selected TransitiveDependency) . C.declInfo) transitiveDepsStrict
-
-type Key = ParseMsgKey Select
-
-getDelayedParseMsgs ::
-     DeclMeta ResolveBindingSpecs
-  -> (ParseMsgKey Select -> SelectStatus)
-  -> [C.Decl Select]
-  -> [Msg Select]
-getDelayedParseMsgs meta matchKey decls =
-        map (uncurry SelectParse)  (flatten selectedMsgs)
-     ++ map (uncurry SelectFailed) (flatten failedMsgs)
+-- Traverse the declarations, partition them into selected and not-selected
+-- declarations. Also return IDs that were _not_ found in the list of available
+-- declarations. These declarations are _unvailable_, and lead to error traces.
+foldDecls :: Set I -> Set I -> [D] -> Acc
+foldDecls rootIds transIds decls =
+    Foldable.foldl' acc (Acc [] rootIds transIds []) decls
   where
-    msgs :: Map Key [DelayedParseMsg]
-    msgs = unParseMsgs $ coerceParseMsgs $ declParseMsgs meta
+    acc :: Acc -> D -> Acc
+    acc Acc{..} decl =
+      let declId = C.declOrigQualPrelimDeclId decl
+      in  case ( deleteAndCheck declId rIds
+               , deleteAndCheck declId tIds ) of
+            -- Declaration is a selection root.
+            (Just rIds', Nothing) ->
+              Acc (decl:selDs) rIds' tIds
+                (getSelMsgs SelectionRoot decl ++ msgs)
+            -- Declaration is a transitive dependency.
+            (Nothing, Just tIds') ->
+              Acc (decl:selDs) rIds tIds'
+                (getSelMsgs TransitiveDependency decl ++ msgs)
+            -- Declaration is not selected.
+            (Nothing, Nothing) ->
+              Acc selDs rIds tIds
+                (getNotSelMsg decl : msgs)
+            -- Impossible :-), bug.
+            (Just _, Just _) ->
+              panicPure $
+                "Declaration is selection root and transitive dependency: "
+                ++ show decl.declInfo
 
-    allKeys :: Set Key
-    allKeys = Map.keysSet msgs
+    -- Return @Just@ the new set if the element was deleted, otherwise return
+    -- @Nothing@.
+    deleteAndCheck :: Ord a => a -> Set a -> Maybe (Set a)
+    deleteAndCheck x xs = Set.alterF (\b -> if b then Just False else Nothing) x xs
 
-    declToKey :: C.Decl Select -> Key
-    declToKey C.Decl{declInfo, declKind} =
-      ParseMsgKey
-        (C.declLoc declInfo)
-        (C.declId declInfo)
-        (C.declKindNameKind declKind)
-        (C.declAvailability declInfo)
+    getSelMsgs :: SelectReason -> D -> [Msg Select]
+    getSelMsgs selectReason decl =
+      let info         = decl.declInfo
+          selectDepr   = [ SelectDeprecated info | isDeprecated info ]
+      in  SelectSelectStatus (Selected selectReason) info : selectDepr
 
-    selectedKeys :: Set Key
-    selectedKeys = Set.fromList $ map declToKey decls
+    isDeprecated :: C.DeclInfo Select -> Bool
+    isDeprecated info = case C.declAvailability info of
+      C.Deprecated -> True
+      _            -> False
 
-    -- The set of desired selected keys is a super-set of the set of actually
-    -- selected keys, in which some keys may be missing because parsing has
-    -- failed.
-    desiredSelectedKeys :: Set Key
-    desiredSelectedKeys = Set.filter (isSelected . matchKey) allKeys
+    getNotSelMsg :: D -> Msg Select
+    getNotSelMsg decl = SelectSelectStatus NotSelected decl.declInfo
 
-    -- Failed declarations are declarations we desired to select, but that we
-    -- failed to reify during parse/reification. See the documentation of
-    -- 'ParseMsgs'.
-    failedKeys :: Set Key
-    failedKeys = desiredSelectedKeys Set.\\ selectedKeys
+getDelayedParseMsgs :: Set I -> DeclIndex -> [Msg Select]
+getDelayedParseMsgs selIds index = concatMap getMsgs $ Set.toList selIds
+  where
+    getMsgs :: I -> [Msg Select]
+    getMsgs k = map SelectParseSuccess $ DeclIndex.lookupAttachedParseMsgs k index
 
-    selectedMsgs :: Map Key [DelayedParseMsg]
-    selectedMsgs = Map.restrictKeys msgs selectedKeys
+getParseNotAttemptedMsgs :: Match -> (I -> Bool) -> DeclIndex -> [Msg Select]
+getParseNotAttemptedMsgs match hasExternalBindingSpec =
+  Foldable.foldl' (Foldable.foldl' addMsg) [] . omitted
+  where
+    addMsg :: [SelectMsg] -> ParseNotAttempted -> [SelectMsg]
+    addMsg xs (ParseNotAttempted i l a r) =
+      [ SelectParseNotAttempted i l r
+      | match i l a
+      , not $ hasExternalBindingSpec i
+      ] ++ xs
 
-    failedMsgs :: Map Key [DelayedParseMsg]
-    failedMsgs = Map.restrictKeys msgs failedKeys
-
-    flatten :: Map a [b] -> [(a, b)]
-    flatten = concatMap (\(k, xs) -> map (k,) xs) . Map.toList
-
-{-------------------------------------------------------------------------------
-  Helpers
--------------------------------------------------------------------------------}
-
-isSelected :: SelectStatus -> Bool
-isSelected NotSelected        = False
-isSelected (Selected _reason) = True
+getParseFailureMsgs :: Match -> (I -> Bool) -> DeclIndex -> [Msg Select]
+getParseFailureMsgs match hasExternalBindingSpec =
+  Foldable.foldl' (Foldable.foldl' addMsg) [] . failed
+  where
+    addMsg :: [SelectMsg] -> ParseFailure -> [SelectMsg]
+    addMsg xs (ParseFailure i l a msgs) =
+      [ SelectParseFailure msg
+      | match i l a
+      , not $ hasExternalBindingSpec i
+      , msg <- NonEmpty.toList msgs
+      ] ++ xs

@@ -124,12 +124,6 @@ data Availability =
   | Unavailable
   deriving stock (Show, Eq, Ord, P.Enum, Bounded, Generic)
 
-instance PrettyForTrace Availability where
-  prettyForTrace = \case
-    Available   -> "available"
-    Deprecated  -> "deprecated"
-    Unavailable -> "unavailable"
-
 data DeclInfo p = DeclInfo{
       declLoc     :: SingleLoc
     , declId      :: Id p
