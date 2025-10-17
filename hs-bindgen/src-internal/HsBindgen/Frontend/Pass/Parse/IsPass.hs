@@ -160,14 +160,13 @@ parseSucceedWith msgs decl =
     map (AttachedParseMsg decl.declInfo) msgs
 
 parseDoNotAttempt ::
-     HasCallStack
-  => C.DeclInfo Parse
+     C.DeclInfo Parse
   -> C.NameKind
   -> ParseNotAttemptedReason
   -> ParseResult
 parseDoNotAttempt C.DeclInfo{..} kind reason =
     ParseResultNotAttempted $ ParseNotAttempted
-      (C.qualPrelimDeclId declId kind)
+      (C.qualPrelimDeclIdSafe declId kind)
       declLoc
       declAvailability
       reason
