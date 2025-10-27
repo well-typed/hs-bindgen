@@ -1,17 +1,18 @@
 {-# LANGUAGE ViewPatterns #-}
 module HsBindgen.Runtime.ConstantArray (
     ConstantArray
+  , toVector
+  , fromVector
     -- * Pointers
     -- $pointers
   , isConstantArray
   , isFirstElem
+  , withPtr
     -- * Construction
   , repeat
   , fromList
     -- * Query
-  , toVector
   , toList
-  , withPtr
     -- * Auxiliary
   , intVal
   ) where
@@ -25,7 +26,7 @@ import Foreign.ForeignPtr (mallocForeignPtrArray, withForeignPtr)
 import Foreign.Marshal.Utils (copyBytes)
 import Foreign.Ptr (Ptr, castPtr)
 import Foreign.Storable (Storable (..))
-import GHC.Stack
+import GHC.Stack (HasCallStack)
 import GHC.TypeNats (KnownNat, Nat, natVal)
 
 import HsBindgen.Runtime.Marshal (ReadRaw, StaticSize, WriteRaw)
@@ -40,6 +41,37 @@ newtype ConstantArray (n :: Nat) a = CA (VS.Vector a)
   deriving anyclass (ReadRaw, StaticSize, WriteRaw)
 
 type role ConstantArray nominal nominal
+
+-- | /( O(1) /): Get the underlying 'VS.Vector' representation
+--
+-- This makes the full 'VS.Vector' API available.
+toVector ::
+     forall a n arrayLike.
+     Coercible arrayLike (ConstantArray n a)
+  => arrayLike
+  -> (Proxy n, VS.Vector a)
+toVector (coerce -> xs) = (Proxy @n, xs)
+
+-- | /( O(1) /): Construct from a 'VS.Vector' representation
+--
+-- This makes the full 'VS.Vector' API available.
+--
+-- Precondition: the vector must have the right number of elements.
+fromVector ::
+     forall a n arrayLike. (
+       Coercible arrayLike (ConstantArray n a)
+     , Storable a
+     , KnownNat n
+     , HasCallStack
+     )
+  => Proxy n
+  -> VS.Vector a
+  -> arrayLike
+fromVector _ xs
+  | VS.length xs == n = coerce xs
+  | otherwise = error $ "fromVector: expected " ++ show n ++ " elements"
+  where
+    n = intVal (Proxy @n)
 
 {-------------------------------------------------------------------------------
   Pointers
@@ -81,7 +113,7 @@ type role ConstantArray nominal nominal
 -- > isConstantArray @(A 3) ::
 -- >   Proxy 3 -> Ptr CInt -> Ptr (A 3)
 
--- | Use a pointer to the first element of an array as a pointer to the whole of
+-- | /( O(1) /): Use a pointer to the first element of an array as a pointer to the whole of
 -- said array.
 --
 -- NOTE: this function does not check that the pointer /is/ actually a pointer
@@ -100,7 +132,7 @@ isConstantArray _ = castPtr
     -- the use of 'castPtr', which can normally cast pointers arbitrarily.
     _unused = coerce @arrayLike @(ConstantArray n a)
 
--- | Use a pointer to a whole array as a pointer to the first element of said
+-- | /( O(1) /): Use a pointer to a whole array as a pointer to the first element of said
 -- array.
 isFirstElem ::
      forall arrayLike n a. Coercible arrayLike (ConstantArray n a)
@@ -137,40 +169,7 @@ instance (Storable a, KnownNat n) => Storable (ConstantArray n a) where
       where
         sizeOfA = sizeOf (undefined :: a)
 
-{-------------------------------------------------------------------------------
-  Construction
--------------------------------------------------------------------------------}
-
-repeat :: forall n a. (KnownNat n, Storable a) => a -> ConstantArray n a
-repeat x = CA (VS.replicate (intVal (Proxy @n)) x)
-
--- | Construct 'ConstantArray' from list
---
--- Precondition: the list must have the right number of elements.
-fromList :: forall n a.
-     (KnownNat n, Storable a, HasCallStack)
-  => [a] -> ConstantArray n a
-fromList xs
-  | length xs == n = CA (VS.fromList xs)
-  | otherwise = error $ "fromList: expected " ++ show n ++ " elements"
-  where
-    n = intVal (Proxy @n)
-
-{-------------------------------------------------------------------------------
-  Query
--------------------------------------------------------------------------------}
-
--- | Get the underlying 'Vector' representation (@O(1)@)
---
--- This loses the type-level size information, but makes the full 'Vector'
--- API available.
-toVector :: ConstantArray n a -> VS.Vector a
-toVector (CA xs) = xs
-
-toList :: Storable a => ConstantArray n a -> [a]
-toList (CA v) = VS.toList v
-
--- | Retrieve the underlying pointer
+-- | /( O(n) /): Retrieve the underlying pointer
 withPtr ::
      (Coercible b (ConstantArray n a), Storable a)
   => b -> (Ptr a -> IO r) -> IO r
@@ -178,6 +177,30 @@ withPtr (coerce -> CA v) k = do
     -- we copy the data, a e.g. int fun(int xs[3]) may mutate it.
     VS.MVector _ fptr <- VS.thaw v
     withForeignPtr fptr k
+
+{-------------------------------------------------------------------------------
+  Construction
+-------------------------------------------------------------------------------}
+
+-- | /( O(n) /)
+repeat :: forall n a. (KnownNat n, Storable a) => a -> ConstantArray n a
+repeat x = CA (VS.replicate (intVal (Proxy @n)) x)
+
+-- | /( O(n) /): Construct from a list
+--
+-- Precondition: the list must have the right number of elements.
+fromList :: forall n a.
+     (KnownNat n, Storable a, HasCallStack)
+  => [a] -> ConstantArray n a
+fromList xs = fromVector (Proxy @n) (VS.fromList xs)
+
+{-------------------------------------------------------------------------------
+  Query
+-------------------------------------------------------------------------------}
+
+-- | /( O(n) /)
+toList :: Storable a => ConstantArray n a -> [a]
+toList (CA v) = VS.toList v
 
 {-------------------------------------------------------------------------------
   Auxiliary
