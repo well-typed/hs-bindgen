@@ -2,6 +2,7 @@
 module HsBindgen.Runtime.IncompleteArray (
     IncompleteArray
     -- * Pointers
+    -- $pointers
   , isIncompleteArray
   , isFirstElem
     -- ** Peek and poke
@@ -39,11 +40,48 @@ type role IncompleteArray nominal
   Pointers
 -------------------------------------------------------------------------------}
 
+-- $pointers
+--
+-- In example C code below, @p1@ points to the array @xs@ as a whole, while @p2@
+-- points to the first element of @xs@.
+--
+-- > extern int xs[];
+-- > void foo () {
+-- >   int (*p1)[] = &xs;
+-- >   int *p2 = &(xs[0]);
+-- > }
+--
+-- Though the types of @p1@ and @p2@ differ, the /values/ of the pointers (the
+-- address they point to) is the same. An array is just a block of contiguous
+-- memory storing array elements. @p1@ points to where @xs@ starts, and @p2@
+-- points to where the first element of @xs@ starts, and these addresses are the
+-- same. In Haskell, the corresponding types for @p1@ and @p2@ respectively are
+-- @'Ptr' ('IncompleteArray' 'CInt')@ and @'Ptr' 'CInt'@ respectively.
+--
+-- Functions like 'peekArray' require a @'Ptr' ('IncompleteArray' a)@ argument.
+-- If the user only has access to a @'Ptr' a@ but they know that is pointing to
+-- the first element in an array, then they can use 'isIncompleteArray' to
+-- convert the pointer before using 'peekArray' on it. Conversely, if the user
+-- has access to a @'Ptr' ('IncompleteArray' a)@ but they want to convert it to
+-- a @'Ptr' a@, then they can use @'isFirstElem'@.
+--
+-- Relevant functions in this module also support pointers of newtypes around
+-- 'IncompleteArray', hence the addition of 'Coercible' constraints in many
+-- places. For example, we can use 'isIncompleteArray' at an 'IncompleteArray'
+-- type or we can use 'isIncompleteArray' at a newtype around an
+-- 'IncompleteArray'.
+--
+-- > newtype A = A (IncompleteArray CInt)
+-- > isIncompleteArray @(IncompleteArray CInt) ::
+-- >   Proxy 3 -> Ptr CInt -> Ptr (IncompleteArray CInt)
+-- > isIncompleteArray @(A 3) ::
+-- >   Proxy 3 -> Ptr CInt -> Ptr (A 3)
+
 -- | Use a pointer to the first element of an array as a pointer to the whole of
 -- said array.
 --
--- The coercible abstraction is here so that the function can see through
--- @newtype@ wrappers of @typedefs@.
+-- NOTE: this function does not check that the pointer /is/ actually a pointer
+-- to the first element of an array.
 isIncompleteArray ::
      forall arrayLike a. Coercible arrayLike (IncompleteArray a)
   => Ptr a
@@ -59,9 +97,6 @@ isIncompleteArray = castPtr
 
 -- | Use a pointer to a whole array as a pointer to the first element of said
 -- array.
---
--- The coercible constraint is here so that the function can see through
--- @newtype@ wrappers of @typedefs@.
 isFirstElem ::
      forall arrayLike a. Coercible arrayLike (IncompleteArray a)
   => Ptr arrayLike
@@ -76,9 +111,6 @@ isFirstElem ptr = castPtr ptr
     _unused = coerce @arrayLike @(IncompleteArray a)
 
 -- | Peek a number of elements from a pointer to an incomplete array.
---
--- The coercible constraint is here so that the function can see through
--- @newtype@ wrappers of @typedefs@.
 peekArray ::
      forall a arrayLike. (Coercible arrayLike (IncompleteArray a), Storable a)
   => Int
@@ -94,9 +126,6 @@ peekArray size ptr = do
     sizeOfA = sizeOf (undefined :: a)
 
 -- | Poke a number of elements to a pointer to an incomplete array.
---
--- The coercible constraint is here so that the function can see through
--- @newtype@ wrappers of @typedefs@.
 pokeArray ::
      forall a arrayLike. (Coercible arrayLike (IncompleteArray a), Storable a)
   => Ptr arrayLike
@@ -134,12 +163,10 @@ toList :: Storable a => IncompleteArray a -> [a]
 toList (IA v) = VS.toList v
 
 -- | Retrieve the underlying pointer
---
--- Coercible abstraction to look through the @newtype@ wrappers of typedefs.
 withPtr ::
      (Coercible b (IncompleteArray a), Storable a)
   => b -> (Ptr a -> IO r) -> IO r
 withPtr (coerce -> IA v) k = do
-    -- we copy the data, as e.g. @int fun(int xs[3])@ may mutate it.
+    -- we copy the data, as e.g. @int fun(int xs[])@ may mutate it.
     VS.MVector _ fptr <- VS.thaw v
     withForeignPtr fptr k

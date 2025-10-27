@@ -2,6 +2,7 @@
 module HsBindgen.Runtime.ConstantArray (
     ConstantArray
     -- * Pointers
+    -- $pointers
   , isConstantArray
   , isFirstElem
     -- * Construction
@@ -44,11 +45,47 @@ type role ConstantArray nominal nominal
   Pointers
 -------------------------------------------------------------------------------}
 
+-- $pointers
+--
+-- In example C code below, @p1@ points to the array @xs@ as a whole, while @p2@
+-- points to the first element of @xs@.
+--
+-- > extern int xs[3];
+-- > void foo () {
+-- >   int (*p1)[3] = &xs;
+-- >   int *p2 = &(xs[0]);
+-- > }
+--
+-- Though the types of @p1@ and @p2@ differ, the /values/ of the pointers (the
+-- address they point to) is the same. An array is just a block of contiguous
+-- memory storing array elements. @p1@ points to where @xs@ starts, and @p2@
+-- points to where the first element of @xs@ starts, and these addresses are the
+-- same. In Haskell, the corresponding types for @p1@ and @p2@ respectively are
+-- @'Ptr' ('ConstantArray' n 'CInt')@ and @'Ptr' 'CInt'@ respectively.
+--
+-- Functions like 'peek' require a @'Ptr' ('ConstantArray' n a)@ argument. If
+-- the user only has access to a @'Ptr' a@ but they know that is pointing to the
+-- first element in an array, then they can use 'isConstantArray' to convert the
+-- pointer before using 'peekArray' on it. Conversely, if the user has access to
+-- a @'Ptr' ('ConstantArray' n a)@ but they want to convert it to a @'Ptr' a@,
+-- then they can use @'isFirstElem'@.
+--
+-- Relevant functions in this module also support pointers of newtypes around
+-- 'ConstantArray', hence the addition of 'Coercible' constraints in many
+-- places. For example, we can use 'isConstantArray' at a 'ConstantArray' type
+-- or we can use 'isConstantArray' at a newtype around a 'ConstantArray'.
+--
+-- > newtype A n = A (ConstantArray n CInt)
+-- > isConstantArray @(ConstantArray 3 CInt) ::
+-- >   Proxy 3 -> Ptr CInt -> Ptr (ConstantArray 3 CInt)
+-- > isConstantArray @(A 3) ::
+-- >   Proxy 3 -> Ptr CInt -> Ptr (A 3)
+
 -- | Use a pointer to the first element of an array as a pointer to the whole of
 -- said array.
 --
--- The coercible abstraction is here so that the function can see through
--- @newtype@ wrappers of @typedefs@.
+-- NOTE: this function does not check that the pointer /is/ actually a pointer
+-- to the first element of an array.
 isConstantArray ::
      forall arrayLike n a. Coercible arrayLike (ConstantArray n a)
   => Proxy n
@@ -65,9 +102,6 @@ isConstantArray _ = castPtr
 
 -- | Use a pointer to a whole array as a pointer to the first element of said
 -- array.
---
--- The coercible constraint is here so that the function can see through
--- @newtype@ wrappers of @typedefs@.
 isFirstElem ::
      forall arrayLike n a. Coercible arrayLike (ConstantArray n a)
   => Ptr arrayLike
@@ -137,8 +171,6 @@ toList :: Storable a => ConstantArray n a -> [a]
 toList (CA v) = VS.toList v
 
 -- | Retrieve the underlying pointer
---
--- Coercible abstraction to look through the `newtype`s wrappers of typedefs.
 withPtr ::
      (Coercible b (ConstantArray n a), Storable a)
   => b -> (Ptr a -> IO r) -> IO r
