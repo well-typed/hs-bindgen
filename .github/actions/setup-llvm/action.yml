@@ -1,0 +1,51 @@
+name: Setup LLVM
+description: Build and install LLVM
+
+inputs:
+  version:
+    description: 'LLVM version'
+    required: true
+
+runs:
+  using: composite
+  steps:
+  # `clang` version 18 fails to find `libtinfo5`.
+  # https://askubuntu.com/questions/1531760/how-to-install-libtinfo5-on-ubuntu24-04
+  - name: Ubuntu LLVM 18 quirks - Install libtinfo5
+    shell: bash
+    if: ${{ runner.os == 'Linux' && inputs.version == '18' }}
+    run: |
+      wget http://security.ubuntu.com/ubuntu/pool/universe/n/ncurses/libtinfo5_6.3-2ubuntu0.1_amd64.deb
+      sudo apt install ./libtinfo5_6.3-2ubuntu0.1_amd64.deb
+
+  - name: Install LLVM/Clang
+    uses: KyleMayes/install-llvm-action@v2.0.8
+    with:
+      version: ${{ inputs.version }}
+      directory: ${{ runner.temp }}/llvm
+      env: false
+
+  - name: macOS quirks - Configure environment variables
+    shell: bash
+    if: ${{ runner.os == 'MacOS' }}
+    run: |
+      echo "LLVM_CONFIG=$LLVM_PATH/bin/llvm-config" >> "$GITHUB_ENV"
+      echo "LIBCLANG_PATH=$LLVM_PATH/lib/" >> "$GITHUB_ENV"
+      # https://stackoverflow.com/questions/63342521/clang-on-macos-having-problems-with-its-includes
+      export SDKROOT=$(xcrun --show-sdk-path --sdk macosx)
+      echo $SDKROOT
+      echo "SDKROOT=$SDKROOT" >> "$GITHUB_ENV"
+
+  - name: Debug (LLVM/Clang)
+    shell: bash
+    run: |
+      echo '### which clang'
+      which clang
+      echo '### clang --version'
+      clang --version
+      echo '### $LLVM_PATH'
+      echo "$LLVM_PATH"
+      echo '### ls $LLVM_PATH'
+      ls "$LLVM_PATH"
+      echo '### ls $LLVM_PATH/bin'
+      ls "$LLVM_PATH/bin"
