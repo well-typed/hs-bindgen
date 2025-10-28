@@ -33,7 +33,7 @@ newtype Uint32_t
     __exported by:__ @program_slicing_simple.h@
 -}
 data Foo
-    = Foo {foo_sixty_four :: Example.Uint64_t
+    = Foo {foo_sixty_four :: Foreign.Int64
            {- ^ __C declaration:__ @sixty_four@
 
                 __defined at:__ @program_slicing_simple.h:4:12@

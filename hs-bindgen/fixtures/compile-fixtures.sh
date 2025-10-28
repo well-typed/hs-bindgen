@@ -22,18 +22,17 @@ EOF
 # Known failures - these will be skipped unless -f is used
 KNOWN_FAILURES=(
     # GCC Failures
-    # "bool_c23.pp.hs"               # C23-specific features not available in current compiler
-    # "decls_in_signature.pp.hs"     # Invalid use of undefined type.
-    # "fun_attributes.pp.hs"         # Aliased to undefined symbol error.
-    # "iterator.pp.hs"               # Apple Blocks extension not supported (requires special compiler support)
-    # "visibility_attributes.pp.hs"
-    # "reparse.pp.hs"
+    iterator.pp.hs # Makes use of Apple block extension which would require clang (see #913)
+
+    decls_in_signature.pp.hs
+    redeclaration.pp.hs
+    fun_attributes.pp.hs
+    visibility_attributes.pp.hs
 
     # GHC Failures
-    # "program_slicing_simple.pp.hs" # Module imports itself (circular dependency in generated code)
-    # "redeclaration.pp.hs"          # Generated code has multiple declarations (edge case in C code)
-    # "typenames.pp.hs"              # Generated code has multiple declarations (edge case in C code)
-    # "vector.pp.hs"                 # Wrong import from 'vector-algorithms/vector.h'
+    typenames.pp.hs # hs-bindgen namespace possible bug/feature
+    # program_slicing_simple.pp.hs
+    vector.pp.hs
 )
 
 # Default options
@@ -96,12 +95,36 @@ compile_fixture() {
     local output_dir
     output_dir=$(mktemp -d)
 
+    # Build extra clang args from BINDGEN_EXTRA_CLANG_ARGS environment variable
+    # This variable is set by cabal exec and contains all necessary paths for Clang
+    # to find system headers in the Nix environment
+    local extra_clang_args=()
+    if [[ -n "${BINDGEN_EXTRA_CLANG_ARGS:-}" ]]; then
+        # Parse space-separated args and prepend each with -optc
+        while IFS= read -r arg; do
+            [[ -n "$arg" ]] && extra_clang_args+=("-optc" "$arg")
+        done < <(echo "$BINDGEN_EXTRA_CLANG_ARGS" | xargs -n1)
+    fi
+
+    # Compile the fixture with GHC
+    # -c: Compile only (no linking)
+    # -fforce-recomp: Always recompile
+    # -package: Make package available for import
+    # -outputdir: Where to put build artifacts
+    # -pgmc clang: Use Clang as the C compiler (better C23/Blocks support than GCC, see #913)
+    # -optc: Pass the following flag to the C compiler
+    #   -I: Add include directory for C headers
+    #   -std=gnu23: Use GNU C23 standard (supports bool type + GNU extensions like asm)
+    #   -fblocks: Enable Apple Blocks extension (closures in C)
+    #   -Wno-deprecated-declarations: Suppress warnings about deprecated functions
+    #   -Wno-attributes: Suppress warnings about unrecognized or ignored attributes
+    #   ${extra_clang_args[@]}: Additional flags from BINDGEN_EXTRA_CLANG_ARGS (system include paths)
     if (cd "$HS_BINDGEN_DIR" && cabal exec -- ghc \
         -c \
         -fforce-recomp \
+        -outputdir "$output_dir" \
         -package hs-bindgen-runtime \
         -package c-expr-runtime \
-        -outputdir "$output_dir" \
         -optc -I"$EXAMPLES_DIR" \
         -optc -I"$EXAMPLES_DIR/golden" \
         -optc -std=gnu23 \

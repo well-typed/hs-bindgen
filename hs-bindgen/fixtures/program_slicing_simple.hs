@@ -228,14 +228,14 @@
           fieldType = HsExtBinding
             ExtRef {
               extRefModule = ModuleName
-                "Example",
+                "Foreign",
               extRefIdentifier = Identifier
-                "Uint64_t"}
+                "Int64"}
             CTypeSpec {
               cTypeSpecModule = Just
-                (ModuleName "Example"),
+                (ModuleName "Foreign"),
               cTypeSpecIdentifier = Just
-                (Identifier "Uint64_t"),
+                (Identifier "Int64"),
               cTypeSpecInstances =
               Map.fromList
                 [
@@ -336,14 +336,14 @@
                     NameKindOrdinary},
                   extHsRef = ExtRef {
                     extRefModule = ModuleName
-                      "Example",
+                      "Foreign",
                     extRefIdentifier = Identifier
-                      "Uint64_t"},
+                      "Int64"},
                   extHsSpec = CTypeSpec {
                     cTypeSpecModule = Just
-                      (ModuleName "Example"),
+                      (ModuleName "Foreign"),
                     cTypeSpecIdentifier = Just
-                      (Identifier "Uint64_t"),
+                      (Identifier "Int64"),
                     cTypeSpecInstances =
                     Map.fromList
                       [
@@ -527,14 +527,14 @@
                         NameKindOrdinary},
                       extHsRef = ExtRef {
                         extRefModule = ModuleName
-                          "Example",
+                          "Foreign",
                         extRefIdentifier = Identifier
-                          "Uint64_t"},
+                          "Int64"},
                       extHsSpec = CTypeSpec {
                         cTypeSpecModule = Just
-                          (ModuleName "Example"),
+                          (ModuleName "Foreign"),
                         cTypeSpecIdentifier = Just
-                          (Identifier "Uint64_t"),
+                          (Identifier "Int64"),
                         cTypeSpecInstances =
                         Map.fromList
                           [
@@ -681,14 +681,14 @@
               fieldType = HsExtBinding
                 ExtRef {
                   extRefModule = ModuleName
-                    "Example",
+                    "Foreign",
                   extRefIdentifier = Identifier
-                    "Uint64_t"}
+                    "Int64"}
                 CTypeSpec {
                   cTypeSpecModule = Just
-                    (ModuleName "Example"),
+                    (ModuleName "Foreign"),
                   cTypeSpecIdentifier = Just
-                    (Identifier "Uint64_t"),
+                    (Identifier "Int64"),
                   cTypeSpecInstances =
                   Map.fromList
                     [
@@ -789,14 +789,14 @@
                         NameKindOrdinary},
                       extHsRef = ExtRef {
                         extRefModule = ModuleName
-                          "Example",
+                          "Foreign",
                         extRefIdentifier = Identifier
-                          "Uint64_t"},
+                          "Int64"},
                       extHsSpec = CTypeSpec {
                         cTypeSpecModule = Just
-                          (ModuleName "Example"),
+                          (ModuleName "Foreign"),
                         cTypeSpecIdentifier = Just
-                          (Identifier "Uint64_t"),
+                          (Identifier "Int64"),
                         cTypeSpecInstances =
                         Map.fromList
                           [
@@ -980,14 +980,14 @@
                             NameKindOrdinary},
                           extHsRef = ExtRef {
                             extRefModule = ModuleName
-                              "Example",
+                              "Foreign",
                             extRefIdentifier = Identifier
-                              "Uint64_t"},
+                              "Int64"},
                           extHsSpec = CTypeSpec {
                             cTypeSpecModule = Just
-                              (ModuleName "Example"),
+                              (ModuleName "Foreign"),
                             cTypeSpecIdentifier = Just
-                              (Identifier "Uint64_t"),
+                              (Identifier "Int64"),
                             cTypeSpecInstances =
                             Map.fromList
                               [
@@ -1137,14 +1137,14 @@
                       fieldType = HsExtBinding
                         ExtRef {
                           extRefModule = ModuleName
-                            "Example",
+                            "Foreign",
                           extRefIdentifier = Identifier
-                            "Uint64_t"}
+                            "Int64"}
                         CTypeSpec {
                           cTypeSpecModule = Just
-                            (ModuleName "Example"),
+                            (ModuleName "Foreign"),
                           cTypeSpecIdentifier = Just
-                            (Identifier "Uint64_t"),
+                            (Identifier "Int64"),
                           cTypeSpecInstances =
                           Map.fromList
                             [
@@ -1245,14 +1245,14 @@
                                 NameKindOrdinary},
                               extHsRef = ExtRef {
                                 extRefModule = ModuleName
-                                  "Example",
+                                  "Foreign",
                                 extRefIdentifier = Identifier
-                                  "Uint64_t"},
+                                  "Int64"},
                               extHsSpec = CTypeSpec {
                                 cTypeSpecModule = Just
-                                  (ModuleName "Example"),
+                                  (ModuleName "Foreign"),
                                 cTypeSpecIdentifier = Just
-                                  (Identifier "Uint64_t"),
+                                  (Identifier "Int64"),
                                 cTypeSpecInstances =
                                 Map.fromList
                                   [
@@ -1436,14 +1436,14 @@
                                     NameKindOrdinary},
                                   extHsRef = ExtRef {
                                     extRefModule = ModuleName
-                                      "Example",
+                                      "Foreign",
                                     extRefIdentifier = Identifier
-                                      "Uint64_t"},
+                                      "Int64"},
                                   extHsSpec = CTypeSpec {
                                     cTypeSpecModule = Just
-                                      (ModuleName "Example"),
+                                      (ModuleName "Foreign"),
                                     cTypeSpecIdentifier = Just
-                                      (Identifier "Uint64_t"),
+                                      (Identifier "Int64"),
                                     cTypeSpecInstances =
                                     Map.fromList
                                       [
@@ -1595,14 +1595,14 @@
                       fieldType = HsExtBinding
                         ExtRef {
                           extRefModule = ModuleName
-                            "Example",
+                            "Foreign",
                           extRefIdentifier = Identifier
-                            "Uint64_t"}
+                            "Int64"}
                         CTypeSpec {
                           cTypeSpecModule = Just
-                            (ModuleName "Example"),
+                            (ModuleName "Foreign"),
                           cTypeSpecIdentifier = Just
-                            (Identifier "Uint64_t"),
+                            (Identifier "Int64"),
                           cTypeSpecInstances =
                           Map.fromList
                             [
@@ -1703,14 +1703,14 @@
                                 NameKindOrdinary},
                               extHsRef = ExtRef {
                                 extRefModule = ModuleName
-                                  "Example",
+                                  "Foreign",
                                 extRefIdentifier = Identifier
-                                  "Uint64_t"},
+                                  "Int64"},
                               extHsSpec = CTypeSpec {
                                 cTypeSpecModule = Just
-                                  (ModuleName "Example"),
+                                  (ModuleName "Foreign"),
                                 cTypeSpecIdentifier = Just
-                                  (Identifier "Uint64_t"),
+                                  (Identifier "Int64"),
                                 cTypeSpecInstances =
                                 Map.fromList
                                   [
@@ -1894,14 +1894,14 @@
                                     NameKindOrdinary},
                                   extHsRef = ExtRef {
                                     extRefModule = ModuleName
-                                      "Example",
+                                      "Foreign",
                                     extRefIdentifier = Identifier
-                                      "Uint64_t"},
+                                      "Int64"},
                                   extHsSpec = CTypeSpec {
                                     cTypeSpecModule = Just
-                                      (ModuleName "Example"),
+                                      (ModuleName "Foreign"),
                                     cTypeSpecIdentifier = Just
-                                      (Identifier "Uint64_t"),
+                                      (Identifier "Int64"),
                                     cTypeSpecInstances =
                                     Map.fromList
                                       [
