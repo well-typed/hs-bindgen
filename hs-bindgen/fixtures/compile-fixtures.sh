@@ -31,8 +31,7 @@ KNOWN_FAILURES=(
 
     # GHC Failures
     typenames.pp.hs # hs-bindgen namespace possible bug/feature
-    # program_slicing_simple.pp.hs
-    vector.pp.hs
+    # vector.pp.hs
 )
 
 # Default options

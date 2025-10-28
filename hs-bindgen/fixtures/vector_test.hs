@@ -17,7 +17,7 @@
           fieldOrigin = StructField
             StructField {
               structFieldInfo = FieldInfo {
-                fieldLoc = "vector.h:2:12",
+                fieldLoc = "vector_test.h:2:12",
                 fieldName = NamePair {
                   nameC = Name "x",
                   nameHsIdent = Identifier
@@ -32,12 +32,13 @@
               commentTitle = Nothing,
               commentOrigin = Just "x",
               commentLocation = Just
-                "vector.h:2:12",
+                "vector_test.h:2:12",
               commentHeaderInfo = Just
                 HeaderInfo {
                   headerMainHeaders = NE.fromList
-                    ["vector.h"],
-                  headerInclude = "vector.h"},
+                    ["vector_test.h"],
+                  headerInclude =
+                  "vector_test.h"},
               commentChildren = []}},
         Field {
           fieldName = Name
@@ -48,7 +49,7 @@
           fieldOrigin = StructField
             StructField {
               structFieldInfo = FieldInfo {
-                fieldLoc = "vector.h:3:12",
+                fieldLoc = "vector_test.h:3:12",
                 fieldName = NamePair {
                   nameC = Name "y",
                   nameHsIdent = Identifier
@@ -63,29 +64,31 @@
               commentTitle = Nothing,
               commentOrigin = Just "y",
               commentLocation = Just
-                "vector.h:3:12",
+                "vector_test.h:3:12",
               commentHeaderInfo = Just
                 HeaderInfo {
                   headerMainHeaders = NE.fromList
-                    ["vector.h"],
-                  headerInclude = "vector.h"},
+                    ["vector_test.h"],
+                  headerInclude =
+                  "vector_test.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
-            declLoc = "vector.h:1:9",
+            declLoc = "vector_test.h:1:9",
             declId = NamePair {
               nameC = Name "vector",
               nameHsIdent = Identifier
                 "Vector"},
             declOrigin = NameOriginGenerated
-              (AnonId "vector.h:1:9"),
+              (AnonId "vector_test.h:1:9"),
             declAliases = [Name "vector"],
             declHeaderInfo = Just
               HeaderInfo {
                 headerMainHeaders = NE.fromList
-                  ["vector.h"],
-                headerInclude = "vector.h"},
+                  ["vector_test.h"],
+                headerInclude =
+                "vector_test.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -96,7 +99,7 @@
               structFields = [
                 StructField {
                   structFieldInfo = FieldInfo {
-                    fieldLoc = "vector.h:2:12",
+                    fieldLoc = "vector_test.h:2:12",
                     fieldName = NamePair {
                       nameC = Name "x",
                       nameHsIdent = Identifier
@@ -108,7 +111,7 @@
                   structFieldWidth = Nothing},
                 StructField {
                   structFieldInfo = FieldInfo {
-                    fieldLoc = "vector.h:3:12",
+                    fieldLoc = "vector_test.h:3:12",
                     fieldName = NamePair {
                       nameC = Name "y",
                       nameHsIdent = Identifier
@@ -132,12 +135,13 @@
           commentTitle = Nothing,
           commentOrigin = Nothing,
           commentLocation = Just
-            "vector.h:1:9",
+            "vector_test.h:1:9",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
-                ["vector.h"],
-              headerInclude = "vector.h"},
+                ["vector_test.h"],
+              headerInclude =
+              "vector_test.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -160,7 +164,7 @@
               fieldOrigin = StructField
                 StructField {
                   structFieldInfo = FieldInfo {
-                    fieldLoc = "vector.h:2:12",
+                    fieldLoc = "vector_test.h:2:12",
                     fieldName = NamePair {
                       nameC = Name "x",
                       nameHsIdent = Identifier
@@ -175,12 +179,13 @@
                   commentTitle = Nothing,
                   commentOrigin = Just "x",
                   commentLocation = Just
-                    "vector.h:2:12",
+                    "vector_test.h:2:12",
                   commentHeaderInfo = Just
                     HeaderInfo {
                       headerMainHeaders = NE.fromList
-                        ["vector.h"],
-                      headerInclude = "vector.h"},
+                        ["vector_test.h"],
+                      headerInclude =
+                      "vector_test.h"},
                   commentChildren = []}},
             Field {
               fieldName = Name
@@ -191,7 +196,7 @@
               fieldOrigin = StructField
                 StructField {
                   structFieldInfo = FieldInfo {
-                    fieldLoc = "vector.h:3:12",
+                    fieldLoc = "vector_test.h:3:12",
                     fieldName = NamePair {
                       nameC = Name "y",
                       nameHsIdent = Identifier
@@ -206,29 +211,31 @@
                   commentTitle = Nothing,
                   commentOrigin = Just "y",
                   commentLocation = Just
-                    "vector.h:3:12",
+                    "vector_test.h:3:12",
                   commentHeaderInfo = Just
                     HeaderInfo {
                       headerMainHeaders = NE.fromList
-                        ["vector.h"],
-                      headerInclude = "vector.h"},
+                        ["vector_test.h"],
+                      headerInclude =
+                      "vector_test.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
-                declLoc = "vector.h:1:9",
+                declLoc = "vector_test.h:1:9",
                 declId = NamePair {
                   nameC = Name "vector",
                   nameHsIdent = Identifier
                     "Vector"},
                 declOrigin = NameOriginGenerated
-                  (AnonId "vector.h:1:9"),
+                  (AnonId "vector_test.h:1:9"),
                 declAliases = [Name "vector"],
                 declHeaderInfo = Just
                   HeaderInfo {
                     headerMainHeaders = NE.fromList
-                      ["vector.h"],
-                    headerInclude = "vector.h"},
+                      ["vector_test.h"],
+                    headerInclude =
+                    "vector_test.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -239,7 +246,7 @@
                   structFields = [
                     StructField {
                       structFieldInfo = FieldInfo {
-                        fieldLoc = "vector.h:2:12",
+                        fieldLoc = "vector_test.h:2:12",
                         fieldName = NamePair {
                           nameC = Name "x",
                           nameHsIdent = Identifier
@@ -251,7 +258,7 @@
                       structFieldWidth = Nothing},
                     StructField {
                       structFieldInfo = FieldInfo {
-                        fieldLoc = "vector.h:3:12",
+                        fieldLoc = "vector_test.h:3:12",
                         fieldName = NamePair {
                           nameC = Name "y",
                           nameHsIdent = Identifier
@@ -275,12 +282,13 @@
               commentTitle = Nothing,
               commentOrigin = Nothing,
               commentLocation = Just
-                "vector.h:1:9",
+                "vector_test.h:1:9",
               commentHeaderInfo = Just
                 HeaderInfo {
                   headerMainHeaders = NE.fromList
-                    ["vector.h"],
-                  headerInclude = "vector.h"},
+                    ["vector_test.h"],
+                  headerInclude =
+                  "vector_test.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 16,
@@ -306,7 +314,7 @@
                       fieldOrigin = StructField
                         StructField {
                           structFieldInfo = FieldInfo {
-                            fieldLoc = "vector.h:2:12",
+                            fieldLoc = "vector_test.h:2:12",
                             fieldName = NamePair {
                               nameC = Name "x",
                               nameHsIdent = Identifier
@@ -321,12 +329,13 @@
                           commentTitle = Nothing,
                           commentOrigin = Just "x",
                           commentLocation = Just
-                            "vector.h:2:12",
+                            "vector_test.h:2:12",
                           commentHeaderInfo = Just
                             HeaderInfo {
                               headerMainHeaders = NE.fromList
-                                ["vector.h"],
-                              headerInclude = "vector.h"},
+                                ["vector_test.h"],
+                              headerInclude =
+                              "vector_test.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = Name
@@ -337,7 +346,7 @@
                       fieldOrigin = StructField
                         StructField {
                           structFieldInfo = FieldInfo {
-                            fieldLoc = "vector.h:3:12",
+                            fieldLoc = "vector_test.h:3:12",
                             fieldName = NamePair {
                               nameC = Name "y",
                               nameHsIdent = Identifier
@@ -352,29 +361,31 @@
                           commentTitle = Nothing,
                           commentOrigin = Just "y",
                           commentLocation = Just
-                            "vector.h:3:12",
+                            "vector_test.h:3:12",
                           commentHeaderInfo = Just
                             HeaderInfo {
                               headerMainHeaders = NE.fromList
-                                ["vector.h"],
-                              headerInclude = "vector.h"},
+                                ["vector_test.h"],
+                              headerInclude =
+                              "vector_test.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
-                        declLoc = "vector.h:1:9",
+                        declLoc = "vector_test.h:1:9",
                         declId = NamePair {
                           nameC = Name "vector",
                           nameHsIdent = Identifier
                             "Vector"},
                         declOrigin = NameOriginGenerated
-                          (AnonId "vector.h:1:9"),
+                          (AnonId "vector_test.h:1:9"),
                         declAliases = [Name "vector"],
                         declHeaderInfo = Just
                           HeaderInfo {
                             headerMainHeaders = NE.fromList
-                              ["vector.h"],
-                            headerInclude = "vector.h"},
+                              ["vector_test.h"],
+                            headerInclude =
+                            "vector_test.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -385,7 +396,7 @@
                           structFields = [
                             StructField {
                               structFieldInfo = FieldInfo {
-                                fieldLoc = "vector.h:2:12",
+                                fieldLoc = "vector_test.h:2:12",
                                 fieldName = NamePair {
                                   nameC = Name "x",
                                   nameHsIdent = Identifier
@@ -397,7 +408,7 @@
                               structFieldWidth = Nothing},
                             StructField {
                               structFieldInfo = FieldInfo {
-                                fieldLoc = "vector.h:3:12",
+                                fieldLoc = "vector_test.h:3:12",
                                 fieldName = NamePair {
                                   nameC = Name "y",
                                   nameHsIdent = Identifier
@@ -421,12 +432,13 @@
                       commentTitle = Nothing,
                       commentOrigin = Nothing,
                       commentLocation = Just
-                        "vector.h:1:9",
+                        "vector_test.h:1:9",
                       commentHeaderInfo = Just
                         HeaderInfo {
                           headerMainHeaders = NE.fromList
-                            ["vector.h"],
-                          headerInclude = "vector.h"},
+                            ["vector_test.h"],
+                          headerInclude =
+                          "vector_test.h"},
                       commentChildren = []}})
               [
                 PeekByteOff (Idx 0) 0,
@@ -454,7 +466,7 @@
                       fieldOrigin = StructField
                         StructField {
                           structFieldInfo = FieldInfo {
-                            fieldLoc = "vector.h:2:12",
+                            fieldLoc = "vector_test.h:2:12",
                             fieldName = NamePair {
                               nameC = Name "x",
                               nameHsIdent = Identifier
@@ -469,12 +481,13 @@
                           commentTitle = Nothing,
                           commentOrigin = Just "x",
                           commentLocation = Just
-                            "vector.h:2:12",
+                            "vector_test.h:2:12",
                           commentHeaderInfo = Just
                             HeaderInfo {
                               headerMainHeaders = NE.fromList
-                                ["vector.h"],
-                              headerInclude = "vector.h"},
+                                ["vector_test.h"],
+                              headerInclude =
+                              "vector_test.h"},
                           commentChildren = []}},
                     Field {
                       fieldName = Name
@@ -485,7 +498,7 @@
                       fieldOrigin = StructField
                         StructField {
                           structFieldInfo = FieldInfo {
-                            fieldLoc = "vector.h:3:12",
+                            fieldLoc = "vector_test.h:3:12",
                             fieldName = NamePair {
                               nameC = Name "y",
                               nameHsIdent = Identifier
@@ -500,29 +513,31 @@
                           commentTitle = Nothing,
                           commentOrigin = Just "y",
                           commentLocation = Just
-                            "vector.h:3:12",
+                            "vector_test.h:3:12",
                           commentHeaderInfo = Just
                             HeaderInfo {
                               headerMainHeaders = NE.fromList
-                                ["vector.h"],
-                              headerInclude = "vector.h"},
+                                ["vector_test.h"],
+                              headerInclude =
+                              "vector_test.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
-                        declLoc = "vector.h:1:9",
+                        declLoc = "vector_test.h:1:9",
                         declId = NamePair {
                           nameC = Name "vector",
                           nameHsIdent = Identifier
                             "Vector"},
                         declOrigin = NameOriginGenerated
-                          (AnonId "vector.h:1:9"),
+                          (AnonId "vector_test.h:1:9"),
                         declAliases = [Name "vector"],
                         declHeaderInfo = Just
                           HeaderInfo {
                             headerMainHeaders = NE.fromList
-                              ["vector.h"],
-                            headerInclude = "vector.h"},
+                              ["vector_test.h"],
+                            headerInclude =
+                            "vector_test.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -533,7 +548,7 @@
                           structFields = [
                             StructField {
                               structFieldInfo = FieldInfo {
-                                fieldLoc = "vector.h:2:12",
+                                fieldLoc = "vector_test.h:2:12",
                                 fieldName = NamePair {
                                   nameC = Name "x",
                                   nameHsIdent = Identifier
@@ -545,7 +560,7 @@
                               structFieldWidth = Nothing},
                             StructField {
                               structFieldInfo = FieldInfo {
-                                fieldLoc = "vector.h:3:12",
+                                fieldLoc = "vector_test.h:3:12",
                                 fieldName = NamePair {
                                   nameC = Name "y",
                                   nameHsIdent = Identifier
@@ -569,12 +584,13 @@
                       commentTitle = Nothing,
                       commentOrigin = Nothing,
                       commentLocation = Just
-                        "vector.h:1:9",
+                        "vector_test.h:1:9",
                       commentHeaderInfo = Just
                         HeaderInfo {
                           headerMainHeaders = NE.fromList
-                            ["vector.h"],
-                          headerInclude = "vector.h"},
+                            ["vector_test.h"],
+                          headerInclude =
+                          "vector_test.h"},
                       commentChildren = []}}
                 (Add 2)
                 (Seq
@@ -645,13 +661,14 @@
                 "@NsTypeConstr"
                 "Vector")))),
       foreignImportOrigName =
-      "hs_bindgen_test_vector_c8cd49ec7dbcac25",
+      "hs_bindgen_test_vector_test_c8cd49ec7dbcac25",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "vector *hs_bindgen_test_vector_c8cd49ec7dbcac25 (double arg1, double arg2) { return new_vector(arg1, arg2); }",
-          capiWrapperImport = "vector.h"},
+          "vector *hs_bindgen_test_vector_test_c8cd49ec7dbcac25 (double arg1, double arg2) { return new_vector(arg1, arg2); }",
+          capiWrapperImport =
+          "vector_test.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -682,19 +699,21 @@
                     nameHsIdent = Identifier
                       "Vector"}
                   (NameOriginGenerated
-                    (AnonId "vector.h:1:9")))))},
+                    (AnonId
+                      "vector_test.h:1:9")))))},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just
             "new_vector",
           commentLocation = Just
-            "vector.h:6:9",
+            "vector_test.h:6:9",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
-                ["vector.h"],
-              headerInclude = "vector.h"},
+                ["vector_test.h"],
+              headerInclude =
+              "vector_test.h"},
           commentChildren = []},
       foreignImportSafety = Safe},
   DeclForeignImport
@@ -736,13 +755,14 @@
                 "@NsTypeConstr"
                 "Vector")))),
       foreignImportOrigName =
-      "hs_bindgen_test_vector_30a7381111c0131a",
+      "hs_bindgen_test_vector_test_30a7381111c0131a",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "vector *hs_bindgen_test_vector_30a7381111c0131a (double arg1, double arg2) { return new_vector(arg1, arg2); }",
-          capiWrapperImport = "vector.h"},
+          "vector *hs_bindgen_test_vector_test_30a7381111c0131a (double arg1, double arg2) { return new_vector(arg1, arg2); }",
+          capiWrapperImport =
+          "vector_test.h"},
       foreignImportOrigin = Function
         Function {
           functionArgs = [
@@ -773,26 +793,28 @@
                     nameHsIdent = Identifier
                       "Vector"}
                   (NameOriginGenerated
-                    (AnonId "vector.h:1:9")))))},
+                    (AnonId
+                      "vector_test.h:1:9")))))},
       foreignImportComment = Just
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just
             "new_vector",
           commentLocation = Just
-            "vector.h:6:9",
+            "vector_test.h:6:9",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
-                ["vector.h"],
-              headerInclude = "vector.h"},
+                ["vector_test.h"],
+              headerInclude =
+              "vector_test.h"},
           commentChildren = []},
       foreignImportSafety = Unsafe},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
-        "hs_bindgen_test_vector_7672b9e7f001c998",
+        "hs_bindgen_test_vector_test_7672b9e7f001c998",
       foreignImportParameters = [],
       foreignImportResultType =
       NormalResultType
@@ -809,13 +831,14 @@
                         "@NsTypeConstr"
                         "Vector")))))))),
       foreignImportOrigName =
-      "hs_bindgen_test_vector_7672b9e7f001c998",
+      "hs_bindgen_test_vector_test_7672b9e7f001c998",
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_new_vector_ptr */ __attribute__ ((const)) vector *(*hs_bindgen_test_vector_7672b9e7f001c998 (void)) (double arg1, double arg2) { return &new_vector; } ",
-          capiWrapperImport = "vector.h"},
+          "/* get_new_vector_ptr */ __attribute__ ((const)) vector *(*hs_bindgen_test_vector_test_7672b9e7f001c998 (void)) (double arg1, double arg2) { return &new_vector; } ",
+          capiWrapperImport =
+          "vector_test.h"},
       foreignImportOrigin = Global
         (TypeFun
           [
@@ -833,7 +856,8 @@
                     nameHsIdent = Identifier
                       "Vector"}
                   (NameOriginGenerated
-                    (AnonId "vector.h:1:9"))))))),
+                    (AnonId
+                      "vector_test.h:1:9"))))))),
       foreignImportComment = Nothing,
       foreignImportSafety = Unsafe},
   DeclSimple,

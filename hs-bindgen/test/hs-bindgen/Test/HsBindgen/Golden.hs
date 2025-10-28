@@ -112,7 +112,7 @@ testCases = manualTestCases ++ [
     , defaultTest "typenames"
     , defaultTest "unions"
     , defaultTest "uses_utf8"
-    , defaultTest "vector"
+    , defaultTest "vector_test"
 
       --
       -- Clang diagnostics

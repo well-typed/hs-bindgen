@@ -2,7 +2,7 @@ version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
 types:
-- headers: vector.h
+- headers: vector_test.h
   cname: vector
   module: Example
   hsname: Vector
