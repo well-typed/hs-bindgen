@@ -1,81 +1,81 @@
-cabal-version:      3.0
-name:               hs-bindgen-runtime
-version:            0.1.0
-synopsis:           Design patterns for writing high-level FFI bindings
-license:            BSD-3-Clause
-license-file:       LICENSE
-author:             Edsko de Vries
-maintainer:         edsko@well-typed.com
-category:           Development
-build-type:         Simple
-extra-doc-files:    CHANGELOG.md
-tested-with:      , GHC==9.2.8
-                  , GHC==9.4.8
-                  , GHC==9.6.6
-                  , GHC==9.8.2
-                  , GHC==9.10.2
-                  , GHC==9.12.2
+cabal-version:   3.0
+name:            hs-bindgen-runtime
+version:         0.1.0
+synopsis:        Design patterns for writing high-level FFI bindings
+license:         BSD-3-Clause
+license-file:    LICENSE
+author:          Edsko de Vries
+maintainer:      edsko@well-typed.com
+category:        Development
+build-type:      Simple
+extra-doc-files: CHANGELOG.md
+tested-with:
+  GHC ==9.2.8
+   || ==9.4.8
+   || ==9.6.6
+   || ==9.8.2
+   || ==9.10.2
+   || ==9.12.2
 
 common lang
   ghc-options:
-      -Wall
-      -Widentities
-      -Wprepositive-qualified-module
-      -Wredundant-constraints
-      -Wunused-packages
-      -Wno-unticked-promoted-constructors
-  build-depends:
-      base >= 4.16 && < 4.22
-  default-language:
-      GHC2021
+    -Wall -Widentities -Wprepositive-qualified-module
+    -Wredundant-constraints -Wunused-packages
+    -Wno-unticked-promoted-constructors
+
+  build-depends:      base >=4.16 && <4.22
+  default-language:   GHC2021
   default-extensions:
-      DataKinds
-      DefaultSignatures
-      DeriveAnyClass
-      DerivingStrategies
-      DerivingVia
-      FunctionalDependencies
-      RecordWildCards
-      RoleAnnotations
-      ScopedTypeVariables
-  other-extensions:
-      CPP
+    DataKinds
+    DefaultSignatures
+    DeriveAnyClass
+    DerivingStrategies
+    DerivingVia
+    FunctionalDependencies
+    RecordWildCards
+    RoleAnnotations
+    ScopedTypeVariables
+
+  other-extensions:   CPP
 
 library
-  import:
-      lang
+  import:             lang
   exposed-modules:
-      HsBindgen.Runtime.Bitfield
-      HsBindgen.Runtime.Block
-      HsBindgen.Runtime.ByteArray
-      HsBindgen.Runtime.CAPI
-      HsBindgen.Runtime.CEnum
-      HsBindgen.Runtime.ConstantArray
-      HsBindgen.Runtime.FlexibleArrayMember
-      HsBindgen.Runtime.FunPtr
-      HsBindgen.Runtime.IncompleteArray
-      HsBindgen.Runtime.LibC
-      HsBindgen.Runtime.Marshal
-      HsBindgen.Runtime.Prelude
-      HsBindgen.Runtime.SizedByteArray
+    HsBindgen.Runtime.Bitfield
+    HsBindgen.Runtime.Block
+    HsBindgen.Runtime.ByteArray
+    HsBindgen.Runtime.CAPI
+    HsBindgen.Runtime.CEnum
+    HsBindgen.Runtime.ConstantArray
+    HsBindgen.Runtime.FlexibleArrayMember
+    HsBindgen.Runtime.FunPtr
+    HsBindgen.Runtime.IncompleteArray
+    HsBindgen.Runtime.LibC
+    HsBindgen.Runtime.Marshal
+    HsBindgen.Runtime.Prelude
+    HsBindgen.Runtime.SizedByteArray
+
   other-modules:
-      HsBindgen.Runtime.FunPtr.Class
-      HsBindgen.Runtime.TH.Instances
-      HsBindgen.Runtime.TH.Types
-  hs-source-dirs:
-      src
+    HsBindgen.Runtime.FunPtr.Class
+    HsBindgen.Runtime.TH.Instances
+    HsBindgen.Runtime.TH.Types
+
+  hs-source-dirs:     src
+
+  -- Internal dependencies
   build-depends:
-      -- Internal dependencies
+
+  -- External dependencies
   build-depends:
-      -- External dependencies
-    , containers >= 0.6.5.1 && < 0.8
-    , vector ^>=0.13.2.0
-    , primitive ^>=0.9.0.0
+    , containers        >=0.6.5.1   && <0.8
+    , primitive         ^>=0.9.0.0
     , template-haskell
-  if impl(ghc < 9.4)
+    , vector            ^>=0.13.2.0
+
+  if impl(ghc <9.4)
     build-depends: data-array-byte >=0.1.0.1 && <0.2
-  build-tool-depends:
-      hsc2hs:hsc2hs
+
+  build-tool-depends: hsc2hs:hsc2hs
 
 test-suite test-runtime
   import:         lang
@@ -83,17 +83,18 @@ test-suite test-runtime
   type:           exitcode-stdio-1.0
   main-is:        test-runtime.hs
   other-modules:
-      Test.HsBindgen.Runtime.Bitfield
-      Test.HsBindgen.Runtime.CEnum
-      Test.HsBindgen.Runtime.CEnumArbitrary
-      Test.Internal.Tasty
+    Test.HsBindgen.Runtime.Bitfield
+    Test.HsBindgen.Runtime.CEnum
+    Test.HsBindgen.Runtime.CEnumArbitrary
+    Test.Internal.Tasty
+
+  -- Internal dependencies
+  build-depends:  hs-bindgen-runtime
+
+  -- External dependencies
   build-depends:
-      -- Internal dependencies
-    , hs-bindgen-runtime
-  build-depends:
-      -- External dependencies
-    , QuickCheck        >= 2.14.3 && < 2.16
-    , tasty             ^>=1.5
-    , tasty-expected-failure ^>= 0.12.3
-    , tasty-hunit       ^>=0.10.2
-    , tasty-quickcheck  ^>=0.11
+    , QuickCheck              >=2.14.3  && <2.16
+    , tasty                   ^>=1.5
+    , tasty-expected-failure  ^>=0.12.3
+    , tasty-hunit             ^>=0.10.2
+    , tasty-quickcheck        ^>=0.11

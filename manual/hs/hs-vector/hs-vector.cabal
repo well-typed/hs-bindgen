@@ -9,36 +9,34 @@ build-type:    Simple
 
 common lang
   ghc-options:
-    -Wall
-    -Widentities
-    -Wredundant-constraints
-    -Wunused-packages
+    -Wall -Widentities -Wredundant-constraints -Wunused-packages
     -Wno-unticked-promoted-constructors
+
   build-depends:
-      base >= 4.16 && < 5
+    , base                >=4.16 && <5
     , hs-bindgen-runtime
+
   default-language: GHC2021
 
 library
-  import:         lang
-  hs-source-dirs: src, generated
+  import:          lang
+  hs-source-dirs:  src generated
 
+  -- handwritten
+  exposed-modules: Vector.Types
+
+  -- generated
   exposed-modules:
-      -- handwritten
-      Vector.Types
+    Vector
+    Vector.FunPtr
+    Vector.Length
+    Vector.Length.FunPtr
+    Vector.Length.Safe
+    Vector.Length.Unsafe
+    Vector.Rotate.FunPtr
+    Vector.Rotate.Safe
+    Vector.Rotate.Unsafe
+    Vector.Safe
+    Vector.Unsafe
 
-      -- generated
-      Vector
-      Vector.FunPtr
-      Vector.Length
-      Vector.Length.FunPtr
-      Vector.Length.Safe
-      Vector.Length.Unsafe
-      Vector.Safe
-      Vector.Unsafe
-      Vector.Rotate.FunPtr
-      Vector.Rotate.Safe
-      Vector.Rotate.Unsafe
-
-  extra-libraries:
-      vector
+  extra-libraries: vector

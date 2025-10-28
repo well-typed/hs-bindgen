@@ -9,63 +9,66 @@ build-type:    Simple
 
 common lang
   ghc-options:
-    -Wall
-    -Widentities
-    -Wredundant-constraints
-    -Wunused-packages
+    -Wall -Widentities -Wredundant-constraints -Wunused-packages
     -Wno-unticked-promoted-constructors
-  default-language: GHC2021
-  build-depends:    base >= 4.16 && < 5
+
+  default-language:   GHC2021
+  build-depends:      base >=4.16 && <5
   default-extensions:
-      DerivingVia
-      LambdaCase
+    DerivingVia
+    LambdaCase
 
 executable run-manual
   import:          lang
   main-is:         Manual.hs
   ghc-options:     -main-is Manual
-  hs-source-dirs:  app, generated
-  extra-libraries: example, structs, globals, arrays, functionpointers, hsb_complex_test, callbacks
+  hs-source-dirs:  app generated
+  extra-libraries:
+    example
+    structs
+    globals
+    arrays
+    functionpointers
+    hsb_complex_test
+    callbacks
 
+  -- Internal.
   build-depends:
-    -- Internal.
     , c-expr-runtime
     , hs-bindgen-runtime
     , hs-game
     , hs-vector
 
-    -- External.
-    , vector
+  -- External.
+  build-depends:   vector
 
-  if impl(ghc < 9.4)
+  if impl(ghc <9.4)
     build-depends: data-array-byte
 
   other-modules:
-      Manual.Tools
-      --
-      Arrays
-      Arrays.Global
-      Arrays.Safe
-      Complex
-      Complex.Global
-      Complex.Safe
-      Example
-      Example.Global
-      Example.Unsafe
-      FunctionPointers
-      FunctionPointers.FunPtr
-      FunctionPointers.Global
-      FunctionPointers.Safe
-      Globals
-      Globals.Global
-      Structs
-      Structs.Safe
-      Callbacks
-      Callbacks.FunPtr
-      Callbacks.Safe
-      Callbacks.Unsafe
+    Arrays
+    Arrays.Global
+    Arrays.Safe
+    Callbacks
+    Callbacks.FunPtr
+    Callbacks.Safe
+    Callbacks.Unsafe
+    Complex
+    Complex.Global
+    Complex.Safe
+    Example
+    Example.Global
+    Example.Unsafe
+    FunctionPointers
+    FunctionPointers.FunPtr
+    FunctionPointers.Global
+    FunctionPointers.Safe
+    Globals
+    Globals.Global
+    Manual.Tools
+    Structs
+    Structs.Safe
 
-  ghc-options:
-      -- Avoid gcc warnings about non-NFC characters
-      -- See <https://github.com/well-typed/hs-bindgen/issues/918>
-      -optc -Wno-normalized
+  -- Avoid gcc warnings about non-NFC characters
+  -- See <https://github.com/well-typed/hs-bindgen/issues/918>
+  ghc-options:     -optc -Wno-normalized

@@ -1,0 +1,34 @@
+name: cabal-fmt
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  merge_group:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint-cabal-fmt:
+    name: cabal-fmt
+    runs-on: ubuntu-latest
+    steps:
+    - name: 📥 Checkout repository
+      uses: actions/checkout@v5
+
+    - name: 🛠️ Setup cabal-fmt
+      uses: jorisdral/actions/setup-cabal-fmt@main
+      with:
+        cabal-fmt-version: "0.1.12"
+        ghc-version: "9.6"
+        cabal-version: "3.12"
+        # The index-state is fixed to enable caching and ensure that the version
+        # regardless of the current state of Hackage head.
+        # If you want a newer version of cabal-fmt, use a more recent time.
+        hackage-index-state: "2025-10-28T00:00:00Z"
+
+    - name: 🎗️ Lint with cabal-fmt
+      run: ./scripts/ci/run-cabal-fmt.sh && git diff --exit-code

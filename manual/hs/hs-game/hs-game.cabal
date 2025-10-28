@@ -9,26 +9,24 @@ build-type:    Simple
 
 common lang
   ghc-options:
-    -Wall
-    -Widentities
-    -Wredundant-constraints
-    -Wunused-packages
+    -Wall -Widentities -Wredundant-constraints -Wunused-packages
     -Wno-unticked-promoted-constructors
+
   build-depends:
-      base >= 4.16 && < 5
+    , base                >=4.16 && <5
     , hs-bindgen-runtime
+
   default-language: GHC2021
 
 library
   import:          lang
   hs-source-dirs:  generated
   extra-libraries: game
-
   exposed-modules:
-      Game.Player.FunPtr
-      Game.Player.Safe
-      Game.Player.Unsafe
-      Game.State
-      Game.World.FunPtr
-      Game.World.Safe
-      Game.World.Unsafe
+    Game.Player.FunPtr
+    Game.Player.Safe
+    Game.Player.Unsafe
+    Game.State
+    Game.World.FunPtr
+    Game.World.Safe
+    Game.World.Unsafe
