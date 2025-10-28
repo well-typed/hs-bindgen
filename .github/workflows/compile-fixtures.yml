@@ -1,0 +1,81 @@
+name: Compile Fixtures
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  merge_group:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  compile-fixtures:
+    name: Compile Fixtures (GHC 9.4, Cabal 3.16, LLVM 15)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v5
+
+      - name: 🛠️ Setup Haskell
+        id: setup-haskell
+        uses: haskell-actions/setup@v2
+        with:
+          ghc-version: 9.4
+          cabal-version: 3.16
+
+      - name: 🛠️ Setup LLVM/Clang
+        uses: ./.github/actions/setup-llvm
+        with:
+          version: 15
+
+      - name: 💾 Generate Cabal plan
+        run: cabal build all --dry-run --disable-test --disable-benchmark
+
+      # Here is where we hash the two build plan files together and include the
+      # hash in the cache key. If either build plan changes, then the hash
+      # changes, and we'll save a new cache.
+      - name: 💾 Restore Cabal dependencies
+        id: cache-cabal-restore
+        uses: actions/cache/restore@v4
+        env:
+          key: compile-fixtures-${{ matrix.example }}-${{ matrix.runner }}-ghc-${{ steps.setup-haskell.outputs.ghc-version }}-cabal-${{ steps.setup-haskell.outputs.cabal-version }}-llvm-${{ matrix.llvm-version }}
+          plan-file-hs-bindgen-cli: './dist-newstyle/cache/plan.json'
+          plan-file-example: '${{env.hs-project-directory}}/dist-newstyle/cache/plan.json'
+        with:
+          path: ${{ steps.setup-haskell.outputs.cabal-store }}
+          key: ${{ env.key }}-plan-${{ hashFiles(env.plan-file-hs-bindgen-cli, env.plan-file-example) }}
+          restore-keys: ${{ env.key }}-
+
+      - name: 🛠️ Build Cabal dependencies
+        run: cabal build all --only-dependencies --disable-test --disable-benchmark
+
+      - name: 💾 Save Cabal dependencies
+        uses: actions/cache/save@v4
+        if: ${{ steps.cache-cabal-restore.outputs.cache-hit != 'true' }}
+        with:
+          path: ${{ steps.setup-haskell.outputs.cabal-store }}
+          key: ${{ steps.cache-cabal-restore.outputs.cache-primary-key }}
+
+      - name: 🏗️ Build hs-bindgen
+        run: cabal build all --disable-test --disable-benchmark
+
+      - name: 🧪 Compile fixtures
+        run: |
+          chmod +x scripts/ci/compile-fixtures.sh
+          scripts/ci/compile-fixtures.sh
