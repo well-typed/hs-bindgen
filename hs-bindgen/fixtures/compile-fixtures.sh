@@ -61,6 +61,17 @@ while getopts "j:fh" opt; do
 done
 shift $((OPTIND - 1))
 
+# Detect script location and set up paths
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+HS_BINDGEN_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+EXAMPLES_DIR="$HS_BINDGEN_DIR/examples"
+
+# Verify directories exist
+if [[ ! -f "$SCRIPT_DIR/adios.pp.hs" ]]; then
+    echo "Error: Fixtures not found at $SCRIPT_DIR" >&2
+    exit 1
+fi
+
 # Function to check if a file is in the known failures list
 is_known_failure() {
     local file="$1"
@@ -85,19 +96,18 @@ compile_fixture() {
     local output_dir
     output_dir=$(mktemp -d)
 
-    if cabal exec -- ghc \
+    if (cd "$HS_BINDGEN_DIR" && cabal exec -- ghc \
         -c \
         -fforce-recomp \
         -package hs-bindgen-runtime \
         -package c-expr-runtime \
         -outputdir "$output_dir" \
-        -optc -I"../examples" \
-        -optc -I"../examples/failing" \
-        -optc -I"../examples/golden" \
-        -optc -I"../examples/golden-norust" \
+        -optc -I"$EXAMPLES_DIR" \
+        -optc -I"$EXAMPLES_DIR/golden" \
+        -optc -std=gnu23 \
         -optc -Wno-deprecated-declarations \
         -optc -Wno-attributes \
-        "$file" &>"$output_dir/compile.log"; then
+        "$file" &>"$output_dir/compile.log"); then
         echo "✓ $basename_file"
         rm -rf "$output_dir"
         return 0
@@ -116,13 +126,15 @@ compile_fixture() {
 export -f compile_fixture
 export -f is_known_failure
 export KNOWN_FAILURES
+export HS_BINDGEN_DIR
+export EXAMPLES_DIR
 
 # Collect fixtures to compile
 echo "Collecting fixtures..."
 FIXTURES_TO_COMPILE=()
 FIXTURES_SKIPPED=()
 
-for file in *.pp.hs; do
+for file in "$SCRIPT_DIR"/*.pp.hs; do
     [[ -f "$file" ]] || continue
 
     if [[ "$FORCE_ALL" == "false" ]] && is_known_failure "$file"; then
@@ -136,7 +148,7 @@ echo ""
 echo "========================================="
 echo "Fixture Compilation Report"
 echo "========================================="
-echo "Total fixtures: $(ls -1 *.pp.hs 2>/dev/null | wc -l)"
+echo "Total fixtures: $(ls -1 "$SCRIPT_DIR"/*.pp.hs 2>/dev/null | wc -l)"
 echo "To compile: ${#FIXTURES_TO_COMPILE[@]}"
 echo "Skipped (known failures): ${#FIXTURES_SKIPPED[@]}"
 echo "Parallel jobs: $JOBS"
