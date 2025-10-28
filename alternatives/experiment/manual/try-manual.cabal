@@ -1,37 +1,28 @@
-cabal-version:      3.0
-name:               try-manual
-version:            0.1.0
-license:            BSD-3-Clause
-license-file:       LICENSE
-author:             Edsko de Vries
-maintainer:         edsko@well-typed.com
-build-type:         Simple
+cabal-version: 3.0
+name:          try-manual
+version:       0.1.0
+license:       BSD-3-Clause
+license-file:  LICENSE
+author:        Edsko de Vries
+maintainer:    edsko@well-typed.com
+build-type:    Simple
 
 common lang
-  ghc-options:
-      -Wall
-  build-depends:
-      base >= 4.16
-  default-language:
-     GHC2021
+  ghc-options:      -Wall
+  build-depends:    base >=4.16
+  default-language: GHC2021
 
 executable try-manual
-  import:
-     lang
-  hs-source-dirs:
-      app
-  main-is:
-      Main.hs
-  other-modules:
-      HsBindgenCExample
-  pkgconfig-depends:
-      hs-bindgen-c-example
+  import:            lang
+  hs-source-dirs:    app
+  main-is:           Main.hs
+  other-modules:     HsBindgenCExample
+  pkgconfig-depends: hs-bindgen-c-example
 
-  if(flag(include-invalid))
-    cpp-options:
-      -DINCLUDE_INVALID
+  if flag(include-invalid)
+    cpp-options: -DINCLUDE_INVALID
 
 flag include-invalid
   description: Also include invalid declarations
-  default: False
-  manual: True
+  default:     False
+  manual:      True

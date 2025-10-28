@@ -1,47 +1,48 @@
-cabal-version:      3.0
-name:               c-expr-dsl
-version:            0.1.0.0
-license:            BSD-3-Clause
-license-file:       LICENSE
-author:             sheaf
-maintainer:         Well-Typed LLP
-category:           System
-build-type:         Simple
-extra-doc-files:    CHANGELOG.md
-tested-with:      , GHC==9.2.8
-                  , GHC==9.4.8
-                  , GHC==9.6.6
-                  , GHC==9.8.2
-                  , GHC==9.10.2
-                  , GHC==9.12.2
-synopsis: DSL for the language support by c-expr-runtime
+cabal-version:   3.0
+name:            c-expr-dsl
+version:         0.1.0.0
+license:         BSD-3-Clause
+license-file:    LICENSE
+author:          sheaf
+maintainer:      Well-Typed LLP
+category:        System
+build-type:      Simple
+extra-doc-files: CHANGELOG.md
+tested-with:
+  GHC ==9.2.8
+   || ==9.4.8
+   || ==9.6.6
+   || ==9.8.2
+   || ==9.10.2
+   || ==9.12.2
+
+synopsis:        DSL for the language support by c-expr-runtime
 
 common lang
-  build-depends:    base >= 4.16 && < 4.22
-  default-language: GHC2021
-
+  build-depends:      base >=4.16 && <4.22
+  default-language:   GHC2021
   default-extensions:
-      DataKinds
-      DeriveAnyClass
-      DerivingStrategies
-      LambdaCase
-      MultiWayIf
-      PatternSynonyms
-      QuantifiedConstraints
-      TypeFamilies
-      UndecidableInstances
+    DataKinds
+    DeriveAnyClass
+    DerivingStrategies
+    LambdaCase
+    MultiWayIf
+    PatternSynonyms
+    QuantifiedConstraints
+    TypeFamilies
+    UndecidableInstances
+
   other-extensions:
-      CPP
-      MagicHash
+    CPP
+    MagicHash
+
   ghc-options:
-     -Wall
-     -Wunused-packages
-     -Wno-unticked-promoted-constructors
-     -Wprepositive-qualified-module
+    -Wall -Wunused-packages -Wno-unticked-promoted-constructors
+    -Wprepositive-qualified-module
 
 library
-  import:         lang
-  hs-source-dirs: src
+  import:          lang
+  hs-source-dirs:  src
 
   -- TODO: Make sure we only need to expose .Parse itself
 
@@ -53,29 +54,25 @@ library
 
   -- TODO: .Util.TestEquality should not be exposed at all
   exposed-modules:
-      C.Expr.Syntax
-
-      C.Expr.Parse
-      C.Expr.Parse.Expr
-
-      C.Expr.Parse.Infra
-      C.Expr.Typecheck
-      C.Expr.Typecheck.Expr
-
-      C.Expr.Typecheck.Type
-
-      C.Expr.Util.TestEquality
+    C.Expr.Parse
+    C.Expr.Parse.Expr
+    C.Expr.Parse.Infra
+    C.Expr.Syntax
+    C.Expr.Typecheck
+    C.Expr.Typecheck.Expr
+    C.Expr.Typecheck.Type
+    C.Expr.Util.TestEquality
 
   other-modules:
-      C.Expr.Parse.Literal
-      C.Expr.Parse.Name
-      C.Expr.Syntax.Expr
-      C.Expr.Syntax.Literals
-      C.Expr.Syntax.Name
-      C.Expr.Syntax.TTG
-      C.Expr.Syntax.TTG.Parse
-      C.Expr.Syntax.TTG.Typecheck
-      C.Expr.Util.Parsec
+    C.Expr.Parse.Literal
+    C.Expr.Parse.Name
+    C.Expr.Syntax.Expr
+    C.Expr.Syntax.Literals
+    C.Expr.Syntax.Name
+    C.Expr.Syntax.TTG
+    C.Expr.Syntax.TTG.Parse
+    C.Expr.Syntax.TTG.Typecheck
+    C.Expr.Util.Parsec
 
   -- internal dependencies
   build-depends:
@@ -84,11 +81,11 @@ library
 
   -- external dependencies
   build-depends:
-    , containers >= 0.6.5.1 && < 0.8
-    , fin        >= 0.3.2   && < 0.4
-    , mtl        >= 2.2     && < 2.4
-    , parsec     >= 3.1     && < 3.2
-    , scientific >= 0.3.7   && < 0.4
-    , some       >= 1.0.6   && < 1.1
-    , text       >= 1.2     && < 2.2
-    , vec        >= 0.5     && < 0.6
+    , containers  >=0.6.5.1 && <0.8
+    , fin         >=0.3.2   && <0.4
+    , mtl         >=2.2     && <2.4
+    , parsec      >=3.1     && <3.2
+    , scientific  >=0.3.7   && <0.4
+    , some        >=1.0.6   && <1.1
+    , text        >=1.2     && <2.2
+    , vec         >=0.5     && <0.6

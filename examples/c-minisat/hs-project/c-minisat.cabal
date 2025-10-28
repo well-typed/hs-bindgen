@@ -1,36 +1,40 @@
-cabal-version:      3.0
-name:               c-minisat
-version:            0.1.0.0
-license:            BSD-3-Clause
-license-file:       LICENSE
-author:             Armando Santos
-maintainer:         armandoifsantos@gmail.com
-build-type:         Simple
-extra-doc-files:    CHANGELOG.md
+cabal-version:   3.0
+name:            c-minisat
+version:         0.1.0.0
+license:         BSD-3-Clause
+license-file:    LICENSE
+author:          Armando Santos
+maintainer:      armandoifsantos@gmail.com
+build-type:      Simple
+extra-doc-files: CHANGELOG.md
 
 common warnings
-    ghc-options: -Wall
+  ghc-options: -Wall
 
 library
-    import:           warnings
-    exposed-modules:  Generated.Minisat
-                      Generated.Minisat.Safe
-                      Generated.Minisat.Unsafe
-                      Generated.Minisat.Global
-                      Generated.Minisat.FunPtr
-    build-depends:    base,
-                      hs-bindgen-runtime
-    hs-source-dirs:   src
-    default-language: Haskell2010
-    extra-libraries: minisat-c
+  import:           warnings
+  exposed-modules:
+    Generated.Minisat
+    Generated.Minisat.FunPtr
+    Generated.Minisat.Global
+    Generated.Minisat.Safe
+    Generated.Minisat.Unsafe
+
+  build-depends:
+    , base
+    , hs-bindgen-runtime
+
+  hs-source-dirs:   src
+  default-language: Haskell2010
+  extra-libraries:  minisat-c
 
 executable c-minisat-bin
-    import:           warnings
-    main-is:          Main.hs
-    build-depends:
-        base,
-        c-minisat
-    hs-source-dirs:   app
-    default-language: Haskell2010
-    default-extensions:
-      ImportQualifiedPost
+  import:             warnings
+  main-is:            Main.hs
+  build-depends:
+    , base
+    , c-minisat
+
+  hs-source-dirs:     app
+  default-language:   Haskell2010
+  default-extensions: ImportQualifiedPost
