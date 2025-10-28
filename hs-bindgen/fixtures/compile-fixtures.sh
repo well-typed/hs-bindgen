@@ -22,18 +22,18 @@ EOF
 # Known failures - these will be skipped unless -f is used
 KNOWN_FAILURES=(
     # GCC Failures
-    "bool_c23.pp.hs"               # C23-specific features not available in current compiler
-    "decls_in_signature.pp.hs"     # Invalid use of undefined type.
-    "fun_attributes.pp.hs"         # Aliased to undefined symbol error.
-    "iterator.pp.hs"               # Apple Blocks extension not supported (requires special compiler support)
-    "visibility_attributes.pp.hs"
-    "reparse.pp.hs"
+    # "bool_c23.pp.hs"               # C23-specific features not available in current compiler
+    # "decls_in_signature.pp.hs"     # Invalid use of undefined type.
+    # "fun_attributes.pp.hs"         # Aliased to undefined symbol error.
+    # "iterator.pp.hs"               # Apple Blocks extension not supported (requires special compiler support)
+    # "visibility_attributes.pp.hs"
+    # "reparse.pp.hs"
 
     # GHC Failures
-    "program_slicing_simple.pp.hs" # Module imports itself (circular dependency in generated code)
-    "redeclaration.pp.hs"          # Generated code has multiple declarations (edge case in C code)
-    "typenames.pp.hs"              # Generated code has multiple declarations (edge case in C code)
-    "vector.pp.hs"                 # Wrong import from 'vector-algorithms/vector.h'
+    # "program_slicing_simple.pp.hs" # Module imports itself (circular dependency in generated code)
+    # "redeclaration.pp.hs"          # Generated code has multiple declarations (edge case in C code)
+    # "typenames.pp.hs"              # Generated code has multiple declarations (edge case in C code)
+    # "vector.pp.hs"                 # Wrong import from 'vector-algorithms/vector.h'
 )
 
 # Default options
