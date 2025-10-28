@@ -86,13 +86,8 @@ command_exists() {
 # ==============================================================================
 
 # Find all Haskell files in the project
-# Uses 'fd' if available for better performance, falls back to 'find'
 find_all_haskell_files() {
-    if command_exists fd; then
-        fd -e "${HASKELL_EXTENSION}" --type f
-    else
-        find . -name "*.${HASKELL_EXTENSION}" -type f
-    fi
+    git ls-files --exclude-standard --no-deleted --deduplicate "*.${HASKELL_EXTENSION}"
 }
 
 # Get uncommitted Haskell files from git
