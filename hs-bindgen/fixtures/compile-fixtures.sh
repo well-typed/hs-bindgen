@@ -23,15 +23,12 @@ EOF
 KNOWN_FAILURES=(
     # GCC Failures
     iterator.pp.hs # Makes use of Apple block extension which would require clang (see #913)
-
-    decls_in_signature.pp.hs
-    redeclaration.pp.hs
-    fun_attributes.pp.hs
+    decls_in_signature.pp.hs # Unusable struct (See #1128)
+    redeclaration.pp.hs # Same as typenames.pp.hs
     visibility_attributes.pp.hs
 
     # GHC Failures
     typenames.pp.hs # hs-bindgen namespace possible bug/feature
-    # vector.pp.hs
 )
 
 # Default options

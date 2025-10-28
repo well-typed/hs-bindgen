@@ -595,7 +595,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "__f1",
           commentLocation = Just
-            "fun_attributes.h:16:6",
+            "fun_attributes.h:16:13",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -634,7 +634,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "f1",
           commentLocation = Just
-            "fun_attributes.h:17:6",
+            "fun_attributes.h:19:6",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -713,7 +713,7 @@
           commentOrigin = Just
             "my_memalign",
           commentLocation = Just
-            "fun_attributes.h:21:7",
+            "fun_attributes.h:23:7",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -792,7 +792,7 @@
           commentOrigin = Just
             "my_calloc",
           commentLocation = Just
-            "fun_attributes.h:26:7",
+            "fun_attributes.h:28:7",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -862,7 +862,7 @@
           commentOrigin = Just
             "my_realloc",
           commentLocation = Just
-            "fun_attributes.h:27:7",
+            "fun_attributes.h:29:7",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -923,7 +923,7 @@
           commentOrigin = Just
             "my_alloc1",
           commentLocation = Just
-            "fun_attributes.h:32:7",
+            "fun_attributes.h:34:7",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -984,7 +984,7 @@
           commentOrigin = Just
             "my_alloc2",
           commentLocation = Just
-            "fun_attributes.h:33:7",
+            "fun_attributes.h:35:7",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1034,7 +1034,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "square",
           commentLocation = Just
-            "fun_attributes.h:37:5",
+            "fun_attributes.h:39:5",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1075,7 +1075,7 @@
           commentOrigin = Just
             "old_fn_deprecated",
           commentLocation = Just
-            "fun_attributes.h:46:5",
+            "fun_attributes.h:48:5",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1171,7 +1171,7 @@
           commentOrigin = Just
             "my_dgettext",
           commentLocation = Just
-            "fun_attributes.h:62:1",
+            "fun_attributes.h:64:1",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1250,7 +1250,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "fdopen",
           commentLocation = Just
-            "fun_attributes.h:73:9",
+            "fun_attributes.h:75:9",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1289,7 +1289,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "f2",
           commentLocation = Just
-            "fun_attributes.h:77:65",
+            "fun_attributes.h:79:65",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1399,7 +1399,7 @@
           commentOrigin = Just
             "my_memcpy",
           commentLocation = Just
-            "fun_attributes.h:83:1",
+            "fun_attributes.h:85:1",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1438,7 +1438,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "fatal",
           commentLocation = Just
-            "fun_attributes.h:100:6",
+            "fun_attributes.h:102:6",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1491,7 +1491,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "hash",
           commentLocation = Just
-            "fun_attributes.h:108:5",
+            "fun_attributes.h:110:5",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1569,7 +1569,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "mymalloc",
           commentLocation = Just
-            "fun_attributes.h:113:1",
+            "fun_attributes.h:115:1",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1608,7 +1608,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "foobar",
           commentLocation = Just
-            "fun_attributes.h:117:13",
+            "fun_attributes.h:119:13",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1649,7 +1649,7 @@
           commentOrigin = Just
             "core2_func",
           commentLocation = Just
-            "fun_attributes.h:124:5",
+            "fun_attributes.h:126:5",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1690,7 +1690,7 @@
           commentOrigin = Just
             "sse3_func",
           commentLocation = Just
-            "fun_attributes.h:125:5",
+            "fun_attributes.h:127:5",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1729,7 +1729,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "f3",
           commentLocation = Just
-            "fun_attributes.h:129:49",
+            "fun_attributes.h:131:49",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1769,7 +1769,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "fn",
           commentLocation = Just
-            "fun_attributes.h:134:5",
+            "fun_attributes.h:136:5",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1809,7 +1809,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "y",
           commentLocation = Just
-            "fun_attributes.h:140:12",
+            "fun_attributes.h:142:12",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1849,7 +1849,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "x1",
           commentLocation = Just
-            "fun_attributes.h:143:12",
+            "fun_attributes.h:145:12",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1889,7 +1889,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "x2",
           commentLocation = Just
-            "fun_attributes.h:146:12",
+            "fun_attributes.h:148:12",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1928,7 +1928,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "__f1",
           commentLocation = Just
-            "fun_attributes.h:16:6",
+            "fun_attributes.h:16:13",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -1967,7 +1967,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "f1",
           commentLocation = Just
-            "fun_attributes.h:17:6",
+            "fun_attributes.h:19:6",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -2046,7 +2046,7 @@
           commentOrigin = Just
             "my_memalign",
           commentLocation = Just
-            "fun_attributes.h:21:7",
+            "fun_attributes.h:23:7",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -2125,7 +2125,7 @@
           commentOrigin = Just
             "my_calloc",
           commentLocation = Just
-            "fun_attributes.h:26:7",
+            "fun_attributes.h:28:7",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -2195,7 +2195,7 @@
           commentOrigin = Just
             "my_realloc",
           commentLocation = Just
-            "fun_attributes.h:27:7",
+            "fun_attributes.h:29:7",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -2256,7 +2256,7 @@
           commentOrigin = Just
             "my_alloc1",
           commentLocation = Just
-            "fun_attributes.h:32:7",
+            "fun_attributes.h:34:7",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -2317,7 +2317,7 @@
           commentOrigin = Just
             "my_alloc2",
           commentLocation = Just
-            "fun_attributes.h:33:7",
+            "fun_attributes.h:35:7",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -2367,7 +2367,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "square",
           commentLocation = Just
-            "fun_attributes.h:37:5",
+            "fun_attributes.h:39:5",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -2408,7 +2408,7 @@
           commentOrigin = Just
             "old_fn_deprecated",
           commentLocation = Just
-            "fun_attributes.h:46:5",
+            "fun_attributes.h:48:5",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -2504,7 +2504,7 @@
           commentOrigin = Just
             "my_dgettext",
           commentLocation = Just
-            "fun_attributes.h:62:1",
+            "fun_attributes.h:64:1",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -2583,7 +2583,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "fdopen",
           commentLocation = Just
-            "fun_attributes.h:73:9",
+            "fun_attributes.h:75:9",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -2622,7 +2622,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "f2",
           commentLocation = Just
-            "fun_attributes.h:77:65",
+            "fun_attributes.h:79:65",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -2732,7 +2732,7 @@
           commentOrigin = Just
             "my_memcpy",
           commentLocation = Just
-            "fun_attributes.h:83:1",
+            "fun_attributes.h:85:1",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -2771,7 +2771,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "fatal",
           commentLocation = Just
-            "fun_attributes.h:100:6",
+            "fun_attributes.h:102:6",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -2824,7 +2824,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "hash",
           commentLocation = Just
-            "fun_attributes.h:108:5",
+            "fun_attributes.h:110:5",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -2902,7 +2902,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "mymalloc",
           commentLocation = Just
-            "fun_attributes.h:113:1",
+            "fun_attributes.h:115:1",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -2941,7 +2941,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "foobar",
           commentLocation = Just
-            "fun_attributes.h:117:13",
+            "fun_attributes.h:119:13",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -2982,7 +2982,7 @@
           commentOrigin = Just
             "core2_func",
           commentLocation = Just
-            "fun_attributes.h:124:5",
+            "fun_attributes.h:126:5",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -3023,7 +3023,7 @@
           commentOrigin = Just
             "sse3_func",
           commentLocation = Just
-            "fun_attributes.h:125:5",
+            "fun_attributes.h:127:5",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -3062,7 +3062,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "f3",
           commentLocation = Just
-            "fun_attributes.h:129:49",
+            "fun_attributes.h:131:49",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -3102,7 +3102,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "fn",
           commentLocation = Just
-            "fun_attributes.h:134:5",
+            "fun_attributes.h:136:5",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -3142,7 +3142,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "y",
           commentLocation = Just
-            "fun_attributes.h:140:12",
+            "fun_attributes.h:142:12",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -3182,7 +3182,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "x1",
           commentLocation = Just
-            "fun_attributes.h:143:12",
+            "fun_attributes.h:145:12",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
@@ -3222,7 +3222,7 @@
           commentTitle = Nothing,
           commentOrigin = Just "x2",
           commentLocation = Just
-            "fun_attributes.h:146:12",
+            "fun_attributes.h:148:12",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
