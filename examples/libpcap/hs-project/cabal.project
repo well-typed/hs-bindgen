@@ -1,8 +1,5 @@
 import: ../../../cabal.project.base
 
 packages: .
-          ../../../ansi-diff
-          ../../../hs-bindgen-runtime
           ../../../c-expr-runtime
-          ../../../c-expr-dsl
-          ../../../hs-bindgen
+          ../../../hs-bindgen-runtime
