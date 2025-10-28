@@ -25,7 +25,7 @@ KNOWN_FAILURES=(
     iterator.pp.hs # Makes use of Apple block extension which would require clang (see #913)
     decls_in_signature.pp.hs # Unusable struct (See #1128)
     redeclaration.pp.hs # Same as typenames.pp.hs
-    visibility_attributes.pp.hs
+    # visibility_attributes.pp.hs
 
     # GHC Failures
     typenames.pp.hs # hs-bindgen namespace possible bug/feature
