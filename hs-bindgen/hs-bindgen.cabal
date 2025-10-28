@@ -185,14 +185,14 @@ library internal
       Paths_hs_bindgen
   other-extensions:
       TemplateHaskellQuotes
+  -- Internal dependencies
   build-depends:
-      -- Internal dependencies
     , c-expr-dsl
     , c-expr-runtime
     , hs-bindgen-runtime
     , libclang-bindings
+  -- External dependencies
   build-depends:
-      -- External dependencies
     , aeson              >= 2.2.1.0    && < 2.3
     , ansi-terminal      >= 1.0.0      && < 1.2
     , array              >= 0.5.4.0    && < 0.6
@@ -225,9 +225,9 @@ library internal
     , yaml               >= 0.11.11.1  && < 0.12
 
   if impl(ghc < 9.4)
+    -- th-compat included for getPackageRoot
     build-depends:
         data-array-byte >=0.1.0.1 && <0.2
-        -- for getPackageRoot
       , th-compat ^>=0.1.6
 
 library
@@ -241,11 +241,11 @@ library
 
   reexported-modules:
 
+  -- Internal dependencies
   build-depends:
-      -- Internal dependencies
     , hs-bindgen:internal
+  -- Inherited dependencies
   build-depends:
-      -- Inherited dependencies
     , data-default
 
 executable hs-bindgen-cli
@@ -273,17 +273,17 @@ executable hs-bindgen-cli
       Paths_hs_bindgen
   autogen-modules:
       Paths_hs_bindgen
+  -- Internal dependencies
   build-depends:
-      -- Internal dependencies
     , libclang-bindings
     , hs-bindgen:internal
+  -- Inherited dependencies
   build-depends:
-      -- Inherited dependencies
     , bytestring
     , containers
     , data-default
+  -- External dependencies
   build-depends:
-      -- External dependencies
     , optparse-applicative >= 0.18      && < 0.19
     , prettyprinter        ^>=1.7.1
     , text                 >= 1.2       && < 2.2
@@ -297,17 +297,17 @@ executable clang-ast-dump
   else
     buildable: False
 
+  -- Internal dependencies
   build-depends:
-      -- Internal dependencies
     , libclang-bindings
     , hs-bindgen:internal
+  -- Inherited dependencies
   build-depends:
-      -- Inherited dependencies
     , containers
     , data-default
     , text
+  -- External dependencies
   build-depends:
-      -- External dependencies
     , optparse-applicative >= 0.18 && < 0.19
 
 library test-common
@@ -321,13 +321,13 @@ library test-common
       Test.Common.Util.Tasty
       Test.Common.Util.Tasty.Golden
 
+  -- Internal dependencies
   build-depends:
-      -- Internal dependencies
     , ansi-diff
     , ansi-terminal
     , hs-bindgen:internal
+  -- Inherited dependencies
   build-depends:
-      -- Inherited dependencies
     , bytestring
     , containers
     , directory
@@ -335,8 +335,8 @@ library test-common
     , mtl
     , text
     , parsec
+  -- External dependencies
   build-depends:
-      -- External dependencies
     , deepseq                     >= 1.4    && < 1.6
     , prettyprinter               >= 1.7    && < 1.8
     , prettyprinter-ansi-terminal >= 1.1    && < 1.2
@@ -368,15 +368,15 @@ test-suite test-hs-bindgen
       Test.HsBindgen.Resources.Rust
       Test.HsBindgen.Unit.ClangArgs
       Test.HsBindgen.Unit.Tracer
+  -- Internal dependencies
   build-depends:
-      -- Internal dependencies
     , c-expr-dsl
     , c-expr-runtime
     , hs-bindgen:internal
     , libclang-bindings
     , test-common
+  -- Inherited dependencies
   build-depends:
-      -- Inherited dependencies
     , containers
     , data-default
     , debruijn
@@ -391,8 +391,8 @@ test-suite test-hs-bindgen
     , tree-diff
     , utf8-string
     , vec
+  -- External dependencies
   build-depends:
-      -- External dependencies
     , syb              >= 0.7.2.4 && < 0.8
     , tasty-quickcheck >= 0.11    && < 0.12
     , temporary        >= 1.3     && < 1.4
@@ -409,19 +409,19 @@ test-suite test-th
       Test.TH.Test01
       Test.TH.Test02
 
+  -- Internal dependencies
   build-depends:
-      -- Internal dependencies
     , hs-bindgen
     , hs-bindgen-runtime
     , test-common
+  -- Inherited dependencies
   build-depends:
-      -- Inherited dependencies
     , base
     , optics
     , tasty
     , tasty-hunit
+  -- External dependencies
   build-depends:
-      -- External dependencies
     , vector ^>= 0.13.2.0
 
 test-suite test-pp
@@ -443,18 +443,18 @@ test-suite test-pp
   cpp-options: -DTEST_PP
 
   build-tool-depends: hs-bindgen:hs-bindgen-cli
+  -- Internal dependencies
   build-depends:
-      -- Internal dependencies
     , c-expr-runtime
     , hs-bindgen-runtime
     , test-common
+  -- Inherited dependencies
   build-depends:
-      -- Inherited dependencies
     , base <5
     , tasty
     , tasty-hunit
+  -- External dependencies
   build-depends:
-      -- External dependencies
     , vector ^>=0.13.2.0
   if impl(ghc < 9.4)
     build-depends: data-array-byte

@@ -64,10 +64,10 @@ library
       HsBindgen.Runtime.TH.Types
   hs-source-dirs:
       src
+  -- Internal dependencies
   build-depends:
-      -- Internal dependencies
+  -- External dependencies
   build-depends:
-      -- External dependencies
     , containers >= 0.6.5.1 && < 0.8
     , vector ^>=0.13.2.0
     , primitive ^>=0.9.0.0
@@ -87,11 +87,11 @@ test-suite test-runtime
       Test.HsBindgen.Runtime.CEnum
       Test.HsBindgen.Runtime.CEnumArbitrary
       Test.Internal.Tasty
+  -- Internal dependencies
   build-depends:
-      -- Internal dependencies
     , hs-bindgen-runtime
+  -- External dependencies
   build-depends:
-      -- External dependencies
     , QuickCheck        >= 2.14.3 && < 2.16
     , tasty             ^>=1.5
     , tasty-expected-failure ^>= 0.12.3

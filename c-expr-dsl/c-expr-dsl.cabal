@@ -43,24 +43,27 @@ library
   import:         lang
   hs-source-dirs: src
 
+  -- TODO: Make sure we only need to expose .Parse itself
+
+  -- TODO: Cleanup the export list from .Typecheck, and possibly re-export
+  -- some stuff (MacroParseError, MacroTcError)
+
+  -- TODO: Think about what we should expose and what we should hide from
+  -- .Typecheck.Type (perhaps nothing, if we move SigmaType here)
+
+  -- TODO: .Util.TestEquality should not be exposed at all
   exposed-modules:
       C.Expr.Syntax
 
-      -- TODO: Make sure we only need to expose .Parse itself
       C.Expr.Parse
       C.Expr.Parse.Expr
 
-      -- TODO: Cleanup the export list from .Typecheck, and possibly re-export
-      -- some stuff (MacroParseError, MacroTcError)
       C.Expr.Parse.Infra
       C.Expr.Typecheck
       C.Expr.Typecheck.Expr
 
-      -- TODO: Think about what we should expose and what we should hide here
-      -- (perhaps nothing, if we move SigmaType here)
       C.Expr.Typecheck.Type
 
-      -- TODO: This should not be exposed at all
       C.Expr.Util.TestEquality
 
   other-modules:
@@ -74,13 +77,13 @@ library
       C.Expr.Syntax.TTG.Typecheck
       C.Expr.Util.Parsec
 
+  -- internal dependencies
   build-depends:
-      -- internal dependencies
     , c-expr-runtime
     , libclang-bindings
 
+  -- external dependencies
   build-depends:
-      -- external dependencies
     , containers >= 0.6.5.1 && < 0.8
     , fin        >= 0.3.2   && < 0.4
     , mtl        >= 2.2     && < 2.4

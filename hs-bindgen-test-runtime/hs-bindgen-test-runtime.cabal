@@ -79,13 +79,13 @@ test-suite test-hs-bindgen-test-runtime
       HsBindgen.TestRuntime.Preturb.Test
       HsBindgen.TestRuntime.SameSemantics.Test
       HsBindgen.TestRuntime.Storable.Test
+  -- Internal dependencies
   build-depends:
-      -- Internal dependencies
     , hs-bindgen-test-runtime
+  -- Inherited dependencies
   build-depends:
-      -- Inherited dependencies
     , tasty-hunit
     , tasty-quickcheck
+  -- External dependencies
   build-depends:
-      -- External dependencies
     , tasty >= 1.4.3 && < 1.6

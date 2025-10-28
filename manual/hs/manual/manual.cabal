@@ -27,14 +27,16 @@ executable run-manual
   hs-source-dirs:  app, generated
   extra-libraries: example, structs, globals, arrays, functionpointers, hsb_complex_test, callbacks
 
+  -- Internal.
   build-depends:
-    -- Internal.
+
     , c-expr-runtime
     , hs-bindgen-runtime
     , hs-game
     , hs-vector
 
-    -- External.
+  -- External.
+  build-depends:
     , vector
 
   if impl(ghc < 9.4)
@@ -65,7 +67,7 @@ executable run-manual
       Callbacks.Safe
       Callbacks.Unsafe
 
+  -- Avoid gcc warnings about non-NFC characters
+  -- See <https://github.com/well-typed/hs-bindgen/issues/918>
   ghc-options:
-      -- Avoid gcc warnings about non-NFC characters
-      -- See <https://github.com/well-typed/hs-bindgen/issues/918>
       -optc -Wno-normalized

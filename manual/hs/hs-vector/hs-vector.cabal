@@ -23,11 +23,12 @@ library
   import:         lang
   hs-source-dirs: src, generated
 
+  -- handwritten
   exposed-modules:
-      -- handwritten
-      Vector.Types
+    Vector.Types
 
-      -- generated
+  -- generated
+  exposed-modules:
       Vector
       Vector.FunPtr
       Vector.Length
