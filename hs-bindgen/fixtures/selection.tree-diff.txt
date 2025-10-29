@@ -1,0 +1,42 @@
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "selection.h:1:8",
+        declId = NamePair {
+          nameC = Name "Baz",
+          nameHsIdent = Identifier "Baz"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["selection.h"],
+            headerInclude = "selection.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "Baz"),
+          structSizeof = 4,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "selection.h:2:7",
+                fieldName = NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = Identifier
+                    "baz_x"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        CTypeSpec {
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}}],
+  unitDeps = ["selection"]}

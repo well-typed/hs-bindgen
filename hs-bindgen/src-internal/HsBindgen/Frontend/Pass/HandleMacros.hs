@@ -3,6 +3,7 @@ module HsBindgen.Frontend.Pass.HandleMacros (
   ) where
 
 import Control.Monad.State
+import Data.Either (partitionEithers)
 import Data.Map qualified as Map
 import Data.Vec.Lazy qualified as Vec
 
@@ -16,12 +17,14 @@ import Clang.Args (CStandard)
 import Clang.HighLevel.Types
 
 import HsBindgen.Errors
+import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex (..))
 import HsBindgen.Frontend.AST.Coerce
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.LanguageC qualified as LanC
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
+import HsBindgen.Frontend.Pass.HandleMacros.Error
 import HsBindgen.Frontend.Pass.HandleMacros.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
@@ -36,27 +39,57 @@ handleMacros ::
   ->  C.TranslationUnit ConstructTranslationUnit
   -> (C.TranslationUnit HandleMacros, [Msg HandleMacros])
 handleMacros standard C.TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
-    first reassemble $ runM standard .
-      fmap catMaybes $ mapM processDecl unitDecls
+    reassemble $ runM standard .
+      fmap partitionEithers $ mapM processDecl unitDecls
   where
-    reassemble :: [C.Decl HandleMacros] -> C.TranslationUnit HandleMacros
-    reassemble decls' = C.TranslationUnit{
-          unitDecls = decls'
-        , unitIncludeGraph
-        , unitAnn
-        }
+    reassemble ::
+         (([HandleMacrosFailure] , [C.Decl HandleMacros]) , [Msg HandleMacros])
+      -> (C.TranslationUnit HandleMacros, [Msg HandleMacros])
+    reassemble ((failedMacroLst, decls'), msgs) =
+      let index :: DeclIndex
+          index = unitAnn.declIndex
 
-processDecl :: C.Decl ConstructTranslationUnit -> M (Maybe (C.Decl HandleMacros))
+          nameToQualPrelimDeclId :: C.Name -> C.QualPrelimDeclId
+          nameToQualPrelimDeclId n = C.QualPrelimDeclIdNamed n C.NameKindOrdinary
+
+          failedMacros :: Map C.QualPrelimDeclId HandleMacrosFailure
+          failedMacros = Map.fromList $
+            map (\f -> (nameToQualPrelimDeclId f.name, f)) failedMacroLst
+
+          failedMacroIds :: Set C.QualPrelimDeclId
+          failedMacroIds = Map.keysSet failedMacros
+
+          index' = DeclIndex {
+              succeeded    = Map.withoutKeys index.succeeded failedMacroIds
+            , notAttempted = index.notAttempted
+            , failed       = Map.withoutKeys index.failed    failedMacroIds
+            , failedMacros
+            , omitted      = index.omitted
+            , external     = index.external
+            }
+
+          unit = C.TranslationUnit{
+              unitDecls = decls'
+            , unitIncludeGraph
+            , unitAnn = unitAnn {
+                declIndex = index'
+              }
+            }
+      in  (unit, msgs)
+
+processDecl ::
+     C.Decl ConstructTranslationUnit
+  -> M (Either HandleMacrosFailure (C.Decl HandleMacros))
 processDecl C.Decl{declInfo, declKind} =
     case declKind of
       C.DeclMacro macro      -> processMacro info' macro
-      C.DeclTypedef typedef  -> Just <$> processTypedef info' typedef
-      C.DeclStruct struct    -> Just <$> processStruct info' struct
-      C.DeclUnion union      -> Just <$> processUnion info' union
-      C.DeclEnum enum        -> Just <$> processEnum info' enum
-      C.DeclOpaque cNameKind -> Just <$> processOpaque (C.DeclOpaque cNameKind) info'
-      C.DeclFunction fun     -> Just <$> processFunction info' fun
-      C.DeclGlobal ty        -> Just <$> processGlobal info' C.DeclGlobal ty
+      C.DeclTypedef typedef  -> Right <$> processTypedef info' typedef
+      C.DeclStruct struct    -> Right <$> processStruct info' struct
+      C.DeclUnion union      -> Right <$> processUnion info' union
+      C.DeclEnum enum        -> Right <$> processEnum info' enum
+      C.DeclOpaque cNameKind -> Right <$> processOpaque (C.DeclOpaque cNameKind) info'
+      C.DeclFunction fun     -> Right <$> processFunction info' fun
+      C.DeclGlobal ty        -> Right <$> processGlobal info' C.DeclGlobal ty
   where
     info' :: C.DeclInfo HandleMacros
     info' = coercePass declInfo
@@ -266,18 +299,21 @@ processTypedef info C.Typedef{typedefType, typedefAnn} = do
 
 processMacro ::
      C.DeclInfo HandleMacros
-  -> UnparsedMacro -> M (Maybe (C.Decl HandleMacros))
+  -> UnparsedMacro -> M (Either HandleMacrosFailure (C.Decl HandleMacros))
 processMacro info (UnparsedMacro tokens) = do
     -- Simply omit macros from the AST that we cannot parse
-    fmap aux <$> parseMacro name tokens
+    bimap addInfo toDecl <$> parseMacro name tokens
   where
     name :: C.Name
     name = case C.declId info of
       C.PrelimDeclIdNamed n -> n
       _otherwise            -> panicPure "unexpected anonymous macro"
 
-    aux :: C.CheckedMacro HandleMacros -> C.Decl HandleMacros
-    aux checked = C.Decl{
+    addInfo :: HandleMacrosError -> HandleMacrosFailure
+    addInfo = HandleMacrosFailure name info.declLoc
+
+    toDecl :: C.CheckedMacro HandleMacros -> C.Decl HandleMacros
+    toDecl checked = C.Decl{
           declInfo = info
         , declKind = C.DeclMacro checked
         , declAnn  = NoAnn
@@ -382,13 +418,13 @@ runM standard = fmap stateErrors . flip runState (initMacroState standard) . unw
 parseMacro ::
      C.Name
   -> [Token TokenSpelling]
-  -> M (Maybe (C.CheckedMacro HandleMacros))
+  -> M (Either HandleMacrosError (C.CheckedMacro HandleMacros))
 parseMacro name tokens = state $ \st ->
     -- In the case that the same macro could be interpreted both as a type or
     -- as an expression, we choose to interpret it as a type.
     case LanC.parseMacroType (stateReparseEnv st) tokens of
       Right typ -> (
-          Just $ C.MacroType $ C.CheckedMacroType typ NoAnn
+          Right $ C.MacroType $ C.CheckedMacroType typ NoAnn
         , st{stateReparseEnv = updateReparseEnv (stateReparseEnv st)}
         )
       Left errType ->
@@ -397,24 +433,16 @@ parseMacro name tokens = state $ \st ->
             Vec.reifyList macroArgs $ \args -> do
               case CExpr.DSL.tcMacro (stateMacroEnv st) macroName args macroBody of
                 Right inf -> (
-                    Just $ C.MacroExpr $ C.CheckedMacroExpr{
+                    Right $ C.MacroExpr $ C.CheckedMacroExpr{
                         macroExprArgs = macroArgs
                       , macroExprBody = macroBody
                       , macroExprType = dropEval inf
                       }
                   , st{stateMacroEnv = Map.insert macroName inf (stateMacroEnv st)}
                   )
-                Left errTc -> (
-                    Nothing
-                  , st{stateErrors = HandleMacrosErrorTc errTc : stateErrors st}
-                  )
-          Left errExpr -> (
-              Nothing
-            , st{stateErrors =
-                    HandleMacrosErrorParse errType errExpr
-                  : stateErrors st
-                }
-            )
+                Left errTc -> (Left $ HandleMacrosErrorTc errTc, st)
+          Left errExpr ->
+              (Left $ HandleMacrosErrorParse errType errExpr, st)
 
   where
     updateReparseEnv ::

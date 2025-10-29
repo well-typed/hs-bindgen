@@ -76,7 +76,7 @@ module HsBindgen.Frontend.Naming (
   ) where
 
 import Data.Text qualified as Text
-import Text.SimplePrettyPrint ((<+>), (><))
+import Text.SimplePrettyPrint ((<+>))
 import Text.SimplePrettyPrint qualified as PP
 
 import Clang.HighLevel (ShowFile (..))
@@ -106,7 +106,7 @@ newtype Name = Name {
   deriving stock (Generic)
 
 instance PrettyForTrace Name where
-  prettyForTrace (Name name) = "'" >< PP.textToCtxDoc name >< "'"
+  prettyForTrace (Name name) = PP.singleQuotes $ PP.textToCtxDoc name
 
 {-------------------------------------------------------------------------------
   TagKind
@@ -195,7 +195,7 @@ data QualName = QualName {
   deriving stock (Eq, Generic, Ord, Show)
 
 instance PrettyForTrace QualName where
-  prettyForTrace = PP.textToCtxDoc . qualNameText
+  prettyForTrace = PP.singleQuotes . PP.textToCtxDoc . qualNameText
 
 qualNameText :: QualName -> Text
 qualNameText QualName{..} = case nameKindPrefix qualNameKind of
@@ -255,7 +255,7 @@ instance IsString PrelimDeclId where
 instance PrettyForTrace PrelimDeclId where
   prettyForTrace = \case
     PrelimDeclIdNamed   name   -> prettyForTrace name
-    PrelimDeclIdAnon    anonId -> PP.parens (prettyForTrace anonId)
+    PrelimDeclIdAnon    anonId -> PP.parens $ prettyForTrace anonId
     PrelimDeclIdBuiltin name   -> prettyForTrace name
 
 instance PrettyForTrace (Located PrelimDeclId) where
@@ -309,9 +309,10 @@ instance PrettyForTrace QualPrelimDeclId where
   prettyForTrace = \case
     QualPrelimDeclIdNamed name kind -> case nameKindPrefix kind of
       Nothing     -> prettyForTrace name
-      Just prefix -> PP.textToCtxDoc prefix <+> prettyForTrace name
-    QualPrelimDeclIdAnon anonId kind ->
-      PP.textToCtxDoc (tagKindPrefix kind) <+> PP.parens (prettyForTrace anonId)
+      Just prefix -> PP.singleQuotes $
+        PP.textToCtxDoc prefix <+> PP.textToCtxDoc (getName name)
+    QualPrelimDeclIdAnon anonId kind -> PP.singleQuotes $
+        PP.textToCtxDoc (tagKindPrefix kind) <+> PP.parens (prettyForTrace anonId)
     QualPrelimDeclIdBuiltin name   -> prettyForTrace name
 
 qualPrelimDeclId :: HasCallStack => PrelimDeclId -> NameKind -> QualPrelimDeclId
@@ -419,6 +420,20 @@ data QualDeclId = QualDeclId {
     , qualDeclIdKind :: NameKind
     }
   deriving stock (Eq, Generic, Ord, Show)
+
+instance PrettyForTrace (Located QualDeclId) where
+  prettyForTrace (Located loc QualDeclId{..}) =
+      case qualDeclId of
+        DeclIdNamed name origin -> PP.hsep [
+            prettyForTrace (QualName name qualDeclIdKind)
+          , PP.parens $ PP.hsep [
+                prettyForTrace origin
+              , "at"
+              , PP.showToCtxDoc loc
+              ]
+          ]
+        DeclIdBuiltin name ->
+          prettyForTrace (QualName name qualDeclIdKind)
 
 qualDeclIdName :: QualDeclId -> Name
 qualDeclIdName = declIdName . qualDeclId

@@ -185,7 +185,7 @@ parseDecl = \curr -> do
       CXCursor_EnumDecl ->
         parseWith enumDecl   NotRequiredForScoping (C.NameKindTagged C.TagKindEnum)
 
-      -- Process macro expansions independent of any selection predicates
+      -- Process macro expansions independent of any select predicates
       CXCursor_MacroExpansion -> macroExpansion curr
 
       -- Kinds that we skip over

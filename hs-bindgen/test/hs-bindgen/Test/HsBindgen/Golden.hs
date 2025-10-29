@@ -495,8 +495,8 @@ testCases = manualTestCases ++ [
               Just $ expectFromDeclInfoParse i
             TraceFrontend (FrontendSelect (SelectParseSuccess (AttachedParseMsg i ParsePotentialDuplicateSymbol{}))) ->
               Just $ expectFromDeclInfoParse i
-            TraceFrontend (FrontendSelect (SelectDeprecated i)) ->
-              Just $ expectFromDeclInfoSelect i
+            TraceFrontend (FrontendSelect (SelectDeprecated x)) ->
+              Just $ expectFromDeclSelect x
             TraceFrontend (FrontendSelect (SelectParseNotAttempted n _ DeclarationUnavailable)) ->
               Just $ expectFromQualPrelimDeclId n
             _otherwise ->
@@ -576,13 +576,21 @@ testCases = manualTestCases ++ [
               "selected foo"
             , "selected uint32_t"
             ] $ \case
-            TraceFrontend (FrontendSelect (SelectSelectStatus (Selected SelectionRoot) info)) ->
-              expectSelected info $ Set.singleton "foo"
-            TraceFrontend (FrontendSelect (SelectSelectStatus (Selected TransitiveDependency) info)) ->
-              expectSelected info $ Set.singleton "uint32_t"
+            TraceFrontend (FrontendSelect (SelectStatusInfo (Selected SelectionRoot) decl)) ->
+              expectSelected decl.declInfo $ Set.singleton "foo"
+            TraceFrontend (FrontendSelect (SelectStatusInfo (Selected TransitiveDependency) decl)) ->
+              expectSelected decl.declInfo $ Set.singleton "uint32_t"
             _otherwise ->
               Nothing
         }
+    , testTraceCustom "selection" ["Foo", "BarByValue", "BarByReference", "Baz"] $ \case
+        TraceFrontend (FrontendSelect (SelectParseFailure _)) ->
+          Just $ Expected "Foo"
+        TraceFrontend (FrontendSelect (TransitiveDependencyOfDeclarationUnavailable _ (UnavailableParseFailed _) decl)) ->
+          Just $ expectFromDeclSelect decl
+        TraceFrontend (FrontendSelect (SelectStatusInfo (Selected SelectionRoot) _)) ->
+          Just $ Expected "Baz"
+        _otherwise -> Nothing
     , (defaultTest "program_slicing_selection"){
           testOnFrontendConfig = \cfg -> cfg{
               frontendParsePredicate  = BTrue
@@ -600,13 +608,13 @@ testCases = manualTestCases ++ [
             , "QualPrelimDeclIdNamed \"stdout\" NameKindOrdinary"
             , "QualPrelimDeclIdNamed \"stderr\" NameKindOrdinary"
             ] $ \case
-            TraceFrontend (FrontendSelect (SelectSelectStatus (Selected SelectionRoot) info)) ->
-              expectSelected info $ Set.fromList [
+            TraceFrontend (FrontendSelect (SelectStatusInfo (Selected SelectionRoot) decl)) ->
+              expectSelected decl.declInfo $ Set.fromList [
                   "FileOperationRecord"
                 , "read_file_chunk"
                 ]
-            TraceFrontend (FrontendSelect (SelectSelectStatus (Selected TransitiveDependency) info)) ->
-              expectSelected info $ Set.singleton "FileOperationStatus"
+            TraceFrontend (FrontendSelect (SelectStatusInfo (Selected TransitiveDependency) decl)) ->
+              expectSelected decl.declInfo $ Set.singleton "FileOperationStatus"
             TraceFrontend (FrontendConstructTranslationUnit (ConstructTranslationUnitErrorDeclIndex (Redeclaration {redeclarationId = x}))) ->
               Just $ Expected (show x)
             _otherwise ->
@@ -689,3 +697,6 @@ expectFromDeclInfoParse info = case info.declId of
 
 expectFromDeclInfoSelect :: C.DeclInfo Select -> TraceExpectation Text
 expectFromDeclInfoSelect = Expected . C.getName . C.declIdName . C.declId
+
+expectFromDeclSelect :: C.Decl Select -> TraceExpectation Text
+expectFromDeclSelect = expectFromDeclInfoSelect . C.declInfo

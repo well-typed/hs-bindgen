@@ -133,8 +133,6 @@ fromSetting = \case
     enableMacroWarnings = CustomLogLevel $ \case
         TraceFrontend (FrontendHandleMacros (HandleMacrosErrorReparse{}))
           -> const Warning
-        TraceFrontend (FrontendHandleMacros (HandleMacrosErrorTc{}))
-          -> const Warning
         -- Macros parsing requires declarations required for scoping.
         TraceFrontend (FrontendParse (ParseOfDeclarationRequiredForScopingFailed{}))
           -> const Warning

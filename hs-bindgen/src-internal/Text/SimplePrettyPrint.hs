@@ -239,6 +239,10 @@ fsep ds = CtxDoc $ \ctx -> PP.fsep $ map (runCtxDoc ctx) ds
 parens :: CtxDoc -> CtxDoc
 parens d = hcat [char '(', d, char ')']
 
+-- | Surround a document with single quotes horizontally
+singleQuotes :: CtxDoc -> CtxDoc
+singleQuotes d = hcat [char '\'', d, char '\'']
+
 -- | Parenthesize a document horizontally when true
 parensWhen :: Bool -> CtxDoc -> CtxDoc
 parensWhen = \case

@@ -143,12 +143,14 @@ selectSliceFooter = Help.vcat [
       "Selection and program slicing:"
     , li $ mconcat [
           "Program slicing disabled (default):"
-        , " only select declarations according to the selection predicate"
+        , " only select declarations according to the select predicate"
         ]
     , li $ mconcat [
           "Program slicing enabled ('--enable-program-slicing'):"
-        , " select declarations using the selection predicate,"
-        , " and also select their transitive dependencies"
+        , " select declarations using the select predicate,"
+        , " and also select their transitive dependencies;"
+        , " program slicing can cause declarations to be included"
+        , " even if they are explicitly excluded by a select predicate"
         ]
     ]
 
