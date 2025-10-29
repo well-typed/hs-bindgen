@@ -51,12 +51,14 @@ import HsBindgen.Util.Tracer
 hsBindgen ::
      TracerConfig IO Level TraceMsg
   -> BindgenConfig
+  -> Hs.ModuleName
   -> [UncheckedHashIncludeArg]
   -> Artefacts as
   -> IO (NP I as)
 hsBindgen
   tracerConfig
   bindgenConfig@BindgenConfig{..}
+  hsModuleName
   uncheckedHashIncludeArgs
   artefacts = do
     -- Boot and frontend require unsafe tracer and `libclang`.
@@ -67,7 +69,7 @@ hsBindgen
           tracerBoot = contramap TraceBoot tracer
       -- 1. Boot.
       bootArtefact <-
-        boot tracerBoot bindgenConfig uncheckedHashIncludeArgs
+        boot tracerBoot bindgenConfig hsModuleName uncheckedHashIncludeArgs
       -- 2. Frontend.
       frontendArtefact <-
         frontend tracerFrontend bindgenFrontendConfig bootArtefact
@@ -75,7 +77,7 @@ hsBindgen
     (bootArtefact, frontendArtefact) <- either throwIO pure eArtefact
     -- 3. Backend.
     backendArtefact <- withTracerSafe tracerConfigSafe $ \tracer -> do
-      backend tracer bindgenBackendConfig frontendArtefact
+      backend tracer bindgenBackendConfig bootArtefact frontendArtefact
     -- 4. Artefacts.
     withTracerSafe tracerConfigSafe $ \tracer -> do
       runArtefacts tracer bootArtefact frontendArtefact backendArtefact artefacts

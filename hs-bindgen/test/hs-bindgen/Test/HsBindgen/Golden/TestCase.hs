@@ -264,6 +264,7 @@ runTestHsBindgen' report testResources test artefacts = do
       hsBindgen
         traceConfig
         bindgenConfig
+        "Example"
         [testInputInclude test]
         artefacts
 

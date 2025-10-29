@@ -18,7 +18,6 @@ import Optics.Core ((%), (&), (.~))
 
 import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.Backend.Hs.Translation
-import HsBindgen.Backend.HsModule.Translation
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Backend.UniqueId
 import HsBindgen.BindingSpec
@@ -27,7 +26,6 @@ import HsBindgen.Config.Internal
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
-import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
   Common
@@ -81,28 +79,22 @@ toBindgenConfig Config{..} = BindgenConfig bootConfig frontendConfig backendConf
 
 -- | Configuration specific to preprocessor mode
 data ConfigPP = ConfigPP {
-    uniqueId   :: Maybe UniqueId
-  , moduleName :: Hs.ModuleName
+    uniqueId :: Maybe UniqueId
   }
   deriving stock (Show, Eq, Generic)
 
 instance Default ConfigPP where
   def = ConfigPP {
       uniqueId   = def
-    , moduleName = defModuleName
     }
 
 toBindgenConfigPP :: Config_ FilePath -> ConfigPP -> BindgenConfig
-toBindgenConfigPP config ConfigPP{..} =
-    bindgenConfig & setUniqueId & setModuleName
+toBindgenConfigPP config ConfigPP{..} = bindgenConfig & setUniqueId
   where
     bindgenConfig = toBindgenConfig config
     setUniqueId =
       #bindgenBackendConfig % #backendTranslationOpts % #translationUniqueId
         .~ (fromMaybe def uniqueId)
-    setModuleName =
-      #bindgenBackendConfig % #backendHsModuleOpts % #hsModuleOptsBaseName
-        .~ moduleName
 
 {-------------------------------------------------------------------------------
   Template Haskell

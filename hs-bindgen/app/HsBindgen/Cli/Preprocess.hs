@@ -24,6 +24,7 @@ import HsBindgen.Artefact
 import HsBindgen.Config
 import HsBindgen.Config.Internal
 import HsBindgen.Frontend.RootHeader
+import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
   CLI help
@@ -39,6 +40,7 @@ info = progDesc "Generate Haskell module from C headers"
 data Opts = Opts {
       config            :: Config
     , configPP          :: ConfigPP
+    , hsModuleName      :: Hs.ModuleName
     , hsOutputDir       :: FilePath
     , outputBindingSpec :: Maybe FilePath
     , inputs            :: [UncheckedHashIncludeArg]
@@ -51,6 +53,7 @@ parseOpts =
     Opts
       <$> parseConfig
       <*> parseConfigPP
+      <*> parseHsModuleName
       <*> parseHsOutputDir
       <*> optional parseGenBindingSpec
       <*> parseInputs
@@ -66,7 +69,7 @@ exec GlobalOpts{..} Opts{..} = void $ run $ (sequenceArtefacts artefacts) :* Nil
     bindgenConfig = toBindgenConfigPP config configPP
 
     run :: Artefacts as -> IO (NP I as)
-    run = hsBindgen tracerConfig bindgenConfig inputs
+    run = hsBindgen tracerConfig bindgenConfig hsModuleName inputs
 
     artefacts :: [Artefact ()]
     artefacts =

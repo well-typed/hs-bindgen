@@ -69,6 +69,8 @@ withHsBindgen config ConfigTH{..} hashIncludes = do
 
     bindgenConfig <- toBindgenConfigTH config
 
+    hsModuleName <- fromString . TH.loc_module <$> TH.location
+
     let -- Traverse #include directives.
         bindgenState :: BindgenState
         bindgenState = execState hashIncludes (BindgenState [])
@@ -84,6 +86,7 @@ withHsBindgen config ConfigTH{..} hashIncludes = do
       hsBindgen
         tracerConfigDefTH
         bindgenConfig
+        hsModuleName
         uncheckedHashIncludeArgs
         artefacts
     let decls = mergeDecls safety decls'

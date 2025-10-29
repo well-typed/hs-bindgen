@@ -28,6 +28,7 @@ import HsBindgen.Backend.SHs.AST
 import HsBindgen.Config
 import HsBindgen.Errors
 import HsBindgen.Frontend.RootHeader
+import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
   CLI help
@@ -69,11 +70,12 @@ parseOpts = do
 -------------------------------------------------------------------------------}
 
 data Lit = Lit {
-      globalOpts :: GlobalOpts
-    , config     :: Config
-    , configPP   :: ConfigPP
-    , safety     :: Safety
-    , inputs     :: [UncheckedHashIncludeArg]
+      globalOpts   :: GlobalOpts
+    , config       :: Config
+    , configPP     :: ConfigPP
+    , hsModuleName :: Hs.ModuleName
+    , safety       :: Safety
+    , inputs       :: [UncheckedHashIncludeArg]
     }
 
 parseLit :: Parser Lit
@@ -81,6 +83,7 @@ parseLit = Lit
   <$> parseGlobalOpts
   <*> parseConfig
   <*> parseConfigPP
+  <*> parseHsModuleName
   <*> parseSafety
   <*> parseInputs
 
@@ -109,7 +112,7 @@ exec literateOpts = do
       pureParseLit args
     let GlobalOpts{..} = globalOpts
         bindgenConfig = toBindgenConfigPP config configPP
-    void $ hsBindgen tracerConfig bindgenConfig inputs $
+    void $ hsBindgen tracerConfig bindgenConfig hsModuleName inputs $
       writeBindings safety (Just literateOpts.output) :* Nil
   where
     throwIO' :: String -> IO a

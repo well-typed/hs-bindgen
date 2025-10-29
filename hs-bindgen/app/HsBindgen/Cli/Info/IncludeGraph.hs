@@ -20,6 +20,7 @@ import HsBindgen.App
 import HsBindgen.Config
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
+import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
   CLI help
@@ -33,10 +34,11 @@ info = progDesc "Output the include graph"
 -------------------------------------------------------------------------------}
 
 data Opts = Opts {
-      config   :: Config
-    , configPP :: ConfigPP
-    , output   :: Maybe FilePath
-    , inputs   :: [UncheckedHashIncludeArg]
+      config       :: Config
+    , configPP     :: ConfigPP
+    , hsModuleName :: Hs.ModuleName
+    , output       :: Maybe FilePath
+    , inputs       :: [UncheckedHashIncludeArg]
     }
 
 parseOpts :: Parser Opts
@@ -44,6 +46,7 @@ parseOpts =
     Opts
       <$> parseConfig
       <*> parseConfigPP
+      <*> parseHsModuleName
       <*> optional parseOutput'
       <*> parseInputs
 
@@ -63,4 +66,4 @@ exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} = do
     let artefacts = writeIncludeGraph output :* Nil
         bindgenConfig = toBindgenConfigPP config configPP
-    void $ hsBindgen tracerConfig bindgenConfig inputs artefacts
+    void $ hsBindgen tracerConfig bindgenConfig hsModuleName inputs artefacts
