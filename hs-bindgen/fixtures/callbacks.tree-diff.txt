@@ -1899,7 +1899,39 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "callbacks.h:95:6",
+        declLoc = "callbacks.h:95:13",
+        declId = NamePair {
+          nameC = Name "foo2",
+          nameHsIdent = Identifier
+            "Foo2"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["callbacks.h"],
+            headerInclude = "callbacks.h"},
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = Name
+              "@NsConstr"
+              "Foo2",
+            newtypeField = Name
+              "@NsVar"
+              "un_Foo2"},
+          typedefType = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "callbacks.h:96:6",
         declId = NamePair {
           nameC = Name "f",
           nameHsIdent = Identifier "f"},
@@ -1930,6 +1962,54 @@ TranslationUnit {
                           nameHsIdent = Identifier "Foo"}
                         (TypePrim
                           (PrimIntegral PrimInt Signed)))]
+                  TypeVoid))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "callbacks.h:97:6",
+        declId = NamePair {
+          nameC = Name "f2",
+          nameHsIdent = Identifier "f2"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["callbacks.h"],
+            headerInclude = "callbacks.h"},
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "handler",
+                  nameHsIdent = Identifier
+                    "handler"})
+              (TypePointer
+                (TypeFun
+                  [
+                    TypeQualified
+                      TypeQualifierConst
+                      (TypeTypedef
+                        (TypedefRegular
+                          NamePair {
+                            nameC = Name "foo2",
+                            nameHsIdent = Identifier "Foo2"}
+                          (TypePrim
+                            (PrimIntegral
+                              PrimInt
+                              Signed))))]
                   TypeVoid))],
           functionAttrs =
           FunctionAttributes
