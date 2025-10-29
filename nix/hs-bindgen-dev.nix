@@ -30,10 +30,14 @@ let
     haskellPackages.shellFor {
       packages = p: [ p.hs-bindgen ];
       nativeBuildInputs = [
-        # Haskell.
+        # Haskell toolchain.
         haskellPackages.cabal-install
         haskellPackages.ghc
         haskellPackages.haskell-language-server
+        # Haskell tools.
+        # Fix the version of `cabal-fmt` because it compiles only with some
+        # versions of GHC.
+        pkgs.haskellPackages.cabal-fmt
         # Rust.
         pkgs.rust-bindgen
         pkgs.rustfmt
