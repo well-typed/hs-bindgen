@@ -88,6 +88,8 @@ test-suite test-runtime
     Test.HsBindgen.Runtime.CBoolSem
     Test.HsBindgen.Runtime.CEnum
     Test.HsBindgen.Runtime.CEnumArbitrary
+    Test.HsBindgen.Runtime.ConstantArray
+    Test.HsBindgen.Runtime.IncompleteArray
     Test.Internal.Tasty
 
   -- Internal dependencies
