@@ -102,10 +102,10 @@ writeIncludeGraph mPath = Lift (IncludeGraph :* Nil) $
       write "include graph" mPath $ IncludeGraph.dumpMermaid p includeGraph
 
 -- | Write @use-decl@ graph to file.
-writeUseDeclGraph :: FilePath -> Artefact ()
-writeUseDeclGraph path = Lift (DeclIndex :* UseDeclGraph :* Nil) $
+writeUseDeclGraph :: Maybe FilePath -> Artefact ()
+writeUseDeclGraph mPath = Lift (DeclIndex :* UseDeclGraph :* Nil) $
     \(I index :* I useDeclGraph :* Nil) ->
-      write "use-decl graph" (Just path) (UseDeclGraph.dumpMermaid index useDeclGraph)
+      write "use-decl graph" mPath $ UseDeclGraph.dumpMermaid index useDeclGraph
 
 -- | Get bindings (single module).
 getBindings :: Safety -> Artefact String
