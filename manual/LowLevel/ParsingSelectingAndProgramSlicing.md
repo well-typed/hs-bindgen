@@ -165,6 +165,10 @@ the default parse predicate so that declarations of the external library are
 also parsed and reified by `hs-bindgen`. Instead, we could also provide an
 external binding for `FileOperationStatus`.
 
+> [!NOTE]
+> Program slicing can cause declarations to be included even if they are
+> explicitly excluded by a select predicate.
+
 ## Notes and examples
 
 ### Example use case and default behavior of `hs-bindgen`
@@ -202,8 +206,8 @@ declarations.
 The parse predicate and the select predicate both allow matching against header
 paths but serve different purposes. The parse predicate dictates which
 declarations `hs-bindgen` reifies into `hs-bindgen`-specific data structures,
-the selection predicate dictates which declarations `hs-bindgen` generates
-bindings for.
+the select predicate dictates which declarations `hs-bindgen` generates bindings
+for.
 
 Example 1: Assume program slicing is enabled. All of the following scenarios
 are different:

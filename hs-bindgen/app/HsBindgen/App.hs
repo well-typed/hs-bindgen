@@ -458,8 +458,10 @@ parseProgramSlicing =
         long "enable-program-slicing"
       , help $ concat [
             "Enable program slicing:"
-          , " Select declarations using the selection predicate,"
-          , " and also select their transitive dependencies"
+          , " Select declarations using the select predicate,"
+          , " and also select their transitive dependencies;"
+          , " program slicing can cause declarations to be included"
+          , " even if they are explicitly excluded by a select predicate"
           ]
       ]
 

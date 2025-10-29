@@ -1,0 +1,28 @@
+-- addDependentFile examples/golden/selection.h
+{-| __C declaration:__ @Baz@
+
+    __defined at:__ @selection.h:1:8@
+
+    __exported by:__ @selection.h@
+-}
+data Baz
+    = Baz {baz_x :: CInt
+           {- ^ __C declaration:__ @x@
+
+                __defined at:__ @selection.h:2:7@
+
+                __exported by:__ @selection.h@
+           -}}
+      {- ^ __C declaration:__ @Baz@
+
+           __defined at:__ @selection.h:1:8@
+
+           __exported by:__ @selection.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable Baz
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure Baz <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Baz baz_x_3 -> pokeByteOff ptr_1 (0 :: Int) baz_x_3

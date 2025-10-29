@@ -59,9 +59,9 @@ instance PrettyForTrace MangleNamesMsg where
       MangleNamesCouldNotMangle name ->
         "Could not mangle C name: " >< textToCtxDoc name
       MangleNamesMissingDeclaration cQualName -> hcat [
-          "Missing declaration: '"
+          "Missing declaration: "
         , prettyForTrace cQualName
-        , "'; did you select the declaration?"
+        , "; did you select the declaration?"
         ]
       MangleNamesMissingIdentifier name ->
         "Could not mangle C name identifier: " >< textToCtxDoc name

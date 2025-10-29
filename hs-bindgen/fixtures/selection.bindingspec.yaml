@@ -1,0 +1,12 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+types:
+- headers: selection.h
+  cname: struct Baz
+  hsname: Baz
+  instances:
+  - Eq
+  - Show
+  - Storable

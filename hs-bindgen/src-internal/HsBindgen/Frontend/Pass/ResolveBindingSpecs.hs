@@ -5,20 +5,21 @@ module HsBindgen.Frontend.Pass.ResolveBindingSpecs (
   ) where
 
 import Control.Monad ((<=<))
-import Control.Monad.RWS (MonadReader, MonadState, RWS)
-import Control.Monad.RWS qualified as RWS
+import Control.Monad.Reader (MonadReader, ReaderT, runReaderT)
+import Control.Monad.Reader qualified as Reader
+import Control.Monad.State (MonadState, State, runState)
+import Control.Monad.State qualified as State
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
-import Optics.Core ((&), (.~))
 
 import Clang.HighLevel.Types
 import Clang.Paths
 
 import HsBindgen.BindingSpec (MergedBindingSpecs, PrescriptiveBindingSpec)
 import HsBindgen.BindingSpec qualified as BindingSpec
-import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
-import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
+import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex (..))
+import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
@@ -44,11 +45,7 @@ resolveBindingSpecs ::
   -> MergedBindingSpecs
   -> PrescriptiveBindingSpec
   -> C.TranslationUnit NameAnon
-  -> ( C.TranslationUnit ResolveBindingSpecs
-     , Map C.QualName SourcePath
-     , Set C.QualName
-     , [Msg ResolveBindingSpecs]
-     )
+  -> (C.TranslationUnit ResolveBindingSpecs, [Msg ResolveBindingSpecs])
 resolveBindingSpecs
   hsModuleName
   extSpecs
@@ -61,7 +58,7 @@ resolveBindingSpecs
               ( [ResolveBindingSpecsModuleMismatch hsModuleName pSpecModule]
               , BindingSpec.empty hsModuleName
               )
-        (decls, MState{..}) =
+        (decls, state@MState{..}) =
           runM
             extSpecs
             pSpec'
@@ -73,30 +70,63 @@ resolveBindingSpecs
             (fst <$> Map.elems stateExtTypes)
             unitAnn.declUseDecl
         notUsedErrs = ResolveBindingSpecsTypeNotUsed <$> Map.keys stateNoPTypes
-        declsWithExternalBindingSpecs :: Set C.QualName
-        declsWithExternalBindingSpecs =
-          Map.keysSet stateOmitTypes `Set.union` Map.keysSet stateExtTypes
-    in  ( reassemble decls useDeclGraph
-        , stateOmitTypes
-        , declsWithExternalBindingSpecs
+    in  ( reassemble decls useDeclGraph state
         , pSpecErrs ++ reverse stateTraces ++ notUsedErrs
         )
   where
     reassemble ::
          [C.Decl ResolveBindingSpecs]
       -> UseDeclGraph
+      -> MState
       -> C.TranslationUnit ResolveBindingSpecs
-    reassemble decls' useDeclGraph = C.TranslationUnit {
+    reassemble decls' useDeclGraph MState{..} =
+      let index :: DeclIndex
+          index = unitAnn.declIndex
+
+          omitted :: Map C.QualName SourcePath
+          omitted = stateOmitTypes
+
+          external :: Set C.QualName
+          external = Map.keysSet stateExtTypes
+
+          -- TODO_PR: Is this conversion always correct?
+          qualNameToQualPrelimDeclId :: C.QualName -> C.QualPrelimDeclId
+          qualNameToQualPrelimDeclId C.QualName{..} =
+            C.QualPrelimDeclIdNamed qualNameName qualNameKind
+
+          omittedIds, externalIds, handledIds :: Set C.QualPrelimDeclId
+          omittedIds = Set.map qualNameToQualPrelimDeclId $ Map.keysSet omitted
+          externalIds = Set.map qualNameToQualPrelimDeclId external
+          handledIds = omittedIds `Set.union` externalIds
+
+          index' :: DeclIndex
+          index' = DeclIndex {
+              succeeded    = Map.withoutKeys index.succeeded    handledIds
+            , notAttempted = Map.withoutKeys index.notAttempted handledIds
+            , failed       = Map.withoutKeys index.failed       handledIds
+            , omitted
+            , external
+            , failedMacros = index.failedMacros
+            }
+
+          unitAnn' :: DeclMeta
+          unitAnn' =
+            unitAnn {
+              declIndex   = index'
+            , declUseDecl = useDeclGraph
+            , declDeclUse = DeclUseGraph.fromUseDecl useDeclGraph
+            }
+      in  C.TranslationUnit{
         unitDecls = decls'
       , unitIncludeGraph
-      , unitAnn = unitAnn & #declUseDecl .~ useDeclGraph
+      , unitAnn = unitAnn'
       }
 
 {-------------------------------------------------------------------------------
   Internal: monad
 -------------------------------------------------------------------------------}
 
-newtype M a = WrapM (RWS MEnv () MState a)
+newtype M a = WrapM (ReaderT MEnv (State MState) a)
   deriving newtype (
       Applicative
     , Functor
@@ -113,10 +143,9 @@ runM ::
   -> M a
   -> (a, MState)
 runM extSpecs pSpec includeGraph declIndex (WrapM m) =
-    let env        = MEnv extSpecs pSpec includeGraph declIndex
-        state0     = initMState pSpec
-        (x, s, ()) = RWS.runRWS m env state0
-    in  (x, s)
+    let env    = MEnv extSpecs pSpec includeGraph declIndex
+        state0 = initMState pSpec
+    in  runState (runReaderT m env) state0
 
 {-------------------------------------------------------------------------------
   Internal: monad reader
@@ -208,7 +237,7 @@ resolveDecls = mapM (uncurry resolveDeep) <=< mapMaybeM resolveTop
 resolveTop ::
      C.Decl NameAnon
   -> M (Maybe (C.Decl NameAnon, Maybe BindingSpec.CTypeSpec))
-resolveTop decl = RWS.ask >>= \MEnv{..} -> do
+resolveTop decl = Reader.ask >>= \MEnv{..} -> do
     let cQualName  = C.declQualName decl
         cQualPrelimDeclId = C.declOrigQualPrelimDeclId decl
         sourcePath = singleLocPath $ C.declLoc (C.declInfo decl)
@@ -216,16 +245,16 @@ resolveTop decl = RWS.ask >>= \MEnv{..} -> do
     isExt <- isJust <$> resolveExtBinding cQualName cQualPrelimDeclId declPaths
     if isExt
       then do
-        RWS.modify' $ insertTrace (ResolveBindingSpecsExtDecl cQualName)
+        State.modify' $ insertTrace (ResolveBindingSpecsExtDecl cQualName)
         return Nothing
       else case BindingSpec.lookupCTypeSpec cQualName declPaths envPSpec of
         Just (_hsModuleName, BindingSpec.Require cTypeSpec) -> do
-          RWS.modify' $
+          State.modify' $
               insertTrace (ResolveBindingSpecsPrescriptiveRequire cQualName)
             . deleteNoPType cQualName sourcePath
           return $ Just (decl, Just cTypeSpec)
         Just (_hsModuleName, BindingSpec.Omit) -> do
-          RWS.modify' $
+          State.modify' $
               insertTrace (ResolveBindingSpecsPrescriptiveOmit cQualName)
             . deleteNoPType cQualName sourcePath
             . insertOmittedType cQualName sourcePath
@@ -427,17 +456,17 @@ instance Resolve C.Type where
         -> C.QualDeclId
         -> M (C.Type ResolveBindingSpecs)
       aux mk cQualDeclId@C.QualDeclId{..} =
-        RWS.ask >>= \MEnv{..} -> RWS.get >>= \MState{..} -> do
+        Reader.ask >>= \MEnv{..} -> State.get >>= \MState{..} -> do
           let cQualName = C.QualName qualDeclIdName qualDeclIdKind
               cQualPrelimDeclId = C.qualDeclIdToQualPrelimDeclId cQualDeclId
           -- Check for type omitted by binding specification
           when (Map.member cQualName stateOmitTypes) $
-            RWS.modify' $
+            State.modify' $
               insertTrace (ResolveBindingSpecsOmittedTypeUse cQualName)
           -- Check for selected external binding
           case Map.lookup cQualName stateExtTypes of
             Just (_, ty) -> do
-              RWS.modify' $
+              State.modify' $
                 insertTrace (ResolveBindingSpecsExtType ctx cQualName)
               return ty
             Nothing -> do
@@ -454,7 +483,7 @@ instance Resolve C.Type where
                     resolveExtBinding cQualName cQualPrelimDeclId declPaths
                   case mTy of
                     Just ty -> do
-                      RWS.modify' $
+                      State.modify' $
                           insertTrace (ResolveBindingSpecsExtType ctx cQualName)
                         . insertExtType cQualName cQualPrelimDeclId ty
                       return ty
@@ -479,7 +508,7 @@ resolveExtBinding ::
   -> Set SourcePath
   -> M (Maybe ResolvedExtBinding)
 resolveExtBinding cQualName cQualPrelimDeclId declPaths  = do
-    MEnv{envExtSpecs} <- RWS.ask
+    MEnv{envExtSpecs} <- Reader.ask
     case BindingSpec.lookupMergedCTypeSpec cQualName declPaths envExtSpecs of
       Just (hsModuleName, BindingSpec.Require cTypeSpec) ->
         case BindingSpec.cTypeSpecIdentifier cTypeSpec of
@@ -489,18 +518,18 @@ resolveExtBinding cQualName cQualPrelimDeclId declPaths  = do
                   , extHsRef  = Hs.ExtRef hsModuleName hsIdentifier
                   , extHsSpec = cTypeSpec
                   }
-            RWS.modify' $
+            State.modify' $
               insertExtType
                 cQualName
                 cQualPrelimDeclId
                 (C.TypeExtBinding resolved)
             return (Just resolved)
           Nothing -> do
-            RWS.modify' $
+            State.modify' $
               insertTrace (ResolveBindingSpecsExtHsRefNoIdentifier cQualName)
             return Nothing
       Just (_hsModuleName, BindingSpec.Omit) -> do
-        RWS.modify' $
+        State.modify' $
           insertTrace (ResolveBindingSpecsOmittedTypeUse cQualName)
         return Nothing
       Nothing ->
@@ -511,7 +540,7 @@ resolveExtBinding cQualName cQualPrelimDeclId declPaths  = do
 lookupMissing :: C.QualPrelimDeclId -> DeclIndex -> [SingleLoc]
 lookupMissing qualPrelimDeclId index =
   (maybe [] (map poSingleLoc . NonEmpty.toList) $
-    Map.lookup qualPrelimDeclId $ index.omitted)
+    Map.lookup qualPrelimDeclId $ index.notAttempted)
   ++
   (maybe [] (map pfSingleLoc . NonEmpty.toList) $
     Map.lookup qualPrelimDeclId $ index.failed)
