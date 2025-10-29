@@ -81,8 +81,13 @@ prettyDecl (FunDefn n ty attrs args stmts) = prettyFunDefn n ty attrs args stmts
 
 prettyFunDefn :: forall ctx. Name -> C.Type -> C.FunctionPurity -> Args ctx -> [Stmt ctx] -> ShowS
 prettyFunDefn fun res pur args stmts =
-    C.showsFunctionType (showString fun) pur args' res.
-    showString " { " . foldMapShowS (prettyStmt env) stmts . showString " }"
+      C.showsFunctionType (showString fun) pur args' res
+    . showString "\n{\n"
+    . foldMapShowS (\stmt -> showString "  "
+                           . prettyStmt env stmt
+                           . showChar '\n'
+                   ) stmts
+    . showString "}"
   where
     args0 :: State Int (Env ctx ((ShowS, C.Type), ShowS))
     args0 = forM args $ \ty -> do

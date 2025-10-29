@@ -1,10 +1,12 @@
 module HsBindgen.Backend.HsModule.Capi (
     capiImport
+  , preludeImport
+  , unlinesName
   , renderCapiWrapper
   )
 where
 
-import Text.SimplePrettyPrint (CtxDoc, (<+>), (><))
+import Text.SimplePrettyPrint (CtxDoc, nest, vlist, ($$), (><))
 
 import HsBindgen.Backend.HsModule.Names
 import HsBindgen.Imports
@@ -21,12 +23,28 @@ import HsBindgen.Imports
 capiImport :: HsImportModule
 capiImport = HsImportModule hsbPrelude Nothing
 
+-- | Prelude import module for `unlines`.
+--
+-- When rendering C source wrappers with 'renderCapiWrapper', we use
+-- @Prelude.unlines@ to format the code readably.
+--
+preludeImport :: HsImportModule
+preludeImport = HsImportModule "Prelude" Nothing
+
+-- | Resolved name for the `unlines` function from Prelude.
+--
+unlinesName :: ResolvedName
+unlinesName = ResolvedName "unlines" IdentifierName Nothing
+
 -- | Render the CAPI `addCSource` code fragment.
 --
 -- See 'capiImport'.
 renderCapiWrapper :: String -> CtxDoc
 renderCapiWrapper src =
-  "$(" >< fromString hsbPrelude >< ".addCSource" <+> fromString (show src) >< ")"
+     "$(" >< fromString hsbPrelude >< ".addCSource (Prelude.unlines"
+  $$ nest 2 (vlist '[' ']' linesDocs) >< "))"
+  where
+    linesDocs = map (fromString . show) (lines src)
 
 -- Qualified import string for @hs-bindgen-runtime@ prelude.
 hsbPrelude :: String
