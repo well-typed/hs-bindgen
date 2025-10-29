@@ -131,12 +131,13 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
 
     handleMacrosPass <- cache "handleMacros" $ do
       afterConstructTranslationUnit <- sortPass
-      let (afterHandleMacros, msgsHandleMacros) = handleMacros afterConstructTranslationUnit
+      let (afterHandleMacros, failedMacros, msgsHandleMacros) =
+            handleMacros afterConstructTranslationUnit
       forM_ msgsHandleMacros $ traceWith tracer . FrontendHandleMacros
-      pure afterHandleMacros
+      pure (afterHandleMacros, failedMacros)
 
     nameAnonPass <- cache "nameAnon" $ do
-      afterHandleMacros <- handleMacrosPass
+      (afterHandleMacros, _) <- handleMacrosPass
       let (afterNameAnon, msgsNameAnon) = nameAnon afterHandleMacros
       forM_ msgsNameAnon $ traceWith tracer . FrontendNameAnon
       pure afterNameAnon
@@ -159,12 +160,14 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
 
     selectPass <- cache "select" $ do
       (_, _, isMainHeader, isInMainHeaderDir, _) <- parsePass
+      (_, failedMacros) <- handleMacrosPass
       (afterResolveBindingSpecs, _, declsWithExternalBindingSpecs) <-
         resolveBindingSpecsPass
       let (afterSelect, msgsSelect) =
             selectDecls
               isMainHeader
               isInMainHeaderDir
+              failedMacros
               declsWithExternalBindingSpecs
               selectConfig
               afterResolveBindingSpecs

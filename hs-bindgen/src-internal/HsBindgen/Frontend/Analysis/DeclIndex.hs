@@ -44,7 +44,7 @@ import HsBindgen.Util.Tracer
 -- | Index of all declarations
 data DeclIndex = DeclIndex {
       succeeded    :: !(Map C.QualPrelimDeclId ParseSuccess)
-    , omitted      :: !(Map C.QualPrelimDeclId (NonEmpty ParseNotAttempted))
+    , notAttempted :: !(Map C.QualPrelimDeclId (NonEmpty ParseNotAttempted))
     , failed       :: !(Map C.QualPrelimDeclId (NonEmpty ParseFailure))
     }
   deriving stock (Show, Generic)
@@ -74,7 +74,7 @@ fromParseResults results =
       -- We assert that no key is used twice. This assertion is not strictly
       -- necessary, and we may want to remove it in the future.
       let ss = Map.keysSet i.succeeded
-          os = Map.keysSet i.omitted
+          os = Map.keysSet i.notAttempted
           fs = Map.keysSet i.failed
           is = Set.intersection
           sharedKeys = Set.unions [is ss os, is ss fs, is os fs]
@@ -104,7 +104,7 @@ fromParseResults results =
                 }
           ParseResultNotAttempted x ->
             over
-              ( #index % #omitted )
+              ( #index % #notAttempted )
               ( alter qualPrelimDeclId x )
               oldIndex
           ParseResultFailure x ->

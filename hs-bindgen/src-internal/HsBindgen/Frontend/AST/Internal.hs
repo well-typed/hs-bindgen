@@ -553,6 +553,11 @@ instance PrettyForTrace (C.Located (Id p)) => PrettyForTrace (DeclInfo p) where
   prettyForTrace DeclInfo{declId, declLoc} =
     prettyForTrace $ C.Located declLoc declId
 
+instance Id p ~ C.DeclId => PrettyForTrace (Decl p) where
+  prettyForTrace decl =
+    let qualDeclId = declQualDeclId decl
+    in  prettyForTrace $ C.Located (decl.declInfo.declLoc) qualDeclId
+
 {-------------------------------------------------------------------------------
   Helper functions
 -------------------------------------------------------------------------------}

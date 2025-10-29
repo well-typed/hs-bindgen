@@ -10,7 +10,6 @@ import Control.Monad.RWS qualified as RWS
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
-import Optics.Core ((&), (.~))
 
 import Clang.HighLevel.Types
 import Clang.Paths
@@ -19,6 +18,7 @@ import HsBindgen.BindingSpec (ExternalBindingSpec, PrescriptiveBindingSpec)
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
+import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
@@ -76,7 +76,11 @@ resolveBindingSpecs
       -> C.TranslationUnit ResolveBindingSpecs
     reassemble decls' useDeclGraph =
       let unitAnn' :: DeclMeta
-          unitAnn' = unitAnn & #declUseDecl .~ useDeclGraph
+          unitAnn' =
+            unitAnn {
+              declUseDecl = useDeclGraph
+            , declDeclUse = DeclUseGraph.fromUseDecl useDeclGraph
+            }
       in  C.TranslationUnit{
         unitDecls = decls'
       , unitIncludeGraph
@@ -519,7 +523,7 @@ getHsExtRef cQualName cTypeSpec = do
 lookupMissing :: C.QualPrelimDeclId -> DeclIndex -> [SingleLoc]
 lookupMissing qualPrelimDeclId index =
   (maybe [] (map poSingleLoc . NonEmpty.toList) $
-    Map.lookup qualPrelimDeclId $ index.omitted)
+    Map.lookup qualPrelimDeclId $ index.notAttempted)
   ++
   (maybe [] (map pfSingleLoc . NonEmpty.toList) $
     Map.lookup qualPrelimDeclId $ index.failed)

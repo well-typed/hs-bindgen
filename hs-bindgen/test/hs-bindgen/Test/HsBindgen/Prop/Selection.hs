@@ -258,9 +258,9 @@ instance Arbitrary C.NameKind where
   arbitrary = elements [minBound .. maxBound]
 
 instance Arbitrary C.NameOrigin where
-  -- TODO: We currently never produce anonymous or builtin declarations.
-  -- In this module we check that selection predicates behave as boolean
-  -- functions; this is not true for builtins (which are /never/ selected).
+  -- TODO: We currently never produce anonymous or builtin declarations. In this
+  -- module we check that select predicates behave as boolean functions; this is
+  -- not true for builtins (which are /never/ selected).
   arbitrary = pure C.NameOriginInSource
 
 instance Arbitrary C.QualName where
