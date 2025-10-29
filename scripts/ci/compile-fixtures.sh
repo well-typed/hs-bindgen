@@ -137,21 +137,20 @@ echo "Collecting fixtures..."
 FIXTURES_TO_COMPILE=()
 FIXTURES_SKIPPED=()
 
-for file in "$FIXTURES_DIR"/*.pp.hs; do
-    [[ -f "$file" ]] || continue
-
+# Use find to recursively search for all .pp.hs files
+while IFS= read -r -d '' file; do
     if [[ "$FORCE_ALL" == "false" ]] && is_known_failure "$file"; then
         FIXTURES_SKIPPED+=("$file")
     else
         FIXTURES_TO_COMPILE+=("$file")
     fi
-done
+done < <(find "$FIXTURES_DIR" -type f -name "*.pp.hs" -print0 | sort -z)
 
 echo ""
 echo "========================================="
 echo "Fixture Compilation Report"
 echo "========================================="
-echo "Total fixtures: $(ls -1 "$FIXTURES_DIR"/*.pp.hs 2>/dev/null | wc -l)"
+echo "Total fixtures: $(find "$FIXTURES_DIR" -type f -name "*.pp.hs" | wc -l)"
 echo "To compile: ${#FIXTURES_TO_COMPILE[@]}"
 echo "Skipped (known failures): ${#FIXTURES_SKIPPED[@]}"
 echo "Parallel jobs: $JOBS"
