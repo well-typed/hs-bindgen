@@ -34,16 +34,19 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     "botan/ffi.h"
 
 echo "# "
-echo "# Creating cabal.project.local"
+echo "# Updating cabal.project.local"
 echo "# "
 
-cat >"$SCRIPT_DIR/hs-project/cabal.project.local" <<EOF
+LINE=$(cat <<-EOF
 package botan
     extra-include-dirs:
         $BOTAN_DIR/build/include/public
     extra-lib-dirs:
         $BOTAN_DIR
 EOF
+)
+grep -qxF "$LINE" "$SCRIPT_DIR/hs-project/cabal.project.local" || echo "$LINE" >> "$SCRIPT_DIR/hs-project/cabal.project.local"
+cat "$SCRIPT_DIR/hs-project/cabal.project.local"
 
 echo "# "
 echo "# Done!"

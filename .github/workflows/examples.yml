@@ -71,14 +71,25 @@ jobs:
     #
     # NOTE: the use of "cabal build all" is intentional.
 
+    - name: 🛠️ Configure (hs-bindgen-cli)
+      run: |
+        cabal configure --disable-test --disable-benchmark --disable-documentation --ghc-options="-Werror"
+        cat "cabal.project.local"
+
+    - name: 🛠️ Configure (${{ matrix.example }})
+      working-directory: ${{ env.hs-project-directory }}
+      run: |
+        cabal configure --disable-test --disable-benchmark --disable-documentation --ghc-options="-Werror"
+        cat "cabal.project.local"
+
     - name: 💾 Generate Cabal plan (hs-bindgen-cli)
       run: |
-        cabal build all --dry-run --disable-test --disable-benchmark
+        cabal build all --dry-run
 
     - name: 💾 Generate Cabal plan (${{ matrix.example }})
       working-directory: ${{ env.hs-project-directory }}
       run: |
-        cabal build all --dry-run --disable-test --disable-benchmark
+        cabal build all --dry-run
 
     # Here is where we hash the two build plan files together and include the
     # hash in the cache key. If either build plan changes, then the hash
@@ -103,12 +114,12 @@ jobs:
 
     - name: 🛠️ Build Cabal dependencies (hs-bindgen-cli)
       run: |
-        cabal build all --only-dependencies --disable-test --disable-benchmark
+        cabal build all --only-dependencies
 
     - name: 🛠️ Build Cabal dependencies (${{ matrix.example }})
       working-directory: ${{ env.hs-project-directory }}
       run: |
-        cabal build all --only-dependencies --disable-test --disable-benchmark
+        cabal build all --only-dependencies
 
     # Only save a new cache if it does not exist yet
     - name: 💾 Save Cabal dependencies
@@ -120,7 +131,7 @@ jobs:
 
     - name: 🏗️ Build (hs-bindgen-cli)
       run: |
-        cabal build hs-bindgen-cli --disable-test --disable-benchmark
+        cabal build hs-bindgen-cli
 
     - name: 🧪 Debug (hs-bindgen-cli)
       run: |
