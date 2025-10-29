@@ -30,16 +30,19 @@ echo "# "
 ./generate.sh
 
 echo "# "
-echo "# Creating cabal.project.local"
+echo "# Updating cabal.project.local"
 echo "# "
 
-cat >hs-project/cabal.project.local <<EOF
+LINE=$(cat <<-EOF
 package libpcap
     extra-include-dirs:
         $LIBPCAP_DIR
     extra-lib-dirs:
         $LIBPCAP_DIR
 EOF
+)
+grep -qxF "$LINE" "$SCRIPT_DIR/hs-project/cabal.project.local" || echo "$LINE" >> "$SCRIPT_DIR/hs-project/cabal.project.local"
+cat "$SCRIPT_DIR/hs-project/cabal.project.local"
 
 echo "# "
 echo "# Done!"

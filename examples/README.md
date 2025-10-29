@@ -73,9 +73,9 @@ as the following requirements are met:
     the generated modules into the Haskell project
   * The script should make sure that the Haskell package can find the installed
     `libfoo` package. For locally installed packages, this probably means
-    setting `LD_LIBRARY_PATH` and adding a
-    `REPOSITORY_ROOT/examples/libfoo/hs-project/cabal.project.local` file that
-    includes:
+    setting `LD_LIBRARY_PATH` and updating the
+    `REPOSITORY_ROOT/examples/libfoo/hs-project/cabal.project.local` file so
+    that it includes:
     ```
     package libfoo
       extra-include-dirs:
@@ -83,6 +83,9 @@ as the following requirements are met:
       extra-lib-dirs:
         -- insert absolute path to installation directory for dll files here
     ```
+    If a `cabal.project.local` file already exists, then the file should be
+    updated to include the lines above. Otherwise, it should create the file
+    with the lines above.
   * The script should run the Haskell executable
 * Add a composite action by creating a new file at
    `REPOSITORY_ROOT/.github/actions/examples/libfoo.action.yml`
