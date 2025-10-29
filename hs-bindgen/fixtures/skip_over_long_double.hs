@@ -471,8 +471,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_skip_over_long_double_fb32cb593bc1f7b8 (signed int arg1) { fun2(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_skip_over_long_double_fb32cb593bc1f7b8 (\n",
+              "  signed int arg1\n",
+              ")\n",
+              "{\n",
+              "  fun2(arg1);\n",
+              "}"],
           capiWrapperImport =
           "skip_over_long_double.h"},
       foreignImportOrigin = Function
@@ -520,8 +526,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_skip_over_long_double_5ebf8088e71802cc (signed int arg1) { fun2(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_skip_over_long_double_5ebf8088e71802cc (\n",
+              "  signed int arg1\n",
+              ")\n",
+              "{\n",
+              "  fun2(arg1);\n",
+              "}"],
           capiWrapperImport =
           "skip_over_long_double.h"},
       foreignImportOrigin = Function
@@ -569,7 +581,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_fun2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_skip_over_long_double_d1bf59c1516f6bfa (void)) (signed int arg1) { return &fun2; } ",
+          concat
+            [
+              "/* get_fun2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_skip_over_long_double_d1bf59c1516f6bfa (void)) (\n",
+              "  signed int arg1\n",
+              ")\n",
+              "{\n",
+              "  return &fun2;\n",
+              "}"],
           capiWrapperImport =
           "skip_over_long_double.h"},
       foreignImportOrigin = Global

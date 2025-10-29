@@ -1156,7 +1156,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int hs_bindgen_test_manualfunction_pointers_55e5eb89e54abf83 (signed int arg1) { return square(arg1); }",
+          concat
+            [
+              "signed int hs_bindgen_test_manualfunction_pointers_55e5eb89e54abf83 (\n",
+              "  signed int arg1\n",
+              ")\n",
+              "{\n",
+              "  return square(arg1);\n",
+              "}"],
           capiWrapperImport =
           "manual/function_pointers.h"},
       foreignImportOrigin = Function
@@ -1212,7 +1219,15 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int hs_bindgen_test_manualfunction_pointers_680daf766a044980 (signed int arg1, signed int arg2) { return plus(arg1, arg2); }",
+          concat
+            [
+              "signed int hs_bindgen_test_manualfunction_pointers_680daf766a044980 (\n",
+              "  signed int arg1,\n",
+              "  signed int arg2\n",
+              ")\n",
+              "{\n",
+              "  return plus(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "manual/function_pointers.h"},
       foreignImportOrigin = Function
@@ -1286,7 +1301,17 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int hs_bindgen_test_manualfunction_pointers_abcb860034253564 (signed int (*arg1) (signed int arg1), signed int arg2) { return apply1(arg1, arg2); }",
+          concat
+            [
+              "signed int hs_bindgen_test_manualfunction_pointers_abcb860034253564 (\n",
+              "  signed int (*arg1) (\n",
+              "  signed int arg1\n",
+              "),\n",
+              "  signed int arg2\n",
+              ")\n",
+              "{\n",
+              "  return apply1(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "manual/function_pointers.h"},
       foreignImportOrigin = Function
@@ -1388,7 +1413,19 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int hs_bindgen_test_manualfunction_pointers_1ad13c166a710f40 (signed int (*arg1) (signed int arg1, signed int arg2), signed int arg2, signed int arg3) { return apply2(arg1, arg2, arg3); }",
+          concat
+            [
+              "signed int hs_bindgen_test_manualfunction_pointers_1ad13c166a710f40 (\n",
+              "  signed int (*arg1) (\n",
+              "  signed int arg1,\n",
+              "  signed int arg2\n",
+              "),\n",
+              "  signed int arg2,\n",
+              "  signed int arg3\n",
+              ")\n",
+              "{\n",
+              "  return apply2(arg1, arg2, arg3);\n",
+              "}"],
           capiWrapperImport =
           "manual/function_pointers.h"},
       foreignImportOrigin = Function
@@ -1473,7 +1510,15 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int hs_bindgen_test_manualfunction_pointers_a8ef4d9e6ce68f54 (int2int *arg1, signed int arg2) { return apply1_pointer_arg(arg1, arg2); }",
+          concat
+            [
+              "signed int hs_bindgen_test_manualfunction_pointers_a8ef4d9e6ce68f54 (\n",
+              "  int2int *arg1,\n",
+              "  signed int arg2\n",
+              ")\n",
+              "{\n",
+              "  return apply1_pointer_arg(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "manual/function_pointers.h"},
       foreignImportOrigin = Function
@@ -1555,7 +1600,15 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int hs_bindgen_test_manualfunction_pointers_7dc4caa1f7f0caf0 (int2int *arg1, signed int arg2) { return apply1_nopointer_arg(arg1, arg2); }",
+          concat
+            [
+              "signed int hs_bindgen_test_manualfunction_pointers_7dc4caa1f7f0caf0 (\n",
+              "  int2int *arg1,\n",
+              "  signed int arg2\n",
+              ")\n",
+              "{\n",
+              "  return apply1_nopointer_arg(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "manual/function_pointers.h"},
       foreignImportOrigin = Function
@@ -1635,7 +1688,15 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int (*const hs_bindgen_test_manualfunction_pointers_3612aa0d10e36d5b (void)) (int2int *arg1, signed int arg2) { return apply1_nopointer_res(); }",
+          concat
+            [
+              "signed int (*const hs_bindgen_test_manualfunction_pointers_3612aa0d10e36d5b (void)) (\n",
+              "  int2int *arg1,\n",
+              "  signed int arg2\n",
+              ")\n",
+              "{\n",
+              "  return apply1_nopointer_res();\n",
+              "}"],
           capiWrapperImport =
           "manual/function_pointers.h"},
       foreignImportOrigin = Function
@@ -1711,7 +1772,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int hs_bindgen_test_manualfunction_pointers_cb3c687f16289bb3 (signed int arg1) { return square(arg1); }",
+          concat
+            [
+              "signed int hs_bindgen_test_manualfunction_pointers_cb3c687f16289bb3 (\n",
+              "  signed int arg1\n",
+              ")\n",
+              "{\n",
+              "  return square(arg1);\n",
+              "}"],
           capiWrapperImport =
           "manual/function_pointers.h"},
       foreignImportOrigin = Function
@@ -1767,7 +1835,15 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int hs_bindgen_test_manualfunction_pointers_a9730564387164c0 (signed int arg1, signed int arg2) { return plus(arg1, arg2); }",
+          concat
+            [
+              "signed int hs_bindgen_test_manualfunction_pointers_a9730564387164c0 (\n",
+              "  signed int arg1,\n",
+              "  signed int arg2\n",
+              ")\n",
+              "{\n",
+              "  return plus(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "manual/function_pointers.h"},
       foreignImportOrigin = Function
@@ -1841,7 +1917,17 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int hs_bindgen_test_manualfunction_pointers_3fb9c4a14d502477 (signed int (*arg1) (signed int arg1), signed int arg2) { return apply1(arg1, arg2); }",
+          concat
+            [
+              "signed int hs_bindgen_test_manualfunction_pointers_3fb9c4a14d502477 (\n",
+              "  signed int (*arg1) (\n",
+              "  signed int arg1\n",
+              "),\n",
+              "  signed int arg2\n",
+              ")\n",
+              "{\n",
+              "  return apply1(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "manual/function_pointers.h"},
       foreignImportOrigin = Function
@@ -1943,7 +2029,19 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int hs_bindgen_test_manualfunction_pointers_75b5699fdabb6333 (signed int (*arg1) (signed int arg1, signed int arg2), signed int arg2, signed int arg3) { return apply2(arg1, arg2, arg3); }",
+          concat
+            [
+              "signed int hs_bindgen_test_manualfunction_pointers_75b5699fdabb6333 (\n",
+              "  signed int (*arg1) (\n",
+              "  signed int arg1,\n",
+              "  signed int arg2\n",
+              "),\n",
+              "  signed int arg2,\n",
+              "  signed int arg3\n",
+              ")\n",
+              "{\n",
+              "  return apply2(arg1, arg2, arg3);\n",
+              "}"],
           capiWrapperImport =
           "manual/function_pointers.h"},
       foreignImportOrigin = Function
@@ -2028,7 +2126,15 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int hs_bindgen_test_manualfunction_pointers_2d5144fc06502862 (int2int *arg1, signed int arg2) { return apply1_pointer_arg(arg1, arg2); }",
+          concat
+            [
+              "signed int hs_bindgen_test_manualfunction_pointers_2d5144fc06502862 (\n",
+              "  int2int *arg1,\n",
+              "  signed int arg2\n",
+              ")\n",
+              "{\n",
+              "  return apply1_pointer_arg(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "manual/function_pointers.h"},
       foreignImportOrigin = Function
@@ -2110,7 +2216,15 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int hs_bindgen_test_manualfunction_pointers_b7597a0c4856ebb3 (int2int *arg1, signed int arg2) { return apply1_nopointer_arg(arg1, arg2); }",
+          concat
+            [
+              "signed int hs_bindgen_test_manualfunction_pointers_b7597a0c4856ebb3 (\n",
+              "  int2int *arg1,\n",
+              "  signed int arg2\n",
+              ")\n",
+              "{\n",
+              "  return apply1_nopointer_arg(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "manual/function_pointers.h"},
       foreignImportOrigin = Function
@@ -2190,7 +2304,15 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int (*const hs_bindgen_test_manualfunction_pointers_be3907895c70597f (void)) (int2int *arg1, signed int arg2) { return apply1_nopointer_res(); }",
+          concat
+            [
+              "signed int (*const hs_bindgen_test_manualfunction_pointers_be3907895c70597f (void)) (\n",
+              "  int2int *arg1,\n",
+              "  signed int arg2\n",
+              ")\n",
+              "{\n",
+              "  return apply1_nopointer_res();\n",
+              "}"],
           capiWrapperImport =
           "manual/function_pointers.h"},
       foreignImportOrigin = Function
@@ -2265,7 +2387,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_square_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_manualfunction_pointers_c41111f40a04cdc9 (void)) (signed int arg1) { return &square; } ",
+          concat
+            [
+              "/* get_square_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_manualfunction_pointers_c41111f40a04cdc9 (void)) (\n",
+              "  signed int arg1\n",
+              ")\n",
+              "{\n",
+              "  return &square;\n",
+              "}"],
           capiWrapperImport =
           "manual/function_pointers.h"},
       foreignImportOrigin = Global
@@ -2301,7 +2432,17 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_plus_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_manualfunction_pointers_bf838c747898dc42 (void)) (signed int arg1, signed int arg2) { return &plus; } ",
+          concat
+            [
+              "/* get_plus_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_manualfunction_pointers_bf838c747898dc42 (void)) (\n",
+              "  signed int arg1,\n",
+              "  signed int arg2\n",
+              ")\n",
+              "{\n",
+              "  return &plus;\n",
+              "}"],
           capiWrapperImport =
           "manual/function_pointers.h"},
       foreignImportOrigin = Global
@@ -2342,7 +2483,19 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_apply1_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_manualfunction_pointers_4d1935e01bc37070 (void)) (signed int (*arg1) (signed int arg1), signed int arg2) { return &apply1; } ",
+          concat
+            [
+              "/* get_apply1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_manualfunction_pointers_4d1935e01bc37070 (void)) (\n",
+              "  signed int (*arg1) (\n",
+              "  signed int arg1\n",
+              "),\n",
+              "  signed int arg2\n",
+              ")\n",
+              "{\n",
+              "  return &apply1;\n",
+              "}"],
           capiWrapperImport =
           "manual/function_pointers.h"},
       foreignImportOrigin = Global
@@ -2393,7 +2546,21 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_apply2_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_manualfunction_pointers_40cb8952bacd236a (void)) (signed int (*arg1) (signed int arg1, signed int arg2), signed int arg2, signed int arg3) { return &apply2; } ",
+          concat
+            [
+              "/* get_apply2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_manualfunction_pointers_40cb8952bacd236a (void)) (\n",
+              "  signed int (*arg1) (\n",
+              "  signed int arg1,\n",
+              "  signed int arg2\n",
+              "),\n",
+              "  signed int arg2,\n",
+              "  signed int arg3\n",
+              ")\n",
+              "{\n",
+              "  return &apply2;\n",
+              "}"],
           capiWrapperImport =
           "manual/function_pointers.h"},
       foreignImportOrigin = Global
@@ -2444,7 +2611,17 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_apply1_pointer_arg_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_manualfunction_pointers_653c5bde7704c3ca (void)) (int2int *arg1, signed int arg2) { return &apply1_pointer_arg; } ",
+          concat
+            [
+              "/* get_apply1_pointer_arg_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_manualfunction_pointers_653c5bde7704c3ca (void)) (\n",
+              "  int2int *arg1,\n",
+              "  signed int arg2\n",
+              ")\n",
+              "{\n",
+              "  return &apply1_pointer_arg;\n",
+              "}"],
           capiWrapperImport =
           "manual/function_pointers.h"},
       foreignImportOrigin = Global
@@ -2499,7 +2676,17 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_apply1_nopointer_arg_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_manualfunction_pointers_3bb9417cd7afec81 (void)) (int2int *arg1, signed int arg2) { return &apply1_nopointer_arg; } ",
+          concat
+            [
+              "/* get_apply1_nopointer_arg_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_manualfunction_pointers_3bb9417cd7afec81 (void)) (\n",
+              "  int2int *arg1,\n",
+              "  signed int arg2\n",
+              ")\n",
+              "{\n",
+              "  return &apply1_nopointer_arg;\n",
+              "}"],
           capiWrapperImport =
           "manual/function_pointers.h"},
       foreignImportOrigin = Global
@@ -2556,7 +2743,17 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_apply1_nopointer_res_ptr */ __attribute__ ((const)) signed int (*const (*hs_bindgen_test_manualfunction_pointers_f7a08d090f6f7b0f (void)) (void)) (int2int *arg1, signed int arg2) { return &apply1_nopointer_res; } ",
+          concat
+            [
+              "/* get_apply1_nopointer_res_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*const (*hs_bindgen_test_manualfunction_pointers_f7a08d090f6f7b0f (void)) (void)) (\n",
+              "  int2int *arg1,\n",
+              "  signed int arg2\n",
+              ")\n",
+              "{\n",
+              "  return &apply1_nopointer_res;\n",
+              "}"],
           capiWrapperImport =
           "manual/function_pointers.h"},
       foreignImportOrigin = Global
@@ -2619,7 +2816,17 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_apply1_nopointer_var_ptr */ __attribute__ ((const)) signed int (*const *hs_bindgen_test_manualfunction_pointers_c4bb317da29227a6 (void)) (int2int *arg1, signed int arg2) { return &apply1_nopointer_var; } ",
+          concat
+            [
+              "/* get_apply1_nopointer_var_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*const *hs_bindgen_test_manualfunction_pointers_c4bb317da29227a6 (void)) (\n",
+              "  int2int *arg1,\n",
+              "  signed int arg2\n",
+              ")\n",
+              "{\n",
+              "  return &apply1_nopointer_var;\n",
+              "}"],
           capiWrapperImport =
           "manual/function_pointers.h"},
       foreignImportOrigin = Global
@@ -2675,7 +2882,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_apply1_struct_ptr */ __attribute__ ((const)) struct Apply1Struct const *hs_bindgen_test_manualfunction_pointers_6799ff6bc99dff2a (void) { return &apply1_struct; } ",
+          concat
+            [
+              "/* get_apply1_struct_ptr */\n",
+              "__attribute__ ((const))\n",
+              "struct Apply1Struct const *hs_bindgen_test_manualfunction_pointers_6799ff6bc99dff2a (void)\n",
+              "{\n",
+              "  return &apply1_struct;\n",
+              "}"],
           capiWrapperImport =
           "manual/function_pointers.h"},
       foreignImportOrigin = Global
@@ -2713,7 +2927,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_apply1_union_ptr */ __attribute__ ((const)) union Apply1Union const *hs_bindgen_test_manualfunction_pointers_d32b4879673188b6 (void) { return &apply1_union; } ",
+          concat
+            [
+              "/* get_apply1_union_ptr */\n",
+              "__attribute__ ((const))\n",
+              "union Apply1Union const *hs_bindgen_test_manualfunction_pointers_d32b4879673188b6 (void)\n",
+              "{\n",
+              "  return &apply1_union;\n",
+              "}"],
           capiWrapperImport =
           "manual/function_pointers.h"},
       foreignImportOrigin = Global

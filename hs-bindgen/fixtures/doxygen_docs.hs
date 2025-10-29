@@ -16706,8 +16706,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_doxygen_docs_508324ba72521a99 (uint8_t const *arg1, uint8_t *arg2, size_t *arg3) { return process_data(arg1, arg2, arg3); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_doxygen_docs_508324ba72521a99 (\n",
+              "  uint8_t const *arg1,\n",
+              "  uint8_t *arg2,\n",
+              "  size_t *arg3\n",
+              ")\n",
+              "{\n",
+              "  return process_data(arg1, arg2, arg3);\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Function
@@ -17194,8 +17202,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "_Bool hs_bindgen_test_doxygen_docs_02a55804dd9edb28 (char const *arg1) { return process_file(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "_Bool hs_bindgen_test_doxygen_docs_02a55804dd9edb28 (\n",
+              "  char const *arg1\n",
+              ")\n",
+              "{\n",
+              "  return process_file(arg1);\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Function
@@ -17329,8 +17343,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_doxygen_docs_7ce4f4a3b2997c64 (signed int arg1, signed int arg2) { return calculate_value(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_doxygen_docs_7ce4f4a3b2997c64 (\n",
+              "  signed int arg1,\n",
+              "  signed int arg2\n",
+              ")\n",
+              "{\n",
+              "  return calculate_value(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Function
@@ -17442,8 +17463,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "_Bool hs_bindgen_test_doxygen_docs_b971c7e6099b9f35 (signed int arg1) { return html_example(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "_Bool hs_bindgen_test_doxygen_docs_b971c7e6099b9f35 (\n",
+              "  signed int arg1\n",
+              ")\n",
+              "{\n",
+              "  return html_example(arg1);\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Function
@@ -17571,8 +17598,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "_Bool hs_bindgen_test_doxygen_docs_b42fb41209c21d6e (char const **arg1, size_t arg2) { return list_example(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "_Bool hs_bindgen_test_doxygen_docs_b42fb41209c21d6e (\n",
+              "  char const **arg1,\n",
+              "  size_t arg2\n",
+              ")\n",
+              "{\n",
+              "  return list_example(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Function
@@ -17764,8 +17798,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void *hs_bindgen_test_doxygen_docs_344ca27a161ed698 (void *arg1) { return dangerous_function(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void *hs_bindgen_test_doxygen_docs_344ca27a161ed698 (\n",
+              "  void *arg1\n",
+              ")\n",
+              "{\n",
+              "  return dangerous_function(arg1);\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Function
@@ -17868,8 +17908,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_doxygen_docs_4e897ea8e36e2189 (char const *arg1) { return detailed_return_codes(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_doxygen_docs_4e897ea8e36e2189 (\n",
+              "  char const *arg1\n",
+              ")\n",
+              "{\n",
+              "  return detailed_return_codes(arg1);\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Function
@@ -17980,8 +18026,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_doxygen_docs_aee6bb852150141b (signed int arg1) { return old_function(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_doxygen_docs_aee6bb852150141b (\n",
+              "  signed int arg1\n",
+              ")\n",
+              "{\n",
+              "  return old_function(arg1);\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Function
@@ -18066,8 +18118,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_doxygen_docs_e655a7662e006c99 (signed int arg1) { return versioned_function(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_doxygen_docs_e655a7662e006c99 (\n",
+              "  signed int arg1\n",
+              ")\n",
+              "{\n",
+              "  return versioned_function(arg1);\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Function
@@ -18289,8 +18347,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_doxygen_docs_d8a2703f133ce8c2 (char *arg1, size_t arg2) { return process_buffer(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_doxygen_docs_d8a2703f133ce8c2 (\n",
+              "  char *arg1,\n",
+              "  size_t arg2\n",
+              ")\n",
+              "{\n",
+              "  return process_buffer(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Function
@@ -18674,8 +18739,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void *hs_bindgen_test_doxygen_docs_4b3bfd2d72a2db5d (void *arg1, void const *arg2, size_t arg3) { return my_memcpy(arg1, arg2, arg3); }",
+          capiWrapperDefinition = concat
+            [
+              "void *hs_bindgen_test_doxygen_docs_4b3bfd2d72a2db5d (\n",
+              "  void *arg1,\n",
+              "  void const *arg2,\n",
+              "  size_t arg3\n",
+              ")\n",
+              "{\n",
+              "  return my_memcpy(arg1, arg2, arg3);\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Function
@@ -18914,8 +18987,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_doxygen_docs_4a61cf13840fa8c5 (signed int arg1) { return double_value(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_doxygen_docs_4a61cf13840fa8c5 (\n",
+              "  signed int arg1\n",
+              ")\n",
+              "{\n",
+              "  return double_value(arg1);\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Function
@@ -19264,8 +19343,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "status_code_t hs_bindgen_test_doxygen_docs_848ab7c74f34f667 (config_t *arg1, uint8_t const *arg2, size_t arg3) { return complex_function(arg1, arg2, arg3); }",
+          capiWrapperDefinition = concat
+            [
+              "status_code_t hs_bindgen_test_doxygen_docs_848ab7c74f34f667 (\n",
+              "  config_t *arg1,\n",
+              "  uint8_t const *arg2,\n",
+              "  size_t arg3\n",
+              ")\n",
+              "{\n",
+              "  return complex_function(arg1, arg2, arg3);\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Function
@@ -19761,8 +19848,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_doxygen_docs_e30754e2591f701a (char *arg1) { return hash(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_doxygen_docs_e30754e2591f701a (\n",
+              "  char *arg1\n",
+              ")\n",
+              "{\n",
+              "  return hash(arg1);\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Function
@@ -19832,8 +19925,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_doxygen_docs_55e5eb89e54abf83 (signed int arg1) { return square(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_doxygen_docs_55e5eb89e54abf83 (\n",
+              "  signed int arg1\n",
+              ")\n",
+              "{\n",
+              "  return square(arg1);\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Function
@@ -20283,8 +20382,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_doxygen_docs_2d2b30c70759c0c4 (uint8_t const *arg1, uint8_t *arg2, size_t *arg3) { return process_data(arg1, arg2, arg3); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_doxygen_docs_2d2b30c70759c0c4 (\n",
+              "  uint8_t const *arg1,\n",
+              "  uint8_t *arg2,\n",
+              "  size_t *arg3\n",
+              ")\n",
+              "{\n",
+              "  return process_data(arg1, arg2, arg3);\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Function
@@ -20771,8 +20878,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "_Bool hs_bindgen_test_doxygen_docs_d6a9988889495ac1 (char const *arg1) { return process_file(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "_Bool hs_bindgen_test_doxygen_docs_d6a9988889495ac1 (\n",
+              "  char const *arg1\n",
+              ")\n",
+              "{\n",
+              "  return process_file(arg1);\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Function
@@ -20906,8 +21019,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_doxygen_docs_082e1bba4d72bc95 (signed int arg1, signed int arg2) { return calculate_value(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_doxygen_docs_082e1bba4d72bc95 (\n",
+              "  signed int arg1,\n",
+              "  signed int arg2\n",
+              ")\n",
+              "{\n",
+              "  return calculate_value(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Function
@@ -21019,8 +21139,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "_Bool hs_bindgen_test_doxygen_docs_fddff4284f0988ec (signed int arg1) { return html_example(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "_Bool hs_bindgen_test_doxygen_docs_fddff4284f0988ec (\n",
+              "  signed int arg1\n",
+              ")\n",
+              "{\n",
+              "  return html_example(arg1);\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Function
@@ -21148,8 +21274,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "_Bool hs_bindgen_test_doxygen_docs_41af05ef1797fa6d (char const **arg1, size_t arg2) { return list_example(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "_Bool hs_bindgen_test_doxygen_docs_41af05ef1797fa6d (\n",
+              "  char const **arg1,\n",
+              "  size_t arg2\n",
+              ")\n",
+              "{\n",
+              "  return list_example(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Function
@@ -21341,8 +21474,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void *hs_bindgen_test_doxygen_docs_3f6186f38de47df9 (void *arg1) { return dangerous_function(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void *hs_bindgen_test_doxygen_docs_3f6186f38de47df9 (\n",
+              "  void *arg1\n",
+              ")\n",
+              "{\n",
+              "  return dangerous_function(arg1);\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Function
@@ -21445,8 +21584,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_doxygen_docs_b5913ddf382b031a (char const *arg1) { return detailed_return_codes(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_doxygen_docs_b5913ddf382b031a (\n",
+              "  char const *arg1\n",
+              ")\n",
+              "{\n",
+              "  return detailed_return_codes(arg1);\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Function
@@ -21557,8 +21702,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_doxygen_docs_2b7f6e5fbd1f46e1 (signed int arg1) { return old_function(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_doxygen_docs_2b7f6e5fbd1f46e1 (\n",
+              "  signed int arg1\n",
+              ")\n",
+              "{\n",
+              "  return old_function(arg1);\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Function
@@ -21643,8 +21794,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_doxygen_docs_7760ce72dbe3dbbb (signed int arg1) { return versioned_function(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_doxygen_docs_7760ce72dbe3dbbb (\n",
+              "  signed int arg1\n",
+              ")\n",
+              "{\n",
+              "  return versioned_function(arg1);\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Function
@@ -21866,8 +22023,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_doxygen_docs_75f51ea0caca0775 (char *arg1, size_t arg2) { return process_buffer(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_doxygen_docs_75f51ea0caca0775 (\n",
+              "  char *arg1,\n",
+              "  size_t arg2\n",
+              ")\n",
+              "{\n",
+              "  return process_buffer(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Function
@@ -22251,8 +22415,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void *hs_bindgen_test_doxygen_docs_e8c4a96cefd6117e (void *arg1, void const *arg2, size_t arg3) { return my_memcpy(arg1, arg2, arg3); }",
+          capiWrapperDefinition = concat
+            [
+              "void *hs_bindgen_test_doxygen_docs_e8c4a96cefd6117e (\n",
+              "  void *arg1,\n",
+              "  void const *arg2,\n",
+              "  size_t arg3\n",
+              ")\n",
+              "{\n",
+              "  return my_memcpy(arg1, arg2, arg3);\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Function
@@ -22491,8 +22663,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_doxygen_docs_e73c6e96d9e7581d (signed int arg1) { return double_value(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_doxygen_docs_e73c6e96d9e7581d (\n",
+              "  signed int arg1\n",
+              ")\n",
+              "{\n",
+              "  return double_value(arg1);\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Function
@@ -22841,8 +23019,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "status_code_t hs_bindgen_test_doxygen_docs_bc28ed88ec7705d4 (config_t *arg1, uint8_t const *arg2, size_t arg3) { return complex_function(arg1, arg2, arg3); }",
+          capiWrapperDefinition = concat
+            [
+              "status_code_t hs_bindgen_test_doxygen_docs_bc28ed88ec7705d4 (\n",
+              "  config_t *arg1,\n",
+              "  uint8_t const *arg2,\n",
+              "  size_t arg3\n",
+              ")\n",
+              "{\n",
+              "  return complex_function(arg1, arg2, arg3);\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Function
@@ -23338,8 +23524,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_doxygen_docs_88887d4b5f42f079 (char *arg1) { return hash(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_doxygen_docs_88887d4b5f42f079 (\n",
+              "  char *arg1\n",
+              ")\n",
+              "{\n",
+              "  return hash(arg1);\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Function
@@ -23409,8 +23601,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_doxygen_docs_cb3c687f16289bb3 (signed int arg1) { return square(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_doxygen_docs_cb3c687f16289bb3 (\n",
+              "  signed int arg1\n",
+              ")\n",
+              "{\n",
+              "  return square(arg1);\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Function
@@ -23802,7 +24000,18 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_process_data_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_d0e1f65bee5472f6 (void)) (uint8_t const *arg1, uint8_t *arg2, size_t *arg3) { return &process_data; } ",
+          concat
+            [
+              "/* get_process_data_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_doxygen_docs_d0e1f65bee5472f6 (void)) (\n",
+              "  uint8_t const *arg1,\n",
+              "  uint8_t *arg2,\n",
+              "  size_t *arg3\n",
+              ")\n",
+              "{\n",
+              "  return &process_data;\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Global
@@ -24190,7 +24399,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_process_file_ptr */ __attribute__ ((const)) _Bool (*hs_bindgen_test_doxygen_docs_3621ac21e0f7a16b (void)) (char const *arg1) { return &process_file; } ",
+          concat
+            [
+              "/* get_process_file_ptr */\n",
+              "__attribute__ ((const))\n",
+              "_Bool (*hs_bindgen_test_doxygen_docs_3621ac21e0f7a16b (void)) (\n",
+              "  char const *arg1\n",
+              ")\n",
+              "{\n",
+              "  return &process_file;\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Global
@@ -24229,7 +24447,17 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_calculate_value_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_90c8694d918623e1 (void)) (signed int arg1, signed int arg2) { return &calculate_value; } ",
+          concat
+            [
+              "/* get_calculate_value_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_doxygen_docs_90c8694d918623e1 (void)) (\n",
+              "  signed int arg1,\n",
+              "  signed int arg2\n",
+              ")\n",
+              "{\n",
+              "  return &calculate_value;\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Global
@@ -24265,7 +24493,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_html_example_ptr */ __attribute__ ((const)) _Bool (*hs_bindgen_test_doxygen_docs_e113abb2b0034e66 (void)) (signed int arg1) { return &html_example; } ",
+          concat
+            [
+              "/* get_html_example_ptr */\n",
+              "__attribute__ ((const))\n",
+              "_Bool (*hs_bindgen_test_doxygen_docs_e113abb2b0034e66 (void)) (\n",
+              "  signed int arg1\n",
+              ")\n",
+              "{\n",
+              "  return &html_example;\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Global
@@ -24302,7 +24539,17 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_list_example_ptr */ __attribute__ ((const)) _Bool (*hs_bindgen_test_doxygen_docs_24b25f22222ce366 (void)) (char const **arg1, size_t arg2) { return &list_example; } ",
+          concat
+            [
+              "/* get_list_example_ptr */\n",
+              "__attribute__ ((const))\n",
+              "_Bool (*hs_bindgen_test_doxygen_docs_24b25f22222ce366 (void)) (\n",
+              "  char const **arg1,\n",
+              "  size_t arg2\n",
+              ")\n",
+              "{\n",
+              "  return &list_example;\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Global
@@ -24342,7 +24589,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_dangerous_function_ptr */ __attribute__ ((const)) void *(*hs_bindgen_test_doxygen_docs_6017a8a05430a56b (void)) (void *arg1) { return &dangerous_function; } ",
+          concat
+            [
+              "/* get_dangerous_function_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void *(*hs_bindgen_test_doxygen_docs_6017a8a05430a56b (void)) (\n",
+              "  void *arg1\n",
+              ")\n",
+              "{\n",
+              "  return &dangerous_function;\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Global
@@ -24373,7 +24629,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_detailed_return_codes_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_78d3a59b40cdc8e7 (void)) (char const *arg1) { return &detailed_return_codes; } ",
+          concat
+            [
+              "/* get_detailed_return_codes_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_doxygen_docs_78d3a59b40cdc8e7 (void)) (\n",
+              "  char const *arg1\n",
+              ")\n",
+              "{\n",
+              "  return &detailed_return_codes;\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Global
@@ -24412,7 +24677,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_old_function_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_885c5a5805adf39b (void)) (signed int arg1) { return &old_function; } ",
+          concat
+            [
+              "/* get_old_function_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_doxygen_docs_885c5a5805adf39b (void)) (\n",
+              "  signed int arg1\n",
+              ")\n",
+              "{\n",
+              "  return &old_function;\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Global
@@ -24446,7 +24720,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_versioned_function_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_247ac59146595fd0 (void)) (signed int arg1) { return &versioned_function; } ",
+          concat
+            [
+              "/* get_versioned_function_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_doxygen_docs_247ac59146595fd0 (void)) (\n",
+              "  signed int arg1\n",
+              ")\n",
+              "{\n",
+              "  return &versioned_function;\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Global
@@ -24595,7 +24878,17 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_process_buffer_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_7c3d7625a05c8175 (void)) (char arg1[64], size_t arg2) { return &process_buffer; } ",
+          concat
+            [
+              "/* get_process_buffer_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_doxygen_docs_7c3d7625a05c8175 (void)) (\n",
+              "  char arg1[64],\n",
+              "  size_t arg2\n",
+              ")\n",
+              "{\n",
+              "  return &process_buffer;\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Global
@@ -24866,7 +25159,18 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_my_memcpy_ptr */ __attribute__ ((const)) void *(*hs_bindgen_test_doxygen_docs_e2e8b5d5ac435de8 (void)) (void *arg1, void const *arg2, size_t arg3) { return &my_memcpy; } ",
+          concat
+            [
+              "/* get_my_memcpy_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void *(*hs_bindgen_test_doxygen_docs_e2e8b5d5ac435de8 (void)) (\n",
+              "  void *arg1,\n",
+              "  void const *arg2,\n",
+              "  size_t arg3\n",
+              ")\n",
+              "{\n",
+              "  return &my_memcpy;\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Global
@@ -25019,7 +25323,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_double_value_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_c819fda6b145aafa (void)) (signed int arg1) { return &double_value; } ",
+          concat
+            [
+              "/* get_double_value_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_doxygen_docs_c819fda6b145aafa (void)) (\n",
+              "  signed int arg1\n",
+              ")\n",
+              "{\n",
+              "  return &double_value;\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Global
@@ -25287,7 +25600,18 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_complex_function_ptr */ __attribute__ ((const)) status_code_t (*hs_bindgen_test_doxygen_docs_76146a96271b3f75 (void)) (config_t *arg1, uint8_t const *arg2, size_t arg3) { return &complex_function; } ",
+          concat
+            [
+              "/* get_complex_function_ptr */\n",
+              "__attribute__ ((const))\n",
+              "status_code_t (*hs_bindgen_test_doxygen_docs_76146a96271b3f75 (void)) (\n",
+              "  config_t *arg1,\n",
+              "  uint8_t const *arg2,\n",
+              "  size_t arg3\n",
+              ")\n",
+              "{\n",
+              "  return &complex_function;\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Global
@@ -25577,7 +25901,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_hash_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_4de9606eb9c5dd01 (void)) (char *arg1) { return &hash; } ",
+          concat
+            [
+              "/* get_hash_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_doxygen_docs_4de9606eb9c5dd01 (void)) (\n",
+              "  char *arg1\n",
+              ")\n",
+              "{\n",
+              "  return &hash;\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Global
@@ -25614,7 +25947,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_square_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_doxygen_docs_c41111f40a04cdc9 (void)) (signed int arg1) { return &square; } ",
+          concat
+            [
+              "/* get_square_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_doxygen_docs_c41111f40a04cdc9 (void)) (\n",
+              "  signed int arg1\n",
+              ")\n",
+              "{\n",
+              "  return &square;\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Global
@@ -25645,7 +25987,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_global_counter_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_doxygen_docs_1a40d1e5fbd04660 (void) { return &global_counter; } ",
+          concat
+            [
+              "/* get_global_counter_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int *hs_bindgen_test_doxygen_docs_1a40d1e5fbd04660 (void)\n",
+              "{\n",
+              "  return &global_counter;\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Global
@@ -25673,7 +26022,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_version_string_ptr */ __attribute__ ((const)) char const **hs_bindgen_test_doxygen_docs_0f1cef8c70bbdf2c (void) { return &version_string; } ",
+          concat
+            [
+              "/* get_version_string_ptr */\n",
+              "__attribute__ ((const))\n",
+              "char const **hs_bindgen_test_doxygen_docs_0f1cef8c70bbdf2c (void)\n",
+              "{\n",
+              "  return &version_string;\n",
+              "}"],
           capiWrapperImport =
           "doxygen_docs.h"},
       foreignImportOrigin = Global

@@ -1669,8 +1669,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_decls_in_signature_001a08d4459ec455 (struct opaque *arg1, struct outside *arg2, struct outside *arg3) { normal(arg1, arg2, *arg3); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_decls_in_signature_001a08d4459ec455 (\n",
+              "  struct opaque *arg1,\n",
+              "  struct outside *arg2,\n",
+              "  struct outside *arg3\n",
+              ")\n",
+              "{\n",
+              "  normal(arg1, arg2, *arg3);\n",
+              "}"],
           capiWrapperImport =
           "decls_in_signature.h"},
       foreignImportOrigin = Function
@@ -1870,8 +1878,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_decls_in_signature_a2f84d2570ef3892 (struct named_struct *arg1) { f1(*arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_decls_in_signature_a2f84d2570ef3892 (\n",
+              "  struct named_struct *arg1\n",
+              ")\n",
+              "{\n",
+              "  f1(*arg1);\n",
+              "}"],
           capiWrapperImport =
           "decls_in_signature.h"},
       foreignImportOrigin = Function
@@ -1992,8 +2006,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_decls_in_signature_1d043de05a457e90 (union named_union *arg1) { f2(*arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_decls_in_signature_1d043de05a457e90 (\n",
+              "  union named_union *arg1\n",
+              ")\n",
+              "{\n",
+              "  f2(*arg1);\n",
+              "}"],
           capiWrapperImport =
           "decls_in_signature.h"},
       foreignImportOrigin = Function
@@ -2127,8 +2147,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_decls_in_signature_35c28995abc46de4 (struct opaque *arg1, struct outside *arg2, struct outside *arg3) { normal(arg1, arg2, *arg3); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_decls_in_signature_35c28995abc46de4 (\n",
+              "  struct opaque *arg1,\n",
+              "  struct outside *arg2,\n",
+              "  struct outside *arg3\n",
+              ")\n",
+              "{\n",
+              "  normal(arg1, arg2, *arg3);\n",
+              "}"],
           capiWrapperImport =
           "decls_in_signature.h"},
       foreignImportOrigin = Function
@@ -2328,8 +2356,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_decls_in_signature_c1788128a5b1c813 (struct named_struct *arg1) { f1(*arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_decls_in_signature_c1788128a5b1c813 (\n",
+              "  struct named_struct *arg1\n",
+              ")\n",
+              "{\n",
+              "  f1(*arg1);\n",
+              "}"],
           capiWrapperImport =
           "decls_in_signature.h"},
       foreignImportOrigin = Function
@@ -2450,8 +2484,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_decls_in_signature_14361e995fb5684a (union named_union *arg1) { f2(*arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_decls_in_signature_14361e995fb5684a (\n",
+              "  union named_union *arg1\n",
+              ")\n",
+              "{\n",
+              "  f2(*arg1);\n",
+              "}"],
           capiWrapperImport =
           "decls_in_signature.h"},
       foreignImportOrigin = Function
@@ -2574,7 +2614,18 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_normal_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_decls_in_signature_b040d51578b7b05e (void)) (struct opaque *arg1, struct outside *arg2, struct outside arg3) { return &normal; } ",
+          concat
+            [
+              "/* get_normal_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_decls_in_signature_b040d51578b7b05e (void)) (\n",
+              "  struct opaque *arg1,\n",
+              "  struct outside *arg2,\n",
+              "  struct outside arg3\n",
+              ")\n",
+              "{\n",
+              "  return &normal;\n",
+              "}"],
           capiWrapperImport =
           "decls_in_signature.h"},
       foreignImportOrigin = Global
@@ -2628,7 +2679,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_f1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_decls_in_signature_5469bdc0395f86c1 (void)) (struct named_struct arg1) { return &f1; } ",
+          concat
+            [
+              "/* get_f1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_decls_in_signature_5469bdc0395f86c1 (void)) (\n",
+              "  struct named_struct arg1\n",
+              ")\n",
+              "{\n",
+              "  return &f1;\n",
+              "}"],
           capiWrapperImport =
           "decls_in_signature.h"},
       foreignImportOrigin = Global
@@ -2668,7 +2728,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_f2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_decls_in_signature_490ca7e8c8282a69 (void)) (union named_union arg1) { return &f2; } ",
+          concat
+            [
+              "/* get_f2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_decls_in_signature_490ca7e8c8282a69 (void)) (\n",
+              "  union named_union arg1\n",
+              ")\n",
+              "{\n",
+              "  return &f2;\n",
+              "}"],
           capiWrapperImport =
           "decls_in_signature.h"},
       foreignImportOrigin = Global

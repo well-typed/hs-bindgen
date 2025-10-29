@@ -14,7 +14,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_e8fda12159f2be9f (void) { f0(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_e8fda12159f2be9f (void)\n",
+              "{\n",
+              "  f0();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -53,7 +58,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_a2f84d2570ef3892 (void) { f1(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_a2f84d2570ef3892 (void)\n",
+              "{\n",
+              "  f1();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -92,7 +102,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_1d043de05a457e90 (void) { f2(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_1d043de05a457e90 (void)\n",
+              "{\n",
+              "  f2();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -131,7 +146,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_e23eff1955ebb459 (void) { f3(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_e23eff1955ebb459 (void)\n",
+              "{\n",
+              "  f3();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -170,7 +190,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_ce219a1a5351d14e (void) { f4(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_ce219a1a5351d14e (void)\n",
+              "{\n",
+              "  f4();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -209,7 +234,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_caebbc1a0babf9c3 (void) { f5(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_caebbc1a0babf9c3 (void)\n",
+              "{\n",
+              "  f5();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -248,7 +278,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_0e94ab16fe1245e4 (void) { f6(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_0e94ab16fe1245e4 (void)\n",
+              "{\n",
+              "  f6();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -287,7 +322,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_595393c65507c7b2 (void) { f7(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_595393c65507c7b2 (void)\n",
+              "{\n",
+              "  f7();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -326,7 +366,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_2e6297cc5a3e79e0 (void) { f8(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_2e6297cc5a3e79e0 (void)\n",
+              "{\n",
+              "  f8();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -365,7 +410,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_7d6b88eb048c2261 (void) { f9(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_7d6b88eb048c2261 (void)\n",
+              "{\n",
+              "  f9();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -404,7 +454,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_4ef53db381225865 (void) { f10(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_4ef53db381225865 (void)\n",
+              "{\n",
+              "  f10();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -443,7 +498,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_c626c8c382be7e47 (void) { f11(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_c626c8c382be7e47 (void)\n",
+              "{\n",
+              "  f11();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -482,7 +542,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_09bc3cf816a85839 (void) { f12(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_09bc3cf816a85839 (void)\n",
+              "{\n",
+              "  f12();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -521,7 +586,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_eadf3eb9d39365cf (void) { f13(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_eadf3eb9d39365cf (void)\n",
+              "{\n",
+              "  f13();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -560,7 +630,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_24313656b5162754 (void) { f14(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_24313656b5162754 (void)\n",
+              "{\n",
+              "  f14();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -599,7 +674,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_db09067813df28c1 (void) { f15(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_db09067813df28c1 (void)\n",
+              "{\n",
+              "  f15();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -638,7 +718,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_4ce3176c4406cf10 (void) { f16(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_4ce3176c4406cf10 (void)\n",
+              "{\n",
+              "  f16();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -677,7 +762,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_2354b7b245be3629 (void) { f17(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_2354b7b245be3629 (void)\n",
+              "{\n",
+              "  f17();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -716,7 +806,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_a24f6e8ea1a74456 (void) { f18(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_a24f6e8ea1a74456 (void)\n",
+              "{\n",
+              "  f18();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -755,7 +850,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_e14cdae313c9647d (void) { f19(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_e14cdae313c9647d (void)\n",
+              "{\n",
+              "  f19();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -794,7 +894,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_d973493c824fdf05 (void) { f20(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_d973493c824fdf05 (void)\n",
+              "{\n",
+              "  f20();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -833,7 +938,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_cc1b3614f810260c (void) { f21(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_cc1b3614f810260c (void)\n",
+              "{\n",
+              "  f21();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -872,7 +982,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_cb764aa14ed3e34c (void) { f22(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_cb764aa14ed3e34c (void)\n",
+              "{\n",
+              "  f22();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -911,7 +1026,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_dc225cc74f4331bf (void) { f23(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_dc225cc74f4331bf (void)\n",
+              "{\n",
+              "  f23();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -950,7 +1070,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_88449e6c03902cdf (void) { f24(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_88449e6c03902cdf (void)\n",
+              "{\n",
+              "  f24();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -989,7 +1114,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_7370ca6009a58826 (void) { f25(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_7370ca6009a58826 (void)\n",
+              "{\n",
+              "  f25();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -1028,7 +1158,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_a67323b70e59146d (void) { f26(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_a67323b70e59146d (void)\n",
+              "{\n",
+              "  f26();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -1067,7 +1202,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_968a7a3827f17839 (void) { f27(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_968a7a3827f17839 (void)\n",
+              "{\n",
+              "  f27();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -1106,7 +1246,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_fbb18ffa92c2c5be (void) { f28(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_fbb18ffa92c2c5be (void)\n",
+              "{\n",
+              "  f28();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -1145,7 +1290,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_60afc98eb89b8a2d (void) { f29(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_60afc98eb89b8a2d (void)\n",
+              "{\n",
+              "  f29();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -1184,7 +1334,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_3ff941535f1a906c (void) { f0(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_3ff941535f1a906c (void)\n",
+              "{\n",
+              "  f0();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -1223,7 +1378,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_c1788128a5b1c813 (void) { f1(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_c1788128a5b1c813 (void)\n",
+              "{\n",
+              "  f1();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -1262,7 +1422,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_14361e995fb5684a (void) { f2(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_14361e995fb5684a (void)\n",
+              "{\n",
+              "  f2();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -1301,7 +1466,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_2bef032cbe15ffd0 (void) { f3(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_2bef032cbe15ffd0 (void)\n",
+              "{\n",
+              "  f3();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -1340,7 +1510,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_cd0cf1428bcc9b38 (void) { f4(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_cd0cf1428bcc9b38 (void)\n",
+              "{\n",
+              "  f4();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -1379,7 +1554,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_8c6188a2eaf5d0d4 (void) { f5(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_8c6188a2eaf5d0d4 (void)\n",
+              "{\n",
+              "  f5();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -1418,7 +1598,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_b8eff0c55713150e (void) { f6(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_b8eff0c55713150e (void)\n",
+              "{\n",
+              "  f6();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -1457,7 +1642,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_71135129c9373ee7 (void) { f7(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_71135129c9373ee7 (void)\n",
+              "{\n",
+              "  f7();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -1496,7 +1686,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_febb2843049709cd (void) { f8(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_febb2843049709cd (void)\n",
+              "{\n",
+              "  f8();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -1535,7 +1730,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_f6882e1e65092791 (void) { f9(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_f6882e1e65092791 (void)\n",
+              "{\n",
+              "  f9();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -1574,7 +1774,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_7d21aeb39d51b64f (void) { f10(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_7d21aeb39d51b64f (void)\n",
+              "{\n",
+              "  f10();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -1613,7 +1818,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_fe9b18a1d2845606 (void) { f11(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_fe9b18a1d2845606 (void)\n",
+              "{\n",
+              "  f11();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -1652,7 +1862,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_8b5aacef3fb80581 (void) { f12(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_8b5aacef3fb80581 (void)\n",
+              "{\n",
+              "  f12();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -1691,7 +1906,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_9162af7e5d2b25bd (void) { f13(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_9162af7e5d2b25bd (void)\n",
+              "{\n",
+              "  f13();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -1730,7 +1950,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_92d022f6d12704a3 (void) { f14(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_92d022f6d12704a3 (void)\n",
+              "{\n",
+              "  f14();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -1769,7 +1994,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_1ade4a16b9edc93f (void) { f15(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_1ade4a16b9edc93f (void)\n",
+              "{\n",
+              "  f15();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -1808,7 +2038,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_702e08cfa9d8f107 (void) { f16(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_702e08cfa9d8f107 (void)\n",
+              "{\n",
+              "  f16();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -1847,7 +2082,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_6839cf744c467402 (void) { f17(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_6839cf744c467402 (void)\n",
+              "{\n",
+              "  f17();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -1886,7 +2126,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_bcbefba8cee060e9 (void) { f18(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_bcbefba8cee060e9 (void)\n",
+              "{\n",
+              "  f18();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -1925,7 +2170,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_6991c5868d8397b8 (void) { f19(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_6991c5868d8397b8 (void)\n",
+              "{\n",
+              "  f19();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -1964,7 +2214,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_168f1d96d48b3571 (void) { f20(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_168f1d96d48b3571 (void)\n",
+              "{\n",
+              "  f20();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -2003,7 +2258,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_05b34816425cdccc (void) { f21(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_05b34816425cdccc (void)\n",
+              "{\n",
+              "  f21();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -2042,7 +2302,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_1531783017d14d65 (void) { f22(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_1531783017d14d65 (void)\n",
+              "{\n",
+              "  f22();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -2081,7 +2346,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_e086f69c4390fd7e (void) { f23(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_e086f69c4390fd7e (void)\n",
+              "{\n",
+              "  f23();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -2120,7 +2390,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_eaa6acf5b4299e7c (void) { f24(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_eaa6acf5b4299e7c (void)\n",
+              "{\n",
+              "  f24();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -2159,7 +2434,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_a82bd6ddcf01332d (void) { f25(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_a82bd6ddcf01332d (void)\n",
+              "{\n",
+              "  f25();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -2198,7 +2478,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_1ee51cc55408f9a7 (void) { f26(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_1ee51cc55408f9a7 (void)\n",
+              "{\n",
+              "  f26();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -2237,7 +2522,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_f6035b3578b5d5cd (void) { f27(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_f6035b3578b5d5cd (void)\n",
+              "{\n",
+              "  f27();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -2276,7 +2566,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_a827e3b8d932270f (void) { f28(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_a827e3b8d932270f (void)\n",
+              "{\n",
+              "  f28();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -2315,7 +2610,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_visibility_attributes_316dcf70a67165b5 (void) { f29(); }",
+          concat
+            [
+              "void hs_bindgen_test_visibility_attributes_316dcf70a67165b5 (void)\n",
+              "{\n",
+              "  f29();\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Function
@@ -2357,7 +2657,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_f0_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_a03f2cbeac50b3d3 (void)) (void) { return &f0; } ",
+          concat
+            [
+              "/* get_f0_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_visibility_attributes_a03f2cbeac50b3d3 (void)) (void)\n",
+              "{\n",
+              "  return &f0;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -2384,7 +2691,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_f1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_5469bdc0395f86c1 (void)) (void) { return &f1; } ",
+          concat
+            [
+              "/* get_f1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_visibility_attributes_5469bdc0395f86c1 (void)) (void)\n",
+              "{\n",
+              "  return &f1;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -2411,7 +2725,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_f2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_490ca7e8c8282a69 (void)) (void) { return &f2; } ",
+          concat
+            [
+              "/* get_f2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_visibility_attributes_490ca7e8c8282a69 (void)) (void)\n",
+              "{\n",
+              "  return &f2;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -2438,7 +2759,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_f3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_38506a9ac5626bf2 (void)) (void) { return &f3; } ",
+          concat
+            [
+              "/* get_f3_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_visibility_attributes_38506a9ac5626bf2 (void)) (void)\n",
+              "{\n",
+              "  return &f3;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -2465,7 +2793,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_f4_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_10e5fac8fefa811b (void)) (void) { return &f4; } ",
+          concat
+            [
+              "/* get_f4_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_visibility_attributes_10e5fac8fefa811b (void)) (void)\n",
+              "{\n",
+              "  return &f4;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -2492,7 +2827,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_f5_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_3f137e2ee71fd73b (void)) (void) { return &f5; } ",
+          concat
+            [
+              "/* get_f5_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_visibility_attributes_3f137e2ee71fd73b (void)) (void)\n",
+              "{\n",
+              "  return &f5;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -2519,7 +2861,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_f6_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_b69720e01b3b7ccd (void)) (void) { return &f6; } ",
+          concat
+            [
+              "/* get_f6_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_visibility_attributes_b69720e01b3b7ccd (void)) (void)\n",
+              "{\n",
+              "  return &f6;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -2546,7 +2895,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_f7_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_97be5f53b506f3b5 (void)) (void) { return &f7; } ",
+          concat
+            [
+              "/* get_f7_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_visibility_attributes_97be5f53b506f3b5 (void)) (void)\n",
+              "{\n",
+              "  return &f7;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -2573,7 +2929,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_f8_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_ae7ef3d579d77d0b (void)) (void) { return &f8; } ",
+          concat
+            [
+              "/* get_f8_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_visibility_attributes_ae7ef3d579d77d0b (void)) (void)\n",
+              "{\n",
+              "  return &f8;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -2600,7 +2963,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_f9_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_ef6d611329a20b40 (void)) (void) { return &f9; } ",
+          concat
+            [
+              "/* get_f9_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_visibility_attributes_ef6d611329a20b40 (void)) (void)\n",
+              "{\n",
+              "  return &f9;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -2627,7 +2997,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_f10_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_45797238134784ac (void)) (void) { return &f10; } ",
+          concat
+            [
+              "/* get_f10_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_visibility_attributes_45797238134784ac (void)) (void)\n",
+              "{\n",
+              "  return &f10;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -2654,7 +3031,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_f11_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_f09c80553786e039 (void)) (void) { return &f11; } ",
+          concat
+            [
+              "/* get_f11_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_visibility_attributes_f09c80553786e039 (void)) (void)\n",
+              "{\n",
+              "  return &f11;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -2681,7 +3065,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_f12_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_2e9999eac1cab3da (void)) (void) { return &f12; } ",
+          concat
+            [
+              "/* get_f12_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_visibility_attributes_2e9999eac1cab3da (void)) (void)\n",
+              "{\n",
+              "  return &f12;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -2708,7 +3099,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_f13_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_32e5be8a3f3ac037 (void)) (void) { return &f13; } ",
+          concat
+            [
+              "/* get_f13_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_visibility_attributes_32e5be8a3f3ac037 (void)) (void)\n",
+              "{\n",
+              "  return &f13;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -2735,7 +3133,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_f14_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_0b00a23924c6dc70 (void)) (void) { return &f14; } ",
+          concat
+            [
+              "/* get_f14_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_visibility_attributes_0b00a23924c6dc70 (void)) (void)\n",
+              "{\n",
+              "  return &f14;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -2762,7 +3167,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_f15_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_0d2891732562e5ef (void)) (void) { return &f15; } ",
+          concat
+            [
+              "/* get_f15_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_visibility_attributes_0d2891732562e5ef (void)) (void)\n",
+              "{\n",
+              "  return &f15;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -2789,7 +3201,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_f16_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_f25227febbe8db15 (void)) (void) { return &f16; } ",
+          concat
+            [
+              "/* get_f16_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_visibility_attributes_f25227febbe8db15 (void)) (void)\n",
+              "{\n",
+              "  return &f16;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -2816,7 +3235,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_f17_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_b90b1824c2839fd2 (void)) (void) { return &f17; } ",
+          concat
+            [
+              "/* get_f17_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_visibility_attributes_b90b1824c2839fd2 (void)) (void)\n",
+              "{\n",
+              "  return &f17;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -2843,7 +3269,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_f18_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_24ba8b98fe453a5c (void)) (void) { return &f18; } ",
+          concat
+            [
+              "/* get_f18_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_visibility_attributes_24ba8b98fe453a5c (void)) (void)\n",
+              "{\n",
+              "  return &f18;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -2870,7 +3303,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_f19_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_b857c57c0cf79909 (void)) (void) { return &f19; } ",
+          concat
+            [
+              "/* get_f19_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_visibility_attributes_b857c57c0cf79909 (void)) (void)\n",
+              "{\n",
+              "  return &f19;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -2897,7 +3337,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_f20_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_d695cc521dd39753 (void)) (void) { return &f20; } ",
+          concat
+            [
+              "/* get_f20_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_visibility_attributes_d695cc521dd39753 (void)) (void)\n",
+              "{\n",
+              "  return &f20;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -2924,7 +3371,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_f21_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_7311dbbdd00abedc (void)) (void) { return &f21; } ",
+          concat
+            [
+              "/* get_f21_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_visibility_attributes_7311dbbdd00abedc (void)) (void)\n",
+              "{\n",
+              "  return &f21;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -2951,7 +3405,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_f22_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_4246b9344ad4db0d (void)) (void) { return &f22; } ",
+          concat
+            [
+              "/* get_f22_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_visibility_attributes_4246b9344ad4db0d (void)) (void)\n",
+              "{\n",
+              "  return &f22;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -2978,7 +3439,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_f23_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_dcef056ccb5953f9 (void)) (void) { return &f23; } ",
+          concat
+            [
+              "/* get_f23_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_visibility_attributes_dcef056ccb5953f9 (void)) (void)\n",
+              "{\n",
+              "  return &f23;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -3005,7 +3473,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_f24_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_9ab6df359be6d370 (void)) (void) { return &f24; } ",
+          concat
+            [
+              "/* get_f24_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_visibility_attributes_9ab6df359be6d370 (void)) (void)\n",
+              "{\n",
+              "  return &f24;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -3032,7 +3507,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_f25_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_80cad6f0afd3f1fc (void)) (void) { return &f25; } ",
+          concat
+            [
+              "/* get_f25_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_visibility_attributes_80cad6f0afd3f1fc (void)) (void)\n",
+              "{\n",
+              "  return &f25;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -3059,7 +3541,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_f26_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_b1580cdccf30f552 (void)) (void) { return &f26; } ",
+          concat
+            [
+              "/* get_f26_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_visibility_attributes_b1580cdccf30f552 (void)) (void)\n",
+              "{\n",
+              "  return &f26;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -3086,7 +3575,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_f27_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_2e4891a5e2afe0df (void)) (void) { return &f27; } ",
+          concat
+            [
+              "/* get_f27_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_visibility_attributes_2e4891a5e2afe0df (void)) (void)\n",
+              "{\n",
+              "  return &f27;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -3113,7 +3609,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_f28_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_e2949a9b7b7cbfc0 (void)) (void) { return &f28; } ",
+          concat
+            [
+              "/* get_f28_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_visibility_attributes_e2949a9b7b7cbfc0 (void)) (void)\n",
+              "{\n",
+              "  return &f28;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -3140,7 +3643,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_f29_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_visibility_attributes_1224b39f0e8e72cd (void)) (void) { return &f29; } ",
+          concat
+            [
+              "/* get_f29_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_visibility_attributes_1224b39f0e8e72cd (void)) (void)\n",
+              "{\n",
+              "  return &f29;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -3166,7 +3676,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_i0_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_216496b15d8f3143 (void) { return &i0; } ",
+          concat
+            [
+              "/* get_i0_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int *hs_bindgen_test_visibility_attributes_216496b15d8f3143 (void)\n",
+              "{\n",
+              "  return &i0;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -3193,7 +3710,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_i1_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_8a4a155fb4b3e983 (void) { return &i1; } ",
+          concat
+            [
+              "/* get_i1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int *hs_bindgen_test_visibility_attributes_8a4a155fb4b3e983 (void)\n",
+              "{\n",
+              "  return &i1;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -3220,7 +3744,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_i2_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_8a341976b53c3159 (void) { return &i2; } ",
+          concat
+            [
+              "/* get_i2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int *hs_bindgen_test_visibility_attributes_8a341976b53c3159 (void)\n",
+              "{\n",
+              "  return &i2;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -3247,7 +3778,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_i3_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_8a18e8a325536dc5 (void) { return &i3; } ",
+          concat
+            [
+              "/* get_i3_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int *hs_bindgen_test_visibility_attributes_8a18e8a325536dc5 (void)\n",
+              "{\n",
+              "  return &i3;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -3274,7 +3812,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_i4_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_8a083f6803595ed2 (void) { return &i4; } ",
+          concat
+            [
+              "/* get_i4_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int *hs_bindgen_test_visibility_attributes_8a083f6803595ed2 (void)\n",
+              "{\n",
+              "  return &i4;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -3301,7 +3846,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_i5_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_b9d322a4c171d6fa (void) { return &i5; } ",
+          concat
+            [
+              "/* get_i5_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int *hs_bindgen_test_visibility_attributes_b9d322a4c171d6fa (void)\n",
+              "{\n",
+              "  return &i5;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -3328,7 +3880,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_i6_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_2c4836056a76ae78 (void) { return &i6; } ",
+          concat
+            [
+              "/* get_i6_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int *hs_bindgen_test_visibility_attributes_2c4836056a76ae78 (void)\n",
+              "{\n",
+              "  return &i6;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -3355,7 +3914,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_i7_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_b9d40a2f9eb7062e (void) { return &i7; } ",
+          concat
+            [
+              "/* get_i7_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int *hs_bindgen_test_visibility_attributes_b9d40a2f9eb7062e (void)\n",
+              "{\n",
+              "  return &i7;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -3382,7 +3948,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_i8_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_3fd4c67173dc11ce (void) { return &i8; } ",
+          concat
+            [
+              "/* get_i8_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int *hs_bindgen_test_visibility_attributes_3fd4c67173dc11ce (void)\n",
+              "{\n",
+              "  return &i8;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -3409,7 +3982,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_i9_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_b9ff2784975e7295 (void) { return &i9; } ",
+          concat
+            [
+              "/* get_i9_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int *hs_bindgen_test_visibility_attributes_b9ff2784975e7295 (void)\n",
+              "{\n",
+              "  return &i9;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -3436,7 +4016,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_i10_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_17a29f1f8c101878 (void) { return &i10; } ",
+          concat
+            [
+              "/* get_i10_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int *hs_bindgen_test_visibility_attributes_17a29f1f8c101878 (void)\n",
+              "{\n",
+              "  return &i10;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -3463,7 +4050,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_i11_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_4e591df5ac4216c9 (void) { return &i11; } ",
+          concat
+            [
+              "/* get_i11_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int *hs_bindgen_test_visibility_attributes_4e591df5ac4216c9 (void)\n",
+              "{\n",
+              "  return &i11;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -3490,7 +4084,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_i12_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_7a8621a15e9246c4 (void) { return &i12; } ",
+          concat
+            [
+              "/* get_i12_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int *hs_bindgen_test_visibility_attributes_7a8621a15e9246c4 (void)\n",
+              "{\n",
+              "  return &i12;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -3517,7 +4118,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_i13_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_96cb39c8a898775e (void) { return &i13; } ",
+          concat
+            [
+              "/* get_i13_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int *hs_bindgen_test_visibility_attributes_96cb39c8a898775e (void)\n",
+              "{\n",
+              "  return &i13;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -3544,7 +4152,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_i14_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_9f817ee25723fbcd (void) { return &i14; } ",
+          concat
+            [
+              "/* get_i14_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int *hs_bindgen_test_visibility_attributes_9f817ee25723fbcd (void)\n",
+              "{\n",
+              "  return &i14;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -3571,7 +4186,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_i15_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_0f8755cf60822f2e (void) { return &i15; } ",
+          concat
+            [
+              "/* get_i15_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int *hs_bindgen_test_visibility_attributes_0f8755cf60822f2e (void)\n",
+              "{\n",
+              "  return &i15;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -3598,7 +4220,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_i16_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_3023a5c63e753d58 (void) { return &i16; } ",
+          concat
+            [
+              "/* get_i16_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int *hs_bindgen_test_visibility_attributes_3023a5c63e753d58 (void)\n",
+              "{\n",
+              "  return &i16;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -3625,7 +4254,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_i17_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_b5610fa653ca61e6 (void) { return &i17; } ",
+          concat
+            [
+              "/* get_i17_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int *hs_bindgen_test_visibility_attributes_b5610fa653ca61e6 (void)\n",
+              "{\n",
+              "  return &i17;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -3652,7 +4288,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_i18_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_17edf053c36e012c (void) { return &i18; } ",
+          concat
+            [
+              "/* get_i18_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int *hs_bindgen_test_visibility_attributes_17edf053c36e012c (void)\n",
+              "{\n",
+              "  return &i18;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global
@@ -3679,7 +4322,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_i19_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_visibility_attributes_df1c0751f896e6b8 (void) { return &i19; } ",
+          concat
+            [
+              "/* get_i19_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int *hs_bindgen_test_visibility_attributes_df1c0751f896e6b8 (void)\n",
+              "{\n",
+              "  return &i19;\n",
+              "}"],
           capiWrapperImport =
           "visibility_attributes.h"},
       foreignImportOrigin = Global

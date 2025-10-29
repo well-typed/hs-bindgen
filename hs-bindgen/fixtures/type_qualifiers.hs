@@ -38,8 +38,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "_Bool hs_bindgen_test_type_qualifiers_b42fb41209c21d6e (char const **arg1, size_t arg2) { return list_example(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "_Bool hs_bindgen_test_type_qualifiers_b42fb41209c21d6e (\n",
+              "  char const **arg1,\n",
+              "  size_t arg2\n",
+              ")\n",
+              "{\n",
+              "  return list_example(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "type_qualifiers.h"},
       foreignImportOrigin = Function
@@ -124,8 +131,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "_Bool hs_bindgen_test_type_qualifiers_41af05ef1797fa6d (char const **arg1, size_t arg2) { return list_example(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "_Bool hs_bindgen_test_type_qualifiers_41af05ef1797fa6d (\n",
+              "  char const **arg1,\n",
+              "  size_t arg2\n",
+              ")\n",
+              "{\n",
+              "  return list_example(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "type_qualifiers.h"},
       foreignImportOrigin = Function
@@ -195,7 +209,17 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_list_example_ptr */ __attribute__ ((const)) _Bool (*hs_bindgen_test_type_qualifiers_24b25f22222ce366 (void)) (char const **arg1, size_t arg2) { return &list_example; } ",
+          concat
+            [
+              "/* get_list_example_ptr */\n",
+              "__attribute__ ((const))\n",
+              "_Bool (*hs_bindgen_test_type_qualifiers_24b25f22222ce366 (void)) (\n",
+              "  char const **arg1,\n",
+              "  size_t arg2\n",
+              ")\n",
+              "{\n",
+              "  return &list_example;\n",
+              "}"],
           capiWrapperImport =
           "type_qualifiers.h"},
       foreignImportOrigin = Global
@@ -231,7 +255,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_a_ptr */ __attribute__ ((const)) signed int const *hs_bindgen_test_type_qualifiers_3afcbd8536cf21bd (void) { return &a; } ",
+          concat
+            [
+              "/* get_a_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int const *hs_bindgen_test_type_qualifiers_3afcbd8536cf21bd (void)\n",
+              "{\n",
+              "  return &a;\n",
+              "}"],
           capiWrapperImport =
           "type_qualifiers.h"},
       foreignImportOrigin = Global
@@ -263,7 +294,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_b_ptr */ __attribute__ ((const)) signed int const **hs_bindgen_test_type_qualifiers_fcd0c984d664f6ee (void) { return &b; } ",
+          concat
+            [
+              "/* get_b_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int const **hs_bindgen_test_type_qualifiers_fcd0c984d664f6ee (void)\n",
+              "{\n",
+              "  return &b;\n",
+              "}"],
           capiWrapperImport =
           "type_qualifiers.h"},
       foreignImportOrigin = Global
@@ -296,7 +334,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_c_ptr */ __attribute__ ((const)) signed int *const *hs_bindgen_test_type_qualifiers_d61ea07e27589aef (void) { return &c; } ",
+          concat
+            [
+              "/* get_c_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int *const *hs_bindgen_test_type_qualifiers_d61ea07e27589aef (void)\n",
+              "{\n",
+              "  return &c;\n",
+              "}"],
           capiWrapperImport =
           "type_qualifiers.h"},
       foreignImportOrigin = Global
@@ -331,7 +376,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_d_ptr */ __attribute__ ((const)) signed int const *const *hs_bindgen_test_type_qualifiers_d1d6489b06a70107 (void) { return &d; } ",
+          concat
+            [
+              "/* get_d_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int const *const *hs_bindgen_test_type_qualifiers_d1d6489b06a70107 (void)\n",
+              "{\n",
+              "  return &d;\n",
+              "}"],
           capiWrapperImport =
           "type_qualifiers.h"},
       foreignImportOrigin = Global

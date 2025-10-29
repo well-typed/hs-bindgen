@@ -665,8 +665,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "vector *hs_bindgen_test_vector_test_c8cd49ec7dbcac25 (double arg1, double arg2) { return new_vector(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "vector *hs_bindgen_test_vector_test_c8cd49ec7dbcac25 (\n",
+              "  double arg1,\n",
+              "  double arg2\n",
+              ")\n",
+              "{\n",
+              "  return new_vector(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "vector_test.h"},
       foreignImportOrigin = Function
@@ -759,8 +766,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "vector *hs_bindgen_test_vector_test_30a7381111c0131a (double arg1, double arg2) { return new_vector(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "vector *hs_bindgen_test_vector_test_30a7381111c0131a (\n",
+              "  double arg1,\n",
+              "  double arg2\n",
+              ")\n",
+              "{\n",
+              "  return new_vector(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "vector_test.h"},
       foreignImportOrigin = Function
@@ -836,7 +850,17 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_new_vector_ptr */ __attribute__ ((const)) vector *(*hs_bindgen_test_vector_test_7672b9e7f001c998 (void)) (double arg1, double arg2) { return &new_vector; } ",
+          concat
+            [
+              "/* get_new_vector_ptr */\n",
+              "__attribute__ ((const))\n",
+              "vector *(*hs_bindgen_test_vector_test_7672b9e7f001c998 (void)) (\n",
+              "  double arg1,\n",
+              "  double arg2\n",
+              ")\n",
+              "{\n",
+              "  return &new_vector;\n",
+              "}"],
           capiWrapperImport =
           "vector_test.h"},
       foreignImportOrigin = Global

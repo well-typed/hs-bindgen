@@ -8382,8 +8382,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_callbacks_a0a59181c714c131 (void (*arg1) (signed int arg1), signed int arg2) { return readFileWithProcessor(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_callbacks_a0a59181c714c131 (\n",
+              "  void (*arg1) (\n",
+              "  signed int arg1\n",
+              "),\n",
+              "  signed int arg2\n",
+              ")\n",
+              "{\n",
+              "  return readFileWithProcessor(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Function
@@ -8469,8 +8478,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_callbacks_d59e6698796971ea (void (*arg1) (signed int arg1), signed int arg2) { watchTemperature(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_callbacks_d59e6698796971ea (\n",
+              "  void (*arg1) (\n",
+              "  signed int arg1\n",
+              "),\n",
+              "  signed int arg2\n",
+              ")\n",
+              "{\n",
+              "  watchTemperature(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Function
@@ -8542,8 +8560,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_callbacks_c9fb8fdc3d0d3978 (FileOpenedNotification arg1) { onFileOpened(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_callbacks_c9fb8fdc3d0d3978 (\n",
+              "  FileOpenedNotification arg1\n",
+              ")\n",
+              "{\n",
+              "  onFileOpened(arg1);\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Function
@@ -8610,8 +8634,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_callbacks_7921ad1b219190e4 (ProgressUpdate arg1) { onProgressChanged(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_callbacks_7921ad1b219190e4 (\n",
+              "  ProgressUpdate arg1\n",
+              ")\n",
+              "{\n",
+              "  onProgressChanged(arg1);\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Function
@@ -8694,8 +8724,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_callbacks_ae19d658f098584a (DataValidator arg1, signed int arg2) { return validateInput(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_callbacks_ae19d658f098584a (\n",
+              "  DataValidator arg1,\n",
+              "  signed int arg2\n",
+              ")\n",
+              "{\n",
+              "  return validateInput(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Function
@@ -8777,8 +8814,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_callbacks_d2fdffe85523b3ef (MeasurementReceived arg1) { onNewMeasurement(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_callbacks_d2fdffe85523b3ef (\n",
+              "  MeasurementReceived arg1\n",
+              ")\n",
+              "{\n",
+              "  onNewMeasurement(arg1);\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Function
@@ -8854,8 +8897,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_callbacks_c5b555bbc07b808d (MeasurementReceived2 arg1) { onNewMeasurement2(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_callbacks_c5b555bbc07b808d (\n",
+              "  MeasurementReceived2 arg1\n",
+              ")\n",
+              "{\n",
+              "  onNewMeasurement2(arg1);\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Function
@@ -8930,8 +8979,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_callbacks_65927c77229ad893 (SampleBufferFull arg1) { onBufferReady(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_callbacks_65927c77229ad893 (\n",
+              "  SampleBufferFull arg1\n",
+              ")\n",
+              "{\n",
+              "  onBufferReady(arg1);\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Function
@@ -9034,8 +9089,22 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_callbacks_0b6a9249f49b986f (struct Measurement *arg1, void (*arg2) (struct Measurement *arg1, double (*arg2) (double arg1, signed int arg2), signed int arg3)) { transformMeasurement(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_callbacks_0b6a9249f49b986f (\n",
+              "  struct Measurement *arg1,\n",
+              "  void (*arg2) (\n",
+              "  struct Measurement *arg1,\n",
+              "  double (*arg2) (\n",
+              "  double arg1,\n",
+              "  signed int arg2\n",
+              "),\n",
+              "  signed int arg3\n",
+              ")\n",
+              ")\n",
+              "{\n",
+              "  transformMeasurement(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Function
@@ -9140,8 +9209,18 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_callbacks_2c3e0e84ae9cde51 (void (*arg1) (struct Measurement *arg1, FileOpenedNotification arg2, signed int arg3)) { processWithCallbacks(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_callbacks_2c3e0e84ae9cde51 (\n",
+              "  void (*arg1) (\n",
+              "  struct Measurement *arg1,\n",
+              "  FileOpenedNotification arg2,\n",
+              "  signed int arg3\n",
+              ")\n",
+              ")\n",
+              "{\n",
+              "  processWithCallbacks(arg1);\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Function
@@ -9222,8 +9301,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_callbacks_0b172585709f9d48 (struct MeasurementHandler *arg1) { registerHandler(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_callbacks_0b172585709f9d48 (\n",
+              "  struct MeasurementHandler *arg1\n",
+              ")\n",
+              "{\n",
+              "  registerHandler(arg1);\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Function
@@ -9305,8 +9390,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_callbacks_25a56dfc7b259e7d (struct Measurement *arg1, struct DataPipeline *arg2) { executePipeline(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_callbacks_25a56dfc7b259e7d (\n",
+              "  struct Measurement *arg1,\n",
+              "  struct DataPipeline *arg2\n",
+              ")\n",
+              "{\n",
+              "  executePipeline(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Function
@@ -9401,8 +9493,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_callbacks_5908d37641d70953 (struct Measurement *arg1, struct Processor *arg2) { runProcessor(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_callbacks_5908d37641d70953 (\n",
+              "  struct Measurement *arg1,\n",
+              "  struct Processor *arg2\n",
+              ")\n",
+              "{\n",
+              "  runProcessor(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Function
@@ -9523,8 +9622,23 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_callbacks_f3c99b4af7808e7f (struct Measurement *arg1, void (*arg2) (struct Measurement *arg1, void (*arg2) (struct Measurement *arg1, DataValidator arg2, signed int arg3), DataValidator arg3)) { processMeasurementWithValidation(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_callbacks_f3c99b4af7808e7f (\n",
+              "  struct Measurement *arg1,\n",
+              "  void (*arg2) (\n",
+              "  struct Measurement *arg1,\n",
+              "  void (*arg2) (\n",
+              "  struct Measurement *arg1,\n",
+              "  DataValidator arg2,\n",
+              "  signed int arg3\n",
+              "),\n",
+              "  DataValidator arg3\n",
+              ")\n",
+              ")\n",
+              "{\n",
+              "  processMeasurementWithValidation(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Function
@@ -9650,8 +9764,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_callbacks_fcce70013c76ce8b (void (*arg1) (foo arg1)) { f(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_callbacks_fcce70013c76ce8b (\n",
+              "  void (*arg1) (\n",
+              "  foo arg1\n",
+              ")\n",
+              ")\n",
+              "{\n",
+              "  f(arg1);\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Function
@@ -9720,8 +9842,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_callbacks_1d043de05a457e90 (void (*arg1) (foo2 const arg1)) { f2(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_callbacks_1d043de05a457e90 (\n",
+              "  void (*arg1) (\n",
+              "  foo2 const arg1\n",
+              ")\n",
+              ")\n",
+              "{\n",
+              "  f2(arg1);\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Function
@@ -9806,8 +9936,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_callbacks_f0d72410d79899b5 (void (*arg1) (signed int arg1), signed int arg2) { return readFileWithProcessor(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_callbacks_f0d72410d79899b5 (\n",
+              "  void (*arg1) (\n",
+              "  signed int arg1\n",
+              "),\n",
+              "  signed int arg2\n",
+              ")\n",
+              "{\n",
+              "  return readFileWithProcessor(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Function
@@ -9893,8 +10032,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_callbacks_a445b9cacb08ed71 (void (*arg1) (signed int arg1), signed int arg2) { watchTemperature(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_callbacks_a445b9cacb08ed71 (\n",
+              "  void (*arg1) (\n",
+              "  signed int arg1\n",
+              "),\n",
+              "  signed int arg2\n",
+              ")\n",
+              "{\n",
+              "  watchTemperature(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Function
@@ -9966,8 +10114,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_callbacks_b71e59965bcc2316 (FileOpenedNotification arg1) { onFileOpened(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_callbacks_b71e59965bcc2316 (\n",
+              "  FileOpenedNotification arg1\n",
+              ")\n",
+              "{\n",
+              "  onFileOpened(arg1);\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Function
@@ -10034,8 +10188,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_callbacks_013e79fc3cd3b1b4 (ProgressUpdate arg1) { onProgressChanged(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_callbacks_013e79fc3cd3b1b4 (\n",
+              "  ProgressUpdate arg1\n",
+              ")\n",
+              "{\n",
+              "  onProgressChanged(arg1);\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Function
@@ -10118,8 +10278,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_callbacks_697a7b01b3d64c58 (DataValidator arg1, signed int arg2) { return validateInput(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_callbacks_697a7b01b3d64c58 (\n",
+              "  DataValidator arg1,\n",
+              "  signed int arg2\n",
+              ")\n",
+              "{\n",
+              "  return validateInput(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Function
@@ -10201,8 +10368,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_callbacks_f291b861b36d5a90 (MeasurementReceived arg1) { onNewMeasurement(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_callbacks_f291b861b36d5a90 (\n",
+              "  MeasurementReceived arg1\n",
+              ")\n",
+              "{\n",
+              "  onNewMeasurement(arg1);\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Function
@@ -10278,8 +10451,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_callbacks_4f36523b7d965e44 (MeasurementReceived2 arg1) { onNewMeasurement2(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_callbacks_4f36523b7d965e44 (\n",
+              "  MeasurementReceived2 arg1\n",
+              ")\n",
+              "{\n",
+              "  onNewMeasurement2(arg1);\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Function
@@ -10354,8 +10533,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_callbacks_92d54aaf9e8a1c8e (SampleBufferFull arg1) { onBufferReady(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_callbacks_92d54aaf9e8a1c8e (\n",
+              "  SampleBufferFull arg1\n",
+              ")\n",
+              "{\n",
+              "  onBufferReady(arg1);\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Function
@@ -10458,8 +10643,22 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_callbacks_0e22183e51a42eab (struct Measurement *arg1, void (*arg2) (struct Measurement *arg1, double (*arg2) (double arg1, signed int arg2), signed int arg3)) { transformMeasurement(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_callbacks_0e22183e51a42eab (\n",
+              "  struct Measurement *arg1,\n",
+              "  void (*arg2) (\n",
+              "  struct Measurement *arg1,\n",
+              "  double (*arg2) (\n",
+              "  double arg1,\n",
+              "  signed int arg2\n",
+              "),\n",
+              "  signed int arg3\n",
+              ")\n",
+              ")\n",
+              "{\n",
+              "  transformMeasurement(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Function
@@ -10564,8 +10763,18 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_callbacks_9b4727ea289ff135 (void (*arg1) (struct Measurement *arg1, FileOpenedNotification arg2, signed int arg3)) { processWithCallbacks(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_callbacks_9b4727ea289ff135 (\n",
+              "  void (*arg1) (\n",
+              "  struct Measurement *arg1,\n",
+              "  FileOpenedNotification arg2,\n",
+              "  signed int arg3\n",
+              ")\n",
+              ")\n",
+              "{\n",
+              "  processWithCallbacks(arg1);\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Function
@@ -10646,8 +10855,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_callbacks_aea76777f06b51ce (struct MeasurementHandler *arg1) { registerHandler(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_callbacks_aea76777f06b51ce (\n",
+              "  struct MeasurementHandler *arg1\n",
+              ")\n",
+              "{\n",
+              "  registerHandler(arg1);\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Function
@@ -10729,8 +10944,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_callbacks_54fc81d3b44b84d5 (struct Measurement *arg1, struct DataPipeline *arg2) { executePipeline(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_callbacks_54fc81d3b44b84d5 (\n",
+              "  struct Measurement *arg1,\n",
+              "  struct DataPipeline *arg2\n",
+              ")\n",
+              "{\n",
+              "  executePipeline(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Function
@@ -10825,8 +11047,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_callbacks_4bb32ee774218053 (struct Measurement *arg1, struct Processor *arg2) { runProcessor(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_callbacks_4bb32ee774218053 (\n",
+              "  struct Measurement *arg1,\n",
+              "  struct Processor *arg2\n",
+              ")\n",
+              "{\n",
+              "  runProcessor(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Function
@@ -10947,8 +11176,23 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_callbacks_f453b618c9ab0234 (struct Measurement *arg1, void (*arg2) (struct Measurement *arg1, void (*arg2) (struct Measurement *arg1, DataValidator arg2, signed int arg3), DataValidator arg3)) { processMeasurementWithValidation(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_callbacks_f453b618c9ab0234 (\n",
+              "  struct Measurement *arg1,\n",
+              "  void (*arg2) (\n",
+              "  struct Measurement *arg1,\n",
+              "  void (*arg2) (\n",
+              "  struct Measurement *arg1,\n",
+              "  DataValidator arg2,\n",
+              "  signed int arg3\n",
+              "),\n",
+              "  DataValidator arg3\n",
+              ")\n",
+              ")\n",
+              "{\n",
+              "  processMeasurementWithValidation(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Function
@@ -11074,8 +11318,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_callbacks_b68b2cffacc97c1d (void (*arg1) (foo arg1)) { f(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_callbacks_b68b2cffacc97c1d (\n",
+              "  void (*arg1) (\n",
+              "  foo arg1\n",
+              ")\n",
+              ")\n",
+              "{\n",
+              "  f(arg1);\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Function
@@ -11144,8 +11396,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_callbacks_14361e995fb5684a (void (*arg1) (foo2 const arg1)) { f2(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_callbacks_14361e995fb5684a (\n",
+              "  void (*arg1) (\n",
+              "  foo2 const arg1\n",
+              ")\n",
+              ")\n",
+              "{\n",
+              "  f2(arg1);\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Function
@@ -11214,7 +11474,19 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_readFileWithProcessor_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_callbacks_c4b06d89a94616dd (void)) (void (*arg1) (signed int arg1), signed int arg2) { return &readFileWithProcessor; } ",
+          concat
+            [
+              "/* get_readFileWithProcessor_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_callbacks_c4b06d89a94616dd (void)) (\n",
+              "  void (*arg1) (\n",
+              "  signed int arg1\n",
+              "),\n",
+              "  signed int arg2\n",
+              ")\n",
+              "{\n",
+              "  return &readFileWithProcessor;\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Global
@@ -11258,8 +11530,19 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_watchTemperature_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_22c54726df44b640 (void)) (void (*arg1) (signed int arg1), signed int arg2) { return &watchTemperature; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_watchTemperature_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_callbacks_22c54726df44b640 (void)) (\n",
+              "  void (*arg1) (\n",
+              "  signed int arg1\n",
+              "),\n",
+              "  signed int arg2\n",
+              ")\n",
+              "{\n",
+              "  return &watchTemperature;\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Global
@@ -11300,8 +11583,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_onFileOpened_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_8167a5b82d621c9d (void)) (FileOpenedNotification arg1) { return &onFileOpened; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_onFileOpened_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_callbacks_8167a5b82d621c9d (void)) (\n",
+              "  FileOpenedNotification arg1\n",
+              ")\n",
+              "{\n",
+              "  return &onFileOpened;\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Global
@@ -11343,8 +11634,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_onProgressChanged_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_ef51ad75ce9862a3 (void)) (ProgressUpdate arg1) { return &onProgressChanged; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_onProgressChanged_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_callbacks_ef51ad75ce9862a3 (void)) (\n",
+              "  ProgressUpdate arg1\n",
+              ")\n",
+              "{\n",
+              "  return &onProgressChanged;\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Global
@@ -11392,7 +11691,17 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_validateInput_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_callbacks_9eaedb1b1c5b3fdb (void)) (DataValidator arg1, signed int arg2) { return &validateInput; } ",
+          concat
+            [
+              "/* get_validateInput_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_callbacks_9eaedb1b1c5b3fdb (void)) (\n",
+              "  DataValidator arg1,\n",
+              "  signed int arg2\n",
+              ")\n",
+              "{\n",
+              "  return &validateInput;\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Global
@@ -11443,8 +11752,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_onNewMeasurement_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_f9f4f5ec3dd82431 (void)) (MeasurementReceived arg1) { return &onNewMeasurement; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_onNewMeasurement_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_callbacks_f9f4f5ec3dd82431 (void)) (\n",
+              "  MeasurementReceived arg1\n",
+              ")\n",
+              "{\n",
+              "  return &onNewMeasurement;\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Global
@@ -11495,8 +11812,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_onNewMeasurement2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_9c5afeda25ede1ce (void)) (MeasurementReceived2 arg1) { return &onNewMeasurement2; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_onNewMeasurement2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_callbacks_9c5afeda25ede1ce (void)) (\n",
+              "  MeasurementReceived2 arg1\n",
+              ")\n",
+              "{\n",
+              "  return &onNewMeasurement2;\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Global
@@ -11546,8 +11871,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_onBufferReady_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_8091188123328aa8 (void)) (SampleBufferFull arg1) { return &onBufferReady; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_onBufferReady_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_callbacks_8091188123328aa8 (void)) (\n",
+              "  SampleBufferFull arg1\n",
+              ")\n",
+              "{\n",
+              "  return &onBufferReady;\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Global
@@ -11615,8 +11948,24 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_transformMeasurement_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_6c9fe4dae03a37fa (void)) (struct Measurement *arg1, void (*arg2) (struct Measurement *arg1, double (*arg2) (double arg1, signed int arg2), signed int arg3)) { return &transformMeasurement; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_transformMeasurement_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_callbacks_6c9fe4dae03a37fa (void)) (\n",
+              "  struct Measurement *arg1,\n",
+              "  void (*arg2) (\n",
+              "  struct Measurement *arg1,\n",
+              "  double (*arg2) (\n",
+              "  double arg1,\n",
+              "  signed int arg2\n",
+              "),\n",
+              "  signed int arg3\n",
+              ")\n",
+              ")\n",
+              "{\n",
+              "  return &transformMeasurement;\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Global
@@ -11690,8 +12039,20 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_processWithCallbacks_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_2ee8d8889cd31fb7 (void)) (void (*arg1) (struct Measurement *arg1, FileOpenedNotification arg2, signed int arg3)) { return &processWithCallbacks; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_processWithCallbacks_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_callbacks_2ee8d8889cd31fb7 (void)) (\n",
+              "  void (*arg1) (\n",
+              "  struct Measurement *arg1,\n",
+              "  FileOpenedNotification arg2,\n",
+              "  signed int arg3\n",
+              ")\n",
+              ")\n",
+              "{\n",
+              "  return &processWithCallbacks;\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Global
@@ -11747,8 +12108,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_registerHandler_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_5a70e34ecc71835b (void)) (struct MeasurementHandler *arg1) { return &registerHandler; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_registerHandler_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_callbacks_5a70e34ecc71835b (void)) (\n",
+              "  struct MeasurementHandler *arg1\n",
+              ")\n",
+              "{\n",
+              "  return &registerHandler;\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Global
@@ -11796,8 +12165,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_executePipeline_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_1a0881ba01e93710 (void)) (struct Measurement *arg1, struct DataPipeline *arg2) { return &executePipeline; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_executePipeline_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_callbacks_1a0881ba01e93710 (void)) (\n",
+              "  struct Measurement *arg1,\n",
+              "  struct DataPipeline *arg2\n",
+              ")\n",
+              "{\n",
+              "  return &executePipeline;\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Global
@@ -11851,8 +12229,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_runProcessor_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_1e7d8fd6cb5a199f (void)) (struct Measurement *arg1, struct Processor *arg2) { return &runProcessor; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_runProcessor_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_callbacks_1e7d8fd6cb5a199f (void)) (\n",
+              "  struct Measurement *arg1,\n",
+              "  struct Processor *arg2\n",
+              ")\n",
+              "{\n",
+              "  return &runProcessor;\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Global
@@ -11932,8 +12319,25 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_processMeasurementWithValidation_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_6621b1bf8ef7af3b (void)) (struct Measurement *arg1, void (*arg2) (struct Measurement *arg1, void (*arg2) (struct Measurement *arg1, DataValidator arg2, signed int arg3), DataValidator arg3)) { return &processMeasurementWithValidation; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_processMeasurementWithValidation_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_callbacks_6621b1bf8ef7af3b (void)) (\n",
+              "  struct Measurement *arg1,\n",
+              "  void (*arg2) (\n",
+              "  struct Measurement *arg1,\n",
+              "  void (*arg2) (\n",
+              "  struct Measurement *arg1,\n",
+              "  DataValidator arg2,\n",
+              "  signed int arg3\n",
+              "),\n",
+              "  DataValidator arg3\n",
+              ")\n",
+              ")\n",
+              "{\n",
+              "  return &processMeasurementWithValidation;\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Global
@@ -12028,8 +12432,18 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_f_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_c34fd33eedc1490d (void)) (void (*arg1) (foo arg1)) { return &f; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_f_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_callbacks_c34fd33eedc1490d (void)) (\n",
+              "  void (*arg1) (\n",
+              "  foo arg1\n",
+              ")\n",
+              ")\n",
+              "{\n",
+              "  return &f;\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Global
@@ -12074,8 +12488,18 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_f2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_490ca7e8c8282a69 (void)) (void (*arg1) (foo2 const arg1)) { return &f2; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_f2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_callbacks_490ca7e8c8282a69 (void)) (\n",
+              "  void (*arg1) (\n",
+              "  foo2 const arg1\n",
+              ")\n",
+              ")\n",
+              "{\n",
+              "  return &f2;\n",
+              "}"],
           capiWrapperImport =
           "callbacks.h"},
       foreignImportOrigin = Global

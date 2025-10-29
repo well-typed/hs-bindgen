@@ -1,29 +1,202 @@
 -- addDependentFile examples/golden/manual/function_pointers.h
 -- #include <manual/function_pointers.h>
--- signed int hs_bindgen_test_manualfunction_pointers_55e5eb89e54abf83 (signed int arg1) { return square(arg1); }
--- signed int hs_bindgen_test_manualfunction_pointers_680daf766a044980 (signed int arg1, signed int arg2) { return plus(arg1, arg2); }
--- signed int hs_bindgen_test_manualfunction_pointers_abcb860034253564 (signed int (*arg1) (signed int arg1), signed int arg2) { return apply1(arg1, arg2); }
--- signed int hs_bindgen_test_manualfunction_pointers_1ad13c166a710f40 (signed int (*arg1) (signed int arg1, signed int arg2), signed int arg2, signed int arg3) { return apply2(arg1, arg2, arg3); }
--- signed int hs_bindgen_test_manualfunction_pointers_a8ef4d9e6ce68f54 (int2int *arg1, signed int arg2) { return apply1_pointer_arg(arg1, arg2); }
--- signed int hs_bindgen_test_manualfunction_pointers_7dc4caa1f7f0caf0 (int2int *arg1, signed int arg2) { return apply1_nopointer_arg(arg1, arg2); }
--- signed int (*const hs_bindgen_test_manualfunction_pointers_3612aa0d10e36d5b (void)) (int2int *arg1, signed int arg2) { return apply1_nopointer_res(); }
--- signed int hs_bindgen_test_manualfunction_pointers_cb3c687f16289bb3 (signed int arg1) { return square(arg1); }
--- signed int hs_bindgen_test_manualfunction_pointers_a9730564387164c0 (signed int arg1, signed int arg2) { return plus(arg1, arg2); }
--- signed int hs_bindgen_test_manualfunction_pointers_3fb9c4a14d502477 (signed int (*arg1) (signed int arg1), signed int arg2) { return apply1(arg1, arg2); }
--- signed int hs_bindgen_test_manualfunction_pointers_75b5699fdabb6333 (signed int (*arg1) (signed int arg1, signed int arg2), signed int arg2, signed int arg3) { return apply2(arg1, arg2, arg3); }
--- signed int hs_bindgen_test_manualfunction_pointers_2d5144fc06502862 (int2int *arg1, signed int arg2) { return apply1_pointer_arg(arg1, arg2); }
--- signed int hs_bindgen_test_manualfunction_pointers_b7597a0c4856ebb3 (int2int *arg1, signed int arg2) { return apply1_nopointer_arg(arg1, arg2); }
--- signed int (*const hs_bindgen_test_manualfunction_pointers_be3907895c70597f (void)) (int2int *arg1, signed int arg2) { return apply1_nopointer_res(); }
--- /* get_square_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_manualfunction_pointers_c41111f40a04cdc9 (void)) (signed int arg1) { return &square; } 
--- /* get_plus_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_manualfunction_pointers_bf838c747898dc42 (void)) (signed int arg1, signed int arg2) { return &plus; } 
--- /* get_apply1_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_manualfunction_pointers_4d1935e01bc37070 (void)) (signed int (*arg1) (signed int arg1), signed int arg2) { return &apply1; } 
--- /* get_apply2_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_manualfunction_pointers_40cb8952bacd236a (void)) (signed int (*arg1) (signed int arg1, signed int arg2), signed int arg2, signed int arg3) { return &apply2; } 
--- /* get_apply1_pointer_arg_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_manualfunction_pointers_653c5bde7704c3ca (void)) (int2int *arg1, signed int arg2) { return &apply1_pointer_arg; } 
--- /* get_apply1_nopointer_arg_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_manualfunction_pointers_3bb9417cd7afec81 (void)) (int2int *arg1, signed int arg2) { return &apply1_nopointer_arg; } 
--- /* get_apply1_nopointer_res_ptr */ __attribute__ ((const)) signed int (*const (*hs_bindgen_test_manualfunction_pointers_f7a08d090f6f7b0f (void)) (void)) (int2int *arg1, signed int arg2) { return &apply1_nopointer_res; } 
--- /* get_apply1_nopointer_var_ptr */ __attribute__ ((const)) signed int (*const *hs_bindgen_test_manualfunction_pointers_c4bb317da29227a6 (void)) (int2int *arg1, signed int arg2) { return &apply1_nopointer_var; } 
--- /* get_apply1_struct_ptr */ __attribute__ ((const)) struct Apply1Struct const *hs_bindgen_test_manualfunction_pointers_6799ff6bc99dff2a (void) { return &apply1_struct; } 
--- /* get_apply1_union_ptr */ __attribute__ ((const)) union Apply1Union const *hs_bindgen_test_manualfunction_pointers_d32b4879673188b6 (void) { return &apply1_union; } 
+-- signed int hs_bindgen_test_manualfunction_pointers_55e5eb89e54abf83 (
+--   signed int arg1
+-- )
+-- {
+--   return square(arg1);
+-- }
+-- signed int hs_bindgen_test_manualfunction_pointers_680daf766a044980 (
+--   signed int arg1,
+--   signed int arg2
+-- )
+-- {
+--   return plus(arg1, arg2);
+-- }
+-- signed int hs_bindgen_test_manualfunction_pointers_abcb860034253564 (
+--   signed int (*arg1) (
+--   signed int arg1
+-- ),
+--   signed int arg2
+-- )
+-- {
+--   return apply1(arg1, arg2);
+-- }
+-- signed int hs_bindgen_test_manualfunction_pointers_1ad13c166a710f40 (
+--   signed int (*arg1) (
+--   signed int arg1,
+--   signed int arg2
+-- ),
+--   signed int arg2,
+--   signed int arg3
+-- )
+-- {
+--   return apply2(arg1, arg2, arg3);
+-- }
+-- signed int hs_bindgen_test_manualfunction_pointers_a8ef4d9e6ce68f54 (
+--   int2int *arg1,
+--   signed int arg2
+-- )
+-- {
+--   return apply1_pointer_arg(arg1, arg2);
+-- }
+-- signed int hs_bindgen_test_manualfunction_pointers_7dc4caa1f7f0caf0 (
+--   int2int *arg1,
+--   signed int arg2
+-- )
+-- {
+--   return apply1_nopointer_arg(arg1, arg2);
+-- }
+-- signed int (*const hs_bindgen_test_manualfunction_pointers_3612aa0d10e36d5b (void)) (
+--   int2int *arg1,
+--   signed int arg2
+-- )
+-- {
+--   return apply1_nopointer_res();
+-- }
+-- signed int hs_bindgen_test_manualfunction_pointers_cb3c687f16289bb3 (
+--   signed int arg1
+-- )
+-- {
+--   return square(arg1);
+-- }
+-- signed int hs_bindgen_test_manualfunction_pointers_a9730564387164c0 (
+--   signed int arg1,
+--   signed int arg2
+-- )
+-- {
+--   return plus(arg1, arg2);
+-- }
+-- signed int hs_bindgen_test_manualfunction_pointers_3fb9c4a14d502477 (
+--   signed int (*arg1) (
+--   signed int arg1
+-- ),
+--   signed int arg2
+-- )
+-- {
+--   return apply1(arg1, arg2);
+-- }
+-- signed int hs_bindgen_test_manualfunction_pointers_75b5699fdabb6333 (
+--   signed int (*arg1) (
+--   signed int arg1,
+--   signed int arg2
+-- ),
+--   signed int arg2,
+--   signed int arg3
+-- )
+-- {
+--   return apply2(arg1, arg2, arg3);
+-- }
+-- signed int hs_bindgen_test_manualfunction_pointers_2d5144fc06502862 (
+--   int2int *arg1,
+--   signed int arg2
+-- )
+-- {
+--   return apply1_pointer_arg(arg1, arg2);
+-- }
+-- signed int hs_bindgen_test_manualfunction_pointers_b7597a0c4856ebb3 (
+--   int2int *arg1,
+--   signed int arg2
+-- )
+-- {
+--   return apply1_nopointer_arg(arg1, arg2);
+-- }
+-- signed int (*const hs_bindgen_test_manualfunction_pointers_be3907895c70597f (void)) (
+--   int2int *arg1,
+--   signed int arg2
+-- )
+-- {
+--   return apply1_nopointer_res();
+-- }
+-- /* get_square_ptr */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_test_manualfunction_pointers_c41111f40a04cdc9 (void)) (
+--   signed int arg1
+-- )
+-- {
+--   return &square;
+-- }
+-- /* get_plus_ptr */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_test_manualfunction_pointers_bf838c747898dc42 (void)) (
+--   signed int arg1,
+--   signed int arg2
+-- )
+-- {
+--   return &plus;
+-- }
+-- /* get_apply1_ptr */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_test_manualfunction_pointers_4d1935e01bc37070 (void)) (
+--   signed int (*arg1) (
+--   signed int arg1
+-- ),
+--   signed int arg2
+-- )
+-- {
+--   return &apply1;
+-- }
+-- /* get_apply2_ptr */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_test_manualfunction_pointers_40cb8952bacd236a (void)) (
+--   signed int (*arg1) (
+--   signed int arg1,
+--   signed int arg2
+-- ),
+--   signed int arg2,
+--   signed int arg3
+-- )
+-- {
+--   return &apply2;
+-- }
+-- /* get_apply1_pointer_arg_ptr */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_test_manualfunction_pointers_653c5bde7704c3ca (void)) (
+--   int2int *arg1,
+--   signed int arg2
+-- )
+-- {
+--   return &apply1_pointer_arg;
+-- }
+-- /* get_apply1_nopointer_arg_ptr */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_test_manualfunction_pointers_3bb9417cd7afec81 (void)) (
+--   int2int *arg1,
+--   signed int arg2
+-- )
+-- {
+--   return &apply1_nopointer_arg;
+-- }
+-- /* get_apply1_nopointer_res_ptr */
+-- __attribute__ ((const))
+-- signed int (*const (*hs_bindgen_test_manualfunction_pointers_f7a08d090f6f7b0f (void)) (void)) (
+--   int2int *arg1,
+--   signed int arg2
+-- )
+-- {
+--   return &apply1_nopointer_res;
+-- }
+-- /* get_apply1_nopointer_var_ptr */
+-- __attribute__ ((const))
+-- signed int (*const *hs_bindgen_test_manualfunction_pointers_c4bb317da29227a6 (void)) (
+--   int2int *arg1,
+--   signed int arg2
+-- )
+-- {
+--   return &apply1_nopointer_var;
+-- }
+-- /* get_apply1_struct_ptr */
+-- __attribute__ ((const))
+-- struct Apply1Struct const *hs_bindgen_test_manualfunction_pointers_6799ff6bc99dff2a (void)
+-- {
+--   return &apply1_struct;
+-- }
+-- /* get_apply1_union_ptr */
+-- __attribute__ ((const))
+-- union Apply1Union const *hs_bindgen_test_manualfunction_pointers_d32b4879673188b6 (void)
+-- {
+--   return &apply1_union;
+-- }
 {-| __C declaration:__ @int2int@
 
     __defined at:__ @manual\/function_pointers.h:19:13@

@@ -353,8 +353,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_manualarrays_f3d0c8dd1a83b3d0 (triplet *arg1, triplet *arg2) { transpose(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_manualarrays_f3d0c8dd1a83b3d0 (\n",
+              "  triplet *arg1,\n",
+              "  triplet *arg2\n",
+              ")\n",
+              "{\n",
+              "  transpose(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "manual/arrays.h"},
       foreignImportOrigin = Function
@@ -571,8 +578,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_manualarrays_27135f4747eb87db (signed int (**arg1)[3]) { pretty_print_triplets(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_manualarrays_27135f4747eb87db (\n",
+              "  signed int (**arg1)[3]\n",
+              ")\n",
+              "{\n",
+              "  pretty_print_triplets(arg1);\n",
+              "}"],
           capiWrapperImport =
           "manual/arrays.h"},
       foreignImportOrigin = Function
@@ -653,8 +666,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_manualarrays_d7aa7016f1b951b2 (triplet *arg1, triplet *arg2) { transpose(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_manualarrays_d7aa7016f1b951b2 (\n",
+              "  triplet *arg1,\n",
+              "  triplet *arg2\n",
+              ")\n",
+              "{\n",
+              "  transpose(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "manual/arrays.h"},
       foreignImportOrigin = Function
@@ -871,8 +891,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_manualarrays_bfd9ee42829f9ddb (signed int (**arg1)[3]) { pretty_print_triplets(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_manualarrays_bfd9ee42829f9ddb (\n",
+              "  signed int (**arg1)[3]\n",
+              ")\n",
+              "{\n",
+              "  pretty_print_triplets(arg1);\n",
+              "}"],
           capiWrapperImport =
           "manual/arrays.h"},
       foreignImportOrigin = Function
@@ -943,7 +969,17 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_transpose_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_manualarrays_fc1dad225b555299 (void)) (matrix const arg1, matrix arg2) { return &transpose; } ",
+          concat
+            [
+              "/* get_transpose_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_manualarrays_fc1dad225b555299 (void)) (\n",
+              "  matrix const arg1,\n",
+              "  matrix arg2\n",
+              ")\n",
+              "{\n",
+              "  return &transpose;\n",
+              "}"],
           capiWrapperImport =
           "manual/arrays.h"},
       foreignImportOrigin = Global
@@ -1019,7 +1055,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_pretty_print_triplets_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_manualarrays_0b485cea747ee35d (void)) (triplet_ptrs arg1) { return &pretty_print_triplets; } ",
+          concat
+            [
+              "/* get_pretty_print_triplets_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_manualarrays_0b485cea747ee35d (void)) (\n",
+              "  triplet_ptrs arg1\n",
+              ")\n",
+              "{\n",
+              "  return &pretty_print_triplets;\n",
+              "}"],
           capiWrapperImport =
           "manual/arrays.h"},
       foreignImportOrigin = Global
@@ -1063,7 +1108,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_arr1_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_manualarrays_1693226264ba4aeb (void))[1] { return &arr1; } ",
+          concat
+            [
+              "/* get_arr1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_manualarrays_1693226264ba4aeb (void))[1]\n",
+              "{\n",
+              "  return &arr1;\n",
+              "}"],
           capiWrapperImport =
           "manual/arrays.h"},
       foreignImportOrigin = Global
@@ -1094,7 +1146,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_arr2_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_manualarrays_dafcf99a73b93389 (void))[3] { return &arr2; } ",
+          concat
+            [
+              "/* get_arr2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_manualarrays_dafcf99a73b93389 (void))[3]\n",
+              "{\n",
+              "  return &arr2;\n",
+              "}"],
           capiWrapperImport =
           "manual/arrays.h"},
       foreignImportOrigin = Global
@@ -1124,7 +1183,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_arr3_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_manualarrays_ca1016acc3449dee (void))[] { return &arr3; } ",
+          concat
+            [
+              "/* get_arr3_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_manualarrays_ca1016acc3449dee (void))[]\n",
+              "{\n",
+              "  return &arr3;\n",
+              "}"],
           capiWrapperImport =
           "manual/arrays.h"},
       foreignImportOrigin = Global
@@ -1156,7 +1222,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_sudoku_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_manualarrays_76857c9492b9374d (void))[3][3] { return &sudoku; } ",
+          concat
+            [
+              "/* get_sudoku_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_manualarrays_76857c9492b9374d (void))[3][3]\n",
+              "{\n",
+              "  return &sudoku;\n",
+              "}"],
           capiWrapperImport =
           "manual/arrays.h"},
       foreignImportOrigin = Global
@@ -1192,7 +1265,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_triplets_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_manualarrays_76f4df4c63822352 (void))[][3] { return &triplets; } ",
+          concat
+            [
+              "/* get_triplets_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_manualarrays_76f4df4c63822352 (void))[][3]\n",
+              "{\n",
+              "  return &triplets;\n",
+              "}"],
           capiWrapperImport =
           "manual/arrays.h"},
       foreignImportOrigin = Global
@@ -1227,7 +1307,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_global_triplet_ptrs_ptr */ __attribute__ ((const)) triplet_ptrs *hs_bindgen_test_manualarrays_f5de5a56e036b125 (void) { return &global_triplet_ptrs; } ",
+          concat
+            [
+              "/* get_global_triplet_ptrs_ptr */\n",
+              "__attribute__ ((const))\n",
+              "triplet_ptrs *hs_bindgen_test_manualarrays_f5de5a56e036b125 (void)\n",
+              "{\n",
+              "  return &global_triplet_ptrs;\n",
+              "}"],
           capiWrapperImport =
           "manual/arrays.h"},
       foreignImportOrigin = Global

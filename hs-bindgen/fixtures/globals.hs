@@ -9760,8 +9760,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_simpleGlobal_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_globals_454b1c1a1b7d5b60 (void) { return &simpleGlobal; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_simpleGlobal_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int *hs_bindgen_test_globals_454b1c1a1b7d5b60 (void)\n",
+              "{\n",
+              "  return &simpleGlobal;\n",
+              "}"],
           capiWrapperImport =
           "globals.h"},
       foreignImportOrigin = Global
@@ -9791,7 +9797,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_compoundGlobal1_ptr */ __attribute__ ((const)) struct config *hs_bindgen_test_globals_89495849c6dfe834 (void) { return &compoundGlobal1; } ",
+          concat
+            [
+              "/* get_compoundGlobal1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "struct config *hs_bindgen_test_globals_89495849c6dfe834 (void)\n",
+              "{\n",
+              "  return &compoundGlobal1;\n",
+              "}"],
           capiWrapperImport =
           "globals.h"},
       foreignImportOrigin = Global
@@ -9825,7 +9838,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_compoundGlobal2_ptr */ __attribute__ ((const)) struct inline_struct *hs_bindgen_test_globals_4b79fc96cf429b3a (void) { return &compoundGlobal2; } ",
+          concat
+            [
+              "/* get_compoundGlobal2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "struct inline_struct *hs_bindgen_test_globals_4b79fc96cf429b3a (void)\n",
+              "{\n",
+              "  return &compoundGlobal2;\n",
+              "}"],
           capiWrapperImport =
           "globals.h"},
       foreignImportOrigin = Global
@@ -9855,8 +9875,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_nesInteger_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_globals_e408a99291c13956 (void) { return &nesInteger; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_nesInteger_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int *hs_bindgen_test_globals_e408a99291c13956 (void)\n",
+              "{\n",
+              "  return &nesInteger;\n",
+              "}"],
           capiWrapperImport =
           "globals.h"},
       foreignImportOrigin = Global
@@ -9882,8 +9908,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_nesFloating_ptr */ __attribute__ ((const)) float *hs_bindgen_test_globals_572819a2ae538f9e (void) { return &nesFloating; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_nesFloating_ptr */\n",
+              "__attribute__ ((const))\n",
+              "float *hs_bindgen_test_globals_572819a2ae538f9e (void)\n",
+              "{\n",
+              "  return &nesFloating;\n",
+              "}"],
           capiWrapperImport =
           "globals.h"},
       foreignImportOrigin = Global
@@ -9910,8 +9942,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_nesString1_ptr */ __attribute__ ((const)) char **hs_bindgen_test_globals_b9c5b2253881699a (void) { return &nesString1; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_nesString1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "char **hs_bindgen_test_globals_b9c5b2253881699a (void)\n",
+              "{\n",
+              "  return &nesString1;\n",
+              "}"],
           capiWrapperImport =
           "globals.h"},
       foreignImportOrigin = Global
@@ -9942,8 +9980,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_nesString2_ptr */ __attribute__ ((const)) char (*hs_bindgen_test_globals_cea7b6d95dd81460 (void))[3] { return &nesString2; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_nesString2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "char (*hs_bindgen_test_globals_cea7b6d95dd81460 (void))[3]\n",
+              "{\n",
+              "  return &nesString2;\n",
+              "}"],
           capiWrapperImport =
           "globals.h"},
       foreignImportOrigin = Global
@@ -9973,8 +10017,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_nesCharacter_ptr */ __attribute__ ((const)) char *hs_bindgen_test_globals_1e474dd7b5a92e6a (void) { return &nesCharacter; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_nesCharacter_ptr */\n",
+              "__attribute__ ((const))\n",
+              "char *hs_bindgen_test_globals_1e474dd7b5a92e6a (void)\n",
+              "{\n",
+              "  return &nesCharacter;\n",
+              "}"],
           capiWrapperImport =
           "globals.h"},
       foreignImportOrigin = Global
@@ -10002,8 +10052,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_nesParen_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_globals_5e7165450285240d (void) { return &nesParen; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_nesParen_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int *hs_bindgen_test_globals_5e7165450285240d (void)\n",
+              "{\n",
+              "  return &nesParen;\n",
+              "}"],
           capiWrapperImport =
           "globals.h"},
       foreignImportOrigin = Global
@@ -10029,8 +10085,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_nesUnary_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_globals_f00692845b6c8efd (void) { return &nesUnary; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_nesUnary_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int *hs_bindgen_test_globals_f00692845b6c8efd (void)\n",
+              "{\n",
+              "  return &nesUnary;\n",
+              "}"],
           capiWrapperImport =
           "globals.h"},
       foreignImportOrigin = Global
@@ -10056,8 +10118,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_nesBinary_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_globals_d737cdc355737c2b (void) { return &nesBinary; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_nesBinary_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int *hs_bindgen_test_globals_d737cdc355737c2b (void)\n",
+              "{\n",
+              "  return &nesBinary;\n",
+              "}"],
           capiWrapperImport =
           "globals.h"},
       foreignImportOrigin = Global
@@ -10083,8 +10151,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_nesConditional_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_globals_a8a7382ba67a6c7d (void) { return &nesConditional; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_nesConditional_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int *hs_bindgen_test_globals_a8a7382ba67a6c7d (void)\n",
+              "{\n",
+              "  return &nesConditional;\n",
+              "}"],
           capiWrapperImport =
           "globals.h"},
       foreignImportOrigin = Global
@@ -10110,8 +10184,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_nesCast_ptr */ __attribute__ ((const)) float *hs_bindgen_test_globals_ea6b1f97253ae23c (void) { return &nesCast; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_nesCast_ptr */\n",
+              "__attribute__ ((const))\n",
+              "float *hs_bindgen_test_globals_ea6b1f97253ae23c (void)\n",
+              "{\n",
+              "  return &nesCast;\n",
+              "}"],
           capiWrapperImport =
           "globals.h"},
       foreignImportOrigin = Global
@@ -10138,8 +10218,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_nesCompound_ptr */ __attribute__ ((const)) signed int **hs_bindgen_test_globals_34ed05675f69bccd (void) { return &nesCompound; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_nesCompound_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int **hs_bindgen_test_globals_34ed05675f69bccd (void)\n",
+              "{\n",
+              "  return &nesCompound;\n",
+              "}"],
           capiWrapperImport =
           "globals.h"},
       foreignImportOrigin = Global
@@ -10279,8 +10365,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_nesInitList_ptr */ __attribute__ ((const)) uint8_t (*hs_bindgen_test_globals_9e7c70b133f8e175 (void))[4] { return &nesInitList; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_nesInitList_ptr */\n",
+              "__attribute__ ((const))\n",
+              "uint8_t (*hs_bindgen_test_globals_9e7c70b133f8e175 (void))[4]\n",
+              "{\n",
+              "  return &nesInitList;\n",
+              "}"],
           capiWrapperImport =
           "globals.h"},
       foreignImportOrigin = Global
@@ -10423,8 +10515,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_nesBool_ptr */ __attribute__ ((const)) _Bool *hs_bindgen_test_globals_bd8b34eff62c9b12 (void) { return &nesBool; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_nesBool_ptr */\n",
+              "__attribute__ ((const))\n",
+              "_Bool *hs_bindgen_test_globals_bd8b34eff62c9b12 (void)\n",
+              "{\n",
+              "  return &nesBool;\n",
+              "}"],
           capiWrapperImport =
           "globals.h"},
       foreignImportOrigin = Global
@@ -10563,7 +10661,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_streamBinary_ptr */ __attribute__ ((const)) uint8_t (*hs_bindgen_test_globals_235c0c54701b0df5 (void))[4096] { return &streamBinary; } ",
+          concat
+            [
+              "/* get_streamBinary_ptr */\n",
+              "__attribute__ ((const))\n",
+              "uint8_t (*hs_bindgen_test_globals_235c0c54701b0df5 (void))[4096]\n",
+              "{\n",
+              "  return &streamBinary;\n",
+              "}"],
           capiWrapperImport =
           "globals.h"},
       foreignImportOrigin = Global
@@ -10817,8 +10922,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_streamBinary_len_ptr */ __attribute__ ((const)) uint32_t *hs_bindgen_test_globals_b1ee511251d335dd (void) { return &streamBinary_len; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_streamBinary_len_ptr */\n",
+              "__attribute__ ((const))\n",
+              "uint32_t *hs_bindgen_test_globals_b1ee511251d335dd (void)\n",
+              "{\n",
+              "  return &streamBinary_len;\n",
+              "}"],
           capiWrapperImport =
           "globals.h"},
       foreignImportOrigin = Global
@@ -10962,8 +11073,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_some_global_struct_ptr */ __attribute__ ((const)) struct2_t *hs_bindgen_test_globals_6a47eaca372272ae (void) { return &some_global_struct; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_some_global_struct_ptr */\n",
+              "__attribute__ ((const))\n",
+              "struct2_t *hs_bindgen_test_globals_6a47eaca372272ae (void)\n",
+              "{\n",
+              "  return &some_global_struct;\n",
+              "}"],
           capiWrapperImport =
           "globals.h"},
       foreignImportOrigin = Global
@@ -10998,7 +11115,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_globalConstant_ptr */ __attribute__ ((const)) signed int const *hs_bindgen_test_globals_b8fe2f6ed308e786 (void) { return &globalConstant; } ",
+          concat
+            [
+              "/* get_globalConstant_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int const *hs_bindgen_test_globals_b8fe2f6ed308e786 (void)\n",
+              "{\n",
+              "  return &globalConstant;\n",
+              "}"],
           capiWrapperImport =
           "globals.h"},
       foreignImportOrigin = Global
@@ -11031,8 +11155,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_anotherGlobalConstant_ptr */ __attribute__ ((const)) ConstInt *hs_bindgen_test_globals_3f4a524bb162b165 (void) { return &anotherGlobalConstant; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_anotherGlobalConstant_ptr */\n",
+              "__attribute__ ((const))\n",
+              "ConstInt *hs_bindgen_test_globals_3f4a524bb162b165 (void)\n",
+              "{\n",
+              "  return &anotherGlobalConstant;\n",
+              "}"],
           capiWrapperImport =
           "globals.h"},
       foreignImportOrigin = Global
@@ -11071,7 +11201,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_staticConst_ptr */ __attribute__ ((const)) signed int const *hs_bindgen_test_globals_834271d76b418960 (void) { return &staticConst; } ",
+          concat
+            [
+              "/* get_staticConst_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int const *hs_bindgen_test_globals_834271d76b418960 (void)\n",
+              "{\n",
+              "  return &staticConst;\n",
+              "}"],
           capiWrapperImport =
           "globals.h"},
       foreignImportOrigin = Global
@@ -11102,7 +11239,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_classless_ptr */ __attribute__ ((const)) signed int const *hs_bindgen_test_globals_c98b4d346a0bb607 (void) { return &classless; } ",
+          concat
+            [
+              "/* get_classless_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int const *hs_bindgen_test_globals_c98b4d346a0bb607 (void)\n",
+              "{\n",
+              "  return &classless;\n",
+              "}"],
           capiWrapperImport =
           "globals.h"},
       foreignImportOrigin = Global
@@ -11135,7 +11279,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_constArray1_ptr */ __attribute__ ((const)) signed int const (*hs_bindgen_test_globals_e7a61097e2415261 (void))[4] { return &constArray1; } ",
+          concat
+            [
+              "/* get_constArray1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int const (*hs_bindgen_test_globals_e7a61097e2415261 (void))[4]\n",
+              "{\n",
+              "  return &constArray1;\n",
+              "}"],
           capiWrapperImport =
           "globals.h"},
       foreignImportOrigin = Global
@@ -11173,7 +11324,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_constArray2_ptr */ __attribute__ ((const)) ConstIntArray *hs_bindgen_test_globals_5e76637230135838 (void) { return &constArray2; } ",
+          concat
+            [
+              "/* get_constArray2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "ConstIntArray *hs_bindgen_test_globals_5e76637230135838 (void)\n",
+              "{\n",
+              "  return &constArray2;\n",
+              "}"],
           capiWrapperImport =
           "globals.h"},
       foreignImportOrigin = Global
@@ -11214,7 +11372,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_constTuple_ptr */ __attribute__ ((const)) struct tuple const *hs_bindgen_test_globals_c7d3a2347092dfe0 (void) { return &constTuple; } ",
+          concat
+            [
+              "/* get_constTuple_ptr */\n",
+              "__attribute__ ((const))\n",
+              "struct tuple const *hs_bindgen_test_globals_c7d3a2347092dfe0 (void)\n",
+              "{\n",
+              "  return &constTuple;\n",
+              "}"],
           capiWrapperImport =
           "globals.h"},
       foreignImportOrigin = Global
@@ -11251,8 +11416,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_nonConstTuple_ptr */ __attribute__ ((const)) struct tuple *hs_bindgen_test_globals_3639a5c5b63aad84 (void) { return &nonConstTuple; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_nonConstTuple_ptr */\n",
+              "__attribute__ ((const))\n",
+              "struct tuple *hs_bindgen_test_globals_3639a5c5b63aad84 (void)\n",
+              "{\n",
+              "  return &nonConstTuple;\n",
+              "}"],
           capiWrapperImport =
           "globals.h"},
       foreignImportOrigin = Global
@@ -11284,7 +11455,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_ptrToConstInt_ptr */ __attribute__ ((const)) signed int const **hs_bindgen_test_globals_9fd2e0d3b265dee4 (void) { return &ptrToConstInt; } ",
+          concat
+            [
+              "/* get_ptrToConstInt_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int const **hs_bindgen_test_globals_9fd2e0d3b265dee4 (void)\n",
+              "{\n",
+              "  return &ptrToConstInt;\n",
+              "}"],
           capiWrapperImport =
           "globals.h"},
       foreignImportOrigin = Global
@@ -11317,7 +11495,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_constPtrToInt_ptr */ __attribute__ ((const)) signed int *const *hs_bindgen_test_globals_10cf1344894b0264 (void) { return &constPtrToInt; } ",
+          concat
+            [
+              "/* get_constPtrToInt_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int *const *hs_bindgen_test_globals_10cf1344894b0264 (void)\n",
+              "{\n",
+              "  return &constPtrToInt;\n",
+              "}"],
           capiWrapperImport =
           "globals.h"},
       foreignImportOrigin = Global
@@ -11352,7 +11537,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_constPtrToConstInt_ptr */ __attribute__ ((const)) signed int const *const *hs_bindgen_test_globals_1b236183822e0d24 (void) { return &constPtrToConstInt; } ",
+          concat
+            [
+              "/* get_constPtrToConstInt_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int const *const *hs_bindgen_test_globals_1b236183822e0d24 (void)\n",
+              "{\n",
+              "  return &constPtrToConstInt;\n",
+              "}"],
           capiWrapperImport =
           "globals.h"},
       foreignImportOrigin = Global

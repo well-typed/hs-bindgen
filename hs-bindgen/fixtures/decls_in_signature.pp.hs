@@ -18,9 +18,58 @@ import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.Prelude
 import qualified HsBindgen.Runtime.SizedByteArray
+import Prelude (unlines)
 import Prelude ((<*>), (>>), Eq, IO, Int, Show, pure)
 
-$(HsBindgen.Runtime.Prelude.addCSource "#include <decls_in_signature.h>\nvoid hs_bindgen_test_decls_in_signature_001a08d4459ec455 (struct opaque *arg1, struct outside *arg2, struct outside *arg3) { normal(arg1, arg2, *arg3); }\nvoid hs_bindgen_test_decls_in_signature_a2f84d2570ef3892 (struct named_struct *arg1) { f1(*arg1); }\nvoid hs_bindgen_test_decls_in_signature_1d043de05a457e90 (union named_union *arg1) { f2(*arg1); }\n/* get_normal_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_decls_in_signature_b040d51578b7b05e (void)) (struct opaque *arg1, struct outside *arg2, struct outside arg3) { return &normal; } \n/* get_f1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_decls_in_signature_5469bdc0395f86c1 (void)) (struct named_struct arg1) { return &f1; } \n/* get_f2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_decls_in_signature_490ca7e8c8282a69 (void)) (union named_union arg1) { return &f2; } \n")
+$(HsBindgen.Runtime.Prelude.addCSource (Prelude.unlines
+  [ "#include <decls_in_signature.h>"
+  , "void hs_bindgen_test_decls_in_signature_001a08d4459ec455 ("
+  , "  struct opaque *arg1,"
+  , "  struct outside *arg2,"
+  , "  struct outside *arg3"
+  , ")"
+  , "{"
+  , "  normal(arg1, arg2, *arg3);"
+  , "}"
+  , "void hs_bindgen_test_decls_in_signature_a2f84d2570ef3892 ("
+  , "  struct named_struct *arg1"
+  , ")"
+  , "{"
+  , "  f1(*arg1);"
+  , "}"
+  , "void hs_bindgen_test_decls_in_signature_1d043de05a457e90 ("
+  , "  union named_union *arg1"
+  , ")"
+  , "{"
+  , "  f2(*arg1);"
+  , "}"
+  , "/* get_normal_ptr */"
+  , "__attribute__ ((const))"
+  , "void (*hs_bindgen_test_decls_in_signature_b040d51578b7b05e (void)) ("
+  , "  struct opaque *arg1,"
+  , "  struct outside *arg2,"
+  , "  struct outside arg3"
+  , ")"
+  , "{"
+  , "  return &normal;"
+  , "}"
+  , "/* get_f1_ptr */"
+  , "__attribute__ ((const))"
+  , "void (*hs_bindgen_test_decls_in_signature_5469bdc0395f86c1 (void)) ("
+  , "  struct named_struct arg1"
+  , ")"
+  , "{"
+  , "  return &f1;"
+  , "}"
+  , "/* get_f2_ptr */"
+  , "__attribute__ ((const))"
+  , "void (*hs_bindgen_test_decls_in_signature_490ca7e8c8282a69 (void)) ("
+  , "  union named_union arg1"
+  , ")"
+  , "{"
+  , "  return &f2;"
+  , "}"
+  ]))
 
 {-| __C declaration:__ @opaque@
 

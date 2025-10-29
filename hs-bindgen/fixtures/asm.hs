@@ -37,8 +37,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_asm_b15fc0d2b3d7c9a1 (signed int arg1, signed int arg2) { return asm_labeled_function(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_asm_b15fc0d2b3d7c9a1 (\n",
+              "  signed int arg1,\n",
+              "  signed int arg2\n",
+              ")\n",
+              "{\n",
+              "  return asm_labeled_function(arg1, arg2);\n",
+              "}"],
           capiWrapperImport = "asm.h"},
       foreignImportOrigin = Function
         Function {
@@ -114,8 +121,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_asm_289cb83358beadc0 (signed int arg1, signed int arg2) { return asm_labeled_function(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_asm_289cb83358beadc0 (\n",
+              "  signed int arg1,\n",
+              "  signed int arg2\n",
+              ")\n",
+              "{\n",
+              "  return asm_labeled_function(arg1, arg2);\n",
+              "}"],
           capiWrapperImport = "asm.h"},
       foreignImportOrigin = Function
         Function {
@@ -174,8 +188,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_asm_labeled_function_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_asm_b6d695e6a1f2622e (void)) (signed int arg1, signed int arg2) { return &asm_labeled_function; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_asm_labeled_function_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_asm_b6d695e6a1f2622e (void)) (\n",
+              "  signed int arg1,\n",
+              "  signed int arg2\n",
+              ")\n",
+              "{\n",
+              "  return &asm_labeled_function;\n",
+              "}"],
           capiWrapperImport = "asm.h"},
       foreignImportOrigin = Global
         (TypeFun
@@ -206,8 +229,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_asm_labeled_variable_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_asm_f13c50d1f1661525 (void) { return &asm_labeled_variable; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_asm_labeled_variable_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int *hs_bindgen_test_asm_f13c50d1f1661525 (void)\n",
+              "{\n",
+              "  return &asm_labeled_variable;\n",
+              "}"],
           capiWrapperImport = "asm.h"},
       foreignImportOrigin = Global
         (TypePrim

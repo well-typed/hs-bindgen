@@ -9,9 +9,30 @@ import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Prelude
+import Prelude (unlines)
 import Prelude (IO)
 
-$(HsBindgen.Runtime.Prelude.addCSource "#include <tentative_definitions.h>\n/* get_i1_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_tentative_definitions_8a4a155fb4b3e983 (void) { return &i1; } \n/* get_i2_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_tentative_definitions_8a341976b53c3159 (void) { return &i2; } \n/* get_i3_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_tentative_definitions_8a18e8a325536dc5 (void) { return &i3; } \n")
+$(HsBindgen.Runtime.Prelude.addCSource (Prelude.unlines
+  [ "#include <tentative_definitions.h>"
+  , "/* get_i1_ptr */"
+  , "__attribute__ ((const))"
+  , "signed int *hs_bindgen_test_tentative_definitions_8a4a155fb4b3e983 (void)"
+  , "{"
+  , "  return &i1;"
+  , "}"
+  , "/* get_i2_ptr */"
+  , "__attribute__ ((const))"
+  , "signed int *hs_bindgen_test_tentative_definitions_8a341976b53c3159 (void)"
+  , "{"
+  , "  return &i2;"
+  , "}"
+  , "/* get_i3_ptr */"
+  , "__attribute__ ((const))"
+  , "signed int *hs_bindgen_test_tentative_definitions_8a18e8a325536dc5 (void)"
+  , "{"
+  , "  return &i3;"
+  , "}"
+  ]))
 
 foreign import ccall unsafe "hs_bindgen_test_tentative_definitions_8a4a155fb4b3e983" hs_bindgen_test_tentative_definitions_8a4a155fb4b3e983 ::
      IO (Ptr.Ptr FC.CInt)

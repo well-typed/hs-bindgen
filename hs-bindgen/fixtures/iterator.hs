@@ -232,8 +232,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "Toggle hs_bindgen_test_iterator_900530c0457bf5ee (_Bool arg1) { return makeToggle(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "Toggle hs_bindgen_test_iterator_900530c0457bf5ee (\n",
+              "  _Bool arg1\n",
+              ")\n",
+              "{\n",
+              "  return makeToggle(arg1);\n",
+              "}"],
           capiWrapperImport =
           "iterator.h"},
       foreignImportOrigin = Function
@@ -299,8 +305,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "_Bool hs_bindgen_test_iterator_0584fdb88b39872d (Toggle arg1) { return toggleNext(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "_Bool hs_bindgen_test_iterator_0584fdb88b39872d (\n",
+              "  Toggle arg1\n",
+              ")\n",
+              "{\n",
+              "  return toggleNext(arg1);\n",
+              "}"],
           capiWrapperImport =
           "iterator.h"},
       foreignImportOrigin = Function
@@ -367,8 +379,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_iterator_6d013ab8b38fc1d9 (Toggle arg1) { releaseToggle(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_iterator_6d013ab8b38fc1d9 (\n",
+              "  Toggle arg1\n",
+              ")\n",
+              "{\n",
+              "  releaseToggle(arg1);\n",
+              "}"],
           capiWrapperImport =
           "iterator.h"},
       foreignImportOrigin = Function
@@ -451,8 +469,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "Counter hs_bindgen_test_iterator_10d749b6b17037ba (signed int arg1, signed int arg2) { return makeCounter(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "Counter hs_bindgen_test_iterator_10d749b6b17037ba (\n",
+              "  signed int arg1,\n",
+              "  signed int arg2\n",
+              ")\n",
+              "{\n",
+              "  return makeCounter(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "iterator.h"},
       foreignImportOrigin = Function
@@ -532,8 +557,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_iterator_9695aacc59a66573 (Counter arg1) { return counterNext(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_iterator_9695aacc59a66573 (\n",
+              "  Counter arg1\n",
+              ")\n",
+              "{\n",
+              "  return counterNext(arg1);\n",
+              "}"],
           capiWrapperImport =
           "iterator.h"},
       foreignImportOrigin = Function
@@ -605,8 +636,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_iterator_49a436aa15c7ea70 (Counter arg1) { releaseCounter(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_iterator_49a436aa15c7ea70 (\n",
+              "  Counter arg1\n",
+              ")\n",
+              "{\n",
+              "  releaseCounter(arg1);\n",
+              "}"],
           capiWrapperImport =
           "iterator.h"},
       foreignImportOrigin = Function
@@ -679,8 +716,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "VarCounter hs_bindgen_test_iterator_f12a50c4468834b5 (signed int arg1) { return makeVarCounter(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "VarCounter hs_bindgen_test_iterator_f12a50c4468834b5 (\n",
+              "  signed int arg1\n",
+              ")\n",
+              "{\n",
+              "  return makeVarCounter(arg1);\n",
+              "}"],
           capiWrapperImport =
           "iterator.h"},
       foreignImportOrigin = Function
@@ -767,8 +810,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_iterator_2c8a2667de9b1ffb (VarCounter arg1, signed int arg2) { return varCounterNext(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_iterator_2c8a2667de9b1ffb (\n",
+              "  VarCounter arg1,\n",
+              "  signed int arg2\n",
+              ")\n",
+              "{\n",
+              "  return varCounterNext(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "iterator.h"},
       foreignImportOrigin = Function
@@ -850,8 +900,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_iterator_023ae1f9abf46556 (VarCounter arg1) { releaseVarCounter(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_iterator_023ae1f9abf46556 (\n",
+              "  VarCounter arg1\n",
+              ")\n",
+              "{\n",
+              "  releaseVarCounter(arg1);\n",
+              "}"],
           capiWrapperImport =
           "iterator.h"},
       foreignImportOrigin = Function
@@ -926,8 +982,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "Toggle hs_bindgen_test_iterator_bd3974ddabfde9b8 (_Bool arg1) { return makeToggle(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "Toggle hs_bindgen_test_iterator_bd3974ddabfde9b8 (\n",
+              "  _Bool arg1\n",
+              ")\n",
+              "{\n",
+              "  return makeToggle(arg1);\n",
+              "}"],
           capiWrapperImport =
           "iterator.h"},
       foreignImportOrigin = Function
@@ -993,8 +1055,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "_Bool hs_bindgen_test_iterator_055df53eaf199b0e (Toggle arg1) { return toggleNext(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "_Bool hs_bindgen_test_iterator_055df53eaf199b0e (\n",
+              "  Toggle arg1\n",
+              ")\n",
+              "{\n",
+              "  return toggleNext(arg1);\n",
+              "}"],
           capiWrapperImport =
           "iterator.h"},
       foreignImportOrigin = Function
@@ -1061,8 +1129,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_iterator_07fb95f9614be94f (Toggle arg1) { releaseToggle(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_iterator_07fb95f9614be94f (\n",
+              "  Toggle arg1\n",
+              ")\n",
+              "{\n",
+              "  releaseToggle(arg1);\n",
+              "}"],
           capiWrapperImport =
           "iterator.h"},
       foreignImportOrigin = Function
@@ -1145,8 +1219,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "Counter hs_bindgen_test_iterator_af5aabad780cc152 (signed int arg1, signed int arg2) { return makeCounter(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "Counter hs_bindgen_test_iterator_af5aabad780cc152 (\n",
+              "  signed int arg1,\n",
+              "  signed int arg2\n",
+              ")\n",
+              "{\n",
+              "  return makeCounter(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "iterator.h"},
       foreignImportOrigin = Function
@@ -1226,8 +1307,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_iterator_009eccead86c2acf (Counter arg1) { return counterNext(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_iterator_009eccead86c2acf (\n",
+              "  Counter arg1\n",
+              ")\n",
+              "{\n",
+              "  return counterNext(arg1);\n",
+              "}"],
           capiWrapperImport =
           "iterator.h"},
       foreignImportOrigin = Function
@@ -1299,8 +1386,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_iterator_74f266597157c353 (Counter arg1) { releaseCounter(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_iterator_74f266597157c353 (\n",
+              "  Counter arg1\n",
+              ")\n",
+              "{\n",
+              "  releaseCounter(arg1);\n",
+              "}"],
           capiWrapperImport =
           "iterator.h"},
       foreignImportOrigin = Function
@@ -1373,8 +1466,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "VarCounter hs_bindgen_test_iterator_61a09dd9011981f5 (signed int arg1) { return makeVarCounter(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "VarCounter hs_bindgen_test_iterator_61a09dd9011981f5 (\n",
+              "  signed int arg1\n",
+              ")\n",
+              "{\n",
+              "  return makeVarCounter(arg1);\n",
+              "}"],
           capiWrapperImport =
           "iterator.h"},
       foreignImportOrigin = Function
@@ -1461,8 +1560,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_iterator_4d944ebb7dc53d23 (VarCounter arg1, signed int arg2) { return varCounterNext(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_iterator_4d944ebb7dc53d23 (\n",
+              "  VarCounter arg1,\n",
+              "  signed int arg2\n",
+              ")\n",
+              "{\n",
+              "  return varCounterNext(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "iterator.h"},
       foreignImportOrigin = Function
@@ -1544,8 +1650,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_iterator_502ca8978fd91294 (VarCounter arg1) { releaseVarCounter(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_iterator_502ca8978fd91294 (\n",
+              "  VarCounter arg1\n",
+              ")\n",
+              "{\n",
+              "  releaseVarCounter(arg1);\n",
+              "}"],
           capiWrapperImport =
           "iterator.h"},
       foreignImportOrigin = Function
@@ -1612,8 +1724,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_makeToggle_ptr */ __attribute__ ((const)) Toggle (*hs_bindgen_test_iterator_504a6a44ef649697 (void)) (_Bool arg1) { return &makeToggle; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_makeToggle_ptr */\n",
+              "__attribute__ ((const))\n",
+              "Toggle (*hs_bindgen_test_iterator_504a6a44ef649697 (void)) (\n",
+              "  _Bool arg1\n",
+              ")\n",
+              "{\n",
+              "  return &makeToggle;\n",
+              "}"],
           capiWrapperImport =
           "iterator.h"},
       foreignImportOrigin = Global
@@ -1653,8 +1773,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_toggleNext_ptr */ __attribute__ ((const)) _Bool (*hs_bindgen_test_iterator_ee784d0363e34151 (void)) (Toggle arg1) { return &toggleNext; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_toggleNext_ptr */\n",
+              "__attribute__ ((const))\n",
+              "_Bool (*hs_bindgen_test_iterator_ee784d0363e34151 (void)) (\n",
+              "  Toggle arg1\n",
+              ")\n",
+              "{\n",
+              "  return &toggleNext;\n",
+              "}"],
           capiWrapperImport =
           "iterator.h"},
       foreignImportOrigin = Global
@@ -1695,8 +1823,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_releaseToggle_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_iterator_864850832eaf96b9 (void)) (Toggle arg1) { return &releaseToggle; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_releaseToggle_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_iterator_864850832eaf96b9 (void)) (\n",
+              "  Toggle arg1\n",
+              ")\n",
+              "{\n",
+              "  return &releaseToggle;\n",
+              "}"],
           capiWrapperImport =
           "iterator.h"},
       foreignImportOrigin = Global
@@ -1741,8 +1877,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_makeCounter_ptr */ __attribute__ ((const)) Counter (*hs_bindgen_test_iterator_48b98d306e2a8d53 (void)) (signed int arg1, signed int arg2) { return &makeCounter; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_makeCounter_ptr */\n",
+              "__attribute__ ((const))\n",
+              "Counter (*hs_bindgen_test_iterator_48b98d306e2a8d53 (void)) (\n",
+              "  signed int arg1,\n",
+              "  signed int arg2\n",
+              ")\n",
+              "{\n",
+              "  return &makeCounter;\n",
+              "}"],
           capiWrapperImport =
           "iterator.h"},
       foreignImportOrigin = Global
@@ -1792,7 +1937,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_counterNext_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_iterator_aeb21db5034e4d66 (void)) (Counter arg1) { return &counterNext; } ",
+          concat
+            [
+              "/* get_counterNext_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_iterator_aeb21db5034e4d66 (void)) (\n",
+              "  Counter arg1\n",
+              ")\n",
+              "{\n",
+              "  return &counterNext;\n",
+              "}"],
           capiWrapperImport =
           "iterator.h"},
       foreignImportOrigin = Global
@@ -1839,8 +1993,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_releaseCounter_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_iterator_8e1661e238f6f451 (void)) (Counter arg1) { return &releaseCounter; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_releaseCounter_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_iterator_8e1661e238f6f451 (void)) (\n",
+              "  Counter arg1\n",
+              ")\n",
+              "{\n",
+              "  return &releaseCounter;\n",
+              "}"],
           capiWrapperImport =
           "iterator.h"},
       foreignImportOrigin = Global
@@ -1887,7 +2049,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_makeVarCounter_ptr */ __attribute__ ((const)) VarCounter (*hs_bindgen_test_iterator_b14e88e9cf7a56b8 (void)) (signed int arg1) { return &makeVarCounter; } ",
+          concat
+            [
+              "/* get_makeVarCounter_ptr */\n",
+              "__attribute__ ((const))\n",
+              "VarCounter (*hs_bindgen_test_iterator_b14e88e9cf7a56b8 (void)) (\n",
+              "  signed int arg1\n",
+              ")\n",
+              "{\n",
+              "  return &makeVarCounter;\n",
+              "}"],
           capiWrapperImport =
           "iterator.h"},
       foreignImportOrigin = Global
@@ -1939,7 +2110,17 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_varCounterNext_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_iterator_4d10204c4166188d (void)) (VarCounter arg1, signed int arg2) { return &varCounterNext; } ",
+          concat
+            [
+              "/* get_varCounterNext_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_iterator_4d10204c4166188d (void)) (\n",
+              "  VarCounter arg1,\n",
+              "  signed int arg2\n",
+              ")\n",
+              "{\n",
+              "  return &varCounterNext;\n",
+              "}"],
           capiWrapperImport =
           "iterator.h"},
       foreignImportOrigin = Global
@@ -1990,8 +2171,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_releaseVarCounter_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_iterator_bde04ef01335be42 (void)) (VarCounter arg1) { return &releaseVarCounter; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_releaseVarCounter_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_iterator_bde04ef01335be42 (void)) (\n",
+              "  VarCounter arg1\n",
+              ")\n",
+              "{\n",
+              "  return &releaseVarCounter;\n",
+              "}"],
           capiWrapperImport =
           "iterator.h"},
       foreignImportOrigin = Global

@@ -10303,8 +10303,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_394853579d622671 (A arg1, char arg2) { args_char1(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_394853579d622671 (\n",
+              "  A arg1,\n",
+              "  char arg2\n",
+              ")\n",
+              "{\n",
+              "  args_char1(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -10389,8 +10396,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_da98fe949f347bb4 (A arg1, signed char arg2) { args_char2(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_da98fe949f347bb4 (\n",
+              "  A arg1,\n",
+              "  signed char arg2\n",
+              ")\n",
+              "{\n",
+              "  args_char2(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -10472,8 +10486,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_1b54575fa299f64d (A arg1, unsigned char arg2) { args_char3(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_1b54575fa299f64d (\n",
+              "  A arg1,\n",
+              "  unsigned char arg2\n",
+              ")\n",
+              "{\n",
+              "  args_char3(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -10555,8 +10576,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_5eb574c361d453a5 (A arg1, signed short arg2) { args_short1(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_5eb574c361d453a5 (\n",
+              "  A arg1,\n",
+              "  signed short arg2\n",
+              ")\n",
+              "{\n",
+              "  args_short1(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -10639,8 +10667,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_47d5b6ac9938a676 (A arg1, signed short arg2) { args_short2(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_47d5b6ac9938a676 (\n",
+              "  A arg1,\n",
+              "  signed short arg2\n",
+              ")\n",
+              "{\n",
+              "  args_short2(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -10723,8 +10758,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_7b3f1c99ea5c31ce (A arg1, unsigned short arg2) { args_short3(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_7b3f1c99ea5c31ce (\n",
+              "  A arg1,\n",
+              "  unsigned short arg2\n",
+              ")\n",
+              "{\n",
+              "  args_short3(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -10807,8 +10849,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_3103fa698febc2e4 (A arg1, signed int arg2) { args_int1(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_3103fa698febc2e4 (\n",
+              "  A arg1,\n",
+              "  signed int arg2\n",
+              ")\n",
+              "{\n",
+              "  args_int1(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -10889,8 +10938,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_f73bd21e02a58e0f (A arg1, signed int arg2) { args_int2(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_f73bd21e02a58e0f (\n",
+              "  A arg1,\n",
+              "  signed int arg2\n",
+              ")\n",
+              "{\n",
+              "  args_int2(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -10971,8 +11027,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_6d36b4892d340141 (A arg1, unsigned int arg2) { args_int3(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_6d36b4892d340141 (\n",
+              "  A arg1,\n",
+              "  unsigned int arg2\n",
+              ")\n",
+              "{\n",
+              "  args_int3(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -11055,8 +11118,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_c80fdb5f86f0e67e (A arg1, signed long arg2) { args_long1(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_c80fdb5f86f0e67e (\n",
+              "  A arg1,\n",
+              "  signed long arg2\n",
+              ")\n",
+              "{\n",
+              "  args_long1(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -11139,8 +11209,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_b0db0696cda23a78 (A arg1, signed long arg2) { args_long2(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_b0db0696cda23a78 (\n",
+              "  A arg1,\n",
+              "  signed long arg2\n",
+              ")\n",
+              "{\n",
+              "  args_long2(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -11223,8 +11300,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_78868ddd9e2ed516 (A arg1, unsigned long arg2) { args_long3(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_78868ddd9e2ed516 (\n",
+              "  A arg1,\n",
+              "  unsigned long arg2\n",
+              ")\n",
+              "{\n",
+              "  args_long3(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -11307,8 +11391,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_555dbd0a04bc0304 (A arg1, float arg2) { args_float(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_555dbd0a04bc0304 (\n",
+              "  A arg1,\n",
+              "  float arg2\n",
+              ")\n",
+              "{\n",
+              "  args_float(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -11389,8 +11480,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_fe4a06766df0d1e6 (A arg1, double arg2) { args_double(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_fe4a06766df0d1e6 (\n",
+              "  A arg1,\n",
+              "  double arg2\n",
+              ")\n",
+              "{\n",
+              "  args_double(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -11471,8 +11569,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_a607c108df5a1598 (A arg1, _Bool arg2) { args_bool1(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_a607c108df5a1598 (\n",
+              "  A arg1,\n",
+              "  _Bool arg2\n",
+              ")\n",
+              "{\n",
+              "  args_bool1(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -11545,8 +11650,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_2867c64e14a8b4b4 (A arg1, struct some_struct *arg2) { args_struct(arg1, *arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_2867c64e14a8b4b4 (\n",
+              "  A arg1,\n",
+              "  struct some_struct *arg2\n",
+              ")\n",
+              "{\n",
+              "  args_struct(arg1, *arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -11701,8 +11813,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_dbccce7991402835 (A arg1, union some_union *arg2) { args_union(arg1, *arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_dbccce7991402835 (\n",
+              "  A arg1,\n",
+              "  union some_union *arg2\n",
+              ")\n",
+              "{\n",
+              "  args_union(arg1, *arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -11866,8 +11985,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_58e9df8b58217744 (A arg1, enum some_enum arg2) { args_enum(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_58e9df8b58217744 (\n",
+              "  A arg1,\n",
+              "  enum some_enum arg2\n",
+              ")\n",
+              "{\n",
+              "  args_enum(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -11952,8 +12078,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_da0ab238a099dc49 (A arg1, signed int *arg2) { args_pointer1(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_da0ab238a099dc49 (\n",
+              "  A arg1,\n",
+              "  signed int *arg2\n",
+              ")\n",
+              "{\n",
+              "  args_pointer1(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -12037,8 +12170,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_abd9ce8bdda564f4 (A arg1, signed int **arg2) { args_pointer2(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_abd9ce8bdda564f4 (\n",
+              "  A arg1,\n",
+              "  signed int **arg2\n",
+              ")\n",
+              "{\n",
+              "  args_pointer2(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -12123,8 +12263,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_ed43d3d8eb25de8f (A arg1, void *arg2) { args_pointer3(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_ed43d3d8eb25de8f (\n",
+              "  A arg1,\n",
+              "  void *arg2\n",
+              ")\n",
+              "{\n",
+              "  args_pointer3(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -12182,8 +12329,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "A hs_bindgen_test_reparse_a45e66140bccd9e3 (void) { return ret_A(); }",
+          capiWrapperDefinition = concat
+            [
+              "A hs_bindgen_test_reparse_a45e66140bccd9e3 (void)\n",
+              "{\n",
+              "  return ret_A();\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -12236,8 +12387,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "char hs_bindgen_test_reparse_44f364f98d9773fa (A arg1) { return ret_char1(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "char hs_bindgen_test_reparse_44f364f98d9773fa (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return ret_char1(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -12301,8 +12458,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed char hs_bindgen_test_reparse_c0ccab4edfec7750 (A arg1) { return ret_char2(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed char hs_bindgen_test_reparse_c0ccab4edfec7750 (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return ret_char2(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -12366,8 +12529,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "unsigned char hs_bindgen_test_reparse_22570fd6296f553c (A arg1) { return ret_char3(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "unsigned char hs_bindgen_test_reparse_22570fd6296f553c (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return ret_char3(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -12431,8 +12600,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed short hs_bindgen_test_reparse_60148c950d753d1d (A arg1) { return ret_short1(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed short hs_bindgen_test_reparse_60148c950d753d1d (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return ret_short1(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -12497,8 +12672,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed short hs_bindgen_test_reparse_1f5d60c2fc8391f8 (A arg1) { return ret_short2(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed short hs_bindgen_test_reparse_1f5d60c2fc8391f8 (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return ret_short2(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -12563,8 +12744,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "unsigned short hs_bindgen_test_reparse_c35d296d9df5f67d (A arg1) { return ret_short3(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "unsigned short hs_bindgen_test_reparse_c35d296d9df5f67d (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return ret_short3(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -12628,8 +12815,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_reparse_edcb4249e75b3e31 (A arg1) { return ret_int1(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_reparse_edcb4249e75b3e31 (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return ret_int1(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -12690,8 +12883,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_reparse_28e6902c5d5c160d (A arg1) { return ret_int2(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_reparse_28e6902c5d5c160d (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return ret_int2(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -12752,8 +12951,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "unsigned int hs_bindgen_test_reparse_42873a9aa50685f7 (A arg1) { return ret_int3(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "unsigned int hs_bindgen_test_reparse_42873a9aa50685f7 (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return ret_int3(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -12816,8 +13021,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed long hs_bindgen_test_reparse_ef0217b739070465 (A arg1) { return ret_long1(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed long hs_bindgen_test_reparse_ef0217b739070465 (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return ret_long1(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -12879,8 +13090,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed long hs_bindgen_test_reparse_0b8baea451432efe (A arg1) { return ret_long2(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed long hs_bindgen_test_reparse_0b8baea451432efe (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return ret_long2(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -12943,8 +13160,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "unsigned long hs_bindgen_test_reparse_264e25c048487a65 (A arg1) { return ret_long3(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "unsigned long hs_bindgen_test_reparse_264e25c048487a65 (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return ret_long3(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -13009,8 +13232,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "float hs_bindgen_test_reparse_d4f4783fa3bcf0fd (A arg1) { return ret_float(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "float hs_bindgen_test_reparse_d4f4783fa3bcf0fd (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return ret_float(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -13073,8 +13302,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "double hs_bindgen_test_reparse_94ae038975c7b6e8 (A arg1) { return ret_double(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "double hs_bindgen_test_reparse_94ae038975c7b6e8 (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return ret_double(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -13136,8 +13371,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "_Bool hs_bindgen_test_reparse_c6e57fb4c8ccc002 (A arg1) { return ret_bool1(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "_Bool hs_bindgen_test_reparse_c6e57fb4c8ccc002 (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return ret_bool1(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -13198,8 +13439,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_4d9a2038e7abf410 (A arg1, struct some_struct *arg2) { *arg2 = ret_struct(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_4d9a2038e7abf410 (\n",
+              "  A arg1,\n",
+              "  struct some_struct *arg2\n",
+              ")\n",
+              "{\n",
+              "  *arg2 = ret_struct(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -13323,8 +13571,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_6614cf4950ce1e7c (A arg1, union some_union *arg2) { *arg2 = ret_union(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_6614cf4950ce1e7c (\n",
+              "  A arg1,\n",
+              "  union some_union *arg2\n",
+              ")\n",
+              "{\n",
+              "  *arg2 = ret_union(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -13453,8 +13708,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "enum some_enum hs_bindgen_test_reparse_4a8e0e395958b0ed (A arg1) { return ret_enum(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "enum some_enum hs_bindgen_test_reparse_4a8e0e395958b0ed (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return ret_enum(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -13521,8 +13782,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int *hs_bindgen_test_reparse_59ba78873de08998 (A arg1) { return ret_pointer1(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int *hs_bindgen_test_reparse_59ba78873de08998 (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return ret_pointer1(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -13588,8 +13855,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int **hs_bindgen_test_reparse_f075faf1943231c1 (A arg1) { return ret_pointer2(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int **hs_bindgen_test_reparse_f075faf1943231c1 (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return ret_pointer2(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -13657,8 +13930,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void *hs_bindgen_test_reparse_a865c16cbfd0f2b1 (A arg1) { return ret_pointer3(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void *hs_bindgen_test_reparse_a865c16cbfd0f2b1 (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return ret_pointer3(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -13720,8 +13999,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_reparse_0dd10e2baacf20e1 (A arg1) { return body1(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_reparse_0dd10e2baacf20e1 (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return body1(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -13772,8 +14057,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "A hs_bindgen_test_reparse_e40f2da3eda8e4ab (void) { return body2(); }",
+          capiWrapperDefinition = concat
+            [
+              "A hs_bindgen_test_reparse_e40f2da3eda8e4ab (void)\n",
+              "{\n",
+              "  return body2();\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -13828,8 +14117,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_cabceb6db44b7d81 (A arg1, float _Complex *arg2) { args_complex_float(arg1, *arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_cabceb6db44b7d81 (\n",
+              "  A arg1,\n",
+              "  float _Complex *arg2\n",
+              ")\n",
+              "{\n",
+              "  args_complex_float(arg1, *arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -13972,8 +14268,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_ef2a09e9cd3eec0c (A arg1, double _Complex *arg2) { args_complex_double(arg1, *arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_ef2a09e9cd3eec0c (\n",
+              "  A arg1,\n",
+              "  double _Complex *arg2\n",
+              ")\n",
+              "{\n",
+              "  args_complex_double(arg1, *arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -14110,8 +14413,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_26ada386c6fc7617 (A arg1, float _Complex *arg2) { *arg2 = ret_complex_float(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_26ada386c6fc7617 (\n",
+              "  A arg1,\n",
+              "  float _Complex *arg2\n",
+              ")\n",
+              "{\n",
+              "  *arg2 = ret_complex_float(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -14221,8 +14531,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_b99f35785e9f9b5c (A arg1, double _Complex *arg2) { *arg2 = ret_complex_double(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_b99f35785e9f9b5c (\n",
+              "  A arg1,\n",
+              "  double _Complex *arg2\n",
+              ")\n",
+              "{\n",
+              "  *arg2 = ret_complex_double(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -14349,8 +14666,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_4c1c48b67908e0ad (A arg1, _Bool arg2) { bespoke_args1(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_4c1c48b67908e0ad (\n",
+              "  A arg1,\n",
+              "  _Bool arg2\n",
+              ")\n",
+              "{\n",
+              "  bespoke_args1(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -14430,8 +14754,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_7bd6c9115d303872 (A arg1, size_t arg2) { bespoke_args2(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_7bd6c9115d303872 (\n",
+              "  A arg1,\n",
+              "  size_t arg2\n",
+              ")\n",
+              "{\n",
+              "  bespoke_args2(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -14499,8 +14830,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "_Bool hs_bindgen_test_reparse_994d22fc993523bf (A arg1) { return bespoke_ret1(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "_Bool hs_bindgen_test_reparse_994d22fc993523bf (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return bespoke_ret1(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -14562,8 +14899,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "size_t hs_bindgen_test_reparse_c7649a4aa2e14a89 (A arg1) { return bespoke_ret2(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "size_t hs_bindgen_test_reparse_c7649a4aa2e14a89 (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return bespoke_ret2(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -14626,8 +14969,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_69045f97d21cfcd3 (A *arg1) { arr_args1(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_69045f97d21cfcd3 (\n",
+              "  A *arg1\n",
+              ")\n",
+              "{\n",
+              "  arr_args1(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -14692,8 +15041,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_75b7d6fa15700a72 (A **arg1) { arr_args2(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_75b7d6fa15700a72 (\n",
+              "  A **arg1\n",
+              ")\n",
+              "{\n",
+              "  arr_args2(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -14757,8 +15112,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_64bcbef92728339f (A *arg1) { arr_args3(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_64bcbef92728339f (\n",
+              "  A *arg1\n",
+              ")\n",
+              "{\n",
+              "  arr_args3(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -14823,8 +15184,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_1635b68f717cc6df (A **arg1) { arr_args4(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_1635b68f717cc6df (\n",
+              "  A **arg1\n",
+              ")\n",
+              "{\n",
+              "  arr_args4(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -14900,8 +15267,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_09ca38f534ba1397 (A arg1, void (*arg2) (void)) { funptr_args1(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_09ca38f534ba1397 (\n",
+              "  A arg1,\n",
+              "  void (*arg2) (void)\n",
+              ")\n",
+              "{\n",
+              "  funptr_args1(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -14985,8 +15359,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_43e32eb1c4511130 (A arg1, signed int (*arg2) (void)) { funptr_args2(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_43e32eb1c4511130 (\n",
+              "  A arg1,\n",
+              "  signed int (*arg2) (void)\n",
+              ")\n",
+              "{\n",
+              "  funptr_args2(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -15074,8 +15455,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_639eb292178302da (A arg1, void (*arg2) (signed int arg1)) { funptr_args3(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_639eb292178302da (\n",
+              "  A arg1,\n",
+              "  void (*arg2) (\n",
+              "  signed int arg1\n",
+              ")\n",
+              ")\n",
+              "{\n",
+              "  funptr_args3(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -15165,8 +15555,18 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_deaef357745591d1 (A arg1, char (*arg2) (signed int arg1, double arg2)) { funptr_args4(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_deaef357745591d1 (\n",
+              "  A arg1,\n",
+              "  char (*arg2) (\n",
+              "  signed int arg1,\n",
+              "  double arg2\n",
+              ")\n",
+              ")\n",
+              "{\n",
+              "  funptr_args4(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -15261,8 +15661,18 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_bd58865f6f33ce14 (A arg1, signed int *(*arg2) (signed int arg1, double arg2)) { funptr_args5(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_bd58865f6f33ce14 (\n",
+              "  A arg1,\n",
+              "  signed int *(*arg2) (\n",
+              "  signed int arg1,\n",
+              "  double arg2\n",
+              ")\n",
+              ")\n",
+              "{\n",
+              "  funptr_args5(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -15341,8 +15751,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_a609cc59a266965e (A arg1) { comments1(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_a609cc59a266965e (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  comments1(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -15422,8 +15838,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_55af49e081d3af5c (A arg1, char const arg2) { const_prim_before1(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_55af49e081d3af5c (\n",
+              "  A arg1,\n",
+              "  char const arg2\n",
+              ")\n",
+              "{\n",
+              "  const_prim_before1(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -15516,8 +15939,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_17a6476d46f98f53 (A arg1, signed char const arg2) { const_prim_before2(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_17a6476d46f98f53 (\n",
+              "  A arg1,\n",
+              "  signed char const arg2\n",
+              ")\n",
+              "{\n",
+              "  const_prim_before2(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -15601,8 +16031,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_1fce4989a8ceca6d (A arg1, unsigned char const arg2) { const_prim_before3(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_1fce4989a8ceca6d (\n",
+              "  A arg1,\n",
+              "  unsigned char const arg2\n",
+              ")\n",
+              "{\n",
+              "  const_prim_before3(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -15686,8 +16123,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_0b8f21af35a88318 (A arg1, char const arg2) { const_prim_after1(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_0b8f21af35a88318 (\n",
+              "  A arg1,\n",
+              "  char const arg2\n",
+              ")\n",
+              "{\n",
+              "  const_prim_after1(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -15771,8 +16215,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_069042df961b78f1 (A arg1, signed char const arg2) { const_prim_after2(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_069042df961b78f1 (\n",
+              "  A arg1,\n",
+              "  signed char const arg2\n",
+              ")\n",
+              "{\n",
+              "  const_prim_after2(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -15856,8 +16307,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_14ab286beb6d7436 (A arg1, unsigned char const arg2) { const_prim_after3(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_14ab286beb6d7436 (\n",
+              "  A arg1,\n",
+              "  unsigned char const arg2\n",
+              ")\n",
+              "{\n",
+              "  const_prim_after3(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -15941,8 +16399,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_3f5a39bd9a93581a (A arg1, float const arg2) { const_withoutSign_before1(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_3f5a39bd9a93581a (\n",
+              "  A arg1,\n",
+              "  float const arg2\n",
+              ")\n",
+              "{\n",
+              "  const_withoutSign_before1(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -16025,8 +16490,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_5a190462ddfe8168 (A arg1, double const arg2) { const_withoutSign_before2(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_5a190462ddfe8168 (\n",
+              "  A arg1,\n",
+              "  double const arg2\n",
+              ")\n",
+              "{\n",
+              "  const_withoutSign_before2(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -16109,8 +16581,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_70a40d82bb46c21c (A arg1, _Bool const arg2) { const_withoutSign_before3(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_70a40d82bb46c21c (\n",
+              "  A arg1,\n",
+              "  _Bool const arg2\n",
+              ")\n",
+              "{\n",
+              "  const_withoutSign_before3(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -16185,8 +16664,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_81ce15a9b9be53f8 (A arg1, struct some_struct const *arg2) { const_withoutSign_before4(arg1, *arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_81ce15a9b9be53f8 (\n",
+              "  A arg1,\n",
+              "  struct some_struct const *arg2\n",
+              ")\n",
+              "{\n",
+              "  const_withoutSign_before4(arg1, *arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -16346,8 +16832,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_39c58819fdca0585 (A arg1, union some_union const *arg2) { const_withoutSign_before5(arg1, *arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_39c58819fdca0585 (\n",
+              "  A arg1,\n",
+              "  union some_union const *arg2\n",
+              ")\n",
+              "{\n",
+              "  const_withoutSign_before5(arg1, *arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -16516,8 +17009,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_4c5a32cae31a651c (A arg1, enum some_enum const arg2) { const_withoutSign_before6(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_4c5a32cae31a651c (\n",
+              "  A arg1,\n",
+              "  enum some_enum const arg2\n",
+              ")\n",
+              "{\n",
+              "  const_withoutSign_before6(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -16604,8 +17104,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_0341b56dd9dde729 (A arg1, _Bool const arg2) { const_withoutSign_before7(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_0341b56dd9dde729 (\n",
+              "  A arg1,\n",
+              "  _Bool const arg2\n",
+              ")\n",
+              "{\n",
+              "  const_withoutSign_before7(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -16687,8 +17194,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_d43c37be4d91bd6c (A arg1, size_t const arg2) { const_withoutSign_before8(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_d43c37be4d91bd6c (\n",
+              "  A arg1,\n",
+              "  size_t const arg2\n",
+              ")\n",
+              "{\n",
+              "  const_withoutSign_before8(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -16770,8 +17284,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_f456a2b015543748 (A arg1, float const arg2) { const_withoutSign_after1(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_f456a2b015543748 (\n",
+              "  A arg1,\n",
+              "  float const arg2\n",
+              ")\n",
+              "{\n",
+              "  const_withoutSign_after1(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -16854,8 +17375,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_729c897c9a9bfc92 (A arg1, double const arg2) { const_withoutSign_after2(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_729c897c9a9bfc92 (\n",
+              "  A arg1,\n",
+              "  double const arg2\n",
+              ")\n",
+              "{\n",
+              "  const_withoutSign_after2(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -16938,8 +17466,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_5e46eebba0299b49 (A arg1, _Bool const arg2) { const_withoutSign_after3(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_5e46eebba0299b49 (\n",
+              "  A arg1,\n",
+              "  _Bool const arg2\n",
+              ")\n",
+              "{\n",
+              "  const_withoutSign_after3(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -17014,8 +17549,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_18b842a824ecef09 (A arg1, struct some_struct const *arg2) { const_withoutSign_after4(arg1, *arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_18b842a824ecef09 (\n",
+              "  A arg1,\n",
+              "  struct some_struct const *arg2\n",
+              ")\n",
+              "{\n",
+              "  const_withoutSign_after4(arg1, *arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -17175,8 +17717,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_75feb5260081201b (A arg1, union some_union const *arg2) { const_withoutSign_after5(arg1, *arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_75feb5260081201b (\n",
+              "  A arg1,\n",
+              "  union some_union const *arg2\n",
+              ")\n",
+              "{\n",
+              "  const_withoutSign_after5(arg1, *arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -17345,8 +17894,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_3375ca58017bcbeb (A arg1, enum some_enum const arg2) { const_withoutSign_after6(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_3375ca58017bcbeb (\n",
+              "  A arg1,\n",
+              "  enum some_enum const arg2\n",
+              ")\n",
+              "{\n",
+              "  const_withoutSign_after6(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -17433,8 +17989,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_5da184668d3e18ba (A arg1, _Bool const arg2) { const_withoutSign_after7(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_5da184668d3e18ba (\n",
+              "  A arg1,\n",
+              "  _Bool const arg2\n",
+              ")\n",
+              "{\n",
+              "  const_withoutSign_after7(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -17516,8 +18079,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_3cae7641509d64fa (A arg1, size_t const arg2) { const_withoutSign_after8(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_3cae7641509d64fa (\n",
+              "  A arg1,\n",
+              "  size_t const arg2\n",
+              ")\n",
+              "{\n",
+              "  const_withoutSign_after8(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -17599,8 +18169,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_4dcc1a25c1ecaaa2 (A arg1, signed int const *arg2) { const_pointers_args1(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_4dcc1a25c1ecaaa2 (\n",
+              "  A arg1,\n",
+              "  signed int const *arg2\n",
+              ")\n",
+              "{\n",
+              "  const_pointers_args1(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -17686,8 +18263,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_fec0ae82f5b0ad81 (A arg1, signed int const *arg2) { const_pointers_args2(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_fec0ae82f5b0ad81 (\n",
+              "  A arg1,\n",
+              "  signed int const *arg2\n",
+              ")\n",
+              "{\n",
+              "  const_pointers_args2(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -17773,8 +18357,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_fe0313a1b7b08d51 (A arg1, signed int *const arg2) { const_pointers_args3(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_fe0313a1b7b08d51 (\n",
+              "  A arg1,\n",
+              "  signed int *const arg2\n",
+              ")\n",
+              "{\n",
+              "  const_pointers_args3(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -17860,8 +18451,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_33f3fc94401a8bfe (A arg1, signed int const *const arg2) { const_pointers_args4(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_33f3fc94401a8bfe (\n",
+              "  A arg1,\n",
+              "  signed int const *const arg2\n",
+              ")\n",
+              "{\n",
+              "  const_pointers_args4(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -17949,8 +18547,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_391d9682b9dc51ac (A arg1, signed int const *const arg2) { const_pointers_args5(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_391d9682b9dc51ac (\n",
+              "  A arg1,\n",
+              "  signed int const *const arg2\n",
+              ")\n",
+              "{\n",
+              "  const_pointers_args5(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -18028,8 +18633,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int const *hs_bindgen_test_reparse_8bf23a9981153f56 (A arg1) { return const_pointers_ret1(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int const *hs_bindgen_test_reparse_8bf23a9981153f56 (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return const_pointers_ret1(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -18098,8 +18709,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int const *hs_bindgen_test_reparse_849c6f0a166afc3c (A arg1) { return const_pointers_ret2(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int const *hs_bindgen_test_reparse_849c6f0a166afc3c (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return const_pointers_ret2(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -18168,8 +18785,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int *const hs_bindgen_test_reparse_2bcb395289e776af (A arg1) { return const_pointers_ret3(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int *const hs_bindgen_test_reparse_2bcb395289e776af (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return const_pointers_ret3(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -18239,7 +18862,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int const *const hs_bindgen_test_reparse_10d30d6be4435bb5 (A arg1) { return const_pointers_ret4(arg1); }",
+          concat
+            [
+              "signed int const *const hs_bindgen_test_reparse_10d30d6be4435bb5 (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return const_pointers_ret4(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -18311,7 +18941,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int const *const hs_bindgen_test_reparse_4e0a9385778eeea9 (A arg1) { return const_pointers_ret5(arg1); }",
+          concat
+            [
+              "signed int const *const hs_bindgen_test_reparse_4e0a9385778eeea9 (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return const_pointers_ret5(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -18376,8 +19013,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_216b4842313741d6 (A const *arg1) { const_array_elem1(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_216b4842313741d6 (\n",
+              "  A const *arg1\n",
+              ")\n",
+              "{\n",
+              "  const_array_elem1(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -18499,8 +19142,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_1c0be30090d3f0b4 (A const **arg1) { const_array_elem2(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_1c0be30090d3f0b4 (\n",
+              "  A const **arg1\n",
+              ")\n",
+              "{\n",
+              "  const_array_elem2(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -18562,8 +19211,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_30c17e3a462eeecc (A *const *arg1) { const_array_elem3(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_30c17e3a462eeecc (\n",
+              "  A *const *arg1\n",
+              ")\n",
+              "{\n",
+              "  const_array_elem3(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -18676,8 +19331,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "A hs_bindgen_test_reparse_8ab2f7d7d9185985 (void) { return noParams1(); }",
+          capiWrapperDefinition = concat
+            [
+              "A hs_bindgen_test_reparse_8ab2f7d7d9185985 (void)\n",
+              "{\n",
+              "  return noParams1();\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -18724,8 +19383,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "A hs_bindgen_test_reparse_3154e7cc23e3e0f3 (void) { return noParams2(); }",
+          capiWrapperDefinition = concat
+            [
+              "A hs_bindgen_test_reparse_3154e7cc23e3e0f3 (void)\n",
+              "{\n",
+              "  return noParams2();\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -18791,8 +19454,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_3d23de5d2d770dfe (A arg1, signed int (*arg2) (void)) { noParams3(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_3d23de5d2d770dfe (\n",
+              "  A arg1,\n",
+              "  signed int (*arg2) (void)\n",
+              ")\n",
+              "{\n",
+              "  noParams3(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -18869,8 +19539,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void (*hs_bindgen_test_reparse_cfe9601f75800453 (A arg1)) (void) { return funptr_ret1(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void (*hs_bindgen_test_reparse_cfe9601f75800453 (\n",
+              "  A arg1\n",
+              ")) (void)\n",
+              "{\n",
+              "  return funptr_ret1(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -18935,8 +19611,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int (*hs_bindgen_test_reparse_ca3824f5cf114f19 (A arg1)) (void) { return funptr_ret2(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int (*hs_bindgen_test_reparse_ca3824f5cf114f19 (\n",
+              "  A arg1\n",
+              ")) (void)\n",
+              "{\n",
+              "  return funptr_ret2(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -19008,8 +19690,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void (*hs_bindgen_test_reparse_2de886ad95f674f5 (A arg1)) (signed int arg1) { return funptr_ret3(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void (*hs_bindgen_test_reparse_2de886ad95f674f5 (\n",
+              "  A arg1\n",
+              ")) (\n",
+              "  signed int arg1\n",
+              ")\n",
+              "{\n",
+              "  return funptr_ret3(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -19082,8 +19772,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "char (*hs_bindgen_test_reparse_b4856eab77ec0cbf (A arg1)) (signed int arg1, double arg2) { return funptr_ret4(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "char (*hs_bindgen_test_reparse_b4856eab77ec0cbf (\n",
+              "  A arg1\n",
+              ")) (\n",
+              "  signed int arg1,\n",
+              "  double arg2\n",
+              ")\n",
+              "{\n",
+              "  return funptr_ret4(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -19161,8 +19860,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int *(*hs_bindgen_test_reparse_39273a56f1a80904 (A arg1)) (signed int arg1, double arg2) { return funptr_ret5(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int *(*hs_bindgen_test_reparse_39273a56f1a80904 (\n",
+              "  A arg1\n",
+              ")) (\n",
+              "  signed int arg1,\n",
+              "  double arg2\n",
+              ")\n",
+              "{\n",
+              "  return funptr_ret5(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -19243,7 +19951,17 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int const *(*hs_bindgen_test_reparse_5e2dfa9b8f6075ee (A arg1)) (signed int arg1, double arg2) { return funptr_ret6(arg1); }",
+          concat
+            [
+              "signed int const *(*hs_bindgen_test_reparse_5e2dfa9b8f6075ee (\n",
+              "  A arg1\n",
+              ")) (\n",
+              "  signed int arg1,\n",
+              "  double arg2\n",
+              ")\n",
+              "{\n",
+              "  return funptr_ret6(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -19326,7 +20044,17 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int const *(*hs_bindgen_test_reparse_0b65a87e08b5a1a7 (A arg1)) (signed int arg1, double arg2) { return funptr_ret7(arg1); }",
+          concat
+            [
+              "signed int const *(*hs_bindgen_test_reparse_0b65a87e08b5a1a7 (\n",
+              "  A arg1\n",
+              ")) (\n",
+              "  signed int arg1,\n",
+              "  double arg2\n",
+              ")\n",
+              "{\n",
+              "  return funptr_ret7(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -19409,7 +20137,17 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int *const (*hs_bindgen_test_reparse_629050352113405f (A arg1)) (signed int arg1, double arg2) { return funptr_ret8(arg1); }",
+          concat
+            [
+              "signed int *const (*hs_bindgen_test_reparse_629050352113405f (\n",
+              "  A arg1\n",
+              ")) (\n",
+              "  signed int arg1,\n",
+              "  double arg2\n",
+              ")\n",
+              "{\n",
+              "  return funptr_ret8(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -19492,7 +20230,17 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int const *const (*hs_bindgen_test_reparse_a1dcda8f782ad284 (A arg1)) (signed int arg1, double arg2) { return funptr_ret9(arg1); }",
+          concat
+            [
+              "signed int const *const (*hs_bindgen_test_reparse_a1dcda8f782ad284 (\n",
+              "  A arg1\n",
+              ")) (\n",
+              "  signed int arg1,\n",
+              "  double arg2\n",
+              ")\n",
+              "{\n",
+              "  return funptr_ret9(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -19577,7 +20325,17 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int const *const (*hs_bindgen_test_reparse_ca08b018fda612eb (A arg1)) (signed int arg1, double arg2) { return funptr_ret10(arg1); }",
+          concat
+            [
+              "signed int const *const (*hs_bindgen_test_reparse_ca08b018fda612eb (\n",
+              "  A arg1\n",
+              ")) (\n",
+              "  signed int arg1,\n",
+              "  double arg2\n",
+              ")\n",
+              "{\n",
+              "  return funptr_ret10(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -19665,8 +20423,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_a10d23a1cebc3f58 (A arg1, char arg2) { args_char1(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_a10d23a1cebc3f58 (\n",
+              "  A arg1,\n",
+              "  char arg2\n",
+              ")\n",
+              "{\n",
+              "  args_char1(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -19751,8 +20516,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_a76a90b5f6e68b22 (A arg1, signed char arg2) { args_char2(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_a76a90b5f6e68b22 (\n",
+              "  A arg1,\n",
+              "  signed char arg2\n",
+              ")\n",
+              "{\n",
+              "  args_char2(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -19834,8 +20606,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_8d42e2ffb839cfb7 (A arg1, unsigned char arg2) { args_char3(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_8d42e2ffb839cfb7 (\n",
+              "  A arg1,\n",
+              "  unsigned char arg2\n",
+              ")\n",
+              "{\n",
+              "  args_char3(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -19917,8 +20696,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_0919acaf21bc8eb1 (A arg1, signed short arg2) { args_short1(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_0919acaf21bc8eb1 (\n",
+              "  A arg1,\n",
+              "  signed short arg2\n",
+              ")\n",
+              "{\n",
+              "  args_short1(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -20001,8 +20787,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_42f4e1b66fbe1d85 (A arg1, signed short arg2) { args_short2(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_42f4e1b66fbe1d85 (\n",
+              "  A arg1,\n",
+              "  signed short arg2\n",
+              ")\n",
+              "{\n",
+              "  args_short2(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -20085,8 +20878,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_cfd148e6676f4393 (A arg1, unsigned short arg2) { args_short3(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_cfd148e6676f4393 (\n",
+              "  A arg1,\n",
+              "  unsigned short arg2\n",
+              ")\n",
+              "{\n",
+              "  args_short3(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -20169,8 +20969,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_b55222b08f54d08a (A arg1, signed int arg2) { args_int1(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_b55222b08f54d08a (\n",
+              "  A arg1,\n",
+              "  signed int arg2\n",
+              ")\n",
+              "{\n",
+              "  args_int1(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -20251,8 +21058,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_5ab884050f61f378 (A arg1, signed int arg2) { args_int2(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_5ab884050f61f378 (\n",
+              "  A arg1,\n",
+              "  signed int arg2\n",
+              ")\n",
+              "{\n",
+              "  args_int2(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -20333,8 +21147,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_5b3642adbf8d8c09 (A arg1, unsigned int arg2) { args_int3(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_5b3642adbf8d8c09 (\n",
+              "  A arg1,\n",
+              "  unsigned int arg2\n",
+              ")\n",
+              "{\n",
+              "  args_int3(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -20417,8 +21238,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_fb02cb0320aff007 (A arg1, signed long arg2) { args_long1(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_fb02cb0320aff007 (\n",
+              "  A arg1,\n",
+              "  signed long arg2\n",
+              ")\n",
+              "{\n",
+              "  args_long1(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -20501,8 +21329,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_c6b81a1422f5535e (A arg1, signed long arg2) { args_long2(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_c6b81a1422f5535e (\n",
+              "  A arg1,\n",
+              "  signed long arg2\n",
+              ")\n",
+              "{\n",
+              "  args_long2(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -20585,8 +21420,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_7279876c6cff5eed (A arg1, unsigned long arg2) { args_long3(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_7279876c6cff5eed (\n",
+              "  A arg1,\n",
+              "  unsigned long arg2\n",
+              ")\n",
+              "{\n",
+              "  args_long3(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -20669,8 +21511,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_7dec78ee43c784cf (A arg1, float arg2) { args_float(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_7dec78ee43c784cf (\n",
+              "  A arg1,\n",
+              "  float arg2\n",
+              ")\n",
+              "{\n",
+              "  args_float(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -20751,8 +21600,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_af9629b17c5c01eb (A arg1, double arg2) { args_double(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_af9629b17c5c01eb (\n",
+              "  A arg1,\n",
+              "  double arg2\n",
+              ")\n",
+              "{\n",
+              "  args_double(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -20833,8 +21689,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_b1e345616dae25b7 (A arg1, _Bool arg2) { args_bool1(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_b1e345616dae25b7 (\n",
+              "  A arg1,\n",
+              "  _Bool arg2\n",
+              ")\n",
+              "{\n",
+              "  args_bool1(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -20907,8 +21770,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_e20137c4ab18a66e (A arg1, struct some_struct *arg2) { args_struct(arg1, *arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_e20137c4ab18a66e (\n",
+              "  A arg1,\n",
+              "  struct some_struct *arg2\n",
+              ")\n",
+              "{\n",
+              "  args_struct(arg1, *arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -21063,8 +21933,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_8468152f3130816a (A arg1, union some_union *arg2) { args_union(arg1, *arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_8468152f3130816a (\n",
+              "  A arg1,\n",
+              "  union some_union *arg2\n",
+              ")\n",
+              "{\n",
+              "  args_union(arg1, *arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -21228,8 +22105,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_2ee1baf211b5f628 (A arg1, enum some_enum arg2) { args_enum(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_2ee1baf211b5f628 (\n",
+              "  A arg1,\n",
+              "  enum some_enum arg2\n",
+              ")\n",
+              "{\n",
+              "  args_enum(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -21314,8 +22198,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_42e8807b857ec8be (A arg1, signed int *arg2) { args_pointer1(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_42e8807b857ec8be (\n",
+              "  A arg1,\n",
+              "  signed int *arg2\n",
+              ")\n",
+              "{\n",
+              "  args_pointer1(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -21399,8 +22290,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_decf0f1fad98cc09 (A arg1, signed int **arg2) { args_pointer2(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_decf0f1fad98cc09 (\n",
+              "  A arg1,\n",
+              "  signed int **arg2\n",
+              ")\n",
+              "{\n",
+              "  args_pointer2(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -21485,8 +22383,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_c2bfa7966be9fc8a (A arg1, void *arg2) { args_pointer3(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_c2bfa7966be9fc8a (\n",
+              "  A arg1,\n",
+              "  void *arg2\n",
+              ")\n",
+              "{\n",
+              "  args_pointer3(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -21544,8 +22449,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "A hs_bindgen_test_reparse_733ed36b28b7932b (void) { return ret_A(); }",
+          capiWrapperDefinition = concat
+            [
+              "A hs_bindgen_test_reparse_733ed36b28b7932b (void)\n",
+              "{\n",
+              "  return ret_A();\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -21598,8 +22507,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "char hs_bindgen_test_reparse_954b53887fa8a7bf (A arg1) { return ret_char1(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "char hs_bindgen_test_reparse_954b53887fa8a7bf (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return ret_char1(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -21663,8 +22578,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed char hs_bindgen_test_reparse_20d1e28fced60632 (A arg1) { return ret_char2(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed char hs_bindgen_test_reparse_20d1e28fced60632 (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return ret_char2(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -21728,8 +22649,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "unsigned char hs_bindgen_test_reparse_e55f76ceed24192d (A arg1) { return ret_char3(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "unsigned char hs_bindgen_test_reparse_e55f76ceed24192d (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return ret_char3(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -21793,8 +22720,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed short hs_bindgen_test_reparse_1b8d9484010475fd (A arg1) { return ret_short1(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed short hs_bindgen_test_reparse_1b8d9484010475fd (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return ret_short1(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -21859,8 +22792,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed short hs_bindgen_test_reparse_9b4291556b50f99f (A arg1) { return ret_short2(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed short hs_bindgen_test_reparse_9b4291556b50f99f (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return ret_short2(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -21925,8 +22864,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "unsigned short hs_bindgen_test_reparse_658bd87f6fba088a (A arg1) { return ret_short3(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "unsigned short hs_bindgen_test_reparse_658bd87f6fba088a (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return ret_short3(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -21990,8 +22935,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_reparse_f39ba97cac5f7b69 (A arg1) { return ret_int1(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_reparse_f39ba97cac5f7b69 (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return ret_int1(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -22052,8 +23003,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_reparse_2811bb2a6c369ff8 (A arg1) { return ret_int2(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_reparse_2811bb2a6c369ff8 (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return ret_int2(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -22114,8 +23071,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "unsigned int hs_bindgen_test_reparse_4d1047d184259f2a (A arg1) { return ret_int3(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "unsigned int hs_bindgen_test_reparse_4d1047d184259f2a (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return ret_int3(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -22178,8 +23141,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed long hs_bindgen_test_reparse_fe651b499cb756e7 (A arg1) { return ret_long1(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed long hs_bindgen_test_reparse_fe651b499cb756e7 (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return ret_long1(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -22241,8 +23210,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed long hs_bindgen_test_reparse_e1e78ae00ab5d6fb (A arg1) { return ret_long2(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed long hs_bindgen_test_reparse_e1e78ae00ab5d6fb (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return ret_long2(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -22305,8 +23280,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "unsigned long hs_bindgen_test_reparse_dc6449bb75895cea (A arg1) { return ret_long3(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "unsigned long hs_bindgen_test_reparse_dc6449bb75895cea (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return ret_long3(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -22371,8 +23352,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "float hs_bindgen_test_reparse_7ae67ab94cf0f147 (A arg1) { return ret_float(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "float hs_bindgen_test_reparse_7ae67ab94cf0f147 (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return ret_float(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -22435,8 +23422,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "double hs_bindgen_test_reparse_8a715139fcb185f1 (A arg1) { return ret_double(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "double hs_bindgen_test_reparse_8a715139fcb185f1 (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return ret_double(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -22498,8 +23491,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "_Bool hs_bindgen_test_reparse_330b3d59b2b9e0ac (A arg1) { return ret_bool1(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "_Bool hs_bindgen_test_reparse_330b3d59b2b9e0ac (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return ret_bool1(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -22560,8 +23559,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_843df9379b58bc51 (A arg1, struct some_struct *arg2) { *arg2 = ret_struct(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_843df9379b58bc51 (\n",
+              "  A arg1,\n",
+              "  struct some_struct *arg2\n",
+              ")\n",
+              "{\n",
+              "  *arg2 = ret_struct(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -22685,8 +23691,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_d1fb1f1235b044ef (A arg1, union some_union *arg2) { *arg2 = ret_union(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_d1fb1f1235b044ef (\n",
+              "  A arg1,\n",
+              "  union some_union *arg2\n",
+              ")\n",
+              "{\n",
+              "  *arg2 = ret_union(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -22815,8 +23828,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "enum some_enum hs_bindgen_test_reparse_5706a52e565b1a0c (A arg1) { return ret_enum(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "enum some_enum hs_bindgen_test_reparse_5706a52e565b1a0c (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return ret_enum(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -22883,8 +23902,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int *hs_bindgen_test_reparse_1539645657f24f97 (A arg1) { return ret_pointer1(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int *hs_bindgen_test_reparse_1539645657f24f97 (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return ret_pointer1(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -22950,8 +23975,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int **hs_bindgen_test_reparse_14db602035a357c9 (A arg1) { return ret_pointer2(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int **hs_bindgen_test_reparse_14db602035a357c9 (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return ret_pointer2(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -23019,8 +24050,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void *hs_bindgen_test_reparse_347fc9fe6ee0e39f (A arg1) { return ret_pointer3(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void *hs_bindgen_test_reparse_347fc9fe6ee0e39f (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return ret_pointer3(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -23082,8 +24119,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_reparse_31d344eb39edbb32 (A arg1) { return body1(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_reparse_31d344eb39edbb32 (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return body1(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -23134,8 +24177,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "A hs_bindgen_test_reparse_9a49ad9d6fd009aa (void) { return body2(); }",
+          capiWrapperDefinition = concat
+            [
+              "A hs_bindgen_test_reparse_9a49ad9d6fd009aa (void)\n",
+              "{\n",
+              "  return body2();\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -23190,8 +24237,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_f09e648ac9470faf (A arg1, float _Complex *arg2) { args_complex_float(arg1, *arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_f09e648ac9470faf (\n",
+              "  A arg1,\n",
+              "  float _Complex *arg2\n",
+              ")\n",
+              "{\n",
+              "  args_complex_float(arg1, *arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -23334,8 +24388,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_a334455360f1e746 (A arg1, double _Complex *arg2) { args_complex_double(arg1, *arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_a334455360f1e746 (\n",
+              "  A arg1,\n",
+              "  double _Complex *arg2\n",
+              ")\n",
+              "{\n",
+              "  args_complex_double(arg1, *arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -23472,8 +24533,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_0c94b79e37a671f3 (A arg1, float _Complex *arg2) { *arg2 = ret_complex_float(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_0c94b79e37a671f3 (\n",
+              "  A arg1,\n",
+              "  float _Complex *arg2\n",
+              ")\n",
+              "{\n",
+              "  *arg2 = ret_complex_float(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -23583,8 +24651,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_52e016b143848038 (A arg1, double _Complex *arg2) { *arg2 = ret_complex_double(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_52e016b143848038 (\n",
+              "  A arg1,\n",
+              "  double _Complex *arg2\n",
+              ")\n",
+              "{\n",
+              "  *arg2 = ret_complex_double(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -23711,8 +24786,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_28f85791b3039264 (A arg1, _Bool arg2) { bespoke_args1(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_28f85791b3039264 (\n",
+              "  A arg1,\n",
+              "  _Bool arg2\n",
+              ")\n",
+              "{\n",
+              "  bespoke_args1(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -23792,8 +24874,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_833c75e57b012dcc (A arg1, size_t arg2) { bespoke_args2(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_833c75e57b012dcc (\n",
+              "  A arg1,\n",
+              "  size_t arg2\n",
+              ")\n",
+              "{\n",
+              "  bespoke_args2(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -23861,8 +24950,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "_Bool hs_bindgen_test_reparse_434418d9d1f41c66 (A arg1) { return bespoke_ret1(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "_Bool hs_bindgen_test_reparse_434418d9d1f41c66 (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return bespoke_ret1(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -23924,8 +25019,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "size_t hs_bindgen_test_reparse_7a13d4c1ed935df0 (A arg1) { return bespoke_ret2(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "size_t hs_bindgen_test_reparse_7a13d4c1ed935df0 (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return bespoke_ret2(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -23988,8 +25089,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_802c66e1efc0f556 (A *arg1) { arr_args1(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_802c66e1efc0f556 (\n",
+              "  A *arg1\n",
+              ")\n",
+              "{\n",
+              "  arr_args1(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -24054,8 +25161,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_f516070848930af9 (A **arg1) { arr_args2(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_f516070848930af9 (\n",
+              "  A **arg1\n",
+              ")\n",
+              "{\n",
+              "  arr_args2(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -24119,8 +25232,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_c0db4046bcf7da77 (A *arg1) { arr_args3(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_c0db4046bcf7da77 (\n",
+              "  A *arg1\n",
+              ")\n",
+              "{\n",
+              "  arr_args3(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -24185,8 +25304,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_881ede0e81c9ed45 (A **arg1) { arr_args4(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_881ede0e81c9ed45 (\n",
+              "  A **arg1\n",
+              ")\n",
+              "{\n",
+              "  arr_args4(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -24262,8 +25387,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_91151b594cc92e09 (A arg1, void (*arg2) (void)) { funptr_args1(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_91151b594cc92e09 (\n",
+              "  A arg1,\n",
+              "  void (*arg2) (void)\n",
+              ")\n",
+              "{\n",
+              "  funptr_args1(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -24347,8 +25479,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_543290455260832c (A arg1, signed int (*arg2) (void)) { funptr_args2(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_543290455260832c (\n",
+              "  A arg1,\n",
+              "  signed int (*arg2) (void)\n",
+              ")\n",
+              "{\n",
+              "  funptr_args2(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -24436,8 +25575,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_fbdf924574cb6295 (A arg1, void (*arg2) (signed int arg1)) { funptr_args3(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_fbdf924574cb6295 (\n",
+              "  A arg1,\n",
+              "  void (*arg2) (\n",
+              "  signed int arg1\n",
+              ")\n",
+              ")\n",
+              "{\n",
+              "  funptr_args3(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -24527,8 +25675,18 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_5e0a2c10ccd9a8c4 (A arg1, char (*arg2) (signed int arg1, double arg2)) { funptr_args4(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_5e0a2c10ccd9a8c4 (\n",
+              "  A arg1,\n",
+              "  char (*arg2) (\n",
+              "  signed int arg1,\n",
+              "  double arg2\n",
+              ")\n",
+              ")\n",
+              "{\n",
+              "  funptr_args4(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -24623,8 +25781,18 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_c13f66d86b4b5ef6 (A arg1, signed int *(*arg2) (signed int arg1, double arg2)) { funptr_args5(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_c13f66d86b4b5ef6 (\n",
+              "  A arg1,\n",
+              "  signed int *(*arg2) (\n",
+              "  signed int arg1,\n",
+              "  double arg2\n",
+              ")\n",
+              ")\n",
+              "{\n",
+              "  funptr_args5(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -24703,8 +25871,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_0b54f704cff3ab9b (A arg1) { comments1(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_0b54f704cff3ab9b (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  comments1(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -24784,8 +25958,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_4a390ee488c3a1b1 (A arg1, char const arg2) { const_prim_before1(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_4a390ee488c3a1b1 (\n",
+              "  A arg1,\n",
+              "  char const arg2\n",
+              ")\n",
+              "{\n",
+              "  const_prim_before1(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -24878,8 +26059,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_349252e982c28bae (A arg1, signed char const arg2) { const_prim_before2(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_349252e982c28bae (\n",
+              "  A arg1,\n",
+              "  signed char const arg2\n",
+              ")\n",
+              "{\n",
+              "  const_prim_before2(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -24963,8 +26151,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_7ffeb1784fe8b2f2 (A arg1, unsigned char const arg2) { const_prim_before3(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_7ffeb1784fe8b2f2 (\n",
+              "  A arg1,\n",
+              "  unsigned char const arg2\n",
+              ")\n",
+              "{\n",
+              "  const_prim_before3(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -25048,8 +26243,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_0dae8ba3b65c77d2 (A arg1, char const arg2) { const_prim_after1(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_0dae8ba3b65c77d2 (\n",
+              "  A arg1,\n",
+              "  char const arg2\n",
+              ")\n",
+              "{\n",
+              "  const_prim_after1(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -25133,8 +26335,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_dc74f73eff3fac62 (A arg1, signed char const arg2) { const_prim_after2(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_dc74f73eff3fac62 (\n",
+              "  A arg1,\n",
+              "  signed char const arg2\n",
+              ")\n",
+              "{\n",
+              "  const_prim_after2(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -25218,8 +26427,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_aeea75713b67f6d8 (A arg1, unsigned char const arg2) { const_prim_after3(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_aeea75713b67f6d8 (\n",
+              "  A arg1,\n",
+              "  unsigned char const arg2\n",
+              ")\n",
+              "{\n",
+              "  const_prim_after3(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -25303,8 +26519,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_9f70419bf10f327e (A arg1, float const arg2) { const_withoutSign_before1(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_9f70419bf10f327e (\n",
+              "  A arg1,\n",
+              "  float const arg2\n",
+              ")\n",
+              "{\n",
+              "  const_withoutSign_before1(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -25387,8 +26610,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_7867bb0d71ef4b6d (A arg1, double const arg2) { const_withoutSign_before2(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_7867bb0d71ef4b6d (\n",
+              "  A arg1,\n",
+              "  double const arg2\n",
+              ")\n",
+              "{\n",
+              "  const_withoutSign_before2(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -25471,8 +26701,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_80de805eb016225b (A arg1, _Bool const arg2) { const_withoutSign_before3(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_80de805eb016225b (\n",
+              "  A arg1,\n",
+              "  _Bool const arg2\n",
+              ")\n",
+              "{\n",
+              "  const_withoutSign_before3(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -25547,8 +26784,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_69cef8742b4b119b (A arg1, struct some_struct const *arg2) { const_withoutSign_before4(arg1, *arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_69cef8742b4b119b (\n",
+              "  A arg1,\n",
+              "  struct some_struct const *arg2\n",
+              ")\n",
+              "{\n",
+              "  const_withoutSign_before4(arg1, *arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -25708,8 +26952,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_1ad5aadb8be4d493 (A arg1, union some_union const *arg2) { const_withoutSign_before5(arg1, *arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_1ad5aadb8be4d493 (\n",
+              "  A arg1,\n",
+              "  union some_union const *arg2\n",
+              ")\n",
+              "{\n",
+              "  const_withoutSign_before5(arg1, *arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -25878,8 +27129,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_7106059de99b7682 (A arg1, enum some_enum const arg2) { const_withoutSign_before6(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_7106059de99b7682 (\n",
+              "  A arg1,\n",
+              "  enum some_enum const arg2\n",
+              ")\n",
+              "{\n",
+              "  const_withoutSign_before6(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -25966,8 +27224,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_b61cf3c21bf8b00b (A arg1, _Bool const arg2) { const_withoutSign_before7(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_b61cf3c21bf8b00b (\n",
+              "  A arg1,\n",
+              "  _Bool const arg2\n",
+              ")\n",
+              "{\n",
+              "  const_withoutSign_before7(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -26049,8 +27314,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_47573f5eb4cb92a9 (A arg1, size_t const arg2) { const_withoutSign_before8(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_47573f5eb4cb92a9 (\n",
+              "  A arg1,\n",
+              "  size_t const arg2\n",
+              ")\n",
+              "{\n",
+              "  const_withoutSign_before8(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -26132,8 +27404,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_ffb1a87ed1f94b31 (A arg1, float const arg2) { const_withoutSign_after1(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_ffb1a87ed1f94b31 (\n",
+              "  A arg1,\n",
+              "  float const arg2\n",
+              ")\n",
+              "{\n",
+              "  const_withoutSign_after1(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -26216,8 +27495,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_1ec7c37faacfcd64 (A arg1, double const arg2) { const_withoutSign_after2(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_1ec7c37faacfcd64 (\n",
+              "  A arg1,\n",
+              "  double const arg2\n",
+              ")\n",
+              "{\n",
+              "  const_withoutSign_after2(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -26300,8 +27586,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_34233036f1e22371 (A arg1, _Bool const arg2) { const_withoutSign_after3(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_34233036f1e22371 (\n",
+              "  A arg1,\n",
+              "  _Bool const arg2\n",
+              ")\n",
+              "{\n",
+              "  const_withoutSign_after3(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -26376,8 +27669,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_4c909292e290aa0a (A arg1, struct some_struct const *arg2) { const_withoutSign_after4(arg1, *arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_4c909292e290aa0a (\n",
+              "  A arg1,\n",
+              "  struct some_struct const *arg2\n",
+              ")\n",
+              "{\n",
+              "  const_withoutSign_after4(arg1, *arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -26537,8 +27837,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_ab1abd31c91696b9 (A arg1, union some_union const *arg2) { const_withoutSign_after5(arg1, *arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_ab1abd31c91696b9 (\n",
+              "  A arg1,\n",
+              "  union some_union const *arg2\n",
+              ")\n",
+              "{\n",
+              "  const_withoutSign_after5(arg1, *arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -26707,8 +28014,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_342c1139871906f3 (A arg1, enum some_enum const arg2) { const_withoutSign_after6(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_342c1139871906f3 (\n",
+              "  A arg1,\n",
+              "  enum some_enum const arg2\n",
+              ")\n",
+              "{\n",
+              "  const_withoutSign_after6(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -26795,8 +28109,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_446758003fdc3418 (A arg1, _Bool const arg2) { const_withoutSign_after7(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_446758003fdc3418 (\n",
+              "  A arg1,\n",
+              "  _Bool const arg2\n",
+              ")\n",
+              "{\n",
+              "  const_withoutSign_after7(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -26878,8 +28199,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_161f0b5d4c06966c (A arg1, size_t const arg2) { const_withoutSign_after8(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_161f0b5d4c06966c (\n",
+              "  A arg1,\n",
+              "  size_t const arg2\n",
+              ")\n",
+              "{\n",
+              "  const_withoutSign_after8(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -26961,8 +28289,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_ec8e91fa9341dad6 (A arg1, signed int const *arg2) { const_pointers_args1(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_ec8e91fa9341dad6 (\n",
+              "  A arg1,\n",
+              "  signed int const *arg2\n",
+              ")\n",
+              "{\n",
+              "  const_pointers_args1(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -27048,8 +28383,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_cf24549623cd56c1 (A arg1, signed int const *arg2) { const_pointers_args2(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_cf24549623cd56c1 (\n",
+              "  A arg1,\n",
+              "  signed int const *arg2\n",
+              ")\n",
+              "{\n",
+              "  const_pointers_args2(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -27135,8 +28477,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_71cfb5062c931668 (A arg1, signed int *const arg2) { const_pointers_args3(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_71cfb5062c931668 (\n",
+              "  A arg1,\n",
+              "  signed int *const arg2\n",
+              ")\n",
+              "{\n",
+              "  const_pointers_args3(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -27222,8 +28571,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_74894da577575f87 (A arg1, signed int const *const arg2) { const_pointers_args4(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_74894da577575f87 (\n",
+              "  A arg1,\n",
+              "  signed int const *const arg2\n",
+              ")\n",
+              "{\n",
+              "  const_pointers_args4(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -27311,8 +28667,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_5493c91c677fe8d0 (A arg1, signed int const *const arg2) { const_pointers_args5(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_5493c91c677fe8d0 (\n",
+              "  A arg1,\n",
+              "  signed int const *const arg2\n",
+              ")\n",
+              "{\n",
+              "  const_pointers_args5(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -27390,8 +28753,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int const *hs_bindgen_test_reparse_a302fca87b1aa099 (A arg1) { return const_pointers_ret1(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int const *hs_bindgen_test_reparse_a302fca87b1aa099 (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return const_pointers_ret1(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -27460,8 +28829,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int const *hs_bindgen_test_reparse_825f0c60f6c63862 (A arg1) { return const_pointers_ret2(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int const *hs_bindgen_test_reparse_825f0c60f6c63862 (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return const_pointers_ret2(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -27530,8 +28905,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int *const hs_bindgen_test_reparse_c36f7d270a11e1cd (A arg1) { return const_pointers_ret3(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int *const hs_bindgen_test_reparse_c36f7d270a11e1cd (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return const_pointers_ret3(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -27601,7 +28982,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int const *const hs_bindgen_test_reparse_4a82390c6e38a4ad (A arg1) { return const_pointers_ret4(arg1); }",
+          concat
+            [
+              "signed int const *const hs_bindgen_test_reparse_4a82390c6e38a4ad (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return const_pointers_ret4(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -27673,7 +29061,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int const *const hs_bindgen_test_reparse_763d600d2f5c49bb (A arg1) { return const_pointers_ret5(arg1); }",
+          concat
+            [
+              "signed int const *const hs_bindgen_test_reparse_763d600d2f5c49bb (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return const_pointers_ret5(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -27738,8 +29133,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_4b3bef3ab591a329 (A const *arg1) { const_array_elem1(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_4b3bef3ab591a329 (\n",
+              "  A const *arg1\n",
+              ")\n",
+              "{\n",
+              "  const_array_elem1(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -27861,8 +29262,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_dd69ef198e368a38 (A const **arg1) { const_array_elem2(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_dd69ef198e368a38 (\n",
+              "  A const **arg1\n",
+              ")\n",
+              "{\n",
+              "  const_array_elem2(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -27924,8 +29331,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_1842bc8653aa9c3f (A *const *arg1) { const_array_elem3(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_1842bc8653aa9c3f (\n",
+              "  A *const *arg1\n",
+              ")\n",
+              "{\n",
+              "  const_array_elem3(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -28038,8 +29451,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "A hs_bindgen_test_reparse_4c99a8a7824a66d4 (void) { return noParams1(); }",
+          capiWrapperDefinition = concat
+            [
+              "A hs_bindgen_test_reparse_4c99a8a7824a66d4 (void)\n",
+              "{\n",
+              "  return noParams1();\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -28086,8 +29503,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "A hs_bindgen_test_reparse_7ae14613ab7f3b03 (void) { return noParams2(); }",
+          capiWrapperDefinition = concat
+            [
+              "A hs_bindgen_test_reparse_7ae14613ab7f3b03 (void)\n",
+              "{\n",
+              "  return noParams2();\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -28153,8 +29574,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_reparse_2f4d972da222d332 (A arg1, signed int (*arg2) (void)) { noParams3(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_reparse_2f4d972da222d332 (\n",
+              "  A arg1,\n",
+              "  signed int (*arg2) (void)\n",
+              ")\n",
+              "{\n",
+              "  noParams3(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -28231,8 +29659,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void (*hs_bindgen_test_reparse_dbe5f5ae726e36b3 (A arg1)) (void) { return funptr_ret1(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void (*hs_bindgen_test_reparse_dbe5f5ae726e36b3 (\n",
+              "  A arg1\n",
+              ")) (void)\n",
+              "{\n",
+              "  return funptr_ret1(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -28297,8 +29731,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int (*hs_bindgen_test_reparse_081cb5fbeb6f4506 (A arg1)) (void) { return funptr_ret2(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int (*hs_bindgen_test_reparse_081cb5fbeb6f4506 (\n",
+              "  A arg1\n",
+              ")) (void)\n",
+              "{\n",
+              "  return funptr_ret2(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -28370,8 +29810,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void (*hs_bindgen_test_reparse_4fc16e9f894820ff (A arg1)) (signed int arg1) { return funptr_ret3(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void (*hs_bindgen_test_reparse_4fc16e9f894820ff (\n",
+              "  A arg1\n",
+              ")) (\n",
+              "  signed int arg1\n",
+              ")\n",
+              "{\n",
+              "  return funptr_ret3(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -28444,8 +29892,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "char (*hs_bindgen_test_reparse_9e8aa8193619dbbe (A arg1)) (signed int arg1, double arg2) { return funptr_ret4(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "char (*hs_bindgen_test_reparse_9e8aa8193619dbbe (\n",
+              "  A arg1\n",
+              ")) (\n",
+              "  signed int arg1,\n",
+              "  double arg2\n",
+              ")\n",
+              "{\n",
+              "  return funptr_ret4(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -28523,8 +29980,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int *(*hs_bindgen_test_reparse_4b914fec0c848647 (A arg1)) (signed int arg1, double arg2) { return funptr_ret5(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int *(*hs_bindgen_test_reparse_4b914fec0c848647 (\n",
+              "  A arg1\n",
+              ")) (\n",
+              "  signed int arg1,\n",
+              "  double arg2\n",
+              ")\n",
+              "{\n",
+              "  return funptr_ret5(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -28605,7 +30071,17 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int const *(*hs_bindgen_test_reparse_6c188a6c3899a751 (A arg1)) (signed int arg1, double arg2) { return funptr_ret6(arg1); }",
+          concat
+            [
+              "signed int const *(*hs_bindgen_test_reparse_6c188a6c3899a751 (\n",
+              "  A arg1\n",
+              ")) (\n",
+              "  signed int arg1,\n",
+              "  double arg2\n",
+              ")\n",
+              "{\n",
+              "  return funptr_ret6(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -28688,7 +30164,17 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int const *(*hs_bindgen_test_reparse_e4468a6e0afe686b (A arg1)) (signed int arg1, double arg2) { return funptr_ret7(arg1); }",
+          concat
+            [
+              "signed int const *(*hs_bindgen_test_reparse_e4468a6e0afe686b (\n",
+              "  A arg1\n",
+              ")) (\n",
+              "  signed int arg1,\n",
+              "  double arg2\n",
+              ")\n",
+              "{\n",
+              "  return funptr_ret7(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -28771,7 +30257,17 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int *const (*hs_bindgen_test_reparse_16740b4fc6d6c8ec (A arg1)) (signed int arg1, double arg2) { return funptr_ret8(arg1); }",
+          concat
+            [
+              "signed int *const (*hs_bindgen_test_reparse_16740b4fc6d6c8ec (\n",
+              "  A arg1\n",
+              ")) (\n",
+              "  signed int arg1,\n",
+              "  double arg2\n",
+              ")\n",
+              "{\n",
+              "  return funptr_ret8(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -28854,7 +30350,17 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int const *const (*hs_bindgen_test_reparse_d82b69157b543190 (A arg1)) (signed int arg1, double arg2) { return funptr_ret9(arg1); }",
+          concat
+            [
+              "signed int const *const (*hs_bindgen_test_reparse_d82b69157b543190 (\n",
+              "  A arg1\n",
+              ")) (\n",
+              "  signed int arg1,\n",
+              "  double arg2\n",
+              ")\n",
+              "{\n",
+              "  return funptr_ret9(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -28939,7 +30445,17 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int const *const (*hs_bindgen_test_reparse_317f5f7c8c2496cd (A arg1)) (signed int arg1, double arg2) { return funptr_ret10(arg1); }",
+          concat
+            [
+              "signed int const *const (*hs_bindgen_test_reparse_317f5f7c8c2496cd (\n",
+              "  A arg1\n",
+              ")) (\n",
+              "  signed int arg1,\n",
+              "  double arg2\n",
+              ")\n",
+              "{\n",
+              "  return funptr_ret10(arg1);\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Function
@@ -29011,8 +30527,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_args_char1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_1cbcf8b84924816c (void)) (A arg1, char arg2) { return &args_char1; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_args_char1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_1cbcf8b84924816c (void)) (\n",
+              "  A arg1,\n",
+              "  char arg2\n",
+              ")\n",
+              "{\n",
+              "  return &args_char1;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -29053,8 +30578,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_args_char2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_ec2d78b82f444fd0 (void)) (A arg1, signed char arg2) { return &args_char2; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_args_char2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_ec2d78b82f444fd0 (void)) (\n",
+              "  A arg1,\n",
+              "  signed char arg2\n",
+              ")\n",
+              "{\n",
+              "  return &args_char2;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -29095,8 +30629,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_args_char3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_1baa18e723594389 (void)) (A arg1, unsigned char arg2) { return &args_char3; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_args_char3_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_1baa18e723594389 (void)) (\n",
+              "  A arg1,\n",
+              "  unsigned char arg2\n",
+              ")\n",
+              "{\n",
+              "  return &args_char3;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -29137,8 +30680,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_args_short1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_c96cef4ef5f5e180 (void)) (A arg1, signed short arg2) { return &args_short1; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_args_short1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_c96cef4ef5f5e180 (void)) (\n",
+              "  A arg1,\n",
+              "  signed short arg2\n",
+              ")\n",
+              "{\n",
+              "  return &args_short1;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -29178,8 +30730,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_args_short2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_3a683552d4f772c7 (void)) (A arg1, signed short arg2) { return &args_short2; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_args_short2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_3a683552d4f772c7 (void)) (\n",
+              "  A arg1,\n",
+              "  signed short arg2\n",
+              ")\n",
+              "{\n",
+              "  return &args_short2;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -29219,8 +30780,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_args_short3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_f3284022ac706255 (void)) (A arg1, unsigned short arg2) { return &args_short3; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_args_short3_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_f3284022ac706255 (void)) (\n",
+              "  A arg1,\n",
+              "  unsigned short arg2\n",
+              ")\n",
+              "{\n",
+              "  return &args_short3;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -29262,8 +30832,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_args_int1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_5c4d785286ccca6b (void)) (A arg1, signed int arg2) { return &args_int1; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_args_int1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_5c4d785286ccca6b (void)) (\n",
+              "  A arg1,\n",
+              "  signed int arg2\n",
+              ")\n",
+              "{\n",
+              "  return &args_int1;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -29303,8 +30882,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_args_int2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_e323b837afe40be7 (void)) (A arg1, signed int arg2) { return &args_int2; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_args_int2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_e323b837afe40be7 (void)) (\n",
+              "  A arg1,\n",
+              "  signed int arg2\n",
+              ")\n",
+              "{\n",
+              "  return &args_int2;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -29344,8 +30932,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_args_int3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_eb0e5feb8eb4082d (void)) (A arg1, unsigned int arg2) { return &args_int3; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_args_int3_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_eb0e5feb8eb4082d (void)) (\n",
+              "  A arg1,\n",
+              "  unsigned int arg2\n",
+              ")\n",
+              "{\n",
+              "  return &args_int3;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -29385,8 +30982,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_args_long1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_d7d322f23a65f43b (void)) (A arg1, signed long arg2) { return &args_long1; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_args_long1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_d7d322f23a65f43b (void)) (\n",
+              "  A arg1,\n",
+              "  signed long arg2\n",
+              ")\n",
+              "{\n",
+              "  return &args_long1;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -29426,8 +31032,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_args_long2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_378c16768a6f6f21 (void)) (A arg1, signed long arg2) { return &args_long2; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_args_long2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_378c16768a6f6f21 (void)) (\n",
+              "  A arg1,\n",
+              "  signed long arg2\n",
+              ")\n",
+              "{\n",
+              "  return &args_long2;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -29467,8 +31082,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_args_long3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_548dcd4760226ee2 (void)) (A arg1, unsigned long arg2) { return &args_long3; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_args_long3_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_548dcd4760226ee2 (void)) (\n",
+              "  A arg1,\n",
+              "  unsigned long arg2\n",
+              ")\n",
+              "{\n",
+              "  return &args_long3;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -29510,8 +31134,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_args_float_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_701d01261043851b (void)) (A arg1, float arg2) { return &args_float; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_args_float_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_701d01261043851b (void)) (\n",
+              "  A arg1,\n",
+              "  float arg2\n",
+              ")\n",
+              "{\n",
+              "  return &args_float;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -29551,8 +31184,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_args_double_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_ff631e42f704e4cd (void)) (A arg1, double arg2) { return &args_double; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_args_double_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_ff631e42f704e4cd (void)) (\n",
+              "  A arg1,\n",
+              "  double arg2\n",
+              ")\n",
+              "{\n",
+              "  return &args_double;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -29592,8 +31234,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_args_bool1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_6e289c6cc6d382bf (void)) (A arg1, _Bool arg2) { return &args_bool1; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_args_bool1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_6e289c6cc6d382bf (void)) (\n",
+              "  A arg1,\n",
+              "  _Bool arg2\n",
+              ")\n",
+              "{\n",
+              "  return &args_bool1;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -29635,8 +31286,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_args_struct_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_26b20c1b89e46b02 (void)) (A arg1, struct some_struct arg2) { return &args_struct; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_args_struct_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_26b20c1b89e46b02 (void)) (\n",
+              "  A arg1,\n",
+              "  struct some_struct arg2\n",
+              ")\n",
+              "{\n",
+              "  return &args_struct;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -29683,8 +31343,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_args_union_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_cfd37f06f21b8755 (void)) (A arg1, union some_union arg2) { return &args_union; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_args_union_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_cfd37f06f21b8755 (void)) (\n",
+              "  A arg1,\n",
+              "  union some_union arg2\n",
+              ")\n",
+              "{\n",
+              "  return &args_union;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -29731,8 +31400,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_args_enum_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_69882f8f862fffc2 (void)) (A arg1, enum some_enum arg2) { return &args_enum; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_args_enum_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_69882f8f862fffc2 (void)) (\n",
+              "  A arg1,\n",
+              "  enum some_enum arg2\n",
+              ")\n",
+              "{\n",
+              "  return &args_enum;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -29776,8 +31454,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_args_pointer1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_23bde4e97b66c470 (void)) (A arg1, signed int *arg2) { return &args_pointer1; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_args_pointer1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_23bde4e97b66c470 (void)) (\n",
+              "  A arg1,\n",
+              "  signed int *arg2\n",
+              ")\n",
+              "{\n",
+              "  return &args_pointer1;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -29819,8 +31506,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_args_pointer2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_fceb546239df3c0a (void)) (A arg1, signed int **arg2) { return &args_pointer2; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_args_pointer2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_fceb546239df3c0a (void)) (\n",
+              "  A arg1,\n",
+              "  signed int **arg2\n",
+              ")\n",
+              "{\n",
+              "  return &args_pointer2;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -29862,8 +31558,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_args_pointer3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_0cb396fb06dd816a (void)) (A arg1, void *arg2) { return &args_pointer3; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_args_pointer3_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_0cb396fb06dd816a (void)) (\n",
+              "  A arg1,\n",
+              "  void *arg2\n",
+              ")\n",
+              "{\n",
+              "  return &args_pointer3;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -29898,8 +31603,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_ret_A_ptr */ __attribute__ ((const)) A (*hs_bindgen_test_reparse_a7564eacf3ad149f (void)) (void) { return &ret_A; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_ret_A_ptr */\n",
+              "__attribute__ ((const))\n",
+              "A (*hs_bindgen_test_reparse_a7564eacf3ad149f (void)) (void)\n",
+              "{\n",
+              "  return &ret_A;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -29934,8 +31645,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_ret_char1_ptr */ __attribute__ ((const)) char (*hs_bindgen_test_reparse_7b5b646ee4e06777 (void)) (A arg1) { return &ret_char1; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_ret_char1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "char (*hs_bindgen_test_reparse_7b5b646ee4e06777 (void)) (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return &ret_char1;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -29974,7 +31693,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_ret_char2_ptr */ __attribute__ ((const)) signed char (*hs_bindgen_test_reparse_7c05cbccaf1be8b6 (void)) (A arg1) { return &ret_char2; } ",
+          concat
+            [
+              "/* get_ret_char2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed char (*hs_bindgen_test_reparse_7c05cbccaf1be8b6 (void)) (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return &ret_char2;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -30013,7 +31741,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_ret_char3_ptr */ __attribute__ ((const)) unsigned char (*hs_bindgen_test_reparse_0fc74f839f906d7e (void)) (A arg1) { return &ret_char3; } ",
+          concat
+            [
+              "/* get_ret_char3_ptr */\n",
+              "__attribute__ ((const))\n",
+              "unsigned char (*hs_bindgen_test_reparse_0fc74f839f906d7e (void)) (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return &ret_char3;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -30052,7 +31789,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_ret_short1_ptr */ __attribute__ ((const)) signed short (*hs_bindgen_test_reparse_72ff9f5cb5daaae8 (void)) (A arg1) { return &ret_short1; } ",
+          concat
+            [
+              "/* get_ret_short1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed short (*hs_bindgen_test_reparse_72ff9f5cb5daaae8 (void)) (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return &ret_short1;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -30092,7 +31838,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_ret_short2_ptr */ __attribute__ ((const)) signed short (*hs_bindgen_test_reparse_eb5427ff3ea0d96e (void)) (A arg1) { return &ret_short2; } ",
+          concat
+            [
+              "/* get_ret_short2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed short (*hs_bindgen_test_reparse_eb5427ff3ea0d96e (void)) (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return &ret_short2;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -30132,7 +31887,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_ret_short3_ptr */ __attribute__ ((const)) unsigned short (*hs_bindgen_test_reparse_823adc61eed1550c (void)) (A arg1) { return &ret_short3; } ",
+          concat
+            [
+              "/* get_ret_short3_ptr */\n",
+              "__attribute__ ((const))\n",
+              "unsigned short (*hs_bindgen_test_reparse_823adc61eed1550c (void)) (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return &ret_short3;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -30172,7 +31936,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_ret_int1_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_reparse_79ce8d81113cf766 (void)) (A arg1) { return &ret_int1; } ",
+          concat
+            [
+              "/* get_ret_int1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_reparse_79ce8d81113cf766 (void)) (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return &ret_int1;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -30210,7 +31983,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_ret_int2_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_reparse_d369bd4861f00c84 (void)) (A arg1) { return &ret_int2; } ",
+          concat
+            [
+              "/* get_ret_int2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_reparse_d369bd4861f00c84 (void)) (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return &ret_int2;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -30248,7 +32030,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_ret_int3_ptr */ __attribute__ ((const)) unsigned int (*hs_bindgen_test_reparse_0336d583fc7b5951 (void)) (A arg1) { return &ret_int3; } ",
+          concat
+            [
+              "/* get_ret_int3_ptr */\n",
+              "__attribute__ ((const))\n",
+              "unsigned int (*hs_bindgen_test_reparse_0336d583fc7b5951 (void)) (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return &ret_int3;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -30288,7 +32079,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_ret_long1_ptr */ __attribute__ ((const)) signed long (*hs_bindgen_test_reparse_36845109a4ce7992 (void)) (A arg1) { return &ret_long1; } ",
+          concat
+            [
+              "/* get_ret_long1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed long (*hs_bindgen_test_reparse_36845109a4ce7992 (void)) (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return &ret_long1;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -30328,7 +32128,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_ret_long2_ptr */ __attribute__ ((const)) signed long (*hs_bindgen_test_reparse_ac32dbc1e79e704e (void)) (A arg1) { return &ret_long2; } ",
+          concat
+            [
+              "/* get_ret_long2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed long (*hs_bindgen_test_reparse_ac32dbc1e79e704e (void)) (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return &ret_long2;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -30368,7 +32177,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_ret_long3_ptr */ __attribute__ ((const)) unsigned long (*hs_bindgen_test_reparse_6fba85ecad7d8d4e (void)) (A arg1) { return &ret_long3; } ",
+          concat
+            [
+              "/* get_ret_long3_ptr */\n",
+              "__attribute__ ((const))\n",
+              "unsigned long (*hs_bindgen_test_reparse_6fba85ecad7d8d4e (void)) (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return &ret_long3;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -30407,8 +32225,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_ret_float_ptr */ __attribute__ ((const)) float (*hs_bindgen_test_reparse_e9ac779a7c943add (void)) (A arg1) { return &ret_float; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_ret_float_ptr */\n",
+              "__attribute__ ((const))\n",
+              "float (*hs_bindgen_test_reparse_e9ac779a7c943add (void)) (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return &ret_float;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -30445,8 +32271,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_ret_double_ptr */ __attribute__ ((const)) double (*hs_bindgen_test_reparse_7095a5f5be3ecc0c (void)) (A arg1) { return &ret_double; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_ret_double_ptr */\n",
+              "__attribute__ ((const))\n",
+              "double (*hs_bindgen_test_reparse_7095a5f5be3ecc0c (void)) (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return &ret_double;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -30483,8 +32317,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_ret_bool1_ptr */ __attribute__ ((const)) _Bool (*hs_bindgen_test_reparse_c7b5be49f4314899 (void)) (A arg1) { return &ret_bool1; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_ret_bool1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "_Bool (*hs_bindgen_test_reparse_c7b5be49f4314899 (void)) (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return &ret_bool1;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -30524,7 +32366,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_ret_struct_ptr */ __attribute__ ((const)) struct some_struct (*hs_bindgen_test_reparse_03ec23cf81b62ce3 (void)) (A arg1) { return &ret_struct; } ",
+          concat
+            [
+              "/* get_ret_struct_ptr */\n",
+              "__attribute__ ((const))\n",
+              "struct some_struct (*hs_bindgen_test_reparse_03ec23cf81b62ce3 (void)) (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return &ret_struct;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -30569,7 +32420,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_ret_union_ptr */ __attribute__ ((const)) union some_union (*hs_bindgen_test_reparse_5315544d48ea5b07 (void)) (A arg1) { return &ret_union; } ",
+          concat
+            [
+              "/* get_ret_union_ptr */\n",
+              "__attribute__ ((const))\n",
+              "union some_union (*hs_bindgen_test_reparse_5315544d48ea5b07 (void)) (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return &ret_union;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -30614,7 +32474,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_ret_enum_ptr */ __attribute__ ((const)) enum some_enum (*hs_bindgen_test_reparse_9fb7ddbcd84c72f1 (void)) (A arg1) { return &ret_enum; } ",
+          concat
+            [
+              "/* get_ret_enum_ptr */\n",
+              "__attribute__ ((const))\n",
+              "enum some_enum (*hs_bindgen_test_reparse_9fb7ddbcd84c72f1 (void)) (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return &ret_enum;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -30657,7 +32526,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_ret_pointer1_ptr */ __attribute__ ((const)) signed int *(*hs_bindgen_test_reparse_0638bcad8813a303 (void)) (A arg1) { return &ret_pointer1; } ",
+          concat
+            [
+              "/* get_ret_pointer1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int *(*hs_bindgen_test_reparse_0638bcad8813a303 (void)) (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return &ret_pointer1;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -30700,7 +32578,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_ret_pointer2_ptr */ __attribute__ ((const)) signed int **(*hs_bindgen_test_reparse_5d9ced9e4887782b (void)) (A arg1) { return &ret_pointer2; } ",
+          concat
+            [
+              "/* get_ret_pointer2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int **(*hs_bindgen_test_reparse_5d9ced9e4887782b (void)) (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return &ret_pointer2;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -30742,8 +32629,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_ret_pointer3_ptr */ __attribute__ ((const)) void *(*hs_bindgen_test_reparse_60e99361ec0a4b5b (void)) (A arg1) { return &ret_pointer3; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_ret_pointer3_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void *(*hs_bindgen_test_reparse_60e99361ec0a4b5b (void)) (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return &ret_pointer3;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -30780,7 +32675,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_body1_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_reparse_cca1935605a94051 (void)) (A arg1) { return &body1; } ",
+          concat
+            [
+              "/* get_body1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_reparse_cca1935605a94051 (void)) (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return &body1;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -30815,8 +32719,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_body2_ptr */ __attribute__ ((const)) A (*hs_bindgen_test_reparse_a1900daea7e14e95 (void)) (void) { return &body2; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_body2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "A (*hs_bindgen_test_reparse_a1900daea7e14e95 (void)) (void)\n",
+              "{\n",
+              "  return &body2;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -30853,8 +32763,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_args_complex_float_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_c62f1e9d47469a1c (void)) (A arg1, float _Complex arg2) { return &args_complex_float; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_args_complex_float_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_c62f1e9d47469a1c (void)) (\n",
+              "  A arg1,\n",
+              "  float _Complex arg2\n",
+              ")\n",
+              "{\n",
+              "  return &args_complex_float;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -30894,8 +32813,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_args_complex_double_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_b2ef5ed0a8ed0697 (void)) (A arg1, double _Complex arg2) { return &args_complex_double; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_args_complex_double_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_b2ef5ed0a8ed0697 (void)) (\n",
+              "  A arg1,\n",
+              "  double _Complex arg2\n",
+              ")\n",
+              "{\n",
+              "  return &args_complex_double;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -30935,7 +32863,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_ret_complex_float_ptr */ __attribute__ ((const)) float _Complex (*hs_bindgen_test_reparse_e2cc2aa2dd12852d (void)) (A arg1) { return &ret_complex_float; } ",
+          concat
+            [
+              "/* get_ret_complex_float_ptr */\n",
+              "__attribute__ ((const))\n",
+              "float _Complex (*hs_bindgen_test_reparse_e2cc2aa2dd12852d (void)) (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return &ret_complex_float;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -30974,7 +32911,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_ret_complex_double_ptr */ __attribute__ ((const)) double _Complex (*hs_bindgen_test_reparse_c95961d571f78868 (void)) (A arg1) { return &ret_complex_double; } ",
+          concat
+            [
+              "/* get_ret_complex_double_ptr */\n",
+              "__attribute__ ((const))\n",
+              "double _Complex (*hs_bindgen_test_reparse_c95961d571f78868 (void)) (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return &ret_complex_double;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -31013,8 +32959,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_bespoke_args1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_94c8a2d3574ba283 (void)) (A arg1, _Bool arg2) { return &bespoke_args1; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_bespoke_args1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_94c8a2d3574ba283 (void)) (\n",
+              "  A arg1,\n",
+              "  _Bool arg2\n",
+              ")\n",
+              "{\n",
+              "  return &bespoke_args1;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -31053,8 +33008,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_bespoke_args2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_2165985767a8d24e (void)) (A arg1, size_t arg2) { return &bespoke_args2; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_bespoke_args2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_2165985767a8d24e (void)) (\n",
+              "  A arg1,\n",
+              "  size_t arg2\n",
+              ")\n",
+              "{\n",
+              "  return &bespoke_args2;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -31091,8 +33055,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_bespoke_ret1_ptr */ __attribute__ ((const)) _Bool (*hs_bindgen_test_reparse_7913bf38675bd912 (void)) (A arg1) { return &bespoke_ret1; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_bespoke_ret1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "_Bool (*hs_bindgen_test_reparse_7913bf38675bd912 (void)) (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return &bespoke_ret1;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -31128,8 +33100,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_bespoke_ret2_ptr */ __attribute__ ((const)) size_t (*hs_bindgen_test_reparse_07c419cb648cdf65 (void)) (A arg1) { return &bespoke_ret2; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_bespoke_ret2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "size_t (*hs_bindgen_test_reparse_07c419cb648cdf65 (void)) (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return &bespoke_ret2;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -31166,8 +33146,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_arr_args1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_ed19e51bcac06a9e (void)) (A arg1[]) { return &arr_args1; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_arr_args1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_ed19e51bcac06a9e (void)) (\n",
+              "  A arg1[]\n",
+              ")\n",
+              "{\n",
+              "  return &arr_args1;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -31206,8 +33194,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_arr_args2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_de3931a21a8a71fc (void)) (A *arg1[]) { return &arr_args2; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_arr_args2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_de3931a21a8a71fc (void)) (\n",
+              "  A *arg1[]\n",
+              ")\n",
+              "{\n",
+              "  return &arr_args2;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -31247,8 +33243,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_arr_args3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_2c02effa6288a26b (void)) (A arg1[5]) { return &arr_args3; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_arr_args3_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_2c02effa6288a26b (void)) (\n",
+              "  A arg1[5]\n",
+              ")\n",
+              "{\n",
+              "  return &arr_args3;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -31289,8 +33293,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_arr_args4_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_2144e300082f115c (void)) (A *arg1[5]) { return &arr_args4; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_arr_args4_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_2144e300082f115c (void)) (\n",
+              "  A *arg1[5]\n",
+              ")\n",
+              "{\n",
+              "  return &arr_args4;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -31332,8 +33344,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_funptr_args1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_d1645262a53743f6 (void)) (A arg1, void (*arg2) (void)) { return &funptr_args1; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_funptr_args1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_d1645262a53743f6 (void)) (\n",
+              "  A arg1,\n",
+              "  void (*arg2) (void)\n",
+              ")\n",
+              "{\n",
+              "  return &funptr_args1;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -31374,8 +33395,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_funptr_args2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_d66507630e4e38e3 (void)) (A arg1, signed int (*arg2) (void)) { return &funptr_args2; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_funptr_args2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_d66507630e4e38e3 (void)) (\n",
+              "  A arg1,\n",
+              "  signed int (*arg2) (void)\n",
+              ")\n",
+              "{\n",
+              "  return &funptr_args2;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -31421,8 +33451,19 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_funptr_args3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_3d7907ab53b617cf (void)) (A arg1, void (*arg2) (signed int arg1)) { return &funptr_args3; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_funptr_args3_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_3d7907ab53b617cf (void)) (\n",
+              "  A arg1,\n",
+              "  void (*arg2) (\n",
+              "  signed int arg1\n",
+              ")\n",
+              ")\n",
+              "{\n",
+              "  return &funptr_args3;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -31472,8 +33513,20 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_funptr_args4_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_e4d15a9c3b04292a (void)) (A arg1, char (*arg2) (signed int arg1, double arg2)) { return &funptr_args4; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_funptr_args4_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_e4d15a9c3b04292a (void)) (\n",
+              "  A arg1,\n",
+              "  char (*arg2) (\n",
+              "  signed int arg1,\n",
+              "  double arg2\n",
+              ")\n",
+              ")\n",
+              "{\n",
+              "  return &funptr_args4;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -31528,8 +33581,20 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_funptr_args5_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_ced7918b6e42102f (void)) (A arg1, signed int *(*arg2) (signed int arg1, double arg2)) { return &funptr_args5; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_funptr_args5_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_ced7918b6e42102f (void)) (\n",
+              "  A arg1,\n",
+              "  signed int *(*arg2) (\n",
+              "  signed int arg1,\n",
+              "  double arg2\n",
+              ")\n",
+              ")\n",
+              "{\n",
+              "  return &funptr_args5;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -31577,8 +33642,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_comments1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_c90ec05081ef4e64 (void)) (A arg1) { return &comments1; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_comments1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_c90ec05081ef4e64 (void)) (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return &comments1;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -31616,8 +33689,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_const_prim_before1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_6ac4b42c66a36448 (void)) (A arg1, char const arg2) { return &const_prim_before1; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_const_prim_before1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_6ac4b42c66a36448 (void)) (\n",
+              "  A arg1,\n",
+              "  char const arg2\n",
+              ")\n",
+              "{\n",
+              "  return &const_prim_before1;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -31660,8 +33742,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_const_prim_before2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_f98632ef2e69b003 (void)) (A arg1, signed char const arg2) { return &const_prim_before2; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_const_prim_before2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_f98632ef2e69b003 (void)) (\n",
+              "  A arg1,\n",
+              "  signed char const arg2\n",
+              ")\n",
+              "{\n",
+              "  return &const_prim_before2;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -31704,8 +33795,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_const_prim_before3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_cc9db1f6a36b8221 (void)) (A arg1, unsigned char const arg2) { return &const_prim_before3; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_const_prim_before3_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_cc9db1f6a36b8221 (void)) (\n",
+              "  A arg1,\n",
+              "  unsigned char const arg2\n",
+              ")\n",
+              "{\n",
+              "  return &const_prim_before3;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -31748,8 +33848,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_const_prim_after1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_3e5b7273bf2ecadb (void)) (A arg1, char const arg2) { return &const_prim_after1; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_const_prim_after1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_3e5b7273bf2ecadb (void)) (\n",
+              "  A arg1,\n",
+              "  char const arg2\n",
+              ")\n",
+              "{\n",
+              "  return &const_prim_after1;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -31792,8 +33901,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_const_prim_after2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_f9b4beeca8253333 (void)) (A arg1, signed char const arg2) { return &const_prim_after2; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_const_prim_after2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_f9b4beeca8253333 (void)) (\n",
+              "  A arg1,\n",
+              "  signed char const arg2\n",
+              ")\n",
+              "{\n",
+              "  return &const_prim_after2;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -31836,8 +33954,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_const_prim_after3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_bf14e2fd88b25311 (void)) (A arg1, unsigned char const arg2) { return &const_prim_after3; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_const_prim_after3_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_bf14e2fd88b25311 (void)) (\n",
+              "  A arg1,\n",
+              "  unsigned char const arg2\n",
+              ")\n",
+              "{\n",
+              "  return &const_prim_after3;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -31880,8 +34007,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_const_withoutSign_before1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_3649293fcaa1543c (void)) (A arg1, float const arg2) { return &const_withoutSign_before1; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_const_withoutSign_before1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_3649293fcaa1543c (void)) (\n",
+              "  A arg1,\n",
+              "  float const arg2\n",
+              ")\n",
+              "{\n",
+              "  return &const_withoutSign_before1;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -31923,8 +34059,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_const_withoutSign_before2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_ad5903c28e22dd2c (void)) (A arg1, double const arg2) { return &const_withoutSign_before2; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_const_withoutSign_before2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_ad5903c28e22dd2c (void)) (\n",
+              "  A arg1,\n",
+              "  double const arg2\n",
+              ")\n",
+              "{\n",
+              "  return &const_withoutSign_before2;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -31966,8 +34111,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_const_withoutSign_before3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_e7b9bc011ec1dd8a (void)) (A arg1, _Bool const arg2) { return &const_withoutSign_before3; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_const_withoutSign_before3_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_e7b9bc011ec1dd8a (void)) (\n",
+              "  A arg1,\n",
+              "  _Bool const arg2\n",
+              ")\n",
+              "{\n",
+              "  return &const_withoutSign_before3;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -32011,8 +34165,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_const_withoutSign_before4_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_4fd66b696848dd98 (void)) (A arg1, struct some_struct const arg2) { return &const_withoutSign_before4; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_const_withoutSign_before4_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_4fd66b696848dd98 (void)) (\n",
+              "  A arg1,\n",
+              "  struct some_struct const arg2\n",
+              ")\n",
+              "{\n",
+              "  return &const_withoutSign_before4;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -32061,8 +34224,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_const_withoutSign_before5_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_42582e1882927f7e (void)) (A arg1, union some_union const arg2) { return &const_withoutSign_before5; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_const_withoutSign_before5_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_42582e1882927f7e (void)) (\n",
+              "  A arg1,\n",
+              "  union some_union const arg2\n",
+              ")\n",
+              "{\n",
+              "  return &const_withoutSign_before5;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -32111,8 +34283,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_const_withoutSign_before6_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_b6876e53e4b27a98 (void)) (A arg1, enum some_enum const arg2) { return &const_withoutSign_before6; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_const_withoutSign_before6_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_b6876e53e4b27a98 (void)) (\n",
+              "  A arg1,\n",
+              "  enum some_enum const arg2\n",
+              ")\n",
+              "{\n",
+              "  return &const_withoutSign_before6;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -32158,8 +34339,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_const_withoutSign_before7_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_78763cbecd2b0750 (void)) (A arg1, _Bool const arg2) { return &const_withoutSign_before7; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_const_withoutSign_before7_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_78763cbecd2b0750 (void)) (\n",
+              "  A arg1,\n",
+              "  _Bool const arg2\n",
+              ")\n",
+              "{\n",
+              "  return &const_withoutSign_before7;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -32200,8 +34390,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_const_withoutSign_before8_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_4098c4a4ccd31d36 (void)) (A arg1, size_t const arg2) { return &const_withoutSign_before8; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_const_withoutSign_before8_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_4098c4a4ccd31d36 (void)) (\n",
+              "  A arg1,\n",
+              "  size_t const arg2\n",
+              ")\n",
+              "{\n",
+              "  return &const_withoutSign_before8;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -32242,8 +34441,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_const_withoutSign_after1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_e9148eb7b8dac901 (void)) (A arg1, float const arg2) { return &const_withoutSign_after1; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_const_withoutSign_after1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_e9148eb7b8dac901 (void)) (\n",
+              "  A arg1,\n",
+              "  float const arg2\n",
+              ")\n",
+              "{\n",
+              "  return &const_withoutSign_after1;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -32285,8 +34493,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_const_withoutSign_after2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_8663653d89116be9 (void)) (A arg1, double const arg2) { return &const_withoutSign_after2; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_const_withoutSign_after2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_8663653d89116be9 (void)) (\n",
+              "  A arg1,\n",
+              "  double const arg2\n",
+              ")\n",
+              "{\n",
+              "  return &const_withoutSign_after2;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -32328,8 +34545,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_const_withoutSign_after3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_136dcba145bf241b (void)) (A arg1, _Bool const arg2) { return &const_withoutSign_after3; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_const_withoutSign_after3_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_136dcba145bf241b (void)) (\n",
+              "  A arg1,\n",
+              "  _Bool const arg2\n",
+              ")\n",
+              "{\n",
+              "  return &const_withoutSign_after3;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -32373,8 +34599,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_const_withoutSign_after4_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_380e01acce794cab (void)) (A arg1, struct some_struct const arg2) { return &const_withoutSign_after4; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_const_withoutSign_after4_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_380e01acce794cab (void)) (\n",
+              "  A arg1,\n",
+              "  struct some_struct const arg2\n",
+              ")\n",
+              "{\n",
+              "  return &const_withoutSign_after4;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -32423,8 +34658,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_const_withoutSign_after5_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_af0d84d0757f6c2c (void)) (A arg1, union some_union const arg2) { return &const_withoutSign_after5; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_const_withoutSign_after5_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_af0d84d0757f6c2c (void)) (\n",
+              "  A arg1,\n",
+              "  union some_union const arg2\n",
+              ")\n",
+              "{\n",
+              "  return &const_withoutSign_after5;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -32473,8 +34717,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_const_withoutSign_after6_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_df92501d07bf6c5f (void)) (A arg1, enum some_enum const arg2) { return &const_withoutSign_after6; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_const_withoutSign_after6_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_df92501d07bf6c5f (void)) (\n",
+              "  A arg1,\n",
+              "  enum some_enum const arg2\n",
+              ")\n",
+              "{\n",
+              "  return &const_withoutSign_after6;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -32520,8 +34773,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_const_withoutSign_after7_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_b41148ca40ec8eb5 (void)) (A arg1, _Bool const arg2) { return &const_withoutSign_after7; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_const_withoutSign_after7_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_b41148ca40ec8eb5 (void)) (\n",
+              "  A arg1,\n",
+              "  _Bool const arg2\n",
+              ")\n",
+              "{\n",
+              "  return &const_withoutSign_after7;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -32562,8 +34824,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_const_withoutSign_after8_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_560c9dfdb530548b (void)) (A arg1, size_t const arg2) { return &const_withoutSign_after8; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_const_withoutSign_after8_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_560c9dfdb530548b (void)) (\n",
+              "  A arg1,\n",
+              "  size_t const arg2\n",
+              ")\n",
+              "{\n",
+              "  return &const_withoutSign_after8;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -32604,8 +34875,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_const_pointers_args1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_a34d16c099748839 (void)) (A arg1, signed int const *arg2) { return &const_pointers_args1; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_const_pointers_args1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_a34d16c099748839 (void)) (\n",
+              "  A arg1,\n",
+              "  signed int const *arg2\n",
+              ")\n",
+              "{\n",
+              "  return &const_pointers_args1;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -32648,8 +34928,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_const_pointers_args2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_45235edaf5c3b599 (void)) (A arg1, signed int const *arg2) { return &const_pointers_args2; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_const_pointers_args2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_45235edaf5c3b599 (void)) (\n",
+              "  A arg1,\n",
+              "  signed int const *arg2\n",
+              ")\n",
+              "{\n",
+              "  return &const_pointers_args2;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -32692,8 +34981,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_const_pointers_args3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_3dbcf1c7202f2878 (void)) (A arg1, signed int *const arg2) { return &const_pointers_args3; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_const_pointers_args3_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_3dbcf1c7202f2878 (void)) (\n",
+              "  A arg1,\n",
+              "  signed int *const arg2\n",
+              ")\n",
+              "{\n",
+              "  return &const_pointers_args3;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -32736,8 +35034,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_const_pointers_args4_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_a6624f6cc0a062af (void)) (A arg1, signed int const *const arg2) { return &const_pointers_args4; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_const_pointers_args4_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_a6624f6cc0a062af (void)) (\n",
+              "  A arg1,\n",
+              "  signed int const *const arg2\n",
+              ")\n",
+              "{\n",
+              "  return &const_pointers_args4;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -32784,8 +35091,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_const_pointers_args5_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_c5f3253c57910315 (void)) (A arg1, signed int const *const arg2) { return &const_pointers_args5; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_const_pointers_args5_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_c5f3253c57910315 (void)) (\n",
+              "  A arg1,\n",
+              "  signed int const *const arg2\n",
+              ")\n",
+              "{\n",
+              "  return &const_pointers_args5;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -32832,7 +35148,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_const_pointers_ret1_ptr */ __attribute__ ((const)) signed int const *(*hs_bindgen_test_reparse_1990ded85ea3850d (void)) (A arg1) { return &const_pointers_ret1; } ",
+          concat
+            [
+              "/* get_const_pointers_ret1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int const *(*hs_bindgen_test_reparse_1990ded85ea3850d (void)) (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return &const_pointers_ret1;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -32876,7 +35201,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_const_pointers_ret2_ptr */ __attribute__ ((const)) signed int const *(*hs_bindgen_test_reparse_627cc570c3ca7d19 (void)) (A arg1) { return &const_pointers_ret2; } ",
+          concat
+            [
+              "/* get_const_pointers_ret2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int const *(*hs_bindgen_test_reparse_627cc570c3ca7d19 (void)) (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return &const_pointers_ret2;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -32920,7 +35254,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_const_pointers_ret3_ptr */ __attribute__ ((const)) signed int *const (*hs_bindgen_test_reparse_2f449708b5a275b1 (void)) (A arg1) { return &const_pointers_ret3; } ",
+          concat
+            [
+              "/* get_const_pointers_ret3_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int *const (*hs_bindgen_test_reparse_2f449708b5a275b1 (void)) (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return &const_pointers_ret3;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -32964,7 +35307,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_const_pointers_ret4_ptr */ __attribute__ ((const)) signed int const *const (*hs_bindgen_test_reparse_67662618cd011c8a (void)) (A arg1) { return &const_pointers_ret4; } ",
+          concat
+            [
+              "/* get_const_pointers_ret4_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int const *const (*hs_bindgen_test_reparse_67662618cd011c8a (void)) (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return &const_pointers_ret4;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -33010,7 +35362,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_const_pointers_ret5_ptr */ __attribute__ ((const)) signed int const *const (*hs_bindgen_test_reparse_fcafd9f8ac329995 (void)) (A arg1) { return &const_pointers_ret5; } ",
+          concat
+            [
+              "/* get_const_pointers_ret5_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int const *const (*hs_bindgen_test_reparse_fcafd9f8ac329995 (void)) (\n",
+              "  A arg1\n",
+              ")\n",
+              "{\n",
+              "  return &const_pointers_ret5;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -33055,8 +35416,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_const_array_elem1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_6928906fc9a88dfc (void)) (A const arg1[]) { return &const_array_elem1; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_const_array_elem1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_6928906fc9a88dfc (void)) (\n",
+              "  A const arg1[]\n",
+              ")\n",
+              "{\n",
+              "  return &const_array_elem1;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -33097,8 +35466,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_const_array_elem2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_625a37e9c030891a (void)) (A const *arg1[]) { return &const_array_elem2; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_const_array_elem2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_625a37e9c030891a (void)) (\n",
+              "  A const *arg1[]\n",
+              ")\n",
+              "{\n",
+              "  return &const_array_elem2;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -33140,8 +35517,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_const_array_elem3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_5e23f87114cf51fb (void)) (A *const arg1[]) { return &const_array_elem3; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_const_array_elem3_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_5e23f87114cf51fb (void)) (\n",
+              "  A *const arg1[]\n",
+              ")\n",
+              "{\n",
+              "  return &const_array_elem3;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -33179,8 +35564,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_noParams1_ptr */ __attribute__ ((const)) A (*hs_bindgen_test_reparse_d50620a002265139 (void)) (void) { return &noParams1; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_noParams1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "A (*hs_bindgen_test_reparse_d50620a002265139 (void)) (void)\n",
+              "{\n",
+              "  return &noParams1;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -33213,8 +35604,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_noParams2_ptr */ __attribute__ ((const)) A (*hs_bindgen_test_reparse_03b0e24786b82ad5 (void)) (void) { return &noParams2; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_noParams2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "A (*hs_bindgen_test_reparse_03b0e24786b82ad5 (void)) (void)\n",
+              "{\n",
+              "  return &noParams2;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -33252,8 +35649,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_noParams3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_reparse_36508fd99a0556c5 (void)) (A arg1, signed int (*arg2) (void)) { return &noParams3; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_noParams3_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_reparse_36508fd99a0556c5 (void)) (\n",
+              "  A arg1,\n",
+              "  signed int (*arg2) (void)\n",
+              ")\n",
+              "{\n",
+              "  return &noParams3;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -33296,8 +35702,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_funptr_ret1_ptr */ __attribute__ ((const)) void (*(*hs_bindgen_test_reparse_6f83a48dd177c25f (void)) (A arg1)) (void) { return &funptr_ret1; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_funptr_ret1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*(*hs_bindgen_test_reparse_6f83a48dd177c25f (void)) (\n",
+              "  A arg1\n",
+              ")) (void)\n",
+              "{\n",
+              "  return &funptr_ret1;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -33337,7 +35751,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_funptr_ret2_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_reparse_f12efafd1525ef7f (void)) (A arg1)) (void) { return &funptr_ret2; } ",
+          concat
+            [
+              "/* get_funptr_ret2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*(*hs_bindgen_test_reparse_f12efafd1525ef7f (void)) (\n",
+              "  A arg1\n",
+              ")) (void)\n",
+              "{\n",
+              "  return &funptr_ret2;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -33383,8 +35806,18 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_funptr_ret3_ptr */ __attribute__ ((const)) void (*(*hs_bindgen_test_reparse_b00baa5b9708b9e7 (void)) (A arg1)) (signed int arg1) { return &funptr_ret3; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_funptr_ret3_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*(*hs_bindgen_test_reparse_b00baa5b9708b9e7 (void)) (\n",
+              "  A arg1\n",
+              ")) (\n",
+              "  signed int arg1\n",
+              ")\n",
+              "{\n",
+              "  return &funptr_ret3;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -33432,8 +35865,19 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_funptr_ret4_ptr */ __attribute__ ((const)) char (*(*hs_bindgen_test_reparse_c51872479ceff42e (void)) (A arg1)) (signed int arg1, double arg2) { return &funptr_ret4; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_funptr_ret4_ptr */\n",
+              "__attribute__ ((const))\n",
+              "char (*(*hs_bindgen_test_reparse_c51872479ceff42e (void)) (\n",
+              "  A arg1\n",
+              ")) (\n",
+              "  signed int arg1,\n",
+              "  double arg2\n",
+              ")\n",
+              "{\n",
+              "  return &funptr_ret4;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -33487,7 +35931,19 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_funptr_ret5_ptr */ __attribute__ ((const)) signed int *(*(*hs_bindgen_test_reparse_3b9b9924b4b4d7ea (void)) (A arg1)) (signed int arg1, double arg2) { return &funptr_ret5; } ",
+          concat
+            [
+              "/* get_funptr_ret5_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int *(*(*hs_bindgen_test_reparse_3b9b9924b4b4d7ea (void)) (\n",
+              "  A arg1\n",
+              ")) (\n",
+              "  signed int arg1,\n",
+              "  double arg2\n",
+              ")\n",
+              "{\n",
+              "  return &funptr_ret5;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -33543,7 +35999,19 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_funptr_ret6_ptr */ __attribute__ ((const)) signed int const *(*(*hs_bindgen_test_reparse_3df5ab4b0b306845 (void)) (A arg1)) (signed int arg1, double arg2) { return &funptr_ret6; } ",
+          concat
+            [
+              "/* get_funptr_ret6_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int const *(*(*hs_bindgen_test_reparse_3df5ab4b0b306845 (void)) (\n",
+              "  A arg1\n",
+              ")) (\n",
+              "  signed int arg1,\n",
+              "  double arg2\n",
+              ")\n",
+              "{\n",
+              "  return &funptr_ret6;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -33601,7 +36069,19 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_funptr_ret7_ptr */ __attribute__ ((const)) signed int const *(*(*hs_bindgen_test_reparse_2ac4454d93b6f04a (void)) (A arg1)) (signed int arg1, double arg2) { return &funptr_ret7; } ",
+          concat
+            [
+              "/* get_funptr_ret7_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int const *(*(*hs_bindgen_test_reparse_2ac4454d93b6f04a (void)) (\n",
+              "  A arg1\n",
+              ")) (\n",
+              "  signed int arg1,\n",
+              "  double arg2\n",
+              ")\n",
+              "{\n",
+              "  return &funptr_ret7;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -33659,7 +36139,19 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_funptr_ret8_ptr */ __attribute__ ((const)) signed int *const (*(*hs_bindgen_test_reparse_411c5128f18364b3 (void)) (A arg1)) (signed int arg1, double arg2) { return &funptr_ret8; } ",
+          concat
+            [
+              "/* get_funptr_ret8_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int *const (*(*hs_bindgen_test_reparse_411c5128f18364b3 (void)) (\n",
+              "  A arg1\n",
+              ")) (\n",
+              "  signed int arg1,\n",
+              "  double arg2\n",
+              ")\n",
+              "{\n",
+              "  return &funptr_ret8;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -33717,7 +36209,19 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_funptr_ret9_ptr */ __attribute__ ((const)) signed int const *const (*(*hs_bindgen_test_reparse_693a8d16e17d0cdc (void)) (A arg1)) (signed int arg1, double arg2) { return &funptr_ret9; } ",
+          concat
+            [
+              "/* get_funptr_ret9_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int const *const (*(*hs_bindgen_test_reparse_693a8d16e17d0cdc (void)) (\n",
+              "  A arg1\n",
+              ")) (\n",
+              "  signed int arg1,\n",
+              "  double arg2\n",
+              ")\n",
+              "{\n",
+              "  return &funptr_ret9;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global
@@ -33777,7 +36281,19 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_funptr_ret10_ptr */ __attribute__ ((const)) signed int const *const (*(*hs_bindgen_test_reparse_9d2da81bbfe49ab6 (void)) (A arg1)) (signed int arg1, double arg2) { return &funptr_ret10; } ",
+          concat
+            [
+              "/* get_funptr_ret10_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int const *const (*(*hs_bindgen_test_reparse_9d2da81bbfe49ab6 (void)) (\n",
+              "  A arg1\n",
+              ")) (\n",
+              "  signed int arg1,\n",
+              "  double arg2\n",
+              ")\n",
+              "{\n",
+              "  return &funptr_ret10;\n",
+              "}"],
           capiWrapperImport =
           "reparse.h"},
       foreignImportOrigin = Global

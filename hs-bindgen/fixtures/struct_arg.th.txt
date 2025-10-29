@@ -1,17 +1,101 @@
 -- addDependentFile examples/golden/struct_arg.h
 -- #include <struct_arg.h>
--- signed int hs_bindgen_test_struct_arg_61dfa2c4506feb8f (struct thing *arg1) { return thing_fun_1(*arg1); }
--- void hs_bindgen_test_struct_arg_022cc8107f565c95 (signed int arg1, struct thing *arg2) { *arg2 = thing_fun_2(arg1); }
--- void hs_bindgen_test_struct_arg_4d9304280cca3098 (signed int arg1, struct thing *arg2, double arg3, struct thing *arg4) { *arg4 = thing_fun_3a(arg1, *arg2, arg3); }
--- char hs_bindgen_test_struct_arg_f39687b254852452 (signed int arg1, struct thing *arg2, double arg3) { return thing_fun_3b(arg1, *arg2, arg3); }
--- signed int hs_bindgen_test_struct_arg_409d8c948bf989f6 (struct thing *arg1) { return thing_fun_1(*arg1); }
--- void hs_bindgen_test_struct_arg_2d20059791239ef2 (signed int arg1, struct thing *arg2) { *arg2 = thing_fun_2(arg1); }
--- void hs_bindgen_test_struct_arg_ce442967da2c37cd (signed int arg1, struct thing *arg2, double arg3, struct thing *arg4) { *arg4 = thing_fun_3a(arg1, *arg2, arg3); }
--- char hs_bindgen_test_struct_arg_e8bc8fce45854092 (signed int arg1, struct thing *arg2, double arg3) { return thing_fun_3b(arg1, *arg2, arg3); }
--- /* get_thing_fun_1_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_struct_arg_c5f0c295b311010a (void)) (struct thing arg1) { return &thing_fun_1; } 
--- /* get_thing_fun_2_ptr */ __attribute__ ((const)) struct thing (*hs_bindgen_test_struct_arg_24edf6600396b62a (void)) (signed int arg1) { return &thing_fun_2; } 
--- /* get_thing_fun_3a_ptr */ __attribute__ ((const)) struct thing (*hs_bindgen_test_struct_arg_29a42b48992cd0bf (void)) (signed int arg1, struct thing arg2, double arg3) { return &thing_fun_3a; } 
--- /* get_thing_fun_3b_ptr */ __attribute__ ((const)) char (*hs_bindgen_test_struct_arg_0d6597dfc03e312f (void)) (signed int arg1, struct thing arg2, double arg3) { return &thing_fun_3b; } 
+-- signed int hs_bindgen_test_struct_arg_61dfa2c4506feb8f (
+--   struct thing *arg1
+-- )
+-- {
+--   return thing_fun_1(*arg1);
+-- }
+-- void hs_bindgen_test_struct_arg_022cc8107f565c95 (
+--   signed int arg1,
+--   struct thing *arg2
+-- )
+-- {
+--   *arg2 = thing_fun_2(arg1);
+-- }
+-- void hs_bindgen_test_struct_arg_4d9304280cca3098 (
+--   signed int arg1,
+--   struct thing *arg2,
+--   double arg3,
+--   struct thing *arg4
+-- )
+-- {
+--   *arg4 = thing_fun_3a(arg1, *arg2, arg3);
+-- }
+-- char hs_bindgen_test_struct_arg_f39687b254852452 (
+--   signed int arg1,
+--   struct thing *arg2,
+--   double arg3
+-- )
+-- {
+--   return thing_fun_3b(arg1, *arg2, arg3);
+-- }
+-- signed int hs_bindgen_test_struct_arg_409d8c948bf989f6 (
+--   struct thing *arg1
+-- )
+-- {
+--   return thing_fun_1(*arg1);
+-- }
+-- void hs_bindgen_test_struct_arg_2d20059791239ef2 (
+--   signed int arg1,
+--   struct thing *arg2
+-- )
+-- {
+--   *arg2 = thing_fun_2(arg1);
+-- }
+-- void hs_bindgen_test_struct_arg_ce442967da2c37cd (
+--   signed int arg1,
+--   struct thing *arg2,
+--   double arg3,
+--   struct thing *arg4
+-- )
+-- {
+--   *arg4 = thing_fun_3a(arg1, *arg2, arg3);
+-- }
+-- char hs_bindgen_test_struct_arg_e8bc8fce45854092 (
+--   signed int arg1,
+--   struct thing *arg2,
+--   double arg3
+-- )
+-- {
+--   return thing_fun_3b(arg1, *arg2, arg3);
+-- }
+-- /* get_thing_fun_1_ptr */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_test_struct_arg_c5f0c295b311010a (void)) (
+--   struct thing arg1
+-- )
+-- {
+--   return &thing_fun_1;
+-- }
+-- /* get_thing_fun_2_ptr */
+-- __attribute__ ((const))
+-- struct thing (*hs_bindgen_test_struct_arg_24edf6600396b62a (void)) (
+--   signed int arg1
+-- )
+-- {
+--   return &thing_fun_2;
+-- }
+-- /* get_thing_fun_3a_ptr */
+-- __attribute__ ((const))
+-- struct thing (*hs_bindgen_test_struct_arg_29a42b48992cd0bf (void)) (
+--   signed int arg1,
+--   struct thing arg2,
+--   double arg3
+-- )
+-- {
+--   return &thing_fun_3a;
+-- }
+-- /* get_thing_fun_3b_ptr */
+-- __attribute__ ((const))
+-- char (*hs_bindgen_test_struct_arg_0d6597dfc03e312f (void)) (
+--   signed int arg1,
+--   struct thing arg2,
+--   double arg3
+-- )
+-- {
+--   return &thing_fun_3b;
+-- }
 {-| __C declaration:__ @thing@
 
     __defined at:__ @struct_arg.h:2:8@

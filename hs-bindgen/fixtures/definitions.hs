@@ -645,8 +645,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_definitions_5a514c66396155ff (double arg1) { return foo(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_definitions_5a514c66396155ff (\n",
+              "  double arg1\n",
+              ")\n",
+              "{\n",
+              "  return foo(arg1);\n",
+              "}"],
           capiWrapperImport =
           "definitions.h"},
       foreignImportOrigin = Function
@@ -704,8 +710,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_definitions_84e4eb047d6694cd (double arg1) { return foo(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_definitions_84e4eb047d6694cd (\n",
+              "  double arg1\n",
+              ")\n",
+              "{\n",
+              "  return foo(arg1);\n",
+              "}"],
           capiWrapperImport =
           "definitions.h"},
       foreignImportOrigin = Function
@@ -757,7 +769,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_foo_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_definitions_32925a42980e81cd (void)) (double arg1) { return &foo; } ",
+          concat
+            [
+              "/* get_foo_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_definitions_32925a42980e81cd (void)) (\n",
+              "  double arg1\n",
+              ")\n",
+              "{\n",
+              "  return &foo;\n",
+              "}"],
           capiWrapperImport =
           "definitions.h"},
       foreignImportOrigin = Global
@@ -788,7 +809,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_n_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_definitions_cfec0f95f22bb37c (void) { return &n; } ",
+          concat
+            [
+              "/* get_n_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int *hs_bindgen_test_definitions_cfec0f95f22bb37c (void)\n",
+              "{\n",
+              "  return &n;\n",
+              "}"],
           capiWrapperImport =
           "definitions.h"},
       foreignImportOrigin = Global

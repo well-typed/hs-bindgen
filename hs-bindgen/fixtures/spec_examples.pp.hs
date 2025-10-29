@@ -18,9 +18,34 @@ import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.Prelude
 import Data.Bits (FiniteBits)
+import Prelude (unlines)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure, return)
 
-$(HsBindgen.Runtime.Prelude.addCSource "#include <spec_examples.h>\nvoid hs_bindgen_test_spec_examples_7d4128962cfce15d (int32_T *arg1, cint16_T *arg2, int64_T arg3, int64_T arg4, cint16_T *arg5) { resample(arg1, arg2, arg3, arg4, arg5); }\n/* get_resample_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_spec_examples_46b04422dcd0bbd5 (void)) (int32_T *arg1, cint16_T arg2[30720000], int64_T arg3, int64_T arg4, cint16_T arg5[30720000]) { return &resample; } \n")
+$(HsBindgen.Runtime.Prelude.addCSource (Prelude.unlines
+  [ "#include <spec_examples.h>"
+  , "void hs_bindgen_test_spec_examples_7d4128962cfce15d ("
+  , "  int32_T *arg1,"
+  , "  cint16_T *arg2,"
+  , "  int64_T arg3,"
+  , "  int64_T arg4,"
+  , "  cint16_T *arg5"
+  , ")"
+  , "{"
+  , "  resample(arg1, arg2, arg3, arg4, arg5);"
+  , "}"
+  , "/* get_resample_ptr */"
+  , "__attribute__ ((const))"
+  , "void (*hs_bindgen_test_spec_examples_46b04422dcd0bbd5 (void)) ("
+  , "  int32_T *arg1,"
+  , "  cint16_T arg2[30720000],"
+  , "  int64_T arg3,"
+  , "  int64_T arg4,"
+  , "  cint16_T arg5[30720000]"
+  , ")"
+  , "{"
+  , "  return &resample;"
+  , "}"
+  ]))
 
 {-| Examples from the initial specification
 

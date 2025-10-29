@@ -2433,7 +2433,15 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "char hs_bindgen_test_macro_in_fundecl_vs_typedef_c7ba346f3006b36f (MC arg1, TC arg2) { return quux1(arg1, arg2); }",
+          concat
+            [
+              "char hs_bindgen_test_macro_in_fundecl_vs_typedef_c7ba346f3006b36f (\n",
+              "  MC arg1,\n",
+              "  TC arg2\n",
+              ")\n",
+              "{\n",
+              "  return quux1(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Function
@@ -2525,7 +2533,15 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "TC hs_bindgen_test_macro_in_fundecl_vs_typedef_db114519a8645d1f (MC arg1, char arg2) { return quux2(arg1, arg2); }",
+          concat
+            [
+              "TC hs_bindgen_test_macro_in_fundecl_vs_typedef_db114519a8645d1f (\n",
+              "  MC arg1,\n",
+              "  char arg2\n",
+              ")\n",
+              "{\n",
+              "  return quux2(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Function
@@ -2619,7 +2635,15 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "MC *hs_bindgen_test_macro_in_fundecl_vs_typedef_0a613fb26d413eaa (float arg1, TC *arg2) { return wam1(arg1, arg2); }",
+          concat
+            [
+              "MC *hs_bindgen_test_macro_in_fundecl_vs_typedef_0a613fb26d413eaa (\n",
+              "  float arg1,\n",
+              "  TC *arg2\n",
+              ")\n",
+              "{\n",
+              "  return wam1(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Function
@@ -2714,7 +2738,15 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "TC *hs_bindgen_test_macro_in_fundecl_vs_typedef_279b15c6940eb4f8 (float arg1, MC *arg2) { return wam2(arg1, arg2); }",
+          concat
+            [
+              "TC *hs_bindgen_test_macro_in_fundecl_vs_typedef_279b15c6940eb4f8 (\n",
+              "  float arg1,\n",
+              "  MC *arg2\n",
+              ")\n",
+              "{\n",
+              "  return wam2(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Function
@@ -2808,7 +2840,15 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_macro_in_fundecl_vs_typedef_27a965a9bfd8c176 (struct2 *arg1, MC arg2) { struct_typedef1(arg1, arg2); }",
+          concat
+            [
+              "void hs_bindgen_test_macro_in_fundecl_vs_typedef_27a965a9bfd8c176 (\n",
+              "  struct2 *arg1,\n",
+              "  MC arg2\n",
+              ")\n",
+              "{\n",
+              "  struct_typedef1(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Function
@@ -2903,7 +2943,15 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_macro_in_fundecl_vs_typedef_8e7c55302a7b5716 (struct3_t *arg1, MC arg2) { struct_typedef2(arg1, arg2); }",
+          concat
+            [
+              "void hs_bindgen_test_macro_in_fundecl_vs_typedef_8e7c55302a7b5716 (\n",
+              "  struct3_t *arg1,\n",
+              "  MC arg2\n",
+              ")\n",
+              "{\n",
+              "  struct_typedef2(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Function
@@ -2999,7 +3047,15 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_macro_in_fundecl_vs_typedef_fe83edb35a817050 (struct4 *arg1, MC arg2) { struct_typedef3(arg1, arg2); }",
+          concat
+            [
+              "void hs_bindgen_test_macro_in_fundecl_vs_typedef_fe83edb35a817050 (\n",
+              "  struct4 *arg1,\n",
+              "  MC arg2\n",
+              ")\n",
+              "{\n",
+              "  struct_typedef3(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Function
@@ -3092,7 +3148,15 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_macro_in_fundecl_vs_typedef_162df9fabcbef0c4 (struct struct1 *arg1, MC arg2) { struct_name1(arg1, arg2); }",
+          concat
+            [
+              "void hs_bindgen_test_macro_in_fundecl_vs_typedef_162df9fabcbef0c4 (\n",
+              "  struct struct1 *arg1,\n",
+              "  MC arg2\n",
+              ")\n",
+              "{\n",
+              "  struct_name1(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Function
@@ -3182,7 +3246,15 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_macro_in_fundecl_vs_typedef_a6b5f272333b19d4 (struct struct3 *arg1, MC arg2) { struct_name2(arg1, arg2); }",
+          concat
+            [
+              "void hs_bindgen_test_macro_in_fundecl_vs_typedef_a6b5f272333b19d4 (\n",
+              "  struct struct3 *arg1,\n",
+              "  MC arg2\n",
+              ")\n",
+              "{\n",
+              "  struct_name2(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Function
@@ -3272,7 +3344,15 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_macro_in_fundecl_vs_typedef_9eadc48880259e4a (struct struct4 *arg1, MC arg2) { struct_name3(arg1, arg2); }",
+          concat
+            [
+              "void hs_bindgen_test_macro_in_fundecl_vs_typedef_9eadc48880259e4a (\n",
+              "  struct struct4 *arg1,\n",
+              "  MC arg2\n",
+              ")\n",
+              "{\n",
+              "  struct_name3(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Function
@@ -3359,7 +3439,15 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "char hs_bindgen_test_macro_in_fundecl_vs_typedef_d8e3530b80cd03ff (MC arg1, TC arg2) { return quux1(arg1, arg2); }",
+          concat
+            [
+              "char hs_bindgen_test_macro_in_fundecl_vs_typedef_d8e3530b80cd03ff (\n",
+              "  MC arg1,\n",
+              "  TC arg2\n",
+              ")\n",
+              "{\n",
+              "  return quux1(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Function
@@ -3451,7 +3539,15 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "TC hs_bindgen_test_macro_in_fundecl_vs_typedef_857e3b8d0292d39d (MC arg1, char arg2) { return quux2(arg1, arg2); }",
+          concat
+            [
+              "TC hs_bindgen_test_macro_in_fundecl_vs_typedef_857e3b8d0292d39d (\n",
+              "  MC arg1,\n",
+              "  char arg2\n",
+              ")\n",
+              "{\n",
+              "  return quux2(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Function
@@ -3545,7 +3641,15 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "MC *hs_bindgen_test_macro_in_fundecl_vs_typedef_81d53aede4a7b424 (float arg1, TC *arg2) { return wam1(arg1, arg2); }",
+          concat
+            [
+              "MC *hs_bindgen_test_macro_in_fundecl_vs_typedef_81d53aede4a7b424 (\n",
+              "  float arg1,\n",
+              "  TC *arg2\n",
+              ")\n",
+              "{\n",
+              "  return wam1(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Function
@@ -3640,7 +3744,15 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "TC *hs_bindgen_test_macro_in_fundecl_vs_typedef_035abb3b83b92fea (float arg1, MC *arg2) { return wam2(arg1, arg2); }",
+          concat
+            [
+              "TC *hs_bindgen_test_macro_in_fundecl_vs_typedef_035abb3b83b92fea (\n",
+              "  float arg1,\n",
+              "  MC *arg2\n",
+              ")\n",
+              "{\n",
+              "  return wam2(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Function
@@ -3734,7 +3846,15 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_macro_in_fundecl_vs_typedef_34300aead966e212 (struct2 *arg1, MC arg2) { struct_typedef1(arg1, arg2); }",
+          concat
+            [
+              "void hs_bindgen_test_macro_in_fundecl_vs_typedef_34300aead966e212 (\n",
+              "  struct2 *arg1,\n",
+              "  MC arg2\n",
+              ")\n",
+              "{\n",
+              "  struct_typedef1(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Function
@@ -3829,7 +3949,15 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_macro_in_fundecl_vs_typedef_cc4abaeb55d1e034 (struct3_t *arg1, MC arg2) { struct_typedef2(arg1, arg2); }",
+          concat
+            [
+              "void hs_bindgen_test_macro_in_fundecl_vs_typedef_cc4abaeb55d1e034 (\n",
+              "  struct3_t *arg1,\n",
+              "  MC arg2\n",
+              ")\n",
+              "{\n",
+              "  struct_typedef2(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Function
@@ -3925,7 +4053,15 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_macro_in_fundecl_vs_typedef_d068247e5a3b03e6 (struct4 *arg1, MC arg2) { struct_typedef3(arg1, arg2); }",
+          concat
+            [
+              "void hs_bindgen_test_macro_in_fundecl_vs_typedef_d068247e5a3b03e6 (\n",
+              "  struct4 *arg1,\n",
+              "  MC arg2\n",
+              ")\n",
+              "{\n",
+              "  struct_typedef3(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Function
@@ -4018,7 +4154,15 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_macro_in_fundecl_vs_typedef_4107c49ec0f22d0c (struct struct1 *arg1, MC arg2) { struct_name1(arg1, arg2); }",
+          concat
+            [
+              "void hs_bindgen_test_macro_in_fundecl_vs_typedef_4107c49ec0f22d0c (\n",
+              "  struct struct1 *arg1,\n",
+              "  MC arg2\n",
+              ")\n",
+              "{\n",
+              "  struct_name1(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Function
@@ -4108,7 +4252,15 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_macro_in_fundecl_vs_typedef_124c6e0ae4b86063 (struct struct3 *arg1, MC arg2) { struct_name2(arg1, arg2); }",
+          concat
+            [
+              "void hs_bindgen_test_macro_in_fundecl_vs_typedef_124c6e0ae4b86063 (\n",
+              "  struct struct3 *arg1,\n",
+              "  MC arg2\n",
+              ")\n",
+              "{\n",
+              "  struct_name2(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Function
@@ -4198,7 +4350,15 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "void hs_bindgen_test_macro_in_fundecl_vs_typedef_4241bc0cd1393d99 (struct struct4 *arg1, MC arg2) { struct_name3(arg1, arg2); }",
+          concat
+            [
+              "void hs_bindgen_test_macro_in_fundecl_vs_typedef_4241bc0cd1393d99 (\n",
+              "  struct struct4 *arg1,\n",
+              "  MC arg2\n",
+              ")\n",
+              "{\n",
+              "  struct_name3(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Function
@@ -4270,7 +4430,17 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_quux1_ptr */ __attribute__ ((const)) char (*hs_bindgen_test_macro_in_fundecl_vs_typedef_7d7a63ab896ed293 (void)) (MC arg1, TC arg2) { return &quux1; } ",
+          concat
+            [
+              "/* get_quux1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "char (*hs_bindgen_test_macro_in_fundecl_vs_typedef_7d7a63ab896ed293 (void)) (\n",
+              "  MC arg1,\n",
+              "  TC arg2\n",
+              ")\n",
+              "{\n",
+              "  return &quux1;\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Global
@@ -4323,7 +4493,17 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_quux2_ptr */ __attribute__ ((const)) TC (*hs_bindgen_test_macro_in_fundecl_vs_typedef_b64c564dd7071f5b (void)) (MC arg1, char arg2) { return &quux2; } ",
+          concat
+            [
+              "/* get_quux2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "TC (*hs_bindgen_test_macro_in_fundecl_vs_typedef_b64c564dd7071f5b (void)) (\n",
+              "  MC arg1,\n",
+              "  char arg2\n",
+              ")\n",
+              "{\n",
+              "  return &quux2;\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Global
@@ -4378,7 +4558,17 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_wam1_ptr */ __attribute__ ((const)) MC *(*hs_bindgen_test_macro_in_fundecl_vs_typedef_aa26b3a0f4d0aefe (void)) (float arg1, TC *arg2) { return &wam1; } ",
+          concat
+            [
+              "/* get_wam1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "MC *(*hs_bindgen_test_macro_in_fundecl_vs_typedef_aa26b3a0f4d0aefe (void)) (\n",
+              "  float arg1,\n",
+              "  TC *arg2\n",
+              ")\n",
+              "{\n",
+              "  return &wam1;\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Global
@@ -4434,7 +4624,17 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_wam2_ptr */ __attribute__ ((const)) TC *(*hs_bindgen_test_macro_in_fundecl_vs_typedef_5cb5ead73c0a3d63 (void)) (float arg1, MC *arg2) { return &wam2; } ",
+          concat
+            [
+              "/* get_wam2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "TC *(*hs_bindgen_test_macro_in_fundecl_vs_typedef_5cb5ead73c0a3d63 (void)) (\n",
+              "  float arg1,\n",
+              "  MC *arg2\n",
+              ")\n",
+              "{\n",
+              "  return &wam2;\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Global
@@ -4489,7 +4689,17 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_struct_typedef1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_macro_in_fundecl_vs_typedef_a1aadeb6878a5152 (void)) (struct2 *arg1, MC arg2) { return &struct_typedef1; } ",
+          concat
+            [
+              "/* get_struct_typedef1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_macro_in_fundecl_vs_typedef_a1aadeb6878a5152 (void)) (\n",
+              "  struct2 *arg1,\n",
+              "  MC arg2\n",
+              ")\n",
+              "{\n",
+              "  return &struct_typedef1;\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Global
@@ -4544,7 +4754,17 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_struct_typedef2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_macro_in_fundecl_vs_typedef_e1dac8a006e6b043 (void)) (struct3_t *arg1, MC arg2) { return &struct_typedef2; } ",
+          concat
+            [
+              "/* get_struct_typedef2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_macro_in_fundecl_vs_typedef_e1dac8a006e6b043 (void)) (\n",
+              "  struct3_t *arg1,\n",
+              "  MC arg2\n",
+              ")\n",
+              "{\n",
+              "  return &struct_typedef2;\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Global
@@ -4600,7 +4820,17 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_struct_typedef3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_macro_in_fundecl_vs_typedef_078075d0a80d4368 (void)) (struct4 *arg1, MC arg2) { return &struct_typedef3; } ",
+          concat
+            [
+              "/* get_struct_typedef3_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_macro_in_fundecl_vs_typedef_078075d0a80d4368 (void)) (\n",
+              "  struct4 *arg1,\n",
+              "  MC arg2\n",
+              ")\n",
+              "{\n",
+              "  return &struct_typedef3;\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Global
@@ -4653,7 +4883,17 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_struct_name1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_macro_in_fundecl_vs_typedef_7574edf86480f042 (void)) (struct struct1 *arg1, MC arg2) { return &struct_name1; } ",
+          concat
+            [
+              "/* get_struct_name1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_macro_in_fundecl_vs_typedef_7574edf86480f042 (void)) (\n",
+              "  struct struct1 *arg1,\n",
+              "  MC arg2\n",
+              ")\n",
+              "{\n",
+              "  return &struct_name1;\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Global
@@ -4703,7 +4943,17 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_struct_name2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_macro_in_fundecl_vs_typedef_e7a8c1f45f8b20c2 (void)) (struct struct3 *arg1, MC arg2) { return &struct_name2; } ",
+          concat
+            [
+              "/* get_struct_name2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_macro_in_fundecl_vs_typedef_e7a8c1f45f8b20c2 (void)) (\n",
+              "  struct struct3 *arg1,\n",
+              "  MC arg2\n",
+              ")\n",
+              "{\n",
+              "  return &struct_name2;\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Global
@@ -4753,7 +5003,17 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_struct_name3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_macro_in_fundecl_vs_typedef_d52310663e8daa5c (void)) (struct struct4 *arg1, MC arg2) { return &struct_name3; } ",
+          concat
+            [
+              "/* get_struct_name3_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_macro_in_fundecl_vs_typedef_d52310663e8daa5c (void)) (\n",
+              "  struct struct4 *arg1,\n",
+              "  MC arg2\n",
+              ")\n",
+              "{\n",
+              "  return &struct_name3;\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl_vs_typedef.h"},
       foreignImportOrigin = Global
