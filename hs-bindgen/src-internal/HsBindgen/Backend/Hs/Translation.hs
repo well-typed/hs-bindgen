@@ -205,6 +205,7 @@ isDefinedInCurrentModule declIndex ty = case ty of
   C.TypeTypedef (C.TypedefRegular namePair _)  -> isInDeclIndex namePair C.NameOriginInSource C.NameKindOrdinary
   C.TypeTypedef (C.TypedefSquashed name _)     -> isInDeclIndex (C.NamePair name (Hs.Identifier (C.getName name)))
                                                                C.NameOriginInSource C.NameKindOrdinary
+  C.TypeQualified _ t                          -> isDefinedInCurrentModule declIndex t
   _                                            -> False
   where
     isInDeclIndex :: C.NamePair -> C.NameOrigin -> C.NameKind -> Bool

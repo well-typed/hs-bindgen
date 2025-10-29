@@ -92,4 +92,6 @@ void processMeasurementWithValidation(
 );
 
 typedef int foo;
+typedef int foo2;
 void f(void (*callback)(foo x));
+void f2(void (*handler)(const foo2 x));

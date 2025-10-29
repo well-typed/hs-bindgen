@@ -144,3 +144,21 @@ types:
   - Real
   - Show
   - Storable
+- headers: callbacks.h
+  cname: foo2
+  module: Example
+  hsname: Foo2
+  instances:
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Read
+  - Real
+  - Show
+  - Storable
