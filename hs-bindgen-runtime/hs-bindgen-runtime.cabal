@@ -45,6 +45,7 @@ library
     HsBindgen.Runtime.Block
     HsBindgen.Runtime.ByteArray
     HsBindgen.Runtime.CAPI
+    HsBindgen.Runtime.CBoolSem
     HsBindgen.Runtime.CEnum
     HsBindgen.Runtime.ConstantArray
     HsBindgen.Runtime.FlexibleArrayMember
@@ -84,6 +85,7 @@ test-suite test-runtime
   main-is:        test-runtime.hs
   other-modules:
     Test.HsBindgen.Runtime.Bitfield
+    Test.HsBindgen.Runtime.CBoolSem
     Test.HsBindgen.Runtime.CEnum
     Test.HsBindgen.Runtime.CEnumArbitrary
     Test.Internal.Tasty
@@ -98,3 +100,4 @@ test-suite test-runtime
     , tasty-expected-failure  ^>=0.12.3
     , tasty-hunit             ^>=0.10.2
     , tasty-quickcheck        ^>=0.11
+    , transformers            >=0.5     && <0.7
