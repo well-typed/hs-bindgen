@@ -224,3 +224,7 @@ unsafe extern "C" {
         >,
     );
 }
+pub type foo = ::std::os::raw::c_int;
+unsafe extern "C" {
+    pub fn f(callback: ::std::option::Option<unsafe extern "C" fn(x: foo)>);
+}

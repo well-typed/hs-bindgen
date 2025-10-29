@@ -1865,5 +1865,80 @@ TranslationUnit {
           cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
+          Map.fromList []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "callbacks.h:94:13",
+        declId = NamePair {
+          nameC = Name "foo",
+          nameHsIdent = Identifier "Foo"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["callbacks.h"],
+            headerInclude = "callbacks.h"},
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = Name
+              "@NsConstr"
+              "Foo",
+            newtypeField = Name
+              "@NsVar"
+              "un_Foo"},
+          typedefType = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "callbacks.h:95:6",
+        declId = NamePair {
+          nameC = Name "f",
+          nameHsIdent = Identifier "f"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["callbacks.h"],
+            headerInclude = "callbacks.h"},
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "callback",
+                  nameHsIdent = Identifier
+                    "callback"})
+              (TypePointer
+                (TypeFun
+                  [
+                    TypeTypedef
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name "foo",
+                          nameHsIdent = Identifier "Foo"}
+                        (TypePrim
+                          (PrimIntegral PrimInt Signed)))]
+                  TypeVoid))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
           Map.fromList []}}],
   unitDeps = ["callbacks"]}

@@ -90,3 +90,6 @@ void processMeasurementWithValidation(
         DataValidator validator
     )
 );
+
+typedef int foo;
+void f(void (*callback)(foo x));

@@ -6114,6 +6114,319 @@
                       (Idx 1)])))},
       defineInstanceComment =
       Nothing},
+  DeclNewtype
+    Newtype {
+      newtypeName = Name
+        "@NsTypeConstr"
+        "Foo",
+      newtypeConstr = Name
+        "@NsConstr"
+        "Foo",
+      newtypeField = Field {
+        fieldName = Name
+          "@NsVar"
+          "un_Foo",
+        fieldType = HsPrimType
+          HsPrimCInt,
+        fieldOrigin = GeneratedField,
+        fieldComment = Nothing},
+      newtypeOrigin = Decl {
+        declInfo = DeclInfo {
+          declLoc = "callbacks.h:94:13",
+          declId = NamePair {
+            nameC = Name "foo",
+            nameHsIdent = Identifier "Foo"},
+          declOrigin = NameOriginInSource,
+          declAliases = [],
+          declHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["callbacks.h"],
+              headerInclude = "callbacks.h"},
+          declComment = Nothing},
+        declKind = Typedef
+          Typedef {
+            typedefNames = NewtypeNames {
+              newtypeConstr = Name
+                "@NsConstr"
+                "Foo",
+              newtypeField = Name
+                "@NsVar"
+                "un_Foo"},
+            typedefType = TypePrim
+              (PrimIntegral PrimInt Signed)},
+        declSpec = DeclSpec
+          CTypeSpec {
+            cTypeSpecModule = Nothing,
+            cTypeSpecIdentifier = Nothing,
+            cTypeSpecInstances =
+            Map.fromList []}},
+      newtypeInstances = Set.fromList
+        [
+          Bits,
+          Bounded,
+          Enum,
+          Eq,
+          FiniteBits,
+          Integral,
+          Ix,
+          Num,
+          Ord,
+          Read,
+          Real,
+          Show,
+          Storable],
+      newtypeComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "foo",
+          commentLocation = Just
+            "callbacks.h:94:13",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["callbacks.h"],
+              headerInclude = "callbacks.h"},
+          commentChildren = []}},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Storable,
+      deriveInstanceName = Name
+        "@NsTypeConstr"
+        "Foo",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Eq,
+      deriveInstanceName = Name
+        "@NsTypeConstr"
+        "Foo",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Ord,
+      deriveInstanceName = Name
+        "@NsTypeConstr"
+        "Foo",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Read,
+      deriveInstanceName = Name
+        "@NsTypeConstr"
+        "Foo",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveStock,
+      deriveInstanceClass = Show,
+      deriveInstanceName = Name
+        "@NsTypeConstr"
+        "Foo",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Enum,
+      deriveInstanceName = Name
+        "@NsTypeConstr"
+        "Foo",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Ix,
+      deriveInstanceName = Name
+        "@NsTypeConstr"
+        "Foo",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Bounded,
+      deriveInstanceName = Name
+        "@NsTypeConstr"
+        "Foo",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Bits,
+      deriveInstanceName = Name
+        "@NsTypeConstr"
+        "Foo",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass =
+      FiniteBits,
+      deriveInstanceName = Name
+        "@NsTypeConstr"
+        "Foo",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Integral,
+      deriveInstanceName = Name
+        "@NsTypeConstr"
+        "Foo",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Num,
+      deriveInstanceName = Name
+        "@NsTypeConstr"
+        "Foo",
+      deriveInstanceComment =
+      Nothing},
+  DeclNewtypeInstance
+    DeriveInstance {
+      deriveInstanceStrategy =
+      DeriveNewtype,
+      deriveInstanceClass = Real,
+      deriveInstanceName = Name
+        "@NsTypeConstr"
+        "Foo",
+      deriveInstanceComment =
+      Nothing},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "funPtr_7a7e54ab_to",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsFun
+            (HsTypRef
+              (Name "@NsTypeConstr" "Foo"))
+            (HsIO (HsPrimType HsPrimUnit)),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsTypRef
+                (Name "@NsTypeConstr" "Foo"))
+              (HsIO
+                (HsPrimType HsPrimUnit))))),
+      foreignImportOrigName =
+      "wrapper",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin = ToFunPtr
+        (TypePointer
+          (TypeFun
+            [
+              TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "foo",
+                    nameHsIdent = Identifier "Foo"}
+                  (TypePrim
+                    (PrimIntegral PrimInt Signed)))]
+            TypeVoid)),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "funPtr_7a7e54ab_from",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Nothing,
+          functionParameterType = HsFunPtr
+            (HsFun
+              (HsTypRef
+                (Name "@NsTypeConstr" "Foo"))
+              (HsIO (HsPrimType HsPrimUnit))),
+          functionParameterComment =
+          Nothing}],
+      foreignImportResultType =
+      NormalResultType
+        (HsFun
+          (HsTypRef
+            (Name "@NsTypeConstr" "Foo"))
+          (HsIO (HsPrimType HsPrimUnit))),
+      foreignImportOrigName =
+      "dynamic",
+      foreignImportCallConv =
+      CallConvGhcCCall ImportAsValue,
+      foreignImportOrigin = FromFunPtr
+        (TypePointer
+          (TypeFun
+            [
+              TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "foo",
+                    nameHsIdent = Identifier "Foo"}
+                  (TypePrim
+                    (PrimIntegral PrimInt Signed)))]
+            TypeVoid)),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Safe},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceToFunPtr
+        ToFunPtrInstance {
+          toFunPtrInstanceType = HsFun
+            (HsTypRef
+              (Name "@NsTypeConstr" "Foo"))
+            (HsIO (HsPrimType HsPrimUnit)),
+          toFunPtrInstanceBody = Name
+            "@NsVar"
+            "funPtr_7a7e54ab_to"},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceFromFunPtr
+        FromFunPtrInstance {
+          fromFunPtrInstanceType = HsFun
+            (HsTypRef
+              (Name "@NsTypeConstr" "Foo"))
+            (HsIO (HsPrimType HsPrimUnit)),
+          fromFunPtrInstanceBody = Name
+            "@NsVar"
+            "funPtr_7a7e54ab_from"},
+      defineInstanceComment =
+      Nothing},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name
@@ -8990,6 +9303,76 @@
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
+        "f",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "callback"),
+          functionParameterType = HsFunPtr
+            (HsFun
+              (HsTypRef
+                (Name "@NsTypeConstr" "Foo"))
+              (HsIO (HsPrimType HsPrimUnit))),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "callback",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
+      foreignImportOrigName =
+      "hs_bindgen_test_callbacks_fcce70013c76ce8b",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_callbacks_fcce70013c76ce8b (void (*arg1) (foo arg1)) { f(arg1); }",
+          capiWrapperImport =
+          "callbacks.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "callback",
+                  nameHsIdent = Identifier
+                    "callback"})
+              (TypePointer
+                (TypeFun
+                  [
+                    TypeTypedef
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name "foo",
+                          nameHsIdent = Identifier "Foo"}
+                        (TypePrim
+                          (PrimIntegral PrimInt Signed)))]
+                  TypeVoid))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "f",
+          commentLocation = Just
+            "callbacks.h:95:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["callbacks.h"],
+              headerInclude = "callbacks.h"},
+          commentChildren = []},
+      foreignImportSafety = Safe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
         "readFileWithProcessor",
       foreignImportParameters = [
         FunctionParameter {
@@ -10270,6 +10653,76 @@
     ForeignImportDecl {
       foreignImportName = Name
         "@NsVar"
+        "f",
+      foreignImportParameters = [
+        FunctionParameter {
+          functionParameterName = Just
+            (Name "@NsVar" "callback"),
+          functionParameterType = HsFunPtr
+            (HsFun
+              (HsTypRef
+                (Name "@NsTypeConstr" "Foo"))
+              (HsIO (HsPrimType HsPrimUnit))),
+          functionParameterComment = Just
+            Comment {
+              commentTitle = Nothing,
+              commentOrigin = Just "callback",
+              commentLocation = Nothing,
+              commentHeaderInfo = Nothing,
+              commentChildren = []}}],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO (HsPrimType HsPrimUnit)),
+      foreignImportOrigName =
+      "hs_bindgen_test_callbacks_b68b2cffacc97c1d",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "void hs_bindgen_test_callbacks_b68b2cffacc97c1d (void (*arg1) (foo arg1)) { f(arg1); }",
+          capiWrapperImport =
+          "callbacks.h"},
+      foreignImportOrigin = Function
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "callback",
+                  nameHsIdent = Identifier
+                    "callback"})
+              (TypePointer
+                (TypeFun
+                  [
+                    TypeTypedef
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name "foo",
+                          nameHsIdent = Identifier "Foo"}
+                        (TypePrim
+                          (PrimIntegral PrimInt Signed)))]
+                  TypeVoid))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      foreignImportComment = Just
+        Comment {
+          commentTitle = Nothing,
+          commentOrigin = Just "f",
+          commentLocation = Just
+            "callbacks.h:95:6",
+          commentHeaderInfo = Just
+            HeaderInfo {
+              headerMainHeaders = NE.fromList
+                ["callbacks.h"],
+              headerInclude = "callbacks.h"},
+          commentChildren = []},
+      foreignImportSafety = Unsafe},
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
         "hs_bindgen_test_callbacks_c4b06d89a94616dd",
       foreignImportParameters = [],
       foreignImportResultType =
@@ -11076,6 +11529,52 @@
                             (PrimIntegral
                               PrimInt
                               Signed)))))]
+                TypeVoid)]
+          TypeVoid),
+      foreignImportComment = Nothing,
+      foreignImportSafety = Unsafe},
+  DeclSimple,
+  DeclSimple,
+  DeclForeignImport
+    ForeignImportDecl {
+      foreignImportName = Name
+        "@NsVar"
+        "hs_bindgen_test_callbacks_c34fd33eedc1490d",
+      foreignImportParameters = [],
+      foreignImportResultType =
+      NormalResultType
+        (HsIO
+          (HsFunPtr
+            (HsFun
+              (HsFunPtr
+                (HsFun
+                  (HsTypRef
+                    (Name "@NsTypeConstr" "Foo"))
+                  (HsIO (HsPrimType HsPrimUnit))))
+              (HsIO
+                (HsPrimType HsPrimUnit))))),
+      foreignImportOrigName =
+      "hs_bindgen_test_callbacks_c34fd33eedc1490d",
+      foreignImportCallConv =
+      CallConvUserlandCAPI
+        UserlandCapiWrapper {
+          capiWrapperDefinition =
+          "/* get_f_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_c34fd33eedc1490d (void)) (void (*arg1) (foo arg1)) { return &f; } ",
+          capiWrapperImport =
+          "callbacks.h"},
+      foreignImportOrigin = Global
+        (TypeFun
+          [
+            TypePointer
+              (TypeFun
+                [
+                  TypeTypedef
+                    (TypedefRegular
+                      NamePair {
+                        nameC = Name "foo",
+                        nameHsIdent = Identifier "Foo"}
+                      (TypePrim
+                        (PrimIntegral PrimInt Signed)))]
                 TypeVoid)]
           TypeVoid),
       foreignImportComment = Nothing,

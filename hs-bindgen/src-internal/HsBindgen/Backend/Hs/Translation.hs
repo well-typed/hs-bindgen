@@ -183,8 +183,6 @@ scanAllFunctionPointerTypes =
                 foldMap (scanTypeForFunctionPointers . C.structFieldType) structFields
               C.DeclUnion C.Union {..}   ->
                 foldMap (scanTypeForFunctionPointers . C.unionFieldType) unionFields
-              C.DeclEnum C.Enum {..} ->
-                scanTypeForFunctionPointers enumType
               C.DeclFunction fn ->
                 foldMap scanTypeForFunctionPointers ((C.functionRes fn) : (snd <$> C.functionArgs fn))
               _ -> Set.empty
@@ -207,13 +205,16 @@ scanAllFunctionPointerTypes =
 
 -- | Check if a type is defined in the current module
 isDefinedInCurrentModule :: DeclIndex -> C.Type -> Bool
-isDefinedInCurrentModule declIndex ty = case C.getCanonicalType ty of
+isDefinedInCurrentModule declIndex ty = case ty of
   C.TypeStruct namePair origin                 -> isInDeclIndex namePair origin (C.NameKindTagged C.TagKindStruct)
   C.TypeUnion namePair origin                  -> isInDeclIndex namePair origin (C.NameKindTagged C.TagKindUnion)
   C.TypeEnum namePair origin                   -> isInDeclIndex namePair origin (C.NameKindTagged C.TagKindEnum)
   C.TypePointer (C.TypeStruct namePair origin) -> isInDeclIndex namePair origin (C.NameKindTagged C.TagKindStruct)
   C.TypePointer (C.TypeUnion namePair origin)  -> isInDeclIndex namePair origin (C.NameKindTagged C.TagKindUnion)
   C.TypePointer (C.TypeEnum namePair origin)   -> isInDeclIndex namePair origin (C.NameKindTagged C.TagKindEnum)
+  C.TypeTypedef (C.TypedefRegular namePair _)  -> isInDeclIndex namePair C.NameOriginInSource C.NameKindOrdinary
+  C.TypeTypedef (C.TypedefSquashed name _)     -> isInDeclIndex (C.NamePair name (Hs.Identifier (C.getName name)))
+                                                               C.NameOriginInSource C.NameKindOrdinary
   _                                            -> False
   where
     isInDeclIndex :: C.NamePair -> C.NameOrigin -> C.NameKind -> Bool

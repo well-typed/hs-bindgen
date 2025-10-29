@@ -13,6 +13,8 @@
 module Example where
 
 import qualified Data.Array.Byte
+import qualified Data.Bits as Bits
+import qualified Data.Ix as Ix
 import qualified Data.List.NonEmpty
 import qualified Foreign as F
 import qualified Foreign.C as FC
@@ -25,9 +27,10 @@ import qualified HsBindgen.Runtime.FunPtr
 import qualified HsBindgen.Runtime.Prelude
 import qualified HsBindgen.Runtime.SizedByteArray
 import qualified Text.Read
-import Prelude ((<*>), (>>), Eq, IO, Int, Ord, Read, Show, pure, showsPrec)
+import Data.Bits (FiniteBits)
+import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure, showsPrec)
 
-$(HsBindgen.Runtime.Prelude.addCSource "#include <callbacks.h>\nsigned int hs_bindgen_test_callbacks_a0a59181c714c131 (void (*arg1) (signed int arg1), signed int arg2) { return readFileWithProcessor(arg1, arg2); }\nvoid hs_bindgen_test_callbacks_d59e6698796971ea (void (*arg1) (signed int arg1), signed int arg2) { watchTemperature(arg1, arg2); }\nvoid hs_bindgen_test_callbacks_c9fb8fdc3d0d3978 (FileOpenedNotification arg1) { onFileOpened(arg1); }\nvoid hs_bindgen_test_callbacks_7921ad1b219190e4 (ProgressUpdate arg1) { onProgressChanged(arg1); }\nsigned int hs_bindgen_test_callbacks_ae19d658f098584a (DataValidator arg1, signed int arg2) { return validateInput(arg1, arg2); }\nvoid hs_bindgen_test_callbacks_d2fdffe85523b3ef (MeasurementReceived arg1) { onNewMeasurement(arg1); }\nvoid hs_bindgen_test_callbacks_c5b555bbc07b808d (MeasurementReceived2 arg1) { onNewMeasurement2(arg1); }\nvoid hs_bindgen_test_callbacks_65927c77229ad893 (SampleBufferFull arg1) { onBufferReady(arg1); }\nvoid hs_bindgen_test_callbacks_0b6a9249f49b986f (struct Measurement *arg1, void (*arg2) (struct Measurement *arg1, double (*arg2) (double arg1, signed int arg2), signed int arg3)) { transformMeasurement(arg1, arg2); }\nvoid hs_bindgen_test_callbacks_2c3e0e84ae9cde51 (void (*arg1) (struct Measurement *arg1, FileOpenedNotification arg2, signed int arg3)) { processWithCallbacks(arg1); }\nvoid hs_bindgen_test_callbacks_0b172585709f9d48 (struct MeasurementHandler *arg1) { registerHandler(arg1); }\nvoid hs_bindgen_test_callbacks_25a56dfc7b259e7d (struct Measurement *arg1, struct DataPipeline *arg2) { executePipeline(arg1, arg2); }\nvoid hs_bindgen_test_callbacks_5908d37641d70953 (struct Measurement *arg1, struct Processor *arg2) { runProcessor(arg1, arg2); }\nvoid hs_bindgen_test_callbacks_f3c99b4af7808e7f (struct Measurement *arg1, void (*arg2) (struct Measurement *arg1, void (*arg2) (struct Measurement *arg1, DataValidator arg2, signed int arg3), DataValidator arg3)) { processMeasurementWithValidation(arg1, arg2); }\n/* get_readFileWithProcessor_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_callbacks_c4b06d89a94616dd (void)) (void (*arg1) (signed int arg1), signed int arg2) { return &readFileWithProcessor; } \n/* get_watchTemperature_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_22c54726df44b640 (void)) (void (*arg1) (signed int arg1), signed int arg2) { return &watchTemperature; } \n/* get_onFileOpened_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_8167a5b82d621c9d (void)) (FileOpenedNotification arg1) { return &onFileOpened; } \n/* get_onProgressChanged_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_ef51ad75ce9862a3 (void)) (ProgressUpdate arg1) { return &onProgressChanged; } \n/* get_validateInput_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_callbacks_9eaedb1b1c5b3fdb (void)) (DataValidator arg1, signed int arg2) { return &validateInput; } \n/* get_onNewMeasurement_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_f9f4f5ec3dd82431 (void)) (MeasurementReceived arg1) { return &onNewMeasurement; } \n/* get_onNewMeasurement2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_9c5afeda25ede1ce (void)) (MeasurementReceived2 arg1) { return &onNewMeasurement2; } \n/* get_onBufferReady_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_8091188123328aa8 (void)) (SampleBufferFull arg1) { return &onBufferReady; } \n/* get_transformMeasurement_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_6c9fe4dae03a37fa (void)) (struct Measurement *arg1, void (*arg2) (struct Measurement *arg1, double (*arg2) (double arg1, signed int arg2), signed int arg3)) { return &transformMeasurement; } \n/* get_processWithCallbacks_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_2ee8d8889cd31fb7 (void)) (void (*arg1) (struct Measurement *arg1, FileOpenedNotification arg2, signed int arg3)) { return &processWithCallbacks; } \n/* get_registerHandler_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_5a70e34ecc71835b (void)) (struct MeasurementHandler *arg1) { return &registerHandler; } \n/* get_executePipeline_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_1a0881ba01e93710 (void)) (struct Measurement *arg1, struct DataPipeline *arg2) { return &executePipeline; } \n/* get_runProcessor_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_1e7d8fd6cb5a199f (void)) (struct Measurement *arg1, struct Processor *arg2) { return &runProcessor; } \n/* get_processMeasurementWithValidation_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_6621b1bf8ef7af3b (void)) (struct Measurement *arg1, void (*arg2) (struct Measurement *arg1, void (*arg2) (struct Measurement *arg1, DataValidator arg2, signed int arg3), DataValidator arg3)) { return &processMeasurementWithValidation; } \n")
+$(HsBindgen.Runtime.Prelude.addCSource "#include <callbacks.h>\nsigned int hs_bindgen_test_callbacks_a0a59181c714c131 (void (*arg1) (signed int arg1), signed int arg2) { return readFileWithProcessor(arg1, arg2); }\nvoid hs_bindgen_test_callbacks_d59e6698796971ea (void (*arg1) (signed int arg1), signed int arg2) { watchTemperature(arg1, arg2); }\nvoid hs_bindgen_test_callbacks_c9fb8fdc3d0d3978 (FileOpenedNotification arg1) { onFileOpened(arg1); }\nvoid hs_bindgen_test_callbacks_7921ad1b219190e4 (ProgressUpdate arg1) { onProgressChanged(arg1); }\nsigned int hs_bindgen_test_callbacks_ae19d658f098584a (DataValidator arg1, signed int arg2) { return validateInput(arg1, arg2); }\nvoid hs_bindgen_test_callbacks_d2fdffe85523b3ef (MeasurementReceived arg1) { onNewMeasurement(arg1); }\nvoid hs_bindgen_test_callbacks_c5b555bbc07b808d (MeasurementReceived2 arg1) { onNewMeasurement2(arg1); }\nvoid hs_bindgen_test_callbacks_65927c77229ad893 (SampleBufferFull arg1) { onBufferReady(arg1); }\nvoid hs_bindgen_test_callbacks_0b6a9249f49b986f (struct Measurement *arg1, void (*arg2) (struct Measurement *arg1, double (*arg2) (double arg1, signed int arg2), signed int arg3)) { transformMeasurement(arg1, arg2); }\nvoid hs_bindgen_test_callbacks_2c3e0e84ae9cde51 (void (*arg1) (struct Measurement *arg1, FileOpenedNotification arg2, signed int arg3)) { processWithCallbacks(arg1); }\nvoid hs_bindgen_test_callbacks_0b172585709f9d48 (struct MeasurementHandler *arg1) { registerHandler(arg1); }\nvoid hs_bindgen_test_callbacks_25a56dfc7b259e7d (struct Measurement *arg1, struct DataPipeline *arg2) { executePipeline(arg1, arg2); }\nvoid hs_bindgen_test_callbacks_5908d37641d70953 (struct Measurement *arg1, struct Processor *arg2) { runProcessor(arg1, arg2); }\nvoid hs_bindgen_test_callbacks_f3c99b4af7808e7f (struct Measurement *arg1, void (*arg2) (struct Measurement *arg1, void (*arg2) (struct Measurement *arg1, DataValidator arg2, signed int arg3), DataValidator arg3)) { processMeasurementWithValidation(arg1, arg2); }\nvoid hs_bindgen_test_callbacks_fcce70013c76ce8b (void (*arg1) (foo arg1)) { f(arg1); }\n/* get_readFileWithProcessor_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_callbacks_c4b06d89a94616dd (void)) (void (*arg1) (signed int arg1), signed int arg2) { return &readFileWithProcessor; } \n/* get_watchTemperature_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_22c54726df44b640 (void)) (void (*arg1) (signed int arg1), signed int arg2) { return &watchTemperature; } \n/* get_onFileOpened_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_8167a5b82d621c9d (void)) (FileOpenedNotification arg1) { return &onFileOpened; } \n/* get_onProgressChanged_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_ef51ad75ce9862a3 (void)) (ProgressUpdate arg1) { return &onProgressChanged; } \n/* get_validateInput_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_callbacks_9eaedb1b1c5b3fdb (void)) (DataValidator arg1, signed int arg2) { return &validateInput; } \n/* get_onNewMeasurement_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_f9f4f5ec3dd82431 (void)) (MeasurementReceived arg1) { return &onNewMeasurement; } \n/* get_onNewMeasurement2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_9c5afeda25ede1ce (void)) (MeasurementReceived2 arg1) { return &onNewMeasurement2; } \n/* get_onBufferReady_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_8091188123328aa8 (void)) (SampleBufferFull arg1) { return &onBufferReady; } \n/* get_transformMeasurement_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_6c9fe4dae03a37fa (void)) (struct Measurement *arg1, void (*arg2) (struct Measurement *arg1, double (*arg2) (double arg1, signed int arg2), signed int arg3)) { return &transformMeasurement; } \n/* get_processWithCallbacks_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_2ee8d8889cd31fb7 (void)) (void (*arg1) (struct Measurement *arg1, FileOpenedNotification arg2, signed int arg3)) { return &processWithCallbacks; } \n/* get_registerHandler_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_5a70e34ecc71835b (void)) (struct MeasurementHandler *arg1) { return &registerHandler; } \n/* get_executePipeline_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_1a0881ba01e93710 (void)) (struct Measurement *arg1, struct DataPipeline *arg2) { return &executePipeline; } \n/* get_runProcessor_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_1e7d8fd6cb5a199f (void)) (struct Measurement *arg1, struct Processor *arg2) { return &runProcessor; } \n/* get_processMeasurementWithValidation_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_6621b1bf8ef7af3b (void)) (struct Measurement *arg1, void (*arg2) (struct Measurement *arg1, void (*arg2) (struct Measurement *arg1, DataValidator arg2, signed int arg3), DataValidator arg3)) { return &processMeasurementWithValidation; } \n/* get_f_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_c34fd33eedc1490d (void)) (void (*arg1) (foo arg1)) { return &f; } \n")
 
 {-| Auxiliary type used by 'FileOpenedNotification'
 
@@ -614,6 +617,34 @@ instance F.Storable Processor where
                F.pokeByteOff ptr0 (0 :: Int) processor_mode2
             >> F.pokeByteOff ptr0 (8 :: Int) processor_callback3
 
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @callbacks.h:94:13@
+
+    __exported by:__ @callbacks.h@
+-}
+newtype Foo = Foo
+  { un_Foo :: FC.CInt
+  }
+  deriving stock (Eq, Ord, Read, Show)
+  deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+
+foreign import ccall safe "wrapper" funPtr_7a7e54ab_to ::
+     (Foo -> IO ())
+  -> IO (Ptr.FunPtr (Foo -> IO ()))
+
+foreign import ccall safe "dynamic" funPtr_7a7e54ab_from ::
+     Ptr.FunPtr (Foo -> IO ())
+  -> Foo -> IO ()
+
+instance HsBindgen.Runtime.FunPtr.ToFunPtr (Foo -> IO ()) where
+
+  toFunPtr = funPtr_7a7e54ab_to
+
+instance HsBindgen.Runtime.FunPtr.FromFunPtr (Foo -> IO ()) where
+
+  fromFunPtr = funPtr_7a7e54ab_from
+
 foreign import ccall safe "wrapper" funPtr_527712e4_to ::
      ((Ptr.Ptr Measurement) -> IO FC.CInt)
   -> IO (Ptr.FunPtr ((Ptr.Ptr Measurement) -> IO FC.CInt))
@@ -931,6 +962,18 @@ foreign import ccall safe "hs_bindgen_test_callbacks_f3c99b4af7808e7f" processMe
      -}
   -> IO ()
 
+{-| __C declaration:__ @f@
+
+    __defined at:__ @callbacks.h:95:6@
+
+    __exported by:__ @callbacks.h@
+-}
+foreign import ccall safe "hs_bindgen_test_callbacks_fcce70013c76ce8b" f ::
+     Ptr.FunPtr (Foo -> IO ())
+     {- ^ __C declaration:__ @callback@
+     -}
+  -> IO ()
+
 foreign import ccall unsafe "hs_bindgen_test_callbacks_c4b06d89a94616dd" hs_bindgen_test_callbacks_c4b06d89a94616dd ::
      IO (Ptr.FunPtr ((Ptr.FunPtr (FC.CInt -> IO ())) -> FC.CInt -> IO FC.CInt))
 
@@ -1140,3 +1183,18 @@ foreign import ccall unsafe "hs_bindgen_test_callbacks_6621b1bf8ef7af3b" hs_bind
 processMeasurementWithValidation_ptr :: Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr ((Ptr.Ptr Measurement) -> (Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> FC.CInt -> IO ())) -> DataValidator -> IO ())) -> IO ())
 processMeasurementWithValidation_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_callbacks_6621b1bf8ef7af3b
+
+foreign import ccall unsafe "hs_bindgen_test_callbacks_c34fd33eedc1490d" hs_bindgen_test_callbacks_c34fd33eedc1490d ::
+     IO (Ptr.FunPtr ((Ptr.FunPtr (Foo -> IO ())) -> IO ()))
+
+{-# NOINLINE f_ptr #-}
+
+{-| __C declaration:__ @f@
+
+    __defined at:__ @callbacks.h:95:6@
+
+    __exported by:__ @callbacks.h@
+-}
+f_ptr :: Ptr.FunPtr ((Ptr.FunPtr (Foo -> IO ())) -> IO ())
+f_ptr =
+  GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_callbacks_c34fd33eedc1490d

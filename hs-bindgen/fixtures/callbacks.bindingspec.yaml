@@ -126,3 +126,21 @@ types:
   cname: SampleBufferFull_Deref
   module: Example
   hsname: SampleBufferFull_Deref
+- headers: callbacks.h
+  cname: foo
+  module: Example
+  hsname: Foo
+  instances:
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Read
+  - Real
+  - Show
+  - Storable
