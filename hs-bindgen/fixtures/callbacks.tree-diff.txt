@@ -2,7 +2,7 @@ TranslationUnit {
   unitDecls = [
     Decl {
       declInfo = DeclInfo {
-        declLoc = "callbacks.h:2:5",
+        declLoc = "callbacks.h:4:5",
         declId = NamePair {
           nameC = Name
             "readFileWithProcessor",
@@ -52,7 +52,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "callbacks.h:3:6",
+        declLoc = "callbacks.h:5:6",
         declId = NamePair {
           nameC = Name "watchTemperature",
           nameHsIdent = Identifier
@@ -100,14 +100,14 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "callbacks.h:6:16",
+        declLoc = "callbacks.h:10:16",
         declId = NamePair {
           nameC = Name
             "FileOpenedNotification_Deref",
           nameHsIdent = Identifier
             "FileOpenedNotification_Deref"},
         declOrigin = NameOriginGenerated
-          (AnonId "callbacks.h:6:16"),
+          (AnonId "callbacks.h:10:16"),
         declAliases = [],
         declHeaderInfo = Just
           HeaderInfo {
@@ -148,7 +148,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "callbacks.h:6:16",
+        declLoc = "callbacks.h:10:16",
         declId = NamePair {
           nameC = Name
             "FileOpenedNotification",
@@ -188,14 +188,14 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "callbacks.h:7:16",
+        declLoc = "callbacks.h:11:16",
         declId = NamePair {
           nameC = Name
             "ProgressUpdate_Deref",
           nameHsIdent = Identifier
             "ProgressUpdate_Deref"},
         declOrigin = NameOriginGenerated
-          (AnonId "callbacks.h:7:16"),
+          (AnonId "callbacks.h:11:16"),
         declAliases = [],
         declHeaderInfo = Just
           HeaderInfo {
@@ -237,7 +237,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "callbacks.h:7:16",
+        declLoc = "callbacks.h:11:16",
         declId = NamePair {
           nameC = Name "ProgressUpdate",
           nameHsIdent = Identifier
@@ -280,14 +280,14 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "callbacks.h:8:15",
+        declLoc = "callbacks.h:12:15",
         declId = NamePair {
           nameC = Name
             "DataValidator_Deref",
           nameHsIdent = Identifier
             "DataValidator_Deref"},
         declOrigin = NameOriginGenerated
-          (AnonId "callbacks.h:8:15"),
+          (AnonId "callbacks.h:12:15"),
         declAliases = [],
         declHeaderInfo = Just
           HeaderInfo {
@@ -330,7 +330,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "callbacks.h:8:15",
+        declLoc = "callbacks.h:12:15",
         declId = NamePair {
           nameC = Name "DataValidator",
           nameHsIdent = Identifier
@@ -376,7 +376,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "callbacks.h:10:6",
+        declLoc = "callbacks.h:14:6",
         declId = NamePair {
           nameC = Name "onFileOpened",
           nameHsIdent = Identifier
@@ -419,7 +419,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "callbacks.h:11:6",
+        declLoc = "callbacks.h:15:6",
         declId = NamePair {
           nameC = Name
             "onProgressChanged",
@@ -466,7 +466,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "callbacks.h:12:5",
+        declLoc = "callbacks.h:16:5",
         declId = NamePair {
           nameC = Name "validateInput",
           nameHsIdent = Identifier
@@ -524,7 +524,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "callbacks.h:15:8",
+        declLoc = "callbacks.h:21:8",
         declId = NamePair {
           nameC = Name "Measurement",
           nameHsIdent = Identifier
@@ -548,7 +548,7 @@ TranslationUnit {
           structFields = [
             StructField {
               structFieldInfo = FieldInfo {
-                fieldLoc = "callbacks.h:16:10",
+                fieldLoc = "callbacks.h:22:10",
                 fieldName = NamePair {
                   nameC = Name "value",
                   nameHsIdent = Identifier
@@ -560,7 +560,7 @@ TranslationUnit {
               structFieldWidth = Nothing},
             StructField {
               structFieldInfo = FieldInfo {
-                fieldLoc = "callbacks.h:16:17",
+                fieldLoc = "callbacks.h:23:10",
                 fieldName = NamePair {
                   nameC = Name "timestamp",
                   nameHsIdent = Identifier
@@ -579,14 +579,14 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "callbacks.h:19:16",
+        declLoc = "callbacks.h:26:16",
         declId = NamePair {
           nameC = Name
             "MeasurementReceived_Deref",
           nameHsIdent = Identifier
             "MeasurementReceived_Deref"},
         declOrigin = NameOriginGenerated
-          (AnonId "callbacks.h:19:16"),
+          (AnonId "callbacks.h:26:16"),
         declAliases = [],
         declHeaderInfo = Just
           HeaderInfo {
@@ -634,7 +634,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "callbacks.h:19:16",
+        declLoc = "callbacks.h:26:16",
         declId = NamePair {
           nameC = Name
             "MeasurementReceived",
@@ -683,7 +683,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "callbacks.h:20:6",
+        declLoc = "callbacks.h:27:6",
         declId = NamePair {
           nameC = Name "onNewMeasurement",
           nameHsIdent = Identifier
@@ -735,14 +735,14 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "callbacks.h:22:16",
+        declLoc = "callbacks.h:29:16",
         declId = NamePair {
           nameC = Name
             "MeasurementReceived2_Deref",
           nameHsIdent = Identifier
             "MeasurementReceived2_Deref"},
         declOrigin = NameOriginGenerated
-          (AnonId "callbacks.h:22:16"),
+          (AnonId "callbacks.h:29:16"),
         declAliases = [],
         declHeaderInfo = Just
           HeaderInfo {
@@ -789,7 +789,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "callbacks.h:22:16",
+        declLoc = "callbacks.h:29:16",
         declId = NamePair {
           nameC = Name
             "MeasurementReceived2",
@@ -837,7 +837,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "callbacks.h:23:6",
+        declLoc = "callbacks.h:30:6",
         declId = NamePair {
           nameC = Name
             "onNewMeasurement2",
@@ -889,14 +889,14 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "callbacks.h:25:16",
+        declLoc = "callbacks.h:32:16",
         declId = NamePair {
           nameC = Name
             "SampleBufferFull_Deref",
           nameHsIdent = Identifier
             "SampleBufferFull_Deref"},
         declOrigin = NameOriginGenerated
-          (AnonId "callbacks.h:25:16"),
+          (AnonId "callbacks.h:32:16"),
         declAliases = [],
         declHeaderInfo = Just
           HeaderInfo {
@@ -940,7 +940,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "callbacks.h:25:16",
+        declLoc = "callbacks.h:32:16",
         declId = NamePair {
           nameC = Name "SampleBufferFull",
           nameHsIdent = Identifier
@@ -985,7 +985,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "callbacks.h:26:6",
+        declLoc = "callbacks.h:33:6",
         declId = NamePair {
           nameC = Name "onBufferReady",
           nameHsIdent = Identifier
@@ -1021,6 +1021,916 @@ TranslationUnit {
                           (TypePrim
                             (PrimIntegral PrimInt Signed))]
                       TypeVoid))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "callbacks.h:38:6",
+        declId = NamePair {
+          nameC = Name
+            "transformMeasurement",
+          nameHsIdent = Identifier
+            "transformMeasurement"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["callbacks.h"],
+            headerInclude = "callbacks.h"},
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "data",
+                  nameHsIdent = Identifier
+                    "data'"})
+              (TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "Measurement",
+                    nameHsIdent = Identifier
+                      "Measurement"}
+                  NameOriginInSource)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "transformer",
+                  nameHsIdent = Identifier
+                    "transformer"})
+              (TypePointer
+                (TypeFun
+                  [
+                    TypePointer
+                      (TypeStruct
+                        NamePair {
+                          nameC = Name "Measurement",
+                          nameHsIdent = Identifier
+                            "Measurement"}
+                        NameOriginInSource),
+                    TypePointer
+                      (TypeFun
+                        [
+                          TypePrim
+                            (PrimFloating PrimDouble),
+                          TypePrim
+                            (PrimIntegral PrimInt Signed)]
+                        (TypePrim
+                          (PrimFloating PrimDouble))),
+                    TypePrim
+                      (PrimIntegral PrimInt Signed)]
+                  TypeVoid))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "callbacks.h:43:6",
+        declId = NamePair {
+          nameC = Name
+            "processWithCallbacks",
+          nameHsIdent = Identifier
+            "processWithCallbacks"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["callbacks.h"],
+            headerInclude = "callbacks.h"},
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "handler",
+                  nameHsIdent = Identifier
+                    "handler"})
+              (TypePointer
+                (TypeFun
+                  [
+                    TypePointer
+                      (TypeStruct
+                        NamePair {
+                          nameC = Name "Measurement",
+                          nameHsIdent = Identifier
+                            "Measurement"}
+                        NameOriginInSource),
+                    TypeTypedef
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name
+                            "FileOpenedNotification",
+                          nameHsIdent = Identifier
+                            "FileOpenedNotification"}
+                        (TypePointer
+                          (TypeFun [] TypeVoid))),
+                    TypePrim
+                      (PrimIntegral PrimInt Signed)]
+                  TypeVoid))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "callbacks.h:50:8",
+        declId = NamePair {
+          nameC = Name
+            "MeasurementHandler",
+          nameHsIdent = Identifier
+            "MeasurementHandler"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["callbacks.h"],
+            headerInclude = "callbacks.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name
+              "@NsConstr"
+              "MeasurementHandler"),
+          structSizeof = 24,
+          structAlignment = 8,
+          structFields = [
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "callbacks.h:51:10",
+                fieldName = NamePair {
+                  nameC = Name "onReceived",
+                  nameHsIdent = Identifier
+                    "measurementHandler_onReceived"},
+                fieldComment = Nothing},
+              structFieldType = TypePointer
+                (TypeFun
+                  [
+                    TypePointer
+                      (TypeStruct
+                        NamePair {
+                          nameC = Name "Measurement",
+                          nameHsIdent = Identifier
+                            "Measurement"}
+                        NameOriginInSource)]
+                  TypeVoid),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "callbacks.h:52:9",
+                fieldName = NamePair {
+                  nameC = Name "validate",
+                  nameHsIdent = Identifier
+                    "measurementHandler_validate"},
+                fieldComment = Nothing},
+              structFieldType = TypePointer
+                (TypeFun
+                  [
+                    TypePointer
+                      (TypeStruct
+                        NamePair {
+                          nameC = Name "Measurement",
+                          nameHsIdent = Identifier
+                            "Measurement"}
+                        NameOriginInSource)]
+                  (TypePrim
+                    (PrimIntegral PrimInt Signed))),
+              structFieldOffset = 64,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "callbacks.h:53:10",
+                fieldName = NamePair {
+                  nameC = Name "onError",
+                  nameHsIdent = Identifier
+                    "measurementHandler_onError"},
+                fieldComment = Nothing},
+              structFieldType = TypePointer
+                (TypeFun
+                  [
+                    TypePrim
+                      (PrimIntegral PrimInt Signed)]
+                  TypeVoid),
+              structFieldOffset = 128,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "callbacks.h:56:6",
+        declId = NamePair {
+          nameC = Name "registerHandler",
+          nameHsIdent = Identifier
+            "registerHandler"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["callbacks.h"],
+            headerInclude = "callbacks.h"},
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "handler",
+                  nameHsIdent = Identifier
+                    "handler"})
+              (TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name
+                      "MeasurementHandler",
+                    nameHsIdent = Identifier
+                      "MeasurementHandler"}
+                  NameOriginInSource))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "callbacks.h:58:8",
+        declId = NamePair {
+          nameC = Name "DataPipeline",
+          nameHsIdent = Identifier
+            "DataPipeline"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["callbacks.h"],
+            headerInclude = "callbacks.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name
+              "@NsConstr"
+              "DataPipeline"),
+          structSizeof = 24,
+          structAlignment = 8,
+          structFields = [
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "callbacks.h:59:10",
+                fieldName = NamePair {
+                  nameC = Name "preProcess",
+                  nameHsIdent = Identifier
+                    "dataPipeline_preProcess"},
+                fieldComment = Nothing},
+              structFieldType = TypePointer
+                (TypeFun
+                  [
+                    TypePointer
+                      (TypeStruct
+                        NamePair {
+                          nameC = Name "Measurement",
+                          nameHsIdent = Identifier
+                            "Measurement"}
+                        NameOriginInSource),
+                    TypeTypedef
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name "DataValidator",
+                          nameHsIdent = Identifier
+                            "DataValidator"}
+                        (TypePointer
+                          (TypeFun
+                            [
+                              TypePrim
+                                (PrimIntegral PrimInt Signed)]
+                            (TypePrim
+                              (PrimIntegral
+                                PrimInt
+                                Signed)))))]
+                  TypeVoid),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "callbacks.h:60:10",
+                fieldName = NamePair {
+                  nameC = Name "process",
+                  nameHsIdent = Identifier
+                    "dataPipeline_process"},
+                fieldComment = Nothing},
+              structFieldType = TypePointer
+                (TypeFun
+                  [
+                    TypePointer
+                      (TypeStruct
+                        NamePair {
+                          nameC = Name "Measurement",
+                          nameHsIdent = Identifier
+                            "Measurement"}
+                        NameOriginInSource)]
+                  TypeVoid),
+              structFieldOffset = 64,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "callbacks.h:61:10",
+                fieldName = NamePair {
+                  nameC = Name "postProcess",
+                  nameHsIdent = Identifier
+                    "dataPipeline_postProcess"},
+                fieldComment = Nothing},
+              structFieldType = TypePointer
+                (TypeFun
+                  [
+                    TypePointer
+                      (TypeStruct
+                        NamePair {
+                          nameC = Name "Measurement",
+                          nameHsIdent = Identifier
+                            "Measurement"}
+                        NameOriginInSource),
+                    TypeTypedef
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name "ProgressUpdate",
+                          nameHsIdent = Identifier
+                            "ProgressUpdate"}
+                        (TypePointer
+                          (TypeFun
+                            [
+                              TypePrim
+                                (PrimIntegral PrimInt Signed)]
+                            TypeVoid)))]
+                  TypeVoid),
+              structFieldOffset = 128,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "callbacks.h:64:6",
+        declId = NamePair {
+          nameC = Name "executePipeline",
+          nameHsIdent = Identifier
+            "executePipeline"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["callbacks.h"],
+            headerInclude = "callbacks.h"},
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "data",
+                  nameHsIdent = Identifier
+                    "data'"})
+              (TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "Measurement",
+                    nameHsIdent = Identifier
+                      "Measurement"}
+                  NameOriginInSource)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "pipeline",
+                  nameHsIdent = Identifier
+                    "pipeline"})
+              (TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "DataPipeline",
+                    nameHsIdent = Identifier
+                      "DataPipeline"}
+                  NameOriginInSource))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "callbacks.h:69:7",
+        declId = NamePair {
+          nameC = Name
+            "ProcessorCallback",
+          nameHsIdent = Identifier
+            "ProcessorCallback"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["callbacks.h"],
+            headerInclude = "callbacks.h"},
+        declComment = Nothing},
+      declKind = DeclUnion
+        Union {
+          unionNames = NewtypeNames {
+            newtypeConstr = Name
+              "@NsConstr"
+              "ProcessorCallback",
+            newtypeField = Name
+              "@NsVar"
+              "un_ProcessorCallback"},
+          unionSizeof = 8,
+          unionAlignment = 8,
+          unionFields = [
+            UnionField {
+              unionFieldInfo = FieldInfo {
+                fieldLoc = "callbacks.h:70:10",
+                fieldName = NamePair {
+                  nameC = Name "simple",
+                  nameHsIdent = Identifier
+                    "processorCallback_simple"},
+                fieldComment = Nothing},
+              unionFieldType = TypePointer
+                (TypeFun
+                  [
+                    TypePointer
+                      (TypeStruct
+                        NamePair {
+                          nameC = Name "Measurement",
+                          nameHsIdent = Identifier
+                            "Measurement"}
+                        NameOriginInSource)]
+                  TypeVoid)},
+            UnionField {
+              unionFieldInfo = FieldInfo {
+                fieldLoc = "callbacks.h:71:10",
+                fieldName = NamePair {
+                  nameC = Name "withValidator",
+                  nameHsIdent = Identifier
+                    "processorCallback_withValidator"},
+                fieldComment = Nothing},
+              unionFieldType = TypePointer
+                (TypeFun
+                  [
+                    TypePointer
+                      (TypeStruct
+                        NamePair {
+                          nameC = Name "Measurement",
+                          nameHsIdent = Identifier
+                            "Measurement"}
+                        NameOriginInSource),
+                    TypeTypedef
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name "DataValidator",
+                          nameHsIdent = Identifier
+                            "DataValidator"}
+                        (TypePointer
+                          (TypeFun
+                            [
+                              TypePrim
+                                (PrimIntegral PrimInt Signed)]
+                            (TypePrim
+                              (PrimIntegral
+                                PrimInt
+                                Signed)))))]
+                  TypeVoid)},
+            UnionField {
+              unionFieldInfo = FieldInfo {
+                fieldLoc = "callbacks.h:72:10",
+                fieldName = NamePair {
+                  nameC = Name "withProgress",
+                  nameHsIdent = Identifier
+                    "processorCallback_withProgress"},
+                fieldComment = Nothing},
+              unionFieldType = TypePointer
+                (TypeFun
+                  [
+                    TypePointer
+                      (TypeStruct
+                        NamePair {
+                          nameC = Name "Measurement",
+                          nameHsIdent = Identifier
+                            "Measurement"}
+                        NameOriginInSource),
+                    TypeTypedef
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name "ProgressUpdate",
+                          nameHsIdent = Identifier
+                            "ProgressUpdate"}
+                        (TypePointer
+                          (TypeFun
+                            [
+                              TypePrim
+                                (PrimIntegral PrimInt Signed)]
+                            TypeVoid)))]
+                  TypeVoid)}]},
+      declSpec = DeclSpec
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "callbacks.h:76:3",
+        declId = NamePair {
+          nameC = Name "Processor_mode",
+          nameHsIdent = Identifier
+            "Processor_mode"},
+        declOrigin = NameOriginGenerated
+          (AnonId "callbacks.h:76:3"),
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["callbacks.h"],
+            headerInclude = "callbacks.h"},
+        declComment = Nothing},
+      declKind = DeclEnum
+        Enum {
+          enumNames = NewtypeNames {
+            newtypeConstr = Name
+              "@NsConstr"
+              "Processor_mode",
+            newtypeField = Name
+              "@NsVar"
+              "un_Processor_mode"},
+          enumType = TypePrim
+            (PrimIntegral PrimInt Unsigned),
+          enumSizeof = 4,
+          enumAlignment = 4,
+          enumConstants = [
+            EnumConstant {
+              enumConstantInfo = FieldInfo {
+                fieldLoc = "callbacks.h:76:10",
+                fieldName = NamePair {
+                  nameC = Name "MODE_SIMPLE",
+                  nameHsIdent = Identifier
+                    "MODE_SIMPLE"},
+                fieldComment = Nothing},
+              enumConstantValue = 0},
+            EnumConstant {
+              enumConstantInfo = FieldInfo {
+                fieldLoc = "callbacks.h:76:23",
+                fieldName = NamePair {
+                  nameC = Name "MODE_VALIDATED",
+                  nameHsIdent = Identifier
+                    "MODE_VALIDATED"},
+                fieldComment = Nothing},
+              enumConstantValue = 1},
+            EnumConstant {
+              enumConstantInfo = FieldInfo {
+                fieldLoc = "callbacks.h:76:39",
+                fieldName = NamePair {
+                  nameC = Name "MODE_PROGRESS",
+                  nameHsIdent = Identifier
+                    "MODE_PROGRESS"},
+                fieldComment = Nothing},
+              enumConstantValue = 2}]},
+      declSpec = DeclSpec
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "callbacks.h:75:8",
+        declId = NamePair {
+          nameC = Name "Processor",
+          nameHsIdent = Identifier
+            "Processor"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["callbacks.h"],
+            headerInclude = "callbacks.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "Processor"),
+          structSizeof = 16,
+          structAlignment = 8,
+          structFields = [
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "callbacks.h:76:55",
+                fieldName = NamePair {
+                  nameC = Name "mode",
+                  nameHsIdent = Identifier
+                    "processor_mode"},
+                fieldComment = Nothing},
+              structFieldType = TypeEnum
+                NamePair {
+                  nameC = Name "Processor_mode",
+                  nameHsIdent = Identifier
+                    "Processor_mode"}
+                (NameOriginGenerated
+                  (AnonId "callbacks.h:76:3")),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "callbacks.h:77:27",
+                fieldName = NamePair {
+                  nameC = Name "callback",
+                  nameHsIdent = Identifier
+                    "processor_callback"},
+                fieldComment = Nothing},
+              structFieldType = TypeUnion
+                NamePair {
+                  nameC = Name
+                    "ProcessorCallback",
+                  nameHsIdent = Identifier
+                    "ProcessorCallback"}
+                NameOriginInSource,
+              structFieldOffset = 64,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "callbacks.h:80:6",
+        declId = NamePair {
+          nameC = Name "runProcessor",
+          nameHsIdent = Identifier
+            "runProcessor"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["callbacks.h"],
+            headerInclude = "callbacks.h"},
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "data",
+                  nameHsIdent = Identifier
+                    "data'"})
+              (TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "Measurement",
+                    nameHsIdent = Identifier
+                      "Measurement"}
+                  NameOriginInSource)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "processor",
+                  nameHsIdent = Identifier
+                    "processor"})
+              (TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "Processor",
+                    nameHsIdent = Identifier
+                      "Processor"}
+                  NameOriginInSource))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "callbacks.h:85:6",
+        declId = NamePair {
+          nameC = Name
+            "processMeasurementWithValidation",
+          nameHsIdent = Identifier
+            "processMeasurementWithValidation"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["callbacks.h"],
+            headerInclude = "callbacks.h"},
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "data",
+                  nameHsIdent = Identifier
+                    "data'"})
+              (TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "Measurement",
+                    nameHsIdent = Identifier
+                      "Measurement"}
+                  NameOriginInSource)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "processor",
+                  nameHsIdent = Identifier
+                    "processor"})
+              (TypePointer
+                (TypeFun
+                  [
+                    TypePointer
+                      (TypeStruct
+                        NamePair {
+                          nameC = Name "Measurement",
+                          nameHsIdent = Identifier
+                            "Measurement"}
+                        NameOriginInSource),
+                    TypePointer
+                      (TypeFun
+                        [
+                          TypePointer
+                            (TypeStruct
+                              NamePair {
+                                nameC = Name "Measurement",
+                                nameHsIdent = Identifier
+                                  "Measurement"}
+                              NameOriginInSource),
+                          TypeTypedef
+                            (TypedefRegular
+                              NamePair {
+                                nameC = Name "DataValidator",
+                                nameHsIdent = Identifier
+                                  "DataValidator"}
+                              (TypePointer
+                                (TypeFun
+                                  [
+                                    TypePrim
+                                      (PrimIntegral PrimInt Signed)]
+                                  (TypePrim
+                                    (PrimIntegral
+                                      PrimInt
+                                      Signed))))),
+                          TypePrim
+                            (PrimIntegral PrimInt Signed)]
+                        TypeVoid),
+                    TypeTypedef
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name "DataValidator",
+                          nameHsIdent = Identifier
+                            "DataValidator"}
+                        (TypePointer
+                          (TypeFun
+                            [
+                              TypePrim
+                                (PrimIntegral PrimInt Signed)]
+                            (TypePrim
+                              (PrimIntegral
+                                PrimInt
+                                Signed)))))]
+                  TypeVoid))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "callbacks.h:94:13",
+        declId = NamePair {
+          nameC = Name "foo",
+          nameHsIdent = Identifier "Foo"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["callbacks.h"],
+            headerInclude = "callbacks.h"},
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = Name
+              "@NsConstr"
+              "Foo",
+            newtypeField = Name
+              "@NsVar"
+              "un_Foo"},
+          typedefType = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec
+        CTypeSpec {
+          cTypeSpecModule = Nothing,
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "callbacks.h:95:6",
+        declId = NamePair {
+          nameC = Name "f",
+          nameHsIdent = Identifier "f"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["callbacks.h"],
+            headerInclude = "callbacks.h"},
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "callback",
+                  nameHsIdent = Identifier
+                    "callback"})
+              (TypePointer
+                (TypeFun
+                  [
+                    TypeTypedef
+                      (TypedefRegular
+                        NamePair {
+                          nameC = Name "foo",
+                          nameHsIdent = Identifier "Foo"}
+                        (TypePrim
+                          (PrimIntegral PrimInt Signed)))]
+                  TypeVoid))],
           functionAttrs =
           FunctionAttributes
             ImpureFunction,

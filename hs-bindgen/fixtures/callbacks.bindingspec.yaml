@@ -3,6 +3,14 @@ version:
   binding_specification: '1.0'
 types:
 - headers: callbacks.h
+  cname: struct DataPipeline
+  module: Example
+  hsname: DataPipeline
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: callbacks.h
   cname: DataValidator
   module: Example
   hsname: DataValidator
@@ -37,6 +45,14 @@ types:
   - Show
   - Storable
 - headers: callbacks.h
+  cname: struct MeasurementHandler
+  module: Example
+  hsname: MeasurementHandler
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: callbacks.h
   cname: MeasurementReceived
   module: Example
   hsname: MeasurementReceived
@@ -63,6 +79,28 @@ types:
   module: Example
   hsname: MeasurementReceived_Deref
 - headers: callbacks.h
+  cname: struct Processor
+  module: Example
+  hsname: Processor
+  instances:
+  - Storable
+- headers: callbacks.h
+  cname: union ProcessorCallback
+  module: Example
+  hsname: ProcessorCallback
+  instances:
+  - Storable
+- headers: callbacks.h
+  cname: Processor_mode
+  module: Example
+  hsname: Processor_mode
+  instances:
+  - Eq
+  - Ord
+  - Read
+  - Show
+  - Storable
+- headers: callbacks.h
   cname: ProgressUpdate
   module: Example
   hsname: ProgressUpdate
@@ -88,3 +126,21 @@ types:
   cname: SampleBufferFull_Deref
   module: Example
   hsname: SampleBufferFull_Deref
+- headers: callbacks.h
+  cname: foo
+  module: Example
+  hsname: Foo
+  instances:
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Read
+  - Real
+  - Show
+  - Storable

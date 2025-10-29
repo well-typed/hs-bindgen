@@ -140,7 +140,7 @@ data CTypeSpec = CTypeSpec {
     , -- | Instance specification
       cTypeSpecInstances :: Map Hs.TypeClass (Omittable InstanceSpec)
     }
-  deriving stock (Show, Eq, Generic)
+  deriving stock (Show, Eq, Ord, Generic)
 
 instance Default CTypeSpec where
   def = CTypeSpec {

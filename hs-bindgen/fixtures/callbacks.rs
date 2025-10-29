@@ -70,3 +70,161 @@ pub type SampleBufferFull = ::std::option::Option<
 unsafe extern "C" {
     pub fn onBufferReady(handler: SampleBufferFull);
 }
+unsafe extern "C" {
+    pub fn transformMeasurement(
+        data: *mut Measurement,
+        transformer: ::std::option::Option<
+            unsafe extern "C" fn(
+                m: *mut Measurement,
+                scale: ::std::option::Option<
+                    unsafe extern "C" fn(arg1: f64, arg2: ::std::os::raw::c_int) -> f64,
+                >,
+                factor: ::std::os::raw::c_int,
+            ),
+        >,
+    );
+}
+unsafe extern "C" {
+    pub fn processWithCallbacks(
+        handler: ::std::option::Option<
+            unsafe extern "C" fn(
+                m: *mut Measurement,
+                notify: FileOpenedNotification,
+                priority: ::std::os::raw::c_int,
+            ),
+        >,
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct MeasurementHandler {
+    pub onReceived: ::std::option::Option<unsafe extern "C" fn(data: *mut Measurement)>,
+    pub validate: ::std::option::Option<
+        unsafe extern "C" fn(data: *mut Measurement) -> ::std::os::raw::c_int,
+    >,
+    pub onError: ::std::option::Option<
+        unsafe extern "C" fn(errorCode: ::std::os::raw::c_int),
+    >,
+}
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+    [
+        "Size of MeasurementHandler",
+    ][::std::mem::size_of::<MeasurementHandler>() - 24usize];
+    [
+        "Alignment of MeasurementHandler",
+    ][::std::mem::align_of::<MeasurementHandler>() - 8usize];
+    [
+        "Offset of field: MeasurementHandler::onReceived",
+    ][::std::mem::offset_of!(MeasurementHandler, onReceived) - 0usize];
+    [
+        "Offset of field: MeasurementHandler::validate",
+    ][::std::mem::offset_of!(MeasurementHandler, validate) - 8usize];
+    [
+        "Offset of field: MeasurementHandler::onError",
+    ][::std::mem::offset_of!(MeasurementHandler, onError) - 16usize];
+};
+unsafe extern "C" {
+    pub fn registerHandler(handler: *mut MeasurementHandler);
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct DataPipeline {
+    pub preProcess: ::std::option::Option<
+        unsafe extern "C" fn(m: *mut Measurement, validator: DataValidator),
+    >,
+    pub process: ::std::option::Option<unsafe extern "C" fn(m: *mut Measurement)>,
+    pub postProcess: ::std::option::Option<
+        unsafe extern "C" fn(m: *mut Measurement, update: ProgressUpdate),
+    >,
+}
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+    ["Size of DataPipeline"][::std::mem::size_of::<DataPipeline>() - 24usize];
+    ["Alignment of DataPipeline"][::std::mem::align_of::<DataPipeline>() - 8usize];
+    [
+        "Offset of field: DataPipeline::preProcess",
+    ][::std::mem::offset_of!(DataPipeline, preProcess) - 0usize];
+    [
+        "Offset of field: DataPipeline::process",
+    ][::std::mem::offset_of!(DataPipeline, process) - 8usize];
+    [
+        "Offset of field: DataPipeline::postProcess",
+    ][::std::mem::offset_of!(DataPipeline, postProcess) - 16usize];
+};
+unsafe extern "C" {
+    pub fn executePipeline(data: *mut Measurement, pipeline: *mut DataPipeline);
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union ProcessorCallback {
+    pub simple: ::std::option::Option<unsafe extern "C" fn(data: *mut Measurement)>,
+    pub withValidator: ::std::option::Option<
+        unsafe extern "C" fn(data: *mut Measurement, validator: DataValidator),
+    >,
+    pub withProgress: ::std::option::Option<
+        unsafe extern "C" fn(data: *mut Measurement, progress: ProgressUpdate),
+    >,
+}
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+    ["Size of ProcessorCallback"][::std::mem::size_of::<ProcessorCallback>() - 8usize];
+    [
+        "Alignment of ProcessorCallback",
+    ][::std::mem::align_of::<ProcessorCallback>() - 8usize];
+    [
+        "Offset of field: ProcessorCallback::simple",
+    ][::std::mem::offset_of!(ProcessorCallback, simple) - 0usize];
+    [
+        "Offset of field: ProcessorCallback::withValidator",
+    ][::std::mem::offset_of!(ProcessorCallback, withValidator) - 0usize];
+    [
+        "Offset of field: ProcessorCallback::withProgress",
+    ][::std::mem::offset_of!(ProcessorCallback, withProgress) - 0usize];
+};
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct Processor {
+    pub mode: Processor__bindgen_ty_1,
+    pub callback: ProcessorCallback,
+}
+pub const Processor_MODE_SIMPLE: Processor__bindgen_ty_1 = 0;
+pub const Processor_MODE_VALIDATED: Processor__bindgen_ty_1 = 1;
+pub const Processor_MODE_PROGRESS: Processor__bindgen_ty_1 = 2;
+pub type Processor__bindgen_ty_1 = ::std::os::raw::c_uint;
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+    ["Size of Processor"][::std::mem::size_of::<Processor>() - 16usize];
+    ["Alignment of Processor"][::std::mem::align_of::<Processor>() - 8usize];
+    [
+        "Offset of field: Processor::mode",
+    ][::std::mem::offset_of!(Processor, mode) - 0usize];
+    [
+        "Offset of field: Processor::callback",
+    ][::std::mem::offset_of!(Processor, callback) - 8usize];
+};
+unsafe extern "C" {
+    pub fn runProcessor(data: *mut Measurement, processor: *mut Processor);
+}
+unsafe extern "C" {
+    pub fn processMeasurementWithValidation(
+        data: *mut Measurement,
+        processor: ::std::option::Option<
+            unsafe extern "C" fn(
+                m: *mut Measurement,
+                transformer: ::std::option::Option<
+                    unsafe extern "C" fn(
+                        m: *mut Measurement,
+                        validator: DataValidator,
+                        threshold: ::std::os::raw::c_int,
+                    ),
+                >,
+                validator: DataValidator,
+            ),
+        >,
+    );
+}
+pub type foo = ::std::os::raw::c_int;
+unsafe extern "C" {
+    pub fn f(callback: ::std::option::Option<unsafe extern "C" fn(x: foo)>);
+}

@@ -318,11 +318,12 @@ data TypeF tag =
   | TypeComplex C.PrimType
   deriving stock Generic
 
-deriving stock instance (Show (TypedefRefF tag), Show (TypeQualifierF tag))  => Show (TypeF tag)
-deriving stock instance (Eq (TypedefRefF tag), Eq (TypeQualifierF tag))  => Eq (TypeF tag)
+deriving stock instance (Show (TypedefRefF tag), Show (TypeQualifierF tag)) => Show (TypeF tag)
+deriving stock instance (Eq (TypedefRefF tag), Eq (TypeQualifierF tag))     => Eq (TypeF tag)
+deriving stock instance (Ord (TypedefRefF tag), Ord (TypeQualifierF tag))   => Ord (TypeF tag)
 
 data TypeQualifier = TypeQualifierConst
-  deriving stock (Show, Eq, Generic)
+  deriving stock (Show, Eq, Ord, Generic)
 
 data TypedefRef =
     TypedefRegular
@@ -335,7 +336,7 @@ data TypedefRef =
       -- care!
       Type
   | TypedefSquashed C.Name Type
-  deriving stock (Show, Eq, Generic)
+  deriving stock (Show, Eq, Ord, Generic)
 
 isVoid :: Type -> Bool
 isVoid TypeVoid = True

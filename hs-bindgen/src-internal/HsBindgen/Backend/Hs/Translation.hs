@@ -34,7 +34,10 @@ import HsBindgen.Backend.SHs.Translation qualified as SHs
 import HsBindgen.Backend.UniqueId
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Errors
+import HsBindgen.Frontend.Analysis.DeclIndex
+import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.AST.External qualified as C
+import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.RootHeader (HashIncludeArg)
 import HsBindgen.Imports
 import HsBindgen.Language.C qualified as C
@@ -110,12 +113,13 @@ generateDeclarations ::
      TranslationOpts
   -> HaddockConfig
   -> Hs.ModuleName
+  -> DeclIndex
   -> [C.Decl]
   -> ByCategory [Hs.Decl]
-generateDeclarations opts config name =
+generateDeclarations opts config name declIndex =
     ByCategory . Map.map reverse .
       foldl' partitionBindingCategories  Map.empty .
-      generateDeclarations' opts config name
+      generateDeclarations' opts config name declIndex
   where
     partitionBindingCategories ::
       Map BindingCategory [a] -> WithCategory a  -> Map BindingCategory [a]
@@ -130,17 +134,89 @@ generateDeclarations opts config name =
 data WithCategory a = WithCategory {
     _withCategoryCategory :: BindingCategory
   , _withCategoryDecl     :: a
-  }
+  } deriving (Show)
 
 generateDeclarations' ::
      TranslationOpts
   -> HaddockConfig
   -> Hs.ModuleName
+  -> DeclIndex
   -> [C.Decl]
   -> [WithCategory Hs.Decl]
-generateDeclarations' opts haddockConfig moduleName decs =
-    flip State.evalState Map.empty $
-      concat <$> mapM (generateDecs opts haddockConfig moduleName) decs
+generateDeclarations' opts haddockConfig moduleName declIndex decs =
+    flip State.evalState Map.empty $ do
+      let scannedFunctionPointerTypes = scanAllFunctionPointerTypes decs
+          -- Generate ToFunPtr/FromFunPtr instances for nested callback types
+          -- These go in the main module to avoid orphan instances
+          --WithCategory c
+          fFIStubsAndFunPtrInstances =
+                   [ WithCategory BType d
+                   | C.TypePointer (C.TypeFun args res) <- Set.toList scannedFunctionPointerTypes
+                   , not (any hasUnsupportedType (res:args))
+                   , any (isDefinedInCurrentModule declIndex) (res:args)
+                   , d <- functionTypeFFIStubsAndFunPtrInstances args res
+                   ]
+      hsDecls <- concat <$> mapM (generateDecs opts haddockConfig moduleName) decs
+      pure $ hsDecls ++ fFIStubsAndFunPtrInstances
+
+-- | This function takes a list of all declarations and collects all function
+-- pointer callback types, i.e. all function types that exist as either
+-- arguments for other functions (nth-order functions), fields of structs,
+-- unions and enums.
+--
+-- This recursively traverses all types to find deeply nested function pointers.
+scanAllFunctionPointerTypes :: [C.Decl] -> Set C.Type
+scanAllFunctionPointerTypes =
+  foldMap (\(C.Decl _ kind _) ->
+            case kind of
+              C.DeclStruct C.Struct {..} ->
+                foldMap (scanTypeForFunctionPointers . C.structFieldType) structFields
+              C.DeclUnion C.Union {..}   ->
+                foldMap (scanTypeForFunctionPointers . C.unionFieldType) unionFields
+              C.DeclFunction fn ->
+                foldMap scanTypeForFunctionPointers ((C.functionRes fn) : (snd <$> C.functionArgs fn))
+              _ -> Set.empty
+         )
+  where
+    -- | Recursively scan a type for all function pointers, including nested ones
+    scanTypeForFunctionPointers :: C.Type -> Set C.Type
+    scanTypeForFunctionPointers ty = case ty of
+      fp@(C.TypePointer (C.TypeFun args res)) ->
+           Set.singleton fp
+        <> foldMap scanTypeForFunctionPointers (res : args)
+      C.TypePointer t                       -> scanTypeForFunctionPointers t
+      C.TypeIncompleteArray  t              -> scanTypeForFunctionPointers t
+      C.TypeConstArray _ t                  -> scanTypeForFunctionPointers t
+      C.TypeBlock t                         -> scanTypeForFunctionPointers t
+      C.TypeQualified _ t                   -> scanTypeForFunctionPointers t
+      C.TypeTypedef (C.TypedefRegular _ t)  -> scanTypeForFunctionPointers t
+      C.TypeTypedef (C.TypedefSquashed _ t) -> scanTypeForFunctionPointers t
+      _                                     -> Set.empty
+
+-- | Check if a type is defined in the current module
+isDefinedInCurrentModule :: DeclIndex -> C.Type -> Bool
+isDefinedInCurrentModule declIndex ty = case ty of
+  C.TypeStruct namePair origin                 -> isInDeclIndex namePair origin (C.NameKindTagged C.TagKindStruct)
+  C.TypeUnion namePair origin                  -> isInDeclIndex namePair origin (C.NameKindTagged C.TagKindUnion)
+  C.TypeEnum namePair origin                   -> isInDeclIndex namePair origin (C.NameKindTagged C.TagKindEnum)
+  C.TypePointer (C.TypeStruct namePair origin) -> isInDeclIndex namePair origin (C.NameKindTagged C.TagKindStruct)
+  C.TypePointer (C.TypeUnion namePair origin)  -> isInDeclIndex namePair origin (C.NameKindTagged C.TagKindUnion)
+  C.TypePointer (C.TypeEnum namePair origin)   -> isInDeclIndex namePair origin (C.NameKindTagged C.TagKindEnum)
+  C.TypeTypedef (C.TypedefRegular namePair _)  -> isInDeclIndex namePair C.NameOriginInSource C.NameKindOrdinary
+  C.TypeTypedef (C.TypedefSquashed name _)     -> isInDeclIndex (C.NamePair name (Hs.Identifier (C.getName name)))
+                                                               C.NameOriginInSource C.NameKindOrdinary
+  _                                            -> False
+  where
+    isInDeclIndex :: C.NamePair -> C.NameOrigin -> C.NameKind -> Bool
+    isInDeclIndex namePair origin nameKind =
+      let prelimDeclId =
+            case origin of
+              C.NameOriginInSource           -> C.PrelimDeclIdNamed (C.nameC namePair)
+              C.NameOriginGenerated anonId   -> C.PrelimDeclIdAnon anonId
+              C.NameOriginRenamedFrom _      -> C.PrelimDeclIdNamed (C.nameC namePair)
+              C.NameOriginBuiltin            -> C.PrelimDeclIdBuiltin (C.nameC namePair)
+          qualPrelimDeclId = C.qualPrelimDeclId prelimDeclId nameKind
+      in isJust $ DeclIndex.lookup qualPrelimDeclId declIndex
 
 {-------------------------------------------------------------------------------
   Instance Map
@@ -850,28 +926,6 @@ typedefDecs opts haddockConfig info typedef spec = do
                  }
                ]
         _ -> []
-      where
-        hasUnsupportedType :: C.GetCanonicalType t => t -> Bool
-        hasUnsupportedType = C.getCanonicalType >>> \case
-            C.TypeStruct {}          -> True
-            C.TypeUnion {}           -> True
-            C.TypeComplex {}         -> True
-            C.TypeConstArray {}      -> True
-            C.TypeIncompleteArray {} -> True
-            C.TypePrim {}            -> False
-            C.TypeEnum {}            -> False
-            C.TypeMacroTypedef {}    -> False
-            C.TypePointer {}         -> False
-            C.TypeFun {}             -> False
-            C.TypeVoid               -> False
-            C.TypeBlock {}           -> False
-            C.TypeExtBinding {}      -> False
-
-        wrapperParam hsType = Hs.FunctionParameter
-          { functionParameterName    = Nothing
-          , functionParameterType    = hsType
-          , functionParameterComment = Nothing
-          }
 
     -- everything in aux is state-dependent
     aux :: InstanceMap -> (Set Hs.TypeClass, [Hs.Decl])
@@ -1137,6 +1191,24 @@ data WrappedType
     | AType C.Type C.Type
   deriving Show
 
+-- | Checks if a type is unsupported by Haskell's FFI
+--
+hasUnsupportedType :: C.GetCanonicalType t => t -> Bool
+hasUnsupportedType = C.getCanonicalType >>> \case
+    C.TypeStruct {}          -> True
+    C.TypeUnion {}           -> True
+    C.TypeComplex {}         -> True
+    C.TypeConstArray {}      -> True
+    C.TypeIncompleteArray {} -> True
+    C.TypePrim {}            -> False
+    C.TypeEnum {}            -> False
+    C.TypeMacroTypedef {}    -> False
+    C.TypePointer {}         -> False
+    C.TypeFun {}             -> False
+    C.TypeVoid               -> False
+    C.TypeBlock {}           -> False
+    C.TypeExtBinding {}      -> False
+
 -- | Fancy types are heap types or constant arrays. We create high-level
 -- wrapper for fancy types.
 --
@@ -1320,6 +1392,21 @@ hsWrapperDeclFunction hiName loName res wrappedArgs wrapperParams cFunc mbCommen
 shsApps :: SHs.SExpr ctx -> [SHs.SExpr ctx] -> SHs.SExpr ctx
 shsApps = foldl' SHs.EApp
 
+wrapperParam :: HsType -> Hs.FunctionParameter
+wrapperParam hsType = Hs.FunctionParameter
+  { functionParameterName    = Nothing
+  , functionParameterType    = hsType
+  , functionParameterComment = Nothing
+  }
+-- | Generate a unique name for FFI stubs based on function signature
+genNameFromArgs :: [C.Type] -> C.Type -> String -> Hs.Name 'Hs.NsVar
+genNameFromArgs args' res' suffix =
+  Hs.Name $ T.pack $ "funPtr_" ++ typeHash args' res' ++ "_" ++ suffix
+  where
+    typeHash :: [C.Type] -> C.Type -> String
+    typeHash args res = B.unpack $ B.take 8 $ B16.encode $
+      hash $ B.pack $ show (args, res)
+
 functionDecs ::
      HasCallStack
   => SHs.Safety
@@ -1468,6 +1555,63 @@ functionDecs safety opts haddockConfig moduleName info f _spec =
     wrapperName :: String
     wrapperName = unUniqueSymbolId $
       getUniqueSymbolId (translationUniqueId opts) moduleName (Just safety) innerName
+
+-- | Generate ToFunPtr/FromFunPtr instances for nested function pointer types
+--
+-- This function analyses the function declaration arguments and return types,
+-- and for each function pointer argument/return type containing at least one
+-- non-orphan type, generates the FFI wrapper and dynamic stubs along with
+-- the respective ToFunPtr and FromFunPtr instances.
+--
+-- These instances are placed in the main module to avoid orphan instances.
+functionTypeFFIStubsAndFunPtrInstances ::
+     [C.Type]
+  -> C.Type
+  -> [Hs.Decl]
+functionTypeFFIStubsAndFunPtrInstances args res =
+  let ft = (C.TypeFun args res)
+      tf = C.TypePointer ft
+      tfHsType    = typ tf
+      ftHsType    = typ ft
+      ffiStubTo   = genNameFromArgs args res "to"
+      ffiStubFrom = genNameFromArgs args res "from"
+   in [ Hs.DeclForeignImport Hs.ForeignImportDecl
+        { foreignImportName       = ffiStubTo
+        , foreignImportResultType = NormalResultType $ HsIO $ tfHsType
+        , foreignImportParameters = [wrapperParam ftHsType]
+        , foreignImportOrigName   = "wrapper"
+        , foreignImportCallConv   = CallConvGhcCCall ImportAsValue
+        , foreignImportOrigin     = Origin.ToFunPtr tf
+        , foreignImportComment    = Nothing
+        , foreignImportSafety     = SHs.Safe
+        }
+      , Hs.DeclForeignImport Hs.ForeignImportDecl
+        { foreignImportName       = ffiStubFrom
+        , foreignImportResultType = NormalResultType ftHsType
+        , foreignImportParameters = [wrapperParam tfHsType]
+        , foreignImportOrigName   = "dynamic"
+        , foreignImportCallConv   = CallConvGhcCCall ImportAsValue
+        , foreignImportOrigin     = Origin.FromFunPtr tf
+        , foreignImportComment    = Nothing
+        , foreignImportSafety     = SHs.Safe
+        }
+      , Hs.DeclDefineInstance $ Hs.DefineInstance
+        { defineInstanceDeclarations = Hs.InstanceToFunPtr
+          Hs.ToFunPtrInstance
+          { toFunPtrInstanceType = ftHsType
+          , toFunPtrInstanceBody = ffiStubTo
+          }
+        , defineInstanceComment = Nothing
+        }
+      , Hs.DeclDefineInstance $ Hs.DefineInstance
+        { defineInstanceDeclarations = Hs.InstanceFromFunPtr
+          Hs.FromFunPtrInstance
+          { fromFunPtrInstanceType = ftHsType
+          , fromFunPtrInstanceBody = ffiStubFrom
+          }
+        , defineInstanceComment = Nothing
+        }
+      ]
 
 getMainHashIncludeArg :: HasCallStack => C.DeclInfo -> HashIncludeArg
 getMainHashIncludeArg declInfo = case C.declHeaderInfo declInfo of
