@@ -1,10 +1,10 @@
 version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
+hsmodule: Example
 types:
 - headers: macro_in_fundecl.h
   cname: C
-  module: Example
   hsname: C
   instances:
   - Bits
@@ -22,7 +22,6 @@ types:
   - Storable
 - headers: macro_in_fundecl.h
   cname: F
-  module: Example
   hsname: F
   instances:
   - Enum
@@ -39,7 +38,6 @@ types:
   - Storable
 - headers: macro_in_fundecl.h
   cname: I
-  module: Example
   hsname: I
   instances:
   - Bits
@@ -57,7 +55,6 @@ types:
   - Storable
 - headers: macro_in_fundecl.h
   cname: L
-  module: Example
   hsname: L
   instances:
   - Bits
@@ -75,7 +72,6 @@ types:
   - Storable
 - headers: macro_in_fundecl.h
   cname: S
-  module: Example
   hsname: S
   instances:
   - Bits

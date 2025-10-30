@@ -40,7 +40,8 @@ import HsBindgen.Util.Monad (mapMaybeM)
 -------------------------------------------------------------------------------}
 
 resolveBindingSpecs ::
-     ExternalBindingSpec
+     Hs.ModuleName
+  -> ExternalBindingSpec
   -> PrescriptiveBindingSpec
   -> C.TranslationUnit NameAnon
   -> ( C.TranslationUnit ResolveBindingSpecs
@@ -49,11 +50,13 @@ resolveBindingSpecs ::
      , [Msg ResolveBindingSpecs]
      )
 resolveBindingSpecs
+  hsModuleName
   extSpec
   pSpec
   C.TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
     let (decls, MState{..}) =
           runM
+            hsModuleName
             extSpec
             pSpec
             unitIncludeGraph
@@ -97,15 +100,16 @@ newtype M a = WrapM (RWS MEnv () MState a)
     )
 
 runM ::
-     ExternalBindingSpec
+     Hs.ModuleName
+  -> ExternalBindingSpec
   -> PrescriptiveBindingSpec
   -> IncludeGraph
   -> DeclIndex
   -> UseDeclGraph
   -> M a
   -> (a, MState)
-runM extSpec pSpec includeGraph declIndex useDeclGraph (WrapM m) =
-    let env        = MEnv extSpec pSpec includeGraph declIndex
+runM hsModuleName extSpec pSpec includeGraph declIndex useDeclGraph (WrapM m) =
+    let env        = MEnv hsModuleName extSpec pSpec includeGraph declIndex
         state0     = initMState pSpec useDeclGraph
         (x, s, ()) = RWS.runRWS m env state0
     in  (x, s)
@@ -115,10 +119,11 @@ runM extSpec pSpec includeGraph declIndex useDeclGraph (WrapM m) =
 -------------------------------------------------------------------------------}
 
 data MEnv = MEnv {
-      envExtSpec        :: ExternalBindingSpec
-    , envPSpec          :: PrescriptiveBindingSpec
-    , envIncludeGraph   :: IncludeGraph
-    , envDeclIndex      :: DeclIndex
+      envHsModuleName :: Hs.ModuleName
+    , envExtSpec      :: ExternalBindingSpec
+    , envPSpec        :: PrescriptiveBindingSpec
+    , envIncludeGraph :: IncludeGraph
+    , envDeclIndex    :: DeclIndex
     }
   deriving (Show)
 
@@ -230,17 +235,15 @@ resolveDeep ::
      C.Decl NameAnon
   -> Maybe BindingSpec.CTypeSpec
   -> M (C.Decl ResolveBindingSpecs)
-resolveDeep decl@C.Decl{..} mCTypeSpec = do
-    (depIds, decl') <- fmap reassemble <$> resolve declKind
+resolveDeep decl@C.Decl{..} mCTypeSpec = RWS.ask >>= \MEnv{..} -> do
+    (depIds, declKind') <- resolve declKind
     unless (Set.null depIds) . RWS.modify' $
       deleteDeps (C.declOrigQualPrelimDeclId decl) (Set.toList depIds)
-    return decl'
-  where
-    reassemble :: C.DeclKind ResolveBindingSpecs -> C.Decl ResolveBindingSpecs
-    reassemble declKind' = C.Decl {
+    return C.Decl {
         declInfo = coercePass declInfo
       , declKind = declKind'
-      , declAnn  = fromMaybe def mCTypeSpec
+      , declAnn  =
+          fromMaybe (BindingSpec.defCTypeSpec envHsModuleName) mCTypeSpec
       }
 
 {-------------------------------------------------------------------------------
@@ -506,9 +509,7 @@ getHsExtRef ::
   -> BindingSpec.CTypeSpec
   -> Either (Msg ResolveBindingSpecs) Hs.ExtRef
 getHsExtRef cQualName cTypeSpec = do
-    extRefModule <-
-      maybe (Left (ResolveBindingSpecsExtHsRefNoModule cQualName)) Right $
-        BindingSpec.cTypeSpecModule cTypeSpec
+    let extRefModule = BindingSpec.cTypeSpecModule cTypeSpec
     extRefIdentifier <-
       maybe (Left (ResolveBindingSpecsExtHsRefNoIdentifier cQualName)) Right $
         BindingSpec.cTypeSpecIdentifier cTypeSpec

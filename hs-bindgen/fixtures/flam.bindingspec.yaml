@@ -1,10 +1,10 @@
 version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
+hsmodule: Example
 types:
 - headers: flam.h
   cname: struct diff
-  module: Example
   hsname: Diff
   instances:
   - Eq
@@ -12,7 +12,6 @@ types:
   - Storable
 - headers: flam.h
   cname: struct foo
-  module: Example
   hsname: Foo
   instances:
   - Eq
@@ -20,7 +19,6 @@ types:
   - Storable
 - headers: flam.h
   cname: foo_bar
-  module: Example
   hsname: Foo_bar
   instances:
   - Eq
@@ -28,7 +26,6 @@ types:
   - Storable
 - headers: flam.h
   cname: struct pascal
-  module: Example
   hsname: Pascal
   instances:
   - Eq
@@ -36,7 +33,6 @@ types:
   - Storable
 - headers: flam.h
   cname: struct triplets
-  module: Example
   hsname: Triplets
   instances:
   - Eq

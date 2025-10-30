@@ -1,10 +1,10 @@
 version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
+hsmodule: Example
 types:
 - headers: anonymous.h
   cname: struct S1
-  module: Example
   hsname: S1
   instances:
   - Eq
@@ -12,7 +12,6 @@ types:
   - Storable
 - headers: anonymous.h
   cname: S1_c
-  module: Example
   hsname: S1_c
   instances:
   - Eq
@@ -20,7 +19,6 @@ types:
   - Storable
 - headers: anonymous.h
   cname: struct S2
-  module: Example
   hsname: S2
   instances:
   - Eq
@@ -28,7 +26,6 @@ types:
   - Storable
 - headers: anonymous.h
   cname: S2_inner
-  module: Example
   hsname: S2_inner
   instances:
   - Eq
@@ -36,7 +33,6 @@ types:
   - Storable
 - headers: anonymous.h
   cname: S2_inner_deep
-  module: Example
   hsname: S2_inner_deep
   instances:
   - Eq
@@ -44,7 +40,6 @@ types:
   - Storable
 - headers: anonymous.h
   cname: struct S3
-  module: Example
   hsname: S3
   instances:
   - Eq
@@ -52,7 +47,6 @@ types:
   - Storable
 - headers: anonymous.h
   cname: S3_c
-  module: Example
   hsname: S3_c
   instances:
   - Eq

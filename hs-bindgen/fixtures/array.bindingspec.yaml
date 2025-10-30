@@ -1,10 +1,10 @@
 version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
+hsmodule: Example
 types:
 - headers: array.h
   cname: struct Example
-  module: Example
   hsname: Example
   instances:
   - Eq
@@ -12,14 +12,12 @@ types:
   - Storable
 - headers: array.h
   cname: list
-  module: Example
   hsname: List
   instances:
   - Eq
   - Show
 - headers: array.h
   cname: matrix
-  module: Example
   hsname: Matrix
   instances:
   - Eq
@@ -27,7 +25,6 @@ types:
   - Storable
 - headers: array.h
   cname: sudoku
-  module: Example
   hsname: Sudoku
   instances:
   - Eq
@@ -35,7 +32,6 @@ types:
   - Storable
 - headers: array.h
   cname: triplet
-  module: Example
   hsname: Triplet
   instances:
   - Eq
@@ -43,7 +39,6 @@ types:
   - Storable
 - headers: array.h
   cname: tripletlist
-  module: Example
   hsname: Tripletlist
   instances:
   - Eq

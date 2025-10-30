@@ -1,16 +1,14 @@
 version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
+hsmodule: Example
 types:
 - headers: iterator.h
   cname: Counter
-  module: Example
   hsname: Counter
 - headers: iterator.h
   cname: Toggle
-  module: Example
   hsname: Toggle
 - headers: iterator.h
   cname: VarCounter
-  module: Example
   hsname: VarCounter

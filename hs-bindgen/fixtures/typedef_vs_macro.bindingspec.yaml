@@ -1,10 +1,10 @@
 version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
+hsmodule: Example
 types:
 - headers: typedef_vs_macro.h
   cname: struct ExampleStruct
-  module: Example
   hsname: ExampleStruct
   instances:
   - Eq
@@ -12,7 +12,6 @@ types:
   - Storable
 - headers: typedef_vs_macro.h
   cname: M1
-  module: Example
   hsname: M1
   instances:
   - Bits
@@ -30,7 +29,6 @@ types:
   - Storable
 - headers: typedef_vs_macro.h
   cname: M2
-  module: Example
   hsname: M2
   instances:
   - Bits
@@ -48,7 +46,6 @@ types:
   - Storable
 - headers: typedef_vs_macro.h
   cname: M3
-  module: Example
   hsname: M3
   instances:
   - Eq
@@ -57,7 +54,6 @@ types:
   - Storable
 - headers: typedef_vs_macro.h
   cname: T1
-  module: Example
   hsname: T1
   instances:
   - Bits
@@ -75,7 +71,6 @@ types:
   - Storable
 - headers: typedef_vs_macro.h
   cname: T2
-  module: Example
   hsname: T2
   instances:
   - Bits
@@ -93,7 +88,6 @@ types:
   - Storable
 - headers: typedef_vs_macro.h
   cname: struct foo
-  module: Example
   hsname: Foo
   instances:
   - Eq
@@ -101,7 +95,6 @@ types:
   - Storable
 - headers: typedef_vs_macro.h
   cname: uint64_t
-  module: Example
   hsname: Uint64_t
   instances:
   - Bits

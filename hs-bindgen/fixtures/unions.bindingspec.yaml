@@ -1,16 +1,15 @@
 version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
+hsmodule: Example
 types:
 - headers: unions.h
   cname: union AnonA
-  module: Example
   hsname: AnonA
   instances:
   - Storable
 - headers: unions.h
   cname: AnonA_polar
-  module: Example
   hsname: AnonA_polar
   instances:
   - Eq
@@ -18,7 +17,6 @@ types:
   - Storable
 - headers: unions.h
   cname: AnonA_xy
-  module: Example
   hsname: AnonA_xy
   instances:
   - Eq
@@ -26,13 +24,11 @@ types:
   - Storable
 - headers: unions.h
   cname: struct Dim
-  module: Example
   hsname: Dim
   instances:
   - Storable
 - headers: unions.h
   cname: struct Dim2
-  module: Example
   hsname: Dim2
   instances:
   - Eq
@@ -40,7 +36,6 @@ types:
   - Storable
 - headers: unions.h
   cname: struct Dim3
-  module: Example
   hsname: Dim3
   instances:
   - Eq
@@ -48,19 +43,16 @@ types:
   - Storable
 - headers: unions.h
   cname: struct DimB
-  module: Example
   hsname: DimB
   instances:
   - Storable
 - headers: unions.h
   cname: union DimPayload
-  module: Example
   hsname: DimPayload
   instances:
   - Storable
 - headers: unions.h
   cname: union DimPayloadB
-  module: Example
   hsname: DimPayloadB
   instances:
   - Storable

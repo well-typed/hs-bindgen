@@ -65,17 +65,13 @@ data ResolvedExtBinding = ResolvedExtBinding{
 -------------------------------------------------------------------------------}
 
 data ResolveBindingSpecsMsg =
-    ResolveBindingSpecsExtHsRefNoModule     C.QualName
-  | ResolveBindingSpecsExtHsRefNoIdentifier C.QualName
+    ResolveBindingSpecsExtHsRefNoIdentifier C.QualName
   | ResolveBindingSpecsOmittedTypeUse       C.QualName
   | ResolveBindingSpecsTypeNotUsed          C.QualName
   deriving stock (Show)
 
 instance PrettyForTrace ResolveBindingSpecsMsg where
   prettyForTrace = \case
-      ResolveBindingSpecsExtHsRefNoModule cQualName ->
-        "Haskell module not specified in binding specification:"
-          <+> prettyForTrace cQualName
       ResolveBindingSpecsExtHsRefNoIdentifier cQualName ->
         "Haskell identifier not specified in binding specification:"
           <+> prettyForTrace cQualName

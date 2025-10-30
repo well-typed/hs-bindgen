@@ -1,10 +1,10 @@
 version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
+hsmodule: Example
 types:
 - headers: opaque_declaration.h
   cname: struct bar
-  module: Example
   hsname: Bar
   instances:
   - Eq
@@ -12,7 +12,6 @@ types:
   - Storable
 - headers: opaque_declaration.h
   cname: struct baz
-  module: Example
   hsname: Baz
   instances:
   - Eq
@@ -20,13 +19,10 @@ types:
   - Storable
 - headers: opaque_declaration.h
   cname: struct foo
-  module: Example
   hsname: Foo
 - headers: opaque_declaration.h
   cname: union opaque_union
-  module: Example
   hsname: Opaque_union
 - headers: opaque_declaration.h
   cname: enum quu
-  module: Example
   hsname: Quu

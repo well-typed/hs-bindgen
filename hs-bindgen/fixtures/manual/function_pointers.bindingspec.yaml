@@ -1,10 +1,10 @@
 version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
+hsmodule: Example
 types:
 - headers: manual/function_pointers.h
   cname: struct Apply1Struct
-  module: Example
   hsname: Apply1Struct
   instances:
   - Eq
@@ -12,11 +12,9 @@ types:
   - Storable
 - headers: manual/function_pointers.h
   cname: union Apply1Union
-  module: Example
   hsname: Apply1Union
   instances:
   - Storable
 - headers: manual/function_pointers.h
   cname: int2int
-  module: Example
   hsname: Int2int

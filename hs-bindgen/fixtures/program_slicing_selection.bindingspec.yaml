@@ -1,10 +1,10 @@
 version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
+hsmodule: Example
 types:
 - headers: program_slicing_selection.h
   cname: struct FileOperationRecord
-  module: Example
   hsname: FileOperationRecord
   instances:
   - Eq
@@ -12,7 +12,6 @@ types:
   - Storable
 - headers: program_slicing_selection.h
   cname: enum FileOperationStatus
-  module: Example
   hsname: FileOperationStatus
   instances:
   - Eq
