@@ -65,13 +65,19 @@ data ResolvedExtBinding = ResolvedExtBinding{
 -------------------------------------------------------------------------------}
 
 data ResolveBindingSpecsMsg =
-    ResolveBindingSpecsExtHsRefNoIdentifier C.QualName
+    ResolveBindingSpecsModuleMismatch       Hs.ModuleName Hs.ModuleName
+  | ResolveBindingSpecsExtHsRefNoIdentifier C.QualName
   | ResolveBindingSpecsOmittedTypeUse       C.QualName
   | ResolveBindingSpecsTypeNotUsed          C.QualName
   deriving stock (Show)
 
 instance PrettyForTrace ResolveBindingSpecsMsg where
   prettyForTrace = \case
+      ResolveBindingSpecsModuleMismatch hsModuleName pSpecHsModuleName ->
+        "prescriptive binding specification for module"
+          <+> prettyForTrace pSpecHsModuleName
+          <+> "cannot be used to generate"
+          <+> prettyForTrace hsModuleName
       ResolveBindingSpecsExtHsRefNoIdentifier cQualName ->
         "Haskell identifier not specified in binding specification:"
           <+> prettyForTrace cQualName

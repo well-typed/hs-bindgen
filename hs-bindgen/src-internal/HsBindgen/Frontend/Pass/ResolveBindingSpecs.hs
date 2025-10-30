@@ -132,26 +132,33 @@ data MEnv = MEnv {
 -------------------------------------------------------------------------------}
 
 data MState = MState {
-      stateErrors    :: [Msg ResolveBindingSpecs] -- ^ Stored in reverse order
-    , stateExtTypes  :: Map C.QualName (C.Type ResolveBindingSpecs)
-    , stateNoPTypes  :: Map C.QualName [Set SourcePath]
-    , stateOmitTypes :: Map C.QualName SourcePath
-    , stateUseDecl   :: UseDeclGraph
+      stateErrors         :: [Msg ResolveBindingSpecs] -- ^ reverse order
+    , stateModuleMismatch :: Bool
+    , stateExtTypes       :: Map C.QualName (C.Type ResolveBindingSpecs)
+    , stateNoPTypes       :: Map C.QualName [Set SourcePath]
+    , stateOmitTypes      :: Map C.QualName SourcePath
+    , stateUseDecl        :: UseDeclGraph
     }
   deriving (Show)
 
 initMState :: PrescriptiveBindingSpec -> UseDeclGraph -> MState
 initMState pSpec useDeclGraph = MState {
-      stateErrors    = []
-    , stateExtTypes  = Map.empty
-    , stateNoPTypes  = BindingSpec.getCTypes pSpec
-    , stateOmitTypes = Map.empty
-    , stateUseDecl   = useDeclGraph
+      stateErrors         = []
+    , stateModuleMismatch = False
+    , stateExtTypes       = Map.empty
+    , stateNoPTypes       = BindingSpec.getCTypes pSpec
+    , stateOmitTypes      = Map.empty
+    , stateUseDecl        = useDeclGraph
     }
 
 insertError :: Msg ResolveBindingSpecs -> MState -> MState
 insertError e st = st {
       stateErrors = e : stateErrors st
+    }
+
+setModuleMismatch :: MState -> MState
+setModuleMismatch st = st {
+      stateModuleMismatch = True
     }
 
 insertExtType ::
@@ -218,6 +225,14 @@ resolveTop decl = RWS.ask >>= \MEnv{..} -> do
       then return Nothing
       else case BindingSpec.lookupCTypeSpec cQualName declPaths envPSpec of
         Just (BindingSpec.Require cTypeSpec) -> do
+          let pSpecModule = BindingSpec.cTypeSpecModule cTypeSpec
+          unless (pSpecModule == envHsModuleName) $ do
+            let err =
+                  ResolveBindingSpecsModuleMismatch envHsModuleName pSpecModule
+            alreadyModuleMismatch <- RWS.gets stateModuleMismatch
+            unless alreadyModuleMismatch . RWS.modify' $
+                setModuleMismatch
+              . insertError err
           RWS.modify' $ deleteNoPType cQualName sourcePath
           return $ Just (decl, Just cTypeSpec)
         Just BindingSpec.Omit -> do
