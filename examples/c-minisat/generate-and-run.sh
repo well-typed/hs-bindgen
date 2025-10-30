@@ -36,6 +36,7 @@ cabal run --project-dir="${PROJECT_ROOT}" -- hs-bindgen-cli \
     preprocess \
     -I "minisat-c-bindings" \
     --hs-output-dir "hs-project/src" \
+    --create-output-dirs \
     --module Generated.Minisat \
     "minisat.h"
 

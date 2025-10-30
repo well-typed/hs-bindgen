@@ -8,6 +8,8 @@ module_flags=(
     --unique-id org.hs-bindgen.libpcap
     # Base output directory of generated bindings.
     --hs-output-dir hs-project/src
+    # Create output directory if it does not exist.
+    --create-output-dirs
     # Base module name. Submodules will have name `Generated.Pcap.Safe`, for
     # example.
     --module Generated.Pcap
