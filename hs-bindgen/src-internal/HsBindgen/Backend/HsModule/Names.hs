@@ -19,6 +19,7 @@ import Data.Ix qualified
 import Data.List qualified as L
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
+import Data.Maybe qualified
 import Data.Set qualified as Set
 import Data.Void qualified
 import Foreign qualified
@@ -140,6 +141,8 @@ moduleOf "CStringLen" _ =
   HsImportModule "Foreign.C" (Just "FC")
 moduleOf "NonEmpty" _ = HsImportModule "Data.List.NonEmpty" Nothing
 moduleOf ":|"       _ = HsImportModule "Data.List.NonEmpty" Nothing
+moduleOf "Nothing"  _ = HsImportModule "Data.Maybe" Nothing
+moduleOf "Just"     _ = HsImportModule "Data.Maybe" Nothing
 moduleOf ident m0 = case parts of
     ["C","Operator","Classes"]       -> HsImportModule "C.Expr.HostPlatform" (Just "C")
     ["GHC", "Bits"]                  -> HsImportModule "Data.Bits" (Just "Bits")
@@ -202,9 +205,10 @@ resolveGlobal = \case
     Tuple_constructor i           -> tupleResolvedName False i
     Applicative_pure              -> importU 'pure
     Applicative_seq               -> importU '(<*>)
+    Maybe_just                    -> importQ 'Data.Maybe.Just
+    Maybe_nothing                 -> importQ 'Data.Maybe.Nothing
     Monad_return                  -> importU 'return
     Monad_seq                     -> importU '(>>)
-    Maybe_type                    -> ResolvedName "Maybe(..)" IdentifierName (Just (UnqualifiedHsImport iPrelude))
     StaticSize_class              -> importQ ''HsBindgen.Runtime.Marshal.StaticSize
     ReadRaw_class                 -> importQ ''HsBindgen.Runtime.Marshal.ReadRaw
     WriteRaw_class                -> importQ ''HsBindgen.Runtime.Marshal.WriteRaw

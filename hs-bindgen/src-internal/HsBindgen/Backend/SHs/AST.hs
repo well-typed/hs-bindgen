@@ -54,9 +54,10 @@ data Global =
   | Tuple_constructor Word
   | Applicative_pure
   | Applicative_seq
+  | Maybe_just
+  | Maybe_nothing
   | Monad_return
   | Monad_seq
-  | Maybe_type
   | StaticSize_class
   | ReadRaw_class
   | WriteRaw_class
