@@ -153,3 +153,8 @@ jobs:
     - name: 🧪 Build and run libpcap example
       if: ${{ matrix.example == 'libpcap' }}
       uses: ./.github/actions/examples/libpcap
+
+    - name: 🧪 Build and run c-qrcode example
+      if: runner.os == 'Linux'
+      uses: ./.github/actions/examples/c-qrcode
+
