@@ -10,3 +10,6 @@
 [submodule "examples/botan/botan"]
 	path = examples/botan/botan
 	url = https://github.com/randombit/botan
+[submodule "examples/c-qrcode/QR-Code-generator"]
+	path = examples/c-qrcode/QR-Code-generator
+	url = https://github.com/nayuki/QR-Code-generator.git
