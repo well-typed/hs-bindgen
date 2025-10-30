@@ -510,7 +510,10 @@ prettyExpr env prec = \case
       prettyExpr env 0 (EGlobal CharValue_fromAddr)
         <+> string str
         <+> string (show len)
-        <+> case mbUnicode of { Nothing -> "Nothing"; Just c -> parens ("Just" <+> string (show c)) }
+        <+> case mbUnicode of
+            { Nothing -> pretty (resolve Maybe_nothing)
+            ; Just c -> parens (pretty (resolve Maybe_just) <+> string (show c))
+            }
       where
         (str, len) = addrLiteral ba
     EString s -> showToCtxDoc s

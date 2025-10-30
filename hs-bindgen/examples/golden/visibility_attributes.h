@@ -101,5 +101,4 @@ static int __attribute__ ((visibility ("protected"))) i29 = 29;
 
 // deprecated
 void deprecated_function(void)
-  __attribute__((deprecated("This function is deprecated",
-                            "There is no replacement for this function")));
+  __attribute__((deprecated("This function is deprecated. There is no replacement for this function")));

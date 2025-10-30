@@ -60,7 +60,7 @@ newtype Size_t = Size_t
 
 {-| __C declaration:__ @__f1@
 
-    __defined at:__ @fun_attributes.h:16:6@
+    __defined at:__ @fun_attributes.h:16:13@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -69,7 +69,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_8de545512324157b" __f1
 
 {-| __C declaration:__ @f1@
 
-    __defined at:__ @fun_attributes.h:17:6@
+    __defined at:__ @fun_attributes.h:19:6@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -78,7 +78,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_a2f84d2570ef3892" f1 :
 
 {-| __C declaration:__ @my_memalign@
 
-    __defined at:__ @fun_attributes.h:21:7@
+    __defined at:__ @fun_attributes.h:23:7@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -89,7 +89,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_cefda6b95395d829" my_m
 
 {-| __C declaration:__ @my_calloc@
 
-    __defined at:__ @fun_attributes.h:26:7@
+    __defined at:__ @fun_attributes.h:28:7@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -100,7 +100,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_e25f06c3ebec2536" my_c
 
 {-| __C declaration:__ @my_realloc@
 
-    __defined at:__ @fun_attributes.h:27:7@
+    __defined at:__ @fun_attributes.h:29:7@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -111,7 +111,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_51fa664668350a00" my_r
 
 {-| __C declaration:__ @my_alloc1@
 
-    __defined at:__ @fun_attributes.h:32:7@
+    __defined at:__ @fun_attributes.h:34:7@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -121,7 +121,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_93a5d6b7d4e02c33" my_a
 
 {-| __C declaration:__ @my_alloc2@
 
-    __defined at:__ @fun_attributes.h:33:7@
+    __defined at:__ @fun_attributes.h:35:7@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -131,7 +131,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_c948fd867be322fa" my_a
 
 {-| __C declaration:__ @square@
 
-    __defined at:__ @fun_attributes.h:37:5@
+    __defined at:__ @fun_attributes.h:39:5@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -141,7 +141,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_55e5eb89e54abf83" squa
 
 {-| __C declaration:__ @old_fn_deprecated@
 
-    __defined at:__ @fun_attributes.h:46:5@
+    __defined at:__ @fun_attributes.h:48:5@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -150,7 +150,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_e9647b9c99c68776" old_
 
 {-| __C declaration:__ @my_dgettext@
 
-    __defined at:__ @fun_attributes.h:62:1@
+    __defined at:__ @fun_attributes.h:64:1@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -165,7 +165,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_023f7813e909f518" my_d
 
 {-| __C declaration:__ @fdopen@
 
-    __defined at:__ @fun_attributes.h:73:9@
+    __defined at:__ @fun_attributes.h:75:9@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -176,7 +176,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_e39bbd59f1c96c14" fdop
 
 {-| __C declaration:__ @f2@
 
-    __defined at:__ @fun_attributes.h:77:65@
+    __defined at:__ @fun_attributes.h:79:65@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -185,7 +185,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_1d043de05a457e90" f2 :
 
 {-| __C declaration:__ @my_memcpy@
 
-    __defined at:__ @fun_attributes.h:83:1@
+    __defined at:__ @fun_attributes.h:85:1@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -203,7 +203,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_4b3bfd2d72a2db5d" my_m
 
 {-| __C declaration:__ @fatal@
 
-    __defined at:__ @fun_attributes.h:100:6@
+    __defined at:__ @fun_attributes.h:102:6@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -216,7 +216,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_348fe595d62421cf" fata
 
 __C declaration:__ @hash@
 
-__defined at:__ @fun_attributes.h:108:5@
+__defined at:__ @fun_attributes.h:110:5@
 
 __exported by:__ @fun_attributes.h@
 -}
@@ -226,7 +226,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_e30754e2591f701a" hash
 
 {-| __C declaration:__ @mymalloc@
 
-    __defined at:__ @fun_attributes.h:113:1@
+    __defined at:__ @fun_attributes.h:115:1@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -238,7 +238,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_f6f68a022a15937a" myma
 
 {-| __C declaration:__ @foobar@
 
-    __defined at:__ @fun_attributes.h:117:13@
+    __defined at:__ @fun_attributes.h:119:13@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -247,7 +247,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_d1bf41da7ab64db1" foob
 
 {-| __C declaration:__ @core2_func@
 
-    __defined at:__ @fun_attributes.h:124:5@
+    __defined at:__ @fun_attributes.h:126:5@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -256,7 +256,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_00405e83bcb9b271" core
 
 {-| __C declaration:__ @sse3_func@
 
-    __defined at:__ @fun_attributes.h:125:5@
+    __defined at:__ @fun_attributes.h:127:5@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -265,7 +265,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_06e7d2f8bcf43684" sse3
 
 {-| __C declaration:__ @f3@
 
-    __defined at:__ @fun_attributes.h:129:49@
+    __defined at:__ @fun_attributes.h:131:49@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -274,7 +274,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_e23eff1955ebb459" f3 :
 
 {-| __C declaration:__ @fn@
 
-    __defined at:__ @fun_attributes.h:134:5@
+    __defined at:__ @fun_attributes.h:136:5@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -283,7 +283,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_ef0eea5f61ef9228" fn :
 
 {-| __C declaration:__ @y@
 
-    __defined at:__ @fun_attributes.h:140:12@
+    __defined at:__ @fun_attributes.h:142:12@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -292,7 +292,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_b007466f7ff1cf28" y ::
 
 {-| __C declaration:__ @x1@
 
-    __defined at:__ @fun_attributes.h:143:12@
+    __defined at:__ @fun_attributes.h:145:12@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -301,7 +301,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_8c9825e1b20a7ea1" x1 :
 
 {-| __C declaration:__ @x2@
 
-    __defined at:__ @fun_attributes.h:146:12@
+    __defined at:__ @fun_attributes.h:148:12@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -315,7 +315,7 @@ foreign import ccall unsafe "hs_bindgen_test_fun_attributes_7003b306f73c174b" hs
 
 {-| __C declaration:__ @__f1@
 
-    __defined at:__ @fun_attributes.h:16:6@
+    __defined at:__ @fun_attributes.h:16:13@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -330,7 +330,7 @@ foreign import ccall unsafe "hs_bindgen_test_fun_attributes_5469bdc0395f86c1" hs
 
 {-| __C declaration:__ @f1@
 
-    __defined at:__ @fun_attributes.h:17:6@
+    __defined at:__ @fun_attributes.h:19:6@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -345,7 +345,7 @@ foreign import ccall unsafe "hs_bindgen_test_fun_attributes_b3c956e53724162c" hs
 
 {-| __C declaration:__ @my_memalign@
 
-    __defined at:__ @fun_attributes.h:21:7@
+    __defined at:__ @fun_attributes.h:23:7@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -360,7 +360,7 @@ foreign import ccall unsafe "hs_bindgen_test_fun_attributes_733646ca96f39979" hs
 
 {-| __C declaration:__ @my_calloc@
 
-    __defined at:__ @fun_attributes.h:26:7@
+    __defined at:__ @fun_attributes.h:28:7@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -375,7 +375,7 @@ foreign import ccall unsafe "hs_bindgen_test_fun_attributes_94e8271f186110fd" hs
 
 {-| __C declaration:__ @my_realloc@
 
-    __defined at:__ @fun_attributes.h:27:7@
+    __defined at:__ @fun_attributes.h:29:7@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -390,7 +390,7 @@ foreign import ccall unsafe "hs_bindgen_test_fun_attributes_48d9862d70f58e70" hs
 
 {-| __C declaration:__ @my_alloc1@
 
-    __defined at:__ @fun_attributes.h:32:7@
+    __defined at:__ @fun_attributes.h:34:7@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -405,7 +405,7 @@ foreign import ccall unsafe "hs_bindgen_test_fun_attributes_17a11fd10dc57357" hs
 
 {-| __C declaration:__ @my_alloc2@
 
-    __defined at:__ @fun_attributes.h:33:7@
+    __defined at:__ @fun_attributes.h:35:7@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -420,7 +420,7 @@ foreign import ccall unsafe "hs_bindgen_test_fun_attributes_c41111f40a04cdc9" hs
 
 {-| __C declaration:__ @square@
 
-    __defined at:__ @fun_attributes.h:37:5@
+    __defined at:__ @fun_attributes.h:39:5@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -435,7 +435,7 @@ foreign import ccall unsafe "hs_bindgen_test_fun_attributes_17f68fdc3f464b20" hs
 
 {-| __C declaration:__ @old_fn_deprecated@
 
-    __defined at:__ @fun_attributes.h:46:5@
+    __defined at:__ @fun_attributes.h:48:5@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -450,7 +450,7 @@ foreign import ccall unsafe "hs_bindgen_test_fun_attributes_a0be4f488601c252" hs
 
 {-| __C declaration:__ @my_dgettext@
 
-    __defined at:__ @fun_attributes.h:62:1@
+    __defined at:__ @fun_attributes.h:64:1@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -465,7 +465,7 @@ foreign import ccall unsafe "hs_bindgen_test_fun_attributes_2b987c3b5c01a326" hs
 
 {-| __C declaration:__ @fdopen@
 
-    __defined at:__ @fun_attributes.h:73:9@
+    __defined at:__ @fun_attributes.h:75:9@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -480,7 +480,7 @@ foreign import ccall unsafe "hs_bindgen_test_fun_attributes_490ca7e8c8282a69" hs
 
 {-| __C declaration:__ @f2@
 
-    __defined at:__ @fun_attributes.h:77:65@
+    __defined at:__ @fun_attributes.h:79:65@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -495,7 +495,7 @@ foreign import ccall unsafe "hs_bindgen_test_fun_attributes_e2e8b5d5ac435de8" hs
 
 {-| __C declaration:__ @my_memcpy@
 
-    __defined at:__ @fun_attributes.h:83:1@
+    __defined at:__ @fun_attributes.h:85:1@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -510,7 +510,7 @@ foreign import ccall unsafe "hs_bindgen_test_fun_attributes_ea0bb781f9eca7f5" hs
 
 {-| __C declaration:__ @fatal@
 
-    __defined at:__ @fun_attributes.h:100:6@
+    __defined at:__ @fun_attributes.h:102:6@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -525,7 +525,7 @@ foreign import ccall unsafe "hs_bindgen_test_fun_attributes_4de9606eb9c5dd01" hs
 
 {-| __C declaration:__ @hash@
 
-    __defined at:__ @fun_attributes.h:108:5@
+    __defined at:__ @fun_attributes.h:110:5@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -540,7 +540,7 @@ foreign import ccall unsafe "hs_bindgen_test_fun_attributes_4ce141c884649d49" hs
 
 {-| __C declaration:__ @mymalloc@
 
-    __defined at:__ @fun_attributes.h:113:1@
+    __defined at:__ @fun_attributes.h:115:1@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -555,7 +555,7 @@ foreign import ccall unsafe "hs_bindgen_test_fun_attributes_5c243ced544ab0aa" hs
 
 {-| __C declaration:__ @foobar@
 
-    __defined at:__ @fun_attributes.h:117:13@
+    __defined at:__ @fun_attributes.h:119:13@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -570,7 +570,7 @@ foreign import ccall unsafe "hs_bindgen_test_fun_attributes_14ef55245a14f816" hs
 
 {-| __C declaration:__ @core2_func@
 
-    __defined at:__ @fun_attributes.h:124:5@
+    __defined at:__ @fun_attributes.h:126:5@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -585,7 +585,7 @@ foreign import ccall unsafe "hs_bindgen_test_fun_attributes_72956748bb6eee67" hs
 
 {-| __C declaration:__ @sse3_func@
 
-    __defined at:__ @fun_attributes.h:125:5@
+    __defined at:__ @fun_attributes.h:127:5@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -600,7 +600,7 @@ foreign import ccall unsafe "hs_bindgen_test_fun_attributes_38506a9ac5626bf2" hs
 
 {-| __C declaration:__ @f3@
 
-    __defined at:__ @fun_attributes.h:129:49@
+    __defined at:__ @fun_attributes.h:131:49@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -615,7 +615,7 @@ foreign import ccall unsafe "hs_bindgen_test_fun_attributes_5929da82079150d1" hs
 
 {-| __C declaration:__ @fn@
 
-    __defined at:__ @fun_attributes.h:134:5@
+    __defined at:__ @fun_attributes.h:136:5@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -630,7 +630,7 @@ foreign import ccall unsafe "hs_bindgen_test_fun_attributes_7bcb4a1873e6ece6" hs
 
 {-| __C declaration:__ @y@
 
-    __defined at:__ @fun_attributes.h:140:12@
+    __defined at:__ @fun_attributes.h:142:12@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -645,7 +645,7 @@ foreign import ccall unsafe "hs_bindgen_test_fun_attributes_11098262b345351a" hs
 
 {-| __C declaration:__ @x1@
 
-    __defined at:__ @fun_attributes.h:143:12@
+    __defined at:__ @fun_attributes.h:145:12@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -660,7 +660,7 @@ foreign import ccall unsafe "hs_bindgen_test_fun_attributes_0d19f83087f278f9" hs
 
 {-| __C declaration:__ @x2@
 
-    __defined at:__ @fun_attributes.h:146:12@
+    __defined at:__ @fun_attributes.h:148:12@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -675,7 +675,7 @@ foreign import ccall unsafe "hs_bindgen_test_fun_attributes_cdc30ae5fb72cd6e" hs
 
 {-| __C declaration:__ @i@
 
-    __defined at:__ @fun_attributes.h:130:5@
+    __defined at:__ @fun_attributes.h:132:5@
 
     __exported by:__ @fun_attributes.h@
 -}

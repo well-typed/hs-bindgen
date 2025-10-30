@@ -124,21 +124,21 @@ newtype Size_t
                       Real)
 {-| __C declaration:__ @__f1@
 
-    __defined at:__ @fun_attributes.h:16:6@
+    __defined at:__ @fun_attributes.h:16:13@
 
     __exported by:__ @fun_attributes.h@
 -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_8de545512324157b" __f1 :: IO Unit
 {-| __C declaration:__ @f1@
 
-    __defined at:__ @fun_attributes.h:17:6@
+    __defined at:__ @fun_attributes.h:19:6@
 
     __exported by:__ @fun_attributes.h@
 -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_a2f84d2570ef3892" f1 :: IO Unit
 {-| __C declaration:__ @my_memalign@
 
-    __defined at:__ @fun_attributes.h:21:7@
+    __defined at:__ @fun_attributes.h:23:7@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -147,7 +147,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_cefda6b95395d829" my_m
                                                                                            IO (Ptr Void)
 {-| __C declaration:__ @my_calloc@
 
-    __defined at:__ @fun_attributes.h:26:7@
+    __defined at:__ @fun_attributes.h:28:7@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -156,7 +156,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_e25f06c3ebec2536" my_c
                                                                                          IO (Ptr Void)
 {-| __C declaration:__ @my_realloc@
 
-    __defined at:__ @fun_attributes.h:27:7@
+    __defined at:__ @fun_attributes.h:29:7@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -165,7 +165,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_51fa664668350a00" my_r
                                                                                           IO (Ptr Void)
 {-| __C declaration:__ @my_alloc1@
 
-    __defined at:__ @fun_attributes.h:32:7@
+    __defined at:__ @fun_attributes.h:34:7@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -173,7 +173,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_93a5d6b7d4e02c33" my_a
                                                                                          IO (Ptr Void)
 {-| __C declaration:__ @my_alloc2@
 
-    __defined at:__ @fun_attributes.h:33:7@
+    __defined at:__ @fun_attributes.h:35:7@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -181,7 +181,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_c948fd867be322fa" my_a
                                                                                          IO (Ptr Void)
 {-| __C declaration:__ @square@
 
-    __defined at:__ @fun_attributes.h:37:5@
+    __defined at:__ @fun_attributes.h:39:5@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -189,14 +189,14 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_55e5eb89e54abf83" squa
                                                                                       CInt
 {-| __C declaration:__ @old_fn_deprecated@
 
-    __defined at:__ @fun_attributes.h:46:5@
+    __defined at:__ @fun_attributes.h:48:5@
 
     __exported by:__ @fun_attributes.h@
 -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_e9647b9c99c68776" old_fn_deprecated :: IO CInt
 {-| __C declaration:__ @my_dgettext@
 
-    __defined at:__ @fun_attributes.h:62:1@
+    __defined at:__ @fun_attributes.h:64:1@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -205,7 +205,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_023f7813e909f518" my_d
                                                                                            IO (Ptr CChar)
 {-| __C declaration:__ @fdopen@
 
-    __defined at:__ @fun_attributes.h:73:9@
+    __defined at:__ @fun_attributes.h:75:9@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -214,14 +214,14 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_e39bbd59f1c96c14" fdop
                                                                                       IO (Ptr FILE)
 {-| __C declaration:__ @f2@
 
-    __defined at:__ @fun_attributes.h:77:65@
+    __defined at:__ @fun_attributes.h:79:65@
 
     __exported by:__ @fun_attributes.h@
 -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_1d043de05a457e90" f2 :: IO Unit
 {-| __C declaration:__ @my_memcpy@
 
-    __defined at:__ @fun_attributes.h:83:1@
+    __defined at:__ @fun_attributes.h:85:1@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -231,7 +231,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_4b3bfd2d72a2db5d" my_m
                                                                                          IO (Ptr Void)
 {-| __C declaration:__ @fatal@
 
-    __defined at:__ @fun_attributes.h:100:6@
+    __defined at:__ @fun_attributes.h:102:6@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -242,7 +242,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_348fe595d62421cf" fata
 
 __C declaration:__ @hash@
 
-__defined at:__ @fun_attributes.h:108:5@
+__defined at:__ @fun_attributes.h:110:5@
 
 __exported by:__ @fun_attributes.h@
 -}
@@ -250,7 +250,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_e30754e2591f701a" hash
                                                                                     IO CInt
 {-| __C declaration:__ @mymalloc@
 
-    __defined at:__ @fun_attributes.h:113:1@
+    __defined at:__ @fun_attributes.h:115:1@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -258,77 +258,77 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_f6f68a022a15937a" myma
                                                                                         IO (Ptr Void)
 {-| __C declaration:__ @foobar@
 
-    __defined at:__ @fun_attributes.h:117:13@
+    __defined at:__ @fun_attributes.h:119:13@
 
     __exported by:__ @fun_attributes.h@
 -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_d1bf41da7ab64db1" foobar :: IO Unit
 {-| __C declaration:__ @core2_func@
 
-    __defined at:__ @fun_attributes.h:124:5@
+    __defined at:__ @fun_attributes.h:126:5@
 
     __exported by:__ @fun_attributes.h@
 -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_00405e83bcb9b271" core2_func :: IO CInt
 {-| __C declaration:__ @sse3_func@
 
-    __defined at:__ @fun_attributes.h:125:5@
+    __defined at:__ @fun_attributes.h:127:5@
 
     __exported by:__ @fun_attributes.h@
 -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_06e7d2f8bcf43684" sse3_func :: IO CInt
 {-| __C declaration:__ @f3@
 
-    __defined at:__ @fun_attributes.h:129:49@
+    __defined at:__ @fun_attributes.h:131:49@
 
     __exported by:__ @fun_attributes.h@
 -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_e23eff1955ebb459" f3 :: IO Unit
 {-| __C declaration:__ @fn@
 
-    __defined at:__ @fun_attributes.h:134:5@
+    __defined at:__ @fun_attributes.h:136:5@
 
     __exported by:__ @fun_attributes.h@
 -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_ef0eea5f61ef9228" fn :: IO CInt
 {-| __C declaration:__ @y@
 
-    __defined at:__ @fun_attributes.h:140:12@
+    __defined at:__ @fun_attributes.h:142:12@
 
     __exported by:__ @fun_attributes.h@
 -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_b007466f7ff1cf28" y :: IO CInt
 {-| __C declaration:__ @x1@
 
-    __defined at:__ @fun_attributes.h:143:12@
+    __defined at:__ @fun_attributes.h:145:12@
 
     __exported by:__ @fun_attributes.h@
 -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_8c9825e1b20a7ea1" x1 :: IO CInt
 {-| __C declaration:__ @x2@
 
-    __defined at:__ @fun_attributes.h:146:12@
+    __defined at:__ @fun_attributes.h:148:12@
 
     __exported by:__ @fun_attributes.h@
 -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_c80d61b7727dab77" x2 :: IO CInt
 {-| __C declaration:__ @__f1@
 
-    __defined at:__ @fun_attributes.h:16:6@
+    __defined at:__ @fun_attributes.h:16:13@
 
     __exported by:__ @fun_attributes.h@
 -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_b44da51a357ae983" __f1 :: IO Unit
 {-| __C declaration:__ @f1@
 
-    __defined at:__ @fun_attributes.h:17:6@
+    __defined at:__ @fun_attributes.h:19:6@
 
     __exported by:__ @fun_attributes.h@
 -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_c1788128a5b1c813" f1 :: IO Unit
 {-| __C declaration:__ @my_memalign@
 
-    __defined at:__ @fun_attributes.h:21:7@
+    __defined at:__ @fun_attributes.h:23:7@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -337,7 +337,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_9ca07f6722bd48dc" my_m
                                                                                            IO (Ptr Void)
 {-| __C declaration:__ @my_calloc@
 
-    __defined at:__ @fun_attributes.h:26:7@
+    __defined at:__ @fun_attributes.h:28:7@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -346,7 +346,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_72df124450cc6d26" my_c
                                                                                          IO (Ptr Void)
 {-| __C declaration:__ @my_realloc@
 
-    __defined at:__ @fun_attributes.h:27:7@
+    __defined at:__ @fun_attributes.h:29:7@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -355,7 +355,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_effc1fd567613950" my_r
                                                                                           IO (Ptr Void)
 {-| __C declaration:__ @my_alloc1@
 
-    __defined at:__ @fun_attributes.h:32:7@
+    __defined at:__ @fun_attributes.h:34:7@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -363,7 +363,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_b3544e53af074ef1" my_a
                                                                                          IO (Ptr Void)
 {-| __C declaration:__ @my_alloc2@
 
-    __defined at:__ @fun_attributes.h:33:7@
+    __defined at:__ @fun_attributes.h:35:7@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -371,7 +371,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_0b659f90fec40284" my_a
                                                                                          IO (Ptr Void)
 {-| __C declaration:__ @square@
 
-    __defined at:__ @fun_attributes.h:37:5@
+    __defined at:__ @fun_attributes.h:39:5@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -379,14 +379,14 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_cb3c687f16289bb3" squa
                                                                                       CInt
 {-| __C declaration:__ @old_fn_deprecated@
 
-    __defined at:__ @fun_attributes.h:46:5@
+    __defined at:__ @fun_attributes.h:48:5@
 
     __exported by:__ @fun_attributes.h@
 -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_c48f18f4f06068eb" old_fn_deprecated :: IO CInt
 {-| __C declaration:__ @my_dgettext@
 
-    __defined at:__ @fun_attributes.h:62:1@
+    __defined at:__ @fun_attributes.h:64:1@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -395,7 +395,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_d492bd76e82890da" my_d
                                                                                            IO (Ptr CChar)
 {-| __C declaration:__ @fdopen@
 
-    __defined at:__ @fun_attributes.h:73:9@
+    __defined at:__ @fun_attributes.h:75:9@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -404,14 +404,14 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_3c91a267bd66cc10" fdop
                                                                                       IO (Ptr FILE)
 {-| __C declaration:__ @f2@
 
-    __defined at:__ @fun_attributes.h:77:65@
+    __defined at:__ @fun_attributes.h:79:65@
 
     __exported by:__ @fun_attributes.h@
 -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_14361e995fb5684a" f2 :: IO Unit
 {-| __C declaration:__ @my_memcpy@
 
-    __defined at:__ @fun_attributes.h:83:1@
+    __defined at:__ @fun_attributes.h:85:1@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -421,7 +421,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_e8c4a96cefd6117e" my_m
                                                                                          IO (Ptr Void)
 {-| __C declaration:__ @fatal@
 
-    __defined at:__ @fun_attributes.h:100:6@
+    __defined at:__ @fun_attributes.h:102:6@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -432,7 +432,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_64aa41e835dbb892" fata
 
 __C declaration:__ @hash@
 
-__defined at:__ @fun_attributes.h:108:5@
+__defined at:__ @fun_attributes.h:110:5@
 
 __exported by:__ @fun_attributes.h@
 -}
@@ -440,7 +440,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_88887d4b5f42f079" hash
                                                                                     IO CInt
 {-| __C declaration:__ @mymalloc@
 
-    __defined at:__ @fun_attributes.h:113:1@
+    __defined at:__ @fun_attributes.h:115:1@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -448,56 +448,56 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_31e6e14ecb251fa2" myma
                                                                                         IO (Ptr Void)
 {-| __C declaration:__ @foobar@
 
-    __defined at:__ @fun_attributes.h:117:13@
+    __defined at:__ @fun_attributes.h:119:13@
 
     __exported by:__ @fun_attributes.h@
 -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_bb77a71513994934" foobar :: IO Unit
 {-| __C declaration:__ @core2_func@
 
-    __defined at:__ @fun_attributes.h:124:5@
+    __defined at:__ @fun_attributes.h:126:5@
 
     __exported by:__ @fun_attributes.h@
 -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_640ec5b51b0819d1" core2_func :: IO CInt
 {-| __C declaration:__ @sse3_func@
 
-    __defined at:__ @fun_attributes.h:125:5@
+    __defined at:__ @fun_attributes.h:127:5@
 
     __exported by:__ @fun_attributes.h@
 -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_a1f7636643d63586" sse3_func :: IO CInt
 {-| __C declaration:__ @f3@
 
-    __defined at:__ @fun_attributes.h:129:49@
+    __defined at:__ @fun_attributes.h:131:49@
 
     __exported by:__ @fun_attributes.h@
 -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_2bef032cbe15ffd0" f3 :: IO Unit
 {-| __C declaration:__ @fn@
 
-    __defined at:__ @fun_attributes.h:134:5@
+    __defined at:__ @fun_attributes.h:136:5@
 
     __exported by:__ @fun_attributes.h@
 -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_8f406104a21ff66e" fn :: IO CInt
 {-| __C declaration:__ @y@
 
-    __defined at:__ @fun_attributes.h:140:12@
+    __defined at:__ @fun_attributes.h:142:12@
 
     __exported by:__ @fun_attributes.h@
 -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_4beb0cbf65b462bd" y :: IO CInt
 {-| __C declaration:__ @x1@
 
-    __defined at:__ @fun_attributes.h:143:12@
+    __defined at:__ @fun_attributes.h:145:12@
 
     __exported by:__ @fun_attributes.h@
 -}
 foreign import ccall safe "hs_bindgen_test_fun_attributes_ac7386c785058f4d" x1 :: IO CInt
 {-| __C declaration:__ @x2@
 
-    __defined at:__ @fun_attributes.h:146:12@
+    __defined at:__ @fun_attributes.h:148:12@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -506,14 +506,14 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_7003b306f73c174b" hs_b
 {-# NOINLINE __f1_ptr #-}
 {-| __C declaration:__ @__f1@
 
-    __defined at:__ @fun_attributes.h:16:6@
+    __defined at:__ @fun_attributes.h:16:13@
 
     __exported by:__ @fun_attributes.h@
 -}
 __f1_ptr :: FunPtr (IO Unit)
 {-| __C declaration:__ @__f1@
 
-    __defined at:__ @fun_attributes.h:16:6@
+    __defined at:__ @fun_attributes.h:16:13@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -522,14 +522,14 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_5469bdc0395f86c1" hs_b
 {-# NOINLINE f1_ptr #-}
 {-| __C declaration:__ @f1@
 
-    __defined at:__ @fun_attributes.h:17:6@
+    __defined at:__ @fun_attributes.h:19:6@
 
     __exported by:__ @fun_attributes.h@
 -}
 f1_ptr :: FunPtr (IO Unit)
 {-| __C declaration:__ @f1@
 
-    __defined at:__ @fun_attributes.h:17:6@
+    __defined at:__ @fun_attributes.h:19:6@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -540,14 +540,14 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_b3c956e53724162c" hs_b
 {-# NOINLINE my_memalign_ptr #-}
 {-| __C declaration:__ @my_memalign@
 
-    __defined at:__ @fun_attributes.h:21:7@
+    __defined at:__ @fun_attributes.h:23:7@
 
     __exported by:__ @fun_attributes.h@
 -}
 my_memalign_ptr :: FunPtr (Size_t -> Size_t -> IO (Ptr Void))
 {-| __C declaration:__ @my_memalign@
 
-    __defined at:__ @fun_attributes.h:21:7@
+    __defined at:__ @fun_attributes.h:23:7@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -558,14 +558,14 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_733646ca96f39979" hs_b
 {-# NOINLINE my_calloc_ptr #-}
 {-| __C declaration:__ @my_calloc@
 
-    __defined at:__ @fun_attributes.h:26:7@
+    __defined at:__ @fun_attributes.h:28:7@
 
     __exported by:__ @fun_attributes.h@
 -}
 my_calloc_ptr :: FunPtr (Size_t -> Size_t -> IO (Ptr Void))
 {-| __C declaration:__ @my_calloc@
 
-    __defined at:__ @fun_attributes.h:26:7@
+    __defined at:__ @fun_attributes.h:28:7@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -576,14 +576,14 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_94e8271f186110fd" hs_b
 {-# NOINLINE my_realloc_ptr #-}
 {-| __C declaration:__ @my_realloc@
 
-    __defined at:__ @fun_attributes.h:27:7@
+    __defined at:__ @fun_attributes.h:29:7@
 
     __exported by:__ @fun_attributes.h@
 -}
 my_realloc_ptr :: FunPtr (Ptr Void -> Size_t -> IO (Ptr Void))
 {-| __C declaration:__ @my_realloc@
 
-    __defined at:__ @fun_attributes.h:27:7@
+    __defined at:__ @fun_attributes.h:29:7@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -593,14 +593,14 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_48d9862d70f58e70" hs_b
 {-# NOINLINE my_alloc1_ptr #-}
 {-| __C declaration:__ @my_alloc1@
 
-    __defined at:__ @fun_attributes.h:32:7@
+    __defined at:__ @fun_attributes.h:34:7@
 
     __exported by:__ @fun_attributes.h@
 -}
 my_alloc1_ptr :: FunPtr (Size_t -> IO (Ptr Void))
 {-| __C declaration:__ @my_alloc1@
 
-    __defined at:__ @fun_attributes.h:32:7@
+    __defined at:__ @fun_attributes.h:34:7@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -610,14 +610,14 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_17a11fd10dc57357" hs_b
 {-# NOINLINE my_alloc2_ptr #-}
 {-| __C declaration:__ @my_alloc2@
 
-    __defined at:__ @fun_attributes.h:33:7@
+    __defined at:__ @fun_attributes.h:35:7@
 
     __exported by:__ @fun_attributes.h@
 -}
 my_alloc2_ptr :: FunPtr (Size_t -> IO (Ptr Void))
 {-| __C declaration:__ @my_alloc2@
 
-    __defined at:__ @fun_attributes.h:33:7@
+    __defined at:__ @fun_attributes.h:35:7@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -627,14 +627,14 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_c41111f40a04cdc9" hs_b
 {-# NOINLINE square_ptr #-}
 {-| __C declaration:__ @square@
 
-    __defined at:__ @fun_attributes.h:37:5@
+    __defined at:__ @fun_attributes.h:39:5@
 
     __exported by:__ @fun_attributes.h@
 -}
 square_ptr :: FunPtr (CInt -> IO CInt)
 {-| __C declaration:__ @square@
 
-    __defined at:__ @fun_attributes.h:37:5@
+    __defined at:__ @fun_attributes.h:39:5@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -643,14 +643,14 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_17f68fdc3f464b20" hs_b
 {-# NOINLINE old_fn_deprecated_ptr #-}
 {-| __C declaration:__ @old_fn_deprecated@
 
-    __defined at:__ @fun_attributes.h:46:5@
+    __defined at:__ @fun_attributes.h:48:5@
 
     __exported by:__ @fun_attributes.h@
 -}
 old_fn_deprecated_ptr :: FunPtr (IO CInt)
 {-| __C declaration:__ @old_fn_deprecated@
 
-    __defined at:__ @fun_attributes.h:46:5@
+    __defined at:__ @fun_attributes.h:48:5@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -661,7 +661,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_a0be4f488601c252" hs_b
 {-# NOINLINE my_dgettext_ptr #-}
 {-| __C declaration:__ @my_dgettext@
 
-    __defined at:__ @fun_attributes.h:62:1@
+    __defined at:__ @fun_attributes.h:64:1@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -669,7 +669,7 @@ my_dgettext_ptr :: FunPtr (Ptr CChar ->
                            Ptr CChar -> IO (Ptr CChar))
 {-| __C declaration:__ @my_dgettext@
 
-    __defined at:__ @fun_attributes.h:62:1@
+    __defined at:__ @fun_attributes.h:64:1@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -680,14 +680,14 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_2b987c3b5c01a326" hs_b
 {-# NOINLINE fdopen_ptr #-}
 {-| __C declaration:__ @fdopen@
 
-    __defined at:__ @fun_attributes.h:73:9@
+    __defined at:__ @fun_attributes.h:75:9@
 
     __exported by:__ @fun_attributes.h@
 -}
 fdopen_ptr :: FunPtr (CInt -> Ptr CChar -> IO (Ptr FILE))
 {-| __C declaration:__ @fdopen@
 
-    __defined at:__ @fun_attributes.h:73:9@
+    __defined at:__ @fun_attributes.h:75:9@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -696,14 +696,14 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_490ca7e8c8282a69" hs_b
 {-# NOINLINE f2_ptr #-}
 {-| __C declaration:__ @f2@
 
-    __defined at:__ @fun_attributes.h:77:65@
+    __defined at:__ @fun_attributes.h:79:65@
 
     __exported by:__ @fun_attributes.h@
 -}
 f2_ptr :: FunPtr (IO Unit)
 {-| __C declaration:__ @f2@
 
-    __defined at:__ @fun_attributes.h:77:65@
+    __defined at:__ @fun_attributes.h:79:65@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -715,7 +715,7 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_e2e8b5d5ac435de8" hs_b
 {-# NOINLINE my_memcpy_ptr #-}
 {-| __C declaration:__ @my_memcpy@
 
-    __defined at:__ @fun_attributes.h:83:1@
+    __defined at:__ @fun_attributes.h:85:1@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -723,7 +723,7 @@ my_memcpy_ptr :: FunPtr (Ptr Void ->
                          Ptr Void -> Size_t -> IO (Ptr Void))
 {-| __C declaration:__ @my_memcpy@
 
-    __defined at:__ @fun_attributes.h:83:1@
+    __defined at:__ @fun_attributes.h:85:1@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -732,14 +732,14 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_ea0bb781f9eca7f5" hs_b
 {-# NOINLINE fatal_ptr #-}
 {-| __C declaration:__ @fatal@
 
-    __defined at:__ @fun_attributes.h:100:6@
+    __defined at:__ @fun_attributes.h:102:6@
 
     __exported by:__ @fun_attributes.h@
 -}
 fatal_ptr :: FunPtr (IO Unit)
 {-| __C declaration:__ @fatal@
 
-    __defined at:__ @fun_attributes.h:100:6@
+    __defined at:__ @fun_attributes.h:102:6@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -749,14 +749,14 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_4de9606eb9c5dd01" hs_b
 {-# NOINLINE hash_ptr #-}
 {-| __C declaration:__ @hash@
 
-    __defined at:__ @fun_attributes.h:108:5@
+    __defined at:__ @fun_attributes.h:110:5@
 
     __exported by:__ @fun_attributes.h@
 -}
 hash_ptr :: FunPtr (Ptr CChar -> IO CInt)
 {-| __C declaration:__ @hash@
 
-    __defined at:__ @fun_attributes.h:108:5@
+    __defined at:__ @fun_attributes.h:110:5@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -766,14 +766,14 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_4ce141c884649d49" hs_b
 {-# NOINLINE mymalloc_ptr #-}
 {-| __C declaration:__ @mymalloc@
 
-    __defined at:__ @fun_attributes.h:113:1@
+    __defined at:__ @fun_attributes.h:115:1@
 
     __exported by:__ @fun_attributes.h@
 -}
 mymalloc_ptr :: FunPtr (Size_t -> IO (Ptr Void))
 {-| __C declaration:__ @mymalloc@
 
-    __defined at:__ @fun_attributes.h:113:1@
+    __defined at:__ @fun_attributes.h:115:1@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -782,14 +782,14 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_5c243ced544ab0aa" hs_b
 {-# NOINLINE foobar_ptr #-}
 {-| __C declaration:__ @foobar@
 
-    __defined at:__ @fun_attributes.h:117:13@
+    __defined at:__ @fun_attributes.h:119:13@
 
     __exported by:__ @fun_attributes.h@
 -}
 foobar_ptr :: FunPtr (IO Unit)
 {-| __C declaration:__ @foobar@
 
-    __defined at:__ @fun_attributes.h:117:13@
+    __defined at:__ @fun_attributes.h:119:13@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -798,14 +798,14 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_14ef55245a14f816" hs_b
 {-# NOINLINE core2_func_ptr #-}
 {-| __C declaration:__ @core2_func@
 
-    __defined at:__ @fun_attributes.h:124:5@
+    __defined at:__ @fun_attributes.h:126:5@
 
     __exported by:__ @fun_attributes.h@
 -}
 core2_func_ptr :: FunPtr (IO CInt)
 {-| __C declaration:__ @core2_func@
 
-    __defined at:__ @fun_attributes.h:124:5@
+    __defined at:__ @fun_attributes.h:126:5@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -814,14 +814,14 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_72956748bb6eee67" hs_b
 {-# NOINLINE sse3_func_ptr #-}
 {-| __C declaration:__ @sse3_func@
 
-    __defined at:__ @fun_attributes.h:125:5@
+    __defined at:__ @fun_attributes.h:127:5@
 
     __exported by:__ @fun_attributes.h@
 -}
 sse3_func_ptr :: FunPtr (IO CInt)
 {-| __C declaration:__ @sse3_func@
 
-    __defined at:__ @fun_attributes.h:125:5@
+    __defined at:__ @fun_attributes.h:127:5@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -830,14 +830,14 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_38506a9ac5626bf2" hs_b
 {-# NOINLINE f3_ptr #-}
 {-| __C declaration:__ @f3@
 
-    __defined at:__ @fun_attributes.h:129:49@
+    __defined at:__ @fun_attributes.h:131:49@
 
     __exported by:__ @fun_attributes.h@
 -}
 f3_ptr :: FunPtr (IO Unit)
 {-| __C declaration:__ @f3@
 
-    __defined at:__ @fun_attributes.h:129:49@
+    __defined at:__ @fun_attributes.h:131:49@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -846,14 +846,14 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_5929da82079150d1" hs_b
 {-# NOINLINE fn_ptr #-}
 {-| __C declaration:__ @fn@
 
-    __defined at:__ @fun_attributes.h:134:5@
+    __defined at:__ @fun_attributes.h:136:5@
 
     __exported by:__ @fun_attributes.h@
 -}
 fn_ptr :: FunPtr (IO CInt)
 {-| __C declaration:__ @fn@
 
-    __defined at:__ @fun_attributes.h:134:5@
+    __defined at:__ @fun_attributes.h:136:5@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -862,14 +862,14 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_7bcb4a1873e6ece6" hs_b
 {-# NOINLINE y_ptr #-}
 {-| __C declaration:__ @y@
 
-    __defined at:__ @fun_attributes.h:140:12@
+    __defined at:__ @fun_attributes.h:142:12@
 
     __exported by:__ @fun_attributes.h@
 -}
 y_ptr :: FunPtr (IO CInt)
 {-| __C declaration:__ @y@
 
-    __defined at:__ @fun_attributes.h:140:12@
+    __defined at:__ @fun_attributes.h:142:12@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -878,14 +878,14 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_11098262b345351a" hs_b
 {-# NOINLINE x1_ptr #-}
 {-| __C declaration:__ @x1@
 
-    __defined at:__ @fun_attributes.h:143:12@
+    __defined at:__ @fun_attributes.h:145:12@
 
     __exported by:__ @fun_attributes.h@
 -}
 x1_ptr :: FunPtr (IO CInt)
 {-| __C declaration:__ @x1@
 
-    __defined at:__ @fun_attributes.h:143:12@
+    __defined at:__ @fun_attributes.h:145:12@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -894,14 +894,14 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_0d19f83087f278f9" hs_b
 {-# NOINLINE x2_ptr #-}
 {-| __C declaration:__ @x2@
 
-    __defined at:__ @fun_attributes.h:146:12@
+    __defined at:__ @fun_attributes.h:148:12@
 
     __exported by:__ @fun_attributes.h@
 -}
 x2_ptr :: FunPtr (IO CInt)
 {-| __C declaration:__ @x2@
 
-    __defined at:__ @fun_attributes.h:146:12@
+    __defined at:__ @fun_attributes.h:148:12@
 
     __exported by:__ @fun_attributes.h@
 -}
@@ -910,14 +910,14 @@ foreign import ccall safe "hs_bindgen_test_fun_attributes_cdc30ae5fb72cd6e" hs_b
 {-# NOINLINE i_ptr #-}
 {-| __C declaration:__ @i@
 
-    __defined at:__ @fun_attributes.h:130:5@
+    __defined at:__ @fun_attributes.h:132:5@
 
     __exported by:__ @fun_attributes.h@
 -}
 i_ptr :: Ptr CInt
 {-| __C declaration:__ @i@
 
-    __defined at:__ @fun_attributes.h:130:5@
+    __defined at:__ @fun_attributes.h:132:5@
 
     __exported by:__ @fun_attributes.h@
 -}

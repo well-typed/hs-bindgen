@@ -4,8 +4,8 @@ version:
 types:
 - headers: program_slicing_simple.h
   cname: uint64_t
-  module: Example
-  hsname: Uint64_t
+  module: Foreign
+  hsname: Int64
   instances:
   - Bits
   - Bounded

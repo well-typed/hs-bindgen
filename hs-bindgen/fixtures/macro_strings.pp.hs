@@ -5,6 +5,7 @@
 module Example where
 
 import qualified C.Char
+import qualified Data.Maybe
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
 import Prelude (Int)
@@ -16,7 +17,8 @@ import Prelude (Int)
     __exported by:__ @macro_strings.h@
 -}
 c1 :: C.Char.CharValue
-c1 = C.Char.charValueFromAddr "a"# 1 (Just 'a')
+c1 =
+  C.Char.charValueFromAddr "a"# 1 (Data.Maybe.Just 'a')
 
 {-| __C declaration:__ @C2@
 
@@ -25,7 +27,8 @@ c1 = C.Char.charValueFromAddr "a"# 1 (Just 'a')
     __exported by:__ @macro_strings.h@
 -}
 c2 :: C.Char.CharValue
-c2 = C.Char.charValueFromAddr "\""# 1 (Just '"')
+c2 =
+  C.Char.charValueFromAddr "\""# 1 (Data.Maybe.Just '"')
 
 {-| __C declaration:__ @C3@
 
@@ -34,7 +37,8 @@ c2 = C.Char.charValueFromAddr "\""# 1 (Just '"')
     __exported by:__ @macro_strings.h@
 -}
 c3 :: C.Char.CharValue
-c3 = C.Char.charValueFromAddr "\t"# 1 (Just '\t')
+c3 =
+  C.Char.charValueFromAddr "\t"# 1 (Data.Maybe.Just '\t')
 
 {-| __C declaration:__ @C4@
 
@@ -43,7 +47,8 @@ c3 = C.Char.charValueFromAddr "\t"# 1 (Just '\t')
     __exported by:__ @macro_strings.h@
 -}
 c4 :: C.Char.CharValue
-c4 = C.Char.charValueFromAddr "\0"# 1 (Just '\NUL')
+c4 =
+  C.Char.charValueFromAddr "\0"# 1 (Data.Maybe.Just '\NUL')
 
 {-| __C declaration:__ @C5@
 
@@ -52,7 +57,8 @@ c4 = C.Char.charValueFromAddr "\0"# 1 (Just '\NUL')
     __exported by:__ @macro_strings.h@
 -}
 c5 :: C.Char.CharValue
-c5 = C.Char.charValueFromAddr "\'"# 1 (Just '\'')
+c5 =
+  C.Char.charValueFromAddr "\'"# 1 (Data.Maybe.Just '\'')
 
 {-| __C declaration:__ @C6@
 
@@ -61,7 +67,8 @@ c5 = C.Char.charValueFromAddr "\'"# 1 (Just '\'')
     __exported by:__ @macro_strings.h@
 -}
 c6 :: C.Char.CharValue
-c6 = C.Char.charValueFromAddr "?"# 1 (Just '?')
+c6 =
+  C.Char.charValueFromAddr "?"# 1 (Data.Maybe.Just '?')
 
 {-| __C declaration:__ @C7@
 
@@ -70,7 +77,8 @@ c6 = C.Char.charValueFromAddr "?"# 1 (Just '?')
     __exported by:__ @macro_strings.h@
 -}
 c7 :: C.Char.CharValue
-c7 = C.Char.charValueFromAddr "S"# 1 Nothing
+c7 =
+  C.Char.charValueFromAddr "S"# 1 Data.Maybe.Nothing
 
 {-| __C declaration:__ @C8@
 
@@ -79,7 +87,8 @@ c7 = C.Char.charValueFromAddr "S"# 1 Nothing
     __exported by:__ @macro_strings.h@
 -}
 c8 :: C.Char.CharValue
-c8 = C.Char.charValueFromAddr "S"# 1 Nothing
+c8 =
+  C.Char.charValueFromAddr "S"# 1 Data.Maybe.Nothing
 
 {-| __C declaration:__ @D@
 
@@ -88,7 +97,8 @@ c8 = C.Char.charValueFromAddr "S"# 1 Nothing
     __exported by:__ @macro_strings.h@
 -}
 d :: C.Char.CharValue
-d = C.Char.charValueFromAddr "\x1\xFF"# 2 Nothing
+d =
+  C.Char.charValueFromAddr "\x1\xFF"# 2 Data.Maybe.Nothing
 
 {-| __C declaration:__ @J1@
 
@@ -98,7 +108,7 @@ d = C.Char.charValueFromAddr "\x1\xFF"# 2 Nothing
 -}
 j1 :: C.Char.CharValue
 j1 =
-  C.Char.charValueFromAddr "\xE3\x81\x82"# 3 (Just '\12354')
+  C.Char.charValueFromAddr "\xE3\x81\x82"# 3 (Data.Maybe.Just '\12354')
 
 {-| __C declaration:__ @J2@
 
@@ -108,7 +118,7 @@ j1 =
 -}
 j2 :: C.Char.CharValue
 j2 =
-  C.Char.charValueFromAddr "\xE3\x81\x82"# 3 (Just '\12354')
+  C.Char.charValueFromAddr "\xE3\x81\x82"# 3 (Data.Maybe.Just '\12354')
 
 {-| __C declaration:__ @J3@
 
@@ -118,7 +128,7 @@ j2 =
 -}
 j3 :: C.Char.CharValue
 j3 =
-  C.Char.charValueFromAddr "\xE3\x81\x82"# 3 Nothing
+  C.Char.charValueFromAddr "\xE3\x81\x82"# 3 Data.Maybe.Nothing
 
 {-| __C declaration:__ @S1@
 

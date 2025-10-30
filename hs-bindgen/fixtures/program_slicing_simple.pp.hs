@@ -6,7 +6,7 @@ module Example where
 
 import qualified Data.Bits as Bits
 import qualified Data.Ix as Ix
-import qualified Example
+import qualified Foreign
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import Data.Bits (FiniteBits)
@@ -31,7 +31,7 @@ newtype Uint32_t = Uint32_t
     __exported by:__ @program_slicing_simple.h@
 -}
 data Foo = Foo
-  { foo_sixty_four :: Example.Uint64_t
+  { foo_sixty_four :: Foreign.Int64
     {- ^ __C declaration:__ @sixty_four@
 
          __defined at:__ @program_slicing_simple.h:4:12@

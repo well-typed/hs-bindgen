@@ -2,19 +2,20 @@ TranslationUnit {
   unitDecls = [
     Decl {
       declInfo = DeclInfo {
-        declLoc = "vector.h:1:9",
+        declLoc = "vector_test.h:1:9",
         declId = NamePair {
           nameC = Name "vector",
           nameHsIdent = Identifier
             "Vector"},
         declOrigin = NameOriginGenerated
-          (AnonId "vector.h:1:9"),
+          (AnonId "vector_test.h:1:9"),
         declAliases = [Name "vector"],
         declHeaderInfo = Just
           HeaderInfo {
             headerMainHeaders = NE.fromList
-              ["vector.h"],
-            headerInclude = "vector.h"},
+              ["vector_test.h"],
+            headerInclude =
+            "vector_test.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -25,7 +26,7 @@ TranslationUnit {
           structFields = [
             StructField {
               structFieldInfo = FieldInfo {
-                fieldLoc = "vector.h:2:12",
+                fieldLoc = "vector_test.h:2:12",
                 fieldName = NamePair {
                   nameC = Name "x",
                   nameHsIdent = Identifier
@@ -37,7 +38,7 @@ TranslationUnit {
               structFieldWidth = Nothing},
             StructField {
               structFieldInfo = FieldInfo {
-                fieldLoc = "vector.h:3:12",
+                fieldLoc = "vector_test.h:3:12",
                 fieldName = NamePair {
                   nameC = Name "y",
                   nameHsIdent = Identifier
@@ -56,7 +57,7 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "vector.h:6:9",
+        declLoc = "vector_test.h:6:9",
         declId = NamePair {
           nameC = Name "new_vector",
           nameHsIdent = Identifier
@@ -66,8 +67,9 @@ TranslationUnit {
         declHeaderInfo = Just
           HeaderInfo {
             headerMainHeaders = NE.fromList
-              ["vector.h"],
-            headerInclude = "vector.h"},
+              ["vector_test.h"],
+            headerInclude =
+            "vector_test.h"},
         declComment = Nothing},
       declKind = DeclFunction
         Function {
@@ -99,11 +101,12 @@ TranslationUnit {
                     nameHsIdent = Identifier
                       "Vector"}
                   (NameOriginGenerated
-                    (AnonId "vector.h:1:9")))))},
+                    (AnonId
+                      "vector_test.h:1:9")))))},
       declSpec = DeclSpec
         CTypeSpec {
           cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}}],
-  unitDeps = ["vector"]}
+  unitDeps = ["vector_test"]}

@@ -1,0 +1,95 @@
+name: Compile Fixtures
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  merge_group:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  compile-fixtures:
+    name: Compile Fixtures (${{ matrix.runner }}, GHC ${{ matrix.ghc-version }}, Cabal ${{ matrix.cabal-version }}, LLVM ${{matrix.llvm-version }})
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 30
+
+    strategy:
+      fail-fast: false
+      # We run the workflow only once, but using a matrix makes it easy to
+      # change these settings in the future. As an added benefit, we can refer
+      # to the matrix entries in the job name.
+      matrix:
+        runner: ['ubuntu-latest']
+        ghc-version: ['9.4']
+        cabal-version: ['3.16']
+        llvm-version: ['15']
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v5
+
+      - name: 🛠️ Setup Haskell
+        id: setup-haskell
+        uses: haskell-actions/setup@v2
+        with:
+          ghc-version: ${{ matrix.ghc-version }}
+          cabal-version: ${{ matrix.cabal-version }}
+
+      - name: 🛠️ Setup LLVM/Clang
+        uses: ./.github/actions/setup-llvm
+        with:
+          version: ${{ matrix.llvm-version }}
+
+      - name: 🛠️ Configure
+        run: |
+          cabal configure --disable-test --disable-benchmark --disable-documentation --ghc-options="-Werror"
+          cat "cabal.project.local"
+
+      - name: 💾 Generate Cabal plan
+        run: cabal build all --dry-run
+
+      # Here is where we hash the two build plan files together and include the
+      # hash in the cache key. If either build plan changes, then the hash
+      # changes, and we'll save a new cache.
+      - name: 💾 Restore Cabal dependencies
+        id: cache-cabal-restore
+        uses: actions/cache/restore@v4
+        env:
+          key: compile-fixtures-${{ matrix.runner }}-ghc-${{ steps.setup-haskell.outputs.ghc-version }}-cabal-${{ steps.setup-haskell.outputs.cabal-version }}-llvm-${{ matrix.llvm-version }}
+        with:
+          path: ${{ steps.setup-haskell.outputs.cabal-store }}
+          key: ${{ env.key }}-plan-${{ hashFiles('./dist-newstyle/cache/plan.json') }}
+          restore-keys: ${{ env.key }}-
+
+      - name: 🛠️ Build Cabal dependencies
+        run: cabal build all --only-dependencies
+
+      - name: 💾 Save Cabal dependencies
+        uses: actions/cache/save@v4
+        if: ${{ steps.cache-cabal-restore.outputs.cache-hit != 'true' }}
+        with:
+          path: ${{ steps.setup-haskell.outputs.cabal-store }}
+          key: ${{ steps.cache-cabal-restore.outputs.cache-primary-key }}
+
+      - name: 🏗️ Build hs-bindgen
+        run: cabal build hs-bindgen-runtime c-expr-runtime
+
+      - name: 🧪 Compile fixtures
+        run: |
+          chmod +x scripts/ci/compile-fixtures.sh
+          scripts/ci/compile-fixtures.sh

@@ -13,7 +13,9 @@ typedef int size_t;
 
 // alias ("target")
 
-void __f1 ();
+static void __f1 () {
+  return;
+}
 void f1 () __attribute__ ((weak, alias ("__f1")));
 
 // alloc_align (position)

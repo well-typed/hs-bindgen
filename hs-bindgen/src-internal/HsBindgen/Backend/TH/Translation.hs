@@ -11,6 +11,7 @@ import Data.Complex qualified
 import Data.Ix qualified
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
+import Data.Maybe qualified
 import Data.Text qualified as Text
 import Data.Void qualified
 import Foreign qualified
@@ -69,6 +70,8 @@ mkGlobal = \case
       Tuple_constructor i   -> TH.tupleDataName $ fromIntegral i
       Applicative_pure      -> 'pure
       Applicative_seq       -> '(<*>)
+      Maybe_just            -> 'Data.Maybe.Just
+      Maybe_nothing         -> 'Data.Maybe.Nothing
       Monad_return          -> 'return
       Monad_seq             -> '(>>)
       StaticSize_class      -> ''HsBindgen.Runtime.Marshal.StaticSize
@@ -266,6 +269,8 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     Applicative_seq       -> TH.varE name
     Monad_return          -> TH.varE name
     Monad_seq             -> TH.varE name
+    Maybe_just            -> TH.varE name
+    Maybe_nothing         -> TH.varE name
     StaticSize_class      -> panicPure "class in expression"
     ReadRaw_class         -> panicPure "class in expression"
     WriteRaw_class        -> panicPure "class in expression"
