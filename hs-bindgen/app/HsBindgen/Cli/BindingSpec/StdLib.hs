@@ -19,7 +19,6 @@ import Options.Applicative hiding (info)
 
 import HsBindgen.App
 import HsBindgen.BindingSpec
-import HsBindgen.BindingSpec.Private.Stdlib qualified as Stdlib
 import HsBindgen.Boot
 import HsBindgen.Config.ClangArgs hiding (getClangArgs)
 import HsBindgen.Imports
@@ -62,10 +61,11 @@ parseOpts =
 
 exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} = do
-    spec <- either throwIO pure <=< withTracer tracerConfig $ \tracer -> do
-      clangArgs <- getClangArgs (contramap TraceBoot tracer) clangArgsConfig
-      getStdlibBindingSpec
-        (contramap (TraceBoot . BootBindingSpec) tracer)
-        clangArgs
+    (hsModuleName, spec) <-
+      either throwIO pure <=< withTracer tracerConfig $ \tracer -> do
+        clangArgs <- getClangArgs (contramap TraceBoot tracer) clangArgsConfig
+        getStdlibBindingSpec
+          (contramap (TraceBoot . BootBindingSpec) tracer)
+          clangArgs
     maybe BS.putStr BS.writeFile output $
-      encodeBindingSpecYaml Stdlib.hsModuleName spec
+      encodeBindingSpecYaml hsModuleName spec

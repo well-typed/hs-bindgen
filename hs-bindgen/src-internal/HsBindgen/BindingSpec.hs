@@ -200,8 +200,8 @@ loadBindingSpecs tracer clangArgs BindingSpecConfig{..} = do
 getStdlibBindingSpec ::
      Tracer IO Common.BindingSpecMsg
   -> ClangArgs
-  -> IO BindingSpec
-getStdlibBindingSpec tracer args =
+  -> IO (Hs.ModuleName, BindingSpec)
+getStdlibBindingSpec tracer args = (Stdlib.hsModuleName,) <$>
     loadExtBindingSpecs
       tracer
       args
