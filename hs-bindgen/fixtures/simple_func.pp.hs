@@ -9,10 +9,9 @@ import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Prelude
-import Prelude (unlines)
 import Prelude (IO)
 
-$(HsBindgen.Runtime.Prelude.addCSource (Prelude.unlines
+$(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <simple_func.h>"
   , "double hs_bindgen_test_simple_func_4b858faf89c6033a ("
   , "  double arg1"

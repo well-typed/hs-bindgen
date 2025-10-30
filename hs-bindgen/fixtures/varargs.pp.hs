@@ -8,10 +8,9 @@ module Example where
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Prelude
-import Prelude (unlines)
 import Prelude (IO)
 
-$(HsBindgen.Runtime.Prelude.addCSource (Prelude.unlines
+$(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <varargs.h>"
   , "void hs_bindgen_test_varargs_a17c4f0272bbe42a (void)"
   , "{"

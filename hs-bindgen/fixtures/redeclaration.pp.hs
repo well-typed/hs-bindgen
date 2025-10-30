@@ -22,10 +22,9 @@ import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.Prelude
 import qualified HsBindgen.Runtime.SizedByteArray
 import Data.Bits (FiniteBits)
-import Prelude (unlines)
 import Prelude ((<*>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
-$(HsBindgen.Runtime.Prelude.addCSource (Prelude.unlines
+$(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <redeclaration.h>"
   , "/* get_x_ptr */"
   , "__attribute__ ((const))"

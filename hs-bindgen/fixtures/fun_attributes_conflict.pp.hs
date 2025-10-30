@@ -9,10 +9,9 @@ import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Prelude
-import Prelude (unlines)
 import Prelude (IO)
 
-$(HsBindgen.Runtime.Prelude.addCSource (Prelude.unlines
+$(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <fun_attributes_conflict.h>"
   , "signed int hs_bindgen_test_fun_attributes_conflict_5f961556d5c4089a ("
   , "  signed int arg1"

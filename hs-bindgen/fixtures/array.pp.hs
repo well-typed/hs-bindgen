@@ -15,10 +15,9 @@ import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.IncompleteArray
 import qualified HsBindgen.Runtime.Prelude
-import Prelude (unlines)
 import Prelude ((<*>), (>>), Eq, IO, Int, Show, pure)
 
-$(HsBindgen.Runtime.Prelude.addCSource (Prelude.unlines
+$(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <array.h>"
   , "signed int hs_bindgen_test_array_5d1be223fd040c3b ("
   , "  signed int arg1,"

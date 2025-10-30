@@ -10,10 +10,9 @@ import qualified Foreign.C as FC
 import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Prelude
-import Prelude (unlines)
 import Prelude (IO)
 
-$(HsBindgen.Runtime.Prelude.addCSource (Prelude.unlines
+$(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <type_qualifiers.h>"
   , "_Bool hs_bindgen_test_type_qualifiers_b42fb41209c21d6e ("
   , "  char const **arg1,"

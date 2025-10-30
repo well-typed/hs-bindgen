@@ -15,10 +15,9 @@ import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.CAPI
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.Prelude
-import Prelude (unlines)
 import Prelude ((<*>), (>>), Eq, IO, Int, Show, pure)
 
-$(HsBindgen.Runtime.Prelude.addCSource (Prelude.unlines
+$(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <hsb_complex_test.h>"
   , "void hs_bindgen_test_hsb_complex_test_b84ea846e04d5fd6 ("
   , "  float _Complex *arg1,"

@@ -17,10 +17,9 @@ import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.Prelude
 import qualified Text.Read
 import Data.Void (Void)
-import Prelude (unlines)
 import Prelude ((<*>), (>>), Eq, IO, Int, Ord, Read, Show, pure, showsPrec)
 
-$(HsBindgen.Runtime.Prelude.addCSource (Prelude.unlines
+$(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <program_slicing_selection.h>"
   , "enum FileOperationStatus hs_bindgen_test_program_slicing_selection_13b0ed81415a625a ("
   , "  FILE *arg1,"

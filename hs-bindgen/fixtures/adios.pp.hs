@@ -15,10 +15,9 @@ import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Prelude
 import Data.Bits (FiniteBits)
-import Prelude (unlines)
 import Prelude (Bounded, Enum, Eq, IO, Integral, Num, Ord, Read, Real, Show)
 
-$(HsBindgen.Runtime.Prelude.addCSource (Prelude.unlines
+$(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <adios.h>"
   , "void hs_bindgen_test_adios_1f928c1e5a3ea8be (void)"
   , "{"

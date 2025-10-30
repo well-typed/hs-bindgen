@@ -18,10 +18,9 @@ import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.IncompleteArray
 import qualified HsBindgen.Runtime.Prelude
 import Data.Bits (FiniteBits)
-import Prelude (unlines)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
-$(HsBindgen.Runtime.Prelude.addCSource (Prelude.unlines
+$(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <globals.h>"
   , "/* get_simpleGlobal_ptr */"
   , "__attribute__ ((const))"

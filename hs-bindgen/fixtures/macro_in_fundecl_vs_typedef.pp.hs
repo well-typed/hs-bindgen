@@ -15,10 +15,9 @@ import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Prelude
 import Data.Bits (FiniteBits)
-import Prelude (unlines)
 import Prelude ((<*>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
-$(HsBindgen.Runtime.Prelude.addCSource (Prelude.unlines
+$(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <macro_in_fundecl_vs_typedef.h>"
   , "char hs_bindgen_test_macro_in_fundecl_vs_typedef_c7ba346f3006b36f ("
   , "  MC arg1,"

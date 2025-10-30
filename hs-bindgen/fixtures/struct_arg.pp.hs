@@ -12,10 +12,9 @@ import qualified GHC.IO.Unsafe
 import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.CAPI
 import qualified HsBindgen.Runtime.Prelude
-import Prelude (unlines)
 import Prelude ((<*>), Eq, IO, Int, Show, pure)
 
-$(HsBindgen.Runtime.Prelude.addCSource (Prelude.unlines
+$(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <struct_arg.h>"
   , "signed int hs_bindgen_test_struct_arg_61dfa2c4506feb8f ("
   , "  struct thing *arg1"

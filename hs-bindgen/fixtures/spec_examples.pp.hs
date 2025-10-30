@@ -18,10 +18,9 @@ import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.Prelude
 import Data.Bits (FiniteBits)
-import Prelude (unlines)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure, return)
 
-$(HsBindgen.Runtime.Prelude.addCSource (Prelude.unlines
+$(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <spec_examples.h>"
   , "void hs_bindgen_test_spec_examples_7d4128962cfce15d ("
   , "  int32_T *arg1,"

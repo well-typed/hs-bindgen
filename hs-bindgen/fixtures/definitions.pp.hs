@@ -17,10 +17,9 @@ import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.Prelude
 import qualified HsBindgen.Runtime.SizedByteArray
-import Prelude (unlines)
 import Prelude ((<*>), Eq, IO, Int, Show, pure)
 
-$(HsBindgen.Runtime.Prelude.addCSource (Prelude.unlines
+$(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <definitions.h>"
   , "signed int hs_bindgen_test_definitions_5a514c66396155ff ("
   , "  double arg1"

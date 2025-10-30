@@ -28,10 +28,9 @@ import qualified HsBindgen.Runtime.Prelude
 import qualified HsBindgen.Runtime.SizedByteArray
 import qualified Text.Read
 import Data.Bits (FiniteBits)
-import Prelude (unlines)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure, showsPrec)
 
-$(HsBindgen.Runtime.Prelude.addCSource (Prelude.unlines
+$(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <callbacks.h>"
   , "signed int hs_bindgen_test_callbacks_a0a59181c714c131 ("
   , "  void (*arg1) ("

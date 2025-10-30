@@ -17,10 +17,9 @@ import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.Prelude
 import Data.Bits (FiniteBits)
-import Prelude (unlines)
 import Prelude (Bounded, Enum, Eq, Floating, Fractional, IO, Integral, Num, Ord, Read, Real, RealFloat, RealFrac, Show)
 
-$(HsBindgen.Runtime.Prelude.addCSource (Prelude.unlines
+$(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <macro_in_fundecl.h>"
   , "char hs_bindgen_test_macro_in_fundecl_9c091e7a5fbe00eb ("
   , "  F arg1,"

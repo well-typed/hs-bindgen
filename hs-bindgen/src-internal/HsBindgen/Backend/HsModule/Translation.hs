@@ -23,7 +23,7 @@ import HsBindgen.Backend.Extensions
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type qualified as Hs
 import HsBindgen.Backend.Hs.CallConv
-import HsBindgen.Backend.HsModule.Capi (capiImport, preludeImport, unlinesName)
+import HsBindgen.Backend.HsModule.Capi (capiImport)
 import HsBindgen.Backend.HsModule.Names
 import HsBindgen.Backend.SHs.AST
 import HsBindgen.Imports
@@ -168,7 +168,6 @@ resolveImports baseModule cat wrappers ds =
     in  Set.toAscList . mconcat $
             bindingCatImport requiresTypeModule
           : Set.map QualifiedImportListItem (userlandCapiImport <> qs)
-          : preludeUnlinesImport
           : map (Set.singleton . uncurry mkUImportListItem) (Map.toList us)
   where
     mkUImportListItem :: HsImportModule -> Set ResolvedName -> ImportListItem
@@ -186,10 +185,6 @@ resolveImports baseModule cat wrappers ds =
     userlandCapiImport = case wrappers of
       []  -> mempty
       _xs -> Set.singleton capiImport
-    preludeUnlinesImport :: Set ImportListItem
-    preludeUnlinesImport = case wrappers of
-      []  -> mempty
-      _xs -> Set.singleton $ UnqualifiedImportListItem preludeImport (Just [unlinesName])
 
 -- | Accumulator for resolving imports
 --

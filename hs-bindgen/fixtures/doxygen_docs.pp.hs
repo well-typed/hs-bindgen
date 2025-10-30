@@ -34,10 +34,9 @@ import qualified HsBindgen.Runtime.SizedByteArray
 import qualified Text.Read
 import Data.Bits (FiniteBits)
 import Data.Void (Void)
-import Prelude (unlines)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure, showsPrec)
 
-$(HsBindgen.Runtime.Prelude.addCSource (Prelude.unlines
+$(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <doxygen_docs.h>"
   , "signed int hs_bindgen_test_doxygen_docs_508324ba72521a99 ("
   , "  uint8_t const *arg1,"

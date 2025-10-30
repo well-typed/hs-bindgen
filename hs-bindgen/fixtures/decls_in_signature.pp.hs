@@ -18,10 +18,9 @@ import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.Prelude
 import qualified HsBindgen.Runtime.SizedByteArray
-import Prelude (unlines)
 import Prelude ((<*>), (>>), Eq, IO, Int, Show, pure)
 
-$(HsBindgen.Runtime.Prelude.addCSource (Prelude.unlines
+$(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <decls_in_signature.h>"
   , "void hs_bindgen_test_decls_in_signature_001a08d4459ec455 ("
   , "  struct opaque *arg1,"

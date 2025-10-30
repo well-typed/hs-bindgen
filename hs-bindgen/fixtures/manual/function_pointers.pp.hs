@@ -18,10 +18,9 @@ import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.FunPtr
 import qualified HsBindgen.Runtime.Prelude
 import qualified HsBindgen.Runtime.SizedByteArray
-import Prelude (unlines)
 import Prelude ((<*>), Eq, IO, Int, Show, pure)
 
-$(HsBindgen.Runtime.Prelude.addCSource (Prelude.unlines
+$(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <manual/function_pointers.h>"
   , "signed int hs_bindgen_test_manualfunction_pointers_55e5eb89e54abf83 ("
   , "  signed int arg1"

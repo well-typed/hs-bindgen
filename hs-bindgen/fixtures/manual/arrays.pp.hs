@@ -15,10 +15,9 @@ import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.IncompleteArray
 import qualified HsBindgen.Runtime.Prelude
-import Prelude (unlines)
 import Prelude (Eq, IO, Show)
 
-$(HsBindgen.Runtime.Prelude.addCSource (Prelude.unlines
+$(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <manual/arrays.h>"
   , "void hs_bindgen_test_manualarrays_f3d0c8dd1a83b3d0 ("
   , "  triplet *arg1,"

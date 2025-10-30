@@ -16,10 +16,9 @@ import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Prelude
 import Data.Bits (FiniteBits)
 import Data.Void (Void)
-import Prelude (unlines)
 import Prelude (Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure, return)
 
-$(HsBindgen.Runtime.Prelude.addCSource (Prelude.unlines
+$(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <fun_attributes.h>"
   , "void hs_bindgen_test_fun_attributes_8de545512324157b (void)"
   , "{"

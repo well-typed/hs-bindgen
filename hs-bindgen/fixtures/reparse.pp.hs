@@ -31,10 +31,9 @@ import qualified HsBindgen.Runtime.SizedByteArray
 import qualified Text.Read
 import Data.Bits (FiniteBits)
 import Data.Void (Void)
-import Prelude (unlines)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure, return, showsPrec)
 
-$(HsBindgen.Runtime.Prelude.addCSource (Prelude.unlines
+$(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
   [ "#include <reparse.h>"
   , "void hs_bindgen_test_reparse_394853579d622671 ("
   , "  A arg1,"
