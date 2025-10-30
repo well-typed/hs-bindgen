@@ -17,7 +17,9 @@ module HsBindgen.App (
     -- ** Module option
   , parseHsModuleName
     -- ** Output options
+  , OutputDirPolicy(..)
   , parseHsOutputDir
+  , parseOutputDirPolicy
   , parseGenBindingSpec
   , parseGenTestsOutput
     -- ** Input arguments
@@ -497,6 +499,17 @@ parseHsOutputDir = strOption $ mconcat [
       long "hs-output-dir"
     , metavar "PATH"
     , help "Output directory of generated Haskell modules"
+    ]
+
+data OutputDirPolicy
+  = CreateDirStructure
+  | DoNotCreateDirStructure
+  deriving (Show, Eq)
+
+parseOutputDirPolicy :: Parser OutputDirPolicy
+parseOutputDirPolicy = flag DoNotCreateDirStructure CreateDirStructure $ mconcat [
+      long "create-output-dirs"
+    , help "Create the output directory if it does not exist"
     ]
 
 parseGenBindingSpec :: Parser FilePath

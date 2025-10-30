@@ -276,6 +276,7 @@ executable hs-bindgen-cli
     , bytestring
     , containers
     , data-default
+    , directory
 
   -- External dependencies
   build-depends:
