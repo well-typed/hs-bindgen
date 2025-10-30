@@ -9,7 +9,7 @@ import Data.Word (Word8)
 import Foreign qualified as F
 import Foreign.C qualified as F
 
-import qualified HsBindgen.Runtime.IncompleteArray as IA
+import HsBindgen.Runtime.IncompleteArray qualified as IA
 
 import QRCodeGenerator.Generated qualified as QR
 import QRCodeGenerator.Generated.Safe qualified as QR

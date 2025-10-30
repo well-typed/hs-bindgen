@@ -42,7 +42,7 @@ jobs:
         # NOTE: add new example projects here. The example project has to
         # satisfy some requirements for this workflow to work correctly. See
         # ./examples/README.md (with respect to the repository root).
-        example: ['botan', 'c-minisat', 'libpcap']
+        example: ['botan', 'c-minisat', 'libpcap', 'c-qrcode']
 
     env:
       # We assume that the example executable lives in this directory
@@ -155,6 +155,6 @@ jobs:
       uses: ./.github/actions/examples/libpcap
 
     - name: 🧪 Build and run c-qrcode example
-      if: runner.os == 'Linux'
+      if: ${{ matrix.example == 'c-qrcode' }}
       uses: ./.github/actions/examples/c-qrcode
 
