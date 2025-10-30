@@ -1,10 +1,10 @@
 version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
+hsmodule: Example
 types:
 - headers: adios.h
   cname: adiós
-  module: Example
   hsname: Adio'0301s
   instances:
   - Bits
@@ -22,7 +22,6 @@ types:
   - Storable
 - headers: adios.h
   cname: 数字
-  module: Example
   hsname: C数字
   instances:
   - Bits

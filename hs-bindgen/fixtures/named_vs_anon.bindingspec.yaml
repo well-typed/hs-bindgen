@@ -1,10 +1,10 @@
 version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
+hsmodule: Example
 types:
 - headers: named_vs_anon.h
   cname: struct a
-  module: Example
   hsname: A
   instances:
   - Eq
@@ -12,7 +12,6 @@ types:
   - Storable
 - headers: named_vs_anon.h
   cname: struct b_s
-  module: Example
   hsname: B_s
   instances:
   - Eq
@@ -20,7 +19,6 @@ types:
   - Storable
 - headers: named_vs_anon.h
   cname: struct c
-  module: Example
   hsname: C
   instances:
   - Eq
@@ -28,7 +26,6 @@ types:
   - Storable
 - headers: named_vs_anon.h
   cname: struct d
-  module: Example
   hsname: D
   instances:
   - Eq
@@ -36,7 +33,6 @@ types:
   - Storable
 - headers: named_vs_anon.h
   cname: struct e_s
-  module: Example
   hsname: E_s
   instances:
   - Eq
@@ -44,7 +40,6 @@ types:
   - Storable
 - headers: named_vs_anon.h
   cname: f
-  module: Example
   hsname: F
   instances:
   - Eq
@@ -52,7 +47,6 @@ types:
   - Storable
 - headers: named_vs_anon.h
   cname: g
-  module: Example
   hsname: G
   instances:
   - Eq
@@ -60,7 +54,6 @@ types:
   - Storable
 - headers: named_vs_anon.h
   cname: h
-  module: Example
   hsname: H
   instances:
   - Eq
@@ -68,7 +61,6 @@ types:
   - Storable
 - headers: named_vs_anon.h
   cname: struct struct1
-  module: Example
   hsname: Struct1
   instances:
   - Eq
@@ -76,7 +68,6 @@ types:
   - Storable
 - headers: named_vs_anon.h
   cname: struct struct2_s
-  module: Example
   hsname: Struct2_s
   instances:
   - Eq
@@ -84,7 +75,6 @@ types:
   - Storable
 - headers: named_vs_anon.h
   cname: struct struct3
-  module: Example
   hsname: Struct3
   instances:
   - Eq
@@ -92,7 +82,6 @@ types:
   - Storable
 - headers: named_vs_anon.h
   cname: struct struct4
-  module: Example
   hsname: Struct4
   instances:
   - Eq
@@ -100,7 +89,6 @@ types:
   - Storable
 - headers: named_vs_anon.h
   cname: struct struct5_s
-  module: Example
   hsname: Struct5_s
   instances:
   - Eq
@@ -108,7 +96,6 @@ types:
   - Storable
 - headers: named_vs_anon.h
   cname: typedef1
-  module: Example
   hsname: Typedef1
   instances:
   - Eq
@@ -116,7 +103,6 @@ types:
   - Storable
 - headers: named_vs_anon.h
   cname: typedef2
-  module: Example
   hsname: Typedef2
   instances:
   - Eq
@@ -124,7 +110,6 @@ types:
   - Storable
 - headers: named_vs_anon.h
   cname: typedef3
-  module: Example
   hsname: Typedef3
   instances:
   - Eq

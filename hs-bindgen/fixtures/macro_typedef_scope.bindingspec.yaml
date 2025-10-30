@@ -1,10 +1,10 @@
 version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
+hsmodule: Example
 types:
 - headers: macro_typedef_scope.h
   cname: T1
-  module: Example
   hsname: T1
   instances:
   - Bits
@@ -22,7 +22,6 @@ types:
   - Storable
 - headers: macro_typedef_scope.h
   cname: T2
-  module: Example
   hsname: T2
   instances:
   - Bits
@@ -40,7 +39,6 @@ types:
   - Storable
 - headers: macro_typedef_scope.h
   cname: T3
-  module: Example
   hsname: T3
   instances:
   - Bits
@@ -58,7 +56,6 @@ types:
   - Storable
 - headers: macro_typedef_scope.h
   cname: T4
-  module: Example
   hsname: T4
   instances:
   - Bits

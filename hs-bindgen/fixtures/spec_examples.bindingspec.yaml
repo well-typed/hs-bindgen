@@ -1,10 +1,10 @@
 version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
+hsmodule: Example
 types:
 - headers: spec_examples.h
   cname: struct A
-  module: Example
   hsname: A
   instances:
   - Eq
@@ -12,7 +12,6 @@ types:
   - Storable
 - headers: spec_examples.h
   cname: struct B
-  module: Example
   hsname: B
   instances:
   - Eq
@@ -20,11 +19,9 @@ types:
   - Storable
 - headers: spec_examples.h
   cname: struct C
-  module: Example
   hsname: C
 - headers: spec_examples.h
   cname: cint16_T
-  module: Example
   hsname: Cint16_T
   instances:
   - Eq
@@ -32,7 +29,6 @@ types:
   - Storable
 - headers: spec_examples.h
   cname: int16_T
-  module: Example
   hsname: Int16_T
   instances:
   - Bits
@@ -50,7 +46,6 @@ types:
   - Storable
 - headers: spec_examples.h
   cname: int32_T
-  module: Example
   hsname: Int32_T
   instances:
   - Bits
@@ -68,7 +63,6 @@ types:
   - Storable
 - headers: spec_examples.h
   cname: int64_T
-  module: Example
   hsname: Int64_T
   instances:
   - Bits

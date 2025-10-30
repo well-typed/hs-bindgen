@@ -151,6 +151,7 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
             , msgsResolveBindingSpecs
             ) =
             resolveBindingSpecs
+              bootModule
               extlSpec
               presSpec
               afterNameAnon
@@ -173,7 +174,8 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
 
     handleTypedefsPass <- cache "handleTypedefs" $ do
       afterSelect <- selectPass
-      let (afterHandleTypedefs, msgsHandleTypedefs) = handleTypedefs afterSelect
+      let (afterHandleTypedefs, msgsHandleTypedefs) =
+            handleTypedefs bootModule afterSelect
       forM_ msgsHandleTypedefs $ traceWith tracer . FrontendHandleTypedefs
       pure afterHandleTypedefs
 

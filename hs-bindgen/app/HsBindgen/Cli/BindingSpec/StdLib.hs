@@ -19,6 +19,7 @@ import Options.Applicative hiding (info)
 
 import HsBindgen.App
 import HsBindgen.BindingSpec
+import HsBindgen.BindingSpec.Private.Stdlib qualified as Stdlib
 import HsBindgen.Boot
 import HsBindgen.Config.ClangArgs hiding (getClangArgs)
 import HsBindgen.Imports
@@ -66,6 +67,5 @@ exec GlobalOpts{..} Opts{..} = do
       getStdlibBindingSpec
         (contramap (TraceBoot . BootBindingSpec) tracer)
         clangArgs
-    case output of
-      Just path -> BS.writeFile path $ encodeBindingSpecYaml spec
-      Nothing   -> BS.putStr         $ encodeBindingSpecYaml spec
+    maybe BS.putStr BS.writeFile output $
+      encodeBindingSpecYaml Stdlib.hsModuleName spec

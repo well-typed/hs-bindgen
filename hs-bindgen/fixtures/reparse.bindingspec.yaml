@@ -1,10 +1,10 @@
 version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
+hsmodule: Example
 types:
 - headers: reparse.h
   cname: A
-  module: Example
   hsname: A
   instances:
   - Bits
@@ -22,7 +22,6 @@ types:
   - Storable
 - headers: reparse.h
   cname: BOOL
-  module: Example
   hsname: BOOL
   instances:
   - Bits
@@ -40,7 +39,6 @@ types:
   - Storable
 - headers: reparse.h
   cname: INT
-  module: Example
   hsname: INT
   instances:
   - Bits
@@ -58,7 +56,6 @@ types:
   - Storable
 - headers: reparse.h
   cname: INTCP
-  module: Example
   hsname: INTCP
   instances:
   - Eq
@@ -67,7 +64,6 @@ types:
   - Storable
 - headers: reparse.h
   cname: INTP
-  module: Example
   hsname: INTP
   instances:
   - Eq
@@ -76,21 +72,18 @@ types:
   - Storable
 - headers: reparse.h
   cname: arr_typedef1
-  module: Example
   hsname: Arr_typedef1
   instances:
   - Eq
   - Show
 - headers: reparse.h
   cname: arr_typedef2
-  module: Example
   hsname: Arr_typedef2
   instances:
   - Eq
   - Show
 - headers: reparse.h
   cname: arr_typedef3
-  module: Example
   hsname: Arr_typedef3
   instances:
   - Eq
@@ -98,7 +91,6 @@ types:
   - Storable
 - headers: reparse.h
   cname: arr_typedef4
-  module: Example
   hsname: Arr_typedef4
   instances:
   - Eq
@@ -106,7 +98,6 @@ types:
   - Storable
 - headers: reparse.h
   cname: comments2
-  module: Example
   hsname: Comments2
   instances:
   - Bits
@@ -124,7 +115,6 @@ types:
   - Storable
 - headers: reparse.h
   cname: const_funptr1
-  module: Example
   hsname: Const_funptr1
   instances:
   - Eq
@@ -133,11 +123,9 @@ types:
   - Storable
 - headers: reparse.h
   cname: const_funptr1_Deref
-  module: Example
   hsname: Const_funptr1_Deref
 - headers: reparse.h
   cname: const_funptr2
-  module: Example
   hsname: Const_funptr2
   instances:
   - Eq
@@ -146,11 +134,9 @@ types:
   - Storable
 - headers: reparse.h
   cname: const_funptr2_Deref
-  module: Example
   hsname: Const_funptr2_Deref
 - headers: reparse.h
   cname: const_funptr3
-  module: Example
   hsname: Const_funptr3
   instances:
   - Eq
@@ -159,11 +145,9 @@ types:
   - Storable
 - headers: reparse.h
   cname: const_funptr3_Deref
-  module: Example
   hsname: Const_funptr3_Deref
 - headers: reparse.h
   cname: const_funptr4
-  module: Example
   hsname: Const_funptr4
   instances:
   - Eq
@@ -172,11 +156,9 @@ types:
   - Storable
 - headers: reparse.h
   cname: const_funptr4_Deref
-  module: Example
   hsname: Const_funptr4_Deref
 - headers: reparse.h
   cname: const_funptr5
-  module: Example
   hsname: Const_funptr5
   instances:
   - Eq
@@ -185,11 +167,9 @@ types:
   - Storable
 - headers: reparse.h
   cname: const_funptr5_Deref
-  module: Example
   hsname: Const_funptr5_Deref
 - headers: reparse.h
   cname: const_funptr6
-  module: Example
   hsname: Const_funptr6
   instances:
   - Eq
@@ -198,11 +178,9 @@ types:
   - Storable
 - headers: reparse.h
   cname: const_funptr6_Deref
-  module: Example
   hsname: Const_funptr6_Deref
 - headers: reparse.h
   cname: const_funptr7
-  module: Example
   hsname: Const_funptr7
   instances:
   - Eq
@@ -211,11 +189,9 @@ types:
   - Storable
 - headers: reparse.h
   cname: const_funptr7_Deref
-  module: Example
   hsname: Const_funptr7_Deref
 - headers: reparse.h
   cname: const_typedef1
-  module: Example
   hsname: Const_typedef1
   instances:
   - Bits
@@ -233,7 +209,6 @@ types:
   - Storable
 - headers: reparse.h
   cname: const_typedef2
-  module: Example
   hsname: Const_typedef2
   instances:
   - Bits
@@ -251,7 +226,6 @@ types:
   - Storable
 - headers: reparse.h
   cname: const_typedef3
-  module: Example
   hsname: Const_typedef3
   instances:
   - Eq
@@ -260,7 +234,6 @@ types:
   - Storable
 - headers: reparse.h
   cname: const_typedef4
-  module: Example
   hsname: Const_typedef4
   instances:
   - Eq
@@ -269,7 +242,6 @@ types:
   - Storable
 - headers: reparse.h
   cname: const_typedef5
-  module: Example
   hsname: Const_typedef5
   instances:
   - Eq
@@ -278,7 +250,6 @@ types:
   - Storable
 - headers: reparse.h
   cname: const_typedef6
-  module: Example
   hsname: Const_typedef6
   instances:
   - Eq
@@ -287,7 +258,6 @@ types:
   - Storable
 - headers: reparse.h
   cname: const_typedef7
-  module: Example
   hsname: Const_typedef7
   instances:
   - Eq
@@ -296,7 +266,6 @@ types:
   - Storable
 - headers: reparse.h
   cname: struct example_struct
-  module: Example
   hsname: Example_struct
   instances:
   - Eq
@@ -304,7 +273,6 @@ types:
   - Storable
 - headers: reparse.h
   cname: struct example_struct_with_const
-  module: Example
   hsname: Example_struct_with_const
   instances:
   - Eq
@@ -312,7 +280,6 @@ types:
   - Storable
 - headers: reparse.h
   cname: funptr_typedef1
-  module: Example
   hsname: Funptr_typedef1
   instances:
   - Eq
@@ -321,11 +288,9 @@ types:
   - Storable
 - headers: reparse.h
   cname: funptr_typedef1_Deref
-  module: Example
   hsname: Funptr_typedef1_Deref
 - headers: reparse.h
   cname: funptr_typedef2
-  module: Example
   hsname: Funptr_typedef2
   instances:
   - Eq
@@ -334,11 +299,9 @@ types:
   - Storable
 - headers: reparse.h
   cname: funptr_typedef2_Deref
-  module: Example
   hsname: Funptr_typedef2_Deref
 - headers: reparse.h
   cname: funptr_typedef3
-  module: Example
   hsname: Funptr_typedef3
   instances:
   - Eq
@@ -347,11 +310,9 @@ types:
   - Storable
 - headers: reparse.h
   cname: funptr_typedef3_Deref
-  module: Example
   hsname: Funptr_typedef3_Deref
 - headers: reparse.h
   cname: funptr_typedef4
-  module: Example
   hsname: Funptr_typedef4
   instances:
   - Eq
@@ -360,11 +321,9 @@ types:
   - Storable
 - headers: reparse.h
   cname: funptr_typedef4_Deref
-  module: Example
   hsname: Funptr_typedef4_Deref
 - headers: reparse.h
   cname: funptr_typedef5
-  module: Example
   hsname: Funptr_typedef5
   instances:
   - Eq
@@ -373,11 +332,9 @@ types:
   - Storable
 - headers: reparse.h
   cname: funptr_typedef5_Deref
-  module: Example
   hsname: Funptr_typedef5_Deref
 - headers: reparse.h
   cname: enum some_enum
-  module: Example
   hsname: Some_enum
   instances:
   - Eq
@@ -387,7 +344,6 @@ types:
   - Storable
 - headers: reparse.h
   cname: struct some_struct
-  module: Example
   hsname: Some_struct
   instances:
   - Eq
@@ -395,13 +351,11 @@ types:
   - Storable
 - headers: reparse.h
   cname: union some_union
-  module: Example
   hsname: Some_union
   instances:
   - Storable
 - headers: reparse.h
   cname: typedef1
-  module: Example
   hsname: Typedef1
   instances:
   - Bits
@@ -419,7 +373,6 @@ types:
   - Storable
 - headers: reparse.h
   cname: typedef2
-  module: Example
   hsname: Typedef2
   instances:
   - Eq
@@ -428,7 +381,6 @@ types:
   - Storable
 - headers: reparse.h
   cname: typedef3
-  module: Example
   hsname: Typedef3
   instances:
   - Eq

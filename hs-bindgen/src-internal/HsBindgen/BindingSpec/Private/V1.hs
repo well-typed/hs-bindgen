@@ -22,6 +22,7 @@ module HsBindgen.BindingSpec.Private.V1 (
   , UnresolvedBindingSpec
   , ResolvedBindingSpec
   , CTypeSpec(..)
+  , defCTypeSpec
     -- ** Instances
   , InstanceSpec(..)
   , StrategySpec(..)
@@ -132,7 +133,7 @@ type ResolvedBindingSpec = BindingSpec (HashIncludeArg, SourcePath)
 -- | Binding specification for a C type
 data CTypeSpec = CTypeSpec {
       -- | Haskell module
-      cTypeSpecModule :: Maybe Hs.ModuleName
+      cTypeSpecModule :: Hs.ModuleName
 
     , -- | Haskell identifier
       cTypeSpecIdentifier :: Maybe Hs.Identifier
@@ -142,9 +143,9 @@ data CTypeSpec = CTypeSpec {
     }
   deriving stock (Show, Eq, Ord, Generic)
 
-instance Default CTypeSpec where
-  def = CTypeSpec {
-      cTypeSpecModule     = Nothing
+defCTypeSpec :: Hs.ModuleName -> CTypeSpec
+defCTypeSpec hsModuleName = CTypeSpec {
+      cTypeSpecModule     = hsModuleName
     , cTypeSpecIdentifier = Nothing
     , cTypeSpecInstances  = Map.empty
     }
@@ -329,28 +330,28 @@ parseValue tracer cmpt path aVersion@AVersion{..} value
         return Nothing
 
 -- | Encode a binding specification as JSON
-encodeJson :: UnresolvedBindingSpec -> BSL.ByteString
-encodeJson = encodeJson' . toABindingSpec
+encodeJson :: Hs.ModuleName -> UnresolvedBindingSpec -> BSL.ByteString
+encodeJson hsModuleName = encodeJson' . toABindingSpec hsModuleName
 
 -- | Encode a binding specification as YAML
-encodeYaml :: UnresolvedBindingSpec -> BSS.ByteString
-encodeYaml = encodeYaml' . toABindingSpec
+encodeYaml :: Hs.ModuleName -> UnresolvedBindingSpec -> BSS.ByteString
+encodeYaml hsModuleName = encodeYaml' . toABindingSpec hsModuleName
 
 -- | Write a binding specification to a file
 --
 -- The format is determined by the filename extension.
-writeFile :: FilePath -> UnresolvedBindingSpec -> IO ()
-writeFile path = case getFormat path of
-    FormatYAML -> writeFileYaml path
-    FormatJSON -> writeFileJson path
+writeFile :: FilePath -> Hs.ModuleName -> UnresolvedBindingSpec -> IO ()
+writeFile path hsModuleName = case getFormat path of
+    FormatYAML -> writeFileYaml path hsModuleName
+    FormatJSON -> writeFileJson path hsModuleName
 
 -- | Write a binding specification to a JSON file
-writeFileJson :: FilePath -> UnresolvedBindingSpec -> IO ()
-writeFileJson path = BSL.writeFile path . encodeJson
+writeFileJson :: FilePath -> Hs.ModuleName -> UnresolvedBindingSpec -> IO ()
+writeFileJson path hsModuleName = BSL.writeFile path . encodeJson hsModuleName
 
 -- | Write a binding specification to a YAML file
-writeFileYaml :: FilePath -> UnresolvedBindingSpec -> IO ()
-writeFileYaml path = BSS.writeFile path . encodeYaml
+writeFileYaml :: FilePath -> Hs.ModuleName -> UnresolvedBindingSpec -> IO ()
+writeFileYaml path hsModuleName = BSS.writeFile path . encodeYaml hsModuleName
 
 encodeJson' :: ABindingSpec -> BSL.ByteString
 encodeJson' = Aeson.encode
@@ -367,17 +368,17 @@ encodeYaml' = Data.Yaml.Pretty.encodePretty yamlConfig
     keyPosition = \case
       "version"               ->  0  -- ABindingSpec:1
       "hs_bindgen"            ->  1  -- AVersion:1
-      "binding_specification" ->  2  -- AVersion:1
-      "omit"                  ->  3  -- Omittable:1
-      "types"                 ->  4  -- ABindingSpec:2
-      "class"                 ->  5  -- AInstanceSpecMapping:1, AConstraintSpec:1
-      "headers"               ->  6  -- ACTypeSpecMapping:1
-      "cname"                 ->  7  -- ACTypeSpecMapping:2
-      "module"                ->  8  -- ACTypeSpecMapping:3, AConstraintSpec:2
-      "hsname"                ->  9  -- ACTypeSpecMapping:4, AConstraintSpec:3
-      "instances"             -> 10  -- ACTypeSpecMapping:5
-      "strategy"              -> 11  -- AInstanceSpecMapping:2
-      "constraints"           -> 12  -- AInstanceSpecMapping:3
+      "binding_specification" ->  2  -- AVersion:2
+      "omit"                  ->  3  -- AOmittable:1
+      "class"                 ->  4  -- AInstanceSpecMapping:1, AConstraintSpec:1
+      "strategy"              ->  5  -- AInstanceSpecMapping:2
+      "constraints"           ->  6  -- AInstanceSpecMapping:3
+      "hsmodule"              ->  7  -- ABindingSpec:2, AConstraintSpec:2
+      "types"                 ->  8  -- ABindingSpec:3
+      "headers"               ->  9  -- ACTypeSpecMapping:1
+      "cname"                 -> 10  -- ACTypeSpecMapping:2
+      "hsname"                -> 11  -- ACTypeSpecMapping:3, AConstraintSpec:3
+      "instances"             -> 12  -- ACTypeSpecMapping:4
       key -> panicPure $ "Unknown key: " ++ show key
 
 {-------------------------------------------------------------------------------
@@ -477,21 +478,24 @@ resolve tracer injResolveHeader args uSpec = do
 -------------------------------------------------------------------------------}
 
 data ABindingSpec = ABindingSpec {
-      aBindingSpecVersion :: AVersion
-    , aBindingSpecTypes   :: [AOCTypeSpecMapping]
+      aBindingSpecVersion  :: AVersion
+    , aBindingSpecHsModule :: Hs.ModuleName
+    , aBindingSpecTypes    :: [AOCTypeSpecMapping]
     }
   deriving stock Show
 
 instance Aeson.FromJSON ABindingSpec where
   parseJSON = Aeson.withObject "ABindingSpec" $ \o -> do
-    aBindingSpecVersion <- o .: "version"
-    aBindingSpecTypes   <- o .: "types"
+    aBindingSpecVersion  <- o .: "version"
+    aBindingSpecHsModule <- o .: "hsmodule"
+    aBindingSpecTypes    <- o .: "types"
     return ABindingSpec{..}
 
 instance Aeson.ToJSON ABindingSpec where
   toJSON ABindingSpec{..} = Aeson.object [
-      "version" .= aBindingSpecVersion
-    , "types"   .= aBindingSpecTypes
+      "version"  .= aBindingSpecVersion
+    , "hsmodule" .= aBindingSpecHsModule
+    , "types"    .= aBindingSpecTypes
     ]
 
 --------------------------------------------------------------------------------
@@ -519,7 +523,6 @@ instance Aeson.ToJSON AKCTypeSpecMapping where
 data ACTypeSpecMapping = ACTypeSpecMapping {
       aCTypeSpecMappingHeaders    :: [FilePath]
     , aCTypeSpecMappingCName      :: Text
-    , aCTypeSpecMappingModule     :: Maybe Hs.ModuleName
     , aCTypeSpecMappingIdentifier :: Maybe Hs.Identifier
     , aCTypeSpecMappingInstances  :: [AOInstanceSpecMapping]
     }
@@ -529,7 +532,6 @@ instance Aeson.FromJSON ACTypeSpecMapping where
   parseJSON = Aeson.withObject "ACTypeSpecMapping" $ \o -> do
     aCTypeSpecMappingHeaders    <- o .:  "headers" >>= listFromJSON
     aCTypeSpecMappingCName      <- o .:  "cname"
-    aCTypeSpecMappingModule     <- o .:? "module"
     aCTypeSpecMappingIdentifier <- o .:? "hsname"
     aCTypeSpecMappingInstances  <- o .:? "instances" .!= []
     return ACTypeSpecMapping{..}
@@ -538,7 +540,6 @@ instance Aeson.ToJSON ACTypeSpecMapping where
   toJSON ACTypeSpecMapping{..} = Aeson.Object . KM.fromList $ catMaybes [
       Just ("headers" .= listToJSON aCTypeSpecMappingHeaders)
     , Just ("cname"   .= aCTypeSpecMappingCName)
-    , ("module"    .=) <$> aCTypeSpecMappingModule
     , ("hsname"    .=) <$> aCTypeSpecMappingIdentifier
     , ("instances" .=) <$> omitWhenNull aCTypeSpecMappingInstances
     ]
@@ -589,7 +590,7 @@ newtype AConstraintSpec = AConstraintSpec ConstraintSpec
 instance Aeson.FromJSON AConstraintSpec where
   parseJSON = Aeson.withObject "AConstraintSpec" $ \o -> do
     constraintSpecClass <- o .: "class"
-    extRefModule        <- o .: "module"
+    extRefModule        <- o .: "hsmodule"
     extRefIdentifier    <- o .: "hsname"
     let constraintSpecRef = Hs.ExtRef{..}
     return $ AConstraintSpec ConstraintSpec{..}
@@ -598,13 +599,14 @@ instance Aeson.ToJSON AConstraintSpec where
   toJSON (AConstraintSpec ConstraintSpec{..}) =
     let Hs.ExtRef{..} = constraintSpecRef
     in  Aeson.object [
-            "class"  .= constraintSpecClass
-          , "module" .= extRefModule
-          , "hsname" .= extRefIdentifier
+            "class"    .= constraintSpecClass
+          , "hsmodule" .= extRefModule
+          , "hsname"   .= extRefIdentifier
           ]
 
 --------------------------------------------------------------------------------
 
+-- | Convert from the Aeson (file) representation of a binding specification
 fromABindingSpec ::
      FilePath
   -> ABindingSpec
@@ -651,7 +653,7 @@ fromABindingSpec path ABindingSpec{..} =
       let (cname, headers, oTypeSpec) = case aoTypeMapping of
             ARequire ACTypeSpecMapping{..} ->
               let typ = CTypeSpec {
-                      cTypeSpecModule     = aCTypeSpecMappingModule
+                      cTypeSpecModule     = aBindingSpecHsModule
                     , cTypeSpecIdentifier = aCTypeSpecMappingIdentifier
                     , cTypeSpecInstances  =
                         mkInstanceMap aCTypeSpecMappingInstances
@@ -704,33 +706,45 @@ fromABindingSpec path ABindingSpec{..} =
         in  (aInstanceSpecMappingClass, Require inst)
       AOmit hsTypeClass -> (hsTypeClass, Omit)
 
-toABindingSpec :: UnresolvedBindingSpec -> ABindingSpec
-toABindingSpec BindingSpec{..} = ABindingSpec{..}
+-- | Convert to the Aeson (file) representation of a binding specification
+--
+-- Each binding specification file is specific to a Haskell module.  This
+-- function must only be called with an 'UnresolvedBindingSpec' that only has
+-- specifications for the specified module.
+toABindingSpec :: Hs.ModuleName -> UnresolvedBindingSpec -> ABindingSpec
+toABindingSpec hsModuleName BindingSpec{..} = ABindingSpec{..}
   where
     aBindingSpecVersion :: AVersion
     aBindingSpecVersion = mkAVersion version
 
+    aBindingSpecHsModule :: Hs.ModuleName
+    aBindingSpecHsModule = hsModuleName
+
     aBindingSpecTypes :: [AOCTypeSpecMapping]
     aBindingSpecTypes = [
         case oType of
-          Require CTypeSpec{..} -> ARequire ACTypeSpecMapping {
-              aCTypeSpecMappingHeaders    =
-                map getHashIncludeArg (Set.toAscList headers)
-            , aCTypeSpecMappingCName      = C.qualNameText cQualName
-            , aCTypeSpecMappingModule     = cTypeSpecModule
-            , aCTypeSpecMappingIdentifier = cTypeSpecIdentifier
-            , aCTypeSpecMappingInstances  = [
-                  case oInst of
-                    Require InstanceSpec{..} -> ARequire AInstanceSpecMapping {
-                        aInstanceSpecMappingClass       = hsTypeClass
-                      , aInstanceSpecMappingStrategy    = instanceSpecStrategy
-                      , aInstanceSpecMappingConstraints =
-                          map AConstraintSpec instanceSpecConstraints
-                      }
-                    Omit -> AOmit hsTypeClass
-                | (hsTypeClass, oInst) <- Map.toAscList cTypeSpecInstances
-                ]
-            }
+          Require CTypeSpec{..}
+            | cTypeSpecModule /= hsModuleName ->
+                panicPure "toABindingSpec module mismatch"
+            | otherwise -> ARequire ACTypeSpecMapping {
+                  aCTypeSpecMappingHeaders    =
+                    map getHashIncludeArg (Set.toAscList headers)
+                , aCTypeSpecMappingCName      = C.qualNameText cQualName
+                , aCTypeSpecMappingIdentifier = cTypeSpecIdentifier
+                , aCTypeSpecMappingInstances  = [
+                      case oInst of
+                        Require InstanceSpec{..} ->
+                          ARequire AInstanceSpecMapping {
+                              aInstanceSpecMappingClass = hsTypeClass
+                            , aInstanceSpecMappingStrategy =
+                                instanceSpecStrategy
+                            , aInstanceSpecMappingConstraints =
+                                map AConstraintSpec instanceSpecConstraints
+                            }
+                        Omit -> AOmit hsTypeClass
+                    | (hsTypeClass, oInst) <- Map.toAscList cTypeSpecInstances
+                    ]
+                }
           Omit -> AOmit AKCTypeSpecMapping {
               akCTypeSpecMappingHeaders =
                 map getHashIncludeArg (Set.toAscList headers)

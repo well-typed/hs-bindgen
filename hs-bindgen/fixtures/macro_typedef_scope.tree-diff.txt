@@ -30,7 +30,8 @@ TranslationUnit {
               (PrimIntegral PrimInt Signed)}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
+          cTypeSpecModule = ModuleName
+            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -66,7 +67,8 @@ TranslationUnit {
             NameOriginInSource},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
+          cTypeSpecModule = ModuleName
+            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -107,7 +109,8 @@ TranslationUnit {
                     Signed)))}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
+          cTypeSpecModule = ModuleName
+            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -143,7 +146,8 @@ TranslationUnit {
             NameOriginInSource},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
+          cTypeSpecModule = ModuleName
+            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}}],

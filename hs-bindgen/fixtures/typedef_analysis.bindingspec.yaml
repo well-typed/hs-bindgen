@@ -1,10 +1,10 @@
 version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
+hsmodule: Example
 types:
 - headers: typedef_analysis.h
   cname: struct struct1
-  module: Example
   hsname: Struct1_t
   instances:
   - Eq
@@ -12,7 +12,6 @@ types:
   - Storable
 - headers: typedef_analysis.h
   cname: struct struct10
-  module: Example
   hsname: Struct10_t
   instances:
   - Eq
@@ -20,7 +19,6 @@ types:
   - Storable
 - headers: typedef_analysis.h
   cname: struct10_t_t
-  module: Example
   hsname: Struct10_t_t
   instances:
   - Eq
@@ -28,7 +26,6 @@ types:
   - Storable
 - headers: typedef_analysis.h
   cname: struct struct11
-  module: Example
   hsname: Struct11_t
   instances:
   - Eq
@@ -36,7 +33,6 @@ types:
   - Storable
 - headers: typedef_analysis.h
   cname: struct struct12
-  module: Example
   hsname: Struct12_t
   instances:
   - Eq
@@ -44,7 +40,6 @@ types:
   - Storable
 - headers: typedef_analysis.h
   cname: struct struct2
-  module: Example
   hsname: Struct2_t
   instances:
   - Eq
@@ -52,15 +47,12 @@ types:
   - Storable
 - headers: typedef_analysis.h
   cname: struct struct3
-  module: Example
   hsname: Struct3_t
 - headers: typedef_analysis.h
   cname: struct struct4
-  module: Example
   hsname: Struct4_t
 - headers: typedef_analysis.h
   cname: struct struct5
-  module: Example
   hsname: Struct5
   instances:
   - Eq
@@ -68,7 +60,6 @@ types:
   - Storable
 - headers: typedef_analysis.h
   cname: struct5_t
-  module: Example
   hsname: Struct5_t
   instances:
   - Eq
@@ -77,7 +68,6 @@ types:
   - Storable
 - headers: typedef_analysis.h
   cname: struct6
-  module: Example
   hsname: Struct6
   instances:
   - Eq
@@ -86,7 +76,6 @@ types:
   - Storable
 - headers: typedef_analysis.h
   cname: struct struct6
-  module: Example
   hsname: Struct6_Deref
   instances:
   - Eq
@@ -94,7 +83,6 @@ types:
   - Storable
 - headers: typedef_analysis.h
   cname: struct struct7
-  module: Example
   hsname: Struct7
   instances:
   - Eq
@@ -102,7 +90,6 @@ types:
   - Storable
 - headers: typedef_analysis.h
   cname: struct7a
-  module: Example
   hsname: Struct7a
   instances:
   - Eq
@@ -110,7 +97,6 @@ types:
   - Storable
 - headers: typedef_analysis.h
   cname: struct7b
-  module: Example
   hsname: Struct7b
   instances:
   - Eq
@@ -118,7 +104,6 @@ types:
   - Storable
 - headers: typedef_analysis.h
   cname: struct struct8
-  module: Example
   hsname: Struct8
   instances:
   - Eq
@@ -126,7 +111,6 @@ types:
   - Storable
 - headers: typedef_analysis.h
   cname: struct8b
-  module: Example
   hsname: Struct8b
   instances:
   - Eq
@@ -134,7 +118,6 @@ types:
   - Storable
 - headers: typedef_analysis.h
   cname: struct struct9
-  module: Example
   hsname: Struct9
   instances:
   - Eq
@@ -142,7 +125,6 @@ types:
   - Storable
 - headers: typedef_analysis.h
   cname: struct9_t
-  module: Example
   hsname: Struct9_t
   instances:
   - Eq
@@ -150,7 +132,6 @@ types:
   - Storable
 - headers: typedef_analysis.h
   cname: struct use_sites
-  module: Example
   hsname: Use_sites
   instances:
   - Eq

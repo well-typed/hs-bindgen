@@ -1,10 +1,10 @@
 version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
+hsmodule: Example
 types:
 - headers: data_kind_pragma.h
   cname: triplet
-  module: Example
   hsname: Triplet
   instances:
   - Eq

@@ -1,10 +1,10 @@
 version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
+hsmodule: Example
 types:
 - headers: globals.h
   cname: ConstInt
-  module: Example
   hsname: ConstInt
   instances:
   - Bits
@@ -22,14 +22,12 @@ types:
   - Storable
 - headers: globals.h
   cname: ConstIntArray
-  module: Example
   hsname: ConstIntArray
   instances:
   - Eq
   - Show
 - headers: globals.h
   cname: struct config
-  module: Example
   hsname: Config
   instances:
   - Eq
@@ -37,7 +35,6 @@ types:
   - Storable
 - headers: globals.h
   cname: struct inline_struct
-  module: Example
   hsname: Inline_struct
   instances:
   - Eq
@@ -45,7 +42,6 @@ types:
   - Storable
 - headers: globals.h
   cname: struct1_t
-  module: Example
   hsname: Struct1_t
   instances:
   - Eq
@@ -53,7 +49,6 @@ types:
   - Storable
 - headers: globals.h
   cname: struct2_t
-  module: Example
   hsname: Struct2_t
   instances:
   - Eq
@@ -61,7 +56,6 @@ types:
   - Storable
 - headers: globals.h
   cname: struct tuple
-  module: Example
   hsname: Tuple
   instances:
   - Eq
@@ -69,7 +63,6 @@ types:
   - Storable
 - headers: globals.h
   cname: version_t
-  module: Example
   hsname: Version_t
   instances:
   - Eq

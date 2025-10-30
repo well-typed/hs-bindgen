@@ -1,10 +1,10 @@
 version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
+hsmodule: Example
 types:
 - headers: doxygen_docs.h
   cname: bitfield_t
-  module: Example
   hsname: Bitfield_t
   instances:
   - Eq
@@ -12,7 +12,6 @@ types:
   - Storable
 - headers: doxygen_docs.h
   cname: enum color_enum
-  module: Example
   hsname: Color_enum
   instances:
   - Eq
@@ -22,7 +21,6 @@ types:
   - Storable
 - headers: doxygen_docs.h
   cname: config_t
-  module: Example
   hsname: Config_t
   instances:
   - Eq
@@ -30,13 +28,11 @@ types:
   - Storable
 - headers: doxygen_docs.h
   cname: data_union_t
-  module: Example
   hsname: Data_union_t
   instances:
   - Storable
 - headers: doxygen_docs.h
   cname: data_union_t_as_parts
-  module: Example
   hsname: Data_union_t_as_parts
   instances:
   - Eq
@@ -44,7 +40,6 @@ types:
   - Storable
 - headers: doxygen_docs.h
   cname: event_callback_t
-  module: Example
   hsname: Event_callback_t
   instances:
   - Eq
@@ -53,11 +48,9 @@ types:
   - Storable
 - headers: doxygen_docs.h
   cname: event_callback_t_Deref
-  module: Example
   hsname: Event_callback_t_Deref
 - headers: doxygen_docs.h
   cname: filename_t
-  module: Example
   hsname: Filename_t
   instances:
   - Eq
@@ -65,7 +58,6 @@ types:
   - Storable
 - headers: doxygen_docs.h
   cname: struct flexible_array
-  module: Example
   hsname: Flexible_array
   instances:
   - Eq
@@ -73,15 +65,12 @@ types:
   - Storable
 - headers: doxygen_docs.h
   cname: struct forward_declared_struct
-  module: Example
   hsname: Forward_declared_struct
 - headers: doxygen_docs.h
   cname: union forward_declared_union
-  module: Example
   hsname: Forward_declared_union
 - headers: doxygen_docs.h
   cname: processor_fn_t
-  module: Example
   hsname: Processor_fn_t
   instances:
   - Eq
@@ -90,11 +79,9 @@ types:
   - Storable
 - headers: doxygen_docs.h
   cname: processor_fn_t_Deref
-  module: Example
   hsname: Processor_fn_t_Deref
 - headers: doxygen_docs.h
   cname: size_type
-  module: Example
   hsname: Size_type
   instances:
   - Bits
@@ -112,7 +99,6 @@ types:
   - Storable
 - headers: doxygen_docs.h
   cname: status_code_t
-  module: Example
   hsname: Status_code_t
   instances:
   - Eq

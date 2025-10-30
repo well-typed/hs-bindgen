@@ -51,7 +51,7 @@ genBindingSpec ::
   -> [Hs.Decl]
   -> IO ()
 genBindingSpec hsModuleName path getMainHeaders omitTypes =
-      BindingSpec.writeFile path
+      BindingSpec.writeFile path hsModuleName
     . genBindingSpec' hsModuleName getMainHeaders omitTypes
 
 {-------------------------------------------------------------------------------
@@ -66,7 +66,7 @@ genBindingSpecYaml ::
   -> [Hs.Decl]
   -> ByteString
 genBindingSpecYaml hsModuleName getMainHeaders omitTypes =
-      BindingSpec.encodeYaml
+      BindingSpec.encodeYaml hsModuleName
     . genBindingSpec' hsModuleName getMainHeaders omitTypes
 
 {-------------------------------------------------------------------------------
@@ -135,7 +135,7 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes = foldr aux omitSpec
             hsIdentifier = Hs.Identifier $ Hs.getName (Hs.structName hsStruct)
             C.DeclSpec typeSpec' = HsOrigin.declSpec originDecl
             typeSpec = BindingSpec.CTypeSpec {
-                cTypeSpecModule     = Just hsModuleName
+                cTypeSpecModule     = hsModuleName
               , cTypeSpecIdentifier = Just hsIdentifier
               , cTypeSpecInstances  =
                   BindingSpec.cTypeSpecInstances typeSpec'
@@ -152,7 +152,7 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes = foldr aux omitSpec
               HsOrigin.Opaque cNameKind -> cNameKind
           hsIdentifier = Hs.Identifier $ Hs.getName (Hs.emptyDataName edata)
           typeSpec = BindingSpec.CTypeSpec {
-              cTypeSpecModule     = Just hsModuleName
+              cTypeSpecModule     = hsModuleName
             , cTypeSpecIdentifier = Just hsIdentifier
             , cTypeSpecInstances  = Map.empty
             }
@@ -171,7 +171,7 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes = foldr aux omitSpec
           hsIdentifier = Hs.Identifier $ Hs.getName (Hs.newtypeName hsNewtype)
           C.DeclSpec typeSpec' = HsOrigin.declSpec originDecl
           typeSpec = BindingSpec.CTypeSpec {
-              cTypeSpecModule     = Just hsModuleName
+              cTypeSpecModule     = hsModuleName
             , cTypeSpecIdentifier = Just hsIdentifier
             , cTypeSpecInstances  =
                 BindingSpec.cTypeSpecInstances typeSpec'

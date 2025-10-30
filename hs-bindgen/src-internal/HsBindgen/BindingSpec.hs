@@ -33,6 +33,7 @@ module HsBindgen.BindingSpec (
     -- ** Types
   , Common.Omittable(..)
   , BindingSpec.CTypeSpec(..)
+  , BindingSpec.defCTypeSpec
   , BindingSpec.InstanceSpec(..)
   , BindingSpec.StrategySpec(..)
   , BindingSpec.ConstraintSpec(..)
@@ -53,6 +54,7 @@ import HsBindgen.BindingSpec.Private.V1 qualified as BindingSpec
 import HsBindgen.BindingSpec.Private.Version qualified as Version
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Imports
+import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
@@ -208,12 +210,14 @@ getStdlibBindingSpec tracer args =
       []
 
 -- | Encode a binding specification (JSON format)
-encodeBindingSpecJson :: BindingSpec -> BSL.ByteString
-encodeBindingSpecJson = BindingSpec.encodeJson . bindingSpecUnresolved
+encodeBindingSpecJson :: Hs.ModuleName -> BindingSpec -> BSL.ByteString
+encodeBindingSpecJson hsModuleName =
+    BindingSpec.encodeJson hsModuleName . bindingSpecUnresolved
 
 -- | Encode a binding specification (YAML format)
-encodeBindingSpecYaml :: BindingSpec -> BSS.ByteString
-encodeBindingSpecYaml = BindingSpec.encodeYaml . bindingSpecUnresolved
+encodeBindingSpecYaml :: Hs.ModuleName -> BindingSpec -> BSS.ByteString
+encodeBindingSpecYaml hsModuleName =
+    BindingSpec.encodeYaml hsModuleName . bindingSpecUnresolved
 
 {-------------------------------------------------------------------------------
   Internal API

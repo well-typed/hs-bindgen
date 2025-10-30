@@ -18,9 +18,8 @@
             extRefIdentifier = Identifier
               "Word32"}
           CTypeSpec {
-            cTypeSpecModule = Just
-              (ModuleName
-                "HsBindgen.Runtime.Prelude"),
+            cTypeSpecModule = ModuleName
+              "HsBindgen.Runtime.Prelude",
             cTypeSpecIdentifier = Just
               (Identifier "Word32"),
             cTypeSpecInstances =
@@ -165,9 +164,8 @@
                   extRefIdentifier = Identifier
                     "Word32"},
                 extHsSpec = CTypeSpec {
-                  cTypeSpecModule = Just
-                    (ModuleName
-                      "HsBindgen.Runtime.Prelude"),
+                  cTypeSpecModule = ModuleName
+                    "HsBindgen.Runtime.Prelude",
                   cTypeSpecIdentifier = Just
                     (Identifier "Word32"),
                   cTypeSpecInstances =
@@ -302,7 +300,8 @@
                 enumConstantValue = 2}]},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = Nothing,
+            cTypeSpecModule = ModuleName
+              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -344,9 +343,8 @@
                   extRefIdentifier = Identifier
                     "Word32"}
                 CTypeSpec {
-                  cTypeSpecModule = Just
-                    (ModuleName
-                      "HsBindgen.Runtime.Prelude"),
+                  cTypeSpecModule = ModuleName
+                    "HsBindgen.Runtime.Prelude",
                   cTypeSpecIdentifier = Just
                     (Identifier "Word32"),
                   cTypeSpecInstances =
@@ -481,9 +479,8 @@
                           extRefIdentifier = Identifier
                             "Word32"}
                         CTypeSpec {
-                          cTypeSpecModule = Just
-                            (ModuleName
-                              "HsBindgen.Runtime.Prelude"),
+                          cTypeSpecModule = ModuleName
+                            "HsBindgen.Runtime.Prelude",
                           cTypeSpecIdentifier = Just
                             (Identifier "Word32"),
                           cTypeSpecInstances =
@@ -618,9 +615,8 @@
                           extRefIdentifier = Identifier
                             "Word32"}
                         CTypeSpec {
-                          cTypeSpecModule = Just
-                            (ModuleName
-                              "HsBindgen.Runtime.Prelude"),
+                          cTypeSpecModule = ModuleName
+                            "HsBindgen.Runtime.Prelude",
                           cTypeSpecIdentifier = Just
                             (Identifier "Word32"),
                           cTypeSpecInstances =
@@ -781,9 +777,8 @@
                   extRefIdentifier = Identifier
                     "Word32"}
                 CTypeSpec {
-                  cTypeSpecModule = Just
-                    (ModuleName
-                      "HsBindgen.Runtime.Prelude"),
+                  cTypeSpecModule = ModuleName
+                    "HsBindgen.Runtime.Prelude",
                   cTypeSpecIdentifier = Just
                     (Identifier "Word32"),
                   cTypeSpecInstances =
@@ -899,9 +894,8 @@
             extRefIdentifier = Identifier
               "Word32"}
           CTypeSpec {
-            cTypeSpecModule = Just
-              (ModuleName
-                "HsBindgen.Runtime.Prelude"),
+            cTypeSpecModule = ModuleName
+              "HsBindgen.Runtime.Prelude",
             cTypeSpecIdentifier = Just
               (Identifier "Word32"),
             cTypeSpecInstances =
@@ -1035,9 +1029,8 @@
                   extRefIdentifier = Identifier
                     "Word32"}
                 CTypeSpec {
-                  cTypeSpecModule = Just
-                    (ModuleName
-                      "HsBindgen.Runtime.Prelude"),
+                  cTypeSpecModule = ModuleName
+                    "HsBindgen.Runtime.Prelude",
                   cTypeSpecIdentifier = Just
                     (Identifier "Word32"),
                   cTypeSpecInstances =
@@ -1173,9 +1166,8 @@
                   extRefIdentifier = Identifier
                     "Word32"}
                 CTypeSpec {
-                  cTypeSpecModule = Just
-                    (ModuleName
-                      "HsBindgen.Runtime.Prelude"),
+                  cTypeSpecModule = ModuleName
+                    "HsBindgen.Runtime.Prelude",
                   cTypeSpecIdentifier = Just
                     (Identifier "Word32"),
                   cTypeSpecInstances =
@@ -1309,9 +1301,8 @@
                   extRefIdentifier = Identifier
                     "Word32"}
                 CTypeSpec {
-                  cTypeSpecModule = Just
-                    (ModuleName
-                      "HsBindgen.Runtime.Prelude"),
+                  cTypeSpecModule = ModuleName
+                    "HsBindgen.Runtime.Prelude",
                   cTypeSpecIdentifier = Just
                     (Identifier "Word32"),
                   cTypeSpecInstances =

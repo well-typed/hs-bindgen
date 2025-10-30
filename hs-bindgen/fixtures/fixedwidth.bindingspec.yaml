@@ -1,10 +1,10 @@
 version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
+hsmodule: Example
 types:
 - headers: fixedwidth.h
   cname: struct foo
-  module: Example
   hsname: Foo
   instances:
   - Eq

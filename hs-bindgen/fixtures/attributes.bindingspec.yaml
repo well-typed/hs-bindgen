@@ -1,10 +1,10 @@
 version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
+hsmodule: Example
 types:
 - headers: attributes.h
   cname: struct __sFILE
-  module: Example
   hsname: FILE
   instances:
   - Eq
@@ -12,7 +12,6 @@ types:
   - Storable
 - headers: attributes.h
   cname: struct bar
-  module: Example
   hsname: Bar
   instances:
   - Eq
@@ -20,7 +19,6 @@ types:
   - Storable
 - headers: attributes.h
   cname: baz
-  module: Example
   hsname: Baz
   instances:
   - Eq
@@ -28,7 +26,6 @@ types:
   - Storable
 - headers: attributes.h
   cname: struct foo
-  module: Example
   hsname: Foo
   instances:
   - Eq
@@ -36,7 +33,6 @@ types:
   - Storable
 - headers: attributes.h
   cname: qux
-  module: Example
   hsname: Qux
   instances:
   - Eq

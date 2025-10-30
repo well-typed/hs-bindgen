@@ -10,7 +10,8 @@
 -- the @hs-bindgen-runtime@ library, in the same order.
 module HsBindgen.BindingSpec.Private.Stdlib (
     -- * Binding specification
-    bindingSpec
+    hsModuleName
+  , bindingSpec
   ) where
 
 import Data.Map.Strict qualified as Map
@@ -25,14 +26,17 @@ import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
-  Bindings
+  Binding specification
 -------------------------------------------------------------------------------}
+
+-- | Standard library bindings module
+hsModuleName :: Hs.ModuleName
+hsModuleName = "HsBindgen.Runtime.Prelude"
 
 -- | All standard library bindings
 --
 -- These bindings include types defined in @base@ as well as
--- @hs-bindgen-runtime@.  They are all re-exported from module
--- @HsBindgen.Runtime.Prelude@ to simplify imports.
+-- @hs-bindgen-runtime@
 bindingSpec :: BindingSpec.UnresolvedBindingSpec
 bindingSpec = BindingSpec.BindingSpec{..}
   where
@@ -181,7 +185,7 @@ mkT t hsId insts headers = case C.parseQualName t of
   where
     typeSpec :: BindingSpec.CTypeSpec
     typeSpec = BindingSpec.CTypeSpec {
-        cTypeSpecModule     = Just "HsBindgen.Runtime.Prelude"
+        cTypeSpecModule     = hsModuleName
       , cTypeSpecIdentifier = Just hsId
       , cTypeSpecInstances  = Map.fromList [
             (inst, Require instanceSpec)

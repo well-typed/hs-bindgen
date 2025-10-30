@@ -34,7 +34,8 @@ TranslationUnit {
               Unsigned)},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
+          cTypeSpecModule = ModuleName
+            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -82,8 +83,8 @@ TranslationUnit {
                     extRefIdentifier = Identifier
                       "Int64"},
                   extHsSpec = CTypeSpec {
-                    cTypeSpecModule = Just
-                      (ModuleName "Foreign"),
+                    cTypeSpecModule = ModuleName
+                      "Foreign",
                     cTypeSpecIdentifier = Just
                       (Identifier "Int64"),
                     cTypeSpecInstances =
@@ -194,7 +195,8 @@ TranslationUnit {
           structFlam = Nothing},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
+          cTypeSpecModule = ModuleName
+            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}}],

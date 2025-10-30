@@ -120,7 +120,8 @@
               structFlam = Nothing},
           declSpec = DeclSpec
             CTypeSpec {
-              cTypeSpecModule = Nothing,
+              cTypeSpecModule = ModuleName
+                "Example",
               cTypeSpecIdentifier = Nothing,
               cTypeSpecInstances =
               Map.fromList []}},
@@ -262,7 +263,8 @@
                   structFlam = Nothing},
               declSpec = DeclSpec
                 CTypeSpec {
-                  cTypeSpecModule = Nothing,
+                  cTypeSpecModule = ModuleName
+                    "Example",
                   cTypeSpecIdentifier = Nothing,
                   cTypeSpecInstances =
                   Map.fromList []}},
@@ -407,7 +409,8 @@
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         CTypeSpec {
-                          cTypeSpecModule = Nothing,
+                          cTypeSpecModule = ModuleName
+                            "Example",
                           cTypeSpecIdentifier = Nothing,
                           cTypeSpecInstances =
                           Map.fromList []}},
@@ -554,7 +557,8 @@
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         CTypeSpec {
-                          cTypeSpecModule = Nothing,
+                          cTypeSpecModule = ModuleName
+                            "Example",
                           cTypeSpecIdentifier = Nothing,
                           cTypeSpecInstances =
                           Map.fromList []}},
@@ -766,7 +770,8 @@
               structFlam = Nothing},
           declSpec = DeclSpec
             CTypeSpec {
-              cTypeSpecModule = Nothing,
+              cTypeSpecModule = ModuleName
+                "Example",
               cTypeSpecIdentifier = Nothing,
               cTypeSpecInstances =
               Map.fromList []}},
@@ -951,7 +956,8 @@
                   structFlam = Nothing},
               declSpec = DeclSpec
                 CTypeSpec {
-                  cTypeSpecModule = Nothing,
+                  cTypeSpecModule = ModuleName
+                    "Example",
                   cTypeSpecIdentifier = Nothing,
                   cTypeSpecInstances =
                   Map.fromList []}},
@@ -1139,7 +1145,8 @@
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         CTypeSpec {
-                          cTypeSpecModule = Nothing,
+                          cTypeSpecModule = ModuleName
+                            "Example",
                           cTypeSpecIdentifier = Nothing,
                           cTypeSpecInstances =
                           Map.fromList []}},
@@ -1330,7 +1337,8 @@
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         CTypeSpec {
-                          cTypeSpecModule = Nothing,
+                          cTypeSpecModule = ModuleName
+                            "Example",
                           cTypeSpecIdentifier = Nothing,
                           cTypeSpecInstances =
                           Map.fromList []}},
@@ -1449,7 +1457,8 @@
                   NameOriginInSource}]},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = Nothing,
+            cTypeSpecModule = ModuleName
+              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -1707,7 +1716,8 @@
               structFlam = Nothing},
           declSpec = DeclSpec
             CTypeSpec {
-              cTypeSpecModule = Nothing,
+              cTypeSpecModule = ModuleName
+                "Example",
               cTypeSpecIdentifier = Nothing,
               cTypeSpecInstances =
               Map.fromList []}},
@@ -1858,7 +1868,8 @@
                   structFlam = Nothing},
               declSpec = DeclSpec
                 CTypeSpec {
-                  cTypeSpecModule = Nothing,
+                  cTypeSpecModule = ModuleName
+                    "Example",
                   cTypeSpecIdentifier = Nothing,
                   cTypeSpecInstances =
                   Map.fromList []}},
@@ -2012,7 +2023,8 @@
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         CTypeSpec {
-                          cTypeSpecModule = Nothing,
+                          cTypeSpecModule = ModuleName
+                            "Example",
                           cTypeSpecIdentifier = Nothing,
                           cTypeSpecInstances =
                           Map.fromList []}},
@@ -2168,7 +2180,8 @@
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         CTypeSpec {
-                          cTypeSpecModule = Nothing,
+                          cTypeSpecModule = ModuleName
+                            "Example",
                           cTypeSpecIdentifier = Nothing,
                           cTypeSpecInstances =
                           Map.fromList []}},
@@ -2267,7 +2280,8 @@
                   NameOriginInSource}]},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = Nothing,
+            cTypeSpecModule = ModuleName
+              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -2532,7 +2546,8 @@
               structFlam = Nothing},
           declSpec = DeclSpec
             CTypeSpec {
-              cTypeSpecModule = Nothing,
+              cTypeSpecModule = ModuleName
+                "Example",
               cTypeSpecIdentifier = Nothing,
               cTypeSpecInstances =
               Map.fromList []}},
@@ -2690,7 +2705,8 @@
                   structFlam = Nothing},
               declSpec = DeclSpec
                 CTypeSpec {
-                  cTypeSpecModule = Nothing,
+                  cTypeSpecModule = ModuleName
+                    "Example",
                   cTypeSpecIdentifier = Nothing,
                   cTypeSpecInstances =
                   Map.fromList []}},
@@ -2851,7 +2867,8 @@
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         CTypeSpec {
-                          cTypeSpecModule = Nothing,
+                          cTypeSpecModule = ModuleName
+                            "Example",
                           cTypeSpecIdentifier = Nothing,
                           cTypeSpecInstances =
                           Map.fromList []}},
@@ -3014,7 +3031,8 @@
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         CTypeSpec {
-                          cTypeSpecModule = Nothing,
+                          cTypeSpecModule = ModuleName
+                            "Example",
                           cTypeSpecIdentifier = Nothing,
                           cTypeSpecInstances =
                           Map.fromList []}},
@@ -3164,7 +3182,8 @@
               structFlam = Nothing},
           declSpec = DeclSpec
             CTypeSpec {
-              cTypeSpecModule = Nothing,
+              cTypeSpecModule = ModuleName
+                "Example",
               cTypeSpecIdentifier = Nothing,
               cTypeSpecInstances =
               Map.fromList []}},
@@ -3307,7 +3326,8 @@
                   structFlam = Nothing},
               declSpec = DeclSpec
                 CTypeSpec {
-                  cTypeSpecModule = Nothing,
+                  cTypeSpecModule = ModuleName
+                    "Example",
                   cTypeSpecIdentifier = Nothing,
                   cTypeSpecInstances =
                   Map.fromList []}},
@@ -3453,7 +3473,8 @@
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         CTypeSpec {
-                          cTypeSpecModule = Nothing,
+                          cTypeSpecModule = ModuleName
+                            "Example",
                           cTypeSpecIdentifier = Nothing,
                           cTypeSpecInstances =
                           Map.fromList []}},
@@ -3601,7 +3622,8 @@
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         CTypeSpec {
-                          cTypeSpecModule = Nothing,
+                          cTypeSpecModule = ModuleName
+                            "Example",
                           cTypeSpecIdentifier = Nothing,
                           cTypeSpecInstances =
                           Map.fromList []}},
@@ -3773,7 +3795,8 @@
               structFlam = Nothing},
           declSpec = DeclSpec
             CTypeSpec {
-              cTypeSpecModule = Nothing,
+              cTypeSpecModule = ModuleName
+                "Example",
               cTypeSpecIdentifier = Nothing,
               cTypeSpecInstances =
               Map.fromList []}},
@@ -3918,7 +3941,8 @@
                   structFlam = Nothing},
               declSpec = DeclSpec
                 CTypeSpec {
-                  cTypeSpecModule = Nothing,
+                  cTypeSpecModule = ModuleName
+                    "Example",
                   cTypeSpecIdentifier = Nothing,
                   cTypeSpecInstances =
                   Map.fromList []}},
@@ -4066,7 +4090,8 @@
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         CTypeSpec {
-                          cTypeSpecModule = Nothing,
+                          cTypeSpecModule = ModuleName
+                            "Example",
                           cTypeSpecIdentifier = Nothing,
                           cTypeSpecInstances =
                           Map.fromList []}},
@@ -4216,7 +4241,8 @@
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         CTypeSpec {
-                          cTypeSpecModule = Nothing,
+                          cTypeSpecModule = ModuleName
+                            "Example",
                           cTypeSpecIdentifier = Nothing,
                           cTypeSpecInstances =
                           Map.fromList []}},
@@ -4338,7 +4364,8 @@
                     (AnonId "unions.h:36:5"))}]},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = Nothing,
+            cTypeSpecModule = ModuleName
+              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},

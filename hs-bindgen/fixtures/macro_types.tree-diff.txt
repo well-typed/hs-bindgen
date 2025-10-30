@@ -33,7 +33,8 @@ TranslationUnit {
                   Signed))}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
+          cTypeSpecModule = ModuleName
+            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -70,7 +71,8 @@ TranslationUnit {
                     (PrimSignImplicit Nothing))))}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
+          cTypeSpecModule = ModuleName
+            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -103,7 +105,8 @@ TranslationUnit {
               (PrimFloating PrimFloat)}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
+          cTypeSpecModule = ModuleName
+            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -138,7 +141,8 @@ TranslationUnit {
             NameOriginInSource},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
+          cTypeSpecModule = ModuleName
+            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -173,7 +177,8 @@ TranslationUnit {
                 (PrimSignExplicit Unsigned))}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
+          cTypeSpecModule = ModuleName
+            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -211,7 +216,8 @@ TranslationUnit {
               NameOriginInSource}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
+          cTypeSpecModule = ModuleName
+            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -248,7 +254,8 @@ TranslationUnit {
             NameOriginInSource},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
+          cTypeSpecModule = ModuleName
+            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}}],

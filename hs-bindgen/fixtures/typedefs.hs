@@ -43,7 +43,8 @@
               (PrimIntegral PrimInt Signed)},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = Nothing,
+            cTypeSpecModule = ModuleName
+              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -250,7 +251,8 @@
                 (PrimIntegral PrimInt Signed))},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = Nothing,
+            cTypeSpecModule = ModuleName
+              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -357,7 +359,8 @@
                 (PrimIntegral PrimInt Signed))},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = Nothing,
+            cTypeSpecModule = ModuleName
+              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -533,7 +536,8 @@
               TypeVoid},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = Nothing,
+            cTypeSpecModule = ModuleName
+              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -699,7 +703,8 @@
                   (TypeFun [] TypeVoid)))},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = Nothing,
+            cTypeSpecModule = ModuleName
+              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -808,7 +813,8 @@
                 (PrimIntegral PrimInt Signed))},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = Nothing,
+            cTypeSpecModule = ModuleName
+              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -983,7 +989,8 @@
               TypeVoid},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = Nothing,
+            cTypeSpecModule = ModuleName
+              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -1145,7 +1152,8 @@
                   (TypeFun [] TypeVoid)))},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = Nothing,
+            cTypeSpecModule = ModuleName
+              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -1247,7 +1255,8 @@
               TypeVoid},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = Nothing,
+            cTypeSpecModule = ModuleName
+              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -1390,7 +1399,8 @@
                   (TypeFun [] TypeVoid)))},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = Nothing,
+            cTypeSpecModule = ModuleName
+              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -1492,7 +1502,8 @@
               TypeVoid},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = Nothing,
+            cTypeSpecModule = ModuleName
+              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -1633,7 +1644,8 @@
                 (TypeFun [] TypeVoid))},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = Nothing,
+            cTypeSpecModule = ModuleName
+              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -1705,7 +1717,8 @@
                       (TypeFun [] TypeVoid)))))},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = Nothing,
+            cTypeSpecModule = ModuleName
+              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
