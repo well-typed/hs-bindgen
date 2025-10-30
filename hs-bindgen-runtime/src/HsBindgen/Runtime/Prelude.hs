@@ -107,9 +107,9 @@ module HsBindgen.Runtime.Prelude (
   ) where
 
 import Data.Int qualified
+import Data.List qualified
 import Data.Word qualified
 import Foreign.C qualified
-import Data.List qualified
 
 import HsBindgen.Runtime.CAPI
 import HsBindgen.Runtime.LibC qualified as LibC
