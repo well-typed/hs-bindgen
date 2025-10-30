@@ -892,7 +892,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_x_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_redeclaration_10b125673bf2041b (void) { return &x; } ",
+          concat
+            [
+              "/* get_x_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int *hs_bindgen_test_redeclaration_10b125673bf2041b (void)\n",
+              "{\n",
+              "  return &x;\n",
+              "}"],
           capiWrapperImport =
           "redeclaration.h"},
       foreignImportOrigin = Global

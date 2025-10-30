@@ -11,7 +11,15 @@ import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Prelude
 import Prelude (IO)
 
-$(HsBindgen.Runtime.Prelude.addCSource "#include <bool_c23.h>\n/* get_b_ptr */ __attribute__ ((const)) _Bool *hs_bindgen_test_bool_c23_fcd0c984d664f6ee (void) { return &b; } \n")
+$(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
+  [ "#include <bool_c23.h>"
+  , "/* get_b_ptr */"
+  , "__attribute__ ((const))"
+  , "_Bool *hs_bindgen_test_bool_c23_fcd0c984d664f6ee (void)"
+  , "{"
+  , "  return &b;"
+  , "}"
+  ]))
 
 foreign import ccall unsafe "hs_bindgen_test_bool_c23_fcd0c984d664f6ee" hs_bindgen_test_bool_c23_fcd0c984d664f6ee ::
      IO (Ptr.Ptr FC.CBool)

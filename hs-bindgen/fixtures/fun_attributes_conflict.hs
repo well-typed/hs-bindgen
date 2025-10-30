@@ -26,7 +26,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int hs_bindgen_test_fun_attributes_conflict_5f961556d5c4089a (signed int arg1) { return square_cp(arg1); }",
+          concat
+            [
+              "signed int hs_bindgen_test_fun_attributes_conflict_5f961556d5c4089a (\n",
+              "  signed int arg1\n",
+              ")\n",
+              "{\n",
+              "  return square_cp(arg1);\n",
+              "}"],
           capiWrapperImport =
           "fun_attributes_conflict.h"},
       foreignImportOrigin = Function
@@ -96,7 +103,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int hs_bindgen_test_fun_attributes_conflict_7dbcbb58ce184f13 (signed int arg1) { return square_pc(arg1); }",
+          concat
+            [
+              "signed int hs_bindgen_test_fun_attributes_conflict_7dbcbb58ce184f13 (\n",
+              "  signed int arg1\n",
+              ")\n",
+              "{\n",
+              "  return square_pc(arg1);\n",
+              "}"],
           capiWrapperImport =
           "fun_attributes_conflict.h"},
       foreignImportOrigin = Function
@@ -156,7 +170,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int hs_bindgen_test_fun_attributes_conflict_79823cdb6d9c52ff (signed int arg1) { return square_cc(arg1); }",
+          concat
+            [
+              "signed int hs_bindgen_test_fun_attributes_conflict_79823cdb6d9c52ff (\n",
+              "  signed int arg1\n",
+              ")\n",
+              "{\n",
+              "  return square_cc(arg1);\n",
+              "}"],
           capiWrapperImport =
           "fun_attributes_conflict.h"},
       foreignImportOrigin = Function
@@ -216,7 +237,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int hs_bindgen_test_fun_attributes_conflict_3dd09f52296e7452 (signed int arg1) { return square_pp(arg1); }",
+          concat
+            [
+              "signed int hs_bindgen_test_fun_attributes_conflict_3dd09f52296e7452 (\n",
+              "  signed int arg1\n",
+              ")\n",
+              "{\n",
+              "  return square_pp(arg1);\n",
+              "}"],
           capiWrapperImport =
           "fun_attributes_conflict.h"},
       foreignImportOrigin = Function
@@ -285,7 +313,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int hs_bindgen_test_fun_attributes_conflict_564ce99eace0df40 (signed int arg1) { return square_cp(arg1); }",
+          concat
+            [
+              "signed int hs_bindgen_test_fun_attributes_conflict_564ce99eace0df40 (\n",
+              "  signed int arg1\n",
+              ")\n",
+              "{\n",
+              "  return square_cp(arg1);\n",
+              "}"],
           capiWrapperImport =
           "fun_attributes_conflict.h"},
       foreignImportOrigin = Function
@@ -355,7 +390,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int hs_bindgen_test_fun_attributes_conflict_216e7c195e335424 (signed int arg1) { return square_pc(arg1); }",
+          concat
+            [
+              "signed int hs_bindgen_test_fun_attributes_conflict_216e7c195e335424 (\n",
+              "  signed int arg1\n",
+              ")\n",
+              "{\n",
+              "  return square_pc(arg1);\n",
+              "}"],
           capiWrapperImport =
           "fun_attributes_conflict.h"},
       foreignImportOrigin = Function
@@ -415,7 +457,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int hs_bindgen_test_fun_attributes_conflict_64cd3d5e7e4c6a2d (signed int arg1) { return square_cc(arg1); }",
+          concat
+            [
+              "signed int hs_bindgen_test_fun_attributes_conflict_64cd3d5e7e4c6a2d (\n",
+              "  signed int arg1\n",
+              ")\n",
+              "{\n",
+              "  return square_cc(arg1);\n",
+              "}"],
           capiWrapperImport =
           "fun_attributes_conflict.h"},
       foreignImportOrigin = Function
@@ -475,7 +524,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int hs_bindgen_test_fun_attributes_conflict_fab086c774e84aae (signed int arg1) { return square_pp(arg1); }",
+          concat
+            [
+              "signed int hs_bindgen_test_fun_attributes_conflict_fab086c774e84aae (\n",
+              "  signed int arg1\n",
+              ")\n",
+              "{\n",
+              "  return square_pp(arg1);\n",
+              "}"],
           capiWrapperImport =
           "fun_attributes_conflict.h"},
       foreignImportOrigin = Function
@@ -537,7 +593,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_square_cp_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_conflict_a488b67527d299f8 (void)) (signed int arg1) { return &square_cp; } ",
+          concat
+            [
+              "/* get_square_cp_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_fun_attributes_conflict_a488b67527d299f8 (void)) (\n",
+              "  signed int arg1\n",
+              ")\n",
+              "{\n",
+              "  return &square_cp;\n",
+              "}"],
           capiWrapperImport =
           "fun_attributes_conflict.h"},
       foreignImportOrigin = Global
@@ -571,7 +636,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_square_pc_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_conflict_c4cea088a40be2f5 (void)) (signed int arg1) { return &square_pc; } ",
+          concat
+            [
+              "/* get_square_pc_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_fun_attributes_conflict_c4cea088a40be2f5 (void)) (\n",
+              "  signed int arg1\n",
+              ")\n",
+              "{\n",
+              "  return &square_pc;\n",
+              "}"],
           capiWrapperImport =
           "fun_attributes_conflict.h"},
       foreignImportOrigin = Global
@@ -605,7 +679,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_square_cc_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_conflict_3bc327fede4fc009 (void)) (signed int arg1) { return &square_cc; } ",
+          concat
+            [
+              "/* get_square_cc_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_fun_attributes_conflict_3bc327fede4fc009 (void)) (\n",
+              "  signed int arg1\n",
+              ")\n",
+              "{\n",
+              "  return &square_cc;\n",
+              "}"],
           capiWrapperImport =
           "fun_attributes_conflict.h"},
       foreignImportOrigin = Global
@@ -639,7 +722,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_square_pp_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_conflict_dca75c8c02c209b2 (void)) (signed int arg1) { return &square_pp; } ",
+          concat
+            [
+              "/* get_square_pp_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_fun_attributes_conflict_dca75c8c02c209b2 (void)) (\n",
+              "  signed int arg1\n",
+              ")\n",
+              "{\n",
+              "  return &square_pp;\n",
+              "}"],
           capiWrapperImport =
           "fun_attributes_conflict.h"},
       foreignImportOrigin = Global

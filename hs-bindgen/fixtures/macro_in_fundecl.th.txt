@@ -1,44 +1,316 @@
 -- addDependentFile examples/golden/macro_in_fundecl.h
 -- #include <macro_in_fundecl.h>
--- char hs_bindgen_test_macro_in_fundecl_9c091e7a5fbe00eb (F arg1, char arg2) { return quux(arg1, arg2); }
--- C *hs_bindgen_test_macro_in_fundecl_ca29786771bf115c (float arg1, C *arg2) { return wam(arg1, arg2); }
--- char *hs_bindgen_test_macro_in_fundecl_a1ddb0ab90dd90ae (float arg1, signed int (*arg2) (signed int arg1)) { return foo1(arg1, arg2); }
--- char *hs_bindgen_test_macro_in_fundecl_39158ea36a52c749 (F arg1, signed int (*arg2) (signed int arg1)) { return foo2(arg1, arg2); }
--- C *hs_bindgen_test_macro_in_fundecl_30c473506139927c (float arg1, signed int (*arg2) (signed int arg1)) { return foo3(arg1, arg2); }
--- signed int (*hs_bindgen_test_macro_in_fundecl_ef6d9a2254300a4a (signed long arg1)) (signed short arg1) { return bar1(arg1); }
--- signed int (*hs_bindgen_test_macro_in_fundecl_6570ce6435b60197 (L arg1)) (signed short arg1) { return bar2(arg1); }
--- signed int (*hs_bindgen_test_macro_in_fundecl_ac35ce1ad86420e1 (signed long arg1)) (S arg1) { return bar3(arg1); }
--- I (*hs_bindgen_test_macro_in_fundecl_c5e59f203c41c1c2 (signed long arg1)) (signed short arg1) { return bar4(arg1); }
--- signed int (*hs_bindgen_test_macro_in_fundecl_f2b917ad9122f0e2 (signed int const arg1))[2][3] { return baz1(arg1); }
--- signed int (*hs_bindgen_test_macro_in_fundecl_d27cd45b344a00d3 (I const arg1))[2][3] { return baz2(arg1); }
--- I (*hs_bindgen_test_macro_in_fundecl_c4ed14d761bc89ba (signed int const arg1))[2][3] { return baz3(arg1); }
--- I hs_bindgen_test_macro_in_fundecl_8d4283a1963012db (void) { return no_args_no_void(); }
--- char hs_bindgen_test_macro_in_fundecl_7542f939354dfc0b (F arg1, char arg2) { return quux(arg1, arg2); }
--- C *hs_bindgen_test_macro_in_fundecl_e19961744945a727 (float arg1, C *arg2) { return wam(arg1, arg2); }
--- char *hs_bindgen_test_macro_in_fundecl_3ce18d84b02c9784 (float arg1, signed int (*arg2) (signed int arg1)) { return foo1(arg1, arg2); }
--- char *hs_bindgen_test_macro_in_fundecl_483294beebe8552d (F arg1, signed int (*arg2) (signed int arg1)) { return foo2(arg1, arg2); }
--- C *hs_bindgen_test_macro_in_fundecl_5fb7e024e43f13d7 (float arg1, signed int (*arg2) (signed int arg1)) { return foo3(arg1, arg2); }
--- signed int (*hs_bindgen_test_macro_in_fundecl_5c62229deaba458d (signed long arg1)) (signed short arg1) { return bar1(arg1); }
--- signed int (*hs_bindgen_test_macro_in_fundecl_120cb32a2369f37f (L arg1)) (signed short arg1) { return bar2(arg1); }
--- signed int (*hs_bindgen_test_macro_in_fundecl_8163c1d52847d0b4 (signed long arg1)) (S arg1) { return bar3(arg1); }
--- I (*hs_bindgen_test_macro_in_fundecl_d7df5128adb899bb (signed long arg1)) (signed short arg1) { return bar4(arg1); }
--- signed int (*hs_bindgen_test_macro_in_fundecl_af25911956e2e01d (signed int const arg1))[2][3] { return baz1(arg1); }
--- signed int (*hs_bindgen_test_macro_in_fundecl_21c316299046fe75 (I const arg1))[2][3] { return baz2(arg1); }
--- I (*hs_bindgen_test_macro_in_fundecl_8d077398ab5e3b39 (signed int const arg1))[2][3] { return baz3(arg1); }
--- I hs_bindgen_test_macro_in_fundecl_26de47450bbc61e3 (void) { return no_args_no_void(); }
--- /* get_quux_ptr */ __attribute__ ((const)) char (*hs_bindgen_test_macro_in_fundecl_75296b863af23367 (void)) (F arg1, char arg2) { return &quux; } 
--- /* get_wam_ptr */ __attribute__ ((const)) C *(*hs_bindgen_test_macro_in_fundecl_fd1ccca5616729da (void)) (float arg1, C *arg2) { return &wam; } 
--- /* get_foo1_ptr */ __attribute__ ((const)) char *(*hs_bindgen_test_macro_in_fundecl_786c8d7bfea481fd (void)) (float arg1, signed int (*arg2) (signed int arg1)) { return &foo1; } 
--- /* get_foo2_ptr */ __attribute__ ((const)) char *(*hs_bindgen_test_macro_in_fundecl_42a47aecc35f5bda (void)) (F arg1, signed int (*arg2) (signed int arg1)) { return &foo2; } 
--- /* get_foo3_ptr */ __attribute__ ((const)) C *(*hs_bindgen_test_macro_in_fundecl_17760ec60140242e (void)) (float arg1, signed int (*arg2) (signed int arg1)) { return &foo3; } 
--- /* get_bar1_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_macro_in_fundecl_13fa512840072e8d (void)) (signed long arg1)) (signed short arg1) { return &bar1; } 
--- /* get_bar2_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_macro_in_fundecl_0d63f3c4f98f04a3 (void)) (L arg1)) (signed short arg1) { return &bar2; } 
--- /* get_bar3_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_macro_in_fundecl_8bd44eebdbce7f71 (void)) (signed long arg1)) (S arg1) { return &bar3; } 
--- /* get_bar4_ptr */ __attribute__ ((const)) I (*(*hs_bindgen_test_macro_in_fundecl_0515cdde3c6f0f19 (void)) (signed long arg1)) (signed short arg1) { return &bar4; } 
--- /* get_baz1_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_macro_in_fundecl_8edeef2444de2cee (void)) (signed int const arg1))[2][3] { return &baz1; } 
--- /* get_baz2_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_macro_in_fundecl_61853d26cc39ced6 (void)) (I const arg1))[2][3] { return &baz2; } 
--- /* get_baz3_ptr */ __attribute__ ((const)) I (*(*hs_bindgen_test_macro_in_fundecl_b465262d2f67a146 (void)) (signed int const arg1))[2][3] { return &baz3; } 
--- /* get_no_args_no_void_ptr */ __attribute__ ((const)) I (*hs_bindgen_test_macro_in_fundecl_452280b5085b4ccd (void)) (void) { return &no_args_no_void; } 
+-- char hs_bindgen_test_macro_in_fundecl_9c091e7a5fbe00eb (
+--   F arg1,
+--   char arg2
+-- )
+-- {
+--   return quux(arg1, arg2);
+-- }
+-- C *hs_bindgen_test_macro_in_fundecl_ca29786771bf115c (
+--   float arg1,
+--   C *arg2
+-- )
+-- {
+--   return wam(arg1, arg2);
+-- }
+-- char *hs_bindgen_test_macro_in_fundecl_a1ddb0ab90dd90ae (
+--   float arg1,
+--   signed int (*arg2) (
+--   signed int arg1
+-- )
+-- )
+-- {
+--   return foo1(arg1, arg2);
+-- }
+-- char *hs_bindgen_test_macro_in_fundecl_39158ea36a52c749 (
+--   F arg1,
+--   signed int (*arg2) (
+--   signed int arg1
+-- )
+-- )
+-- {
+--   return foo2(arg1, arg2);
+-- }
+-- C *hs_bindgen_test_macro_in_fundecl_30c473506139927c (
+--   float arg1,
+--   signed int (*arg2) (
+--   signed int arg1
+-- )
+-- )
+-- {
+--   return foo3(arg1, arg2);
+-- }
+-- signed int (*hs_bindgen_test_macro_in_fundecl_ef6d9a2254300a4a (
+--   signed long arg1
+-- )) (
+--   signed short arg1
+-- )
+-- {
+--   return bar1(arg1);
+-- }
+-- signed int (*hs_bindgen_test_macro_in_fundecl_6570ce6435b60197 (
+--   L arg1
+-- )) (
+--   signed short arg1
+-- )
+-- {
+--   return bar2(arg1);
+-- }
+-- signed int (*hs_bindgen_test_macro_in_fundecl_ac35ce1ad86420e1 (
+--   signed long arg1
+-- )) (
+--   S arg1
+-- )
+-- {
+--   return bar3(arg1);
+-- }
+-- I (*hs_bindgen_test_macro_in_fundecl_c5e59f203c41c1c2 (
+--   signed long arg1
+-- )) (
+--   signed short arg1
+-- )
+-- {
+--   return bar4(arg1);
+-- }
+-- signed int (*hs_bindgen_test_macro_in_fundecl_f2b917ad9122f0e2 (
+--   signed int const arg1
+-- ))[2][3]
+-- {
+--   return baz1(arg1);
+-- }
+-- signed int (*hs_bindgen_test_macro_in_fundecl_d27cd45b344a00d3 (
+--   I const arg1
+-- ))[2][3]
+-- {
+--   return baz2(arg1);
+-- }
+-- I (*hs_bindgen_test_macro_in_fundecl_c4ed14d761bc89ba (
+--   signed int const arg1
+-- ))[2][3]
+-- {
+--   return baz3(arg1);
+-- }
+-- I hs_bindgen_test_macro_in_fundecl_8d4283a1963012db (void)
+-- {
+--   return no_args_no_void();
+-- }
+-- char hs_bindgen_test_macro_in_fundecl_7542f939354dfc0b (
+--   F arg1,
+--   char arg2
+-- )
+-- {
+--   return quux(arg1, arg2);
+-- }
+-- C *hs_bindgen_test_macro_in_fundecl_e19961744945a727 (
+--   float arg1,
+--   C *arg2
+-- )
+-- {
+--   return wam(arg1, arg2);
+-- }
+-- char *hs_bindgen_test_macro_in_fundecl_3ce18d84b02c9784 (
+--   float arg1,
+--   signed int (*arg2) (
+--   signed int arg1
+-- )
+-- )
+-- {
+--   return foo1(arg1, arg2);
+-- }
+-- char *hs_bindgen_test_macro_in_fundecl_483294beebe8552d (
+--   F arg1,
+--   signed int (*arg2) (
+--   signed int arg1
+-- )
+-- )
+-- {
+--   return foo2(arg1, arg2);
+-- }
+-- C *hs_bindgen_test_macro_in_fundecl_5fb7e024e43f13d7 (
+--   float arg1,
+--   signed int (*arg2) (
+--   signed int arg1
+-- )
+-- )
+-- {
+--   return foo3(arg1, arg2);
+-- }
+-- signed int (*hs_bindgen_test_macro_in_fundecl_5c62229deaba458d (
+--   signed long arg1
+-- )) (
+--   signed short arg1
+-- )
+-- {
+--   return bar1(arg1);
+-- }
+-- signed int (*hs_bindgen_test_macro_in_fundecl_120cb32a2369f37f (
+--   L arg1
+-- )) (
+--   signed short arg1
+-- )
+-- {
+--   return bar2(arg1);
+-- }
+-- signed int (*hs_bindgen_test_macro_in_fundecl_8163c1d52847d0b4 (
+--   signed long arg1
+-- )) (
+--   S arg1
+-- )
+-- {
+--   return bar3(arg1);
+-- }
+-- I (*hs_bindgen_test_macro_in_fundecl_d7df5128adb899bb (
+--   signed long arg1
+-- )) (
+--   signed short arg1
+-- )
+-- {
+--   return bar4(arg1);
+-- }
+-- signed int (*hs_bindgen_test_macro_in_fundecl_af25911956e2e01d (
+--   signed int const arg1
+-- ))[2][3]
+-- {
+--   return baz1(arg1);
+-- }
+-- signed int (*hs_bindgen_test_macro_in_fundecl_21c316299046fe75 (
+--   I const arg1
+-- ))[2][3]
+-- {
+--   return baz2(arg1);
+-- }
+-- I (*hs_bindgen_test_macro_in_fundecl_8d077398ab5e3b39 (
+--   signed int const arg1
+-- ))[2][3]
+-- {
+--   return baz3(arg1);
+-- }
+-- I hs_bindgen_test_macro_in_fundecl_26de47450bbc61e3 (void)
+-- {
+--   return no_args_no_void();
+-- }
+-- /* get_quux_ptr */
+-- __attribute__ ((const))
+-- char (*hs_bindgen_test_macro_in_fundecl_75296b863af23367 (void)) (
+--   F arg1,
+--   char arg2
+-- )
+-- {
+--   return &quux;
+-- }
+-- /* get_wam_ptr */
+-- __attribute__ ((const))
+-- C *(*hs_bindgen_test_macro_in_fundecl_fd1ccca5616729da (void)) (
+--   float arg1,
+--   C *arg2
+-- )
+-- {
+--   return &wam;
+-- }
+-- /* get_foo1_ptr */
+-- __attribute__ ((const))
+-- char *(*hs_bindgen_test_macro_in_fundecl_786c8d7bfea481fd (void)) (
+--   float arg1,
+--   signed int (*arg2) (
+--   signed int arg1
+-- )
+-- )
+-- {
+--   return &foo1;
+-- }
+-- /* get_foo2_ptr */
+-- __attribute__ ((const))
+-- char *(*hs_bindgen_test_macro_in_fundecl_42a47aecc35f5bda (void)) (
+--   F arg1,
+--   signed int (*arg2) (
+--   signed int arg1
+-- )
+-- )
+-- {
+--   return &foo2;
+-- }
+-- /* get_foo3_ptr */
+-- __attribute__ ((const))
+-- C *(*hs_bindgen_test_macro_in_fundecl_17760ec60140242e (void)) (
+--   float arg1,
+--   signed int (*arg2) (
+--   signed int arg1
+-- )
+-- )
+-- {
+--   return &foo3;
+-- }
+-- /* get_bar1_ptr */
+-- __attribute__ ((const))
+-- signed int (*(*hs_bindgen_test_macro_in_fundecl_13fa512840072e8d (void)) (
+--   signed long arg1
+-- )) (
+--   signed short arg1
+-- )
+-- {
+--   return &bar1;
+-- }
+-- /* get_bar2_ptr */
+-- __attribute__ ((const))
+-- signed int (*(*hs_bindgen_test_macro_in_fundecl_0d63f3c4f98f04a3 (void)) (
+--   L arg1
+-- )) (
+--   signed short arg1
+-- )
+-- {
+--   return &bar2;
+-- }
+-- /* get_bar3_ptr */
+-- __attribute__ ((const))
+-- signed int (*(*hs_bindgen_test_macro_in_fundecl_8bd44eebdbce7f71 (void)) (
+--   signed long arg1
+-- )) (
+--   S arg1
+-- )
+-- {
+--   return &bar3;
+-- }
+-- /* get_bar4_ptr */
+-- __attribute__ ((const))
+-- I (*(*hs_bindgen_test_macro_in_fundecl_0515cdde3c6f0f19 (void)) (
+--   signed long arg1
+-- )) (
+--   signed short arg1
+-- )
+-- {
+--   return &bar4;
+-- }
+-- /* get_baz1_ptr */
+-- __attribute__ ((const))
+-- signed int (*(*hs_bindgen_test_macro_in_fundecl_8edeef2444de2cee (void)) (
+--   signed int const arg1
+-- ))[2][3]
+-- {
+--   return &baz1;
+-- }
+-- /* get_baz2_ptr */
+-- __attribute__ ((const))
+-- signed int (*(*hs_bindgen_test_macro_in_fundecl_61853d26cc39ced6 (void)) (
+--   I const arg1
+-- ))[2][3]
+-- {
+--   return &baz2;
+-- }
+-- /* get_baz3_ptr */
+-- __attribute__ ((const))
+-- I (*(*hs_bindgen_test_macro_in_fundecl_b465262d2f67a146 (void)) (
+--   signed int const arg1
+-- ))[2][3]
+-- {
+--   return &baz3;
+-- }
+-- /* get_no_args_no_void_ptr */
+-- __attribute__ ((const))
+-- I (*hs_bindgen_test_macro_in_fundecl_452280b5085b4ccd (void)) (void)
+-- {
+--   return &no_args_no_void;
+-- }
 {-| __C declaration:__ @I@
 
     __defined at:__ @macro_in_fundecl.h:5:9@

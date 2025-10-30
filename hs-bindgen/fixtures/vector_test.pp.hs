@@ -13,7 +13,25 @@ import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Prelude
 import Prelude ((<*>), (>>), Eq, IO, Int, Show, pure)
 
-$(HsBindgen.Runtime.Prelude.addCSource "#include <vector_test.h>\nvector *hs_bindgen_test_vector_test_c8cd49ec7dbcac25 (double arg1, double arg2) { return new_vector(arg1, arg2); }\n/* get_new_vector_ptr */ __attribute__ ((const)) vector *(*hs_bindgen_test_vector_test_7672b9e7f001c998 (void)) (double arg1, double arg2) { return &new_vector; } \n")
+$(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
+  [ "#include <vector_test.h>"
+  , "vector *hs_bindgen_test_vector_test_c8cd49ec7dbcac25 ("
+  , "  double arg1,"
+  , "  double arg2"
+  , ")"
+  , "{"
+  , "  return new_vector(arg1, arg2);"
+  , "}"
+  , "/* get_new_vector_ptr */"
+  , "__attribute__ ((const))"
+  , "vector *(*hs_bindgen_test_vector_test_7672b9e7f001c998 (void)) ("
+  , "  double arg1,"
+  , "  double arg2"
+  , ")"
+  , "{"
+  , "  return &new_vector;"
+  , "}"
+  ]))
 
 {-| __defined at:__ @vector_test.h:1:9@
 

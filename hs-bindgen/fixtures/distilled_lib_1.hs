@@ -12374,8 +12374,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "int32_t hs_bindgen_test_distilled_lib_1_29c178c31334688f (a_type_t *arg1, uint32_t arg2, uint8_t *arg3) { return some_fun(arg1, arg2, arg3); }",
+          capiWrapperDefinition = concat
+            [
+              "int32_t hs_bindgen_test_distilled_lib_1_29c178c31334688f (\n",
+              "  a_type_t *arg1,\n",
+              "  uint32_t arg2,\n",
+              "  uint8_t *arg3\n",
+              ")\n",
+              "{\n",
+              "  return some_fun(arg1, arg2, arg3);\n",
+              "}"],
           capiWrapperImport =
           "distilled_lib_1.h"},
       foreignImportOrigin = Function
@@ -13163,8 +13171,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "int32_t hs_bindgen_test_distilled_lib_1_efd27157959bd4b3 (a_type_t *arg1, uint32_t arg2, uint8_t *arg3) { return some_fun(arg1, arg2, arg3); }",
+          capiWrapperDefinition = concat
+            [
+              "int32_t hs_bindgen_test_distilled_lib_1_efd27157959bd4b3 (\n",
+              "  a_type_t *arg1,\n",
+              "  uint32_t arg2,\n",
+              "  uint8_t *arg3\n",
+              ")\n",
+              "{\n",
+              "  return some_fun(arg1, arg2, arg3);\n",
+              "}"],
           capiWrapperImport =
           "distilled_lib_1.h"},
       foreignImportOrigin = Function
@@ -13927,7 +13943,18 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_some_fun_ptr */ __attribute__ ((const)) int32_t (*hs_bindgen_test_distilled_lib_1_969c7d0305e0614c (void)) (a_type_t *arg1, uint32_t arg2, uint8_t arg3[]) { return &some_fun; } ",
+          concat
+            [
+              "/* get_some_fun_ptr */\n",
+              "__attribute__ ((const))\n",
+              "int32_t (*hs_bindgen_test_distilled_lib_1_969c7d0305e0614c (void)) (\n",
+              "  a_type_t *arg1,\n",
+              "  uint32_t arg2,\n",
+              "  uint8_t arg3[]\n",
+              ")\n",
+              "{\n",
+              "  return &some_fun;\n",
+              "}"],
           capiWrapperImport =
           "distilled_lib_1.h"},
       foreignImportOrigin = Global
@@ -14320,7 +14347,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_v_ptr */ __attribute__ ((const)) var_t *hs_bindgen_test_distilled_lib_1_b9e65c51f976c6f6 (void) { return &v; } ",
+          concat
+            [
+              "/* get_v_ptr */\n",
+              "__attribute__ ((const))\n",
+              "var_t *hs_bindgen_test_distilled_lib_1_b9e65c51f976c6f6 (void)\n",
+              "{\n",
+              "  return &v;\n",
+              "}"],
           capiWrapperImport =
           "distilled_lib_1.h"},
       foreignImportOrigin = Global

@@ -1798,8 +1798,8 @@ addressStubDecs opts haddockConfig moduleName info ty _spec =
 
     prettyStub :: String
     prettyStub = concat [
-          "/* ", stubName, " */ "
-        , PC.prettyDecl stubDecl " "
+          "/* ", stubName, " */\n"
+        , PC.prettyDecl stubDecl ""
         ]
 
     stubDecl :: PC.Decl

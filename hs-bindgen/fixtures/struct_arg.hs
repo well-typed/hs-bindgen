@@ -449,8 +449,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_struct_arg_61dfa2c4506feb8f (struct thing *arg1) { return thing_fun_1(*arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_struct_arg_61dfa2c4506feb8f (\n",
+              "  struct thing *arg1\n",
+              ")\n",
+              "{\n",
+              "  return thing_fun_1(*arg1);\n",
+              "}"],
           capiWrapperImport =
           "struct_arg.h"},
       foreignImportOrigin = Function
@@ -563,8 +569,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_struct_arg_022cc8107f565c95 (signed int arg1, struct thing *arg2) { *arg2 = thing_fun_2(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_struct_arg_022cc8107f565c95 (\n",
+              "  signed int arg1,\n",
+              "  struct thing *arg2\n",
+              ")\n",
+              "{\n",
+              "  *arg2 = thing_fun_2(arg1);\n",
+              "}"],
           capiWrapperImport =
           "struct_arg.h"},
       foreignImportOrigin = Function
@@ -693,8 +706,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_struct_arg_4d9304280cca3098 (signed int arg1, struct thing *arg2, double arg3, struct thing *arg4) { *arg4 = thing_fun_3a(arg1, *arg2, arg3); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_struct_arg_4d9304280cca3098 (\n",
+              "  signed int arg1,\n",
+              "  struct thing *arg2,\n",
+              "  double arg3,\n",
+              "  struct thing *arg4\n",
+              ")\n",
+              "{\n",
+              "  *arg4 = thing_fun_3a(arg1, *arg2, arg3);\n",
+              "}"],
           capiWrapperImport =
           "struct_arg.h"},
       foreignImportOrigin = Function
@@ -879,8 +901,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "char hs_bindgen_test_struct_arg_f39687b254852452 (signed int arg1, struct thing *arg2, double arg3) { return thing_fun_3b(arg1, *arg2, arg3); }",
+          capiWrapperDefinition = concat
+            [
+              "char hs_bindgen_test_struct_arg_f39687b254852452 (\n",
+              "  signed int arg1,\n",
+              "  struct thing *arg2,\n",
+              "  double arg3\n",
+              ")\n",
+              "{\n",
+              "  return thing_fun_3b(arg1, *arg2, arg3);\n",
+              "}"],
           capiWrapperImport =
           "struct_arg.h"},
       foreignImportOrigin = Function
@@ -1046,8 +1076,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_struct_arg_409d8c948bf989f6 (struct thing *arg1) { return thing_fun_1(*arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_struct_arg_409d8c948bf989f6 (\n",
+              "  struct thing *arg1\n",
+              ")\n",
+              "{\n",
+              "  return thing_fun_1(*arg1);\n",
+              "}"],
           capiWrapperImport =
           "struct_arg.h"},
       foreignImportOrigin = Function
@@ -1160,8 +1196,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_struct_arg_2d20059791239ef2 (signed int arg1, struct thing *arg2) { *arg2 = thing_fun_2(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_struct_arg_2d20059791239ef2 (\n",
+              "  signed int arg1,\n",
+              "  struct thing *arg2\n",
+              ")\n",
+              "{\n",
+              "  *arg2 = thing_fun_2(arg1);\n",
+              "}"],
           capiWrapperImport =
           "struct_arg.h"},
       foreignImportOrigin = Function
@@ -1290,8 +1333,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_struct_arg_ce442967da2c37cd (signed int arg1, struct thing *arg2, double arg3, struct thing *arg4) { *arg4 = thing_fun_3a(arg1, *arg2, arg3); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_struct_arg_ce442967da2c37cd (\n",
+              "  signed int arg1,\n",
+              "  struct thing *arg2,\n",
+              "  double arg3,\n",
+              "  struct thing *arg4\n",
+              ")\n",
+              "{\n",
+              "  *arg4 = thing_fun_3a(arg1, *arg2, arg3);\n",
+              "}"],
           capiWrapperImport =
           "struct_arg.h"},
       foreignImportOrigin = Function
@@ -1476,8 +1528,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "char hs_bindgen_test_struct_arg_e8bc8fce45854092 (signed int arg1, struct thing *arg2, double arg3) { return thing_fun_3b(arg1, *arg2, arg3); }",
+          capiWrapperDefinition = concat
+            [
+              "char hs_bindgen_test_struct_arg_e8bc8fce45854092 (\n",
+              "  signed int arg1,\n",
+              "  struct thing *arg2,\n",
+              "  double arg3\n",
+              ")\n",
+              "{\n",
+              "  return thing_fun_3b(arg1, *arg2, arg3);\n",
+              "}"],
           capiWrapperImport =
           "struct_arg.h"},
       foreignImportOrigin = Function
@@ -1642,7 +1702,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_thing_fun_1_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_struct_arg_c5f0c295b311010a (void)) (struct thing arg1) { return &thing_fun_1; } ",
+          concat
+            [
+              "/* get_thing_fun_1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_struct_arg_c5f0c295b311010a (void)) (\n",
+              "  struct thing arg1\n",
+              ")\n",
+              "{\n",
+              "  return &thing_fun_1;\n",
+              "}"],
           capiWrapperImport =
           "struct_arg.h"},
       foreignImportOrigin = Global
@@ -1683,7 +1752,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_thing_fun_2_ptr */ __attribute__ ((const)) struct thing (*hs_bindgen_test_struct_arg_24edf6600396b62a (void)) (signed int arg1) { return &thing_fun_2; } ",
+          concat
+            [
+              "/* get_thing_fun_2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "struct thing (*hs_bindgen_test_struct_arg_24edf6600396b62a (void)) (\n",
+              "  signed int arg1\n",
+              ")\n",
+              "{\n",
+              "  return &thing_fun_2;\n",
+              "}"],
           capiWrapperImport =
           "struct_arg.h"},
       foreignImportOrigin = Global
@@ -1729,7 +1807,18 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_thing_fun_3a_ptr */ __attribute__ ((const)) struct thing (*hs_bindgen_test_struct_arg_29a42b48992cd0bf (void)) (signed int arg1, struct thing arg2, double arg3) { return &thing_fun_3a; } ",
+          concat
+            [
+              "/* get_thing_fun_3a_ptr */\n",
+              "__attribute__ ((const))\n",
+              "struct thing (*hs_bindgen_test_struct_arg_29a42b48992cd0bf (void)) (\n",
+              "  signed int arg1,\n",
+              "  struct thing arg2,\n",
+              "  double arg3\n",
+              ")\n",
+              "{\n",
+              "  return &thing_fun_3a;\n",
+              "}"],
           capiWrapperImport =
           "struct_arg.h"},
       foreignImportOrigin = Global
@@ -1779,8 +1868,18 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_thing_fun_3b_ptr */ __attribute__ ((const)) char (*hs_bindgen_test_struct_arg_0d6597dfc03e312f (void)) (signed int arg1, struct thing arg2, double arg3) { return &thing_fun_3b; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_thing_fun_3b_ptr */\n",
+              "__attribute__ ((const))\n",
+              "char (*hs_bindgen_test_struct_arg_0d6597dfc03e312f (void)) (\n",
+              "  signed int arg1,\n",
+              "  struct thing arg2,\n",
+              "  double arg3\n",
+              ")\n",
+              "{\n",
+              "  return &thing_fun_3b;\n",
+              "}"],
           capiWrapperImport =
           "struct_arg.h"},
       foreignImportOrigin = Global

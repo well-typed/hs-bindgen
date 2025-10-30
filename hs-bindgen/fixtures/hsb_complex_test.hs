@@ -873,8 +873,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_hsb_complex_test_b84ea846e04d5fd6 (float _Complex *arg1, float _Complex *arg2, float _Complex *arg3) { *arg3 = multiply_complex_f(*arg1, *arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_hsb_complex_test_b84ea846e04d5fd6 (\n",
+              "  float _Complex *arg1,\n",
+              "  float _Complex *arg2,\n",
+              "  float _Complex *arg3\n",
+              ")\n",
+              "{\n",
+              "  *arg3 = multiply_complex_f(*arg1, *arg2);\n",
+              "}"],
           capiWrapperImport =
           "hsb_complex_test.h"},
       foreignImportOrigin = Function
@@ -1011,8 +1019,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_hsb_complex_test_8dd079d1707c36b3 (double _Complex *arg1, double _Complex *arg2, double _Complex *arg3) { *arg3 = add_complex(*arg1, *arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_hsb_complex_test_8dd079d1707c36b3 (\n",
+              "  double _Complex *arg1,\n",
+              "  double _Complex *arg2,\n",
+              "  double _Complex *arg3\n",
+              ")\n",
+              "{\n",
+              "  *arg3 = add_complex(*arg1, *arg2);\n",
+              "}"],
           capiWrapperImport =
           "hsb_complex_test.h"},
       foreignImportOrigin = Function
@@ -1148,8 +1164,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_hsb_complex_test_5b05fdb10924da35 (float _Complex *arg1, float _Complex *arg2, float _Complex *arg3) { *arg3 = multiply_complex_f(*arg1, *arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_hsb_complex_test_5b05fdb10924da35 (\n",
+              "  float _Complex *arg1,\n",
+              "  float _Complex *arg2,\n",
+              "  float _Complex *arg3\n",
+              ")\n",
+              "{\n",
+              "  *arg3 = multiply_complex_f(*arg1, *arg2);\n",
+              "}"],
           capiWrapperImport =
           "hsb_complex_test.h"},
       foreignImportOrigin = Function
@@ -1286,8 +1310,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_hsb_complex_test_59f299d5d991ed72 (double _Complex *arg1, double _Complex *arg2, double _Complex *arg3) { *arg3 = add_complex(*arg1, *arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_hsb_complex_test_59f299d5d991ed72 (\n",
+              "  double _Complex *arg1,\n",
+              "  double _Complex *arg2,\n",
+              "  double _Complex *arg3\n",
+              ")\n",
+              "{\n",
+              "  *arg3 = add_complex(*arg1, *arg2);\n",
+              "}"],
           capiWrapperImport =
           "hsb_complex_test.h"},
       foreignImportOrigin = Function
@@ -1417,7 +1449,17 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_multiply_complex_f_ptr */ __attribute__ ((const)) float _Complex (*hs_bindgen_test_hsb_complex_test_a7d89c01385c8c56 (void)) (float _Complex arg1, float _Complex arg2) { return &multiply_complex_f; } ",
+          concat
+            [
+              "/* get_multiply_complex_f_ptr */\n",
+              "__attribute__ ((const))\n",
+              "float _Complex (*hs_bindgen_test_hsb_complex_test_a7d89c01385c8c56 (void)) (\n",
+              "  float _Complex arg1,\n",
+              "  float _Complex arg2\n",
+              ")\n",
+              "{\n",
+              "  return &multiply_complex_f;\n",
+              "}"],
           capiWrapperImport =
           "hsb_complex_test.h"},
       foreignImportOrigin = Global
@@ -1456,7 +1498,17 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_add_complex_ptr */ __attribute__ ((const)) double _Complex (*hs_bindgen_test_hsb_complex_test_b6226a5bde741b3f (void)) (double _Complex arg1, double _Complex arg2) { return &add_complex; } ",
+          concat
+            [
+              "/* get_add_complex_ptr */\n",
+              "__attribute__ ((const))\n",
+              "double _Complex (*hs_bindgen_test_hsb_complex_test_b6226a5bde741b3f (void)) (\n",
+              "  double _Complex arg1,\n",
+              "  double _Complex arg2\n",
+              ")\n",
+              "{\n",
+              "  return &add_complex;\n",
+              "}"],
           capiWrapperImport =
           "hsb_complex_test.h"},
       foreignImportOrigin = Global
@@ -1489,7 +1541,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_global_complex_float_ptr */ __attribute__ ((const)) float _Complex *hs_bindgen_test_hsb_complex_test_69e4d4972011967b (void) { return &global_complex_float; } ",
+          concat
+            [
+              "/* get_global_complex_float_ptr */\n",
+              "__attribute__ ((const))\n",
+              "float _Complex *hs_bindgen_test_hsb_complex_test_69e4d4972011967b (void)\n",
+              "{\n",
+              "  return &global_complex_float;\n",
+              "}"],
           capiWrapperImport =
           "hsb_complex_test.h"},
       foreignImportOrigin = Global
@@ -1516,7 +1575,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_global_complex_double_ptr */ __attribute__ ((const)) double _Complex *hs_bindgen_test_hsb_complex_test_c3633906ced5dab3 (void) { return &global_complex_double; } ",
+          concat
+            [
+              "/* get_global_complex_double_ptr */\n",
+              "__attribute__ ((const))\n",
+              "double _Complex *hs_bindgen_test_hsb_complex_test_c3633906ced5dab3 (void)\n",
+              "{\n",
+              "  return &global_complex_double;\n",
+              "}"],
           capiWrapperImport =
           "hsb_complex_test.h"},
       foreignImportOrigin = Global
@@ -1543,7 +1609,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_global_complex_float_flipped_ptr */ __attribute__ ((const)) float _Complex *hs_bindgen_test_hsb_complex_test_7ef41813e25ff8c1 (void) { return &global_complex_float_flipped; } ",
+          concat
+            [
+              "/* get_global_complex_float_flipped_ptr */\n",
+              "__attribute__ ((const))\n",
+              "float _Complex *hs_bindgen_test_hsb_complex_test_7ef41813e25ff8c1 (void)\n",
+              "{\n",
+              "  return &global_complex_float_flipped;\n",
+              "}"],
           capiWrapperImport =
           "hsb_complex_test.h"},
       foreignImportOrigin = Global
@@ -1570,7 +1643,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_global_complex_double_flipped_ptr */ __attribute__ ((const)) double _Complex *hs_bindgen_test_hsb_complex_test_abdd562bd1b14921 (void) { return &global_complex_double_flipped; } ",
+          concat
+            [
+              "/* get_global_complex_double_flipped_ptr */\n",
+              "__attribute__ ((const))\n",
+              "double _Complex *hs_bindgen_test_hsb_complex_test_abdd562bd1b14921 (void)\n",
+              "{\n",
+              "  return &global_complex_double_flipped;\n",
+              "}"],
           capiWrapperImport =
           "hsb_complex_test.h"},
       foreignImportOrigin = Global
@@ -1597,7 +1677,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_global_Complex_float_ptr */ __attribute__ ((const)) float _Complex *hs_bindgen_test_hsb_complex_test_02f701d4163d6ce7 (void) { return &global_Complex_float; } ",
+          concat
+            [
+              "/* get_global_Complex_float_ptr */\n",
+              "__attribute__ ((const))\n",
+              "float _Complex *hs_bindgen_test_hsb_complex_test_02f701d4163d6ce7 (void)\n",
+              "{\n",
+              "  return &global_Complex_float;\n",
+              "}"],
           capiWrapperImport =
           "hsb_complex_test.h"},
       foreignImportOrigin = Global
@@ -1624,7 +1711,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_global_Complex_double_ptr */ __attribute__ ((const)) double _Complex *hs_bindgen_test_hsb_complex_test_a6117bb5e7cacd17 (void) { return &global_Complex_double; } ",
+          concat
+            [
+              "/* get_global_Complex_double_ptr */\n",
+              "__attribute__ ((const))\n",
+              "double _Complex *hs_bindgen_test_hsb_complex_test_a6117bb5e7cacd17 (void)\n",
+              "{\n",
+              "  return &global_Complex_double;\n",
+              "}"],
           capiWrapperImport =
           "hsb_complex_test.h"},
       foreignImportOrigin = Global
@@ -1651,7 +1745,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_global_Complex_float_flipped_ptr */ __attribute__ ((const)) float _Complex *hs_bindgen_test_hsb_complex_test_da2309480d364cee (void) { return &global_Complex_float_flipped; } ",
+          concat
+            [
+              "/* get_global_Complex_float_flipped_ptr */\n",
+              "__attribute__ ((const))\n",
+              "float _Complex *hs_bindgen_test_hsb_complex_test_da2309480d364cee (void)\n",
+              "{\n",
+              "  return &global_Complex_float_flipped;\n",
+              "}"],
           capiWrapperImport =
           "hsb_complex_test.h"},
       foreignImportOrigin = Global
@@ -1678,7 +1779,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_global_Complex_double_flipped_ptr */ __attribute__ ((const)) double _Complex *hs_bindgen_test_hsb_complex_test_467427dc59fbef50 (void) { return &global_Complex_double_flipped; } ",
+          concat
+            [
+              "/* get_global_Complex_double_flipped_ptr */\n",
+              "__attribute__ ((const))\n",
+              "double _Complex *hs_bindgen_test_hsb_complex_test_467427dc59fbef50 (void)\n",
+              "{\n",
+              "  return &global_Complex_double_flipped;\n",
+              "}"],
           capiWrapperImport =
           "hsb_complex_test.h"},
       foreignImportOrigin = Global
@@ -1705,7 +1813,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_const_complex_float_ptr */ __attribute__ ((const)) float _Complex const *hs_bindgen_test_hsb_complex_test_bb0fb18f3dfee47d (void) { return &const_complex_float; } ",
+          concat
+            [
+              "/* get_const_complex_float_ptr */\n",
+              "__attribute__ ((const))\n",
+              "float _Complex const *hs_bindgen_test_hsb_complex_test_bb0fb18f3dfee47d (void)\n",
+              "{\n",
+              "  return &const_complex_float;\n",
+              "}"],
           capiWrapperImport =
           "hsb_complex_test.h"},
       foreignImportOrigin = Global
@@ -1736,7 +1851,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_const_complex_double_ptr */ __attribute__ ((const)) double _Complex const *hs_bindgen_test_hsb_complex_test_f491f52e529a459a (void) { return &const_complex_double; } ",
+          concat
+            [
+              "/* get_const_complex_double_ptr */\n",
+              "__attribute__ ((const))\n",
+              "double _Complex const *hs_bindgen_test_hsb_complex_test_f491f52e529a459a (void)\n",
+              "{\n",
+              "  return &const_complex_double;\n",
+              "}"],
           capiWrapperImport =
           "hsb_complex_test.h"},
       foreignImportOrigin = Global
@@ -1767,7 +1889,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_volatile_complex_float_ptr */ __attribute__ ((const)) float _Complex *hs_bindgen_test_hsb_complex_test_ecb5f4a0ccb7ee75 (void) { return &volatile_complex_float; } ",
+          concat
+            [
+              "/* get_volatile_complex_float_ptr */\n",
+              "__attribute__ ((const))\n",
+              "float _Complex *hs_bindgen_test_hsb_complex_test_ecb5f4a0ccb7ee75 (void)\n",
+              "{\n",
+              "  return &volatile_complex_float;\n",
+              "}"],
           capiWrapperImport =
           "hsb_complex_test.h"},
       foreignImportOrigin = Global
@@ -1794,7 +1923,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_volatile_complex_double_ptr */ __attribute__ ((const)) double _Complex *hs_bindgen_test_hsb_complex_test_6b136090c38a69c4 (void) { return &volatile_complex_double; } ",
+          concat
+            [
+              "/* get_volatile_complex_double_ptr */\n",
+              "__attribute__ ((const))\n",
+              "double _Complex *hs_bindgen_test_hsb_complex_test_6b136090c38a69c4 (void)\n",
+              "{\n",
+              "  return &volatile_complex_double;\n",
+              "}"],
           capiWrapperImport =
           "hsb_complex_test.h"},
       foreignImportOrigin = Global
@@ -1823,7 +1959,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_complex_float_array_ptr */ __attribute__ ((const)) float _Complex (*hs_bindgen_test_hsb_complex_test_55b7fb104be53f70 (void))[10] { return &complex_float_array; } ",
+          concat
+            [
+              "/* get_complex_float_array_ptr */\n",
+              "__attribute__ ((const))\n",
+              "float _Complex (*hs_bindgen_test_hsb_complex_test_55b7fb104be53f70 (void))[10]\n",
+              "{\n",
+              "  return &complex_float_array;\n",
+              "}"],
           capiWrapperImport =
           "hsb_complex_test.h"},
       foreignImportOrigin = Global
@@ -1855,7 +1998,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_complex_double_array_ptr */ __attribute__ ((const)) double _Complex (*hs_bindgen_test_hsb_complex_test_0b63f3bda9243457 (void))[10] { return &complex_double_array; } ",
+          concat
+            [
+              "/* get_complex_double_array_ptr */\n",
+              "__attribute__ ((const))\n",
+              "double _Complex (*hs_bindgen_test_hsb_complex_test_0b63f3bda9243457 (void))[10]\n",
+              "{\n",
+              "  return &complex_double_array;\n",
+              "}"],
           capiWrapperImport =
           "hsb_complex_test.h"},
       foreignImportOrigin = Global

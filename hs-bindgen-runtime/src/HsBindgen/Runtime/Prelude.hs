@@ -101,9 +101,13 @@ module HsBindgen.Runtime.Prelude (
 
     -- * Userland CAPI
   , module HsBindgen.Runtime.CAPI
+
+    -- * Auxiliary functions
+  , Data.List.unlines
   ) where
 
 import Data.Int qualified
+import Data.List qualified
 import Data.Word qualified
 import Foreign.C qualified
 

@@ -24,7 +24,15 @@ import qualified HsBindgen.Runtime.SizedByteArray
 import Data.Bits (FiniteBits)
 import Prelude ((<*>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
-$(HsBindgen.Runtime.Prelude.addCSource "#include <redeclaration.h>\n/* get_x_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_redeclaration_10b125673bf2041b (void) { return &x; } \n")
+$(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
+  [ "#include <redeclaration.h>"
+  , "/* get_x_ptr */"
+  , "__attribute__ ((const))"
+  , "signed int *hs_bindgen_test_redeclaration_10b125673bf2041b (void)"
+  , "{"
+  , "  return &x;"
+  , "}"
+  ]))
 
 {-| __C declaration:__ @int_t@
 

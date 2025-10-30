@@ -10,7 +10,19 @@ import qualified GHC.Ptr as Ptr
 import qualified HsBindgen.Runtime.Prelude
 import Prelude (IO)
 
-$(HsBindgen.Runtime.Prelude.addCSource "#include <varargs.h>\nvoid hs_bindgen_test_varargs_a17c4f0272bbe42a (void) { h(); }\n/* get_h_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_varargs_6344539fe0b25338 (void)) (void) { return &h; } \n")
+$(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
+  [ "#include <varargs.h>"
+  , "void hs_bindgen_test_varargs_a17c4f0272bbe42a (void)"
+  , "{"
+  , "  h();"
+  , "}"
+  , "/* get_h_ptr */"
+  , "__attribute__ ((const))"
+  , "void (*hs_bindgen_test_varargs_6344539fe0b25338 (void)) (void)"
+  , "{"
+  , "  return &h;"
+  , "}"
+  ]))
 
 {-| __C declaration:__ @h@
 

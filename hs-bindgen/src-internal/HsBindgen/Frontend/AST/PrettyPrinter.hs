@@ -17,6 +17,9 @@ import HsBindgen.Language.C qualified as C
   Pretty-printers
 -------------------------------------------------------------------------------}
 
+-- | Formats functions with attributes on their own line, parameters on separate
+-- lines with additional indentation.
+--
 showsFunctionType ::
      HasCallStack
   => ShowS            -- ^ function name
@@ -25,16 +28,10 @@ showsFunctionType ::
   -> Type             -- ^ return type
   -> ShowS
 showsFunctionType n pur args res  =
-      showsFunctionPurity pur . showsFunctionPurityWhitespace pur
+      showsFunctionPurity pur
+    . showAttributeNewline pur
     . showsType functionDeclarator res
   where
-    -- When functions return more complicated types, placing parentheses becomes
-    -- tricky. For example, if the function returns a pointer to an array, then
-    -- the function and its arguments have to be parenthesised, with the array
-    -- brackets placed outside the parantheses. For more information, see the
-    -- links below:
-    --
-    -- <https://en.cppreference.com/w/c/language/function_declaration.html>
     functionDeclarator ::
          CTypePrecedence
       -> ShowS
@@ -44,12 +41,17 @@ showsFunctionType n pur args res  =
     signatureArgs :: ShowS
     signatureArgs = case args of
         [] -> showString "void"
-        p:ps -> foldr1 sep $ fmap showT $ p :| ps
+        p:ps ->
+              showChar '\n'
+            . foldr1 sep (fmap showT (p :| ps))
+            . showChar '\n'
       where
-        sep a b = a . showString ", " . b
+        sep a b = a . showString ",\n" . b
 
         showT :: (ShowS, Type) -> ShowS
-        showT (i, p) = showsVariableType i p
+        showT (i, p) =
+              showString "  "  -- extra 2 spaces for parameters
+            . showsVariableType i p
 
 showsVariableType ::
      HasCallStack
@@ -233,13 +235,13 @@ showsFunctionPurity pur = case pur of
       . showString s
       . showString "))"
 
--- | Print a single whitespace if the function purity is anything other than
--- 'ImpureFunction'.
-showsFunctionPurityWhitespace :: FunctionPurity -> ShowS
-showsFunctionPurityWhitespace pur = case pur of
+-- | Print a newline after a function attribute, but only if there is an attribute.
+--
+showAttributeNewline :: FunctionPurity -> ShowS
+showAttributeNewline pur = case pur of
     ImpureFunction -> id
-    HaskellPureFunction -> showChar ' '
-    CPureFunction -> showChar ' '
+    HaskellPureFunction -> showChar '\n'
+    CPureFunction -> showChar '\n'
 
 showCQualName :: C.QualName -> ShowS
 showCQualName = showString . Text.unpack . C.qualNameText

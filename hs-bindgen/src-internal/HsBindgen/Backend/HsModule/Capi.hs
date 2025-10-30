@@ -4,7 +4,7 @@ module HsBindgen.Backend.HsModule.Capi (
   )
 where
 
-import Text.SimplePrettyPrint (CtxDoc, (<+>), (><))
+import Text.SimplePrettyPrint (CtxDoc, nest, vlist, ($$), (><))
 
 import HsBindgen.Backend.HsModule.Names
 import HsBindgen.Imports
@@ -26,7 +26,10 @@ capiImport = HsImportModule hsbPrelude Nothing
 -- See 'capiImport'.
 renderCapiWrapper :: String -> CtxDoc
 renderCapiWrapper src =
-  "$(" >< fromString hsbPrelude >< ".addCSource" <+> fromString (show src) >< ")"
+     "$(" >< fromString hsbPrelude >< ".addCSource (HsBindgen.Runtime.Prelude.unlines"
+  $$ nest 2 (vlist '[' ']' linesDocs) >< "))"
+  where
+    linesDocs = map (fromString . show) (lines src)
 
 -- Qualified import string for @hs-bindgen-runtime@ prelude.
 hsbPrelude :: String

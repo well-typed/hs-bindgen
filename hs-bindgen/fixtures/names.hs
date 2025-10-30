@@ -13,8 +13,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_0e7f535b7085fc20 (void) { by(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_0e7f535b7085fc20 (void)\n",
+              "{\n",
+              "  by();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -50,8 +54,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_fc72c248490e573d (void) { forall(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_fc72c248490e573d (void)\n",
+              "{\n",
+              "  forall();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -87,8 +95,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_f21dd25a8b27374a (void) { mdo(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_f21dd25a8b27374a (void)\n",
+              "{\n",
+              "  mdo();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -124,8 +136,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_0ab5fb5a8105f789 (void) { pattern(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_0ab5fb5a8105f789 (void)\n",
+              "{\n",
+              "  pattern();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -161,8 +177,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_c14da8252137427c (void) { proc(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_c14da8252137427c (void)\n",
+              "{\n",
+              "  proc();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -198,8 +218,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_1706dcb069f095bc (void) { rec(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_1706dcb069f095bc (void)\n",
+              "{\n",
+              "  rec();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -235,8 +259,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_9cbe86d126f1d8ee (void) { using(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_9cbe86d126f1d8ee (void)\n",
+              "{\n",
+              "  using();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -272,8 +300,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_84e650893f3a92e0 (void) { anyclass(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_84e650893f3a92e0 (void)\n",
+              "{\n",
+              "  anyclass();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -309,8 +341,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_a931e0b3ecf47315 (void) { capi(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_a931e0b3ecf47315 (void)\n",
+              "{\n",
+              "  capi();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -346,8 +382,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_8a21f58b60402b4c (void) { cases(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_8a21f58b60402b4c (void)\n",
+              "{\n",
+              "  cases();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -383,8 +423,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_e72f0a6b1520490f (void) { ccall(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_e72f0a6b1520490f (void)\n",
+              "{\n",
+              "  ccall();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -420,8 +464,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_87e085120fafde48 (void) { dynamic(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_87e085120fafde48 (void)\n",
+              "{\n",
+              "  dynamic();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -457,8 +505,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_0e6d6a351c0f2d6b (void) { export(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_0e6d6a351c0f2d6b (void)\n",
+              "{\n",
+              "  export();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -494,8 +546,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_bd4d89d0e474ae7a (void) { family(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_bd4d89d0e474ae7a (void)\n",
+              "{\n",
+              "  family();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -531,8 +587,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_d33488d9cb279feb (void) { group(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_d33488d9cb279feb (void)\n",
+              "{\n",
+              "  group();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -568,8 +628,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_9a3851f5a39a9e5d (void) { interruptible(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_9a3851f5a39a9e5d (void)\n",
+              "{\n",
+              "  interruptible();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -606,8 +670,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_fa9100d6d4da2bd4 (void) { javascript(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_fa9100d6d4da2bd4 (void)\n",
+              "{\n",
+              "  javascript();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -644,8 +712,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_264e9aa826f1d8fd (void) { label(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_264e9aa826f1d8fd (void)\n",
+              "{\n",
+              "  label();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -681,8 +753,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_06aa327310da5120 (void) { prim(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_06aa327310da5120 (void)\n",
+              "{\n",
+              "  prim();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -718,8 +794,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_0c2d88e0ce229900 (void) { role(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_0c2d88e0ce229900 (void)\n",
+              "{\n",
+              "  role();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -755,8 +835,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_a703e7f54db3712e (void) { safe(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_a703e7f54db3712e (void)\n",
+              "{\n",
+              "  safe();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -792,8 +876,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_001ca64746b969f3 (void) { stdcall(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_001ca64746b969f3 (void)\n",
+              "{\n",
+              "  stdcall();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -829,8 +917,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_44ab69657e70c20b (void) { stock(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_44ab69657e70c20b (void)\n",
+              "{\n",
+              "  stock();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -866,8 +958,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_cf74a7d7f3568406 (void) { unsafe(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_cf74a7d7f3568406 (void)\n",
+              "{\n",
+              "  unsafe();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -903,8 +999,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_f24fb703d4751a60 (void) { via(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_f24fb703d4751a60 (void)\n",
+              "{\n",
+              "  via();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -940,8 +1040,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_757d799fd708dfd3 (void) { by(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_757d799fd708dfd3 (void)\n",
+              "{\n",
+              "  by();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -977,8 +1081,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_56a86e542f270644 (void) { forall(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_56a86e542f270644 (void)\n",
+              "{\n",
+              "  forall();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -1014,8 +1122,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_66ccc318fc33f3db (void) { mdo(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_66ccc318fc33f3db (void)\n",
+              "{\n",
+              "  mdo();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -1051,8 +1163,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_59e8310c2fbfd7a5 (void) { pattern(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_59e8310c2fbfd7a5 (void)\n",
+              "{\n",
+              "  pattern();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -1088,8 +1204,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_0e3a2ce0789fb7e6 (void) { proc(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_0e3a2ce0789fb7e6 (void)\n",
+              "{\n",
+              "  proc();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -1125,8 +1245,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_a8bd1db6a6708dae (void) { rec(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_a8bd1db6a6708dae (void)\n",
+              "{\n",
+              "  rec();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -1162,8 +1286,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_4f84a89a7d96b0e6 (void) { using(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_4f84a89a7d96b0e6 (void)\n",
+              "{\n",
+              "  using();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -1199,8 +1327,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_e4c0e5d7430611d1 (void) { anyclass(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_e4c0e5d7430611d1 (void)\n",
+              "{\n",
+              "  anyclass();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -1236,8 +1368,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_0b2f0d5537de919f (void) { capi(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_0b2f0d5537de919f (void)\n",
+              "{\n",
+              "  capi();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -1273,8 +1409,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_1ffa6d7a4b3beb7c (void) { cases(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_1ffa6d7a4b3beb7c (void)\n",
+              "{\n",
+              "  cases();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -1310,8 +1450,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_ebc1b326e523e58f (void) { ccall(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_ebc1b326e523e58f (void)\n",
+              "{\n",
+              "  ccall();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -1347,8 +1491,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_ab433e9e3ef36d2f (void) { dynamic(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_ab433e9e3ef36d2f (void)\n",
+              "{\n",
+              "  dynamic();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -1384,8 +1532,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_df679baa272472fa (void) { export(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_df679baa272472fa (void)\n",
+              "{\n",
+              "  export();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -1421,8 +1573,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_9a60b7b7be9ca341 (void) { family(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_9a60b7b7be9ca341 (void)\n",
+              "{\n",
+              "  family();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -1458,8 +1614,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_3923700cc828a4dd (void) { group(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_3923700cc828a4dd (void)\n",
+              "{\n",
+              "  group();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -1495,8 +1655,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_ba3f97d9b80e552c (void) { interruptible(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_ba3f97d9b80e552c (void)\n",
+              "{\n",
+              "  interruptible();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -1533,8 +1697,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_f348c51860201a12 (void) { javascript(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_f348c51860201a12 (void)\n",
+              "{\n",
+              "  javascript();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -1571,8 +1739,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_464d035f44366a5b (void) { label(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_464d035f44366a5b (void)\n",
+              "{\n",
+              "  label();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -1608,8 +1780,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_1a1c4d5a866be872 (void) { prim(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_1a1c4d5a866be872 (void)\n",
+              "{\n",
+              "  prim();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -1645,8 +1821,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_2b805a841a0f220d (void) { role(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_2b805a841a0f220d (void)\n",
+              "{\n",
+              "  role();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -1682,8 +1862,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_efbfe85dc9b68bc4 (void) { safe(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_efbfe85dc9b68bc4 (void)\n",
+              "{\n",
+              "  safe();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -1719,8 +1903,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_27ef4256cbaf6815 (void) { stdcall(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_27ef4256cbaf6815 (void)\n",
+              "{\n",
+              "  stdcall();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -1756,8 +1944,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_6e4ae46773b9e016 (void) { stock(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_6e4ae46773b9e016 (void)\n",
+              "{\n",
+              "  stock();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -1793,8 +1985,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_03cf69812528c410 (void) { unsafe(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_03cf69812528c410 (void)\n",
+              "{\n",
+              "  unsafe();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -1830,8 +2026,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_names_e611a3f38f7a3eb9 (void) { via(); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_names_e611a3f38f7a3eb9 (void)\n",
+              "{\n",
+              "  via();\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Function
         Function {
@@ -1870,8 +2070,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_by_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_3e566432e1b7bdd8 (void)) (void) { return &by; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_by_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_names_3e566432e1b7bdd8 (void)) (void)\n",
+              "{\n",
+              "  return &by;\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
@@ -1896,8 +2102,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_forall_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_a56841d4692515a9 (void)) (void) { return &forall; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_forall_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_names_a56841d4692515a9 (void)) (void)\n",
+              "{\n",
+              "  return &forall;\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
@@ -1922,8 +2134,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_mdo_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_4b14baa1fbc8f378 (void)) (void) { return &mdo; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_mdo_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_names_4b14baa1fbc8f378 (void)) (void)\n",
+              "{\n",
+              "  return &mdo;\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
@@ -1948,8 +2166,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_pattern_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_b393d3c39de80903 (void)) (void) { return &pattern; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_pattern_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_names_b393d3c39de80903 (void)) (void)\n",
+              "{\n",
+              "  return &pattern;\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
@@ -1974,8 +2198,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_proc_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_f73545ae9224ff2d (void)) (void) { return &proc; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_proc_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_names_f73545ae9224ff2d (void)) (void)\n",
+              "{\n",
+              "  return &proc;\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
@@ -2000,8 +2230,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_rec_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_0dd0f0805657312b (void)) (void) { return &rec; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_rec_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_names_0dd0f0805657312b (void)) (void)\n",
+              "{\n",
+              "  return &rec;\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
@@ -2026,8 +2262,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_using_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_aa3ce68f2bc5f037 (void)) (void) { return &using; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_using_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_names_aa3ce68f2bc5f037 (void)) (void)\n",
+              "{\n",
+              "  return &using;\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
@@ -2052,8 +2294,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_anyclass_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_9f90f5dd46a351a4 (void)) (void) { return &anyclass; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_anyclass_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_names_9f90f5dd46a351a4 (void)) (void)\n",
+              "{\n",
+              "  return &anyclass;\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
@@ -2078,8 +2326,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_capi_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_3513093206483c6f (void)) (void) { return &capi; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_capi_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_names_3513093206483c6f (void)) (void)\n",
+              "{\n",
+              "  return &capi;\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
@@ -2104,8 +2358,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_cases_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_af7d0bdd6562f7d9 (void)) (void) { return &cases; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_cases_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_names_af7d0bdd6562f7d9 (void)) (void)\n",
+              "{\n",
+              "  return &cases;\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
@@ -2130,8 +2390,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_ccall_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_79b6583362113331 (void)) (void) { return &ccall; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_ccall_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_names_79b6583362113331 (void)) (void)\n",
+              "{\n",
+              "  return &ccall;\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
@@ -2156,8 +2422,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_dynamic_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_5c19071f2f4eaf45 (void)) (void) { return &dynamic; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_dynamic_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_names_5c19071f2f4eaf45 (void)) (void)\n",
+              "{\n",
+              "  return &dynamic;\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
@@ -2182,8 +2454,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_export_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_98505ac7a8664e29 (void)) (void) { return &export; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_export_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_names_98505ac7a8664e29 (void)) (void)\n",
+              "{\n",
+              "  return &export;\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
@@ -2208,8 +2486,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_family_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_849e77496a12f443 (void)) (void) { return &family; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_family_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_names_849e77496a12f443 (void)) (void)\n",
+              "{\n",
+              "  return &family;\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
@@ -2234,8 +2518,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_group_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_41e72434cbcfa0d5 (void)) (void) { return &group; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_group_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_names_41e72434cbcfa0d5 (void)) (void)\n",
+              "{\n",
+              "  return &group;\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
@@ -2260,8 +2550,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_interruptible_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_d016728709223884 (void)) (void) { return &interruptible; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_interruptible_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_names_d016728709223884 (void)) (void)\n",
+              "{\n",
+              "  return &interruptible;\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
@@ -2286,8 +2582,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_javascript_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_fa5819996081f2b8 (void)) (void) { return &javascript; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_javascript_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_names_fa5819996081f2b8 (void)) (void)\n",
+              "{\n",
+              "  return &javascript;\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
@@ -2312,8 +2614,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_label_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_0004d966bf5f8027 (void)) (void) { return &label; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_label_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_names_0004d966bf5f8027 (void)) (void)\n",
+              "{\n",
+              "  return &label;\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
@@ -2338,8 +2646,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_prim_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_d9ec78c543d7f0ea (void)) (void) { return &prim; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_prim_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_names_d9ec78c543d7f0ea (void)) (void)\n",
+              "{\n",
+              "  return &prim;\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
@@ -2364,8 +2678,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_role_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_89449e7f8f90fc97 (void)) (void) { return &role; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_role_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_names_89449e7f8f90fc97 (void)) (void)\n",
+              "{\n",
+              "  return &role;\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
@@ -2390,8 +2710,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_safe_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_983c057a9645fd29 (void)) (void) { return &safe; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_safe_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_names_983c057a9645fd29 (void)) (void)\n",
+              "{\n",
+              "  return &safe;\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
@@ -2416,8 +2742,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_stdcall_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_8ea4a9581868a08c (void)) (void) { return &stdcall; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_stdcall_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_names_8ea4a9581868a08c (void)) (void)\n",
+              "{\n",
+              "  return &stdcall;\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
@@ -2442,8 +2774,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_stock_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_9d4197174428177d (void)) (void) { return &stock; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_stock_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_names_9d4197174428177d (void)) (void)\n",
+              "{\n",
+              "  return &stock;\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
@@ -2468,8 +2806,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_unsafe_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_6eb48adc74567d6d (void)) (void) { return &unsafe; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_unsafe_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_names_6eb48adc74567d6d (void)) (void)\n",
+              "{\n",
+              "  return &unsafe;\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),
@@ -2494,8 +2838,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_via_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_names_64eddb721da8c268 (void)) (void) { return &via; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_via_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_names_64eddb721da8c268 (void)) (void)\n",
+              "{\n",
+              "  return &via;\n",
+              "}"],
           capiWrapperImport = "names.h"},
       foreignImportOrigin = Global
         (TypeFun [] TypeVoid),

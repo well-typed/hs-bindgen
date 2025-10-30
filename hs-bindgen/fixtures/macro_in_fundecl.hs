@@ -1069,8 +1069,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "char hs_bindgen_test_macro_in_fundecl_9c091e7a5fbe00eb (F arg1, char arg2) { return quux(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "char hs_bindgen_test_macro_in_fundecl_9c091e7a5fbe00eb (\n",
+              "  F arg1,\n",
+              "  char arg2\n",
+              ")\n",
+              "{\n",
+              "  return quux(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl.h"},
       foreignImportOrigin = Function
@@ -1156,8 +1163,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "C *hs_bindgen_test_macro_in_fundecl_ca29786771bf115c (float arg1, C *arg2) { return wam(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "C *hs_bindgen_test_macro_in_fundecl_ca29786771bf115c (\n",
+              "  float arg1,\n",
+              "  C *arg2\n",
+              ")\n",
+              "{\n",
+              "  return wam(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl.h"},
       foreignImportOrigin = Function
@@ -1246,8 +1260,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "char *hs_bindgen_test_macro_in_fundecl_a1ddb0ab90dd90ae (float arg1, signed int (*arg2) (signed int arg1)) { return foo1(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "char *hs_bindgen_test_macro_in_fundecl_a1ddb0ab90dd90ae (\n",
+              "  float arg1,\n",
+              "  signed int (*arg2) (\n",
+              "  signed int arg1\n",
+              ")\n",
+              ")\n",
+              "{\n",
+              "  return foo1(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl.h"},
       foreignImportOrigin = Function
@@ -1338,8 +1361,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "char *hs_bindgen_test_macro_in_fundecl_39158ea36a52c749 (F arg1, signed int (*arg2) (signed int arg1)) { return foo2(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "char *hs_bindgen_test_macro_in_fundecl_39158ea36a52c749 (\n",
+              "  F arg1,\n",
+              "  signed int (*arg2) (\n",
+              "  signed int arg1\n",
+              ")\n",
+              ")\n",
+              "{\n",
+              "  return foo2(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl.h"},
       foreignImportOrigin = Function
@@ -1433,8 +1465,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "C *hs_bindgen_test_macro_in_fundecl_30c473506139927c (float arg1, signed int (*arg2) (signed int arg1)) { return foo3(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "C *hs_bindgen_test_macro_in_fundecl_30c473506139927c (\n",
+              "  float arg1,\n",
+              "  signed int (*arg2) (\n",
+              "  signed int arg1\n",
+              ")\n",
+              ")\n",
+              "{\n",
+              "  return foo3(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl.h"},
       foreignImportOrigin = Function
@@ -1516,7 +1557,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int (*hs_bindgen_test_macro_in_fundecl_ef6d9a2254300a4a (signed long arg1)) (signed short arg1) { return bar1(arg1); }",
+          concat
+            [
+              "signed int (*hs_bindgen_test_macro_in_fundecl_ef6d9a2254300a4a (\n",
+              "  signed long arg1\n",
+              ")) (\n",
+              "  signed short arg1\n",
+              ")\n",
+              "{\n",
+              "  return bar1(arg1);\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl.h"},
       foreignImportOrigin = Function
@@ -1589,7 +1639,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int (*hs_bindgen_test_macro_in_fundecl_6570ce6435b60197 (L arg1)) (signed short arg1) { return bar2(arg1); }",
+          concat
+            [
+              "signed int (*hs_bindgen_test_macro_in_fundecl_6570ce6435b60197 (\n",
+              "  L arg1\n",
+              ")) (\n",
+              "  signed short arg1\n",
+              ")\n",
+              "{\n",
+              "  return bar2(arg1);\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl.h"},
       foreignImportOrigin = Function
@@ -1664,7 +1723,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int (*hs_bindgen_test_macro_in_fundecl_ac35ce1ad86420e1 (signed long arg1)) (S arg1) { return bar3(arg1); }",
+          concat
+            [
+              "signed int (*hs_bindgen_test_macro_in_fundecl_ac35ce1ad86420e1 (\n",
+              "  signed long arg1\n",
+              ")) (\n",
+              "  S arg1\n",
+              ")\n",
+              "{\n",
+              "  return bar3(arg1);\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl.h"},
       foreignImportOrigin = Function
@@ -1740,8 +1808,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "I (*hs_bindgen_test_macro_in_fundecl_c5e59f203c41c1c2 (signed long arg1)) (signed short arg1) { return bar4(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "I (*hs_bindgen_test_macro_in_fundecl_c5e59f203c41c1c2 (\n",
+              "  signed long arg1\n",
+              ")) (\n",
+              "  signed short arg1\n",
+              ")\n",
+              "{\n",
+              "  return bar4(arg1);\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl.h"},
       foreignImportOrigin = Function
@@ -1816,7 +1892,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int (*hs_bindgen_test_macro_in_fundecl_f2b917ad9122f0e2 (signed int const arg1))[2][3] { return baz1(arg1); }",
+          concat
+            [
+              "signed int (*hs_bindgen_test_macro_in_fundecl_f2b917ad9122f0e2 (\n",
+              "  signed int const arg1\n",
+              "))[2][3]\n",
+              "{\n",
+              "  return baz1(arg1);\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl.h"},
       foreignImportOrigin = Function
@@ -1892,7 +1975,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int (*hs_bindgen_test_macro_in_fundecl_d27cd45b344a00d3 (I const arg1))[2][3] { return baz2(arg1); }",
+          concat
+            [
+              "signed int (*hs_bindgen_test_macro_in_fundecl_d27cd45b344a00d3 (\n",
+              "  I const arg1\n",
+              "))[2][3]\n",
+              "{\n",
+              "  return baz2(arg1);\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl.h"},
       foreignImportOrigin = Function
@@ -1969,8 +2059,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "I (*hs_bindgen_test_macro_in_fundecl_c4ed14d761bc89ba (signed int const arg1))[2][3] { return baz3(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "I (*hs_bindgen_test_macro_in_fundecl_c4ed14d761bc89ba (\n",
+              "  signed int const arg1\n",
+              "))[2][3]\n",
+              "{\n",
+              "  return baz3(arg1);\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl.h"},
       foreignImportOrigin = Function
@@ -2030,8 +2126,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "I hs_bindgen_test_macro_in_fundecl_8d4283a1963012db (void) { return no_args_no_void(); }",
+          capiWrapperDefinition = concat
+            [
+              "I hs_bindgen_test_macro_in_fundecl_8d4283a1963012db (void)\n",
+              "{\n",
+              "  return no_args_no_void();\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl.h"},
       foreignImportOrigin = Function
@@ -2098,8 +2198,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "char hs_bindgen_test_macro_in_fundecl_7542f939354dfc0b (F arg1, char arg2) { return quux(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "char hs_bindgen_test_macro_in_fundecl_7542f939354dfc0b (\n",
+              "  F arg1,\n",
+              "  char arg2\n",
+              ")\n",
+              "{\n",
+              "  return quux(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl.h"},
       foreignImportOrigin = Function
@@ -2185,8 +2292,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "C *hs_bindgen_test_macro_in_fundecl_e19961744945a727 (float arg1, C *arg2) { return wam(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "C *hs_bindgen_test_macro_in_fundecl_e19961744945a727 (\n",
+              "  float arg1,\n",
+              "  C *arg2\n",
+              ")\n",
+              "{\n",
+              "  return wam(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl.h"},
       foreignImportOrigin = Function
@@ -2275,8 +2389,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "char *hs_bindgen_test_macro_in_fundecl_3ce18d84b02c9784 (float arg1, signed int (*arg2) (signed int arg1)) { return foo1(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "char *hs_bindgen_test_macro_in_fundecl_3ce18d84b02c9784 (\n",
+              "  float arg1,\n",
+              "  signed int (*arg2) (\n",
+              "  signed int arg1\n",
+              ")\n",
+              ")\n",
+              "{\n",
+              "  return foo1(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl.h"},
       foreignImportOrigin = Function
@@ -2367,8 +2490,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "char *hs_bindgen_test_macro_in_fundecl_483294beebe8552d (F arg1, signed int (*arg2) (signed int arg1)) { return foo2(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "char *hs_bindgen_test_macro_in_fundecl_483294beebe8552d (\n",
+              "  F arg1,\n",
+              "  signed int (*arg2) (\n",
+              "  signed int arg1\n",
+              ")\n",
+              ")\n",
+              "{\n",
+              "  return foo2(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl.h"},
       foreignImportOrigin = Function
@@ -2462,8 +2594,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "C *hs_bindgen_test_macro_in_fundecl_5fb7e024e43f13d7 (float arg1, signed int (*arg2) (signed int arg1)) { return foo3(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "C *hs_bindgen_test_macro_in_fundecl_5fb7e024e43f13d7 (\n",
+              "  float arg1,\n",
+              "  signed int (*arg2) (\n",
+              "  signed int arg1\n",
+              ")\n",
+              ")\n",
+              "{\n",
+              "  return foo3(arg1, arg2);\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl.h"},
       foreignImportOrigin = Function
@@ -2545,7 +2686,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int (*hs_bindgen_test_macro_in_fundecl_5c62229deaba458d (signed long arg1)) (signed short arg1) { return bar1(arg1); }",
+          concat
+            [
+              "signed int (*hs_bindgen_test_macro_in_fundecl_5c62229deaba458d (\n",
+              "  signed long arg1\n",
+              ")) (\n",
+              "  signed short arg1\n",
+              ")\n",
+              "{\n",
+              "  return bar1(arg1);\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl.h"},
       foreignImportOrigin = Function
@@ -2618,7 +2768,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int (*hs_bindgen_test_macro_in_fundecl_120cb32a2369f37f (L arg1)) (signed short arg1) { return bar2(arg1); }",
+          concat
+            [
+              "signed int (*hs_bindgen_test_macro_in_fundecl_120cb32a2369f37f (\n",
+              "  L arg1\n",
+              ")) (\n",
+              "  signed short arg1\n",
+              ")\n",
+              "{\n",
+              "  return bar2(arg1);\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl.h"},
       foreignImportOrigin = Function
@@ -2693,7 +2852,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int (*hs_bindgen_test_macro_in_fundecl_8163c1d52847d0b4 (signed long arg1)) (S arg1) { return bar3(arg1); }",
+          concat
+            [
+              "signed int (*hs_bindgen_test_macro_in_fundecl_8163c1d52847d0b4 (\n",
+              "  signed long arg1\n",
+              ")) (\n",
+              "  S arg1\n",
+              ")\n",
+              "{\n",
+              "  return bar3(arg1);\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl.h"},
       foreignImportOrigin = Function
@@ -2769,8 +2937,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "I (*hs_bindgen_test_macro_in_fundecl_d7df5128adb899bb (signed long arg1)) (signed short arg1) { return bar4(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "I (*hs_bindgen_test_macro_in_fundecl_d7df5128adb899bb (\n",
+              "  signed long arg1\n",
+              ")) (\n",
+              "  signed short arg1\n",
+              ")\n",
+              "{\n",
+              "  return bar4(arg1);\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl.h"},
       foreignImportOrigin = Function
@@ -2845,7 +3021,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int (*hs_bindgen_test_macro_in_fundecl_af25911956e2e01d (signed int const arg1))[2][3] { return baz1(arg1); }",
+          concat
+            [
+              "signed int (*hs_bindgen_test_macro_in_fundecl_af25911956e2e01d (\n",
+              "  signed int const arg1\n",
+              "))[2][3]\n",
+              "{\n",
+              "  return baz1(arg1);\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl.h"},
       foreignImportOrigin = Function
@@ -2921,7 +3104,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int (*hs_bindgen_test_macro_in_fundecl_21c316299046fe75 (I const arg1))[2][3] { return baz2(arg1); }",
+          concat
+            [
+              "signed int (*hs_bindgen_test_macro_in_fundecl_21c316299046fe75 (\n",
+              "  I const arg1\n",
+              "))[2][3]\n",
+              "{\n",
+              "  return baz2(arg1);\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl.h"},
       foreignImportOrigin = Function
@@ -2998,8 +3188,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "I (*hs_bindgen_test_macro_in_fundecl_8d077398ab5e3b39 (signed int const arg1))[2][3] { return baz3(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "I (*hs_bindgen_test_macro_in_fundecl_8d077398ab5e3b39 (\n",
+              "  signed int const arg1\n",
+              "))[2][3]\n",
+              "{\n",
+              "  return baz3(arg1);\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl.h"},
       foreignImportOrigin = Function
@@ -3059,8 +3255,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "I hs_bindgen_test_macro_in_fundecl_26de47450bbc61e3 (void) { return no_args_no_void(); }",
+          capiWrapperDefinition = concat
+            [
+              "I hs_bindgen_test_macro_in_fundecl_26de47450bbc61e3 (void)\n",
+              "{\n",
+              "  return no_args_no_void();\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl.h"},
       foreignImportOrigin = Function
@@ -3112,7 +3312,17 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_quux_ptr */ __attribute__ ((const)) char (*hs_bindgen_test_macro_in_fundecl_75296b863af23367 (void)) (F arg1, char arg2) { return &quux; } ",
+          concat
+            [
+              "/* get_quux_ptr */\n",
+              "__attribute__ ((const))\n",
+              "char (*hs_bindgen_test_macro_in_fundecl_75296b863af23367 (void)) (\n",
+              "  F arg1,\n",
+              "  char arg2\n",
+              ")\n",
+              "{\n",
+              "  return &quux;\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl.h"},
       foreignImportOrigin = Global
@@ -3161,7 +3371,17 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_wam_ptr */ __attribute__ ((const)) C *(*hs_bindgen_test_macro_in_fundecl_fd1ccca5616729da (void)) (float arg1, C *arg2) { return &wam; } ",
+          concat
+            [
+              "/* get_wam_ptr */\n",
+              "__attribute__ ((const))\n",
+              "C *(*hs_bindgen_test_macro_in_fundecl_fd1ccca5616729da (void)) (\n",
+              "  float arg1,\n",
+              "  C *arg2\n",
+              ")\n",
+              "{\n",
+              "  return &wam;\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl.h"},
       foreignImportOrigin = Global
@@ -3211,7 +3431,19 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_foo1_ptr */ __attribute__ ((const)) char *(*hs_bindgen_test_macro_in_fundecl_786c8d7bfea481fd (void)) (float arg1, signed int (*arg2) (signed int arg1)) { return &foo1; } ",
+          concat
+            [
+              "/* get_foo1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "char *(*hs_bindgen_test_macro_in_fundecl_786c8d7bfea481fd (void)) (\n",
+              "  float arg1,\n",
+              "  signed int (*arg2) (\n",
+              "  signed int arg1\n",
+              ")\n",
+              ")\n",
+              "{\n",
+              "  return &foo1;\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl.h"},
       foreignImportOrigin = Global
@@ -3262,7 +3494,19 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_foo2_ptr */ __attribute__ ((const)) char *(*hs_bindgen_test_macro_in_fundecl_42a47aecc35f5bda (void)) (F arg1, signed int (*arg2) (signed int arg1)) { return &foo2; } ",
+          concat
+            [
+              "/* get_foo2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "char *(*hs_bindgen_test_macro_in_fundecl_42a47aecc35f5bda (void)) (\n",
+              "  F arg1,\n",
+              "  signed int (*arg2) (\n",
+              "  signed int arg1\n",
+              ")\n",
+              ")\n",
+              "{\n",
+              "  return &foo2;\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl.h"},
       foreignImportOrigin = Global
@@ -3317,7 +3561,19 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_foo3_ptr */ __attribute__ ((const)) C *(*hs_bindgen_test_macro_in_fundecl_17760ec60140242e (void)) (float arg1, signed int (*arg2) (signed int arg1)) { return &foo3; } ",
+          concat
+            [
+              "/* get_foo3_ptr */\n",
+              "__attribute__ ((const))\n",
+              "C *(*hs_bindgen_test_macro_in_fundecl_17760ec60140242e (void)) (\n",
+              "  float arg1,\n",
+              "  signed int (*arg2) (\n",
+              "  signed int arg1\n",
+              ")\n",
+              ")\n",
+              "{\n",
+              "  return &foo3;\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl.h"},
       foreignImportOrigin = Global
@@ -3366,7 +3622,18 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_bar1_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_macro_in_fundecl_13fa512840072e8d (void)) (signed long arg1)) (signed short arg1) { return &bar1; } ",
+          concat
+            [
+              "/* get_bar1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*(*hs_bindgen_test_macro_in_fundecl_13fa512840072e8d (void)) (\n",
+              "  signed long arg1\n",
+              ")) (\n",
+              "  signed short arg1\n",
+              ")\n",
+              "{\n",
+              "  return &bar1;\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl.h"},
       foreignImportOrigin = Global
@@ -3412,7 +3679,18 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_bar2_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_macro_in_fundecl_0d63f3c4f98f04a3 (void)) (L arg1)) (signed short arg1) { return &bar2; } ",
+          concat
+            [
+              "/* get_bar2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*(*hs_bindgen_test_macro_in_fundecl_0d63f3c4f98f04a3 (void)) (\n",
+              "  L arg1\n",
+              ")) (\n",
+              "  signed short arg1\n",
+              ")\n",
+              "{\n",
+              "  return &bar2;\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl.h"},
       foreignImportOrigin = Global
@@ -3461,7 +3739,18 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_bar3_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_macro_in_fundecl_8bd44eebdbce7f71 (void)) (signed long arg1)) (S arg1) { return &bar3; } ",
+          concat
+            [
+              "/* get_bar3_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*(*hs_bindgen_test_macro_in_fundecl_8bd44eebdbce7f71 (void)) (\n",
+              "  signed long arg1\n",
+              ")) (\n",
+              "  S arg1\n",
+              ")\n",
+              "{\n",
+              "  return &bar3;\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl.h"},
       foreignImportOrigin = Global
@@ -3512,7 +3801,18 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_bar4_ptr */ __attribute__ ((const)) I (*(*hs_bindgen_test_macro_in_fundecl_0515cdde3c6f0f19 (void)) (signed long arg1)) (signed short arg1) { return &bar4; } ",
+          concat
+            [
+              "/* get_bar4_ptr */\n",
+              "__attribute__ ((const))\n",
+              "I (*(*hs_bindgen_test_macro_in_fundecl_0515cdde3c6f0f19 (void)) (\n",
+              "  signed long arg1\n",
+              ")) (\n",
+              "  signed short arg1\n",
+              ")\n",
+              "{\n",
+              "  return &bar4;\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl.h"},
       foreignImportOrigin = Global
@@ -3559,7 +3859,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_baz1_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_macro_in_fundecl_8edeef2444de2cee (void)) (signed int const arg1))[2][3] { return &baz1; } ",
+          concat
+            [
+              "/* get_baz1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*(*hs_bindgen_test_macro_in_fundecl_8edeef2444de2cee (void)) (\n",
+              "  signed int const arg1\n",
+              "))[2][3]\n",
+              "{\n",
+              "  return &baz1;\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl.h"},
       foreignImportOrigin = Global
@@ -3608,7 +3917,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_baz2_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_macro_in_fundecl_61853d26cc39ced6 (void)) (I const arg1))[2][3] { return &baz2; } ",
+          concat
+            [
+              "/* get_baz2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*(*hs_bindgen_test_macro_in_fundecl_61853d26cc39ced6 (void)) (\n",
+              "  I const arg1\n",
+              "))[2][3]\n",
+              "{\n",
+              "  return &baz2;\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl.h"},
       foreignImportOrigin = Global
@@ -3662,7 +3980,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_baz3_ptr */ __attribute__ ((const)) I (*(*hs_bindgen_test_macro_in_fundecl_b465262d2f67a146 (void)) (signed int const arg1))[2][3] { return &baz3; } ",
+          concat
+            [
+              "/* get_baz3_ptr */\n",
+              "__attribute__ ((const))\n",
+              "I (*(*hs_bindgen_test_macro_in_fundecl_b465262d2f67a146 (void)) (\n",
+              "  signed int const arg1\n",
+              "))[2][3]\n",
+              "{\n",
+              "  return &baz3;\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl.h"},
       foreignImportOrigin = Global
@@ -3705,7 +4032,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_no_args_no_void_ptr */ __attribute__ ((const)) I (*hs_bindgen_test_macro_in_fundecl_452280b5085b4ccd (void)) (void) { return &no_args_no_void; } ",
+          concat
+            [
+              "/* get_no_args_no_void_ptr */\n",
+              "__attribute__ ((const))\n",
+              "I (*hs_bindgen_test_macro_in_fundecl_452280b5085b4ccd (void)) (void)\n",
+              "{\n",
+              "  return &no_args_no_void;\n",
+              "}"],
           capiWrapperImport =
           "macro_in_fundecl.h"},
       foreignImportOrigin = Global

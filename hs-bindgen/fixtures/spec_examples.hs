@@ -3092,8 +3092,18 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_spec_examples_7d4128962cfce15d (int32_T *arg1, cint16_T *arg2, int64_T arg3, int64_T arg4, cint16_T *arg5) { resample(arg1, arg2, arg3, arg4, arg5); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_spec_examples_7d4128962cfce15d (\n",
+              "  int32_T *arg1,\n",
+              "  cint16_T *arg2,\n",
+              "  int64_T arg3,\n",
+              "  int64_T arg4,\n",
+              "  cint16_T *arg5\n",
+              ")\n",
+              "{\n",
+              "  resample(arg1, arg2, arg3, arg4, arg5);\n",
+              "}"],
           capiWrapperImport =
           "spec_examples.h"},
       foreignImportOrigin = Function
@@ -3306,8 +3316,18 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "void hs_bindgen_test_spec_examples_f31d4400b3244637 (int32_T *arg1, cint16_T *arg2, int64_T arg3, int64_T arg4, cint16_T *arg5) { resample(arg1, arg2, arg3, arg4, arg5); }",
+          capiWrapperDefinition = concat
+            [
+              "void hs_bindgen_test_spec_examples_f31d4400b3244637 (\n",
+              "  int32_T *arg1,\n",
+              "  cint16_T *arg2,\n",
+              "  int64_T arg3,\n",
+              "  int64_T arg4,\n",
+              "  cint16_T *arg5\n",
+              ")\n",
+              "{\n",
+              "  resample(arg1, arg2, arg3, arg4, arg5);\n",
+              "}"],
           capiWrapperImport =
           "spec_examples.h"},
       foreignImportOrigin = Function
@@ -3468,7 +3488,20 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_resample_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_spec_examples_46b04422dcd0bbd5 (void)) (int32_T *arg1, cint16_T arg2[30720000], int64_T arg3, int64_T arg4, cint16_T arg5[30720000]) { return &resample; } ",
+          concat
+            [
+              "/* get_resample_ptr */\n",
+              "__attribute__ ((const))\n",
+              "void (*hs_bindgen_test_spec_examples_46b04422dcd0bbd5 (void)) (\n",
+              "  int32_T *arg1,\n",
+              "  cint16_T arg2[30720000],\n",
+              "  int64_T arg3,\n",
+              "  int64_T arg4,\n",
+              "  cint16_T arg5[30720000]\n",
+              ")\n",
+              "{\n",
+              "  return &resample;\n",
+              "}"],
           capiWrapperImport =
           "spec_examples.h"},
       foreignImportOrigin = Global

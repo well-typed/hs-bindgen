@@ -17,7 +17,51 @@ import qualified HsBindgen.Runtime.Prelude
 import Data.Bits (FiniteBits)
 import Prelude (Bounded, Enum, Eq, IO, Integral, Num, Ord, Read, Real, Show)
 
-$(HsBindgen.Runtime.Prelude.addCSource "#include <adios.h>\nvoid hs_bindgen_test_adios_1f928c1e5a3ea8be (void) { \978(); }\nvoid hs_bindgen_test_adios_912e938ac6370f83 (void) { \25308\25308(); }\nvoid hs_bindgen_test_adios_cc7cd7984d0bfaee (void) { Say\25308\25308(); }\n/* get_\978_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_adios_857cc80028e9fd4d (void)) (void) { return &\978; } \n/* get_\25308\25308_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_adios_8b289d4c7ae2c2a7 (void)) (void) { return &\25308\25308; } \n/* get_Say\25308\25308_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_adios_2879b42f75005d3b (void)) (void) { return &Say\25308\25308; } \n/* get_\978\978_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_adios_e4b974661ff038a0 (void) { return &\978\978; } \n/* get_\978\978\978_ptr */ __attribute__ ((const)) signed int const *hs_bindgen_test_adios_c538a25ba7055dd4 (void) { return &\978\978\978; } \n")
+$(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
+  [ "#include <adios.h>"
+  , "void hs_bindgen_test_adios_1f928c1e5a3ea8be (void)"
+  , "{"
+  , "  \978();"
+  , "}"
+  , "void hs_bindgen_test_adios_912e938ac6370f83 (void)"
+  , "{"
+  , "  \25308\25308();"
+  , "}"
+  , "void hs_bindgen_test_adios_cc7cd7984d0bfaee (void)"
+  , "{"
+  , "  Say\25308\25308();"
+  , "}"
+  , "/* get_\978_ptr */"
+  , "__attribute__ ((const))"
+  , "void (*hs_bindgen_test_adios_857cc80028e9fd4d (void)) (void)"
+  , "{"
+  , "  return &\978;"
+  , "}"
+  , "/* get_\25308\25308_ptr */"
+  , "__attribute__ ((const))"
+  , "void (*hs_bindgen_test_adios_8b289d4c7ae2c2a7 (void)) (void)"
+  , "{"
+  , "  return &\25308\25308;"
+  , "}"
+  , "/* get_Say\25308\25308_ptr */"
+  , "__attribute__ ((const))"
+  , "void (*hs_bindgen_test_adios_2879b42f75005d3b (void)) (void)"
+  , "{"
+  , "  return &Say\25308\25308;"
+  , "}"
+  , "/* get_\978\978_ptr */"
+  , "__attribute__ ((const))"
+  , "signed int *hs_bindgen_test_adios_e4b974661ff038a0 (void)"
+  , "{"
+  , "  return &\978\978;"
+  , "}"
+  , "/* get_\978\978\978_ptr */"
+  , "__attribute__ ((const))"
+  , "signed int const *hs_bindgen_test_adios_c538a25ba7055dd4 (void)"
+  , "{"
+  , "  return &\978\978\978;"
+  , "}"
+  ]))
 
 {-| __C declaration:__ @adiós@
 

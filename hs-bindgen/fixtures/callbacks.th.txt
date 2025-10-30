@@ -1,53 +1,427 @@
 -- addDependentFile examples/golden/callbacks.h
 -- #include <callbacks.h>
--- signed int hs_bindgen_test_callbacks_a0a59181c714c131 (void (*arg1) (signed int arg1), signed int arg2) { return readFileWithProcessor(arg1, arg2); }
--- void hs_bindgen_test_callbacks_d59e6698796971ea (void (*arg1) (signed int arg1), signed int arg2) { watchTemperature(arg1, arg2); }
--- void hs_bindgen_test_callbacks_c9fb8fdc3d0d3978 (FileOpenedNotification arg1) { onFileOpened(arg1); }
--- void hs_bindgen_test_callbacks_7921ad1b219190e4 (ProgressUpdate arg1) { onProgressChanged(arg1); }
--- signed int hs_bindgen_test_callbacks_ae19d658f098584a (DataValidator arg1, signed int arg2) { return validateInput(arg1, arg2); }
--- void hs_bindgen_test_callbacks_d2fdffe85523b3ef (MeasurementReceived arg1) { onNewMeasurement(arg1); }
--- void hs_bindgen_test_callbacks_c5b555bbc07b808d (MeasurementReceived2 arg1) { onNewMeasurement2(arg1); }
--- void hs_bindgen_test_callbacks_65927c77229ad893 (SampleBufferFull arg1) { onBufferReady(arg1); }
--- void hs_bindgen_test_callbacks_0b6a9249f49b986f (struct Measurement *arg1, void (*arg2) (struct Measurement *arg1, double (*arg2) (double arg1, signed int arg2), signed int arg3)) { transformMeasurement(arg1, arg2); }
--- void hs_bindgen_test_callbacks_2c3e0e84ae9cde51 (void (*arg1) (struct Measurement *arg1, FileOpenedNotification arg2, signed int arg3)) { processWithCallbacks(arg1); }
--- void hs_bindgen_test_callbacks_0b172585709f9d48 (struct MeasurementHandler *arg1) { registerHandler(arg1); }
--- void hs_bindgen_test_callbacks_25a56dfc7b259e7d (struct Measurement *arg1, struct DataPipeline *arg2) { executePipeline(arg1, arg2); }
--- void hs_bindgen_test_callbacks_5908d37641d70953 (struct Measurement *arg1, struct Processor *arg2) { runProcessor(arg1, arg2); }
--- void hs_bindgen_test_callbacks_f3c99b4af7808e7f (struct Measurement *arg1, void (*arg2) (struct Measurement *arg1, void (*arg2) (struct Measurement *arg1, DataValidator arg2, signed int arg3), DataValidator arg3)) { processMeasurementWithValidation(arg1, arg2); }
--- void hs_bindgen_test_callbacks_fcce70013c76ce8b (void (*arg1) (foo arg1)) { f(arg1); }
--- void hs_bindgen_test_callbacks_1d043de05a457e90 (void (*arg1) (foo2 const arg1)) { f2(arg1); }
--- signed int hs_bindgen_test_callbacks_f0d72410d79899b5 (void (*arg1) (signed int arg1), signed int arg2) { return readFileWithProcessor(arg1, arg2); }
--- void hs_bindgen_test_callbacks_a445b9cacb08ed71 (void (*arg1) (signed int arg1), signed int arg2) { watchTemperature(arg1, arg2); }
--- void hs_bindgen_test_callbacks_b71e59965bcc2316 (FileOpenedNotification arg1) { onFileOpened(arg1); }
--- void hs_bindgen_test_callbacks_013e79fc3cd3b1b4 (ProgressUpdate arg1) { onProgressChanged(arg1); }
--- signed int hs_bindgen_test_callbacks_697a7b01b3d64c58 (DataValidator arg1, signed int arg2) { return validateInput(arg1, arg2); }
--- void hs_bindgen_test_callbacks_f291b861b36d5a90 (MeasurementReceived arg1) { onNewMeasurement(arg1); }
--- void hs_bindgen_test_callbacks_4f36523b7d965e44 (MeasurementReceived2 arg1) { onNewMeasurement2(arg1); }
--- void hs_bindgen_test_callbacks_92d54aaf9e8a1c8e (SampleBufferFull arg1) { onBufferReady(arg1); }
--- void hs_bindgen_test_callbacks_0e22183e51a42eab (struct Measurement *arg1, void (*arg2) (struct Measurement *arg1, double (*arg2) (double arg1, signed int arg2), signed int arg3)) { transformMeasurement(arg1, arg2); }
--- void hs_bindgen_test_callbacks_9b4727ea289ff135 (void (*arg1) (struct Measurement *arg1, FileOpenedNotification arg2, signed int arg3)) { processWithCallbacks(arg1); }
--- void hs_bindgen_test_callbacks_aea76777f06b51ce (struct MeasurementHandler *arg1) { registerHandler(arg1); }
--- void hs_bindgen_test_callbacks_54fc81d3b44b84d5 (struct Measurement *arg1, struct DataPipeline *arg2) { executePipeline(arg1, arg2); }
--- void hs_bindgen_test_callbacks_4bb32ee774218053 (struct Measurement *arg1, struct Processor *arg2) { runProcessor(arg1, arg2); }
--- void hs_bindgen_test_callbacks_f453b618c9ab0234 (struct Measurement *arg1, void (*arg2) (struct Measurement *arg1, void (*arg2) (struct Measurement *arg1, DataValidator arg2, signed int arg3), DataValidator arg3)) { processMeasurementWithValidation(arg1, arg2); }
--- void hs_bindgen_test_callbacks_b68b2cffacc97c1d (void (*arg1) (foo arg1)) { f(arg1); }
--- void hs_bindgen_test_callbacks_14361e995fb5684a (void (*arg1) (foo2 const arg1)) { f2(arg1); }
--- /* get_readFileWithProcessor_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_callbacks_c4b06d89a94616dd (void)) (void (*arg1) (signed int arg1), signed int arg2) { return &readFileWithProcessor; } 
--- /* get_watchTemperature_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_22c54726df44b640 (void)) (void (*arg1) (signed int arg1), signed int arg2) { return &watchTemperature; } 
--- /* get_onFileOpened_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_8167a5b82d621c9d (void)) (FileOpenedNotification arg1) { return &onFileOpened; } 
--- /* get_onProgressChanged_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_ef51ad75ce9862a3 (void)) (ProgressUpdate arg1) { return &onProgressChanged; } 
--- /* get_validateInput_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_callbacks_9eaedb1b1c5b3fdb (void)) (DataValidator arg1, signed int arg2) { return &validateInput; } 
--- /* get_onNewMeasurement_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_f9f4f5ec3dd82431 (void)) (MeasurementReceived arg1) { return &onNewMeasurement; } 
--- /* get_onNewMeasurement2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_9c5afeda25ede1ce (void)) (MeasurementReceived2 arg1) { return &onNewMeasurement2; } 
--- /* get_onBufferReady_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_8091188123328aa8 (void)) (SampleBufferFull arg1) { return &onBufferReady; } 
--- /* get_transformMeasurement_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_6c9fe4dae03a37fa (void)) (struct Measurement *arg1, void (*arg2) (struct Measurement *arg1, double (*arg2) (double arg1, signed int arg2), signed int arg3)) { return &transformMeasurement; } 
--- /* get_processWithCallbacks_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_2ee8d8889cd31fb7 (void)) (void (*arg1) (struct Measurement *arg1, FileOpenedNotification arg2, signed int arg3)) { return &processWithCallbacks; } 
--- /* get_registerHandler_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_5a70e34ecc71835b (void)) (struct MeasurementHandler *arg1) { return &registerHandler; } 
--- /* get_executePipeline_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_1a0881ba01e93710 (void)) (struct Measurement *arg1, struct DataPipeline *arg2) { return &executePipeline; } 
--- /* get_runProcessor_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_1e7d8fd6cb5a199f (void)) (struct Measurement *arg1, struct Processor *arg2) { return &runProcessor; } 
--- /* get_processMeasurementWithValidation_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_6621b1bf8ef7af3b (void)) (struct Measurement *arg1, void (*arg2) (struct Measurement *arg1, void (*arg2) (struct Measurement *arg1, DataValidator arg2, signed int arg3), DataValidator arg3)) { return &processMeasurementWithValidation; } 
--- /* get_f_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_c34fd33eedc1490d (void)) (void (*arg1) (foo arg1)) { return &f; } 
--- /* get_f2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_callbacks_490ca7e8c8282a69 (void)) (void (*arg1) (foo2 const arg1)) { return &f2; } 
+-- signed int hs_bindgen_test_callbacks_a0a59181c714c131 (
+--   void (*arg1) (
+--   signed int arg1
+-- ),
+--   signed int arg2
+-- )
+-- {
+--   return readFileWithProcessor(arg1, arg2);
+-- }
+-- void hs_bindgen_test_callbacks_d59e6698796971ea (
+--   void (*arg1) (
+--   signed int arg1
+-- ),
+--   signed int arg2
+-- )
+-- {
+--   watchTemperature(arg1, arg2);
+-- }
+-- void hs_bindgen_test_callbacks_c9fb8fdc3d0d3978 (
+--   FileOpenedNotification arg1
+-- )
+-- {
+--   onFileOpened(arg1);
+-- }
+-- void hs_bindgen_test_callbacks_7921ad1b219190e4 (
+--   ProgressUpdate arg1
+-- )
+-- {
+--   onProgressChanged(arg1);
+-- }
+-- signed int hs_bindgen_test_callbacks_ae19d658f098584a (
+--   DataValidator arg1,
+--   signed int arg2
+-- )
+-- {
+--   return validateInput(arg1, arg2);
+-- }
+-- void hs_bindgen_test_callbacks_d2fdffe85523b3ef (
+--   MeasurementReceived arg1
+-- )
+-- {
+--   onNewMeasurement(arg1);
+-- }
+-- void hs_bindgen_test_callbacks_c5b555bbc07b808d (
+--   MeasurementReceived2 arg1
+-- )
+-- {
+--   onNewMeasurement2(arg1);
+-- }
+-- void hs_bindgen_test_callbacks_65927c77229ad893 (
+--   SampleBufferFull arg1
+-- )
+-- {
+--   onBufferReady(arg1);
+-- }
+-- void hs_bindgen_test_callbacks_0b6a9249f49b986f (
+--   struct Measurement *arg1,
+--   void (*arg2) (
+--   struct Measurement *arg1,
+--   double (*arg2) (
+--   double arg1,
+--   signed int arg2
+-- ),
+--   signed int arg3
+-- )
+-- )
+-- {
+--   transformMeasurement(arg1, arg2);
+-- }
+-- void hs_bindgen_test_callbacks_2c3e0e84ae9cde51 (
+--   void (*arg1) (
+--   struct Measurement *arg1,
+--   FileOpenedNotification arg2,
+--   signed int arg3
+-- )
+-- )
+-- {
+--   processWithCallbacks(arg1);
+-- }
+-- void hs_bindgen_test_callbacks_0b172585709f9d48 (
+--   struct MeasurementHandler *arg1
+-- )
+-- {
+--   registerHandler(arg1);
+-- }
+-- void hs_bindgen_test_callbacks_25a56dfc7b259e7d (
+--   struct Measurement *arg1,
+--   struct DataPipeline *arg2
+-- )
+-- {
+--   executePipeline(arg1, arg2);
+-- }
+-- void hs_bindgen_test_callbacks_5908d37641d70953 (
+--   struct Measurement *arg1,
+--   struct Processor *arg2
+-- )
+-- {
+--   runProcessor(arg1, arg2);
+-- }
+-- void hs_bindgen_test_callbacks_f3c99b4af7808e7f (
+--   struct Measurement *arg1,
+--   void (*arg2) (
+--   struct Measurement *arg1,
+--   void (*arg2) (
+--   struct Measurement *arg1,
+--   DataValidator arg2,
+--   signed int arg3
+-- ),
+--   DataValidator arg3
+-- )
+-- )
+-- {
+--   processMeasurementWithValidation(arg1, arg2);
+-- }
+-- void hs_bindgen_test_callbacks_fcce70013c76ce8b (
+--   void (*arg1) (
+--   foo arg1
+-- )
+-- )
+-- {
+--   f(arg1);
+-- }
+-- void hs_bindgen_test_callbacks_1d043de05a457e90 (
+--   void (*arg1) (
+--   foo2 const arg1
+-- )
+-- )
+-- {
+--   f2(arg1);
+-- }
+-- signed int hs_bindgen_test_callbacks_f0d72410d79899b5 (
+--   void (*arg1) (
+--   signed int arg1
+-- ),
+--   signed int arg2
+-- )
+-- {
+--   return readFileWithProcessor(arg1, arg2);
+-- }
+-- void hs_bindgen_test_callbacks_a445b9cacb08ed71 (
+--   void (*arg1) (
+--   signed int arg1
+-- ),
+--   signed int arg2
+-- )
+-- {
+--   watchTemperature(arg1, arg2);
+-- }
+-- void hs_bindgen_test_callbacks_b71e59965bcc2316 (
+--   FileOpenedNotification arg1
+-- )
+-- {
+--   onFileOpened(arg1);
+-- }
+-- void hs_bindgen_test_callbacks_013e79fc3cd3b1b4 (
+--   ProgressUpdate arg1
+-- )
+-- {
+--   onProgressChanged(arg1);
+-- }
+-- signed int hs_bindgen_test_callbacks_697a7b01b3d64c58 (
+--   DataValidator arg1,
+--   signed int arg2
+-- )
+-- {
+--   return validateInput(arg1, arg2);
+-- }
+-- void hs_bindgen_test_callbacks_f291b861b36d5a90 (
+--   MeasurementReceived arg1
+-- )
+-- {
+--   onNewMeasurement(arg1);
+-- }
+-- void hs_bindgen_test_callbacks_4f36523b7d965e44 (
+--   MeasurementReceived2 arg1
+-- )
+-- {
+--   onNewMeasurement2(arg1);
+-- }
+-- void hs_bindgen_test_callbacks_92d54aaf9e8a1c8e (
+--   SampleBufferFull arg1
+-- )
+-- {
+--   onBufferReady(arg1);
+-- }
+-- void hs_bindgen_test_callbacks_0e22183e51a42eab (
+--   struct Measurement *arg1,
+--   void (*arg2) (
+--   struct Measurement *arg1,
+--   double (*arg2) (
+--   double arg1,
+--   signed int arg2
+-- ),
+--   signed int arg3
+-- )
+-- )
+-- {
+--   transformMeasurement(arg1, arg2);
+-- }
+-- void hs_bindgen_test_callbacks_9b4727ea289ff135 (
+--   void (*arg1) (
+--   struct Measurement *arg1,
+--   FileOpenedNotification arg2,
+--   signed int arg3
+-- )
+-- )
+-- {
+--   processWithCallbacks(arg1);
+-- }
+-- void hs_bindgen_test_callbacks_aea76777f06b51ce (
+--   struct MeasurementHandler *arg1
+-- )
+-- {
+--   registerHandler(arg1);
+-- }
+-- void hs_bindgen_test_callbacks_54fc81d3b44b84d5 (
+--   struct Measurement *arg1,
+--   struct DataPipeline *arg2
+-- )
+-- {
+--   executePipeline(arg1, arg2);
+-- }
+-- void hs_bindgen_test_callbacks_4bb32ee774218053 (
+--   struct Measurement *arg1,
+--   struct Processor *arg2
+-- )
+-- {
+--   runProcessor(arg1, arg2);
+-- }
+-- void hs_bindgen_test_callbacks_f453b618c9ab0234 (
+--   struct Measurement *arg1,
+--   void (*arg2) (
+--   struct Measurement *arg1,
+--   void (*arg2) (
+--   struct Measurement *arg1,
+--   DataValidator arg2,
+--   signed int arg3
+-- ),
+--   DataValidator arg3
+-- )
+-- )
+-- {
+--   processMeasurementWithValidation(arg1, arg2);
+-- }
+-- void hs_bindgen_test_callbacks_b68b2cffacc97c1d (
+--   void (*arg1) (
+--   foo arg1
+-- )
+-- )
+-- {
+--   f(arg1);
+-- }
+-- void hs_bindgen_test_callbacks_14361e995fb5684a (
+--   void (*arg1) (
+--   foo2 const arg1
+-- )
+-- )
+-- {
+--   f2(arg1);
+-- }
+-- /* get_readFileWithProcessor_ptr */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_test_callbacks_c4b06d89a94616dd (void)) (
+--   void (*arg1) (
+--   signed int arg1
+-- ),
+--   signed int arg2
+-- )
+-- {
+--   return &readFileWithProcessor;
+-- }
+-- /* get_watchTemperature_ptr */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_test_callbacks_22c54726df44b640 (void)) (
+--   void (*arg1) (
+--   signed int arg1
+-- ),
+--   signed int arg2
+-- )
+-- {
+--   return &watchTemperature;
+-- }
+-- /* get_onFileOpened_ptr */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_test_callbacks_8167a5b82d621c9d (void)) (
+--   FileOpenedNotification arg1
+-- )
+-- {
+--   return &onFileOpened;
+-- }
+-- /* get_onProgressChanged_ptr */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_test_callbacks_ef51ad75ce9862a3 (void)) (
+--   ProgressUpdate arg1
+-- )
+-- {
+--   return &onProgressChanged;
+-- }
+-- /* get_validateInput_ptr */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_test_callbacks_9eaedb1b1c5b3fdb (void)) (
+--   DataValidator arg1,
+--   signed int arg2
+-- )
+-- {
+--   return &validateInput;
+-- }
+-- /* get_onNewMeasurement_ptr */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_test_callbacks_f9f4f5ec3dd82431 (void)) (
+--   MeasurementReceived arg1
+-- )
+-- {
+--   return &onNewMeasurement;
+-- }
+-- /* get_onNewMeasurement2_ptr */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_test_callbacks_9c5afeda25ede1ce (void)) (
+--   MeasurementReceived2 arg1
+-- )
+-- {
+--   return &onNewMeasurement2;
+-- }
+-- /* get_onBufferReady_ptr */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_test_callbacks_8091188123328aa8 (void)) (
+--   SampleBufferFull arg1
+-- )
+-- {
+--   return &onBufferReady;
+-- }
+-- /* get_transformMeasurement_ptr */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_test_callbacks_6c9fe4dae03a37fa (void)) (
+--   struct Measurement *arg1,
+--   void (*arg2) (
+--   struct Measurement *arg1,
+--   double (*arg2) (
+--   double arg1,
+--   signed int arg2
+-- ),
+--   signed int arg3
+-- )
+-- )
+-- {
+--   return &transformMeasurement;
+-- }
+-- /* get_processWithCallbacks_ptr */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_test_callbacks_2ee8d8889cd31fb7 (void)) (
+--   void (*arg1) (
+--   struct Measurement *arg1,
+--   FileOpenedNotification arg2,
+--   signed int arg3
+-- )
+-- )
+-- {
+--   return &processWithCallbacks;
+-- }
+-- /* get_registerHandler_ptr */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_test_callbacks_5a70e34ecc71835b (void)) (
+--   struct MeasurementHandler *arg1
+-- )
+-- {
+--   return &registerHandler;
+-- }
+-- /* get_executePipeline_ptr */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_test_callbacks_1a0881ba01e93710 (void)) (
+--   struct Measurement *arg1,
+--   struct DataPipeline *arg2
+-- )
+-- {
+--   return &executePipeline;
+-- }
+-- /* get_runProcessor_ptr */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_test_callbacks_1e7d8fd6cb5a199f (void)) (
+--   struct Measurement *arg1,
+--   struct Processor *arg2
+-- )
+-- {
+--   return &runProcessor;
+-- }
+-- /* get_processMeasurementWithValidation_ptr */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_test_callbacks_6621b1bf8ef7af3b (void)) (
+--   struct Measurement *arg1,
+--   void (*arg2) (
+--   struct Measurement *arg1,
+--   void (*arg2) (
+--   struct Measurement *arg1,
+--   DataValidator arg2,
+--   signed int arg3
+-- ),
+--   DataValidator arg3
+-- )
+-- )
+-- {
+--   return &processMeasurementWithValidation;
+-- }
+-- /* get_f_ptr */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_test_callbacks_c34fd33eedc1490d (void)) (
+--   void (*arg1) (
+--   foo arg1
+-- )
+-- )
+-- {
+--   return &f;
+-- }
+-- /* get_f2_ptr */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_test_callbacks_490ca7e8c8282a69 (void)) (
+--   void (*arg1) (
+--   foo2 const arg1
+-- )
+-- )
+-- {
+--   return &f2;
+-- }
 {-| Auxiliary type used by 'FileOpenedNotification'
 
 __defined at:__ @callbacks.h:10:16@

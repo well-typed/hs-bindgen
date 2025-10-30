@@ -1,6 +1,11 @@
 -- addDependentFile examples/golden/redeclaration.h
 -- #include <redeclaration.h>
--- /* get_x_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_redeclaration_10b125673bf2041b (void) { return &x; } 
+-- /* get_x_ptr */
+-- __attribute__ ((const))
+-- signed int *hs_bindgen_test_redeclaration_10b125673bf2041b (void)
+-- {
+--   return &x;
+-- }
 {-| __C declaration:__ @int_t@
 
     __defined at:__ @redeclaration.h:20:13@

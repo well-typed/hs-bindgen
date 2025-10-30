@@ -1,78 +1,434 @@
 -- addDependentFile examples/golden/fun_attributes.h
 -- #include <fun_attributes.h>
--- void hs_bindgen_test_fun_attributes_8de545512324157b (void) { __f1(); }
--- void hs_bindgen_test_fun_attributes_a2f84d2570ef3892 (void) { f1(); }
--- void *hs_bindgen_test_fun_attributes_cefda6b95395d829 (size_t arg1, size_t arg2) { return my_memalign(arg1, arg2); }
--- void *hs_bindgen_test_fun_attributes_e25f06c3ebec2536 (size_t arg1, size_t arg2) { return my_calloc(arg1, arg2); }
--- void *hs_bindgen_test_fun_attributes_51fa664668350a00 (void *arg1, size_t arg2) { return my_realloc(arg1, arg2); }
--- void *hs_bindgen_test_fun_attributes_93a5d6b7d4e02c33 (size_t arg1) { return my_alloc1(arg1); }
--- void *hs_bindgen_test_fun_attributes_c948fd867be322fa (size_t arg1) { return my_alloc2(arg1); }
--- signed int hs_bindgen_test_fun_attributes_55e5eb89e54abf83 (signed int arg1) { return square(arg1); }
--- signed int hs_bindgen_test_fun_attributes_e9647b9c99c68776 (void) { return old_fn_deprecated(); }
--- char *hs_bindgen_test_fun_attributes_023f7813e909f518 (char *arg1, char const *arg2) { return my_dgettext(arg1, arg2); }
--- FILE *hs_bindgen_test_fun_attributes_e39bbd59f1c96c14 (signed int arg1, char const *arg2) { return fdopen(arg1, arg2); }
--- void hs_bindgen_test_fun_attributes_1d043de05a457e90 (void) { f2(); }
--- void *hs_bindgen_test_fun_attributes_4b3bfd2d72a2db5d (void *arg1, void const *arg2, size_t arg3) { return my_memcpy(arg1, arg2, arg3); }
--- void hs_bindgen_test_fun_attributes_348fe595d62421cf (void) { fatal(); }
--- signed int hs_bindgen_test_fun_attributes_e30754e2591f701a (char *arg1) { return hash(arg1); }
--- void *hs_bindgen_test_fun_attributes_f6f68a022a15937a (size_t arg1) { return mymalloc(arg1); }
--- void hs_bindgen_test_fun_attributes_d1bf41da7ab64db1 (void) { foobar(); }
--- signed int hs_bindgen_test_fun_attributes_00405e83bcb9b271 (void) { return core2_func(); }
--- signed int hs_bindgen_test_fun_attributes_06e7d2f8bcf43684 (void) { return sse3_func(); }
--- void hs_bindgen_test_fun_attributes_e23eff1955ebb459 (void) { f3(); }
--- signed int hs_bindgen_test_fun_attributes_ef0eea5f61ef9228 (void) { return fn(); }
--- signed int hs_bindgen_test_fun_attributes_b007466f7ff1cf28 (void) { return y(); }
--- signed int hs_bindgen_test_fun_attributes_8c9825e1b20a7ea1 (void) { return x1(); }
--- signed int hs_bindgen_test_fun_attributes_c80d61b7727dab77 (void) { return x2(); }
--- void hs_bindgen_test_fun_attributes_b44da51a357ae983 (void) { __f1(); }
--- void hs_bindgen_test_fun_attributes_c1788128a5b1c813 (void) { f1(); }
--- void *hs_bindgen_test_fun_attributes_9ca07f6722bd48dc (size_t arg1, size_t arg2) { return my_memalign(arg1, arg2); }
--- void *hs_bindgen_test_fun_attributes_72df124450cc6d26 (size_t arg1, size_t arg2) { return my_calloc(arg1, arg2); }
--- void *hs_bindgen_test_fun_attributes_effc1fd567613950 (void *arg1, size_t arg2) { return my_realloc(arg1, arg2); }
--- void *hs_bindgen_test_fun_attributes_b3544e53af074ef1 (size_t arg1) { return my_alloc1(arg1); }
--- void *hs_bindgen_test_fun_attributes_0b659f90fec40284 (size_t arg1) { return my_alloc2(arg1); }
--- signed int hs_bindgen_test_fun_attributes_cb3c687f16289bb3 (signed int arg1) { return square(arg1); }
--- signed int hs_bindgen_test_fun_attributes_c48f18f4f06068eb (void) { return old_fn_deprecated(); }
--- char *hs_bindgen_test_fun_attributes_d492bd76e82890da (char *arg1, char const *arg2) { return my_dgettext(arg1, arg2); }
--- FILE *hs_bindgen_test_fun_attributes_3c91a267bd66cc10 (signed int arg1, char const *arg2) { return fdopen(arg1, arg2); }
--- void hs_bindgen_test_fun_attributes_14361e995fb5684a (void) { f2(); }
--- void *hs_bindgen_test_fun_attributes_e8c4a96cefd6117e (void *arg1, void const *arg2, size_t arg3) { return my_memcpy(arg1, arg2, arg3); }
--- void hs_bindgen_test_fun_attributes_64aa41e835dbb892 (void) { fatal(); }
--- signed int hs_bindgen_test_fun_attributes_88887d4b5f42f079 (char *arg1) { return hash(arg1); }
--- void *hs_bindgen_test_fun_attributes_31e6e14ecb251fa2 (size_t arg1) { return mymalloc(arg1); }
--- void hs_bindgen_test_fun_attributes_bb77a71513994934 (void) { foobar(); }
--- signed int hs_bindgen_test_fun_attributes_640ec5b51b0819d1 (void) { return core2_func(); }
--- signed int hs_bindgen_test_fun_attributes_a1f7636643d63586 (void) { return sse3_func(); }
--- void hs_bindgen_test_fun_attributes_2bef032cbe15ffd0 (void) { f3(); }
--- signed int hs_bindgen_test_fun_attributes_8f406104a21ff66e (void) { return fn(); }
--- signed int hs_bindgen_test_fun_attributes_4beb0cbf65b462bd (void) { return y(); }
--- signed int hs_bindgen_test_fun_attributes_ac7386c785058f4d (void) { return x1(); }
--- signed int hs_bindgen_test_fun_attributes_b6f428ed915f03cc (void) { return x2(); }
--- /* get___f1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_fun_attributes_7003b306f73c174b (void)) (void) { return &__f1; } 
--- /* get_f1_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_fun_attributes_5469bdc0395f86c1 (void)) (void) { return &f1; } 
--- /* get_my_memalign_ptr */ __attribute__ ((const)) void *(*hs_bindgen_test_fun_attributes_b3c956e53724162c (void)) (size_t arg1, size_t arg2) { return &my_memalign; } 
--- /* get_my_calloc_ptr */ __attribute__ ((const)) void *(*hs_bindgen_test_fun_attributes_733646ca96f39979 (void)) (size_t arg1, size_t arg2) { return &my_calloc; } 
--- /* get_my_realloc_ptr */ __attribute__ ((const)) void *(*hs_bindgen_test_fun_attributes_94e8271f186110fd (void)) (void *arg1, size_t arg2) { return &my_realloc; } 
--- /* get_my_alloc1_ptr */ __attribute__ ((const)) void *(*hs_bindgen_test_fun_attributes_48d9862d70f58e70 (void)) (size_t arg1) { return &my_alloc1; } 
--- /* get_my_alloc2_ptr */ __attribute__ ((const)) void *(*hs_bindgen_test_fun_attributes_17a11fd10dc57357 (void)) (size_t arg1) { return &my_alloc2; } 
--- /* get_square_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_c41111f40a04cdc9 (void)) (signed int arg1) { return &square; } 
--- /* get_old_fn_deprecated_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_17f68fdc3f464b20 (void)) (void) { return &old_fn_deprecated; } 
--- /* get_my_dgettext_ptr */ __attribute__ ((const)) char *(*hs_bindgen_test_fun_attributes_a0be4f488601c252 (void)) (char *arg1, char const *arg2) { return &my_dgettext; } 
--- /* get_fdopen_ptr */ __attribute__ ((const)) FILE *(*hs_bindgen_test_fun_attributes_2b987c3b5c01a326 (void)) (signed int arg1, char const *arg2) { return &fdopen; } 
--- /* get_f2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_fun_attributes_490ca7e8c8282a69 (void)) (void) { return &f2; } 
--- /* get_my_memcpy_ptr */ __attribute__ ((const)) void *(*hs_bindgen_test_fun_attributes_e2e8b5d5ac435de8 (void)) (void *arg1, void const *arg2, size_t arg3) { return &my_memcpy; } 
--- /* get_fatal_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_fun_attributes_ea0bb781f9eca7f5 (void)) (void) { return &fatal; } 
--- /* get_hash_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_4de9606eb9c5dd01 (void)) (char *arg1) { return &hash; } 
--- /* get_mymalloc_ptr */ __attribute__ ((const)) void *(*hs_bindgen_test_fun_attributes_4ce141c884649d49 (void)) (size_t arg1) { return &mymalloc; } 
--- /* get_foobar_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_fun_attributes_5c243ced544ab0aa (void)) (void) { return &foobar; } 
--- /* get_core2_func_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_14ef55245a14f816 (void)) (void) { return &core2_func; } 
--- /* get_sse3_func_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_72956748bb6eee67 (void)) (void) { return &sse3_func; } 
--- /* get_f3_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_fun_attributes_38506a9ac5626bf2 (void)) (void) { return &f3; } 
--- /* get_fn_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_5929da82079150d1 (void)) (void) { return &fn; } 
--- /* get_y_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_7bcb4a1873e6ece6 (void)) (void) { return &y; } 
--- /* get_x1_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_11098262b345351a (void)) (void) { return &x1; } 
--- /* get_x2_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_fun_attributes_0d19f83087f278f9 (void)) (void) { return &x2; } 
--- /* get_i_ptr */ __attribute__ ((const)) signed int *hs_bindgen_test_fun_attributes_cdc30ae5fb72cd6e (void) { return &i; } 
+-- void hs_bindgen_test_fun_attributes_8de545512324157b (void)
+-- {
+--   __f1();
+-- }
+-- void hs_bindgen_test_fun_attributes_a2f84d2570ef3892 (void)
+-- {
+--   f1();
+-- }
+-- void *hs_bindgen_test_fun_attributes_cefda6b95395d829 (
+--   size_t arg1,
+--   size_t arg2
+-- )
+-- {
+--   return my_memalign(arg1, arg2);
+-- }
+-- void *hs_bindgen_test_fun_attributes_e25f06c3ebec2536 (
+--   size_t arg1,
+--   size_t arg2
+-- )
+-- {
+--   return my_calloc(arg1, arg2);
+-- }
+-- void *hs_bindgen_test_fun_attributes_51fa664668350a00 (
+--   void *arg1,
+--   size_t arg2
+-- )
+-- {
+--   return my_realloc(arg1, arg2);
+-- }
+-- void *hs_bindgen_test_fun_attributes_93a5d6b7d4e02c33 (
+--   size_t arg1
+-- )
+-- {
+--   return my_alloc1(arg1);
+-- }
+-- void *hs_bindgen_test_fun_attributes_c948fd867be322fa (
+--   size_t arg1
+-- )
+-- {
+--   return my_alloc2(arg1);
+-- }
+-- signed int hs_bindgen_test_fun_attributes_55e5eb89e54abf83 (
+--   signed int arg1
+-- )
+-- {
+--   return square(arg1);
+-- }
+-- signed int hs_bindgen_test_fun_attributes_e9647b9c99c68776 (void)
+-- {
+--   return old_fn_deprecated();
+-- }
+-- char *hs_bindgen_test_fun_attributes_023f7813e909f518 (
+--   char *arg1,
+--   char const *arg2
+-- )
+-- {
+--   return my_dgettext(arg1, arg2);
+-- }
+-- FILE *hs_bindgen_test_fun_attributes_e39bbd59f1c96c14 (
+--   signed int arg1,
+--   char const *arg2
+-- )
+-- {
+--   return fdopen(arg1, arg2);
+-- }
+-- void hs_bindgen_test_fun_attributes_1d043de05a457e90 (void)
+-- {
+--   f2();
+-- }
+-- void *hs_bindgen_test_fun_attributes_4b3bfd2d72a2db5d (
+--   void *arg1,
+--   void const *arg2,
+--   size_t arg3
+-- )
+-- {
+--   return my_memcpy(arg1, arg2, arg3);
+-- }
+-- void hs_bindgen_test_fun_attributes_348fe595d62421cf (void)
+-- {
+--   fatal();
+-- }
+-- signed int hs_bindgen_test_fun_attributes_e30754e2591f701a (
+--   char *arg1
+-- )
+-- {
+--   return hash(arg1);
+-- }
+-- void *hs_bindgen_test_fun_attributes_f6f68a022a15937a (
+--   size_t arg1
+-- )
+-- {
+--   return mymalloc(arg1);
+-- }
+-- void hs_bindgen_test_fun_attributes_d1bf41da7ab64db1 (void)
+-- {
+--   foobar();
+-- }
+-- signed int hs_bindgen_test_fun_attributes_00405e83bcb9b271 (void)
+-- {
+--   return core2_func();
+-- }
+-- signed int hs_bindgen_test_fun_attributes_06e7d2f8bcf43684 (void)
+-- {
+--   return sse3_func();
+-- }
+-- void hs_bindgen_test_fun_attributes_e23eff1955ebb459 (void)
+-- {
+--   f3();
+-- }
+-- signed int hs_bindgen_test_fun_attributes_ef0eea5f61ef9228 (void)
+-- {
+--   return fn();
+-- }
+-- signed int hs_bindgen_test_fun_attributes_b007466f7ff1cf28 (void)
+-- {
+--   return y();
+-- }
+-- signed int hs_bindgen_test_fun_attributes_8c9825e1b20a7ea1 (void)
+-- {
+--   return x1();
+-- }
+-- signed int hs_bindgen_test_fun_attributes_c80d61b7727dab77 (void)
+-- {
+--   return x2();
+-- }
+-- void hs_bindgen_test_fun_attributes_b44da51a357ae983 (void)
+-- {
+--   __f1();
+-- }
+-- void hs_bindgen_test_fun_attributes_c1788128a5b1c813 (void)
+-- {
+--   f1();
+-- }
+-- void *hs_bindgen_test_fun_attributes_9ca07f6722bd48dc (
+--   size_t arg1,
+--   size_t arg2
+-- )
+-- {
+--   return my_memalign(arg1, arg2);
+-- }
+-- void *hs_bindgen_test_fun_attributes_72df124450cc6d26 (
+--   size_t arg1,
+--   size_t arg2
+-- )
+-- {
+--   return my_calloc(arg1, arg2);
+-- }
+-- void *hs_bindgen_test_fun_attributes_effc1fd567613950 (
+--   void *arg1,
+--   size_t arg2
+-- )
+-- {
+--   return my_realloc(arg1, arg2);
+-- }
+-- void *hs_bindgen_test_fun_attributes_b3544e53af074ef1 (
+--   size_t arg1
+-- )
+-- {
+--   return my_alloc1(arg1);
+-- }
+-- void *hs_bindgen_test_fun_attributes_0b659f90fec40284 (
+--   size_t arg1
+-- )
+-- {
+--   return my_alloc2(arg1);
+-- }
+-- signed int hs_bindgen_test_fun_attributes_cb3c687f16289bb3 (
+--   signed int arg1
+-- )
+-- {
+--   return square(arg1);
+-- }
+-- signed int hs_bindgen_test_fun_attributes_c48f18f4f06068eb (void)
+-- {
+--   return old_fn_deprecated();
+-- }
+-- char *hs_bindgen_test_fun_attributes_d492bd76e82890da (
+--   char *arg1,
+--   char const *arg2
+-- )
+-- {
+--   return my_dgettext(arg1, arg2);
+-- }
+-- FILE *hs_bindgen_test_fun_attributes_3c91a267bd66cc10 (
+--   signed int arg1,
+--   char const *arg2
+-- )
+-- {
+--   return fdopen(arg1, arg2);
+-- }
+-- void hs_bindgen_test_fun_attributes_14361e995fb5684a (void)
+-- {
+--   f2();
+-- }
+-- void *hs_bindgen_test_fun_attributes_e8c4a96cefd6117e (
+--   void *arg1,
+--   void const *arg2,
+--   size_t arg3
+-- )
+-- {
+--   return my_memcpy(arg1, arg2, arg3);
+-- }
+-- void hs_bindgen_test_fun_attributes_64aa41e835dbb892 (void)
+-- {
+--   fatal();
+-- }
+-- signed int hs_bindgen_test_fun_attributes_88887d4b5f42f079 (
+--   char *arg1
+-- )
+-- {
+--   return hash(arg1);
+-- }
+-- void *hs_bindgen_test_fun_attributes_31e6e14ecb251fa2 (
+--   size_t arg1
+-- )
+-- {
+--   return mymalloc(arg1);
+-- }
+-- void hs_bindgen_test_fun_attributes_bb77a71513994934 (void)
+-- {
+--   foobar();
+-- }
+-- signed int hs_bindgen_test_fun_attributes_640ec5b51b0819d1 (void)
+-- {
+--   return core2_func();
+-- }
+-- signed int hs_bindgen_test_fun_attributes_a1f7636643d63586 (void)
+-- {
+--   return sse3_func();
+-- }
+-- void hs_bindgen_test_fun_attributes_2bef032cbe15ffd0 (void)
+-- {
+--   f3();
+-- }
+-- signed int hs_bindgen_test_fun_attributes_8f406104a21ff66e (void)
+-- {
+--   return fn();
+-- }
+-- signed int hs_bindgen_test_fun_attributes_4beb0cbf65b462bd (void)
+-- {
+--   return y();
+-- }
+-- signed int hs_bindgen_test_fun_attributes_ac7386c785058f4d (void)
+-- {
+--   return x1();
+-- }
+-- signed int hs_bindgen_test_fun_attributes_b6f428ed915f03cc (void)
+-- {
+--   return x2();
+-- }
+-- /* get___f1_ptr */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_test_fun_attributes_7003b306f73c174b (void)) (void)
+-- {
+--   return &__f1;
+-- }
+-- /* get_f1_ptr */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_test_fun_attributes_5469bdc0395f86c1 (void)) (void)
+-- {
+--   return &f1;
+-- }
+-- /* get_my_memalign_ptr */
+-- __attribute__ ((const))
+-- void *(*hs_bindgen_test_fun_attributes_b3c956e53724162c (void)) (
+--   size_t arg1,
+--   size_t arg2
+-- )
+-- {
+--   return &my_memalign;
+-- }
+-- /* get_my_calloc_ptr */
+-- __attribute__ ((const))
+-- void *(*hs_bindgen_test_fun_attributes_733646ca96f39979 (void)) (
+--   size_t arg1,
+--   size_t arg2
+-- )
+-- {
+--   return &my_calloc;
+-- }
+-- /* get_my_realloc_ptr */
+-- __attribute__ ((const))
+-- void *(*hs_bindgen_test_fun_attributes_94e8271f186110fd (void)) (
+--   void *arg1,
+--   size_t arg2
+-- )
+-- {
+--   return &my_realloc;
+-- }
+-- /* get_my_alloc1_ptr */
+-- __attribute__ ((const))
+-- void *(*hs_bindgen_test_fun_attributes_48d9862d70f58e70 (void)) (
+--   size_t arg1
+-- )
+-- {
+--   return &my_alloc1;
+-- }
+-- /* get_my_alloc2_ptr */
+-- __attribute__ ((const))
+-- void *(*hs_bindgen_test_fun_attributes_17a11fd10dc57357 (void)) (
+--   size_t arg1
+-- )
+-- {
+--   return &my_alloc2;
+-- }
+-- /* get_square_ptr */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_test_fun_attributes_c41111f40a04cdc9 (void)) (
+--   signed int arg1
+-- )
+-- {
+--   return &square;
+-- }
+-- /* get_old_fn_deprecated_ptr */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_test_fun_attributes_17f68fdc3f464b20 (void)) (void)
+-- {
+--   return &old_fn_deprecated;
+-- }
+-- /* get_my_dgettext_ptr */
+-- __attribute__ ((const))
+-- char *(*hs_bindgen_test_fun_attributes_a0be4f488601c252 (void)) (
+--   char *arg1,
+--   char const *arg2
+-- )
+-- {
+--   return &my_dgettext;
+-- }
+-- /* get_fdopen_ptr */
+-- __attribute__ ((const))
+-- FILE *(*hs_bindgen_test_fun_attributes_2b987c3b5c01a326 (void)) (
+--   signed int arg1,
+--   char const *arg2
+-- )
+-- {
+--   return &fdopen;
+-- }
+-- /* get_f2_ptr */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_test_fun_attributes_490ca7e8c8282a69 (void)) (void)
+-- {
+--   return &f2;
+-- }
+-- /* get_my_memcpy_ptr */
+-- __attribute__ ((const))
+-- void *(*hs_bindgen_test_fun_attributes_e2e8b5d5ac435de8 (void)) (
+--   void *arg1,
+--   void const *arg2,
+--   size_t arg3
+-- )
+-- {
+--   return &my_memcpy;
+-- }
+-- /* get_fatal_ptr */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_test_fun_attributes_ea0bb781f9eca7f5 (void)) (void)
+-- {
+--   return &fatal;
+-- }
+-- /* get_hash_ptr */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_test_fun_attributes_4de9606eb9c5dd01 (void)) (
+--   char *arg1
+-- )
+-- {
+--   return &hash;
+-- }
+-- /* get_mymalloc_ptr */
+-- __attribute__ ((const))
+-- void *(*hs_bindgen_test_fun_attributes_4ce141c884649d49 (void)) (
+--   size_t arg1
+-- )
+-- {
+--   return &mymalloc;
+-- }
+-- /* get_foobar_ptr */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_test_fun_attributes_5c243ced544ab0aa (void)) (void)
+-- {
+--   return &foobar;
+-- }
+-- /* get_core2_func_ptr */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_test_fun_attributes_14ef55245a14f816 (void)) (void)
+-- {
+--   return &core2_func;
+-- }
+-- /* get_sse3_func_ptr */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_test_fun_attributes_72956748bb6eee67 (void)) (void)
+-- {
+--   return &sse3_func;
+-- }
+-- /* get_f3_ptr */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_test_fun_attributes_38506a9ac5626bf2 (void)) (void)
+-- {
+--   return &f3;
+-- }
+-- /* get_fn_ptr */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_test_fun_attributes_5929da82079150d1 (void)) (void)
+-- {
+--   return &fn;
+-- }
+-- /* get_y_ptr */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_test_fun_attributes_7bcb4a1873e6ece6 (void)) (void)
+-- {
+--   return &y;
+-- }
+-- /* get_x1_ptr */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_test_fun_attributes_11098262b345351a (void)) (void)
+-- {
+--   return &x1;
+-- }
+-- /* get_x2_ptr */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_test_fun_attributes_0d19f83087f278f9 (void)) (void)
+-- {
+--   return &x2;
+-- }
+-- /* get_i_ptr */
+-- __attribute__ ((const))
+-- signed int *hs_bindgen_test_fun_attributes_cdc30ae5fb72cd6e (void)
+-- {
+--   return &i;
+-- }
 {-| Attributes on functions
 
   Examples from https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html

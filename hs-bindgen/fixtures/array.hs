@@ -1192,8 +1192,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_5d1be223fd040c3b (signed int arg1, signed int *arg2) { return fun_1(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_array_5d1be223fd040c3b (\n",
+              "  signed int arg1,\n",
+              "  signed int *arg2\n",
+              ")\n",
+              "{\n",
+              "  return fun_1(arg1, arg2);\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -1263,8 +1270,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_cabe35537b18e986 (signed int *arg1) { return fun_2(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_array_cabe35537b18e986 (\n",
+              "  signed int *arg1\n",
+              ")\n",
+              "{\n",
+              "  return fun_2(arg1);\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -1333,8 +1346,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_4cdbf10236e78984 (signed int *arg1) { return fun_3(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_array_4cdbf10236e78984 (\n",
+              "  signed int *arg1\n",
+              ")\n",
+              "{\n",
+              "  return fun_3(arg1);\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -1396,8 +1415,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_e356c5ddb2608063 (signed int *arg1) { return fun_4(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_array_e356c5ddb2608063 (\n",
+              "  signed int *arg1\n",
+              ")\n",
+              "{\n",
+              "  return fun_4(arg1);\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -1466,8 +1491,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_f5ccf2c8d2e60be5 (signed int (*arg1)[3]) { return fun_5(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_array_f5ccf2c8d2e60be5 (\n",
+              "  signed int (*arg1)[3]\n",
+              ")\n",
+              "{\n",
+              "  return fun_5(arg1);\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -1534,8 +1565,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_2b3a983697999524 (signed int (*arg1)[3]) { return fun_6(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_array_2b3a983697999524 (\n",
+              "  signed int (*arg1)[3]\n",
+              ")\n",
+              "{\n",
+              "  return fun_6(arg1);\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -1608,8 +1645,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_72e9371a1b8b8907 (signed int (*arg1)[3]) { return fun_7(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_array_72e9371a1b8b8907 (\n",
+              "  signed int (*arg1)[3]\n",
+              ")\n",
+              "{\n",
+              "  return fun_7(arg1);\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -1675,8 +1718,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_62ad87463d9a75de (signed int (*arg1)[3]) { return fun_8(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_array_62ad87463d9a75de (\n",
+              "  signed int (*arg1)[3]\n",
+              ")\n",
+              "{\n",
+              "  return fun_8(arg1);\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -1749,8 +1798,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_2280ecc4c152a73f (triplet *arg1) { return isSolved(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_array_2280ecc4c152a73f (\n",
+              "  triplet *arg1\n",
+              ")\n",
+              "{\n",
+              "  return isSolved(arg1);\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -1836,8 +1891,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_f1d120f83dc61db5 (signed int arg1, signed int *arg2, signed int const *arg3) { return fun_1_const(arg1, arg2, arg3); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_array_f1d120f83dc61db5 (\n",
+              "  signed int arg1,\n",
+              "  signed int *arg2,\n",
+              "  signed int const *arg3\n",
+              ")\n",
+              "{\n",
+              "  return fun_1_const(arg1, arg2, arg3);\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -2017,8 +2080,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_f15760e6f3596189 (signed int *arg1, signed int *arg2) { return fun_2_const(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_array_f15760e6f3596189 (\n",
+              "  signed int *arg1,\n",
+              "  signed int *arg2\n",
+              ")\n",
+              "{\n",
+              "  return fun_2_const(arg1, arg2);\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -2200,8 +2270,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_0ad99f041fc4f5ca (signed int *arg1, signed int const *arg2) { return fun_3_const(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_array_0ad99f041fc4f5ca (\n",
+              "  signed int *arg1,\n",
+              "  signed int const *arg2\n",
+              ")\n",
+              "{\n",
+              "  return fun_3_const(arg1, arg2);\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -2350,8 +2427,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_d61f2b8777e6ca19 (signed int *arg1, signed int *arg2) { return fun_4_const(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_array_d61f2b8777e6ca19 (\n",
+              "  signed int *arg1,\n",
+              "  signed int *arg2\n",
+              ")\n",
+              "{\n",
+              "  return fun_4_const(arg1, arg2);\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -2527,8 +2611,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_9e1f66e6a0369c45 (signed int (*arg1)[3], signed int const (*arg2)[3]) { return fun_5_const(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_array_9e1f66e6a0369c45 (\n",
+              "  signed int (*arg1)[3],\n",
+              "  signed int const (*arg2)[3]\n",
+              ")\n",
+              "{\n",
+              "  return fun_5_const(arg1, arg2);\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -2702,8 +2793,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_5b4bd3c6cee83e61 (signed int (*arg1)[3], signed int (*arg2)[3]) { return fun_6_const(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_array_5b4bd3c6cee83e61 (\n",
+              "  signed int (*arg1)[3],\n",
+              "  signed int (*arg2)[3]\n",
+              ")\n",
+              "{\n",
+              "  return fun_6_const(arg1, arg2);\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -2897,8 +2995,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_b551069ce9e1f12e (signed int (*arg1)[3], signed int const (*arg2)[3]) { return fun_7_const(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_array_b551069ce9e1f12e (\n",
+              "  signed int (*arg1)[3],\n",
+              "  signed int const (*arg2)[3]\n",
+              ")\n",
+              "{\n",
+              "  return fun_7_const(arg1, arg2);\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -3067,8 +3172,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_4ac495707a95aa13 (signed int (*arg1)[3], signed int (*arg2)[3]) { return fun_8_const(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_array_4ac495707a95aa13 (\n",
+              "  signed int (*arg1)[3],\n",
+              "  signed int (*arg2)[3]\n",
+              ")\n",
+              "{\n",
+              "  return fun_8_const(arg1, arg2);\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -3262,8 +3374,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_1bdcfcd7aca9a2f6 (triplet *arg1, triplet *arg2) { return isSolved_const(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_array_1bdcfcd7aca9a2f6 (\n",
+              "  triplet *arg1,\n",
+              "  triplet *arg2\n",
+              ")\n",
+              "{\n",
+              "  return isSolved_const(arg1, arg2);\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -3469,7 +3588,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int (*hs_bindgen_test_array_d4c729a69c884fd4 (void))[3] { return fun_9(); }",
+          concat
+            [
+              "signed int (*hs_bindgen_test_array_d4c729a69c884fd4 (void))[3]\n",
+              "{\n",
+              "  return fun_9();\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -3519,8 +3643,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "triplet *hs_bindgen_test_array_bb92dfded907271e (void) { return fun_10(); }",
+          capiWrapperDefinition = concat
+            [
+              "triplet *hs_bindgen_test_array_bb92dfded907271e (void)\n",
+              "{\n",
+              "  return fun_10();\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -3574,8 +3702,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int (*hs_bindgen_test_array_489aaaa59e992ddf (void))[] { return fun_11(); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int (*hs_bindgen_test_array_489aaaa59e992ddf (void))[]\n",
+              "{\n",
+              "  return fun_11();\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -3624,8 +3756,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "list *hs_bindgen_test_array_ee94c35f987d6c50 (void) { return fun_12(); }",
+          capiWrapperDefinition = concat
+            [
+              "list *hs_bindgen_test_array_ee94c35f987d6c50 (void)\n",
+              "{\n",
+              "  return fun_12();\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -3681,7 +3817,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int (*hs_bindgen_test_array_ca2c7b60ce85a964 (void))[4][3] { return fun_13(); }",
+          concat
+            [
+              "signed int (*hs_bindgen_test_array_ca2c7b60ce85a964 (void))[4][3]\n",
+              "{\n",
+              "  return fun_13();\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -3733,8 +3874,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "matrix *hs_bindgen_test_array_ab2c533efdae8e41 (void) { return fun_14(); }",
+          capiWrapperDefinition = concat
+            [
+              "matrix *hs_bindgen_test_array_ab2c533efdae8e41 (void)\n",
+              "{\n",
+              "  return fun_14();\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -3793,7 +3938,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int (*hs_bindgen_test_array_019bdeb5db79cee1 (void))[][3] { return fun_15(); }",
+          concat
+            [
+              "signed int (*hs_bindgen_test_array_019bdeb5db79cee1 (void))[][3]\n",
+              "{\n",
+              "  return fun_15();\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -3844,8 +3994,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "tripletlist *hs_bindgen_test_array_ca0e7c51654fef12 (void) { return fun_16(); }",
+          capiWrapperDefinition = concat
+            [
+              "tripletlist *hs_bindgen_test_array_ca0e7c51654fef12 (void)\n",
+              "{\n",
+              "  return fun_16();\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -3902,8 +4056,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "sudoku *hs_bindgen_test_array_f6b66497ee1685b0 (void) { return solve(); }",
+          capiWrapperDefinition = concat
+            [
+              "sudoku *hs_bindgen_test_array_f6b66497ee1685b0 (void)\n",
+              "{\n",
+              "  return solve();\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -3986,8 +4144,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_38d1e706888c6509 (signed int arg1, signed int *arg2) { return fun_1(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_array_38d1e706888c6509 (\n",
+              "  signed int arg1,\n",
+              "  signed int *arg2\n",
+              ")\n",
+              "{\n",
+              "  return fun_1(arg1, arg2);\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -4057,8 +4222,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_39ee469929b167e2 (signed int *arg1) { return fun_2(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_array_39ee469929b167e2 (\n",
+              "  signed int *arg1\n",
+              ")\n",
+              "{\n",
+              "  return fun_2(arg1);\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -4127,8 +4298,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_2aa49d73d177f65b (signed int *arg1) { return fun_3(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_array_2aa49d73d177f65b (\n",
+              "  signed int *arg1\n",
+              ")\n",
+              "{\n",
+              "  return fun_3(arg1);\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -4190,8 +4367,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_c3b2941d43616704 (signed int *arg1) { return fun_4(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_array_c3b2941d43616704 (\n",
+              "  signed int *arg1\n",
+              ")\n",
+              "{\n",
+              "  return fun_4(arg1);\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -4260,8 +4443,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_69ec2f59c3c40de4 (signed int (*arg1)[3]) { return fun_5(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_array_69ec2f59c3c40de4 (\n",
+              "  signed int (*arg1)[3]\n",
+              ")\n",
+              "{\n",
+              "  return fun_5(arg1);\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -4328,8 +4517,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_a4600c666e12a07a (signed int (*arg1)[3]) { return fun_6(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_array_a4600c666e12a07a (\n",
+              "  signed int (*arg1)[3]\n",
+              ")\n",
+              "{\n",
+              "  return fun_6(arg1);\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -4402,8 +4597,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_b903c9d5ebf4f21f (signed int (*arg1)[3]) { return fun_7(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_array_b903c9d5ebf4f21f (\n",
+              "  signed int (*arg1)[3]\n",
+              ")\n",
+              "{\n",
+              "  return fun_7(arg1);\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -4469,8 +4670,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_88af789e5a205473 (signed int (*arg1)[3]) { return fun_8(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_array_88af789e5a205473 (\n",
+              "  signed int (*arg1)[3]\n",
+              ")\n",
+              "{\n",
+              "  return fun_8(arg1);\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -4543,8 +4750,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_617bd1cd5514ea45 (triplet *arg1) { return isSolved(arg1); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_array_617bd1cd5514ea45 (\n",
+              "  triplet *arg1\n",
+              ")\n",
+              "{\n",
+              "  return isSolved(arg1);\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -4630,8 +4843,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_e4b00d6936127c9c (signed int arg1, signed int *arg2, signed int const *arg3) { return fun_1_const(arg1, arg2, arg3); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_array_e4b00d6936127c9c (\n",
+              "  signed int arg1,\n",
+              "  signed int *arg2,\n",
+              "  signed int const *arg3\n",
+              ")\n",
+              "{\n",
+              "  return fun_1_const(arg1, arg2, arg3);\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -4811,8 +5032,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_5fe603fc3c41a066 (signed int *arg1, signed int *arg2) { return fun_2_const(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_array_5fe603fc3c41a066 (\n",
+              "  signed int *arg1,\n",
+              "  signed int *arg2\n",
+              ")\n",
+              "{\n",
+              "  return fun_2_const(arg1, arg2);\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -4994,8 +5222,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_d7b0d574cbe650f8 (signed int *arg1, signed int const *arg2) { return fun_3_const(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_array_d7b0d574cbe650f8 (\n",
+              "  signed int *arg1,\n",
+              "  signed int const *arg2\n",
+              ")\n",
+              "{\n",
+              "  return fun_3_const(arg1, arg2);\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -5144,8 +5379,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_a7499ca2f044e9ce (signed int *arg1, signed int *arg2) { return fun_4_const(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_array_a7499ca2f044e9ce (\n",
+              "  signed int *arg1,\n",
+              "  signed int *arg2\n",
+              ")\n",
+              "{\n",
+              "  return fun_4_const(arg1, arg2);\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -5321,8 +5563,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_24e12fc0372c2467 (signed int (*arg1)[3], signed int const (*arg2)[3]) { return fun_5_const(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_array_24e12fc0372c2467 (\n",
+              "  signed int (*arg1)[3],\n",
+              "  signed int const (*arg2)[3]\n",
+              ")\n",
+              "{\n",
+              "  return fun_5_const(arg1, arg2);\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -5496,8 +5745,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_870ee33752c078df (signed int (*arg1)[3], signed int (*arg2)[3]) { return fun_6_const(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_array_870ee33752c078df (\n",
+              "  signed int (*arg1)[3],\n",
+              "  signed int (*arg2)[3]\n",
+              ")\n",
+              "{\n",
+              "  return fun_6_const(arg1, arg2);\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -5691,8 +5947,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_18aa0941d0646906 (signed int (*arg1)[3], signed int const (*arg2)[3]) { return fun_7_const(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_array_18aa0941d0646906 (\n",
+              "  signed int (*arg1)[3],\n",
+              "  signed int const (*arg2)[3]\n",
+              ")\n",
+              "{\n",
+              "  return fun_7_const(arg1, arg2);\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -5861,8 +6124,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_94591138e958ffe1 (signed int (*arg1)[3], signed int (*arg2)[3]) { return fun_8_const(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_array_94591138e958ffe1 (\n",
+              "  signed int (*arg1)[3],\n",
+              "  signed int (*arg2)[3]\n",
+              ")\n",
+              "{\n",
+              "  return fun_8_const(arg1, arg2);\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -6056,8 +6326,15 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int hs_bindgen_test_array_ec99b7cbbed57b25 (triplet *arg1, triplet *arg2) { return isSolved_const(arg1, arg2); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int hs_bindgen_test_array_ec99b7cbbed57b25 (\n",
+              "  triplet *arg1,\n",
+              "  triplet *arg2\n",
+              ")\n",
+              "{\n",
+              "  return isSolved_const(arg1, arg2);\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -6263,7 +6540,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int (*hs_bindgen_test_array_49d4508b43473bd2 (void))[3] { return fun_9(); }",
+          concat
+            [
+              "signed int (*hs_bindgen_test_array_49d4508b43473bd2 (void))[3]\n",
+              "{\n",
+              "  return fun_9();\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -6313,8 +6595,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "triplet *hs_bindgen_test_array_d1763638472ee039 (void) { return fun_10(); }",
+          capiWrapperDefinition = concat
+            [
+              "triplet *hs_bindgen_test_array_d1763638472ee039 (void)\n",
+              "{\n",
+              "  return fun_10();\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -6368,8 +6654,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "signed int (*hs_bindgen_test_array_293d2be6d282321b (void))[] { return fun_11(); }",
+          capiWrapperDefinition = concat
+            [
+              "signed int (*hs_bindgen_test_array_293d2be6d282321b (void))[]\n",
+              "{\n",
+              "  return fun_11();\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -6418,8 +6708,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "list *hs_bindgen_test_array_fe193d0e0c330960 (void) { return fun_12(); }",
+          capiWrapperDefinition = concat
+            [
+              "list *hs_bindgen_test_array_fe193d0e0c330960 (void)\n",
+              "{\n",
+              "  return fun_12();\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -6475,7 +6769,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int (*hs_bindgen_test_array_f3df0067620bd691 (void))[4][3] { return fun_13(); }",
+          concat
+            [
+              "signed int (*hs_bindgen_test_array_f3df0067620bd691 (void))[4][3]\n",
+              "{\n",
+              "  return fun_13();\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -6527,8 +6826,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "matrix *hs_bindgen_test_array_9d75a740147af339 (void) { return fun_14(); }",
+          capiWrapperDefinition = concat
+            [
+              "matrix *hs_bindgen_test_array_9d75a740147af339 (void)\n",
+              "{\n",
+              "  return fun_14();\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -6587,7 +6890,12 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "signed int (*hs_bindgen_test_array_d49e5e7f4ad3c830 (void))[][3] { return fun_15(); }",
+          concat
+            [
+              "signed int (*hs_bindgen_test_array_d49e5e7f4ad3c830 (void))[][3]\n",
+              "{\n",
+              "  return fun_15();\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -6638,8 +6946,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "tripletlist *hs_bindgen_test_array_900726612f7787e4 (void) { return fun_16(); }",
+          capiWrapperDefinition = concat
+            [
+              "tripletlist *hs_bindgen_test_array_900726612f7787e4 (void)\n",
+              "{\n",
+              "  return fun_16();\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -6696,8 +7008,12 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "sudoku *hs_bindgen_test_array_ede6133d23ed3248 (void) { return solve(); }",
+          capiWrapperDefinition = concat
+            [
+              "sudoku *hs_bindgen_test_array_ede6133d23ed3248 (void)\n",
+              "{\n",
+              "  return solve();\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Function
         Function {
@@ -6765,8 +7081,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_fun_1_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_3ced2f3b2af806f8 (void)) (signed int arg1, signed int arg2[3]) { return &fun_1; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_fun_1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_array_3ced2f3b2af806f8 (void)) (\n",
+              "  signed int arg1,\n",
+              "  signed int arg2[3]\n",
+              ")\n",
+              "{\n",
+              "  return &fun_1;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeFun
@@ -6805,8 +7130,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_fun_2_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_84966994a8d7df93 (void)) (triplet arg1) { return &fun_2; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_fun_2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_array_84966994a8d7df93 (void)) (\n",
+              "  triplet arg1\n",
+              ")\n",
+              "{\n",
+              "  return &fun_2;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeFun
@@ -6849,8 +7182,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_fun_3_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_3e6c940dbd7e5492 (void)) (signed int arg1[]) { return &fun_3; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_fun_3_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_array_3e6c940dbd7e5492 (void)) (\n",
+              "  signed int arg1[]\n",
+              ")\n",
+              "{\n",
+              "  return &fun_3;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeFun
@@ -6884,8 +7225,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_fun_4_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_d9f87d3e541b15e5 (void)) (list arg1) { return &fun_4; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_fun_4_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_array_d9f87d3e541b15e5 (void)) (\n",
+              "  list arg1\n",
+              ")\n",
+              "{\n",
+              "  return &fun_4;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeFun
@@ -6929,8 +7278,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_fun_5_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_cd41e41992d89300 (void)) (signed int arg1[4][3]) { return &fun_5; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_fun_5_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_array_cd41e41992d89300 (void)) (\n",
+              "  signed int arg1[4][3]\n",
+              ")\n",
+              "{\n",
+              "  return &fun_5;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeFun
@@ -6967,8 +7324,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_fun_6_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_db0e2655437ab8bb (void)) (matrix arg1) { return &fun_6; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_fun_6_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_array_db0e2655437ab8bb (void)) (\n",
+              "  matrix arg1\n",
+              ")\n",
+              "{\n",
+              "  return &fun_6;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeFun
@@ -7015,8 +7380,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_fun_7_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_9ec02aa16b020aa0 (void)) (signed int arg1[][3]) { return &fun_7; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_fun_7_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_array_9ec02aa16b020aa0 (void)) (\n",
+              "  signed int arg1[][3]\n",
+              ")\n",
+              "{\n",
+              "  return &fun_7;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeFun
@@ -7054,8 +7427,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_fun_8_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_a41b8d1332b69b95 (void)) (tripletlist arg1) { return &fun_8; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_fun_8_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_array_a41b8d1332b69b95 (void)) (\n",
+              "  tripletlist arg1\n",
+              ")\n",
+              "{\n",
+              "  return &fun_8;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeFun
@@ -7099,8 +7480,16 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_isSolved_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_bdf2a6a8a3dd5b04 (void)) (sudoku arg1) { return &isSolved; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_isSolved_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_array_bdf2a6a8a3dd5b04 (void)) (\n",
+              "  sudoku arg1\n",
+              ")\n",
+              "{\n",
+              "  return &isSolved;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeFun
@@ -7158,8 +7547,18 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_fun_1_const_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_a3de5f7e233ad0e1 (void)) (signed int arg1, signed int arg2[3], signed int const arg3[3]) { return &fun_1_const; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_fun_1_const_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_array_a3de5f7e233ad0e1 (void)) (\n",
+              "  signed int arg1,\n",
+              "  signed int arg2[3],\n",
+              "  signed int const arg3[3]\n",
+              ")\n",
+              "{\n",
+              "  return &fun_1_const;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeFun
@@ -7209,8 +7608,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_fun_2_const_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_3c09bbba7534ca1d (void)) (triplet arg1, triplet const arg2) { return &fun_2_const; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_fun_2_const_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_array_3c09bbba7534ca1d (void)) (\n",
+              "  triplet arg1,\n",
+              "  triplet const arg2\n",
+              ")\n",
+              "{\n",
+              "  return &fun_2_const;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeFun
@@ -7270,8 +7678,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_fun_3_const_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_0e53ed28ec1ca276 (void)) (signed int arg1[], signed int const arg2[]) { return &fun_3_const; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_fun_3_const_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_array_0e53ed28ec1ca276 (void)) (\n",
+              "  signed int arg1[],\n",
+              "  signed int const arg2[]\n",
+              ")\n",
+              "{\n",
+              "  return &fun_3_const;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeFun
@@ -7313,8 +7730,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_fun_4_const_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_07d860d5e74c415b (void)) (list arg1, list const arg2) { return &fun_4_const; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_fun_4_const_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_array_07d860d5e74c415b (void)) (\n",
+              "  list arg1,\n",
+              "  list const arg2\n",
+              ")\n",
+              "{\n",
+              "  return &fun_4_const;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeFun
@@ -7376,8 +7802,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_fun_5_const_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_3c0a139c24d7202a (void)) (signed int arg1[4][3], signed int const arg2[4][3]) { return &fun_5_const; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_fun_5_const_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_array_3c0a139c24d7202a (void)) (\n",
+              "  signed int arg1[4][3],\n",
+              "  signed int const arg2[4][3]\n",
+              ")\n",
+              "{\n",
+              "  return &fun_5_const;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeFun
@@ -7427,8 +7862,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_fun_6_const_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_62d236581cc18366 (void)) (matrix arg1, matrix const arg2) { return &fun_6_const; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_fun_6_const_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_array_62d236581cc18366 (void)) (\n",
+              "  matrix arg1,\n",
+              "  matrix const arg2\n",
+              ")\n",
+              "{\n",
+              "  return &fun_6_const;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeFun
@@ -7496,8 +7940,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_fun_7_const_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_b4bf67c3cec12e54 (void)) (signed int arg1[][3], signed int const arg2[][3]) { return &fun_7_const; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_fun_7_const_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_array_b4bf67c3cec12e54 (void)) (\n",
+              "  signed int arg1[][3],\n",
+              "  signed int const arg2[][3]\n",
+              ")\n",
+              "{\n",
+              "  return &fun_7_const;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeFun
@@ -7549,8 +8002,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_fun_8_const_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_99dd6a6017eb0eec (void)) (tripletlist arg1, tripletlist const arg2) { return &fun_8_const; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_fun_8_const_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_array_99dd6a6017eb0eec (void)) (\n",
+              "  tripletlist arg1,\n",
+              "  tripletlist const arg2\n",
+              ")\n",
+              "{\n",
+              "  return &fun_8_const;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeFun
@@ -7612,8 +8074,17 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_isSolved_const_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_6deec046c95e4e0d (void)) (sudoku arg1, sudoku const arg2) { return &isSolved_const; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_isSolved_const_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_array_6deec046c95e4e0d (void)) (\n",
+              "  sudoku arg1,\n",
+              "  sudoku const arg2\n",
+              ")\n",
+              "{\n",
+              "  return &isSolved_const;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeFun
@@ -7687,7 +8158,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_fun_9_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_array_76f53f330102e743 (void)) (void))[3] { return &fun_9; } ",
+          concat
+            [
+              "/* get_fun_9_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*(*hs_bindgen_test_array_76f53f330102e743 (void)) (void))[3]\n",
+              "{\n",
+              "  return &fun_9;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeFun
@@ -7725,7 +8203,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_fun_10_ptr */ __attribute__ ((const)) triplet *(*hs_bindgen_test_array_abcc94f01de77b25 (void)) (void) { return &fun_10; } ",
+          concat
+            [
+              "/* get_fun_10_ptr */\n",
+              "__attribute__ ((const))\n",
+              "triplet *(*hs_bindgen_test_array_abcc94f01de77b25 (void)) (void)\n",
+              "{\n",
+              "  return &fun_10;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeFun
@@ -7767,7 +8252,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_fun_11_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_array_6661b46e4a751a85 (void)) (void))[] { return &fun_11; } ",
+          concat
+            [
+              "/* get_fun_11_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*(*hs_bindgen_test_array_6661b46e4a751a85 (void)) (void))[]\n",
+              "{\n",
+              "  return &fun_11;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeFun
@@ -7803,8 +8295,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_fun_12_ptr */ __attribute__ ((const)) list *(*hs_bindgen_test_array_9c80a9e3300aad15 (void)) (void) { return &fun_12; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_fun_12_ptr */\n",
+              "__attribute__ ((const))\n",
+              "list *(*hs_bindgen_test_array_9c80a9e3300aad15 (void)) (void)\n",
+              "{\n",
+              "  return &fun_12;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeFun
@@ -7847,7 +8345,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_fun_13_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_array_bb741b7e8c029e7e (void)) (void))[4][3] { return &fun_13; } ",
+          concat
+            [
+              "/* get_fun_13_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*(*hs_bindgen_test_array_bb741b7e8c029e7e (void)) (void))[4][3]\n",
+              "{\n",
+              "  return &fun_13;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeFun
@@ -7887,7 +8392,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_fun_14_ptr */ __attribute__ ((const)) matrix *(*hs_bindgen_test_array_75d83252a55a5c64 (void)) (void) { return &fun_14; } ",
+          concat
+            [
+              "/* get_fun_14_ptr */\n",
+              "__attribute__ ((const))\n",
+              "matrix *(*hs_bindgen_test_array_75d83252a55a5c64 (void)) (void)\n",
+              "{\n",
+              "  return &fun_14;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeFun
@@ -7933,7 +8445,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_fun_15_ptr */ __attribute__ ((const)) signed int (*(*hs_bindgen_test_array_069ac2d1873f3210 (void)) (void))[][3] { return &fun_15; } ",
+          concat
+            [
+              "/* get_fun_15_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*(*hs_bindgen_test_array_069ac2d1873f3210 (void)) (void))[][3]\n",
+              "{\n",
+              "  return &fun_15;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeFun
@@ -7972,7 +8491,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_fun_16_ptr */ __attribute__ ((const)) tripletlist *(*hs_bindgen_test_array_314971335aaa6db3 (void)) (void) { return &fun_16; } ",
+          concat
+            [
+              "/* get_fun_16_ptr */\n",
+              "__attribute__ ((const))\n",
+              "tripletlist *(*hs_bindgen_test_array_314971335aaa6db3 (void)) (void)\n",
+              "{\n",
+              "  return &fun_16;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeFun
@@ -8017,7 +8543,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_solve_ptr */ __attribute__ ((const)) sudoku *(*hs_bindgen_test_array_9a62b5848be64bd4 (void)) (void) { return &solve; } ",
+          concat
+            [
+              "/* get_solve_ptr */\n",
+              "__attribute__ ((const))\n",
+              "sudoku *(*hs_bindgen_test_array_9a62b5848be64bd4 (void)) (void)\n",
+              "{\n",
+              "  return &solve;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeFun
@@ -8066,7 +8599,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_arr0_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_a6413f4d2092265d (void))[3] { return &arr0; } ",
+          concat
+            [
+              "/* get_arr0_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_array_a6413f4d2092265d (void))[3]\n",
+              "{\n",
+              "  return &arr0;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeConstArray
@@ -8096,7 +8636,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_arr1_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_1693226264ba4aeb (void))[3] { return &arr1; } ",
+          concat
+            [
+              "/* get_arr1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_array_1693226264ba4aeb (void))[3]\n",
+              "{\n",
+              "  return &arr1;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeConstArray
@@ -8126,7 +8673,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_arr2_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_dafcf99a73b93389 (void))[3] { return &arr2; } ",
+          concat
+            [
+              "/* get_arr2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_array_dafcf99a73b93389 (void))[3]\n",
+              "{\n",
+              "  return &arr2;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeConstArray
@@ -8156,7 +8710,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_arr3_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_ca1016acc3449dee (void))[3] { return &arr3; } ",
+          concat
+            [
+              "/* get_arr3_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_array_ca1016acc3449dee (void))[3]\n",
+              "{\n",
+              "  return &arr3;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeConstArray
@@ -8186,7 +8747,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_arr6_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_1a8c921160bc99a6 (void))[1] { return &arr6; } ",
+          concat
+            [
+              "/* get_arr6_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_array_1a8c921160bc99a6 (void))[1]\n",
+              "{\n",
+              "  return &arr6;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeConstArray
@@ -8214,8 +8782,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_arr7_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_17cf970243739b65 (void))[] { return &arr7; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_arr7_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_array_17cf970243739b65 (void))[]\n",
+              "{\n",
+              "  return &arr7;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeIncompleteArray
@@ -8244,7 +8818,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_arr_1_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_85bc33b188037456 (void))[3] { return &arr_1; } ",
+          concat
+            [
+              "/* get_arr_1_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_array_85bc33b188037456 (void))[3]\n",
+              "{\n",
+              "  return &arr_1;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeConstArray
@@ -8274,8 +8855,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_arr_2_ptr */ __attribute__ ((const)) triplet *hs_bindgen_test_array_87c784150cd3ff65 (void) { return &arr_2; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_arr_2_ptr */\n",
+              "__attribute__ ((const))\n",
+              "triplet *hs_bindgen_test_array_87c784150cd3ff65 (void)\n",
+              "{\n",
+              "  return &arr_2;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeTypedef
@@ -8311,8 +8898,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_arr_3_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_e7b0de7633a7a62a (void))[] { return &arr_3; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_arr_3_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_array_e7b0de7633a7a62a (void))[]\n",
+              "{\n",
+              "  return &arr_3;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeIncompleteArray
@@ -8341,8 +8934,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_arr_4_ptr */ __attribute__ ((const)) list *hs_bindgen_test_array_8fb64bc6c2bd4c73 (void) { return &arr_4; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_arr_4_ptr */\n",
+              "__attribute__ ((const))\n",
+              "list *hs_bindgen_test_array_8fb64bc6c2bd4c73 (void)\n",
+              "{\n",
+              "  return &arr_4;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeTypedef
@@ -8380,7 +8979,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_arr_5_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_7348a94e6adce96e (void))[4][3] { return &arr_5; } ",
+          concat
+            [
+              "/* get_arr_5_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_array_7348a94e6adce96e (void))[4][3]\n",
+              "{\n",
+              "  return &arr_5;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeConstArray
@@ -8414,8 +9020,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_arr_6_ptr */ __attribute__ ((const)) matrix *hs_bindgen_test_array_1308613140bb4b80 (void) { return &arr_6; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_arr_6_ptr */\n",
+              "__attribute__ ((const))\n",
+              "matrix *hs_bindgen_test_array_1308613140bb4b80 (void)\n",
+              "{\n",
+              "  return &arr_6;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeTypedef
@@ -8456,7 +9068,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_arr_7_ptr */ __attribute__ ((const)) signed int (*hs_bindgen_test_array_a060984b378ed676 (void))[][3] { return &arr_7; } ",
+          concat
+            [
+              "/* get_arr_7_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int (*hs_bindgen_test_array_a060984b378ed676 (void))[][3]\n",
+              "{\n",
+              "  return &arr_7;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeIncompleteArray
@@ -8489,8 +9108,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_arr_8_ptr */ __attribute__ ((const)) tripletlist *hs_bindgen_test_array_d82706abb6d8ea04 (void) { return &arr_8; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_arr_8_ptr */\n",
+              "__attribute__ ((const))\n",
+              "tripletlist *hs_bindgen_test_array_d82706abb6d8ea04 (void)\n",
+              "{\n",
+              "  return &arr_8;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeTypedef
@@ -8529,7 +9154,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_arr_1_const_ptr */ __attribute__ ((const)) signed int const (*hs_bindgen_test_array_7376d172f5729493 (void))[3] { return &arr_1_const; } ",
+          concat
+            [
+              "/* get_arr_1_const_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int const (*hs_bindgen_test_array_7376d172f5729493 (void))[3]\n",
+              "{\n",
+              "  return &arr_1_const;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeConstArray
@@ -8565,8 +9197,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_arr_2_const_ptr */ __attribute__ ((const)) triplet const *hs_bindgen_test_array_f03586aa57dfce29 (void) { return &arr_2_const; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_arr_2_const_ptr */\n",
+              "__attribute__ ((const))\n",
+              "triplet const *hs_bindgen_test_array_f03586aa57dfce29 (void)\n",
+              "{\n",
+              "  return &arr_2_const;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeQualified
@@ -8607,7 +9245,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_arr_3_const_ptr */ __attribute__ ((const)) signed int const (*hs_bindgen_test_array_54ffd4ffcd2dad61 (void))[] { return &arr_3_const; } ",
+          concat
+            [
+              "/* get_arr_3_const_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int const (*hs_bindgen_test_array_54ffd4ffcd2dad61 (void))[]\n",
+              "{\n",
+              "  return &arr_3_const;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeIncompleteArray
@@ -8640,8 +9285,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_arr_4_const_ptr */ __attribute__ ((const)) list const *hs_bindgen_test_array_8896c2ff5b9ce9c9 (void) { return &arr_4_const; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_arr_4_const_ptr */\n",
+              "__attribute__ ((const))\n",
+              "list const *hs_bindgen_test_array_8896c2ff5b9ce9c9 (void)\n",
+              "{\n",
+              "  return &arr_4_const;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeQualified
@@ -8681,7 +9332,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_arr_5_const_ptr */ __attribute__ ((const)) signed int const (*hs_bindgen_test_array_46b406e096f6c9c1 (void))[4][3] { return &arr_5_const; } ",
+          concat
+            [
+              "/* get_arr_5_const_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int const (*hs_bindgen_test_array_46b406e096f6c9c1 (void))[4][3]\n",
+              "{\n",
+              "  return &arr_5_const;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeConstArray
@@ -8719,8 +9377,14 @@
       foreignImportCallConv =
       CallConvUserlandCAPI
         UserlandCapiWrapper {
-          capiWrapperDefinition =
-          "/* get_arr_6_const_ptr */ __attribute__ ((const)) matrix const *hs_bindgen_test_array_ceb7f2027865ce12 (void) { return &arr_6_const; } ",
+          capiWrapperDefinition = concat
+            [
+              "/* get_arr_6_const_ptr */\n",
+              "__attribute__ ((const))\n",
+              "matrix const *hs_bindgen_test_array_ceb7f2027865ce12 (void)\n",
+              "{\n",
+              "  return &arr_6_const;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeQualified
@@ -8765,7 +9429,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_arr_7_const_ptr */ __attribute__ ((const)) signed int const (*hs_bindgen_test_array_2b565b2b97acdcb7 (void))[][3] { return &arr_7_const; } ",
+          concat
+            [
+              "/* get_arr_7_const_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int const (*hs_bindgen_test_array_2b565b2b97acdcb7 (void))[][3]\n",
+              "{\n",
+              "  return &arr_7_const;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeIncompleteArray
@@ -8801,7 +9472,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_arr_8_const_ptr */ __attribute__ ((const)) tripletlist const *hs_bindgen_test_array_03e2d9c4ef2ae993 (void) { return &arr_8_const; } ",
+          concat
+            [
+              "/* get_arr_8_const_ptr */\n",
+              "__attribute__ ((const))\n",
+              "tripletlist const *hs_bindgen_test_array_03e2d9c4ef2ae993 (void)\n",
+              "{\n",
+              "  return &arr_8_const;\n",
+              "}"],
           capiWrapperImport = "array.h"},
       foreignImportOrigin = Global
         (TypeQualified

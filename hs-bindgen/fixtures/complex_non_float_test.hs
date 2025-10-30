@@ -16,7 +16,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_global_complex_unsigned_short_ptr */ __attribute__ ((const)) unsigned short _Complex *hs_bindgen_test_complex_non_float_test_1a47f4ebfee55a62 (void) { return &global_complex_unsigned_short; } ",
+          concat
+            [
+              "/* get_global_complex_unsigned_short_ptr */\n",
+              "__attribute__ ((const))\n",
+              "unsigned short _Complex *hs_bindgen_test_complex_non_float_test_1a47f4ebfee55a62 (void)\n",
+              "{\n",
+              "  return &global_complex_unsigned_short;\n",
+              "}"],
           capiWrapperImport =
           "complex_non_float_test.h"},
       foreignImportOrigin = Global
@@ -45,7 +52,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_global_complex_short_ptr */ __attribute__ ((const)) signed short _Complex *hs_bindgen_test_complex_non_float_test_d56d4f7328166c91 (void) { return &global_complex_short; } ",
+          concat
+            [
+              "/* get_global_complex_short_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed short _Complex *hs_bindgen_test_complex_non_float_test_d56d4f7328166c91 (void)\n",
+              "{\n",
+              "  return &global_complex_short;\n",
+              "}"],
           capiWrapperImport =
           "complex_non_float_test.h"},
       foreignImportOrigin = Global
@@ -74,7 +88,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_global_complex_unsigned_int_ptr */ __attribute__ ((const)) unsigned int _Complex *hs_bindgen_test_complex_non_float_test_b596fcc6ded5636c (void) { return &global_complex_unsigned_int; } ",
+          concat
+            [
+              "/* get_global_complex_unsigned_int_ptr */\n",
+              "__attribute__ ((const))\n",
+              "unsigned int _Complex *hs_bindgen_test_complex_non_float_test_b596fcc6ded5636c (void)\n",
+              "{\n",
+              "  return &global_complex_unsigned_int;\n",
+              "}"],
           capiWrapperImport =
           "complex_non_float_test.h"},
       foreignImportOrigin = Global
@@ -103,7 +124,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_global_complex_int_ptr */ __attribute__ ((const)) signed int _Complex *hs_bindgen_test_complex_non_float_test_9f8a73e0d4ba6969 (void) { return &global_complex_int; } ",
+          concat
+            [
+              "/* get_global_complex_int_ptr */\n",
+              "__attribute__ ((const))\n",
+              "signed int _Complex *hs_bindgen_test_complex_non_float_test_9f8a73e0d4ba6969 (void)\n",
+              "{\n",
+              "  return &global_complex_int;\n",
+              "}"],
           capiWrapperImport =
           "complex_non_float_test.h"},
       foreignImportOrigin = Global
@@ -130,7 +158,14 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_global_complex_char_ptr */ __attribute__ ((const)) char _Complex *hs_bindgen_test_complex_non_float_test_4727b3aff4118d69 (void) { return &global_complex_char; } ",
+          concat
+            [
+              "/* get_global_complex_char_ptr */\n",
+              "__attribute__ ((const))\n",
+              "char _Complex *hs_bindgen_test_complex_non_float_test_4727b3aff4118d69 (void)\n",
+              "{\n",
+              "  return &global_complex_char;\n",
+              "}"],
           capiWrapperImport =
           "complex_non_float_test.h"},
       foreignImportOrigin = Global

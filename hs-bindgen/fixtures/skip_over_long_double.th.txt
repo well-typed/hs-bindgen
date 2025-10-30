@@ -1,8 +1,25 @@
 -- addDependentFile examples/golden/skip_over_long_double.h
 -- #include <skip_over_long_double.h>
--- void hs_bindgen_test_skip_over_long_double_fb32cb593bc1f7b8 (signed int arg1) { fun2(arg1); }
--- void hs_bindgen_test_skip_over_long_double_5ebf8088e71802cc (signed int arg1) { fun2(arg1); }
--- /* get_fun2_ptr */ __attribute__ ((const)) void (*hs_bindgen_test_skip_over_long_double_d1bf59c1516f6bfa (void)) (signed int arg1) { return &fun2; } 
+-- void hs_bindgen_test_skip_over_long_double_fb32cb593bc1f7b8 (
+--   signed int arg1
+-- )
+-- {
+--   fun2(arg1);
+-- }
+-- void hs_bindgen_test_skip_over_long_double_5ebf8088e71802cc (
+--   signed int arg1
+-- )
+-- {
+--   fun2(arg1);
+-- }
+-- /* get_fun2_ptr */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_test_skip_over_long_double_d1bf59c1516f6bfa (void)) (
+--   signed int arg1
+-- )
+-- {
+--   return &fun2;
+-- }
 {-| __C declaration:__ @struct2@
 
     __defined at:__ @skip_over_long_double.h:13:8@

@@ -4,10 +4,38 @@
 -- addDependentFile musl-include/x86_64/stdbool.h
 -- addDependentFile examples/golden/distilled_lib_1.h
 -- #include <distilled_lib_1.h>
--- int32_t hs_bindgen_test_distilled_lib_1_29c178c31334688f (a_type_t *arg1, uint32_t arg2, uint8_t *arg3) { return some_fun(arg1, arg2, arg3); }
--- int32_t hs_bindgen_test_distilled_lib_1_efd27157959bd4b3 (a_type_t *arg1, uint32_t arg2, uint8_t *arg3) { return some_fun(arg1, arg2, arg3); }
--- /* get_some_fun_ptr */ __attribute__ ((const)) int32_t (*hs_bindgen_test_distilled_lib_1_969c7d0305e0614c (void)) (a_type_t *arg1, uint32_t arg2, uint8_t arg3[]) { return &some_fun; } 
--- /* get_v_ptr */ __attribute__ ((const)) var_t *hs_bindgen_test_distilled_lib_1_b9e65c51f976c6f6 (void) { return &v; } 
+-- int32_t hs_bindgen_test_distilled_lib_1_29c178c31334688f (
+--   a_type_t *arg1,
+--   uint32_t arg2,
+--   uint8_t *arg3
+-- )
+-- {
+--   return some_fun(arg1, arg2, arg3);
+-- }
+-- int32_t hs_bindgen_test_distilled_lib_1_efd27157959bd4b3 (
+--   a_type_t *arg1,
+--   uint32_t arg2,
+--   uint8_t *arg3
+-- )
+-- {
+--   return some_fun(arg1, arg2, arg3);
+-- }
+-- /* get_some_fun_ptr */
+-- __attribute__ ((const))
+-- int32_t (*hs_bindgen_test_distilled_lib_1_969c7d0305e0614c (void)) (
+--   a_type_t *arg1,
+--   uint32_t arg2,
+--   uint8_t arg3[]
+-- )
+-- {
+--   return &some_fun;
+-- }
+-- /* get_v_ptr */
+-- __attribute__ ((const))
+-- var_t *hs_bindgen_test_distilled_lib_1_b9e65c51f976c6f6 (void)
+-- {
+--   return &v;
+-- }
 {-| __defined at:__ @distilled_lib_1.h:9:9@
 
     __exported by:__ @distilled_lib_1.h@

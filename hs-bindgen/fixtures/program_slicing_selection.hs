@@ -2809,7 +2809,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "enum FileOperationStatus hs_bindgen_test_program_slicing_selection_13b0ed81415a625a (FILE *arg1, void *arg2, size_t arg3) { return read_file_chunk(arg1, arg2, arg3); }",
+          concat
+            [
+              "enum FileOperationStatus hs_bindgen_test_program_slicing_selection_13b0ed81415a625a (\n",
+              "  FILE *arg1,\n",
+              "  void *arg2,\n",
+              "  size_t arg3\n",
+              ")\n",
+              "{\n",
+              "  return read_file_chunk(arg1, arg2, arg3);\n",
+              "}"],
           capiWrapperImport =
           "program_slicing_selection.h"},
       foreignImportOrigin = Function
@@ -3176,7 +3185,16 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "enum FileOperationStatus hs_bindgen_test_program_slicing_selection_3ade0bc94fb1ed45 (FILE *arg1, void *arg2, size_t arg3) { return read_file_chunk(arg1, arg2, arg3); }",
+          concat
+            [
+              "enum FileOperationStatus hs_bindgen_test_program_slicing_selection_3ade0bc94fb1ed45 (\n",
+              "  FILE *arg1,\n",
+              "  void *arg2,\n",
+              "  size_t arg3\n",
+              ")\n",
+              "{\n",
+              "  return read_file_chunk(arg1, arg2, arg3);\n",
+              "}"],
           capiWrapperImport =
           "program_slicing_selection.h"},
       foreignImportOrigin = Function
@@ -3515,7 +3533,18 @@
       CallConvUserlandCAPI
         UserlandCapiWrapper {
           capiWrapperDefinition =
-          "/* get_read_file_chunk_ptr */ __attribute__ ((const)) enum FileOperationStatus (*hs_bindgen_test_program_slicing_selection_cc45351e6b02b3b4 (void)) (FILE *arg1, void *arg2, size_t arg3) { return &read_file_chunk; } ",
+          concat
+            [
+              "/* get_read_file_chunk_ptr */\n",
+              "__attribute__ ((const))\n",
+              "enum FileOperationStatus (*hs_bindgen_test_program_slicing_selection_cc45351e6b02b3b4 (void)) (\n",
+              "  FILE *arg1,\n",
+              "  void *arg2,\n",
+              "  size_t arg3\n",
+              ")\n",
+              "{\n",
+              "  return &read_file_chunk;\n",
+              "}"],
           capiWrapperImport =
           "program_slicing_selection.h"},
       foreignImportOrigin = Global
