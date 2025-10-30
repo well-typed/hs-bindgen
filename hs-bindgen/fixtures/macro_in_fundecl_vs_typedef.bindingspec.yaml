@@ -1,10 +1,10 @@
 version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
+hsmodule: Example
 types:
 - headers: macro_in_fundecl_vs_typedef.h
   cname: MC
-  module: Example
   hsname: MC
   instances:
   - Bits
@@ -22,7 +22,6 @@ types:
   - Storable
 - headers: macro_in_fundecl_vs_typedef.h
   cname: TC
-  module: Example
   hsname: TC
   instances:
   - Bits
@@ -40,7 +39,6 @@ types:
   - Storable
 - headers: macro_in_fundecl_vs_typedef.h
   cname: struct struct1
-  module: Example
   hsname: Struct1
   instances:
   - Eq
@@ -48,7 +46,6 @@ types:
   - Storable
 - headers: macro_in_fundecl_vs_typedef.h
   cname: struct2
-  module: Example
   hsname: Struct2
   instances:
   - Eq
@@ -56,7 +53,6 @@ types:
   - Storable
 - headers: macro_in_fundecl_vs_typedef.h
   cname: struct struct3
-  module: Example
   hsname: Struct3
   instances:
   - Eq
@@ -64,7 +60,6 @@ types:
   - Storable
 - headers: macro_in_fundecl_vs_typedef.h
   cname: struct3_t
-  module: Example
   hsname: Struct3_t
   instances:
   - Eq
@@ -72,7 +67,6 @@ types:
   - Storable
 - headers: macro_in_fundecl_vs_typedef.h
   cname: struct struct4
-  module: Example
   hsname: Struct4
   instances:
   - Eq

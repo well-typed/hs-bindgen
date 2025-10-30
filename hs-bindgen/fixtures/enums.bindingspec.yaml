@@ -1,10 +1,10 @@
 version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
+hsmodule: Example
 types:
 - headers: enums.h
   cname: enumA
-  module: Example
   hsname: EnumA
   instances:
   - Eq
@@ -14,7 +14,6 @@ types:
   - Storable
 - headers: enums.h
   cname: enum enumB
-  module: Example
   hsname: EnumB
   instances:
   - Eq
@@ -24,7 +23,6 @@ types:
   - Storable
 - headers: enums.h
   cname: enum enumC
-  module: Example
   hsname: EnumC
   instances:
   - Eq
@@ -34,7 +32,6 @@ types:
   - Storable
 - headers: enums.h
   cname: enum enumD
-  module: Example
   hsname: EnumD_t
   instances:
   - Eq
@@ -44,7 +41,6 @@ types:
   - Storable
 - headers: enums.h
   cname: enum first
-  module: Example
   hsname: First
   instances:
   - Eq
@@ -54,7 +50,6 @@ types:
   - Storable
 - headers: enums.h
   cname: enum nonseq
-  module: Example
   hsname: Nonseq
   instances:
   - Eq
@@ -64,7 +59,6 @@ types:
   - Storable
 - headers: enums.h
   cname: enum packed
-  module: Example
   hsname: Packed
   instances:
   - Eq
@@ -74,7 +68,6 @@ types:
   - Storable
 - headers: enums.h
   cname: enum same
-  module: Example
   hsname: Same
   instances:
   - Eq
@@ -84,7 +77,6 @@ types:
   - Storable
 - headers: enums.h
   cname: enum second
-  module: Example
   hsname: Second
   instances:
   - Eq

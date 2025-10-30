@@ -1,10 +1,10 @@
 version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
+hsmodule: Example
 types:
 - headers: struct_arg.h
   cname: struct thing
-  module: Example
   hsname: Thing
   instances:
   - Eq

@@ -1,10 +1,10 @@
 version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
+hsmodule: Example
 types:
 - headers: macro_typedef_struct.h
   cname: MY_TYPE
-  module: Example
   hsname: MY_TYPE
   instances:
   - Bits
@@ -22,7 +22,6 @@ types:
   - Storable
 - headers: macro_typedef_struct.h
   cname: bar
-  module: Example
   hsname: Bar
   instances:
   - Eq

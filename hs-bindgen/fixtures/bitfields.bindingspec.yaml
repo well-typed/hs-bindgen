@@ -1,10 +1,10 @@
 version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
+hsmodule: Example
 types:
 - headers: bitfields.h
   cname: struct alignA
-  module: Example
   hsname: AlignA
   instances:
   - Eq
@@ -12,7 +12,6 @@ types:
   - Storable
 - headers: bitfields.h
   cname: struct alignB
-  module: Example
   hsname: AlignB
   instances:
   - Eq
@@ -20,7 +19,6 @@ types:
   - Storable
 - headers: bitfields.h
   cname: struct flags
-  module: Example
   hsname: Flags
   instances:
   - Eq
@@ -28,7 +26,6 @@ types:
   - Storable
 - headers: bitfields.h
   cname: struct overflow32
-  module: Example
   hsname: Overflow32
   instances:
   - Eq
@@ -36,7 +33,6 @@ types:
   - Storable
 - headers: bitfields.h
   cname: struct overflow32b
-  module: Example
   hsname: Overflow32b
   instances:
   - Eq
@@ -44,7 +40,6 @@ types:
   - Storable
 - headers: bitfields.h
   cname: struct overflow32c
-  module: Example
   hsname: Overflow32c
   instances:
   - Eq
@@ -52,7 +47,6 @@ types:
   - Storable
 - headers: bitfields.h
   cname: struct overflow64
-  module: Example
   hsname: Overflow64
   instances:
   - Eq

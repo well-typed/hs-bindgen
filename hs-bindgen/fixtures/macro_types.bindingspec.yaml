@@ -1,10 +1,10 @@
 version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
+hsmodule: Example
 types:
 - headers: macro_types.h
   cname: BOOLEAN_T
-  module: Example
   hsname: BOOLEAN_T
   instances:
   - Bits
@@ -22,7 +22,6 @@ types:
   - Storable
 - headers: macro_types.h
   cname: MTy
-  module: Example
   hsname: MTy
   instances:
   - Enum
@@ -39,7 +38,6 @@ types:
   - Storable
 - headers: macro_types.h
   cname: PtrInt
-  module: Example
   hsname: PtrInt
   instances:
   - Eq
@@ -48,7 +46,6 @@ types:
   - Storable
 - headers: macro_types.h
   cname: PtrPtrChar
-  module: Example
   hsname: PtrPtrChar
   instances:
   - Eq
@@ -57,7 +54,6 @@ types:
   - Storable
 - headers: macro_types.h
   cname: UINT8_T
-  module: Example
   hsname: UINT8_T
   instances:
   - Bits
@@ -75,7 +71,6 @@ types:
   - Storable
 - headers: macro_types.h
   cname: boolean_T
-  module: Example
   hsname: Boolean_T
   instances:
   - Bits
@@ -93,7 +88,6 @@ types:
   - Storable
 - headers: macro_types.h
   cname: tty
-  module: Example
   hsname: Tty
   instances:
   - Enum
