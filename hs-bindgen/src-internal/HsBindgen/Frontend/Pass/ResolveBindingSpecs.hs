@@ -10,7 +10,6 @@ import Control.Monad.RWS qualified as RWS
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
-import Optics.Core ((&), (.~))
 
 import Clang.HighLevel.Types
 import Clang.Paths
@@ -19,6 +18,7 @@ import HsBindgen.BindingSpec (ExternalBindingSpec, PrescriptiveBindingSpec)
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
+import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
@@ -43,16 +43,12 @@ resolveBindingSpecs ::
      ExternalBindingSpec
   -> PrescriptiveBindingSpec
   -> C.TranslationUnit NameAnon
-  -> ( C.TranslationUnit ResolveBindingSpecs
-     , Map C.QualName SourcePath
-     , Set C.QualName
-     , [Msg ResolveBindingSpecs]
-     )
+  -> (C.TranslationUnit ResolveBindingSpecs, [Msg ResolveBindingSpecs])
 resolveBindingSpecs
   extSpec
   pSpec
   C.TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
-    let (decls, MState{..}) =
+    let (decls, state@MState{..}) =
           runM
             extSpec
             pSpec
@@ -61,22 +57,23 @@ resolveBindingSpecs
             unitAnn.declUseDecl
             (resolveDecls unitDecls)
         notUsedErrs = ResolveBindingSpecsTypeNotUsed <$> Map.keys stateNoPTypes
-        declsWithExternalBindingSpecs :: Set C.QualName
-        declsWithExternalBindingSpecs =
-          Map.keysSet stateOmitTypes `Set.union` Map.keysSet stateExtTypes
-    in  ( reassemble decls stateUseDecl
-        , stateOmitTypes
-        , declsWithExternalBindingSpecs
+    in  ( reassemble decls state
         , reverse stateErrors ++ notUsedErrs
         )
   where
     reassemble ::
          [C.Decl ResolveBindingSpecs]
-      -> UseDeclGraph
+      -> MState
       -> C.TranslationUnit ResolveBindingSpecs
-    reassemble decls' useDeclGraph =
+    reassemble decls' MState{..} =
       let unitAnn' :: DeclMeta
-          unitAnn' = unitAnn & #declUseDecl .~ useDeclGraph
+          unitAnn' =
+            -- TODO_PR: DeclIndex: Move omitted from succeeded/notAttempted/failed into omitted.
+            -- TODO_PR: DeclIndex: Move external from succeeded/notAttempted/failed into external.
+            unitAnn {
+              declUseDecl = stateUseDecl
+            , declDeclUse = DeclUseGraph.fromUseDecl stateUseDecl
+            }
       in  C.TranslationUnit{
         unitDecls = decls'
       , unitIncludeGraph
@@ -519,7 +516,7 @@ getHsExtRef cQualName cTypeSpec = do
 lookupMissing :: C.QualPrelimDeclId -> DeclIndex -> [SingleLoc]
 lookupMissing qualPrelimDeclId index =
   (maybe [] (map poSingleLoc . NonEmpty.toList) $
-    Map.lookup qualPrelimDeclId $ index.omitted)
+    Map.lookup qualPrelimDeclId $ index.notAttempted)
   ++
   (maybe [] (map pfSingleLoc . NonEmpty.toList) $
     Map.lookup qualPrelimDeclId $ index.failed)

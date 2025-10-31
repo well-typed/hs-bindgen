@@ -29,6 +29,7 @@ import Optics.Core (over, set, (%))
 import Text.SimplePrettyPrint (hcat, showToCtxDoc)
 
 import Clang.HighLevel.Types
+import Clang.Paths (SourcePath)
 
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Internal qualified as C
@@ -44,13 +45,15 @@ import HsBindgen.Util.Tracer
 -- | Index of all declarations
 data DeclIndex = DeclIndex {
       succeeded    :: !(Map C.QualPrelimDeclId ParseSuccess)
-    , omitted      :: !(Map C.QualPrelimDeclId (NonEmpty ParseNotAttempted))
+    , notAttempted :: !(Map C.QualPrelimDeclId (NonEmpty ParseNotAttempted))
     , failed       :: !(Map C.QualPrelimDeclId (NonEmpty ParseFailure))
+    , omitted      :: !(Map C.QualName SourcePath)
+    , external     :: !(Set C.QualName)
     }
   deriving stock (Show, Generic)
 
 emptyIndex :: DeclIndex
-emptyIndex = DeclIndex Map.empty Map.empty Map.empty
+emptyIndex = DeclIndex Map.empty Map.empty Map.empty Map.empty Set.empty
 
 {-------------------------------------------------------------------------------
   Construction
@@ -74,7 +77,7 @@ fromParseResults results =
       -- We assert that no key is used twice. This assertion is not strictly
       -- necessary, and we may want to remove it in the future.
       let ss = Map.keysSet i.succeeded
-          os = Map.keysSet i.omitted
+          os = Map.keysSet i.notAttempted
           fs = Map.keysSet i.failed
           is = Set.intersection
           sharedKeys = Set.unions [is ss os, is ss fs, is os fs]
@@ -104,7 +107,7 @@ fromParseResults results =
                 }
           ParseResultNotAttempted x ->
             over
-              ( #index % #omitted )
+              ( #index % #notAttempted )
               ( alter qualPrelimDeclId x )
               oldIndex
           ParseResultFailure x ->

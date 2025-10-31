@@ -1,10 +1,12 @@
+{-# LANGUAGE OverloadedLabels #-}
+
 module HsBindgen.Frontend
   ( frontend
   , FrontendArtefact (..)
   , FrontendMsg(..)
   ) where
 
-import Optics.Core (_2, view)
+import Optics.Core (view, (%))
 
 import Clang.Enum.Bitfield
 import Clang.LowLevel.Core
@@ -131,12 +133,13 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
 
     handleMacrosPass <- cache "handleMacros" $ do
       afterConstructTranslationUnit <- sortPass
-      let (afterHandleMacros, msgsHandleMacros) = handleMacros afterConstructTranslationUnit
+      let (afterHandleMacros, failedMacros, msgsHandleMacros) =
+            handleMacros afterConstructTranslationUnit
       forM_ msgsHandleMacros $ traceWith tracer . FrontendHandleMacros
-      pure afterHandleMacros
+      pure (afterHandleMacros, failedMacros)
 
     nameAnonPass <- cache "nameAnon" $ do
-      afterHandleMacros <- handleMacrosPass
+      (afterHandleMacros, _) <- handleMacrosPass
       let (afterNameAnon, msgsNameAnon) = nameAnon afterHandleMacros
       forM_ msgsNameAnon $ traceWith tracer . FrontendNameAnon
       pure afterNameAnon
@@ -145,27 +148,21 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
       afterNameAnon <- nameAnonPass
       extlSpec <- bootExternalBindingSpec
       presSpec <- bootPrescriptiveBindingSpec
-      let (   afterResolveBindingSpecs
-            , omitTypes
-            , declsWithExternalBindingSpecs
-            , msgsResolveBindingSpecs
-            ) =
+      let (afterResolveBindingSpecs, msgsResolveBindingSpecs) =
             resolveBindingSpecs
               extlSpec
               presSpec
               afterNameAnon
       forM_ msgsResolveBindingSpecs $ traceWith tracer . FrontendResolveBindingSpecs
-      pure (afterResolveBindingSpecs, omitTypes, declsWithExternalBindingSpecs)
+      pure afterResolveBindingSpecs
 
     selectPass <- cache "select" $ do
       (_, _, isMainHeader, isInMainHeaderDir, _) <- parsePass
-      (afterResolveBindingSpecs, _, declsWithExternalBindingSpecs) <-
-        resolveBindingSpecsPass
+      afterResolveBindingSpecs <- resolveBindingSpecsPass
       let (afterSelect, msgsSelect) =
             selectDecls
               isMainHeader
               isInMainHeaderDir
-              declsWithExternalBindingSpecs
               selectConfig
               afterResolveBindingSpecs
       forM_ msgsSelect $ traceWith tracer . FrontendSelect
@@ -212,7 +209,7 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
 
     -- Omitted types
     frontendOmitTypes <- cache "frontendOmitTypes" $
-      view _2 <$> resolveBindingSpecsPass
+      view (#unitAnn % #declIndex % #omitted) <$> resolveBindingSpecsPass
 
     -- Declarations.
     frontendCDecls <- cache "frontendDecls" $

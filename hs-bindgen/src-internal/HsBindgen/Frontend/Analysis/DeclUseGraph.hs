@@ -9,11 +9,14 @@ module HsBindgen.Frontend.Analysis.DeclUseGraph (
     DeclUseGraph -- opaque
     -- * Construction
   , fromUseDecl
-    -- * Query
+    -- * Filter
+  , filterNodes
+    -- * Transitive usage
+  , getUseSitesTransitively
+    -- ** Anonymous declarations
   , UseOfDecl(..)
-    -- ** Transitive usage
   , findNamedUseOf
-    -- ** Direct usage
+    -- * Direct usage
   , getUseSites
   , getUseSitesNoSelfReferences
   , findAliasesOf
@@ -56,7 +59,21 @@ fromUseDecl :: UseDeclGraph -> DeclUseGraph
 fromUseDecl = Wrap . DynGraph.reverse . UseDeclGraph.toDynGraph
 
 {-------------------------------------------------------------------------------
-  Query: usage of anon declarations
+  Filter
+-------------------------------------------------------------------------------}
+
+filterNodes :: (C.QualPrelimDeclId -> Bool) -> DeclUseGraph -> DeclUseGraph
+filterNodes p = Wrap . DynGraph.filterNodes p . unwrap
+
+{-------------------------------------------------------------------------------
+  Transitive query
+-------------------------------------------------------------------------------}
+
+getUseSitesTransitively :: DeclUseGraph -> [C.QualPrelimDeclId] -> Set C.QualPrelimDeclId
+getUseSitesTransitively = DynGraph.reaches . unwrap
+
+{-------------------------------------------------------------------------------
+  Transitive query: usage of anonymous declarations
 -------------------------------------------------------------------------------}
 
 data UseOfDecl =
