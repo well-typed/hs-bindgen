@@ -53,16 +53,12 @@ data TransitiveAvailability =
 selectDecls ::
      IsMainHeader
   -> IsInMainHeaderDir
-  -> Set C.Name
-  -> Set C.QualName
   -> Config Select
   -> C.TranslationUnit ResolveBindingSpecs
   -> (C.TranslationUnit Select, [Msg Select])
 selectDecls
   isMainHeader
   isInMainHeaderDir
-  failedMacros
-  declsWithExternalBindingSpecs
   SelectConfig{..}
   unit =
     let -- Identifiers of selection roots.
@@ -114,8 +110,8 @@ selectDecls
        ,    selectStatusMsgs
          ++ getUnavailableTransMsgs  unavailableTransIds
          ++ getDelayedParseMsgs      selectedIds index
-         ++ getParseNotAttemptedMsgs match isIgnored index
-         ++ getParseFailureMsgs      match isIgnored index
+         ++ getParseNotAttemptedMsgs match index
+         ++ getParseFailureMsgs      match index
        )
   where
     availableDecls :: [Decl]
@@ -127,7 +123,7 @@ selectDecls
     transitivelyUnavailableIdsDueToNotAttemptedParses :: Set DeclId
     transitivelyUnavailableIdsDueToNotAttemptedParses =
         DeclUseGraph.getUseSitesTransitively
-          declUseGraphWithoutIgnoredDecls
+          declUseGraph
           (Set.toList $ Map.keysSet index.notAttempted)
 
     -- Identifiers of declarations that are unavailable because we failed to
@@ -135,7 +131,7 @@ selectDecls
     transitivelyUnavailableIdsDueToFailedParses :: Set DeclId
     transitivelyUnavailableIdsDueToFailedParses =
         DeclUseGraph.getUseSitesTransitively
-          declUseGraphWithoutIgnoredDecls
+          declUseGraph
           (Set.toList $ Map.keysSet index.failed)
 
     getTransitiveAvailability :: C.QualPrelimDeclId -> TransitiveAvailability
@@ -146,42 +142,14 @@ selectDecls
         (True,  False) -> TransitivelyUnavailable UnavailableParseNotAttempted
         (_,     True)  -> TransitivelyUnavailable UnavailableParseFailed
 
-    -- TODO_PR: Remove.
-    hasExternalBindingSpec :: DeclId -> Bool
-    hasExternalBindingSpec = \case
-      C.QualPrelimDeclIdNamed n k ->
-        Set.member (C.QualName n k) declsWithExternalBindingSpecs
-      _otherwise -> False
-
-    -- TODO_PR: Remove this and check failing golden tests.
-    isFailedMacro :: DeclId -> Bool
-    isFailedMacro = \case
-      C.QualPrelimDeclIdNamed n C.NameKindOrdinary ->
-        Set.member n failedMacros
-      _otherwise -> False
-
-    -- TODO_PR: We have to determine if a declaration we determine to be
-    -- transitively unavailable can actually be ignored because it is handled by
-    -- other means (e.g., binding specifications, or it is a macro that we have
-    -- failed to parse).
-    isIgnored :: DeclId -> Bool
-    isIgnored x = hasExternalBindingSpec x || isFailedMacro x
-
     getUnavailableTransMsgs :: Set DeclId -> [Msg Select]
-    getUnavailableTransMsgs =
-      map TransitiveDependencyUnavailable
-        . Set.toList
-        . Set.filter (not . isIgnored)
+    getUnavailableTransMsgs = map TransitiveDependencyUnavailable . Set.toList
 
     index :: DeclIndex
     index = unit.unitAnn.declIndex
 
     declUseGraph :: DeclUseGraph
     declUseGraph = unit.unitAnn.declDeclUse
-
-    declUseGraphWithoutIgnoredDecls :: DeclUseGraph
-    declUseGraphWithoutIgnoredDecls =
-      DeclUseGraph.filterNodes (not . isIgnored) declUseGraph
 
     useDeclGraph :: UseDeclGraph
     useDeclGraph = unit.unitAnn.declUseDecl
@@ -319,26 +287,24 @@ getDelayedParseMsgs selIds index = concatMap getMsgs $ Set.toList selIds
     getMsgs :: DeclId -> [Msg Select]
     getMsgs k = map SelectParseSuccess $ DeclIndex.lookupAttachedParseMsgs k index
 
-getParseNotAttemptedMsgs :: Match -> (DeclId -> Bool) -> DeclIndex -> [Msg Select]
-getParseNotAttemptedMsgs match isIgnored =
+getParseNotAttemptedMsgs :: Match -> DeclIndex -> [Msg Select]
+getParseNotAttemptedMsgs match =
   Foldable.foldl' (Foldable.foldl' addMsg) [] . notAttempted
   where
     addMsg :: [SelectMsg] -> ParseNotAttempted -> [SelectMsg]
     addMsg xs (ParseNotAttempted i l a r) =
       [ SelectParseNotAttempted i l r
       | match i l a
-      , not $ isIgnored i
       ] ++ xs
 
-getParseFailureMsgs :: Match -> (DeclId -> Bool) -> DeclIndex -> [Msg Select]
-getParseFailureMsgs match isIgnored =
+getParseFailureMsgs :: Match -> DeclIndex -> [Msg Select]
+getParseFailureMsgs match =
   Foldable.foldl' (Foldable.foldl' addMsg) [] . failed
   where
     addMsg :: [SelectMsg] -> ParseFailure -> [SelectMsg]
     addMsg xs (ParseFailure i l a msgs) =
       [ SelectParseFailure msg
       | match i l a
-      , not $ isIgnored i
       , msg <- NonEmpty.toList msgs
       ] ++ xs
 

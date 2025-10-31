@@ -105,6 +105,7 @@ data TranslationUnit p = TranslationUnit{
       -- | Pass-specific annotation
     , unitAnn :: Ann "TranslationUnit" p
     }
+    deriving (Generic)
 
 data Decl p = Decl {
       declInfo :: DeclInfo p

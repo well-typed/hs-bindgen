@@ -43,16 +43,12 @@ resolveBindingSpecs ::
      ExternalBindingSpec
   -> PrescriptiveBindingSpec
   -> C.TranslationUnit NameAnon
-  -> ( C.TranslationUnit ResolveBindingSpecs
-     , Map C.QualName SourcePath
-     , Set C.QualName
-     , [Msg ResolveBindingSpecs]
-     )
+  -> (C.TranslationUnit ResolveBindingSpecs, [Msg ResolveBindingSpecs])
 resolveBindingSpecs
   extSpec
   pSpec
   C.TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
-    let (decls, MState{..}) =
+    let (decls, state@MState{..}) =
           runM
             extSpec
             pSpec
@@ -61,25 +57,22 @@ resolveBindingSpecs
             unitAnn.declUseDecl
             (resolveDecls unitDecls)
         notUsedErrs = ResolveBindingSpecsTypeNotUsed <$> Map.keys stateNoPTypes
-        declsWithExternalBindingSpecs :: Set C.QualName
-        declsWithExternalBindingSpecs =
-          Map.keysSet stateOmitTypes `Set.union` Map.keysSet stateExtTypes
-    in  ( reassemble decls stateUseDecl
-        , stateOmitTypes
-        , declsWithExternalBindingSpecs
+    in  ( reassemble decls state
         , reverse stateErrors ++ notUsedErrs
         )
   where
     reassemble ::
          [C.Decl ResolveBindingSpecs]
-      -> UseDeclGraph
+      -> MState
       -> C.TranslationUnit ResolveBindingSpecs
-    reassemble decls' useDeclGraph =
+    reassemble decls' MState{..} =
       let unitAnn' :: DeclMeta
           unitAnn' =
+            -- TODO_PR: DeclIndex: Move omitted from succeeded/notAttempted/failed into omitted.
+            -- TODO_PR: DeclIndex: Move external from succeeded/notAttempted/failed into external.
             unitAnn {
-              declUseDecl = useDeclGraph
-            , declDeclUse = DeclUseGraph.fromUseDecl useDeclGraph
+              declUseDecl = stateUseDecl
+            , declDeclUse = DeclUseGraph.fromUseDecl stateUseDecl
             }
       in  C.TranslationUnit{
         unitDecls = decls'

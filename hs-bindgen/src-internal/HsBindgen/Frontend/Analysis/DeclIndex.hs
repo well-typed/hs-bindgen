@@ -29,6 +29,7 @@ import Optics.Core (over, set, (%))
 import Text.SimplePrettyPrint (hcat, showToCtxDoc)
 
 import Clang.HighLevel.Types
+import Clang.Paths (SourcePath)
 
 import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Internal qualified as C
@@ -46,11 +47,13 @@ data DeclIndex = DeclIndex {
       succeeded    :: !(Map C.QualPrelimDeclId ParseSuccess)
     , notAttempted :: !(Map C.QualPrelimDeclId (NonEmpty ParseNotAttempted))
     , failed       :: !(Map C.QualPrelimDeclId (NonEmpty ParseFailure))
+    , omitted      :: !(Map C.QualName SourcePath)
+    , external     :: !(Set C.QualName)
     }
   deriving stock (Show, Generic)
 
 emptyIndex :: DeclIndex
-emptyIndex = DeclIndex Map.empty Map.empty Map.empty
+emptyIndex = DeclIndex Map.empty Map.empty Map.empty Map.empty Set.empty
 
 {-------------------------------------------------------------------------------
   Construction
