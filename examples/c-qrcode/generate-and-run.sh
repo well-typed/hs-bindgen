@@ -23,6 +23,7 @@ cabal run hs-bindgen-cli -- \
     preprocess \
     -I "$SCRIPT_DIR/QR-Code-generator" \
     --hs-output-dir "$SCRIPT_DIR/hs-project/src" \
+    --create-output-dirs \
     --module QRCodeGenerator.Generated \
     "$SCRIPT_DIR/QR-Code-generator/c/qrcodegen.h"
 

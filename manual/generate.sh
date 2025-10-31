@@ -85,6 +85,8 @@ echo "# "
 echo "# External bindings: vector example"
 echo "# "
 
+mkdir -p hs/hs-vector/generated
+
 cabal run hs-bindgen-cli -- \
     preprocess \
     -I c \
