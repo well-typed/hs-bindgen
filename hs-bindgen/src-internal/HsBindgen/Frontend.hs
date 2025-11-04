@@ -131,7 +131,8 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
 
     handleMacrosPass <- cache "handleMacros" $ do
       afterConstructTranslationUnit <- sortPass
-      let (afterHandleMacros, msgsHandleMacros) = handleMacros afterConstructTranslationUnit
+      let (afterHandleMacros, msgsHandleMacros) =
+            handleMacros bootCStandard afterConstructTranslationUnit
       forM_ msgsHandleMacros $ traceWith tracer . FrontendHandleMacros
       pure afterHandleMacros
 

@@ -51,7 +51,7 @@ boot
 
     getClangArgs' <- cache "clangArgs" $ do
       withTrace BootStatusClangArgs $
-        getClangArgs tracer $ bootClangArgsConfig bindgenBootConfig
+        getClangArgs tracer clangArgsConfig
 
     getBindingSpecs <- cache "loadBindingSpecs" $ do
       clangArgs <- getClangArgs'
@@ -69,12 +69,16 @@ boot
 
     pure BootArtefact {
           bootModule                  = hsModuleName
+        , bootCStandard               = clangArgsConfig.cStandard
         , bootClangArgs               = getClangArgs'
         , bootHashIncludeArgs         = getHashIncludeArgs
         , bootExternalBindingSpecs    = getExternalBindingSpecs
         , bootPrescriptiveBindingSpec = getPrescriptiveBindingSpec
         }
   where
+    clangArgsConfig :: ClangArgsConfig FilePath
+    clangArgsConfig = bindgenBootConfig.bootClangArgsConfig
+
     tracerBootStatus :: Tracer IO BootStatusMsg
     tracerBootStatus = contramap BootStatus tracer
 
@@ -109,6 +113,7 @@ getClangArgs tracer config = do
 
 data BootArtefact = BootArtefact {
     bootModule                  :: Hs.ModuleName
+  , bootCStandard               :: CStandard
   , bootClangArgs               :: IO ClangArgs
   , bootHashIncludeArgs         :: IO [HashIncludeArg]
   , bootExternalBindingSpecs    :: IO MergedBindingSpecs

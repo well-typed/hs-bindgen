@@ -12,6 +12,7 @@ import C.Expr.Syntax qualified as CExpr.DSL
 import C.Expr.Typecheck.Expr qualified as CExpr.DSL
 import C.Expr.Typecheck.Type qualified as CExpr.DSL
 
+import Clang.Args (CStandard)
 import Clang.HighLevel.Types
 
 import HsBindgen.Errors
@@ -31,10 +32,11 @@ import HsBindgen.Imports
 
 -- | Sort and typecheck macros, and reparse declarations
 handleMacros ::
-      C.TranslationUnit ConstructTranslationUnit
+      CStandard
+  ->  C.TranslationUnit ConstructTranslationUnit
   -> (C.TranslationUnit HandleMacros, [Msg HandleMacros])
-handleMacros C.TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
-    first reassemble $ runM . fmap catMaybes $ mapM processDecl unitDecls
+handleMacros standard C.TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
+    first reassemble $ runM standard . fmap catMaybes $ mapM processDecl unitDecls
   where
     reassemble :: [C.Decl HandleMacros] -> C.TranslationUnit HandleMacros
     reassemble decls' = C.TranslationUnit{
@@ -359,15 +361,16 @@ data MacroState = MacroState {
     , stateReparseEnv :: LanC.ReparseEnv HandleMacros
     }
 
-initMacroState :: MacroState
-initMacroState = MacroState{
+initMacroState :: CStandard -> MacroState
+initMacroState standard = MacroState{
       stateErrors     = []
     , stateMacroEnv   = Map.empty
-    , stateReparseEnv = LanC.initReparseEnv
+    , stateReparseEnv = LanC.initReparseEnv standard
     }
 
-runM :: M a -> (a, [Msg HandleMacros])
-runM = fmap stateErrors . flip runState initMacroState . unwrapM
+runM :: CStandard -> M a -> (a, [Msg HandleMacros])
+runM standard = fmap stateErrors .
+    flip runState (initMacroState standard) . unwrapM
 
 {-------------------------------------------------------------------------------
   Auxiliary: parsing (macro /def/ sites) and reparsing (macro /use/ sites)

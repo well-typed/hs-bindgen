@@ -78,8 +78,7 @@ mkTestClangArgsConfig :: FilePath -> ClangArgsConfig FilePath
 mkTestClangArgsConfig packageRoot = def {
       target = Just $
         (Target_Linux_X86_64, TargetEnvOverride "gnu")
-    , cStandard = Just $
-        C23
+    , cStandard = C23
     , extraIncludeDirs = [
           packageRoot </> "musl-include/x86_64"
         ]
