@@ -71,6 +71,8 @@ data ResolveBindingSpecsMsg =
   | ResolveBindingSpecsTypeNotUsed          C.QualName
   | ResolveBindingSpecsExtDecl              C.QualName
   | ResolveBindingSpecsExtType              C.QualName C.QualName
+  | ResolveBindingSpecsPrescriptiveRequire  C.QualName
+  | ResolveBindingSpecsPrescriptiveOmit     C.QualName
   deriving stock (Show)
 
 instance PrettyForTrace ResolveBindingSpecsMsg where
@@ -97,6 +99,12 @@ instance PrettyForTrace ResolveBindingSpecsMsg where
           <+> prettyForTrace ctx
           <+> "type replaced with external binding:"
           <+> prettyForTrace cQualName
+      ResolveBindingSpecsPrescriptiveRequire cQualName ->
+        "prescriptive binding specification found:"
+          <+> prettyForTrace cQualName
+      ResolveBindingSpecsPrescriptiveOmit cQualName ->
+        "declaration omitted by prescriptive binding specification:"
+          <+> prettyForTrace cQualName
 
 instance IsTrace Level ResolveBindingSpecsMsg where
   getDefaultLogLevel = \case
@@ -106,5 +114,7 @@ instance IsTrace Level ResolveBindingSpecsMsg where
     ResolveBindingSpecsTypeNotUsed{}          -> Error
     ResolveBindingSpecsExtDecl{}              -> Info
     ResolveBindingSpecsExtType{}              -> Info
+    ResolveBindingSpecsPrescriptiveRequire{}  -> Info
+    ResolveBindingSpecsPrescriptiveOmit{}     -> Info
   getSource          = const HsBindgen
   getTraceId         = const "resolve-binding-specs"

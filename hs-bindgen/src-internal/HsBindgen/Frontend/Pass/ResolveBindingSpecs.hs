@@ -221,11 +221,14 @@ resolveTop decl = RWS.ask >>= \MEnv{..} -> do
         return Nothing
       else case BindingSpec.lookupCTypeSpec cQualName declPaths envPSpec of
         Just (_hsModuleName, BindingSpec.Require cTypeSpec) -> do
-          RWS.modify' $ deleteNoPType cQualName sourcePath
+          RWS.modify' $
+              insertTrace (ResolveBindingSpecsPrescriptiveRequire cQualName)
+            . deleteNoPType cQualName sourcePath
           return $ Just (decl, Just cTypeSpec)
         Just (_hsModuleName, BindingSpec.Omit) -> do
           RWS.modify' $
-              deleteNoPType cQualName sourcePath
+              insertTrace (ResolveBindingSpecsPrescriptiveOmit cQualName)
+            . deleteNoPType cQualName sourcePath
             . insertOmittedType cQualName sourcePath
           return Nothing
         Nothing -> return $ Just (decl, Nothing)
