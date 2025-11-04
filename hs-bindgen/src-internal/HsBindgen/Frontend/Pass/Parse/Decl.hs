@@ -157,11 +157,25 @@ parseDecl = \curr -> do
               else foldContinueWith
                 [parseDoNotAttempt info kind ParsePredicateNotMatched]
 
+        -- Scoping is important. We need to know which `typedef`s are in scope
+        -- at any point (e.g., while reparsing macros). Therefore we parse them,
+        -- irrespective of the parse predicate. We do apply the parse predicate
+        -- before selection.
+        parseTypedefDecl ::
+             C.NameKind
+          -> ParseDecl (Next ParseDecl [ParseResult])
+        parseTypedefDecl kind
+          | isBuiltin = foldContinueWith
+              [parseDoNotAttempt info kind OmittedBuiltin]
+          | isUnavailable = foldContinueWith
+              [parseDoNotAttempt info kind DeclarationUnavailable]
+          | otherwise = typedefDecl info curr
+
     dispatch curr $ \case
       -- Ordinary kinds that we parse
       CXCursor_FunctionDecl    -> parseWith functionDecl    C.NameKindOrdinary
       CXCursor_VarDecl         -> parseWith varDecl         C.NameKindOrdinary
-      CXCursor_TypedefDecl     -> parseWith typedefDecl     C.NameKindOrdinary
+      CXCursor_TypedefDecl     -> parseTypedefDecl          C.NameKindOrdinary
       CXCursor_MacroDefinition -> parseWith macroDefinition C.NameKindOrdinary
 
       -- Tagged kinds that we parse

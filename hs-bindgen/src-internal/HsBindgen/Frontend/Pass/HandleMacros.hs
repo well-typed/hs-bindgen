@@ -36,7 +36,8 @@ handleMacros ::
   ->  C.TranslationUnit ConstructTranslationUnit
   -> (C.TranslationUnit HandleMacros, [Msg HandleMacros])
 handleMacros standard C.TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
-    first reassemble $ runM standard . fmap catMaybes $ mapM processDecl unitDecls
+    first reassemble $ runM standard .
+      fmap catMaybes $ mapM processDecl unitDecls
   where
     reassemble :: [C.Decl HandleMacros] -> C.TranslationUnit HandleMacros
     reassemble decls' = C.TranslationUnit{
@@ -286,7 +287,7 @@ processFunction ::
      C.DeclInfo HandleMacros
   -> C.Function ConstructTranslationUnit
   -> M (C.Decl HandleMacros)
-processFunction info C.Function {..} =
+processFunction info C.Function{..} =
     case functionAnn of
       ReparseNotNeeded ->
         withoutReparse
@@ -369,8 +370,7 @@ initMacroState standard = MacroState{
     }
 
 runM :: CStandard -> M a -> (a, [Msg HandleMacros])
-runM standard = fmap stateErrors .
-    flip runState (initMacroState standard) . unwrapM
+runM standard = fmap stateErrors . flip runState (initMacroState standard) . unwrapM
 
 {-------------------------------------------------------------------------------
   Auxiliary: parsing (macro /def/ sites) and reparsing (macro /use/ sites)
