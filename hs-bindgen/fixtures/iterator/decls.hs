@@ -62,6 +62,41 @@
                 ["iterator.h"],
               headerInclude = "iterator.h"},
           commentChildren = []}},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Toggle"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Toggle",
+          hasFieldInstanceFieldType =
+          HsBlock
+            (HsIO (HsPrimType HsPrimCBool)),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Toggle"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "un_Toggle",
+          hasCFieldInstanceCFieldType =
+          HsBlock
+            (HsIO (HsPrimType HsPrimCBool)),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -128,6 +163,45 @@
                 ["iterator.h"],
               headerInclude = "iterator.h"},
           commentChildren = []}},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Counter"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Counter",
+          hasFieldInstanceFieldType =
+          HsBlock
+            (HsIO (HsPrimType HsPrimCInt)),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Counter"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "un_Counter",
+          hasCFieldInstanceCFieldType =
+          HsBlock
+            (HsIO (HsPrimType HsPrimCInt)),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -199,6 +273,49 @@
                 ["iterator.h"],
               headerInclude = "iterator.h"},
           commentChildren = []}},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "VarCounter"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_VarCounter",
+          hasFieldInstanceFieldType =
+          HsBlock
+            (HsFun
+              (HsPrimType HsPrimCInt)
+              (HsIO (HsPrimType HsPrimCInt))),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "VarCounter"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "un_VarCounter",
+          hasCFieldInstanceCFieldType =
+          HsBlock
+            (HsFun
+              (HsPrimType HsPrimCInt)
+              (HsIO (HsPrimType HsPrimCInt))),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name

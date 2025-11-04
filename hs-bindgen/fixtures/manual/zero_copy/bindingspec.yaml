@@ -1,0 +1,90 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+types:
+- headers: manual/zero_copy.h
+  cname: struct circle
+  hsname: Circle
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: manual/zero_copy.h
+  cname: struct colour
+  hsname: Colour
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: manual/zero_copy.h
+  cname: struct drawing
+  hsname: Drawing
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: manual/zero_copy.h
+  cname: matrix
+  hsname: Matrix
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: manual/zero_copy.h
+  cname: myInt
+  hsname: MyInt
+  instances:
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Read
+  - Real
+  - Show
+  - Storable
+- headers: manual/zero_copy.h
+  cname: struct point
+  hsname: Point
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: manual/zero_copy.h
+  cname: struct rectangle
+  hsname: Rectangle
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: manual/zero_copy.h
+  cname: union shape
+  hsname: Shape
+  instances:
+  - Storable
+- headers: manual/zero_copy.h
+  cname: struct tic_tac_toe
+  hsname: Tic_tac_toe
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: manual/zero_copy.h
+  cname: triplet
+  hsname: Triplet
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: manual/zero_copy.h
+  cname: struct vector
+  hsname: Vector
+  instances:
+  - Eq
+  - Show
+  - Storable

@@ -93,6 +93,47 @@
         "Triplet",
       deriveInstanceComment =
       Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Triplet"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Triplet",
+          hasFieldInstanceFieldType =
+          HsConstArray
+            3
+            (HsPrimType HsPrimCInt),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Triplet"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "un_Triplet",
+          hasCFieldInstanceCFieldType =
+          HsConstArray
+            3
+            (HsPrimType HsPrimCInt),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -175,6 +216,41 @@
         "@NsTypeConstr"
         "List",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "List"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_List",
+          hasFieldInstanceFieldType =
+          HsIncompleteArray
+            (HsPrimType HsPrimCInt),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "List"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "un_List",
+          hasCFieldInstanceCFieldType =
+          HsIncompleteArray
+            (HsPrimType HsPrimCInt),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
@@ -276,6 +352,47 @@
         "Matrix",
       deriveInstanceComment =
       Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Matrix"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Matrix",
+          hasFieldInstanceFieldType =
+          HsConstArray
+            4
+            (HsConstArray
+              3
+              (HsPrimType HsPrimCInt)),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Matrix"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "un_Matrix",
+          hasCFieldInstanceCFieldType =
+          HsConstArray
+            4
+            (HsConstArray
+              3
+              (HsPrimType HsPrimCInt)),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -365,6 +482,49 @@
         "@NsTypeConstr"
         "Tripletlist",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Tripletlist"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Tripletlist",
+          hasFieldInstanceFieldType =
+          HsIncompleteArray
+            (HsConstArray
+              3
+              (HsPrimType HsPrimCInt)),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Tripletlist"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "un_Tripletlist",
+          hasCFieldInstanceCFieldType =
+          HsIncompleteArray
+            (HsConstArray
+              3
+              (HsPrimType HsPrimCInt)),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
       Nothing},
   DeclData
     Struct {
@@ -838,8 +998,12 @@
                           headerInclude = "array.h"},
                       commentChildren = []}})
               [
-                PeekByteOff (Idx 0) 0,
-                PeekByteOff (Idx 0) 12]),
+                PeekCField
+                  (HsStrLit "example_triple")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit "example_sudoku")
+                  (Idx 0)]),
           storablePoke = Lambda
             (NameHint "ptr")
             (Lambda
@@ -1002,10 +1166,13 @@
                 (Add 2)
                 (Seq
                   [
-                    PokeByteOff (Idx 3) 0 (Idx 0),
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit "example_triple")
                       (Idx 3)
-                      12
+                      (Idx 0),
+                    PokeCField
+                      (HsStrLit "example_sudoku")
+                      (Idx 3)
                       (Idx 1)])))},
       defineInstanceComment =
       Nothing},
@@ -1028,6 +1195,92 @@
         "@NsTypeConstr"
         "Example",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Example"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "example_triple",
+          hasCFieldInstanceCFieldType =
+          HsConstArray
+            3
+            (HsPrimType HsPrimCInt),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Example"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "example_triple",
+          hasFieldInstanceFieldType =
+          HsConstArray
+            3
+            (HsPrimType HsPrimCInt),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Example"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "example_sudoku",
+          hasCFieldInstanceCFieldType =
+          HsConstArray
+            3
+            (HsConstArray
+              3
+              (HsPrimType HsPrimCInt)),
+          hasCFieldInstanceFieldOffset =
+          12},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Example"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "example_sudoku",
+          hasFieldInstanceFieldType =
+          HsConstArray
+            3
+            (HsConstArray
+              3
+              (HsPrimType HsPrimCInt)),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
@@ -1144,6 +1397,49 @@
         "@NsTypeConstr"
         "Sudoku",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Sudoku"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Sudoku",
+          hasFieldInstanceFieldType =
+          HsConstArray
+            3
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Triplet")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Sudoku"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "un_Sudoku",
+          hasCFieldInstanceCFieldType =
+          HsConstArray
+            3
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Triplet")),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
       Nothing},
   DeclForeignImport
     ForeignImportDecl {

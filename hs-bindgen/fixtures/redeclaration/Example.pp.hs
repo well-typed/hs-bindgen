@@ -2,20 +2,32 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE EmptyDataDecls #-}
+{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE MagicHash #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
+{-# LANGUAGE TypeApplications #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE UndecidableInstances #-}
 
 module Example where
 
 import qualified Data.Array.Byte
 import qualified Data.Bits as Bits
 import qualified Data.Ix as Ix
+import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Ptr as Ptr
+import qualified GHC.Records
 import qualified HsBindgen.Runtime.ByteArray
+import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.SizedByteArray
 import Data.Bits (FiniteBits)
+import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
 {-| __C declaration:__ @int_t@
@@ -29,6 +41,18 @@ newtype Int_t = Int_t
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Int_t) "un_Int_t")
+         ) => GHC.Records.HasField "un_Int_t" (Ptr.Ptr Int_t) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Int_t")
+
+instance HsBindgen.Runtime.HasCField.HasCField Int_t "un_Int_t" where
+
+  type CFieldType Int_t "un_Int_t" = FC.CInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @X@
 
@@ -56,13 +80,26 @@ instance F.Storable X where
   peek =
     \ptr0 ->
           pure X
-      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"x_n") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
-          X x_n2 -> F.pokeByteOff ptr0 (0 :: Int) x_n2
+          X x_n2 ->
+            HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"x_n") ptr0 x_n2
+
+instance HsBindgen.Runtime.HasCField.HasCField X "x_n" where
+
+  type CFieldType X "x_n" = FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType X) "x_n")
+         ) => GHC.Records.HasField "x_n" (Ptr.Ptr X) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"x_n")
 
 {-| __C declaration:__ @y@
 
@@ -133,3 +170,27 @@ set_y_o ::
      FC.CInt
   -> Y
 set_y_o = HsBindgen.Runtime.ByteArray.setUnionPayload
+
+instance HsBindgen.Runtime.HasCField.HasCField Y "y_m" where
+
+  type CFieldType Y "y_m" = FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Y) "y_m")
+         ) => GHC.Records.HasField "y_m" (Ptr.Ptr Y) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"y_m")
+
+instance HsBindgen.Runtime.HasCField.HasCField Y "y_o" where
+
+  type CFieldType Y "y_o" = FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Y) "y_o")
+         ) => GHC.Records.HasField "y_o" (Ptr.Ptr Y) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"y_o")

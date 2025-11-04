@@ -1,15 +1,27 @@
+{-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE MagicHash #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE UndecidableInstances #-}
 
 module Example where
 
 import qualified Data.List.NonEmpty
+import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Ptr as Ptr
+import qualified GHC.Records
 import qualified HsBindgen.Runtime.CEnum
+import qualified HsBindgen.Runtime.HasCField
 import qualified Text.Read
+import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 
 {-| __C declaration:__ @enumA@
@@ -127,14 +139,26 @@ instance F.Storable ExA where
   peek =
     \ptr0 ->
           pure ExA
-      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"exA_fieldA1") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           ExA exA_fieldA12 ->
-            F.pokeByteOff ptr0 (0 :: Int) exA_fieldA12
+            HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"exA_fieldA1") ptr0 exA_fieldA12
+
+instance HsBindgen.Runtime.HasCField.HasCField ExA "exA_fieldA1" where
+
+  type CFieldType ExA "exA_fieldA1" = EnumA
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ExA) "exA_fieldA1")
+         ) => GHC.Records.HasField "exA_fieldA1" (Ptr.Ptr ExA) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"exA_fieldA1")
 
 {-| __defined at:__ @nested_enums.h:9:9@
 
@@ -249,11 +273,23 @@ instance F.Storable ExB where
   peek =
     \ptr0 ->
           pure ExB
-      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"exB_fieldB1") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           ExB exB_fieldB12 ->
-            F.pokeByteOff ptr0 (0 :: Int) exB_fieldB12
+            HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"exB_fieldB1") ptr0 exB_fieldB12
+
+instance HsBindgen.Runtime.HasCField.HasCField ExB "exB_fieldB1" where
+
+  type CFieldType ExB "exB_fieldB1" = ExB_fieldB1
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ExB) "exB_fieldB1")
+         ) => GHC.Records.HasField "exB_fieldB1" (Ptr.Ptr ExB) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"exB_fieldB1")

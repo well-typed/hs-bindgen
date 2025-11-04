@@ -2,11 +2,17 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
+{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE MagicHash #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE PatternSynonyms #-}
 {-# LANGUAGE StandaloneDeriving #-}
+{-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE UndecidableInstances #-}
 
 module Example where
 
@@ -14,16 +20,20 @@ import qualified Data.Array.Byte
 import qualified Data.Bits as Bits
 import qualified Data.Ix as Ix
 import qualified Data.List.NonEmpty
+import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
+import qualified GHC.Records
 import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.FunPtr
+import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.SizedByteArray
 import qualified Text.Read
 import Data.Bits (FiniteBits)
+import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure, showsPrec)
 
 {-| Auxiliary type used by 'FileOpenedNotification'
@@ -52,6 +62,19 @@ instance HsBindgen.Runtime.FunPtr.FromFunPtr FileOpenedNotification_Deref where
 
   fromFunPtr = fromFileOpenedNotification_Deref
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType FileOpenedNotification_Deref) "un_FileOpenedNotification_Deref")
+         ) => GHC.Records.HasField "un_FileOpenedNotification_Deref" (Ptr.Ptr FileOpenedNotification_Deref) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_FileOpenedNotification_Deref")
+
+instance HsBindgen.Runtime.HasCField.HasCField FileOpenedNotification_Deref "un_FileOpenedNotification_Deref" where
+
+  type CFieldType FileOpenedNotification_Deref "un_FileOpenedNotification_Deref" =
+    IO ()
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @FileOpenedNotification@
 
     __defined at:__ @callbacks.h:10:16@
@@ -63,6 +86,19 @@ newtype FileOpenedNotification = FileOpenedNotification
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType FileOpenedNotification) "un_FileOpenedNotification")
+         ) => GHC.Records.HasField "un_FileOpenedNotification" (Ptr.Ptr FileOpenedNotification) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_FileOpenedNotification")
+
+instance HsBindgen.Runtime.HasCField.HasCField FileOpenedNotification "un_FileOpenedNotification" where
+
+  type CFieldType FileOpenedNotification "un_FileOpenedNotification" =
+    Ptr.FunPtr FileOpenedNotification_Deref
+
+  offset# = \_ -> \_ -> 0
 
 {-| Auxiliary type used by 'ProgressUpdate'
 
@@ -90,6 +126,19 @@ instance HsBindgen.Runtime.FunPtr.FromFunPtr ProgressUpdate_Deref where
 
   fromFunPtr = fromProgressUpdate_Deref
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ProgressUpdate_Deref) "un_ProgressUpdate_Deref")
+         ) => GHC.Records.HasField "un_ProgressUpdate_Deref" (Ptr.Ptr ProgressUpdate_Deref) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_ProgressUpdate_Deref")
+
+instance HsBindgen.Runtime.HasCField.HasCField ProgressUpdate_Deref "un_ProgressUpdate_Deref" where
+
+  type CFieldType ProgressUpdate_Deref "un_ProgressUpdate_Deref" =
+    FC.CInt -> IO ()
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @ProgressUpdate@
 
     __defined at:__ @callbacks.h:11:16@
@@ -101,6 +150,19 @@ newtype ProgressUpdate = ProgressUpdate
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ProgressUpdate) "un_ProgressUpdate")
+         ) => GHC.Records.HasField "un_ProgressUpdate" (Ptr.Ptr ProgressUpdate) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_ProgressUpdate")
+
+instance HsBindgen.Runtime.HasCField.HasCField ProgressUpdate "un_ProgressUpdate" where
+
+  type CFieldType ProgressUpdate "un_ProgressUpdate" =
+    Ptr.FunPtr ProgressUpdate_Deref
+
+  offset# = \_ -> \_ -> 0
 
 {-| Auxiliary type used by 'DataValidator'
 
@@ -128,6 +190,19 @@ instance HsBindgen.Runtime.FunPtr.FromFunPtr DataValidator_Deref where
 
   fromFunPtr = fromDataValidator_Deref
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType DataValidator_Deref) "un_DataValidator_Deref")
+         ) => GHC.Records.HasField "un_DataValidator_Deref" (Ptr.Ptr DataValidator_Deref) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_DataValidator_Deref")
+
+instance HsBindgen.Runtime.HasCField.HasCField DataValidator_Deref "un_DataValidator_Deref" where
+
+  type CFieldType DataValidator_Deref "un_DataValidator_Deref" =
+    FC.CInt -> IO FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @DataValidator@
 
     __defined at:__ @callbacks.h:12:15@
@@ -139,6 +214,19 @@ newtype DataValidator = DataValidator
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType DataValidator) "un_DataValidator")
+         ) => GHC.Records.HasField "un_DataValidator" (Ptr.Ptr DataValidator) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_DataValidator")
+
+instance HsBindgen.Runtime.HasCField.HasCField DataValidator "un_DataValidator" where
+
+  type CFieldType DataValidator "un_DataValidator" =
+    Ptr.FunPtr DataValidator_Deref
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @Measurement@
 
@@ -173,16 +261,42 @@ instance F.Storable Measurement where
   peek =
     \ptr0 ->
           pure Measurement
-      <*> F.peekByteOff ptr0 (0 :: Int)
-      <*> F.peekByteOff ptr0 (8 :: Int)
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"measurement_value") ptr0
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"measurement_timestamp") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Measurement measurement_value2 measurement_timestamp3 ->
-               F.pokeByteOff ptr0 (0 :: Int) measurement_value2
-            >> F.pokeByteOff ptr0 (8 :: Int) measurement_timestamp3
+               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"measurement_value") ptr0 measurement_value2
+            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"measurement_timestamp") ptr0 measurement_timestamp3
+
+instance HsBindgen.Runtime.HasCField.HasCField Measurement "measurement_value" where
+
+  type CFieldType Measurement "measurement_value" =
+    FC.CDouble
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Measurement) "measurement_value")
+         ) => GHC.Records.HasField "measurement_value" (Ptr.Ptr Measurement) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"measurement_value")
+
+instance HsBindgen.Runtime.HasCField.HasCField Measurement "measurement_timestamp" where
+
+  type CFieldType Measurement "measurement_timestamp" =
+    FC.CDouble
+
+  offset# = \_ -> \_ -> 8
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Measurement) "measurement_timestamp")
+         ) => GHC.Records.HasField "measurement_timestamp" (Ptr.Ptr Measurement) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"measurement_timestamp")
 
 {-| Auxiliary type used by 'MeasurementReceived'
 
@@ -210,6 +324,19 @@ instance HsBindgen.Runtime.FunPtr.FromFunPtr MeasurementReceived_Deref where
 
   fromFunPtr = fromMeasurementReceived_Deref
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MeasurementReceived_Deref) "un_MeasurementReceived_Deref")
+         ) => GHC.Records.HasField "un_MeasurementReceived_Deref" (Ptr.Ptr MeasurementReceived_Deref) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_MeasurementReceived_Deref")
+
+instance HsBindgen.Runtime.HasCField.HasCField MeasurementReceived_Deref "un_MeasurementReceived_Deref" where
+
+  type CFieldType MeasurementReceived_Deref "un_MeasurementReceived_Deref" =
+    (Ptr.Ptr Measurement) -> IO ()
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @MeasurementReceived@
 
     __defined at:__ @callbacks.h:26:16@
@@ -222,6 +349,19 @@ newtype MeasurementReceived = MeasurementReceived
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MeasurementReceived) "un_MeasurementReceived")
+         ) => GHC.Records.HasField "un_MeasurementReceived" (Ptr.Ptr MeasurementReceived) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_MeasurementReceived")
+
+instance HsBindgen.Runtime.HasCField.HasCField MeasurementReceived "un_MeasurementReceived" where
+
+  type CFieldType MeasurementReceived "un_MeasurementReceived" =
+    Ptr.FunPtr MeasurementReceived_Deref
+
+  offset# = \_ -> \_ -> 0
+
 {-| Auxiliary type used by 'MeasurementReceived2'
 
 __defined at:__ @callbacks.h:29:16@
@@ -231,6 +371,19 @@ __exported by:__ @callbacks.h@
 newtype MeasurementReceived2_Deref = MeasurementReceived2_Deref
   { un_MeasurementReceived2_Deref :: Measurement -> IO ()
   }
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MeasurementReceived2_Deref) "un_MeasurementReceived2_Deref")
+         ) => GHC.Records.HasField "un_MeasurementReceived2_Deref" (Ptr.Ptr MeasurementReceived2_Deref) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_MeasurementReceived2_Deref")
+
+instance HsBindgen.Runtime.HasCField.HasCField MeasurementReceived2_Deref "un_MeasurementReceived2_Deref" where
+
+  type CFieldType MeasurementReceived2_Deref "un_MeasurementReceived2_Deref" =
+    Measurement -> IO ()
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @MeasurementReceived2@
 
@@ -244,6 +397,19 @@ newtype MeasurementReceived2 = MeasurementReceived2
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MeasurementReceived2) "un_MeasurementReceived2")
+         ) => GHC.Records.HasField "un_MeasurementReceived2" (Ptr.Ptr MeasurementReceived2) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_MeasurementReceived2")
+
+instance HsBindgen.Runtime.HasCField.HasCField MeasurementReceived2 "un_MeasurementReceived2" where
+
+  type CFieldType MeasurementReceived2 "un_MeasurementReceived2" =
+    Ptr.FunPtr MeasurementReceived2_Deref
+
+  offset# = \_ -> \_ -> 0
+
 {-| Auxiliary type used by 'SampleBufferFull'
 
 __defined at:__ @callbacks.h:32:16@
@@ -253,6 +419,19 @@ __exported by:__ @callbacks.h@
 newtype SampleBufferFull_Deref = SampleBufferFull_Deref
   { un_SampleBufferFull_Deref :: ((HsBindgen.Runtime.ConstantArray.ConstantArray 10) FC.CInt) -> IO ()
   }
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType SampleBufferFull_Deref) "un_SampleBufferFull_Deref")
+         ) => GHC.Records.HasField "un_SampleBufferFull_Deref" (Ptr.Ptr SampleBufferFull_Deref) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_SampleBufferFull_Deref")
+
+instance HsBindgen.Runtime.HasCField.HasCField SampleBufferFull_Deref "un_SampleBufferFull_Deref" where
+
+  type CFieldType SampleBufferFull_Deref "un_SampleBufferFull_Deref" =
+    ((HsBindgen.Runtime.ConstantArray.ConstantArray 10) FC.CInt) -> IO ()
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @SampleBufferFull@
 
@@ -265,6 +444,19 @@ newtype SampleBufferFull = SampleBufferFull
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType SampleBufferFull) "un_SampleBufferFull")
+         ) => GHC.Records.HasField "un_SampleBufferFull" (Ptr.Ptr SampleBufferFull) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_SampleBufferFull")
+
+instance HsBindgen.Runtime.HasCField.HasCField SampleBufferFull "un_SampleBufferFull" where
+
+  type CFieldType SampleBufferFull "un_SampleBufferFull" =
+    Ptr.FunPtr SampleBufferFull_Deref
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @MeasurementHandler@
 
@@ -306,9 +498,9 @@ instance F.Storable MeasurementHandler where
   peek =
     \ptr0 ->
           pure MeasurementHandler
-      <*> F.peekByteOff ptr0 (0 :: Int)
-      <*> F.peekByteOff ptr0 (8 :: Int)
-      <*> F.peekByteOff ptr0 (16 :: Int)
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"measurementHandler_onReceived") ptr0
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"measurementHandler_validate") ptr0
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"measurementHandler_onError") ptr0
 
   poke =
     \ptr0 ->
@@ -318,9 +510,48 @@ instance F.Storable MeasurementHandler where
             measurementHandler_onReceived2
             measurementHandler_validate3
             measurementHandler_onError4 ->
-                 F.pokeByteOff ptr0 (0 :: Int) measurementHandler_onReceived2
-              >> F.pokeByteOff ptr0 (8 :: Int) measurementHandler_validate3
-              >> F.pokeByteOff ptr0 (16 :: Int) measurementHandler_onError4
+                 HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"measurementHandler_onReceived") ptr0 measurementHandler_onReceived2
+              >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"measurementHandler_validate") ptr0 measurementHandler_validate3
+              >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"measurementHandler_onError") ptr0 measurementHandler_onError4
+
+instance HsBindgen.Runtime.HasCField.HasCField MeasurementHandler "measurementHandler_onReceived" where
+
+  type CFieldType MeasurementHandler "measurementHandler_onReceived" =
+    Ptr.FunPtr ((Ptr.Ptr Measurement) -> IO ())
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MeasurementHandler) "measurementHandler_onReceived")
+         ) => GHC.Records.HasField "measurementHandler_onReceived" (Ptr.Ptr MeasurementHandler) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"measurementHandler_onReceived")
+
+instance HsBindgen.Runtime.HasCField.HasCField MeasurementHandler "measurementHandler_validate" where
+
+  type CFieldType MeasurementHandler "measurementHandler_validate" =
+    Ptr.FunPtr ((Ptr.Ptr Measurement) -> IO FC.CInt)
+
+  offset# = \_ -> \_ -> 8
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MeasurementHandler) "measurementHandler_validate")
+         ) => GHC.Records.HasField "measurementHandler_validate" (Ptr.Ptr MeasurementHandler) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"measurementHandler_validate")
+
+instance HsBindgen.Runtime.HasCField.HasCField MeasurementHandler "measurementHandler_onError" where
+
+  type CFieldType MeasurementHandler "measurementHandler_onError" =
+    Ptr.FunPtr (FC.CInt -> IO ())
+
+  offset# = \_ -> \_ -> 16
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType MeasurementHandler) "measurementHandler_onError")
+         ) => GHC.Records.HasField "measurementHandler_onError" (Ptr.Ptr MeasurementHandler) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"measurementHandler_onError")
 
 {-| __C declaration:__ @DataPipeline@
 
@@ -362,9 +593,9 @@ instance F.Storable DataPipeline where
   peek =
     \ptr0 ->
           pure DataPipeline
-      <*> F.peekByteOff ptr0 (0 :: Int)
-      <*> F.peekByteOff ptr0 (8 :: Int)
-      <*> F.peekByteOff ptr0 (16 :: Int)
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"dataPipeline_preProcess") ptr0
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"dataPipeline_process") ptr0
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"dataPipeline_postProcess") ptr0
 
   poke =
     \ptr0 ->
@@ -374,9 +605,48 @@ instance F.Storable DataPipeline where
             dataPipeline_preProcess2
             dataPipeline_process3
             dataPipeline_postProcess4 ->
-                 F.pokeByteOff ptr0 (0 :: Int) dataPipeline_preProcess2
-              >> F.pokeByteOff ptr0 (8 :: Int) dataPipeline_process3
-              >> F.pokeByteOff ptr0 (16 :: Int) dataPipeline_postProcess4
+                 HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"dataPipeline_preProcess") ptr0 dataPipeline_preProcess2
+              >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"dataPipeline_process") ptr0 dataPipeline_process3
+              >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"dataPipeline_postProcess") ptr0 dataPipeline_postProcess4
+
+instance HsBindgen.Runtime.HasCField.HasCField DataPipeline "dataPipeline_preProcess" where
+
+  type CFieldType DataPipeline "dataPipeline_preProcess" =
+    Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> IO ())
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType DataPipeline) "dataPipeline_preProcess")
+         ) => GHC.Records.HasField "dataPipeline_preProcess" (Ptr.Ptr DataPipeline) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"dataPipeline_preProcess")
+
+instance HsBindgen.Runtime.HasCField.HasCField DataPipeline "dataPipeline_process" where
+
+  type CFieldType DataPipeline "dataPipeline_process" =
+    Ptr.FunPtr ((Ptr.Ptr Measurement) -> IO ())
+
+  offset# = \_ -> \_ -> 8
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType DataPipeline) "dataPipeline_process")
+         ) => GHC.Records.HasField "dataPipeline_process" (Ptr.Ptr DataPipeline) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"dataPipeline_process")
+
+instance HsBindgen.Runtime.HasCField.HasCField DataPipeline "dataPipeline_postProcess" where
+
+  type CFieldType DataPipeline "dataPipeline_postProcess" =
+    Ptr.FunPtr ((Ptr.Ptr Measurement) -> ProgressUpdate -> IO ())
+
+  offset# = \_ -> \_ -> 16
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType DataPipeline) "dataPipeline_postProcess")
+         ) => GHC.Records.HasField "dataPipeline_postProcess" (Ptr.Ptr DataPipeline) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"dataPipeline_postProcess")
 
 {-| __C declaration:__ @ProcessorCallback@
 
@@ -470,6 +740,45 @@ set_processorCallback_withProgress ::
   -> ProcessorCallback
 set_processorCallback_withProgress =
   HsBindgen.Runtime.ByteArray.setUnionPayload
+
+instance HsBindgen.Runtime.HasCField.HasCField ProcessorCallback "processorCallback_simple" where
+
+  type CFieldType ProcessorCallback "processorCallback_simple" =
+    Ptr.FunPtr ((Ptr.Ptr Measurement) -> IO ())
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ProcessorCallback) "processorCallback_simple")
+         ) => GHC.Records.HasField "processorCallback_simple" (Ptr.Ptr ProcessorCallback) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"processorCallback_simple")
+
+instance HsBindgen.Runtime.HasCField.HasCField ProcessorCallback "processorCallback_withValidator" where
+
+  type CFieldType ProcessorCallback "processorCallback_withValidator" =
+    Ptr.FunPtr ((Ptr.Ptr Measurement) -> DataValidator -> IO ())
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ProcessorCallback) "processorCallback_withValidator")
+         ) => GHC.Records.HasField "processorCallback_withValidator" (Ptr.Ptr ProcessorCallback) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"processorCallback_withValidator")
+
+instance HsBindgen.Runtime.HasCField.HasCField ProcessorCallback "processorCallback_withProgress" where
+
+  type CFieldType ProcessorCallback "processorCallback_withProgress" =
+    Ptr.FunPtr ((Ptr.Ptr Measurement) -> ProgressUpdate -> IO ())
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ProcessorCallback) "processorCallback_withProgress")
+         ) => GHC.Records.HasField "processorCallback_withProgress" (Ptr.Ptr ProcessorCallback) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"processorCallback_withProgress")
 
 {-| __defined at:__ @callbacks.h:76:3@
 
@@ -600,16 +909,42 @@ instance F.Storable Processor where
   peek =
     \ptr0 ->
           pure Processor
-      <*> F.peekByteOff ptr0 (0 :: Int)
-      <*> F.peekByteOff ptr0 (8 :: Int)
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"processor_mode") ptr0
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"processor_callback") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Processor processor_mode2 processor_callback3 ->
-               F.pokeByteOff ptr0 (0 :: Int) processor_mode2
-            >> F.pokeByteOff ptr0 (8 :: Int) processor_callback3
+               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"processor_mode") ptr0 processor_mode2
+            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"processor_callback") ptr0 processor_callback3
+
+instance HsBindgen.Runtime.HasCField.HasCField Processor "processor_mode" where
+
+  type CFieldType Processor "processor_mode" =
+    Processor_mode
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Processor) "processor_mode")
+         ) => GHC.Records.HasField "processor_mode" (Ptr.Ptr Processor) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"processor_mode")
+
+instance HsBindgen.Runtime.HasCField.HasCField Processor "processor_callback" where
+
+  type CFieldType Processor "processor_callback" =
+    ProcessorCallback
+
+  offset# = \_ -> \_ -> 8
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Processor) "processor_callback")
+         ) => GHC.Records.HasField "processor_callback" (Ptr.Ptr Processor) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"processor_callback")
 
 {-| __C declaration:__ @foo@
 
@@ -623,6 +958,18 @@ newtype Foo = Foo
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Foo) "un_Foo")
+         ) => GHC.Records.HasField "un_Foo" (Ptr.Ptr Foo) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Foo")
+
+instance HsBindgen.Runtime.HasCField.HasCField Foo "un_Foo" where
+
+  type CFieldType Foo "un_Foo" = FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @foo2@
 
     __defined at:__ @callbacks.h:95:13@
@@ -634,6 +981,18 @@ newtype Foo2 = Foo2
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Foo2) "un_Foo2")
+         ) => GHC.Records.HasField "un_Foo2" (Ptr.Ptr Foo2) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Foo2")
+
+instance HsBindgen.Runtime.HasCField.HasCField Foo2 "un_Foo2" where
+
+  type CFieldType Foo2 "un_Foo2" = FC.CInt
+
+  offset# = \_ -> \_ -> 0
 
 foreign import ccall safe "wrapper" funPtr_7a7e54ab_to ::
      (Foo -> IO ())

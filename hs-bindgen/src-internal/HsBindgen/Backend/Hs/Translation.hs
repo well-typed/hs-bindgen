@@ -266,6 +266,7 @@ getInstances instanceMap name = aux
           HsBlock t ->
             aux acc (t:hsTypes)
           HsComplexType primType -> aux (acc /\ hsPrimTypeInsts primType) hsTypes
+          HsStrLit{} -> Set.empty
 
     (/\) :: Ord a => Set a -> Set a -> Set a
     (/\) = Set.intersection
@@ -470,7 +471,10 @@ structDecs opts haddockConfig info struct spec fields = do
     -- everything in aux is state-dependent
     aux :: InstanceMap -> (Set Hs.TypeClass, [Hs.Decl])
     aux instanceMap = (insts,) $
-        structDecl : storableDecl ++ optDecls ++ hasFlamDecl
+        structDecl : storableDecl ++ optDecls ++ hasFlamDecl ++
+        concatMap (structFieldDecls structName) (C.structFields struct)
+        -- TODO: generate zero-copy bindings for the FLAM field. See issue
+        -- #1286.
       where
         insts :: Set Hs.TypeClass
         insts = getInstances instanceMap structName candidateInsts $
@@ -506,7 +510,7 @@ structDecs opts haddockConfig info struct spec fields = do
                                   Hs.StorableInstance {
                                     Hs.storableSizeOf    = C.structSizeof struct
                                   , Hs.storableAlignment = C.structAlignment struct
-                                  , Hs.storablePeek      = Hs.Lambda "ptr" $
+                                  , Hs.storablePeek = Hs.Lambda "ptr" $
                                       Hs.Ap (Hs.StructCon hsStruct) $
                                         map (peekStructField IZ) (C.structFields struct)
                                   , Hs.storablePoke      = Hs.Lambda "ptr" $ Hs.Lambda "s" $
@@ -541,15 +545,96 @@ structDecs opts haddockConfig info struct spec fields = do
                                                (C.structFieldOffset flam `div` 8)
                         }
 
-peekStructField :: Idx ctx -> C.StructField -> Hs.PeekByteOff ctx
-peekStructField ptr f = case C.structFieldWidth f of
-    Nothing -> Hs.PeekByteOff ptr (C.structFieldOffset f `div` 8)
-    Just w  -> Hs.PeekBitOffWidth ptr (C.structFieldOffset f) w
+-- | 'HasCField', 'HasCBitfield', and 'HasField' instances for a field of a
+-- struct declaration
+--
+-- Given a struct:
+--
+-- > struct myStruct { int x; char y };
+--
+-- We generate roughly this datatype:
+--
+-- > newtype MyStruct = MyStruct { myStruct_x :: CInt, myStruct_y :: CChar }
+--
+-- Then, 'structFieldDecls' will generate roughly the following class instances
+-- for the fields @x@ and @y@ respectively:
+--
+-- > instance HasCField "myStruct_x" MyStruct where
+-- >   type CFieldType "myStruct_x" MyStruct = CInt
+-- > instance HasField "myStruct_x" (Ptr MyStruct) (Ptr CInt)
+--
+-- > instance HasCField "myStruct_y" MyStruct where
+-- >   type CFieldType "myStruct_y" MyStruct = CChar
+-- > instance HasField "myStruct_y" (Ptr MyStruct) (Ptr CChar)
+--
+-- This works similarly for bit-fields, but those get a 'HasCBitfield' instance
+-- instead of a 'HasCField' instance.
+structFieldDecls :: Hs.Name Hs.NsTypeConstr -> C.StructField -> [Hs.Decl]
+structFieldDecls structName f = [
+      Hs.DeclDefineInstance $
+        Hs.DefineInstance {
+            defineInstanceComment      = Nothing
+          , defineInstanceDeclarations =
+              case C.structFieldWidth f of
+                Nothing -> Hs.InstanceHasCField $ hasCFieldDecl
+                Just w  -> Hs.InstanceHasCBitfield $ hasCBitfieldDecl w
+          }
+    , Hs.DeclDefineInstance $
+        Hs.DefineInstance {
+            defineInstanceComment      = Nothing
+          , defineInstanceDeclarations = Hs.InstanceHasField hasFieldDecl
+          }
+    ]
+  where
+    parentType :: HsType
+    parentType = Hs.HsTypRef structName
 
-pokeStructField :: Idx ctx -> C.StructField -> Idx ctx -> Hs.PokeByteOff ctx
-pokeStructField ptr f i = case C.structFieldWidth f of
-    Nothing -> Hs.PokeByteOff ptr (C.structFieldOffset f `div` 8) i
-    Just w  -> Hs.PokeBitOffWidth ptr (C.structFieldOffset f) w i
+    fieldName :: Hs.Name Hs.NsVar
+    fieldName = C.nameHs (C.fieldName (C.structFieldInfo f))
+
+    fieldType :: HsType
+    fieldType = typ (C.structFieldType f)
+
+    hasFieldDecl :: Hs.HasFieldInstance
+    hasFieldDecl = Hs.HasFieldInstance {
+          hasFieldInstanceParentType = parentType
+        , hasFieldInstanceFieldName = fieldName
+        , hasFieldInstanceFieldType = fieldType
+        , hasFieldInstanceVia = case C.structFieldWidth f of
+            Nothing -> Hs.ViaHasCField
+            Just _  -> Hs.ViaHasCBitfield
+        }
+
+    hasCFieldDecl :: Hs.HasCFieldInstance
+    hasCFieldDecl = Hs.HasCFieldInstance {
+          hasCFieldInstanceParentType = parentType
+        , hasCFieldInstanceFieldName  = fieldName
+        , hasCFieldInstanceCFieldType = fieldType
+        , hasCFieldInstanceFieldOffset = C.structFieldOffset f `div` 8
+        }
+
+    hasCBitfieldDecl :: Int -> Hs.HasCBitfieldInstance
+    hasCBitfieldDecl w = Hs.HasCBitfieldInstance {
+          hasCBitfieldInstanceParentType = parentType
+        , hasCBitfieldInstanceFieldName  = fieldName
+        , hasCBitfieldInstanceCBitfieldType = fieldType
+        , hasCBitfieldInstanceBitOffset = C.structFieldOffset f
+        , hasCBitfieldInstanceBitWidth = w
+        }
+
+peekStructField :: Idx ctx -> C.StructField -> Hs.PeekCField ctx
+peekStructField ptr f = case C.structFieldWidth f of
+    Nothing -> Hs.PeekCField (HsStrLit name) ptr
+    Just _w -> Hs.PeekCBitfield (HsStrLit name) ptr
+  where
+    name = T.unpack $ Hs.getName $ C.nameHs (C.fieldName (C.structFieldInfo f))
+
+pokeStructField :: Idx ctx -> C.StructField -> Idx ctx -> Hs.PokeCField ctx
+pokeStructField ptr f x = case C.structFieldWidth f of
+    Nothing -> Hs.PokeCField (HsStrLit name) ptr x
+    Just _w  -> Hs.PokeCBitfield (HsStrLit name) ptr x
+  where
+    name = T.unpack $ Hs.getName $ C.nameHs (C.fieldName (C.structFieldInfo f))
 
 {-------------------------------------------------------------------------------
   Opaque struct and opaque enum
@@ -643,7 +728,9 @@ unionDecs haddockConfig info union spec = do
 
     -- everything in aux is state-dependent
     aux :: InstanceMap -> [Hs.Decl]
-    aux instanceMap = newtypeDecl : storableDecl : accessorDecls
+    aux instanceMap =
+        newtypeDecl : storableDecl : accessorDecls ++
+        concatMap (unionFieldDecls newtypeName) (C.unionFields union)
       where
         accessorDecls :: [Hs.Decl]
         accessorDecls = concatMap getAccessorDecls (C.unionFields union)
@@ -686,6 +773,88 @@ unionDecs haddockConfig info union spec = do
                       , unionSetterComment = commentRefName (Hs.getName getterName)
                       }
                   ]
+
+-- | 'HasCField' and 'HasField' instances for a field of a
+-- union declaration
+--
+-- Given a union:
+--
+-- > union myUnion { int option1; char option2 };
+--
+-- We generate roughly this newtype:
+--
+-- > newtype MyUnion = MyUnion { un_MyUnion :: ByteArray }
+--
+-- Then, 'unionFieldDecls' will generate roughly the following class instances
+-- for the fields @option1@ and @option@ respectively:
+--
+-- > instance HasCField "myUnion_option1" MyUnion where
+-- >   type CFieldType "myUnion_option1" MyUnion = CInt
+-- > instance HasField "myUnion_option1" (Ptr MyUnion) (Ptr CInt)
+--
+-- > instance HasCField "myUnion_option2" MyUnion where
+-- >   type CFieldType "myUnion_option2" MyUnion = CChar
+-- > instance HasField "myUnion_option2" (Ptr MyUnion) (Ptr CChar)
+--
+-- This works similarly for bit-fields, but those get a 'HasCBitfield' instance
+-- instead of a 'HasCField' instance.
+unionFieldDecls :: Hs.Name Hs.NsTypeConstr -> C.UnionField -> [Hs.Decl]
+unionFieldDecls unionName f = [
+      Hs.DeclDefineInstance $
+        Hs.DefineInstance {
+            defineInstanceComment      = Nothing
+          , defineInstanceDeclarations =
+              case unionFieldWidth f of
+                Nothing -> Hs.InstanceHasCField $ hasCFieldDecl
+                Just w  -> Hs.InstanceHasCBitfield $ hasCBitfieldDecl w
+          }
+    , Hs.DeclDefineInstance $
+        Hs.DefineInstance {
+            defineInstanceComment      = Nothing
+          , defineInstanceDeclarations = Hs.InstanceHasField hasFieldDecl
+          }
+    ]
+  where
+    -- | TODO: should be changed to @C.unionFieldWidth f@ when
+    -- bit-fields in unions are supported. See issue #1253.
+    unionFieldWidth :: C.UnionField -> Maybe Int
+    unionFieldWidth _f = Nothing
+
+    parentType :: HsType
+    parentType = Hs.HsTypRef unionName
+
+    fieldName :: Hs.Name Hs.NsVar
+    fieldName = C.nameHs (C.fieldName (C.unionFieldInfo f))
+
+    fieldType :: HsType
+    fieldType = typ (C.unionFieldType f)
+
+    hasFieldDecl :: Hs.HasFieldInstance
+    hasFieldDecl = Hs.HasFieldInstance {
+          hasFieldInstanceParentType = parentType
+        , hasFieldInstanceFieldName = fieldName
+        , hasFieldInstanceFieldType = fieldType
+        , hasFieldInstanceVia = case unionFieldWidth f of
+            Nothing -> Hs.ViaHasCField
+            Just _  -> Hs.ViaHasCBitfield
+        }
+
+    hasCFieldDecl :: Hs.HasCFieldInstance
+    hasCFieldDecl = Hs.HasCFieldInstance {
+          hasCFieldInstanceParentType = parentType
+        , hasCFieldInstanceFieldName  = fieldName
+        , hasCFieldInstanceCFieldType = fieldType
+        , hasCFieldInstanceFieldOffset = 0
+        }
+
+    hasCBitfieldDecl :: Int -> Hs.HasCBitfieldInstance
+    hasCBitfieldDecl w = Hs.HasCBitfieldInstance {
+          hasCBitfieldInstanceParentType = parentType
+        , hasCBitfieldInstanceFieldName  = fieldName
+        , hasCBitfieldInstanceCBitfieldType = fieldType
+        , hasCBitfieldInstanceBitOffset = 0
+        , hasCBitfieldInstanceBitWidth = w
+        }
 
 {-------------------------------------------------------------------------------
   Enum
@@ -930,7 +1099,8 @@ typedefDecs opts haddockConfig info typedef spec = do
     -- everything in aux is state-dependent
     aux :: InstanceMap -> (Set Hs.TypeClass, [Hs.Decl])
     aux instanceMap = (insts,) $
-      (newtypeDecl : newtypeWrapper) ++ storableDecl ++ optDecls
+        (newtypeDecl : newtypeWrapper) ++ storableDecl ++ optDecls ++
+        typedefFieldDecls hsNewtype
       where
         insts :: Set Hs.TypeClass
         insts =
@@ -981,6 +1151,71 @@ typedefDecs opts haddockConfig info typedef spec = do
           | (strat, clss) <- translationDeriveTypedef opts
           , clss `Set.member` insts
           ]
+
+-- | 'HasCField', 'HasCBitfield', and 'HasField' instances for a typedef
+-- declaration.
+--
+-- Given a typedef:
+--
+-- > typedef int myInt;
+--
+-- We generate roughly this newtype:
+--
+-- > newtype MyInt = MyInt { un_MyInt :: CInt }
+--
+-- Then, 'typedefFieldDecls' will generate roughly the following class
+-- instances.
+--
+-- > instance HasCField "un_MyInt" MyInt where
+-- >   type CFieldType "un_MyInt" MyInt = CInt
+-- > instance HasField "un_MyInt" (Ptr MyInt) (Ptr CInt)
+--
+-- These instance help eliminating newtypes from 'Ptr' types. Naturally,
+-- newtypes can also be introduced in 'Ptr' types, but this should be done using
+-- 'castPtr' or some similar function.
+typedefFieldDecls :: Hs.Newtype -> [Hs.Decl]
+typedefFieldDecls hsNewType = [
+    -- * Eliminate newtypes
+
+      Hs.DeclDefineInstance $
+        Hs.DefineInstance {
+            defineInstanceComment      = Nothing
+          , defineInstanceDeclarations = Hs.InstanceHasField elimHasFieldDecl
+          }
+    , Hs.DeclDefineInstance $
+        Hs.DefineInstance {
+            defineInstanceComment      = Nothing
+          , defineInstanceDeclarations = Hs.InstanceHasCField $ elimHasCFieldDecl
+          }
+    ]
+  where
+    field :: Hs.Field
+    field = Hs.newtypeField hsNewType
+
+    parentType :: HsType
+    parentType = Hs.HsTypRef (Hs.newtypeName hsNewType)
+
+    fieldName :: Hs.Name Hs.NsVar
+    fieldName = Hs.fieldName field
+
+    fieldType :: HsType
+    fieldType = Hs.fieldType field
+
+    elimHasFieldDecl :: Hs.HasFieldInstance
+    elimHasFieldDecl = Hs.HasFieldInstance {
+          hasFieldInstanceParentType = parentType
+        , hasFieldInstanceFieldName = fieldName
+        , hasFieldInstanceFieldType = fieldType
+        , hasFieldInstanceVia = Hs.ViaHasCField
+        }
+
+    elimHasCFieldDecl :: Hs.HasCFieldInstance
+    elimHasCFieldDecl = Hs.HasCFieldInstance {
+          hasCFieldInstanceParentType = parentType
+        , hasCFieldInstanceFieldName  = fieldName
+        , hasCFieldInstanceCFieldType = fieldType
+        , hasCFieldInstanceFieldOffset = 0
+        }
 
 {-------------------------------------------------------------------------------
   Macros

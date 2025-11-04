@@ -160,7 +160,6 @@ instance ToExpr Hs.FunctionDecl where
 instance ToExpr a => ToExpr (HsType.ResultType a)
 instance ToExpr Hs.Newtype
 instance ToExpr Hs.PatSyn
-instance ToExpr Hs.StorableInstance
 instance ToExpr t => ToExpr (Hs.Strategy t)
 instance ToExpr Hs.MacroExpr
 instance ToExpr Hs.UnionGetter
@@ -176,14 +175,23 @@ instance ToExpr Origin.Struct
 instance ToExpr Origin.PatSyn
 instance ToExpr Origin.ForeignImport
 
-instance ToExpr (Hs.PeekByteOff ctx)
-instance ToExpr (Hs.PokeByteOff ctx)
 instance ToExpr (Hs.Struct n)
 instance ToExpr (Hs.VarDeclRHS ctx)
 instance ToExpr (t ctx) => ToExpr (Hs.Seq t ctx)
 
 instance ToExpr Hs.ToFunPtrInstance
 instance ToExpr Hs.FromFunPtrInstance
+
+instance ToExpr Hs.StorableInstance
+instance ToExpr (Hs.PeekCField ctx)
+instance ToExpr (Hs.PokeCField ctx)
+
+instance ToExpr Hs.HasCFieldInstance
+
+instance ToExpr Hs.HasCBitfieldInstance
+
+instance ToExpr Hs.HasFieldInstance
+instance ToExpr Hs.HasFieldInstanceVia
 
 instance ToExpr Hs.Decl where
   toExpr = \case
@@ -225,6 +233,12 @@ instance ToExpr Hs.InstanceDecl where
   toExpr = \case
     Hs.InstanceStorable struct inst ->
       Expr.App "InstanceStorable" [toExpr struct, toExpr inst]
+    Hs.InstanceHasCField inst ->
+      Expr.App "InstanceHasCField" [toExpr inst]
+    Hs.InstanceHasCBitfield inst ->
+      Expr.App "InstanceHasCBitfield" [toExpr inst]
+    Hs.InstanceHasField inst ->
+      Expr.App "InstanceHasField" [toExpr inst]
     Hs.InstanceHasFLAM struct fty i ->
       Expr.App "InstanceHasFLAM" [toExpr struct, toExpr fty, toExpr i]
     Hs.InstanceCEnum struct typ vMap isSeq ->

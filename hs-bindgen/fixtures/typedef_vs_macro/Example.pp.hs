@@ -1,15 +1,27 @@
+{-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE MagicHash #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE TypeApplications #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE UndecidableInstances #-}
 
 module Example where
 
 import qualified Data.Bits as Bits
 import qualified Data.Ix as Ix
+import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
+import qualified GHC.Records
+import qualified HsBindgen.Runtime.HasCField
 import Data.Bits (FiniteBits)
+import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
 {-| __C declaration:__ @T1@
@@ -24,6 +36,18 @@ newtype T1 = T1
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType T1) "un_T1")
+         ) => GHC.Records.HasField "un_T1" (Ptr.Ptr T1) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_T1")
+
+instance HsBindgen.Runtime.HasCField.HasCField T1 "un_T1" where
+
+  type CFieldType T1 "un_T1" = FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @T2@
 
     __defined at:__ @typedef_vs_macro.h:2:14@
@@ -35,6 +59,18 @@ newtype T2 = T2
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType T2) "un_T2")
+         ) => GHC.Records.HasField "un_T2" (Ptr.Ptr T2) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_T2")
+
+instance HsBindgen.Runtime.HasCField.HasCField T2 "un_T2" where
+
+  type CFieldType T2 "un_T2" = FC.CChar
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @M1@
 
@@ -119,10 +155,10 @@ instance F.Storable ExampleStruct where
   peek =
     \ptr0 ->
           pure ExampleStruct
-      <*> F.peekByteOff ptr0 (0 :: Int)
-      <*> F.peekByteOff ptr0 (4 :: Int)
-      <*> F.peekByteOff ptr0 (8 :: Int)
-      <*> F.peekByteOff ptr0 (12 :: Int)
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"exampleStruct_t1") ptr0
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"exampleStruct_t2") ptr0
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"exampleStruct_m1") ptr0
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"exampleStruct_m2") ptr0
 
   poke =
     \ptr0 ->
@@ -133,10 +169,58 @@ instance F.Storable ExampleStruct where
             exampleStruct_t23
             exampleStruct_m14
             exampleStruct_m25 ->
-                 F.pokeByteOff ptr0 (0 :: Int) exampleStruct_t12
-              >> F.pokeByteOff ptr0 (4 :: Int) exampleStruct_t23
-              >> F.pokeByteOff ptr0 (8 :: Int) exampleStruct_m14
-              >> F.pokeByteOff ptr0 (12 :: Int) exampleStruct_m25
+                 HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"exampleStruct_t1") ptr0 exampleStruct_t12
+              >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"exampleStruct_t2") ptr0 exampleStruct_t23
+              >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"exampleStruct_m1") ptr0 exampleStruct_m14
+              >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"exampleStruct_m2") ptr0 exampleStruct_m25
+
+instance HsBindgen.Runtime.HasCField.HasCField ExampleStruct "exampleStruct_t1" where
+
+  type CFieldType ExampleStruct "exampleStruct_t1" = T1
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ExampleStruct) "exampleStruct_t1")
+         ) => GHC.Records.HasField "exampleStruct_t1" (Ptr.Ptr ExampleStruct) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"exampleStruct_t1")
+
+instance HsBindgen.Runtime.HasCField.HasCField ExampleStruct "exampleStruct_t2" where
+
+  type CFieldType ExampleStruct "exampleStruct_t2" = T2
+
+  offset# = \_ -> \_ -> 4
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ExampleStruct) "exampleStruct_t2")
+         ) => GHC.Records.HasField "exampleStruct_t2" (Ptr.Ptr ExampleStruct) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"exampleStruct_t2")
+
+instance HsBindgen.Runtime.HasCField.HasCField ExampleStruct "exampleStruct_m1" where
+
+  type CFieldType ExampleStruct "exampleStruct_m1" = M1
+
+  offset# = \_ -> \_ -> 8
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ExampleStruct) "exampleStruct_m1")
+         ) => GHC.Records.HasField "exampleStruct_m1" (Ptr.Ptr ExampleStruct) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"exampleStruct_m1")
+
+instance HsBindgen.Runtime.HasCField.HasCField ExampleStruct "exampleStruct_m2" where
+
+  type CFieldType ExampleStruct "exampleStruct_m2" = M2
+
+  offset# = \_ -> \_ -> 12
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ExampleStruct) "exampleStruct_m2")
+         ) => GHC.Records.HasField "exampleStruct_m2" (Ptr.Ptr ExampleStruct) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"exampleStruct_m2")
 
 {-| __C declaration:__ @uint64_t@
 
@@ -176,10 +260,23 @@ instance F.Storable Foo where
   peek =
     \ptr0 ->
           pure Foo
-      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"foo_a") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
-          Foo foo_a2 -> F.pokeByteOff ptr0 (0 :: Int) foo_a2
+          Foo foo_a2 ->
+            HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"foo_a") ptr0 foo_a2
+
+instance HsBindgen.Runtime.HasCField.HasCField Foo "foo_a" where
+
+  type CFieldType Foo "foo_a" = Ptr.Ptr Uint64_t
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Foo) "foo_a")
+         ) => GHC.Records.HasField "foo_a" (Ptr.Ptr Foo) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"foo_a")

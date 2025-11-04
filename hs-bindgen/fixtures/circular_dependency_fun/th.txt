@@ -22,6 +22,13 @@ instance ToFunPtr Fun_ptr_Deref
     where toFunPtr = toFun_ptr_Deref
 instance FromFunPtr Fun_ptr_Deref
     where fromFunPtr = fromFun_ptr_Deref
+instance TyEq ty (CFieldType Fun_ptr_Deref "un_Fun_ptr_Deref") =>
+         HasField "un_Fun_ptr_Deref" (Ptr Fun_ptr_Deref) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Fun_ptr_Deref")
+instance HasCField Fun_ptr_Deref "un_Fun_ptr_Deref"
+    where type CFieldType Fun_ptr_Deref
+                          "un_Fun_ptr_Deref" = Ptr Forward_declaration -> IO Unit
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @fun_ptr@
 
     __defined at:__ @circular_dependency_fun.h:3:16@
@@ -38,6 +45,12 @@ newtype Fun_ptr
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+instance TyEq ty (CFieldType Fun_ptr "un_Fun_ptr") =>
+         HasField "un_Fun_ptr" (Ptr Fun_ptr) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Fun_ptr")
+instance HasCField Fun_ptr "un_Fun_ptr"
+    where type CFieldType Fun_ptr "un_Fun_ptr" = FunPtr Fun_ptr_Deref
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @forward_declaration@
 
     __defined at:__ @circular_dependency_fun.h:5:8@
@@ -62,9 +75,17 @@ data Forward_declaration
 instance Storable Forward_declaration
     where sizeOf = \_ -> 8 :: Int
           alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> pure Forward_declaration <*> peekByteOff ptr_0 (0 :: Int)
+          peek = \ptr_0 -> pure Forward_declaration <*> peekCField (Proxy @"forward_declaration_f") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Forward_declaration forward_declaration_f_3 -> pokeByteOff ptr_1 (0 :: Int) forward_declaration_f_3
+                                   Forward_declaration forward_declaration_f_3 -> pokeCField (Proxy @"forward_declaration_f") ptr_1 forward_declaration_f_3
+instance HasCField Forward_declaration "forward_declaration_f"
+    where type CFieldType Forward_declaration
+                          "forward_declaration_f" = Fun_ptr
+          offset# = \_ -> \_ -> 0
+instance TyEq ty
+              (CFieldType Forward_declaration "forward_declaration_f") =>
+         HasField "forward_declaration_f" (Ptr Forward_declaration) (Ptr ty)
+    where getField = ptrToCField (Proxy @"forward_declaration_f")
 foreign import ccall safe "wrapper" funPtr_fbe60ed6_to :: (Ptr Forward_declaration ->
                                                            IO Unit) ->
                                                           IO (FunPtr (Ptr Forward_declaration ->

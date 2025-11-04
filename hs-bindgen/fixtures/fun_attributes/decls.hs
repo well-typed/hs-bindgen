@@ -560,6 +560,39 @@
         "Size_t",
       deriveInstanceComment =
       Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Size_t"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Size_t",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCInt,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Size_t"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "un_Size_t",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCInt,
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name

@@ -2,18 +2,29 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
+{-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE MagicHash #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
+{-# LANGUAGE TypeApplications #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE UndecidableInstances #-}
 
 module Example where
 
 import qualified Data.Array.Byte
+import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
+import qualified GHC.Records
 import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.FunPtr
+import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.SizedByteArray
+import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, IO, Int, Show, pure)
 
 {-| __C declaration:__ @int2int@
@@ -41,6 +52,19 @@ instance HsBindgen.Runtime.FunPtr.ToFunPtr Int2int where
 instance HsBindgen.Runtime.FunPtr.FromFunPtr Int2int where
 
   fromFunPtr = fromInt2int
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Int2int) "un_Int2int")
+         ) => GHC.Records.HasField "un_Int2int" (Ptr.Ptr Int2int) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Int2int")
+
+instance HsBindgen.Runtime.HasCField.HasCField Int2int "un_Int2int" where
+
+  type CFieldType Int2int "un_Int2int" =
+    FC.CInt -> IO FC.CInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| A struct field pointing to a function like apply1_nopointer().
 
@@ -70,14 +94,27 @@ instance F.Storable Apply1Struct where
   peek =
     \ptr0 ->
           pure Apply1Struct
-      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"apply1Struct_apply1_nopointer_struct_field") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Apply1Struct apply1Struct_apply1_nopointer_struct_field2 ->
-            F.pokeByteOff ptr0 (0 :: Int) apply1Struct_apply1_nopointer_struct_field2
+            HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"apply1Struct_apply1_nopointer_struct_field") ptr0 apply1Struct_apply1_nopointer_struct_field2
+
+instance HsBindgen.Runtime.HasCField.HasCField Apply1Struct "apply1Struct_apply1_nopointer_struct_field" where
+
+  type CFieldType Apply1Struct "apply1Struct_apply1_nopointer_struct_field" =
+    Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Apply1Struct) "apply1Struct_apply1_nopointer_struct_field")
+         ) => GHC.Records.HasField "apply1Struct_apply1_nopointer_struct_field" (Ptr.Ptr Apply1Struct) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"apply1Struct_apply1_nopointer_struct_field")
 
 {-| A union field pointing to a function like apply1_nopointer().
 
@@ -119,3 +156,16 @@ set_apply1Union_apply1_nopointer_union_field ::
   -> Apply1Union
 set_apply1Union_apply1_nopointer_union_field =
   HsBindgen.Runtime.ByteArray.setUnionPayload
+
+instance HsBindgen.Runtime.HasCField.HasCField Apply1Union "apply1Union_apply1_nopointer_union_field" where
+
+  type CFieldType Apply1Union "apply1Union_apply1_nopointer_union_field" =
+    Ptr.FunPtr ((Ptr.FunPtr Int2int) -> FC.CInt -> IO FC.CInt)
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Apply1Union) "apply1Union_apply1_nopointer_union_field")
+         ) => GHC.Records.HasField "apply1Union_apply1_nopointer_union_field" (Ptr.Ptr Apply1Union) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"apply1Union_apply1_nopointer_union_field")

@@ -78,6 +78,12 @@ newtype Adio'0301s
                       Ix,
                       Num,
                       Real)
+instance TyEq ty (CFieldType Adio'0301s "un_Adio'0301s") =>
+         HasField "un_Adio'0301s" (Ptr Adio'0301s) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Adio'0301s")
+instance HasCField Adio'0301s "un_Adio'0301s"
+    where type CFieldType Adio'0301s "un_Adio'0301s" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @数字@
 
     __defined at:__ @adios.h:12:13@
@@ -102,6 +108,12 @@ newtype C数字
                       Ix,
                       Num,
                       Real)
+instance TyEq ty (CFieldType C数字 "un_C\25968\23383") =>
+         HasField "un_C\25968\23383" (Ptr C数字) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_C\25968\23383")
+instance HasCField C数字 "un_C\25968\23383"
+    where type CFieldType C数字 "un_C\25968\23383" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @ϒ@
 
     __defined at:__ @adios.h:18:6@

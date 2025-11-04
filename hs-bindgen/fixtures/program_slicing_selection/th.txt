@@ -190,10 +190,32 @@ data FileOperationRecord
 instance Storable FileOperationRecord
     where sizeOf = \_ -> 16 :: Int
           alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> (pure FileOperationRecord <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int)
+          peek = \ptr_0 -> (pure FileOperationRecord <*> peekCField (Proxy @"fileOperationRecord_status") ptr_0) <*> peekCField (Proxy @"fileOperationRecord_bytes_processed") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    FileOperationRecord fileOperationRecord_status_3
-                                                       fileOperationRecord_bytes_processed_4 -> pokeByteOff ptr_1 (0 :: Int) fileOperationRecord_status_3 >> pokeByteOff ptr_1 (8 :: Int) fileOperationRecord_bytes_processed_4
+                                                       fileOperationRecord_bytes_processed_4 -> pokeCField (Proxy @"fileOperationRecord_status") ptr_1 fileOperationRecord_status_3 >> pokeCField (Proxy @"fileOperationRecord_bytes_processed") ptr_1 fileOperationRecord_bytes_processed_4
+instance HasCField FileOperationRecord "fileOperationRecord_status"
+    where type CFieldType FileOperationRecord
+                          "fileOperationRecord_status" = FileOperationStatus
+          offset# = \_ -> \_ -> 0
+instance TyEq ty
+              (CFieldType FileOperationRecord "fileOperationRecord_status") =>
+         HasField "fileOperationRecord_status"
+                  (Ptr FileOperationRecord)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"fileOperationRecord_status")
+instance HasCField FileOperationRecord
+                   "fileOperationRecord_bytes_processed"
+    where type CFieldType FileOperationRecord
+                          "fileOperationRecord_bytes_processed" = HsBindgen.Runtime.Prelude.CSize
+          offset# = \_ -> \_ -> 8
+instance TyEq ty
+              (CFieldType FileOperationRecord
+                          "fileOperationRecord_bytes_processed") =>
+         HasField "fileOperationRecord_bytes_processed"
+                  (Ptr FileOperationRecord)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"fileOperationRecord_bytes_processed")
 {-| __C declaration:__ @read_file_chunk@
 
     __defined at:__ @program_slicing_selection.h:21:26@

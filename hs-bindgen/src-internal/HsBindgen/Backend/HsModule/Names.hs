@@ -1,3 +1,4 @@
+{-# LANGUAGE MagicHash #-}
 {-# LANGUAGE TemplateHaskellQuotes #-}
 module HsBindgen.Backend.HsModule.Names (
     -- * Imports
@@ -20,6 +21,7 @@ import Data.List qualified as L
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
 import Data.Maybe qualified
+import Data.Proxy qualified
 import Data.Set qualified as Set
 import Data.Void qualified
 import Foreign qualified
@@ -27,6 +29,7 @@ import Foreign.C qualified
 import Foreign.C.String qualified
 import GHC.Float qualified
 import GHC.Ptr qualified
+import GHC.Records qualified
 import Language.Haskell.TH.Syntax qualified as TH
 import System.IO.Unsafe qualified
 import Text.Read qualified
@@ -34,16 +37,17 @@ import Text.Read qualified
 import C.Char qualified as CExpr.Runtime
 import C.Expr.HostPlatform qualified as CExpr.Runtime
 
-import HsBindgen.Runtime.Bitfield qualified
 import HsBindgen.Runtime.Block qualified
 import HsBindgen.Runtime.ByteArray qualified
 import HsBindgen.Runtime.CAPI qualified
 import HsBindgen.Runtime.CEnum qualified
 import HsBindgen.Runtime.ConstantArray qualified
 import HsBindgen.Runtime.FlexibleArrayMember qualified
+import HsBindgen.Runtime.HasCField qualified
 import HsBindgen.Runtime.IncompleteArray qualified
 import HsBindgen.Runtime.Marshal qualified
 import HsBindgen.Runtime.SizedByteArray qualified
+import HsBindgen.Runtime.TypeEquality qualified
 
 import HsBindgen.Backend.Hs.AST.Type
 import HsBindgen.Backend.SHs.AST
@@ -119,14 +123,28 @@ importU name = ResolvedName
     s = TH.nameBase name
 
 -- | Name type
-data NameType = IdentifierName | OperatorName
+data NameType =
+    -- | An identifier, e.g., @foo@
+    IdentifierName
+    -- | An identifier with a magic hash at the end, e.g., @foo#@
+  | IdentifierMagicHashName
+    -- | An operator, e.g., @(+)@
+  | OperatorName
   deriving (Eq, Ord, Show)
 
 nameType :: String -> NameType
 nameType nm
-  | all isIdentChar nm = IdentifierName
-  | otherwise          = OperatorName
+  | all isIdentChar nm
+  = IdentifierName
+    -- nm is non-empty because of the first guard
+  | all isIdentChar (init nm) && isMagicHashChar (last nm)
+  = IdentifierMagicHashName
+  | otherwise
+  = OperatorName
   where
+    isMagicHashChar :: Char -> Bool
+    isMagicHashChar c = c == '#'
+
     isIdentChar :: Char -> Bool
     isIdentChar c = Char.isAlphaNum c || c == '_' || c == '\''
 
@@ -169,8 +187,11 @@ moduleOf ident m0 = case parts of
     ["GHC", "Ptr"]                   -> HsImportModule "GHC.Ptr"   (Just "Ptr")
     ("GHC" : "Foreign" : _)          -> HsImportModule "Foreign"   (Just "F")
     ("Foreign" : _)                  -> HsImportModule "Foreign"   (Just "F")
-
-    -- otherwise just use module as is.
+    -- Since ghc-10, imports of Data.Proxy are for some reason converted to
+    -- imports of GHC.Data.Proxy. For uniformity we'd prefer to use Data.Proxy
+    -- regardless of the GHC version that is used to generate the bindings. That
+    -- is why we replace the import name here:
+    ["GHC", "Data", "Proxy"]         -> HsImportModule "Data.Proxy" Nothing
     _ -> HsImportModule (L.intercalate "." parts) Nothing
   where
     -- we drop "Internal" (to reduce ghc-internal migration noise)
@@ -257,15 +278,14 @@ resolveGlobal = \case
     Storable_peek                 -> importQ 'Foreign.peek
     Storable_poke                 -> importQ 'Foreign.poke
     Foreign_Ptr                   -> importQ ''Foreign.Ptr
-    Foreign_FunPtr                -> importQ ''Foreign.FunPtr
     Ptr_constructor               -> importQ ''GHC.Ptr.Ptr
+    Foreign_FunPtr                -> importQ ''Foreign.FunPtr
+    Foreign_plusPtr               -> importQ 'Foreign.plusPtr
     ConstantArray                 -> importQ ''HsBindgen.Runtime.ConstantArray.ConstantArray
     IncompleteArray               -> importQ ''HsBindgen.Runtime.IncompleteArray.IncompleteArray
     IO_type                       -> importU ''IO
     HasFlexibleArrayMember_class  -> importQ ''HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember
     HasFlexibleArrayMember_offset -> importQ 'HsBindgen.Runtime.FlexibleArrayMember.flexibleArrayMemberOffset
-    Bitfield_peekBitOffWidth      -> importQ 'HsBindgen.Runtime.Bitfield.peekBitOffWidth
-    Bitfield_pokeBitOffWidth      -> importQ 'HsBindgen.Runtime.Bitfield.pokeBitOffWidth
     CharValue_tycon               -> importQ ''CExpr.Runtime.CharValue
     CharValue_constructor         -> importQ 'CExpr.Runtime.CharValue
     CharValue_fromAddr            -> importQ 'CExpr.Runtime.charValueFromAddr
@@ -273,6 +293,32 @@ resolveGlobal = \case
     CAPI_allocaAndPeek            -> importQ 'HsBindgen.Runtime.CAPI.allocaAndPeek
     ConstantArray_withPtr         -> importQ 'HsBindgen.Runtime.ConstantArray.withPtr
     IncompleteArray_withPtr       -> importQ 'HsBindgen.Runtime.IncompleteArray.withPtr
+
+    -- HasCField
+    HasCField_class -> importQ ''HsBindgen.Runtime.HasCField.HasCField
+    HasCField_CFieldType -> importQ ''HsBindgen.Runtime.HasCField.CFieldType
+    HasCField_offset# -> importQ 'HsBindgen.Runtime.HasCField.offset#
+    HasCField_ptrToCField -> importQ 'HsBindgen.Runtime.HasCField.ptrToCField
+    HasCField_pokeCField -> importQ 'HsBindgen.Runtime.HasCField.pokeCField
+    HasCField_peekCField -> importQ 'HsBindgen.Runtime.HasCField.peekCField
+
+    -- HasCBitfield
+    HasCBitfield_class ->  importQ ''HsBindgen.Runtime.HasCField.HasCBitfield
+    HasCBitfield_CBitfieldType -> importQ ''HsBindgen.Runtime.HasCField.CBitfieldType
+    HasCBitfield_bitOffset# -> importQ 'HsBindgen.Runtime.HasCField.bitOffset#
+    HasCBitfield_bitWidth# -> importQ 'HsBindgen.Runtime.HasCField.bitWidth#
+    HasCBitfield_ptrToCBitfield -> importQ 'HsBindgen.Runtime.HasCField.ptrToCBitfield
+    HasCBitfield_pokeCBitfield -> importQ 'HsBindgen.Runtime.HasCField.pokeCBitfield
+    HasCBitfield_peekCBitfield -> importQ 'HsBindgen.Runtime.HasCField.peekCBitfield
+    HasCBitfield_BitfieldPtr -> importQ ''HsBindgen.Runtime.HasCField.BitfieldPtr
+
+    -- HasField
+    HasField_class -> importQ ''GHC.Records.HasField
+    HasField_getField -> importQ 'GHC.Records.getField
+
+    -- Proxy
+    Proxy_type        -> importQ ''Data.Proxy.Proxy
+    Proxy_constructor -> importQ 'Data.Proxy.Proxy
 
     -- Unsafe
     IO_unsafePerformIO -> importQ 'System.IO.Unsafe.unsafePerformIO
@@ -298,14 +344,9 @@ resolveGlobal = \case
     Show_class        -> importU ''Show
     Show_showsPrec    -> importU 'showsPrec
 
-    -- We now import ~ from Prelude;
-    -- but it's not always there; it's also not in Data.Type.Equality
-    -- on GHC-9.2, it just exists.
-    --
-    -- https://github.com/ghc-proposals/ghc-proposals/blob/master/proposals/0371-non-magical-eq.md
-    --
-    -- So for now code using ~ will not work with preprocessor setup on GHC-9.2.
-    NomEq_class -> ResolvedName "~" OperatorName (Just (UnqualifiedHsImport iPrelude))
+    -- We use @TyEq@ rather than @(~)@ because the latter is magical syntax on
+    -- GHC-9.2. The use of @TyEq@ is uniform across GHC versions.
+    NomEq_class -> importU ''HsBindgen.Runtime.TypeEquality.TyEq
 
     Not_class             -> importQ ''CExpr.Runtime.Not
     Not_not               -> importQ 'CExpr.Runtime.not

@@ -1,10 +1,23 @@
+{-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE MagicHash #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE TypeApplications #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE UndecidableInstances #-}
 
 module Example where
 
+import qualified Data.Proxy
 import qualified Foreign as F
+import qualified GHC.Ptr as Ptr
+import qualified GHC.Records
+import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.Prelude
+import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @foo@
@@ -40,13 +53,39 @@ instance F.Storable Foo where
   peek =
     \ptr0 ->
           pure Foo
-      <*> F.peekByteOff ptr0 (0 :: Int)
-      <*> F.peekByteOff ptr0 (8 :: Int)
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"foo_sixty_four") ptr0
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"foo_thirty_two") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Foo foo_sixty_four2 foo_thirty_two3 ->
-               F.pokeByteOff ptr0 (0 :: Int) foo_sixty_four2
-            >> F.pokeByteOff ptr0 (8 :: Int) foo_thirty_two3
+               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"foo_sixty_four") ptr0 foo_sixty_four2
+            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"foo_thirty_two") ptr0 foo_thirty_two3
+
+instance HsBindgen.Runtime.HasCField.HasCField Foo "foo_sixty_four" where
+
+  type CFieldType Foo "foo_sixty_four" =
+    HsBindgen.Runtime.Prelude.Word64
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Foo) "foo_sixty_four")
+         ) => GHC.Records.HasField "foo_sixty_four" (Ptr.Ptr Foo) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"foo_sixty_four")
+
+instance HsBindgen.Runtime.HasCField.HasCField Foo "foo_thirty_two" where
+
+  type CFieldType Foo "foo_thirty_two" =
+    HsBindgen.Runtime.Prelude.Word32
+
+  offset# = \_ -> \_ -> 8
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Foo) "foo_thirty_two")
+         ) => GHC.Records.HasField "foo_thirty_two" (Ptr.Ptr Foo) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"foo_thirty_two")

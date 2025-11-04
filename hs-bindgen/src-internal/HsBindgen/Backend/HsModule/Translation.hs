@@ -210,8 +210,18 @@ resolveDeclImports = \case
     DInst Instance{..} -> mconcat $
          [resolveGlobalImports instanceClass]
       ++ map resolveTypeImports instanceArgs
-      ++ map (resolveGlobalImports . fst) instanceDecs
-      ++ map (resolveExprImports . snd) instanceDecs
+      ++ concat [
+             resolveGlobalImports c : map resolveTypeImports ts
+           | (c, ts) <- instanceSuperClasses
+           ]
+      ++ concat [
+             resolveGlobalImports t : resolveTypeImports r : map resolveTypeImports as
+           | (t, as, r) <- instanceTypes
+           ]
+      ++ concat [
+            [resolveGlobalImports f, resolveExprImports e]
+          | (f, e) <- instanceDecs
+          ]
     DRecord Record{..} -> mconcat [
         mconcat $ map (resolveTypeImports . fieldType) dataFields
       , resolveNestedDeriv dataDeriv
@@ -287,6 +297,7 @@ resolveExprImports = \case
         ]
     ETup xs -> foldMap resolveExprImports xs
     EList xs -> foldMap resolveExprImports xs
+    ETypeApp f t -> resolveExprImports f <> resolveTypeImports t
 
 -- | Resolve imports in a pattern|expression
 resolvePatExprImports :: PatExpr -> ImportAcc
@@ -299,7 +310,9 @@ resolveTypeImports :: SType ctx -> ImportAcc
 resolveTypeImports = \case
     TGlobal g -> resolveGlobalImports g
     TCon _n -> ImportAcc True mempty mempty
+    TFree _ -> mempty
     TLit _n -> mempty
+    TStrLit _s -> mempty
     TExt ref _typeSpec -> resolveExtHsRefImports ref
     TApp c x -> resolveTypeImports c <> resolveTypeImports x
     TFun a b -> resolveTypeImports a <> resolveTypeImports b

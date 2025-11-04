@@ -30,10 +30,22 @@ data Foo
 instance Storable Foo
     where sizeOf = \_ -> 8 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure Foo <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int)
+          peek = \ptr_0 -> (pure Foo <*> peekCField (Proxy @"foo_i") ptr_0) <*> peekCField (Proxy @"foo_c") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Foo foo_i_3
-                                       foo_c_4 -> pokeByteOff ptr_1 (0 :: Int) foo_i_3 >> pokeByteOff ptr_1 (4 :: Int) foo_c_4
+                                       foo_c_4 -> pokeCField (Proxy @"foo_i") ptr_1 foo_i_3 >> pokeCField (Proxy @"foo_c") ptr_1 foo_c_4
+instance HasCField Foo "foo_i"
+    where type CFieldType Foo "foo_i" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Foo "foo_i") =>
+         HasField "foo_i" (Ptr Foo) (Ptr ty)
+    where getField = ptrToCField (Proxy @"foo_i")
+instance HasCField Foo "foo_c"
+    where type CFieldType Foo "foo_c" = CChar
+          offset# = \_ -> \_ -> 4
+instance TyEq ty (CFieldType Foo "foo_c") =>
+         HasField "foo_c" (Ptr Foo) (Ptr ty)
+    where getField = ptrToCField (Proxy @"foo_c")
 {-| __C declaration:__ @bar@
 
     __defined at:__ @nested_types.h:6:8@
@@ -65,10 +77,22 @@ data Bar
 instance Storable Bar
     where sizeOf = \_ -> 16 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure Bar <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int)
+          peek = \ptr_0 -> (pure Bar <*> peekCField (Proxy @"bar_foo1") ptr_0) <*> peekCField (Proxy @"bar_foo2") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Bar bar_foo1_3
-                                       bar_foo2_4 -> pokeByteOff ptr_1 (0 :: Int) bar_foo1_3 >> pokeByteOff ptr_1 (8 :: Int) bar_foo2_4
+                                       bar_foo2_4 -> pokeCField (Proxy @"bar_foo1") ptr_1 bar_foo1_3 >> pokeCField (Proxy @"bar_foo2") ptr_1 bar_foo2_4
+instance HasCField Bar "bar_foo1"
+    where type CFieldType Bar "bar_foo1" = Foo
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Bar "bar_foo1") =>
+         HasField "bar_foo1" (Ptr Bar) (Ptr ty)
+    where getField = ptrToCField (Proxy @"bar_foo1")
+instance HasCField Bar "bar_foo2"
+    where type CFieldType Bar "bar_foo2" = Foo
+          offset# = \_ -> \_ -> 8
+instance TyEq ty (CFieldType Bar "bar_foo2") =>
+         HasField "bar_foo2" (Ptr Bar) (Ptr ty)
+    where getField = ptrToCField (Proxy @"bar_foo2")
 {-| __defined at:__ @nested_types.h:12:5@
 
     __exported by:__ @nested_types.h@
@@ -96,10 +120,24 @@ data Ex3_ex3_struct
 instance Storable Ex3_ex3_struct
     where sizeOf = \_ -> 8 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure Ex3_ex3_struct <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int)
+          peek = \ptr_0 -> (pure Ex3_ex3_struct <*> peekCField (Proxy @"ex3_ex3_struct_ex3_a") ptr_0) <*> peekCField (Proxy @"ex3_ex3_struct_ex3_b") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Ex3_ex3_struct ex3_ex3_struct_ex3_a_3
-                                                  ex3_ex3_struct_ex3_b_4 -> pokeByteOff ptr_1 (0 :: Int) ex3_ex3_struct_ex3_a_3 >> pokeByteOff ptr_1 (4 :: Int) ex3_ex3_struct_ex3_b_4
+                                                  ex3_ex3_struct_ex3_b_4 -> pokeCField (Proxy @"ex3_ex3_struct_ex3_a") ptr_1 ex3_ex3_struct_ex3_a_3 >> pokeCField (Proxy @"ex3_ex3_struct_ex3_b") ptr_1 ex3_ex3_struct_ex3_b_4
+instance HasCField Ex3_ex3_struct "ex3_ex3_struct_ex3_a"
+    where type CFieldType Ex3_ex3_struct "ex3_ex3_struct_ex3_a" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty
+              (CFieldType Ex3_ex3_struct "ex3_ex3_struct_ex3_a") =>
+         HasField "ex3_ex3_struct_ex3_a" (Ptr Ex3_ex3_struct) (Ptr ty)
+    where getField = ptrToCField (Proxy @"ex3_ex3_struct_ex3_a")
+instance HasCField Ex3_ex3_struct "ex3_ex3_struct_ex3_b"
+    where type CFieldType Ex3_ex3_struct "ex3_ex3_struct_ex3_b" = CChar
+          offset# = \_ -> \_ -> 4
+instance TyEq ty
+              (CFieldType Ex3_ex3_struct "ex3_ex3_struct_ex3_b") =>
+         HasField "ex3_ex3_struct_ex3_b" (Ptr Ex3_ex3_struct) (Ptr ty)
+    where getField = ptrToCField (Proxy @"ex3_ex3_struct_ex3_b")
 {-| __C declaration:__ @ex3@
 
     __defined at:__ @nested_types.h:11:8@
@@ -131,10 +169,22 @@ data Ex3
 instance Storable Ex3
     where sizeOf = \_ -> 12 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure Ex3 <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int)
+          peek = \ptr_0 -> (pure Ex3 <*> peekCField (Proxy @"ex3_ex3_struct") ptr_0) <*> peekCField (Proxy @"ex3_ex3_c") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Ex3 ex3_ex3_struct_3
-                                       ex3_ex3_c_4 -> pokeByteOff ptr_1 (0 :: Int) ex3_ex3_struct_3 >> pokeByteOff ptr_1 (8 :: Int) ex3_ex3_c_4
+                                       ex3_ex3_c_4 -> pokeCField (Proxy @"ex3_ex3_struct") ptr_1 ex3_ex3_struct_3 >> pokeCField (Proxy @"ex3_ex3_c") ptr_1 ex3_ex3_c_4
+instance HasCField Ex3 "ex3_ex3_struct"
+    where type CFieldType Ex3 "ex3_ex3_struct" = Ex3_ex3_struct
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Ex3 "ex3_ex3_struct") =>
+         HasField "ex3_ex3_struct" (Ptr Ex3) (Ptr ty)
+    where getField = ptrToCField (Proxy @"ex3_ex3_struct")
+instance HasCField Ex3 "ex3_ex3_c"
+    where type CFieldType Ex3 "ex3_ex3_c" = CFloat
+          offset# = \_ -> \_ -> 8
+instance TyEq ty (CFieldType Ex3 "ex3_ex3_c") =>
+         HasField "ex3_ex3_c" (Ptr Ex3) (Ptr ty)
+    where getField = ptrToCField (Proxy @"ex3_ex3_c")
 {-| __C declaration:__ @ex4_odd@
 
     __defined at:__ @nested_types.h:22:8@
@@ -166,10 +216,22 @@ data Ex4_odd
 instance Storable Ex4_odd
     where sizeOf = \_ -> 16 :: Int
           alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> (pure Ex4_odd <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int)
+          peek = \ptr_0 -> (pure Ex4_odd <*> peekCField (Proxy @"ex4_odd_value") ptr_0) <*> peekCField (Proxy @"ex4_odd_next") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Ex4_odd ex4_odd_value_3
-                                           ex4_odd_next_4 -> pokeByteOff ptr_1 (0 :: Int) ex4_odd_value_3 >> pokeByteOff ptr_1 (8 :: Int) ex4_odd_next_4
+                                           ex4_odd_next_4 -> pokeCField (Proxy @"ex4_odd_value") ptr_1 ex4_odd_value_3 >> pokeCField (Proxy @"ex4_odd_next") ptr_1 ex4_odd_next_4
+instance HasCField Ex4_odd "ex4_odd_value"
+    where type CFieldType Ex4_odd "ex4_odd_value" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Ex4_odd "ex4_odd_value") =>
+         HasField "ex4_odd_value" (Ptr Ex4_odd) (Ptr ty)
+    where getField = ptrToCField (Proxy @"ex4_odd_value")
+instance HasCField Ex4_odd "ex4_odd_next"
+    where type CFieldType Ex4_odd "ex4_odd_next" = Ptr Ex4_even
+          offset# = \_ -> \_ -> 8
+instance TyEq ty (CFieldType Ex4_odd "ex4_odd_next") =>
+         HasField "ex4_odd_next" (Ptr Ex4_odd) (Ptr ty)
+    where getField = ptrToCField (Proxy @"ex4_odd_next")
 {-| __C declaration:__ @ex4_even@
 
     __defined at:__ @nested_types.h:24:12@
@@ -201,7 +263,19 @@ data Ex4_even
 instance Storable Ex4_even
     where sizeOf = \_ -> 16 :: Int
           alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> (pure Ex4_even <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int)
+          peek = \ptr_0 -> (pure Ex4_even <*> peekCField (Proxy @"ex4_even_value") ptr_0) <*> peekCField (Proxy @"ex4_even_next") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Ex4_even ex4_even_value_3
-                                            ex4_even_next_4 -> pokeByteOff ptr_1 (0 :: Int) ex4_even_value_3 >> pokeByteOff ptr_1 (8 :: Int) ex4_even_next_4
+                                            ex4_even_next_4 -> pokeCField (Proxy @"ex4_even_value") ptr_1 ex4_even_value_3 >> pokeCField (Proxy @"ex4_even_next") ptr_1 ex4_even_next_4
+instance HasCField Ex4_even "ex4_even_value"
+    where type CFieldType Ex4_even "ex4_even_value" = CDouble
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Ex4_even "ex4_even_value") =>
+         HasField "ex4_even_value" (Ptr Ex4_even) (Ptr ty)
+    where getField = ptrToCField (Proxy @"ex4_even_value")
+instance HasCField Ex4_even "ex4_even_next"
+    where type CFieldType Ex4_even "ex4_even_next" = Ptr Ex4_odd
+          offset# = \_ -> \_ -> 8
+instance TyEq ty (CFieldType Ex4_even "ex4_even_next") =>
+         HasField "ex4_even_next" (Ptr Ex4_even) (Ptr ty)
+    where getField = ptrToCField (Proxy @"ex4_even_next")

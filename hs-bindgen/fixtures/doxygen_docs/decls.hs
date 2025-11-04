@@ -486,6 +486,259 @@
         "Size_type",
       deriveInstanceComment =
       Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Size_type"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Size_type",
+          hasFieldInstanceFieldType =
+          HsExtBinding
+            ExtRef {
+              extRefModule = ModuleName
+                "HsBindgen.Runtime.Prelude",
+              extRefIdentifier = Identifier
+                "CSize"}
+            CTypeSpec {
+              cTypeSpecIdentifier = Just
+                (Identifier "CSize"),
+              cTypeSpecInstances =
+              Map.fromList
+                [
+                  _×_
+                    Bits
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Bounded
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Enum
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Eq
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    FiniteBits
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Integral
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Ix
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Num
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Ord
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Read
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    ReadRaw
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Real
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Show
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    StaticSize
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Storable
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    WriteRaw
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = [
+                          ]})]},
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Size_type"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "un_Size_type",
+          hasCFieldInstanceCFieldType =
+          HsExtBinding
+            ExtRef {
+              extRefModule = ModuleName
+                "HsBindgen.Runtime.Prelude",
+              extRefIdentifier = Identifier
+                "CSize"}
+            CTypeSpec {
+              cTypeSpecIdentifier = Just
+                (Identifier "CSize"),
+              cTypeSpecInstances =
+              Map.fromList
+                [
+                  _×_
+                    Bits
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Bounded
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Enum
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Eq
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    FiniteBits
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Integral
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Ix
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Num
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Ord
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Read
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    ReadRaw
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Real
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Show
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    StaticSize
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Storable
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    WriteRaw
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = [
+                          ]})]},
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
   DeclEmpty
     EmptyData {
       emptyDataName = Name
@@ -1280,6 +1533,53 @@
             "fromEvent_callback_t_Deref"},
       defineInstanceComment =
       Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Event_callback_t_Deref"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Event_callback_t_Deref",
+          hasFieldInstanceFieldType =
+          HsFun
+            (HsPrimType HsPrimCInt)
+            (HsFun
+              (HsPtr (HsPrimType HsPrimVoid))
+              (HsIO (HsPrimType HsPrimCInt))),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Event_callback_t_Deref"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_Event_callback_t_Deref",
+          hasCFieldInstanceCFieldType =
+          HsFun
+            (HsPrimType HsPrimCInt)
+            (HsFun
+              (HsPtr (HsPrimType HsPrimVoid))
+              (HsIO (HsPrimType HsPrimCInt))),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -1472,6 +1772,53 @@
         "@NsTypeConstr"
         "Event_callback_t",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Event_callback_t"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Event_callback_t",
+          hasFieldInstanceFieldType =
+          HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Event_callback_t_Deref")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Event_callback_t"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_Event_callback_t",
+          hasCFieldInstanceCFieldType =
+          HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Event_callback_t_Deref")),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
       Nothing},
   DeclData
     Struct {
@@ -4924,11 +5271,21 @@
                             TextContent
                               "This structure demonstrates field documentation."]]}})
               [
-                PeekByteOff (Idx 0) 0,
-                PeekByteOff (Idx 0) 4,
-                PeekByteOff (Idx 0) 68,
-                PeekByteOff (Idx 0) 72,
-                PeekByteOff (Idx 0) 80]),
+                PeekCField
+                  (HsStrLit "config_t_id")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit "config_t_name")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit "config_t_flags")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit "config_t_callback")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit "config_t_user_data")
+                  (Idx 0)]),
           storablePoke =
           Lambda
             (NameHint "ptr")
@@ -6087,13 +6444,25 @@
                 (Add 5)
                 (Seq
                   [
-                    PokeByteOff (Idx 6) 0 (Idx 0),
-                    PokeByteOff (Idx 6) 4 (Idx 1),
-                    PokeByteOff (Idx 6) 68 (Idx 2),
-                    PokeByteOff (Idx 6) 72 (Idx 3),
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit "config_t_id")
                       (Idx 6)
-                      80
+                      (Idx 0),
+                    PokeCField
+                      (HsStrLit "config_t_name")
+                      (Idx 6)
+                      (Idx 1),
+                    PokeCField
+                      (HsStrLit "config_t_flags")
+                      (Idx 6)
+                      (Idx 2),
+                    PokeCField
+                      (HsStrLit "config_t_callback")
+                      (Idx 6)
+                      (Idx 3),
+                    PokeCField
+                      (HsStrLit "config_t_user_data")
+                      (Idx 6)
                       (Idx 4)])))},
       defineInstanceComment =
       Nothing},
@@ -6116,6 +6485,637 @@
         "@NsTypeConstr"
         "Config_t",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Config_t"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "config_t_id",
+          hasCFieldInstanceCFieldType =
+          HsExtBinding
+            ExtRef {
+              extRefModule = ModuleName
+                "HsBindgen.Runtime.Prelude",
+              extRefIdentifier = Identifier
+                "Word32"}
+            CTypeSpec {
+              cTypeSpecIdentifier = Just
+                (Identifier "Word32"),
+              cTypeSpecInstances =
+              Map.fromList
+                [
+                  _×_
+                    Bits
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Bounded
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Enum
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Eq
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    FiniteBits
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Integral
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Ix
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Num
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Ord
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Read
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    ReadRaw
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Real
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Show
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    StaticSize
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Storable
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    WriteRaw
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = [
+                          ]})]},
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Config_t"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "config_t_id",
+          hasFieldInstanceFieldType =
+          HsExtBinding
+            ExtRef {
+              extRefModule = ModuleName
+                "HsBindgen.Runtime.Prelude",
+              extRefIdentifier = Identifier
+                "Word32"}
+            CTypeSpec {
+              cTypeSpecIdentifier = Just
+                (Identifier "Word32"),
+              cTypeSpecInstances =
+              Map.fromList
+                [
+                  _×_
+                    Bits
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Bounded
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Enum
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Eq
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    FiniteBits
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Integral
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Ix
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Num
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Ord
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Read
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    ReadRaw
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Real
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Show
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    StaticSize
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Storable
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    WriteRaw
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = [
+                          ]})]},
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Config_t"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "config_t_name",
+          hasCFieldInstanceCFieldType =
+          HsConstArray
+            64
+            (HsPrimType HsPrimCChar),
+          hasCFieldInstanceFieldOffset =
+          4},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Config_t"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "config_t_name",
+          hasFieldInstanceFieldType =
+          HsConstArray
+            64
+            (HsPrimType HsPrimCChar),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Config_t"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "config_t_flags",
+          hasCFieldInstanceCFieldType =
+          HsExtBinding
+            ExtRef {
+              extRefModule = ModuleName
+                "HsBindgen.Runtime.Prelude",
+              extRefIdentifier = Identifier
+                "Word32"}
+            CTypeSpec {
+              cTypeSpecIdentifier = Just
+                (Identifier "Word32"),
+              cTypeSpecInstances =
+              Map.fromList
+                [
+                  _×_
+                    Bits
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Bounded
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Enum
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Eq
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    FiniteBits
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Integral
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Ix
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Num
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Ord
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Read
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    ReadRaw
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Real
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Show
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    StaticSize
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Storable
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    WriteRaw
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = [
+                          ]})]},
+          hasCFieldInstanceFieldOffset =
+          68},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Config_t"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "config_t_flags",
+          hasFieldInstanceFieldType =
+          HsExtBinding
+            ExtRef {
+              extRefModule = ModuleName
+                "HsBindgen.Runtime.Prelude",
+              extRefIdentifier = Identifier
+                "Word32"}
+            CTypeSpec {
+              cTypeSpecIdentifier = Just
+                (Identifier "Word32"),
+              cTypeSpecInstances =
+              Map.fromList
+                [
+                  _×_
+                    Bits
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Bounded
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Enum
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Eq
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    FiniteBits
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Integral
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Ix
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Num
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Ord
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Read
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    ReadRaw
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Real
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Show
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    StaticSize
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Storable
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    WriteRaw
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = [
+                          ]})]},
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Config_t"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "config_t_callback",
+          hasCFieldInstanceCFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Event_callback_t"),
+          hasCFieldInstanceFieldOffset =
+          72},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Config_t"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "config_t_callback",
+          hasFieldInstanceFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Event_callback_t"),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Config_t"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "config_t_user_data",
+          hasCFieldInstanceCFieldType =
+          HsPtr (HsPrimType HsPrimVoid),
+          hasCFieldInstanceFieldOffset =
+          80},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Config_t"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "config_t_user_data",
+          hasFieldInstanceFieldType =
+          HsPtr (HsPrimType HsPrimVoid),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
@@ -9403,8 +10403,14 @@
                             TextContent
                               "Allows access to high and low parts separately"]]}})
               [
-                PeekByteOff (Idx 0) 0,
-                PeekByteOff (Idx 0) 2]),
+                PeekCField
+                  (HsStrLit
+                    "data_union_t_as_parts_low")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit
+                    "data_union_t_as_parts_high")
+                  (Idx 0)]),
           storablePoke =
           Lambda
             (NameHint "ptr")
@@ -10294,10 +11300,15 @@
                 (Add 2)
                 (Seq
                   [
-                    PokeByteOff (Idx 3) 0 (Idx 0),
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit
+                        "data_union_t_as_parts_low")
                       (Idx 3)
-                      2
+                      (Idx 0),
+                    PokeCField
+                      (HsStrLit
+                        "data_union_t_as_parts_high")
+                      (Idx 3)
                       (Idx 1)])))},
       defineInstanceComment =
       Nothing},
@@ -10320,6 +11331,516 @@
         "@NsTypeConstr"
         "Data_union_t_as_parts",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Data_union_t_as_parts"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "data_union_t_as_parts_low",
+          hasCFieldInstanceCFieldType =
+          HsExtBinding
+            ExtRef {
+              extRefModule = ModuleName
+                "HsBindgen.Runtime.Prelude",
+              extRefIdentifier = Identifier
+                "Word16"}
+            CTypeSpec {
+              cTypeSpecIdentifier = Just
+                (Identifier "Word16"),
+              cTypeSpecInstances =
+              Map.fromList
+                [
+                  _×_
+                    Bits
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Bounded
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Enum
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Eq
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    FiniteBits
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Integral
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Ix
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Num
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Ord
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Read
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    ReadRaw
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Real
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Show
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    StaticSize
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Storable
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    WriteRaw
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = [
+                          ]})]},
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Data_union_t_as_parts"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "data_union_t_as_parts_low",
+          hasFieldInstanceFieldType =
+          HsExtBinding
+            ExtRef {
+              extRefModule = ModuleName
+                "HsBindgen.Runtime.Prelude",
+              extRefIdentifier = Identifier
+                "Word16"}
+            CTypeSpec {
+              cTypeSpecIdentifier = Just
+                (Identifier "Word16"),
+              cTypeSpecInstances =
+              Map.fromList
+                [
+                  _×_
+                    Bits
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Bounded
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Enum
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Eq
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    FiniteBits
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Integral
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Ix
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Num
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Ord
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Read
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    ReadRaw
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Real
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Show
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    StaticSize
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Storable
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    WriteRaw
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = [
+                          ]})]},
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Data_union_t_as_parts"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "data_union_t_as_parts_high",
+          hasCFieldInstanceCFieldType =
+          HsExtBinding
+            ExtRef {
+              extRefModule = ModuleName
+                "HsBindgen.Runtime.Prelude",
+              extRefIdentifier = Identifier
+                "Word16"}
+            CTypeSpec {
+              cTypeSpecIdentifier = Just
+                (Identifier "Word16"),
+              cTypeSpecInstances =
+              Map.fromList
+                [
+                  _×_
+                    Bits
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Bounded
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Enum
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Eq
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    FiniteBits
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Integral
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Ix
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Num
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Ord
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Read
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    ReadRaw
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Real
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Show
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    StaticSize
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Storable
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    WriteRaw
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = [
+                          ]})]},
+          hasCFieldInstanceFieldOffset =
+          2},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Data_union_t_as_parts"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "data_union_t_as_parts_high",
+          hasFieldInstanceFieldType =
+          HsExtBinding
+            ExtRef {
+              extRefModule = ModuleName
+                "HsBindgen.Runtime.Prelude",
+              extRefIdentifier = Identifier
+                "Word16"}
+            CTypeSpec {
+              cTypeSpecIdentifier = Just
+                (Identifier "Word16"),
+              cTypeSpecInstances =
+              Map.fromList
+                [
+                  _×_
+                    Bits
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Bounded
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Enum
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Eq
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    FiniteBits
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Integral
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Ix
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Num
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Ord
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Read
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    ReadRaw
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Real
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Show
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    StaticSize
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Storable
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    WriteRaw
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = [
+                          ]})]},
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
@@ -11384,6 +12905,604 @@
                 Bold [TextContent "See:"],
                 Identifier
                   "get_data_union_t_as_parts"]]}},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Data_union_t"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "data_union_t_as_int",
+          hasCFieldInstanceCFieldType =
+          HsExtBinding
+            ExtRef {
+              extRefModule = ModuleName
+                "HsBindgen.Runtime.Prelude",
+              extRefIdentifier = Identifier
+                "Int32"}
+            CTypeSpec {
+              cTypeSpecIdentifier = Just
+                (Identifier "Int32"),
+              cTypeSpecInstances =
+              Map.fromList
+                [
+                  _×_
+                    Bits
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Bounded
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Enum
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Eq
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    FiniteBits
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Integral
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Ix
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Num
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Ord
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Read
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    ReadRaw
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Real
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Show
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    StaticSize
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Storable
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    WriteRaw
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = [
+                          ]})]},
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Data_union_t"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "data_union_t_as_int",
+          hasFieldInstanceFieldType =
+          HsExtBinding
+            ExtRef {
+              extRefModule = ModuleName
+                "HsBindgen.Runtime.Prelude",
+              extRefIdentifier = Identifier
+                "Int32"}
+            CTypeSpec {
+              cTypeSpecIdentifier = Just
+                (Identifier "Int32"),
+              cTypeSpecInstances =
+              Map.fromList
+                [
+                  _×_
+                    Bits
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Bounded
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Enum
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Eq
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    FiniteBits
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Integral
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Ix
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Num
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Ord
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Read
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    ReadRaw
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Real
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Show
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    StaticSize
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Storable
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    WriteRaw
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = [
+                          ]})]},
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Data_union_t"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "data_union_t_as_float",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCFloat,
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Data_union_t"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "data_union_t_as_float",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCFloat,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Data_union_t"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "data_union_t_as_bytes",
+          hasCFieldInstanceCFieldType =
+          HsConstArray
+            4
+            (HsExtBinding
+              ExtRef {
+                extRefModule = ModuleName
+                  "HsBindgen.Runtime.Prelude",
+                extRefIdentifier = Identifier
+                  "Word8"}
+              CTypeSpec {
+                cTypeSpecIdentifier = Just
+                  (Identifier "Word8"),
+                cTypeSpecInstances =
+                Map.fromList
+                  [
+                    _×_
+                      Bits
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Bounded
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Enum
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Eq
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      FiniteBits
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Integral
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Ix
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Num
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Ord
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Read
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      ReadRaw
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Real
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Show
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      StaticSize
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Storable
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      WriteRaw
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = [
+                            ]})]}),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Data_union_t"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "data_union_t_as_bytes",
+          hasFieldInstanceFieldType =
+          HsConstArray
+            4
+            (HsExtBinding
+              ExtRef {
+                extRefModule = ModuleName
+                  "HsBindgen.Runtime.Prelude",
+                extRefIdentifier = Identifier
+                  "Word8"}
+              CTypeSpec {
+                cTypeSpecIdentifier = Just
+                  (Identifier "Word8"),
+                cTypeSpecInstances =
+                Map.fromList
+                  [
+                    _×_
+                      Bits
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Bounded
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Enum
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Eq
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      FiniteBits
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Integral
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Ix
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Num
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Ord
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Read
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      ReadRaw
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Real
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Show
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      StaticSize
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      Storable
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = []}),
+                    _×_
+                      WriteRaw
+                      (Require
+                        InstanceSpec {
+                          instanceSpecStrategy = Nothing,
+                          instanceSpecConstraints = [
+                            ]})]}),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Data_union_t"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "data_union_t_as_parts",
+          hasCFieldInstanceCFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Data_union_t_as_parts"),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Data_union_t"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "data_union_t_as_parts",
+          hasFieldInstanceFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Data_union_t_as_parts"),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
   DeclData
     Struct {
       structName = Name
@@ -12453,10 +14572,18 @@
                             TextContent
                               "Demonstrates bit field documentation."]]}})
               [
-                PeekBitOffWidth (Idx 0) 0 1,
-                PeekBitOffWidth (Idx 0) 1 1,
-                PeekBitOffWidth (Idx 0) 2 6,
-                PeekBitOffWidth (Idx 0) 8 24]),
+                PeekCBitfield
+                  (HsStrLit "bitfield_t_flag1")
+                  (Idx 0),
+                PeekCBitfield
+                  (HsStrLit "bitfield_t_flag2")
+                  (Idx 0),
+                PeekCBitfield
+                  (HsStrLit "bitfield_t_counter")
+                  (Idx 0),
+                PeekCBitfield
+                  (HsStrLit "bitfield_t_reserved")
+                  (Idx 0)]),
           storablePoke = Lambda
             (NameHint "ptr")
             (Lambda
@@ -12818,25 +14945,21 @@
                 (Add 4)
                 (Seq
                   [
-                    PokeBitOffWidth
+                    PokeCBitfield
+                      (HsStrLit "bitfield_t_flag1")
                       (Idx 5)
-                      0
-                      1
                       (Idx 0),
-                    PokeBitOffWidth
+                    PokeCBitfield
+                      (HsStrLit "bitfield_t_flag2")
                       (Idx 5)
-                      1
-                      1
                       (Idx 1),
-                    PokeBitOffWidth
+                    PokeCBitfield
+                      (HsStrLit "bitfield_t_counter")
                       (Idx 5)
-                      2
-                      6
                       (Idx 2),
-                    PokeBitOffWidth
+                    PokeCBitfield
+                      (HsStrLit "bitfield_t_reserved")
                       (Idx 5)
-                      8
-                      24
                       (Idx 3)])))},
       defineInstanceComment =
       Nothing},
@@ -12859,6 +14982,170 @@
         "@NsTypeConstr"
         "Bitfield_t",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCBitfield
+        HasCBitfieldInstance {
+          hasCBitfieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Bitfield_t"),
+          hasCBitfieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "bitfield_t_flag1",
+          hasCBitfieldInstanceCBitfieldType =
+          HsPrimType HsPrimCUInt,
+          hasCBitfieldInstanceBitOffset =
+          0,
+          hasCBitfieldInstanceBitWidth =
+          1},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Bitfield_t"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "bitfield_t_flag1",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCUInt,
+          hasFieldInstanceVia =
+          ViaHasCBitfield},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCBitfield
+        HasCBitfieldInstance {
+          hasCBitfieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Bitfield_t"),
+          hasCBitfieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "bitfield_t_flag2",
+          hasCBitfieldInstanceCBitfieldType =
+          HsPrimType HsPrimCUInt,
+          hasCBitfieldInstanceBitOffset =
+          1,
+          hasCBitfieldInstanceBitWidth =
+          1},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Bitfield_t"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "bitfield_t_flag2",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCUInt,
+          hasFieldInstanceVia =
+          ViaHasCBitfield},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCBitfield
+        HasCBitfieldInstance {
+          hasCBitfieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Bitfield_t"),
+          hasCBitfieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "bitfield_t_counter",
+          hasCBitfieldInstanceCBitfieldType =
+          HsPrimType HsPrimCUInt,
+          hasCBitfieldInstanceBitOffset =
+          2,
+          hasCBitfieldInstanceBitWidth =
+          6},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Bitfield_t"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "bitfield_t_counter",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCUInt,
+          hasFieldInstanceVia =
+          ViaHasCBitfield},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCBitfield
+        HasCBitfieldInstance {
+          hasCBitfieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Bitfield_t"),
+          hasCBitfieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "bitfield_t_reserved",
+          hasCBitfieldInstanceCBitfieldType =
+          HsPrimType HsPrimCUInt,
+          hasCBitfieldInstanceBitOffset =
+          8,
+          hasCBitfieldInstanceBitWidth =
+          24},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Bitfield_t"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "bitfield_t_reserved",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCUInt,
+          hasFieldInstanceVia =
+          ViaHasCBitfield},
+      defineInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
@@ -13049,6 +15336,53 @@
           fromFunPtrInstanceBody = Name
             "@NsVar"
             "fromProcessor_fn_t_Deref"},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Processor_fn_t_Deref"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Processor_fn_t_Deref",
+          hasFieldInstanceFieldType =
+          HsFun
+            (HsPrimType HsPrimCInt)
+            (HsFun
+              (HsPtr (HsPrimType HsPrimVoid))
+              (HsIO (HsPrimType HsPrimCInt))),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Processor_fn_t_Deref"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_Processor_fn_t_Deref",
+          hasCFieldInstanceCFieldType =
+          HsFun
+            (HsPrimType HsPrimCInt)
+            (HsFun
+              (HsPtr (HsPrimType HsPrimVoid))
+              (HsIO (HsPrimType HsPrimCInt))),
+          hasCFieldInstanceFieldOffset =
+          0},
       defineInstanceComment =
       Nothing},
   DeclNewtype
@@ -13245,6 +15579,53 @@
         "Processor_fn_t",
       deriveInstanceComment =
       Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Processor_fn_t"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Processor_fn_t",
+          hasFieldInstanceFieldType =
+          HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Processor_fn_t_Deref")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Processor_fn_t"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_Processor_fn_t",
+          hasCFieldInstanceCFieldType =
+          HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Processor_fn_t_Deref")),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -13360,6 +15741,47 @@
         "@NsTypeConstr"
         "Filename_t",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Filename_t"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Filename_t",
+          hasFieldInstanceFieldType =
+          HsConstArray
+            256
+            (HsPrimType HsPrimCChar),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Filename_t"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "un_Filename_t",
+          hasCFieldInstanceCFieldType =
+          HsConstArray
+            256
+            (HsPrimType HsPrimCChar),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
       Nothing},
   DeclData
     Struct {
@@ -14951,7 +17373,11 @@
                             Bold [TextContent "returns:"],
                             TextContent
                               "Allocated structure"]]}})
-              [PeekByteOff (Idx 0) 0]),
+              [
+                PeekCField
+                  (HsStrLit
+                    "flexible_array_count")
+                  (Idx 0)]),
           storablePoke = Lambda
             (NameHint "ptr")
             (Lambda
@@ -15487,9 +17913,10 @@
                 (Add 1)
                 (Seq
                   [
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit
+                        "flexible_array_count")
                       (Idx 2)
-                      0
                       (Idx 0)])))},
       defineInstanceComment =
       Nothing},
@@ -16045,6 +18472,261 @@
                       "Allocated structure"]]}}
         (HsPrimType HsPrimCInt)
         8,
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Flexible_array"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "flexible_array_count",
+          hasCFieldInstanceCFieldType =
+          HsExtBinding
+            ExtRef {
+              extRefModule = ModuleName
+                "HsBindgen.Runtime.Prelude",
+              extRefIdentifier = Identifier
+                "CSize"}
+            CTypeSpec {
+              cTypeSpecIdentifier = Just
+                (Identifier "CSize"),
+              cTypeSpecInstances =
+              Map.fromList
+                [
+                  _×_
+                    Bits
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Bounded
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Enum
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Eq
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    FiniteBits
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Integral
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Ix
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Num
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Ord
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Read
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    ReadRaw
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Real
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Show
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    StaticSize
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Storable
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    WriteRaw
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = [
+                          ]})]},
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Flexible_array"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "flexible_array_count",
+          hasFieldInstanceFieldType =
+          HsExtBinding
+            ExtRef {
+              extRefModule = ModuleName
+                "HsBindgen.Runtime.Prelude",
+              extRefIdentifier = Identifier
+                "CSize"}
+            CTypeSpec {
+              cTypeSpecIdentifier = Just
+                (Identifier "CSize"),
+              cTypeSpecInstances =
+              Map.fromList
+                [
+                  _×_
+                    Bits
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Bounded
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Enum
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Eq
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    FiniteBits
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Integral
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Ix
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Num
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Ord
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Read
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    ReadRaw
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Real
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Show
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    StaticSize
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    Storable
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = []}),
+                  _×_
+                    WriteRaw
+                    (Require
+                      InstanceSpec {
+                        instanceSpecStrategy = Nothing,
+                        instanceSpecConstraints = [
+                          ]})]},
+          hasFieldInstanceVia =
+          ViaHasCField},
       defineInstanceComment =
       Nothing},
   DeclForeignImport

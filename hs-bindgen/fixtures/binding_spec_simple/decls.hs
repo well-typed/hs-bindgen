@@ -288,4 +288,37 @@
         "@NsTypeConstr"
         "Sym",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Sym"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Sym",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCChar,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Sym"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "un_Sym",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCChar,
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
       Nothing}]

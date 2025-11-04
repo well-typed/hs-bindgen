@@ -604,6 +604,41 @@
         "Tty",
       deriveInstanceComment =
       Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Tty"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Tty",
+          hasFieldInstanceFieldType =
+          HsTypRef
+            (Name "@NsTypeConstr" "MTy"),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Tty"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "un_Tty",
+          hasCFieldInstanceCFieldType =
+          HsTypRef
+            (Name "@NsTypeConstr" "MTy"),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -1239,4 +1274,47 @@
         "@NsTypeConstr"
         "Boolean_T",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Boolean_T"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Boolean_T",
+          hasFieldInstanceFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "BOOLEAN_T"),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Boolean_T"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "un_Boolean_T",
+          hasCFieldInstanceCFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "BOOLEAN_T"),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
       Nothing}]

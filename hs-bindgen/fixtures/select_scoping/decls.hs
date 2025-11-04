@@ -208,4 +208,43 @@
         "@NsTypeConstr"
         "ParsedAndSelected",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "ParsedAndSelected"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_ParsedAndSelected",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCInt,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "ParsedAndSelected"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_ParsedAndSelected",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCInt,
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
       Nothing}]

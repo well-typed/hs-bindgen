@@ -1,14 +1,27 @@
+{-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE MagicHash #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE TypeApplications #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE UndecidableInstances #-}
 
 module Example where
 
 import qualified Data.Bits as Bits
 import qualified Data.Ix as Ix
+import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Ptr as Ptr
+import qualified GHC.Records
+import qualified HsBindgen.Runtime.HasCField
 import Data.Bits (FiniteBits)
+import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude (Bounded, Enum, Eq, Integral, Num, Ord, Read, Real, Show)
 
 {-| __C declaration:__ @T1@
@@ -35,6 +48,18 @@ newtype T2 = T2
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType T2) "un_T2")
+         ) => GHC.Records.HasField "un_T2" (Ptr.Ptr T2) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_T2")
+
+instance HsBindgen.Runtime.HasCField.HasCField T2 "un_T2" where
+
+  type CFieldType T2 "un_T2" = T1
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @T3@
 
     __defined at:__ @macro_typedef_scope.h:6:9@
@@ -58,3 +83,15 @@ newtype T4 = T4
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType T4) "un_T4")
+         ) => GHC.Records.HasField "un_T4" (Ptr.Ptr T4) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_T4")
+
+instance HsBindgen.Runtime.HasCField.HasCField T4 "un_T4" where
+
+  type CFieldType T4 "un_T4" = T3
+
+  offset# = \_ -> \_ -> 0

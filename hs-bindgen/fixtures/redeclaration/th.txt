@@ -30,6 +30,12 @@ newtype Int_t
                       Ix,
                       Num,
                       Real)
+instance TyEq ty (CFieldType Int_t "un_Int_t") =>
+         HasField "un_Int_t" (Ptr Int_t) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Int_t")
+instance HasCField Int_t "un_Int_t"
+    where type CFieldType Int_t "un_Int_t" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @X@
 
     __defined at:__ @redeclaration.h:26:8@
@@ -54,9 +60,15 @@ data X
 instance Storable X
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure X <*> peekByteOff ptr_0 (0 :: Int)
+          peek = \ptr_0 -> pure X <*> peekCField (Proxy @"x_n") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   X x_n_3 -> pokeByteOff ptr_1 (0 :: Int) x_n_3
+                                   X x_n_3 -> pokeCField (Proxy @"x_n") ptr_1 x_n_3
+instance HasCField X "x_n"
+    where type CFieldType X "x_n" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType X "x_n") =>
+         HasField "x_n" (Ptr X) (Ptr ty)
+    where getField = ptrToCField (Proxy @"x_n")
 {-| __C declaration:__ @Y@
 
     __defined at:__ @redeclaration.h:30:7@
@@ -147,6 +159,18 @@ set_y_o :: CInt -> Y
 
 -}
 set_y_o = setUnionPayload
+instance HasCField Y "y_m"
+    where type CFieldType Y "y_m" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Y "y_m") =>
+         HasField "y_m" (Ptr Y) (Ptr ty)
+    where getField = ptrToCField (Proxy @"y_m")
+instance HasCField Y "y_o"
+    where type CFieldType Y "y_o" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Y "y_o") =>
+         HasField "y_o" (Ptr Y) (Ptr ty)
+    where getField = ptrToCField (Proxy @"y_o")
 foreign import ccall safe "hs_bindgen_test_redeclaration_10b125673bf2041b" hs_bindgen_test_redeclaration_10b125673bf2041b :: IO (Ptr CInt)
 {-# NOINLINE x_ptr #-}
 {-| __C declaration:__ @x@

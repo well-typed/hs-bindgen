@@ -1,6 +1,10 @@
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE DataKinds #-}
+{-# LANGUAGE MagicHash #-}
 {-# LANGUAGE OverloadedLabels #-}
-{-# LANGUAGE TemplateHaskell    #-}
+{-# LANGUAGE TemplateHaskell #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE UndecidableInstances #-}
 
 module Test.TH.Test02 where
 

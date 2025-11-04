@@ -963,12 +963,24 @@
                           headerInclude = "bitfields.h"},
                       commentChildren = []}})
               [
-                PeekByteOff (Idx 0) 0,
-                PeekBitOffWidth (Idx 0) 8 1,
-                PeekBitOffWidth (Idx 0) 9 1,
-                PeekBitOffWidth (Idx 0) 10 1,
-                PeekByteOff (Idx 0) 2,
-                PeekBitOffWidth (Idx 0) 24 2]),
+                PeekCField
+                  (HsStrLit "flags_fieldX")
+                  (Idx 0),
+                PeekCBitfield
+                  (HsStrLit "flags_flagA")
+                  (Idx 0),
+                PeekCBitfield
+                  (HsStrLit "flags_flagB")
+                  (Idx 0),
+                PeekCBitfield
+                  (HsStrLit "flags_flagC")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit "flags_fieldY")
+                  (Idx 0),
+                PeekCBitfield
+                  (HsStrLit "flags_bits")
+                  (Idx 0)]),
           storablePoke = Lambda
             (NameHint "ptr")
             (Lambda
@@ -1295,27 +1307,29 @@
                 (Add 6)
                 (Seq
                   [
-                    PokeByteOff (Idx 7) 0 (Idx 0),
-                    PokeBitOffWidth
+                    PokeCField
+                      (HsStrLit "flags_fieldX")
                       (Idx 7)
-                      8
-                      1
+                      (Idx 0),
+                    PokeCBitfield
+                      (HsStrLit "flags_flagA")
+                      (Idx 7)
                       (Idx 1),
-                    PokeBitOffWidth
+                    PokeCBitfield
+                      (HsStrLit "flags_flagB")
                       (Idx 7)
-                      9
-                      1
                       (Idx 2),
-                    PokeBitOffWidth
+                    PokeCBitfield
+                      (HsStrLit "flags_flagC")
                       (Idx 7)
-                      10
-                      1
                       (Idx 3),
-                    PokeByteOff (Idx 7) 2 (Idx 4),
-                    PokeBitOffWidth
+                    PokeCField
+                      (HsStrLit "flags_fieldY")
                       (Idx 7)
-                      24
-                      2
+                      (Idx 4),
+                    PokeCBitfield
+                      (HsStrLit "flags_bits")
+                      (Idx 7)
                       (Idx 5)])))},
       defineInstanceComment =
       Nothing},
@@ -1338,6 +1352,212 @@
         "@NsTypeConstr"
         "Flags",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Flags"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "flags_fieldX",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCChar,
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Flags"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "flags_fieldX",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCChar,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCBitfield
+        HasCBitfieldInstance {
+          hasCBitfieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Flags"),
+          hasCBitfieldInstanceFieldName =
+          Name "@NsVar" "flags_flagA",
+          hasCBitfieldInstanceCBitfieldType =
+          HsPrimType HsPrimCInt,
+          hasCBitfieldInstanceBitOffset =
+          8,
+          hasCBitfieldInstanceBitWidth =
+          1},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Flags"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "flags_flagA",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCInt,
+          hasFieldInstanceVia =
+          ViaHasCBitfield},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCBitfield
+        HasCBitfieldInstance {
+          hasCBitfieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Flags"),
+          hasCBitfieldInstanceFieldName =
+          Name "@NsVar" "flags_flagB",
+          hasCBitfieldInstanceCBitfieldType =
+          HsPrimType HsPrimCInt,
+          hasCBitfieldInstanceBitOffset =
+          9,
+          hasCBitfieldInstanceBitWidth =
+          1},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Flags"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "flags_flagB",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCInt,
+          hasFieldInstanceVia =
+          ViaHasCBitfield},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCBitfield
+        HasCBitfieldInstance {
+          hasCBitfieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Flags"),
+          hasCBitfieldInstanceFieldName =
+          Name "@NsVar" "flags_flagC",
+          hasCBitfieldInstanceCBitfieldType =
+          HsPrimType HsPrimCInt,
+          hasCBitfieldInstanceBitOffset =
+          10,
+          hasCBitfieldInstanceBitWidth =
+          1},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Flags"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "flags_flagC",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCInt,
+          hasFieldInstanceVia =
+          ViaHasCBitfield},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Flags"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "flags_fieldY",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCChar,
+          hasCFieldInstanceFieldOffset =
+          2},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Flags"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "flags_fieldY",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCChar,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCBitfield
+        HasCBitfieldInstance {
+          hasCBitfieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Flags"),
+          hasCBitfieldInstanceFieldName =
+          Name "@NsVar" "flags_bits",
+          hasCBitfieldInstanceCBitfieldType =
+          HsPrimType HsPrimCInt,
+          hasCBitfieldInstanceBitOffset =
+          24,
+          hasCBitfieldInstanceBitWidth =
+          2},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Flags"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "flags_bits",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCInt,
+          hasFieldInstanceVia =
+          ViaHasCBitfield},
+      defineInstanceComment =
       Nothing},
   DeclData
     Struct {
@@ -1895,9 +2115,15 @@
                           headerInclude = "bitfields.h"},
                       commentChildren = []}})
               [
-                PeekBitOffWidth (Idx 0) 0 17,
-                PeekBitOffWidth (Idx 0) 32 17,
-                PeekBitOffWidth (Idx 0) 64 17]),
+                PeekCBitfield
+                  (HsStrLit "overflow32_x")
+                  (Idx 0),
+                PeekCBitfield
+                  (HsStrLit "overflow32_y")
+                  (Idx 0),
+                PeekCBitfield
+                  (HsStrLit "overflow32_z")
+                  (Idx 0)]),
           storablePoke = Lambda
             (NameHint "ptr")
             (Lambda
@@ -2088,20 +2314,17 @@
                 (Add 3)
                 (Seq
                   [
-                    PokeBitOffWidth
+                    PokeCBitfield
+                      (HsStrLit "overflow32_x")
                       (Idx 4)
-                      0
-                      17
                       (Idx 0),
-                    PokeBitOffWidth
+                    PokeCBitfield
+                      (HsStrLit "overflow32_y")
                       (Idx 4)
-                      32
-                      17
                       (Idx 1),
-                    PokeBitOffWidth
+                    PokeCBitfield
+                      (HsStrLit "overflow32_z")
                       (Idx 4)
-                      64
-                      17
                       (Idx 2)])))},
       defineInstanceComment =
       Nothing},
@@ -2124,6 +2347,123 @@
         "@NsTypeConstr"
         "Overflow32",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCBitfield
+        HasCBitfieldInstance {
+          hasCBitfieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Overflow32"),
+          hasCBitfieldInstanceFieldName =
+          Name "@NsVar" "overflow32_x",
+          hasCBitfieldInstanceCBitfieldType =
+          HsPrimType HsPrimCInt,
+          hasCBitfieldInstanceBitOffset =
+          0,
+          hasCBitfieldInstanceBitWidth =
+          17},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Overflow32"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "overflow32_x",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCInt,
+          hasFieldInstanceVia =
+          ViaHasCBitfield},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCBitfield
+        HasCBitfieldInstance {
+          hasCBitfieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Overflow32"),
+          hasCBitfieldInstanceFieldName =
+          Name "@NsVar" "overflow32_y",
+          hasCBitfieldInstanceCBitfieldType =
+          HsPrimType HsPrimCInt,
+          hasCBitfieldInstanceBitOffset =
+          32,
+          hasCBitfieldInstanceBitWidth =
+          17},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Overflow32"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "overflow32_y",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCInt,
+          hasFieldInstanceVia =
+          ViaHasCBitfield},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCBitfield
+        HasCBitfieldInstance {
+          hasCBitfieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Overflow32"),
+          hasCBitfieldInstanceFieldName =
+          Name "@NsVar" "overflow32_z",
+          hasCBitfieldInstanceCBitfieldType =
+          HsPrimType HsPrimCInt,
+          hasCBitfieldInstanceBitOffset =
+          64,
+          hasCBitfieldInstanceBitWidth =
+          17},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Overflow32"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "overflow32_z",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCInt,
+          hasFieldInstanceVia =
+          ViaHasCBitfield},
+      defineInstanceComment =
       Nothing},
   DeclData
     Struct {
@@ -2687,9 +3027,15 @@
                           headerInclude = "bitfields.h"},
                       commentChildren = []}})
               [
-                PeekBitOffWidth (Idx 0) 0 17,
-                PeekBitOffWidth (Idx 0) 17 17,
-                PeekBitOffWidth (Idx 0) 34 17]),
+                PeekCBitfield
+                  (HsStrLit "overflow32b_x")
+                  (Idx 0),
+                PeekCBitfield
+                  (HsStrLit "overflow32b_y")
+                  (Idx 0),
+                PeekCBitfield
+                  (HsStrLit "overflow32b_z")
+                  (Idx 0)]),
           storablePoke = Lambda
             (NameHint "ptr")
             (Lambda
@@ -2882,20 +3228,17 @@
                 (Add 3)
                 (Seq
                   [
-                    PokeBitOffWidth
+                    PokeCBitfield
+                      (HsStrLit "overflow32b_x")
                       (Idx 4)
-                      0
-                      17
                       (Idx 0),
-                    PokeBitOffWidth
+                    PokeCBitfield
+                      (HsStrLit "overflow32b_y")
                       (Idx 4)
-                      17
-                      17
                       (Idx 1),
-                    PokeBitOffWidth
+                    PokeCBitfield
+                      (HsStrLit "overflow32b_z")
                       (Idx 4)
-                      34
-                      17
                       (Idx 2)])))},
       defineInstanceComment =
       Nothing},
@@ -2918,6 +3261,123 @@
         "@NsTypeConstr"
         "Overflow32b",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCBitfield
+        HasCBitfieldInstance {
+          hasCBitfieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Overflow32b"),
+          hasCBitfieldInstanceFieldName =
+          Name "@NsVar" "overflow32b_x",
+          hasCBitfieldInstanceCBitfieldType =
+          HsPrimType HsPrimCLong,
+          hasCBitfieldInstanceBitOffset =
+          0,
+          hasCBitfieldInstanceBitWidth =
+          17},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Overflow32b"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "overflow32b_x",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCLong,
+          hasFieldInstanceVia =
+          ViaHasCBitfield},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCBitfield
+        HasCBitfieldInstance {
+          hasCBitfieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Overflow32b"),
+          hasCBitfieldInstanceFieldName =
+          Name "@NsVar" "overflow32b_y",
+          hasCBitfieldInstanceCBitfieldType =
+          HsPrimType HsPrimCLong,
+          hasCBitfieldInstanceBitOffset =
+          17,
+          hasCBitfieldInstanceBitWidth =
+          17},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Overflow32b"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "overflow32b_y",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCLong,
+          hasFieldInstanceVia =
+          ViaHasCBitfield},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCBitfield
+        HasCBitfieldInstance {
+          hasCBitfieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Overflow32b"),
+          hasCBitfieldInstanceFieldName =
+          Name "@NsVar" "overflow32b_z",
+          hasCBitfieldInstanceCBitfieldType =
+          HsPrimType HsPrimCLong,
+          hasCBitfieldInstanceBitOffset =
+          34,
+          hasCBitfieldInstanceBitWidth =
+          17},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Overflow32b"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "overflow32b_z",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCLong,
+          hasFieldInstanceVia =
+          ViaHasCBitfield},
+      defineInstanceComment =
       Nothing},
   DeclData
     Struct {
@@ -3481,9 +3941,15 @@
                           headerInclude = "bitfields.h"},
                       commentChildren = []}})
               [
-                PeekBitOffWidth (Idx 0) 0 17,
-                PeekBitOffWidth (Idx 0) 32 17,
-                PeekBitOffWidth (Idx 0) 64 17]),
+                PeekCBitfield
+                  (HsStrLit "overflow32c_x")
+                  (Idx 0),
+                PeekCBitfield
+                  (HsStrLit "overflow32c_y")
+                  (Idx 0),
+                PeekCBitfield
+                  (HsStrLit "overflow32c_z")
+                  (Idx 0)]),
           storablePoke = Lambda
             (NameHint "ptr")
             (Lambda
@@ -3676,20 +4142,17 @@
                 (Add 3)
                 (Seq
                   [
-                    PokeBitOffWidth
+                    PokeCBitfield
+                      (HsStrLit "overflow32c_x")
                       (Idx 4)
-                      0
-                      17
                       (Idx 0),
-                    PokeBitOffWidth
+                    PokeCBitfield
+                      (HsStrLit "overflow32c_y")
                       (Idx 4)
-                      32
-                      17
                       (Idx 1),
-                    PokeBitOffWidth
+                    PokeCBitfield
+                      (HsStrLit "overflow32c_z")
                       (Idx 4)
-                      64
-                      17
                       (Idx 2)])))},
       defineInstanceComment =
       Nothing},
@@ -3712,6 +4175,123 @@
         "@NsTypeConstr"
         "Overflow32c",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCBitfield
+        HasCBitfieldInstance {
+          hasCBitfieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Overflow32c"),
+          hasCBitfieldInstanceFieldName =
+          Name "@NsVar" "overflow32c_x",
+          hasCBitfieldInstanceCBitfieldType =
+          HsPrimType HsPrimCLong,
+          hasCBitfieldInstanceBitOffset =
+          0,
+          hasCBitfieldInstanceBitWidth =
+          17},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Overflow32c"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "overflow32c_x",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCLong,
+          hasFieldInstanceVia =
+          ViaHasCBitfield},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCBitfield
+        HasCBitfieldInstance {
+          hasCBitfieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Overflow32c"),
+          hasCBitfieldInstanceFieldName =
+          Name "@NsVar" "overflow32c_y",
+          hasCBitfieldInstanceCBitfieldType =
+          HsPrimType HsPrimCInt,
+          hasCBitfieldInstanceBitOffset =
+          32,
+          hasCBitfieldInstanceBitWidth =
+          17},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Overflow32c"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "overflow32c_y",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCInt,
+          hasFieldInstanceVia =
+          ViaHasCBitfield},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCBitfield
+        HasCBitfieldInstance {
+          hasCBitfieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Overflow32c"),
+          hasCBitfieldInstanceFieldName =
+          Name "@NsVar" "overflow32c_z",
+          hasCBitfieldInstanceCBitfieldType =
+          HsPrimType HsPrimCLong,
+          hasCBitfieldInstanceBitOffset =
+          64,
+          hasCBitfieldInstanceBitWidth =
+          17},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Overflow32c"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "overflow32c_z",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCLong,
+          hasFieldInstanceVia =
+          ViaHasCBitfield},
+      defineInstanceComment =
       Nothing},
   DeclData
     Struct {
@@ -4140,8 +4720,12 @@
                           headerInclude = "bitfields.h"},
                       commentChildren = []}})
               [
-                PeekBitOffWidth (Idx 0) 0 33,
-                PeekBitOffWidth (Idx 0) 64 33]),
+                PeekCBitfield
+                  (HsStrLit "overflow64_x")
+                  (Idx 0),
+                PeekCBitfield
+                  (HsStrLit "overflow64_y")
+                  (Idx 0)]),
           storablePoke = Lambda
             (NameHint "ptr")
             (Lambda
@@ -4289,15 +4873,13 @@
                 (Add 2)
                 (Seq
                   [
-                    PokeBitOffWidth
+                    PokeCBitfield
+                      (HsStrLit "overflow64_x")
                       (Idx 3)
-                      0
-                      33
                       (Idx 0),
-                    PokeBitOffWidth
+                    PokeCBitfield
+                      (HsStrLit "overflow64_y")
                       (Idx 3)
-                      64
-                      33
                       (Idx 1)])))},
       defineInstanceComment =
       Nothing},
@@ -4320,6 +4902,84 @@
         "@NsTypeConstr"
         "Overflow64",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCBitfield
+        HasCBitfieldInstance {
+          hasCBitfieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Overflow64"),
+          hasCBitfieldInstanceFieldName =
+          Name "@NsVar" "overflow64_x",
+          hasCBitfieldInstanceCBitfieldType =
+          HsPrimType HsPrimCLong,
+          hasCBitfieldInstanceBitOffset =
+          0,
+          hasCBitfieldInstanceBitWidth =
+          33},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Overflow64"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "overflow64_x",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCLong,
+          hasFieldInstanceVia =
+          ViaHasCBitfield},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCBitfield
+        HasCBitfieldInstance {
+          hasCBitfieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Overflow64"),
+          hasCBitfieldInstanceFieldName =
+          Name "@NsVar" "overflow64_y",
+          hasCBitfieldInstanceCBitfieldType =
+          HsPrimType HsPrimCLong,
+          hasCBitfieldInstanceBitOffset =
+          64,
+          hasCBitfieldInstanceBitWidth =
+          33},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Overflow64"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "overflow64_y",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCLong,
+          hasFieldInstanceVia =
+          ViaHasCBitfield},
+      defineInstanceComment =
       Nothing},
   DeclData
     Struct {
@@ -4751,8 +5411,12 @@
                           headerInclude = "bitfields.h"},
                       commentChildren = []}})
               [
-                PeekBitOffWidth (Idx 0) 0 1,
-                PeekBitOffWidth (Idx 0) 1 10]),
+                PeekCBitfield
+                  (HsStrLit "alignA_x")
+                  (Idx 0),
+                PeekCBitfield
+                  (HsStrLit "alignA_y")
+                  (Idx 0)]),
           storablePoke = Lambda
             (NameHint "ptr")
             (Lambda
@@ -4901,15 +5565,13 @@
                 (Add 2)
                 (Seq
                   [
-                    PokeBitOffWidth
+                    PokeCBitfield
+                      (HsStrLit "alignA_x")
                       (Idx 3)
-                      0
-                      1
                       (Idx 0),
-                    PokeBitOffWidth
+                    PokeCBitfield
+                      (HsStrLit "alignA_y")
                       (Idx 3)
-                      1
-                      10
                       (Idx 1)])))},
       defineInstanceComment =
       Nothing},
@@ -4932,6 +5594,76 @@
         "@NsTypeConstr"
         "AlignA",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCBitfield
+        HasCBitfieldInstance {
+          hasCBitfieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "AlignA"),
+          hasCBitfieldInstanceFieldName =
+          Name "@NsVar" "alignA_x",
+          hasCBitfieldInstanceCBitfieldType =
+          HsPrimType HsPrimCUChar,
+          hasCBitfieldInstanceBitOffset =
+          0,
+          hasCBitfieldInstanceBitWidth =
+          1},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "AlignA"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "alignA_x",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCUChar,
+          hasFieldInstanceVia =
+          ViaHasCBitfield},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCBitfield
+        HasCBitfieldInstance {
+          hasCBitfieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "AlignA"),
+          hasCBitfieldInstanceFieldName =
+          Name "@NsVar" "alignA_y",
+          hasCBitfieldInstanceCBitfieldType =
+          HsPrimType HsPrimCInt,
+          hasCBitfieldInstanceBitOffset =
+          1,
+          hasCBitfieldInstanceBitWidth =
+          10},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "AlignA"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "alignA_y",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCInt,
+          hasFieldInstanceVia =
+          ViaHasCBitfield},
+      defineInstanceComment =
       Nothing},
   DeclData
     Struct {
@@ -5363,8 +6095,12 @@
                           headerInclude = "bitfields.h"},
                       commentChildren = []}})
               [
-                PeekBitOffWidth (Idx 0) 0 7,
-                PeekBitOffWidth (Idx 0) 32 31]),
+                PeekCBitfield
+                  (HsStrLit "alignB_x")
+                  (Idx 0),
+                PeekCBitfield
+                  (HsStrLit "alignB_y")
+                  (Idx 0)]),
           storablePoke = Lambda
             (NameHint "ptr")
             (Lambda
@@ -5513,15 +6249,13 @@
                 (Add 2)
                 (Seq
                   [
-                    PokeBitOffWidth
+                    PokeCBitfield
+                      (HsStrLit "alignB_x")
                       (Idx 3)
-                      0
-                      7
                       (Idx 0),
-                    PokeBitOffWidth
+                    PokeCBitfield
+                      (HsStrLit "alignB_y")
                       (Idx 3)
-                      32
-                      31
                       (Idx 1)])))},
       defineInstanceComment =
       Nothing},
@@ -5544,4 +6278,74 @@
         "@NsTypeConstr"
         "AlignB",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCBitfield
+        HasCBitfieldInstance {
+          hasCBitfieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "AlignB"),
+          hasCBitfieldInstanceFieldName =
+          Name "@NsVar" "alignB_x",
+          hasCBitfieldInstanceCBitfieldType =
+          HsPrimType HsPrimCUChar,
+          hasCBitfieldInstanceBitOffset =
+          0,
+          hasCBitfieldInstanceBitWidth =
+          7},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "AlignB"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "alignB_x",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCUChar,
+          hasFieldInstanceVia =
+          ViaHasCBitfield},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCBitfield
+        HasCBitfieldInstance {
+          hasCBitfieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "AlignB"),
+          hasCBitfieldInstanceFieldName =
+          Name "@NsVar" "alignB_y",
+          hasCBitfieldInstanceCBitfieldType =
+          HsPrimType HsPrimCInt,
+          hasCBitfieldInstanceBitOffset =
+          32,
+          hasCBitfieldInstanceBitWidth =
+          31},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "AlignB"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "alignB_y",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCInt,
+          hasFieldInstanceVia =
+          ViaHasCBitfield},
+      defineInstanceComment =
       Nothing}]

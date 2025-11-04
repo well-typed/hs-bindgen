@@ -444,6 +444,18 @@ instance ToFunPtr FileOpenedNotification_Deref
     where toFunPtr = toFileOpenedNotification_Deref
 instance FromFunPtr FileOpenedNotification_Deref
     where fromFunPtr = fromFileOpenedNotification_Deref
+instance TyEq ty
+              (CFieldType FileOpenedNotification_Deref
+                          "un_FileOpenedNotification_Deref") =>
+         HasField "un_FileOpenedNotification_Deref"
+                  (Ptr FileOpenedNotification_Deref)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_FileOpenedNotification_Deref")
+instance HasCField FileOpenedNotification_Deref
+                   "un_FileOpenedNotification_Deref"
+    where type CFieldType FileOpenedNotification_Deref
+                          "un_FileOpenedNotification_Deref" = IO Unit
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @FileOpenedNotification@
 
     __defined at:__ @callbacks.h:10:16@
@@ -460,6 +472,17 @@ newtype FileOpenedNotification
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+instance TyEq ty
+              (CFieldType FileOpenedNotification "un_FileOpenedNotification") =>
+         HasField "un_FileOpenedNotification"
+                  (Ptr FileOpenedNotification)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_FileOpenedNotification")
+instance HasCField FileOpenedNotification
+                   "un_FileOpenedNotification"
+    where type CFieldType FileOpenedNotification
+                          "un_FileOpenedNotification" = FunPtr FileOpenedNotification_Deref
+          offset# = \_ -> \_ -> 0
 {-| Auxiliary type used by 'ProgressUpdate'
 
 __defined at:__ @callbacks.h:11:16@
@@ -483,6 +506,16 @@ instance ToFunPtr ProgressUpdate_Deref
     where toFunPtr = toProgressUpdate_Deref
 instance FromFunPtr ProgressUpdate_Deref
     where fromFunPtr = fromProgressUpdate_Deref
+instance TyEq ty
+              (CFieldType ProgressUpdate_Deref "un_ProgressUpdate_Deref") =>
+         HasField "un_ProgressUpdate_Deref"
+                  (Ptr ProgressUpdate_Deref)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_ProgressUpdate_Deref")
+instance HasCField ProgressUpdate_Deref "un_ProgressUpdate_Deref"
+    where type CFieldType ProgressUpdate_Deref
+                          "un_ProgressUpdate_Deref" = CInt -> IO Unit
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @ProgressUpdate@
 
     __defined at:__ @callbacks.h:11:16@
@@ -499,6 +532,13 @@ newtype ProgressUpdate
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+instance TyEq ty (CFieldType ProgressUpdate "un_ProgressUpdate") =>
+         HasField "un_ProgressUpdate" (Ptr ProgressUpdate) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_ProgressUpdate")
+instance HasCField ProgressUpdate "un_ProgressUpdate"
+    where type CFieldType ProgressUpdate
+                          "un_ProgressUpdate" = FunPtr ProgressUpdate_Deref
+          offset# = \_ -> \_ -> 0
 {-| Auxiliary type used by 'DataValidator'
 
 __defined at:__ @callbacks.h:12:15@
@@ -521,6 +561,16 @@ instance ToFunPtr DataValidator_Deref
     where toFunPtr = toDataValidator_Deref
 instance FromFunPtr DataValidator_Deref
     where fromFunPtr = fromDataValidator_Deref
+instance TyEq ty
+              (CFieldType DataValidator_Deref "un_DataValidator_Deref") =>
+         HasField "un_DataValidator_Deref"
+                  (Ptr DataValidator_Deref)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_DataValidator_Deref")
+instance HasCField DataValidator_Deref "un_DataValidator_Deref"
+    where type CFieldType DataValidator_Deref
+                          "un_DataValidator_Deref" = CInt -> IO CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @DataValidator@
 
     __defined at:__ @callbacks.h:12:15@
@@ -537,6 +587,13 @@ newtype DataValidator
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+instance TyEq ty (CFieldType DataValidator "un_DataValidator") =>
+         HasField "un_DataValidator" (Ptr DataValidator) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_DataValidator")
+instance HasCField DataValidator "un_DataValidator"
+    where type CFieldType DataValidator
+                          "un_DataValidator" = FunPtr DataValidator_Deref
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @Measurement@
 
     __defined at:__ @callbacks.h:21:8@
@@ -568,10 +625,23 @@ data Measurement
 instance Storable Measurement
     where sizeOf = \_ -> 16 :: Int
           alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> (pure Measurement <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int)
+          peek = \ptr_0 -> (pure Measurement <*> peekCField (Proxy @"measurement_value") ptr_0) <*> peekCField (Proxy @"measurement_timestamp") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Measurement measurement_value_3
-                                               measurement_timestamp_4 -> pokeByteOff ptr_1 (0 :: Int) measurement_value_3 >> pokeByteOff ptr_1 (8 :: Int) measurement_timestamp_4
+                                               measurement_timestamp_4 -> pokeCField (Proxy @"measurement_value") ptr_1 measurement_value_3 >> pokeCField (Proxy @"measurement_timestamp") ptr_1 measurement_timestamp_4
+instance HasCField Measurement "measurement_value"
+    where type CFieldType Measurement "measurement_value" = CDouble
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Measurement "measurement_value") =>
+         HasField "measurement_value" (Ptr Measurement) (Ptr ty)
+    where getField = ptrToCField (Proxy @"measurement_value")
+instance HasCField Measurement "measurement_timestamp"
+    where type CFieldType Measurement "measurement_timestamp" = CDouble
+          offset# = \_ -> \_ -> 8
+instance TyEq ty
+              (CFieldType Measurement "measurement_timestamp") =>
+         HasField "measurement_timestamp" (Ptr Measurement) (Ptr ty)
+    where getField = ptrToCField (Proxy @"measurement_timestamp")
 {-| Auxiliary type used by 'MeasurementReceived'
 
 __defined at:__ @callbacks.h:26:16@
@@ -595,6 +665,18 @@ instance ToFunPtr MeasurementReceived_Deref
     where toFunPtr = toMeasurementReceived_Deref
 instance FromFunPtr MeasurementReceived_Deref
     where fromFunPtr = fromMeasurementReceived_Deref
+instance TyEq ty
+              (CFieldType MeasurementReceived_Deref
+                          "un_MeasurementReceived_Deref") =>
+         HasField "un_MeasurementReceived_Deref"
+                  (Ptr MeasurementReceived_Deref)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_MeasurementReceived_Deref")
+instance HasCField MeasurementReceived_Deref
+                   "un_MeasurementReceived_Deref"
+    where type CFieldType MeasurementReceived_Deref
+                          "un_MeasurementReceived_Deref" = Ptr Measurement -> IO Unit
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @MeasurementReceived@
 
     __defined at:__ @callbacks.h:26:16@
@@ -611,6 +693,16 @@ newtype MeasurementReceived
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+instance TyEq ty
+              (CFieldType MeasurementReceived "un_MeasurementReceived") =>
+         HasField "un_MeasurementReceived"
+                  (Ptr MeasurementReceived)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_MeasurementReceived")
+instance HasCField MeasurementReceived "un_MeasurementReceived"
+    where type CFieldType MeasurementReceived
+                          "un_MeasurementReceived" = FunPtr MeasurementReceived_Deref
+          offset# = \_ -> \_ -> 0
 {-| Auxiliary type used by 'MeasurementReceived2'
 
 __defined at:__ @callbacks.h:29:16@
@@ -626,6 +718,18 @@ newtype MeasurementReceived2_Deref
 
       __exported by:__ @callbacks.h@
       -}
+instance TyEq ty
+              (CFieldType MeasurementReceived2_Deref
+                          "un_MeasurementReceived2_Deref") =>
+         HasField "un_MeasurementReceived2_Deref"
+                  (Ptr MeasurementReceived2_Deref)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_MeasurementReceived2_Deref")
+instance HasCField MeasurementReceived2_Deref
+                   "un_MeasurementReceived2_Deref"
+    where type CFieldType MeasurementReceived2_Deref
+                          "un_MeasurementReceived2_Deref" = Measurement -> IO Unit
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @MeasurementReceived2@
 
     __defined at:__ @callbacks.h:29:16@
@@ -642,6 +746,16 @@ newtype MeasurementReceived2
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+instance TyEq ty
+              (CFieldType MeasurementReceived2 "un_MeasurementReceived2") =>
+         HasField "un_MeasurementReceived2"
+                  (Ptr MeasurementReceived2)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_MeasurementReceived2")
+instance HasCField MeasurementReceived2 "un_MeasurementReceived2"
+    where type CFieldType MeasurementReceived2
+                          "un_MeasurementReceived2" = FunPtr MeasurementReceived2_Deref
+          offset# = \_ -> \_ -> 0
 {-| Auxiliary type used by 'SampleBufferFull'
 
 __defined at:__ @callbacks.h:32:16@
@@ -658,6 +772,17 @@ newtype SampleBufferFull_Deref
 
       __exported by:__ @callbacks.h@
       -}
+instance TyEq ty
+              (CFieldType SampleBufferFull_Deref "un_SampleBufferFull_Deref") =>
+         HasField "un_SampleBufferFull_Deref"
+                  (Ptr SampleBufferFull_Deref)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_SampleBufferFull_Deref")
+instance HasCField SampleBufferFull_Deref
+                   "un_SampleBufferFull_Deref"
+    where type CFieldType SampleBufferFull_Deref
+                          "un_SampleBufferFull_Deref" = ConstantArray 10 CInt -> IO Unit
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @SampleBufferFull@
 
     __defined at:__ @callbacks.h:32:16@
@@ -674,6 +799,14 @@ newtype SampleBufferFull
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+instance TyEq ty
+              (CFieldType SampleBufferFull "un_SampleBufferFull") =>
+         HasField "un_SampleBufferFull" (Ptr SampleBufferFull) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_SampleBufferFull")
+instance HasCField SampleBufferFull "un_SampleBufferFull"
+    where type CFieldType SampleBufferFull
+                          "un_SampleBufferFull" = FunPtr SampleBufferFull_Deref
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @MeasurementHandler@
 
     __defined at:__ @callbacks.h:50:8@
@@ -714,11 +847,43 @@ data MeasurementHandler
 instance Storable MeasurementHandler
     where sizeOf = \_ -> 24 :: Int
           alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> ((pure MeasurementHandler <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int)) <*> peekByteOff ptr_0 (16 :: Int)
+          peek = \ptr_0 -> ((pure MeasurementHandler <*> peekCField (Proxy @"measurementHandler_onReceived") ptr_0) <*> peekCField (Proxy @"measurementHandler_validate") ptr_0) <*> peekCField (Proxy @"measurementHandler_onError") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    MeasurementHandler measurementHandler_onReceived_3
                                                       measurementHandler_validate_4
-                                                      measurementHandler_onError_5 -> pokeByteOff ptr_1 (0 :: Int) measurementHandler_onReceived_3 >> (pokeByteOff ptr_1 (8 :: Int) measurementHandler_validate_4 >> pokeByteOff ptr_1 (16 :: Int) measurementHandler_onError_5)
+                                                      measurementHandler_onError_5 -> pokeCField (Proxy @"measurementHandler_onReceived") ptr_1 measurementHandler_onReceived_3 >> (pokeCField (Proxy @"measurementHandler_validate") ptr_1 measurementHandler_validate_4 >> pokeCField (Proxy @"measurementHandler_onError") ptr_1 measurementHandler_onError_5)
+instance HasCField MeasurementHandler
+                   "measurementHandler_onReceived"
+    where type CFieldType MeasurementHandler
+                          "measurementHandler_onReceived" = FunPtr (Ptr Measurement ->
+                                                                    IO Unit)
+          offset# = \_ -> \_ -> 0
+instance TyEq ty
+              (CFieldType MeasurementHandler "measurementHandler_onReceived") =>
+         HasField "measurementHandler_onReceived"
+                  (Ptr MeasurementHandler)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"measurementHandler_onReceived")
+instance HasCField MeasurementHandler "measurementHandler_validate"
+    where type CFieldType MeasurementHandler
+                          "measurementHandler_validate" = FunPtr (Ptr Measurement -> IO CInt)
+          offset# = \_ -> \_ -> 8
+instance TyEq ty
+              (CFieldType MeasurementHandler "measurementHandler_validate") =>
+         HasField "measurementHandler_validate"
+                  (Ptr MeasurementHandler)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"measurementHandler_validate")
+instance HasCField MeasurementHandler "measurementHandler_onError"
+    where type CFieldType MeasurementHandler
+                          "measurementHandler_onError" = FunPtr (CInt -> IO Unit)
+          offset# = \_ -> \_ -> 16
+instance TyEq ty
+              (CFieldType MeasurementHandler "measurementHandler_onError") =>
+         HasField "measurementHandler_onError"
+                  (Ptr MeasurementHandler)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"measurementHandler_onError")
 {-| __C declaration:__ @DataPipeline@
 
     __defined at:__ @callbacks.h:58:8@
@@ -759,11 +924,37 @@ data DataPipeline
 instance Storable DataPipeline
     where sizeOf = \_ -> 24 :: Int
           alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> ((pure DataPipeline <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int)) <*> peekByteOff ptr_0 (16 :: Int)
+          peek = \ptr_0 -> ((pure DataPipeline <*> peekCField (Proxy @"dataPipeline_preProcess") ptr_0) <*> peekCField (Proxy @"dataPipeline_process") ptr_0) <*> peekCField (Proxy @"dataPipeline_postProcess") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    DataPipeline dataPipeline_preProcess_3
                                                 dataPipeline_process_4
-                                                dataPipeline_postProcess_5 -> pokeByteOff ptr_1 (0 :: Int) dataPipeline_preProcess_3 >> (pokeByteOff ptr_1 (8 :: Int) dataPipeline_process_4 >> pokeByteOff ptr_1 (16 :: Int) dataPipeline_postProcess_5)
+                                                dataPipeline_postProcess_5 -> pokeCField (Proxy @"dataPipeline_preProcess") ptr_1 dataPipeline_preProcess_3 >> (pokeCField (Proxy @"dataPipeline_process") ptr_1 dataPipeline_process_4 >> pokeCField (Proxy @"dataPipeline_postProcess") ptr_1 dataPipeline_postProcess_5)
+instance HasCField DataPipeline "dataPipeline_preProcess"
+    where type CFieldType DataPipeline
+                          "dataPipeline_preProcess" = FunPtr (Ptr Measurement ->
+                                                              DataValidator -> IO Unit)
+          offset# = \_ -> \_ -> 0
+instance TyEq ty
+              (CFieldType DataPipeline "dataPipeline_preProcess") =>
+         HasField "dataPipeline_preProcess" (Ptr DataPipeline) (Ptr ty)
+    where getField = ptrToCField (Proxy @"dataPipeline_preProcess")
+instance HasCField DataPipeline "dataPipeline_process"
+    where type CFieldType DataPipeline
+                          "dataPipeline_process" = FunPtr (Ptr Measurement -> IO Unit)
+          offset# = \_ -> \_ -> 8
+instance TyEq ty
+              (CFieldType DataPipeline "dataPipeline_process") =>
+         HasField "dataPipeline_process" (Ptr DataPipeline) (Ptr ty)
+    where getField = ptrToCField (Proxy @"dataPipeline_process")
+instance HasCField DataPipeline "dataPipeline_postProcess"
+    where type CFieldType DataPipeline
+                          "dataPipeline_postProcess" = FunPtr (Ptr Measurement ->
+                                                               ProgressUpdate -> IO Unit)
+          offset# = \_ -> \_ -> 16
+instance TyEq ty
+              (CFieldType DataPipeline "dataPipeline_postProcess") =>
+         HasField "dataPipeline_postProcess" (Ptr DataPipeline) (Ptr ty)
+    where getField = ptrToCField (Proxy @"dataPipeline_postProcess")
 {-| __C declaration:__ @ProcessorCallback@
 
     __defined at:__ @callbacks.h:69:7@
@@ -891,6 +1082,40 @@ set_processorCallback_withProgress :: FunPtr (Ptr Measurement ->
 
 -}
 set_processorCallback_withProgress = setUnionPayload
+instance HasCField ProcessorCallback "processorCallback_simple"
+    where type CFieldType ProcessorCallback
+                          "processorCallback_simple" = FunPtr (Ptr Measurement -> IO Unit)
+          offset# = \_ -> \_ -> 0
+instance TyEq ty
+              (CFieldType ProcessorCallback "processorCallback_simple") =>
+         HasField "processorCallback_simple"
+                  (Ptr ProcessorCallback)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"processorCallback_simple")
+instance HasCField ProcessorCallback
+                   "processorCallback_withValidator"
+    where type CFieldType ProcessorCallback
+                          "processorCallback_withValidator" = FunPtr (Ptr Measurement ->
+                                                                      DataValidator -> IO Unit)
+          offset# = \_ -> \_ -> 0
+instance TyEq ty
+              (CFieldType ProcessorCallback "processorCallback_withValidator") =>
+         HasField "processorCallback_withValidator"
+                  (Ptr ProcessorCallback)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"processorCallback_withValidator")
+instance HasCField ProcessorCallback
+                   "processorCallback_withProgress"
+    where type CFieldType ProcessorCallback
+                          "processorCallback_withProgress" = FunPtr (Ptr Measurement ->
+                                                                     ProgressUpdate -> IO Unit)
+          offset# = \_ -> \_ -> 0
+instance TyEq ty
+              (CFieldType ProcessorCallback "processorCallback_withProgress") =>
+         HasField "processorCallback_withProgress"
+                  (Ptr ProcessorCallback)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"processorCallback_withProgress")
 {-| __defined at:__ @callbacks.h:76:3@
 
     __exported by:__ @callbacks.h@
@@ -1001,10 +1226,23 @@ data Processor
 instance Storable Processor
     where sizeOf = \_ -> 16 :: Int
           alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> (pure Processor <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int)
+          peek = \ptr_0 -> (pure Processor <*> peekCField (Proxy @"processor_mode") ptr_0) <*> peekCField (Proxy @"processor_callback") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Processor processor_mode_3
-                                             processor_callback_4 -> pokeByteOff ptr_1 (0 :: Int) processor_mode_3 >> pokeByteOff ptr_1 (8 :: Int) processor_callback_4
+                                             processor_callback_4 -> pokeCField (Proxy @"processor_mode") ptr_1 processor_mode_3 >> pokeCField (Proxy @"processor_callback") ptr_1 processor_callback_4
+instance HasCField Processor "processor_mode"
+    where type CFieldType Processor "processor_mode" = Processor_mode
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Processor "processor_mode") =>
+         HasField "processor_mode" (Ptr Processor) (Ptr ty)
+    where getField = ptrToCField (Proxy @"processor_mode")
+instance HasCField Processor "processor_callback"
+    where type CFieldType Processor
+                          "processor_callback" = ProcessorCallback
+          offset# = \_ -> \_ -> 8
+instance TyEq ty (CFieldType Processor "processor_callback") =>
+         HasField "processor_callback" (Ptr Processor) (Ptr ty)
+    where getField = ptrToCField (Proxy @"processor_callback")
 {-| __C declaration:__ @foo@
 
     __defined at:__ @callbacks.h:94:13@
@@ -1029,6 +1267,12 @@ newtype Foo
                       Ix,
                       Num,
                       Real)
+instance TyEq ty (CFieldType Foo "un_Foo") =>
+         HasField "un_Foo" (Ptr Foo) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Foo")
+instance HasCField Foo "un_Foo"
+    where type CFieldType Foo "un_Foo" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @foo2@
 
     __defined at:__ @callbacks.h:95:13@
@@ -1053,6 +1297,12 @@ newtype Foo2
                       Ix,
                       Num,
                       Real)
+instance TyEq ty (CFieldType Foo2 "un_Foo2") =>
+         HasField "un_Foo2" (Ptr Foo2) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Foo2")
+instance HasCField Foo2 "un_Foo2"
+    where type CFieldType Foo2 "un_Foo2" = CInt
+          offset# = \_ -> \_ -> 0
 foreign import ccall safe "wrapper" funPtr_7a7e54ab_to :: (Foo ->
                                                            IO Unit) ->
                                                           IO (FunPtr (Foo -> IO Unit))

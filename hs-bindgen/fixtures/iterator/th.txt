@@ -200,6 +200,12 @@ newtype Toggle
 
            __exported by:__ @iterator.h@
       -}
+instance TyEq ty (CFieldType Toggle "un_Toggle") =>
+         HasField "un_Toggle" (Ptr Toggle) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Toggle")
+instance HasCField Toggle "un_Toggle"
+    where type CFieldType Toggle "un_Toggle" = Block (IO CBool)
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @Counter@
 
     __defined at:__ @iterator.h:10:14@
@@ -214,6 +220,12 @@ newtype Counter
 
            __exported by:__ @iterator.h@
       -}
+instance TyEq ty (CFieldType Counter "un_Counter") =>
+         HasField "un_Counter" (Ptr Counter) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Counter")
+instance HasCField Counter "un_Counter"
+    where type CFieldType Counter "un_Counter" = Block (IO CInt)
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @VarCounter@
 
     __defined at:__ @iterator.h:17:14@
@@ -228,6 +240,13 @@ newtype VarCounter
 
            __exported by:__ @iterator.h@
       -}
+instance TyEq ty (CFieldType VarCounter "un_VarCounter") =>
+         HasField "un_VarCounter" (Ptr VarCounter) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_VarCounter")
+instance HasCField VarCounter "un_VarCounter"
+    where type CFieldType VarCounter "un_VarCounter" = Block (CInt ->
+                                                              IO CInt)
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @makeToggle@
 
     __defined at:__ @iterator.h:4:8@

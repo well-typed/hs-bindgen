@@ -394,6 +394,13 @@ newtype Size_type
                       Ix,
                       Num,
                       Real)
+instance TyEq ty (CFieldType Size_type "un_Size_type") =>
+         HasField "un_Size_type" (Ptr Size_type) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Size_type")
+instance HasCField Size_type "un_Size_type"
+    where type CFieldType Size_type
+                          "un_Size_type" = HsBindgen.Runtime.Prelude.CSize
+          offset# = \_ -> \_ -> 0
 {-| This is the comment @title@
 
   Forward declaration with documentation
@@ -547,6 +554,17 @@ instance ToFunPtr Event_callback_t_Deref
     where toFunPtr = toEvent_callback_t_Deref
 instance FromFunPtr Event_callback_t_Deref
     where fromFunPtr = fromEvent_callback_t_Deref
+instance TyEq ty
+              (CFieldType Event_callback_t_Deref "un_Event_callback_t_Deref") =>
+         HasField "un_Event_callback_t_Deref"
+                  (Ptr Event_callback_t_Deref)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Event_callback_t_Deref")
+instance HasCField Event_callback_t_Deref
+                   "un_Event_callback_t_Deref"
+    where type CFieldType Event_callback_t_Deref
+                          "un_Event_callback_t_Deref" = CInt -> Ptr Void -> IO CInt
+          offset# = \_ -> \_ -> 0
 {-|
 
   Callback function type
@@ -583,6 +601,14 @@ newtype Event_callback_t
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+instance TyEq ty
+              (CFieldType Event_callback_t "un_Event_callback_t") =>
+         HasField "un_Event_callback_t" (Ptr Event_callback_t) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Event_callback_t")
+instance HasCField Event_callback_t "un_Event_callback_t"
+    where type CFieldType Event_callback_t
+                          "un_Event_callback_t" = FunPtr Event_callback_t_Deref
+          offset# = \_ -> \_ -> 0
 {-|
 
   Structure with documented fields
@@ -665,13 +691,47 @@ data Config_t
 instance Storable Config_t
     where sizeOf = \_ -> 88 :: Int
           alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> ((((pure Config_t <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int)) <*> peekByteOff ptr_0 (68 :: Int)) <*> peekByteOff ptr_0 (72 :: Int)) <*> peekByteOff ptr_0 (80 :: Int)
+          peek = \ptr_0 -> ((((pure Config_t <*> peekCField (Proxy @"config_t_id") ptr_0) <*> peekCField (Proxy @"config_t_name") ptr_0) <*> peekCField (Proxy @"config_t_flags") ptr_0) <*> peekCField (Proxy @"config_t_callback") ptr_0) <*> peekCField (Proxy @"config_t_user_data") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Config_t config_t_id_3
                                             config_t_name_4
                                             config_t_flags_5
                                             config_t_callback_6
-                                            config_t_user_data_7 -> pokeByteOff ptr_1 (0 :: Int) config_t_id_3 >> (pokeByteOff ptr_1 (4 :: Int) config_t_name_4 >> (pokeByteOff ptr_1 (68 :: Int) config_t_flags_5 >> (pokeByteOff ptr_1 (72 :: Int) config_t_callback_6 >> pokeByteOff ptr_1 (80 :: Int) config_t_user_data_7)))
+                                            config_t_user_data_7 -> pokeCField (Proxy @"config_t_id") ptr_1 config_t_id_3 >> (pokeCField (Proxy @"config_t_name") ptr_1 config_t_name_4 >> (pokeCField (Proxy @"config_t_flags") ptr_1 config_t_flags_5 >> (pokeCField (Proxy @"config_t_callback") ptr_1 config_t_callback_6 >> pokeCField (Proxy @"config_t_user_data") ptr_1 config_t_user_data_7)))
+instance HasCField Config_t "config_t_id"
+    where type CFieldType Config_t
+                          "config_t_id" = HsBindgen.Runtime.Prelude.Word32
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Config_t "config_t_id") =>
+         HasField "config_t_id" (Ptr Config_t) (Ptr ty)
+    where getField = ptrToCField (Proxy @"config_t_id")
+instance HasCField Config_t "config_t_name"
+    where type CFieldType Config_t "config_t_name" = ConstantArray 64
+                                                                   CChar
+          offset# = \_ -> \_ -> 4
+instance TyEq ty (CFieldType Config_t "config_t_name") =>
+         HasField "config_t_name" (Ptr Config_t) (Ptr ty)
+    where getField = ptrToCField (Proxy @"config_t_name")
+instance HasCField Config_t "config_t_flags"
+    where type CFieldType Config_t
+                          "config_t_flags" = HsBindgen.Runtime.Prelude.Word32
+          offset# = \_ -> \_ -> 68
+instance TyEq ty (CFieldType Config_t "config_t_flags") =>
+         HasField "config_t_flags" (Ptr Config_t) (Ptr ty)
+    where getField = ptrToCField (Proxy @"config_t_flags")
+instance HasCField Config_t "config_t_callback"
+    where type CFieldType Config_t
+                          "config_t_callback" = Event_callback_t
+          offset# = \_ -> \_ -> 72
+instance TyEq ty (CFieldType Config_t "config_t_callback") =>
+         HasField "config_t_callback" (Ptr Config_t) (Ptr ty)
+    where getField = ptrToCField (Proxy @"config_t_callback")
+instance HasCField Config_t "config_t_user_data"
+    where type CFieldType Config_t "config_t_user_data" = Ptr Void
+          offset# = \_ -> \_ -> 80
+instance TyEq ty (CFieldType Config_t "config_t_user_data") =>
+         HasField "config_t_user_data" (Ptr Config_t) (Ptr ty)
+    where getField = ptrToCField (Proxy @"config_t_user_data")
 {-|
 
   Enumeration with documented values
@@ -876,10 +936,32 @@ data Data_union_t_as_parts
 instance Storable Data_union_t_as_parts
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 2 :: Int
-          peek = \ptr_0 -> (pure Data_union_t_as_parts <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (2 :: Int)
+          peek = \ptr_0 -> (pure Data_union_t_as_parts <*> peekCField (Proxy @"data_union_t_as_parts_low") ptr_0) <*> peekCField (Proxy @"data_union_t_as_parts_high") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Data_union_t_as_parts data_union_t_as_parts_low_3
-                                                         data_union_t_as_parts_high_4 -> pokeByteOff ptr_1 (0 :: Int) data_union_t_as_parts_low_3 >> pokeByteOff ptr_1 (2 :: Int) data_union_t_as_parts_high_4
+                                                         data_union_t_as_parts_high_4 -> pokeCField (Proxy @"data_union_t_as_parts_low") ptr_1 data_union_t_as_parts_low_3 >> pokeCField (Proxy @"data_union_t_as_parts_high") ptr_1 data_union_t_as_parts_high_4
+instance HasCField Data_union_t_as_parts
+                   "data_union_t_as_parts_low"
+    where type CFieldType Data_union_t_as_parts
+                          "data_union_t_as_parts_low" = HsBindgen.Runtime.Prelude.Word16
+          offset# = \_ -> \_ -> 0
+instance TyEq ty
+              (CFieldType Data_union_t_as_parts "data_union_t_as_parts_low") =>
+         HasField "data_union_t_as_parts_low"
+                  (Ptr Data_union_t_as_parts)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"data_union_t_as_parts_low")
+instance HasCField Data_union_t_as_parts
+                   "data_union_t_as_parts_high"
+    where type CFieldType Data_union_t_as_parts
+                          "data_union_t_as_parts_high" = HsBindgen.Runtime.Prelude.Word16
+          offset# = \_ -> \_ -> 2
+instance TyEq ty
+              (CFieldType Data_union_t_as_parts "data_union_t_as_parts_high") =>
+         HasField "data_union_t_as_parts_high"
+                  (Ptr Data_union_t_as_parts)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"data_union_t_as_parts_high")
 {-|
 
   > data_union_t
@@ -1060,6 +1142,37 @@ set_data_union_t_as_parts :: Data_union_t_as_parts -> Data_union_t
 
 -}
 set_data_union_t_as_parts = setUnionPayload
+instance HasCField Data_union_t "data_union_t_as_int"
+    where type CFieldType Data_union_t
+                          "data_union_t_as_int" = HsBindgen.Runtime.Prelude.Int32
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Data_union_t "data_union_t_as_int") =>
+         HasField "data_union_t_as_int" (Ptr Data_union_t) (Ptr ty)
+    where getField = ptrToCField (Proxy @"data_union_t_as_int")
+instance HasCField Data_union_t "data_union_t_as_float"
+    where type CFieldType Data_union_t "data_union_t_as_float" = CFloat
+          offset# = \_ -> \_ -> 0
+instance TyEq ty
+              (CFieldType Data_union_t "data_union_t_as_float") =>
+         HasField "data_union_t_as_float" (Ptr Data_union_t) (Ptr ty)
+    where getField = ptrToCField (Proxy @"data_union_t_as_float")
+instance HasCField Data_union_t "data_union_t_as_bytes"
+    where type CFieldType Data_union_t
+                          "data_union_t_as_bytes" = ConstantArray 4
+                                                                  HsBindgen.Runtime.Prelude.Word8
+          offset# = \_ -> \_ -> 0
+instance TyEq ty
+              (CFieldType Data_union_t "data_union_t_as_bytes") =>
+         HasField "data_union_t_as_bytes" (Ptr Data_union_t) (Ptr ty)
+    where getField = ptrToCField (Proxy @"data_union_t_as_bytes")
+instance HasCField Data_union_t "data_union_t_as_parts"
+    where type CFieldType Data_union_t
+                          "data_union_t_as_parts" = Data_union_t_as_parts
+          offset# = \_ -> \_ -> 0
+instance TyEq ty
+              (CFieldType Data_union_t "data_union_t_as_parts") =>
+         HasField "data_union_t_as_parts" (Ptr Data_union_t) (Ptr ty)
+    where getField = ptrToCField (Proxy @"data_union_t_as_parts")
 {-|
 
   > bitfield_t
@@ -1133,12 +1246,49 @@ data Bitfield_t
 instance Storable Bitfield_t
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (((pure Bitfield_t <*> peekBitOffWidth ptr_0 (0 :: Int) (1 :: Int)) <*> peekBitOffWidth ptr_0 (1 :: Int) (1 :: Int)) <*> peekBitOffWidth ptr_0 (2 :: Int) (6 :: Int)) <*> peekBitOffWidth ptr_0 (8 :: Int) (24 :: Int)
+          peek = \ptr_0 -> (((pure Bitfield_t <*> peekCBitfield (Proxy @"bitfield_t_flag1") ptr_0) <*> peekCBitfield (Proxy @"bitfield_t_flag2") ptr_0) <*> peekCBitfield (Proxy @"bitfield_t_counter") ptr_0) <*> peekCBitfield (Proxy @"bitfield_t_reserved") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Bitfield_t bitfield_t_flag1_3
                                               bitfield_t_flag2_4
                                               bitfield_t_counter_5
-                                              bitfield_t_reserved_6 -> pokeBitOffWidth ptr_1 (0 :: Int) (1 :: Int) bitfield_t_flag1_3 >> (pokeBitOffWidth ptr_1 (1 :: Int) (1 :: Int) bitfield_t_flag2_4 >> (pokeBitOffWidth ptr_1 (2 :: Int) (6 :: Int) bitfield_t_counter_5 >> pokeBitOffWidth ptr_1 (8 :: Int) (24 :: Int) bitfield_t_reserved_6))
+                                              bitfield_t_reserved_6 -> pokeCBitfield (Proxy @"bitfield_t_flag1") ptr_1 bitfield_t_flag1_3 >> (pokeCBitfield (Proxy @"bitfield_t_flag2") ptr_1 bitfield_t_flag2_4 >> (pokeCBitfield (Proxy @"bitfield_t_counter") ptr_1 bitfield_t_counter_5 >> pokeCBitfield (Proxy @"bitfield_t_reserved") ptr_1 bitfield_t_reserved_6))
+instance HasCBitfield Bitfield_t "bitfield_t_flag1"
+    where type CBitfieldType Bitfield_t "bitfield_t_flag1" = CUInt
+          bitOffset# = \_ -> \_ -> 0
+          bitWidth# = \_ -> \_ -> 1
+instance TyEq ty (CBitfieldType Bitfield_t "bitfield_t_flag1") =>
+         HasField "bitfield_t_flag1"
+                  (Ptr Bitfield_t)
+                  (BitfieldPtr Bitfield_t "bitfield_t_flag1")
+    where getField = ptrToCBitfield (Proxy @"bitfield_t_flag1")
+instance HasCBitfield Bitfield_t "bitfield_t_flag2"
+    where type CBitfieldType Bitfield_t "bitfield_t_flag2" = CUInt
+          bitOffset# = \_ -> \_ -> 1
+          bitWidth# = \_ -> \_ -> 1
+instance TyEq ty (CBitfieldType Bitfield_t "bitfield_t_flag2") =>
+         HasField "bitfield_t_flag2"
+                  (Ptr Bitfield_t)
+                  (BitfieldPtr Bitfield_t "bitfield_t_flag2")
+    where getField = ptrToCBitfield (Proxy @"bitfield_t_flag2")
+instance HasCBitfield Bitfield_t "bitfield_t_counter"
+    where type CBitfieldType Bitfield_t "bitfield_t_counter" = CUInt
+          bitOffset# = \_ -> \_ -> 2
+          bitWidth# = \_ -> \_ -> 6
+instance TyEq ty (CBitfieldType Bitfield_t "bitfield_t_counter") =>
+         HasField "bitfield_t_counter"
+                  (Ptr Bitfield_t)
+                  (BitfieldPtr Bitfield_t "bitfield_t_counter")
+    where getField = ptrToCBitfield (Proxy @"bitfield_t_counter")
+instance HasCBitfield Bitfield_t "bitfield_t_reserved"
+    where type CBitfieldType Bitfield_t "bitfield_t_reserved" = CUInt
+          bitOffset# = \_ -> \_ -> 8
+          bitWidth# = \_ -> \_ -> 24
+instance TyEq ty
+              (CBitfieldType Bitfield_t "bitfield_t_reserved") =>
+         HasField "bitfield_t_reserved"
+                  (Ptr Bitfield_t)
+                  (BitfieldPtr Bitfield_t "bitfield_t_reserved")
+    where getField = ptrToCBitfield (Proxy @"bitfield_t_reserved")
 {-| Auxiliary type used by 'Processor_fn_t'
 
 __defined at:__ @doxygen_docs.h:317:15@
@@ -1162,6 +1312,16 @@ instance ToFunPtr Processor_fn_t_Deref
     where toFunPtr = toProcessor_fn_t_Deref
 instance FromFunPtr Processor_fn_t_Deref
     where fromFunPtr = fromProcessor_fn_t_Deref
+instance TyEq ty
+              (CFieldType Processor_fn_t_Deref "un_Processor_fn_t_Deref") =>
+         HasField "un_Processor_fn_t_Deref"
+                  (Ptr Processor_fn_t_Deref)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Processor_fn_t_Deref")
+instance HasCField Processor_fn_t_Deref "un_Processor_fn_t_Deref"
+    where type CFieldType Processor_fn_t_Deref
+                          "un_Processor_fn_t_Deref" = CInt -> Ptr Void -> IO CInt
+          offset# = \_ -> \_ -> 0
 {-|
 
   > processor_fn_t
@@ -1202,6 +1362,13 @@ newtype Processor_fn_t
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+instance TyEq ty (CFieldType Processor_fn_t "un_Processor_fn_t") =>
+         HasField "un_Processor_fn_t" (Ptr Processor_fn_t) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Processor_fn_t")
+instance HasCField Processor_fn_t "un_Processor_fn_t"
+    where type CFieldType Processor_fn_t
+                          "un_Processor_fn_t" = FunPtr Processor_fn_t_Deref
+          offset# = \_ -> \_ -> 0
 {-|
 
   > filename_t
@@ -1230,6 +1397,13 @@ newtype Filename_t
       -}
     deriving stock (Eq, Show)
     deriving newtype Storable
+instance TyEq ty (CFieldType Filename_t "un_Filename_t") =>
+         HasField "un_Filename_t" (Ptr Filename_t) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Filename_t")
+instance HasCField Filename_t "un_Filename_t"
+    where type CFieldType Filename_t
+                          "un_Filename_t" = ConstantArray 256 CChar
+          offset# = \_ -> \_ -> 0
 {-|
 
   Function with flexible array member
@@ -1274,11 +1448,19 @@ data Flexible_array
 instance Storable Flexible_array
     where sizeOf = \_ -> 8 :: Int
           alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> pure Flexible_array <*> peekByteOff ptr_0 (0 :: Int)
+          peek = \ptr_0 -> pure Flexible_array <*> peekCField (Proxy @"flexible_array_count") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Flexible_array flexible_array_count_3 -> pokeByteOff ptr_1 (0 :: Int) flexible_array_count_3
+                                   Flexible_array flexible_array_count_3 -> pokeCField (Proxy @"flexible_array_count") ptr_1 flexible_array_count_3
 instance HasFlexibleArrayMember CInt Flexible_array
     where flexibleArrayMemberOffset = \_ty_0 -> 8
+instance HasCField Flexible_array "flexible_array_count"
+    where type CFieldType Flexible_array
+                          "flexible_array_count" = HsBindgen.Runtime.Prelude.CSize
+          offset# = \_ -> \_ -> 0
+instance TyEq ty
+              (CFieldType Flexible_array "flexible_array_count") =>
+         HasField "flexible_array_count" (Ptr Flexible_array) (Ptr ty)
+    where getField = ptrToCField (Proxy @"flexible_array_count")
 {-|
 
   Function with detailed parameter documentation

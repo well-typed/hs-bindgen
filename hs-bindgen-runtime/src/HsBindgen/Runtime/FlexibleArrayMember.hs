@@ -28,7 +28,12 @@ data WithFlexibleArrayMember element struct = WithFlexibleArrayMember
   deriving stock Show
 
 -- | Peek structure with flexible array member.
-peekWithFLAM :: forall struct element. (Storable struct, Storable element, HasFlexibleArrayLength element struct)
+peekWithFLAM ::
+       forall struct element. (
+          Storable struct
+       , Storable element
+       , HasFlexibleArrayLength element struct
+       )
     => Ptr struct -> IO (WithFlexibleArrayMember element struct)
 peekWithFLAM ptr = do
     struct <- peek ptr
@@ -47,9 +52,12 @@ data FLAMLengthMismatch = FLAMLengthMismatch { flamLengthStruct :: Int
 instance Exception FLAMLengthMismatch
 
 -- | Poke structure with flexible array member.
-pokeWithFLAM
-  :: forall struct elem.
-     (Storable struct, Storable elem, HasFlexibleArrayLength elem struct)
+pokeWithFLAM ::
+     forall struct elem.
+     ( Storable struct
+     , Storable elem
+     , HasFlexibleArrayLength elem struct
+     )
   => Ptr struct -> WithFlexibleArrayMember elem struct -> IO ()
 pokeWithFLAM ptrToStruct (WithFlexibleArrayMember struct' vector')  = do
   struct <- peek ptrToStruct

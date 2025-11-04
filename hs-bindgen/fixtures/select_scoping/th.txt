@@ -24,3 +24,11 @@ newtype ParsedAndSelected
                       Ix,
                       Num,
                       Real)
+instance TyEq ty
+              (CFieldType ParsedAndSelected "un_ParsedAndSelected") =>
+         HasField "un_ParsedAndSelected" (Ptr ParsedAndSelected) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_ParsedAndSelected")
+instance HasCField ParsedAndSelected "un_ParsedAndSelected"
+    where type CFieldType ParsedAndSelected
+                          "un_ParsedAndSelected" = CInt
+          offset# = \_ -> \_ -> 0

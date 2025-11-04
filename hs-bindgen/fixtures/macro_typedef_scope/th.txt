@@ -47,6 +47,12 @@ newtype T2
                       Ix,
                       Num,
                       Real)
+instance TyEq ty (CFieldType T2 "un_T2") =>
+         HasField "un_T2" (Ptr T2) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_T2")
+instance HasCField T2 "un_T2"
+    where type CFieldType T2 "un_T2" = T1
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @T3@
 
     __defined at:__ @macro_typedef_scope.h:6:9@
@@ -95,3 +101,9 @@ newtype T4
                       Ix,
                       Num,
                       Real)
+instance TyEq ty (CFieldType T4 "un_T4") =>
+         HasField "un_T4" (Ptr T4) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_T4")
+instance HasCField T4 "un_T4"
+    where type CFieldType T4 "un_T4" = T3
+          offset# = \_ -> \_ -> 0

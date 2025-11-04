@@ -4,12 +4,17 @@
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE EmptyDataDecls #-}
 {-# LANGUAGE ExplicitForAll #-}
+{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE PatternSynonyms #-}
 {-# LANGUAGE StandaloneDeriving #-}
+{-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE UndecidableInstances #-}
 
 module Example where
 
@@ -17,20 +22,23 @@ import qualified Data.Array.Byte
 import qualified Data.Bits as Bits
 import qualified Data.Ix as Ix
 import qualified Data.List.NonEmpty
+import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
-import qualified HsBindgen.Runtime.Bitfield
+import qualified GHC.Records
 import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.CEnum
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.FlexibleArrayMember
 import qualified HsBindgen.Runtime.FunPtr
+import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.Prelude
 import qualified HsBindgen.Runtime.SizedByteArray
 import qualified Text.Read
 import Data.Bits (FiniteBits)
 import Data.Void (Void)
+import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, IO, Int, Integral, Num, Ord, Read, Real, Show, pure, showsPrec)
 
 {-| __C declaration:__ @MAX_NAME_LENGTH@
@@ -59,6 +67,19 @@ newtype Size_type = Size_type
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Size_type) "un_Size_type")
+         ) => GHC.Records.HasField "un_Size_type" (Ptr.Ptr Size_type) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Size_type")
+
+instance HsBindgen.Runtime.HasCField.HasCField Size_type "un_Size_type" where
+
+  type CFieldType Size_type "un_Size_type" =
+    HsBindgen.Runtime.Prelude.CSize
+
+  offset# = \_ -> \_ -> 0
 
 {-| This is the comment @title@
 
@@ -221,6 +242,19 @@ instance HsBindgen.Runtime.FunPtr.FromFunPtr Event_callback_t_Deref where
 
   fromFunPtr = fromEvent_callback_t_Deref
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Event_callback_t_Deref) "un_Event_callback_t_Deref")
+         ) => GHC.Records.HasField "un_Event_callback_t_Deref" (Ptr.Ptr Event_callback_t_Deref) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Event_callback_t_Deref")
+
+instance HsBindgen.Runtime.HasCField.HasCField Event_callback_t_Deref "un_Event_callback_t_Deref" where
+
+  type CFieldType Event_callback_t_Deref "un_Event_callback_t_Deref" =
+    FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
 {-|
 
   Callback function type
@@ -242,6 +276,19 @@ newtype Event_callback_t = Event_callback_t
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Event_callback_t) "un_Event_callback_t")
+         ) => GHC.Records.HasField "un_Event_callback_t" (Ptr.Ptr Event_callback_t) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Event_callback_t")
+
+instance HsBindgen.Runtime.HasCField.HasCField Event_callback_t "un_Event_callback_t" where
+
+  type CFieldType Event_callback_t "un_Event_callback_t" =
+    Ptr.FunPtr Event_callback_t_Deref
+
+  offset# = \_ -> \_ -> 0
 
 {-|
 
@@ -323,11 +370,11 @@ instance F.Storable Config_t where
   peek =
     \ptr0 ->
           pure Config_t
-      <*> F.peekByteOff ptr0 (0 :: Int)
-      <*> F.peekByteOff ptr0 (4 :: Int)
-      <*> F.peekByteOff ptr0 (68 :: Int)
-      <*> F.peekByteOff ptr0 (72 :: Int)
-      <*> F.peekByteOff ptr0 (80 :: Int)
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"config_t_id") ptr0
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"config_t_name") ptr0
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"config_t_flags") ptr0
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"config_t_callback") ptr0
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"config_t_user_data") ptr0
 
   poke =
     \ptr0 ->
@@ -339,11 +386,76 @@ instance F.Storable Config_t where
             config_t_flags4
             config_t_callback5
             config_t_user_data6 ->
-                 F.pokeByteOff ptr0 (0 :: Int) config_t_id2
-              >> F.pokeByteOff ptr0 (4 :: Int) config_t_name3
-              >> F.pokeByteOff ptr0 (68 :: Int) config_t_flags4
-              >> F.pokeByteOff ptr0 (72 :: Int) config_t_callback5
-              >> F.pokeByteOff ptr0 (80 :: Int) config_t_user_data6
+                 HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"config_t_id") ptr0 config_t_id2
+              >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"config_t_name") ptr0 config_t_name3
+              >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"config_t_flags") ptr0 config_t_flags4
+              >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"config_t_callback") ptr0 config_t_callback5
+              >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"config_t_user_data") ptr0 config_t_user_data6
+
+instance HsBindgen.Runtime.HasCField.HasCField Config_t "config_t_id" where
+
+  type CFieldType Config_t "config_t_id" =
+    HsBindgen.Runtime.Prelude.Word32
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Config_t) "config_t_id")
+         ) => GHC.Records.HasField "config_t_id" (Ptr.Ptr Config_t) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"config_t_id")
+
+instance HsBindgen.Runtime.HasCField.HasCField Config_t "config_t_name" where
+
+  type CFieldType Config_t "config_t_name" =
+    (HsBindgen.Runtime.ConstantArray.ConstantArray 64) FC.CChar
+
+  offset# = \_ -> \_ -> 4
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Config_t) "config_t_name")
+         ) => GHC.Records.HasField "config_t_name" (Ptr.Ptr Config_t) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"config_t_name")
+
+instance HsBindgen.Runtime.HasCField.HasCField Config_t "config_t_flags" where
+
+  type CFieldType Config_t "config_t_flags" =
+    HsBindgen.Runtime.Prelude.Word32
+
+  offset# = \_ -> \_ -> 68
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Config_t) "config_t_flags")
+         ) => GHC.Records.HasField "config_t_flags" (Ptr.Ptr Config_t) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"config_t_flags")
+
+instance HsBindgen.Runtime.HasCField.HasCField Config_t "config_t_callback" where
+
+  type CFieldType Config_t "config_t_callback" =
+    Event_callback_t
+
+  offset# = \_ -> \_ -> 72
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Config_t) "config_t_callback")
+         ) => GHC.Records.HasField "config_t_callback" (Ptr.Ptr Config_t) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"config_t_callback")
+
+instance HsBindgen.Runtime.HasCField.HasCField Config_t "config_t_user_data" where
+
+  type CFieldType Config_t "config_t_user_data" =
+    Ptr.Ptr Void
+
+  offset# = \_ -> \_ -> 80
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Config_t) "config_t_user_data")
+         ) => GHC.Records.HasField "config_t_user_data" (Ptr.Ptr Config_t) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"config_t_user_data")
 
 {-|
 
@@ -523,16 +635,42 @@ instance F.Storable Data_union_t_as_parts where
   peek =
     \ptr0 ->
           pure Data_union_t_as_parts
-      <*> F.peekByteOff ptr0 (0 :: Int)
-      <*> F.peekByteOff ptr0 (2 :: Int)
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"data_union_t_as_parts_low") ptr0
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"data_union_t_as_parts_high") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Data_union_t_as_parts data_union_t_as_parts_low2 data_union_t_as_parts_high3 ->
-               F.pokeByteOff ptr0 (0 :: Int) data_union_t_as_parts_low2
-            >> F.pokeByteOff ptr0 (2 :: Int) data_union_t_as_parts_high3
+               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"data_union_t_as_parts_low") ptr0 data_union_t_as_parts_low2
+            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"data_union_t_as_parts_high") ptr0 data_union_t_as_parts_high3
+
+instance HsBindgen.Runtime.HasCField.HasCField Data_union_t_as_parts "data_union_t_as_parts_low" where
+
+  type CFieldType Data_union_t_as_parts "data_union_t_as_parts_low" =
+    HsBindgen.Runtime.Prelude.Word16
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Data_union_t_as_parts) "data_union_t_as_parts_low")
+         ) => GHC.Records.HasField "data_union_t_as_parts_low" (Ptr.Ptr Data_union_t_as_parts) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"data_union_t_as_parts_low")
+
+instance HsBindgen.Runtime.HasCField.HasCField Data_union_t_as_parts "data_union_t_as_parts_high" where
+
+  type CFieldType Data_union_t_as_parts "data_union_t_as_parts_high" =
+    HsBindgen.Runtime.Prelude.Word16
+
+  offset# = \_ -> \_ -> 2
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Data_union_t_as_parts) "data_union_t_as_parts_high")
+         ) => GHC.Records.HasField "data_union_t_as_parts_high" (Ptr.Ptr Data_union_t_as_parts) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"data_union_t_as_parts_high")
 
 {-|
 
@@ -666,6 +804,58 @@ set_data_union_t_as_parts ::
 set_data_union_t_as_parts =
   HsBindgen.Runtime.ByteArray.setUnionPayload
 
+instance HsBindgen.Runtime.HasCField.HasCField Data_union_t "data_union_t_as_int" where
+
+  type CFieldType Data_union_t "data_union_t_as_int" =
+    HsBindgen.Runtime.Prelude.Int32
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Data_union_t) "data_union_t_as_int")
+         ) => GHC.Records.HasField "data_union_t_as_int" (Ptr.Ptr Data_union_t) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"data_union_t_as_int")
+
+instance HsBindgen.Runtime.HasCField.HasCField Data_union_t "data_union_t_as_float" where
+
+  type CFieldType Data_union_t "data_union_t_as_float" =
+    FC.CFloat
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Data_union_t) "data_union_t_as_float")
+         ) => GHC.Records.HasField "data_union_t_as_float" (Ptr.Ptr Data_union_t) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"data_union_t_as_float")
+
+instance HsBindgen.Runtime.HasCField.HasCField Data_union_t "data_union_t_as_bytes" where
+
+  type CFieldType Data_union_t "data_union_t_as_bytes" =
+    (HsBindgen.Runtime.ConstantArray.ConstantArray 4) HsBindgen.Runtime.Prelude.Word8
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Data_union_t) "data_union_t_as_bytes")
+         ) => GHC.Records.HasField "data_union_t_as_bytes" (Ptr.Ptr Data_union_t) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"data_union_t_as_bytes")
+
+instance HsBindgen.Runtime.HasCField.HasCField Data_union_t "data_union_t_as_parts" where
+
+  type CFieldType Data_union_t "data_union_t_as_parts" =
+    Data_union_t_as_parts
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Data_union_t) "data_union_t_as_parts")
+         ) => GHC.Records.HasField "data_union_t_as_parts" (Ptr.Ptr Data_union_t) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"data_union_t_as_parts")
+
 {-|
 
   > bitfield_t
@@ -735,10 +925,10 @@ instance F.Storable Bitfield_t where
   peek =
     \ptr0 ->
           pure Bitfield_t
-      <*> HsBindgen.Runtime.Bitfield.peekBitOffWidth ptr0 (0 :: Int) (1 :: Int)
-      <*> HsBindgen.Runtime.Bitfield.peekBitOffWidth ptr0 (1 :: Int) (1 :: Int)
-      <*> HsBindgen.Runtime.Bitfield.peekBitOffWidth ptr0 (2 :: Int) (6 :: Int)
-      <*> HsBindgen.Runtime.Bitfield.peekBitOffWidth ptr0 (8 :: Int) (24 :: Int)
+      <*> HsBindgen.Runtime.HasCField.peekCBitfield (Data.Proxy.Proxy @"bitfield_t_flag1") ptr0
+      <*> HsBindgen.Runtime.HasCField.peekCBitfield (Data.Proxy.Proxy @"bitfield_t_flag2") ptr0
+      <*> HsBindgen.Runtime.HasCField.peekCBitfield (Data.Proxy.Proxy @"bitfield_t_counter") ptr0
+      <*> HsBindgen.Runtime.HasCField.peekCBitfield (Data.Proxy.Proxy @"bitfield_t_reserved") ptr0
 
   poke =
     \ptr0 ->
@@ -749,10 +939,70 @@ instance F.Storable Bitfield_t where
             bitfield_t_flag23
             bitfield_t_counter4
             bitfield_t_reserved5 ->
-                 HsBindgen.Runtime.Bitfield.pokeBitOffWidth ptr0 (0 :: Int) (1 :: Int) bitfield_t_flag12
-              >> HsBindgen.Runtime.Bitfield.pokeBitOffWidth ptr0 (1 :: Int) (1 :: Int) bitfield_t_flag23
-              >> HsBindgen.Runtime.Bitfield.pokeBitOffWidth ptr0 (2 :: Int) (6 :: Int) bitfield_t_counter4
-              >> HsBindgen.Runtime.Bitfield.pokeBitOffWidth ptr0 (8 :: Int) (24 :: Int) bitfield_t_reserved5
+                 HsBindgen.Runtime.HasCField.pokeCBitfield (Data.Proxy.Proxy @"bitfield_t_flag1") ptr0 bitfield_t_flag12
+              >> HsBindgen.Runtime.HasCField.pokeCBitfield (Data.Proxy.Proxy @"bitfield_t_flag2") ptr0 bitfield_t_flag23
+              >> HsBindgen.Runtime.HasCField.pokeCBitfield (Data.Proxy.Proxy @"bitfield_t_counter") ptr0 bitfield_t_counter4
+              >> HsBindgen.Runtime.HasCField.pokeCBitfield (Data.Proxy.Proxy @"bitfield_t_reserved") ptr0 bitfield_t_reserved5
+
+instance HsBindgen.Runtime.HasCField.HasCBitfield Bitfield_t "bitfield_t_flag1" where
+
+  type CBitfieldType Bitfield_t "bitfield_t_flag1" =
+    FC.CUInt
+
+  bitOffset# = \_ -> \_ -> 0
+
+  bitWidth# = \_ -> \_ -> 1
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CBitfieldType Bitfield_t) "bitfield_t_flag1")
+         ) => GHC.Records.HasField "bitfield_t_flag1" (Ptr.Ptr Bitfield_t) ((HsBindgen.Runtime.HasCField.BitfieldPtr Bitfield_t) "bitfield_t_flag1") where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCBitfield (Data.Proxy.Proxy @"bitfield_t_flag1")
+
+instance HsBindgen.Runtime.HasCField.HasCBitfield Bitfield_t "bitfield_t_flag2" where
+
+  type CBitfieldType Bitfield_t "bitfield_t_flag2" =
+    FC.CUInt
+
+  bitOffset# = \_ -> \_ -> 1
+
+  bitWidth# = \_ -> \_ -> 1
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CBitfieldType Bitfield_t) "bitfield_t_flag2")
+         ) => GHC.Records.HasField "bitfield_t_flag2" (Ptr.Ptr Bitfield_t) ((HsBindgen.Runtime.HasCField.BitfieldPtr Bitfield_t) "bitfield_t_flag2") where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCBitfield (Data.Proxy.Proxy @"bitfield_t_flag2")
+
+instance HsBindgen.Runtime.HasCField.HasCBitfield Bitfield_t "bitfield_t_counter" where
+
+  type CBitfieldType Bitfield_t "bitfield_t_counter" =
+    FC.CUInt
+
+  bitOffset# = \_ -> \_ -> 2
+
+  bitWidth# = \_ -> \_ -> 6
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CBitfieldType Bitfield_t) "bitfield_t_counter")
+         ) => GHC.Records.HasField "bitfield_t_counter" (Ptr.Ptr Bitfield_t) ((HsBindgen.Runtime.HasCField.BitfieldPtr Bitfield_t) "bitfield_t_counter") where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCBitfield (Data.Proxy.Proxy @"bitfield_t_counter")
+
+instance HsBindgen.Runtime.HasCField.HasCBitfield Bitfield_t "bitfield_t_reserved" where
+
+  type CBitfieldType Bitfield_t "bitfield_t_reserved" =
+    FC.CUInt
+
+  bitOffset# = \_ -> \_ -> 8
+
+  bitWidth# = \_ -> \_ -> 24
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CBitfieldType Bitfield_t) "bitfield_t_reserved")
+         ) => GHC.Records.HasField "bitfield_t_reserved" (Ptr.Ptr Bitfield_t) ((HsBindgen.Runtime.HasCField.BitfieldPtr Bitfield_t) "bitfield_t_reserved") where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCBitfield (Data.Proxy.Proxy @"bitfield_t_reserved")
 
 {-| Auxiliary type used by 'Processor_fn_t'
 
@@ -780,6 +1030,19 @@ instance HsBindgen.Runtime.FunPtr.FromFunPtr Processor_fn_t_Deref where
 
   fromFunPtr = fromProcessor_fn_t_Deref
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Processor_fn_t_Deref) "un_Processor_fn_t_Deref")
+         ) => GHC.Records.HasField "un_Processor_fn_t_Deref" (Ptr.Ptr Processor_fn_t_Deref) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Processor_fn_t_Deref")
+
+instance HsBindgen.Runtime.HasCField.HasCField Processor_fn_t_Deref "un_Processor_fn_t_Deref" where
+
+  type CFieldType Processor_fn_t_Deref "un_Processor_fn_t_Deref" =
+    FC.CInt -> (Ptr.Ptr Void) -> IO FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
 {-|
 
   > processor_fn_t
@@ -804,6 +1067,19 @@ newtype Processor_fn_t = Processor_fn_t
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Processor_fn_t) "un_Processor_fn_t")
+         ) => GHC.Records.HasField "un_Processor_fn_t" (Ptr.Ptr Processor_fn_t) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Processor_fn_t")
+
+instance HsBindgen.Runtime.HasCField.HasCField Processor_fn_t "un_Processor_fn_t" where
+
+  type CFieldType Processor_fn_t "un_Processor_fn_t" =
+    Ptr.FunPtr Processor_fn_t_Deref
+
+  offset# = \_ -> \_ -> 0
+
 {-|
 
   > filename_t
@@ -821,6 +1097,19 @@ newtype Filename_t = Filename_t
   }
   deriving stock (Eq, Show)
   deriving newtype (F.Storable)
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Filename_t) "un_Filename_t")
+         ) => GHC.Records.HasField "un_Filename_t" (Ptr.Ptr Filename_t) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Filename_t")
+
+instance HsBindgen.Runtime.HasCField.HasCField Filename_t "un_Filename_t" where
+
+  type CFieldType Filename_t "un_Filename_t" =
+    (HsBindgen.Runtime.ConstantArray.ConstantArray 256) FC.CChar
+
+  offset# = \_ -> \_ -> 0
 
 {-|
 
@@ -860,15 +1149,28 @@ instance F.Storable Flexible_array where
   peek =
     \ptr0 ->
           pure Flexible_array
-      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"flexible_array_count") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Flexible_array flexible_array_count2 ->
-            F.pokeByteOff ptr0 (0 :: Int) flexible_array_count2
+            HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"flexible_array_count") ptr0 flexible_array_count2
 
 instance HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember FC.CInt Flexible_array where
 
   flexibleArrayMemberOffset = \_ty0 -> 8
+
+instance HsBindgen.Runtime.HasCField.HasCField Flexible_array "flexible_array_count" where
+
+  type CFieldType Flexible_array "flexible_array_count" =
+    HsBindgen.Runtime.Prelude.CSize
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Flexible_array) "flexible_array_count")
+         ) => GHC.Records.HasField "flexible_array_count" (Ptr.Ptr Flexible_array) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"flexible_array_count")

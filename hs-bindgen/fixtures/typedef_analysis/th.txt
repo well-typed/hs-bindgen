@@ -96,6 +96,12 @@ newtype Struct5_t
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+instance TyEq ty (CFieldType Struct5_t "un_Struct5_t") =>
+         HasField "un_Struct5_t" (Ptr Struct5_t) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Struct5_t")
+instance HasCField Struct5_t "un_Struct5_t"
+    where type CFieldType Struct5_t "un_Struct5_t" = Ptr Struct5
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct6_Deref@
 
     __defined at:__ @typedef_analysis.h:25:16@
@@ -133,6 +139,12 @@ newtype Struct6
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+instance TyEq ty (CFieldType Struct6 "un_Struct6") =>
+         HasField "un_Struct6" (Ptr Struct6) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Struct6")
+instance HasCField Struct6 "un_Struct6"
+    where type CFieldType Struct6 "un_Struct6" = Ptr Struct6_Deref
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct7@
 
     __defined at:__ @typedef_analysis.h:28:8@
@@ -170,6 +182,12 @@ newtype Struct7a
       -}
     deriving stock (Eq, Show)
     deriving newtype Storable
+instance TyEq ty (CFieldType Struct7a "un_Struct7a") =>
+         HasField "un_Struct7a" (Ptr Struct7a) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Struct7a")
+instance HasCField Struct7a "un_Struct7a"
+    where type CFieldType Struct7a "un_Struct7a" = Struct7
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct7b@
 
     __defined at:__ @typedef_analysis.h:30:24@
@@ -186,6 +204,12 @@ newtype Struct7b
       -}
     deriving stock (Eq, Show)
     deriving newtype Storable
+instance TyEq ty (CFieldType Struct7b "un_Struct7b") =>
+         HasField "un_Struct7b" (Ptr Struct7b) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Struct7b")
+instance HasCField Struct7b "un_Struct7b"
+    where type CFieldType Struct7b "un_Struct7b" = Struct7
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct8@
 
     __defined at:__ @typedef_analysis.h:33:8@
@@ -223,6 +247,12 @@ newtype Struct8b
       -}
     deriving stock (Eq, Show)
     deriving newtype Storable
+instance TyEq ty (CFieldType Struct8b "un_Struct8b") =>
+         HasField "un_Struct8b" (Ptr Struct8b) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Struct8b")
+instance HasCField Struct8b "un_Struct8b"
+    where type CFieldType Struct8b "un_Struct8b" = Struct8
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct9@
 
     __defined at:__ @typedef_analysis.h:38:8@
@@ -260,6 +290,12 @@ newtype Struct9_t
       -}
     deriving stock (Eq, Show)
     deriving newtype Storable
+instance TyEq ty (CFieldType Struct9_t "un_Struct9_t") =>
+         HasField "un_Struct9_t" (Ptr Struct9_t) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Struct9_t")
+instance HasCField Struct9_t "un_Struct9_t"
+    where type CFieldType Struct9_t "un_Struct9_t" = Struct9
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct10_t@
 
     __defined at:__ @typedef_analysis.h:46:8@
@@ -297,6 +333,12 @@ newtype Struct10_t_t
       -}
     deriving stock (Eq, Show)
     deriving newtype Storable
+instance TyEq ty (CFieldType Struct10_t_t "un_Struct10_t_t") =>
+         HasField "un_Struct10_t_t" (Ptr Struct10_t_t) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Struct10_t_t")
+instance HasCField Struct10_t_t "un_Struct10_t_t"
+    where type CFieldType Struct10_t_t "un_Struct10_t_t" = Struct10_t
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct11_t@
 
     __defined at:__ @typedef_analysis.h:51:8@
@@ -328,10 +370,22 @@ data Struct11_t
 instance Storable Struct11_t
     where sizeOf = \_ -> 16 :: Int
           alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> (pure Struct11_t <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int)
+          peek = \ptr_0 -> (pure Struct11_t <*> peekCField (Proxy @"struct11_t_x") ptr_0) <*> peekCField (Proxy @"struct11_t_self") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Struct11_t struct11_t_x_3
-                                              struct11_t_self_4 -> pokeByteOff ptr_1 (0 :: Int) struct11_t_x_3 >> pokeByteOff ptr_1 (8 :: Int) struct11_t_self_4
+                                              struct11_t_self_4 -> pokeCField (Proxy @"struct11_t_x") ptr_1 struct11_t_x_3 >> pokeCField (Proxy @"struct11_t_self") ptr_1 struct11_t_self_4
+instance HasCField Struct11_t "struct11_t_x"
+    where type CFieldType Struct11_t "struct11_t_x" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Struct11_t "struct11_t_x") =>
+         HasField "struct11_t_x" (Ptr Struct11_t) (Ptr ty)
+    where getField = ptrToCField (Proxy @"struct11_t_x")
+instance HasCField Struct11_t "struct11_t_self"
+    where type CFieldType Struct11_t "struct11_t_self" = Ptr Struct11_t
+          offset# = \_ -> \_ -> 8
+instance TyEq ty (CFieldType Struct11_t "struct11_t_self") =>
+         HasField "struct11_t_self" (Ptr Struct11_t) (Ptr ty)
+    where getField = ptrToCField (Proxy @"struct11_t_self")
 {-| __C declaration:__ @struct12_t@
 
     __defined at:__ @typedef_analysis.h:60:8@
@@ -363,10 +417,22 @@ data Struct12_t
 instance Storable Struct12_t
     where sizeOf = \_ -> 16 :: Int
           alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> (pure Struct12_t <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int)
+          peek = \ptr_0 -> (pure Struct12_t <*> peekCField (Proxy @"struct12_t_x") ptr_0) <*> peekCField (Proxy @"struct12_t_self") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Struct12_t struct12_t_x_3
-                                              struct12_t_self_4 -> pokeByteOff ptr_1 (0 :: Int) struct12_t_x_3 >> pokeByteOff ptr_1 (8 :: Int) struct12_t_self_4
+                                              struct12_t_self_4 -> pokeCField (Proxy @"struct12_t_x") ptr_1 struct12_t_x_3 >> pokeCField (Proxy @"struct12_t_self") ptr_1 struct12_t_self_4
+instance HasCField Struct12_t "struct12_t_x"
+    where type CFieldType Struct12_t "struct12_t_x" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Struct12_t "struct12_t_x") =>
+         HasField "struct12_t_x" (Ptr Struct12_t) (Ptr ty)
+    where getField = ptrToCField (Proxy @"struct12_t_x")
+instance HasCField Struct12_t "struct12_t_self"
+    where type CFieldType Struct12_t "struct12_t_self" = Ptr Struct12_t
+          offset# = \_ -> \_ -> 8
+instance TyEq ty (CFieldType Struct12_t "struct12_t_self") =>
+         HasField "struct12_t_self" (Ptr Struct12_t) (Ptr ty)
+    where getField = ptrToCField (Proxy @"struct12_t_self")
 {-| __C declaration:__ @use_sites@
 
     __defined at:__ @typedef_analysis.h:66:8@
@@ -510,7 +576,7 @@ data Use_sites
 instance Storable Use_sites
     where sizeOf = \_ -> 64 :: Int
           alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> (((((((((((((((((pure Use_sites <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int)) <*> peekByteOff ptr_0 (16 :: Int)) <*> peekByteOff ptr_0 (16 :: Int)) <*> peekByteOff ptr_0 (24 :: Int)) <*> peekByteOff ptr_0 (24 :: Int)) <*> peekByteOff ptr_0 (32 :: Int)) <*> peekByteOff ptr_0 (32 :: Int)) <*> peekByteOff ptr_0 (32 :: Int)) <*> peekByteOff ptr_0 (32 :: Int)) <*> peekByteOff ptr_0 (32 :: Int)) <*> peekByteOff ptr_0 (32 :: Int)) <*> peekByteOff ptr_0 (32 :: Int)) <*> peekByteOff ptr_0 (32 :: Int)) <*> peekByteOff ptr_0 (32 :: Int)) <*> peekByteOff ptr_0 (48 :: Int)
+          peek = \ptr_0 -> (((((((((((((((((pure Use_sites <*> peekCField (Proxy @"use_sites_useTypedef_struct1_t") ptr_0) <*> peekCField (Proxy @"use_sites_useTypedef_struct2_t") ptr_0) <*> peekCField (Proxy @"use_sites_useTypedef_struct3_t") ptr_0) <*> peekCField (Proxy @"use_sites_useTypedef_struct4_t") ptr_0) <*> peekCField (Proxy @"use_sites_useStruct_struct5") ptr_0) <*> peekCField (Proxy @"use_sites_useTypedef_struct5_t") ptr_0) <*> peekCField (Proxy @"use_sites_useStruct_struct6") ptr_0) <*> peekCField (Proxy @"use_sites_useTypedef_struct6") ptr_0) <*> peekCField (Proxy @"use_sites_useTypedef_struct7a") ptr_0) <*> peekCField (Proxy @"use_sites_useTypedef_struct7b") ptr_0) <*> peekCField (Proxy @"use_sites_useTypedef_struct8") ptr_0) <*> peekCField (Proxy @"use_sites_useTypedef_struct8b") ptr_0) <*> peekCField (Proxy @"use_sites_useTypedef_struct9") ptr_0) <*> peekCField (Proxy @"use_sites_useTypedef_struct9_t") ptr_0) <*> peekCField (Proxy @"use_sites_useTypedef_struct10_t") ptr_0) <*> peekCField (Proxy @"use_sites_useTypedef_struct10_t_t") ptr_0) <*> peekCField (Proxy @"use_sites_useTypedef_struct11_t") ptr_0) <*> peekCField (Proxy @"use_sites_useTypedef_struct12_t") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Use_sites use_sites_useTypedef_struct1_t_3
                                              use_sites_useTypedef_struct2_t_4
@@ -529,4 +595,150 @@ instance Storable Use_sites
                                              use_sites_useTypedef_struct10_t_17
                                              use_sites_useTypedef_struct10_t_t_18
                                              use_sites_useTypedef_struct11_t_19
-                                             use_sites_useTypedef_struct12_t_20 -> pokeByteOff ptr_1 (0 :: Int) use_sites_useTypedef_struct1_t_3 >> (pokeByteOff ptr_1 (0 :: Int) use_sites_useTypedef_struct2_t_4 >> (pokeByteOff ptr_1 (0 :: Int) use_sites_useTypedef_struct3_t_5 >> (pokeByteOff ptr_1 (8 :: Int) use_sites_useTypedef_struct4_t_6 >> (pokeByteOff ptr_1 (16 :: Int) use_sites_useStruct_struct5_7 >> (pokeByteOff ptr_1 (16 :: Int) use_sites_useTypedef_struct5_t_8 >> (pokeByteOff ptr_1 (24 :: Int) use_sites_useStruct_struct6_9 >> (pokeByteOff ptr_1 (24 :: Int) use_sites_useTypedef_struct6_10 >> (pokeByteOff ptr_1 (32 :: Int) use_sites_useTypedef_struct7a_11 >> (pokeByteOff ptr_1 (32 :: Int) use_sites_useTypedef_struct7b_12 >> (pokeByteOff ptr_1 (32 :: Int) use_sites_useTypedef_struct8_13 >> (pokeByteOff ptr_1 (32 :: Int) use_sites_useTypedef_struct8b_14 >> (pokeByteOff ptr_1 (32 :: Int) use_sites_useTypedef_struct9_15 >> (pokeByteOff ptr_1 (32 :: Int) use_sites_useTypedef_struct9_t_16 >> (pokeByteOff ptr_1 (32 :: Int) use_sites_useTypedef_struct10_t_17 >> (pokeByteOff ptr_1 (32 :: Int) use_sites_useTypedef_struct10_t_t_18 >> (pokeByteOff ptr_1 (32 :: Int) use_sites_useTypedef_struct11_t_19 >> pokeByteOff ptr_1 (48 :: Int) use_sites_useTypedef_struct12_t_20))))))))))))))))
+                                             use_sites_useTypedef_struct12_t_20 -> pokeCField (Proxy @"use_sites_useTypedef_struct1_t") ptr_1 use_sites_useTypedef_struct1_t_3 >> (pokeCField (Proxy @"use_sites_useTypedef_struct2_t") ptr_1 use_sites_useTypedef_struct2_t_4 >> (pokeCField (Proxy @"use_sites_useTypedef_struct3_t") ptr_1 use_sites_useTypedef_struct3_t_5 >> (pokeCField (Proxy @"use_sites_useTypedef_struct4_t") ptr_1 use_sites_useTypedef_struct4_t_6 >> (pokeCField (Proxy @"use_sites_useStruct_struct5") ptr_1 use_sites_useStruct_struct5_7 >> (pokeCField (Proxy @"use_sites_useTypedef_struct5_t") ptr_1 use_sites_useTypedef_struct5_t_8 >> (pokeCField (Proxy @"use_sites_useStruct_struct6") ptr_1 use_sites_useStruct_struct6_9 >> (pokeCField (Proxy @"use_sites_useTypedef_struct6") ptr_1 use_sites_useTypedef_struct6_10 >> (pokeCField (Proxy @"use_sites_useTypedef_struct7a") ptr_1 use_sites_useTypedef_struct7a_11 >> (pokeCField (Proxy @"use_sites_useTypedef_struct7b") ptr_1 use_sites_useTypedef_struct7b_12 >> (pokeCField (Proxy @"use_sites_useTypedef_struct8") ptr_1 use_sites_useTypedef_struct8_13 >> (pokeCField (Proxy @"use_sites_useTypedef_struct8b") ptr_1 use_sites_useTypedef_struct8b_14 >> (pokeCField (Proxy @"use_sites_useTypedef_struct9") ptr_1 use_sites_useTypedef_struct9_15 >> (pokeCField (Proxy @"use_sites_useTypedef_struct9_t") ptr_1 use_sites_useTypedef_struct9_t_16 >> (pokeCField (Proxy @"use_sites_useTypedef_struct10_t") ptr_1 use_sites_useTypedef_struct10_t_17 >> (pokeCField (Proxy @"use_sites_useTypedef_struct10_t_t") ptr_1 use_sites_useTypedef_struct10_t_t_18 >> (pokeCField (Proxy @"use_sites_useTypedef_struct11_t") ptr_1 use_sites_useTypedef_struct11_t_19 >> pokeCField (Proxy @"use_sites_useTypedef_struct12_t") ptr_1 use_sites_useTypedef_struct12_t_20))))))))))))))))
+instance HasCField Use_sites "use_sites_useTypedef_struct1_t"
+    where type CFieldType Use_sites
+                          "use_sites_useTypedef_struct1_t" = Struct1_t
+          offset# = \_ -> \_ -> 0
+instance TyEq ty
+              (CFieldType Use_sites "use_sites_useTypedef_struct1_t") =>
+         HasField "use_sites_useTypedef_struct1_t" (Ptr Use_sites) (Ptr ty)
+    where getField = ptrToCField (Proxy @"use_sites_useTypedef_struct1_t")
+instance HasCField Use_sites "use_sites_useTypedef_struct2_t"
+    where type CFieldType Use_sites
+                          "use_sites_useTypedef_struct2_t" = Struct2_t
+          offset# = \_ -> \_ -> 0
+instance TyEq ty
+              (CFieldType Use_sites "use_sites_useTypedef_struct2_t") =>
+         HasField "use_sites_useTypedef_struct2_t" (Ptr Use_sites) (Ptr ty)
+    where getField = ptrToCField (Proxy @"use_sites_useTypedef_struct2_t")
+instance HasCField Use_sites "use_sites_useTypedef_struct3_t"
+    where type CFieldType Use_sites
+                          "use_sites_useTypedef_struct3_t" = Ptr Struct3_t
+          offset# = \_ -> \_ -> 0
+instance TyEq ty
+              (CFieldType Use_sites "use_sites_useTypedef_struct3_t") =>
+         HasField "use_sites_useTypedef_struct3_t" (Ptr Use_sites) (Ptr ty)
+    where getField = ptrToCField (Proxy @"use_sites_useTypedef_struct3_t")
+instance HasCField Use_sites "use_sites_useTypedef_struct4_t"
+    where type CFieldType Use_sites
+                          "use_sites_useTypedef_struct4_t" = Ptr Struct4_t
+          offset# = \_ -> \_ -> 8
+instance TyEq ty
+              (CFieldType Use_sites "use_sites_useTypedef_struct4_t") =>
+         HasField "use_sites_useTypedef_struct4_t" (Ptr Use_sites) (Ptr ty)
+    where getField = ptrToCField (Proxy @"use_sites_useTypedef_struct4_t")
+instance HasCField Use_sites "use_sites_useStruct_struct5"
+    where type CFieldType Use_sites
+                          "use_sites_useStruct_struct5" = Struct5
+          offset# = \_ -> \_ -> 16
+instance TyEq ty
+              (CFieldType Use_sites "use_sites_useStruct_struct5") =>
+         HasField "use_sites_useStruct_struct5" (Ptr Use_sites) (Ptr ty)
+    where getField = ptrToCField (Proxy @"use_sites_useStruct_struct5")
+instance HasCField Use_sites "use_sites_useTypedef_struct5_t"
+    where type CFieldType Use_sites
+                          "use_sites_useTypedef_struct5_t" = Struct5_t
+          offset# = \_ -> \_ -> 16
+instance TyEq ty
+              (CFieldType Use_sites "use_sites_useTypedef_struct5_t") =>
+         HasField "use_sites_useTypedef_struct5_t" (Ptr Use_sites) (Ptr ty)
+    where getField = ptrToCField (Proxy @"use_sites_useTypedef_struct5_t")
+instance HasCField Use_sites "use_sites_useStruct_struct6"
+    where type CFieldType Use_sites
+                          "use_sites_useStruct_struct6" = Struct6_Deref
+          offset# = \_ -> \_ -> 24
+instance TyEq ty
+              (CFieldType Use_sites "use_sites_useStruct_struct6") =>
+         HasField "use_sites_useStruct_struct6" (Ptr Use_sites) (Ptr ty)
+    where getField = ptrToCField (Proxy @"use_sites_useStruct_struct6")
+instance HasCField Use_sites "use_sites_useTypedef_struct6"
+    where type CFieldType Use_sites
+                          "use_sites_useTypedef_struct6" = Struct6
+          offset# = \_ -> \_ -> 24
+instance TyEq ty
+              (CFieldType Use_sites "use_sites_useTypedef_struct6") =>
+         HasField "use_sites_useTypedef_struct6" (Ptr Use_sites) (Ptr ty)
+    where getField = ptrToCField (Proxy @"use_sites_useTypedef_struct6")
+instance HasCField Use_sites "use_sites_useTypedef_struct7a"
+    where type CFieldType Use_sites
+                          "use_sites_useTypedef_struct7a" = Struct7a
+          offset# = \_ -> \_ -> 32
+instance TyEq ty
+              (CFieldType Use_sites "use_sites_useTypedef_struct7a") =>
+         HasField "use_sites_useTypedef_struct7a" (Ptr Use_sites) (Ptr ty)
+    where getField = ptrToCField (Proxy @"use_sites_useTypedef_struct7a")
+instance HasCField Use_sites "use_sites_useTypedef_struct7b"
+    where type CFieldType Use_sites
+                          "use_sites_useTypedef_struct7b" = Struct7b
+          offset# = \_ -> \_ -> 32
+instance TyEq ty
+              (CFieldType Use_sites "use_sites_useTypedef_struct7b") =>
+         HasField "use_sites_useTypedef_struct7b" (Ptr Use_sites) (Ptr ty)
+    where getField = ptrToCField (Proxy @"use_sites_useTypedef_struct7b")
+instance HasCField Use_sites "use_sites_useTypedef_struct8"
+    where type CFieldType Use_sites
+                          "use_sites_useTypedef_struct8" = Struct8
+          offset# = \_ -> \_ -> 32
+instance TyEq ty
+              (CFieldType Use_sites "use_sites_useTypedef_struct8") =>
+         HasField "use_sites_useTypedef_struct8" (Ptr Use_sites) (Ptr ty)
+    where getField = ptrToCField (Proxy @"use_sites_useTypedef_struct8")
+instance HasCField Use_sites "use_sites_useTypedef_struct8b"
+    where type CFieldType Use_sites
+                          "use_sites_useTypedef_struct8b" = Struct8b
+          offset# = \_ -> \_ -> 32
+instance TyEq ty
+              (CFieldType Use_sites "use_sites_useTypedef_struct8b") =>
+         HasField "use_sites_useTypedef_struct8b" (Ptr Use_sites) (Ptr ty)
+    where getField = ptrToCField (Proxy @"use_sites_useTypedef_struct8b")
+instance HasCField Use_sites "use_sites_useTypedef_struct9"
+    where type CFieldType Use_sites
+                          "use_sites_useTypedef_struct9" = Struct9
+          offset# = \_ -> \_ -> 32
+instance TyEq ty
+              (CFieldType Use_sites "use_sites_useTypedef_struct9") =>
+         HasField "use_sites_useTypedef_struct9" (Ptr Use_sites) (Ptr ty)
+    where getField = ptrToCField (Proxy @"use_sites_useTypedef_struct9")
+instance HasCField Use_sites "use_sites_useTypedef_struct9_t"
+    where type CFieldType Use_sites
+                          "use_sites_useTypedef_struct9_t" = Struct9_t
+          offset# = \_ -> \_ -> 32
+instance TyEq ty
+              (CFieldType Use_sites "use_sites_useTypedef_struct9_t") =>
+         HasField "use_sites_useTypedef_struct9_t" (Ptr Use_sites) (Ptr ty)
+    where getField = ptrToCField (Proxy @"use_sites_useTypedef_struct9_t")
+instance HasCField Use_sites "use_sites_useTypedef_struct10_t"
+    where type CFieldType Use_sites
+                          "use_sites_useTypedef_struct10_t" = Struct10_t
+          offset# = \_ -> \_ -> 32
+instance TyEq ty
+              (CFieldType Use_sites "use_sites_useTypedef_struct10_t") =>
+         HasField "use_sites_useTypedef_struct10_t" (Ptr Use_sites) (Ptr ty)
+    where getField = ptrToCField (Proxy @"use_sites_useTypedef_struct10_t")
+instance HasCField Use_sites "use_sites_useTypedef_struct10_t_t"
+    where type CFieldType Use_sites
+                          "use_sites_useTypedef_struct10_t_t" = Struct10_t_t
+          offset# = \_ -> \_ -> 32
+instance TyEq ty
+              (CFieldType Use_sites "use_sites_useTypedef_struct10_t_t") =>
+         HasField "use_sites_useTypedef_struct10_t_t"
+                  (Ptr Use_sites)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"use_sites_useTypedef_struct10_t_t")
+instance HasCField Use_sites "use_sites_useTypedef_struct11_t"
+    where type CFieldType Use_sites
+                          "use_sites_useTypedef_struct11_t" = Struct11_t
+          offset# = \_ -> \_ -> 32
+instance TyEq ty
+              (CFieldType Use_sites "use_sites_useTypedef_struct11_t") =>
+         HasField "use_sites_useTypedef_struct11_t" (Ptr Use_sites) (Ptr ty)
+    where getField = ptrToCField (Proxy @"use_sites_useTypedef_struct11_t")
+instance HasCField Use_sites "use_sites_useTypedef_struct12_t"
+    where type CFieldType Use_sites
+                          "use_sites_useTypedef_struct12_t" = Struct12_t
+          offset# = \_ -> \_ -> 48
+instance TyEq ty
+              (CFieldType Use_sites "use_sites_useTypedef_struct12_t") =>
+         HasField "use_sites_useTypedef_struct12_t" (Ptr Use_sites) (Ptr ty)
+    where getField = ptrToCField (Proxy @"use_sites_useTypedef_struct12_t")

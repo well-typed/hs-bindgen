@@ -513,8 +513,13 @@
                           "recursive_struct.h"},
                       commentChildren = []}})
               [
-                PeekByteOff (Idx 0) 0,
-                PeekByteOff (Idx 0) 8]),
+                PeekCField
+                  (HsStrLit "linked_list_A_t_x")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit
+                    "linked_list_A_t_next")
+                  (Idx 0)]),
           storablePoke = Lambda
             (NameHint "ptr")
             (Lambda
@@ -691,10 +696,14 @@
                 (Add 2)
                 (Seq
                   [
-                    PokeByteOff (Idx 3) 0 (Idx 0),
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit "linked_list_A_t_x")
                       (Idx 3)
-                      8
+                      (Idx 0),
+                    PokeCField
+                      (HsStrLit
+                        "linked_list_A_t_next")
+                      (Idx 3)
                       (Idx 1)])))},
       defineInstanceComment =
       Nothing},
@@ -717,6 +726,92 @@
         "@NsTypeConstr"
         "Linked_list_A_t",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Linked_list_A_t"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "linked_list_A_t_x",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCInt,
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Linked_list_A_t"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "linked_list_A_t_x",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCInt,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Linked_list_A_t"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "linked_list_A_t_next",
+          hasCFieldInstanceCFieldType =
+          HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Linked_list_A_t")),
+          hasCFieldInstanceFieldOffset =
+          8},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Linked_list_A_t"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "linked_list_A_t_next",
+          hasFieldInstanceFieldType =
+          HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Linked_list_A_t")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
       Nothing},
   DeclData
     Struct {
@@ -1238,8 +1333,13 @@
                           "recursive_struct.h"},
                       commentChildren = []}})
               [
-                PeekByteOff (Idx 0) 0,
-                PeekByteOff (Idx 0) 8]),
+                PeekCField
+                  (HsStrLit "linked_list_B_t_x")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit
+                    "linked_list_B_t_next")
+                  (Idx 0)]),
           storablePoke = Lambda
             (NameHint "ptr")
             (Lambda
@@ -1418,10 +1518,14 @@
                 (Add 2)
                 (Seq
                   [
-                    PokeByteOff (Idx 3) 0 (Idx 0),
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit "linked_list_B_t_x")
                       (Idx 3)
-                      8
+                      (Idx 0),
+                    PokeCField
+                      (HsStrLit
+                        "linked_list_B_t_next")
+                      (Idx 3)
                       (Idx 1)])))},
       defineInstanceComment =
       Nothing},
@@ -1444,4 +1548,90 @@
         "@NsTypeConstr"
         "Linked_list_B_t",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Linked_list_B_t"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "linked_list_B_t_x",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCInt,
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Linked_list_B_t"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "linked_list_B_t_x",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCInt,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Linked_list_B_t"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "linked_list_B_t_next",
+          hasCFieldInstanceCFieldType =
+          HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Linked_list_B_t")),
+          hasCFieldInstanceFieldOffset =
+          8},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Linked_list_B_t"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "linked_list_B_t_next",
+          hasFieldInstanceFieldType =
+          HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Linked_list_B_t")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
       Nothing}]

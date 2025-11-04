@@ -949,6 +949,47 @@
         "Arr_typedef1",
       deriveInstanceComment =
       Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Arr_typedef1"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Arr_typedef1",
+          hasFieldInstanceFieldType =
+          HsIncompleteArray
+            (HsTypRef
+              (Name "@NsTypeConstr" "A")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Arr_typedef1"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "un_Arr_typedef1",
+          hasCFieldInstanceCFieldType =
+          HsIncompleteArray
+            (HsTypRef
+              (Name "@NsTypeConstr" "A")),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -1038,6 +1079,49 @@
         "@NsTypeConstr"
         "Arr_typedef2",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Arr_typedef2"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Arr_typedef2",
+          hasFieldInstanceFieldType =
+          HsIncompleteArray
+            (HsPtr
+              (HsTypRef
+                (Name "@NsTypeConstr" "A"))),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Arr_typedef2"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "un_Arr_typedef2",
+          hasCFieldInstanceCFieldType =
+          HsIncompleteArray
+            (HsPtr
+              (HsTypRef
+                (Name "@NsTypeConstr" "A"))),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
@@ -1137,6 +1221,49 @@
         "@NsTypeConstr"
         "Arr_typedef3",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Arr_typedef3"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Arr_typedef3",
+          hasFieldInstanceFieldType =
+          HsConstArray
+            5
+            (HsTypRef
+              (Name "@NsTypeConstr" "A")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Arr_typedef3"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "un_Arr_typedef3",
+          hasCFieldInstanceCFieldType =
+          HsConstArray
+            5
+            (HsTypRef
+              (Name "@NsTypeConstr" "A")),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
@@ -1238,6 +1365,51 @@
         "@NsTypeConstr"
         "Arr_typedef4",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Arr_typedef4"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Arr_typedef4",
+          hasFieldInstanceFieldType =
+          HsConstArray
+            5
+            (HsPtr
+              (HsTypRef
+                (Name "@NsTypeConstr" "A"))),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Arr_typedef4"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "un_Arr_typedef4",
+          hasCFieldInstanceCFieldType =
+          HsConstArray
+            5
+            (HsPtr
+              (HsTypRef
+                (Name "@NsTypeConstr" "A"))),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
@@ -1452,6 +1624,45 @@
         "Typedef1",
       deriveInstanceComment =
       Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Typedef1"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Typedef1",
+          hasFieldInstanceFieldType =
+          HsTypRef
+            (Name "@NsTypeConstr" "A"),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Typedef1"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "un_Typedef1",
+          hasCFieldInstanceCFieldType =
+          HsTypRef
+            (Name "@NsTypeConstr" "A"),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -1557,6 +1768,47 @@
         "@NsTypeConstr"
         "Typedef2",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Typedef2"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Typedef2",
+          hasFieldInstanceFieldType =
+          HsPtr
+            (HsTypRef
+              (Name "@NsTypeConstr" "A")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Typedef2"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "un_Typedef2",
+          hasCFieldInstanceCFieldType =
+          HsPtr
+            (HsTypRef
+              (Name "@NsTypeConstr" "A")),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
@@ -1665,6 +1917,49 @@
         "@NsTypeConstr"
         "Typedef3",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Typedef3"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Typedef3",
+          hasFieldInstanceFieldType =
+          HsPtr
+            (HsPtr
+              (HsTypRef
+                (Name "@NsTypeConstr" "A"))),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Typedef3"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "un_Typedef3",
+          hasCFieldInstanceCFieldType =
+          HsPtr
+            (HsPtr
+              (HsTypRef
+                (Name "@NsTypeConstr" "A"))),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
@@ -1851,6 +2146,48 @@
             "fromFunptr_typedef1_Deref"},
       defineInstanceComment =
       Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Funptr_typedef1_Deref"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Funptr_typedef1_Deref",
+          hasFieldInstanceFieldType = HsIO
+            (HsTypRef
+              (Name "@NsTypeConstr" "A")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Funptr_typedef1_Deref"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_Funptr_typedef1_Deref",
+          hasCFieldInstanceCFieldType =
+          HsIO
+            (HsTypRef
+              (Name "@NsTypeConstr" "A")),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -1968,6 +2305,53 @@
         "@NsTypeConstr"
         "Funptr_typedef1",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Funptr_typedef1"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Funptr_typedef1",
+          hasFieldInstanceFieldType =
+          HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Funptr_typedef1_Deref")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Funptr_typedef1"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_Funptr_typedef1",
+          hasCFieldInstanceCFieldType =
+          HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Funptr_typedef1_Deref")),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
@@ -2158,6 +2542,50 @@
             "fromFunptr_typedef2_Deref"},
       defineInstanceComment =
       Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Funptr_typedef2_Deref"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Funptr_typedef2_Deref",
+          hasFieldInstanceFieldType = HsIO
+            (HsPtr
+              (HsTypRef
+                (Name "@NsTypeConstr" "A"))),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Funptr_typedef2_Deref"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_Funptr_typedef2_Deref",
+          hasCFieldInstanceCFieldType =
+          HsIO
+            (HsPtr
+              (HsTypRef
+                (Name "@NsTypeConstr" "A"))),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -2276,6 +2704,53 @@
         "@NsTypeConstr"
         "Funptr_typedef2",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Funptr_typedef2"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Funptr_typedef2",
+          hasFieldInstanceFieldType =
+          HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Funptr_typedef2_Deref")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Funptr_typedef2"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_Funptr_typedef2",
+          hasCFieldInstanceCFieldType =
+          HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Funptr_typedef2_Deref")),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
@@ -2470,6 +2945,52 @@
             "fromFunptr_typedef3_Deref"},
       defineInstanceComment =
       Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Funptr_typedef3_Deref"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Funptr_typedef3_Deref",
+          hasFieldInstanceFieldType = HsIO
+            (HsPtr
+              (HsPtr
+                (HsTypRef
+                  (Name "@NsTypeConstr" "A")))),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Funptr_typedef3_Deref"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_Funptr_typedef3_Deref",
+          hasCFieldInstanceCFieldType =
+          HsIO
+            (HsPtr
+              (HsPtr
+                (HsTypRef
+                  (Name "@NsTypeConstr" "A")))),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -2589,6 +3110,53 @@
         "@NsTypeConstr"
         "Funptr_typedef3",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Funptr_typedef3"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Funptr_typedef3",
+          hasFieldInstanceFieldType =
+          HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Funptr_typedef3_Deref")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Funptr_typedef3"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_Funptr_typedef3",
+          hasCFieldInstanceCFieldType =
+          HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Funptr_typedef3_Deref")),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
@@ -2791,6 +3359,57 @@
             "fromFunptr_typedef4_Deref"},
       defineInstanceComment =
       Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Funptr_typedef4_Deref"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Funptr_typedef4_Deref",
+          hasFieldInstanceFieldType =
+          HsFun
+            (HsPrimType HsPrimCInt)
+            (HsFun
+              (HsPrimType HsPrimCDouble)
+              (HsIO
+                (HsTypRef
+                  (Name "@NsTypeConstr" "A")))),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Funptr_typedef4_Deref"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_Funptr_typedef4_Deref",
+          hasCFieldInstanceCFieldType =
+          HsFun
+            (HsPrimType HsPrimCInt)
+            (HsFun
+              (HsPrimType HsPrimCDouble)
+              (HsIO
+                (HsTypRef
+                  (Name "@NsTypeConstr" "A")))),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -2912,6 +3531,53 @@
         "@NsTypeConstr"
         "Funptr_typedef4",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Funptr_typedef4"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Funptr_typedef4",
+          hasFieldInstanceFieldType =
+          HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Funptr_typedef4_Deref")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Funptr_typedef4"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_Funptr_typedef4",
+          hasCFieldInstanceCFieldType =
+          HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Funptr_typedef4_Deref")),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
@@ -3118,6 +3784,59 @@
             "fromFunptr_typedef5_Deref"},
       defineInstanceComment =
       Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Funptr_typedef5_Deref"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Funptr_typedef5_Deref",
+          hasFieldInstanceFieldType =
+          HsFun
+            (HsPrimType HsPrimCInt)
+            (HsFun
+              (HsPrimType HsPrimCDouble)
+              (HsIO
+                (HsPtr
+                  (HsTypRef
+                    (Name "@NsTypeConstr" "A"))))),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Funptr_typedef5_Deref"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_Funptr_typedef5_Deref",
+          hasCFieldInstanceCFieldType =
+          HsFun
+            (HsPrimType HsPrimCInt)
+            (HsFun
+              (HsPrimType HsPrimCDouble)
+              (HsIO
+                (HsPtr
+                  (HsTypRef
+                    (Name "@NsTypeConstr" "A"))))),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -3240,6 +3959,53 @@
         "@NsTypeConstr"
         "Funptr_typedef5",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Funptr_typedef5"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Funptr_typedef5",
+          hasFieldInstanceFieldType =
+          HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Funptr_typedef5_Deref")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Funptr_typedef5"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_Funptr_typedef5",
+          hasCFieldInstanceCFieldType =
+          HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Funptr_typedef5_Deref")),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
@@ -3449,6 +4215,45 @@
         "@NsTypeConstr"
         "Comments2",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Comments2"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Comments2",
+          hasFieldInstanceFieldType =
+          HsTypRef
+            (Name "@NsTypeConstr" "A"),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Comments2"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "un_Comments2",
+          hasCFieldInstanceCFieldType =
+          HsTypRef
+            (Name "@NsTypeConstr" "A"),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
       Nothing},
   DeclData
     Struct {
@@ -4117,9 +4922,18 @@
                           headerInclude = "reparse.h"},
                       commentChildren = []}})
               [
-                PeekByteOff (Idx 0) 0,
-                PeekByteOff (Idx 0) 8,
-                PeekByteOff (Idx 0) 16]),
+                PeekCField
+                  (HsStrLit
+                    "example_struct_field1")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit
+                    "example_struct_field2")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit
+                    "example_struct_field3")
+                  (Idx 0)]),
           storablePoke = Lambda
             (NameHint "ptr")
             (Lambda
@@ -4347,11 +5161,20 @@
                 (Add 3)
                 (Seq
                   [
-                    PokeByteOff (Idx 4) 0 (Idx 0),
-                    PokeByteOff (Idx 4) 8 (Idx 1),
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit
+                        "example_struct_field1")
                       (Idx 4)
-                      16
+                      (Idx 0),
+                    PokeCField
+                      (HsStrLit
+                        "example_struct_field2")
+                      (Idx 4)
+                      (Idx 1),
+                    PokeCField
+                      (HsStrLit
+                        "example_struct_field3")
+                      (Idx 4)
                       (Idx 2)])))},
       defineInstanceComment =
       Nothing},
@@ -4374,6 +5197,135 @@
         "@NsTypeConstr"
         "Example_struct",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Example_struct"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "example_struct_field1",
+          hasCFieldInstanceCFieldType =
+          HsTypRef
+            (Name "@NsTypeConstr" "A"),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Example_struct"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "example_struct_field1",
+          hasFieldInstanceFieldType =
+          HsTypRef
+            (Name "@NsTypeConstr" "A"),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Example_struct"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "example_struct_field2",
+          hasCFieldInstanceCFieldType =
+          HsPtr
+            (HsTypRef
+              (Name "@NsTypeConstr" "A")),
+          hasCFieldInstanceFieldOffset =
+          8},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Example_struct"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "example_struct_field2",
+          hasFieldInstanceFieldType =
+          HsPtr
+            (HsTypRef
+              (Name "@NsTypeConstr" "A")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Example_struct"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "example_struct_field3",
+          hasCFieldInstanceCFieldType =
+          HsPtr
+            (HsPtr
+              (HsTypRef
+                (Name "@NsTypeConstr" "A"))),
+          hasCFieldInstanceFieldOffset =
+          16},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Example_struct"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "example_struct_field3",
+          hasFieldInstanceFieldType =
+          HsPtr
+            (HsPtr
+              (HsTypRef
+                (Name "@NsTypeConstr" "A"))),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
@@ -4586,6 +5538,47 @@
         "Const_typedef1",
       deriveInstanceComment =
       Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_typedef1"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Const_typedef1",
+          hasFieldInstanceFieldType =
+          HsTypRef
+            (Name "@NsTypeConstr" "A"),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_typedef1"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_Const_typedef1",
+          hasCFieldInstanceCFieldType =
+          HsTypRef
+            (Name "@NsTypeConstr" "A"),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -4797,6 +5790,47 @@
         "Const_typedef2",
       deriveInstanceComment =
       Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_typedef2"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Const_typedef2",
+          hasFieldInstanceFieldType =
+          HsTypRef
+            (Name "@NsTypeConstr" "A"),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_typedef2"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_Const_typedef2",
+          hasCFieldInstanceCFieldType =
+          HsTypRef
+            (Name "@NsTypeConstr" "A"),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -4905,6 +5939,49 @@
         "@NsTypeConstr"
         "Const_typedef3",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_typedef3"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Const_typedef3",
+          hasFieldInstanceFieldType =
+          HsPtr
+            (HsTypRef
+              (Name "@NsTypeConstr" "A")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_typedef3"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_Const_typedef3",
+          hasCFieldInstanceCFieldType =
+          HsPtr
+            (HsTypRef
+              (Name "@NsTypeConstr" "A")),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
@@ -5015,6 +6092,49 @@
         "Const_typedef4",
       deriveInstanceComment =
       Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_typedef4"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Const_typedef4",
+          hasFieldInstanceFieldType =
+          HsPtr
+            (HsTypRef
+              (Name "@NsTypeConstr" "A")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_typedef4"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_Const_typedef4",
+          hasCFieldInstanceCFieldType =
+          HsPtr
+            (HsTypRef
+              (Name "@NsTypeConstr" "A")),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -5123,6 +6243,49 @@
         "@NsTypeConstr"
         "Const_typedef5",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_typedef5"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Const_typedef5",
+          hasFieldInstanceFieldType =
+          HsPtr
+            (HsTypRef
+              (Name "@NsTypeConstr" "A")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_typedef5"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_Const_typedef5",
+          hasCFieldInstanceCFieldType =
+          HsPtr
+            (HsTypRef
+              (Name "@NsTypeConstr" "A")),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
@@ -5235,6 +6398,49 @@
         "Const_typedef6",
       deriveInstanceComment =
       Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_typedef6"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Const_typedef6",
+          hasFieldInstanceFieldType =
+          HsPtr
+            (HsTypRef
+              (Name "@NsTypeConstr" "A")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_typedef6"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_Const_typedef6",
+          hasCFieldInstanceCFieldType =
+          HsPtr
+            (HsTypRef
+              (Name "@NsTypeConstr" "A")),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -5345,6 +6551,49 @@
         "@NsTypeConstr"
         "Const_typedef7",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_typedef7"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Const_typedef7",
+          hasFieldInstanceFieldType =
+          HsPtr
+            (HsTypRef
+              (Name "@NsTypeConstr" "A")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_typedef7"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_Const_typedef7",
+          hasCFieldInstanceCFieldType =
+          HsPtr
+            (HsTypRef
+              (Name "@NsTypeConstr" "A")),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
       Nothing},
   DeclData
     Struct {
@@ -6727,13 +7976,34 @@
                           headerInclude = "reparse.h"},
                       commentChildren = []}})
               [
-                PeekByteOff (Idx 0) 0,
-                PeekByteOff (Idx 0) 4,
-                PeekByteOff (Idx 0) 8,
-                PeekByteOff (Idx 0) 16,
-                PeekByteOff (Idx 0) 24,
-                PeekByteOff (Idx 0) 32,
-                PeekByteOff (Idx 0) 40]),
+                PeekCField
+                  (HsStrLit
+                    "example_struct_with_const_const_field1")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit
+                    "example_struct_with_const_const_field2")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit
+                    "example_struct_with_const_const_field3")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit
+                    "example_struct_with_const_const_field4")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit
+                    "example_struct_with_const_const_field5")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit
+                    "example_struct_with_const_const_field6")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit
+                    "example_struct_with_const_const_field7")
+                  (Idx 0)]),
           storablePoke = Lambda
             (NameHint "ptr")
             (Lambda
@@ -7199,15 +8469,40 @@
                 (Add 7)
                 (Seq
                   [
-                    PokeByteOff (Idx 8) 0 (Idx 0),
-                    PokeByteOff (Idx 8) 4 (Idx 1),
-                    PokeByteOff (Idx 8) 8 (Idx 2),
-                    PokeByteOff (Idx 8) 16 (Idx 3),
-                    PokeByteOff (Idx 8) 24 (Idx 4),
-                    PokeByteOff (Idx 8) 32 (Idx 5),
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit
+                        "example_struct_with_const_const_field1")
                       (Idx 8)
-                      40
+                      (Idx 0),
+                    PokeCField
+                      (HsStrLit
+                        "example_struct_with_const_const_field2")
+                      (Idx 8)
+                      (Idx 1),
+                    PokeCField
+                      (HsStrLit
+                        "example_struct_with_const_const_field3")
+                      (Idx 8)
+                      (Idx 2),
+                    PokeCField
+                      (HsStrLit
+                        "example_struct_with_const_const_field4")
+                      (Idx 8)
+                      (Idx 3),
+                    PokeCField
+                      (HsStrLit
+                        "example_struct_with_const_const_field5")
+                      (Idx 8)
+                      (Idx 4),
+                    PokeCField
+                      (HsStrLit
+                        "example_struct_with_const_const_field6")
+                      (Idx 8)
+                      (Idx 5),
+                    PokeCField
+                      (HsStrLit
+                        "example_struct_with_const_const_field7")
+                      (Idx 8)
                       (Idx 6)])))},
       defineInstanceComment =
       Nothing},
@@ -7230,6 +8525,303 @@
         "@NsTypeConstr"
         "Example_struct_with_const",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Example_struct_with_const"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "example_struct_with_const_const_field1",
+          hasCFieldInstanceCFieldType =
+          HsTypRef
+            (Name "@NsTypeConstr" "A"),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Example_struct_with_const"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "example_struct_with_const_const_field1",
+          hasFieldInstanceFieldType =
+          HsTypRef
+            (Name "@NsTypeConstr" "A"),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Example_struct_with_const"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "example_struct_with_const_const_field2",
+          hasCFieldInstanceCFieldType =
+          HsTypRef
+            (Name "@NsTypeConstr" "A"),
+          hasCFieldInstanceFieldOffset =
+          4},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Example_struct_with_const"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "example_struct_with_const_const_field2",
+          hasFieldInstanceFieldType =
+          HsTypRef
+            (Name "@NsTypeConstr" "A"),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Example_struct_with_const"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "example_struct_with_const_const_field3",
+          hasCFieldInstanceCFieldType =
+          HsPtr
+            (HsTypRef
+              (Name "@NsTypeConstr" "A")),
+          hasCFieldInstanceFieldOffset =
+          8},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Example_struct_with_const"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "example_struct_with_const_const_field3",
+          hasFieldInstanceFieldType =
+          HsPtr
+            (HsTypRef
+              (Name "@NsTypeConstr" "A")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Example_struct_with_const"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "example_struct_with_const_const_field4",
+          hasCFieldInstanceCFieldType =
+          HsPtr
+            (HsTypRef
+              (Name "@NsTypeConstr" "A")),
+          hasCFieldInstanceFieldOffset =
+          16},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Example_struct_with_const"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "example_struct_with_const_const_field4",
+          hasFieldInstanceFieldType =
+          HsPtr
+            (HsTypRef
+              (Name "@NsTypeConstr" "A")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Example_struct_with_const"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "example_struct_with_const_const_field5",
+          hasCFieldInstanceCFieldType =
+          HsPtr
+            (HsTypRef
+              (Name "@NsTypeConstr" "A")),
+          hasCFieldInstanceFieldOffset =
+          24},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Example_struct_with_const"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "example_struct_with_const_const_field5",
+          hasFieldInstanceFieldType =
+          HsPtr
+            (HsTypRef
+              (Name "@NsTypeConstr" "A")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Example_struct_with_const"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "example_struct_with_const_const_field6",
+          hasCFieldInstanceCFieldType =
+          HsPtr
+            (HsTypRef
+              (Name "@NsTypeConstr" "A")),
+          hasCFieldInstanceFieldOffset =
+          32},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Example_struct_with_const"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "example_struct_with_const_const_field6",
+          hasFieldInstanceFieldType =
+          HsPtr
+            (HsTypRef
+              (Name "@NsTypeConstr" "A")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Example_struct_with_const"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "example_struct_with_const_const_field7",
+          hasCFieldInstanceCFieldType =
+          HsPtr
+            (HsTypRef
+              (Name "@NsTypeConstr" "A")),
+          hasCFieldInstanceFieldOffset =
+          40},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Example_struct_with_const"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "example_struct_with_const_const_field7",
+          hasFieldInstanceFieldType =
+          HsPtr
+            (HsTypRef
+              (Name "@NsTypeConstr" "A")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
@@ -7438,6 +9030,57 @@
             "fromConst_funptr1_Deref"},
       defineInstanceComment =
       Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr1_Deref"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Const_funptr1_Deref",
+          hasFieldInstanceFieldType =
+          HsFun
+            (HsPrimType HsPrimCInt)
+            (HsFun
+              (HsPrimType HsPrimCDouble)
+              (HsIO
+                (HsTypRef
+                  (Name "@NsTypeConstr" "A")))),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr1_Deref"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_Const_funptr1_Deref",
+          hasCFieldInstanceCFieldType =
+          HsFun
+            (HsPrimType HsPrimCInt)
+            (HsFun
+              (HsPrimType HsPrimCDouble)
+              (HsIO
+                (HsTypRef
+                  (Name "@NsTypeConstr" "A")))),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -7561,6 +9204,53 @@
         "@NsTypeConstr"
         "Const_funptr1",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr1"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Const_funptr1",
+          hasFieldInstanceFieldType =
+          HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Const_funptr1_Deref")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr1"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_Const_funptr1",
+          hasCFieldInstanceCFieldType =
+          HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Const_funptr1_Deref")),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
@@ -7769,6 +9459,57 @@
             "fromConst_funptr2_Deref"},
       defineInstanceComment =
       Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr2_Deref"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Const_funptr2_Deref",
+          hasFieldInstanceFieldType =
+          HsFun
+            (HsPrimType HsPrimCInt)
+            (HsFun
+              (HsPrimType HsPrimCDouble)
+              (HsIO
+                (HsTypRef
+                  (Name "@NsTypeConstr" "A")))),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr2_Deref"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_Const_funptr2_Deref",
+          hasCFieldInstanceCFieldType =
+          HsFun
+            (HsPrimType HsPrimCInt)
+            (HsFun
+              (HsPrimType HsPrimCDouble)
+              (HsIO
+                (HsTypRef
+                  (Name "@NsTypeConstr" "A")))),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -7892,6 +9633,53 @@
         "@NsTypeConstr"
         "Const_funptr2",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr2"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Const_funptr2",
+          hasFieldInstanceFieldType =
+          HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Const_funptr2_Deref")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr2"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_Const_funptr2",
+          hasCFieldInstanceCFieldType =
+          HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Const_funptr2_Deref")),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
@@ -8104,6 +9892,59 @@
             "fromConst_funptr3_Deref"},
       defineInstanceComment =
       Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr3_Deref"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Const_funptr3_Deref",
+          hasFieldInstanceFieldType =
+          HsFun
+            (HsPrimType HsPrimCInt)
+            (HsFun
+              (HsPrimType HsPrimCDouble)
+              (HsIO
+                (HsPtr
+                  (HsTypRef
+                    (Name "@NsTypeConstr" "A"))))),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr3_Deref"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_Const_funptr3_Deref",
+          hasCFieldInstanceCFieldType =
+          HsFun
+            (HsPrimType HsPrimCInt)
+            (HsFun
+              (HsPrimType HsPrimCDouble)
+              (HsIO
+                (HsPtr
+                  (HsTypRef
+                    (Name "@NsTypeConstr" "A"))))),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -8228,6 +10069,53 @@
         "@NsTypeConstr"
         "Const_funptr3",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr3"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Const_funptr3",
+          hasFieldInstanceFieldType =
+          HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Const_funptr3_Deref")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr3"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_Const_funptr3",
+          hasCFieldInstanceCFieldType =
+          HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Const_funptr3_Deref")),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
@@ -8440,6 +10328,59 @@
             "fromConst_funptr4_Deref"},
       defineInstanceComment =
       Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr4_Deref"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Const_funptr4_Deref",
+          hasFieldInstanceFieldType =
+          HsFun
+            (HsPrimType HsPrimCInt)
+            (HsFun
+              (HsPrimType HsPrimCDouble)
+              (HsIO
+                (HsPtr
+                  (HsTypRef
+                    (Name "@NsTypeConstr" "A"))))),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr4_Deref"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_Const_funptr4_Deref",
+          hasCFieldInstanceCFieldType =
+          HsFun
+            (HsPrimType HsPrimCInt)
+            (HsFun
+              (HsPrimType HsPrimCDouble)
+              (HsIO
+                (HsPtr
+                  (HsTypRef
+                    (Name "@NsTypeConstr" "A"))))),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -8564,6 +10505,53 @@
         "@NsTypeConstr"
         "Const_funptr4",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr4"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Const_funptr4",
+          hasFieldInstanceFieldType =
+          HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Const_funptr4_Deref")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr4"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_Const_funptr4",
+          hasCFieldInstanceCFieldType =
+          HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Const_funptr4_Deref")),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
@@ -8776,6 +10764,59 @@
             "fromConst_funptr5_Deref"},
       defineInstanceComment =
       Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr5_Deref"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Const_funptr5_Deref",
+          hasFieldInstanceFieldType =
+          HsFun
+            (HsPrimType HsPrimCInt)
+            (HsFun
+              (HsPrimType HsPrimCDouble)
+              (HsIO
+                (HsPtr
+                  (HsTypRef
+                    (Name "@NsTypeConstr" "A"))))),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr5_Deref"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_Const_funptr5_Deref",
+          hasCFieldInstanceCFieldType =
+          HsFun
+            (HsPrimType HsPrimCInt)
+            (HsFun
+              (HsPrimType HsPrimCDouble)
+              (HsIO
+                (HsPtr
+                  (HsTypRef
+                    (Name "@NsTypeConstr" "A"))))),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -8900,6 +10941,53 @@
         "@NsTypeConstr"
         "Const_funptr5",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr5"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Const_funptr5",
+          hasFieldInstanceFieldType =
+          HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Const_funptr5_Deref")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr5"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_Const_funptr5",
+          hasCFieldInstanceCFieldType =
+          HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Const_funptr5_Deref")),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
@@ -9118,6 +11206,59 @@
             "fromConst_funptr6_Deref"},
       defineInstanceComment =
       Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr6_Deref"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Const_funptr6_Deref",
+          hasFieldInstanceFieldType =
+          HsFun
+            (HsPrimType HsPrimCInt)
+            (HsFun
+              (HsPrimType HsPrimCDouble)
+              (HsIO
+                (HsPtr
+                  (HsTypRef
+                    (Name "@NsTypeConstr" "A"))))),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr6_Deref"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_Const_funptr6_Deref",
+          hasCFieldInstanceCFieldType =
+          HsFun
+            (HsPrimType HsPrimCInt)
+            (HsFun
+              (HsPrimType HsPrimCDouble)
+              (HsIO
+                (HsPtr
+                  (HsTypRef
+                    (Name "@NsTypeConstr" "A"))))),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -9244,6 +11385,53 @@
         "@NsTypeConstr"
         "Const_funptr6",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr6"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Const_funptr6",
+          hasFieldInstanceFieldType =
+          HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Const_funptr6_Deref")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr6"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_Const_funptr6",
+          hasCFieldInstanceCFieldType =
+          HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Const_funptr6_Deref")),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
@@ -9462,6 +11650,59 @@
             "fromConst_funptr7_Deref"},
       defineInstanceComment =
       Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr7_Deref"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Const_funptr7_Deref",
+          hasFieldInstanceFieldType =
+          HsFun
+            (HsPrimType HsPrimCInt)
+            (HsFun
+              (HsPrimType HsPrimCDouble)
+              (HsIO
+                (HsPtr
+                  (HsTypRef
+                    (Name "@NsTypeConstr" "A"))))),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr7_Deref"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_Const_funptr7_Deref",
+          hasCFieldInstanceCFieldType =
+          HsFun
+            (HsPrimType HsPrimCInt)
+            (HsFun
+              (HsPrimType HsPrimCDouble)
+              (HsIO
+                (HsPtr
+                  (HsTypRef
+                    (Name "@NsTypeConstr" "A"))))),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -9588,6 +11829,53 @@
         "@NsTypeConstr"
         "Const_funptr7",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr7"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Const_funptr7",
+          hasFieldInstanceFieldType =
+          HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Const_funptr7_Deref")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Const_funptr7"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_Const_funptr7",
+          hasCFieldInstanceCFieldType =
+          HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Const_funptr7_Deref")),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {

@@ -95,6 +95,12 @@ newtype Triplet
       -}
     deriving stock (Eq, Show)
     deriving newtype Storable
+instance TyEq ty (CFieldType Triplet "un_Triplet") =>
+         HasField "un_Triplet" (Ptr Triplet) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Triplet")
+instance HasCField Triplet "un_Triplet"
+    where type CFieldType Triplet "un_Triplet" = ConstantArray 3 CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @matrix@
 
     __defined at:__ @manual\/arrays.h:34:17@
@@ -111,6 +117,12 @@ newtype Matrix
       -}
     deriving stock (Eq, Show)
     deriving newtype Storable
+instance TyEq ty (CFieldType Matrix "un_Matrix") =>
+         HasField "un_Matrix" (Ptr Matrix) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Matrix")
+instance HasCField Matrix "un_Matrix"
+    where type CFieldType Matrix "un_Matrix" = ConstantArray 3 Triplet
+          offset# = \_ -> \_ -> 0
 {-| A typedef representing a an array of unknown size, where each element is a pointer to an array of known size 3, where each element is an int.
 
 __C declaration:__ @triplet_ptrs@
@@ -131,6 +143,13 @@ newtype Triplet_ptrs
       __exported by:__ @manual\/arrays.h@
       -}
     deriving stock (Eq, Show)
+instance TyEq ty (CFieldType Triplet_ptrs "un_Triplet_ptrs") =>
+         HasField "un_Triplet_ptrs" (Ptr Triplet_ptrs) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Triplet_ptrs")
+instance HasCField Triplet_ptrs "un_Triplet_ptrs"
+    where type CFieldType Triplet_ptrs
+                          "un_Triplet_ptrs" = IncompleteArray (Ptr (ConstantArray 3 CInt))
+          offset# = \_ -> \_ -> 0
 {-| Pointer-based API for 'transpose'
 
 -}

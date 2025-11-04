@@ -1,16 +1,28 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
+{-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE MagicHash #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
+{-# LANGUAGE TypeApplications #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE UndecidableInstances #-}
 
 module Example where
 
 import qualified Data.Array.Byte
+import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Ptr as Ptr
+import qualified GHC.Records
 import qualified HsBindgen.Runtime.ByteArray
+import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.SizedByteArray
+import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @Dim2@
@@ -46,16 +58,40 @@ instance F.Storable Dim2 where
   peek =
     \ptr0 ->
           pure Dim2
-      <*> F.peekByteOff ptr0 (0 :: Int)
-      <*> F.peekByteOff ptr0 (4 :: Int)
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"dim2_x") ptr0
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"dim2_y") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Dim2 dim2_x2 dim2_y3 ->
-               F.pokeByteOff ptr0 (0 :: Int) dim2_x2
-            >> F.pokeByteOff ptr0 (4 :: Int) dim2_y3
+               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"dim2_x") ptr0 dim2_x2
+            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"dim2_y") ptr0 dim2_y3
+
+instance HsBindgen.Runtime.HasCField.HasCField Dim2 "dim2_x" where
+
+  type CFieldType Dim2 "dim2_x" = FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Dim2) "dim2_x")
+         ) => GHC.Records.HasField "dim2_x" (Ptr.Ptr Dim2) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"dim2_x")
+
+instance HsBindgen.Runtime.HasCField.HasCField Dim2 "dim2_y" where
+
+  type CFieldType Dim2 "dim2_y" = FC.CInt
+
+  offset# = \_ -> \_ -> 4
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Dim2) "dim2_y")
+         ) => GHC.Records.HasField "dim2_y" (Ptr.Ptr Dim2) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"dim2_y")
 
 {-| __C declaration:__ @Dim3@
 
@@ -97,18 +133,54 @@ instance F.Storable Dim3 where
   peek =
     \ptr0 ->
           pure Dim3
-      <*> F.peekByteOff ptr0 (0 :: Int)
-      <*> F.peekByteOff ptr0 (4 :: Int)
-      <*> F.peekByteOff ptr0 (8 :: Int)
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"dim3_x") ptr0
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"dim3_y") ptr0
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"dim3_z") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Dim3 dim3_x2 dim3_y3 dim3_z4 ->
-               F.pokeByteOff ptr0 (0 :: Int) dim3_x2
-            >> F.pokeByteOff ptr0 (4 :: Int) dim3_y3
-            >> F.pokeByteOff ptr0 (8 :: Int) dim3_z4
+               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"dim3_x") ptr0 dim3_x2
+            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"dim3_y") ptr0 dim3_y3
+            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"dim3_z") ptr0 dim3_z4
+
+instance HsBindgen.Runtime.HasCField.HasCField Dim3 "dim3_x" where
+
+  type CFieldType Dim3 "dim3_x" = FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Dim3) "dim3_x")
+         ) => GHC.Records.HasField "dim3_x" (Ptr.Ptr Dim3) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"dim3_x")
+
+instance HsBindgen.Runtime.HasCField.HasCField Dim3 "dim3_y" where
+
+  type CFieldType Dim3 "dim3_y" = FC.CInt
+
+  offset# = \_ -> \_ -> 4
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Dim3) "dim3_y")
+         ) => GHC.Records.HasField "dim3_y" (Ptr.Ptr Dim3) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"dim3_y")
+
+instance HsBindgen.Runtime.HasCField.HasCField Dim3 "dim3_z" where
+
+  type CFieldType Dim3 "dim3_z" = FC.CInt
+
+  offset# = \_ -> \_ -> 8
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Dim3) "dim3_z")
+         ) => GHC.Records.HasField "dim3_z" (Ptr.Ptr Dim3) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"dim3_z")
 
 {-| __C declaration:__ @DimPayload@
 
@@ -176,6 +248,30 @@ set_dimPayload_dim3 ::
 set_dimPayload_dim3 =
   HsBindgen.Runtime.ByteArray.setUnionPayload
 
+instance HsBindgen.Runtime.HasCField.HasCField DimPayload "dimPayload_dim2" where
+
+  type CFieldType DimPayload "dimPayload_dim2" = Dim2
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType DimPayload) "dimPayload_dim2")
+         ) => GHC.Records.HasField "dimPayload_dim2" (Ptr.Ptr DimPayload) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"dimPayload_dim2")
+
+instance HsBindgen.Runtime.HasCField.HasCField DimPayload "dimPayload_dim3" where
+
+  type CFieldType DimPayload "dimPayload_dim3" = Dim2
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType DimPayload) "dimPayload_dim3")
+         ) => GHC.Records.HasField "dimPayload_dim3" (Ptr.Ptr DimPayload) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"dimPayload_dim3")
+
 {-| __C declaration:__ @Dim@
 
     __defined at:__ @unions.h:17:8@
@@ -208,16 +304,40 @@ instance F.Storable Dim where
   peek =
     \ptr0 ->
           pure Dim
-      <*> F.peekByteOff ptr0 (0 :: Int)
-      <*> F.peekByteOff ptr0 (4 :: Int)
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"dim_tag") ptr0
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"dim_payload") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Dim dim_tag2 dim_payload3 ->
-               F.pokeByteOff ptr0 (0 :: Int) dim_tag2
-            >> F.pokeByteOff ptr0 (4 :: Int) dim_payload3
+               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"dim_tag") ptr0 dim_tag2
+            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"dim_payload") ptr0 dim_payload3
+
+instance HsBindgen.Runtime.HasCField.HasCField Dim "dim_tag" where
+
+  type CFieldType Dim "dim_tag" = FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Dim) "dim_tag")
+         ) => GHC.Records.HasField "dim_tag" (Ptr.Ptr Dim) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"dim_tag")
+
+instance HsBindgen.Runtime.HasCField.HasCField Dim "dim_payload" where
+
+  type CFieldType Dim "dim_payload" = DimPayload
+
+  offset# = \_ -> \_ -> 4
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Dim) "dim_payload")
+         ) => GHC.Records.HasField "dim_payload" (Ptr.Ptr Dim) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"dim_payload")
 
 {-| __C declaration:__ @DimPayloadB@
 
@@ -285,6 +405,30 @@ set_dimPayloadB_dim3 ::
 set_dimPayloadB_dim3 =
   HsBindgen.Runtime.ByteArray.setUnionPayload
 
+instance HsBindgen.Runtime.HasCField.HasCField DimPayloadB "dimPayloadB_dim2" where
+
+  type CFieldType DimPayloadB "dimPayloadB_dim2" = Dim2
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType DimPayloadB) "dimPayloadB_dim2")
+         ) => GHC.Records.HasField "dimPayloadB_dim2" (Ptr.Ptr DimPayloadB) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"dimPayloadB_dim2")
+
+instance HsBindgen.Runtime.HasCField.HasCField DimPayloadB "dimPayloadB_dim3" where
+
+  type CFieldType DimPayloadB "dimPayloadB_dim3" = Dim2
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType DimPayloadB) "dimPayloadB_dim3")
+         ) => GHC.Records.HasField "dimPayloadB_dim3" (Ptr.Ptr DimPayloadB) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"dimPayloadB_dim3")
+
 {-| __C declaration:__ @DimB@
 
     __defined at:__ @unions.h:28:8@
@@ -317,16 +461,40 @@ instance F.Storable DimB where
   peek =
     \ptr0 ->
           pure DimB
-      <*> F.peekByteOff ptr0 (0 :: Int)
-      <*> F.peekByteOff ptr0 (4 :: Int)
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"dimB_tag") ptr0
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"dimB_payload") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           DimB dimB_tag2 dimB_payload3 ->
-               F.pokeByteOff ptr0 (0 :: Int) dimB_tag2
-            >> F.pokeByteOff ptr0 (4 :: Int) dimB_payload3
+               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"dimB_tag") ptr0 dimB_tag2
+            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"dimB_payload") ptr0 dimB_payload3
+
+instance HsBindgen.Runtime.HasCField.HasCField DimB "dimB_tag" where
+
+  type CFieldType DimB "dimB_tag" = FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType DimB) "dimB_tag")
+         ) => GHC.Records.HasField "dimB_tag" (Ptr.Ptr DimB) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"dimB_tag")
+
+instance HsBindgen.Runtime.HasCField.HasCField DimB "dimB_payload" where
+
+  type CFieldType DimB "dimB_payload" = DimPayloadB
+
+  offset# = \_ -> \_ -> 4
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType DimB) "dimB_payload")
+         ) => GHC.Records.HasField "dimB_payload" (Ptr.Ptr DimB) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"dimB_payload")
 
 {-| __defined at:__ @unions.h:35:5@
 
@@ -359,16 +527,40 @@ instance F.Storable AnonA_xy where
   peek =
     \ptr0 ->
           pure AnonA_xy
-      <*> F.peekByteOff ptr0 (0 :: Int)
-      <*> F.peekByteOff ptr0 (8 :: Int)
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"anonA_xy_x") ptr0
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"anonA_xy_y") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           AnonA_xy anonA_xy_x2 anonA_xy_y3 ->
-               F.pokeByteOff ptr0 (0 :: Int) anonA_xy_x2
-            >> F.pokeByteOff ptr0 (8 :: Int) anonA_xy_y3
+               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"anonA_xy_x") ptr0 anonA_xy_x2
+            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"anonA_xy_y") ptr0 anonA_xy_y3
+
+instance HsBindgen.Runtime.HasCField.HasCField AnonA_xy "anonA_xy_x" where
+
+  type CFieldType AnonA_xy "anonA_xy_x" = FC.CDouble
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType AnonA_xy) "anonA_xy_x")
+         ) => GHC.Records.HasField "anonA_xy_x" (Ptr.Ptr AnonA_xy) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"anonA_xy_x")
+
+instance HsBindgen.Runtime.HasCField.HasCField AnonA_xy "anonA_xy_y" where
+
+  type CFieldType AnonA_xy "anonA_xy_y" = FC.CDouble
+
+  offset# = \_ -> \_ -> 8
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType AnonA_xy) "anonA_xy_y")
+         ) => GHC.Records.HasField "anonA_xy_y" (Ptr.Ptr AnonA_xy) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"anonA_xy_y")
 
 {-| __defined at:__ @unions.h:36:5@
 
@@ -401,16 +593,42 @@ instance F.Storable AnonA_polar where
   peek =
     \ptr0 ->
           pure AnonA_polar
-      <*> F.peekByteOff ptr0 (0 :: Int)
-      <*> F.peekByteOff ptr0 (8 :: Int)
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"anonA_polar_r") ptr0
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"anonA_polar_p") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           AnonA_polar anonA_polar_r2 anonA_polar_p3 ->
-               F.pokeByteOff ptr0 (0 :: Int) anonA_polar_r2
-            >> F.pokeByteOff ptr0 (8 :: Int) anonA_polar_p3
+               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"anonA_polar_r") ptr0 anonA_polar_r2
+            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"anonA_polar_p") ptr0 anonA_polar_p3
+
+instance HsBindgen.Runtime.HasCField.HasCField AnonA_polar "anonA_polar_r" where
+
+  type CFieldType AnonA_polar "anonA_polar_r" =
+    FC.CDouble
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType AnonA_polar) "anonA_polar_r")
+         ) => GHC.Records.HasField "anonA_polar_r" (Ptr.Ptr AnonA_polar) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"anonA_polar_r")
+
+instance HsBindgen.Runtime.HasCField.HasCField AnonA_polar "anonA_polar_p" where
+
+  type CFieldType AnonA_polar "anonA_polar_p" =
+    FC.CDouble
+
+  offset# = \_ -> \_ -> 8
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType AnonA_polar) "anonA_polar_p")
+         ) => GHC.Records.HasField "anonA_polar_p" (Ptr.Ptr AnonA_polar) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"anonA_polar_p")
 
 {-| __C declaration:__ @AnonA@
 
@@ -477,3 +695,27 @@ set_anonA_polar ::
   -> AnonA
 set_anonA_polar =
   HsBindgen.Runtime.ByteArray.setUnionPayload
+
+instance HsBindgen.Runtime.HasCField.HasCField AnonA "anonA_xy" where
+
+  type CFieldType AnonA "anonA_xy" = AnonA_xy
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType AnonA) "anonA_xy")
+         ) => GHC.Records.HasField "anonA_xy" (Ptr.Ptr AnonA) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"anonA_xy")
+
+instance HsBindgen.Runtime.HasCField.HasCField AnonA "anonA_polar" where
+
+  type CFieldType AnonA "anonA_polar" = AnonA_polar
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType AnonA) "anonA_polar")
+         ) => GHC.Records.HasField "anonA_polar" (Ptr.Ptr AnonA) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"anonA_polar")

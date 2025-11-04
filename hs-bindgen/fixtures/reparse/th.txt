@@ -2602,6 +2602,13 @@ newtype Arr_typedef1
            __exported by:__ @reparse.h@
       -}
     deriving stock (Eq, Show)
+instance TyEq ty (CFieldType Arr_typedef1 "un_Arr_typedef1") =>
+         HasField "un_Arr_typedef1" (Ptr Arr_typedef1) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Arr_typedef1")
+instance HasCField Arr_typedef1 "un_Arr_typedef1"
+    where type CFieldType Arr_typedef1
+                          "un_Arr_typedef1" = IncompleteArray A
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @arr_typedef2@
 
     __defined at:__ @reparse.h:110:13@
@@ -2617,6 +2624,13 @@ newtype Arr_typedef2
            __exported by:__ @reparse.h@
       -}
     deriving stock (Eq, Show)
+instance TyEq ty (CFieldType Arr_typedef2 "un_Arr_typedef2") =>
+         HasField "un_Arr_typedef2" (Ptr Arr_typedef2) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Arr_typedef2")
+instance HasCField Arr_typedef2 "un_Arr_typedef2"
+    where type CFieldType Arr_typedef2
+                          "un_Arr_typedef2" = IncompleteArray (Ptr A)
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @arr_typedef3@
 
     __defined at:__ @reparse.h:111:13@
@@ -2633,6 +2647,13 @@ newtype Arr_typedef3
       -}
     deriving stock (Eq, Show)
     deriving newtype Storable
+instance TyEq ty (CFieldType Arr_typedef3 "un_Arr_typedef3") =>
+         HasField "un_Arr_typedef3" (Ptr Arr_typedef3) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Arr_typedef3")
+instance HasCField Arr_typedef3 "un_Arr_typedef3"
+    where type CFieldType Arr_typedef3
+                          "un_Arr_typedef3" = ConstantArray 5 A
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @arr_typedef4@
 
     __defined at:__ @reparse.h:112:13@
@@ -2649,6 +2670,13 @@ newtype Arr_typedef4
       -}
     deriving stock (Eq, Show)
     deriving newtype Storable
+instance TyEq ty (CFieldType Arr_typedef4 "un_Arr_typedef4") =>
+         HasField "un_Arr_typedef4" (Ptr Arr_typedef4) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Arr_typedef4")
+instance HasCField Arr_typedef4 "un_Arr_typedef4"
+    where type CFieldType Arr_typedef4
+                          "un_Arr_typedef4" = ConstantArray 5 (Ptr A)
+          offset# = \_ -> \_ -> 0
 {-| Typedefs
 
 __C declaration:__ @typedef1@
@@ -2677,6 +2705,12 @@ newtype Typedef1
                       Ix,
                       Num,
                       Real)
+instance TyEq ty (CFieldType Typedef1 "un_Typedef1") =>
+         HasField "un_Typedef1" (Ptr Typedef1) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Typedef1")
+instance HasCField Typedef1 "un_Typedef1"
+    where type CFieldType Typedef1 "un_Typedef1" = A
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @typedef2@
 
     __defined at:__ @reparse.h:119:14@
@@ -2693,6 +2727,12 @@ newtype Typedef2
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+instance TyEq ty (CFieldType Typedef2 "un_Typedef2") =>
+         HasField "un_Typedef2" (Ptr Typedef2) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Typedef2")
+instance HasCField Typedef2 "un_Typedef2"
+    where type CFieldType Typedef2 "un_Typedef2" = Ptr A
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @typedef3@
 
     __defined at:__ @reparse.h:120:14@
@@ -2709,6 +2749,12 @@ newtype Typedef3
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+instance TyEq ty (CFieldType Typedef3 "un_Typedef3") =>
+         HasField "un_Typedef3" (Ptr Typedef3) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Typedef3")
+instance HasCField Typedef3 "un_Typedef3"
+    where type CFieldType Typedef3 "un_Typedef3" = Ptr (Ptr A)
+          offset# = \_ -> \_ -> 0
 {-| Auxiliary type used by 'Funptr_typedef1'
 
 __defined at:__ @reparse.h:132:16@
@@ -2731,6 +2777,16 @@ instance ToFunPtr Funptr_typedef1_Deref
     where toFunPtr = toFunptr_typedef1_Deref
 instance FromFunPtr Funptr_typedef1_Deref
     where fromFunPtr = fromFunptr_typedef1_Deref
+instance TyEq ty
+              (CFieldType Funptr_typedef1_Deref "un_Funptr_typedef1_Deref") =>
+         HasField "un_Funptr_typedef1_Deref"
+                  (Ptr Funptr_typedef1_Deref)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Funptr_typedef1_Deref")
+instance HasCField Funptr_typedef1_Deref "un_Funptr_typedef1_Deref"
+    where type CFieldType Funptr_typedef1_Deref
+                          "un_Funptr_typedef1_Deref" = IO A
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @funptr_typedef1@
 
     __defined at:__ @reparse.h:132:16@
@@ -2747,6 +2803,14 @@ newtype Funptr_typedef1
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+instance TyEq ty
+              (CFieldType Funptr_typedef1 "un_Funptr_typedef1") =>
+         HasField "un_Funptr_typedef1" (Ptr Funptr_typedef1) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Funptr_typedef1")
+instance HasCField Funptr_typedef1 "un_Funptr_typedef1"
+    where type CFieldType Funptr_typedef1
+                          "un_Funptr_typedef1" = FunPtr Funptr_typedef1_Deref
+          offset# = \_ -> \_ -> 0
 {-| Auxiliary type used by 'Funptr_typedef2'
 
 __defined at:__ @reparse.h:133:16@
@@ -2769,6 +2833,16 @@ instance ToFunPtr Funptr_typedef2_Deref
     where toFunPtr = toFunptr_typedef2_Deref
 instance FromFunPtr Funptr_typedef2_Deref
     where fromFunPtr = fromFunptr_typedef2_Deref
+instance TyEq ty
+              (CFieldType Funptr_typedef2_Deref "un_Funptr_typedef2_Deref") =>
+         HasField "un_Funptr_typedef2_Deref"
+                  (Ptr Funptr_typedef2_Deref)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Funptr_typedef2_Deref")
+instance HasCField Funptr_typedef2_Deref "un_Funptr_typedef2_Deref"
+    where type CFieldType Funptr_typedef2_Deref
+                          "un_Funptr_typedef2_Deref" = IO (Ptr A)
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @funptr_typedef2@
 
     __defined at:__ @reparse.h:133:16@
@@ -2785,6 +2859,14 @@ newtype Funptr_typedef2
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+instance TyEq ty
+              (CFieldType Funptr_typedef2 "un_Funptr_typedef2") =>
+         HasField "un_Funptr_typedef2" (Ptr Funptr_typedef2) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Funptr_typedef2")
+instance HasCField Funptr_typedef2 "un_Funptr_typedef2"
+    where type CFieldType Funptr_typedef2
+                          "un_Funptr_typedef2" = FunPtr Funptr_typedef2_Deref
+          offset# = \_ -> \_ -> 0
 {-| Auxiliary type used by 'Funptr_typedef3'
 
 __defined at:__ @reparse.h:134:16@
@@ -2807,6 +2889,16 @@ instance ToFunPtr Funptr_typedef3_Deref
     where toFunPtr = toFunptr_typedef3_Deref
 instance FromFunPtr Funptr_typedef3_Deref
     where fromFunPtr = fromFunptr_typedef3_Deref
+instance TyEq ty
+              (CFieldType Funptr_typedef3_Deref "un_Funptr_typedef3_Deref") =>
+         HasField "un_Funptr_typedef3_Deref"
+                  (Ptr Funptr_typedef3_Deref)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Funptr_typedef3_Deref")
+instance HasCField Funptr_typedef3_Deref "un_Funptr_typedef3_Deref"
+    where type CFieldType Funptr_typedef3_Deref
+                          "un_Funptr_typedef3_Deref" = IO (Ptr (Ptr A))
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @funptr_typedef3@
 
     __defined at:__ @reparse.h:134:16@
@@ -2823,6 +2915,14 @@ newtype Funptr_typedef3
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+instance TyEq ty
+              (CFieldType Funptr_typedef3 "un_Funptr_typedef3") =>
+         HasField "un_Funptr_typedef3" (Ptr Funptr_typedef3) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Funptr_typedef3")
+instance HasCField Funptr_typedef3 "un_Funptr_typedef3"
+    where type CFieldType Funptr_typedef3
+                          "un_Funptr_typedef3" = FunPtr Funptr_typedef3_Deref
+          offset# = \_ -> \_ -> 0
 {-| Auxiliary type used by 'Funptr_typedef4'
 
 __defined at:__ @reparse.h:135:16@
@@ -2846,6 +2946,16 @@ instance ToFunPtr Funptr_typedef4_Deref
     where toFunPtr = toFunptr_typedef4_Deref
 instance FromFunPtr Funptr_typedef4_Deref
     where fromFunPtr = fromFunptr_typedef4_Deref
+instance TyEq ty
+              (CFieldType Funptr_typedef4_Deref "un_Funptr_typedef4_Deref") =>
+         HasField "un_Funptr_typedef4_Deref"
+                  (Ptr Funptr_typedef4_Deref)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Funptr_typedef4_Deref")
+instance HasCField Funptr_typedef4_Deref "un_Funptr_typedef4_Deref"
+    where type CFieldType Funptr_typedef4_Deref
+                          "un_Funptr_typedef4_Deref" = CInt -> CDouble -> IO A
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @funptr_typedef4@
 
     __defined at:__ @reparse.h:135:16@
@@ -2862,6 +2972,14 @@ newtype Funptr_typedef4
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+instance TyEq ty
+              (CFieldType Funptr_typedef4 "un_Funptr_typedef4") =>
+         HasField "un_Funptr_typedef4" (Ptr Funptr_typedef4) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Funptr_typedef4")
+instance HasCField Funptr_typedef4 "un_Funptr_typedef4"
+    where type CFieldType Funptr_typedef4
+                          "un_Funptr_typedef4" = FunPtr Funptr_typedef4_Deref
+          offset# = \_ -> \_ -> 0
 {-| Auxiliary type used by 'Funptr_typedef5'
 
 __defined at:__ @reparse.h:136:16@
@@ -2885,6 +3003,16 @@ instance ToFunPtr Funptr_typedef5_Deref
     where toFunPtr = toFunptr_typedef5_Deref
 instance FromFunPtr Funptr_typedef5_Deref
     where fromFunPtr = fromFunptr_typedef5_Deref
+instance TyEq ty
+              (CFieldType Funptr_typedef5_Deref "un_Funptr_typedef5_Deref") =>
+         HasField "un_Funptr_typedef5_Deref"
+                  (Ptr Funptr_typedef5_Deref)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Funptr_typedef5_Deref")
+instance HasCField Funptr_typedef5_Deref "un_Funptr_typedef5_Deref"
+    where type CFieldType Funptr_typedef5_Deref
+                          "un_Funptr_typedef5_Deref" = CInt -> CDouble -> IO (Ptr A)
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @funptr_typedef5@
 
     __defined at:__ @reparse.h:136:16@
@@ -2901,6 +3029,14 @@ newtype Funptr_typedef5
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+instance TyEq ty
+              (CFieldType Funptr_typedef5 "un_Funptr_typedef5") =>
+         HasField "un_Funptr_typedef5" (Ptr Funptr_typedef5) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Funptr_typedef5")
+instance HasCField Funptr_typedef5 "un_Funptr_typedef5"
+    where type CFieldType Funptr_typedef5
+                          "un_Funptr_typedef5" = FunPtr Funptr_typedef5_Deref
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @comments2@
 
     __defined at:__ @reparse.h:145:30@
@@ -2925,6 +3061,12 @@ newtype Comments2
                       Ix,
                       Num,
                       Real)
+instance TyEq ty (CFieldType Comments2 "un_Comments2") =>
+         HasField "un_Comments2" (Ptr Comments2) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Comments2")
+instance HasCField Comments2 "un_Comments2"
+    where type CFieldType Comments2 "un_Comments2" = A
+          offset# = \_ -> \_ -> 0
 {-| Struct fields
 
 __C declaration:__ @example_struct@
@@ -2967,11 +3109,34 @@ data Example_struct
 instance Storable Example_struct
     where sizeOf = \_ -> 24 :: Int
           alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> ((pure Example_struct <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int)) <*> peekByteOff ptr_0 (16 :: Int)
+          peek = \ptr_0 -> ((pure Example_struct <*> peekCField (Proxy @"example_struct_field1") ptr_0) <*> peekCField (Proxy @"example_struct_field2") ptr_0) <*> peekCField (Proxy @"example_struct_field3") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Example_struct example_struct_field1_3
                                                   example_struct_field2_4
-                                                  example_struct_field3_5 -> pokeByteOff ptr_1 (0 :: Int) example_struct_field1_3 >> (pokeByteOff ptr_1 (8 :: Int) example_struct_field2_4 >> pokeByteOff ptr_1 (16 :: Int) example_struct_field3_5)
+                                                  example_struct_field3_5 -> pokeCField (Proxy @"example_struct_field1") ptr_1 example_struct_field1_3 >> (pokeCField (Proxy @"example_struct_field2") ptr_1 example_struct_field2_4 >> pokeCField (Proxy @"example_struct_field3") ptr_1 example_struct_field3_5)
+instance HasCField Example_struct "example_struct_field1"
+    where type CFieldType Example_struct "example_struct_field1" = A
+          offset# = \_ -> \_ -> 0
+instance TyEq ty
+              (CFieldType Example_struct "example_struct_field1") =>
+         HasField "example_struct_field1" (Ptr Example_struct) (Ptr ty)
+    where getField = ptrToCField (Proxy @"example_struct_field1")
+instance HasCField Example_struct "example_struct_field2"
+    where type CFieldType Example_struct
+                          "example_struct_field2" = Ptr A
+          offset# = \_ -> \_ -> 8
+instance TyEq ty
+              (CFieldType Example_struct "example_struct_field2") =>
+         HasField "example_struct_field2" (Ptr Example_struct) (Ptr ty)
+    where getField = ptrToCField (Proxy @"example_struct_field2")
+instance HasCField Example_struct "example_struct_field3"
+    where type CFieldType Example_struct
+                          "example_struct_field3" = Ptr (Ptr A)
+          offset# = \_ -> \_ -> 16
+instance TyEq ty
+              (CFieldType Example_struct "example_struct_field3") =>
+         HasField "example_struct_field3" (Ptr Example_struct) (Ptr ty)
+    where getField = ptrToCField (Proxy @"example_struct_field3")
 {-| __C declaration:__ @const_typedef1@
 
     __defined at:__ @reparse.h:220:25@
@@ -2996,6 +3161,12 @@ newtype Const_typedef1
                       Ix,
                       Num,
                       Real)
+instance TyEq ty (CFieldType Const_typedef1 "un_Const_typedef1") =>
+         HasField "un_Const_typedef1" (Ptr Const_typedef1) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Const_typedef1")
+instance HasCField Const_typedef1 "un_Const_typedef1"
+    where type CFieldType Const_typedef1 "un_Const_typedef1" = A
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @const_typedef2@
 
     __defined at:__ @reparse.h:221:25@
@@ -3020,6 +3191,12 @@ newtype Const_typedef2
                       Ix,
                       Num,
                       Real)
+instance TyEq ty (CFieldType Const_typedef2 "un_Const_typedef2") =>
+         HasField "un_Const_typedef2" (Ptr Const_typedef2) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Const_typedef2")
+instance HasCField Const_typedef2 "un_Const_typedef2"
+    where type CFieldType Const_typedef2 "un_Const_typedef2" = A
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @const_typedef3@
 
     __defined at:__ @reparse.h:222:25@
@@ -3036,6 +3213,12 @@ newtype Const_typedef3
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+instance TyEq ty (CFieldType Const_typedef3 "un_Const_typedef3") =>
+         HasField "un_Const_typedef3" (Ptr Const_typedef3) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Const_typedef3")
+instance HasCField Const_typedef3 "un_Const_typedef3"
+    where type CFieldType Const_typedef3 "un_Const_typedef3" = Ptr A
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @const_typedef4@
 
     __defined at:__ @reparse.h:223:25@
@@ -3052,6 +3235,12 @@ newtype Const_typedef4
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+instance TyEq ty (CFieldType Const_typedef4 "un_Const_typedef4") =>
+         HasField "un_Const_typedef4" (Ptr Const_typedef4) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Const_typedef4")
+instance HasCField Const_typedef4 "un_Const_typedef4"
+    where type CFieldType Const_typedef4 "un_Const_typedef4" = Ptr A
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @const_typedef5@
 
     __defined at:__ @reparse.h:224:25@
@@ -3068,6 +3257,12 @@ newtype Const_typedef5
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+instance TyEq ty (CFieldType Const_typedef5 "un_Const_typedef5") =>
+         HasField "un_Const_typedef5" (Ptr Const_typedef5) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Const_typedef5")
+instance HasCField Const_typedef5 "un_Const_typedef5"
+    where type CFieldType Const_typedef5 "un_Const_typedef5" = Ptr A
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @const_typedef6@
 
     __defined at:__ @reparse.h:225:25@
@@ -3084,6 +3279,12 @@ newtype Const_typedef6
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+instance TyEq ty (CFieldType Const_typedef6 "un_Const_typedef6") =>
+         HasField "un_Const_typedef6" (Ptr Const_typedef6) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Const_typedef6")
+instance HasCField Const_typedef6 "un_Const_typedef6"
+    where type CFieldType Const_typedef6 "un_Const_typedef6" = Ptr A
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @const_typedef7@
 
     __defined at:__ @reparse.h:226:25@
@@ -3100,6 +3301,12 @@ newtype Const_typedef7
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+instance TyEq ty (CFieldType Const_typedef7 "un_Const_typedef7") =>
+         HasField "un_Const_typedef7" (Ptr Const_typedef7) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Const_typedef7")
+instance HasCField Const_typedef7 "un_Const_typedef7"
+    where type CFieldType Const_typedef7 "un_Const_typedef7" = Ptr A
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @example_struct_with_const@
 
     __defined at:__ @reparse.h:228:8@
@@ -3166,7 +3373,7 @@ data Example_struct_with_const
 instance Storable Example_struct_with_const
     where sizeOf = \_ -> 48 :: Int
           alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> ((((((pure Example_struct_with_const <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int)) <*> peekByteOff ptr_0 (8 :: Int)) <*> peekByteOff ptr_0 (16 :: Int)) <*> peekByteOff ptr_0 (24 :: Int)) <*> peekByteOff ptr_0 (32 :: Int)) <*> peekByteOff ptr_0 (40 :: Int)
+          peek = \ptr_0 -> ((((((pure Example_struct_with_const <*> peekCField (Proxy @"example_struct_with_const_const_field1") ptr_0) <*> peekCField (Proxy @"example_struct_with_const_const_field2") ptr_0) <*> peekCField (Proxy @"example_struct_with_const_const_field3") ptr_0) <*> peekCField (Proxy @"example_struct_with_const_const_field4") ptr_0) <*> peekCField (Proxy @"example_struct_with_const_const_field5") ptr_0) <*> peekCField (Proxy @"example_struct_with_const_const_field6") ptr_0) <*> peekCField (Proxy @"example_struct_with_const_const_field7") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Example_struct_with_const example_struct_with_const_const_field1_3
                                                              example_struct_with_const_const_field2_4
@@ -3174,7 +3381,91 @@ instance Storable Example_struct_with_const
                                                              example_struct_with_const_const_field4_6
                                                              example_struct_with_const_const_field5_7
                                                              example_struct_with_const_const_field6_8
-                                                             example_struct_with_const_const_field7_9 -> pokeByteOff ptr_1 (0 :: Int) example_struct_with_const_const_field1_3 >> (pokeByteOff ptr_1 (4 :: Int) example_struct_with_const_const_field2_4 >> (pokeByteOff ptr_1 (8 :: Int) example_struct_with_const_const_field3_5 >> (pokeByteOff ptr_1 (16 :: Int) example_struct_with_const_const_field4_6 >> (pokeByteOff ptr_1 (24 :: Int) example_struct_with_const_const_field5_7 >> (pokeByteOff ptr_1 (32 :: Int) example_struct_with_const_const_field6_8 >> pokeByteOff ptr_1 (40 :: Int) example_struct_with_const_const_field7_9)))))
+                                                             example_struct_with_const_const_field7_9 -> pokeCField (Proxy @"example_struct_with_const_const_field1") ptr_1 example_struct_with_const_const_field1_3 >> (pokeCField (Proxy @"example_struct_with_const_const_field2") ptr_1 example_struct_with_const_const_field2_4 >> (pokeCField (Proxy @"example_struct_with_const_const_field3") ptr_1 example_struct_with_const_const_field3_5 >> (pokeCField (Proxy @"example_struct_with_const_const_field4") ptr_1 example_struct_with_const_const_field4_6 >> (pokeCField (Proxy @"example_struct_with_const_const_field5") ptr_1 example_struct_with_const_const_field5_7 >> (pokeCField (Proxy @"example_struct_with_const_const_field6") ptr_1 example_struct_with_const_const_field6_8 >> pokeCField (Proxy @"example_struct_with_const_const_field7") ptr_1 example_struct_with_const_const_field7_9)))))
+instance HasCField Example_struct_with_const
+                   "example_struct_with_const_const_field1"
+    where type CFieldType Example_struct_with_const
+                          "example_struct_with_const_const_field1" = A
+          offset# = \_ -> \_ -> 0
+instance TyEq ty
+              (CFieldType Example_struct_with_const
+                          "example_struct_with_const_const_field1") =>
+         HasField "example_struct_with_const_const_field1"
+                  (Ptr Example_struct_with_const)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"example_struct_with_const_const_field1")
+instance HasCField Example_struct_with_const
+                   "example_struct_with_const_const_field2"
+    where type CFieldType Example_struct_with_const
+                          "example_struct_with_const_const_field2" = A
+          offset# = \_ -> \_ -> 4
+instance TyEq ty
+              (CFieldType Example_struct_with_const
+                          "example_struct_with_const_const_field2") =>
+         HasField "example_struct_with_const_const_field2"
+                  (Ptr Example_struct_with_const)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"example_struct_with_const_const_field2")
+instance HasCField Example_struct_with_const
+                   "example_struct_with_const_const_field3"
+    where type CFieldType Example_struct_with_const
+                          "example_struct_with_const_const_field3" = Ptr A
+          offset# = \_ -> \_ -> 8
+instance TyEq ty
+              (CFieldType Example_struct_with_const
+                          "example_struct_with_const_const_field3") =>
+         HasField "example_struct_with_const_const_field3"
+                  (Ptr Example_struct_with_const)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"example_struct_with_const_const_field3")
+instance HasCField Example_struct_with_const
+                   "example_struct_with_const_const_field4"
+    where type CFieldType Example_struct_with_const
+                          "example_struct_with_const_const_field4" = Ptr A
+          offset# = \_ -> \_ -> 16
+instance TyEq ty
+              (CFieldType Example_struct_with_const
+                          "example_struct_with_const_const_field4") =>
+         HasField "example_struct_with_const_const_field4"
+                  (Ptr Example_struct_with_const)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"example_struct_with_const_const_field4")
+instance HasCField Example_struct_with_const
+                   "example_struct_with_const_const_field5"
+    where type CFieldType Example_struct_with_const
+                          "example_struct_with_const_const_field5" = Ptr A
+          offset# = \_ -> \_ -> 24
+instance TyEq ty
+              (CFieldType Example_struct_with_const
+                          "example_struct_with_const_const_field5") =>
+         HasField "example_struct_with_const_const_field5"
+                  (Ptr Example_struct_with_const)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"example_struct_with_const_const_field5")
+instance HasCField Example_struct_with_const
+                   "example_struct_with_const_const_field6"
+    where type CFieldType Example_struct_with_const
+                          "example_struct_with_const_const_field6" = Ptr A
+          offset# = \_ -> \_ -> 32
+instance TyEq ty
+              (CFieldType Example_struct_with_const
+                          "example_struct_with_const_const_field6") =>
+         HasField "example_struct_with_const_const_field6"
+                  (Ptr Example_struct_with_const)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"example_struct_with_const_const_field6")
+instance HasCField Example_struct_with_const
+                   "example_struct_with_const_const_field7"
+    where type CFieldType Example_struct_with_const
+                          "example_struct_with_const_const_field7" = Ptr A
+          offset# = \_ -> \_ -> 40
+instance TyEq ty
+              (CFieldType Example_struct_with_const
+                          "example_struct_with_const_const_field7") =>
+         HasField "example_struct_with_const_const_field7"
+                  (Ptr Example_struct_with_const)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"example_struct_with_const_const_field7")
 {-| Auxiliary type used by 'Const_funptr1'
 
 __defined at:__ @reparse.h:238:27@
@@ -3198,6 +3489,16 @@ instance ToFunPtr Const_funptr1_Deref
     where toFunPtr = toConst_funptr1_Deref
 instance FromFunPtr Const_funptr1_Deref
     where fromFunPtr = fromConst_funptr1_Deref
+instance TyEq ty
+              (CFieldType Const_funptr1_Deref "un_Const_funptr1_Deref") =>
+         HasField "un_Const_funptr1_Deref"
+                  (Ptr Const_funptr1_Deref)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Const_funptr1_Deref")
+instance HasCField Const_funptr1_Deref "un_Const_funptr1_Deref"
+    where type CFieldType Const_funptr1_Deref
+                          "un_Const_funptr1_Deref" = CInt -> CDouble -> IO A
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @const_funptr1@
 
     __defined at:__ @reparse.h:238:27@
@@ -3214,6 +3515,13 @@ newtype Const_funptr1
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+instance TyEq ty (CFieldType Const_funptr1 "un_Const_funptr1") =>
+         HasField "un_Const_funptr1" (Ptr Const_funptr1) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Const_funptr1")
+instance HasCField Const_funptr1 "un_Const_funptr1"
+    where type CFieldType Const_funptr1
+                          "un_Const_funptr1" = FunPtr Const_funptr1_Deref
+          offset# = \_ -> \_ -> 0
 {-| Auxiliary type used by 'Const_funptr2'
 
 __defined at:__ @reparse.h:239:27@
@@ -3237,6 +3545,16 @@ instance ToFunPtr Const_funptr2_Deref
     where toFunPtr = toConst_funptr2_Deref
 instance FromFunPtr Const_funptr2_Deref
     where fromFunPtr = fromConst_funptr2_Deref
+instance TyEq ty
+              (CFieldType Const_funptr2_Deref "un_Const_funptr2_Deref") =>
+         HasField "un_Const_funptr2_Deref"
+                  (Ptr Const_funptr2_Deref)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Const_funptr2_Deref")
+instance HasCField Const_funptr2_Deref "un_Const_funptr2_Deref"
+    where type CFieldType Const_funptr2_Deref
+                          "un_Const_funptr2_Deref" = CInt -> CDouble -> IO A
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @const_funptr2@
 
     __defined at:__ @reparse.h:239:27@
@@ -3253,6 +3571,13 @@ newtype Const_funptr2
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+instance TyEq ty (CFieldType Const_funptr2 "un_Const_funptr2") =>
+         HasField "un_Const_funptr2" (Ptr Const_funptr2) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Const_funptr2")
+instance HasCField Const_funptr2 "un_Const_funptr2"
+    where type CFieldType Const_funptr2
+                          "un_Const_funptr2" = FunPtr Const_funptr2_Deref
+          offset# = \_ -> \_ -> 0
 {-| Auxiliary type used by 'Const_funptr3'
 
 __defined at:__ @reparse.h:240:27@
@@ -3276,6 +3601,16 @@ instance ToFunPtr Const_funptr3_Deref
     where toFunPtr = toConst_funptr3_Deref
 instance FromFunPtr Const_funptr3_Deref
     where fromFunPtr = fromConst_funptr3_Deref
+instance TyEq ty
+              (CFieldType Const_funptr3_Deref "un_Const_funptr3_Deref") =>
+         HasField "un_Const_funptr3_Deref"
+                  (Ptr Const_funptr3_Deref)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Const_funptr3_Deref")
+instance HasCField Const_funptr3_Deref "un_Const_funptr3_Deref"
+    where type CFieldType Const_funptr3_Deref
+                          "un_Const_funptr3_Deref" = CInt -> CDouble -> IO (Ptr A)
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @const_funptr3@
 
     __defined at:__ @reparse.h:240:27@
@@ -3292,6 +3627,13 @@ newtype Const_funptr3
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+instance TyEq ty (CFieldType Const_funptr3 "un_Const_funptr3") =>
+         HasField "un_Const_funptr3" (Ptr Const_funptr3) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Const_funptr3")
+instance HasCField Const_funptr3 "un_Const_funptr3"
+    where type CFieldType Const_funptr3
+                          "un_Const_funptr3" = FunPtr Const_funptr3_Deref
+          offset# = \_ -> \_ -> 0
 {-| Auxiliary type used by 'Const_funptr4'
 
 __defined at:__ @reparse.h:241:27@
@@ -3315,6 +3657,16 @@ instance ToFunPtr Const_funptr4_Deref
     where toFunPtr = toConst_funptr4_Deref
 instance FromFunPtr Const_funptr4_Deref
     where fromFunPtr = fromConst_funptr4_Deref
+instance TyEq ty
+              (CFieldType Const_funptr4_Deref "un_Const_funptr4_Deref") =>
+         HasField "un_Const_funptr4_Deref"
+                  (Ptr Const_funptr4_Deref)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Const_funptr4_Deref")
+instance HasCField Const_funptr4_Deref "un_Const_funptr4_Deref"
+    where type CFieldType Const_funptr4_Deref
+                          "un_Const_funptr4_Deref" = CInt -> CDouble -> IO (Ptr A)
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @const_funptr4@
 
     __defined at:__ @reparse.h:241:27@
@@ -3331,6 +3683,13 @@ newtype Const_funptr4
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+instance TyEq ty (CFieldType Const_funptr4 "un_Const_funptr4") =>
+         HasField "un_Const_funptr4" (Ptr Const_funptr4) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Const_funptr4")
+instance HasCField Const_funptr4 "un_Const_funptr4"
+    where type CFieldType Const_funptr4
+                          "un_Const_funptr4" = FunPtr Const_funptr4_Deref
+          offset# = \_ -> \_ -> 0
 {-| Auxiliary type used by 'Const_funptr5'
 
 __defined at:__ @reparse.h:242:27@
@@ -3354,6 +3713,16 @@ instance ToFunPtr Const_funptr5_Deref
     where toFunPtr = toConst_funptr5_Deref
 instance FromFunPtr Const_funptr5_Deref
     where fromFunPtr = fromConst_funptr5_Deref
+instance TyEq ty
+              (CFieldType Const_funptr5_Deref "un_Const_funptr5_Deref") =>
+         HasField "un_Const_funptr5_Deref"
+                  (Ptr Const_funptr5_Deref)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Const_funptr5_Deref")
+instance HasCField Const_funptr5_Deref "un_Const_funptr5_Deref"
+    where type CFieldType Const_funptr5_Deref
+                          "un_Const_funptr5_Deref" = CInt -> CDouble -> IO (Ptr A)
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @const_funptr5@
 
     __defined at:__ @reparse.h:242:27@
@@ -3370,6 +3739,13 @@ newtype Const_funptr5
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+instance TyEq ty (CFieldType Const_funptr5 "un_Const_funptr5") =>
+         HasField "un_Const_funptr5" (Ptr Const_funptr5) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Const_funptr5")
+instance HasCField Const_funptr5 "un_Const_funptr5"
+    where type CFieldType Const_funptr5
+                          "un_Const_funptr5" = FunPtr Const_funptr5_Deref
+          offset# = \_ -> \_ -> 0
 {-| Auxiliary type used by 'Const_funptr6'
 
 __defined at:__ @reparse.h:243:27@
@@ -3393,6 +3769,16 @@ instance ToFunPtr Const_funptr6_Deref
     where toFunPtr = toConst_funptr6_Deref
 instance FromFunPtr Const_funptr6_Deref
     where fromFunPtr = fromConst_funptr6_Deref
+instance TyEq ty
+              (CFieldType Const_funptr6_Deref "un_Const_funptr6_Deref") =>
+         HasField "un_Const_funptr6_Deref"
+                  (Ptr Const_funptr6_Deref)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Const_funptr6_Deref")
+instance HasCField Const_funptr6_Deref "un_Const_funptr6_Deref"
+    where type CFieldType Const_funptr6_Deref
+                          "un_Const_funptr6_Deref" = CInt -> CDouble -> IO (Ptr A)
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @const_funptr6@
 
     __defined at:__ @reparse.h:243:27@
@@ -3409,6 +3795,13 @@ newtype Const_funptr6
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+instance TyEq ty (CFieldType Const_funptr6 "un_Const_funptr6") =>
+         HasField "un_Const_funptr6" (Ptr Const_funptr6) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Const_funptr6")
+instance HasCField Const_funptr6 "un_Const_funptr6"
+    where type CFieldType Const_funptr6
+                          "un_Const_funptr6" = FunPtr Const_funptr6_Deref
+          offset# = \_ -> \_ -> 0
 {-| Auxiliary type used by 'Const_funptr7'
 
 __defined at:__ @reparse.h:244:27@
@@ -3432,6 +3825,16 @@ instance ToFunPtr Const_funptr7_Deref
     where toFunPtr = toConst_funptr7_Deref
 instance FromFunPtr Const_funptr7_Deref
     where fromFunPtr = fromConst_funptr7_Deref
+instance TyEq ty
+              (CFieldType Const_funptr7_Deref "un_Const_funptr7_Deref") =>
+         HasField "un_Const_funptr7_Deref"
+                  (Ptr Const_funptr7_Deref)
+                  (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Const_funptr7_Deref")
+instance HasCField Const_funptr7_Deref "un_Const_funptr7_Deref"
+    where type CFieldType Const_funptr7_Deref
+                          "un_Const_funptr7_Deref" = CInt -> CDouble -> IO (Ptr A)
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @const_funptr7@
 
     __defined at:__ @reparse.h:244:27@
@@ -3448,6 +3851,13 @@ newtype Const_funptr7
       -}
     deriving stock (Eq, Ord, Show)
     deriving newtype Storable
+instance TyEq ty (CFieldType Const_funptr7 "un_Const_funptr7") =>
+         HasField "un_Const_funptr7" (Ptr Const_funptr7) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Const_funptr7")
+instance HasCField Const_funptr7 "un_Const_funptr7"
+    where type CFieldType Const_funptr7
+                          "un_Const_funptr7" = FunPtr Const_funptr7_Deref
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @BOOL@
 
     __defined at:__ @reparse.h:280:9@

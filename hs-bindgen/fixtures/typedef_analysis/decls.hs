@@ -1071,6 +1071,51 @@
         "Struct5_t",
       deriveInstanceComment =
       Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct5_t"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Struct5_t",
+          hasFieldInstanceFieldType =
+          HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Struct5")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct5_t"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "un_Struct5_t",
+          hasCFieldInstanceCFieldType =
+          HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Struct5")),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
   DeclData
     Struct {
       structName = Name
@@ -1463,6 +1508,51 @@
         "Struct6",
       deriveInstanceComment =
       Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct6"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Struct6",
+          hasFieldInstanceFieldType =
+          HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Struct6_Deref")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct6"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "un_Struct6",
+          hasCFieldInstanceCFieldType =
+          HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Struct6_Deref")),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
   DeclData
     Struct {
       structName = Name
@@ -1830,6 +1920,49 @@
         "Struct7a",
       deriveInstanceComment =
       Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct7a"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Struct7a",
+          hasFieldInstanceFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct7"),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct7a"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "un_Struct7a",
+          hasCFieldInstanceCFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct7"),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -1929,6 +2062,49 @@
         "@NsTypeConstr"
         "Struct7b",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct7b"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Struct7b",
+          hasFieldInstanceFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct7"),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct7b"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "un_Struct7b",
+          hasCFieldInstanceCFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct7"),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
       Nothing},
   DeclData
     Struct {
@@ -2297,6 +2473,49 @@
         "Struct8b",
       deriveInstanceComment =
       Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct8b"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Struct8b",
+          hasFieldInstanceFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct8"),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct8b"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "un_Struct8b",
+          hasCFieldInstanceCFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct8"),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
   DeclData
     Struct {
       structName = Name
@@ -2659,6 +2878,49 @@
         "@NsTypeConstr"
         "Struct9_t",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct9_t"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Struct9_t",
+          hasFieldInstanceFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct9"),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct9_t"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "un_Struct9_t",
+          hasCFieldInstanceCFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct9"),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
       Nothing},
   DeclData
     Struct {
@@ -3039,6 +3301,49 @@
         "@NsTypeConstr"
         "Struct10_t_t",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct10_t_t"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Struct10_t_t",
+          hasFieldInstanceFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct10_t"),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct10_t_t"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "un_Struct10_t_t",
+          hasCFieldInstanceCFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct10_t"),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
       Nothing},
   DeclData
     Struct {
@@ -3548,8 +3853,12 @@
                           "typedef_analysis.h"},
                       commentChildren = []}})
               [
-                PeekByteOff (Idx 0) 0,
-                PeekByteOff (Idx 0) 8]),
+                PeekCField
+                  (HsStrLit "struct11_t_x")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit "struct11_t_self")
+                  (Idx 0)]),
           storablePoke = Lambda
             (NameHint "ptr")
             (Lambda
@@ -3724,10 +4033,13 @@
                 (Add 2)
                 (Seq
                   [
-                    PokeByteOff (Idx 3) 0 (Idx 0),
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit "struct11_t_x")
                       (Idx 3)
-                      8
+                      (Idx 0),
+                    PokeCField
+                      (HsStrLit "struct11_t_self")
+                      (Idx 3)
                       (Idx 1)])))},
       defineInstanceComment =
       Nothing},
@@ -3750,6 +4062,88 @@
         "@NsTypeConstr"
         "Struct11_t",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct11_t"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "struct11_t_x",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCInt,
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct11_t"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "struct11_t_x",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCInt,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct11_t"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "struct11_t_self",
+          hasCFieldInstanceCFieldType =
+          HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Struct11_t")),
+          hasCFieldInstanceFieldOffset =
+          8},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct11_t"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "struct11_t_self",
+          hasFieldInstanceFieldType =
+          HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Struct11_t")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
       Nothing},
   DeclData
     Struct {
@@ -4277,8 +4671,12 @@
                           "typedef_analysis.h"},
                       commentChildren = []}})
               [
-                PeekByteOff (Idx 0) 0,
-                PeekByteOff (Idx 0) 8]),
+                PeekCField
+                  (HsStrLit "struct12_t_x")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit "struct12_t_self")
+                  (Idx 0)]),
           storablePoke = Lambda
             (NameHint "ptr")
             (Lambda
@@ -4459,10 +4857,13 @@
                 (Add 2)
                 (Seq
                   [
-                    PokeByteOff (Idx 3) 0 (Idx 0),
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit "struct12_t_x")
                       (Idx 3)
-                      8
+                      (Idx 0),
+                    PokeCField
+                      (HsStrLit "struct12_t_self")
+                      (Idx 3)
                       (Idx 1)])))},
       defineInstanceComment =
       Nothing},
@@ -4485,6 +4886,88 @@
         "@NsTypeConstr"
         "Struct12_t",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct12_t"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "struct12_t_x",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCInt,
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct12_t"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "struct12_t_x",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCInt,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct12_t"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "struct12_t_self",
+          hasCFieldInstanceCFieldType =
+          HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Struct12_t")),
+          hasCFieldInstanceFieldOffset =
+          8},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct12_t"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "struct12_t_self",
+          hasFieldInstanceFieldType =
+          HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Struct12_t")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
       Nothing},
   DeclData
     Struct {
@@ -8390,24 +8873,78 @@
                           "typedef_analysis.h"},
                       commentChildren = []}})
               [
-                PeekByteOff (Idx 0) 0,
-                PeekByteOff (Idx 0) 0,
-                PeekByteOff (Idx 0) 0,
-                PeekByteOff (Idx 0) 8,
-                PeekByteOff (Idx 0) 16,
-                PeekByteOff (Idx 0) 16,
-                PeekByteOff (Idx 0) 24,
-                PeekByteOff (Idx 0) 24,
-                PeekByteOff (Idx 0) 32,
-                PeekByteOff (Idx 0) 32,
-                PeekByteOff (Idx 0) 32,
-                PeekByteOff (Idx 0) 32,
-                PeekByteOff (Idx 0) 32,
-                PeekByteOff (Idx 0) 32,
-                PeekByteOff (Idx 0) 32,
-                PeekByteOff (Idx 0) 32,
-                PeekByteOff (Idx 0) 32,
-                PeekByteOff (Idx 0) 48]),
+                PeekCField
+                  (HsStrLit
+                    "use_sites_useTypedef_struct1_t")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit
+                    "use_sites_useTypedef_struct2_t")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit
+                    "use_sites_useTypedef_struct3_t")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit
+                    "use_sites_useTypedef_struct4_t")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit
+                    "use_sites_useStruct_struct5")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit
+                    "use_sites_useTypedef_struct5_t")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit
+                    "use_sites_useStruct_struct6")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit
+                    "use_sites_useTypedef_struct6")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit
+                    "use_sites_useTypedef_struct7a")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit
+                    "use_sites_useTypedef_struct7b")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit
+                    "use_sites_useTypedef_struct8")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit
+                    "use_sites_useTypedef_struct8b")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit
+                    "use_sites_useTypedef_struct9")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit
+                    "use_sites_useTypedef_struct9_t")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit
+                    "use_sites_useTypedef_struct10_t")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit
+                    "use_sites_useTypedef_struct10_t_t")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit
+                    "use_sites_useTypedef_struct11_t")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit
+                    "use_sites_useTypedef_struct12_t")
+                  (Idx 0)]),
           storablePoke = Lambda
             (NameHint "ptr")
             (Lambda
@@ -9714,47 +10251,95 @@
                 (Add 18)
                 (Seq
                   [
-                    PokeByteOff (Idx 19) 0 (Idx 0),
-                    PokeByteOff (Idx 19) 0 (Idx 1),
-                    PokeByteOff (Idx 19) 0 (Idx 2),
-                    PokeByteOff (Idx 19) 8 (Idx 3),
-                    PokeByteOff (Idx 19) 16 (Idx 4),
-                    PokeByteOff (Idx 19) 16 (Idx 5),
-                    PokeByteOff (Idx 19) 24 (Idx 6),
-                    PokeByteOff (Idx 19) 24 (Idx 7),
-                    PokeByteOff (Idx 19) 32 (Idx 8),
-                    PokeByteOff (Idx 19) 32 (Idx 9),
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit
+                        "use_sites_useTypedef_struct1_t")
                       (Idx 19)
-                      32
+                      (Idx 0),
+                    PokeCField
+                      (HsStrLit
+                        "use_sites_useTypedef_struct2_t")
+                      (Idx 19)
+                      (Idx 1),
+                    PokeCField
+                      (HsStrLit
+                        "use_sites_useTypedef_struct3_t")
+                      (Idx 19)
+                      (Idx 2),
+                    PokeCField
+                      (HsStrLit
+                        "use_sites_useTypedef_struct4_t")
+                      (Idx 19)
+                      (Idx 3),
+                    PokeCField
+                      (HsStrLit
+                        "use_sites_useStruct_struct5")
+                      (Idx 19)
+                      (Idx 4),
+                    PokeCField
+                      (HsStrLit
+                        "use_sites_useTypedef_struct5_t")
+                      (Idx 19)
+                      (Idx 5),
+                    PokeCField
+                      (HsStrLit
+                        "use_sites_useStruct_struct6")
+                      (Idx 19)
+                      (Idx 6),
+                    PokeCField
+                      (HsStrLit
+                        "use_sites_useTypedef_struct6")
+                      (Idx 19)
+                      (Idx 7),
+                    PokeCField
+                      (HsStrLit
+                        "use_sites_useTypedef_struct7a")
+                      (Idx 19)
+                      (Idx 8),
+                    PokeCField
+                      (HsStrLit
+                        "use_sites_useTypedef_struct7b")
+                      (Idx 19)
+                      (Idx 9),
+                    PokeCField
+                      (HsStrLit
+                        "use_sites_useTypedef_struct8")
+                      (Idx 19)
                       (Idx 10),
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit
+                        "use_sites_useTypedef_struct8b")
                       (Idx 19)
-                      32
                       (Idx 11),
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit
+                        "use_sites_useTypedef_struct9")
                       (Idx 19)
-                      32
                       (Idx 12),
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit
+                        "use_sites_useTypedef_struct9_t")
                       (Idx 19)
-                      32
                       (Idx 13),
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit
+                        "use_sites_useTypedef_struct10_t")
                       (Idx 19)
-                      32
                       (Idx 14),
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit
+                        "use_sites_useTypedef_struct10_t_t")
                       (Idx 19)
-                      32
                       (Idx 15),
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit
+                        "use_sites_useTypedef_struct11_t")
                       (Idx 19)
-                      32
                       (Idx 16),
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit
+                        "use_sites_useTypedef_struct12_t")
                       (Idx 19)
-                      48
                       (Idx 17)])))},
       defineInstanceComment =
       Nothing},
@@ -9777,4 +10362,818 @@
         "@NsTypeConstr"
         "Use_sites",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Use_sites"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "use_sites_useTypedef_struct1_t",
+          hasCFieldInstanceCFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct1_t"),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Use_sites"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "use_sites_useTypedef_struct1_t",
+          hasFieldInstanceFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct1_t"),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Use_sites"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "use_sites_useTypedef_struct2_t",
+          hasCFieldInstanceCFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct2_t"),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Use_sites"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "use_sites_useTypedef_struct2_t",
+          hasFieldInstanceFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct2_t"),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Use_sites"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "use_sites_useTypedef_struct3_t",
+          hasCFieldInstanceCFieldType =
+          HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Struct3_t")),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Use_sites"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "use_sites_useTypedef_struct3_t",
+          hasFieldInstanceFieldType =
+          HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Struct3_t")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Use_sites"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "use_sites_useTypedef_struct4_t",
+          hasCFieldInstanceCFieldType =
+          HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Struct4_t")),
+          hasCFieldInstanceFieldOffset =
+          8},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Use_sites"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "use_sites_useTypedef_struct4_t",
+          hasFieldInstanceFieldType =
+          HsPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Struct4_t")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Use_sites"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "use_sites_useStruct_struct5",
+          hasCFieldInstanceCFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct5"),
+          hasCFieldInstanceFieldOffset =
+          16},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Use_sites"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "use_sites_useStruct_struct5",
+          hasFieldInstanceFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct5"),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Use_sites"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "use_sites_useTypedef_struct5_t",
+          hasCFieldInstanceCFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct5_t"),
+          hasCFieldInstanceFieldOffset =
+          16},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Use_sites"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "use_sites_useTypedef_struct5_t",
+          hasFieldInstanceFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct5_t"),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Use_sites"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "use_sites_useStruct_struct6",
+          hasCFieldInstanceCFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct6_Deref"),
+          hasCFieldInstanceFieldOffset =
+          24},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Use_sites"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "use_sites_useStruct_struct6",
+          hasFieldInstanceFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct6_Deref"),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Use_sites"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "use_sites_useTypedef_struct6",
+          hasCFieldInstanceCFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct6"),
+          hasCFieldInstanceFieldOffset =
+          24},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Use_sites"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "use_sites_useTypedef_struct6",
+          hasFieldInstanceFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct6"),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Use_sites"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "use_sites_useTypedef_struct7a",
+          hasCFieldInstanceCFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct7a"),
+          hasCFieldInstanceFieldOffset =
+          32},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Use_sites"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "use_sites_useTypedef_struct7a",
+          hasFieldInstanceFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct7a"),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Use_sites"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "use_sites_useTypedef_struct7b",
+          hasCFieldInstanceCFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct7b"),
+          hasCFieldInstanceFieldOffset =
+          32},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Use_sites"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "use_sites_useTypedef_struct7b",
+          hasFieldInstanceFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct7b"),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Use_sites"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "use_sites_useTypedef_struct8",
+          hasCFieldInstanceCFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct8"),
+          hasCFieldInstanceFieldOffset =
+          32},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Use_sites"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "use_sites_useTypedef_struct8",
+          hasFieldInstanceFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct8"),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Use_sites"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "use_sites_useTypedef_struct8b",
+          hasCFieldInstanceCFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct8b"),
+          hasCFieldInstanceFieldOffset =
+          32},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Use_sites"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "use_sites_useTypedef_struct8b",
+          hasFieldInstanceFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct8b"),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Use_sites"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "use_sites_useTypedef_struct9",
+          hasCFieldInstanceCFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct9"),
+          hasCFieldInstanceFieldOffset =
+          32},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Use_sites"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "use_sites_useTypedef_struct9",
+          hasFieldInstanceFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct9"),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Use_sites"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "use_sites_useTypedef_struct9_t",
+          hasCFieldInstanceCFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct9_t"),
+          hasCFieldInstanceFieldOffset =
+          32},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Use_sites"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "use_sites_useTypedef_struct9_t",
+          hasFieldInstanceFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct9_t"),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Use_sites"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "use_sites_useTypedef_struct10_t",
+          hasCFieldInstanceCFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct10_t"),
+          hasCFieldInstanceFieldOffset =
+          32},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Use_sites"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "use_sites_useTypedef_struct10_t",
+          hasFieldInstanceFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct10_t"),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Use_sites"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "use_sites_useTypedef_struct10_t_t",
+          hasCFieldInstanceCFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct10_t_t"),
+          hasCFieldInstanceFieldOffset =
+          32},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Use_sites"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "use_sites_useTypedef_struct10_t_t",
+          hasFieldInstanceFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct10_t_t"),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Use_sites"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "use_sites_useTypedef_struct11_t",
+          hasCFieldInstanceCFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct11_t"),
+          hasCFieldInstanceFieldOffset =
+          32},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Use_sites"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "use_sites_useTypedef_struct11_t",
+          hasFieldInstanceFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct11_t"),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Use_sites"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "use_sites_useTypedef_struct12_t",
+          hasCFieldInstanceCFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct12_t"),
+          hasCFieldInstanceFieldOffset =
+          48},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Use_sites"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "use_sites_useTypedef_struct12_t",
+          hasFieldInstanceFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Struct12_t"),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
       Nothing}]

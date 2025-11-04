@@ -169,6 +169,45 @@
             "fromFileOpenedNotification_Deref"},
       defineInstanceComment =
       Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "FileOpenedNotification_Deref"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_FileOpenedNotification_Deref",
+          hasFieldInstanceFieldType = HsIO
+            (HsPrimType HsPrimUnit),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "FileOpenedNotification_Deref"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_FileOpenedNotification_Deref",
+          hasCFieldInstanceCFieldType =
+          HsIO (HsPrimType HsPrimUnit),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -281,6 +320,53 @@
         "@NsTypeConstr"
         "FileOpenedNotification",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "FileOpenedNotification"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_FileOpenedNotification",
+          hasFieldInstanceFieldType =
+          HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "FileOpenedNotification_Deref")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "FileOpenedNotification"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_FileOpenedNotification",
+          hasCFieldInstanceCFieldType =
+          HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "FileOpenedNotification_Deref")),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
@@ -461,6 +547,49 @@
             "fromProgressUpdate_Deref"},
       defineInstanceComment =
       Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "ProgressUpdate_Deref"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_ProgressUpdate_Deref",
+          hasFieldInstanceFieldType =
+          HsFun
+            (HsPrimType HsPrimCInt)
+            (HsIO (HsPrimType HsPrimUnit)),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "ProgressUpdate_Deref"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_ProgressUpdate_Deref",
+          hasCFieldInstanceCFieldType =
+          HsFun
+            (HsPrimType HsPrimCInt)
+            (HsIO (HsPrimType HsPrimUnit)),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -576,6 +705,53 @@
         "@NsTypeConstr"
         "ProgressUpdate",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "ProgressUpdate"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_ProgressUpdate",
+          hasFieldInstanceFieldType =
+          HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "ProgressUpdate_Deref")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "ProgressUpdate"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_ProgressUpdate",
+          hasCFieldInstanceCFieldType =
+          HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "ProgressUpdate_Deref")),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
@@ -759,6 +935,49 @@
             "fromDataValidator_Deref"},
       defineInstanceComment =
       Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "DataValidator_Deref"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_DataValidator_Deref",
+          hasFieldInstanceFieldType =
+          HsFun
+            (HsPrimType HsPrimCInt)
+            (HsIO (HsPrimType HsPrimCInt)),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "DataValidator_Deref"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_DataValidator_Deref",
+          hasCFieldInstanceCFieldType =
+          HsFun
+            (HsPrimType HsPrimCInt)
+            (HsIO (HsPrimType HsPrimCInt)),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -877,6 +1096,53 @@
         "@NsTypeConstr"
         "DataValidator",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "DataValidator"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_DataValidator",
+          hasFieldInstanceFieldType =
+          HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "DataValidator_Deref")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "DataValidator"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_DataValidator",
+          hasCFieldInstanceCFieldType =
+          HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "DataValidator_Deref")),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
       Nothing},
   DeclData
     Struct {
@@ -1314,8 +1580,13 @@
                           headerInclude = "callbacks.h"},
                       commentChildren = []}})
               [
-                PeekByteOff (Idx 0) 0,
-                PeekByteOff (Idx 0) 8]),
+                PeekCField
+                  (HsStrLit "measurement_value")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit
+                    "measurement_timestamp")
+                  (Idx 0)]),
           storablePoke = Lambda
             (NameHint "ptr")
             (Lambda
@@ -1466,10 +1737,14 @@
                 (Add 2)
                 (Seq
                   [
-                    PokeByteOff (Idx 3) 0 (Idx 0),
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit "measurement_value")
                       (Idx 3)
-                      8
+                      (Idx 0),
+                    PokeCField
+                      (HsStrLit
+                        "measurement_timestamp")
+                      (Idx 3)
                       (Idx 1)])))},
       defineInstanceComment =
       Nothing},
@@ -1492,6 +1767,84 @@
         "@NsTypeConstr"
         "Measurement",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Measurement"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "measurement_value",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCDouble,
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Measurement"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "measurement_value",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCDouble,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Measurement"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "measurement_timestamp",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCDouble,
+          hasCFieldInstanceFieldOffset =
+          8},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Measurement"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "measurement_timestamp",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCDouble,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
@@ -1693,6 +2046,57 @@
             "fromMeasurementReceived_Deref"},
       defineInstanceComment =
       Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "MeasurementReceived_Deref"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_MeasurementReceived_Deref",
+          hasFieldInstanceFieldType =
+          HsFun
+            (HsPtr
+              (HsTypRef
+                (Name
+                  "@NsTypeConstr"
+                  "Measurement")))
+            (HsIO (HsPrimType HsPrimUnit)),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "MeasurementReceived_Deref"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_MeasurementReceived_Deref",
+          hasCFieldInstanceCFieldType =
+          HsFun
+            (HsPtr
+              (HsTypRef
+                (Name
+                  "@NsTypeConstr"
+                  "Measurement")))
+            (HsIO (HsPrimType HsPrimUnit)),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -1815,6 +2219,53 @@
         "MeasurementReceived",
       deriveInstanceComment =
       Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "MeasurementReceived"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_MeasurementReceived",
+          hasFieldInstanceFieldType =
+          HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "MeasurementReceived_Deref")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "MeasurementReceived"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_MeasurementReceived",
+          hasCFieldInstanceCFieldType =
+          HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "MeasurementReceived_Deref")),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -1907,6 +2358,55 @@
                 ["callbacks.h"],
               headerInclude = "callbacks.h"},
           commentChildren = []}},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "MeasurementReceived2_Deref"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_MeasurementReceived2_Deref",
+          hasFieldInstanceFieldType =
+          HsFun
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Measurement"))
+            (HsIO (HsPrimType HsPrimUnit)),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "MeasurementReceived2_Deref"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_MeasurementReceived2_Deref",
+          hasCFieldInstanceCFieldType =
+          HsFun
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Measurement"))
+            (HsIO (HsPrimType HsPrimUnit)),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -2028,6 +2528,53 @@
         "MeasurementReceived2",
       deriveInstanceComment =
       Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "MeasurementReceived2"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_MeasurementReceived2",
+          hasFieldInstanceFieldType =
+          HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "MeasurementReceived2_Deref")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "MeasurementReceived2"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_MeasurementReceived2",
+          hasCFieldInstanceCFieldType =
+          HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "MeasurementReceived2_Deref")),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -2115,6 +2662,53 @@
                 ["callbacks.h"],
               headerInclude = "callbacks.h"},
           commentChildren = []}},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "SampleBufferFull_Deref"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_SampleBufferFull_Deref",
+          hasFieldInstanceFieldType =
+          HsFun
+            (HsConstArray
+              10
+              (HsPrimType HsPrimCInt))
+            (HsIO (HsPrimType HsPrimUnit)),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "SampleBufferFull_Deref"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_SampleBufferFull_Deref",
+          hasCFieldInstanceCFieldType =
+          HsFun
+            (HsConstArray
+              10
+              (HsPrimType HsPrimCInt))
+            (HsIO (HsPrimType HsPrimUnit)),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -2232,6 +2826,53 @@
         "@NsTypeConstr"
         "SampleBufferFull",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "SampleBufferFull"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_SampleBufferFull",
+          hasFieldInstanceFieldType =
+          HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "SampleBufferFull_Deref")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "SampleBufferFull"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_SampleBufferFull",
+          hasCFieldInstanceCFieldType =
+          HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "SampleBufferFull_Deref")),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
       Nothing},
   DeclData
     Struct {
@@ -2981,9 +3622,18 @@
                           headerInclude = "callbacks.h"},
                       commentChildren = []}})
               [
-                PeekByteOff (Idx 0) 0,
-                PeekByteOff (Idx 0) 8,
-                PeekByteOff (Idx 0) 16]),
+                PeekCField
+                  (HsStrLit
+                    "measurementHandler_onReceived")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit
+                    "measurementHandler_validate")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit
+                    "measurementHandler_onError")
+                  (Idx 0)]),
           storablePoke = Lambda
             (NameHint "ptr")
             (Lambda
@@ -3238,11 +3888,20 @@
                 (Add 3)
                 (Seq
                   [
-                    PokeByteOff (Idx 4) 0 (Idx 0),
-                    PokeByteOff (Idx 4) 8 (Idx 1),
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit
+                        "measurementHandler_onReceived")
                       (Idx 4)
-                      16
+                      (Idx 0),
+                    PokeCField
+                      (HsStrLit
+                        "measurementHandler_validate")
+                      (Idx 4)
+                      (Idx 1),
+                    PokeCField
+                      (HsStrLit
+                        "measurementHandler_onError")
+                      (Idx 4)
                       (Idx 2)])))},
       defineInstanceComment =
       Nothing},
@@ -3265,6 +3924,157 @@
         "@NsTypeConstr"
         "MeasurementHandler",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "MeasurementHandler"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "measurementHandler_onReceived",
+          hasCFieldInstanceCFieldType =
+          HsFunPtr
+            (HsFun
+              (HsPtr
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "Measurement")))
+              (HsIO (HsPrimType HsPrimUnit))),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "MeasurementHandler"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "measurementHandler_onReceived",
+          hasFieldInstanceFieldType =
+          HsFunPtr
+            (HsFun
+              (HsPtr
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "Measurement")))
+              (HsIO (HsPrimType HsPrimUnit))),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "MeasurementHandler"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "measurementHandler_validate",
+          hasCFieldInstanceCFieldType =
+          HsFunPtr
+            (HsFun
+              (HsPtr
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "Measurement")))
+              (HsIO (HsPrimType HsPrimCInt))),
+          hasCFieldInstanceFieldOffset =
+          8},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "MeasurementHandler"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "measurementHandler_validate",
+          hasFieldInstanceFieldType =
+          HsFunPtr
+            (HsFun
+              (HsPtr
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "Measurement")))
+              (HsIO (HsPrimType HsPrimCInt))),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "MeasurementHandler"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "measurementHandler_onError",
+          hasCFieldInstanceCFieldType =
+          HsFunPtr
+            (HsFun
+              (HsPrimType HsPrimCInt)
+              (HsIO (HsPrimType HsPrimUnit))),
+          hasCFieldInstanceFieldOffset =
+          16},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "MeasurementHandler"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "measurementHandler_onError",
+          hasFieldInstanceFieldType =
+          HsFunPtr
+            (HsFun
+              (HsPrimType HsPrimCInt)
+              (HsIO (HsPrimType HsPrimUnit))),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
       Nothing},
   DeclData
     Struct {
@@ -4248,9 +5058,18 @@
                           headerInclude = "callbacks.h"},
                       commentChildren = []}})
               [
-                PeekByteOff (Idx 0) 0,
-                PeekByteOff (Idx 0) 8,
-                PeekByteOff (Idx 0) 16]),
+                PeekCField
+                  (HsStrLit
+                    "dataPipeline_preProcess")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit
+                    "dataPipeline_process")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit
+                    "dataPipeline_postProcess")
+                  (Idx 0)]),
           storablePoke = Lambda
             (NameHint "ptr")
             (Lambda
@@ -4583,11 +5402,20 @@
                 (Add 3)
                 (Seq
                   [
-                    PokeByteOff (Idx 4) 0 (Idx 0),
-                    PokeByteOff (Idx 4) 8 (Idx 1),
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit
+                        "dataPipeline_preProcess")
                       (Idx 4)
-                      16
+                      (Idx 0),
+                    PokeCField
+                      (HsStrLit
+                        "dataPipeline_process")
+                      (Idx 4)
+                      (Idx 1),
+                    PokeCField
+                      (HsStrLit
+                        "dataPipeline_postProcess")
+                      (Idx 4)
                       (Idx 2)])))},
       defineInstanceComment =
       Nothing},
@@ -4610,6 +5438,189 @@
         "@NsTypeConstr"
         "DataPipeline",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "DataPipeline"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "dataPipeline_preProcess",
+          hasCFieldInstanceCFieldType =
+          HsFunPtr
+            (HsFun
+              (HsPtr
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "Measurement")))
+              (HsFun
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "DataValidator"))
+                (HsIO
+                  (HsPrimType HsPrimUnit)))),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "DataPipeline"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "dataPipeline_preProcess",
+          hasFieldInstanceFieldType =
+          HsFunPtr
+            (HsFun
+              (HsPtr
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "Measurement")))
+              (HsFun
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "DataValidator"))
+                (HsIO
+                  (HsPrimType HsPrimUnit)))),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "DataPipeline"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "dataPipeline_process",
+          hasCFieldInstanceCFieldType =
+          HsFunPtr
+            (HsFun
+              (HsPtr
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "Measurement")))
+              (HsIO (HsPrimType HsPrimUnit))),
+          hasCFieldInstanceFieldOffset =
+          8},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "DataPipeline"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "dataPipeline_process",
+          hasFieldInstanceFieldType =
+          HsFunPtr
+            (HsFun
+              (HsPtr
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "Measurement")))
+              (HsIO (HsPrimType HsPrimUnit))),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "DataPipeline"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "dataPipeline_postProcess",
+          hasCFieldInstanceCFieldType =
+          HsFunPtr
+            (HsFun
+              (HsPtr
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "Measurement")))
+              (HsFun
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "ProgressUpdate"))
+                (HsIO
+                  (HsPrimType HsPrimUnit)))),
+          hasCFieldInstanceFieldOffset =
+          16},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "DataPipeline"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "dataPipeline_postProcess",
+          hasFieldInstanceFieldType =
+          HsFunPtr
+            (HsFun
+              (HsPtr
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "Measurement")))
+              (HsFun
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "ProgressUpdate"))
+                (HsIO
+                  (HsPrimType HsPrimUnit)))),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
@@ -4978,6 +5989,189 @@
                 Bold [TextContent "See:"],
                 Identifier
                   "get_processorCallback_withProgress"]]}},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "ProcessorCallback"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "processorCallback_simple",
+          hasCFieldInstanceCFieldType =
+          HsFunPtr
+            (HsFun
+              (HsPtr
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "Measurement")))
+              (HsIO (HsPrimType HsPrimUnit))),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "ProcessorCallback"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "processorCallback_simple",
+          hasFieldInstanceFieldType =
+          HsFunPtr
+            (HsFun
+              (HsPtr
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "Measurement")))
+              (HsIO (HsPrimType HsPrimUnit))),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "ProcessorCallback"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "processorCallback_withValidator",
+          hasCFieldInstanceCFieldType =
+          HsFunPtr
+            (HsFun
+              (HsPtr
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "Measurement")))
+              (HsFun
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "DataValidator"))
+                (HsIO
+                  (HsPrimType HsPrimUnit)))),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "ProcessorCallback"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "processorCallback_withValidator",
+          hasFieldInstanceFieldType =
+          HsFunPtr
+            (HsFun
+              (HsPtr
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "Measurement")))
+              (HsFun
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "DataValidator"))
+                (HsIO
+                  (HsPrimType HsPrimUnit)))),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "ProcessorCallback"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "processorCallback_withProgress",
+          hasCFieldInstanceCFieldType =
+          HsFunPtr
+            (HsFun
+              (HsPtr
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "Measurement")))
+              (HsFun
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "ProgressUpdate"))
+                (HsIO
+                  (HsPrimType HsPrimUnit)))),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "ProcessorCallback"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "processorCallback_withProgress",
+          hasFieldInstanceFieldType =
+          HsFunPtr
+            (HsFun
+              (HsPtr
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "Measurement")))
+              (HsFun
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "ProgressUpdate"))
+                (HsIO
+                  (HsPrimType HsPrimUnit)))),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -5904,8 +7098,12 @@
                           headerInclude = "callbacks.h"},
                       commentChildren = []}})
               [
-                PeekByteOff (Idx 0) 0,
-                PeekByteOff (Idx 0) 8]),
+                PeekCField
+                  (HsStrLit "processor_mode")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit "processor_callback")
+                  (Idx 0)]),
           storablePoke = Lambda
             (NameHint "ptr")
             (Lambda
@@ -6077,11 +7275,102 @@
                 (Add 2)
                 (Seq
                   [
-                    PokeByteOff (Idx 3) 0 (Idx 0),
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit "processor_mode")
                       (Idx 3)
-                      8
+                      (Idx 0),
+                    PokeCField
+                      (HsStrLit "processor_callback")
+                      (Idx 3)
                       (Idx 1)])))},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Processor"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "processor_mode",
+          hasCFieldInstanceCFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Processor_mode"),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Processor"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "processor_mode",
+          hasFieldInstanceFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Processor_mode"),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Processor"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "processor_callback",
+          hasCFieldInstanceCFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "ProcessorCallback"),
+          hasCFieldInstanceFieldOffset =
+          8},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Processor"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "processor_callback",
+          hasFieldInstanceFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "ProcessorCallback"),
+          hasFieldInstanceVia =
+          ViaHasCField},
       defineInstanceComment =
       Nothing},
   DeclNewtype
@@ -6288,6 +7577,39 @@
         "Foo",
       deriveInstanceComment =
       Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Foo"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Foo",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCInt,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Foo"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "un_Foo",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCInt,
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -6492,6 +7814,39 @@
         "@NsTypeConstr"
         "Foo2",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Foo2"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Foo2",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCInt,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Foo2"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "un_Foo2",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCInt,
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
       Nothing},
   DeclForeignImport
     ForeignImportDecl {

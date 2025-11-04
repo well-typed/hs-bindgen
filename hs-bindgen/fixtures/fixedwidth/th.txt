@@ -33,7 +33,21 @@ data Foo
 instance Storable Foo
     where sizeOf = \_ -> 16 :: Int
           alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> (pure Foo <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int)
+          peek = \ptr_0 -> (pure Foo <*> peekCField (Proxy @"foo_sixty_four") ptr_0) <*> peekCField (Proxy @"foo_thirty_two") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Foo foo_sixty_four_3
-                                       foo_thirty_two_4 -> pokeByteOff ptr_1 (0 :: Int) foo_sixty_four_3 >> pokeByteOff ptr_1 (8 :: Int) foo_thirty_two_4
+                                       foo_thirty_two_4 -> pokeCField (Proxy @"foo_sixty_four") ptr_1 foo_sixty_four_3 >> pokeCField (Proxy @"foo_thirty_two") ptr_1 foo_thirty_two_4
+instance HasCField Foo "foo_sixty_four"
+    where type CFieldType Foo
+                          "foo_sixty_four" = HsBindgen.Runtime.Prelude.Word64
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Foo "foo_sixty_four") =>
+         HasField "foo_sixty_four" (Ptr Foo) (Ptr ty)
+    where getField = ptrToCField (Proxy @"foo_sixty_four")
+instance HasCField Foo "foo_thirty_two"
+    where type CFieldType Foo
+                          "foo_thirty_two" = HsBindgen.Runtime.Prelude.Word32
+          offset# = \_ -> \_ -> 8
+instance TyEq ty (CFieldType Foo "foo_thirty_two") =>
+         HasField "foo_thirty_two" (Ptr Foo) (Ptr ty)
+    where getField = ptrToCField (Proxy @"foo_thirty_two")

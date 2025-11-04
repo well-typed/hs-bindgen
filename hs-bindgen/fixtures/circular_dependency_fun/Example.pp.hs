@@ -1,13 +1,25 @@
 {-# LANGUAGE CApiFFI #-}
+{-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE MagicHash #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE TypeApplications #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE UndecidableInstances #-}
 
 module Example where
 
+import qualified Data.Proxy
 import qualified Foreign as F
 import qualified GHC.Ptr as Ptr
+import qualified GHC.Records
 import qualified HsBindgen.Runtime.FunPtr
+import qualified HsBindgen.Runtime.HasCField
+import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, IO, Int, Ord, Show, pure)
 
 {-| Auxiliary type used by 'Fun_ptr'
@@ -36,6 +48,19 @@ instance HsBindgen.Runtime.FunPtr.FromFunPtr Fun_ptr_Deref where
 
   fromFunPtr = fromFun_ptr_Deref
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Fun_ptr_Deref) "un_Fun_ptr_Deref")
+         ) => GHC.Records.HasField "un_Fun_ptr_Deref" (Ptr.Ptr Fun_ptr_Deref) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Fun_ptr_Deref")
+
+instance HsBindgen.Runtime.HasCField.HasCField Fun_ptr_Deref "un_Fun_ptr_Deref" where
+
+  type CFieldType Fun_ptr_Deref "un_Fun_ptr_Deref" =
+    (Ptr.Ptr Forward_declaration) -> IO ()
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @fun_ptr@
 
     __defined at:__ @circular_dependency_fun.h:3:16@
@@ -47,6 +72,19 @@ newtype Fun_ptr = Fun_ptr
   }
   deriving stock (Eq, Ord, Show)
   deriving newtype (F.Storable)
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Fun_ptr) "un_Fun_ptr")
+         ) => GHC.Records.HasField "un_Fun_ptr" (Ptr.Ptr Fun_ptr) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Fun_ptr")
+
+instance HsBindgen.Runtime.HasCField.HasCField Fun_ptr "un_Fun_ptr" where
+
+  type CFieldType Fun_ptr "un_Fun_ptr" =
+    Ptr.FunPtr Fun_ptr_Deref
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @forward_declaration@
 
@@ -74,14 +112,27 @@ instance F.Storable Forward_declaration where
   peek =
     \ptr0 ->
           pure Forward_declaration
-      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"forward_declaration_f") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Forward_declaration forward_declaration_f2 ->
-            F.pokeByteOff ptr0 (0 :: Int) forward_declaration_f2
+            HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"forward_declaration_f") ptr0 forward_declaration_f2
+
+instance HsBindgen.Runtime.HasCField.HasCField Forward_declaration "forward_declaration_f" where
+
+  type CFieldType Forward_declaration "forward_declaration_f" =
+    Fun_ptr
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Forward_declaration) "forward_declaration_f")
+         ) => GHC.Records.HasField "forward_declaration_f" (Ptr.Ptr Forward_declaration) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"forward_declaration_f")
 
 foreign import ccall safe "wrapper" funPtr_fbe60ed6_to ::
      ((Ptr.Ptr Forward_declaration) -> IO ())

@@ -23,3 +23,9 @@ newtype Sym
                       Ix,
                       Num,
                       Real)
+instance TyEq ty (CFieldType Sym "un_Sym") =>
+         HasField "un_Sym" (Ptr Sym) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Sym")
+instance HasCField Sym "un_Sym"
+    where type CFieldType Sym "un_Sym" = CChar
+          offset# = \_ -> \_ -> 0

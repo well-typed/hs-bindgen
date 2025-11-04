@@ -603,9 +603,17 @@
                           "hsb_complex_test.h"},
                       commentChildren = []}})
               [
-                PeekByteOff (Idx 0) 0,
-                PeekByteOff (Idx 0) 8,
-                PeekByteOff (Idx 0) 24]),
+                PeekCField
+                  (HsStrLit
+                    "complex_object_t_velocity")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit
+                    "complex_object_t_position")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit "complex_object_t_id")
+                  (Idx 0)]),
           storablePoke = Lambda
             (NameHint "ptr")
             (Lambda
@@ -812,11 +820,19 @@
                 (Add 3)
                 (Seq
                   [
-                    PokeByteOff (Idx 4) 0 (Idx 0),
-                    PokeByteOff (Idx 4) 8 (Idx 1),
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit
+                        "complex_object_t_velocity")
                       (Idx 4)
-                      24
+                      (Idx 0),
+                    PokeCField
+                      (HsStrLit
+                        "complex_object_t_position")
+                      (Idx 4)
+                      (Idx 1),
+                    PokeCField
+                      (HsStrLit "complex_object_t_id")
+                      (Idx 4)
                       (Idx 2)])))},
       defineInstanceComment =
       Nothing},
@@ -839,6 +855,123 @@
         "@NsTypeConstr"
         "Complex_object_t",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Complex_object_t"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "complex_object_t_velocity",
+          hasCFieldInstanceCFieldType =
+          HsComplexType HsPrimCFloat,
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Complex_object_t"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "complex_object_t_velocity",
+          hasFieldInstanceFieldType =
+          HsComplexType HsPrimCFloat,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Complex_object_t"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "complex_object_t_position",
+          hasCFieldInstanceCFieldType =
+          HsComplexType HsPrimCDouble,
+          hasCFieldInstanceFieldOffset =
+          8},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Complex_object_t"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "complex_object_t_position",
+          hasFieldInstanceFieldType =
+          HsComplexType HsPrimCDouble,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Complex_object_t"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "complex_object_t_id",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCInt,
+          hasCFieldInstanceFieldOffset =
+          24},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Complex_object_t"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "complex_object_t_id",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCInt,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
       Nothing},
   DeclForeignImport
     ForeignImportDecl {

@@ -1,3 +1,4 @@
+{-# LANGUAGE MagicHash #-}
 module HsBindgen.Backend.Extensions (
     requiredExtensions,
 ) where
@@ -19,7 +20,19 @@ requiredExtensions = \case
     DInst x -> mconcat . concat $ [
         [ext TH.MultiParamTypeClasses | length (instanceArgs x) >= 2]
       , [ext TH.TypeFamilies          | not (null (instanceTypes x))]
+      , [globalExtensions $ instanceClass x]
+      , concat [ globalExtensions c : map typeExtensions ts
+          | (c, ts) <- instanceSuperClasses x
+          ]
       , typeExtensions <$> instanceArgs x
+      , concat [
+            globalExtensions t : typeExtensions r : map typeExtensions as
+          | (t, as, r) <- instanceTypes x
+          ]
+      , concat [
+            [globalExtensions f, exprExtensions e]
+          | (f, e) <- instanceDecs x
+          ]
       ]
     DRecord r -> mconcat [
         recordExtensions r
@@ -72,23 +85,51 @@ recordExtensions r = foldMap fieldExtensions (dataFields r)
 fieldExtensions :: Field -> Set TH.Extension
 fieldExtensions f = typeExtensions (fieldType f)
 
-exprExtensions :: ClosedExpr -> Set TH.Extension
-exprExtensions expr = Set.fromList [TH.MagicHash | isECString expr]
-  where
-    isECString :: SExpr ctx -> Bool
-    isECString = \case
-      (ECString _) -> True
-      _otherExpr   -> False
+globalExtensions :: Global -> Set TH.Extension
+globalExtensions = \case
+    HasCField_offset# -> Set.singleton TH.MagicHash
+    HasCBitfield_bitOffset# -> Set.singleton TH.MagicHash
+    HasCBitfield_bitWidth# -> Set.singleton TH.MagicHash
+    NomEq_class -> Set.singleton TH.TypeOperators
+    HasField_class -> Set.singleton TH.UndecidableInstances
+    _ -> mempty
 
+exprExtensions :: SExpr ctx -> Set TH.Extension
+exprExtensions = \case
+    EGlobal g -> globalExtensions g
+    EBound{} -> mempty
+    EFree{} -> mempty
+    ECon{} -> mempty
+    EIntegral{} -> mempty
+    EChar {} -> mempty
+    EString {} -> mempty
+    ECString {} -> Set.singleton TH.MagicHash
+    EFloat{} -> mempty
+    EDouble{} -> mempty
+    EApp f x -> exprExtensions f <> exprExtensions x
+    EInfix _op x y ->
+      exprExtensions x <> exprExtensions y
+    ELam _mPat body -> exprExtensions body
+    EUnusedLam body -> exprExtensions body
+    ECase x alts -> mconcat $
+        exprExtensions x
+      : [ exprExtensions body
+        | SAlt _con _add _hints body <- alts
+        ]
+    ETup xs -> foldMap exprExtensions xs
+    EList xs -> foldMap exprExtensions xs
+    ETypeApp f t -> Set.singleton TH.TypeApplications <> exprExtensions f <> typeExtensions t
 
 -- Note: We don't recognise whether we need RankNTypes.
 -- We probably don't generate such types
 typeExtensions :: SType ctx -> Set TH.Extension
 typeExtensions = \case
-    TGlobal _ -> Set.empty
+    TGlobal g -> globalExtensions g
     TCon _    -> Set.empty
+    TFree _   -> Set.singleton TH.FlexibleContexts -- include like in 'predicateExtensions'
     TFun a b  -> typeExtensions a <> typeExtensions b
     TLit _    -> Set.singleton TH.DataKinds
+    TStrLit _ -> Set.singleton TH.DataKinds
     TExt _ _  -> Set.empty
     TBound _  -> Set.empty
     TApp f b  -> typeExtensions f <> typeExtensions b
