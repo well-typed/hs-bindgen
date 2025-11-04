@@ -1,8 +1,19 @@
 name: Comprehensive CI "Release" flow
 
 # Manual trigger only - for pre-release validation and comprehensive testing
+# on:
+#   workflow_dispatch:
+
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  merge_group:
+    branches:
+      - main
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -18,8 +29,8 @@ jobs:
       fail-fast: false
       matrix:
         runner: [ubuntu-latest]
-        ghc: ['9.4.8']
-        llvm: ['14', '15', '16', '17', '18', '19', '20', '21']
+        ghc: ['9.2.8', '9.4.8', '9.6.7', '9.8.4', '9.10.3', '9.12.2']
+        llvm: ['14', '16', '18', '20', '21']
     steps:
       - name: Set git to use LF
         run: |
