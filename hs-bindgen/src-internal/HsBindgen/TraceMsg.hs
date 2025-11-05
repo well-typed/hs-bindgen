@@ -15,7 +15,7 @@ module HsBindgen.TraceMsg (
   , HashIncludeArgMsg(..)
   , MangleNamesMsg(..)
   , NameAnonMsg(..)
-  , UnattachedParseMsg(..)
+  , ImmediateParseMsg(..)
   , DelayedParseMsg(..)
   , ParseTypeException(..)
   , CExpr.DSL.MacroParseError(..)
@@ -46,7 +46,7 @@ import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass (HandleTypedefsMsg (..))
 import HsBindgen.Frontend.Pass.MangleNames.IsPass (MangleNamesMsg (..))
 import HsBindgen.Frontend.Pass.NameAnon.IsPass (NameAnonMsg (..))
 import HsBindgen.Frontend.Pass.Parse.IsPass (DelayedParseMsg (..),
-                                             UnattachedParseMsg (..))
+                                             ImmediateParseMsg (..))
 import HsBindgen.Frontend.Pass.Parse.Type.Monad (ParseTypeException (..))
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass (ResolveBindingSpecsMsg (..))
 import HsBindgen.Frontend.Pass.Select.IsPass (SelectMsg (..))
@@ -131,10 +131,12 @@ fromSetting = \case
 
     enableMacroWarnings :: CustomLogLevel Level TraceMsg
     enableMacroWarnings = CustomLogLevel $ \case
-        -- Other errors are 'Info' because they are /always/ unsupported.
         TraceFrontend (FrontendHandleMacros (HandleMacrosErrorReparse{}))
           -> const Warning
         TraceFrontend (FrontendHandleMacros (HandleMacrosErrorTc{}))
+          -> const Warning
+        -- Macros parsing requires declarations required for scoping.
+        TraceFrontend (FrontendParse (ParseOfDeclarationRequiredForScopingFailed{}))
           -> const Warning
         _otherTrace
           -> id

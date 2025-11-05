@@ -20,7 +20,7 @@ module HsBindgen.Frontend.Pass.Parse.Decl.Monad (
   , recordMacroExpansionAt
   , checkHasMacroExpansion
     -- ** Logging
-  , recordUnattachedTrace
+  , recordImmediateTrace
     -- ** Errors
   , unknownCursorKind
     -- * Utility: dispatching
@@ -84,7 +84,7 @@ data Env = Env {
     , envIsInMainHeaderDir        :: IsInMainHeaderDir
     , envGetMainHeadersAndInclude :: GetMainHeadersAndInclude
     , envPredicate                :: Boolean ParsePredicate
-    , envTracer                   :: Tracer IO UnattachedParseMsg
+    , envTracer                   :: Tracer IO ImmediateParseMsg
     }
 
 getTranslationUnit :: ParseDecl CXTranslationUnit
@@ -157,8 +157,8 @@ checkHasMacroExpansion extent = do
 
 -- | Directly emit a parse message that can not be attached to a declaration,
 -- usually because not enough information about the declaration is available.
-recordUnattachedTrace :: UnattachedParseMsg -> ParseDecl ()
-recordUnattachedTrace trace = wrapEff $ \ParseSupport{parseEnv} ->
+recordImmediateTrace :: ImmediateParseMsg -> ParseDecl ()
+recordImmediateTrace trace = wrapEff $ \ParseSupport{parseEnv} ->
   traceWith (envTracer parseEnv) trace
 
 {-------------------------------------------------------------------------------

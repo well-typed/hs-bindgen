@@ -18,7 +18,6 @@ module Data.DynGraph.Labelled (
   , findEdges
   , FindEdgesResult(..)
     -- * Deletion
-  , filterNodes
   , deleteEdges
   , filterEdges
     -- * Debugging
@@ -252,31 +251,6 @@ data FindEdgesResult l =
 {-------------------------------------------------------------------------------
   Deletion
 -------------------------------------------------------------------------------}
-
--- | Filter nodes with given predicate
---
--- Keep nodes that match the predicate. Delete other nodes and all edges
--- connected to deleted nodes.
-filterNodes :: forall a l. (a -> Bool) -> DynGraph l a -> DynGraph l a
-filterNodes p DynGraph{..} =
-    DynGraph {
-        vtxMap = Map.filterWithKey (\k _ -> p k) vtxMap
-      , idxMap = idxMap'
-      , edges  = IntMap.mapMaybeWithKey pruneDanglingEdges edges
-      }
-  where
-    idxMap' :: IntMap a
-    removedIdxs :: IntSet
-    (idxMap', removedIdxs) =
-      second IntMap.keysSet $ IntMap.partition p idxMap
-
-    pruneDanglingEdges :: Int -> Set (Int, l) -> Maybe (Set (Int, l))
-    pruneDanglingEdges x xs
-      | IntSet.member x removedIdxs = Nothing
-      | otherwise =
-        let xs' :: Set (Int, l)
-            xs' = Set.filter ((`IntSet.notMember` removedIdxs) . fst) xs
-        in  if Set.null xs' then Nothing else Just xs'
 
 -- | Delete edges
 --

@@ -4,7 +4,6 @@ module HsBindgen.Frontend.Pass.Select (
 
 import Data.Foldable qualified as Foldable
 import Data.List.NonEmpty qualified as NonEmpty
-import Data.Map qualified as Map
 import Data.Set qualified as Set
 
 import Clang.HighLevel.Types
@@ -12,9 +11,7 @@ import Clang.HighLevel.Types
 import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex (..))
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
-import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
-import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.Coerce (CoercePass (coercePass))
 import HsBindgen.Frontend.AST.Internal qualified as C
@@ -48,7 +45,7 @@ selectDecls
   isInMainHeaderDir
   declsWithExternalBindingSpecs
   SelectConfig{..}
-  unitWithTypedefs =
+  unit =
     let -- Identifiers of selection roots.
         rootIds :: Set I
         rootIds = getSelectedRoots match index
@@ -83,13 +80,6 @@ selectDecls
          ++ getParseFailureMsgs      match hasExternalBindingSpec index
        )
   where
-    unit :: C.TranslationUnit ResolveBindingSpecs
-    unit = applyParsePredicate
-             selectConfigParsePredicate
-             isMainHeader
-             isInMainHeaderDir
-             unitWithTypedefs
-
     decls :: [D]
     decls = map coercePass unit.unitDecls
 
@@ -266,97 +256,3 @@ getParseFailureMsgs match hasExternalBindingSpec =
       , not $ hasExternalBindingSpec i
       , msg <- NonEmpty.toList msgs
       ] ++ xs
-
-{-------------------------------------------------------------------------------
-  Remove lingering type definitions
--------------------------------------------------------------------------------}
-
-type NotAttempted = Map C.QualPrelimDeclId (NonEmpty ParseNotAttempted)
-
--- HACK: See note [Parse all type definitions].
---
--- Remove lingering type definitions that do not match the parse predicate; see
--- note [Parse all type definitions].
-applyParsePredicate ::
-     Boolean ParsePredicate
-  -> IsMainHeader
-  -> IsInMainHeaderDir
-  -> C.TranslationUnit ResolveBindingSpecs
-  -> C.TranslationUnit ResolveBindingSpecs
-applyParsePredicate predicate isMainHeader isInMainHeaderDir unit =
-  C.TranslationUnit {
-      unitDecls = filter matchD unit.unitDecls
-    , unitIncludeGraph = unit.unitIncludeGraph
-    , unitAnn = unitAnn'
-    }
-  where
-    matchL :: SingleLoc -> Bool
-    matchL loc =
-      matchParse isMainHeader isInMainHeaderDir
-        (singleLocPath loc)
-        predicate
-
-    matchD :: C.Decl p -> Bool
-    matchD decl = matchL decl.declInfo.declLoc
-
-    unitAnn' :: DeclMeta
-    unitAnn' = DeclMeta {
-        declIndex   = declIndex'
-      , declDeclUse = declUseGraph'
-      , declUseDecl = useDeclGraph'
-      }
-
-    (succeeded', omittedS) =
-      Map.partition (matchD . psDecl) unit.unitAnn.declIndex.succeeded
-    (failed', omittedF) =
-      Map.partition
-      (matchL . pfSingleLoc . NonEmpty.head)
-      unit.unitAnn.declIndex.failed
-
-    addOmittedS :: NotAttempted -> NotAttempted
-    addOmittedS xs =
-      Map.foldlWithKey
-        (\m declId ParseSuccess{..} ->
-          let info = psDecl.declInfo
-              parseNotAttempted = ParseNotAttempted
-                                    declId
-                                    info.declLoc
-                                    info.declAvailability
-                                    ParsePredicateNotMatched
-          in DeclIndex.alter declId parseNotAttempted m)
-        xs
-        omittedS
-
-
-    addOmittedF :: NotAttempted -> NotAttempted
-    addOmittedF xs =
-      Map.foldlWithKey
-        (\m declId failures ->
-          let ParseFailure{..} = NonEmpty.head failures
-              parseNotAttemped = ParseNotAttempted
-                                   declId
-                                   pfSingleLoc
-                                   pfAvailability
-                                   ParsePredicateNotMatched
-          in DeclIndex.alter declId parseNotAttemped m)
-        xs
-        omittedF
-
-    declIndex' :: DeclIndex
-    declIndex' = DeclIndex {
-        succeeded = succeeded'
-      , omitted = addOmittedS $ addOmittedF unit.unitAnn.declIndex.omitted
-      , failed = failed'
-      }
-
-    successesToRemove :: Set C.QualPrelimDeclId
-    successesToRemove = Map.keysSet omittedS
-
-    isSuccess :: C.QualPrelimDeclId -> Bool
-    isSuccess xs = Set.notMember xs successesToRemove
-
-    declUseGraph' :: DeclUseGraph
-    declUseGraph' = DeclUseGraph.filterNodes isSuccess unit.unitAnn.declDeclUse
-
-    useDeclGraph' :: UseDeclGraph
-    useDeclGraph' = UseDeclGraph.filterNodes isSuccess unit.unitAnn.declUseDecl
