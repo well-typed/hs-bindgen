@@ -51,7 +51,7 @@ genBindingSpec ::
   -> [Hs.Decl]
   -> IO ()
 genBindingSpec hsModuleName path getMainHeaders omitTypes =
-      BindingSpec.writeFile path hsModuleName
+      BindingSpec.writeFile path
     . genBindingSpec' hsModuleName getMainHeaders omitTypes
 
 {-------------------------------------------------------------------------------
@@ -66,7 +66,7 @@ genBindingSpecYaml ::
   -> [Hs.Decl]
   -> ByteString
 genBindingSpecYaml hsModuleName getMainHeaders omitTypes =
-      BindingSpec.encodeYaml hsModuleName
+      BindingSpec.encodeYaml
     . genBindingSpec' hsModuleName getMainHeaders omitTypes
 
 {-------------------------------------------------------------------------------
@@ -85,8 +85,9 @@ genBindingSpec' ::
 genBindingSpec' hsModuleName getMainHeaders omitTypes = foldr aux omitSpec
   where
     omitSpec :: UnresolvedBindingSpec
-    omitSpec = BindingSpec.empty {
-        BindingSpec.bindingSpecTypes = Map.fromListWith (++) [
+    omitSpec = BindingSpec.BindingSpec {
+        BindingSpec.bindingSpecModule = hsModuleName
+      , BindingSpec.bindingSpecTypes = Map.fromListWith (++) [
             (cQualName, [(getMainHeaders' path, Omit)])
           | (cQualName, path) <- Map.toList omitTypes
           ]
@@ -135,8 +136,7 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes = foldr aux omitSpec
             hsIdentifier = Hs.Identifier $ Hs.getName (Hs.structName hsStruct)
             C.DeclSpec typeSpec' = HsOrigin.declSpec originDecl
             typeSpec = BindingSpec.CTypeSpec {
-                cTypeSpecModule     = hsModuleName
-              , cTypeSpecIdentifier = Just hsIdentifier
+                cTypeSpecIdentifier = Just hsIdentifier
               , cTypeSpecInstances  =
                   BindingSpec.cTypeSpecInstances typeSpec'
                     <> mkInstSpecs (Hs.structInstances hsStruct)
@@ -152,8 +152,7 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes = foldr aux omitSpec
               HsOrigin.Opaque cNameKind -> cNameKind
           hsIdentifier = Hs.Identifier $ Hs.getName (Hs.emptyDataName edata)
           typeSpec = BindingSpec.CTypeSpec {
-              cTypeSpecModule     = hsModuleName
-            , cTypeSpecIdentifier = Just hsIdentifier
+              cTypeSpecIdentifier = Just hsIdentifier
             , cTypeSpecInstances  = Map.empty
             }
       in  (cQualName, getHeaders declInfo, typeSpec)
@@ -171,8 +170,7 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes = foldr aux omitSpec
           hsIdentifier = Hs.Identifier $ Hs.getName (Hs.newtypeName hsNewtype)
           C.DeclSpec typeSpec' = HsOrigin.declSpec originDecl
           typeSpec = BindingSpec.CTypeSpec {
-              cTypeSpecModule     = hsModuleName
-            , cTypeSpecIdentifier = Just hsIdentifier
+              cTypeSpecIdentifier = Just hsIdentifier
             , cTypeSpecInstances  =
                 BindingSpec.cTypeSpecInstances typeSpec'
                   <> mkInstSpecs (Hs.newtypeInstances hsNewtype)

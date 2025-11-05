@@ -30,8 +30,6 @@ TranslationUnit {
             "IntLike (CIntegralType (IntLike (Int Signed)))"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -64,8 +62,6 @@ TranslationUnit {
             "IntLike (CIntegralType (IntLike (Int Signed)))"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -107,8 +103,6 @@ TranslationUnit {
             "IntLike (CIntegralType (IntLike (Int Signed)))"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -150,8 +144,6 @@ TranslationUnit {
             "IntLike (CIntegralType (IntLike (Int Signed)))"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -184,8 +176,6 @@ TranslationUnit {
             "IntLike (CIntegralType (IntLike (Int Signed)))"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -218,8 +208,6 @@ TranslationUnit {
             "IntLike (CIntegralType (IntLike (Int Signed)))"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -252,8 +240,6 @@ TranslationUnit {
             "IntLike (CIntegralType (IntLike (Int Signed)))"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -286,8 +272,6 @@ TranslationUnit {
             "IntLike (CIntegralType (IntLike (Int Signed)))"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -320,8 +304,6 @@ TranslationUnit {
             "IntLike (CIntegralType (IntLike (Int Signed)))"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -357,8 +339,6 @@ TranslationUnit {
             "IntLike (CIntegralType (IntLike (LongLong Unsigned)))"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -394,8 +374,6 @@ TranslationUnit {
             "IntLike (CIntegralType (IntLike (LongLong Unsigned)))"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -431,8 +409,6 @@ TranslationUnit {
             "IntLike (CIntegralType (IntLike (LongLong Unsigned)))"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -468,8 +444,6 @@ TranslationUnit {
             "IntLike (CIntegralType (IntLike (LongLong Unsigned)))"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -512,8 +486,6 @@ TranslationUnit {
             "Tuple2 (IntLike (CIntegralType (IntLike (Int Signed)))) (IntLike (CIntegralType (IntLike (Int Signed))))"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -556,8 +528,6 @@ TranslationUnit {
             "Tuple2 (IntLike (CIntegralType (IntLike (Int Signed)))) (IntLike (CIntegralType (IntLike (Int Signed))))"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -600,8 +570,6 @@ TranslationUnit {
             "Tuple2 (IntLike (CIntegralType (IntLike (Int Signed)))) (IntLike (CIntegralType (IntLike (Int Signed))))"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -638,8 +606,6 @@ TranslationUnit {
             "FloatLike DoubleType"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -676,8 +642,6 @@ TranslationUnit {
             "FloatLike DoubleType"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -713,8 +677,6 @@ TranslationUnit {
             "FloatLike FloatType"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -751,8 +713,6 @@ TranslationUnit {
             "FloatLike DoubleType"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -789,8 +749,6 @@ TranslationUnit {
             "FloatLike DoubleType"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -826,8 +784,6 @@ TranslationUnit {
             "FloatLike FloatType"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -864,8 +820,6 @@ TranslationUnit {
             "FloatLike DoubleType"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -902,8 +856,6 @@ TranslationUnit {
             "FloatLike DoubleType"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -940,8 +892,6 @@ TranslationUnit {
             "FloatLike DoubleType"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -977,8 +927,6 @@ TranslationUnit {
             "FloatLike FloatType"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -1015,8 +963,6 @@ TranslationUnit {
             "FloatLike DoubleType"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -1053,8 +999,6 @@ TranslationUnit {
             "FloatLike DoubleType"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -1091,8 +1035,6 @@ TranslationUnit {
             "FloatLike FloatType"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -1129,8 +1071,6 @@ TranslationUnit {
             "FloatLike DoubleType"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -1167,8 +1107,6 @@ TranslationUnit {
             "FloatLike FloatType"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -1206,8 +1144,6 @@ TranslationUnit {
             "FloatLike DoubleType"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -1244,8 +1180,6 @@ TranslationUnit {
             "FloatLike DoubleType"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -1282,8 +1216,6 @@ TranslationUnit {
             "FloatLike FloatType"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -1328,8 +1260,6 @@ TranslationUnit {
             "FloatLike DoubleType"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -1373,8 +1303,6 @@ TranslationUnit {
             "IntLike (CIntegralType (IntLike (Long Unsigned)))"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}}],

@@ -32,8 +32,6 @@ TranslationUnit {
                 (PrimSignImplicit Nothing))}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -69,8 +67,6 @@ TranslationUnit {
                 (Just Signed)))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -127,8 +123,6 @@ TranslationUnit {
               (PrimSignImplicit Nothing))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -185,8 +179,6 @@ TranslationUnit {
                     (Just Signed)))))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -244,8 +236,6 @@ TranslationUnit {
               NameOriginInSource)},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -303,8 +293,6 @@ TranslationUnit {
                       (Just Signed))))))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -349,8 +337,6 @@ TranslationUnit {
           structFlam = Nothing},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -397,8 +383,6 @@ TranslationUnit {
           structFlam = Nothing},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -444,8 +428,6 @@ TranslationUnit {
           structFlam = Nothing},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -484,8 +466,6 @@ TranslationUnit {
             NameOriginInSource},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -530,8 +510,6 @@ TranslationUnit {
           structFlam = Nothing},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -589,8 +567,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -649,8 +625,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -706,8 +680,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -760,8 +732,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -814,8 +784,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -868,8 +836,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}}],

@@ -64,8 +64,6 @@
                 enumConstantValue = 1}]},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = ModuleName
-              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -444,8 +442,6 @@
                 enumConstantValue = 1}]},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = ModuleName
-              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -856,8 +852,6 @@
                 enumConstantValue = 1}]},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = ModuleName
-              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -1238,8 +1232,6 @@
                 enumConstantValue = 404}]},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = ModuleName
-              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -1632,8 +1624,6 @@
                 enumConstantValue = 2}]},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = ModuleName
-              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -2045,8 +2035,6 @@
                 enumConstantValue = 1}]},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = ModuleName
-              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -2416,8 +2404,6 @@
                 enumConstantValue = 1}]},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = ModuleName
-              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -2787,8 +2773,6 @@
                 enumConstantValue = 1}]},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = ModuleName
-              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -3160,8 +3144,6 @@
                 enumConstantValue = 1}]},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = ModuleName
-              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},

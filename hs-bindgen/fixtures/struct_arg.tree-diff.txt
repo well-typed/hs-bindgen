@@ -37,8 +37,6 @@ TranslationUnit {
           structFlam = Nothing},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -78,8 +76,6 @@ TranslationUnit {
             (PrimIntegral PrimInt Signed)},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -119,8 +115,6 @@ TranslationUnit {
             NameOriginInSource},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -178,8 +172,6 @@ TranslationUnit {
             NameOriginInSource},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -235,8 +227,6 @@ TranslationUnit {
                 (Just Signed)))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}}],

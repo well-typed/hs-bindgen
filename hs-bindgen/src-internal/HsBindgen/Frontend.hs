@@ -143,8 +143,8 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
 
     resolveBindingSpecsPass <- cache "resolveBindingSpecs" $ do
       afterNameAnon <- nameAnonPass
-      extlSpec <- bootExternalBindingSpec
-      presSpec <- bootPrescriptiveBindingSpec
+      extSpecs <- bootExternalBindingSpecs
+      pSpec <- bootPrescriptiveBindingSpec
       let (   afterResolveBindingSpecs
             , omitTypes
             , declsWithExternalBindingSpecs
@@ -152,8 +152,8 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
             ) =
             resolveBindingSpecs
               bootModule
-              extlSpec
-              presSpec
+              extSpecs
+              pSpec
               afterNameAnon
       forM_ msgsResolveBindingSpecs $ traceWith tracer . FrontendResolveBindingSpecs
       pure (afterResolveBindingSpecs, omitTypes, declsWithExternalBindingSpecs)
@@ -174,8 +174,7 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
 
     handleTypedefsPass <- cache "handleTypedefs" $ do
       afterSelect <- selectPass
-      let (afterHandleTypedefs, msgsHandleTypedefs) =
-            handleTypedefs bootModule afterSelect
+      let (afterHandleTypedefs, msgsHandleTypedefs) = handleTypedefs afterSelect
       forM_ msgsHandleTypedefs $ traceWith tracer . FrontendHandleTypedefs
       pure afterHandleTypedefs
 

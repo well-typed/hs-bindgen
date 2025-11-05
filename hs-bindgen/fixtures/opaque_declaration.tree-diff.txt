@@ -20,8 +20,6 @@ TranslationUnit {
         (NameKindTagged TagKindStruct),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -85,8 +83,6 @@ TranslationUnit {
           structFlam = Nothing},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -116,8 +112,6 @@ TranslationUnit {
           structFlam = Nothing},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -141,8 +135,6 @@ TranslationUnit {
         (NameKindTagged TagKindEnum),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -167,8 +159,6 @@ TranslationUnit {
         (NameKindTagged TagKindUnion),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}}],

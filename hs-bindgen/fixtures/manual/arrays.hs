@@ -47,8 +47,6 @@
                 (PrimIntegral PrimInt Signed))},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = ModuleName
-              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -158,8 +156,6 @@
                         Signed)))))},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = ModuleName
-              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -274,8 +270,6 @@
                       Signed))))},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = ModuleName
-              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},

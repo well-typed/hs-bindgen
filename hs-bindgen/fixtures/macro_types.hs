@@ -45,8 +45,6 @@
                 (PrimIntegral PrimInt Signed))},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = ModuleName
-              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -154,8 +152,6 @@
                     (PrimSignImplicit Nothing))))},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = ModuleName
-              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -259,8 +255,6 @@
               (PrimFloating PrimFloat)},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = ModuleName
-              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -459,8 +453,6 @@
               NameOriginInSource},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = ModuleName
-              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -658,8 +650,6 @@
                 (PrimSignExplicit Unsigned))},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = ModuleName
-              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -873,8 +863,6 @@
               NameOriginInSource},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = ModuleName
-              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -1089,8 +1077,6 @@
               NameOriginInSource},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = ModuleName
-              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},

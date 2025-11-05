@@ -49,8 +49,6 @@
                 Unsigned)},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = ModuleName
-              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -233,8 +231,6 @@
               extRefIdentifier = Identifier
                 "Int64"}
             CTypeSpec {
-              cTypeSpecModule = ModuleName
-                "Foreign",
               cTypeSpecIdentifier = Just
                 (Identifier "Int64"),
               cTypeSpecInstances =
@@ -341,8 +337,6 @@
                     extRefIdentifier = Identifier
                       "Int64"},
                   extHsSpec = CTypeSpec {
-                    cTypeSpecModule = ModuleName
-                      "Foreign",
                     cTypeSpecIdentifier = Just
                       (Identifier "Int64"),
                     cTypeSpecInstances =
@@ -532,8 +526,6 @@
                         extRefIdentifier = Identifier
                           "Int64"},
                       extHsSpec = CTypeSpec {
-                        cTypeSpecModule = ModuleName
-                          "Foreign",
                         cTypeSpecIdentifier = Just
                           (Identifier "Int64"),
                         cTypeSpecInstances =
@@ -644,8 +636,6 @@
               structFlam = Nothing},
           declSpec = DeclSpec
             CTypeSpec {
-              cTypeSpecModule = ModuleName
-                "Example",
               cTypeSpecIdentifier = Nothing,
               cTypeSpecInstances =
               Map.fromList []}},
@@ -687,8 +677,6 @@
                   extRefIdentifier = Identifier
                     "Int64"}
                 CTypeSpec {
-                  cTypeSpecModule = ModuleName
-                    "Foreign",
                   cTypeSpecIdentifier = Just
                     (Identifier "Int64"),
                   cTypeSpecInstances =
@@ -795,8 +783,6 @@
                         extRefIdentifier = Identifier
                           "Int64"},
                       extHsSpec = CTypeSpec {
-                        cTypeSpecModule = ModuleName
-                          "Foreign",
                         cTypeSpecIdentifier = Just
                           (Identifier "Int64"),
                         cTypeSpecInstances =
@@ -986,8 +972,6 @@
                             extRefIdentifier = Identifier
                               "Int64"},
                           extHsSpec = CTypeSpec {
-                            cTypeSpecModule = ModuleName
-                              "Foreign",
                             cTypeSpecIdentifier = Just
                               (Identifier "Int64"),
                             cTypeSpecInstances =
@@ -1098,8 +1082,6 @@
                   structFlam = Nothing},
               declSpec = DeclSpec
                 CTypeSpec {
-                  cTypeSpecModule = ModuleName
-                    "Example",
                   cTypeSpecIdentifier = Nothing,
                   cTypeSpecInstances =
                   Map.fromList []}},
@@ -1144,8 +1126,6 @@
                           extRefIdentifier = Identifier
                             "Int64"}
                         CTypeSpec {
-                          cTypeSpecModule = ModuleName
-                            "Foreign",
                           cTypeSpecIdentifier = Just
                             (Identifier "Int64"),
                           cTypeSpecInstances =
@@ -1252,8 +1232,6 @@
                                 extRefIdentifier = Identifier
                                   "Int64"},
                               extHsSpec = CTypeSpec {
-                                cTypeSpecModule = ModuleName
-                                  "Foreign",
                                 cTypeSpecIdentifier = Just
                                   (Identifier "Int64"),
                                 cTypeSpecInstances =
@@ -1443,8 +1421,6 @@
                                     extRefIdentifier = Identifier
                                       "Int64"},
                                   extHsSpec = CTypeSpec {
-                                    cTypeSpecModule = ModuleName
-                                      "Foreign",
                                     cTypeSpecIdentifier = Just
                                       (Identifier "Int64"),
                                     cTypeSpecInstances =
@@ -1555,8 +1531,6 @@
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         CTypeSpec {
-                          cTypeSpecModule = ModuleName
-                            "Example",
                           cTypeSpecIdentifier = Nothing,
                           cTypeSpecInstances =
                           Map.fromList []}},
@@ -1603,8 +1577,6 @@
                           extRefIdentifier = Identifier
                             "Int64"}
                         CTypeSpec {
-                          cTypeSpecModule = ModuleName
-                            "Foreign",
                           cTypeSpecIdentifier = Just
                             (Identifier "Int64"),
                           cTypeSpecInstances =
@@ -1711,8 +1683,6 @@
                                 extRefIdentifier = Identifier
                                   "Int64"},
                               extHsSpec = CTypeSpec {
-                                cTypeSpecModule = ModuleName
-                                  "Foreign",
                                 cTypeSpecIdentifier = Just
                                   (Identifier "Int64"),
                                 cTypeSpecInstances =
@@ -1902,8 +1872,6 @@
                                     extRefIdentifier = Identifier
                                       "Int64"},
                                   extHsSpec = CTypeSpec {
-                                    cTypeSpecModule = ModuleName
-                                      "Foreign",
                                     cTypeSpecIdentifier = Just
                                       (Identifier "Int64"),
                                     cTypeSpecInstances =
@@ -2014,8 +1982,6 @@
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         CTypeSpec {
-                          cTypeSpecModule = ModuleName
-                            "Example",
                           cTypeSpecIdentifier = Nothing,
                           cTypeSpecInstances =
                           Map.fromList []}},

@@ -48,8 +48,6 @@
             extRefIdentifier = Identifier
               "CSize"}
           CTypeSpec {
-            cTypeSpecModule = ModuleName
-              "HsBindgen.Runtime.Prelude",
             cTypeSpecIdentifier = Just
               (Identifier "CSize"),
             cTypeSpecInstances =
@@ -212,8 +210,6 @@
                   extRefIdentifier = Identifier
                     "CSize"},
                 extHsSpec = CTypeSpec {
-                  cTypeSpecModule = ModuleName
-                    "HsBindgen.Runtime.Prelude",
                   cTypeSpecIdentifier = Just
                     (Identifier "CSize"),
                   cTypeSpecInstances =
@@ -318,8 +314,6 @@
                               ]})]}}},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = ModuleName
-              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -536,8 +530,6 @@
           (NameKindTagged TagKindStruct),
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = ModuleName
-              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -599,8 +591,6 @@
           (NameKindTagged TagKindUnion),
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = ModuleName
-              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -723,8 +713,6 @@
                 enumConstantValue = 2}]},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = ModuleName
-              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -1170,8 +1158,6 @@
                 (PrimIntegral PrimInt Signed))},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = ModuleName
-              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -1399,8 +1385,6 @@
                         Signed)))))},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = ModuleName
-              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -1509,8 +1493,6 @@
               extRefIdentifier = Identifier
                 "Word32"}
             CTypeSpec {
-              cTypeSpecModule = ModuleName
-                "HsBindgen.Runtime.Prelude",
               cTypeSpecIdentifier = Just
                 (Identifier "Word32"),
               cTypeSpecInstances =
@@ -1644,8 +1626,6 @@
                     extRefIdentifier = Identifier
                       "Word32"},
                   extHsSpec = CTypeSpec {
-                    cTypeSpecModule = ModuleName
-                      "HsBindgen.Runtime.Prelude",
                     cTypeSpecIdentifier = Just
                       (Identifier "Word32"),
                     cTypeSpecInstances =
@@ -1829,8 +1809,6 @@
               extRefIdentifier = Identifier
                 "Word32"}
             CTypeSpec {
-              cTypeSpecModule = ModuleName
-                "HsBindgen.Runtime.Prelude",
               cTypeSpecIdentifier = Just
                 (Identifier "Word32"),
               cTypeSpecInstances =
@@ -1964,8 +1942,6 @@
                     extRefIdentifier = Identifier
                       "Word32"},
                   extHsSpec = CTypeSpec {
-                    cTypeSpecModule = ModuleName
-                      "HsBindgen.Runtime.Prelude",
                     cTypeSpecIdentifier = Just
                       (Identifier "Word32"),
                     cTypeSpecInstances =
@@ -2280,8 +2256,6 @@
                         extRefIdentifier = Identifier
                           "Word32"},
                       extHsSpec = CTypeSpec {
-                        cTypeSpecModule = ModuleName
-                          "HsBindgen.Runtime.Prelude",
                         cTypeSpecIdentifier = Just
                           (Identifier "Word32"),
                         cTypeSpecInstances =
@@ -2442,8 +2416,6 @@
                         extRefIdentifier = Identifier
                           "Word32"},
                       extHsSpec = CTypeSpec {
-                        cTypeSpecModule = ModuleName
-                          "HsBindgen.Runtime.Prelude",
                         cTypeSpecIdentifier = Just
                           (Identifier "Word32"),
                         cTypeSpecInstances =
@@ -2619,8 +2591,6 @@
               structFlam = Nothing},
           declSpec = DeclSpec
             CTypeSpec {
-              cTypeSpecModule = ModuleName
-                "Example",
               cTypeSpecIdentifier = Nothing,
               cTypeSpecInstances =
               Map.fromList []}},
@@ -2670,8 +2640,6 @@
                   extRefIdentifier = Identifier
                     "Word32"}
                 CTypeSpec {
-                  cTypeSpecModule = ModuleName
-                    "HsBindgen.Runtime.Prelude",
                   cTypeSpecIdentifier = Just
                     (Identifier "Word32"),
                   cTypeSpecInstances =
@@ -2805,8 +2773,6 @@
                         extRefIdentifier = Identifier
                           "Word32"},
                       extHsSpec = CTypeSpec {
-                        cTypeSpecModule = ModuleName
-                          "HsBindgen.Runtime.Prelude",
                         cTypeSpecIdentifier = Just
                           (Identifier "Word32"),
                         cTypeSpecInstances =
@@ -2990,8 +2956,6 @@
                   extRefIdentifier = Identifier
                     "Word32"}
                 CTypeSpec {
-                  cTypeSpecModule = ModuleName
-                    "HsBindgen.Runtime.Prelude",
                   cTypeSpecIdentifier = Just
                     (Identifier "Word32"),
                   cTypeSpecInstances =
@@ -3125,8 +3089,6 @@
                         extRefIdentifier = Identifier
                           "Word32"},
                       extHsSpec = CTypeSpec {
-                        cTypeSpecModule = ModuleName
-                          "HsBindgen.Runtime.Prelude",
                         cTypeSpecIdentifier = Just
                           (Identifier "Word32"),
                         cTypeSpecInstances =
@@ -3444,8 +3406,6 @@
                             extRefIdentifier = Identifier
                               "Word32"},
                           extHsSpec = CTypeSpec {
-                            cTypeSpecModule = ModuleName
-                              "HsBindgen.Runtime.Prelude",
                             cTypeSpecIdentifier = Just
                               (Identifier "Word32"),
                             cTypeSpecInstances =
@@ -3606,8 +3566,6 @@
                             extRefIdentifier = Identifier
                               "Word32"},
                           extHsSpec = CTypeSpec {
-                            cTypeSpecModule = ModuleName
-                              "HsBindgen.Runtime.Prelude",
                             cTypeSpecIdentifier = Just
                               (Identifier "Word32"),
                             cTypeSpecInstances =
@@ -3783,8 +3741,6 @@
                   structFlam = Nothing},
               declSpec = DeclSpec
                 CTypeSpec {
-                  cTypeSpecModule = ModuleName
-                    "Example",
                   cTypeSpecIdentifier = Nothing,
                   cTypeSpecInstances =
                   Map.fromList []}},
@@ -3838,8 +3794,6 @@
                           extRefIdentifier = Identifier
                             "Word32"}
                         CTypeSpec {
-                          cTypeSpecModule = ModuleName
-                            "HsBindgen.Runtime.Prelude",
                           cTypeSpecIdentifier = Just
                             (Identifier "Word32"),
                           cTypeSpecInstances =
@@ -3973,8 +3927,6 @@
                                 extRefIdentifier = Identifier
                                   "Word32"},
                               extHsSpec = CTypeSpec {
-                                cTypeSpecModule = ModuleName
-                                  "HsBindgen.Runtime.Prelude",
                                 cTypeSpecIdentifier = Just
                                   (Identifier "Word32"),
                                 cTypeSpecInstances =
@@ -4158,8 +4110,6 @@
                           extRefIdentifier = Identifier
                             "Word32"}
                         CTypeSpec {
-                          cTypeSpecModule = ModuleName
-                            "HsBindgen.Runtime.Prelude",
                           cTypeSpecIdentifier = Just
                             (Identifier "Word32"),
                           cTypeSpecInstances =
@@ -4293,8 +4243,6 @@
                                 extRefIdentifier = Identifier
                                   "Word32"},
                               extHsSpec = CTypeSpec {
-                                cTypeSpecModule = ModuleName
-                                  "HsBindgen.Runtime.Prelude",
                                 cTypeSpecIdentifier = Just
                                   (Identifier "Word32"),
                                 cTypeSpecInstances =
@@ -4612,8 +4560,6 @@
                                     extRefIdentifier = Identifier
                                       "Word32"},
                                   extHsSpec = CTypeSpec {
-                                    cTypeSpecModule = ModuleName
-                                      "HsBindgen.Runtime.Prelude",
                                     cTypeSpecIdentifier = Just
                                       (Identifier "Word32"),
                                     cTypeSpecInstances =
@@ -4774,8 +4720,6 @@
                                     extRefIdentifier = Identifier
                                       "Word32"},
                                   extHsSpec = CTypeSpec {
-                                    cTypeSpecModule = ModuleName
-                                      "HsBindgen.Runtime.Prelude",
                                     cTypeSpecIdentifier = Just
                                       (Identifier "Word32"),
                                     cTypeSpecInstances =
@@ -4951,8 +4895,6 @@
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         CTypeSpec {
-                          cTypeSpecModule = ModuleName
-                            "Example",
                           cTypeSpecIdentifier = Nothing,
                           cTypeSpecInstances =
                           Map.fromList []}},
@@ -5013,8 +4955,6 @@
                           extRefIdentifier = Identifier
                             "Word32"}
                         CTypeSpec {
-                          cTypeSpecModule = ModuleName
-                            "HsBindgen.Runtime.Prelude",
                           cTypeSpecIdentifier = Just
                             (Identifier "Word32"),
                           cTypeSpecInstances =
@@ -5148,8 +5088,6 @@
                                 extRefIdentifier = Identifier
                                   "Word32"},
                               extHsSpec = CTypeSpec {
-                                cTypeSpecModule = ModuleName
-                                  "HsBindgen.Runtime.Prelude",
                                 cTypeSpecIdentifier = Just
                                   (Identifier "Word32"),
                                 cTypeSpecInstances =
@@ -5333,8 +5271,6 @@
                           extRefIdentifier = Identifier
                             "Word32"}
                         CTypeSpec {
-                          cTypeSpecModule = ModuleName
-                            "HsBindgen.Runtime.Prelude",
                           cTypeSpecIdentifier = Just
                             (Identifier "Word32"),
                           cTypeSpecInstances =
@@ -5468,8 +5404,6 @@
                                 extRefIdentifier = Identifier
                                   "Word32"},
                               extHsSpec = CTypeSpec {
-                                cTypeSpecModule = ModuleName
-                                  "HsBindgen.Runtime.Prelude",
                                 cTypeSpecIdentifier = Just
                                   (Identifier "Word32"),
                                 cTypeSpecInstances =
@@ -5787,8 +5721,6 @@
                                     extRefIdentifier = Identifier
                                       "Word32"},
                                   extHsSpec = CTypeSpec {
-                                    cTypeSpecModule = ModuleName
-                                      "HsBindgen.Runtime.Prelude",
                                     cTypeSpecIdentifier = Just
                                       (Identifier "Word32"),
                                     cTypeSpecInstances =
@@ -5949,8 +5881,6 @@
                                     extRefIdentifier = Identifier
                                       "Word32"},
                                   extHsSpec = CTypeSpec {
-                                    cTypeSpecModule = ModuleName
-                                      "HsBindgen.Runtime.Prelude",
                                     cTypeSpecIdentifier = Just
                                       (Identifier "Word32"),
                                     cTypeSpecInstances =
@@ -6126,8 +6056,6 @@
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         CTypeSpec {
-                          cTypeSpecModule = ModuleName
-                            "Example",
                           cTypeSpecIdentifier = Nothing,
                           cTypeSpecInstances =
                           Map.fromList []}},
@@ -6349,8 +6277,6 @@
                 enumConstantValue = `-99`}]},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = ModuleName
-              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -6854,8 +6780,6 @@
               extRefIdentifier = Identifier
                 "Word16"}
             CTypeSpec {
-              cTypeSpecModule = ModuleName
-                "HsBindgen.Runtime.Prelude",
               cTypeSpecIdentifier = Just
                 (Identifier "Word16"),
               cTypeSpecInstances =
@@ -6988,8 +6912,6 @@
                     extRefIdentifier = Identifier
                       "Word16"},
                   extHsSpec = CTypeSpec {
-                    cTypeSpecModule = ModuleName
-                      "HsBindgen.Runtime.Prelude",
                     cTypeSpecIdentifier = Just
                       (Identifier "Word16"),
                     cTypeSpecInstances =
@@ -7120,8 +7042,6 @@
               extRefIdentifier = Identifier
                 "Word16"}
             CTypeSpec {
-              cTypeSpecModule = ModuleName
-                "HsBindgen.Runtime.Prelude",
               cTypeSpecIdentifier = Just
                 (Identifier "Word16"),
               cTypeSpecInstances =
@@ -7254,8 +7174,6 @@
                     extRefIdentifier = Identifier
                       "Word16"},
                   extHsSpec = CTypeSpec {
-                    cTypeSpecModule = ModuleName
-                      "HsBindgen.Runtime.Prelude",
                     cTypeSpecIdentifier = Just
                       (Identifier "Word16"),
                     cTypeSpecInstances =
@@ -7450,8 +7368,6 @@
                         extRefIdentifier = Identifier
                           "Word16"},
                       extHsSpec = CTypeSpec {
-                        cTypeSpecModule = ModuleName
-                          "HsBindgen.Runtime.Prelude",
                         cTypeSpecIdentifier = Just
                           (Identifier "Word16"),
                         cTypeSpecInstances =
@@ -7585,8 +7501,6 @@
                         extRefIdentifier = Identifier
                           "Word16"},
                       extHsSpec = CTypeSpec {
-                        cTypeSpecModule = ModuleName
-                          "HsBindgen.Runtime.Prelude",
                         cTypeSpecIdentifier = Just
                           (Identifier "Word16"),
                         cTypeSpecInstances =
@@ -7694,8 +7608,6 @@
               structFlam = Nothing},
           declSpec = DeclSpec
             CTypeSpec {
-              cTypeSpecModule = ModuleName
-                "Example",
               cTypeSpecIdentifier = Nothing,
               cTypeSpecInstances =
               Map.fromList []}},
@@ -7745,8 +7657,6 @@
                   extRefIdentifier = Identifier
                     "Word16"}
                 CTypeSpec {
-                  cTypeSpecModule = ModuleName
-                    "HsBindgen.Runtime.Prelude",
                   cTypeSpecIdentifier = Just
                     (Identifier "Word16"),
                   cTypeSpecInstances =
@@ -7879,8 +7789,6 @@
                         extRefIdentifier = Identifier
                           "Word16"},
                       extHsSpec = CTypeSpec {
-                        cTypeSpecModule = ModuleName
-                          "HsBindgen.Runtime.Prelude",
                         cTypeSpecIdentifier = Just
                           (Identifier "Word16"),
                         cTypeSpecInstances =
@@ -8011,8 +7919,6 @@
                   extRefIdentifier = Identifier
                     "Word16"}
                 CTypeSpec {
-                  cTypeSpecModule = ModuleName
-                    "HsBindgen.Runtime.Prelude",
                   cTypeSpecIdentifier = Just
                     (Identifier "Word16"),
                   cTypeSpecInstances =
@@ -8145,8 +8051,6 @@
                         extRefIdentifier = Identifier
                           "Word16"},
                       extHsSpec = CTypeSpec {
-                        cTypeSpecModule = ModuleName
-                          "HsBindgen.Runtime.Prelude",
                         cTypeSpecIdentifier = Just
                           (Identifier "Word16"),
                         cTypeSpecInstances =
@@ -8345,8 +8249,6 @@
                             extRefIdentifier = Identifier
                               "Word16"},
                           extHsSpec = CTypeSpec {
-                            cTypeSpecModule = ModuleName
-                              "HsBindgen.Runtime.Prelude",
                             cTypeSpecIdentifier = Just
                               (Identifier "Word16"),
                             cTypeSpecInstances =
@@ -8480,8 +8382,6 @@
                             extRefIdentifier = Identifier
                               "Word16"},
                           extHsSpec = CTypeSpec {
-                            cTypeSpecModule = ModuleName
-                              "HsBindgen.Runtime.Prelude",
                             cTypeSpecIdentifier = Just
                               (Identifier "Word16"),
                             cTypeSpecInstances =
@@ -8589,8 +8489,6 @@
                   structFlam = Nothing},
               declSpec = DeclSpec
                 CTypeSpec {
-                  cTypeSpecModule = ModuleName
-                    "Example",
                   cTypeSpecIdentifier = Nothing,
                   cTypeSpecInstances =
                   Map.fromList []}},
@@ -8644,8 +8542,6 @@
                           extRefIdentifier = Identifier
                             "Word16"}
                         CTypeSpec {
-                          cTypeSpecModule = ModuleName
-                            "HsBindgen.Runtime.Prelude",
                           cTypeSpecIdentifier = Just
                             (Identifier "Word16"),
                           cTypeSpecInstances =
@@ -8778,8 +8674,6 @@
                                 extRefIdentifier = Identifier
                                   "Word16"},
                               extHsSpec = CTypeSpec {
-                                cTypeSpecModule = ModuleName
-                                  "HsBindgen.Runtime.Prelude",
                                 cTypeSpecIdentifier = Just
                                   (Identifier "Word16"),
                                 cTypeSpecInstances =
@@ -8910,8 +8804,6 @@
                           extRefIdentifier = Identifier
                             "Word16"}
                         CTypeSpec {
-                          cTypeSpecModule = ModuleName
-                            "HsBindgen.Runtime.Prelude",
                           cTypeSpecIdentifier = Just
                             (Identifier "Word16"),
                           cTypeSpecInstances =
@@ -9044,8 +8936,6 @@
                                 extRefIdentifier = Identifier
                                   "Word16"},
                               extHsSpec = CTypeSpec {
-                                cTypeSpecModule = ModuleName
-                                  "HsBindgen.Runtime.Prelude",
                                 cTypeSpecIdentifier = Just
                                   (Identifier "Word16"),
                                 cTypeSpecInstances =
@@ -9244,8 +9134,6 @@
                                     extRefIdentifier = Identifier
                                       "Word16"},
                                   extHsSpec = CTypeSpec {
-                                    cTypeSpecModule = ModuleName
-                                      "HsBindgen.Runtime.Prelude",
                                     cTypeSpecIdentifier = Just
                                       (Identifier "Word16"),
                                     cTypeSpecInstances =
@@ -9379,8 +9267,6 @@
                                     extRefIdentifier = Identifier
                                       "Word16"},
                                   extHsSpec = CTypeSpec {
-                                    cTypeSpecModule = ModuleName
-                                      "HsBindgen.Runtime.Prelude",
                                     cTypeSpecIdentifier = Just
                                       (Identifier "Word16"),
                                     cTypeSpecInstances =
@@ -9488,8 +9374,6 @@
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         CTypeSpec {
-                          cTypeSpecModule = ModuleName
-                            "Example",
                           cTypeSpecIdentifier = Nothing,
                           cTypeSpecInstances =
                           Map.fromList []}},
@@ -9547,8 +9431,6 @@
                           extRefIdentifier = Identifier
                             "Word16"}
                         CTypeSpec {
-                          cTypeSpecModule = ModuleName
-                            "HsBindgen.Runtime.Prelude",
                           cTypeSpecIdentifier = Just
                             (Identifier "Word16"),
                           cTypeSpecInstances =
@@ -9681,8 +9563,6 @@
                                 extRefIdentifier = Identifier
                                   "Word16"},
                               extHsSpec = CTypeSpec {
-                                cTypeSpecModule = ModuleName
-                                  "HsBindgen.Runtime.Prelude",
                                 cTypeSpecIdentifier = Just
                                   (Identifier "Word16"),
                                 cTypeSpecInstances =
@@ -9813,8 +9693,6 @@
                           extRefIdentifier = Identifier
                             "Word16"}
                         CTypeSpec {
-                          cTypeSpecModule = ModuleName
-                            "HsBindgen.Runtime.Prelude",
                           cTypeSpecIdentifier = Just
                             (Identifier "Word16"),
                           cTypeSpecInstances =
@@ -9947,8 +9825,6 @@
                                 extRefIdentifier = Identifier
                                   "Word16"},
                               extHsSpec = CTypeSpec {
-                                cTypeSpecModule = ModuleName
-                                  "HsBindgen.Runtime.Prelude",
                                 cTypeSpecIdentifier = Just
                                   (Identifier "Word16"),
                                 cTypeSpecInstances =
@@ -10147,8 +10023,6 @@
                                     extRefIdentifier = Identifier
                                       "Word16"},
                                   extHsSpec = CTypeSpec {
-                                    cTypeSpecModule = ModuleName
-                                      "HsBindgen.Runtime.Prelude",
                                     cTypeSpecIdentifier = Just
                                       (Identifier "Word16"),
                                     cTypeSpecInstances =
@@ -10282,8 +10156,6 @@
                                     extRefIdentifier = Identifier
                                       "Word16"},
                                   extHsSpec = CTypeSpec {
-                                    cTypeSpecModule = ModuleName
-                                      "HsBindgen.Runtime.Prelude",
                                     cTypeSpecIdentifier = Just
                                       (Identifier "Word16"),
                                     cTypeSpecInstances =
@@ -10391,8 +10263,6 @@
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         CTypeSpec {
-                          cTypeSpecModule = ModuleName
-                            "Example",
                           cTypeSpecIdentifier = Nothing,
                           cTypeSpecInstances =
                           Map.fromList []}},
@@ -10545,8 +10415,6 @@
                       extRefIdentifier = Identifier
                         "Int32"},
                     extHsSpec = CTypeSpec {
-                      cTypeSpecModule = ModuleName
-                        "HsBindgen.Runtime.Prelude",
                       cTypeSpecIdentifier = Just
                         (Identifier "Int32"),
                       cTypeSpecInstances =
@@ -10701,8 +10569,6 @@
                         extRefIdentifier = Identifier
                           "Word8"},
                       extHsSpec = CTypeSpec {
-                        cTypeSpecModule = ModuleName
-                          "HsBindgen.Runtime.Prelude",
                         cTypeSpecIdentifier = Just
                           (Identifier "Word8"),
                         cTypeSpecInstances =
@@ -10831,8 +10697,6 @@
                       "doxygen_docs.h:290:5"))}]},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = ModuleName
-              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -10883,8 +10747,6 @@
           extRefIdentifier = Identifier
             "Int32"}
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "HsBindgen.Runtime.Prelude",
           cTypeSpecIdentifier = Just
             (Identifier "Int32"),
           cTypeSpecInstances =
@@ -11024,8 +10886,6 @@
           extRefIdentifier = Identifier
             "Int32"}
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "HsBindgen.Runtime.Prelude",
           cTypeSpecIdentifier = Just
             (Identifier "Int32"),
           cTypeSpecInstances =
@@ -11211,8 +11071,6 @@
             extRefIdentifier = Identifier
               "Word8"}
           CTypeSpec {
-            cTypeSpecModule = ModuleName
-              "HsBindgen.Runtime.Prelude",
             cTypeSpecIdentifier = Just
               (Identifier "Word8"),
             cTypeSpecInstances =
@@ -11354,8 +11212,6 @@
             extRefIdentifier = Identifier
               "Word8"}
           CTypeSpec {
-            cTypeSpecModule = ModuleName
-              "HsBindgen.Runtime.Prelude",
             cTypeSpecIdentifier = Just
               (Identifier "Word8"),
             cTypeSpecInstances =
@@ -11854,8 +11710,6 @@
               structFlam = Nothing},
           declSpec = DeclSpec
             CTypeSpec {
-              cTypeSpecModule = ModuleName
-                "Example",
               cTypeSpecIdentifier = Nothing,
               cTypeSpecInstances =
               Map.fromList []}},
@@ -12212,8 +12066,6 @@
                   structFlam = Nothing},
               declSpec = DeclSpec
                 CTypeSpec {
-                  cTypeSpecModule = ModuleName
-                    "Example",
                   cTypeSpecIdentifier = Nothing,
                   cTypeSpecInstances =
                   Map.fromList []}},
@@ -12573,8 +12425,6 @@
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         CTypeSpec {
-                          cTypeSpecModule = ModuleName
-                            "Example",
                           cTypeSpecIdentifier = Nothing,
                           cTypeSpecInstances =
                           Map.fromList []}},
@@ -12938,8 +12788,6 @@
                           structFlam = Nothing},
                       declSpec = DeclSpec
                         CTypeSpec {
-                          cTypeSpecModule = ModuleName
-                            "Example",
                           cTypeSpecIdentifier = Nothing,
                           cTypeSpecInstances =
                           Map.fromList []}},
@@ -13081,8 +12929,6 @@
                 (PrimIntegral PrimInt Signed))},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = ModuleName
-              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -13311,8 +13157,6 @@
                         Signed)))))},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = ModuleName
-              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -13463,8 +13307,6 @@
                     (Just Signed))))},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = ModuleName
-              "Example",
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -13539,8 +13381,6 @@
               extRefIdentifier = Identifier
                 "CSize"}
             CTypeSpec {
-              cTypeSpecModule = ModuleName
-                "HsBindgen.Runtime.Prelude",
               cTypeSpecIdentifier = Just
                 (Identifier "CSize"),
               cTypeSpecInstances =
@@ -13674,8 +13514,6 @@
                     extRefIdentifier = Identifier
                       "CSize"},
                   extHsSpec = CTypeSpec {
-                    cTypeSpecModule = ModuleName
-                      "HsBindgen.Runtime.Prelude",
                     cTypeSpecIdentifier = Just
                       (Identifier "CSize"),
                     cTypeSpecInstances =
@@ -13883,8 +13721,6 @@
                         extRefIdentifier = Identifier
                           "CSize"},
                       extHsSpec = CTypeSpec {
-                        cTypeSpecModule = ModuleName
-                          "HsBindgen.Runtime.Prelude",
                         cTypeSpecIdentifier = Just
                           (Identifier "CSize"),
                         cTypeSpecInstances =
@@ -14014,8 +13850,6 @@
                   structFieldWidth = Nothing}},
           declSpec = DeclSpec
             CTypeSpec {
-              cTypeSpecModule = ModuleName
-                "Example",
               cTypeSpecIdentifier = Nothing,
               cTypeSpecInstances =
               Map.fromList []}},
@@ -14077,8 +13911,6 @@
                   extRefIdentifier = Identifier
                     "CSize"}
                 CTypeSpec {
-                  cTypeSpecModule = ModuleName
-                    "HsBindgen.Runtime.Prelude",
                   cTypeSpecIdentifier = Just
                     (Identifier "CSize"),
                   cTypeSpecInstances =
@@ -14212,8 +14044,6 @@
                         extRefIdentifier = Identifier
                           "CSize"},
                       extHsSpec = CTypeSpec {
-                        cTypeSpecModule = ModuleName
-                          "HsBindgen.Runtime.Prelude",
                         cTypeSpecIdentifier = Just
                           (Identifier "CSize"),
                         cTypeSpecInstances =
@@ -14421,8 +14251,6 @@
                             extRefIdentifier = Identifier
                               "CSize"},
                           extHsSpec = CTypeSpec {
-                            cTypeSpecModule = ModuleName
-                              "HsBindgen.Runtime.Prelude",
                             cTypeSpecIdentifier = Just
                               (Identifier "CSize"),
                             cTypeSpecInstances =
@@ -14552,8 +14380,6 @@
                       structFieldWidth = Nothing}},
               declSpec = DeclSpec
                 CTypeSpec {
-                  cTypeSpecModule = ModuleName
-                    "Example",
                   cTypeSpecIdentifier = Nothing,
                   cTypeSpecInstances =
                   Map.fromList []}},
@@ -14618,8 +14444,6 @@
                           extRefIdentifier = Identifier
                             "CSize"}
                         CTypeSpec {
-                          cTypeSpecModule = ModuleName
-                            "HsBindgen.Runtime.Prelude",
                           cTypeSpecIdentifier = Just
                             (Identifier "CSize"),
                           cTypeSpecInstances =
@@ -14753,8 +14577,6 @@
                                 extRefIdentifier = Identifier
                                   "CSize"},
                               extHsSpec = CTypeSpec {
-                                cTypeSpecModule = ModuleName
-                                  "HsBindgen.Runtime.Prelude",
                                 cTypeSpecIdentifier = Just
                                   (Identifier "CSize"),
                                 cTypeSpecInstances =
@@ -14962,8 +14784,6 @@
                                     extRefIdentifier = Identifier
                                       "CSize"},
                                   extHsSpec = CTypeSpec {
-                                    cTypeSpecModule = ModuleName
-                                      "HsBindgen.Runtime.Prelude",
                                     cTypeSpecIdentifier = Just
                                       (Identifier "CSize"),
                                     cTypeSpecInstances =
@@ -15093,8 +14913,6 @@
                               structFieldWidth = Nothing}},
                       declSpec = DeclSpec
                         CTypeSpec {
-                          cTypeSpecModule = ModuleName
-                            "Example",
                           cTypeSpecIdentifier = Nothing,
                           cTypeSpecInstances =
                           Map.fromList []}},
@@ -15159,8 +14977,6 @@
                           extRefIdentifier = Identifier
                             "CSize"}
                         CTypeSpec {
-                          cTypeSpecModule = ModuleName
-                            "HsBindgen.Runtime.Prelude",
                           cTypeSpecIdentifier = Just
                             (Identifier "CSize"),
                           cTypeSpecInstances =
@@ -15294,8 +15110,6 @@
                                 extRefIdentifier = Identifier
                                   "CSize"},
                               extHsSpec = CTypeSpec {
-                                cTypeSpecModule = ModuleName
-                                  "HsBindgen.Runtime.Prelude",
                                 cTypeSpecIdentifier = Just
                                   (Identifier "CSize"),
                                 cTypeSpecInstances =
@@ -15503,8 +15317,6 @@
                                     extRefIdentifier = Identifier
                                       "CSize"},
                                   extHsSpec = CTypeSpec {
-                                    cTypeSpecModule = ModuleName
-                                      "HsBindgen.Runtime.Prelude",
                                     cTypeSpecIdentifier = Just
                                       (Identifier "CSize"),
                                     cTypeSpecInstances =
@@ -15634,8 +15446,6 @@
                               structFieldWidth = Nothing}},
                       declSpec = DeclSpec
                         CTypeSpec {
-                          cTypeSpecModule = ModuleName
-                            "Example",
                           cTypeSpecIdentifier = Nothing,
                           cTypeSpecInstances =
                           Map.fromList []}},
@@ -15726,8 +15536,6 @@
                   extRefIdentifier = Identifier
                     "CSize"}
                 CTypeSpec {
-                  cTypeSpecModule = ModuleName
-                    "HsBindgen.Runtime.Prelude",
                   cTypeSpecIdentifier = Just
                     (Identifier "CSize"),
                   cTypeSpecInstances =
@@ -15861,8 +15669,6 @@
                         extRefIdentifier = Identifier
                           "CSize"},
                       extHsSpec = CTypeSpec {
-                        cTypeSpecModule = ModuleName
-                          "HsBindgen.Runtime.Prelude",
                         cTypeSpecIdentifier = Just
                           (Identifier "CSize"),
                         cTypeSpecInstances =
@@ -16070,8 +15876,6 @@
                             extRefIdentifier = Identifier
                               "CSize"},
                           extHsSpec = CTypeSpec {
-                            cTypeSpecModule = ModuleName
-                              "HsBindgen.Runtime.Prelude",
                             cTypeSpecIdentifier = Just
                               (Identifier "CSize"),
                             cTypeSpecInstances =
@@ -16201,8 +16005,6 @@
                       structFieldWidth = Nothing}},
               declSpec = DeclSpec
                 CTypeSpec {
-                  cTypeSpecModule = ModuleName
-                    "Example",
                   cTypeSpecIdentifier = Nothing,
                   cTypeSpecInstances =
                   Map.fromList []}},
@@ -16262,8 +16064,6 @@
                 extRefIdentifier = Identifier
                   "Word8"}
               CTypeSpec {
-                cTypeSpecModule = ModuleName
-                  "HsBindgen.Runtime.Prelude",
                 cTypeSpecIdentifier = Just
                   (Identifier "Word8"),
                 cTypeSpecInstances =
@@ -16396,8 +16196,6 @@
                 extRefIdentifier = Identifier
                   "Word8"}
               CTypeSpec {
-                cTypeSpecModule = ModuleName
-                  "HsBindgen.Runtime.Prelude",
                 cTypeSpecIdentifier = Just
                   (Identifier "Word8"),
                 cTypeSpecInstances =
@@ -16530,8 +16328,6 @@
                 extRefIdentifier = Identifier
                   "CSize"}
               CTypeSpec {
-                cTypeSpecModule = ModuleName
-                  "HsBindgen.Runtime.Prelude",
                 cTypeSpecIdentifier = Just
                   (Identifier "CSize"),
                 cTypeSpecInstances =
@@ -16696,8 +16492,6 @@
                         extRefIdentifier = Identifier
                           "Word8"},
                       extHsSpec = CTypeSpec {
-                        cTypeSpecModule = ModuleName
-                          "HsBindgen.Runtime.Prelude",
                         cTypeSpecIdentifier = Just
                           (Identifier "Word8"),
                         cTypeSpecInstances =
@@ -16819,8 +16613,6 @@
                       extRefIdentifier = Identifier
                         "Word8"},
                     extHsSpec = CTypeSpec {
-                      cTypeSpecModule = ModuleName
-                        "HsBindgen.Runtime.Prelude",
                       cTypeSpecIdentifier = Just
                         (Identifier "Word8"),
                       cTypeSpecInstances =
@@ -16942,8 +16734,6 @@
                       extRefIdentifier = Identifier
                         "CSize"},
                     extHsSpec = CTypeSpec {
-                      cTypeSpecModule = ModuleName
-                        "HsBindgen.Runtime.Prelude",
                       cTypeSpecIdentifier = Just
                         (Identifier "CSize"),
                       cTypeSpecInstances =
@@ -18168,8 +17958,6 @@
               extRefIdentifier = Identifier
                 "CSize"}
             CTypeSpec {
-              cTypeSpecModule = ModuleName
-                "HsBindgen.Runtime.Prelude",
               cTypeSpecIdentifier = Just
                 (Identifier "CSize"),
               cTypeSpecInstances =
@@ -18341,8 +18129,6 @@
                     extRefIdentifier = Identifier
                       "CSize"},
                   extHsSpec = CTypeSpec {
-                    cTypeSpecModule = ModuleName
-                      "HsBindgen.Runtime.Prelude",
                     cTypeSpecIdentifier = Just
                       (Identifier "CSize"),
                     cTypeSpecInstances =
@@ -18556,8 +18342,6 @@
               extRefIdentifier = Identifier
                 "CSize"}
             CTypeSpec {
-              cTypeSpecModule = ModuleName
-                "HsBindgen.Runtime.Prelude",
               cTypeSpecIdentifier = Just
                 (Identifier "CSize"),
               cTypeSpecInstances =
@@ -18735,8 +18519,6 @@
                     extRefIdentifier = Identifier
                       "CSize"},
                   extHsSpec = CTypeSpec {
-                    cTypeSpecModule = ModuleName
-                      "HsBindgen.Runtime.Prelude",
                     cTypeSpecIdentifier = Just
                       (Identifier "CSize"),
                     cTypeSpecInstances =
@@ -19033,8 +18815,6 @@
                 extRefIdentifier = Identifier
                   "Word8"}
               CTypeSpec {
-                cTypeSpecModule = ModuleName
-                  "HsBindgen.Runtime.Prelude",
                 cTypeSpecIdentifier = Just
                   (Identifier "Word8"),
                 cTypeSpecInstances =
@@ -19155,8 +18935,6 @@
               extRefIdentifier = Identifier
                 "CSize"}
             CTypeSpec {
-              cTypeSpecModule = ModuleName
-                "HsBindgen.Runtime.Prelude",
               cTypeSpecIdentifier = Just
                 (Identifier "CSize"),
               cTypeSpecInstances =
@@ -19342,8 +19120,6 @@
                         extRefIdentifier = Identifier
                           "Word8"},
                       extHsSpec = CTypeSpec {
-                        cTypeSpecModule = ModuleName
-                          "HsBindgen.Runtime.Prelude",
                         cTypeSpecIdentifier = Just
                           (Identifier "Word8"),
                         cTypeSpecInstances =
@@ -19464,8 +19240,6 @@
                     extRefIdentifier = Identifier
                       "CSize"},
                   extHsSpec = CTypeSpec {
-                    cTypeSpecModule = ModuleName
-                      "HsBindgen.Runtime.Prelude",
                     cTypeSpecIdentifier = Just
                       (Identifier "CSize"),
                     cTypeSpecInstances =
@@ -19924,8 +19698,6 @@
                 extRefIdentifier = Identifier
                   "Word8"}
               CTypeSpec {
-                cTypeSpecModule = ModuleName
-                  "HsBindgen.Runtime.Prelude",
                 cTypeSpecIdentifier = Just
                   (Identifier "Word8"),
                 cTypeSpecInstances =
@@ -20058,8 +19830,6 @@
                 extRefIdentifier = Identifier
                   "Word8"}
               CTypeSpec {
-                cTypeSpecModule = ModuleName
-                  "HsBindgen.Runtime.Prelude",
                 cTypeSpecIdentifier = Just
                   (Identifier "Word8"),
                 cTypeSpecInstances =
@@ -20192,8 +19962,6 @@
                 extRefIdentifier = Identifier
                   "CSize"}
               CTypeSpec {
-                cTypeSpecModule = ModuleName
-                  "HsBindgen.Runtime.Prelude",
                 cTypeSpecIdentifier = Just
                   (Identifier "CSize"),
                 cTypeSpecInstances =
@@ -20358,8 +20126,6 @@
                         extRefIdentifier = Identifier
                           "Word8"},
                       extHsSpec = CTypeSpec {
-                        cTypeSpecModule = ModuleName
-                          "HsBindgen.Runtime.Prelude",
                         cTypeSpecIdentifier = Just
                           (Identifier "Word8"),
                         cTypeSpecInstances =
@@ -20481,8 +20247,6 @@
                       extRefIdentifier = Identifier
                         "Word8"},
                     extHsSpec = CTypeSpec {
-                      cTypeSpecModule = ModuleName
-                        "HsBindgen.Runtime.Prelude",
                       cTypeSpecIdentifier = Just
                         (Identifier "Word8"),
                       cTypeSpecInstances =
@@ -20604,8 +20368,6 @@
                       extRefIdentifier = Identifier
                         "CSize"},
                     extHsSpec = CTypeSpec {
-                      cTypeSpecModule = ModuleName
-                        "HsBindgen.Runtime.Prelude",
                       cTypeSpecIdentifier = Just
                         (Identifier "CSize"),
                       cTypeSpecInstances =
@@ -21830,8 +21592,6 @@
               extRefIdentifier = Identifier
                 "CSize"}
             CTypeSpec {
-              cTypeSpecModule = ModuleName
-                "HsBindgen.Runtime.Prelude",
               cTypeSpecIdentifier = Just
                 (Identifier "CSize"),
               cTypeSpecInstances =
@@ -22003,8 +21763,6 @@
                     extRefIdentifier = Identifier
                       "CSize"},
                   extHsSpec = CTypeSpec {
-                    cTypeSpecModule = ModuleName
-                      "HsBindgen.Runtime.Prelude",
                     cTypeSpecIdentifier = Just
                       (Identifier "CSize"),
                     cTypeSpecInstances =
@@ -22218,8 +21976,6 @@
               extRefIdentifier = Identifier
                 "CSize"}
             CTypeSpec {
-              cTypeSpecModule = ModuleName
-                "HsBindgen.Runtime.Prelude",
               cTypeSpecIdentifier = Just
                 (Identifier "CSize"),
               cTypeSpecInstances =
@@ -22397,8 +22153,6 @@
                     extRefIdentifier = Identifier
                       "CSize"},
                   extHsSpec = CTypeSpec {
-                    cTypeSpecModule = ModuleName
-                      "HsBindgen.Runtime.Prelude",
                     cTypeSpecIdentifier = Just
                       (Identifier "CSize"),
                     cTypeSpecInstances =
@@ -22695,8 +22449,6 @@
                 extRefIdentifier = Identifier
                   "Word8"}
               CTypeSpec {
-                cTypeSpecModule = ModuleName
-                  "HsBindgen.Runtime.Prelude",
                 cTypeSpecIdentifier = Just
                   (Identifier "Word8"),
                 cTypeSpecInstances =
@@ -22817,8 +22569,6 @@
               extRefIdentifier = Identifier
                 "CSize"}
             CTypeSpec {
-              cTypeSpecModule = ModuleName
-                "HsBindgen.Runtime.Prelude",
               cTypeSpecIdentifier = Just
                 (Identifier "CSize"),
               cTypeSpecInstances =
@@ -23004,8 +22754,6 @@
                         extRefIdentifier = Identifier
                           "Word8"},
                       extHsSpec = CTypeSpec {
-                        cTypeSpecModule = ModuleName
-                          "HsBindgen.Runtime.Prelude",
                         cTypeSpecIdentifier = Just
                           (Identifier "Word8"),
                         cTypeSpecInstances =
@@ -23126,8 +22874,6 @@
                     extRefIdentifier = Identifier
                       "CSize"},
                   extHsSpec = CTypeSpec {
-                    cTypeSpecModule = ModuleName
-                      "HsBindgen.Runtime.Prelude",
                     cTypeSpecIdentifier = Just
                       (Identifier "CSize"),
                     cTypeSpecInstances =
@@ -23588,8 +23334,6 @@
                     extRefIdentifier = Identifier
                       "Word8"}
                   CTypeSpec {
-                    cTypeSpecModule = ModuleName
-                      "HsBindgen.Runtime.Prelude",
                     cTypeSpecIdentifier = Just
                       (Identifier "Word8"),
                     cTypeSpecInstances =
@@ -23701,8 +23445,6 @@
                       extRefIdentifier = Identifier
                         "Word8"}
                     CTypeSpec {
-                      cTypeSpecModule = ModuleName
-                        "HsBindgen.Runtime.Prelude",
                       cTypeSpecIdentifier = Just
                         (Identifier "Word8"),
                       cTypeSpecInstances =
@@ -23814,8 +23556,6 @@
                         extRefIdentifier = Identifier
                           "CSize"}
                       CTypeSpec {
-                        cTypeSpecModule = ModuleName
-                          "HsBindgen.Runtime.Prelude",
                         cTypeSpecIdentifier = Just
                           (Identifier "CSize"),
                         cTypeSpecInstances =
@@ -23958,8 +23698,6 @@
                       extRefIdentifier = Identifier
                         "Word8"},
                     extHsSpec = CTypeSpec {
-                      cTypeSpecModule = ModuleName
-                        "HsBindgen.Runtime.Prelude",
                       cTypeSpecIdentifier = Just
                         (Identifier "Word8"),
                       cTypeSpecInstances =
@@ -24075,8 +23813,6 @@
                     extRefIdentifier = Identifier
                       "Word8"},
                   extHsSpec = CTypeSpec {
-                    cTypeSpecModule = ModuleName
-                      "HsBindgen.Runtime.Prelude",
                     cTypeSpecIdentifier = Just
                       (Identifier "Word8"),
                     cTypeSpecInstances =
@@ -24192,8 +23928,6 @@
                     extRefIdentifier = Identifier
                       "CSize"},
                   extHsSpec = CTypeSpec {
-                    cTypeSpecModule = ModuleName
-                      "HsBindgen.Runtime.Prelude",
                     cTypeSpecIdentifier = Just
                       (Identifier "CSize"),
                     cTypeSpecInstances =
@@ -24688,8 +24422,6 @@
                     extRefIdentifier = Identifier
                       "CSize"}
                   CTypeSpec {
-                    cTypeSpecModule = ModuleName
-                      "HsBindgen.Runtime.Prelude",
                     cTypeSpecIdentifier = Just
                       (Identifier "CSize"),
                     cTypeSpecInstances =
@@ -24834,8 +24566,6 @@
                   extRefIdentifier = Identifier
                     "CSize"},
                 extHsSpec = CTypeSpec {
-                  cTypeSpecModule = ModuleName
-                    "HsBindgen.Runtime.Prelude",
                   cTypeSpecIdentifier = Just
                     (Identifier "CSize"),
                   cTypeSpecInstances =
@@ -24966,8 +24696,6 @@
                       extRefIdentifier = Identifier
                         "CSize"}
                     CTypeSpec {
-                      cTypeSpecModule = ModuleName
-                        "HsBindgen.Runtime.Prelude",
                       cTypeSpecIdentifier = Just
                         (Identifier "CSize"),
                       cTypeSpecInstances =
@@ -25113,8 +24841,6 @@
                   extRefIdentifier = Identifier
                     "CSize"},
                 extHsSpec = CTypeSpec {
-                  cTypeSpecModule = ModuleName
-                    "HsBindgen.Runtime.Prelude",
                   cTypeSpecIdentifier = Just
                     (Identifier "CSize"),
                   cTypeSpecInstances =
@@ -25290,8 +25016,6 @@
                       extRefIdentifier = Identifier
                         "Word8"}
                     CTypeSpec {
-                      cTypeSpecModule = ModuleName
-                        "HsBindgen.Runtime.Prelude",
                       cTypeSpecIdentifier = Just
                         (Identifier "Word8"),
                       cTypeSpecInstances =
@@ -25402,8 +25126,6 @@
                       extRefIdentifier = Identifier
                         "CSize"}
                     CTypeSpec {
-                      cTypeSpecModule = ModuleName
-                        "HsBindgen.Runtime.Prelude",
                       cTypeSpecIdentifier = Just
                         (Identifier "CSize"),
                       cTypeSpecInstances =
@@ -25561,8 +25283,6 @@
                       extRefIdentifier = Identifier
                         "Word8"},
                     extHsSpec = CTypeSpec {
-                      cTypeSpecModule = ModuleName
-                        "HsBindgen.Runtime.Prelude",
                       cTypeSpecIdentifier = Just
                         (Identifier "Word8"),
                       cTypeSpecInstances =
@@ -25677,8 +25397,6 @@
                   extRefIdentifier = Identifier
                     "CSize"},
                 extHsSpec = CTypeSpec {
-                  cTypeSpecModule = ModuleName
-                    "HsBindgen.Runtime.Prelude",
                   cTypeSpecIdentifier = Just
                     (Identifier "CSize"),
                   cTypeSpecInstances =

@@ -4,7 +4,6 @@ import Data.Map.Strict qualified as Map
 
 import Clang.HighLevel.Documentation qualified as Clang
 
-import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.Analysis.Typedefs (TypedefAnalysis)
 import HsBindgen.Frontend.Analysis.Typedefs qualified as TypedefAnalysis
 import HsBindgen.Frontend.AST.Coerce
@@ -16,17 +15,15 @@ import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass
 import HsBindgen.Frontend.Pass.Parse.IsPass (OrigTypedefRef (..))
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Imports
-import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
   Top-level
 -------------------------------------------------------------------------------}
 
 handleTypedefs ::
-     Hs.ModuleName
-  -> C.TranslationUnit Select
+     C.TranslationUnit Select
   -> (C.TranslationUnit HandleTypedefs, [Msg HandleTypedefs])
-handleTypedefs hsModuleName C.TranslationUnit{..} = (
+handleTypedefs C.TranslationUnit{..} = (
       C.TranslationUnit{
           unitDecls = catMaybes decls'
         , ..
@@ -41,18 +38,17 @@ handleTypedefs hsModuleName C.TranslationUnit{..} = (
     decls' :: [Maybe (C.Decl HandleTypedefs)]
     (msgs, decls') = second (concatMap sequence)
                    $ unzip
-                   $ map (handleDecl hsModuleName td) unitDecls
+                   $ map (handleDecl td) unitDecls
 
 {-------------------------------------------------------------------------------
   Declarations
 -------------------------------------------------------------------------------}
 
 handleDecl ::
-     Hs.ModuleName
-  -> TypedefAnalysis
+     TypedefAnalysis
   -> C.Decl Select
   -> (Maybe (Msg HandleTypedefs), Maybe [C.Decl HandleTypedefs])
-handleDecl hsModuleName td decl =
+handleDecl td decl =
     case declKind of
       C.DeclTypedef dtd
         | C.TypePointer (C.TypeFun args res) <- C.typedefType dtd ->
@@ -73,7 +69,7 @@ handleDecl hsModuleName td decl =
                                typedefType = C.TypeFun args res
                              , typedefAnn  = NoAnn
                              }
-                , declAnn  = BindingSpec.defCTypeSpec hsModuleName
+                , declAnn  = def
                 }
               mainDecl = C.Decl {
                   C.declInfo = declInfo'

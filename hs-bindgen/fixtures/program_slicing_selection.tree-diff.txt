@@ -96,8 +96,6 @@ TranslationUnit {
               enumConstantValue = `-1`}]},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -167,8 +165,6 @@ TranslationUnit {
                     extRefIdentifier = Identifier
                       "CSize"},
                   extHsSpec = CTypeSpec {
-                    cTypeSpecModule = ModuleName
-                      "HsBindgen.Runtime.Prelude",
                     cTypeSpecIdentifier = Just
                       (Identifier "CSize"),
                     cTypeSpecInstances =
@@ -276,8 +272,6 @@ TranslationUnit {
           structFlam = Nothing},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -320,8 +314,6 @@ TranslationUnit {
                       extRefIdentifier = Identifier
                         "CFile"},
                     extHsSpec = CTypeSpec {
-                      cTypeSpecModule = ModuleName
-                        "HsBindgen.Runtime.Prelude",
                       cTypeSpecIdentifier = Just
                         (Identifier "CFile"),
                       cTypeSpecInstances =
@@ -351,8 +343,6 @@ TranslationUnit {
                     extRefIdentifier = Identifier
                       "CSize"},
                   extHsSpec = CTypeSpec {
-                    cTypeSpecModule = ModuleName
-                      "HsBindgen.Runtime.Prelude",
                     cTypeSpecIdentifier = Just
                       (Identifier "CSize"),
                     cTypeSpecInstances =
@@ -467,8 +457,6 @@ TranslationUnit {
             NameOriginInSource},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = ModuleName
-            "Example",
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}}],
