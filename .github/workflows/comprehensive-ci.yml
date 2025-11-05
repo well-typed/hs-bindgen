@@ -24,11 +24,9 @@ jobs:
   test-all-llvm-and-ghc-versions:
     name: Test All LLVM and GHC Versions (${{ matrix.runner }}, GHC ${{ matrix.ghc }}, LLVM ${{ matrix.llvm }})
     runs-on: ${{ matrix.runner }}
-    timeout-minutes: 45
     strategy:
-      fail-fast: false
       matrix:
-        runner: [ubuntu-latest]
+        runner: [ubuntu-latest, macos-latest, windows-latest]
         ghc: ['9.2.8', '9.4.8', '9.6.7', '9.8.4', '9.10.3', '9.12.2']
         llvm: ['14', '16', '18', '20', '21']
     steps:
@@ -48,10 +46,9 @@ jobs:
           llvm: ${{ matrix.llvm }}
 
   cabal-check:
-    name: Cabal check (${{ matrix.package }}) & sdist build
+    name: Cabal check (${{ matrix.package }})
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false
       matrix:
         package:
           - ansi-diff
@@ -61,8 +58,7 @@ jobs:
           - hs-bindgen-runtime
           - hs-bindgen-test-runtime
         cabal-version: ['3.16']
-        ghc-version: ['9.2.8', '9.4.8', '9.6.7', '9.8.4', '9.10.3', '9.12.2']
-        llvm-version: ['14', '16', '18', '20', '21']
+        ghc-version: ['9.4.8']
     steps:
       - name: 📥 Checkout repository
         uses: actions/checkout@v5
@@ -79,51 +75,67 @@ jobs:
           cd ${{ matrix.package }}
           cabal check
 
-      - name: 💾 Generate sdist
-        run: |
-          cd ${{ matrix.package }}
-          cabal sdist
-
-      - name: 💾 Test sdist can be built
-        run: |
-          SDIST_FILE=$(find dist-newstyle/sdist -name "${{ matrix.package }}*.tar.gz" | head -1)
-          if [[ -z "$SDIST_FILE" ]]; then
-            echo "Error: sdist file not found"
-            exit 1
-          fi
-
-          TEMP_DIR=$(mktemp -d)
-          CURR_DIR=$(pwd)
-          tar xzf "$SDIST_FILE" -C "$TEMP_DIR"
-
-          cp cabal.project.base $TEMP_DIR/*/
-
-          cd $TEMP_DIR/*
-
-          cat <<EOF >> cabal.project.base
-          packages:
-            $CURR_DIR/ansi-diff
-            $CURR_DIR/c-expr-runtime
-            $CURR_DIR/c-expr-dsl
-            $CURR_DIR/hs-bindgen
-            $CURR_DIR/hs-bindgen-runtime
-            $CURR_DIR/hs-bindgen-test-runtime
-          EOF
-
-          cp cabal.project.base cabal.project.local
-
-          cabal build --dry-run
-
-  # Build Haddock documentation for all packages
-  build-haddock:
-    name: Build Haddock
+  sdist-build:
+    name: Build from sdist (ubuntu-latest, GHC ${{ matrix.ghc }}, LLVM ${{ matrix.llvm }})
     runs-on: ubuntu-latest
-    timeout-minutes: 30
     strategy:
-      fail-fast: false
       matrix:
         cabal-version: ['3.16']
         ghc-version: ['9.2.8', '9.4.8', '9.6.7', '9.8.4', '9.10.3', '9.12.2']
+        llvm-version: ['14', '16', '18', '20', '21']
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v5
+
+      - name: 🛠️ Setup Haskell
+        id: setup-haskell
+        uses: haskell-actions/setup@v2
+        with:
+          ghc-version: ${{ matrix.ghc-version }}
+          cabal-version: ${{ matrix.cabal-version }}
+
+      - name: 🛠️ Setup LLVM/Clang
+        uses: ./.github/actions/setup-llvm
+        with:
+          version: ${{ matrix.llvm-version }}
+
+      - name: 🛠️ cabal.project
+        run: cp cabal.project.ci cabal.project
+
+      - name: 💾 Generate all sdists
+        run: cabal sdist all
+
+      - name: 💾 Test all sdists can be built
+        run: |
+          TEMP_DIR=$(mktemp -d)
+
+          # Extract all sdists
+          for SDIST_FILE in dist-newstyle/sdist/*.tar.gz; do
+            tar xzf "$SDIST_FILE" -C "$TEMP_DIR"
+          done
+
+          cd "$TEMP_DIR"
+
+          # Create cabal.project with all extracted packages
+          echo "packages:" > cabal.project
+          for dir in */; do
+            echo "  ${dir%/}" >> cabal.project
+          done
+
+          cabal build all
+
+  # Build Haddock documentation for all packages
+  build-haddock:
+    name: Build Haddock (ubuntu-latest, GHC ${{ matrix.ghc-version }}, LLVM ${{ matrix.llvm-version }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: true
+      matrix:
+        cabal-version: ['3.16']
+        # Doesn't run GHC 9.2.8 due to a haddock bug
+        #
+        ghc-version: [ '9.4.8', '9.6.7', '9.8.4', '9.10.3', '9.12.2']
         llvm-version: ['14', '16', '18', '20', '21']
     steps:
       - name: 📥 Checkout repository
@@ -158,7 +170,7 @@ jobs:
           restore-keys: ${{ env.key }}-
 
       - name: 🛠️ Build dependencies with Haddock
-        run: cabal haddock all --only-dependencies
+        run: cabal build all --only-dependencies --enable-documentation
 
       - name: 💾 Save Cabal dependencies
         uses: actions/cache/save@v4
