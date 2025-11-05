@@ -22,13 +22,20 @@ concurrency:
 jobs:
   # Test all LLVM versions (14-21) on recommended configuration
   test-all-llvm-and-ghc-versions:
-    name: Test All LLVM and GHC Versions (${{ matrix.runner }}, GHC ${{ matrix.ghc }}, LLVM ${{ matrix.llvm }})
+    name: Test All LLVM and GHC Versions (${{ matrix.runner }}, GHC ${{ matrix.ghc-version }}, LLVM ${{ matrix.llvm-version }})
     runs-on: ${{ matrix.runner }}
     strategy:
+      fail-fast: false
       matrix:
-        runner: [ubuntu-latest, macos-latest, windows-latest]
-        ghc: ['9.2.8', '9.4.8', '9.6.7', '9.8.4', '9.10.3', '9.12.2']
-        llvm: ['14', '16', '18', '20', '21']
+        # runner: [windows-latest, ubuntu-latest, macos-latest]
+        runner: [windows-latest]
+        ghc-version: ['9.2.8', '9.4.8', '9.6.7', '9.8.4', '9.10.3', '9.12.2']
+        llvm-version: ['14', '16', '18', '20', '21']
+        exclude:
+          # LLVM 21 not available on macOS ARM64
+          - runner: macos-latest
+            llvm-version: '21'
+
     steps:
       - name: Set git to use LF
         run: |
@@ -38,12 +45,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Build and test
+      - name: Build and test `hs-bindgen` and manual
         uses: ./.github/actions/base
         with:
           runner: ${{ matrix.runner }}
-          ghc: ${{ matrix.ghc }}
-          llvm: ${{ matrix.llvm }}
+          ghc: ${{ matrix.ghc-version }}
+          llvm: ${{ matrix.llvm-version }}
 
   cabal-check:
     name: Cabal check (${{ matrix.package }})
