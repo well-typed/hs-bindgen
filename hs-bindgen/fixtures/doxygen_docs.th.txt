@@ -1414,7 +1414,7 @@ __defined at:__ @doxygen_docs.h:174:6@
 __exported by:__ @doxygen_docs.h@
 -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_b42fb41209c21d6e" list_example :: Ptr (Ptr CChar) ->
-                                                                                          CSize ->
+                                                                                          HsBindgen.Runtime.Prelude.CSize ->
                                                                                           IO CBool
 {-|
 
@@ -1783,7 +1783,7 @@ __defined at:__ @doxygen_docs.h:174:6@
 __exported by:__ @doxygen_docs.h@
 -}
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_41af05ef1797fa6d" list_example :: Ptr (Ptr CChar) ->
-                                                                                          CSize ->
+                                                                                          HsBindgen.Runtime.Prelude.CSize ->
                                                                                           IO CBool
 {-|
 
@@ -2197,7 +2197,7 @@ __exported by:__ @doxygen_docs.h@
 -}
 html_example_ptr = unsafePerformIO hs_bindgen_test_doxygen_docs_e113abb2b0034e66
 foreign import ccall safe "hs_bindgen_test_doxygen_docs_24b25f22222ce366" hs_bindgen_test_doxygen_docs_24b25f22222ce366 :: IO (FunPtr (Ptr (Ptr CChar) ->
-                                                                                                                                       CSize ->
+                                                                                                                                       HsBindgen.Runtime.Prelude.CSize ->
                                                                                                                                        IO CBool))
 {-# NOINLINE list_example_ptr #-}
 {-|
@@ -2246,7 +2246,8 @@ __defined at:__ @doxygen_docs.h:174:6@
 
 __exported by:__ @doxygen_docs.h@
 -}
-list_example_ptr :: FunPtr (Ptr (Ptr CChar) -> CSize -> IO CBool)
+list_example_ptr :: FunPtr (Ptr (Ptr CChar) ->
+                            HsBindgen.Runtime.Prelude.CSize -> IO CBool)
 {-|
 
   Function with lists and special formatting

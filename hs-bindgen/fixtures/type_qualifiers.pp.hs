@@ -66,13 +66,13 @@ foreign import ccall safe "hs_bindgen_test_type_qualifiers_b42fb41209c21d6e" lis
      Ptr.Ptr (Ptr.Ptr FC.CChar)
      {- ^ __C declaration:__ @items@
      -}
-  -> FC.CSize
+  -> HsBindgen.Runtime.Prelude.CSize
      {- ^ __C declaration:__ @count@
      -}
   -> IO FC.CBool
 
 foreign import ccall unsafe "hs_bindgen_test_type_qualifiers_24b25f22222ce366" hs_bindgen_test_type_qualifiers_24b25f22222ce366 ::
-     IO (Ptr.FunPtr ((Ptr.Ptr (Ptr.Ptr FC.CChar)) -> FC.CSize -> IO FC.CBool))
+     IO (Ptr.FunPtr ((Ptr.Ptr (Ptr.Ptr FC.CChar)) -> HsBindgen.Runtime.Prelude.CSize -> IO FC.CBool))
 
 {-# NOINLINE list_example_ptr #-}
 
@@ -82,7 +82,7 @@ foreign import ccall unsafe "hs_bindgen_test_type_qualifiers_24b25f22222ce366" h
 
     __exported by:__ @type_qualifiers.h@
 -}
-list_example_ptr :: Ptr.FunPtr ((Ptr.Ptr (Ptr.Ptr FC.CChar)) -> FC.CSize -> IO FC.CBool)
+list_example_ptr :: Ptr.FunPtr ((Ptr.Ptr (Ptr.Ptr FC.CChar)) -> HsBindgen.Runtime.Prelude.CSize -> IO FC.CBool)
 list_example_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_type_qualifiers_24b25f22222ce366
 
