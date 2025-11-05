@@ -247,7 +247,10 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
 
     selectConfig :: SelectConfig
     selectConfig =
-      SelectConfig frontendProgramSlicing frontendSelectPredicate
+      SelectConfig
+        frontendProgramSlicing
+        frontendParsePredicate
+        frontendSelectPredicate
 
     emptyParseResult :: (
         [ParseResult]

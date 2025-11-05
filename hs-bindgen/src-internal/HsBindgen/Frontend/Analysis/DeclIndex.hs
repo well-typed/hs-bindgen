@@ -11,6 +11,7 @@ module HsBindgen.Frontend.Analysis.DeclIndex (
     -- * Construction
   , DeclIndexError(..)
   , fromParseResults
+  , alter
     -- * Query
   , lookup
   , (!)
@@ -116,12 +117,6 @@ fromParseResults results =
         qualPrelimDeclId :: C.QualPrelimDeclId
         qualPrelimDeclId = getQualPrelimDeclId parse
 
-    alter :: Ord k => k -> a -> Map k (NonEmpty a) -> Map k (NonEmpty a)
-    alter key x =
-      Map.alter (\case
-        Nothing -> Just $ x :| []
-        Just xs -> Just $ x <| xs) key
-
     insert ::
          ParseSuccess
       -> Maybe ParseSuccess
@@ -168,6 +163,12 @@ fromParseResults results =
        -- In case of an error, /remove/ the value from the map
        failure :: e -> (Maybe a, Maybe e)
        failure err = (Nothing, Just err)
+
+alter :: Ord k => k -> a -> Map k (NonEmpty a) -> Map k (NonEmpty a)
+alter key x =
+  Map.alter (\case
+    Nothing -> Just $ x :| []
+    Just xs -> Just $ x <| xs) key
 
 sameDefinition :: C.DeclKind Parse -> C.DeclKind Parse -> Bool
 sameDefinition a b =
@@ -229,3 +230,7 @@ lookupAttachedParseMsgs qualPrelimDeclId =
 
 getDecls :: DeclIndex -> [C.Decl Parse]
 getDecls = map psDecl . Map.elems . succeeded
+
+{-------------------------------------------------------------------------------
+  Helpers
+-------------------------------------------------------------------------------}

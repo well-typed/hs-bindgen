@@ -157,6 +157,8 @@ parseDecl = \curr -> do
               else foldContinueWith
                 [parseDoNotAttempt info kind ParsePredicateNotMatched]
 
+        -- NOTE [Parse all type definitions]
+        --
         -- Scoping is important. We need to know which `typedef`s are in scope
         -- at any point (e.g., while reparsing macros). Therefore we parse them,
         -- irrespective of the parse predicate. We do apply the parse predicate

@@ -13,6 +13,8 @@ module HsBindgen.Frontend.Analysis.UseDeclGraph (
     -- * Construction
   , fromDecls
   , fromSortedDecls
+    -- * Filter
+  , filterNodes
     -- * Query
   , toDecls
   , getTransitiveDeps
@@ -93,6 +95,13 @@ fromSortedDecls decls = Wrap $
       -> DynGraph Usage C.QualPrelimDeclId
       -> DynGraph Usage C.QualPrelimDeclId
     addEdge d (l, d') = DynGraph.insertEdge (C.declQualPrelimDeclId d) l d'
+
+{-------------------------------------------------------------------------------
+  Filter
+-------------------------------------------------------------------------------}
+
+filterNodes :: (C.QualPrelimDeclId -> Bool) -> UseDeclGraph -> UseDeclGraph
+filterNodes p = Wrap . DynGraph.filterNodes p . unwrap
 
 {-------------------------------------------------------------------------------
   Query

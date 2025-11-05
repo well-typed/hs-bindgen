@@ -9,6 +9,8 @@ module HsBindgen.Frontend.Analysis.DeclUseGraph (
     DeclUseGraph -- opaque
     -- * Construction
   , fromUseDecl
+    -- * Filter
+  , filterNodes
     -- * Query
   , UseOfDecl(..)
     -- ** Transitive usage
@@ -54,6 +56,13 @@ newtype DeclUseGraph = Wrap {
 
 fromUseDecl :: UseDeclGraph -> DeclUseGraph
 fromUseDecl = Wrap . DynGraph.reverse . UseDeclGraph.toDynGraph
+
+{-------------------------------------------------------------------------------
+  Filter
+-------------------------------------------------------------------------------}
+
+filterNodes :: (C.QualPrelimDeclId -> Bool) -> DeclUseGraph -> DeclUseGraph
+filterNodes p = Wrap . DynGraph.filterNodes p . unwrap
 
 {-------------------------------------------------------------------------------
   Query: usage of anon declarations
