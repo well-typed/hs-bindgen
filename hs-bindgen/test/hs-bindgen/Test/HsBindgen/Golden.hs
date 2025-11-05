@@ -81,6 +81,7 @@ testCases = manualTestCases ++ [
     , defaultTest "circular_dependency_fun"
     , defaultTest "circular_dependency_struct"
     , defaultTest "data_kind_pragma"
+    , defaultTest "declarations_required_for_scoping"
     , defaultTest "callbacks"
     , defaultTest "distilled_lib_1"
     , defaultTest "enum_cpp_syntax"

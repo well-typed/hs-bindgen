@@ -109,7 +109,8 @@ getTestDefaultClangArgsConfig testResources extraIncludeDirs' =
 getTestDefaultBackendConfig :: TestName -> PathStyle -> BackendConfig
 getTestDefaultBackendConfig testName pathStyle = def{
       backendTranslationOpts = def {
-        translationUniqueId = UniqueId $ "test." ++ testName
+        -- Honor 'maxUniqueIdLength'.
+        translationUniqueId = UniqueId $ take 35 $ "test." <> testName
       }
     , backendHaddockConfig = HaddockConfig pathStyle
     }
