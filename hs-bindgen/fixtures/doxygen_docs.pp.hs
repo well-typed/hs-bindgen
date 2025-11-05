@@ -1312,7 +1312,7 @@ foreign import ccall safe "hs_bindgen_test_doxygen_docs_b42fb41209c21d6e" list_e
 
      __C declaration:__ @items@
      -}
-  -> FC.CSize
+  -> HsBindgen.Runtime.Prelude.CSize
      {- ^
 
         [__@count@ /(input)/__]: Number of items
@@ -1761,7 +1761,7 @@ html_example_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_doxygen_docs_e113abb2b0034e66
 
 foreign import ccall unsafe "hs_bindgen_test_doxygen_docs_24b25f22222ce366" hs_bindgen_test_doxygen_docs_24b25f22222ce366 ::
-     IO (Ptr.FunPtr ((Ptr.Ptr (Ptr.Ptr FC.CChar)) -> FC.CSize -> IO FC.CBool))
+     IO (Ptr.FunPtr ((Ptr.Ptr (Ptr.Ptr FC.CChar)) -> HsBindgen.Runtime.Prelude.CSize -> IO FC.CBool))
 
 {-# NOINLINE list_example_ptr #-}
 
@@ -1811,7 +1811,7 @@ __defined at:__ @doxygen_docs.h:174:6@
 
 __exported by:__ @doxygen_docs.h@
 -}
-list_example_ptr :: Ptr.FunPtr ((Ptr.Ptr (Ptr.Ptr FC.CChar)) -> FC.CSize -> IO FC.CBool)
+list_example_ptr :: Ptr.FunPtr ((Ptr.Ptr (Ptr.Ptr FC.CChar)) -> HsBindgen.Runtime.Prelude.CSize -> IO FC.CBool)
 list_example_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_doxygen_docs_24b25f22222ce366
 

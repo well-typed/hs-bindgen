@@ -4040,7 +4040,7 @@ foreign import ccall safe "hs_bindgen_test_reparse_4c1c48b67908e0ad" bespoke_arg
     __exported by:__ @reparse.h@
 -}
 foreign import ccall safe "hs_bindgen_test_reparse_7bd6c9115d303872" bespoke_args2 :: A ->
-                                                                                      CSize ->
+                                                                                      HsBindgen.Runtime.Prelude.CSize ->
                                                                                       IO Unit
 {-| __C declaration:__ @bespoke_ret1@
 
@@ -4057,7 +4057,7 @@ foreign import ccall safe "hs_bindgen_test_reparse_994d22fc993523bf" bespoke_ret
     __exported by:__ @reparse.h@
 -}
 foreign import ccall safe "hs_bindgen_test_reparse_c7649a4aa2e14a89" bespoke_ret2 :: A ->
-                                                                                     IO CSize
+                                                                                     IO HsBindgen.Runtime.Prelude.CSize
 {-| Arrays
 
 __C declaration:__ @arr_args1@
@@ -4306,7 +4306,7 @@ foreign import ccall safe "hs_bindgen_test_reparse_0341b56dd9dde729" const_witho
     __exported by:__ @reparse.h@
 -}
 foreign import ccall safe "hs_bindgen_test_reparse_d43c37be4d91bd6c" const_withoutSign_before8 :: A ->
-                                                                                                  CSize ->
+                                                                                                  HsBindgen.Runtime.Prelude.CSize ->
                                                                                                   IO Unit
 {-| __C declaration:__ @const_withoutSign_after1@
 
@@ -4400,7 +4400,7 @@ foreign import ccall safe "hs_bindgen_test_reparse_5da184668d3e18ba" const_witho
     __exported by:__ @reparse.h@
 -}
 foreign import ccall safe "hs_bindgen_test_reparse_3cae7641509d64fa" const_withoutSign_after8 :: A ->
-                                                                                                 CSize ->
+                                                                                                 HsBindgen.Runtime.Prelude.CSize ->
                                                                                                  IO Unit
 {-| __C declaration:__ @const_pointers_args1@
 
@@ -5165,7 +5165,7 @@ foreign import ccall safe "hs_bindgen_test_reparse_28f85791b3039264" bespoke_arg
     __exported by:__ @reparse.h@
 -}
 foreign import ccall safe "hs_bindgen_test_reparse_833c75e57b012dcc" bespoke_args2 :: A ->
-                                                                                      CSize ->
+                                                                                      HsBindgen.Runtime.Prelude.CSize ->
                                                                                       IO Unit
 {-| __C declaration:__ @bespoke_ret1@
 
@@ -5182,7 +5182,7 @@ foreign import ccall safe "hs_bindgen_test_reparse_434418d9d1f41c66" bespoke_ret
     __exported by:__ @reparse.h@
 -}
 foreign import ccall safe "hs_bindgen_test_reparse_7a13d4c1ed935df0" bespoke_ret2 :: A ->
-                                                                                     IO CSize
+                                                                                     IO HsBindgen.Runtime.Prelude.CSize
 {-| Arrays
 
 __C declaration:__ @arr_args1@
@@ -5431,7 +5431,7 @@ foreign import ccall safe "hs_bindgen_test_reparse_b61cf3c21bf8b00b" const_witho
     __exported by:__ @reparse.h@
 -}
 foreign import ccall safe "hs_bindgen_test_reparse_47573f5eb4cb92a9" const_withoutSign_before8 :: A ->
-                                                                                                  CSize ->
+                                                                                                  HsBindgen.Runtime.Prelude.CSize ->
                                                                                                   IO Unit
 {-| __C declaration:__ @const_withoutSign_after1@
 
@@ -5525,7 +5525,7 @@ foreign import ccall safe "hs_bindgen_test_reparse_446758003fdc3418" const_witho
     __exported by:__ @reparse.h@
 -}
 foreign import ccall safe "hs_bindgen_test_reparse_161f0b5d4c06966c" const_withoutSign_after8 :: A ->
-                                                                                                 CSize ->
+                                                                                                 HsBindgen.Runtime.Prelude.CSize ->
                                                                                                  IO Unit
 {-| __C declaration:__ @const_pointers_args1@
 
@@ -6655,7 +6655,7 @@ bespoke_args1_ptr :: FunPtr (A -> CBool -> IO Unit)
 -}
 bespoke_args1_ptr = unsafePerformIO hs_bindgen_test_reparse_94c8a2d3574ba283
 foreign import ccall safe "hs_bindgen_test_reparse_2165985767a8d24e" hs_bindgen_test_reparse_2165985767a8d24e :: IO (FunPtr (A ->
-                                                                                                                             CSize ->
+                                                                                                                             HsBindgen.Runtime.Prelude.CSize ->
                                                                                                                              IO Unit))
 {-# NOINLINE bespoke_args2_ptr #-}
 {-| __C declaration:__ @bespoke_args2@
@@ -6664,7 +6664,8 @@ foreign import ccall safe "hs_bindgen_test_reparse_2165985767a8d24e" hs_bindgen_
 
     __exported by:__ @reparse.h@
 -}
-bespoke_args2_ptr :: FunPtr (A -> CSize -> IO Unit)
+bespoke_args2_ptr :: FunPtr (A ->
+                             HsBindgen.Runtime.Prelude.CSize -> IO Unit)
 {-| __C declaration:__ @bespoke_args2@
 
     __defined at:__ @reparse.h:95:6@
@@ -6690,7 +6691,7 @@ bespoke_ret1_ptr :: FunPtr (A -> IO CBool)
 -}
 bespoke_ret1_ptr = unsafePerformIO hs_bindgen_test_reparse_7913bf38675bd912
 foreign import ccall safe "hs_bindgen_test_reparse_07c419cb648cdf65" hs_bindgen_test_reparse_07c419cb648cdf65 :: IO (FunPtr (A ->
-                                                                                                                             IO CSize))
+                                                                                                                             IO HsBindgen.Runtime.Prelude.CSize))
 {-# NOINLINE bespoke_ret2_ptr #-}
 {-| __C declaration:__ @bespoke_ret2@
 
@@ -6698,7 +6699,8 @@ foreign import ccall safe "hs_bindgen_test_reparse_07c419cb648cdf65" hs_bindgen_
 
     __exported by:__ @reparse.h@
 -}
-bespoke_ret2_ptr :: FunPtr (A -> IO CSize)
+bespoke_ret2_ptr :: FunPtr (A ->
+                            IO HsBindgen.Runtime.Prelude.CSize)
 {-| __C declaration:__ @bespoke_ret2@
 
     __defined at:__ @reparse.h:98:8@
@@ -7152,7 +7154,7 @@ const_withoutSign_before7_ptr :: FunPtr (A -> CBool -> IO Unit)
 -}
 const_withoutSign_before7_ptr = unsafePerformIO hs_bindgen_test_reparse_78763cbecd2b0750
 foreign import ccall safe "hs_bindgen_test_reparse_4098c4a4ccd31d36" hs_bindgen_test_reparse_4098c4a4ccd31d36 :: IO (FunPtr (A ->
-                                                                                                                             CSize ->
+                                                                                                                             HsBindgen.Runtime.Prelude.CSize ->
                                                                                                                              IO Unit))
 {-# NOINLINE const_withoutSign_before8_ptr #-}
 {-| __C declaration:__ @const_withoutSign_before8@
@@ -7161,7 +7163,8 @@ foreign import ccall safe "hs_bindgen_test_reparse_4098c4a4ccd31d36" hs_bindgen_
 
     __exported by:__ @reparse.h@
 -}
-const_withoutSign_before8_ptr :: FunPtr (A -> CSize -> IO Unit)
+const_withoutSign_before8_ptr :: FunPtr (A ->
+                                         HsBindgen.Runtime.Prelude.CSize -> IO Unit)
 {-| __C declaration:__ @const_withoutSign_before8@
 
     __defined at:__ @reparse.h:195:6@
@@ -7297,7 +7300,7 @@ const_withoutSign_after7_ptr :: FunPtr (A -> CBool -> IO Unit)
 -}
 const_withoutSign_after7_ptr = unsafePerformIO hs_bindgen_test_reparse_b41148ca40ec8eb5
 foreign import ccall safe "hs_bindgen_test_reparse_560c9dfdb530548b" hs_bindgen_test_reparse_560c9dfdb530548b :: IO (FunPtr (A ->
-                                                                                                                             CSize ->
+                                                                                                                             HsBindgen.Runtime.Prelude.CSize ->
                                                                                                                              IO Unit))
 {-# NOINLINE const_withoutSign_after8_ptr #-}
 {-| __C declaration:__ @const_withoutSign_after8@
@@ -7306,7 +7309,8 @@ foreign import ccall safe "hs_bindgen_test_reparse_560c9dfdb530548b" hs_bindgen_
 
     __exported by:__ @reparse.h@
 -}
-const_withoutSign_after8_ptr :: FunPtr (A -> CSize -> IO Unit)
+const_withoutSign_after8_ptr :: FunPtr (A ->
+                                        HsBindgen.Runtime.Prelude.CSize -> IO Unit)
 {-| __C declaration:__ @const_withoutSign_after8@
 
     __defined at:__ @reparse.h:204:6@

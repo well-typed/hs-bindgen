@@ -28,8 +28,8 @@ import HsBindgen.Imports
 
 -- | Configuration of @libclang@ command-line arguments
 --
--- The default C standard — if unspecified — depends on the Clang version and if
--- GNU extensions are enabled.
+-- We demand specification of the C standard since the default C standard
+-- depends on the Clang version and if GNU extensions are enabled.
 --
 -- `ClangArgsConfig` is not intended to be complete; instead, we have added
 -- configuration options most relevant to @hs-bindgen@. Pass other
@@ -43,7 +43,7 @@ data ClangArgsConfig path = ClangArgsConfig {
       target :: Maybe (Target, TargetEnv)
 
       -- | C standard
-    , cStandard :: Maybe CStandard
+    , cStandard :: CStandard
 
       -- | Enable GNU extensions?
     , gnu :: Gnu
@@ -109,7 +109,7 @@ data ClangArgsConfig path = ClangArgsConfig {
 instance Default (ClangArgsConfig path) where
  def = ClangArgsConfig {
       target           = Nothing
-    , cStandard        = Nothing
+    , cStandard        = C17
     , gnu              = DisableGnu
     , builtinIncDir    = def
     , extraIncludeDirs = []
@@ -263,8 +263,7 @@ getClangArgsInternal ClangArgsConfig{..} = concat <$> sequence [
       ifGiven (uncurry targetTriple <$> target) $ \t ->
         return ["-target", t]
 
-    , ifGiven cStandard $ \std ->
-        List.singleton <$> getStdClangArg std gnu
+    , List.singleton <$> getStdClangArg cStandard gnu
 
     , return $ concat $ [
           [ "-fblocks" | enableBlocks ]

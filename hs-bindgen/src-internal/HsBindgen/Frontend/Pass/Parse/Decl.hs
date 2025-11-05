@@ -43,8 +43,14 @@ topLevelDecl = foldWithHandler handleTypeException parseDecl
       -> ParseDecl (Maybe [ParseResult])
     handleTypeException curr err = do
         info <- getDeclInfo curr
+        -- TODO https://github.com/well-typed/hs-bindgen/issues/1249: Only emit
+        -- the trace when we use the declaration that we fail to parse.
+        when (contextRequiredForScoping == RequiredForScoping) $
+          recordImmediateTrace $
+            ParseOfDeclarationRequiredForScopingFailed info (parseException err)
         pure $ Just $ singleton $
-          parseFail info contextNameKind $ ParseUnsupportedType (parseException err)
+          parseFail info contextNameKind $
+            ParseUnsupportedType (parseException err)
       where
         ParseTypeExceptionContext{..} = parseContext err
 
@@ -80,7 +86,7 @@ getDeclInfo = \curr -> do
           }
 
     when (isNothing mAvailability) $
-      recordUnattachedTrace $ ParseUnknownCursorAvailability info sAvailability
+      recordImmediateTrace $ ParseUnknownCursorAvailability info sAvailability
 
     -- TODO: We might want a NameOriginBuiltin.
     pure info
@@ -143,13 +149,16 @@ parseDecl = \curr -> do
 
         parseWith ::
              (C.DeclInfo Parse -> Parser)
+          -> RequiredForScoping
           -> C.NameKind
           -> ParseDecl (Next ParseDecl [ParseResult])
-        parseWith parser kind
+        parseWith parser requiredForScoping kind
           | isBuiltin = foldContinueWith
               [parseDoNotAttempt info kind OmittedBuiltin]
           | isUnavailable = foldContinueWith
               [parseDoNotAttempt info kind DeclarationUnavailable]
+          | RequiredForScoping <- requiredForScoping =
+              parser info curr
           | otherwise = do
               matched <- evalPredicate info
               if matched
@@ -159,18 +168,22 @@ parseDecl = \curr -> do
 
     dispatch curr $ \case
       -- Ordinary kinds that we parse
-      CXCursor_FunctionDecl    -> parseWith functionDecl    C.NameKindOrdinary
-      CXCursor_VarDecl         -> parseWith varDecl         C.NameKindOrdinary
-      CXCursor_TypedefDecl     -> parseWith typedefDecl     C.NameKindOrdinary
-      CXCursor_MacroDefinition -> parseWith macroDefinition C.NameKindOrdinary
+      CXCursor_FunctionDecl ->
+        parseWith functionDecl    NotRequiredForScoping C.NameKindOrdinary
+      CXCursor_VarDecl ->
+        parseWith varDecl         NotRequiredForScoping C.NameKindOrdinary
+      CXCursor_TypedefDecl ->
+        parseWith typedefDecl     RequiredForScoping    C.NameKindOrdinary
+      CXCursor_MacroDefinition ->
+        parseWith macroDefinition NotRequiredForScoping C.NameKindOrdinary
 
       -- Tagged kinds that we parse
       CXCursor_StructDecl ->
-        parseWith structDecl (C.NameKindTagged C.TagKindStruct)
+        parseWith structDecl NotRequiredForScoping (C.NameKindTagged C.TagKindStruct)
       CXCursor_UnionDecl ->
-        parseWith unionDecl  (C.NameKindTagged C.TagKindUnion)
+        parseWith unionDecl  NotRequiredForScoping (C.NameKindTagged C.TagKindUnion)
       CXCursor_EnumDecl ->
-        parseWith enumDecl   (C.NameKindTagged C.TagKindEnum)
+        parseWith enumDecl   NotRequiredForScoping (C.NameKindTagged C.TagKindEnum)
 
       -- Process macro expansions independent of any selection predicates
       CXCursor_MacroExpansion -> macroExpansion curr
@@ -344,7 +357,11 @@ structFieldDecl :: C.DeclInfo Parse -> CXCursor -> ParseDecl (C.StructField Pars
 structFieldDecl info = \curr -> do
     structFieldInfo   <- getFieldInfo curr
     structFieldType   <-
-      fromCXType' (ParseTypeExceptionContext info (NameKindTagged TagKindStruct))
+      let ctx = ParseTypeExceptionContext
+                  info
+                  (NameKindTagged TagKindStruct)
+                  NotRequiredForScoping
+      in fromCXType' ctx
         =<< clang_getCursorType curr
     structFieldOffset <- fromIntegral <$> clang_Cursor_getOffsetOfField curr
     structFieldAnn    <- getReparseInfo curr
@@ -368,7 +385,11 @@ unionFieldDecl :: C.DeclInfo Parse -> CXCursor -> ParseDecl (C.UnionField Parse)
 unionFieldDecl info = \curr -> do
     unionFieldInfo <- getFieldInfo curr
     unionFieldType <-
-      fromCXType' (ParseTypeExceptionContext info (NameKindTagged TagKindUnion))
+      let ctx = ParseTypeExceptionContext
+                  info
+                  (NameKindTagged TagKindUnion)
+                  NotRequiredForScoping
+      in fromCXType' ctx
         =<< clang_getCursorType curr
     unionFieldAnn  <- getReparseInfo curr
     pure C.UnionField{
@@ -379,7 +400,11 @@ unionFieldDecl info = \curr -> do
 
 typedefDecl :: C.DeclInfo Parse -> Parser
 typedefDecl info = \curr -> do
-    typedefType <- fromCXType' (ParseTypeExceptionContext info NameKindOrdinary)
+    let ctx = ParseTypeExceptionContext
+                info
+                NameKindOrdinary
+                RequiredForScoping
+    typedefType <- fromCXType' ctx
                      =<< clang_getTypedefDeclUnderlyingType curr
     typedefAnn  <- getReparseInfo curr
     let decl :: C.Decl Parse
@@ -408,7 +433,11 @@ enumDecl info = \curr -> do
         sizeof    <- clang_Type_getSizeOf  ty
         alignment <- clang_Type_getAlignOf ty
         ety       <-
-          fromCXType' (ParseTypeExceptionContext info (NameKindTagged TagKindEnum))
+          let ctx = ParseTypeExceptionContext
+                      info
+                      (NameKindTagged TagKindEnum)
+                      NotRequiredForScoping
+          in  fromCXType' ctx
             =<< clang_getEnumDeclIntegerType curr
 
         let mkEnum :: [C.EnumConstant Parse] -> C.Decl Parse
@@ -457,8 +486,12 @@ functionDecl info = \curr -> do
     visibility <- getCursorVisibility curr
     linkage    <- getCursorLinkage curr
     declCls    <- HighLevel.classifyDeclaration curr
-    typ        <- fromCXType' (ParseTypeExceptionContext info NameKindOrdinary)
-                    =<< clang_getCursorType curr
+    typ        <-
+      let ctx = ParseTypeExceptionContext
+                  info
+                  NameKindOrdinary
+                  NotRequiredForScoping
+      in  fromCXType' ctx =<< clang_getCursorType curr
     guardTypeFunction curr typ >>= \case
       Left rs -> foldContinueWith [rs]
       Right (functionArgs, functionRes) -> do
@@ -582,8 +615,12 @@ varDecl info = \curr -> do
     visibility <- getCursorVisibility curr
     linkage    <- getCursorLinkage curr
     declCls    <- HighLevel.classifyDeclaration curr
-    typ        <- fromCXType' (ParseTypeExceptionContext info NameKindOrdinary)
-                    =<< clang_getCursorType curr
+    typ        <-
+      let ctx = ParseTypeExceptionContext
+                  info
+                  NameKindOrdinary
+                  NotRequiredForScoping
+      in  fromCXType' ctx =<< clang_getCursorType curr
     cls        <- classifyVarDecl curr
     let mkDecl :: C.DeclKind Parse -> C.Decl Parse
         mkDecl kind = C.Decl{

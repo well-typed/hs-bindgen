@@ -131,7 +131,8 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
 
     handleMacrosPass <- cache "handleMacros" $ do
       afterConstructTranslationUnit <- sortPass
-      let (afterHandleMacros, msgsHandleMacros) = handleMacros afterConstructTranslationUnit
+      let (afterHandleMacros, msgsHandleMacros) =
+            handleMacros bootCStandard afterConstructTranslationUnit
       forM_ msgsHandleMacros $ traceWith tracer . FrontendHandleMacros
       pure afterHandleMacros
 
@@ -246,7 +247,10 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
 
     selectConfig :: SelectConfig
     selectConfig =
-      SelectConfig frontendProgramSlicing frontendSelectPredicate
+      SelectConfig
+        frontendProgramSlicing
+        frontendParsePredicate
+        frontendSelectPredicate
 
     emptyParseResult :: (
         [ParseResult]

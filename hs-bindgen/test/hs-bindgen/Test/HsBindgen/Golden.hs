@@ -81,6 +81,7 @@ testCases = manualTestCases ++ [
     , defaultTest "circular_dependency_fun"
     , defaultTest "circular_dependency_struct"
     , defaultTest "data_kind_pragma"
+    , defaultTest "declarations_required_for_scoping"
     , defaultTest "callbacks"
     , defaultTest "distilled_lib_1"
     , defaultTest "enum_cpp_syntax"
@@ -448,6 +449,13 @@ testCases = manualTestCases ++ [
                 }
             }
         }
+    , (defaultTest "binding_spec_simple"){
+          testPrescriptiveBindingSpec = Just "examples/golden/binding_spec_simple.yaml"
+        }
+      -- Rust bindgen does not support non-float complex types.
+    , (defaultTest "complex_non_float_test") {
+          testRustBindgen = RustBindgenIgnore
+      }
     , (defaultTest "doxygen_docs") {
           testClangVersion = Just (>= (19, 0, 0))
         }
@@ -484,18 +492,6 @@ testCases = manualTestCases ++ [
             _otherwise ->
               Nothing
         }
-    , (defaultTest "reparse") {
-          testClangVersion   = Just (>= (15, 0, 0)) -- parse 'bool'
-        , testTracePredicate = customTracePredicate [] $ \case
-            -- We don't care about the trace messages in this test
-            _anything ->
-              Just Tolerated
-        }
-      -- Rust bindgen does not support non-float complex types.
-    , (defaultTest "complex_non_float_test") {
-          testRustBindgen = RustBindgenIgnore
-      }
-
     , let declsWithWarnings :: [Text]
           declsWithWarnings = [
                 -- non-extern non-static globals
@@ -546,9 +542,6 @@ testCases = manualTestCases ++ [
         }
     , (defaultTest "named_vs_anon"){
           testClangVersion = Just (>= (19, 1, 0))
-        }
-    , (defaultTest "binding_spec_simple"){
-          testPrescriptiveBindingSpec = Just "examples/golden/binding_spec_simple.yaml"
         }
     , (defaultTest "program_slicing_simple"){
           -- Check that program slicing generates bindings for uint32_t and
@@ -603,6 +596,19 @@ testCases = manualTestCases ++ [
           -- TODO: Also, we may want to specify an allow list; see
           -- https://github.com/well-typed/hs-bindgen/issues/907.
         , testRustBindgen = RustBindgenRun
+        }
+    , (defaultTest "reparse") {
+          testClangVersion   = Just (>= (15, 0, 0)) -- parse 'bool'
+        , testTracePredicate = customTracePredicate [] $ \case
+            -- We don't care about the trace messages in this test
+            _anything ->
+              Just Tolerated
+        }
+    , (defaultTest "select_scoping") {
+          testOnFrontendConfig = \cfg -> cfg {
+            frontendParsePredicate = BIf (ParseHeader FromMainHeaders)
+          , frontendSelectPredicate = BTrue
+          }
         }
     , (defaultFailingTest "thread_local"){
           testClangVersion   = Just (>= (16, 0, 0))

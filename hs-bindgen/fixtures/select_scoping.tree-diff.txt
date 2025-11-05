@@ -1,0 +1,39 @@
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "select_scoping.h:6:13",
+        declId = NamePair {
+          nameC = Name
+            "ParsedAndSelected",
+          nameHsIdent = Identifier
+            "ParsedAndSelected"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["select_scoping.h"],
+            headerInclude =
+            "select_scoping.h"},
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = Name
+              "@NsConstr"
+              "ParsedAndSelected",
+            newtypeField = Name
+              "@NsVar"
+              "un_ParsedAndSelected"},
+          typedefType = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec
+        CTypeSpec {
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}}],
+  unitDeps = [
+    "select_scoping_header",
+    "select_scoping"]}

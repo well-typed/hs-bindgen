@@ -19,8 +19,9 @@ module HsBindgen.Frontend.Pass.Parse.IsPass (
   , parseDoNotAttempt
   , parseFail
   , parseFailWith
+  , RequiredForScoping(..)
   , ParseTypeExceptionContext(..)
-  , UnattachedParseMsg(..)
+  , ImmediateParseMsg(..)
   , AttachedParseMsg(..)
   , DelayedParseMsg(..)
   ) where
@@ -65,7 +66,7 @@ instance IsPass Parse where
   type MacroBody    Parse = UnparsedMacro
   type ExtBinding   Parse = Void
   type Ann ix       Parse = AnnParse ix
-  type Msg          Parse = UnattachedParseMsg
+  type Msg          Parse = ImmediateParseMsg
 
 {-------------------------------------------------------------------------------
   Information about the declarations
@@ -264,43 +265,54 @@ getUnparsedMacro unit curr = do
   Trace messages
 -------------------------------------------------------------------------------}
 
+-- | We always need to parse declarations required for scoping
+data RequiredForScoping = RequiredForScoping | NotRequiredForScoping
+  deriving stock (Show, Eq)
+
 data ParseTypeExceptionContext = ParseTypeExceptionContext {
-      contextInfo     :: C.DeclInfo Parse
-    , contextNameKind :: NameKind
+      contextInfo               :: C.DeclInfo Parse
+    , contextNameKind           :: NameKind
+    , contextRequiredForScoping :: RequiredForScoping
     }
   deriving stock (Show)
 
-instance PrettyForTrace ParseTypeExceptionContext where
-  prettyForTrace (ParseTypeExceptionContext info kind) =
-    prettyForTrace info <+> ", name kind: " <+> prettyForTrace kind
+-- instance PrettyForTrace ParseTypeExceptionContext where
+--   prettyForTrace (ParseTypeExceptionContext info kind) =
+--     prettyForTrace info <+> ", name kind: " <+> prettyForTrace kind
 
--- | Parse messages not attached to a declaration
+-- | Parse messages that we emit immediately
 --
--- If we can not attach messages to declarations, we emit them directly while
--- parsing.
-data UnattachedParseMsg =
+-- For example, if we can not attach messages to declarations, we emit them
+-- directly while parsing.
+data ImmediateParseMsg =
     -- | Declaration availability can not be determined.
     --
     -- That is 'Clang.LowLevel.Core.clang_getCursorAvailability' does not
     -- provide a valid 'Clang.LowLevel.Core.CXAvailabilityKind'.
     ParseUnknownCursorAvailability (C.DeclInfo Parse) (SimpleEnum CXAvailabilityKind)
+    -- | We failed to parse a declaration that is required for scoping.
+  | ParseOfDeclarationRequiredForScopingFailed (C.DeclInfo Parse) ParseTypeException
   deriving stock (Show)
 
-instance PrettyForTrace UnattachedParseMsg where
+instance PrettyForTrace ImmediateParseMsg where
   prettyForTrace = \case
-      ParseUnknownCursorAvailability info simpleKind ->
-        withInfo info $
-          "unknown declaration availability:" <+> PP.showToCtxDoc simpleKind
-    where withInfo info doc = PP.hsep [
-              prettyForTrace info
-            , doc
-            ]
+      ParseUnknownCursorAvailability info simpleKind -> PP.hsep [
+          prettyForTrace info
+        , "unknown declaration availability:"
+        , PP.showToCtxDoc simpleKind
+        ]
+      ParseOfDeclarationRequiredForScopingFailed info err -> PP.hsep [
+          prettyForTrace info
+        , "parse of declaration required for scoping failed:"
+        , prettyForTrace err
+        ]
 
-instance IsTrace Level UnattachedParseMsg where
+instance IsTrace Level ImmediateParseMsg where
   getDefaultLogLevel = \case
-      ParseUnknownCursorAvailability{} -> Notice
+      ParseUnknownCursorAvailability{}             -> Notice
+      ParseOfDeclarationRequiredForScopingFailed{} -> Info
   getSource  = const HsBindgen
-  getTraceId = const "parse-unattached"
+  getTraceId = const "parse-immediate"
 
 data AttachedParseMsg = AttachedParseMsg (C.DeclInfo Parse) DelayedParseMsg
   deriving stock (Show, Generic)

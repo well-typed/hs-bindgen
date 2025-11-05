@@ -7,6 +7,7 @@ import Data.List qualified as List
 import Data.Text qualified as Text
 import Data.Version (showVersion)
 import Options.Applicative
+import Options.Applicative.Help (Pretty (..), fillSep)
 import Options.Applicative.Help qualified as Help
 import Prettyprinter.Util qualified as PP
 import System.Exit (ExitCode, exitFailure)
@@ -57,6 +58,7 @@ execCliParser = do
         , footerDoc . Just . Help.vcat $ List.intersperse "" [
               envVarsFooter
             , clangArgsFooter
+            , parsePredicateFooter
             , selectSliceFooter
             ]
         ]
@@ -126,6 +128,14 @@ clangArgsFooter = Help.vcat [
     , "  4. BINDGEN_EXTRA_CLANG_ARGS options"
     , "  5. --clang-option-after options"
     , "  6. Builtin include directory options"
+    ]
+
+parsePredicateFooter :: Help.Doc
+parsePredicateFooter = fillSep $ map pretty $ words $ unlines [
+      "Parse predicates do not apply to all declarations."
+    , "In particular, 'hs-bindgen' always parses declarations required for scoping;"
+    , "these are, for example, type definitions."
+    , "These declarations will be filtered out during selection."
     ]
 
 selectSliceFooter :: Help.Doc

@@ -239,7 +239,7 @@ parseClangArgsConfig = do
     -- record construction (i.e., to avoid bool or string/path blindness)
     -- instead of positional one.
     target           <- optional parseTarget
-    cStandard        <- Just <$> parseCStandard
+    cStandard        <- parseCStandard
     gnu              <- parseGnu
     enableBlocks     <- parseEnableBlocks
     builtinIncDir    <- parseBuiltinIncDirConfig

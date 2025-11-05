@@ -3493,7 +3493,7 @@ foreign import ccall safe "hs_bindgen_test_reparse_7bd6c9115d303872" bespoke_arg
      A
      {- ^ __C declaration:__ @arg1@
      -}
-  -> FC.CSize
+  -> HsBindgen.Runtime.Prelude.CSize
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
@@ -3520,7 +3520,7 @@ foreign import ccall safe "hs_bindgen_test_reparse_c7649a4aa2e14a89" bespoke_ret
      A
      {- ^ __C declaration:__ @arg1@
      -}
-  -> IO FC.CSize
+  -> IO HsBindgen.Runtime.Prelude.CSize
 
 {-| Arrays
 
@@ -3900,7 +3900,7 @@ foreign import ccall safe "hs_bindgen_test_reparse_d43c37be4d91bd6c" const_witho
      A
      {- ^ __C declaration:__ @arg1@
      -}
-  -> FC.CSize
+  -> HsBindgen.Runtime.Prelude.CSize
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
@@ -4046,7 +4046,7 @@ foreign import ccall safe "hs_bindgen_test_reparse_3cae7641509d64fa" const_witho
      A
      {- ^ __C declaration:__ @arg1@
      -}
-  -> FC.CSize
+  -> HsBindgen.Runtime.Prelude.CSize
      {- ^ __C declaration:__ @arg2@
      -}
   -> IO ()
@@ -5152,7 +5152,7 @@ bespoke_args1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_reparse_94c8a2d3574ba283
 
 foreign import ccall unsafe "hs_bindgen_test_reparse_2165985767a8d24e" hs_bindgen_test_reparse_2165985767a8d24e ::
-     IO (Ptr.FunPtr (A -> FC.CSize -> IO ()))
+     IO (Ptr.FunPtr (A -> HsBindgen.Runtime.Prelude.CSize -> IO ()))
 
 {-# NOINLINE bespoke_args2_ptr #-}
 
@@ -5162,7 +5162,7 @@ foreign import ccall unsafe "hs_bindgen_test_reparse_2165985767a8d24e" hs_bindge
 
     __exported by:__ @reparse.h@
 -}
-bespoke_args2_ptr :: Ptr.FunPtr (A -> FC.CSize -> IO ())
+bespoke_args2_ptr :: Ptr.FunPtr (A -> HsBindgen.Runtime.Prelude.CSize -> IO ())
 bespoke_args2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_reparse_2165985767a8d24e
 
@@ -5182,7 +5182,7 @@ bespoke_ret1_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_reparse_7913bf38675bd912
 
 foreign import ccall unsafe "hs_bindgen_test_reparse_07c419cb648cdf65" hs_bindgen_test_reparse_07c419cb648cdf65 ::
-     IO (Ptr.FunPtr (A -> IO FC.CSize))
+     IO (Ptr.FunPtr (A -> IO HsBindgen.Runtime.Prelude.CSize))
 
 {-# NOINLINE bespoke_ret2_ptr #-}
 
@@ -5192,7 +5192,7 @@ foreign import ccall unsafe "hs_bindgen_test_reparse_07c419cb648cdf65" hs_bindge
 
     __exported by:__ @reparse.h@
 -}
-bespoke_ret2_ptr :: Ptr.FunPtr (A -> IO FC.CSize)
+bespoke_ret2_ptr :: Ptr.FunPtr (A -> IO HsBindgen.Runtime.Prelude.CSize)
 bespoke_ret2_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_reparse_07c419cb648cdf65
 
@@ -5554,7 +5554,7 @@ const_withoutSign_before7_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_reparse_78763cbecd2b0750
 
 foreign import ccall unsafe "hs_bindgen_test_reparse_4098c4a4ccd31d36" hs_bindgen_test_reparse_4098c4a4ccd31d36 ::
-     IO (Ptr.FunPtr (A -> FC.CSize -> IO ()))
+     IO (Ptr.FunPtr (A -> HsBindgen.Runtime.Prelude.CSize -> IO ()))
 
 {-# NOINLINE const_withoutSign_before8_ptr #-}
 
@@ -5564,7 +5564,7 @@ foreign import ccall unsafe "hs_bindgen_test_reparse_4098c4a4ccd31d36" hs_bindge
 
     __exported by:__ @reparse.h@
 -}
-const_withoutSign_before8_ptr :: Ptr.FunPtr (A -> FC.CSize -> IO ())
+const_withoutSign_before8_ptr :: Ptr.FunPtr (A -> HsBindgen.Runtime.Prelude.CSize -> IO ())
 const_withoutSign_before8_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_reparse_4098c4a4ccd31d36
 
@@ -5674,7 +5674,7 @@ const_withoutSign_after7_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_reparse_b41148ca40ec8eb5
 
 foreign import ccall unsafe "hs_bindgen_test_reparse_560c9dfdb530548b" hs_bindgen_test_reparse_560c9dfdb530548b ::
-     IO (Ptr.FunPtr (A -> FC.CSize -> IO ()))
+     IO (Ptr.FunPtr (A -> HsBindgen.Runtime.Prelude.CSize -> IO ()))
 
 {-# NOINLINE const_withoutSign_after8_ptr #-}
 
@@ -5684,7 +5684,7 @@ foreign import ccall unsafe "hs_bindgen_test_reparse_560c9dfdb530548b" hs_bindge
 
     __exported by:__ @reparse.h@
 -}
-const_withoutSign_after8_ptr :: Ptr.FunPtr (A -> FC.CSize -> IO ())
+const_withoutSign_after8_ptr :: Ptr.FunPtr (A -> HsBindgen.Runtime.Prelude.CSize -> IO ())
 const_withoutSign_after8_ptr =
   GHC.IO.Unsafe.unsafePerformIO hs_bindgen_test_reparse_560c9dfdb530548b
 

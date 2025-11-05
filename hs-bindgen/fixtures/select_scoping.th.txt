@@ -1,0 +1,26 @@
+-- addDependentFile examples/golden/select_scoping_header.h
+-- addDependentFile examples/golden/select_scoping.h
+{-| __C declaration:__ @ParsedAndSelected@
+
+    __defined at:__ @select_scoping.h:6:13@
+
+    __exported by:__ @select_scoping.h@
+-}
+newtype ParsedAndSelected
+    = ParsedAndSelected {un_ParsedAndSelected :: CInt}
+      {- ^ __C declaration:__ @ParsedAndSelected@
+
+           __defined at:__ @select_scoping.h:6:13@
+
+           __exported by:__ @select_scoping.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)

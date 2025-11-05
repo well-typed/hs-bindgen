@@ -153,14 +153,6 @@ mkIsInMainHeaderDir paths path =
       Set.map (FilePath.takeDirectory . getSourcePath) paths
 
 -- | Match 'ParsePredicate' predicates
---
--- * Built-ins don't have declarations, therefore /selecting/ them makes no
---   sense.   We never have to deal with built-ins when processing def sites
---   (@Parse.Decl@).
--- * We /may/ have to deal with built-ins at __use sites__ (@Parse.Type@), where
---   we'd have to special case them and map them to types we define, or indeed
---   deal with them in external bindings (they /do/ get added to
---   `nonSelectedDecls`, for example).
 matchParse ::
      IsMainHeader
   -> IsInMainHeaderDir
