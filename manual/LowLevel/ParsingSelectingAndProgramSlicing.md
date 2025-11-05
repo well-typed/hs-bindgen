@@ -77,7 +77,7 @@ specification of the parse predicate using the data type `ParsePredicate`.
 > [!NOTE]
 > Parse predicates do not apply to all declarations. In particular, `hs-bindgen`
 > always parses declaration required for scoping; these are, for example, type
-> definitions.
+> definitions. These declarations will be filtered out during selection.
 
 > [!NOTE]
 > Note that parse predicates match against header _paths_, and not just header

@@ -43,6 +43,8 @@ topLevelDecl = foldWithHandler handleTypeException parseDecl
       -> ParseDecl (Maybe [ParseResult])
     handleTypeException curr err = do
         info <- getDeclInfo curr
+        -- TODO https://github.com/well-typed/hs-bindgen/issues/1249: Only emit
+        -- the trace when we use the declaration that we fail to parse.
         when (contextRequiredForScoping == RequiredForScoping) $
           recordImmediateTrace $
             ParseOfDeclarationRequiredForScopingFailed info (parseException err)
@@ -155,7 +157,7 @@ parseDecl = \curr -> do
               [parseDoNotAttempt info kind OmittedBuiltin]
           | isUnavailable = foldContinueWith
               [parseDoNotAttempt info kind DeclarationUnavailable]
-          | isRequiredForScoping =
+          | RequiredForScoping <- requiredForScoping =
               parser info curr
           | otherwise = do
               matched <- evalPredicate info
@@ -163,10 +165,6 @@ parseDecl = \curr -> do
               then parser info curr
               else foldContinueWith
                 [parseDoNotAttempt info kind ParsePredicateNotMatched]
-          where
-            isRequiredForScoping = case requiredForScoping of
-              RequiredForScoping    -> True
-              NotRequiredForScoping -> False
 
     dispatch curr $ \case
       -- Ordinary kinds that we parse

@@ -113,13 +113,26 @@ selectDecls
         -- the use-decl graph. We believe these cycles can not exist.
         go origDeclId declId loc availability = case declId of
             C.QualPrelimDeclIdNamed name kind ->
-              matchSelect
-                isMainHeader
-                isInMainHeaderDir
-                (singleLocPath loc)
-                (C.QualName name kind)
-                availability
-                selectConfigPredicate
+              let -- We have parsed some declarations that are required for
+                  -- scoping but that actually do not match the parse predicate.
+                  -- We want to avoid selecting these declarations. This is only
+                  -- problematic if the select predicate is wider than the parse
+                  -- predicate (which is seldom the case).
+                  parsed =
+                    matchParse
+                      isMainHeader
+                      isInMainHeaderDir
+                      (singleLocPath loc)
+                      selectConfigParsePredicate
+                  selected =
+                    matchSelect
+                      isMainHeader
+                      isInMainHeaderDir
+                      (singleLocPath loc)
+                      (C.QualName name kind)
+                      availability
+                      selectConfigPredicate
+              in parsed && selected
             -- Apply the select predicate to the use site.
             anon@(C.QualPrelimDeclIdAnon{}) -> matchAnon origDeclId anon
             -- Never select builtins.

@@ -135,6 +135,7 @@ parsePredicateFooter = fillSep $ map pretty $ words $ unlines [
       "Parse predicates do not apply to all declarations."
     , "In particular, 'hs-bindgen' always parses declarations required for scoping;"
     , "these are, for example, type definitions."
+    , "These declarations will be filtered out during selection."
     ]
 
 selectSliceFooter :: Help.Doc
