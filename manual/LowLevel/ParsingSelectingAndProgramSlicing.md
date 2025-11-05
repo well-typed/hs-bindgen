@@ -48,7 +48,6 @@ _non-parsed_, and these declarations can be made available to `hs-bindgen` using
 parsed to use an external binding for them, however. They must be named in order
 to be specified in an external binding specification.
 
-
 We use parse predicates mostly because:
 - We seek to avoid repetitive parsing and reification. We can do so by using
   binding specifications. For example, the standard library need not be parsed
@@ -74,6 +73,11 @@ changed; in particular, the command line options are:
 
 Also the `hs-bindgen` library and the Template Haskell interface allow direct
 specification of the parse predicate using the data type `ParsePredicate`.
+
+> [!NOTE]
+> Parse predicates do not apply to all declarations. In particular, `hs-bindgen`
+> always parses declaration required for scoping; these are, for example, type
+> definitions.
 
 > [!NOTE]
 > Note that parse predicates match against header _paths_, and not just header
