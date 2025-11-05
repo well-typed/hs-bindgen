@@ -1,10 +1,10 @@
 version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
+hsmodule: Example
 types:
 - headers: typenames.h
   cname: foo
-  module: Example
   hsname: Foo
   instances:
   - Enum
@@ -21,7 +21,6 @@ types:
   - Storable
 - headers: typenames.h
   cname: enum foo
-  module: Example
   hsname: Foo
   instances:
   - Eq

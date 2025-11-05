@@ -1,10 +1,10 @@
 version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
+hsmodule: Example
 types:
 - headers: type_attributes.h
   cname: struct S
-  module: Example
   hsname: S
   instances:
   - Eq
@@ -12,7 +12,6 @@ types:
   - Storable
 - headers: type_attributes.h
   cname: struct S2
-  module: Example
   hsname: S2
   instances:
   - Eq
@@ -20,7 +19,6 @@ types:
   - Storable
 - headers: type_attributes.h
   cname: T1
-  module: Example
   hsname: T1
   instances:
   - Bits
@@ -38,7 +36,6 @@ types:
   - Storable
 - headers: type_attributes.h
   cname: more_aligned_int
-  module: Example
   hsname: More_aligned_int
   instances:
   - Bits
@@ -56,7 +53,6 @@ types:
   - Storable
 - headers: type_attributes.h
   cname: struct my_packed_struct
-  module: Example
   hsname: My_packed_struct
   instances:
   - Eq
@@ -64,7 +60,6 @@ types:
   - Storable
 - headers: type_attributes.h
   cname: struct my_unpacked_struct
-  module: Example
   hsname: My_unpacked_struct
   instances:
   - Eq
@@ -72,7 +67,6 @@ types:
   - Storable
 - headers: type_attributes.h
   cname: short_a
-  module: Example
   hsname: Short_a
   instances:
   - Bits
@@ -90,11 +84,9 @@ types:
   - Storable
 - headers: type_attributes.h
   cname: union wait
-  module: Example
   hsname: Wait
 - headers: type_attributes.h
   cname: wait_status_ptr_t
-  module: Example
   hsname: Wait_status_ptr_t
   instances:
   - Storable

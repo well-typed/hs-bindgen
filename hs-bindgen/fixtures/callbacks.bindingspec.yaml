@@ -1,10 +1,10 @@
 version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
+hsmodule: Example
 types:
 - headers: callbacks.h
   cname: struct DataPipeline
-  module: Example
   hsname: DataPipeline
   instances:
   - Eq
@@ -12,7 +12,6 @@ types:
   - Storable
 - headers: callbacks.h
   cname: DataValidator
-  module: Example
   hsname: DataValidator
   instances:
   - Eq
@@ -21,11 +20,9 @@ types:
   - Storable
 - headers: callbacks.h
   cname: DataValidator_Deref
-  module: Example
   hsname: DataValidator_Deref
 - headers: callbacks.h
   cname: FileOpenedNotification
-  module: Example
   hsname: FileOpenedNotification
   instances:
   - Eq
@@ -34,11 +31,9 @@ types:
   - Storable
 - headers: callbacks.h
   cname: FileOpenedNotification_Deref
-  module: Example
   hsname: FileOpenedNotification_Deref
 - headers: callbacks.h
   cname: struct Measurement
-  module: Example
   hsname: Measurement
   instances:
   - Eq
@@ -46,7 +41,6 @@ types:
   - Storable
 - headers: callbacks.h
   cname: struct MeasurementHandler
-  module: Example
   hsname: MeasurementHandler
   instances:
   - Eq
@@ -54,7 +48,6 @@ types:
   - Storable
 - headers: callbacks.h
   cname: MeasurementReceived
-  module: Example
   hsname: MeasurementReceived
   instances:
   - Eq
@@ -63,7 +56,6 @@ types:
   - Storable
 - headers: callbacks.h
   cname: MeasurementReceived2
-  module: Example
   hsname: MeasurementReceived2
   instances:
   - Eq
@@ -72,27 +64,22 @@ types:
   - Storable
 - headers: callbacks.h
   cname: MeasurementReceived2_Deref
-  module: Example
   hsname: MeasurementReceived2_Deref
 - headers: callbacks.h
   cname: MeasurementReceived_Deref
-  module: Example
   hsname: MeasurementReceived_Deref
 - headers: callbacks.h
   cname: struct Processor
-  module: Example
   hsname: Processor
   instances:
   - Storable
 - headers: callbacks.h
   cname: union ProcessorCallback
-  module: Example
   hsname: ProcessorCallback
   instances:
   - Storable
 - headers: callbacks.h
   cname: Processor_mode
-  module: Example
   hsname: Processor_mode
   instances:
   - Eq
@@ -102,7 +89,6 @@ types:
   - Storable
 - headers: callbacks.h
   cname: ProgressUpdate
-  module: Example
   hsname: ProgressUpdate
   instances:
   - Eq
@@ -111,11 +97,9 @@ types:
   - Storable
 - headers: callbacks.h
   cname: ProgressUpdate_Deref
-  module: Example
   hsname: ProgressUpdate_Deref
 - headers: callbacks.h
   cname: SampleBufferFull
-  module: Example
   hsname: SampleBufferFull
   instances:
   - Eq
@@ -124,11 +108,9 @@ types:
   - Storable
 - headers: callbacks.h
   cname: SampleBufferFull_Deref
-  module: Example
   hsname: SampleBufferFull_Deref
 - headers: callbacks.h
   cname: foo
-  module: Example
   hsname: Foo
   instances:
   - Bits
@@ -146,7 +128,6 @@ types:
   - Storable
 - headers: callbacks.h
   cname: foo2
-  module: Example
   hsname: Foo2
   instances:
   - Bits

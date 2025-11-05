@@ -143,16 +143,17 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
 
     resolveBindingSpecsPass <- cache "resolveBindingSpecs" $ do
       afterNameAnon <- nameAnonPass
-      extlSpec <- bootExternalBindingSpec
-      presSpec <- bootPrescriptiveBindingSpec
+      extSpecs <- bootExternalBindingSpecs
+      pSpec <- bootPrescriptiveBindingSpec
       let (   afterResolveBindingSpecs
             , omitTypes
             , declsWithExternalBindingSpecs
             , msgsResolveBindingSpecs
             ) =
             resolveBindingSpecs
-              extlSpec
-              presSpec
+              bootModule
+              extSpecs
+              pSpec
               afterNameAnon
       forM_ msgsResolveBindingSpecs $ traceWith tracer . FrontendResolveBindingSpecs
       pure (afterResolveBindingSpecs, omitTypes, declsWithExternalBindingSpecs)

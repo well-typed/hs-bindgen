@@ -1,10 +1,10 @@
 version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
+hsmodule: Example
 types:
 - headers: decls_in_signature.h
   cname: struct named_struct
-  module: Example
   hsname: Named_struct
   instances:
   - Eq
@@ -12,17 +12,14 @@ types:
   - Storable
 - headers: decls_in_signature.h
   cname: union named_union
-  module: Example
   hsname: Named_union
   instances:
   - Storable
 - headers: decls_in_signature.h
   cname: struct opaque
-  module: Example
   hsname: Opaque
 - headers: decls_in_signature.h
   cname: struct outside
-  module: Example
   hsname: Outside
   instances:
   - Eq

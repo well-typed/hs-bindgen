@@ -23,7 +23,6 @@ TranslationUnit {
             (PrimIntegral PrimInt Signed))),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -53,7 +52,6 @@ TranslationUnit {
                 Signed)))),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -83,7 +81,6 @@ TranslationUnit {
                 Signed)))),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -115,7 +112,6 @@ TranslationUnit {
                   Signed))))),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -166,7 +162,6 @@ TranslationUnit {
             PrimBool},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}}],

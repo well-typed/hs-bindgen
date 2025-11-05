@@ -1,10 +1,10 @@
 version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
+hsmodule: Example
 types:
 - headers: definitions.h
   cname: struct X
-  module: Example
   hsname: X
   instances:
   - Eq
@@ -12,7 +12,6 @@ types:
   - Storable
 - headers: definitions.h
   cname: union Y
-  module: Example
   hsname: 'Y'
   instances:
   - Storable

@@ -29,7 +29,6 @@ TranslationUnit {
               (PrimIntegral PrimInt Signed)}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -60,7 +59,6 @@ TranslationUnit {
           structFlam = Nothing},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -93,7 +91,6 @@ TranslationUnit {
           unionFields = []},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -137,7 +134,6 @@ TranslationUnit {
               enumConstantValue = 0}]},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -191,7 +187,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -239,7 +234,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -287,7 +281,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -336,7 +329,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -385,7 +377,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -434,7 +425,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -481,7 +471,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -528,7 +517,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -577,7 +565,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -626,7 +613,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -675,7 +661,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -724,7 +709,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -771,7 +755,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -818,7 +801,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -864,7 +846,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -915,7 +896,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -966,7 +946,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -1017,7 +996,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -1067,7 +1045,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -1118,7 +1095,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -1164,7 +1140,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -1196,7 +1171,6 @@ TranslationUnit {
             NameOriginInSource},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -1237,7 +1211,6 @@ TranslationUnit {
               (PrimSignImplicit Nothing))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -1278,7 +1251,6 @@ TranslationUnit {
               (PrimSignExplicit Signed))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -1319,7 +1291,6 @@ TranslationUnit {
               (PrimSignExplicit Unsigned))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -1361,7 +1332,6 @@ TranslationUnit {
               Signed)},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -1403,7 +1373,6 @@ TranslationUnit {
               Signed)},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -1445,7 +1414,6 @@ TranslationUnit {
               Unsigned)},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -1485,7 +1453,6 @@ TranslationUnit {
             (PrimIntegral PrimInt Signed)},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -1525,7 +1492,6 @@ TranslationUnit {
             (PrimIntegral PrimInt Signed)},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -1567,7 +1533,6 @@ TranslationUnit {
               Unsigned)},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -1607,7 +1572,6 @@ TranslationUnit {
             (PrimIntegral PrimLong Signed)},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -1647,7 +1611,6 @@ TranslationUnit {
             (PrimIntegral PrimLong Signed)},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -1689,7 +1652,6 @@ TranslationUnit {
               Unsigned)},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -1729,7 +1691,6 @@ TranslationUnit {
             (PrimFloating PrimFloat)},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -1769,7 +1730,6 @@ TranslationUnit {
             (PrimFloating PrimDouble)},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -1809,7 +1769,6 @@ TranslationUnit {
             PrimBool},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -1853,7 +1812,6 @@ TranslationUnit {
             NameOriginInSource},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -1897,7 +1855,6 @@ TranslationUnit {
             NameOriginInSource},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -1941,7 +1898,6 @@ TranslationUnit {
             NameOriginInSource},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -1982,7 +1938,6 @@ TranslationUnit {
               (PrimIntegral PrimInt Signed))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -2026,7 +1981,6 @@ TranslationUnit {
                   Signed)))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -2066,7 +2020,6 @@ TranslationUnit {
             TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -2106,7 +2059,6 @@ TranslationUnit {
             (PrimIntegral PrimInt Signed)},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -2138,7 +2090,6 @@ TranslationUnit {
             NameOriginInSource},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -2186,7 +2137,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -2234,7 +2184,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -2275,7 +2224,6 @@ TranslationUnit {
             (PrimFloating PrimFloat)},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -2316,7 +2264,6 @@ TranslationUnit {
             (PrimFloating PrimDouble)},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -2362,7 +2309,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -2408,7 +2354,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -2448,7 +2393,6 @@ TranslationUnit {
             PrimBool},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -2488,7 +2432,6 @@ TranslationUnit {
             PrimSize},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -2532,7 +2475,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -2573,7 +2515,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -2614,7 +2555,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -2656,7 +2596,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -2693,7 +2632,6 @@ TranslationUnit {
               NameOriginInSource)},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -2731,7 +2669,6 @@ TranslationUnit {
                 NameOriginInSource))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -2768,7 +2705,6 @@ TranslationUnit {
               NameOriginInSource)},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -2806,7 +2742,6 @@ TranslationUnit {
                 NameOriginInSource))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -2845,7 +2780,6 @@ TranslationUnit {
             NameOriginInSource},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -2881,7 +2815,6 @@ TranslationUnit {
               NameOriginInSource)},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -2918,7 +2851,6 @@ TranslationUnit {
                 NameOriginInSource))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -2971,7 +2903,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -3023,7 +2954,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -3074,7 +3004,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -3129,7 +3058,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -3186,7 +3114,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -3237,7 +3164,6 @@ TranslationUnit {
               NameOriginInSource)},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -3282,7 +3208,6 @@ TranslationUnit {
                     NameOriginInSource))))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -3334,7 +3259,6 @@ TranslationUnit {
                 NameOriginInSource))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -3380,7 +3304,6 @@ TranslationUnit {
                       NameOriginInSource)))))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -3433,7 +3356,6 @@ TranslationUnit {
                   NameOriginInSource)))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -3480,7 +3402,6 @@ TranslationUnit {
                         NameOriginInSource))))))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -3535,7 +3456,6 @@ TranslationUnit {
               NameOriginInSource)},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -3584,7 +3504,6 @@ TranslationUnit {
                     NameOriginInSource))))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -3640,7 +3559,6 @@ TranslationUnit {
                 NameOriginInSource))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -3690,7 +3608,6 @@ TranslationUnit {
                       NameOriginInSource)))))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -3739,7 +3656,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -3774,7 +3690,6 @@ TranslationUnit {
             NameOriginInSource},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -3859,7 +3774,6 @@ TranslationUnit {
           structFlam = Nothing},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -3922,7 +3836,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -3973,7 +3886,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -4024,7 +3936,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -4075,7 +3986,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -4126,7 +4036,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -4177,7 +4086,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -4227,7 +4135,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -4277,7 +4184,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -4326,7 +4232,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -4380,7 +4285,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -4434,7 +4338,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -4488,7 +4391,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -4537,7 +4439,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -4586,7 +4487,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -4636,7 +4536,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -4686,7 +4585,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -4735,7 +4633,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -4789,7 +4686,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -4843,7 +4739,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -4897,7 +4792,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -4946,7 +4840,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -4995,7 +4888,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -5048,7 +4940,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -5101,7 +4992,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -5154,7 +5044,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -5209,7 +5098,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -5264,7 +5152,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -5310,7 +5197,6 @@ TranslationUnit {
                   Signed)))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -5356,7 +5242,6 @@ TranslationUnit {
                   Signed)))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -5402,7 +5287,6 @@ TranslationUnit {
                   Signed)))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -5450,7 +5334,6 @@ TranslationUnit {
                     Signed))))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -5498,7 +5381,6 @@ TranslationUnit {
                     Signed))))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -5535,7 +5417,6 @@ TranslationUnit {
               NameOriginInSource)},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -5572,7 +5453,6 @@ TranslationUnit {
               NameOriginInSource)},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -5610,7 +5490,6 @@ TranslationUnit {
                 NameOriginInSource))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -5648,7 +5527,6 @@ TranslationUnit {
                 NameOriginInSource))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -5686,7 +5564,6 @@ TranslationUnit {
                 NameOriginInSource))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -5726,7 +5603,6 @@ TranslationUnit {
                   NameOriginInSource)))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -5766,7 +5642,6 @@ TranslationUnit {
                   NameOriginInSource)))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -5926,7 +5801,6 @@ TranslationUnit {
           structFlam = Nothing},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -5983,7 +5857,6 @@ TranslationUnit {
                 NameOriginInSource))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -6034,7 +5907,6 @@ TranslationUnit {
                       NameOriginInSource)))))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -6091,7 +5963,6 @@ TranslationUnit {
                 NameOriginInSource))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -6142,7 +6013,6 @@ TranslationUnit {
                       NameOriginInSource)))))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -6200,7 +6070,6 @@ TranslationUnit {
                   NameOriginInSource)))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -6252,7 +6121,6 @@ TranslationUnit {
                         NameOriginInSource))))))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -6310,7 +6178,6 @@ TranslationUnit {
                   NameOriginInSource)))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -6362,7 +6229,6 @@ TranslationUnit {
                         NameOriginInSource))))))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -6420,7 +6286,6 @@ TranslationUnit {
                   NameOriginInSource)))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -6472,7 +6337,6 @@ TranslationUnit {
                         NameOriginInSource))))))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -6532,7 +6396,6 @@ TranslationUnit {
                     NameOriginInSource))))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -6586,7 +6449,6 @@ TranslationUnit {
                           NameOriginInSource)))))))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -6646,7 +6508,6 @@ TranslationUnit {
                     NameOriginInSource))))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -6700,7 +6561,6 @@ TranslationUnit {
                           NameOriginInSource)))))))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -6743,7 +6603,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -6787,7 +6646,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -6831,7 +6689,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -6871,7 +6728,6 @@ TranslationUnit {
             NameOriginInSource},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -6903,7 +6759,6 @@ TranslationUnit {
             NameOriginInSource},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -6955,7 +6810,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -6995,7 +6849,6 @@ TranslationUnit {
             (TypeFun [] TypeVoid)},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -7040,7 +6893,6 @@ TranslationUnit {
                   Signed)))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -7084,7 +6936,6 @@ TranslationUnit {
               TypeVoid)},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -7132,7 +6983,6 @@ TranslationUnit {
                   (PrimSignImplicit Nothing))))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -7182,7 +7032,6 @@ TranslationUnit {
                     Signed))))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -7234,7 +7083,6 @@ TranslationUnit {
                       Signed)))))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -7286,7 +7134,6 @@ TranslationUnit {
                       Signed)))))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -7338,7 +7185,6 @@ TranslationUnit {
                       Signed)))))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -7392,7 +7238,6 @@ TranslationUnit {
                         Signed))))))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -7446,7 +7291,6 @@ TranslationUnit {
                         Signed))))))},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -7478,7 +7322,6 @@ TranslationUnit {
             macroType = TypePrim PrimBool}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -7510,7 +7353,6 @@ TranslationUnit {
               (PrimIntegral PrimInt Signed)}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -7546,7 +7388,6 @@ TranslationUnit {
                   Signed))}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -7586,7 +7427,6 @@ TranslationUnit {
                       Signed))))}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}}],

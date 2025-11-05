@@ -46,8 +46,6 @@
                   (Just Signed)))},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = Just
-              (ModuleName "Generated"),
             cTypeSpecIdentifier = Just
               (Identifier "Sym"),
             cTypeSpecInstances =

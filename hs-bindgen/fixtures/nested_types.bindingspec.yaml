@@ -1,10 +1,10 @@
 version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
+hsmodule: Example
 types:
 - headers: nested_types.h
   cname: struct bar
-  module: Example
   hsname: Bar
   instances:
   - Eq
@@ -12,7 +12,6 @@ types:
   - Storable
 - headers: nested_types.h
   cname: struct ex3
-  module: Example
   hsname: Ex3
   instances:
   - Eq
@@ -20,7 +19,6 @@ types:
   - Storable
 - headers: nested_types.h
   cname: ex3_ex3_struct
-  module: Example
   hsname: Ex3_ex3_struct
   instances:
   - Eq
@@ -28,7 +26,6 @@ types:
   - Storable
 - headers: nested_types.h
   cname: struct ex4_even
-  module: Example
   hsname: Ex4_even
   instances:
   - Eq
@@ -36,7 +33,6 @@ types:
   - Storable
 - headers: nested_types.h
   cname: struct ex4_odd
-  module: Example
   hsname: Ex4_odd
   instances:
   - Eq
@@ -44,7 +40,6 @@ types:
   - Storable
 - headers: nested_types.h
   cname: struct foo
-  module: Example
   hsname: Foo
   instances:
   - Eq

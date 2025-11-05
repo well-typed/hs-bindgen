@@ -22,7 +22,6 @@ TranslationUnit {
         (NameKindTagged TagKindStruct),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -79,7 +78,6 @@ TranslationUnit {
           structFlam = Nothing},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -147,7 +145,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -218,7 +215,6 @@ TranslationUnit {
           structFlam = Nothing},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -270,7 +266,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -329,7 +324,6 @@ TranslationUnit {
                     (Just Signed)))}]},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -369,7 +363,6 @@ TranslationUnit {
           functionRes = TypeVoid},
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}}],

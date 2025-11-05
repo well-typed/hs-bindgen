@@ -58,19 +58,20 @@ boot
       loadBindingSpecs
         (contramap BootBindingSpec tracer)
         clangArgs
+        hsModuleName
         (bootBindingSpecConfig bindgenBootConfig)
 
-    getExternalBindingSpec <- cache "getExternalBindingSpec" $ do
-      withTrace BootStatusExternalBindingSpec $ fmap fst getBindingSpecs
+    getExternalBindingSpecs <- cache "getExternalBindingSpecs" $ do
+      withTrace BootStatusExternalBindingSpecs $ fmap fst getBindingSpecs
 
     getPrescriptiveBindingSpec <- cache "getPrescriptiveBindingSpec" $ do
-      withTrace BootStatusExternalBindingSpec $ fmap snd getBindingSpecs
+      withTrace BootStatusPrescriptiveBindingSpec $ fmap snd getBindingSpecs
 
     pure BootArtefact {
           bootModule                  = hsModuleName
         , bootClangArgs               = getClangArgs'
         , bootHashIncludeArgs         = getHashIncludeArgs
-        , bootExternalBindingSpec     = getExternalBindingSpec
+        , bootExternalBindingSpecs    = getExternalBindingSpecs
         , bootPrescriptiveBindingSpec = getPrescriptiveBindingSpec
         }
   where
@@ -110,7 +111,7 @@ data BootArtefact = BootArtefact {
     bootModule                  :: Hs.ModuleName
   , bootClangArgs               :: IO ClangArgs
   , bootHashIncludeArgs         :: IO [HashIncludeArg]
-  , bootExternalBindingSpec     :: IO ExternalBindingSpec
+  , bootExternalBindingSpecs    :: IO MergedBindingSpecs
   , bootPrescriptiveBindingSpec :: IO PrescriptiveBindingSpec
   }
 
@@ -122,7 +123,7 @@ data BootStatusMsg =
     BootStatusStart                   BindgenConfig
   | BootStatusClangArgs               ClangArgs
   | BootStatusHashIncludeArgs         [HashIncludeArg]
-  | BootStatusExternalBindingSpec     ExternalBindingSpec
+  | BootStatusExternalBindingSpecs    MergedBindingSpecs
   | BootStatusPrescriptiveBindingSpec PrescriptiveBindingSpec
   deriving stock (Show, Generic)
 
@@ -135,7 +136,7 @@ instance PrettyForTrace BootStatusMsg where
     BootStatusStart                   x -> bootStatus "BindgenConfig"           x
     BootStatusClangArgs               x -> bootStatus "ClangArgs"               x
     BootStatusHashIncludeArgs         x -> bootStatus "HashIncludeArgs"         x
-    BootStatusExternalBindingSpec     x -> bootStatus "ExternalBindingSpec"     x
+    BootStatusExternalBindingSpecs    x -> bootStatus "ExternalBindingSpecs"    x
     BootStatusPrescriptiveBindingSpec x -> bootStatus "PrescriptiveBindingSpec" x
 
 instance IsTrace Level BootStatusMsg where

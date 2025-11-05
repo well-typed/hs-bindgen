@@ -31,7 +31,6 @@ TranslationUnit {
             macroExprType = "CharLit"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -66,7 +65,6 @@ TranslationUnit {
             macroExprType = "CharLit"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -100,7 +98,6 @@ TranslationUnit {
             macroExprType = "CharLit"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -135,7 +132,6 @@ TranslationUnit {
             macroExprType = "CharLit"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -169,7 +165,6 @@ TranslationUnit {
             macroExprType = "CharLit"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -203,7 +198,6 @@ TranslationUnit {
             macroExprType = "CharLit"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -238,7 +232,6 @@ TranslationUnit {
             macroExprType = "CharLit"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -273,7 +266,6 @@ TranslationUnit {
             macroExprType = "CharLit"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -308,7 +300,6 @@ TranslationUnit {
             macroExprType = "CharLit"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -345,7 +336,6 @@ TranslationUnit {
             macroExprType = "CharLit"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -382,7 +372,6 @@ TranslationUnit {
             macroExprType = "CharLit"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -419,7 +408,6 @@ TranslationUnit {
             macroExprType = "CharLit"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -457,7 +445,6 @@ TranslationUnit {
             "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -496,7 +483,6 @@ TranslationUnit {
             "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -535,7 +521,6 @@ TranslationUnit {
             "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -574,7 +559,6 @@ TranslationUnit {
             "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -613,7 +597,6 @@ TranslationUnit {
             "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -651,7 +634,6 @@ TranslationUnit {
             "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -689,7 +671,6 @@ TranslationUnit {
             "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -727,7 +708,6 @@ TranslationUnit {
             "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -768,7 +748,6 @@ TranslationUnit {
             "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -809,7 +788,6 @@ TranslationUnit {
             "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -856,7 +834,6 @@ TranslationUnit {
             "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -907,7 +884,6 @@ TranslationUnit {
             "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -966,7 +942,6 @@ TranslationUnit {
             "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -1018,7 +993,6 @@ TranslationUnit {
             "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}},
@@ -1089,7 +1063,6 @@ TranslationUnit {
             "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"}),
       declSpec = DeclSpec
         CTypeSpec {
-          cTypeSpecModule = Nothing,
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}}],

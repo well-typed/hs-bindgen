@@ -61,11 +61,10 @@ parseOpts =
 
 exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} = do
-    spec <- either throwIO pure <=< withTracer tracerConfig $ \tracer -> do
-      clangArgs <- getClangArgs (contramap TraceBoot tracer) clangArgsConfig
-      getStdlibBindingSpec
-        (contramap (TraceBoot . BootBindingSpec) tracer)
-        clangArgs
-    case output of
-      Just path -> BS.writeFile path $ encodeBindingSpecYaml spec
-      Nothing   -> BS.putStr         $ encodeBindingSpecYaml spec
+    spec <-
+      either throwIO pure <=< withTracer tracerConfig $ \tracer -> do
+        clangArgs <- getClangArgs (contramap TraceBoot tracer) clangArgsConfig
+        getStdlibBindingSpec
+          (contramap (TraceBoot . BootBindingSpec) tracer)
+          clangArgs
+    maybe BS.putStr BS.writeFile output $ encodeBindingSpecYaml spec

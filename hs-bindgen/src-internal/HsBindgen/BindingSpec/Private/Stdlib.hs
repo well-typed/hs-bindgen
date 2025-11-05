@@ -25,17 +25,19 @@ import HsBindgen.Imports
 import HsBindgen.Language.Haskell qualified as Hs
 
 {-------------------------------------------------------------------------------
-  Bindings
+  Binding specification
 -------------------------------------------------------------------------------}
 
 -- | All standard library bindings
 --
 -- These bindings include types defined in @base@ as well as
--- @hs-bindgen-runtime@.  They are all re-exported from module
--- @HsBindgen.Runtime.Prelude@ to simplify imports.
+-- @hs-bindgen-runtime@
 bindingSpec :: BindingSpec.UnresolvedBindingSpec
 bindingSpec = BindingSpec.BindingSpec{..}
   where
+    bindingSpecModule :: Hs.ModuleName
+    bindingSpecModule = "HsBindgen.Runtime.Prelude"
+
     bindingSpecTypes ::
       Map
         C.QualName
@@ -181,8 +183,7 @@ mkT t hsId insts headers = case C.parseQualName t of
   where
     typeSpec :: BindingSpec.CTypeSpec
     typeSpec = BindingSpec.CTypeSpec {
-        cTypeSpecModule     = Just "HsBindgen.Runtime.Prelude"
-      , cTypeSpecIdentifier = Just hsId
+        cTypeSpecIdentifier = Just hsId
       , cTypeSpecInstances  = Map.fromList [
             (inst, Require instanceSpec)
           | inst <- insts

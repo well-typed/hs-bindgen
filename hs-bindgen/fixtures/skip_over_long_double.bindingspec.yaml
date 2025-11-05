@@ -1,10 +1,10 @@
 version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
+hsmodule: Example
 types:
 - headers: skip_over_long_double.h
   cname: struct struct2
-  module: Example
   hsname: Struct2
   instances:
   - Eq

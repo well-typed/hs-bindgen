@@ -1,10 +1,10 @@
 version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
+hsmodule: Example
 types:
 - headers: circular_dependency_struct.h
   cname: struct a
-  module: Example
   hsname: A
   instances:
   - Eq
@@ -12,7 +12,6 @@ types:
   - Storable
 - headers: circular_dependency_struct.h
   cname: struct b
-  module: Example
   hsname: B
   instances:
   - Eq

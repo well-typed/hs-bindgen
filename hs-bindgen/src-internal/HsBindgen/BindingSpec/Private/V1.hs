@@ -28,7 +28,6 @@ module HsBindgen.BindingSpec.Private.V1 (
   , ConstraintSpec(..)
     -- * API
   , empty
-  , load
   , getCTypes
   , lookupCTypeSpec
     -- ** YAML/JSON
@@ -41,10 +40,12 @@ module HsBindgen.BindingSpec.Private.V1 (
   , writeFile
   , writeFileJson
   , writeFileYaml
-    -- ** Merging
-  , merge
     -- ** Header resolution
   , resolve
+    -- ** Merging
+  , MergedBindingSpecs
+  , merge
+  , lookupMergedCTypeSpec
   ) where
 
 import Prelude hiding (readFile, writeFile)
@@ -104,7 +105,12 @@ version = $$(constBindingSpecVersion 1 0)
 --
 -- The @header@ type parameter determines the representation of header paths.
 -- See 'UnresolvedBindingSpec' and 'ResolvedBindingSpec'.
-newtype BindingSpec header = BindingSpec {
+data BindingSpec header = BindingSpec {
+      -- | Binding specification module
+      --
+      -- Each binding specification is specific to a Haskell module.
+      bindingSpecModule :: Hs.ModuleName
+
       -- | Type specifications
       --
       -- A C type is identified using a 'C.QualName' and a set of headers that
@@ -112,7 +118,7 @@ newtype BindingSpec header = BindingSpec {
       -- disjoint.  The type of this map is therefore equivalent to
       -- @'Map' 'C.QualName' ('Map' header ('Omittable' 'CTypeSpec'))@, but this
       -- type is used as an optimization.
-      bindingSpecTypes :: Map C.QualName [(Set header, Omittable CTypeSpec)]
+    , bindingSpecTypes :: Map C.QualName [(Set header, Omittable CTypeSpec)]
     }
   deriving stock (Eq, Generic, Show)
 
@@ -131,10 +137,7 @@ type ResolvedBindingSpec = BindingSpec (HashIncludeArg, SourcePath)
 
 -- | Binding specification for a C type
 data CTypeSpec = CTypeSpec {
-      -- | Haskell module
-      cTypeSpecModule :: Maybe Hs.ModuleName
-
-    , -- | Haskell identifier
+      -- | Haskell identifier
       cTypeSpecIdentifier :: Maybe Hs.Identifier
 
     , -- | Instance specification
@@ -144,8 +147,7 @@ data CTypeSpec = CTypeSpec {
 
 instance Default CTypeSpec where
   def = CTypeSpec {
-      cTypeSpecModule     = Nothing
-    , cTypeSpecIdentifier = Nothing
+      cTypeSpecIdentifier = Nothing
     , cTypeSpecInstances  = Map.empty
     }
 
@@ -213,35 +215,12 @@ data ConstraintSpec = ConstraintSpec {
   API
 -------------------------------------------------------------------------------}
 
--- | Empty binding specification
-empty :: BindingSpec header
-empty = BindingSpec {
-      bindingSpecTypes = Map.empty
+-- | Construct an empty binding specification for the given module
+empty :: Hs.ModuleName -> BindingSpec header
+empty hsModuleName = BindingSpec {
+      bindingSpecModule = hsModuleName
+    , bindingSpecTypes  = Map.empty
     }
-
--- | Load, merge, and resolve binding specifications
---
--- The format is determined by filename extension.
-load ::
-     Tracer IO BindingSpecMsg
-  -> (ResolveHeaderMsg -> BindingSpecResolveMsg)
-     -- ^ Are we dealing with external or prescriptive bindings?
-  -> ClangArgs
-  -> UnresolvedBindingSpec
-  -> BindingSpecCompatibility
-  -> [FilePath]
-  -> IO (UnresolvedBindingSpec, ResolvedBindingSpec)
-load tracer injResolveHeader args stdSpec cmpt paths = do
-    uspecs <- mapM (readFile tracerRead cmpt) paths
-    let (mergeMsgs, uspec) = merge (stdSpec : uspecs)
-    mapM_ (traceWith tracer . BindingSpecMergeMsg) mergeMsgs
-    (uspec,) <$> resolve tracerResolve injResolveHeader args uspec
-  where
-    tracerRead :: Tracer IO BindingSpecReadMsg
-    tracerRead = contramap BindingSpecReadMsg tracer
-
-    tracerResolve :: Tracer IO BindingSpecResolveMsg
-    tracerResolve = contramap BindingSpecResolveMsg tracer
 
 -- | Get the C types in a binding specification
 getCTypes :: ResolvedBindingSpec -> Map C.QualName [Set SourcePath]
@@ -249,19 +228,16 @@ getCTypes =
       fmap (map (Set.map snd . fst))
     . bindingSpecTypes
 
--- | Lookup the @'Omittable' 'CTypeSpec'@ associated with a C type
+-- | Lookup a C type in a 'ResolvedBindingSpec'
 lookupCTypeSpec ::
      C.QualName
   -> Set SourcePath
   -> ResolvedBindingSpec
-  -> Maybe (Omittable CTypeSpec)
-lookupCTypeSpec cQualName headers =
-        lookupBy (not . Set.disjoint headers . Set.map snd)
-    <=< Map.lookup cQualName . bindingSpecTypes
-  where
-    -- 'List.lookup' using a predicate
-    lookupBy :: (a -> Bool) -> [(a, b)] -> Maybe b
-    lookupBy p = fmap snd . List.find (p . fst)
+  -> Maybe (Hs.ModuleName, Omittable CTypeSpec)
+lookupCTypeSpec cQualName headers spec = do
+    ps <- Map.lookup cQualName (bindingSpecTypes spec)
+    oCTypeSpec <- lookupBy (not . Set.disjoint headers . Set.map snd) ps
+    return (bindingSpecModule spec, oCTypeSpec)
 
 {-------------------------------------------------------------------------------
   API: YAML/JSON
@@ -274,7 +250,7 @@ readFile ::
      Tracer IO BindingSpecReadMsg
   -> BindingSpecCompatibility
   -> FilePath
-  -> IO UnresolvedBindingSpec
+  -> IO (Maybe UnresolvedBindingSpec)
 readFile = readFileAux readVersion
 
 -- | Read a binding specification JSON file
@@ -282,7 +258,7 @@ readFileJson ::
      Tracer IO BindingSpecReadMsg
   -> BindingSpecCompatibility
   -> FilePath
-  -> IO UnresolvedBindingSpec
+  -> IO (Maybe UnresolvedBindingSpec)
 readFileJson = readFileAux readVersionJson
 
 -- | Read a binding specification YAML file
@@ -290,7 +266,7 @@ readFileYaml ::
      Tracer IO BindingSpecReadMsg
   -> BindingSpecCompatibility
   -> FilePath
-  -> IO UnresolvedBindingSpec
+  -> IO (Maybe UnresolvedBindingSpec)
 readFileYaml = readFileAux readVersionYaml
 
 readFileAux ::
@@ -298,11 +274,10 @@ readFileAux ::
   -> Tracer IO BindingSpecReadMsg
   -> BindingSpecCompatibility
   -> FilePath
-  -> IO UnresolvedBindingSpec
-readFileAux doRead tracer cmpt path = fmap (fromMaybe empty) $
-    doRead tracer path >>= \case
-      Just (version', value) -> parseValue tracer cmpt path version' value
-      Nothing                -> return Nothing
+  -> IO (Maybe UnresolvedBindingSpec)
+readFileAux doRead tracer cmpt path = doRead tracer path >>= \case
+    Just (version', value) -> parseValue tracer cmpt path version' value
+    Nothing                -> return Nothing
 
 parseValue ::
      Monad m
@@ -367,53 +342,18 @@ encodeYaml' = Data.Yaml.Pretty.encodePretty yamlConfig
     keyPosition = \case
       "version"               ->  0  -- ABindingSpec:1
       "hs_bindgen"            ->  1  -- AVersion:1
-      "binding_specification" ->  2  -- AVersion:1
-      "omit"                  ->  3  -- Omittable:1
-      "types"                 ->  4  -- ABindingSpec:2
-      "class"                 ->  5  -- AInstanceSpecMapping:1, AConstraintSpec:1
-      "headers"               ->  6  -- ACTypeSpecMapping:1
-      "cname"                 ->  7  -- ACTypeSpecMapping:2
-      "module"                ->  8  -- ACTypeSpecMapping:3, AConstraintSpec:2
-      "hsname"                ->  9  -- ACTypeSpecMapping:4, AConstraintSpec:3
-      "instances"             -> 10  -- ACTypeSpecMapping:5
-      "strategy"              -> 11  -- AInstanceSpecMapping:2
-      "constraints"           -> 12  -- AInstanceSpecMapping:3
+      "binding_specification" ->  2  -- AVersion:2
+      "omit"                  ->  3  -- AOmittable:1
+      "class"                 ->  4  -- AInstanceSpecMapping:1, AConstraintSpec:1
+      "strategy"              ->  5  -- AInstanceSpecMapping:2
+      "constraints"           ->  6  -- AInstanceSpecMapping:3
+      "hsmodule"              ->  7  -- ABindingSpec:2, AConstraintSpec:2
+      "types"                 ->  8  -- ABindingSpec:3
+      "headers"               ->  9  -- ACTypeSpecMapping:1
+      "cname"                 -> 10  -- ACTypeSpecMapping:2
+      "hsname"                -> 11  -- ACTypeSpecMapping:3, AConstraintSpec:3
+      "instances"             -> 12  -- ACTypeSpecMapping:4
       key -> panicPure $ "Unknown key: " ++ show key
-
-{-------------------------------------------------------------------------------
-  API: Merging
--------------------------------------------------------------------------------}
-
--- | Merge binding specifications
-merge ::
-     [UnresolvedBindingSpec]
-  -> ([BindingSpecMergeMsg], UnresolvedBindingSpec)
-merge = \case
-    [] -> ([], empty)
-    spec:specs ->
-      let (typeErrs, bsTypes) =
-              first mkTypeErrs
-            . foldl' mergeTypes (Set.empty, bindingSpecTypes spec)
-            $ concatMap (Map.toList . bindingSpecTypes) specs
-          spec' = BindingSpec {
-              bindingSpecTypes = bsTypes
-            }
-      in  (typeErrs, spec')
-  where
-    mkTypeErrs :: Set C.QualName -> [BindingSpecMergeMsg]
-    mkTypeErrs = fmap BindingSpecMergeConflict . Set.toList
-
-    mergeTypes ::
-         (Set C.QualName, Map C.QualName [(Set HashIncludeArg, a)])
-      -> (C.QualName, [(Set HashIncludeArg, a)])
-      -> (Set C.QualName, Map C.QualName [(Set HashIncludeArg, a)])
-    mergeTypes (dupSet, acc) (cQualName, rs) =
-      case Map.insertLookupWithKey (const (++)) cQualName rs acc of
-        (Nothing, acc') -> (dupSet, acc')
-        (Just ls, acc')
-          | Set.disjoint (Set.unions (fst <$> ls)) (Set.unions (fst <$> rs)) ->
-              (dupSet, acc')
-          | otherwise -> (Set.insert cQualName dupSet, acc')
 
 {-------------------------------------------------------------------------------
   API: Header resolution
@@ -465,33 +405,116 @@ resolve tracer injResolveHeader args uSpec = do
               | null rKVs -> return Nothing
               | otherwise -> return $ Just (cQualName, rKVs)
 
-    bindingSpecTypes <- Map.fromList <$>
+    bsTypes <- Map.fromList <$>
       mapMaybeM (uncurry resolveTypes) (Map.toList (bindingSpecTypes uSpec))
-    return BindingSpec{..}
+    return BindingSpec{
+        bindingSpecModule = bindingSpecModule uSpec
+      , bindingSpecTypes  = bsTypes
+      }
   where
     allHeaders :: Set HashIncludeArg
     allHeaders = mconcat $ fst <$> concat (Map.elems (bindingSpecTypes uSpec))
+
+{-------------------------------------------------------------------------------
+  API: Merging
+-------------------------------------------------------------------------------}
+
+-- | Merged (external) binding specifications
+--
+-- While a 'BindingSpec' is specific to a Haskell module, this type supports
+-- binding specifications across multiple Haskell modules.  It is a performance
+-- optimization for resolving external binding specifications.
+newtype MergedBindingSpecs = MergedBindingSpecs {
+      mergedBindingSpecs ::
+        Map C.QualName [(Set SourcePath, ResolvedBindingSpec)]
+    }
+  deriving stock (Show)
+
+-- | Merge (external) binding specifications
+merge ::
+     [ResolvedBindingSpec]
+  -> ([BindingSpecMergeMsg], MergedBindingSpecs)
+merge =
+      bimap mkTypeErrs (MergedBindingSpecs . snd)
+    . foldl' mergeSpec (Set.empty, (Map.empty, Map.empty))
+  where
+    mkTypeErrs :: Set C.QualName -> [BindingSpecMergeMsg]
+    mkTypeErrs = fmap BindingSpecMergeConflict . Set.toList
+
+    mergeSpec ::
+         ( Set C.QualName
+         , ( Map C.QualName (Set HashIncludeArg)
+           , Map C.QualName [(Set SourcePath, ResolvedBindingSpec)]
+           )
+         )
+      -> ResolvedBindingSpec
+      -> ( Set C.QualName
+         , ( Map C.QualName (Set HashIncludeArg)
+           , Map C.QualName [(Set SourcePath, ResolvedBindingSpec)]
+           )
+         )
+    mergeSpec ctx spec =
+        foldl' (mergeType spec) ctx
+      . map (fmap (map fst))
+      $ Map.toList (bindingSpecTypes spec)
+
+    mergeType ::
+         ResolvedBindingSpec
+      -> ( Set C.QualName
+         , ( Map C.QualName (Set HashIncludeArg)
+           , Map C.QualName [(Set SourcePath, ResolvedBindingSpec)]
+           )
+         )
+      -> (C.QualName, [Set (HashIncludeArg, SourcePath)])
+      -> ( Set C.QualName
+         , ( Map C.QualName (Set HashIncludeArg)
+           , Map C.QualName [(Set SourcePath, ResolvedBindingSpec)]
+           )
+         )
+    mergeType spec (dupSet, (seenMap, acc)) (cQualName, sourceSets) =
+      let seenS = Set.unions $ map (Set.map fst) sourceSets
+          keyS  = Set.unions $ map (Set.map snd) sourceSets
+          acc'  = Map.insertWith (++) cQualName [(keyS, spec)] acc
+      in  case Map.insertLookupWithKey (const (<>)) cQualName seenS seenMap of
+            (Nothing, seenMap') -> (dupSet, (seenMap', acc'))
+            (Just eS, seenMap')
+              | Set.disjoint eS seenS -> (dupSet, (seenMap', acc'))
+              | otherwise -> (Set.insert cQualName dupSet, (seenMap', acc'))
+
+-- | Lookup a C type in a 'MergedBindingSpec'
+lookupMergedCTypeSpec ::
+     C.QualName
+  -> Set SourcePath
+  -> MergedBindingSpecs
+  -> Maybe (Hs.ModuleName, Omittable CTypeSpec)
+lookupMergedCTypeSpec cQualName headers =
+        lookupCTypeSpec cQualName headers
+    <=< lookupBy (not . Set.disjoint headers)
+    <=< Map.lookup cQualName . mergedBindingSpecs
 
 {-------------------------------------------------------------------------------
   Auxiliary: Specification files
 -------------------------------------------------------------------------------}
 
 data ABindingSpec = ABindingSpec {
-      aBindingSpecVersion :: AVersion
-    , aBindingSpecTypes   :: [AOCTypeSpecMapping]
+      aBindingSpecVersion  :: AVersion
+    , aBindingSpecHsModule :: Hs.ModuleName
+    , aBindingSpecTypes    :: [AOCTypeSpecMapping]
     }
   deriving stock Show
 
 instance Aeson.FromJSON ABindingSpec where
   parseJSON = Aeson.withObject "ABindingSpec" $ \o -> do
-    aBindingSpecVersion <- o .: "version"
-    aBindingSpecTypes   <- o .: "types"
+    aBindingSpecVersion  <- o .: "version"
+    aBindingSpecHsModule <- o .: "hsmodule"
+    aBindingSpecTypes    <- o .: "types"
     return ABindingSpec{..}
 
 instance Aeson.ToJSON ABindingSpec where
   toJSON ABindingSpec{..} = Aeson.object [
-      "version" .= aBindingSpecVersion
-    , "types"   .= aBindingSpecTypes
+      "version"  .= aBindingSpecVersion
+    , "hsmodule" .= aBindingSpecHsModule
+    , "types"    .= aBindingSpecTypes
     ]
 
 --------------------------------------------------------------------------------
@@ -519,7 +542,6 @@ instance Aeson.ToJSON AKCTypeSpecMapping where
 data ACTypeSpecMapping = ACTypeSpecMapping {
       aCTypeSpecMappingHeaders    :: [FilePath]
     , aCTypeSpecMappingCName      :: Text
-    , aCTypeSpecMappingModule     :: Maybe Hs.ModuleName
     , aCTypeSpecMappingIdentifier :: Maybe Hs.Identifier
     , aCTypeSpecMappingInstances  :: [AOInstanceSpecMapping]
     }
@@ -529,7 +551,6 @@ instance Aeson.FromJSON ACTypeSpecMapping where
   parseJSON = Aeson.withObject "ACTypeSpecMapping" $ \o -> do
     aCTypeSpecMappingHeaders    <- o .:  "headers" >>= listFromJSON
     aCTypeSpecMappingCName      <- o .:  "cname"
-    aCTypeSpecMappingModule     <- o .:? "module"
     aCTypeSpecMappingIdentifier <- o .:? "hsname"
     aCTypeSpecMappingInstances  <- o .:? "instances" .!= []
     return ACTypeSpecMapping{..}
@@ -538,7 +559,6 @@ instance Aeson.ToJSON ACTypeSpecMapping where
   toJSON ACTypeSpecMapping{..} = Aeson.Object . KM.fromList $ catMaybes [
       Just ("headers" .= listToJSON aCTypeSpecMappingHeaders)
     , Just ("cname"   .= aCTypeSpecMappingCName)
-    , ("module"    .=) <$> aCTypeSpecMappingModule
     , ("hsname"    .=) <$> aCTypeSpecMappingIdentifier
     , ("instances" .=) <$> omitWhenNull aCTypeSpecMappingInstances
     ]
@@ -589,7 +609,7 @@ newtype AConstraintSpec = AConstraintSpec ConstraintSpec
 instance Aeson.FromJSON AConstraintSpec where
   parseJSON = Aeson.withObject "AConstraintSpec" $ \o -> do
     constraintSpecClass <- o .: "class"
-    extRefModule        <- o .: "module"
+    extRefModule        <- o .: "hsmodule"
     extRefIdentifier    <- o .: "hsname"
     let constraintSpecRef = Hs.ExtRef{..}
     return $ AConstraintSpec ConstraintSpec{..}
@@ -598,9 +618,9 @@ instance Aeson.ToJSON AConstraintSpec where
   toJSON (AConstraintSpec ConstraintSpec{..}) =
     let Hs.ExtRef{..} = constraintSpecRef
     in  Aeson.object [
-            "class"  .= constraintSpecClass
-          , "module" .= extRefModule
-          , "hsname" .= extRefIdentifier
+            "class"    .= constraintSpecClass
+          , "hsmodule" .= extRefModule
+          , "hsname"   .= extRefIdentifier
           ]
 
 --------------------------------------------------------------------------------
@@ -610,7 +630,8 @@ fromABindingSpec ::
   -> ABindingSpec
   -> ([BindingSpecReadMsg], UnresolvedBindingSpec)
 fromABindingSpec path ABindingSpec{..} =
-    let (typeErrs, bindingSpecTypes) = mkTypeMap aBindingSpecTypes
+    let bindingSpecModule = aBindingSpecHsModule
+        (typeErrs, bindingSpecTypes) = mkTypeMap aBindingSpecTypes
     in  (typeErrs, BindingSpec{..})
   where
     mkTypeMap ::
@@ -651,8 +672,7 @@ fromABindingSpec path ABindingSpec{..} =
       let (cname, headers, oTypeSpec) = case aoTypeMapping of
             ARequire ACTypeSpecMapping{..} ->
               let typ = CTypeSpec {
-                      cTypeSpecModule     = aCTypeSpecMappingModule
-                    , cTypeSpecIdentifier = aCTypeSpecMappingIdentifier
+                      cTypeSpecIdentifier = aCTypeSpecMappingIdentifier
                     , cTypeSpecInstances  =
                         mkInstanceMap aCTypeSpecMappingInstances
                     }
@@ -710,27 +730,31 @@ toABindingSpec BindingSpec{..} = ABindingSpec{..}
     aBindingSpecVersion :: AVersion
     aBindingSpecVersion = mkAVersion version
 
+    aBindingSpecHsModule :: Hs.ModuleName
+    aBindingSpecHsModule = bindingSpecModule
+
     aBindingSpecTypes :: [AOCTypeSpecMapping]
     aBindingSpecTypes = [
         case oType of
           Require CTypeSpec{..} -> ARequire ACTypeSpecMapping {
-              aCTypeSpecMappingHeaders    =
-                map getHashIncludeArg (Set.toAscList headers)
-            , aCTypeSpecMappingCName      = C.qualNameText cQualName
-            , aCTypeSpecMappingModule     = cTypeSpecModule
-            , aCTypeSpecMappingIdentifier = cTypeSpecIdentifier
-            , aCTypeSpecMappingInstances  = [
-                  case oInst of
-                    Require InstanceSpec{..} -> ARequire AInstanceSpecMapping {
-                        aInstanceSpecMappingClass       = hsTypeClass
-                      , aInstanceSpecMappingStrategy    = instanceSpecStrategy
-                      , aInstanceSpecMappingConstraints =
-                          map AConstraintSpec instanceSpecConstraints
-                      }
-                    Omit -> AOmit hsTypeClass
-                | (hsTypeClass, oInst) <- Map.toAscList cTypeSpecInstances
-                ]
-            }
+                aCTypeSpecMappingHeaders    =
+                  map getHashIncludeArg (Set.toAscList headers)
+              , aCTypeSpecMappingCName      = C.qualNameText cQualName
+              , aCTypeSpecMappingIdentifier = cTypeSpecIdentifier
+              , aCTypeSpecMappingInstances  = [
+                    case oInst of
+                      Require InstanceSpec{..} ->
+                        ARequire AInstanceSpecMapping {
+                            aInstanceSpecMappingClass = hsTypeClass
+                          , aInstanceSpecMappingStrategy =
+                              instanceSpecStrategy
+                          , aInstanceSpecMappingConstraints =
+                              map AConstraintSpec instanceSpecConstraints
+                          }
+                      Omit -> AOmit hsTypeClass
+                  | (hsTypeClass, oInst) <- Map.toAscList cTypeSpecInstances
+                  ]
+              }
           Omit -> AOmit AKCTypeSpecMapping {
               akCTypeSpecMappingHeaders =
                 map getHashIncludeArg (Set.toAscList headers)
@@ -739,3 +763,11 @@ toABindingSpec BindingSpec{..} = ABindingSpec{..}
       | (cQualName, xs) <- Map.toAscList bindingSpecTypes
       , (headers, oType) <- xs
       ]
+
+{-------------------------------------------------------------------------------
+  Auxiliary functions
+-------------------------------------------------------------------------------}
+
+-- 'List.lookup' using a predicate
+lookupBy :: (a -> Bool) -> [(a, b)] -> Maybe b
+lookupBy p = fmap snd . List.find (p . fst)

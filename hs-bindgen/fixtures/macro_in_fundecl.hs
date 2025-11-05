@@ -44,7 +44,6 @@
               (PrimIntegral PrimInt Signed)},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = Nothing,
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -253,7 +252,6 @@
                 (PrimSignImplicit Nothing))},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = Nothing,
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -461,7 +459,6 @@
               (PrimFloating PrimFloat)},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = Nothing,
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -658,7 +655,6 @@
               (PrimIntegral PrimLong Signed)},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = Nothing,
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},
@@ -868,7 +864,6 @@
                 Signed)},
         declSpec = DeclSpec
           CTypeSpec {
-            cTypeSpecModule = Nothing,
             cTypeSpecIdentifier = Nothing,
             cTypeSpecInstances =
             Map.fromList []}},

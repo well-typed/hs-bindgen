@@ -1,10 +1,10 @@
 version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
+hsmodule: Example
 types:
 - headers: uses_utf8.h
   cname: enum MyEnum
-  module: Example
   hsname: MyEnum
   instances:
   - Eq

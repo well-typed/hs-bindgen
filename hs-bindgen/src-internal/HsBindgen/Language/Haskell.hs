@@ -24,8 +24,10 @@ import Data.Aeson.Types qualified as Aeson
 import Data.Ord qualified as Ord
 import Data.Text qualified as Text
 import Text.Read (readMaybe)
+import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.Imports
+import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
   References
@@ -49,6 +51,9 @@ newtype ModuleName = ModuleName { getModuleName :: Text }
   deriving stock (Generic)
   -- 'Show' instance valid due to 'IsString' instance
   deriving newtype (Aeson.FromJSON, Aeson.ToJSON, Eq, IsString, Ord, Show)
+
+instance PrettyForTrace ModuleName where
+  prettyForTrace = PP.textToCtxDoc . getModuleName
 
 -- | External reference
 --

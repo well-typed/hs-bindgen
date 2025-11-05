@@ -15,7 +15,7 @@ import Optics.Core ((&), (.~))
 import Clang.HighLevel.Types
 import Clang.Paths
 
-import HsBindgen.BindingSpec (ExternalBindingSpec, PrescriptiveBindingSpec)
+import HsBindgen.BindingSpec (MergedBindingSpecs, PrescriptiveBindingSpec)
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
@@ -40,7 +40,8 @@ import HsBindgen.Util.Monad (mapMaybeM)
 -------------------------------------------------------------------------------}
 
 resolveBindingSpecs ::
-     ExternalBindingSpec
+     Hs.ModuleName
+  -> MergedBindingSpecs
   -> PrescriptiveBindingSpec
   -> C.TranslationUnit NameAnon
   -> ( C.TranslationUnit ResolveBindingSpecs
@@ -49,13 +50,21 @@ resolveBindingSpecs ::
      , [Msg ResolveBindingSpecs]
      )
 resolveBindingSpecs
-  extSpec
+  hsModuleName
+  extSpecs
   pSpec
   C.TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
-    let (decls, MState{..}) =
+    let pSpecModule = BindingSpec.moduleName pSpec
+        (pSpecErrs, pSpec')
+          | pSpecModule == hsModuleName = ([], pSpec)
+          | otherwise =
+              ( [ResolveBindingSpecsModuleMismatch hsModuleName pSpecModule]
+              , BindingSpec.empty hsModuleName
+              )
+        (decls, MState{..}) =
           runM
-            extSpec
-            pSpec
+            extSpecs
+            pSpec'
             unitIncludeGraph
             unitAnn.declIndex
             unitAnn.declUseDecl
@@ -67,20 +76,17 @@ resolveBindingSpecs
     in  ( reassemble decls stateUseDecl
         , stateOmitTypes
         , declsWithExternalBindingSpecs
-        , reverse stateErrors ++ notUsedErrs
+        , pSpecErrs ++ reverse stateErrors ++ notUsedErrs
         )
   where
     reassemble ::
          [C.Decl ResolveBindingSpecs]
       -> UseDeclGraph
       -> C.TranslationUnit ResolveBindingSpecs
-    reassemble decls' useDeclGraph =
-      let unitAnn' :: DeclMeta
-          unitAnn' = unitAnn & #declUseDecl .~ useDeclGraph
-      in  C.TranslationUnit{
+    reassemble decls' useDeclGraph = C.TranslationUnit {
         unitDecls = decls'
       , unitIncludeGraph
-      , unitAnn = unitAnn'
+      , unitAnn = unitAnn & #declUseDecl .~ useDeclGraph
       }
 
 {-------------------------------------------------------------------------------
@@ -97,15 +103,15 @@ newtype M a = WrapM (RWS MEnv () MState a)
     )
 
 runM ::
-     ExternalBindingSpec
+     MergedBindingSpecs
   -> PrescriptiveBindingSpec
   -> IncludeGraph
   -> DeclIndex
   -> UseDeclGraph
   -> M a
   -> (a, MState)
-runM extSpec pSpec includeGraph declIndex useDeclGraph (WrapM m) =
-    let env        = MEnv extSpec pSpec includeGraph declIndex
+runM extSpecs pSpec includeGraph declIndex useDeclGraph (WrapM m) =
+    let env        = MEnv extSpecs pSpec includeGraph declIndex
         state0     = initMState pSpec useDeclGraph
         (x, s, ()) = RWS.runRWS m env state0
     in  (x, s)
@@ -115,10 +121,10 @@ runM extSpec pSpec includeGraph declIndex useDeclGraph (WrapM m) =
 -------------------------------------------------------------------------------}
 
 data MEnv = MEnv {
-      envExtSpec        :: ExternalBindingSpec
-    , envPSpec          :: PrescriptiveBindingSpec
-    , envIncludeGraph   :: IncludeGraph
-    , envDeclIndex      :: DeclIndex
+      envExtSpecs     :: MergedBindingSpecs
+    , envPSpec        :: PrescriptiveBindingSpec
+    , envIncludeGraph :: IncludeGraph
+    , envDeclIndex    :: DeclIndex
     }
   deriving (Show)
 
@@ -127,21 +133,21 @@ data MEnv = MEnv {
 -------------------------------------------------------------------------------}
 
 data MState = MState {
-      stateErrors    :: [Msg ResolveBindingSpecs] -- ^ Stored in reverse order
-    , stateExtTypes  :: Map C.QualName (C.Type ResolveBindingSpecs)
-    , stateNoPTypes  :: Map C.QualName [Set SourcePath]
-    , stateOmitTypes :: Map C.QualName SourcePath
-    , stateUseDecl   :: UseDeclGraph
+      stateErrors         :: [Msg ResolveBindingSpecs] -- ^ reverse order
+    , stateExtTypes       :: Map C.QualName (C.Type ResolveBindingSpecs)
+    , stateNoPTypes       :: Map C.QualName [Set SourcePath]
+    , stateOmitTypes      :: Map C.QualName SourcePath
+    , stateUseDecl        :: UseDeclGraph
     }
   deriving (Show)
 
 initMState :: PrescriptiveBindingSpec -> UseDeclGraph -> MState
 initMState pSpec useDeclGraph = MState {
-      stateErrors    = []
-    , stateExtTypes  = Map.empty
-    , stateNoPTypes  = BindingSpec.getCTypes pSpec
-    , stateOmitTypes = Map.empty
-    , stateUseDecl   = useDeclGraph
+      stateErrors         = []
+    , stateExtTypes       = Map.empty
+    , stateNoPTypes       = BindingSpec.getCTypes pSpec
+    , stateOmitTypes      = Map.empty
+    , stateUseDecl        = useDeclGraph
     }
 
 insertError :: Msg ResolveBindingSpecs -> MState -> MState
@@ -212,10 +218,10 @@ resolveTop decl = RWS.ask >>= \MEnv{..} -> do
     if isExt
       then return Nothing
       else case BindingSpec.lookupCTypeSpec cQualName declPaths envPSpec of
-        Just (BindingSpec.Require cTypeSpec) -> do
+        Just (_hsModuleName, BindingSpec.Require cTypeSpec) -> do
           RWS.modify' $ deleteNoPType cQualName sourcePath
           return $ Just (decl, Just cTypeSpec)
-        Just BindingSpec.Omit -> do
+        Just (_hsModuleName, BindingSpec.Omit) -> do
           RWS.modify' $
               deleteNoPType cQualName sourcePath
             . insertOmittedType cQualName sourcePath
@@ -231,13 +237,10 @@ resolveDeep ::
   -> Maybe BindingSpec.CTypeSpec
   -> M (C.Decl ResolveBindingSpecs)
 resolveDeep decl@C.Decl{..} mCTypeSpec = do
-    (depIds, decl') <- fmap reassemble <$> resolve declKind
+    (depIds, declKind') <- resolve declKind
     unless (Set.null depIds) . RWS.modify' $
       deleteDeps (C.declOrigQualPrelimDeclId decl) (Set.toList depIds)
-    return decl'
-  where
-    reassemble :: C.DeclKind ResolveBindingSpecs -> C.Decl ResolveBindingSpecs
-    reassemble declKind' = C.Decl {
+    return C.Decl {
         declInfo = coercePass declInfo
       , declKind = declKind'
       , declAnn  = fromMaybe def mCTypeSpec
@@ -468,10 +471,11 @@ instance Resolve C.Type where
   Internal: auxiliary functions
 -------------------------------------------------------------------------------}
 
-resolveCommentReference :: C.Comment NameAnon
-                        -> C.Comment ResolveBindingSpecs
+resolveCommentReference ::
+     C.Comment NameAnon
+  -> C.Comment ResolveBindingSpecs
 resolveCommentReference (C.Comment comment) =
-  C.Comment (fmap (\(C.ById i) -> C.ById i) comment)
+    C.Comment (fmap (\(C.ById i) -> C.ById i) comment)
 
 -- | Lookup qualified name in the 'ExternalResolvedBindingSpec'
 resolveExtBinding ::
@@ -479,40 +483,28 @@ resolveExtBinding ::
   -> Set SourcePath
   -> M (Maybe ResolvedExtBinding)
 resolveExtBinding cQualName declPaths  = do
-    MEnv{envExtSpec} <- RWS.ask
-    case BindingSpec.lookupCTypeSpec cQualName declPaths envExtSpec of
-      Just (BindingSpec.Require cTypeSpec) ->
-        case getHsExtRef cQualName cTypeSpec of
-          Right ref -> do
+    MEnv{envExtSpecs} <- RWS.ask
+    case BindingSpec.lookupMergedCTypeSpec cQualName declPaths envExtSpecs of
+      Just (hsModuleName, BindingSpec.Require cTypeSpec) ->
+        case BindingSpec.cTypeSpecIdentifier cTypeSpec of
+          Just hsIdentifier -> do
             let resolved = ResolvedExtBinding {
                     extCName  = cQualName
-                  , extHsRef  = ref
+                  , extHsRef  = Hs.ExtRef hsModuleName hsIdentifier
                   , extHsSpec = cTypeSpec
                   }
             RWS.modify' $ insertExtType cQualName (C.TypeExtBinding resolved)
             return (Just resolved)
-          Left e -> do
-            RWS.modify' $ insertError e
+          Nothing -> do
+            RWS.modify' $
+              insertError (ResolveBindingSpecsExtHsRefNoIdentifier cQualName)
             return Nothing
-      Just BindingSpec.Omit -> do
+      Just (_hsModuleName, BindingSpec.Omit) -> do
         RWS.modify' $
           insertError (ResolveBindingSpecsOmittedTypeUse cQualName)
         return Nothing
       Nothing ->
         return Nothing
-
-getHsExtRef ::
-     C.QualName
-  -> BindingSpec.CTypeSpec
-  -> Either (Msg ResolveBindingSpecs) Hs.ExtRef
-getHsExtRef cQualName cTypeSpec = do
-    extRefModule <-
-      maybe (Left (ResolveBindingSpecsExtHsRefNoModule cQualName)) Right $
-        BindingSpec.cTypeSpecModule cTypeSpec
-    extRefIdentifier <-
-      maybe (Left (ResolveBindingSpecsExtHsRefNoIdentifier cQualName)) Right $
-        BindingSpec.cTypeSpecIdentifier cTypeSpec
-    return Hs.ExtRef{extRefModule, extRefIdentifier}
 
 -- For a given declaration ID, look up the source locations of "not attempted"
 -- or "failed" parses.

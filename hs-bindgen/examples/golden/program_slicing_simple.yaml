@@ -1,6 +1,7 @@
 version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
+hsmodule: Foreign
 types:
 - headers: program_slicing_simple.h
   cname: uint64_t
