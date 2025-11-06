@@ -45,9 +45,6 @@ runs:
       shell: bash
       if: ${{ startsWith(inputs.runner, 'windows') }}
       run: |
-        # Set C23 standard for Windows
-        echo "BINDGEN_EXTRA_CLANG_ARGS=${BINDGEN_EXTRA_CLANG_ARGS:+$BINDGEN_EXTRA_CLANG_ARGS }-std=c23" >> "$GITHUB_ENV"
-
         # Set library path for linker to find import libraries (.lib files)
         echo "LIBRARY_PATH=$LLVM_PATH/lib" >> "$GITHUB_ENV"
 
