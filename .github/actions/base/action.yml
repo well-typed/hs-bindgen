@@ -41,16 +41,18 @@ runs:
       shell: bash
       run: cp cabal.project.ci cabal.project
 
-    - name: Windows quirks - Add LLVM to PATH
+    - name: Windows quirks - Configure environment for libclang
       shell: bash
       if: ${{ startsWith(inputs.runner, 'windows') }}
       run: |
         # Set C23 standard for Windows
         echo "BINDGEN_EXTRA_CLANG_ARGS=${BINDGEN_EXTRA_CLANG_ARGS:+$BINDGEN_EXTRA_CLANG_ARGS }-std=c23" >> "$GITHUB_ENV"
 
-        # Add LLVM paths for libclang
+        # Set library path for linker to find import libraries (.lib files)
+        echo "LIBRARY_PATH=$LLVM_PATH/lib" >> "$GITHUB_ENV"
+
+        # Add LLVM paths for libclang DLL (runtime) and tools
         echo "$LLVM_PATH/bin" >> "$GITHUB_PATH"
-        echo "$LLVM_PATH/lib" >> "$GITHUB_PATH"
 
         # Get GHC's lib directory which should contain mingw
         GHC_LIBDIR=$(ghc --print-libdir)
