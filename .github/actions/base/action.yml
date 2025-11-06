@@ -48,25 +48,8 @@ runs:
         # Set library path for linker to find import libraries (.lib files)
         echo "LIBRARY_PATH=$LLVM_PATH/lib" >> "$GITHUB_ENV"
 
-        # Add LLVM paths for libclang DLL (runtime) and tools
+        echo "$LLVM_PATH/lib" >> "$GITHUB_PATH"
         echo "$LLVM_PATH/bin" >> "$GITHUB_PATH"
-
-        # Get GHC's lib directory which should contain mingw
-        GHC_LIBDIR=$(ghc --print-libdir)
-        echo "GHC libdir: $GHC_LIBDIR"
-
-        # Try common mingw locations relative to GHC
-        for MINGW_REL in "mingw/bin" "../mingw/bin" "../../mingw/bin"; do
-          MINGW_PATH="$GHC_LIBDIR/$MINGW_REL"
-          if [ -d "$MINGW_PATH" ]; then
-            echo "Found mingw at: $MINGW_PATH"
-            ls "$MINGW_PATH"
-            echo "$MINGW_PATH" >> "$GITHUB_PATH"
-            exit 0
-          fi
-        done
-
-        echo "Warning: Could not find mingw directory for GHC ${{ inputs.ghc }}"
 
     - name: Dry build (for cache key)
       shell: bash
