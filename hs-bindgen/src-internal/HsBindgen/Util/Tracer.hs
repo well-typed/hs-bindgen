@@ -31,8 +31,10 @@ module HsBindgen.Util.Tracer (
   , TracerConfig (..)
     -- * Tracers
   , withTracer
+  , withTracerRef
   , TracerState(..)
   , withTracer'
+  , withTracerRef'
     -- * Errors
   , TraceException (..)
     -- * Safe tracers
@@ -426,6 +428,12 @@ withTracer :: forall m a b. (MonadIO m , IsTrace Level a)
   -> m (Either (TraceException a) b)
 withTracer tracerConf action = leftOnError <$> (withTracer' tracerConf action)
 
+withTracerRef :: forall m a b. (MonadIO m , IsTrace Level a)
+  => TracerConfig m Level a
+  -> (Tracer m a -> IORef (TracerState a) -> m b)
+  -> m (Either (TraceException a) b)
+withTracerRef tracerConf action = leftOnError <$> (withTracerRef' tracerConf action)
+
 -- | Internal. The tracer stores the maximum log level of emitted traces and all
 -- emitted error traces.
 data TracerState a = TracerState {
@@ -435,6 +443,43 @@ data TracerState a = TracerState {
 
 emptyTracerState :: TracerState a
 emptyTracerState = TracerState Debug []
+
+-- | Most fundamental tracer variant: run an action with both a tracer and
+-- access to its state IORef.
+--
+-- This is the fundamental building block from which all other tracer variants
+-- are implemented. It allows the caller to inspect or modify the tracer state
+-- at any point during execution.
+--
+-- Use this when you need fine-grained control over error checking, such as
+-- checking for errors after forcing lazy computations.
+--
+withTracerRef' :: forall m a b. (MonadIO m, IsTrace Level a)
+  => TracerConfig m Level a
+  -> (Tracer m a -> IORef (TracerState a) -> m b)
+  -> m (b, TracerState a)
+withTracerRef' TracerConfig{..} action = do
+  (report, ansiColor) <- getOutputConfig
+  withIORef emptyTracerState $ \ref ->
+    action (mkTracer
+              tCustomLogLevel
+              ref
+              tVerbosity
+              ansiColor
+              tShowCallStack
+              tShowTimeStamp
+              report)
+           ref
+  where
+    getOutputConfig :: m (Report m a, AnsiColor)
+    getOutputConfig = case tOutputConfig of
+      OutputHandle handle ansiColorSetting -> do
+        ansiColor <- case ansiColorSetting of
+          Nothing -> getAnsiColor handle
+          Just x  -> pure x
+        let report _lvl _trace = liftIO . hPutStr handle
+        pure (report, ansiColor)
+      OutputCustom report ansiColor -> pure (report, ansiColor)
 
 -- | Run an action with a tracer.
 --
@@ -446,27 +491,8 @@ withTracer' :: forall m a b. (MonadIO m, IsTrace Level a)
   => TracerConfig m Level a
   -> (Tracer m a -> m b)
   -> m (b, TracerState a)
-withTracer' TracerConfig{..} action = do
-  (report, ansiColor) <- getOutputConfig
-  withIORef emptyTracerState $ \ref ->
-    action $ mkTracer
-               tCustomLogLevel
-               ref
-               tVerbosity
-               ansiColor
-               tShowCallStack
-               tShowTimeStamp
-               report
-  where
-    getOutputConfig :: m (Report m a, AnsiColor)
-    getOutputConfig = case tOutputConfig of
-      OutputHandle handle ansiColorSetting -> do
-        ansiColor <- case ansiColorSetting of
-          Nothing -> getAnsiColor handle
-          Just x  -> pure x
-        let report _lvl _trace = liftIO . hPutStr handle
-        pure (report, ansiColor)
-      OutputCustom report ansiColor -> pure (report, ansiColor)
+withTracer' tracerConf action =
+  withTracerRef' tracerConf $ \tracer _ref -> action tracer
 
 {-------------------------------------------------------------------------------
   Fatal error

@@ -14,6 +14,7 @@ module HsBindgen.Artefact (
 where
 
 import Control.Monad.Trans.Reader (ReaderT (runReaderT))
+import Data.IORef (IORef, readIORef)
 import Generics.SOP (I (..), NP (..))
 import Text.SimplePrettyPrint ((<+>))
 import Text.SimplePrettyPrint qualified as PP
@@ -90,15 +91,17 @@ data ArtefactEnv = ArtefactEnv {
 --
 -- All top-level artefacts will be cached (this is not true for computed
 -- artefacts, using, for example, the 'Functor' interface, or 'Lift').
-runArtefacts ::
+runArtefacts :: forall msg as.
      Tracer IO ArtefactMsg
+  -> IORef (TracerState msg)
   -> BootArtefact
   -> FrontendArtefact
   -> BackendArtefact
   -> Artefacts as
-  -> IO (NP I as)
+  -> IO (Either (TraceException msg) (NP I as))
 runArtefacts
   tracer
+  tracerStateRef
   BootArtefact{..}
   FrontendArtefact{..}
   BackendArtefact{..}
@@ -107,32 +110,44 @@ runArtefacts
     env :: ArtefactEnv
     env = ArtefactEnv tracer
 
-    go :: Artefacts as -> ArtefactM (NP I as)
-    go Nil       = pure Nil
-    go (a :* as) = (:*) . I <$> runArtefact a <*> go as
+    go :: Artefacts x -> ArtefactM (Either (TraceException msg) (NP I x))
+    go Nil       = pure (Right Nil)
+    go (a :* as) = do
+      artefactResult <- runArtefact a
+      case artefactResult of
+        Left errors -> pure (Left errors)
+        Right artefact -> do
+          tracerState <- liftIO $ readIORef tracerStateRef
+          case tracerState of
+            TracerState Error errors -> pure (Left (TraceException errors))
+            _ -> do
+              results <- go as
+              case results of
+                Left err -> pure (Left err)
+                Right rs -> pure (Right (I artefact :* rs))
 
-    runArtefact :: Artefact a -> ArtefactM a
+    runArtefact :: Artefact a -> ArtefactM (Either (TraceException msg) a)
     runArtefact = \case
       --Boot.
-      HashIncludeArgs     -> liftIO bootHashIncludeArgs
+      HashIncludeArgs     -> Right <$> liftIO bootHashIncludeArgs
       -- Frontend.
-      IncludeGraph        -> liftIO frontendIncludeGraph
-      GetMainHeaders      -> liftIO frontendGetMainHeaders
-      DeclIndex           -> liftIO frontendIndex
-      UseDeclGraph        -> liftIO frontendUseDeclGraph
-      DeclUseGraph        -> liftIO frontendDeclUseGraph
-      OmitTypes           -> liftIO frontendOmitTypes
-      ReifiedC            -> liftIO frontendCDecls
-      Dependencies        -> liftIO frontendDependencies
+      IncludeGraph        -> Right <$> liftIO frontendIncludeGraph
+      GetMainHeaders      -> Right <$> liftIO frontendGetMainHeaders
+      DeclIndex           -> Right <$> liftIO frontendIndex
+      UseDeclGraph        -> Right <$> liftIO frontendUseDeclGraph
+      DeclUseGraph        -> Right <$> liftIO frontendDeclUseGraph
+      OmitTypes           -> Right <$> liftIO frontendOmitTypes
+      ReifiedC            -> Right <$> liftIO frontendCDecls
+      Dependencies        -> Right <$> liftIO frontendDependencies
       -- Backend.
-      HsDecls             -> liftIO backendHsDecls
-      FinalDecls          -> liftIO backendFinalDecls
-      FinalModuleBaseName -> pure backendFinalModuleBaseName
-      FinalModuleSafe     -> liftIO backendFinalModuleSafe
-      FinalModuleUnsafe   -> liftIO backendFinalModuleUnsafe
-      FinalModules        -> liftIO backendFinalModules
+      HsDecls             -> Right <$> liftIO backendHsDecls
+      FinalDecls          -> Right <$> liftIO backendFinalDecls
+      FinalModuleBaseName -> pure (Right backendFinalModuleBaseName)
+      FinalModuleSafe     -> Right <$> liftIO backendFinalModuleSafe
+      FinalModuleUnsafe   -> Right <$> liftIO backendFinalModuleUnsafe
+      FinalModules        -> Right <$> liftIO backendFinalModules
       -- Lift and sequence.
-      (Lift as' f)        -> go as' >>= f
+      (Lift as' f)        -> go as' >>= \x -> mapM f x
 
 -- | Courtesy of Edsko :-).
 --
