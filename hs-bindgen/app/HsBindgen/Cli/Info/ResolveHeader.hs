@@ -55,7 +55,7 @@ parseOpts =
 
 exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} = do
-    eErr <- withTracer tracerConfig' $ \tracer -> do
+    eErr <- withTracer tracerConfig' $ \tracer _ -> do
       hashIncludeArgs <- checkInputs tracer inputs
       clangArgs <- getClangArgs (contramap TraceBoot tracer) clangArgsConfig
       includes <-

@@ -75,7 +75,7 @@ clangAstDump opts@Options{..} = do
     putStrLn $ "## `" ++ getHashIncludeArg optFile ++ "`"
     putStrLn ""
 
-    eitherRes <- withTracer tracerConf $ \tracer -> do
+    eitherRes <- withTracer tracerConf $ \tracer _ -> do
       cArgs <- either throwIO return $ getClangArgs cArgsConfig
       let tracerResolve = contramap DumpTraceResolveHeader tracer
           tracerClang   = contramap DumpTraceClang         tracer

@@ -62,7 +62,7 @@ parseOpts =
 exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} = do
     spec <-
-      either throwIO pure <=< withTracer tracerConfig $ \tracer -> do
+      either throwIO pure <=< withTracer tracerConfig $ \tracer _ -> do
         clangArgs <- getClangArgs (contramap TraceBoot tracer) clangArgsConfig
         getStdlibBindingSpec
           (contramap (TraceBoot . BootBindingSpec) tracer)
