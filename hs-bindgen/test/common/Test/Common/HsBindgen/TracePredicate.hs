@@ -121,7 +121,7 @@ withTracePredicate
   -> TracePredicate a -> (Tracer IO a -> IO b) -> IO b
 withTracePredicate report predicate action = fmap fst $
   withTraceConfigPredicate report predicate $ \traceConfig ->
-    withTracer' traceConfig action
+    withTracer' traceConfig (\t _ -> action t)
 
 -- | Run an action with a tracer configuration that collects all trace messages.
 --

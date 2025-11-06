@@ -31,10 +31,9 @@ module HsBindgen.Util.Tracer (
   , TracerConfig (..)
     -- * Tracers
   , withTracer
-  , withTracerRef
   , TracerState(..)
   , withTracer'
-  , withTracerRef'
+  , checkTracerState
     -- * Errors
   , TraceException (..)
     -- * Safe tracers
@@ -424,15 +423,9 @@ instance Default (TracerConfig m l a) where
 -- Return 'Nothing' if an 'Error' trace was emitted.
 withTracer :: forall m a b. (MonadIO m , IsTrace Level a)
   => TracerConfig m Level a
-  -> (Tracer m a -> m b)
-  -> m (Either (TraceException a) b)
-withTracer tracerConf action = leftOnError <$> (withTracer' tracerConf action)
-
-withTracerRef :: forall m a b. (MonadIO m , IsTrace Level a)
-  => TracerConfig m Level a
   -> (Tracer m a -> IORef (TracerState a) -> m b)
   -> m (Either (TraceException a) b)
-withTracerRef tracerConf action = leftOnError <$> (withTracerRef' tracerConf action)
+withTracer tracerConf action = leftOnError <$> (withTracer' tracerConf action)
 
 -- | Internal. The tracer stores the maximum log level of emitted traces and all
 -- emitted error traces.
@@ -444,21 +437,18 @@ data TracerState a = TracerState {
 emptyTracerState :: TracerState a
 emptyTracerState = TracerState Debug []
 
--- | Most fundamental tracer variant: run an action with both a tracer and
--- access to its state IORef.
+-- | Run an action with a tracer.
 --
--- This is the fundamental building block from which all other tracer variants
--- are implemented. It allows the caller to inspect or modify the tracer state
--- at any point during execution.
+-- Return the maximum log level of traces.
 --
--- Use this when you need fine-grained control over error checking, such as
--- checking for errors after forcing lazy computations.
+-- We do not export this function from the public interface, but use it in
+-- tests.
 --
-withTracerRef' :: forall m a b. (MonadIO m, IsTrace Level a)
+withTracer' :: forall m a b. (MonadIO m, IsTrace Level a)
   => TracerConfig m Level a
   -> (Tracer m a -> IORef (TracerState a) -> m b)
   -> m (b, TracerState a)
-withTracerRef' TracerConfig{..} action = do
+withTracer' TracerConfig{..} action = do
   (report, ansiColor) <- getOutputConfig
   withIORef emptyTracerState $ \ref ->
     action (mkTracer
@@ -480,19 +470,6 @@ withTracerRef' TracerConfig{..} action = do
         let report _lvl _trace = liftIO . hPutStr handle
         pure (report, ansiColor)
       OutputCustom report ansiColor -> pure (report, ansiColor)
-
--- | Run an action with a tracer.
---
--- Return the maximum log level of traces.
---
--- We do not export this function from the public interface, but use it in
--- tests.
-withTracer' :: forall m a b. (MonadIO m, IsTrace Level a)
-  => TracerConfig m Level a
-  -> (Tracer m a -> m b)
-  -> m (b, TracerState a)
-withTracer' tracerConf action =
-  withTracerRef' tracerConf $ \tracer _ref -> action tracer
 
 {-------------------------------------------------------------------------------
   Fatal error
@@ -521,7 +498,7 @@ withTracerSafe :: forall m a b. (MonadIO m, IsTrace SafeLevel a)
   -> (Tracer m a -> m b)
   -> m b
 withTracerSafe tracerConf action =
-    fst <$> withTracer' tracerConf' action'
+    fst <$> withTracer' tracerConf' (\t _ -> action' t)
   where
     action' :: Tracer m (SafeTrace a) -> m b
     action' = action . contramap SafeTrace
@@ -631,6 +608,21 @@ leftOnError :: (b, TracerState a) -> Either (TraceException a) b
 leftOnError = \case
   (_, TracerState Error errors) -> Left  (TraceException errors)
   (r, _                  )      -> Right r
+
+-- | Check a TracerState IORef for errors.
+--
+-- Returns 'Just' a TraceException if errors were emitted (Error level traces),
+-- otherwise returns 'Nothing'.
+--
+-- This is useful for checking for errors after forcing lazy computations that
+-- trace to a tracer whose state is captured in the IORef.
+--
+checkTracerState :: MonadIO m => IORef (TracerState a) -> m (Maybe (TraceException a))
+checkTracerState ref = do
+  tracerState <- liftIO $ readIORef ref
+  pure $ case tracerState of
+    TracerState Error errors -> Just (TraceException errors)
+    _                        -> Nothing
 
 withIORef :: MonadIO m => b -> (IORef b -> m a) -> m (a, b)
 withIORef initialValue action = do

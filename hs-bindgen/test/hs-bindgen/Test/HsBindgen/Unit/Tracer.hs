@@ -55,7 +55,7 @@ tests = testGroup "Test.HsBindgen.Unit.Tracer" [
                       tVerbosity    = Verbosity Debug
                     , tOutputConfig = OutputCustom noOutput DisableAnsiColor
                     }
-              res <- withTracer tracerConf $ \tracer -> do traceWith tracer er
+              res <- withTracer tracerConf $ \tracer _ -> do traceWith tracer er
               isLeft res @? "isLeft"
         ]
     , testGroup "withTracePredicate" [
@@ -177,7 +177,7 @@ testTracerIO customLogLevel traces = do
         }
   -- NB: Use and test the tracer functionality provided by @hs-bindgen:lib@,
   -- and not by the tests (e.g., 'withTracePredicate').
-  (_, TracerState maxLogLevel _) <- withTracer' tracerConfig $ \tracer -> do
+  (_, TracerState maxLogLevel _) <- withTracer' tracerConfig $ \tracer _ -> do
     mapM_ (traceWith tracer) traces
   pure maxLogLevel
 

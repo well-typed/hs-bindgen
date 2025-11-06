@@ -62,7 +62,7 @@ hsBindgen
   hsModuleName
   uncheckedHashIncludeArgs
   artefacts = do
-    result <- fmap join $ withTracerRef tracerConfig $ \tracer tracerRef -> do
+    result <- fmap join $ withTracer tracerConfig $ \tracer tracerRef -> do
       -- Boot and frontend require unsafe tracer and `libclang`.
       let tracerFrontend :: Tracer IO FrontendMsg
           tracerFrontend = contramap TraceFrontend tracer

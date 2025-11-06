@@ -14,7 +14,7 @@ module HsBindgen.Artefact (
 where
 
 import Control.Monad.Trans.Reader (ReaderT (runReaderT))
-import Data.IORef (IORef, readIORef)
+import Data.IORef (IORef)
 import Generics.SOP (I (..), NP (..))
 import Text.SimplePrettyPrint ((<+>))
 import Text.SimplePrettyPrint qualified as PP
@@ -114,17 +114,12 @@ runArtefacts
     go Nil       = pure (Right Nil)
     go (a :* as) = do
       artefactResult <- runArtefact a
-      case artefactResult of
-        Left errors -> pure (Left errors)
-        Right artefact -> do
-          tracerState <- liftIO $ readIORef tracerStateRef
-          case tracerState of
-            TracerState Error errors -> pure (Left (TraceException errors))
-            _ -> do
-              results <- go as
-              case results of
-                Left err -> pure (Left err)
-                Right rs -> pure (Right (I artefact :* rs))
+      mbError <- checkTracerState tracerStateRef
+      case mbError of
+        Just err -> pure (Left err)
+        Nothing  -> case artefactResult of
+          Left errors    -> pure (Left errors)
+          Right artefact -> fmap (I artefact :*) <$> (go as)
 
     runArtefact :: Artefact a -> ArtefactM (Either (TraceException msg) a)
     runArtefact = \case
