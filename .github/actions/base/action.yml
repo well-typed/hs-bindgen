@@ -41,31 +41,33 @@ runs:
       shell: bash
       run: cp cabal.project.ci cabal.project
 
-    - name: Windows quirks - Manual requires Clang version coming with GHC
+    - name: Windows quirks - Add LLVM to PATH
       shell: bash
       if: ${{ startsWith(inputs.runner, 'windows') }}
       run: |
-          # Set C23 standard for Windows
-          echo "BINDGEN_EXTRA_CLANG_ARGS=${BINDGEN_EXTRA_CLANG_ARGS:+$BINDGEN_EXTRA_CLANG_ARGS }-std=c23" >> "$GITHUB_ENV"
+        # Set C23 standard for Windows
+        echo "BINDGEN_EXTRA_CLANG_ARGS=${BINDGEN_EXTRA_CLANG_ARGS:+$BINDGEN_EXTRA_CLANG_ARGS }-std=c23" >> "$GITHUB_ENV"
 
-          # Get GHC's lib directory which should contain mingw
-          GHC_LIBDIR=$(ghc --print-libdir)
-          echo "GHC libdir: $GHC_LIBDIR"
+        # Add LLVM paths for libclang
+        echo "$LLVM_PATH/bin" >> "$GITHUB_PATH"
+        echo "$LLVM_PATH/lib" >> "$GITHUB_PATH"
 
-          # Try common mingw locations relative to GHC
-          for MINGW_REL in "mingw/bin" "../mingw/bin" "../../mingw/bin"; do
-            MINGW_PATH="$GHC_LIBDIR/$MINGW_REL"
-            LLVM_PATH="$GHC_LIBDIR/$MINGW_REL"
-            if [ -d "$MINGW_PATH" ]; then
-              echo "Found mingw at: $MINGW_PATH"
-              ls "$MINGW_PATH"
-              echo "$MINGW_PATH" >> "$GITHUB_PATH"
-              echo "$LLVM_PATH" >> "$GITHUB_PATH"
-              exit 0
-            fi
-          done
+        # Get GHC's lib directory which should contain mingw
+        GHC_LIBDIR=$(ghc --print-libdir)
+        echo "GHC libdir: $GHC_LIBDIR"
 
-          echo "Warning: Could not find mingw directory for GHC ${{ inputs.ghc }}"
+        # Try common mingw locations relative to GHC
+        for MINGW_REL in "mingw/bin" "../mingw/bin" "../../mingw/bin"; do
+          MINGW_PATH="$GHC_LIBDIR/$MINGW_REL"
+          if [ -d "$MINGW_PATH" ]; then
+            echo "Found mingw at: $MINGW_PATH"
+            ls "$MINGW_PATH"
+            echo "$MINGW_PATH" >> "$GITHUB_PATH"
+            exit 0
+          fi
+        done
+
+        echo "Warning: Could not find mingw directory for GHC ${{ inputs.ghc }}"
 
     - name: Dry build (for cache key)
       shell: bash
@@ -84,10 +86,6 @@ runs:
     - name: Dependencies
       shell: bash
       run: cabal build all --only-dependencies -j4
-
-    - name: Setup tmate session
-      if: runner.os == 'Windows'
-      uses: mxschmitt/action-tmate@v3
 
     - name: Build
       shell: bash
