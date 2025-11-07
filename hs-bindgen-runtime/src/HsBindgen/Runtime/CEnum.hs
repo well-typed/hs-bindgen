@@ -392,7 +392,7 @@ data CEnumException
   | CEnumNoPredecessor Integer
   | CEnumEmpty
   | CEnumFromEqThen Integer
-  deriving (Eq, Show)
+  deriving stock (Eq, Show)
 
 instance Exception CEnumException where
   displayException = \case

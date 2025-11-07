@@ -19,10 +19,13 @@ tested-with:
 
 common lang
   ghc-options:
-    -Wall -Widentities -Wprepositive-qualified-module
-    -Wredundant-constraints -Wunused-packages
-    -Wno-unticked-promoted-constructors
+    -Wall -Wcompat -Wincomplete-uni-patterns
+    -Wincomplete-record-updates -Wpartial-fields -Widentities
+    -Wredundant-constraints -Wmissing-export-lists
+    -Wno-unticked-promoted-constructors -Wunused-packages
+    -Wprepositive-qualified-module
 
+  ghc-options:        -Werror=missing-deriving-strategies
   build-depends:      base >=4.16 && <4.22
   default-language:   GHC2021
   default-extensions:

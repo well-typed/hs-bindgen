@@ -1,5 +1,6 @@
 {-# LANGUAGE TemplateHaskell #-}
 {-# OPTIONS_GHC -Wno-orphans #-}
+{-# OPTIONS_GHC -Wno-missing-export-lists #-}
 
 -- | Generate FFI wrappers and 'ToFunPtr' class instances for 287 types.
 --

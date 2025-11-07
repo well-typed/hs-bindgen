@@ -25,7 +25,7 @@ read_show_prop :: forall a. (Show a, Read a, Eq a) => a -> Property
 read_show_prop x = read (show x) === x
 
 newtype Precedence = MkPrecedence Int
-  deriving Show
+  deriving stock Show
 
 instance Arbitrary Precedence where
   arbitrary = MkPrecedence <$> chooseInt (minPrec, appPrec1)
