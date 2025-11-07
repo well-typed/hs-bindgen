@@ -62,7 +62,7 @@ hsBindgen
   hsModuleName
   uncheckedHashIncludeArgs
   artefacts = do
-    result <- fmap join $ withTracer tracerConfig $ \tracer tracerRef -> do
+    result <- fmap join $ withTracer tracerConfig $ \tracer tracerUnsafeRef -> do
       -- Boot and frontend require unsafe tracer and `libclang`.
       let tracerFrontend :: Tracer IO FrontendMsg
           tracerFrontend = contramap TraceFrontend tracer
@@ -75,11 +75,17 @@ hsBindgen
       frontendArtefact <-
         frontend tracerFrontend bindgenFrontendConfig bootArtefact
       -- 3. Backend.
-      backendArtefact <- withTracerSafe tracerConfigSafe $ \tracer' -> do
-        backend tracer' bindgenBackendConfig bootArtefact frontendArtefact
+      backendArtefact <- withTracerSafe tracerConfigSafe $ \tracerSafe -> do
+        backend tracerSafe bindgenBackendConfig bootArtefact frontendArtefact
       -- 4. Artefacts.
-      withTracerSafe tracerConfigSafe $ \tracer' -> do
-        runArtefacts tracer' tracerRef bootArtefact frontendArtefact backendArtefact artefacts
+      withTracerSafe tracerConfigSafe $ \tracerSafe -> do
+        runArtefacts
+          tracerSafe
+          tracerUnsafeRef
+          bootArtefact
+          frontendArtefact
+          backendArtefact
+          artefacts
 
     either throwIO pure result
   where
