@@ -4,10 +4,6 @@ description: Build and run the c-qrcode example
 runs:
   using: composite
   steps:
-    - name: Initialize git submodules
-      shell: bash
-      run: git submodule update --init --recursive examples/c-qrcode/QR-Code-generator
-
     - name: Run generation and build script
       shell: bash
       working-directory: ./examples/c-qrcode
