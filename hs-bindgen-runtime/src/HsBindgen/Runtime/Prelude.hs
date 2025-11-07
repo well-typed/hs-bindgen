@@ -102,6 +102,9 @@ module HsBindgen.Runtime.Prelude (
     -- * Userland CAPI
   , module HsBindgen.Runtime.CAPI
 
+    -- * Blocks
+  , module HsBindgen.Runtime.Block
+
     -- * Auxiliary functions
   , Data.List.unlines
   ) where
@@ -111,6 +114,7 @@ import Data.List qualified
 import Data.Word qualified
 import Foreign.C qualified
 
+import HsBindgen.Runtime.Block
 import HsBindgen.Runtime.CAPI
 import HsBindgen.Runtime.LibC qualified as LibC
 import HsBindgen.Runtime.SizedByteArray qualified as SizedByteArray

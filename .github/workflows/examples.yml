@@ -42,7 +42,7 @@ jobs:
         # NOTE: add new example projects here. The example project has to
         # satisfy some requirements for this workflow to work correctly. See
         # ./examples/README.md (with respect to the repository root).
-        example: ['botan', 'c-minisat', 'libpcap', 'c-qrcode']
+        example: ['botan', 'c-minisat', 'libpcap', 'c-qrcode', 'blocktest']
 
     env:
       # We assume that the example executable lives in this directory
@@ -158,3 +158,6 @@ jobs:
       if: ${{ matrix.example == 'c-qrcode' }}
       uses: ./.github/actions/examples/c-qrcode
 
+    - name: 🧪 Build and run blocktest example
+      if: ${{ matrix.example == 'blocktest' }}
+      uses: ./.github/actions/examples/blocktest
