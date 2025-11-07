@@ -34,13 +34,16 @@ echo "# "
 echo "# Creating cabal.project.local"
 echo "# "
 
-cat > "$SCRIPT_DIR/hs-project/cabal.project.local" <<EOF
+LINE=$(cat <<-EOF
 package c-qrcode
     extra-include-dirs:
         $SCRIPT_DIR/QR-Code-generator/c/
     extra-lib-dirs:
         $SCRIPT_DIR/QR-Code-generator/c/
 EOF
+)
+grep -qxF "$LINE" "$SCRIPT_DIR/hs-project/cabal.project.local" || echo "$LINE" >> "$SCRIPT_DIR/hs-project/cabal.project.local"
+cat "$SCRIPT_DIR/hs-project/cabal.project.local"
 
 echo "# "
 echo "# Done!"
