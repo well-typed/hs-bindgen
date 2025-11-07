@@ -400,6 +400,9 @@ test-suite test-hs-bindgen
     , tasty-quickcheck  >=0.11    && <0.12
     , temporary         >=1.3     && <1.4
 
+  -- Build tools needed for integration tests
+  build-tool-depends: hs-bindgen:hs-bindgen-cli
+
 test-suite test-th
   type:             exitcode-stdio-1.0
   main-is:          test-th.hs
