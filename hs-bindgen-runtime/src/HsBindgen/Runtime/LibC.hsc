@@ -72,7 +72,7 @@ data CDivT = CDivT {
       cDivT_quot :: C.CInt -- ^ Quotient
     , cDivT_rem  :: C.CInt -- ^ Remainder
     }
-  deriving (Eq, Ord, Show)
+  deriving stock (Eq, Ord, Show)
 
 instance ReadRaw CDivT where
   readRaw ptr = do
@@ -88,7 +88,7 @@ data CLdivT = CLdivT {
       cLdivT_quot :: C.CLong -- ^ Quotient
     , cLdivT_rem  :: C.CLong -- ^ Remainder
     }
-  deriving (Eq, Ord, Show)
+  deriving stock (Eq, Ord, Show)
 
 instance ReadRaw CLdivT where
   readRaw ptr = do
@@ -104,7 +104,7 @@ data CLldivT = CLldivT {
       cLldivT_quot :: C.CLLong -- ^ Quotient
     , cLldivT_rem  :: C.CLLong -- ^ Remainder
     }
-  deriving (Eq, Ord, Show)
+  deriving stock (Eq, Ord, Show)
 
 instance ReadRaw CLldivT where
   readRaw ptr = do
@@ -121,7 +121,7 @@ data CImaxdivT = CImaxdivT {
       cImaxdivT_quot :: C.CIntMax -- ^ Quotient
     , cImaxdivT_rem  :: C.CIntMax -- ^ Remainder
     }
-  deriving (Eq, Ord, Show)
+  deriving stock (Eq, Ord, Show)
 
 instance ReadRaw CImaxdivT where
   readRaw ptr = do
@@ -264,7 +264,7 @@ data CTm = CTm {
     , cTm_yday  :: C.CInt -- ^ Days since January 1 (@[0, 365]@)
     , cTm_isdst :: C.CInt -- ^ Daylight Saving Time flag
     }
-  deriving (Eq, Show)
+  deriving stock (Eq, Show)
   deriving Storable via EquivStorable CTm
 
 instance StaticSize CTm where

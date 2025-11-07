@@ -25,7 +25,7 @@ data WithFlexibleArrayMember element struct = WithFlexibleArrayMember
     { flamStruct :: !struct
     , flamExtra  :: {-# UNPACK #-} !(VS.Vector element)
     }
-  deriving Show
+  deriving stock Show
 
 -- | Peek structure with flexible array member.
 peekWithFLAM :: forall struct element. (Storable struct, Storable element, HasFlexibleArrayLength element struct)
@@ -42,7 +42,7 @@ peekWithFLAM ptr = do
 
 data FLAMLengthMismatch = FLAMLengthMismatch { flamLengthStruct :: Int
                                              , flamLengthProvided :: Int }
-  deriving (Show)
+  deriving stock (Show)
 
 instance Exception FLAMLengthMismatch
 

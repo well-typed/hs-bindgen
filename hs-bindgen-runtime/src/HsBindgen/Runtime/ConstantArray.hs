@@ -37,7 +37,7 @@ import HsBindgen.Runtime.Marshal (ReadRaw, StaticSize, WriteRaw)
 
 -- | A C array of known size
 newtype ConstantArray (n :: Nat) a = CA (VS.Vector a)
-  deriving (Eq, Show)
+  deriving stock (Eq, Show)
   deriving anyclass (ReadRaw, StaticSize, WriteRaw)
 
 type role ConstantArray nominal nominal
