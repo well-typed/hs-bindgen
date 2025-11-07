@@ -10,6 +10,9 @@ echo "# "
 echo "# Building qrcode C bindings"
 echo "# "
 
+git submodule init QR-Code-generator
+git submodule update QR-Code-generator
+
 cd "$SCRIPT_DIR/QR-Code-generator/c"
 make
 
