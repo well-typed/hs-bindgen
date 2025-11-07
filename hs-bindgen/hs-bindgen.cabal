@@ -346,10 +346,10 @@ library test-common
     , utf8-string                  >=1.0.2  && <1.1
 
 test-suite test-hs-bindgen
-  import:         lang
-  type:           exitcode-stdio-1.0
-  main-is:        test-hs-bindgen.hs
-  hs-source-dirs: test/hs-bindgen
+  import:             lang
+  type:               exitcode-stdio-1.0
+  main-is:            test-hs-bindgen.hs
+  hs-source-dirs:     test/hs-bindgen
   other-modules:
     Test.HsBindgen.Golden
     Test.HsBindgen.Golden.Check.BindingSpec

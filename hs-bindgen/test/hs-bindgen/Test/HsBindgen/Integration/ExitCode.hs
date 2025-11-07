@@ -1,8 +1,10 @@
 module Test.HsBindgen.Integration.ExitCode (tests) where
 
 import Control.Exception (fromException, try)
+import System.Exit (ExitCode (..))
 import System.FilePath ((</>))
 import System.IO.Temp (withSystemTempDirectory)
+import System.Process (readProcessWithExitCode)
 import Test.Common.HsBindgen.TracePredicate
 import Test.HsBindgen.Golden.TestCase
 import Test.HsBindgen.Resources
@@ -12,9 +14,6 @@ import Test.Tasty.HUnit
 import HsBindgen.Artefact (Artefact (..), NP (..))
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
-import System.Process (readProcessWithExitCode)
-import System.Exit (ExitCode(..))
-import Debug.Trace qualified as Debug
 
 {-------------------------------------------------------------------------------
   Tests
