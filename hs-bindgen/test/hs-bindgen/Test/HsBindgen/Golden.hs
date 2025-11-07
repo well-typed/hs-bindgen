@@ -618,6 +618,16 @@ testCases = manualTestCases ++ [
             _otherwise ->
               Nothing
         }
+    , (defaultFailingTest "select_no_match") {
+          testOnFrontendConfig = \cfg -> cfg {
+              frontendSelectPredicate = BIf (SelectDecl (DeclNameMatches "this_pattern_will_never_match"))
+            }
+        , testTracePredicate = singleTracePredicate $ \case
+            TraceFrontend (FrontendSelect SelectNoDeclarationsMatched) ->
+              Just $ Expected ()
+            _otherwise ->
+              Nothing
+        }
     , (defaultTest "type_attributes") {
           testRustBindgen = RustBindgenFail
         , testTracePredicate = singleTracePredicate $ \case
