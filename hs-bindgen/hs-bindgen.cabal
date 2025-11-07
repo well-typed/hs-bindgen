@@ -361,6 +361,7 @@ test-suite test-hs-bindgen
     Test.HsBindgen.Golden.Check.Rust
     Test.HsBindgen.Golden.Check.TH
     Test.HsBindgen.Golden.TestCase
+    Test.HsBindgen.Integration.ExitCode
     Test.HsBindgen.Orphans.TreeDiff
     Test.HsBindgen.Prop.Selection
     Test.HsBindgen.Resources
