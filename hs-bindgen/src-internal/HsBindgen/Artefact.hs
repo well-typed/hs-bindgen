@@ -13,7 +13,10 @@ module HsBindgen.Artefact (
   )
 where
 
+import Control.Monad.Except (ExceptT (..), MonadError (..), runExceptT)
+import Control.Monad.Trans.Class (lift)
 import Control.Monad.Trans.Reader (ReaderT (runReaderT))
+import Data.IORef (IORef)
 import Generics.SOP (I (..), NP (..))
 import Text.SimplePrettyPrint ((<+>))
 import Text.SimplePrettyPrint qualified as PP
@@ -90,28 +93,35 @@ data ArtefactEnv = ArtefactEnv {
 --
 -- All top-level artefacts will be cached (this is not true for computed
 -- artefacts, using, for example, the 'Functor' interface, or 'Lift').
-runArtefacts ::
+runArtefacts :: forall e as.
      Tracer IO ArtefactMsg
+  -> IORef (TracerState e)
   -> BootArtefact
   -> FrontendArtefact
   -> BackendArtefact
   -> Artefacts as
-  -> IO (NP I as)
+  -> IO (Either (TraceException e) (NP I as))
 runArtefacts
   tracer
+  tracerStateRef
   BootArtefact{..}
   FrontendArtefact{..}
   BackendArtefact{..}
-  artefacts = runReaderT (go artefacts) env
+  artefacts = runReaderT (runExceptT (go artefacts)) env
   where
     env :: ArtefactEnv
     env = ArtefactEnv tracer
 
-    go :: Artefacts as -> ArtefactM (NP I as)
+    go :: Artefacts a -> ExceptT (TraceException e) ArtefactM (NP I a)
     go Nil       = pure Nil
-    go (a :* as) = (:*) . I <$> runArtefact a <*> go as
+    go (a :* as) = do
+      artefactResult <- runArtefact a
+      mbError <- checkTracerState tracerStateRef
+      case mbError of
+        Just err -> throwError err
+        Nothing  -> (I artefactResult :*) <$> (go as)
 
-    runArtefact :: Artefact a -> ArtefactM a
+    runArtefact :: Artefact a -> ExceptT (TraceException e) ArtefactM a
     runArtefact = \case
       --Boot.
       HashIncludeArgs     -> liftIO bootHashIncludeArgs
@@ -132,7 +142,7 @@ runArtefacts
       FinalModuleUnsafe   -> liftIO backendFinalModuleUnsafe
       FinalModules        -> liftIO backendFinalModules
       -- Lift and sequence.
-      (Lift as' f)        -> go as' >>= f
+      (Lift as' f)        -> go as' >>= lift . f
 
 -- | Courtesy of Edsko :-).
 --

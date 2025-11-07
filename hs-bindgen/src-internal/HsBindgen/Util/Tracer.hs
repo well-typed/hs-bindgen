@@ -33,6 +33,7 @@ module HsBindgen.Util.Tracer (
   , withTracer
   , TracerState(..)
   , withTracer'
+  , checkTracerState
     -- * Errors
   , TraceException (..)
     -- * Safe tracers
@@ -422,7 +423,7 @@ instance Default (TracerConfig m l a) where
 -- Return 'Nothing' if an 'Error' trace was emitted.
 withTracer :: forall m a b. (MonadIO m , IsTrace Level a)
   => TracerConfig m Level a
-  -> (Tracer m a -> m b)
+  -> (Tracer m a -> IORef (TracerState a) -> m b)
   -> m (Either (TraceException a) b)
 withTracer tracerConf action = leftOnError <$> (withTracer' tracerConf action)
 
@@ -442,21 +443,23 @@ emptyTracerState = TracerState Debug []
 --
 -- We do not export this function from the public interface, but use it in
 -- tests.
+--
 withTracer' :: forall m a b. (MonadIO m, IsTrace Level a)
   => TracerConfig m Level a
-  -> (Tracer m a -> m b)
+  -> (Tracer m a -> IORef (TracerState a) -> m b)
   -> m (b, TracerState a)
 withTracer' TracerConfig{..} action = do
   (report, ansiColor) <- getOutputConfig
   withIORef emptyTracerState $ \ref ->
-    action $ mkTracer
-               tCustomLogLevel
-               ref
-               tVerbosity
-               ansiColor
-               tShowCallStack
-               tShowTimeStamp
-               report
+    action (mkTracer
+              tCustomLogLevel
+              ref
+              tVerbosity
+              ansiColor
+              tShowCallStack
+              tShowTimeStamp
+              report)
+           ref
   where
     getOutputConfig :: m (Report m a, AnsiColor)
     getOutputConfig = case tOutputConfig of
@@ -495,7 +498,7 @@ withTracerSafe :: forall m a b. (MonadIO m, IsTrace SafeLevel a)
   -> (Tracer m a -> m b)
   -> m b
 withTracerSafe tracerConf action =
-    fst <$> withTracer' tracerConf' action'
+    fst <$> withTracer' tracerConf' (\t _ -> action' t)
   where
     action' :: Tracer m (SafeTrace a) -> m b
     action' = action . contramap SafeTrace
@@ -605,6 +608,21 @@ leftOnError :: (b, TracerState a) -> Either (TraceException a) b
 leftOnError = \case
   (_, TracerState Error errors) -> Left  (TraceException errors)
   (r, _                  )      -> Right r
+
+-- | Check a TracerState IORef for errors.
+--
+-- Returns 'Just' a TraceException if errors were emitted (Error level traces),
+-- otherwise returns 'Nothing'.
+--
+-- This is useful for checking for errors after forcing lazy computations that
+-- trace to a tracer whose state is captured in the IORef.
+--
+checkTracerState :: MonadIO m => IORef (TracerState a) -> m (Maybe (TraceException a))
+checkTracerState ref = do
+  tracerState <- liftIO $ readIORef ref
+  pure $ case tracerState of
+    TracerState Error errors -> Just (TraceException errors)
+    _                        -> Nothing
 
 withIORef :: MonadIO m => b -> (IORef b -> m a) -> m (a, b)
 withIORef initialValue action = do

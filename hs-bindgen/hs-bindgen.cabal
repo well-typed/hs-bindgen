@@ -346,10 +346,10 @@ library test-common
     , utf8-string                  >=1.0.2  && <1.1
 
 test-suite test-hs-bindgen
-  import:         lang
-  type:           exitcode-stdio-1.0
-  main-is:        test-hs-bindgen.hs
-  hs-source-dirs: test/hs-bindgen
+  import:             lang
+  type:               exitcode-stdio-1.0
+  main-is:            test-hs-bindgen.hs
+  hs-source-dirs:     test/hs-bindgen
   other-modules:
     Test.HsBindgen.Golden
     Test.HsBindgen.Golden.Check.BindingSpec
@@ -361,6 +361,7 @@ test-suite test-hs-bindgen
     Test.HsBindgen.Golden.Check.Rust
     Test.HsBindgen.Golden.Check.TH
     Test.HsBindgen.Golden.TestCase
+    Test.HsBindgen.Integration.ExitCode
     Test.HsBindgen.Orphans.TreeDiff
     Test.HsBindgen.Prop.Selection
     Test.HsBindgen.Resources
@@ -398,6 +399,9 @@ test-suite test-hs-bindgen
     , syb               >=0.7.2.4 && <0.8
     , tasty-quickcheck  >=0.11    && <0.12
     , temporary         >=1.3     && <1.4
+
+  -- Build tools needed for integration tests
+  build-tool-depends: hs-bindgen:hs-bindgen-cli
 
 test-suite test-th
   type:             exitcode-stdio-1.0

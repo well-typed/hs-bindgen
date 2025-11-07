@@ -19,6 +19,7 @@ module HsBindgen
   , NP (..)
   ) where
 
+import Control.Monad (join)
 import Control.Monad.Trans.Reader (ask)
 import Data.Foldable qualified as Foldable
 import Data.Map qualified as Map
@@ -61,8 +62,8 @@ hsBindgen
   hsModuleName
   uncheckedHashIncludeArgs
   artefacts = do
-    -- Boot and frontend require unsafe tracer and `libclang`.
-    eArtefact <- withTracer tracerConfig $ \tracer -> do
+    result <- fmap join $ withTracer tracerConfig $ \tracer tracerUnsafeRef -> do
+      -- Boot and frontend require unsafe tracer and `libclang`.
       let tracerFrontend :: Tracer IO FrontendMsg
           tracerFrontend = contramap TraceFrontend tracer
           tracerBoot :: Tracer IO BootMsg
@@ -73,14 +74,20 @@ hsBindgen
       -- 2. Frontend.
       frontendArtefact <-
         frontend tracerFrontend bindgenFrontendConfig bootArtefact
-      pure (bootArtefact, frontendArtefact)
-    (bootArtefact, frontendArtefact) <- either throwIO pure eArtefact
-    -- 3. Backend.
-    backendArtefact <- withTracerSafe tracerConfigSafe $ \tracer -> do
-      backend tracer bindgenBackendConfig bootArtefact frontendArtefact
-    -- 4. Artefacts.
-    withTracerSafe tracerConfigSafe $ \tracer -> do
-      runArtefacts tracer bootArtefact frontendArtefact backendArtefact artefacts
+      -- 3. Backend.
+      backendArtefact <- withTracerSafe tracerConfigSafe $ \tracerSafe -> do
+        backend tracerSafe bindgenBackendConfig bootArtefact frontendArtefact
+      -- 4. Artefacts.
+      withTracerSafe tracerConfigSafe $ \tracerSafe -> do
+        runArtefacts
+          tracerSafe
+          tracerUnsafeRef
+          bootArtefact
+          frontendArtefact
+          backendArtefact
+          artefacts
+
+    either throwIO pure result
   where
     tracerConfigSafe :: TracerConfig IO SafeLevel a
     tracerConfigSafe = TracerConfig {
