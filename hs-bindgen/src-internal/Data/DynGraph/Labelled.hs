@@ -18,7 +18,7 @@ module Data.DynGraph.Labelled (
   , findEdges
   , FindEdgesResult(..)
     -- * Deletion
-  , deleteEdges
+  , deleteEdgesTo
   , filterEdges
     -- * Debugging
   , dumpMermaid
@@ -252,20 +252,15 @@ data FindEdgesResult l =
   Deletion
 -------------------------------------------------------------------------------}
 
--- | Delete edges
+-- | Delete edges to any of the specified vertices
 --
--- This function deletes all edges between a given vertex and any vertex in the
--- specified list.  It never deletes vertices, even if removing edges results in
--- a disconnected graph.
-deleteEdges :: Ord a => a -> [a] -> DynGraph l a -> DynGraph l a
-deleteEdges vFrom vs dynGraph@DynGraph{..}
-    | null vs   = dynGraph
-    | otherwise = case Map.lookup vFrom vtxMap of
-        Just ixFrom ->
-          let ixs = IntSet.fromList $ mapMaybe (vtxMap Map.!?) vs
-              f   = mne . Set.filter ((`IntSet.notMember` ixs) . fst)
-          in  dynGraph { edges = IntMap.update f ixFrom edges }
-        Nothing -> dynGraph
+-- This function never deletes vertices, even if removing edges results in a
+-- disconnected graph.
+deleteEdgesTo :: Ord a => [a] -> DynGraph l a -> DynGraph l a
+deleteEdgesTo vs dynGraph@DynGraph{..} =
+    let ixs = IntSet.fromList $ mapMaybe (vtxMap Map.!?) vs
+        f   = mne . Set.filter ((`IntSet.notMember` ixs) . fst)
+    in dynGraph { edges = IntMap.mapMaybe f edges }
   where
     mne :: Set a -> Maybe (Set a)
     mne s

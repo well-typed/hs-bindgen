@@ -127,11 +127,10 @@ getTransitiveDeps = DynGraph.reaches . unwrap
 
 -- | Delete dependencies
 deleteDeps ::
-     C.QualPrelimDeclId
-  -> [C.QualPrelimDeclId]
+     [C.QualPrelimDeclId]
   -> UseDeclGraph
   -> UseDeclGraph
-deleteDeps declId depIds = Wrap . DynGraph.deleteEdges declId depIds . unwrap
+deleteDeps depIds = Wrap . DynGraph.deleteEdgesTo depIds . unwrap
 
 {-------------------------------------------------------------------------------
   Construction auxiliary: sort key
