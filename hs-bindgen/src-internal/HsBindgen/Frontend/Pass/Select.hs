@@ -72,6 +72,8 @@ selectDecls
 
     in (    unitSelectWith $ reverse selDeclsReversed
        ,    selectStatusMsgs
+         -- If there were no predicate matches we issue a warning to the user
+         ++ [ SelectNoDeclarationsMatched | Set.null rootIds ]
          -- TODO: #1037.
          -- ++ toUnavailableMsgs        unavailableRootIds
          -- ++ toUnavailableMsgs        unavailableTransIds
