@@ -41,6 +41,16 @@ runs:
       shell: bash
       run: cp cabal.project.ci cabal.project
 
+    - name: Windows quirks - Configure environment for libclang
+      shell: bash
+      if: ${{ startsWith(inputs.runner, 'windows') }}
+      run: |
+        # Set library path for linker to find import libraries (.lib files)
+        echo "LIBRARY_PATH=$LLVM_PATH/lib" >> "$GITHUB_ENV"
+
+        echo "$LLVM_PATH/lib" >> "$GITHUB_PATH"
+        echo "$LLVM_PATH/bin" >> "$GITHUB_PATH"
+
     - name: Dry build (for cache key)
       shell: bash
       run: cabal build all --dry-run
@@ -84,14 +94,6 @@ runs:
     - name: Build manual (Ubuntu)
       if: runner.os == 'Linux'
       uses: ./.github/actions/build-manual-ubuntu
-
-    - name: Windows quirks - Manual requires Clang version coming with GHC
-      shell: bash
-      if: ${{ startsWith(inputs.runner, 'windows') }}
-      run: |
-          echo '### ls "C:\tools\ghc-${{ inputs.ghc }}\mingw\bin"'
-          ls "C:\tools\ghc-${{ inputs.ghc }}\mingw\bin"
-          echo "C:\tools\ghc-${{ inputs.ghc }}\mingw\bin" >> "$GITHUB_PATH"
 
     - name: Build manual (Windows)
       if: runner.os == 'Windows'

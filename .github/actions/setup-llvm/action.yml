@@ -49,3 +49,5 @@ runs:
       ls "$LLVM_PATH"
       echo '### ls $LLVM_PATH/bin'
       ls "$LLVM_PATH/bin"
+      echo '### ls $LLVM_PATH/lib'
+      ls "$LLVM_PATH/lib" || echo "lib directory not found or empty"
