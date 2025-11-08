@@ -54,7 +54,7 @@ handleDecl td decl =
         | C.TypePointer (C.TypeFun args res) <- C.typedefType dtd ->
           let derefDecl, mainDecl :: C.Decl HandleTypedefs
               derefDecl = C.Decl {
-                  declInfo = declInfo' { C.declId = C.DeclId (curName <> "_Deref") (C.NameOriginGenerated (C.AnonId declLoc))
+                  declInfo = declInfo' { C.declId = C.DeclIdNamed (curName <> "_Deref") (C.NameOriginGenerated (C.AnonId declLoc))
                                        , C.declComment = Just
                                                        $ C.Comment
                                                        $ Clang.Comment
@@ -122,10 +122,13 @@ handleDecl td decl =
            )
   where
     C.Decl{
-        declInfo = declInfo@C.DeclInfo{declId = dId@C.DeclId{declIdName = curName}, declComment, declLoc}
+        declInfo = declInfo@C.DeclInfo{declId = dId, declComment, declLoc}
       , declKind
       , declAnn
       } = decl
+
+    curName :: C.Name
+    curName = C.declIdName dId
 
     declInfo' :: C.DeclInfo HandleTypedefs
     declInfo' = coercePass declInfo
@@ -252,13 +255,13 @@ instance HandleUseSites C.Type where
       rename ::
            (C.DeclId -> C.Type HandleTypedefs)
         -> (C.DeclId -> C.Type HandleTypedefs)
-      rename mkType uid@C.DeclId{..} =
-        case Map.lookup declIdName (TypedefAnalysis.rename td) of
+      rename mkType uid =
+        case Map.lookup (C.declIdName uid) (TypedefAnalysis.rename td) of
           Just newDeclId -> mkType $ newDeclId
           Nothing        -> mkType uid
 
       squash :: TypedefRef Select -> C.Type HandleTypedefs
       squash (OrigTypedefRef name uTy) = C.TypeTypedef $
           case Map.lookup name (TypedefAnalysis.squash td) of
-            Nothing -> TypedefRegular (C.DeclId name C.NameOriginInSource) (go uTy)
+            Nothing -> TypedefRegular (C.DeclIdNamed name C.NameOriginInSource) (go uTy)
             Just ty -> TypedefSquashed name ty

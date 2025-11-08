@@ -267,7 +267,7 @@ instance Arbitrary C.QualName where
   arbitrary = C.QualName <$> arbitrary <*> arbitrary
 
 instance Arbitrary C.DeclId where
-  arbitrary = C.DeclId <$> arbitrary <*> arbitrary
+  arbitrary = C.DeclIdNamed <$> arbitrary <*> arbitrary
 
 instance Arbitrary C.QualDeclId where
   arbitrary = C.QualDeclId <$> arbitrary <*> arbitrary

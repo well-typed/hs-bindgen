@@ -418,7 +418,7 @@ instance Resolve C.Type where
         -> C.NameKind
         -> M (C.Type ResolveBindingSpecs)
       auxN mk cName cNameKind = aux mk C.QualDeclId {
-          qualDeclId     = C.DeclId cName C.NameOriginInSource
+          qualDeclId     = C.DeclIdNamed cName C.NameOriginInSource
         , qualDeclIdKind = cNameKind
         }
 

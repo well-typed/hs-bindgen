@@ -64,6 +64,7 @@ module HsBindgen.Frontend.Naming (
 
     -- * DeclId
   , DeclId(..)
+  , declIdName
     -- ** QualDeclId
   , QualDeclId(..)
   , qualDeclIdName
@@ -359,9 +360,6 @@ data NameOrigin =
     -- The name may not be used to construct a valid C type, but this original
     -- name may be used to construct a valid C type.
   | NameOriginRenamedFrom Name
-
-    -- | Name is a Clang builtin
-  | NameOriginBuiltin
   deriving stock (Show, Eq, Ord, Generic)
 
 instance PrettyForTrace NameOrigin where
@@ -372,8 +370,6 @@ instance PrettyForTrace NameOrigin where
       PP.string "generated for" <+> prettyForTrace anonId
     NameOriginRenamedFrom name ->
       PP.string "renamed from" <+> prettyForTrace name
-    NameOriginBuiltin ->
-      PP.string "builtin"
 
 {-------------------------------------------------------------------------------
   DeclId
@@ -383,26 +379,35 @@ instance PrettyForTrace NameOrigin where
 --
 -- All declarations have names after renaming in the @NameAnon@ pass.  This type
 -- is used until the @MangleNames@ pass.
-data DeclId = DeclId {
-      declIdName   :: Name
-    , declIdOrigin :: NameOrigin
-    }
+data DeclId =
+    DeclIdNamed Name NameOrigin
+  | DeclIdBuiltin Name
   deriving stock (Show, Eq, Ord, Generic)
 
+declIdName :: DeclId -> Name
+declIdName (DeclIdNamed name _origin) = name
+declIdName (DeclIdBuiltin name) = name
+
 instance PrettyForTrace DeclId where
-  prettyForTrace DeclId{..} =
-    prettyForTrace declIdName <+> PP.parens (prettyForTrace declIdOrigin)
+  prettyForTrace = \case
+      DeclIdNamed name origin ->
+        prettyForTrace name <+> PP.parens (prettyForTrace origin)
+      DeclIdBuiltin name ->
+        prettyForTrace name
 
 instance PrettyForTrace (Located DeclId) where
-  prettyForTrace (Located loc DeclId{..}) =
-    let details = case declIdOrigin of
-          NameOriginBuiltin -> prettyForTrace declIdOrigin
-          _otherwise -> PP.hsep [
-              prettyForTrace declIdOrigin
-            , "at"
-            , PP.showToCtxDoc loc
-            ]
-    in  prettyForTrace declIdName <+> PP.parens details
+  prettyForTrace (Located loc declId) =
+      case declId of
+        DeclIdNamed name origin -> PP.hsep [
+            prettyForTrace name
+          , PP.parens $ PP.hsep [
+                prettyForTrace origin
+              , "at"
+              , PP.showToCtxDoc loc
+              ]
+          ]
+        DeclIdBuiltin name ->
+          prettyForTrace name
 
 {-------------------------------------------------------------------------------
   QualDeclId
@@ -418,21 +423,22 @@ data QualDeclId = QualDeclId {
 qualDeclIdName :: QualDeclId -> Name
 qualDeclIdName = declIdName . qualDeclId
 
-qualDeclIdOrigin :: QualDeclId -> NameOrigin
-qualDeclIdOrigin = declIdOrigin . qualDeclId
-
 declIdToQualDeclId :: DeclId -> NameKind -> QualDeclId
 declIdToQualDeclId = QualDeclId
 
 qualDeclIdToQualPrelimDeclId :: QualDeclId -> QualPrelimDeclId
-qualDeclIdToQualPrelimDeclId qid =
-    qualPrelimDeclId prelimDeclId (qualDeclIdKind qid)
-  where
-    prelimDeclId = case qualDeclIdOrigin qid of
-        NameOriginGenerated   anon -> PrelimDeclIdAnon    $ anon
-        NameOriginRenamedFrom orig -> PrelimDeclIdNamed   $ orig
-        NameOriginBuiltin          -> PrelimDeclIdBuiltin $ qualDeclIdName qid
-        NameOriginInSource         -> PrelimDeclIdNamed   $ qualDeclIdName qid
+qualDeclIdToQualPrelimDeclId (QualDeclId declId kind) =
+    case declId of
+      DeclIdNamed name origin ->
+        qualPrelimDeclId
+          ( case origin of
+              NameOriginGenerated   anon -> PrelimDeclIdAnon  anon
+              NameOriginRenamedFrom orig -> PrelimDeclIdNamed orig
+              NameOriginInSource         -> PrelimDeclIdNamed name
+          )
+          kind
+      DeclIdBuiltin name ->
+        QualPrelimDeclIdBuiltin name
 
 {-------------------------------------------------------------------------------
   Located

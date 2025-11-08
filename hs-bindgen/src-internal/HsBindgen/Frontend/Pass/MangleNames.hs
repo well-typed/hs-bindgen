@@ -11,6 +11,7 @@ import Data.Proxy
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Config.FixCandidate (FixCandidate (..))
 import HsBindgen.Config.FixCandidate qualified as FixCandidate
+import HsBindgen.Errors
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
@@ -74,11 +75,14 @@ nameForDecl fc decl =
                        first choose $ fromCName fc ns cName
   where
     C.Decl{
-        declInfo = C.DeclInfo{declId = C.DeclId{declIdName = cName}}
+        declInfo = C.DeclInfo{declId}
       , declKind
       , declAnn
       } = decl
     BindingSpec.CTypeSpec{cTypeSpecIdentifier} = declAnn
+
+    cName :: C.Name
+    cName = C.declIdName declId
 
     choose :: Hs.Identifier -> (C.QualName, Hs.Identifier)
     choose hsName = (C.declQualName decl, hsName)
@@ -128,10 +132,6 @@ runM fc nm = flip runReader env . flip runStateT [] . unwrapM
 
 {-------------------------------------------------------------------------------
   Pass 2: apply NameMap
-
-  TODO <https://github.com/well-typed/hs-bindgen/issues/1266>.
-  This will fail for built-ins: since they don't have a corresponding
-  declaration, there will be no entry in the 'NameMap'.
 -------------------------------------------------------------------------------}
 
 class Mangle a where
@@ -146,7 +146,12 @@ mangleDeclId ::
      C.DeclId
   -> [C.NameKind] -- ^ Possible name kinds
   -> M (C.NamePair, C.NameOrigin)
-mangleDeclId declId@(C.DeclId cName nameOrigin) kinds = do
+mangleDeclId (C.DeclIdBuiltin _name) _kinds =
+    -- TODO <https://github.com/well-typed/hs-bindgen/issues/1266>.
+    -- Name mangling fails for built-ins: since they don't have a corresponding
+    -- declaration, there will be no entry in the 'NameMap'.
+    throwPure_TODO 1266 "Cannot mangle builtin name"
+mangleDeclId declId@(C.DeclIdNamed cName nameOrigin) kinds = do
     nm <- asks envNameMap
     let lookupKind :: C.NameKind -> Maybe Hs.Identifier
         lookupKind kind = Map.lookup (C.QualName cName kind) nm

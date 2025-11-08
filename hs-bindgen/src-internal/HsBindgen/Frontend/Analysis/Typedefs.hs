@@ -188,10 +188,10 @@ typedefOfTagged typedefName valOrRef taggedType@TaggedTypeId{..} useSites
 
     -- Struct and typedef same name, with intervening pointers
   | ByRef <- valOrRef, typedefName == taggedTypeIdName taggedType
-  = let newDeclId = C.DeclId{
-            declIdName   = typedefName <> "_Deref"
-          , declIdOrigin = updateOrigin taggedTypeDeclId
-          }
+  = let newDeclId =
+          C.DeclIdNamed
+            (typedefName <> "_Deref")
+            (updateOrigin taggedTypeDeclId)
     in mempty{
            rename = Map.singleton (taggedTypeIdName taggedType) newDeclId
          }
@@ -203,10 +203,7 @@ typedefOfTagged typedefName valOrRef taggedType@TaggedTypeId{..} useSites
     -- name of the struct, as normally the typedef is the main type and intended
     -- to be used throughout the code.
   | ByValue <- valOrRef, [_] <- useSites
-  = let newDeclId = C.DeclId{
-            declIdName   = typedefName
-          , declIdOrigin = updateOrigin taggedTypeDeclId
-          }
+  = let newDeclId = C.DeclIdNamed typedefName (updateOrigin taggedTypeDeclId)
         newTagged = TaggedTypeId{
             taggedTypeDeclId = newDeclId
           , taggedTypeIdKind
@@ -226,12 +223,17 @@ typedefOfTagged typedefName valOrRef taggedType@TaggedTypeId{..} useSites
 -- If we rename a datatype with a name which was /already/ not original, we
 -- leave the origin information unchanged.
 updateOrigin :: C.DeclId -> C.NameOrigin
-updateOrigin (C.DeclId oldName origin) =
+updateOrigin (C.DeclIdBuiltin _name) =
+    -- TODO: Ideally we'd have a separate pass to deal with builtin types,
+    -- and strengthen the types in such as a way that we don't have to deal with
+    -- this case here.
+    -- See also <https://github.com/well-typed/hs-bindgen/issues/1266>
+    panicPure "Unexpected builtin"
+updateOrigin (C.DeclIdNamed oldName origin) =
     case origin of
       C.NameOriginInSource           -> C.NameOriginRenamedFrom oldName
       C.NameOriginGenerated   anonId -> C.NameOriginGenerated   anonId
       C.NameOriginRenamedFrom orig   -> C.NameOriginRenamedFrom orig
-      C.NameOriginBuiltin            -> C.NameOriginBuiltin
 
 {-------------------------------------------------------------------------------
   TaggedTypeId

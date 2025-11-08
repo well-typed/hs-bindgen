@@ -215,7 +215,6 @@ isDefinedInCurrentModule declIndex ty = case ty of
               C.NameOriginInSource           -> C.PrelimDeclIdNamed (C.nameC namePair)
               C.NameOriginGenerated anonId   -> C.PrelimDeclIdAnon anonId
               C.NameOriginRenamedFrom _      -> C.PrelimDeclIdNamed (C.nameC namePair)
-              C.NameOriginBuiltin            -> C.PrelimDeclIdBuiltin (C.nameC namePair)
           qualPrelimDeclId = C.qualPrelimDeclId prelimDeclId nameKind
       in isJust $ DeclIndex.lookup qualPrelimDeclId declIndex
 
