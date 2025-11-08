@@ -18,6 +18,8 @@ import HsBindgen.Imports
 --
 -- > type Parsed :: Pass
 -- > data Parsed a
+--
+-- This is an open kind, primarily to avoid 'IsPass' orphans.
 type Pass = PassSimulatedOpenKind -> Star
 
 -- | Internal type used only to simulate an open kind. Not exported.
