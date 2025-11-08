@@ -70,10 +70,6 @@ module HsBindgen.Frontend.Naming (
   , declIdToQualDeclId
   , qualDeclIdToQualPrelimDeclId
 
-    -- * TaggedTypeId
-  , TaggedTypeId(..)
-  , taggedTypeIdToQualPrelimDeclId
-
     -- * Located
   , Located(..)
   ) where
@@ -437,25 +433,6 @@ qualDeclIdToQualPrelimDeclId qid =
         NameOriginRenamedFrom orig -> PrelimDeclIdNamed   $ orig
         NameOriginBuiltin          -> PrelimDeclIdBuiltin $ qualDeclIdName qid
         NameOriginInSource         -> PrelimDeclIdNamed   $ qualDeclIdName qid
-
-{-------------------------------------------------------------------------------
-  TaggedTypeId
--------------------------------------------------------------------------------}
-
--- | C tagged type name, tag kind, and origin
-data TaggedTypeId = TaggedTypeId {
-      taggedTypeIdName   :: Name
-    , taggedTypeIdOrigin :: NameOrigin
-    , taggedTypeIdKind   :: TagKind
-    }
-  deriving stock (Eq, Generic, Ord, Show)
-
-taggedTypeIdToQualPrelimDeclId :: TaggedTypeId -> QualPrelimDeclId
-taggedTypeIdToQualPrelimDeclId (TaggedTypeId n no tk) =
-    qualDeclIdToQualPrelimDeclId $ QualDeclId{
-        qualDeclId     = DeclId n no
-      , qualDeclIdKind = NameKindTagged tk
-      }
 
 {-------------------------------------------------------------------------------
   Located

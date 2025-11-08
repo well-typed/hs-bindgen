@@ -161,7 +161,7 @@ analyseTypedef declUseGraph uid typedef =
     go :: ValOrRef -> C.Type Select -> TypedefAnalysis
     go valOrRef ty | Just taggedTypeId <- toTaggedTypeId ty =
         typedefOfTagged (C.declIdName uid) valOrRef taggedTypeId $
-          getUseSites (C.taggedTypeIdToQualPrelimDeclId taggedTypeId)
+          getUseSites (taggedTypeIdToQualPrelimDeclId taggedTypeId)
     go _ (C.TypePointer ty) =
         go ByRef ty
     go _ _otherType =
@@ -176,10 +176,10 @@ analyseTypedef declUseGraph uid typedef =
 typedefOfTagged ::
      C.Name                      -- ^ Name of the typedef
   -> ValOrRef                    -- ^ Does the typedef wrap the datatype directly?
-  -> C.TaggedTypeId              -- ^ Tagged type information
+  -> TaggedTypeId                -- ^ Tagged type information
   -> [(C.QualPrelimDeclId, Usage)] -- ^ All use sites of the struct
   -> TypedefAnalysis
-typedefOfTagged typedefName valOrRef taggedType@C.TaggedTypeId{..} useSites
+typedefOfTagged typedefName valOrRef taggedType@TaggedTypeId{..} useSites
     -- Struct and typedef same name, no intervening pointers
   | ByValue <- valOrRef, typedefName == taggedTypeIdName
   = mempty{
@@ -203,7 +203,7 @@ typedefOfTagged typedefName valOrRef taggedType@C.TaggedTypeId{..} useSites
   | ByValue <- valOrRef, [_] <- useSites
   = let newName   = typedefName
         newOrigin = updateOrigin taggedTypeIdName taggedTypeIdOrigin
-        newTagged = C.TaggedTypeId{
+        newTagged = TaggedTypeId{
                         taggedTypeIdName   = newName
                       , taggedTypeIdKind
                       , taggedTypeIdOrigin = newOrigin
@@ -229,21 +229,38 @@ updateOrigin oldName = \case
     C.NameOriginBuiltin            -> C.NameOriginBuiltin
 
 {-------------------------------------------------------------------------------
-  Auxiliary functions
+  TaggedTypeId
+
+  This is only used within the context of this module.
 -------------------------------------------------------------------------------}
 
-toTaggedTypeId :: C.Type Select -> Maybe C.TaggedTypeId
+-- | C tagged type name, tag kind, and origin
+data TaggedTypeId = TaggedTypeId {
+      taggedTypeIdName   :: C.Name
+    , taggedTypeIdOrigin :: C.NameOrigin
+    , taggedTypeIdKind   :: C.TagKind
+    }
+  deriving stock (Eq, Generic, Ord, Show)
+
+taggedTypeIdToQualPrelimDeclId :: TaggedTypeId -> C.QualPrelimDeclId
+taggedTypeIdToQualPrelimDeclId (TaggedTypeId n no tk) =
+    C.qualDeclIdToQualPrelimDeclId $ C.QualDeclId{
+        qualDeclId     = C.DeclId n no
+      , qualDeclIdKind = C.NameKindTagged tk
+      }
+
+toTaggedTypeId :: C.Type Select -> Maybe TaggedTypeId
 toTaggedTypeId = \case
     C.TypeStruct C.DeclId{..} -> Just $
-      C.TaggedTypeId declIdName declIdOrigin C.TagKindStruct
+      TaggedTypeId declIdName declIdOrigin C.TagKindStruct
     C.TypeUnion  C.DeclId{..} -> Just $
-      C.TaggedTypeId declIdName declIdOrigin C.TagKindUnion
+      TaggedTypeId declIdName declIdOrigin C.TagKindUnion
     C.TypeEnum   C.DeclId{..} -> Just $
-      C.TaggedTypeId declIdName declIdOrigin C.TagKindEnum
+      TaggedTypeId declIdName declIdOrigin C.TagKindEnum
     _otherwise                -> Nothing
 
-fromTaggedTypeId :: C.TaggedTypeId -> C.Type HandleTypedefs
-fromTaggedTypeId C.TaggedTypeId{..} = case taggedTypeIdKind of
+fromTaggedTypeId :: TaggedTypeId -> C.Type HandleTypedefs
+fromTaggedTypeId TaggedTypeId{..} = case taggedTypeIdKind of
     C.TagKindStruct -> C.TypeStruct uid
     C.TagKindUnion  -> C.TypeUnion  uid
     C.TagKindEnum   -> C.TypeEnum   uid
