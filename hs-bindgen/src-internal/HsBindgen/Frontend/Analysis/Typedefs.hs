@@ -107,7 +107,7 @@ import HsBindgen.Imports
 -- thing also in the case of this name clash.
 data TypedefAnalysis = TypedefAnalysis {
       -- | Declarations (structs, unions, or enums) that need to be renamed
-      rename :: Map C.Name (C.Name, C.NameOrigin)
+      rename :: Map C.Name C.DeclId
 
       -- | Typedefs that need to be squashed
       --
@@ -181,17 +181,19 @@ typedefOfTagged ::
   -> TypedefAnalysis
 typedefOfTagged typedefName valOrRef taggedType@TaggedTypeId{..} useSites
     -- Struct and typedef same name, no intervening pointers
-  | ByValue <- valOrRef, typedefName == taggedTypeIdName
+  | ByValue <- valOrRef, typedefName == taggedTypeIdName taggedType
   = mempty{
         squash = Map.singleton typedefName (fromTaggedTypeId taggedType)
       }
 
     -- Struct and typedef same name, with intervening pointers
-  | ByRef <- valOrRef, typedefName == taggedTypeIdName
-  = let newName   = typedefName <> "_Deref"
-        newOrigin = updateOrigin taggedTypeIdName taggedTypeIdOrigin
+  | ByRef <- valOrRef, typedefName == taggedTypeIdName taggedType
+  = let newDeclId = C.DeclId{
+            declIdName   = typedefName <> "_Deref"
+          , declIdOrigin = updateOrigin taggedTypeDeclId
+          }
     in mempty{
-           rename = Map.singleton taggedTypeIdName (newName, newOrigin)
+           rename = Map.singleton (taggedTypeIdName taggedType) newDeclId
          }
 
     -- Single use site of the struct
@@ -201,32 +203,35 @@ typedefOfTagged typedefName valOrRef taggedType@TaggedTypeId{..} useSites
     -- name of the struct, as normally the typedef is the main type and intended
     -- to be used throughout the code.
   | ByValue <- valOrRef, [_] <- useSites
-  = let newName   = typedefName
-        newOrigin = updateOrigin taggedTypeIdName taggedTypeIdOrigin
+  = let newDeclId = C.DeclId{
+            declIdName   = typedefName
+          , declIdOrigin = updateOrigin taggedTypeDeclId
+          }
         newTagged = TaggedTypeId{
-                        taggedTypeIdName   = newName
-                      , taggedTypeIdKind
-                      , taggedTypeIdOrigin = newOrigin
-                      }
+            taggedTypeDeclId = newDeclId
+          , taggedTypeIdKind
+          }
     in mempty{
            squash = Map.singleton typedefName (fromTaggedTypeId newTagged)
-         , rename = Map.singleton taggedTypeIdName (newName, newOrigin)
+         , rename = Map.singleton (taggedTypeIdName taggedType) newDeclId
          }
 
     -- if there are multiple uses, and the names don't match, don't do anything
   | otherwise
   = mempty
+  where
 
 -- | Update origin information for renamed tagged datatype
 --
 -- If we rename a datatype with a name which was /already/ not original, we
 -- leave the origin information unchanged.
-updateOrigin :: C.Name -> C.NameOrigin -> C.NameOrigin
-updateOrigin oldName = \case
-    C.NameOriginInSource           -> C.NameOriginRenamedFrom oldName
-    C.NameOriginGenerated   anonId -> C.NameOriginGenerated   anonId
-    C.NameOriginRenamedFrom orig   -> C.NameOriginRenamedFrom orig
-    C.NameOriginBuiltin            -> C.NameOriginBuiltin
+updateOrigin :: C.DeclId -> C.NameOrigin
+updateOrigin (C.DeclId oldName origin) =
+    case origin of
+      C.NameOriginInSource           -> C.NameOriginRenamedFrom oldName
+      C.NameOriginGenerated   anonId -> C.NameOriginGenerated   anonId
+      C.NameOriginRenamedFrom orig   -> C.NameOriginRenamedFrom orig
+      C.NameOriginBuiltin            -> C.NameOriginBuiltin
 
 {-------------------------------------------------------------------------------
   TaggedTypeId
@@ -234,36 +239,36 @@ updateOrigin oldName = \case
   This is only used within the context of this module.
 -------------------------------------------------------------------------------}
 
--- | C tagged type name, tag kind, and origin
+-- | Tagged type
+--
+-- This is nearly identical to 'C.QualDeclId', except that we use 'C.TagKind'
+-- rather than 'C.NameKind' (in other words, we rule out 'C.NameKindOrdinary').
 data TaggedTypeId = TaggedTypeId {
-      taggedTypeIdName   :: C.Name
-    , taggedTypeIdOrigin :: C.NameOrigin
-    , taggedTypeIdKind   :: C.TagKind
+      taggedTypeDeclId :: C.DeclId
+    , taggedTypeIdKind :: C.TagKind
     }
   deriving stock (Eq, Generic, Ord, Show)
 
+taggedTypeIdName :: TaggedTypeId -> C.Name
+taggedTypeIdName = C.declIdName . taggedTypeDeclId
+
 taggedTypeIdToQualPrelimDeclId :: TaggedTypeId -> C.QualPrelimDeclId
-taggedTypeIdToQualPrelimDeclId (TaggedTypeId n no tk) =
+taggedTypeIdToQualPrelimDeclId (TaggedTypeId declId tk) =
     C.qualDeclIdToQualPrelimDeclId $ C.QualDeclId{
-        qualDeclId     = C.DeclId n no
+        qualDeclId     = declId
       , qualDeclIdKind = C.NameKindTagged tk
       }
 
 toTaggedTypeId :: C.Type Select -> Maybe TaggedTypeId
 toTaggedTypeId = \case
-    C.TypeStruct C.DeclId{..} -> Just $
-      TaggedTypeId declIdName declIdOrigin C.TagKindStruct
-    C.TypeUnion  C.DeclId{..} -> Just $
-      TaggedTypeId declIdName declIdOrigin C.TagKindUnion
-    C.TypeEnum   C.DeclId{..} -> Just $
-      TaggedTypeId declIdName declIdOrigin C.TagKindEnum
-    _otherwise                -> Nothing
+    C.TypeStruct declId -> Just $ TaggedTypeId declId C.TagKindStruct
+    C.TypeUnion  declId -> Just $ TaggedTypeId declId C.TagKindUnion
+    C.TypeEnum   declId -> Just $ TaggedTypeId declId C.TagKindEnum
+    _otherwise          -> Nothing
 
 fromTaggedTypeId :: TaggedTypeId -> C.Type HandleTypedefs
-fromTaggedTypeId TaggedTypeId{..} = case taggedTypeIdKind of
-    C.TagKindStruct -> C.TypeStruct uid
-    C.TagKindUnion  -> C.TypeUnion  uid
-    C.TagKindEnum   -> C.TypeEnum   uid
-  where
-    uid :: C.DeclId
-    uid = C.DeclId taggedTypeIdName taggedTypeIdOrigin
+fromTaggedTypeId (TaggedTypeId declId kind) =
+    case kind of
+      C.TagKindStruct -> C.TypeStruct declId
+      C.TagKindUnion  -> C.TypeUnion  declId
+      C.TagKindEnum   -> C.TypeEnum   declId
