@@ -50,7 +50,7 @@ instance IsPass MangleNames where
 
 data MangleNamesMsg =
     MangleNamesCouldNotMangle Text
-  | MangleNamesMissingDeclaration C.QualName
+  | MangleNamesMissingDeclaration C.DeclId
   | MangleNamesMissingIdentifier Text
   deriving stock (Show)
 

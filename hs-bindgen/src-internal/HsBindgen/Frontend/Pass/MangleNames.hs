@@ -128,6 +128,10 @@ runM fc nm = flip runReader env . flip runStateT [] . unwrapM
 
 {-------------------------------------------------------------------------------
   Pass 2: apply NameMap
+
+  TODO <https://github.com/well-typed/hs-bindgen/issues/1266>.
+  This will fail for built-ins: since they don't have a corresponding
+  declaration, there will be no entry in the 'NameMap'.
 -------------------------------------------------------------------------------}
 
 class Mangle a where
@@ -138,30 +142,35 @@ class MangleDecl a where
        C.DeclInfo MangleNames
     -> a HandleTypedefs -> M (a MangleNames)
 
-mangleDeclId :: C.DeclId -> C.NameKind -> M (C.NamePair, C.NameOrigin)
-mangleDeclId declId kind = mangleQualDeclId $ C.QualDeclId declId kind
+mangleDeclId ::
+     C.DeclId
+  -> [C.NameKind] -- ^ Possible name kinds
+  -> M (C.NamePair, C.NameOrigin)
+mangleDeclId declId@(C.DeclId cName nameOrigin) kinds = do
+    nm <- asks envNameMap
+    let lookupKind :: C.NameKind -> Maybe Hs.Identifier
+        lookupKind kind = Map.lookup (C.QualName cName kind) nm
+
+    case mapMaybe lookupKind kinds of
+      hs:_ -> return $ mkNamePair hs
+      []   -> do
+        -- Name mangling failed
+        --
+        -- This can only happen if we did not register any declaration with the
+        -- given ID. This is most likely because the user did not select the
+        -- declaration. If the declaration was completely missing, Clang would
+        -- have complained already.
+        modify (MangleNamesMissingDeclaration declId :)
+        return (
+            C.NamePair cName "MissingDeclaration" -- Use a fake Haskell ID.
+          , nameOrigin
+          )
+  where
+    mkNamePair :: Hs.Identifier -> (C.NamePair, C.NameOrigin)
+    mkNamePair hsName = (C.NamePair cName hsName, nameOrigin)
 
 mangleQualDeclId :: C.QualDeclId -> M (C.NamePair, C.NameOrigin)
-mangleQualDeclId qualDeclId = do
-    nm <- asks envNameMap
-    case Map.lookup cQualName nm of
-      Just hsName -> return (C.NamePair cName hsName, nameOrigin)
-      Nothing     -> do
-        -- NB: We did not register any declaration with the given ID. This is
-        -- most likely because the user did not select the declaration. If the
-        -- declaration was completely missing, Clang would have complained
-        -- already.
-        modify (MangleNamesMissingDeclaration cQualName :)
-        -- Use a fake Haskell ID.
-        return (C.NamePair cName (Hs.Identifier "MissingDeclaration"), nameOrigin)
-  where
-    C.QualDeclId{
-        qualDeclId = C.DeclId cName nameOrigin
-      , qualDeclIdKind = kind
-      } = qualDeclId
-
-    cQualName :: C.QualName
-    cQualName = C.QualName cName kind
+mangleQualDeclId (C.QualDeclId declId kind) = mangleDeclId declId [kind]
 
 {-------------------------------------------------------------------------------
   Additional name mangling functionality
@@ -296,23 +305,11 @@ instance MangleDecl C.DeclKind where
       C.DeclGlobal <$> mangle ty
 
 instance Mangle C.CommentRef where
-  mangle (C.ById C.DeclId{..}) = do
-    nm <- asks envNameMap
-    let lookupResults =
-          catMaybes [ Map.lookup (C.QualName declIdName nameKind) nm
-                    | nameKind <- [minBound .. maxBound]
-                    ]
-    case lookupResults of
-      (hsName:_) -> return $ C.ById (C.NamePair declIdName hsName, declIdOrigin)
-      []         -> do
-        -- NB: If we hit this case it means that we tried all possible name
-        -- kinds and still didn't find any result. This might be because of a
-        -- typo on the docs or a miss reference.
-        --
-        modify (MangleNamesMissingIdentifier (C.getName declIdName) :)
-        --
-        -- Use the fake Haskell ID.
-        return $ C.ById $ (C.NamePair declIdName (Hs.Identifier (C.getName declIdName)), declIdOrigin)
+  mangle (C.ById declId) =
+    -- NB: If this fails it means that we tried all possible name kinds and
+    -- still didn't find any result. This might be because of a typo on the
+    -- docs, or a missing reference.
+    C.ById <$> mangleDeclId declId [minBound .. maxBound]
 
 instance Mangle C.Comment where
   mangle (C.Comment comment) =
@@ -456,13 +453,13 @@ instance MangleDecl C.CheckedMacroType where
 instance Mangle C.Type where
   mangle = \case
       C.TypeStruct declId -> C.TypeStruct <$>
-        mangleDeclId declId (C.NameKindTagged C.TagKindStruct)
+        mangleDeclId declId [C.NameKindTagged C.TagKindStruct]
       C.TypeUnion declId -> C.TypeUnion <$>
-        mangleDeclId declId (C.NameKindTagged C.TagKindUnion)
+        mangleDeclId declId [C.NameKindTagged C.TagKindUnion]
       C.TypeEnum declId -> C.TypeEnum <$>
-        mangleDeclId declId (C.NameKindTagged C.TagKindEnum)
+        mangleDeclId declId [C.NameKindTagged C.TagKindEnum]
       C.TypeMacroTypedef declId -> C.TypeMacroTypedef <$>
-        mangleDeclId declId C.NameKindOrdinary
+        mangleDeclId declId [C.NameKindOrdinary]
 
       -- Recursive cases
       C.TypeTypedef ref         -> C.TypeTypedef <$> mangle ref
@@ -485,7 +482,7 @@ instance Mangle RenamedTypedefRef where
     -- underlying type here if the mangling were stateful. Now we're simply
     -- applying renamings, so we are fine.
     uTy' <- mangle uTy
-    flip TypedefRegular uTy' <$> mangleDeclId declId C.NameKindOrdinary
+    flip TypedefRegular uTy' <$> mangleDeclId declId [C.NameKindOrdinary]
   mangle (TypedefSquashed cName ty) =
     TypedefSquashed cName <$> mangle ty
 
