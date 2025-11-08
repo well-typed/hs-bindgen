@@ -4,7 +4,6 @@ module HsBindgen.Frontend.Pass (
   , TypedefRefWrapper(..)
   , NoAnn(..)
   , NoConfig(..)
-  , NoMsg(..)
   ) where
 
 import HsBindgen.Imports
@@ -92,7 +91,4 @@ data NoAnn = NoAnn
   deriving stock (Show, Eq, Ord)
 
 data NoConfig = NoConfig
-  deriving stock (Show, Eq, Ord)
-
-data NoMsg = NoMsg
   deriving stock (Show, Eq, Ord)
