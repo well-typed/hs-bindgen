@@ -66,7 +66,7 @@ module HsBindgen.Frontend.Naming (
   , DeclId(..)
     -- ** QualDeclId
   , QualDeclId(..)
-  , qualDeclId
+  , declIdToQualDeclId
   , qualDeclIdToQualPrelimDeclId
 
     -- * TaggedTypeId
@@ -419,8 +419,8 @@ data QualDeclId = QualDeclId {
     }
   deriving stock (Eq, Generic, Ord, Show)
 
-qualDeclId :: DeclId -> NameKind -> QualDeclId
-qualDeclId DeclId{..} nameKind = QualDeclId {
+declIdToQualDeclId :: DeclId -> NameKind -> QualDeclId
+declIdToQualDeclId DeclId{..} nameKind = QualDeclId {
       qualDeclIdName   = declIdName
     , qualDeclIdOrigin = declIdOrigin
     , qualDeclIdKind   = nameKind

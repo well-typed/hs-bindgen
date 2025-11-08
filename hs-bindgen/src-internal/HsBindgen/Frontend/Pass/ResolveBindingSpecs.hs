@@ -410,7 +410,7 @@ instance Resolve C.Type where
         -> Id NameAnon
         -> C.NameKind
         -> M (C.Type ResolveBindingSpecs)
-      auxU mk uid = aux (const (mk uid)) . C.qualDeclId uid
+      auxU mk uid = aux (const (mk uid)) . C.declIdToQualDeclId uid
 
       auxN ::
            (C.Name -> C.Type ResolveBindingSpecs)
