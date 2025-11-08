@@ -418,9 +418,8 @@ instance Resolve C.Type where
         -> C.NameKind
         -> M (C.Type ResolveBindingSpecs)
       auxN mk cName cNameKind = aux mk C.QualDeclId {
-          qualDeclIdName   = cName
-        , qualDeclIdOrigin = C.NameOriginInSource
-        , qualDeclIdKind   = cNameKind
+          qualDeclId     = C.DeclId cName C.NameOriginInSource
+        , qualDeclIdKind = cNameKind
         }
 
       aux ::
@@ -460,6 +459,8 @@ instance Resolve C.Type where
                         . insertExtType cQualName cQualPrelimDeclId ty
                       return ty
                     Nothing -> return (mk qualDeclIdName)
+        where
+          qualDeclIdName = C.qualDeclIdName cQualDeclId
 
 {-------------------------------------------------------------------------------
   Internal: auxiliary functions

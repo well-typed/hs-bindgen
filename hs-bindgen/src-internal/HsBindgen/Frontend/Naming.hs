@@ -66,6 +66,7 @@ module HsBindgen.Frontend.Naming (
   , DeclId(..)
     -- ** QualDeclId
   , QualDeclId(..)
+  , qualDeclIdName
   , declIdToQualDeclId
   , qualDeclIdToQualPrelimDeclId
 
@@ -413,28 +414,29 @@ instance PrettyForTrace (Located DeclId) where
 
 -- | Declaration identifier, qualified by 'NameKind'
 data QualDeclId = QualDeclId {
-      qualDeclIdName   :: Name
-    , qualDeclIdOrigin :: NameOrigin
-    , qualDeclIdKind   :: NameKind
+      qualDeclId     :: DeclId
+    , qualDeclIdKind :: NameKind
     }
   deriving stock (Eq, Generic, Ord, Show)
 
+qualDeclIdName :: QualDeclId -> Name
+qualDeclIdName = declIdName . qualDeclId
+
+qualDeclIdOrigin :: QualDeclId -> NameOrigin
+qualDeclIdOrigin = declIdOrigin . qualDeclId
+
 declIdToQualDeclId :: DeclId -> NameKind -> QualDeclId
-declIdToQualDeclId DeclId{..} nameKind = QualDeclId {
-      qualDeclIdName   = declIdName
-    , qualDeclIdOrigin = declIdOrigin
-    , qualDeclIdKind   = nameKind
-    }
+declIdToQualDeclId = QualDeclId
 
 qualDeclIdToQualPrelimDeclId :: QualDeclId -> QualPrelimDeclId
-qualDeclIdToQualPrelimDeclId QualDeclId{..} =
-    qualPrelimDeclId prelimDeclId qualDeclIdKind
+qualDeclIdToQualPrelimDeclId qid =
+    qualPrelimDeclId prelimDeclId (qualDeclIdKind qid)
   where
-    prelimDeclId = case qualDeclIdOrigin of
-        NameOriginGenerated   anonId   -> PrelimDeclIdAnon    anonId
-        NameOriginRenamedFrom origName -> PrelimDeclIdNamed   origName
-        NameOriginBuiltin              -> PrelimDeclIdBuiltin qualDeclIdName
-        NameOriginInSource             -> PrelimDeclIdNamed   qualDeclIdName
+    prelimDeclId = case qualDeclIdOrigin qid of
+        NameOriginGenerated   anon -> PrelimDeclIdAnon    $ anon
+        NameOriginRenamedFrom orig -> PrelimDeclIdNamed   $ orig
+        NameOriginBuiltin          -> PrelimDeclIdBuiltin $ qualDeclIdName qid
+        NameOriginInSource         -> PrelimDeclIdNamed   $ qualDeclIdName qid
 
 {-------------------------------------------------------------------------------
   TaggedTypeId
@@ -450,7 +452,10 @@ data TaggedTypeId = TaggedTypeId {
 
 taggedTypeIdToQualPrelimDeclId :: TaggedTypeId -> QualPrelimDeclId
 taggedTypeIdToQualPrelimDeclId (TaggedTypeId n no tk) =
-    qualDeclIdToQualPrelimDeclId $ QualDeclId n no (NameKindTagged tk)
+    qualDeclIdToQualPrelimDeclId $ QualDeclId{
+        qualDeclId     = DeclId n no
+      , qualDeclIdKind = NameKindTagged tk
+      }
 
 {-------------------------------------------------------------------------------
   Located
