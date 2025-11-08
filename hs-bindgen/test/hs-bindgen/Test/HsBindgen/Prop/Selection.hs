@@ -266,8 +266,11 @@ instance Arbitrary C.NameOrigin where
 instance Arbitrary C.QualName where
   arbitrary = C.QualName <$> arbitrary <*> arbitrary
 
+instance Arbitrary C.DeclId where
+  arbitrary = C.DeclIdNamed <$> arbitrary <*> arbitrary
+
 instance Arbitrary C.QualDeclId where
-  arbitrary = C.QualDeclId <$> arbitrary <*> arbitrary <*> arbitrary
+  arbitrary = C.QualDeclId <$> arbitrary <*> arbitrary
 
 instance Arbitrary C.Availability where
   arbitrary = elements [minBound .. maxBound]

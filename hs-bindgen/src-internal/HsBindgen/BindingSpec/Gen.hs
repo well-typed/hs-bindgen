@@ -187,7 +187,6 @@ getCQualName declInfo cNameKind = case C.declOrigin declInfo of
       let cName' = fromMaybe cName (listToMaybe (C.declAliases declInfo))
       in  C.QualName cName' C.NameKindOrdinary
     C.NameOriginRenamedFrom fromCName -> C.QualName fromCName cNameKind
-    C.NameOriginBuiltin -> C.QualName cName C.NameKindOrdinary
   where
     cName :: C.Name
     cName = C.nameC (C.declId declInfo)

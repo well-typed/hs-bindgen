@@ -410,7 +410,7 @@ instance Resolve C.Type where
         -> Id NameAnon
         -> C.NameKind
         -> M (C.Type ResolveBindingSpecs)
-      auxU mk uid = aux (const (mk uid)) . C.qualDeclId uid
+      auxU mk uid = aux (const (mk uid)) . C.declIdToQualDeclId uid
 
       auxN ::
            (C.Name -> C.Type ResolveBindingSpecs)
@@ -418,9 +418,8 @@ instance Resolve C.Type where
         -> C.NameKind
         -> M (C.Type ResolveBindingSpecs)
       auxN mk cName cNameKind = aux mk C.QualDeclId {
-          qualDeclIdName   = cName
-        , qualDeclIdOrigin = C.NameOriginInSource
-        , qualDeclIdKind   = cNameKind
+          qualDeclId     = C.DeclIdNamed cName C.NameOriginInSource
+        , qualDeclIdKind = cNameKind
         }
 
       aux ::
@@ -460,6 +459,8 @@ instance Resolve C.Type where
                         . insertExtType cQualName cQualPrelimDeclId ty
                       return ty
                     Nothing -> return (mk qualDeclIdName)
+        where
+          qualDeclIdName = C.qualDeclIdName cQualDeclId
 
 {-------------------------------------------------------------------------------
   Internal: auxiliary functions

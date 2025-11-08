@@ -108,15 +108,15 @@ getDeclId ::
 getDeclId env qualPrelimDeclId declId =
    case declId of
      C.PrelimDeclIdNamed n ->
-       Right $ C.DeclId n C.NameOriginInSource
+       Right $ C.DeclIdNamed n C.NameOriginInSource
      C.PrelimDeclIdAnon anonId ->
        let orig :: C.NameOrigin
            orig = C.NameOriginGenerated anonId
        in  case nameForAnon <$> findNamedUseOf env qualPrelimDeclId of
-             Nothing   -> Left  $ C.DeclId "unused_anonymous_declaration" orig
-             Just name -> Right $ C.DeclId name                           orig
+             Nothing   -> Left  $ C.DeclIdNamed "unused_anonymous" orig
+             Just name -> Right $ C.DeclIdNamed name               orig
      C.PrelimDeclIdBuiltin name ->
-       Right $ C.DeclId name C.NameOriginInSource
+       Right $ C.DeclIdBuiltin name
 
 {-------------------------------------------------------------------------------
   Use sites
@@ -148,8 +148,8 @@ instance NameUseSites C.CommentRef where
     where
       nameUseSite :: C.PrelimDeclId -> C.DeclId
       nameUseSite qualPrelimDeclId = case qualPrelimDeclId of
-        C.PrelimDeclIdNamed name   -> C.DeclId name C.NameOriginInSource
-        C.PrelimDeclIdBuiltin name -> C.DeclId name C.NameOriginBuiltin
+        C.PrelimDeclIdNamed name   -> C.DeclIdNamed name C.NameOriginInSource
+        C.PrelimDeclIdBuiltin name -> C.DeclIdBuiltin name
         C.PrelimDeclIdAnon _       -> panicPure "Anonymous reference"
 
 instance NameUseSites C.Comment where
@@ -253,11 +253,11 @@ instance NameUseSites C.Type where
       -- NOTE: there /must/ be at least one use site, because we are renaming one!
       nameUseSite :: C.QualPrelimDeclId -> C.DeclId
       nameUseSite qualPrelimDeclId = case qualPrelimDeclId of
-        C.QualPrelimDeclIdNamed   name   _ns -> C.DeclId name C.NameOriginInSource
-        C.QualPrelimDeclIdBuiltin name       -> C.DeclId name C.NameOriginBuiltin
+        C.QualPrelimDeclIdNamed   name   _ns -> C.DeclIdNamed name C.NameOriginInSource
+        C.QualPrelimDeclIdBuiltin name       -> C.DeclIdBuiltin name
         C.QualPrelimDeclIdAnon    anonId _tk -> case findNamedUseOf env qualPrelimDeclId of
           Just useOfAnon ->
-            C.DeclId (nameForAnon useOfAnon) (C.NameOriginGenerated anonId)
+            C.DeclIdNamed (nameForAnon useOfAnon) (C.NameOriginGenerated anonId)
           Nothing -> panicPure "unused anonymous declaration?"
 
 nameUseSitesTypedefRef :: RenameEnv -> TypedefRef HandleMacros -> TypedefRef NameAnon

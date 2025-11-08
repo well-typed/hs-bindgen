@@ -564,16 +564,11 @@ declQualPrelimDeclId Decl{declInfo = DeclInfo{declId}, declKind} =
 declOrigQualPrelimDeclId :: Id p ~ C.DeclId => Decl p -> C.QualPrelimDeclId
 declOrigQualPrelimDeclId Decl{declInfo = DeclInfo{declId}, declKind} =
     C.qualDeclIdToQualPrelimDeclId $
-      C.QualDeclId declIdName declIdOrigin (declKindNameKind declKind)
-  where
-    C.DeclId{..} = declId
+      C.declIdToQualDeclId declId (declKindNameKind declKind)
 
 declQualDeclId :: Id p ~ C.DeclId => Decl p -> C.QualDeclId
-declQualDeclId Decl{declInfo = DeclInfo{declId}, declKind} = C.QualDeclId {
-      qualDeclIdName   = C.declIdName   declId
-    , qualDeclIdOrigin = C.declIdOrigin declId
-    , qualDeclIdKind   = declKindNameKind declKind
-    }
+declQualDeclId Decl{declInfo = DeclInfo{declId}, declKind} =
+    C.declIdToQualDeclId declId (declKindNameKind declKind)
 
 declQualName :: Id p ~ C.DeclId => Decl p -> C.QualName
 declQualName Decl{declInfo = DeclInfo{declId}, declKind} =

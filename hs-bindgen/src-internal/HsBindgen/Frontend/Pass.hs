@@ -4,7 +4,6 @@ module HsBindgen.Frontend.Pass (
   , TypedefRefWrapper(..)
   , NoAnn(..)
   , NoConfig(..)
-  , NoMsg(..)
   ) where
 
 import HsBindgen.Imports
@@ -19,6 +18,8 @@ import HsBindgen.Imports
 --
 -- > type Parsed :: Pass
 -- > data Parsed a
+--
+-- This is an open kind, primarily to avoid 'IsPass' orphans.
 type Pass = PassSimulatedOpenKind -> Star
 
 -- | Internal type used only to simulate an open kind. Not exported.
@@ -92,7 +93,4 @@ data NoAnn = NoAnn
   deriving stock (Show, Eq, Ord)
 
 data NoConfig = NoConfig
-  deriving stock (Show, Eq, Ord)
-
-data NoMsg = NoMsg
   deriving stock (Show, Eq, Ord)
