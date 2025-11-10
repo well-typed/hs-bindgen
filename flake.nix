@@ -31,7 +31,9 @@
         "aarch64-darwin"
         "x86_64-darwin"
       ];
-      perSystem = import ./nix/hs-bindgen.nix { inherit nixpkgs overlays; };
+      perSystem = import ./nix/hs-bindgen.nix {
+        inherit nixpkgs libclang-bindings-src;
+      };
       flake.overlays = overlays;
     };
 }

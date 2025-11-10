@@ -1,61 +1,44 @@
 {
-  pkgs,
+  pkgsDefault,
+  pkgsOverlay,
+  llvmPackages,
+  #
+  additionalPackages ? [ ],
+  appendToShellHook ? "",
 }:
 
 let
-  lib = pkgs.lib;
-  hpkgs = pkgs.haskell.packages;
-  ghcs = {
-    inherit (hpkgs)
-      ghc94
-      ghc96
-      ghc98
-      ghc910
-      ghc912
-      ;
-  };
-  llvms = {
-    llvm18 = pkgs.llvmPackages_18;
-    llvm19 = pkgs.llvmPackages_19;
-    llvm20 = pkgs.llvmPackages_20;
-    llvm21 = pkgs.llvmPackages_21;
-  };
   devShellWith =
-    {
-      haskellPackages ? pkgs.haskellPackages,
-      llvmPackages ? pkgs.llvmPackages,
-      additionalPackages ? [ ],
-      appendToShellHook ? "",
-    }:
-    haskellPackages.shellFor {
+    let
+      hpkgsDefault = pkgsDefault.haskellPackages;
+      hpkgsOverlay = pkgsOverlay.haskellPackages;
+    in
+    hpkgsOverlay.shellFor {
       packages = p: [ p.hs-bindgen ];
       nativeBuildInputs = [
         # Haskell toolchain.
-        haskellPackages.cabal-install
-        haskellPackages.ghc
-        haskellPackages.haskell-language-server
+        hpkgsOverlay.cabal-install
+        hpkgsOverlay.ghc
+        hpkgsOverlay.haskell-language-server
         # Haskell tools.
         # Fix the version of `cabal-fmt` because it compiles only with some
         # versions of GHC.
-        pkgs.haskellPackages.cabal-fmt
+        hpkgsDefault.cabal-fmt
         # Rust.
-        pkgs.rust-bindgen
-        pkgs.rustfmt
+        pkgsOverlay.rust-bindgen
+        pkgsDefault.rustfmt
         # Clang.
         llvmPackages.clang
         llvmPackages.libclang
         llvmPackages.llvm
-        # Bindgen hook.
-        #
-        # NOTE: `hsBindgenHook` collects all library dependencies in the
-        # closure and adds their `CFLAGS` and `CCFLAGS` to
-        # `BINDGEN_EXTRA_CLANG_ARGS`. Since we have GCC in the closure
-        # (and not only Clang), the GCC includes end up in
-        # BINDGEN_EXTRA_CLANG_ARGS which is suboptimal. We could use a
-        # `clangStdenv` Nixpkgs overlay, but that requires recompilation
-        # of the complete toolchain; see, e.g.,
+        # Bindgen hook. NOTE: `hsBindgenHook` collects all library dependencies
+        # in the closure and adds their `CFLAGS` and `CCFLAGS` to
+        # `BINDGEN_EXTRA_CLANG_ARGS`. Since we have GCC in the closure (and not
+        # only Clang), the GCC includes end up in BINDGEN_EXTRA_CLANG_ARGS which
+        # is suboptimal. We could use a `clangStdenv` Nixpkgs overlay, but that
+        # requires recompilation of the complete toolchain; see, e.g.,
         # https://nixos.wiki/wiki/Using_Clang_instead_of_GCC.
-        pkgs.hsBindgenHook
+        pkgsOverlay.hsBindgenHook
       ]
       ++
         # Additional packages (e.g., of example libraries to generate
@@ -74,16 +57,5 @@ let
       + appendToShellHook;
       withHoogle = true;
     };
-  devShells = lib.concatMapAttrs (
-    h: hpkgs:
-    lib.concatMapAttrs (l: lpkgs: {
-      "${h}-${l}" = devShellWith {
-        haskellPackages = hpkgs;
-        llvmPackages = lpkgs;
-      };
-    }) llvms
-  ) ghcs;
 in
-{
-  inherit devShells devShellWith;
-}
+devShellWith
