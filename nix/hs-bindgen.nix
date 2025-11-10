@@ -1,43 +1,76 @@
 {
   nixpkgs,
-  overlays,
+  libclang-bindings-src,
 }:
 
-{ system, pkgs', ... }:
+{
+  system,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
-  pkgsHs = import nixpkgs {
-    inherit system;
-    overlays = [ overlays.default ];
+  ghcs = {
+    ghc94 = "ghc94";
+    ghc96 = "ghc96";
+    ghc98 = "ghc98";
+    ghc910 = "ghc910";
+    ghc912 = "ghc912";
   };
-  hsBindgenDev = import ./hs-bindgen-dev.nix { pkgs = pkgsHs; };
+  llvms = {
+    llvm18 = "18";
+    llvm19 = "19";
+    llvm20 = "20";
+    llvm21 = "21";
+  };
+  pkgsDefault = pkgs;
+  pkgsOverlayWith =
+    {
+      maybeGhc ? null,
+      maybeLlvmPackages ? null,
+    }:
+    import nixpkgs {
+      inherit system;
+      overlays = [
+        (import ./overlay {
+          inherit lib libclang-bindings-src maybeLlvmPackages;
+        }).default
+        (final: prev: {
+          haskellPackages =
+            if maybeGhc == null then prev.haskellPackages else final.haskell.packages.${maybeGhc};
+        })
+      ];
+    };
+  pkgsOverlay = pkgsOverlayWith { };
+  devShellWith = import ./hs-bindgen-dev.nix;
+  devShells = lib.concatMapAttrs (
+    g: ghc:
+    lib.concatMapAttrs (
+      l: llvmVersion:
+      let
+        llvmPackages = pkgs."llvmPackages_${llvmVersion}";
+        pkgsOverlay = pkgsOverlayWith {
+          maybeGhc = ghc;
+          maybeLlvmPackages = llvmPackages;
+        };
+      in
+      {
+        "${g}-${l}" = devShellWith { inherit pkgsDefault pkgsOverlay llvmPackages; };
+      }
+    ) llvms
+  ) ghcs;
 in
 {
   packages = {
-    inherit (pkgsHs) hsBindgenHook hs-bindgen-cli;
+    inherit (pkgsOverlay) hsBindgenHook hs-bindgen-cli;
+    default = pkgsOverlay.hs-bindgen-cli;
   };
 
-  devShells = hsBindgenDev.devShells // {
-    default = pkgsHs.callPackage hsBindgenDev.devShellWith { };
-    pcap = hsBindgenDev.devShellWith {
-      haskellPackages = pkgsHs.haskell.packages.ghc912;
-      llvmPackages = pkgsHs.llvmPackages;
-      additionalPackages = [
-        pkgs'.libpcap
-      ];
-    };
-    wlroots = hsBindgenDev.devShellWith {
-      haskellPackages = pkgsHs.haskell.packages.ghc912;
-      llvmPackages = pkgsHs.llvmPackages;
-      additionalPackages = [
-        pkgs'.pixman
-        pkgs'.wayland
-        pkgs'.wlroots
-      ];
-      appendToShellHook = ''
-        BINDGEN_EXTRA_CLANG_ARGS="-isystem ${pkgs'.wlroots}/include/wlroots-0.19 ''${BINDGEN_EXTRA_CLANG_ARGS}"
-      '';
+  devShells = devShells // {
+    default = devShellWith {
+      inherit pkgsDefault pkgsOverlay;
+      inherit (pkgsDefault) llvmPackages;
     };
   };
-
 }

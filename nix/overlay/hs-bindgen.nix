@@ -1,6 +1,11 @@
+{
+  maybeLlvmPackages ? null,
+}:
+
 final: prev:
 let
   inherit (final) lib;
+  llvmPackages = if maybeLlvmPackages == null then final.llvmPackages else maybeLlvmPackages;
   hlib = (final.haskell.lib.compose);
   hsBindgenPkgNames = [
     "ansi-diff"
@@ -28,14 +33,24 @@ in
         # TODO: The test of `c-expr-runtime` requires `musl` headers, but
         # providing `musl` as test system dependency causes other build errors.
         c-expr-runtime = hlib.dontCheck hsBindgenPkgs.c-expr-runtime;
-        hs-bindgen = hlib.addBuildDepends [ final.hsBindgenHook ] (
-          hlib.addTestToolDepends [
+        # TODO: Test of `hs-bindgen` fails because it run `hs-bindgen-cli` which
+        # is a build output of `hs-bindgen` (chicken-egg problem).
+        hs-bindgen = hlib.overrideCabal (drv: {
+          # Tests depend on executable.
+          preCheck = ''
+            export PATH="$PWD/dist/build/hs-bindgen-cli:$PATH"
+          ''
+          + (drv.preCheck or "");
+          buildDepends = drv.buildDepends or [ ] ++ [
+            final.hsBindgenHook
+          ];
+          testToolDepends = drv.testToolDepends or [ ] ++ [
             final.rust-bindgen
-          ] hsBindgenPkgs.hs-bindgen
-        );
+          ];
+        }) hsBindgenPkgs.hs-bindgen;
       };
-    lib.compose = prev.haskell.lib.compose // final.callPackage ./../hs-bindgen-lib.nix { };
+    lib.compose = prev.haskell.lib.compose // final.callPackage ../hs-bindgen-lib.nix { };
   };
-  hsBindgenHook = final.callPackage ./../hs-bindgen-hook.nix { };
-  hs-bindgen-cli = final.callPackage ./../hs-bindgen-cli.nix { };
+  hsBindgenHook = final.callPackage ../hs-bindgen-hook.nix { inherit llvmPackages; };
+  hs-bindgen-cli = final.callPackage ../hs-bindgen-cli.nix { inherit llvmPackages; };
 }

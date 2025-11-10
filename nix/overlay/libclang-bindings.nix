@@ -1,25 +1,23 @@
 {
   libclang-bindings-src,
+  maybeLlvmPackages ? null,
 }:
 
 final: prev:
 let
-  hlib = final.haskell.lib.compose;
-  inherit (final.llvmPackages) libclang llvm;
+  llvmPackages = if maybeLlvmPackages == null then final.llvmPackages else maybeLlvmPackages;
+  libclang-bindings = import ../libclang-bindings.nix {
+    haskellLib = final.haskell.lib;
+    inherit libclang-bindings-src;
+  };
 in
 {
   haskell = prev.haskell // {
     packageOverrides =
       hfinal: hprev:
-      let
-        libclang-bindings = hfinal.callCabal2nix "libclang-bindings" "${libclang-bindings-src}" { };
-      in
       prev.haskell.packageOverrides hfinal hprev
       // {
-        libclang-bindings = hlib.addBuildDepends [
-          libclang
-          llvm
-        ] libclang-bindings;
+        libclang-bindings = hfinal.callPackage libclang-bindings { inherit llvmPackages; };
       };
   };
 }
