@@ -49,7 +49,7 @@ testTreeFor testResources test@TestCase{testHasOutput, testClangVersion}
   , case clangVersion of
       ClangVersion version  -> not (versionPred version)
       ClangVersionUnknown _ -> True
-  = testGroup (testBaseName test) []
+  = testGroup (testName test) []
 
   | not testHasOutput
   = FailingTrace.check testResources test
