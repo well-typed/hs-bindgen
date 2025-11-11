@@ -49,7 +49,7 @@ import HsBindgen.Util.Tracer
 -------------------------------------------------------------------------------}
 
 data TestCase = TestCase {
-      -- | Name of the test (in the tasty test tree)
+      -- | Name of the test (in the tasty test tree) and the input header
       testName :: TestName
 
       -- | Name of the header file, e.g., "foo.h"
