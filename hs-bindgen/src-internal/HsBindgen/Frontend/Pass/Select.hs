@@ -4,6 +4,7 @@ module HsBindgen.Frontend.Pass.Select (
 
 import Data.Foldable qualified as Foldable
 import Data.List.NonEmpty qualified as NonEmpty
+import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
 import Clang.HighLevel.Types
@@ -72,6 +73,12 @@ selectDecls
 
     in (    unitSelectWith $ reverse selDeclsReversed
        ,    selectStatusMsgs
+         -- If there were no predicate matches we issue a warning to the user.
+         -- Only warn if there were successfully parsed declarations to select from.
+         ++ [ SelectNoDeclarationsMatched
+            | Set.null rootIds
+            , not (Map.null index.succeeded)
+            ]
          -- TODO: #1037.
          -- ++ toUnavailableMsgs        unavailableRootIds
          -- ++ toUnavailableMsgs        unavailableTransIds

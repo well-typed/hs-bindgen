@@ -89,7 +89,12 @@ testCases = manualTestCases ++ [
     , defaultTest "fixedwidth"
     , defaultTest "flam"
     , defaultTest "forward_declaration"
-    , defaultTest "headers"
+    , (defaultTest "headers") {
+          testTracePredicate = singleTracePredicate $ \case
+            TraceFrontend (FrontendSelect SelectNoDeclarationsMatched) ->
+              Just (Expected ())
+            _otherwise -> Nothing
+        }
     , defaultTest "hsb_complex_test"
     , defaultTest "macro_functions"
     , defaultTest "macro_typedef_scope"
@@ -121,8 +126,13 @@ testCases = manualTestCases ++ [
 
     , testDiagnostic "attributes" $ \diag ->
         diagnosticCategoryText diag == "Nullability Issue"
-    , testDiagnostic "unnamed-struct" $ \diag ->
-        diagnosticCategoryText diag == "Semantic Issue"
+    , testTraceSimple "unnamed-struct" $ \case
+        TraceFrontend (FrontendClang (ClangDiagnostic diag))
+          | diagnosticCategoryText diag == "Semantic Issue" ->
+            Just $ Expected ()
+        TraceFrontend (FrontendSelect SelectNoDeclarationsMatched) ->
+          Just Tolerated
+        _otherwise -> Nothing
 
       --
       -- Tests that require a trace predicate
@@ -614,6 +624,16 @@ testCases = manualTestCases ++ [
           testClangVersion   = Just (>= (16, 0, 0))
         , testTracePredicate = singleTracePredicate $ \case
             TraceFrontend (FrontendSelect (SelectParseFailure (AttachedParseMsg _ ParseUnsupportedTLS))) ->
+              Just $ Expected ()
+            _otherwise ->
+              Nothing
+        }
+    , (defaultFailingTest "select_no_match") {
+          testOnFrontendConfig = \cfg -> cfg {
+              frontendSelectPredicate = BIf (SelectDecl (DeclNameMatches "this_pattern_will_never_match"))
+            }
+        , testTracePredicate = singleTracePredicate $ \case
+            TraceFrontend (FrontendSelect SelectNoDeclarationsMatched) ->
               Just $ Expected ()
             _otherwise ->
               Nothing

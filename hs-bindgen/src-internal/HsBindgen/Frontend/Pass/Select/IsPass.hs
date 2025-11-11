@@ -111,6 +111,8 @@ data SelectMsg =
     -- | Delayed parse message for declarations the user wants to select, but
     -- we have failed to parse.
   | SelectParseFailure AttachedParseMsg
+    -- | Inform the user that no declarations matched the select predicate.
+  | SelectNoDeclarationsMatched
   deriving stock (Show)
 
 instance PrettyForTrace SelectMsg where
@@ -136,6 +138,8 @@ instance PrettyForTrace SelectMsg where
       ]
     SelectParseFailure x ->
       "Failed to select declaration; during parse:" <+> prettyForTrace x
+    SelectNoDeclarationsMatched ->
+      "No declarations matched the select predicate"
     where
       prettyInfo :: C.QualPrelimDeclId -> SingleLoc -> CtxDoc
       prettyInfo n l = PP.hsep [
@@ -152,6 +156,7 @@ instance IsTrace Level SelectMsg where
     SelectParseSuccess x           -> getDefaultLogLevel x
     SelectParseNotAttempted{}      -> Warning
     SelectParseFailure x           -> getDefaultLogLevel x
+    SelectNoDeclarationsMatched    -> Warning
   getSource  = const HsBindgen
   getTraceId = \case
     SelectSelectStatus{}           -> "select"
@@ -160,6 +165,7 @@ instance IsTrace Level SelectMsg where
     SelectParseSuccess x           -> "select-" <> getTraceId x
     SelectParseNotAttempted{}      -> "select-parse"
     SelectParseFailure x           -> "select-" <> getTraceId x
+    SelectNoDeclarationsMatched    -> "select"
 
 {-------------------------------------------------------------------------------
   CoercePass
