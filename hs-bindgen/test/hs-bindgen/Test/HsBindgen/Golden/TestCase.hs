@@ -10,6 +10,7 @@ module Test.HsBindgen.Golden.TestCase (
   , defaultTest
   , defaultFailingTest
     -- ** Successful tests
+  , testVariant
   , testTrace
   , testTraceSimple
   , testTraceCustom
@@ -149,6 +150,16 @@ defaultTest fp = TestCase{
     , testPrescriptiveBindingSpec = Nothing
     , testRustBindgen             = RustBindgenRun
     , testPathStyle               = Short
+    }
+
+testVariant ::
+     String --  ^ Filename without the @.h@ extension
+  -> String --  ^ Variant suffix
+  -> TestCase
+testVariant filename suffix = (defaultTest filename){
+      testSuffix      = suffix
+      -- For variants, do not run `rust-bindgen` again.
+    , testRustBindgen = RustBindgenIgnore
     }
 
 testTrace :: String -> TracePredicate TraceMsg -> TestCase

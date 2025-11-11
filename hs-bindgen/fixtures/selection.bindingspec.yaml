@@ -4,8 +4,15 @@ version:
 hsmodule: Example
 types:
 - headers: selection.h
-  cname: struct Baz
-  hsname: Baz
+  cname: struct OkAfter
+  hsname: OkAfter
+  instances:
+  - Eq
+  - Show
+  - Storable
+- headers: selection.h
+  cname: struct OkBefore
+  hsname: OkBefore
   instances:
   - Eq
   - Show

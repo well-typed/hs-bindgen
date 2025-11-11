@@ -2,51 +2,72 @@
 
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
-pub struct Baz {
+pub struct OkBefore {
     pub x: ::std::os::raw::c_int,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
-    ["Size of Baz"][::std::mem::size_of::<Baz>() - 4usize];
-    ["Alignment of Baz"][::std::mem::align_of::<Baz>() - 4usize];
-    ["Offset of field: Baz::x"][::std::mem::offset_of!(Baz, x) - 0usize];
+    ["Size of OkBefore"][::std::mem::size_of::<OkBefore>() - 4usize];
+    ["Alignment of OkBefore"][::std::mem::align_of::<OkBefore>() - 4usize];
+    ["Offset of field: OkBefore::x"][::std::mem::offset_of!(OkBefore, x) - 0usize];
 };
 #[repr(C)]
 #[repr(align(16))]
 #[derive(Debug, Copy, Clone)]
-pub struct Foo {
+pub struct Fail {
     pub x: u128,
-    pub y: Baz,
+    pub y: OkBefore,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
-    ["Size of Foo"][::std::mem::size_of::<Foo>() - 32usize];
-    ["Alignment of Foo"][::std::mem::align_of::<Foo>() - 16usize];
-    ["Offset of field: Foo::x"][::std::mem::offset_of!(Foo, x) - 0usize];
-    ["Offset of field: Foo::y"][::std::mem::offset_of!(Foo, y) - 16usize];
+    ["Size of Fail"][::std::mem::size_of::<Fail>() - 32usize];
+    ["Alignment of Fail"][::std::mem::align_of::<Fail>() - 16usize];
+    ["Offset of field: Fail::x"][::std::mem::offset_of!(Fail, x) - 0usize];
+    ["Offset of field: Fail::y"][::std::mem::offset_of!(Fail, y) - 16usize];
 };
 #[repr(C)]
 #[repr(align(16))]
 #[derive(Debug, Copy, Clone)]
-pub struct BarByValue {
-    pub x: Foo,
+pub struct DependOnFailByValue {
+    pub x: Fail,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
-    ["Size of BarByValue"][::std::mem::size_of::<BarByValue>() - 32usize];
-    ["Alignment of BarByValue"][::std::mem::align_of::<BarByValue>() - 16usize];
-    ["Offset of field: BarByValue::x"][::std::mem::offset_of!(BarByValue, x) - 0usize];
+    [
+        "Size of DependOnFailByValue",
+    ][::std::mem::size_of::<DependOnFailByValue>() - 32usize];
+    [
+        "Alignment of DependOnFailByValue",
+    ][::std::mem::align_of::<DependOnFailByValue>() - 16usize];
+    [
+        "Offset of field: DependOnFailByValue::x",
+    ][::std::mem::offset_of!(DependOnFailByValue, x) - 0usize];
 };
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
-pub struct BarByReference {
-    pub x: *mut Foo,
+pub struct DependOnFailByReference {
+    pub x: *mut Fail,
 }
 #[allow(clippy::unnecessary_operation, clippy::identity_op)]
 const _: () = {
-    ["Size of BarByReference"][::std::mem::size_of::<BarByReference>() - 8usize];
-    ["Alignment of BarByReference"][::std::mem::align_of::<BarByReference>() - 8usize];
     [
-        "Offset of field: BarByReference::x",
-    ][::std::mem::offset_of!(BarByReference, x) - 0usize];
+        "Size of DependOnFailByReference",
+    ][::std::mem::size_of::<DependOnFailByReference>() - 8usize];
+    [
+        "Alignment of DependOnFailByReference",
+    ][::std::mem::align_of::<DependOnFailByReference>() - 8usize];
+    [
+        "Offset of field: DependOnFailByReference::x",
+    ][::std::mem::offset_of!(DependOnFailByReference, x) - 0usize];
+};
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct OkAfter {
+    pub x: ::std::os::raw::c_int,
+}
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+    ["Size of OkAfter"][::std::mem::size_of::<OkAfter>() - 4usize];
+    ["Alignment of OkAfter"][::std::mem::align_of::<OkAfter>() - 4usize];
+    ["Offset of field: OkAfter::x"][::std::mem::offset_of!(OkAfter, x) - 0usize];
 };

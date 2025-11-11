@@ -7,14 +7,14 @@ import qualified Foreign as F
 import qualified Foreign.C as FC
 import Prelude ((<*>), Eq, Int, Show, pure)
 
-{-| __C declaration:__ @Baz@
+{-| __C declaration:__ @OkBefore@
 
     __defined at:__ @selection.h:1:8@
 
     __exported by:__ @selection.h@
 -}
-data Baz = Baz
-  { baz_x :: FC.CInt
+data OkBefore = OkBefore
+  { okBefore_x :: FC.CInt
     {- ^ __C declaration:__ @x@
 
          __defined at:__ @selection.h:2:7@
@@ -24,7 +24,7 @@ data Baz = Baz
   }
   deriving stock (Eq, Show)
 
-instance F.Storable Baz where
+instance F.Storable OkBefore where
 
   sizeOf = \_ -> (4 :: Int)
 
@@ -32,11 +32,47 @@ instance F.Storable Baz where
 
   peek =
     \ptr0 ->
-          pure Baz
+          pure OkBefore
       <*> F.peekByteOff ptr0 (0 :: Int)
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
-          Baz baz_x2 -> F.pokeByteOff ptr0 (0 :: Int) baz_x2
+          OkBefore okBefore_x2 ->
+            F.pokeByteOff ptr0 (0 :: Int) okBefore_x2
+
+{-| __C declaration:__ @OkAfter@
+
+    __defined at:__ @selection.h:26:8@
+
+    __exported by:__ @selection.h@
+-}
+data OkAfter = OkAfter
+  { okAfter_x :: FC.CInt
+    {- ^ __C declaration:__ @x@
+
+         __defined at:__ @selection.h:27:7@
+
+         __exported by:__ @selection.h@
+    -}
+  }
+  deriving stock (Eq, Show)
+
+instance F.Storable OkAfter where
+
+  sizeOf = \_ -> (4 :: Int)
+
+  alignment = \_ -> (4 :: Int)
+
+  peek =
+    \ptr0 ->
+          pure OkAfter
+      <*> F.peekByteOff ptr0 (0 :: Int)
+
+  poke =
+    \ptr0 ->
+      \s1 ->
+        case s1 of
+          OkAfter okAfter_x2 ->
+            F.pokeByteOff ptr0 (0 :: Int) okAfter_x2
