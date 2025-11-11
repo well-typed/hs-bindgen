@@ -1,0 +1,190 @@
+name: Comprehensive CI "Release" flow
+
+# Manual trigger only - for pre-release validation and comprehensive testing
+# on:
+#   workflow_dispatch:
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  merge_group:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # Test all LLVM versions (14-21) on recommended configuration
+  test-all-llvm-and-ghc-versions:
+    name: Test All LLVM and GHC Versions (${{ matrix.runner }}, GHC ${{ matrix.ghc-version }}, LLVM ${{ matrix.llvm-version }})
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        # runner: [windows-latest, ubuntu-latest, macos-latest]
+        runner: [windows-latest]
+        ghc-version: ['9.2.8', '9.4.8', '9.6.7', '9.8.4', '9.10.3', '9.12.2']
+        llvm-version: ['14', '16', '18', '20', '21']
+        exclude:
+          # LLVM 21 not available on macOS ARM64
+          - runner: macos-latest
+            llvm-version: '21'
+
+    steps:
+      - name: Set git to use LF
+        run: |
+          git config --global core.autocrlf false
+          git config --global core.eol lf
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build and test `hs-bindgen` and manual
+        uses: ./.github/actions/base
+        with:
+          runner: ${{ matrix.runner }}
+          ghc: ${{ matrix.ghc-version }}
+          llvm: ${{ matrix.llvm-version }}
+
+  cabal-check:
+    name: Cabal check (${{ matrix.package }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package:
+          - ansi-diff
+          - c-expr-runtime
+          - c-expr-dsl
+          - hs-bindgen
+          - hs-bindgen-runtime
+          - hs-bindgen-test-runtime
+        cabal-version: ['3.16']
+        ghc-version: ['9.4.8']
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v5
+
+      - name: 🛠️ Setup Haskell
+        id: setup-haskell
+        uses: haskell-actions/setup@v2
+        with:
+          ghc-version: ${{ matrix.ghc-version }}
+          cabal-version: ${{ matrix.cabal-version }}
+
+      - name: 💾 Run cabal check
+        run: |
+          cd ${{ matrix.package }}
+          cabal check
+
+  sdist-build:
+    name: Build from sdist (ubuntu-latest, GHC ${{ matrix.ghc }}, LLVM ${{ matrix.llvm }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        cabal-version: ['3.16']
+        ghc-version: ['9.2.8', '9.4.8', '9.6.7', '9.8.4', '9.10.3', '9.12.2']
+        llvm-version: ['14', '16', '18', '20', '21']
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v5
+
+      - name: 🛠️ Setup Haskell
+        id: setup-haskell
+        uses: haskell-actions/setup@v2
+        with:
+          ghc-version: ${{ matrix.ghc-version }}
+          cabal-version: ${{ matrix.cabal-version }}
+
+      - name: 🛠️ Setup LLVM/Clang
+        uses: ./.github/actions/setup-llvm
+        with:
+          version: ${{ matrix.llvm-version }}
+
+      - name: 🛠️ cabal.project
+        run: cp cabal.project.ci cabal.project
+
+      - name: 💾 Generate all sdists
+        run: cabal sdist all
+
+      - name: 💾 Test all sdists can be built
+        run: |
+          TEMP_DIR=$(mktemp -d)
+
+          # Extract all sdists
+          for SDIST_FILE in dist-newstyle/sdist/*.tar.gz; do
+            tar xzf "$SDIST_FILE" -C "$TEMP_DIR"
+          done
+
+          cd "$TEMP_DIR"
+
+          # Create cabal.project with all extracted packages
+          echo "packages:" > cabal.project
+          for dir in */; do
+            echo "  ${dir%/}" >> cabal.project
+          done
+
+          cabal build all
+
+  # Build Haddock documentation for all packages
+  build-haddock:
+    name: Build Haddock (ubuntu-latest, GHC ${{ matrix.ghc-version }}, LLVM ${{ matrix.llvm-version }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: true
+      matrix:
+        cabal-version: ['3.16']
+        # Doesn't run GHC 9.2.8 due to a haddock bug
+        #
+        ghc-version: [ '9.4.8', '9.6.7', '9.8.4', '9.10.3', '9.12.2']
+        llvm-version: ['14', '16', '18', '20', '21']
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v5
+
+      - name: 🛠️ Setup Haskell
+        id: setup-haskell
+        uses: haskell-actions/setup@v2
+        with:
+          ghc-version: ${{ matrix.ghc-version }}
+          cabal-version: ${{ matrix.cabal-version }}
+
+      - name: 🛠️ Setup LLVM/Clang
+        uses: ./.github/actions/setup-llvm
+        with:
+          version: ${{ matrix.llvm-version }}
+
+      - name: 🛠️ cabal.project
+        run: cp cabal.project.ci cabal.project
+
+      - name: 💾 Generate Cabal plan
+        run: cabal build all --dry-run
+
+      - name: 💾 Restore Cabal dependencies
+        id: cache-cabal-restore
+        uses: actions/cache/restore@v4
+        env:
+          key: haddock-${{ runner.os }}-ghc-${{ steps.setup-haskell.outputs.ghc-version }}-cabal-${{ steps.setup-haskell.outputs.cabal-version }}-llvm-${{ matrix.llvm-version }}
+        with:
+          path: ${{ steps.setup-haskell.outputs.cabal-store }}
+          key: ${{ env.key }}-plan-${{ hashFiles('./dist-newstyle/cache/plan.json') }}
+          restore-keys: ${{ env.key }}-
+
+      - name: 🛠️ Build dependencies with Haddock
+        run: cabal build all --only-dependencies --enable-documentation
+
+      - name: 💾 Save Cabal dependencies
+        uses: actions/cache/save@v4
+        if: ${{ steps.cache-cabal-restore.outputs.cache-hit != 'true' }}
+        with:
+          path: ${{ steps.setup-haskell.outputs.cabal-store }}
+          key: ${{ steps.cache-cabal-restore.outputs.cache-primary-key }}
+
+      - name: 🏗️ Build Haddock for all packages
+        run: cabal haddock all --haddock-for-hackage

@@ -432,8 +432,8 @@ test-suite test-th
 
 test-suite test-pp
   type:               exitcode-stdio-1.0
-  main-is:            ../th/test-th.hs
-  hs-source-dirs:     test/pp
+  main-is:            test-th.hs
+  hs-source-dirs:     test/pp test/th
   include-dirs:       examples
   default-language:   GHC2021
   other-modules:
