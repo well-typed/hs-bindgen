@@ -5,7 +5,6 @@ module Test.HsBindgen.Golden.TestCase (
     -- * Definition
     TestCase(..)
   , TestRustBindgen(..)
-  , testBaseName
   , testInputInclude
     -- * Construction
   , defaultTest
@@ -125,12 +124,6 @@ data TestRustBindgen =
 testInputInclude :: TestCase -> UncheckedHashIncludeArg
 testInputInclude TestCase{testInputHeaderFileName} = testInputHeaderFileName
 
-testBaseName :: TestCase -> String
-testBaseName test =
-  intercalate "." $ testName test : [ suffix | not $ null suffix ]
-  where
-    suffix   = testSuffix test
-
 testInputPath :: TestCase -> FilePath
 testInputPath TestCase{testInputDir, testInputHeaderFileName} =
     testInputDir </> testInputHeaderFileName
@@ -161,13 +154,16 @@ defaultTest fp = TestCase{
 
 testVariant ::
      String --  ^ Filename without the @.h@ extension
-  -> String --  ^ Variant suffix
+  -> String --  ^ Variant suffix, appended to the output directory
   -> TestCase
-testVariant filename suffix = (defaultTest filename){
-      testSuffix      = suffix
-      -- For variants, do not run `rust-bindgen` again.
-    , testRustBindgen = RustBindgenIgnore
-    }
+testVariant filename suffix = defTest{
+        testName        = testName defTest      ++ "." ++ suffix
+      , testOutputDir   = testOutputDir defTest ++ "." ++ suffix
+        -- For variants, do not run `rust-bindgen` again.
+      , testRustBindgen = RustBindgenIgnore
+      }
+  where
+    defTest = defaultTest filename
 
 testTrace :: String -> TracePredicate TraceMsg -> TestCase
 testTrace filename trace =
