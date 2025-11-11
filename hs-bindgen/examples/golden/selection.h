@@ -1,23 +1,28 @@
-struct Baz {
+struct OkBefore {
   int x;
 };
 
-// `struct Foo` can not be translated because it contains a `long double`.
-struct Foo {
+// `struct Fail` can not be translated because it contains a `long double`.
+struct Fail {
   long double x;
-  // We are not aware that `struct Foo` depends on `struct Baz`, but that is not
-  // a problem, because we can not generate bindings for `struct Foo` anyways.
-  struct Baz y;
+  // We are not aware that `struct Fail` depends on `struct OkBefore`, but that
+  // is not a problem, because we can not generate bindings for `struct Fail`
+  // anyways.
+  struct OkBefore y;
 };
 
-// `Bar` depends on `struct Foo` by value. We can not directly detect that a
+// Depend on `struct Fail` by value. We can not directly detect that a
 // dependency is missing.
-struct BarByValue {
-  struct Foo x;
+struct DependOnFailByValue {
+  struct Fail x;
 };
 
-// `Bar` depends on `struct Foo` by reference. We can not directly detect that a
+// Depend on `struct Fail` by reference. We can not directly detect that a
 // dependency is missing.
-struct BarByReference {
-  struct Foo *x;
+struct DependOnFailByReference {
+  struct Fail *x;
+};
+
+struct OkAfter {
+  int x;
 };

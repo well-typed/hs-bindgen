@@ -1,28 +1,55 @@
 -- addDependentFile examples/golden/selection.h
-{-| __C declaration:__ @Baz@
+{-| __C declaration:__ @OkBefore@
 
     __defined at:__ @selection.h:1:8@
 
     __exported by:__ @selection.h@
 -}
-data Baz
-    = Baz {baz_x :: CInt
-           {- ^ __C declaration:__ @x@
+data OkBefore
+    = OkBefore {okBefore_x :: CInt
+                {- ^ __C declaration:__ @x@
 
-                __defined at:__ @selection.h:2:7@
+                     __defined at:__ @selection.h:2:7@
 
-                __exported by:__ @selection.h@
-           -}}
-      {- ^ __C declaration:__ @Baz@
+                     __exported by:__ @selection.h@
+                -}}
+      {- ^ __C declaration:__ @OkBefore@
 
            __defined at:__ @selection.h:1:8@
 
            __exported by:__ @selection.h@
       -}
     deriving stock (Eq, Show)
-instance Storable Baz
+instance Storable OkBefore
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure Baz <*> peekByteOff ptr_0 (0 :: Int)
+          peek = \ptr_0 -> pure OkBefore <*> peekByteOff ptr_0 (0 :: Int)
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Baz baz_x_3 -> pokeByteOff ptr_1 (0 :: Int) baz_x_3
+                                   OkBefore okBefore_x_3 -> pokeByteOff ptr_1 (0 :: Int) okBefore_x_3
+{-| __C declaration:__ @OkAfter@
+
+    __defined at:__ @selection.h:26:8@
+
+    __exported by:__ @selection.h@
+-}
+data OkAfter
+    = OkAfter {okAfter_x :: CInt
+               {- ^ __C declaration:__ @x@
+
+                    __defined at:__ @selection.h:27:7@
+
+                    __exported by:__ @selection.h@
+               -}}
+      {- ^ __C declaration:__ @OkAfter@
+
+           __defined at:__ @selection.h:26:8@
+
+           __exported by:__ @selection.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable OkAfter
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure OkAfter <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   OkAfter okAfter_x_3 -> pokeByteOff ptr_1 (0 :: Int) okAfter_x_3

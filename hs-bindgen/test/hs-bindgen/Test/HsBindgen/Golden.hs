@@ -555,7 +555,7 @@ testCases = manualTestCases ++ [
                 }
             }
         }
-    , (defaultTest "macro_strings") {
+    , (defaultTest "macro_strings"){
           testRustBindgen = RustBindgenFail
         }
     , (defaultTest "named_vs_anon"){
@@ -583,14 +583,19 @@ testCases = manualTestCases ++ [
             _otherwise ->
               Nothing
         }
-    , testTraceCustom "selection" ["Foo", "BarByValue", "BarByReference", "Baz"] $ \case
-        TraceFrontend (FrontendSelect (SelectParseFailure _)) ->
-          Just $ Expected "Foo"
-        TraceFrontend (FrontendSelect (TransitiveDependencyOfDeclarationUnavailable _ (UnavailableParseFailed _) decl)) ->
-          Just $ expectFromDeclSelect decl
-        TraceFrontend (FrontendSelect (SelectStatusInfo (Selected SelectionRoot) _)) ->
-          Just $ Expected "Baz"
-        _otherwise -> Nothing
+    , testTraceCustom "selection" [
+          "Fail"
+        , "DependOnFailByValue"
+        , "DependOnFailByReference"
+        , "OkBefore", "OkAfter"
+        ] $ \case
+          TraceFrontend (FrontendSelect (SelectParseFailure _)) ->
+            Just $ Expected "Fail"
+          TraceFrontend (FrontendSelect (TransitiveDependencyOfDeclarationUnavailable _ (UnavailableParseFailed _) decl)) ->
+            Just $ expectFromDeclSelect decl
+          TraceFrontend (FrontendSelect (SelectStatusInfo (Selected SelectionRoot) decl)) ->
+            Just $ expectFromDeclSelect decl
+          _otherwise -> Nothing
     , (defaultTest "program_slicing_selection"){
           testOnFrontendConfig = \cfg -> cfg{
               frontendParsePredicate  = BTrue

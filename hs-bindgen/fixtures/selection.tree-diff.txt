@@ -4,8 +4,9 @@ TranslationUnit {
       declInfo = DeclInfo {
         declLoc = "selection.h:1:8",
         declId = NamePair {
-          nameC = Name "Baz",
-          nameHsIdent = Identifier "Baz"},
+          nameC = Name "OkBefore",
+          nameHsIdent = Identifier
+            "OkBefore"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -17,7 +18,7 @@ TranslationUnit {
       declKind = DeclStruct
         Struct {
           structNames = RecordNames
-            (Name "@NsConstr" "Baz"),
+            (Name "@NsConstr" "OkBefore"),
           structSizeof = 4,
           structAlignment = 4,
           structFields = [
@@ -27,7 +28,47 @@ TranslationUnit {
                 fieldName = NamePair {
                   nameC = Name "x",
                   nameHsIdent = Identifier
-                    "baz_x"},
+                    "okBefore_x"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec
+        CTypeSpec {
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "selection.h:26:8",
+        declId = NamePair {
+          nameC = Name "OkAfter",
+          nameHsIdent = Identifier
+            "OkAfter"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["selection.h"],
+            headerInclude = "selection.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "OkAfter"),
+          structSizeof = 4,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "selection.h:27:7",
+                fieldName = NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = Identifier
+                    "okAfter_x"},
                 fieldComment = Nothing},
               structFieldType = TypePrim
                 (PrimIntegral PrimInt Signed),
