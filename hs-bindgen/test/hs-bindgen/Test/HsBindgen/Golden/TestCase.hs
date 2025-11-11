@@ -5,6 +5,7 @@ module Test.HsBindgen.Golden.TestCase (
     -- * Definition
     TestCase(..)
   , TestRustBindgen(..)
+  , testBaseName
   , testInputInclude
     -- * Construction
   , defaultTest
@@ -123,6 +124,12 @@ data TestRustBindgen =
 
 testInputInclude :: TestCase -> UncheckedHashIncludeArg
 testInputInclude TestCase{testInputHeaderFileName} = testInputHeaderFileName
+
+testBaseName :: TestCase -> String
+testBaseName test =
+  intercalate "." $ testName test : [ suffix | not $ null suffix ]
+  where
+    suffix   = testSuffix test
 
 testInputPath :: TestCase -> FilePath
 testInputPath TestCase{testInputDir, testInputHeaderFileName} =

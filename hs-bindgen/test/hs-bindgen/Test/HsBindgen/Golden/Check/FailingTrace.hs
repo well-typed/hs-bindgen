@@ -19,7 +19,7 @@ import HsBindgen.Util.Tracer
 -------------------------------------------------------------------------------}
 
 check :: IO TestResources -> TestCase -> TestTree
-check testResources test = testCase (testName test) $ do
+check testResources test = testCase (testBaseName test) $ do
     -- We ignore any declarations that might have been successful
     let artefacts = FinalDecls :* Nil
     -- Use 'runTestHsBindgen'' to avoid that expected error traces clutter the

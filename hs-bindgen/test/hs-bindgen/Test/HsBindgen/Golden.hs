@@ -49,7 +49,7 @@ testTreeFor testResources test@TestCase{testHasOutput, testClangVersion}
   , case clangVersion of
       ClangVersion version  -> not (versionPred version)
       ClangVersionUnknown _ -> True
-  = testGroup (testName test) []
+  = testGroup (testBaseName test) []
 
   | not testHasOutput
   = FailingTrace.check testResources test
@@ -583,7 +583,7 @@ testCases = manualTestCases ++ [
             _otherwise ->
               Nothing
         }
-    , testTraceCustom "selection" [
+    , testTraceCustom "selection_fail" [
           "Fail"
         , "DependOnFailByValue"
         , "DependOnFailByReference"
@@ -596,6 +596,57 @@ testCases = manualTestCases ++ [
           TraceFrontend (FrontendSelect (SelectStatusInfo (Selected SelectionRoot) decl)) ->
             Just $ expectFromDeclSelect decl
           _otherwise -> Nothing
+    , (testVariant "selection_fail" "1.exclude_failed"){
+          testOnFrontendConfig = \cfg -> cfg{
+              frontendSelectPredicate = BAnd
+                (       BIf $ SelectHeader   FromMainHeaders)
+                (BNot $ BIf $ SelectDecl   $ DeclNameMatches "struct Fail")
+            }
+        , testTracePredicate = customTracePredicate' [
+              "DependOnFailByValue"
+            , "DependOnFailByReference"
+            , "OkBefore", "OkAfter"
+            ] $ \case
+              TraceFrontend (FrontendSelect (TransitiveDependencyOfDeclarationUnavailable _ (UnavailableParseFailed _) decl)) ->
+                Just $ expectFromDeclSelect decl
+              TraceFrontend (FrontendSelect (SelectStatusInfo (Selected SelectionRoot) decl)) ->
+                Just $ expectFromDeclSelect decl
+              _otherwise -> Nothing
+        }
+    , (testVariant "selection_fail" "2.program_slicing"){
+          testOnFrontendConfig = \cfg -> cfg{
+              frontendSelectPredicate = BAnd
+                (       BIf $ SelectHeader   FromMainHeaders)
+                (BNot $ BIf $ SelectDecl   $ DeclNameMatches "struct Fail")
+            , frontendProgramSlicing = EnableProgramSlicing
+            }
+        , testTracePredicate = customTracePredicate' [
+              "Fail"
+            , "DependOnFailByValue"
+            , "DependOnFailByReference"
+            , "OkBefore", "OkAfter"
+            ] $ \case
+              TraceFrontend (FrontendSelect (SelectDeclarationUnavailable i)) ->
+                Just $ expectFromQualPrelimDeclId i
+              TraceFrontend (FrontendSelect (TransitiveDependencyOfDeclarationUnavailable _ (UnavailableParseFailed _) decl)) ->
+                Just $ expectFromDeclSelect decl
+              TraceFrontend (FrontendSelect (SelectStatusInfo (Selected SelectionRoot) decl)) ->
+                Just $ expectFromDeclSelect decl
+              _otherwise -> Nothing
+        , testHasOutput = False
+        }
+    , (testVariant "selection_fail" "3.select_ok"){
+          testOnFrontendConfig = \cfg -> cfg{
+              frontendSelectPredicate = BAnd
+                (       BIf $ SelectDecl $ DeclNameMatches "struct OkBefore")
+                (BNot $ BIf $ SelectDecl $ DeclNameMatches "struct Fail")
+            , frontendProgramSlicing = EnableProgramSlicing
+            }
+        , testTracePredicate = customTracePredicate' ["OkBefore"] $ \case
+              TraceFrontend (FrontendSelect (SelectStatusInfo (Selected SelectionRoot) decl)) ->
+                Just $ expectFromDeclSelect decl
+              _otherwise -> Nothing
+        }
     , (defaultTest "program_slicing_selection"){
           testOnFrontendConfig = \cfg -> cfg{
               frontendParsePredicate  = BTrue
