@@ -56,7 +56,7 @@ testUnresolvedInclude testResources = testCase "unresolved include throws TraceE
     writeFile tempHeader "#include <nonexistent/totally-bogus-header-12345.h>\n"
 
     let test = (defaultFailingTest "test-unresolved") {
-            testDir = tmpDir
+            testInputDir = tmpDir
             -- Tolerate all traces - we want to test TraceException propagation
           , testTracePredicate = customTracePredicate [] $ \_ -> Just Tolerated
           }

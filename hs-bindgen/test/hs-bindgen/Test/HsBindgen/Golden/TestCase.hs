@@ -25,7 +25,7 @@ module Test.HsBindgen.Golden.TestCase (
   ) where
 
 import Control.Exception (Exception (..), SomeException (..), handle)
-import System.FilePath ((</>))
+import System.FilePath
 import Test.Common.HsBindgen.Trace (reportTrace)
 import Test.Common.HsBindgen.TracePredicate
 import Test.HsBindgen.Resources
@@ -52,8 +52,15 @@ data TestCase = TestCase {
       -- | Name of the test (in the tasty test tree)
       testName :: TestName
 
-      -- | Location of the input header, relative to the package root
-    , testDir :: FilePath
+      -- | Name of the header file, e.g., "foo.h"
+    , testInputHeaderFileName :: String
+
+      -- | Directory that the input header is in, relative to the package root
+    , testInputDir :: FilePath
+
+      -- | Directory where output files should be stored, relative to the
+      -- package root
+    , testOutputDir :: FilePath
 
       -- | Predicate for evaluating the trace messages
     , testTracePredicate :: TracePredicate TraceMsg
@@ -114,22 +121,24 @@ data TestRustBindgen =
 -------------------------------------------------------------------------------}
 
 testInputInclude :: TestCase -> UncheckedHashIncludeArg
-testInputInclude TestCase{testName} = testName ++ ".h"
+testInputInclude TestCase{testInputHeaderFileName} = testInputHeaderFileName
 
 testInputPath :: TestCase -> FilePath
-testInputPath TestCase{testDir, testName} =
-    testDir </> testName ++ ".h"
+testInputPath TestCase{testInputDir, testInputHeaderFileName} =
+    testInputDir </> testInputHeaderFileName
 
 {-------------------------------------------------------------------------------
   Construction
 -------------------------------------------------------------------------------}
 
 defaultTest ::
-     String --  ^ Filename without the @.h@ extension
+     String --  ^ Filepath to the header file without the @.h@ extension
   -> TestCase
-defaultTest filename = TestCase{
-      testName                    = filename
-    , testDir                     = "examples/golden"
+defaultTest fp = TestCase{
+      testName                    = fp
+    , testInputHeaderFileName     = fp <.> "h"
+    , testInputDir                = "examples" </> "golden"
+    , testOutputDir               = "fixtures" </> fp
     , testTracePredicate          = defaultTracePredicate
     , testHasOutput               = True
     , testClangVersion            = Nothing
@@ -179,7 +188,7 @@ testDiagnostic filename p =
 defaultFailingTest :: String -> TestCase
 defaultFailingTest filename = (defaultTest filename){
       testHasOutput = False
-    , testDir       = "examples/failing"
+    , testInputDir  = "examples/failing"
     }
 
 failingTestTrace :: String -> TracePredicate TraceMsg -> TestCase
@@ -209,7 +218,7 @@ failingTestCustom filename expected trace =
 getTestBootConfig :: IO TestResources -> TestCase -> IO BootConfig
 getTestBootConfig testResources TestCase{..} = do
     root <- getTestPackageRoot testResources
-    clangArgsConfig <- getTestDefaultClangArgsConfig testResources [testDir]
+    clangArgsConfig <- getTestDefaultClangArgsConfig testResources [testInputDir]
     return $ testOnBootConfig BootConfig {
         bootClangArgsConfig = clangArgsConfig {
             builtinIncDir = BuiltinIncDirDisable

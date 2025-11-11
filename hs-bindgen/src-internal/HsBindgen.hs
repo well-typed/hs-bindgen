@@ -9,6 +9,7 @@ module HsBindgen
   , writeIncludeGraph
   , writeUseDeclGraph
   , getBindings
+  , getBindingsMultiple
   , writeBindings
   , writeBindingsMultiple
   , writeBindingSpec

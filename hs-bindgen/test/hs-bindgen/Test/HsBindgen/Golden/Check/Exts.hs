@@ -4,7 +4,7 @@ module Test.HsBindgen.Golden.Check.Exts (check) where
 import Data.Foldable qualified as Foldable
 import Data.List qualified as List
 import Language.Haskell.TH qualified as TH
-import System.FilePath ((</>))
+import System.FilePath ((<.>), (</>))
 import Test.Common.Util.Tasty
 import Test.Common.Util.Tasty.Golden
 import Test.HsBindgen.Golden.TestCase
@@ -33,4 +33,4 @@ check testResources test =
       return $ ActualValue output
   where
     fixture :: FilePath
-    fixture = "fixtures" </> (testName test ++ ".exts.txt")
+    fixture = testOutputDir test </> "exts" <.> "txt"

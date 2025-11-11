@@ -5,6 +5,7 @@ import Data.Set (Set)
 import Data.Set qualified as Set
 import Data.Text (Text)
 import Data.Text qualified as Text
+import System.Directory (createDirectoryIfMissing)
 import Test.Common.HsBindgen.TracePredicate
 import Test.HsBindgen.Golden.Check.BindingSpec qualified as BindingSpec
 import Test.HsBindgen.Golden.Check.C qualified as C
@@ -54,7 +55,8 @@ testTreeFor testResources test@TestCase{testHasOutput, testClangVersion}
   = FailingTrace.check testResources test
 
   | otherwise
-  = testGroup (testName test) [
+  = withTestOutputDir $
+    testGroup (testName test) [
         C.check           testResources test
       , Hs.check          testResources test
       , Exts.check        testResources test
@@ -63,6 +65,12 @@ testTreeFor testResources test@TestCase{testHasOutput, testClangVersion}
       , BindingSpec.check testResources test
       , Rust.check        testResources test
       ]
+  where
+    withTestOutputDir k =
+        withResource
+          (createDirectoryIfMissing True (testOutputDir test))
+          (\_ -> pure ())
+          (\_ -> k)
 
 {-------------------------------------------------------------------------------
   Test cases

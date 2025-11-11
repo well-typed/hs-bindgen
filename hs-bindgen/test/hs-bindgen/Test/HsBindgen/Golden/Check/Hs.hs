@@ -1,7 +1,7 @@
 -- | Golden test: generated Haskell AST
 module Test.HsBindgen.Golden.Check.Hs (check) where
 
-import System.FilePath ((</>))
+import System.FilePath ((<.>), (</>))
 import Test.Common.Util.Tasty
 import Test.Common.Util.Tasty.Golden
 import Test.HsBindgen.Golden.TestCase
@@ -25,4 +25,4 @@ check testResources test =
       pure $ ActualValue $ concat hsDecls
   where
     fixture :: FilePath
-    fixture = "fixtures" </> (testName test ++ ".hs")
+    fixture = testOutputDir test </> "decls" <.> "hs"
