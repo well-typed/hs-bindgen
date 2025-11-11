@@ -11,10 +11,8 @@ module HsBindgen.Frontend.Pass.Select.IsPass (
   ) where
 
 import Data.Default (Default (def))
-import Text.SimplePrettyPrint (CtxDoc, (<+>), (><))
+import Text.SimplePrettyPrint ((<+>), (><))
 import Text.SimplePrettyPrint qualified as PP
-
-import Clang.HighLevel.Types (SingleLoc)
 
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.AST.Coerce (CoercePass (coercePass))
@@ -136,14 +134,14 @@ data SelectMsg =
     -- de-select deprecated declaration?
   | SelectDeprecated (C.Decl Select)
     -- | Delayed parse message for actually selected declarations.
-  | SelectParseSuccess AttachedParseMsg
+  | SelectParseSuccess (AttachedParseMsg DelayedParseMsg)
     -- | Delayed parse message for declarations the user directly wants to
     -- select (i.e., not a transitive dependency), but we have not attempted to
     -- parse.
-  | SelectParseNotAttempted C.QualPrelimDeclId SingleLoc ParseNotAttemptedReason
+  | SelectParseNotAttempted (AttachedParseMsg ParseNotAttemptedReason)
     -- | Delayed parse message for declarations the user directly wants to
     -- select (i.e., not a transitive dependency), but we have failed to parse.
-  | SelectParseFailure AttachedParseMsg
+  | SelectParseFailure (AttachedParseMsg DelayedParseMsg)
     -- | Inform the user that no declarations matched the select predicate.
   | SelectNoDeclarationsMatched
   deriving stock (Show)
@@ -170,22 +168,14 @@ instance PrettyForTrace SelectMsg where
       ]
     SelectParseSuccess x ->
       "During parse:" <+> prettyForTrace x
-    SelectParseNotAttempted n l r -> PP.vcat [
-      "Could not select declaration:" <+> prettyInfo n l
-      , "Parse not attempted:" <+> prettyForTrace r
+    SelectParseNotAttempted x -> PP.vcat [
+      "Could not select declaration:" <+> prettyForTrace x
       , "Consider changing the parse predicate"
       ]
     SelectParseFailure x ->
       "Could not select declaration; parse failure:" <+> prettyForTrace x
     SelectNoDeclarationsMatched ->
       "No declarations matched the select predicate"
-    where
-      prettyInfo :: C.QualPrelimDeclId -> SingleLoc -> CtxDoc
-      prettyInfo n l = PP.hsep [
-          prettyForTrace n
-        , "at"
-        , PP.showToCtxDoc l
-        ] >< ":"
 
 instance IsTrace Level SelectMsg where
   getDefaultLogLevel = \case

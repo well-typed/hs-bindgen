@@ -27,7 +27,7 @@ module HsBindgen.Frontend.Pass.Parse.IsPass (
   ) where
 
 import Data.List.NonEmpty qualified as NonEmpty
-import Text.SimplePrettyPrint (CtxDoc, (<+>))
+import Text.SimplePrettyPrint (CtxDoc, (<+>), (><))
 import Text.SimplePrettyPrint qualified as PP
 
 import Clang.Enum.Simple
@@ -67,127 +67,6 @@ instance IsPass Parse where
   type ExtBinding   Parse = Void
   type Ann ix       Parse = AnnParse ix
   type Msg          Parse = ImmediateParseMsg
-
-{-------------------------------------------------------------------------------
-  Information about the declarations
--------------------------------------------------------------------------------}
-
-data ParseSuccess = ParseSuccess {
-      psDecl         :: C.Decl Parse
-    , psAttachedMsgs :: [AttachedParseMsg]
-    }
-  deriving stock (Show, Generic)
-
--- | Why did we not attempt to parse a declaration?
-data ParseNotAttemptedReason =
-    -- | We do not parse builtin declarations.
-    OmittedBuiltin
-
-    -- | We unexpectedly excluded a declaration because it is reported
-    -- "unavailable".
-  | DeclarationUnavailable
-
-    -- | Declarations that do not match the parse predicate.
-    --
-    -- For example, we may provide external bindings for skipped declarations.
-    -- We do /not/ support external bindings for /anonymous/ non-parsed
-    -- declarations; /if/ you want to provide an external binding for some local
-    -- type, for example
-    --
-    -- > struct rect {
-    -- >   struct { int x; int y; } bottomleft;
-    -- >   struct { int x; int y; } topright;
-    -- > };
-    --
-    -- then you need to make sure that you /traverse/ @rect@, so that the
-    -- @NameAnon@ pass can do its work.
-  | ParsePredicateNotMatched
-  deriving stock (Show, Eq, Ord)
-
-instance PrettyForTrace ParseNotAttemptedReason where
-  prettyForTrace = \case
-    OmittedBuiltin           -> "Builtin declaration"
-    DeclarationUnavailable   -> "Declaration is 'unavailable' on this platform"
-    ParsePredicateNotMatched -> "Parse predicate did not match"
-
--- | Declarations we did not attempt to parse
---
--- We need this information when selecting declarations: Does the user want to
--- select declarations we did not attempt to parse?
-data ParseNotAttempted = ParseNotAttempted {
-      poQualPrelimDeclId        :: QualPrelimDeclId
-    , poSingleLoc               :: SingleLoc
-    , poAvailability            :: C.Availability
-    , poParseNotAttemptedReason :: ParseNotAttemptedReason
-    }
-  deriving stock (Show, Generic)
-
--- | Declarations that match the parse predicate but that we fail to parse and
--- reify
---
--- We need this information when selecting declarations: Does the user want to
--- select declarations, we have failed to parse?
-data ParseFailure = ParseFailure {
-      pfQualPrelimDeclId :: QualPrelimDeclId
-    , pfSingleLoc        :: SingleLoc
-    , pfAvailability     :: C.Availability
-    , pfDelayedParseMsgs :: NonEmpty AttachedParseMsg
-    }
-  deriving stock (Show, Generic)
-
-data ParseResult =
-    ParseResultSuccess      ParseSuccess
-  | ParseResultNotAttempted ParseNotAttempted
-  | ParseResultFailure      ParseFailure
-  deriving stock (Show, Generic)
-
-getDecl :: ParseResult -> Either ParseResult (C.Decl Parse)
-getDecl = \case
-  ParseResultSuccess ParseSuccess{..} -> Right psDecl
-  other                               -> Left other
-
-getQualPrelimDeclId :: ParseResult -> QualPrelimDeclId
-getQualPrelimDeclId = \case
-  ParseResultSuccess        ParseSuccess{..}      -> C.declQualPrelimDeclId psDecl
-  ParseResultNotAttempted   ParseNotAttempted{..} -> poQualPrelimDeclId
-  ParseResultFailure        ParseFailure{..}      -> pfQualPrelimDeclId
-
-parseSucceed :: C.Decl Parse -> ParseResult
-parseSucceed = parseSucceedWith []
-
-parseSucceedWith :: [DelayedParseMsg] -> C.Decl Parse -> ParseResult
-parseSucceedWith msgs decl =
-  ParseResultSuccess $ ParseSuccess decl $
-    map (AttachedParseMsg decl.declInfo) msgs
-
-parseDoNotAttempt ::
-     C.DeclInfo Parse
-  -> C.NameKind
-  -> ParseNotAttemptedReason
-  -> ParseResult
-parseDoNotAttempt C.DeclInfo{..} kind reason =
-    ParseResultNotAttempted $ ParseNotAttempted
-      (C.qualPrelimDeclIdSafe declId kind)
-      declLoc
-      declAvailability
-      reason
-
-parseFail ::
-  C.DeclInfo Parse -> C.NameKind -> DelayedParseMsg -> ParseResult
-parseFail info kind msg = parseFailWith info kind (NonEmpty.singleton msg)
-
-parseFailWith ::
-     HasCallStack
-  => C.DeclInfo Parse
-  -> C.NameKind
-  -> NonEmpty DelayedParseMsg
-  -> ParseResult
-parseFailWith info@C.DeclInfo{..} kind msgs =
-    ParseResultFailure $ ParseFailure
-      (C.qualPrelimDeclId declId kind)
-      declLoc
-      declAvailability
-      (NonEmpty.map (AttachedParseMsg info) msgs)
 
 {-------------------------------------------------------------------------------
   Typedefs
@@ -265,6 +144,126 @@ getUnparsedMacro unit curr = do
   Trace messages
 -------------------------------------------------------------------------------}
 
+data ParseSuccess = ParseSuccess {
+      psDecl         :: C.Decl Parse
+    , psAttachedMsgs :: [AttachedParseMsg DelayedParseMsg]
+    }
+  deriving stock (Show, Generic)
+
+-- | Why did we not attempt to parse a declaration?
+data ParseNotAttemptedReason =
+    -- | We do not parse builtin declarations.
+    OmittedBuiltin
+
+    -- | We unexpectedly excluded a declaration because it is reported
+    -- "unavailable".
+  | DeclarationUnavailable
+
+    -- | Declarations that do not match the parse predicate.
+    --
+    -- For example, we may provide external bindings for skipped declarations.
+    -- We do /not/ support external bindings for /anonymous/ non-parsed
+    -- declarations; /if/ you want to provide an external binding for some local
+    -- type, for example
+    --
+    -- > struct rect {
+    -- >   struct { int x; int y; } bottomleft;
+    -- >   struct { int x; int y; } topright;
+    -- > };
+    --
+    -- then you need to make sure that you /traverse/ @rect@, so that the
+    -- @NameAnon@ pass can do its work.
+  | ParsePredicateNotMatched
+  deriving stock (Show, Eq, Ord)
+
+instance PrettyForTrace ParseNotAttemptedReason where
+  prettyForTrace x = "Parse not attempted:" <+> case x of
+    OmittedBuiltin           -> "Builtin declaration"
+    DeclarationUnavailable   -> "Declaration is 'unavailable' on this platform"
+    ParsePredicateNotMatched -> "Parse predicate did not match"
+
+-- | Declarations we did not attempt to parse
+--
+-- We need this information when selecting declarations: Does the user want to
+-- select declarations we did not attempt to parse?
+newtype ParseNotAttempted = ParseNotAttempted {
+      unParseNotAttempted :: (AttachedParseMsg ParseNotAttemptedReason)
+    }
+  deriving stock    (Show, Generic)
+  deriving anyclass (PrettyForTrace)
+
+-- | Declarations that match the parse predicate but that we fail to parse and
+-- reify
+--
+-- We need this information when selecting declarations: Does the user want to
+-- select declarations, we have failed to parse?
+newtype ParseFailure = ParseFailure {
+      unParseFailure :: (AttachedParseMsg DelayedParseMsg)
+    }
+  deriving stock    (Show, Generic)
+  deriving anyclass (PrettyForTrace)
+
+data ParseResult =
+    ParseResultSuccess      ParseSuccess
+  | ParseResultNotAttempted ParseNotAttempted
+  | ParseResultFailure      ParseFailure
+  deriving stock (Show, Generic)
+
+getDecl :: ParseResult -> Either ParseResult (C.Decl Parse)
+getDecl = \case
+  ParseResultSuccess ParseSuccess{..} -> Right psDecl
+  other                               -> Left other
+
+getQualPrelimDeclId :: ParseResult -> QualPrelimDeclId
+getQualPrelimDeclId = \case
+  ParseResultSuccess        ParseSuccess{..}      -> C.declQualPrelimDeclId psDecl
+  ParseResultNotAttempted   (ParseNotAttempted x) -> x.declId
+  ParseResultFailure        (ParseFailure x)      -> x.declId
+
+parseSucceed :: C.Decl Parse -> ParseResult
+parseSucceed = parseSucceedWith []
+
+parseSucceedWith :: [DelayedParseMsg] -> C.Decl Parse -> ParseResult
+parseSucceedWith msgs decl =
+    ParseResultSuccess $ ParseSuccess decl $
+      map (AttachedParseMsg (C.declQualPrelimDeclId decl) declLoc declAvailability) msgs
+  where C.DeclInfo{..} = decl.declInfo
+
+parseDoNotAttempt ::
+     C.DeclInfo Parse
+  -> C.NameKind
+  -> ParseNotAttemptedReason
+  -> ParseResult
+parseDoNotAttempt C.DeclInfo{..} kind reason =
+    ParseResultNotAttempted $
+      ParseNotAttempted $
+        AttachedParseMsg
+          (C.qualPrelimDeclIdSafe declId kind)
+          declLoc
+          declAvailability
+          reason
+
+parseFail ::
+  C.DeclInfo Parse -> C.NameKind -> DelayedParseMsg -> [ParseResult]
+parseFail info kind msg = parseFailWith info kind (NonEmpty.singleton msg)
+
+parseFailWith ::
+     HasCallStack
+  => C.DeclInfo Parse
+  -> C.NameKind
+  -> NonEmpty DelayedParseMsg
+  -> [ParseResult]
+parseFailWith C.DeclInfo{..} kind msgs =
+    [ ParseResultFailure $ ParseFailure $
+        AttachedParseMsg
+          (C.qualPrelimDeclId declId kind)
+          declLoc
+          declAvailability
+          m
+    | m <- NonEmpty.toList msgs
+    ]
+
+
 -- | We always need to parse declarations required for scoping
 data RequiredForScoping = RequiredForScoping | NotRequiredForScoping
   deriving stock (Show, Eq)
@@ -314,16 +313,22 @@ instance IsTrace Level ImmediateParseMsg where
   getSource  = const HsBindgen
   getTraceId = const "parse-immediate"
 
-data AttachedParseMsg = AttachedParseMsg (C.DeclInfo Parse) DelayedParseMsg
+data AttachedParseMsg a = AttachedParseMsg {
+    declId       :: QualPrelimDeclId
+  , loc          :: SingleLoc
+  , availability :: C.Availability
+  , msg          :: a
+  }
   deriving stock (Show, Generic)
 
-instance PrettyForTrace AttachedParseMsg where
-  prettyForTrace (AttachedParseMsg i x) = prettyForTrace i <+> prettyForTrace x
+instance PrettyForTrace a => PrettyForTrace (AttachedParseMsg a) where
+  prettyForTrace (AttachedParseMsg i l _ x) =
+    prettyForTrace (C.Located l i) >< ":" <+> prettyForTrace x
 
-instance IsTrace Level AttachedParseMsg where
-  getDefaultLogLevel (AttachedParseMsg _ x) = getDefaultLogLevel x
-  getSource          (AttachedParseMsg _ x) = getSource x
-  getTraceId         (AttachedParseMsg _ x) = getTraceId x
+instance IsTrace Level a => IsTrace Level (AttachedParseMsg a) where
+  getDefaultLogLevel = getDefaultLogLevel . msg
+  getSource          = getSource . msg
+  getTraceId         = getTraceId . msg
 
 -- | Delayed parse messages
 --

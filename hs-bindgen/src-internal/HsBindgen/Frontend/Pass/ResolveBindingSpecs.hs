@@ -539,8 +539,8 @@ resolveExtBinding cQualName cQualPrelimDeclId declPaths  = do
 -- or "failed" parses.
 lookupMissing :: C.QualPrelimDeclId -> DeclIndex -> [SingleLoc]
 lookupMissing qualPrelimDeclId index =
-  (maybe [] (map poSingleLoc . NonEmpty.toList) $
+  (maybe [] (map (loc . unParseNotAttempted) . NonEmpty.toList) $
     Map.lookup qualPrelimDeclId $ index.notAttempted)
   ++
-  (maybe [] (map pfSingleLoc . NonEmpty.toList) $
+  (maybe [] (map (loc . unParseFailure) . NonEmpty.toList) $
     Map.lookup qualPrelimDeclId $ index.failed)
