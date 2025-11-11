@@ -3,14 +3,7 @@ version:
   binding_specification: '1.0'
 hsmodule: Example
 types:
-- headers: selection.h
-  cname: struct OkAfter
-  hsname: OkAfter
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: selection.h
+- headers: selection_fail.h
   cname: struct OkBefore
   hsname: OkBefore
   instances:

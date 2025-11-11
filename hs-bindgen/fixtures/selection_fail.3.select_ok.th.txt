@@ -1,0 +1,28 @@
+-- addDependentFile examples/golden/selection_fail.h
+{-| __C declaration:__ @OkBefore@
+
+    __defined at:__ @selection_fail.h:1:8@
+
+    __exported by:__ @selection_fail.h@
+-}
+data OkBefore
+    = OkBefore {okBefore_x :: CInt
+                {- ^ __C declaration:__ @x@
+
+                     __defined at:__ @selection_fail.h:2:7@
+
+                     __exported by:__ @selection_fail.h@
+                -}}
+      {- ^ __C declaration:__ @OkBefore@
+
+           __defined at:__ @selection_fail.h:1:8@
+
+           __exported by:__ @selection_fail.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable OkBefore
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure OkBefore <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   OkBefore okBefore_x_3 -> pokeByteOff ptr_1 (0 :: Int) okBefore_x_3

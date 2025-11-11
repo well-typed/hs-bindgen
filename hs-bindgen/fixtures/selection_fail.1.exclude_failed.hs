@@ -17,7 +17,8 @@
           fieldOrigin = StructField
             StructField {
               structFieldInfo = FieldInfo {
-                fieldLoc = "selection.h:2:7",
+                fieldLoc =
+                "selection_fail.h:2:7",
                 fieldName = NamePair {
                   nameC = Name "x",
                   nameHsIdent = Identifier
@@ -32,17 +33,19 @@
               commentTitle = Nothing,
               commentOrigin = Just "x",
               commentLocation = Just
-                "selection.h:2:7",
+                "selection_fail.h:2:7",
               commentHeaderInfo = Just
                 HeaderInfo {
                   headerMainHeaders = NE.fromList
-                    ["selection.h"],
-                  headerInclude = "selection.h"},
+                    ["selection_fail.h"],
+                  headerInclude =
+                  "selection_fail.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
-            declLoc = "selection.h:1:8",
+            declLoc =
+            "selection_fail.h:1:8",
             declId = NamePair {
               nameC = Name "OkBefore",
               nameHsIdent = Identifier
@@ -52,8 +55,9 @@
             declHeaderInfo = Just
               HeaderInfo {
                 headerMainHeaders = NE.fromList
-                  ["selection.h"],
-                headerInclude = "selection.h"},
+                  ["selection_fail.h"],
+                headerInclude =
+                "selection_fail.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -64,7 +68,8 @@
               structFields = [
                 StructField {
                   structFieldInfo = FieldInfo {
-                    fieldLoc = "selection.h:2:7",
+                    fieldLoc =
+                    "selection_fail.h:2:7",
                     fieldName = NamePair {
                       nameC = Name "x",
                       nameHsIdent = Identifier
@@ -87,12 +92,13 @@
           commentTitle = Nothing,
           commentOrigin = Just "OkBefore",
           commentLocation = Just
-            "selection.h:1:8",
+            "selection_fail.h:1:8",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
-                ["selection.h"],
-              headerInclude = "selection.h"},
+                ["selection_fail.h"],
+              headerInclude =
+              "selection_fail.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -115,7 +121,8 @@
               fieldOrigin = StructField
                 StructField {
                   structFieldInfo = FieldInfo {
-                    fieldLoc = "selection.h:2:7",
+                    fieldLoc =
+                    "selection_fail.h:2:7",
                     fieldName = NamePair {
                       nameC = Name "x",
                       nameHsIdent = Identifier
@@ -130,17 +137,19 @@
                   commentTitle = Nothing,
                   commentOrigin = Just "x",
                   commentLocation = Just
-                    "selection.h:2:7",
+                    "selection_fail.h:2:7",
                   commentHeaderInfo = Just
                     HeaderInfo {
                       headerMainHeaders = NE.fromList
-                        ["selection.h"],
-                      headerInclude = "selection.h"},
+                        ["selection_fail.h"],
+                      headerInclude =
+                      "selection_fail.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
-                declLoc = "selection.h:1:8",
+                declLoc =
+                "selection_fail.h:1:8",
                 declId = NamePair {
                   nameC = Name "OkBefore",
                   nameHsIdent = Identifier
@@ -150,8 +159,9 @@
                 declHeaderInfo = Just
                   HeaderInfo {
                     headerMainHeaders = NE.fromList
-                      ["selection.h"],
-                    headerInclude = "selection.h"},
+                      ["selection_fail.h"],
+                    headerInclude =
+                    "selection_fail.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -162,7 +172,8 @@
                   structFields = [
                     StructField {
                       structFieldInfo = FieldInfo {
-                        fieldLoc = "selection.h:2:7",
+                        fieldLoc =
+                        "selection_fail.h:2:7",
                         fieldName = NamePair {
                           nameC = Name "x",
                           nameHsIdent = Identifier
@@ -185,12 +196,13 @@
               commentTitle = Nothing,
               commentOrigin = Just "OkBefore",
               commentLocation = Just
-                "selection.h:1:8",
+                "selection_fail.h:1:8",
               commentHeaderInfo = Just
                 HeaderInfo {
                   headerMainHeaders = NE.fromList
-                    ["selection.h"],
-                  headerInclude = "selection.h"},
+                    ["selection_fail.h"],
+                  headerInclude =
+                  "selection_fail.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 4,
@@ -216,7 +228,8 @@
                       fieldOrigin = StructField
                         StructField {
                           structFieldInfo = FieldInfo {
-                            fieldLoc = "selection.h:2:7",
+                            fieldLoc =
+                            "selection_fail.h:2:7",
                             fieldName = NamePair {
                               nameC = Name "x",
                               nameHsIdent = Identifier
@@ -231,17 +244,19 @@
                           commentTitle = Nothing,
                           commentOrigin = Just "x",
                           commentLocation = Just
-                            "selection.h:2:7",
+                            "selection_fail.h:2:7",
                           commentHeaderInfo = Just
                             HeaderInfo {
                               headerMainHeaders = NE.fromList
-                                ["selection.h"],
-                              headerInclude = "selection.h"},
+                                ["selection_fail.h"],
+                              headerInclude =
+                              "selection_fail.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
-                        declLoc = "selection.h:1:8",
+                        declLoc =
+                        "selection_fail.h:1:8",
                         declId = NamePair {
                           nameC = Name "OkBefore",
                           nameHsIdent = Identifier
@@ -251,8 +266,9 @@
                         declHeaderInfo = Just
                           HeaderInfo {
                             headerMainHeaders = NE.fromList
-                              ["selection.h"],
-                            headerInclude = "selection.h"},
+                              ["selection_fail.h"],
+                            headerInclude =
+                            "selection_fail.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -263,7 +279,8 @@
                           structFields = [
                             StructField {
                               structFieldInfo = FieldInfo {
-                                fieldLoc = "selection.h:2:7",
+                                fieldLoc =
+                                "selection_fail.h:2:7",
                                 fieldName = NamePair {
                                   nameC = Name "x",
                                   nameHsIdent = Identifier
@@ -286,12 +303,13 @@
                       commentTitle = Nothing,
                       commentOrigin = Just "OkBefore",
                       commentLocation = Just
-                        "selection.h:1:8",
+                        "selection_fail.h:1:8",
                       commentHeaderInfo = Just
                         HeaderInfo {
                           headerMainHeaders = NE.fromList
-                            ["selection.h"],
-                          headerInclude = "selection.h"},
+                            ["selection_fail.h"],
+                          headerInclude =
+                          "selection_fail.h"},
                       commentChildren = []}})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
@@ -317,7 +335,8 @@
                       fieldOrigin = StructField
                         StructField {
                           structFieldInfo = FieldInfo {
-                            fieldLoc = "selection.h:2:7",
+                            fieldLoc =
+                            "selection_fail.h:2:7",
                             fieldName = NamePair {
                               nameC = Name "x",
                               nameHsIdent = Identifier
@@ -332,17 +351,19 @@
                           commentTitle = Nothing,
                           commentOrigin = Just "x",
                           commentLocation = Just
-                            "selection.h:2:7",
+                            "selection_fail.h:2:7",
                           commentHeaderInfo = Just
                             HeaderInfo {
                               headerMainHeaders = NE.fromList
-                                ["selection.h"],
-                              headerInclude = "selection.h"},
+                                ["selection_fail.h"],
+                              headerInclude =
+                              "selection_fail.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
-                        declLoc = "selection.h:1:8",
+                        declLoc =
+                        "selection_fail.h:1:8",
                         declId = NamePair {
                           nameC = Name "OkBefore",
                           nameHsIdent = Identifier
@@ -352,8 +373,9 @@
                         declHeaderInfo = Just
                           HeaderInfo {
                             headerMainHeaders = NE.fromList
-                              ["selection.h"],
-                            headerInclude = "selection.h"},
+                              ["selection_fail.h"],
+                            headerInclude =
+                            "selection_fail.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -364,7 +386,8 @@
                           structFields = [
                             StructField {
                               structFieldInfo = FieldInfo {
-                                fieldLoc = "selection.h:2:7",
+                                fieldLoc =
+                                "selection_fail.h:2:7",
                                 fieldName = NamePair {
                                   nameC = Name "x",
                                   nameHsIdent = Identifier
@@ -387,12 +410,13 @@
                       commentTitle = Nothing,
                       commentOrigin = Just "OkBefore",
                       commentLocation = Just
-                        "selection.h:1:8",
+                        "selection_fail.h:1:8",
                       commentHeaderInfo = Just
                         HeaderInfo {
                           headerMainHeaders = NE.fromList
-                            ["selection.h"],
-                          headerInclude = "selection.h"},
+                            ["selection_fail.h"],
+                          headerInclude =
+                          "selection_fail.h"},
                       commentChildren = []}}
                 (Add 1)
                 (Seq
@@ -441,7 +465,8 @@
           fieldOrigin = StructField
             StructField {
               structFieldInfo = FieldInfo {
-                fieldLoc = "selection.h:27:7",
+                fieldLoc =
+                "selection_fail.h:27:7",
                 fieldName = NamePair {
                   nameC = Name "x",
                   nameHsIdent = Identifier
@@ -456,17 +481,19 @@
               commentTitle = Nothing,
               commentOrigin = Just "x",
               commentLocation = Just
-                "selection.h:27:7",
+                "selection_fail.h:27:7",
               commentHeaderInfo = Just
                 HeaderInfo {
                   headerMainHeaders = NE.fromList
-                    ["selection.h"],
-                  headerInclude = "selection.h"},
+                    ["selection_fail.h"],
+                  headerInclude =
+                  "selection_fail.h"},
               commentChildren = []}}],
       structOrigin = Just
         Decl {
           declInfo = DeclInfo {
-            declLoc = "selection.h:26:8",
+            declLoc =
+            "selection_fail.h:26:8",
             declId = NamePair {
               nameC = Name "OkAfter",
               nameHsIdent = Identifier
@@ -476,8 +503,9 @@
             declHeaderInfo = Just
               HeaderInfo {
                 headerMainHeaders = NE.fromList
-                  ["selection.h"],
-                headerInclude = "selection.h"},
+                  ["selection_fail.h"],
+                headerInclude =
+                "selection_fail.h"},
             declComment = Nothing},
           declKind = Struct
             Struct {
@@ -488,7 +516,8 @@
               structFields = [
                 StructField {
                   structFieldInfo = FieldInfo {
-                    fieldLoc = "selection.h:27:7",
+                    fieldLoc =
+                    "selection_fail.h:27:7",
                     fieldName = NamePair {
                       nameC = Name "x",
                       nameHsIdent = Identifier
@@ -511,12 +540,13 @@
           commentTitle = Nothing,
           commentOrigin = Just "OkAfter",
           commentLocation = Just
-            "selection.h:26:8",
+            "selection_fail.h:26:8",
           commentHeaderInfo = Just
             HeaderInfo {
               headerMainHeaders = NE.fromList
-                ["selection.h"],
-              headerInclude = "selection.h"},
+                ["selection_fail.h"],
+              headerInclude =
+              "selection_fail.h"},
           commentChildren = []}},
   DeclInstance
     DefineInstance {
@@ -539,7 +569,8 @@
               fieldOrigin = StructField
                 StructField {
                   structFieldInfo = FieldInfo {
-                    fieldLoc = "selection.h:27:7",
+                    fieldLoc =
+                    "selection_fail.h:27:7",
                     fieldName = NamePair {
                       nameC = Name "x",
                       nameHsIdent = Identifier
@@ -554,17 +585,19 @@
                   commentTitle = Nothing,
                   commentOrigin = Just "x",
                   commentLocation = Just
-                    "selection.h:27:7",
+                    "selection_fail.h:27:7",
                   commentHeaderInfo = Just
                     HeaderInfo {
                       headerMainHeaders = NE.fromList
-                        ["selection.h"],
-                      headerInclude = "selection.h"},
+                        ["selection_fail.h"],
+                      headerInclude =
+                      "selection_fail.h"},
                   commentChildren = []}}],
           structOrigin = Just
             Decl {
               declInfo = DeclInfo {
-                declLoc = "selection.h:26:8",
+                declLoc =
+                "selection_fail.h:26:8",
                 declId = NamePair {
                   nameC = Name "OkAfter",
                   nameHsIdent = Identifier
@@ -574,8 +607,9 @@
                 declHeaderInfo = Just
                   HeaderInfo {
                     headerMainHeaders = NE.fromList
-                      ["selection.h"],
-                    headerInclude = "selection.h"},
+                      ["selection_fail.h"],
+                    headerInclude =
+                    "selection_fail.h"},
                 declComment = Nothing},
               declKind = Struct
                 Struct {
@@ -586,7 +620,8 @@
                   structFields = [
                     StructField {
                       structFieldInfo = FieldInfo {
-                        fieldLoc = "selection.h:27:7",
+                        fieldLoc =
+                        "selection_fail.h:27:7",
                         fieldName = NamePair {
                           nameC = Name "x",
                           nameHsIdent = Identifier
@@ -609,12 +644,13 @@
               commentTitle = Nothing,
               commentOrigin = Just "OkAfter",
               commentLocation = Just
-                "selection.h:26:8",
+                "selection_fail.h:26:8",
               commentHeaderInfo = Just
                 HeaderInfo {
                   headerMainHeaders = NE.fromList
-                    ["selection.h"],
-                  headerInclude = "selection.h"},
+                    ["selection_fail.h"],
+                  headerInclude =
+                  "selection_fail.h"},
               commentChildren = []}}
         StorableInstance {
           storableSizeOf = 4,
@@ -640,7 +676,8 @@
                       fieldOrigin = StructField
                         StructField {
                           structFieldInfo = FieldInfo {
-                            fieldLoc = "selection.h:27:7",
+                            fieldLoc =
+                            "selection_fail.h:27:7",
                             fieldName = NamePair {
                               nameC = Name "x",
                               nameHsIdent = Identifier
@@ -655,17 +692,19 @@
                           commentTitle = Nothing,
                           commentOrigin = Just "x",
                           commentLocation = Just
-                            "selection.h:27:7",
+                            "selection_fail.h:27:7",
                           commentHeaderInfo = Just
                             HeaderInfo {
                               headerMainHeaders = NE.fromList
-                                ["selection.h"],
-                              headerInclude = "selection.h"},
+                                ["selection_fail.h"],
+                              headerInclude =
+                              "selection_fail.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
-                        declLoc = "selection.h:26:8",
+                        declLoc =
+                        "selection_fail.h:26:8",
                         declId = NamePair {
                           nameC = Name "OkAfter",
                           nameHsIdent = Identifier
@@ -675,8 +714,9 @@
                         declHeaderInfo = Just
                           HeaderInfo {
                             headerMainHeaders = NE.fromList
-                              ["selection.h"],
-                            headerInclude = "selection.h"},
+                              ["selection_fail.h"],
+                            headerInclude =
+                            "selection_fail.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -687,7 +727,8 @@
                           structFields = [
                             StructField {
                               structFieldInfo = FieldInfo {
-                                fieldLoc = "selection.h:27:7",
+                                fieldLoc =
+                                "selection_fail.h:27:7",
                                 fieldName = NamePair {
                                   nameC = Name "x",
                                   nameHsIdent = Identifier
@@ -710,12 +751,13 @@
                       commentTitle = Nothing,
                       commentOrigin = Just "OkAfter",
                       commentLocation = Just
-                        "selection.h:26:8",
+                        "selection_fail.h:26:8",
                       commentHeaderInfo = Just
                         HeaderInfo {
                           headerMainHeaders = NE.fromList
-                            ["selection.h"],
-                          headerInclude = "selection.h"},
+                            ["selection_fail.h"],
+                          headerInclude =
+                          "selection_fail.h"},
                       commentChildren = []}})
               [PeekByteOff (Idx 0) 0]),
           storablePoke = Lambda
@@ -741,7 +783,8 @@
                       fieldOrigin = StructField
                         StructField {
                           structFieldInfo = FieldInfo {
-                            fieldLoc = "selection.h:27:7",
+                            fieldLoc =
+                            "selection_fail.h:27:7",
                             fieldName = NamePair {
                               nameC = Name "x",
                               nameHsIdent = Identifier
@@ -756,17 +799,19 @@
                           commentTitle = Nothing,
                           commentOrigin = Just "x",
                           commentLocation = Just
-                            "selection.h:27:7",
+                            "selection_fail.h:27:7",
                           commentHeaderInfo = Just
                             HeaderInfo {
                               headerMainHeaders = NE.fromList
-                                ["selection.h"],
-                              headerInclude = "selection.h"},
+                                ["selection_fail.h"],
+                              headerInclude =
+                              "selection_fail.h"},
                           commentChildren = []}}],
                   structOrigin = Just
                     Decl {
                       declInfo = DeclInfo {
-                        declLoc = "selection.h:26:8",
+                        declLoc =
+                        "selection_fail.h:26:8",
                         declId = NamePair {
                           nameC = Name "OkAfter",
                           nameHsIdent = Identifier
@@ -776,8 +821,9 @@
                         declHeaderInfo = Just
                           HeaderInfo {
                             headerMainHeaders = NE.fromList
-                              ["selection.h"],
-                            headerInclude = "selection.h"},
+                              ["selection_fail.h"],
+                            headerInclude =
+                            "selection_fail.h"},
                         declComment = Nothing},
                       declKind = Struct
                         Struct {
@@ -788,7 +834,8 @@
                           structFields = [
                             StructField {
                               structFieldInfo = FieldInfo {
-                                fieldLoc = "selection.h:27:7",
+                                fieldLoc =
+                                "selection_fail.h:27:7",
                                 fieldName = NamePair {
                                   nameC = Name "x",
                                   nameHsIdent = Identifier
@@ -811,12 +858,13 @@
                       commentTitle = Nothing,
                       commentOrigin = Just "OkAfter",
                       commentLocation = Just
-                        "selection.h:26:8",
+                        "selection_fail.h:26:8",
                       commentHeaderInfo = Just
                         HeaderInfo {
                           headerMainHeaders = NE.fromList
-                            ["selection.h"],
-                          headerInclude = "selection.h"},
+                            ["selection_fail.h"],
+                          headerInclude =
+                          "selection_fail.h"},
                       commentChildren = []}}
                 (Add 1)
                 (Seq

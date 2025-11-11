@@ -2,7 +2,8 @@ TranslationUnit {
   unitDecls = [
     Decl {
       declInfo = DeclInfo {
-        declLoc = "selection.h:1:8",
+        declLoc =
+        "selection_fail.h:1:8",
         declId = NamePair {
           nameC = Name "OkBefore",
           nameHsIdent = Identifier
@@ -12,8 +13,9 @@ TranslationUnit {
         declHeaderInfo = Just
           HeaderInfo {
             headerMainHeaders = NE.fromList
-              ["selection.h"],
-            headerInclude = "selection.h"},
+              ["selection_fail.h"],
+            headerInclude =
+            "selection_fail.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -24,7 +26,8 @@ TranslationUnit {
           structFields = [
             StructField {
               structFieldInfo = FieldInfo {
-                fieldLoc = "selection.h:2:7",
+                fieldLoc =
+                "selection_fail.h:2:7",
                 fieldName = NamePair {
                   nameC = Name "x",
                   nameHsIdent = Identifier
@@ -42,7 +45,8 @@ TranslationUnit {
           Map.fromList []}},
     Decl {
       declInfo = DeclInfo {
-        declLoc = "selection.h:26:8",
+        declLoc =
+        "selection_fail.h:26:8",
         declId = NamePair {
           nameC = Name "OkAfter",
           nameHsIdent = Identifier
@@ -52,8 +56,9 @@ TranslationUnit {
         declHeaderInfo = Just
           HeaderInfo {
             headerMainHeaders = NE.fromList
-              ["selection.h"],
-            headerInclude = "selection.h"},
+              ["selection_fail.h"],
+            headerInclude =
+            "selection_fail.h"},
         declComment = Nothing},
       declKind = DeclStruct
         Struct {
@@ -64,7 +69,8 @@ TranslationUnit {
           structFields = [
             StructField {
               structFieldInfo = FieldInfo {
-                fieldLoc = "selection.h:27:7",
+                fieldLoc =
+                "selection_fail.h:27:7",
                 fieldName = NamePair {
                   nameC = Name "x",
                   nameHsIdent = Identifier
@@ -80,4 +86,4 @@ TranslationUnit {
           cTypeSpecIdentifier = Nothing,
           cTypeSpecInstances =
           Map.fromList []}}],
-  unitDeps = ["selection"]}
+  unitDeps = ["selection_fail"]}
