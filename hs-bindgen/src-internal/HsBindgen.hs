@@ -35,7 +35,6 @@ import HsBindgen.Backend.SHs.AST
 import HsBindgen.BindingSpec.Gen
 import HsBindgen.Boot
 import HsBindgen.Config.Internal
-import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend
 import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
@@ -156,13 +155,9 @@ writeBindingSpec path =
       tracer <- artefactTracer <$> ask
       liftIO $ do
         traceWith tracer $ RunArtefactWriteFile "binding specifications" path
-        -- Generate binding specification only for declarations of binding
-        -- category 'BType'. If, in the future, we generate binding
-        -- specifications for other binding categories, we need to take care of
-        -- the final module names (e.g., @Generated.Safe@).
+        -- Binding specifications only specify types.
         genBindingSpec moduleBaseName path getMainHeaders omitTypes $
-          fromMaybe (panicPure "binding category BType is missing")
-            (Map.lookup BType $ unByCategory hsDecls)
+          fromMaybe [] (Map.lookup BType $ unByCategory hsDecls)
 
 -- | Create test suite in directory.
 writeTests :: FilePath -> Artefact ()
