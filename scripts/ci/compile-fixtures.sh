@@ -21,10 +21,10 @@ EOF
 
 # Known failures - these will be skipped unless -f is used
 KNOWN_FAILURES=(
-    iterator.pp.hs           # Makes use of Apple block extension which would require clang (see #913)
-    decls_in_signature.pp.hs # Unusable struct (see #1128)
-    redeclaration.pp.hs      # Same as typenames.pp.hs
-    typenames.pp.hs          # hs-bindgen namespace possible bug/feature
+    iterator           # Makes use of Apple block extension which would require clang (see #913)
+    decls_in_signature # Unusable struct (see #1128)
+    redeclaration      # Same as typenames
+    typenames          # hs-bindgen namespace possible bug/feature
 )
 
 # Default options
@@ -60,19 +60,31 @@ FIXTURES_DIR="$HS_BINDGEN_DIR/fixtures"
 EXAMPLES_DIR="$HS_BINDGEN_DIR/examples"
 
 # Verify directories exist
-if [[ ! -d "$FIXTURES_DIR" || ! -f "$FIXTURES_DIR/adios.pp.hs" ]]; then
+if [[ ! -d "$FIXTURES_DIR" ]]; then
     echo "Error: Fixtures not found at $FIXTURES_DIR" >&2
     exit 1
 fi
 
+# Extract the name of the fixture
+#
+# Examples:
+# * Given a path of the form $FIXTURES_DIR/foo/Example.pp.hs, returns foo
+# * Given a path of the form $FIXTURES_DIR/manual/foo/Example.pp.hs, returns manual/foo
+get_fixture_name() {
+    local file="$1"
+    local fixture_dir
+    fixture_dir=$(dirname "$file")
+    local fixture_name
+    fixture_name="${fixture_dir#"$FIXTURES_DIR/"}"
+    fixture_name="${fixture_name%/}"
+    echo "$fixture_name" > /dev/stdout
+}
+
 # Function to check if a file is in the known failures list
 is_known_failure() {
-    local file="$1"
-    local basename_file
-    basename_file=$(basename "$file")
-
+    local fixture_name="$1"
     for failure in "${KNOWN_FAILURES[@]}"; do
-        if [[ "$basename_file" == "$failure" ]]; then
+        if [[ "$fixture_name" == "$failure" ]]; then
             return 0
         fi
     done
@@ -80,10 +92,20 @@ is_known_failure() {
 }
 
 # Function to compile a single fixture
+# shellcheck disable=SC2329
 compile_fixture() {
-    local file="$1"
-    local basename_file
-    basename_file=$(basename "$file")
+    local fixture_name="$1"
+
+    # Given the name of the fixture, we search for all pretty-printed Haskell
+    # files that we want to compile.
+    #
+    # NOTE: I (Joris) am not 100% sure, but it looks like the order in which the
+    # files are passed to the GHC invocation matters for module dependency
+    # resolution. Just a simple sort based on the name of the file is sufficient
+    # for now to prevent GHC errors. If a "module not found" error ever pop ups
+    # in the future, then this might be caused by an inadequate sort here.
+    local files
+    files=$(find "$FIXTURES_DIR/$fixture_name/" -type f -name "*.pp.hs" -print0 | sort -z | xargs -0 echo)
 
     # Use a temporary output file to avoid polluting the fixtures directory
     local output_dir
@@ -110,12 +132,12 @@ compile_fixture() {
         -optc -std=gnu2x \
         -optc -Wno-deprecated-declarations \
         -optc -Wno-attributes \
-        "$file" &>"$output_dir/compile.log"); then
-        echo "✓ $basename_file"
+        $files &>"$output_dir/compile.log"); then
+        echo "✓ $fixture_name"
         rm -rf "$output_dir"
         return 0
     else
-        echo "✗ $basename_file"
+        echo "✗ $fixture_name"
         if [[ -s "$output_dir/compile.log" ]]; then
             echo "  Error log:"
             sed 's/^/    /' "$output_dir/compile.log"
@@ -131,6 +153,7 @@ export -f is_known_failure
 export KNOWN_FAILURES
 export HS_BINDGEN_DIR
 export EXAMPLES_DIR
+export FIXTURES_DIR
 
 # Collect fixtures to compile
 echo "Collecting fixtures..."
@@ -139,18 +162,19 @@ FIXTURES_SKIPPED=()
 
 # Use find to recursively search for all .pp.hs files
 while IFS= read -r -d '' file; do
-    if [[ "$FORCE_ALL" == "false" ]] && is_known_failure "$file"; then
-        FIXTURES_SKIPPED+=("$file")
+    fixture_name=$(get_fixture_name "$file")
+    if [[ "$FORCE_ALL" == "false" ]] && is_known_failure "$fixture_name"; then
+        FIXTURES_SKIPPED+=("$fixture_name")
     else
-        FIXTURES_TO_COMPILE+=("$file")
+        FIXTURES_TO_COMPILE+=("$fixture_name")
     fi
-done < <(find "$FIXTURES_DIR" -type f -name "*.pp.hs" -print0 | sort -z)
+done < <(find "$FIXTURES_DIR" -type f -name "Example.pp.hs" -print0 | sort -z)
 
 echo ""
 echo "========================================="
 echo "Fixture Compilation Report"
 echo "========================================="
-echo "Total fixtures: $(find "$FIXTURES_DIR" -type f -name "*.pp.hs" | wc -l)"
+echo "Total fixtures: $(find "$FIXTURES_DIR" -type f -name "Example.pp.hs" | wc -l)"
 echo "To compile: ${#FIXTURES_TO_COMPILE[@]}"
 echo "Skipped (known failures): ${#FIXTURES_SKIPPED[@]}"
 echo "Parallel jobs: $JOBS"

@@ -1,7 +1,7 @@
 -- | Golden test: rust-bindgen
 module Test.HsBindgen.Golden.Check.Rust (check) where
 
-import System.FilePath ((</>))
+import System.FilePath ((<.>), (</>))
 import Test.Common.Util.Tasty
 import Test.Common.Util.Tasty.Golden
 import Test.HsBindgen.Golden.TestCase
@@ -32,7 +32,7 @@ check testResources test =
               return $ ActualSkipped "rust-bindgen not available"
   where
     fixture :: FilePath
-    fixture = "fixtures" </> (testName test ++ ".rs")
+    fixture = testOutputDir test </> "rust-bindgen" <.> ".rs"
 
 checkPanic :: IO TestResources -> TestCase -> TestTree
 checkPanic testResources test =

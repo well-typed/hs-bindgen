@@ -14,7 +14,7 @@ import Language.Haskell.TH qualified as TH
 import Language.Haskell.TH.Ppr qualified as TH
 import Language.Haskell.TH.PprLib qualified as TH
 import Language.Haskell.TH.Syntax qualified as TH
-import System.FilePath (makeRelative, (</>))
+import System.FilePath (makeRelative, (<.>), (</>))
 import Test.Common.Util.Tasty
 import Test.Common.Util.Tasty.Golden (ActualValue (..))
 import Test.HsBindgen.Golden.TestCase
@@ -74,7 +74,7 @@ check testResources test =
         return $ ActualSkipped "ghc < 9.4"
   where
     fixture :: FilePath
-    fixture = "fixtures" </> (testName test ++ ".th.txt")
+    fixture = testOutputDir test </> "th" <.> "txt"
 
     -- Clang version 19 uses <> for some reason.
     --

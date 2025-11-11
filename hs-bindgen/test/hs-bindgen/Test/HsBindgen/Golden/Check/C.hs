@@ -1,7 +1,7 @@
 -- | Golden test: C AST
 module Test.HsBindgen.Golden.Check.C (check) where
 
-import System.FilePath ((</>))
+import System.FilePath ((<.>), (</>))
 import Test.Common.Util.Tasty
 import Test.Common.Util.Tasty.Golden
 import Test.HsBindgen.Golden.TestCase
@@ -24,4 +24,4 @@ check testResources test =
       pure $ ActualValue $ C.TranslationUnit decls deps
   where
     fixture :: FilePath
-    fixture = "fixtures" </> (testName test ++ ".tree-diff.txt")
+    fixture = testOutputDir test </> "tree-diff" <.> "txt"

@@ -2,7 +2,7 @@
 module Test.HsBindgen.Golden.Check.BindingSpec (check) where
 
 import Data.ByteString.UTF8 qualified as UTF8
-import System.FilePath ((</>))
+import System.FilePath ((<.>), (</>))
 import Test.Common.Util.Tasty
 import Test.Common.Util.Tasty.Golden
 import Test.HsBindgen.Golden.TestCase
@@ -37,4 +37,4 @@ check testResources test =
       return $ ActualValue output
   where
     fixture :: FilePath
-    fixture = "fixtures" </> (testName test ++ ".bindingspec.yaml")
+    fixture = testOutputDir test </> "bindingspec" <.> "yaml"
