@@ -647,6 +647,12 @@ testCases = manualTestCases ++ [
                 Just $ expectFromDeclSelect decl
               _otherwise -> Nothing
         }
+    , (defaultFailingTest "selection_bad"){
+          testTracePredicate = singleTracePredicate $ \case
+            (TraceFrontend (FrontendMangleNames (MangleNamesMissingDeclaration _))) ->
+              Just $ Expected ()
+            _other -> Nothing
+        }
     , (defaultTest "program_slicing_selection"){
           testOnFrontendConfig = \cfg -> cfg{
               frontendParsePredicate  = BTrue
