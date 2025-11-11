@@ -653,6 +653,12 @@ testCases = manualTestCases ++ [
               Just $ Expected ()
             _other -> Nothing
         }
+    , (defaultTest "selection_foo"){
+          testTracePredicate = customTracePredicate' ["f"] $ \case
+            (TraceFrontend (FrontendSelect (SelectParseFailure m))) ->
+              Just $ expectFromQualPrelimDeclId m.declId
+            _other -> Nothing
+        }
     , (defaultTest "program_slicing_selection"){
           testOnFrontendConfig = \cfg -> cfg{
               frontendParsePredicate  = BTrue

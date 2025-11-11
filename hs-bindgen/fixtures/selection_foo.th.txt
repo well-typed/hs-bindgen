@@ -1,0 +1,2 @@
+-- addDependentFile examples/golden/selection_foo_t.h
+-- addDependentFile examples/golden/selection_foo.h
