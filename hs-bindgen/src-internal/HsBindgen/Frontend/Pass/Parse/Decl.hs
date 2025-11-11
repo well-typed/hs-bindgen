@@ -48,7 +48,7 @@ topLevelDecl = foldWithHandler handleTypeException parseDecl
         when (contextRequiredForScoping == RequiredForScoping) $
           recordImmediateTrace $
             ParseOfDeclarationRequiredForScopingFailed info (parseException err)
-        pure $ Just $ singleton $
+        pure $ Just $
           parseFail info contextNameKind $
             ParseUnsupportedType (parseException err)
       where
@@ -264,7 +264,7 @@ structDecl info = \curr -> do
               map parseSucceed $ decls ++ [mkStruct fields]
             Nothing ->
               -- If the struct has implicit fields, don't generate anything.
-              singleton $ parseFail info (NameKindTagged TagKindStruct) $
+              parseFail info (NameKindTagged TagKindStruct) $
                 ParseUnsupportedImplicitFields
       DefinitionUnavailable ->
         let decl :: C.Decl Parse
@@ -325,7 +325,7 @@ unionDecl info = \curr -> do
               map parseSucceed $ decls ++ [mkUnion fields]
             Nothing ->
               -- If the struct has implicit fields, don't generate anything.
-              singleton $ parseFail info (NameKindTagged TagKindUnion) $
+              parseFail info (NameKindTagged TagKindUnion) $
                 ParseUnsupportedImplicitFields
       DefinitionUnavailable -> do
         let decl :: C.Decl Parse
@@ -493,7 +493,7 @@ functionDecl info = \curr -> do
                   NotRequiredForScoping
       in  fromCXType' ctx =<< clang_getCursorType curr
     guardTypeFunction curr typ >>= \case
-      Left rs -> foldContinueWith [rs]
+      Left rs -> foldContinueWith rs
       Right (functionArgs, functionRes) -> do
         functionAnn <- getReparseInfo curr
         let mkDecl :: C.FunctionPurity -> C.Decl Parse
@@ -525,10 +525,8 @@ functionDecl info = \curr -> do
             let isDefn = declCls == Definition
 
             pure $ (fails ++) $
-              if not (null anonDecls)
-              then
-                singleton $
-                  parseFail info NameKindOrdinary ParseUnexpectedAnonInSignature
+              if not (null anonDecls) then
+                parseFail info NameKindOrdinary ParseUnexpectedAnonInSignature
               else
                 let nonPublicVisibility = [
                         ParseNonPublicVisibility
@@ -546,7 +544,7 @@ functionDecl info = \curr -> do
     guardTypeFunction ::
          CXCursor
       -> C.Type Parse
-      -> ParseDecl (Either ParseResult ([(Maybe C.Name, C.Type Parse)], C.Type Parse))
+      -> ParseDecl (Either [ParseResult] ([(Maybe C.Name, C.Type Parse)], C.Type Parse))
     guardTypeFunction curr ty =
         case ty of
           C.TypeFun args res -> do
@@ -650,9 +648,8 @@ varDecl info = \curr -> do
                    || (isTentative && declCls == DefinitionUnavailable)
 
         pure $ (fails ++) $
-          if not (null anonDecls)
-          then singleton $
-                 parseFail info NameKindOrdinary ParseUnexpectedAnonInExtern
+          if not (null anonDecls) then
+            parseFail info NameKindOrdinary ParseUnexpectedAnonInExtern
           else (map parseSucceed otherDecls ++) $
             let nonPublicVisibility = [
                     ParseNonPublicVisibility
@@ -673,10 +670,8 @@ varDecl info = \curr -> do
                 singleton $
                   parseSucceedWith msgs (mkDecl $ C.DeclGlobal typ)
               VarThreadLocal ->
-                singleton $
                   parseFailWith' $ ParseUnsupportedTLS :| msgs
               VarUnsupported storage ->
-                singleton $
                   parseFailWith' $ ParseUnknownStorageClass storage :| msgs
   where
     -- Look for nested declarations inside the global variable type

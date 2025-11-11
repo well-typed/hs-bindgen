@@ -364,18 +364,15 @@ getParseNotAttemptedMsgs match =
   Foldable.foldl' (Foldable.foldl' addMsg) [] . notAttempted
   where
     addMsg :: [SelectMsg] -> ParseNotAttempted -> [SelectMsg]
-    addMsg xs (ParseNotAttempted i l a r) =
-      [ SelectParseNotAttempted i l r
-      | match i l a
-      ] ++ xs
+    addMsg xs (ParseNotAttempted m@(AttachedParseMsg i l a _))
+      | match i l a = SelectParseNotAttempted m : xs
+      | otherwise   = xs
 
 getParseFailureMsgs :: Match -> DeclIndex -> [Msg Select]
 getParseFailureMsgs match =
   Foldable.foldl' (Foldable.foldl' addMsg) [] . failed
   where
     addMsg :: [SelectMsg] -> ParseFailure -> [SelectMsg]
-    addMsg xs (ParseFailure i l a msgs) =
-      [ SelectParseFailure msg
-      | match i l a
-      , msg <- NonEmpty.toList msgs
-      ] ++ xs
+    addMsg xs (ParseFailure m@(AttachedParseMsg i l a _))
+      | match i l a = SelectParseFailure m : xs
+      | otherwise   = xs

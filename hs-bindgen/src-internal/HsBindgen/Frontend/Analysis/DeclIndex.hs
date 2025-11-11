@@ -48,8 +48,6 @@ data DeclIndex = DeclIndex {
       succeeded    :: !(Map C.QualPrelimDeclId ParseSuccess)
     , notAttempted :: !(Map C.QualPrelimDeclId (NonEmpty ParseNotAttempted))
     , failed       :: !(Map C.QualPrelimDeclId (NonEmpty ParseFailure))
-      -- TODO_PR: Probably fix discrepancy `QualPrelimDeclId` vs.`Name` and
-      -- `QualName`.
     , failedMacros :: !(Map C.QualPrelimDeclId HandleMacrosFailure)
     , omitted      :: !(Map C.QualName SourcePath)
       -- TODO https://github.com/well-typed/hs-bindgen/issues/1273: Attach
@@ -234,7 +232,7 @@ lookup qualPrelimDeclId =
     fromMaybe (panicPure $ "Unknown key: " ++ show qualPrelimDeclId) $
        lookup qualPrelimDeclId declIndex
 
-lookupAttachedParseMsgs :: C.QualPrelimDeclId -> DeclIndex -> [AttachedParseMsg]
+lookupAttachedParseMsgs :: C.QualPrelimDeclId -> DeclIndex -> [AttachedParseMsg DelayedParseMsg]
 lookupAttachedParseMsgs qualPrelimDeclId =
   maybe [] psAttachedMsgs . Map.lookup qualPrelimDeclId . succeeded
 
