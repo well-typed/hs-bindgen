@@ -26,9 +26,8 @@ libclang_flags=(
 # the declarations into an `hs-bindgen`-internal abstract syntax tree. These
 # flags affect the parsing/reifying step.
 parse_flags=(
-    # TODO https://github.com/well-typed/hs-bindgen/issues/1178: Why do we need
-    # `--parse-all`? We get "unavailable transitive dependencies" if we do not
-    # use `--parse-all`.
+    # TODO: We panic without `--parse-all`, see
+    # https://github.com/well-typed/hs-bindgen/issues/1155.
     --parse-all
 )
 
