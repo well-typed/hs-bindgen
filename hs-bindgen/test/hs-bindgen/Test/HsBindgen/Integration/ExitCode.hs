@@ -24,7 +24,7 @@ tests testResources = testGroup "Integration.ExitCode" [
     testSuccessCase testResources
   , testUnresolvedInclude testResources
   , testSuccessCaseProcess testResources
-  , testUnresolvedIncludeProcess testResources
+  , testUnresolvedIncludeProcess
   ]
 
 -- | Test that should successful complete without throwing TraceException
@@ -90,12 +90,11 @@ testSuccessCaseProcess testResources = testCase "success returns exit code 0" $ 
     exitCode @?= ExitSuccess
 
 -- Test unresolved #include (the original issue scenario)
-testUnresolvedIncludeProcess :: IO TestResources -> TestTree
-testUnresolvedIncludeProcess testResources = testCase "unresolved include returns non-zero" $ do
+testUnresolvedIncludeProcess :: TestTree
+testUnresolvedIncludeProcess = testCase "unresolved include returns non-zero" $ do
   withSystemTempDirectory "hs-bindgen-test" $ \tmpDir -> do
-    root <- getTestPackageRoot testResources
     -- Create a temporary header with unresolved include
-    let tempHeader = root </> "test-unresolved-include.h"
+    let tempHeader = tmpDir </> "test-unresolved-include.h"
     writeFile tempHeader "#include <nonexistent/totally-bogus-header-12345.h>\n"
     (exitCode, _, _) <- readProcessWithExitCode "hs-bindgen-cli"
                                                [ "preprocess"
