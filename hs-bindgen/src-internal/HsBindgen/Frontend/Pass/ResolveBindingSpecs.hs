@@ -66,9 +66,7 @@ resolveBindingSpecs
             unitAnn.declIndex
             (resolveDecls unitDecls)
         useDeclGraph =
-          UseDeclGraph.deleteDeps
-            (fst <$> Map.elems stateExtTypes)
-            unitAnn.declUseDecl
+          UseDeclGraph.deleteDeps (Map.keys stateExtTypes) unitAnn.declUseDecl
         notUsedErrs = ResolveBindingSpecsTypeNotUsed <$> Map.keys stateNoPTypes
     in  ( reassemble decls useDeclGraph state
         , pSpecErrs ++ reverse stateTraces ++ notUsedErrs
@@ -83,20 +81,15 @@ resolveBindingSpecs
       let index :: DeclIndex
           index = unitAnn.declIndex
 
-          omitted :: Map C.QualName SourcePath
+          omitted :: Map C.QualPrelimDeclId (C.QualName, SourcePath)
           omitted = stateOmitTypes
 
-          external :: Set C.QualName
+          external :: Set C.QualPrelimDeclId
           external = Map.keysSet stateExtTypes
 
-          -- TODO_PR: Is this conversion always correct?
-          qualNameToQualPrelimDeclId :: C.QualName -> C.QualPrelimDeclId
-          qualNameToQualPrelimDeclId C.QualName{..} =
-            C.QualPrelimDeclIdNamed qualNameName qualNameKind
-
           omittedIds, externalIds, handledIds :: Set C.QualPrelimDeclId
-          omittedIds = Set.map qualNameToQualPrelimDeclId $ Map.keysSet omitted
-          externalIds = Set.map qualNameToQualPrelimDeclId external
+          omittedIds = Map.keysSet omitted
+          externalIds = Map.keysSet stateExtTypes
           handledIds = omittedIds `Set.union` externalIds
 
           index' :: DeclIndex
@@ -165,10 +158,9 @@ data MEnv = MEnv {
 
 data MState = MState {
       stateTraces    :: [Msg ResolveBindingSpecs] -- ^ reverse order
-    , stateExtTypes  ::
-        Map C.QualName (C.QualPrelimDeclId, C.Type ResolveBindingSpecs)
+    , stateExtTypes  :: Map C.QualPrelimDeclId (C.Type ResolveBindingSpecs)
     , stateNoPTypes  :: Map C.QualName [Set SourcePath]
-    , stateOmitTypes :: Map C.QualName SourcePath
+    , stateOmitTypes :: Map C.QualPrelimDeclId (C.QualName, SourcePath)
     }
   deriving (Show)
 
@@ -186,14 +178,13 @@ insertTrace msg st = st {
     }
 
 insertExtType ::
-     C.QualName
-  -> C.QualPrelimDeclId
+     C.QualPrelimDeclId
   -> C.Type ResolveBindingSpecs
   -> MState
   -> MState
-insertExtType cQualName cQualPrelimDeclId typ st = st {
+insertExtType cQualPrelimDeclId typ st = st {
       stateExtTypes =
-        Map.insert cQualName (cQualPrelimDeclId, typ) (stateExtTypes st)
+        Map.insert cQualPrelimDeclId typ (stateExtTypes st)
     }
 
 deleteNoPType :: C.QualName -> SourcePath -> MState -> MState
@@ -211,9 +202,9 @@ deleteNoPType cQualName path st = st {
         | otherwise -> aux (s : acc) ss
       [] -> Just acc
 
-insertOmittedType :: C.QualName -> SourcePath -> MState -> MState
-insertOmittedType cQualName path st = st {
-      stateOmitTypes = Map.insert cQualName path (stateOmitTypes st)
+insertOmittedType :: C.QualPrelimDeclId -> C.QualName -> SourcePath -> MState -> MState
+insertOmittedType cQualPrelimDeclId cQualName path st = st {
+      stateOmitTypes = Map.insert cQualPrelimDeclId (cQualName, path) (stateOmitTypes st)
     }
 
 {-------------------------------------------------------------------------------
@@ -257,7 +248,7 @@ resolveTop decl = Reader.ask >>= \MEnv{..} -> do
           State.modify' $
               insertTrace (ResolveBindingSpecsPrescriptiveOmit cQualName)
             . deleteNoPType cQualName sourcePath
-            . insertOmittedType cQualName sourcePath
+            . insertOmittedType cQualPrelimDeclId cQualName sourcePath
           return Nothing
         Nothing -> return $ Just (decl, Nothing)
 
@@ -460,12 +451,12 @@ instance Resolve C.Type where
           let cQualName = C.QualName qualDeclIdName qualDeclIdKind
               cQualPrelimDeclId = C.qualDeclIdToQualPrelimDeclId cQualDeclId
           -- Check for type omitted by binding specification
-          when (Map.member cQualName stateOmitTypes) $
+          when (Map.member cQualPrelimDeclId stateOmitTypes) $
             State.modify' $
               insertTrace (ResolveBindingSpecsOmittedTypeUse cQualName)
           -- Check for selected external binding
-          case Map.lookup cQualName stateExtTypes of
-            Just (_, ty) -> do
+          case Map.lookup cQualPrelimDeclId stateExtTypes of
+            Just ty -> do
               State.modify' $
                 insertTrace (ResolveBindingSpecsExtType ctx cQualName)
               return ty
@@ -485,7 +476,7 @@ instance Resolve C.Type where
                     Just ty -> do
                       State.modify' $
                           insertTrace (ResolveBindingSpecsExtType ctx cQualName)
-                        . insertExtType cQualName cQualPrelimDeclId ty
+                        . insertExtType cQualPrelimDeclId ty
                       return ty
                     Nothing -> return (mk qualDeclIdName)
         where
@@ -520,7 +511,6 @@ resolveExtBinding cQualName cQualPrelimDeclId declPaths  = do
                   }
             State.modify' $
               insertExtType
-                cQualName
                 cQualPrelimDeclId
                 (C.TypeExtBinding resolved)
             return (Just resolved)

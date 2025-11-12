@@ -47,7 +47,7 @@ genBindingSpec ::
      Hs.ModuleName
   -> FilePath
   -> GetMainHeaders
-  -> Map C.QualName SourcePath
+  -> [(C.QualName, SourcePath)]
   -> [Hs.Decl]
   -> IO ()
 genBindingSpec hsModuleName path getMainHeaders omitTypes =
@@ -62,7 +62,7 @@ genBindingSpec hsModuleName path getMainHeaders omitTypes =
 genBindingSpecYaml ::
      Hs.ModuleName
   -> GetMainHeaders
-  -> Map C.QualName SourcePath
+  -> [(C.QualName, SourcePath)]
   -> [Hs.Decl]
   -> ByteString
 genBindingSpecYaml hsModuleName getMainHeaders omitTypes =
@@ -79,7 +79,7 @@ type CTypeSpec = (C.QualName, Set HashIncludeArg, BindingSpec.CTypeSpec)
 genBindingSpec' ::
      Hs.ModuleName
   -> GetMainHeaders
-  -> Map C.QualName SourcePath
+  -> [(C.QualName, SourcePath)]
   -> [Hs.Decl]
   -> UnresolvedBindingSpec
 genBindingSpec' hsModuleName getMainHeaders omitTypes = foldr aux omitSpec
@@ -89,7 +89,7 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes = foldr aux omitSpec
         BindingSpec.bindingSpecModule = hsModuleName
       , BindingSpec.bindingSpecTypes = Map.fromListWith (++) [
             (cQualName, [(getMainHeaders' path, Omit)])
-          | (cQualName, path) <- Map.toList omitTypes
+          | (cQualName, path) <- omitTypes
           ]
       }
 

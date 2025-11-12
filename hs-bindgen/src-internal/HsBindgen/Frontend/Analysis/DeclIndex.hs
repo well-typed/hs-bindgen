@@ -44,16 +44,58 @@ import HsBindgen.Util.Tracer
 -------------------------------------------------------------------------------}
 
 -- | Index of all declarations
+--
+-- The declaration index indexes C types (not Haskell types); as such, it
+-- contains declarations in the source code, and never contains external
+-- declarations.
+--
+-- When we replace a declaration by an external one while resolving binding
+-- specifications, it is not deleted from the declaration index but reclassified
+-- as 'external'. In the "HsBindgen.Frontend.Analysis.UseDeclGraph", dependency
+-- edges from use sites to the replaced declaration are deleted, because the use
+-- sites now depend on the external Haskell type.
+--
+-- For example, assume the C code
+--
+-- @
+-- typedef struct {    // D1
+--   int x;
+-- } foo_t;            // D2
+--
+-- typedef foo_t foo;  // D3
+-- @
+--
+-- - D1 declares an anonymous @struct@
+-- - D2 declares the typedef @foo_t@ depending on D1
+-- - D3 declares a typedef @foo@ depending on D2
+--
+-- The use-decl graph is
+--
+-- D1 <- D2 <- D3
+--
+-- Further, assume we have an external binding specification for D2. After
+-- resolving external binding specifications, the use-decl graph will be
+--
+-- D1 <- D2    D3
+--      (R2) <-|
+--
+-- The edge from D3 to D2 was removed, since D3 now depends on a Haskell type
+-- R3, which is not part of the use-decl graph.
+--
+-- The records
+-- - 'succeeded', 'notAttempted', and 'failed' store parse results;
+-- - 'failedMacros' stores failed macros; and
+-- - 'omitted' and 'external' store binding specifications.
 data DeclIndex = DeclIndex {
       succeeded    :: !(Map C.QualPrelimDeclId ParseSuccess)
     , notAttempted :: !(Map C.QualPrelimDeclId (NonEmpty ParseNotAttempted))
     , failed       :: !(Map C.QualPrelimDeclId (NonEmpty ParseFailure))
     , failedMacros :: !(Map C.QualPrelimDeclId HandleMacrosFailure)
-    , omitted      :: !(Map C.QualName SourcePath)
+    , omitted      :: !(Map C.QualPrelimDeclId (C.QualName, SourcePath))
       -- TODO https://github.com/well-typed/hs-bindgen/issues/1273: Attach
       -- information required to match the select predicate also to external
       -- declarations.
-    , external     :: !(Set C.QualName)
+    , external     :: !(Set C.QualPrelimDeclId)
     }
   deriving stock (Show, Generic)
 

@@ -6,6 +6,7 @@ module HsBindgen.Frontend
   , FrontendMsg(..)
   ) where
 
+import Data.Map.Strict qualified as Map
 import Optics.Core (view, (%))
 
 import Clang.Enum.Bitfield
@@ -210,7 +211,8 @@ frontend tracer FrontendConfig{..} BootArtefact{..} = do
 
     -- Omitted types
     frontendOmitTypes <- cache "frontendOmitTypes" $
-      view ( #unitAnn % #declIndex % #omitted ) <$> resolveBindingSpecsPass
+      Map.elems . view ( #unitAnn % #declIndex % #omitted ) <$>
+        resolveBindingSpecsPass
 
     -- Declarations.
     frontendCDecls <- cache "frontendDecls" $
@@ -276,7 +278,7 @@ data FrontendArtefact = FrontendArtefact {
   , frontendIndex          :: IO DeclIndex.DeclIndex
   , frontendUseDeclGraph   :: IO UseDeclGraph.UseDeclGraph
   , frontendDeclUseGraph   :: IO DeclUseGraph.DeclUseGraph
-  , frontendOmitTypes      :: IO (Map C.QualName SourcePath)
+  , frontendOmitTypes      :: IO [(C.QualName, SourcePath)]
   , frontendCDecls         :: IO [C.Decl]
   , frontendDependencies   :: IO [SourcePath]
   }
