@@ -13,6 +13,7 @@ reportTrace :: forall a l. (IsTrace l a, Show a) => a -> CtxDoc
 reportTrace trace = PP.vcat $
               [ "[" >< ppTraceId >< "][pretty] " >< prettyForTrace trace
               , "[" >< ppTraceId >< "][show  ] " >< PP.showToCtxDoc trace
+              , ""
               ]
   where
     ppTraceId = PP.string $ unTraceId $ getTraceId trace

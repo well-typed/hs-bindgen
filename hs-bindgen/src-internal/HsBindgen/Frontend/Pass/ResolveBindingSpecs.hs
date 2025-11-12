@@ -97,9 +97,12 @@ resolveBindingSpecs
               succeeded    = Map.withoutKeys index.succeeded    handledIds
             , notAttempted = Map.withoutKeys index.notAttempted handledIds
             , failed       = Map.withoutKeys index.failed       handledIds
+            -- TODO https://github.com/well-typed/hs-bindgen/issues/1280: We do
+            -- not support external binding specifications for macros yet, but
+            -- if we do, we need to handle those here.
+            , failedMacros = index.failedMacros
             , omitted
             , external
-            , failedMacros = index.failedMacros
             }
 
           unitAnn' :: DeclMeta

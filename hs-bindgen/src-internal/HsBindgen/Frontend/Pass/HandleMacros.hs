@@ -43,18 +43,15 @@ handleMacros standard C.TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
       fmap partitionEithers $ mapM processDecl unitDecls
   where
     reassemble ::
-         (([HandleMacrosFailure] , [C.Decl HandleMacros]) , [Msg HandleMacros])
+         (([HandleMacrosParseMsg] , [C.Decl HandleMacros]) , [Msg HandleMacros])
       -> (C.TranslationUnit HandleMacros, [Msg HandleMacros])
     reassemble ((failedMacroLst, decls'), msgs) =
       let index :: DeclIndex
           index = unitAnn.declIndex
 
-          nameToQualPrelimDeclId :: C.Name -> C.QualPrelimDeclId
-          nameToQualPrelimDeclId n = C.QualPrelimDeclIdNamed n C.NameKindOrdinary
-
-          failedMacros :: Map C.QualPrelimDeclId HandleMacrosFailure
+          failedMacros :: Map C.QualPrelimDeclId HandleMacrosParseMsg
           failedMacros = Map.fromList $
-            map (\f -> (nameToQualPrelimDeclId f.name, f)) failedMacroLst
+            map (\x -> (declId $ unHandleMacrosParseMsg x, x)) failedMacroLst
 
           failedMacroIds :: Set C.QualPrelimDeclId
           failedMacroIds = Map.keysSet failedMacros
@@ -79,7 +76,7 @@ handleMacros standard C.TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
 
 processDecl ::
      C.Decl ConstructTranslationUnit
-  -> M (Either HandleMacrosFailure (C.Decl HandleMacros))
+  -> M (Either HandleMacrosParseMsg (C.Decl HandleMacros))
 processDecl C.Decl{declInfo, declKind} =
     case declKind of
       C.DeclMacro macro      -> processMacro info' macro
@@ -299,7 +296,7 @@ processTypedef info C.Typedef{typedefType, typedefAnn} = do
 
 processMacro ::
      C.DeclInfo HandleMacros
-  -> UnparsedMacro -> M (Either HandleMacrosFailure (C.Decl HandleMacros))
+  -> UnparsedMacro -> M (Either HandleMacrosParseMsg (C.Decl HandleMacros))
 processMacro info (UnparsedMacro tokens) = do
     -- Simply omit macros from the AST that we cannot parse
     bimap addInfo toDecl <$> parseMacro name tokens
@@ -309,8 +306,13 @@ processMacro info (UnparsedMacro tokens) = do
       C.PrelimDeclIdNamed n -> n
       _otherwise            -> panicPure "unexpected anonymous macro"
 
-    addInfo :: HandleMacrosError -> HandleMacrosFailure
-    addInfo = HandleMacrosFailure name info.declLoc
+    qualPrelimDeclId :: C.QualPrelimDeclId
+    qualPrelimDeclId = C.QualPrelimDeclIdNamed name C.NameKindOrdinary
+
+    addInfo :: HandleMacrosError -> HandleMacrosParseMsg
+    addInfo =
+      HandleMacrosParseMsg .
+        AttachedParseMsg qualPrelimDeclId info.declLoc C.Available
 
     toDecl :: C.CheckedMacro HandleMacros -> C.Decl HandleMacros
     toDecl checked = C.Decl{
@@ -389,7 +391,7 @@ newtype M a = WrapM {
     )
 
 data MacroState = MacroState {
-      stateErrors :: [HandleMacrosMsg]  -- ^ Stored in reverse order
+      stateErrors :: [HandleMacrosReparseMsg]  -- ^ Stored in reverse order
 
       -- | Types of macro expressions
     , stateMacroEnv :: CExpr.DSL.TypeEnv
@@ -419,7 +421,9 @@ parseMacro ::
      C.Name
   -> [Token TokenSpelling]
   -> M (Either HandleMacrosError (C.CheckedMacro HandleMacros))
-parseMacro name tokens = state $ \st ->
+parseMacro name []      = panicPure $ "macro " <> show name <> ": unexpected empty list of tokens"
+parseMacro name [_]     = pure      $ Left $ HandleMacrosErrorEmpty name
+parseMacro name tokens  = state     $ \st ->
     -- In the case that the same macro could be interpreted both as a type or
     -- as an expression, we choose to interpret it as a type.
     case LanC.parseMacroType (stateReparseEnv st) tokens of

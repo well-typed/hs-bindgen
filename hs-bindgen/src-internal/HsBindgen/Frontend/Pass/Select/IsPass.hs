@@ -21,6 +21,7 @@ import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
+import HsBindgen.Frontend.Pass.HandleMacros.Error (HandleMacrosError)
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Predicate
@@ -101,7 +102,6 @@ data UnavailabilityReason =
   | UnavailableHandleMacrosFailed C.QualPrelimDeclId
   deriving stock (Show, Eq, Ord)
 
-
 instance PrettyForTrace UnavailabilityReason where
   prettyForTrace r = "unavailable" <+> case r of
     UnavailableParseNotAttempted x -> PP.hcat [
@@ -135,13 +135,15 @@ data SelectMsg =
   | SelectDeprecated (C.Decl Select)
     -- | Delayed parse message for actually selected declarations.
   | SelectParseSuccess (AttachedParseMsg DelayedParseMsg)
-    -- | Delayed parse message for declarations the user directly wants to
-    -- select (i.e., not a transitive dependency), but we have not attempted to
-    -- parse.
+    -- | Delayed parse message for declarations the user wants to select
+    -- directly, but we have not attempted to parse.
   | SelectParseNotAttempted (AttachedParseMsg ParseNotAttemptedReason)
-    -- | Delayed parse message for declarations the user directly wants to
-    -- select (i.e., not a transitive dependency), but we have failed to parse.
+    -- | Delayed parse message for declarations the user wants to select
+    -- directly, but we have failed to parse.
   | SelectParseFailure (AttachedParseMsg DelayedParseMsg)
+    -- | Delayed handle macros message for macros the user wants to select
+    -- | directly, but we have failed to parse.
+  | SelectMacroFailure (AttachedParseMsg HandleMacrosError)
     -- | Inform the user that no declarations matched the select predicate.
   | SelectNoDeclarationsMatched
   deriving stock (Show)
@@ -174,6 +176,8 @@ instance PrettyForTrace SelectMsg where
       ]
     SelectParseFailure x ->
       "Could not select declaration; parse failure:" <+> prettyForTrace x
+    SelectMacroFailure x ->
+      "Could not select declaration; macro parse failure:" <+> prettyForTrace x
     SelectNoDeclarationsMatched ->
       "No declarations matched the select predicate"
 
@@ -186,6 +190,7 @@ instance IsTrace Level SelectMsg where
     SelectParseSuccess x                           -> getDefaultLogLevel x
     SelectParseNotAttempted{}                      -> Warning
     SelectParseFailure x                           -> getDefaultLogLevel x
+    SelectMacroFailure x                           -> getDefaultLogLevel x
     SelectNoDeclarationsMatched                    -> Warning
   getSource  = const HsBindgen
   getTraceId = \case
@@ -196,6 +201,7 @@ instance IsTrace Level SelectMsg where
     SelectParseSuccess x                           -> "select-" <> getTraceId x
     SelectParseNotAttempted{}                      -> "select-parse"
     SelectParseFailure x                           -> "select-" <> getTraceId x
+    SelectMacroFailure x                           -> "select-" <> getTraceId x
     SelectNoDeclarationsMatched                    -> "select"
 
 {-------------------------------------------------------------------------------

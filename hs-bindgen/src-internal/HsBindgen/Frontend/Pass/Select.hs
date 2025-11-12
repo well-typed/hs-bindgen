@@ -23,6 +23,7 @@ import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
+import HsBindgen.Frontend.Pass.HandleMacros.Error
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.Select.IsPass
@@ -137,6 +138,7 @@ selectDecls
          ++ getDelayedParseMsgs      selectedIds index
          ++ getParseNotAttemptedMsgs match index
          ++ getParseFailureMsgs      match index
+         ++ getMacroFailureMsgs      match index
        )
   where
     getUseSitesTransitively :: Set DeclId -> Set DeclId
@@ -359,20 +361,32 @@ getDelayedParseMsgs selIds index = concatMap getMsgs $ Set.toList selIds
     getMsgs :: DeclId -> [Msg Select]
     getMsgs k = map SelectParseSuccess $ DeclIndex.lookupAttachedParseMsgs k index
 
+matchMsg :: Match -> AttachedParseMsg a -> Bool
+matchMsg p m = p m.declId m.loc m.availability
+
 getParseNotAttemptedMsgs :: Match -> DeclIndex -> [Msg Select]
-getParseNotAttemptedMsgs match =
+getParseNotAttemptedMsgs p =
   Foldable.foldl' (Foldable.foldl' addMsg) [] . notAttempted
   where
     addMsg :: [SelectMsg] -> ParseNotAttempted -> [SelectMsg]
-    addMsg xs (ParseNotAttempted m@(AttachedParseMsg i l a _))
-      | match i l a = SelectParseNotAttempted m : xs
+    addMsg xs (ParseNotAttempted m)
+      | matchMsg p m = SelectParseNotAttempted m : xs
       | otherwise   = xs
 
 getParseFailureMsgs :: Match -> DeclIndex -> [Msg Select]
-getParseFailureMsgs match =
+getParseFailureMsgs p =
   Foldable.foldl' (Foldable.foldl' addMsg) [] . failed
   where
     addMsg :: [SelectMsg] -> ParseFailure -> [SelectMsg]
-    addMsg xs (ParseFailure m@(AttachedParseMsg i l a _))
-      | match i l a = SelectParseFailure m : xs
+    addMsg xs (ParseFailure m)
+      | matchMsg p m = SelectParseFailure m : xs
+      | otherwise   = xs
+
+getMacroFailureMsgs :: Match -> DeclIndex -> [Msg Select]
+getMacroFailureMsgs p =
+  (Foldable.foldl' addMsg) [] . failedMacros
+  where
+    addMsg :: [SelectMsg] -> HandleMacrosParseMsg -> [SelectMsg]
+    addMsg xs (HandleMacrosParseMsg m)
+      | matchMsg p m = SelectMacroFailure m : xs
       | otherwise   = xs
