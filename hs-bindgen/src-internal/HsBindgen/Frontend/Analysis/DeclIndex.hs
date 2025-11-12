@@ -90,7 +90,7 @@ data DeclIndex = DeclIndex {
       succeeded    :: !(Map C.QualPrelimDeclId ParseSuccess)
     , notAttempted :: !(Map C.QualPrelimDeclId (NonEmpty ParseNotAttempted))
     , failed       :: !(Map C.QualPrelimDeclId (NonEmpty ParseFailure))
-    , failedMacros :: !(Map C.QualPrelimDeclId HandleMacrosFailure)
+    , failedMacros :: !(Map C.QualPrelimDeclId HandleMacrosParseMsg)
     , omitted      :: !(Map C.QualPrelimDeclId (C.QualName, SourcePath))
       -- TODO https://github.com/well-typed/hs-bindgen/issues/1273: Attach
       -- information required to match the select predicate also to external

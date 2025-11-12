@@ -1,8 +1,12 @@
 module HsBindgen.Frontend.Pass.HandleMacros.Error (
-    HandleMacrosFailure(..)
+    -- * Parse
+    HandleMacrosParseMsg(..)
   , HandleMacrosError(..)
+    -- * Reparse
+  , HandleMacrosReparseMsg(..)
   ) where
 
+import Text.SimplePrettyPrint ((<+>))
 import Text.SimplePrettyPrint qualified as PP
 
 import C.Expr.Parse.Infra qualified as CExpr.DSL
@@ -12,15 +16,20 @@ import Clang.HighLevel.Types
 
 import HsBindgen.Frontend.LanguageC qualified as LanC
 import HsBindgen.Frontend.Naming qualified as C
+import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Imports
 import HsBindgen.Util.Tracer
 
-data HandleMacrosFailure = HandleMacrosFailure {
-    name     :: C.Name
-  , location :: SingleLoc
-  , error    :: HandleMacrosError
+{-------------------------------------------------------------------------------
+  Parse messages
+-------------------------------------------------------------------------------}
+
+-- | Macro parse messages; see also 'HandleMacrosReparseMsg'
+newtype HandleMacrosParseMsg = HandleMacrosParseMsg {
+    unHandleMacrosParseMsg :: AttachedParseMsg HandleMacrosError
   }
-  deriving stock (Show)
+  deriving stock    (Show, Generic)
+  deriving anyclass (PrettyForTrace)
 
 data HandleMacrosError =
     -- | We could not parse the macro (macro def sites)
@@ -28,6 +37,8 @@ data HandleMacrosError =
     -- When this happens, we get /two/ parse errors: one for trying to parse the
     -- macro as a type, and one for trying to parse the macro as an expression.
     HandleMacrosErrorParse LanC.Error CExpr.DSL.MacroParseError
+
+  | HandleMacrosErrorEmpty C.Name
 
     -- | We could not type-check the macro
   | HandleMacrosErrorTc CExpr.DSL.MacroTcError
@@ -41,6 +52,8 @@ instance PrettyForTrace HandleMacrosError where
         , "nor as expression:"
         , PP.nest 2 $ prettyParseError errExpr
         ]
+      HandleMacrosErrorEmpty name ->
+          "Ignoring empty macro:" <+> prettyForTrace name
       HandleMacrosErrorTc x ->
           PP.textToCtxDoc $ CExpr.DSL.pprTcMacroError x
 
@@ -60,6 +73,31 @@ prettyParseError err = PP.vcat [
       } = err
 
 instance IsTrace Level HandleMacrosError where
-  getDefaultLogLevel = const Error
+  getDefaultLogLevel = \case
+    HandleMacrosErrorParse{} -> Info
+    HandleMacrosErrorEmpty{} -> Info
+    HandleMacrosErrorTc{}    -> Info
   getSource          = const HsBindgen
   getTraceId         = const "handle-macros"
+
+{-------------------------------------------------------------------------------
+  Reparse messages
+-------------------------------------------------------------------------------}
+
+-- | Macro reparse messages; see also 'HandleMacrosParseMsg'
+data HandleMacrosReparseMsg =
+    -- | We could not reparse a fragment of C (to recover macro use sites)
+    HandleMacrosErrorReparse LanC.Error
+  deriving stock (Show)
+
+instance PrettyForTrace HandleMacrosReparseMsg where
+  prettyForTrace = \case
+      HandleMacrosErrorReparse x -> PP.hsep [
+          "Failed to reparse: "
+        , prettyForTrace x
+        ]
+
+instance IsTrace Level HandleMacrosReparseMsg where
+  getDefaultLogLevel = const Info
+  getSource          = const HsBindgen
+  getTraceId         = const "handle-macros-reparse"
