@@ -62,7 +62,7 @@ handleMacros standard C.TranslationUnit{unitDecls, unitIncludeGraph, unitAnn} =
           index' = DeclIndex {
               succeeded    = Map.withoutKeys index.succeeded failedMacroIds
             , notAttempted = index.notAttempted
-            , failed       = Map.withoutKeys index.failed    failedMacroIds
+            , failed       = index.failed
             , failedMacros
             , omitted      = index.omitted
             , external     = index.external

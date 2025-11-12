@@ -266,9 +266,9 @@ selectDecls
               ++ show origDeclId
           | otherwise =
           case DeclIndex.lookup declIdUseSite index of
-            -- TODO https://github.com/well-typed/hs-bindgen/issues/1273: Be
-            -- more rigorous in determining the selection status of the use site
-            -- when it is not in the `succeeded` map of the `DeclIndex`.
+            -- TODO https://github.com/well-typed/hs-bindgen/issues/1273:
+            -- Implement trace messages stating why we deselect the anonymous
+            -- declarations (e.g., Is the use site an external declaration?).
             Nothing   -> False
             Just decl -> match
                            declIdUseSite

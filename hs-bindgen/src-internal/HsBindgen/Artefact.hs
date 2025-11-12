@@ -56,7 +56,7 @@ data Artefact (a :: Star) where
   DeclIndex           :: Artefact DeclIndex.DeclIndex
   UseDeclGraph        :: Artefact UseDeclGraph.UseDeclGraph
   DeclUseGraph        :: Artefact DeclUseGraph.DeclUseGraph
-  OmitTypes           :: Artefact (Map C.QualName SourcePath)
+  OmitTypes           :: Artefact [(C.QualName, SourcePath)]
   ReifiedC            :: Artefact [C.Decl]
   Dependencies        :: Artefact [SourcePath]
   -- * Backend
