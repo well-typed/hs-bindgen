@@ -3,6 +3,8 @@
 module HsBindgen.Backend.HsModule.Translation (
     -- * GhcPragma
     GhcPragma (..)
+    -- * ExportItem
+  , ExportItem(..)
     -- * ImportListItem
   , ImportListItem(..)
     -- * HsModule
@@ -15,6 +17,7 @@ module HsBindgen.Backend.HsModule.Translation (
   ) where
 
 import Data.Foldable qualified as Foldable
+import Data.List qualified as List
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 import Data.Text qualified as Text
@@ -40,6 +43,26 @@ newtype GhcPragma = GhcPragma { unGhcPragma :: String }
   deriving newtype (Eq, Ord, IsString)
 
 {-------------------------------------------------------------------------------
+  ExportItem
+-------------------------------------------------------------------------------}
+
+-- | Export list item
+data ExportItem =
+    -- | Export a type without constructors
+    ExportType (Hs.Name Hs.NsTypeConstr)
+    -- | Export a type with constructors (..)
+  | ExportTypeWithConstructors (Hs.Name Hs.NsTypeConstr)
+    -- | Export a qualified type without constructors
+  | ExportQualifiedType ResolvedName
+    -- | Export a qualified type with constructors (..)
+  | ExportQualifiedTypeWithConstructors ResolvedName
+    -- | Export a value
+  | ExportValue (Hs.Name Hs.NsVar)
+    -- | Export a pattern synonym
+  | ExportPattern (Hs.Name Hs.NsConstr)
+  deriving stock (Eq, Ord)
+
+{-------------------------------------------------------------------------------
   ImportListItem
 -------------------------------------------------------------------------------}
 
@@ -60,6 +83,7 @@ data ImportListItem =
 data HsModule = HsModule {
       hsModulePragmas              :: [GhcPragma]
     , hsModuleName                 :: String
+    , hsModuleExports              :: [ExportItem]
     , hsModuleImports              :: [ImportListItem]
     , hsModuleUserlandCapiWrappers :: [UserlandCapiWrapper]
     , hsModuleDecls                :: [SDecl]
@@ -116,6 +140,8 @@ translateModule' ::
 translateModule' mcat moduleBaseName hsModuleUserlandCapiWrappers hsModuleDecls =
     let hsModulePragmas =
           resolvePragmas hsModuleUserlandCapiWrappers hsModuleDecls
+        hsModuleExports =
+          computeExports hsModuleDecls
         hsModuleImports =
           resolveImports moduleBaseName mcat hsModuleUserlandCapiWrappers hsModuleDecls
         addSubModule = case mcat of
@@ -323,3 +349,78 @@ resolveExtHsRefImports Hs.ExtRef{..} =
           , hsImportModuleAlias = Nothing
           }
     in  ImportAcc False (Set.singleton hsImportModule) mempty
+
+{-------------------------------------------------------------------------------
+  Auxiliary: Export computation
+-------------------------------------------------------------------------------}
+
+-- | Compute exports from a list of declarations
+--
+computeExports :: [SDecl] -> [ExportItem]
+computeExports decls =
+    Set.toList $ Set.fromList $ concatMap exportFromDecl decls
+
+-- | Extract export items from a single declaration
+--
+exportFromDecl :: SDecl -> [ExportItem]
+exportFromDecl = \case
+    DNewtype nt           -> ExportTypeWithConstructors (newtypeName nt)
+                          : extractUnderlyingTypes (newtypeName nt)
+                                                   (fieldType (newtypeField nt))
+    DRecord r             -> [ExportTypeWithConstructors (dataType r)]
+    DEmptyData ed         -> [ExportType (emptyDataName ed)]
+    DForeignImport fi     -> [ExportValue (foreignImportName fi)]
+    DFunction f           -> [ExportValue (functionName f)]
+    DPatternSynonym ps    -> [ExportPattern (patSynName ps)]
+    DVar v                -> [ExportValue (varName v)]
+    DInst _i              -> []
+    DDerivingInstance _di -> []
+    DPragma _p            -> []
+
+-- | Extract underlying types that need to be re-exported
+-- This handles the case where a newtype wraps another type from a different
+-- module, which is necessary when referenced in a FFI declaration
+--
+extractUnderlyingTypes :: Hs.Name Hs.NsTypeConstr -> SType ctx -> [ExportItem]
+extractUnderlyingTypes newtypeName ty = go ty
+  where
+    go :: SType ctx -> [ExportItem]
+    go = \case
+        TCon _name ->
+            -- TCon represents a local type constructor defined in this module
+            -- We don't need to re-export it because it's already being exported
+            -- as part of its own declaration
+            []
+        TGlobal _g ->
+            -- Global types from the runtime don't need re-exporting
+            []
+        TExt ref _typeSpec ->
+            -- External types need to be re-exported, but only if:
+            -- 1. They don't conflict with the newtype name
+            -- 2. They're not from runtime modules
+            let moduleName    = Text.unpack $ Hs.getModuleName (Hs.extRefModule ref)
+                typeName      = Text.unpack $ Hs.getIdentifier (Hs.extRefIdentifier ref)
+                localTypeName = Text.unpack $ Hs.getName newtypeName
+
+                -- Check if this is a runtime module (HsBindgen.Runtime.*)
+                isRuntimeModule = "HsBindgen.Runtime." `List.isPrefixOf` moduleName
+
+                -- Check if the type name conflicts with the local newtype name
+                hasNameConflict = typeName == localTypeName
+
+                resolved = ResolvedName {
+                    resolvedNameString = typeName
+                  , resolvedNameType   = IdentifierName
+                  , resolvedNameImport = Just $ QualifiedHsImport $ HsImportModule {
+                        hsImportModuleName  = moduleName
+                      , hsImportModuleAlias = Nothing
+                      }
+                  }
+            in [ ExportQualifiedTypeWithConstructors resolved
+               | isRuntimeModule || hasNameConflict
+               ]
+        TApp f x -> go f ++ go x
+        TFun _ _ -> []
+        TBound _ -> []
+        TForall _ _ _ body -> go body
+        TLit _ -> []

@@ -19,6 +19,9 @@ requiredExtensions = \case
     DInst x -> mconcat . concat $ [
         [ext TH.MultiParamTypeClasses | length (instanceArgs x) >= 2]
       , [ext TH.TypeFamilies          | not (null (instanceTypes x))]
+      , [ ext TH.FlexibleInstances
+        | instanceClass x `elem` [ToFunPtr_class, FromFunPtr_class]
+        ]
       , typeExtensions <$> instanceArgs x
       ]
     DRecord r -> mconcat [
