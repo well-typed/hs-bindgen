@@ -438,8 +438,12 @@
                           "vector_test.h"},
                       commentChildren = []}})
               [
-                PeekByteOff (Idx 0) 0,
-                PeekByteOff (Idx 0) 8]),
+                PeekCField
+                  (HsStrLit "vector_x")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit "vector_y")
+                  (Idx 0)]),
           storablePoke = Lambda
             (NameHint "ptr")
             (Lambda
@@ -591,10 +595,13 @@
                 (Add 2)
                 (Seq
                   [
-                    PokeByteOff (Idx 3) 0 (Idx 0),
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit "vector_x")
                       (Idx 3)
-                      8
+                      (Idx 0),
+                    PokeCField
+                      (HsStrLit "vector_y")
+                      (Idx 3)
                       (Idx 1)])))},
       defineInstanceComment =
       Nothing},
@@ -617,6 +624,72 @@
         "@NsTypeConstr"
         "Vector",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Vector"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "vector_x",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCDouble,
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Vector"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "vector_x",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCDouble,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Vector"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "vector_y",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCDouble,
+          hasCFieldInstanceFieldOffset =
+          8},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Vector"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "vector_y",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCDouble,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
       Nothing},
   DeclForeignImport
     ForeignImportDecl {

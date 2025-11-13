@@ -81,6 +81,14 @@ cabal run hs-bindgen-cli -- \
     --module Callbacks \
     callbacks.h
 
+cabal run hs-bindgen-cli -- \
+    preprocess \
+    -I c/ \
+    --unique-id com.hs-bindgen.manual.zerocopy \
+    --hs-output-dir hs/manual/generated \
+    --module ZeroCopy \
+    zero_copy.h
+
 echo "# "
 echo "# External bindings: vector example"
 echo "# "

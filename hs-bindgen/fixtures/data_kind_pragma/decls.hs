@@ -95,4 +95,45 @@
         "@NsTypeConstr"
         "Triplet",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Triplet"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Triplet",
+          hasFieldInstanceFieldType =
+          HsConstArray
+            3
+            (HsPrimType HsPrimCInt),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Triplet"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "un_Triplet",
+          hasCFieldInstanceCFieldType =
+          HsConstArray
+            3
+            (HsPrimType HsPrimCInt),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
       Nothing}]

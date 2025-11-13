@@ -50,9 +50,15 @@ data X
 instance Storable X
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure X <*> peekByteOff ptr_0 (0 :: Int)
+          peek = \ptr_0 -> pure X <*> peekCField (Proxy @"x_n") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   X x_n_3 -> pokeByteOff ptr_1 (0 :: Int) x_n_3
+                                   X x_n_3 -> pokeCField (Proxy @"x_n") ptr_1 x_n_3
+instance HasCField X "x_n"
+    where type CFieldType X "x_n" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType X "x_n") =>
+         HasField "x_n" (Ptr X) (Ptr ty)
+    where getField = ptrToCField (Proxy @"x_n")
 {-| __C declaration:__ @Y@
 
     __defined at:__ @definitions.h:26:7@
@@ -136,6 +142,18 @@ set_y_o :: CInt -> Y
 
 -}
 set_y_o = setUnionPayload
+instance HasCField Y "y_m"
+    where type CFieldType Y "y_m" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Y "y_m") =>
+         HasField "y_m" (Ptr Y) (Ptr ty)
+    where getField = ptrToCField (Proxy @"y_m")
+instance HasCField Y "y_o"
+    where type CFieldType Y "y_o" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Y "y_o") =>
+         HasField "y_o" (Ptr Y) (Ptr ty)
+    where getField = ptrToCField (Proxy @"y_o")
 {-| __C declaration:__ @foo@
 
     __defined at:__ @definitions.h:13:5@

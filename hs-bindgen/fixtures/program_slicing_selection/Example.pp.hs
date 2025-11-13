@@ -1,16 +1,28 @@
+{-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE MagicHash #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE PatternSynonyms #-}
+{-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE UndecidableInstances #-}
 
 module Example where
 
 import qualified Data.List.NonEmpty
+import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Ptr as Ptr
+import qualified GHC.Records
 import qualified HsBindgen.Runtime.CEnum
+import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.Prelude
 import qualified Text.Read
+import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Ord, Read, Show, pure, showsPrec)
 
 {-| __C declaration:__ @FileOperationStatus@
@@ -165,8 +177,8 @@ instance F.Storable FileOperationRecord where
   peek =
     \ptr0 ->
           pure FileOperationRecord
-      <*> F.peekByteOff ptr0 (0 :: Int)
-      <*> F.peekByteOff ptr0 (8 :: Int)
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"fileOperationRecord_status") ptr0
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"fileOperationRecord_bytes_processed") ptr0
 
   poke =
     \ptr0 ->
@@ -175,5 +187,31 @@ instance F.Storable FileOperationRecord where
           FileOperationRecord
             fileOperationRecord_status2
             fileOperationRecord_bytes_processed3 ->
-                 F.pokeByteOff ptr0 (0 :: Int) fileOperationRecord_status2
-              >> F.pokeByteOff ptr0 (8 :: Int) fileOperationRecord_bytes_processed3
+                 HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"fileOperationRecord_status") ptr0 fileOperationRecord_status2
+              >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"fileOperationRecord_bytes_processed") ptr0 fileOperationRecord_bytes_processed3
+
+instance HsBindgen.Runtime.HasCField.HasCField FileOperationRecord "fileOperationRecord_status" where
+
+  type CFieldType FileOperationRecord "fileOperationRecord_status" =
+    FileOperationStatus
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType FileOperationRecord) "fileOperationRecord_status")
+         ) => GHC.Records.HasField "fileOperationRecord_status" (Ptr.Ptr FileOperationRecord) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"fileOperationRecord_status")
+
+instance HsBindgen.Runtime.HasCField.HasCField FileOperationRecord "fileOperationRecord_bytes_processed" where
+
+  type CFieldType FileOperationRecord "fileOperationRecord_bytes_processed" =
+    HsBindgen.Runtime.Prelude.CSize
+
+  offset# = \_ -> \_ -> 8
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType FileOperationRecord) "fileOperationRecord_bytes_processed")
+         ) => GHC.Records.HasField "fileOperationRecord_bytes_processed" (Ptr.Ptr FileOperationRecord) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"fileOperationRecord_bytes_processed")

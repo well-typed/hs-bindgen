@@ -236,10 +236,10 @@ x_ptr = unsafePerformIO ae8fae8
 -- to use array utilities provided by @hs-bindgen-runtime@.
 
 x_constant_array_ptr :: IO (Ptr (ConstantArray 3 CInt))
-x_constant_array_ptr = ConstantArray.isConstantArray (Proxy @3) <$> peek x_ptr
+x_constant_array_ptr = ConstantArray.toConstantArrayPtr (Proxy @3) <$> peek x_ptr
 
 x_incomplete_array_ptr :: IO (Ptr (IncompleteArray CInt))
-x_incomplete_array_ptr = IncompleteArray.isIncompleteArray <$> peek x_ptr
+x_incomplete_array_ptr = IncompleteArray.toIncompleteArrayPtr <$> peek x_ptr
 ```
 
 Memory layout:
@@ -308,7 +308,7 @@ x_ptr = unsafePerformIO f94u3030
 -- to use the array pointer as an array element pointer instead.
 
 x_elem_ptr :: Ptr CInt
-x_elem_ptr = snd $ ConstantArray.isFirstElem x_ptr
+x_elem_ptr = snd $ ConstantArray.toFirstElemPtr x_ptr
 ```
 
 Memory layout:
@@ -360,7 +360,7 @@ x_ptr = unsafePerformIO poeyrb8a
 -- to use the array pointer as an array element pointer instead.
 
 x_elem_ptr :: Ptr CInt
-x_elem_ptr = IncompleteArray.isFirstElem x_ptr
+x_elem_ptr = IncompleteArray.toFirstElemPtr x_ptr
 ```
 
 Memory layout:

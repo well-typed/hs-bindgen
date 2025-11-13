@@ -4185,34 +4185,90 @@
                           "primitive_types.h"},
                       commentChildren = []}})
               [
-                PeekByteOff (Idx 0) 0,
-                PeekByteOff (Idx 0) 1,
-                PeekByteOff (Idx 0) 2,
-                PeekByteOff (Idx 0) 4,
-                PeekByteOff (Idx 0) 6,
-                PeekByteOff (Idx 0) 8,
-                PeekByteOff (Idx 0) 10,
-                PeekByteOff (Idx 0) 12,
-                PeekByteOff (Idx 0) 14,
-                PeekByteOff (Idx 0) 16,
-                PeekByteOff (Idx 0) 20,
-                PeekByteOff (Idx 0) 24,
-                PeekByteOff (Idx 0) 28,
-                PeekByteOff (Idx 0) 32,
-                PeekByteOff (Idx 0) 40,
-                PeekByteOff (Idx 0) 48,
-                PeekByteOff (Idx 0) 56,
-                PeekByteOff (Idx 0) 64,
-                PeekByteOff (Idx 0) 72,
-                PeekByteOff (Idx 0) 80,
-                PeekByteOff (Idx 0) 88,
-                PeekByteOff (Idx 0) 96,
-                PeekByteOff (Idx 0) 104,
-                PeekByteOff (Idx 0) 112,
-                PeekByteOff (Idx 0) 120,
-                PeekByteOff (Idx 0) 128,
-                PeekByteOff (Idx 0) 136,
-                PeekByteOff (Idx 0) 144]),
+                PeekCField
+                  (HsStrLit "primitive_c")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit "primitive_sc")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit "primitive_uc")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit "primitive_s")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit "primitive_si")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit "primitive_ss")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit "primitive_ssi")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit "primitive_us")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit "primitive_usi")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit "primitive_i")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit "primitive_s2")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit "primitive_si2")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit "primitive_u")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit "primitive_ui")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit "primitive_l")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit "primitive_li")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit "primitive_sl")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit "primitive_sli")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit "primitive_ul")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit "primitive_uli")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit "primitive_ll")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit "primitive_lli")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit "primitive_sll")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit "primitive_slli")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit "primitive_ull")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit "primitive_ulli")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit "primitive_f")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit "primitive_d")
+                  (Idx 0)]),
           storablePoke = Lambda
             (NameHint "ptr")
             (Lambda
@@ -5613,87 +5669,117 @@
                 (Add 28)
                 (Seq
                   [
-                    PokeByteOff (Idx 29) 0 (Idx 0),
-                    PokeByteOff (Idx 29) 1 (Idx 1),
-                    PokeByteOff (Idx 29) 2 (Idx 2),
-                    PokeByteOff (Idx 29) 4 (Idx 3),
-                    PokeByteOff (Idx 29) 6 (Idx 4),
-                    PokeByteOff (Idx 29) 8 (Idx 5),
-                    PokeByteOff (Idx 29) 10 (Idx 6),
-                    PokeByteOff (Idx 29) 12 (Idx 7),
-                    PokeByteOff (Idx 29) 14 (Idx 8),
-                    PokeByteOff (Idx 29) 16 (Idx 9),
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit "primitive_c")
                       (Idx 29)
-                      20
+                      (Idx 0),
+                    PokeCField
+                      (HsStrLit "primitive_sc")
+                      (Idx 29)
+                      (Idx 1),
+                    PokeCField
+                      (HsStrLit "primitive_uc")
+                      (Idx 29)
+                      (Idx 2),
+                    PokeCField
+                      (HsStrLit "primitive_s")
+                      (Idx 29)
+                      (Idx 3),
+                    PokeCField
+                      (HsStrLit "primitive_si")
+                      (Idx 29)
+                      (Idx 4),
+                    PokeCField
+                      (HsStrLit "primitive_ss")
+                      (Idx 29)
+                      (Idx 5),
+                    PokeCField
+                      (HsStrLit "primitive_ssi")
+                      (Idx 29)
+                      (Idx 6),
+                    PokeCField
+                      (HsStrLit "primitive_us")
+                      (Idx 29)
+                      (Idx 7),
+                    PokeCField
+                      (HsStrLit "primitive_usi")
+                      (Idx 29)
+                      (Idx 8),
+                    PokeCField
+                      (HsStrLit "primitive_i")
+                      (Idx 29)
+                      (Idx 9),
+                    PokeCField
+                      (HsStrLit "primitive_s2")
+                      (Idx 29)
                       (Idx 10),
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit "primitive_si2")
                       (Idx 29)
-                      24
                       (Idx 11),
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit "primitive_u")
                       (Idx 29)
-                      28
                       (Idx 12),
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit "primitive_ui")
                       (Idx 29)
-                      32
                       (Idx 13),
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit "primitive_l")
                       (Idx 29)
-                      40
                       (Idx 14),
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit "primitive_li")
                       (Idx 29)
-                      48
                       (Idx 15),
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit "primitive_sl")
                       (Idx 29)
-                      56
                       (Idx 16),
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit "primitive_sli")
                       (Idx 29)
-                      64
                       (Idx 17),
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit "primitive_ul")
                       (Idx 29)
-                      72
                       (Idx 18),
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit "primitive_uli")
                       (Idx 29)
-                      80
                       (Idx 19),
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit "primitive_ll")
                       (Idx 29)
-                      88
                       (Idx 20),
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit "primitive_lli")
                       (Idx 29)
-                      96
                       (Idx 21),
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit "primitive_sll")
                       (Idx 29)
-                      104
                       (Idx 22),
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit "primitive_slli")
                       (Idx 29)
-                      112
                       (Idx 23),
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit "primitive_ull")
                       (Idx 29)
-                      120
                       (Idx 24),
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit "primitive_ulli")
                       (Idx 29)
-                      128
                       (Idx 25),
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit "primitive_f")
                       (Idx 29)
-                      136
                       (Idx 26),
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit "primitive_d")
                       (Idx 29)
-                      144
                       (Idx 27)])))},
       defineInstanceComment =
       Nothing},
@@ -5716,4 +5802,1040 @@
         "@NsTypeConstr"
         "Primitive",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "primitive_c",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCChar,
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "primitive_c",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCChar,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "primitive_sc",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCSChar,
+          hasCFieldInstanceFieldOffset =
+          1},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "primitive_sc",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCSChar,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "primitive_uc",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCUChar,
+          hasCFieldInstanceFieldOffset =
+          2},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "primitive_uc",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCUChar,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "primitive_s",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCShort,
+          hasCFieldInstanceFieldOffset =
+          4},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "primitive_s",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCShort,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "primitive_si",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCShort,
+          hasCFieldInstanceFieldOffset =
+          6},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "primitive_si",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCShort,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "primitive_ss",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCShort,
+          hasCFieldInstanceFieldOffset =
+          8},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "primitive_ss",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCShort,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "primitive_ssi",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCShort,
+          hasCFieldInstanceFieldOffset =
+          10},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "primitive_ssi",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCShort,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "primitive_us",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCUShort,
+          hasCFieldInstanceFieldOffset =
+          12},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "primitive_us",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCUShort,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "primitive_usi",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCUShort,
+          hasCFieldInstanceFieldOffset =
+          14},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "primitive_usi",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCUShort,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "primitive_i",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCInt,
+          hasCFieldInstanceFieldOffset =
+          16},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "primitive_i",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCInt,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "primitive_s2",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCInt,
+          hasCFieldInstanceFieldOffset =
+          20},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "primitive_s2",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCInt,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "primitive_si2",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCInt,
+          hasCFieldInstanceFieldOffset =
+          24},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "primitive_si2",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCInt,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "primitive_u",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCUInt,
+          hasCFieldInstanceFieldOffset =
+          28},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "primitive_u",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCUInt,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "primitive_ui",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCUInt,
+          hasCFieldInstanceFieldOffset =
+          32},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "primitive_ui",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCUInt,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "primitive_l",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCLong,
+          hasCFieldInstanceFieldOffset =
+          40},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "primitive_l",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCLong,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "primitive_li",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCLong,
+          hasCFieldInstanceFieldOffset =
+          48},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "primitive_li",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCLong,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "primitive_sl",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCLong,
+          hasCFieldInstanceFieldOffset =
+          56},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "primitive_sl",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCLong,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "primitive_sli",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCLong,
+          hasCFieldInstanceFieldOffset =
+          64},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "primitive_sli",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCLong,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "primitive_ul",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCULong,
+          hasCFieldInstanceFieldOffset =
+          72},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "primitive_ul",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCULong,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "primitive_uli",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCULong,
+          hasCFieldInstanceFieldOffset =
+          80},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "primitive_uli",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCULong,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "primitive_ll",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCLLong,
+          hasCFieldInstanceFieldOffset =
+          88},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "primitive_ll",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCLLong,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "primitive_lli",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCLLong,
+          hasCFieldInstanceFieldOffset =
+          96},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "primitive_lli",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCLLong,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "primitive_sll",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCLLong,
+          hasCFieldInstanceFieldOffset =
+          104},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "primitive_sll",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCLLong,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "primitive_slli",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCLLong,
+          hasCFieldInstanceFieldOffset =
+          112},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "primitive_slli",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCLLong,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "primitive_ull",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCULLong,
+          hasCFieldInstanceFieldOffset =
+          120},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "primitive_ull",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCULLong,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "primitive_ulli",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCULLong,
+          hasCFieldInstanceFieldOffset =
+          128},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "primitive_ulli",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCULLong,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "primitive_f",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCFloat,
+          hasCFieldInstanceFieldOffset =
+          136},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "primitive_f",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCFloat,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "primitive_d",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCDouble,
+          hasCFieldInstanceFieldOffset =
+          144},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Primitive"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "primitive_d",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCDouble,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
       Nothing}]

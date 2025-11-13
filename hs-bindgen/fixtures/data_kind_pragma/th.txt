@@ -15,3 +15,9 @@ newtype Triplet
       -}
     deriving stock (Eq, Show)
     deriving newtype Storable
+instance TyEq ty (CFieldType Triplet "un_Triplet") =>
+         HasField "un_Triplet" (Ptr Triplet) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Triplet")
+instance HasCField Triplet "un_Triplet"
+    where type CFieldType Triplet "un_Triplet" = ConstantArray 3 CInt
+          offset# = \_ -> \_ -> 0

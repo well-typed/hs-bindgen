@@ -203,6 +203,57 @@
             "fromFun_ptr_Deref"},
       defineInstanceComment =
       Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Fun_ptr_Deref"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Fun_ptr_Deref",
+          hasFieldInstanceFieldType =
+          HsFun
+            (HsPtr
+              (HsTypRef
+                (Name
+                  "@NsTypeConstr"
+                  "Forward_declaration")))
+            (HsIO (HsPrimType HsPrimUnit)),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Fun_ptr_Deref"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "un_Fun_ptr_Deref",
+          hasCFieldInstanceCFieldType =
+          HsFun
+            (HsPtr
+              (HsTypRef
+                (Name
+                  "@NsTypeConstr"
+                  "Forward_declaration")))
+            (HsIO (HsPrimType HsPrimUnit)),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -325,6 +376,51 @@
         "@NsTypeConstr"
         "Fun_ptr",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Fun_ptr"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Fun_ptr",
+          hasFieldInstanceFieldType =
+          HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Fun_ptr_Deref")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Fun_ptr"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "un_Fun_ptr",
+          hasCFieldInstanceCFieldType =
+          HsFunPtr
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Fun_ptr_Deref")),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
       Nothing},
   DeclData
     Struct {
@@ -752,7 +848,11 @@
                           headerInclude =
                           "circular_dependency_fun.h"},
                       commentChildren = []}})
-              [PeekByteOff (Idx 0) 0]),
+              [
+                PeekCField
+                  (HsStrLit
+                    "forward_declaration_f")
+                  (Idx 0)]),
           storablePoke = Lambda
             (NameHint "ptr")
             (Lambda
@@ -900,9 +1000,10 @@
                 (Add 1)
                 (Seq
                   [
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit
+                        "forward_declaration_f")
                       (Idx 2)
-                      0
                       (Idx 0)])))},
       defineInstanceComment =
       Nothing},
@@ -925,6 +1026,51 @@
         "@NsTypeConstr"
         "Forward_declaration",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Forward_declaration"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "forward_declaration_f",
+          hasCFieldInstanceCFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Fun_ptr"),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Forward_declaration"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "forward_declaration_f",
+          hasFieldInstanceFieldType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Fun_ptr"),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
       Nothing},
   DeclForeignImport
     ForeignImportDecl {

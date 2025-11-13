@@ -1,11 +1,23 @@
+{-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE EmptyDataDecls #-}
+{-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE MagicHash #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE TypeApplications #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE UndecidableInstances #-}
 
 module Example where
 
+import qualified Data.Proxy
 import qualified Foreign as F
 import qualified GHC.Ptr as Ptr
+import qualified GHC.Records
+import qualified HsBindgen.Runtime.HasCField
+import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure, return)
 
 {-| __C declaration:__ @foo@
@@ -49,16 +61,40 @@ instance F.Storable Bar where
   peek =
     \ptr0 ->
           pure Bar
-      <*> F.peekByteOff ptr0 (0 :: Int)
-      <*> F.peekByteOff ptr0 (8 :: Int)
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"bar_ptrA") ptr0
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"bar_ptrB") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Bar bar_ptrA2 bar_ptrB3 ->
-               F.pokeByteOff ptr0 (0 :: Int) bar_ptrA2
-            >> F.pokeByteOff ptr0 (8 :: Int) bar_ptrB3
+               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"bar_ptrA") ptr0 bar_ptrA2
+            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"bar_ptrB") ptr0 bar_ptrB3
+
+instance HsBindgen.Runtime.HasCField.HasCField Bar "bar_ptrA" where
+
+  type CFieldType Bar "bar_ptrA" = Ptr.Ptr Foo
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Bar) "bar_ptrA")
+         ) => GHC.Records.HasField "bar_ptrA" (Ptr.Ptr Bar) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"bar_ptrA")
+
+instance HsBindgen.Runtime.HasCField.HasCField Bar "bar_ptrB" where
+
+  type CFieldType Bar "bar_ptrB" = Ptr.Ptr Bar
+
+  offset# = \_ -> \_ -> 8
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Bar) "bar_ptrB")
+         ) => GHC.Records.HasField "bar_ptrB" (Ptr.Ptr Bar) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"bar_ptrB")
 
 {-| __C declaration:__ @baz@
 

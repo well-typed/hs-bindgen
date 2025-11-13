@@ -1,7 +1,14 @@
+UndecidableInstances
 CApiFFI
 TemplateHaskell
+TypeFamilies
 DataKinds
 StandaloneDeriving
 DerivingStrategies
 DerivingVia
+FlexibleContexts
+MultiParamTypeClasses
+MagicHash
 EmptyDataDecls
+TypeOperators
+TypeApplications

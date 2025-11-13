@@ -2,22 +2,33 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE EmptyDataDecls #-}
+{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE MagicHash #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
+{-# LANGUAGE TypeApplications #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE UndecidableInstances #-}
 
 module Example where
 
 import qualified Data.Array.Byte
 import qualified Data.Bits as Bits
 import qualified Data.Ix as Ix
+import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
+import qualified GHC.Records
 import qualified HsBindgen.Runtime.ByteArray
 import qualified HsBindgen.Runtime.ConstantArray
+import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.SizedByteArray
 import Data.Bits (FiniteBits)
+import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Bounded, Enum, Eq, Int, Integral, Num, Ord, Read, Real, Show, pure)
 
 {-| __C declaration:__ @S@
@@ -46,13 +57,27 @@ instance F.Storable S where
   peek =
     \ptr0 ->
           pure S
-      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"s_f") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
-          S s_f2 -> F.pokeByteOff ptr0 (0 :: Int) s_f2
+          S s_f2 ->
+            HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"s_f") ptr0 s_f2
+
+instance HsBindgen.Runtime.HasCField.HasCField S "s_f" where
+
+  type CFieldType S "s_f" =
+    (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CShort
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S) "s_f")
+         ) => GHC.Records.HasField "s_f" (Ptr.Ptr S) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"s_f")
 
 {-| __C declaration:__ @more_aligned_int@
 
@@ -65,6 +90,19 @@ newtype More_aligned_int = More_aligned_int
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType More_aligned_int) "un_More_aligned_int")
+         ) => GHC.Records.HasField "un_More_aligned_int" (Ptr.Ptr More_aligned_int) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_More_aligned_int")
+
+instance HsBindgen.Runtime.HasCField.HasCField More_aligned_int "un_More_aligned_int" where
+
+  type CFieldType More_aligned_int "un_More_aligned_int" =
+    FC.CInt
+
+  offset# = \_ -> \_ -> 0
 
 {-| __C declaration:__ @S2@
 
@@ -92,13 +130,27 @@ instance F.Storable S2 where
   peek =
     \ptr0 ->
           pure S2
-      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"s2_f") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
-          S2 s2_f2 -> F.pokeByteOff ptr0 (0 :: Int) s2_f2
+          S2 s2_f2 ->
+            HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"s2_f") ptr0 s2_f2
+
+instance HsBindgen.Runtime.HasCField.HasCField S2 "s2_f" where
+
+  type CFieldType S2 "s2_f" =
+    (HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CShort
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType S2) "s2_f")
+         ) => GHC.Records.HasField "s2_f" (Ptr.Ptr S2) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"s2_f")
 
 {-| __C declaration:__ @my_unpacked_struct@
 
@@ -133,16 +185,42 @@ instance F.Storable My_unpacked_struct where
   peek =
     \ptr0 ->
           pure My_unpacked_struct
-      <*> F.peekByteOff ptr0 (0 :: Int)
-      <*> F.peekByteOff ptr0 (4 :: Int)
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"my_unpacked_struct_c") ptr0
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"my_unpacked_struct_i") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           My_unpacked_struct my_unpacked_struct_c2 my_unpacked_struct_i3 ->
-               F.pokeByteOff ptr0 (0 :: Int) my_unpacked_struct_c2
-            >> F.pokeByteOff ptr0 (4 :: Int) my_unpacked_struct_i3
+               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"my_unpacked_struct_c") ptr0 my_unpacked_struct_c2
+            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"my_unpacked_struct_i") ptr0 my_unpacked_struct_i3
+
+instance HsBindgen.Runtime.HasCField.HasCField My_unpacked_struct "my_unpacked_struct_c" where
+
+  type CFieldType My_unpacked_struct "my_unpacked_struct_c" =
+    FC.CChar
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType My_unpacked_struct) "my_unpacked_struct_c")
+         ) => GHC.Records.HasField "my_unpacked_struct_c" (Ptr.Ptr My_unpacked_struct) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"my_unpacked_struct_c")
+
+instance HsBindgen.Runtime.HasCField.HasCField My_unpacked_struct "my_unpacked_struct_i" where
+
+  type CFieldType My_unpacked_struct "my_unpacked_struct_i" =
+    FC.CInt
+
+  offset# = \_ -> \_ -> 4
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType My_unpacked_struct) "my_unpacked_struct_i")
+         ) => GHC.Records.HasField "my_unpacked_struct_i" (Ptr.Ptr My_unpacked_struct) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"my_unpacked_struct_i")
 
 {-| __C declaration:__ @my_packed_struct@
 
@@ -184,18 +262,57 @@ instance F.Storable My_packed_struct where
   peek =
     \ptr0 ->
           pure My_packed_struct
-      <*> F.peekByteOff ptr0 (0 :: Int)
-      <*> F.peekByteOff ptr0 (1 :: Int)
-      <*> F.peekByteOff ptr0 (5 :: Int)
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"my_packed_struct_c") ptr0
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"my_packed_struct_i") ptr0
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"my_packed_struct_s") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           My_packed_struct my_packed_struct_c2 my_packed_struct_i3 my_packed_struct_s4 ->
-               F.pokeByteOff ptr0 (0 :: Int) my_packed_struct_c2
-            >> F.pokeByteOff ptr0 (1 :: Int) my_packed_struct_i3
-            >> F.pokeByteOff ptr0 (5 :: Int) my_packed_struct_s4
+               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"my_packed_struct_c") ptr0 my_packed_struct_c2
+            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"my_packed_struct_i") ptr0 my_packed_struct_i3
+            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"my_packed_struct_s") ptr0 my_packed_struct_s4
+
+instance HsBindgen.Runtime.HasCField.HasCField My_packed_struct "my_packed_struct_c" where
+
+  type CFieldType My_packed_struct "my_packed_struct_c" =
+    FC.CChar
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType My_packed_struct) "my_packed_struct_c")
+         ) => GHC.Records.HasField "my_packed_struct_c" (Ptr.Ptr My_packed_struct) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"my_packed_struct_c")
+
+instance HsBindgen.Runtime.HasCField.HasCField My_packed_struct "my_packed_struct_i" where
+
+  type CFieldType My_packed_struct "my_packed_struct_i" =
+    FC.CInt
+
+  offset# = \_ -> \_ -> 1
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType My_packed_struct) "my_packed_struct_i")
+         ) => GHC.Records.HasField "my_packed_struct_i" (Ptr.Ptr My_packed_struct) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"my_packed_struct_i")
+
+instance HsBindgen.Runtime.HasCField.HasCField My_packed_struct "my_packed_struct_s" where
+
+  type CFieldType My_packed_struct "my_packed_struct_s" =
+    My_unpacked_struct
+
+  offset# = \_ -> \_ -> 5
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType My_packed_struct) "my_packed_struct_s")
+         ) => GHC.Records.HasField "my_packed_struct_s" (Ptr.Ptr My_packed_struct) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"my_packed_struct_s")
 
 {-| __defined at:__ @type_attributes.h:26:9@
 
@@ -261,6 +378,32 @@ set_wait_status_ptr_t___up ::
 set_wait_status_ptr_t___up =
   HsBindgen.Runtime.ByteArray.setUnionPayload
 
+instance HsBindgen.Runtime.HasCField.HasCField Wait_status_ptr_t "wait_status_ptr_t___ip" where
+
+  type CFieldType Wait_status_ptr_t "wait_status_ptr_t___ip" =
+    Ptr.Ptr FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Wait_status_ptr_t) "wait_status_ptr_t___ip")
+         ) => GHC.Records.HasField "wait_status_ptr_t___ip" (Ptr.Ptr Wait_status_ptr_t) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"wait_status_ptr_t___ip")
+
+instance HsBindgen.Runtime.HasCField.HasCField Wait_status_ptr_t "wait_status_ptr_t___up" where
+
+  type CFieldType Wait_status_ptr_t "wait_status_ptr_t___up" =
+    Ptr.Ptr Wait
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Wait_status_ptr_t) "wait_status_ptr_t___up")
+         ) => GHC.Records.HasField "wait_status_ptr_t___up" (Ptr.Ptr Wait_status_ptr_t) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"wait_status_ptr_t___up")
+
 {-| __C declaration:__ @wait@
 
     __defined at:__ @type_attributes.h:29:9@
@@ -281,6 +424,18 @@ newtype T1 = T1
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType T1) "un_T1")
+         ) => GHC.Records.HasField "un_T1" (Ptr.Ptr T1) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_T1")
+
+instance HsBindgen.Runtime.HasCField.HasCField T1 "un_T1" where
+
+  type CFieldType T1 "un_T1" = FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @short_a@
 
     __defined at:__ @type_attributes.h:34:46@
@@ -292,3 +447,15 @@ newtype Short_a = Short_a
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Short_a) "un_Short_a")
+         ) => GHC.Records.HasField "un_Short_a" (Ptr.Ptr Short_a) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Short_a")
+
+instance HsBindgen.Runtime.HasCField.HasCField Short_a "un_Short_a" where
+
+  type CFieldType Short_a "un_Short_a" = FC.CShort
+
+  offset# = \_ -> \_ -> 0

@@ -21,6 +21,7 @@ common lang
 executable run-manual
   import:          lang
   main-is:         Manual.hs
+  other-modules:   Manual.ZeroCopy
   ghc-options:     -main-is Manual
   hs-source-dirs:  app generated
   extra-libraries:
@@ -31,6 +32,7 @@ executable run-manual
     functionpointers
     hsb_complex_test
     callbacks
+    zerocopy
 
   -- Internal.
   build-depends:
@@ -68,6 +70,10 @@ executable run-manual
     Manual.Tools
     Structs
     Structs.Safe
+    ZeroCopy
+    ZeroCopy.FunPtr
+    ZeroCopy.Safe
+    ZeroCopy.Unsafe
 
   -- Avoid gcc warnings about non-NFC characters
   -- See <https://github.com/well-typed/hs-bindgen/issues/918>

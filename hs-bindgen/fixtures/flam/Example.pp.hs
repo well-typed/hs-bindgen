@@ -1,14 +1,25 @@
 {-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE MagicHash #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE TypeApplications #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE UndecidableInstances #-}
 
 module Example where
 
+import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Ptr as Ptr
+import qualified GHC.Records
 import qualified HsBindgen.Runtime.ConstantArray
 import qualified HsBindgen.Runtime.FlexibleArrayMember
+import qualified HsBindgen.Runtime.HasCField
+import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @pascal@
@@ -37,18 +48,30 @@ instance F.Storable Pascal where
   peek =
     \ptr0 ->
           pure Pascal
-      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"pascal_len") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Pascal pascal_len2 ->
-            F.pokeByteOff ptr0 (0 :: Int) pascal_len2
+            HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"pascal_len") ptr0 pascal_len2
 
 instance HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember FC.CChar Pascal where
 
   flexibleArrayMemberOffset = \_ty0 -> 4
+
+instance HsBindgen.Runtime.HasCField.HasCField Pascal "pascal_len" where
+
+  type CFieldType Pascal "pascal_len" = FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Pascal) "pascal_len")
+         ) => GHC.Records.HasField "pascal_len" (Ptr.Ptr Pascal) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"pascal_len")
 
 {-| __defined at:__ @flam.h:10:2@
 
@@ -81,16 +104,40 @@ instance F.Storable Foo_bar where
   peek =
     \ptr0 ->
           pure Foo_bar
-      <*> F.peekByteOff ptr0 (0 :: Int)
-      <*> F.peekByteOff ptr0 (4 :: Int)
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"foo_bar_x") ptr0
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"foo_bar_y") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Foo_bar foo_bar_x2 foo_bar_y3 ->
-               F.pokeByteOff ptr0 (0 :: Int) foo_bar_x2
-            >> F.pokeByteOff ptr0 (4 :: Int) foo_bar_y3
+               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"foo_bar_x") ptr0 foo_bar_x2
+            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"foo_bar_y") ptr0 foo_bar_y3
+
+instance HsBindgen.Runtime.HasCField.HasCField Foo_bar "foo_bar_x" where
+
+  type CFieldType Foo_bar "foo_bar_x" = FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Foo_bar) "foo_bar_x")
+         ) => GHC.Records.HasField "foo_bar_x" (Ptr.Ptr Foo_bar) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"foo_bar_x")
+
+instance HsBindgen.Runtime.HasCField.HasCField Foo_bar "foo_bar_y" where
+
+  type CFieldType Foo_bar "foo_bar_y" = FC.CInt
+
+  offset# = \_ -> \_ -> 4
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Foo_bar) "foo_bar_y")
+         ) => GHC.Records.HasField "foo_bar_y" (Ptr.Ptr Foo_bar) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"foo_bar_y")
 
 {-| __C declaration:__ @foo@
 
@@ -118,18 +165,30 @@ instance F.Storable Foo where
   peek =
     \ptr0 ->
           pure Foo
-      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"foo_len") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Foo foo_len2 ->
-            F.pokeByteOff ptr0 (0 :: Int) foo_len2
+            HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"foo_len") ptr0 foo_len2
 
 instance HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember Foo_bar Foo where
 
   flexibleArrayMemberOffset = \_ty0 -> 4
+
+instance HsBindgen.Runtime.HasCField.HasCField Foo "foo_len" where
+
+  type CFieldType Foo "foo_len" = FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Foo) "foo_len")
+         ) => GHC.Records.HasField "foo_len" (Ptr.Ptr Foo) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"foo_len")
 
 {-| __C declaration:__ @diff@
 
@@ -164,20 +223,44 @@ instance F.Storable Diff where
   peek =
     \ptr0 ->
           pure Diff
-      <*> F.peekByteOff ptr0 (0 :: Int)
-      <*> F.peekByteOff ptr0 (8 :: Int)
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"diff_first") ptr0
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"diff_second") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Diff diff_first2 diff_second3 ->
-               F.pokeByteOff ptr0 (0 :: Int) diff_first2
-            >> F.pokeByteOff ptr0 (8 :: Int) diff_second3
+               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"diff_first") ptr0 diff_first2
+            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"diff_second") ptr0 diff_second3
 
 instance HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember FC.CChar Diff where
 
   flexibleArrayMemberOffset = \_ty0 -> 9
+
+instance HsBindgen.Runtime.HasCField.HasCField Diff "diff_first" where
+
+  type CFieldType Diff "diff_first" = FC.CLong
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Diff) "diff_first")
+         ) => GHC.Records.HasField "diff_first" (Ptr.Ptr Diff) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"diff_first")
+
+instance HsBindgen.Runtime.HasCField.HasCField Diff "diff_second" where
+
+  type CFieldType Diff "diff_second" = FC.CChar
+
+  offset# = \_ -> \_ -> 8
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Diff) "diff_second")
+         ) => GHC.Records.HasField "diff_second" (Ptr.Ptr Diff) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"diff_second")
 
 {-| The flexible array member is a multi-dimensional array of unknown size. In particular, it is a is an array of unknown size, where each element is of type length-3-array-of-int.
 
@@ -207,15 +290,27 @@ instance F.Storable Triplets where
   peek =
     \ptr0 ->
           pure Triplets
-      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"triplets_len") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Triplets triplets_len2 ->
-            F.pokeByteOff ptr0 (0 :: Int) triplets_len2
+            HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"triplets_len") ptr0 triplets_len2
 
 instance HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember ((HsBindgen.Runtime.ConstantArray.ConstantArray 3) FC.CInt) Triplets where
 
   flexibleArrayMemberOffset = \_ty0 -> 4
+
+instance HsBindgen.Runtime.HasCField.HasCField Triplets "triplets_len" where
+
+  type CFieldType Triplets "triplets_len" = FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Triplets) "triplets_len")
+         ) => GHC.Records.HasField "triplets_len" (Ptr.Ptr Triplets) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"triplets_len")

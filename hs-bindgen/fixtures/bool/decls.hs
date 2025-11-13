@@ -423,8 +423,12 @@
                           headerInclude = "bool.h"},
                       commentChildren = []}})
               [
-                PeekByteOff (Idx 0) 0,
-                PeekByteOff (Idx 0) 1]),
+                PeekCField
+                  (HsStrLit "bools1_x")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit "bools1_y")
+                  (Idx 0)]),
           storablePoke = Lambda
             (NameHint "ptr")
             (Lambda
@@ -571,10 +575,13 @@
                 (Add 2)
                 (Seq
                   [
-                    PokeByteOff (Idx 3) 0 (Idx 0),
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit "bools1_x")
                       (Idx 3)
-                      1
+                      (Idx 0),
+                    PokeCField
+                      (HsStrLit "bools1_y")
+                      (Idx 3)
                       (Idx 1)])))},
       defineInstanceComment =
       Nothing},
@@ -597,6 +604,72 @@
         "@NsTypeConstr"
         "Bools1",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Bools1"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "bools1_x",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCBool,
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Bools1"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "bools1_x",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCBool,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Bools1"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "bools1_y",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCBool,
+          hasCFieldInstanceFieldOffset =
+          1},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Bools1"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "bools1_y",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCBool,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
       Nothing},
   DeclData
     Struct {
@@ -1022,8 +1095,12 @@
                           headerInclude = "bool.h"},
                       commentChildren = []}})
               [
-                PeekByteOff (Idx 0) 0,
-                PeekByteOff (Idx 0) 1]),
+                PeekCField
+                  (HsStrLit "bools2_x")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit "bools2_y")
+                  (Idx 0)]),
           storablePoke = Lambda
             (NameHint "ptr")
             (Lambda
@@ -1170,10 +1247,13 @@
                 (Add 2)
                 (Seq
                   [
-                    PokeByteOff (Idx 3) 0 (Idx 0),
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit "bools2_x")
                       (Idx 3)
-                      1
+                      (Idx 0),
+                    PokeCField
+                      (HsStrLit "bools2_y")
+                      (Idx 3)
                       (Idx 1)])))},
       defineInstanceComment =
       Nothing},
@@ -1196,6 +1276,72 @@
         "@NsTypeConstr"
         "Bools2",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Bools2"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "bools2_x",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCBool,
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Bools2"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "bools2_x",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCBool,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Bools2"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "bools2_y",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCBool,
+          hasCFieldInstanceFieldOffset =
+          1},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Bools2"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "bools2_y",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCBool,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
@@ -1873,8 +2019,12 @@
                           headerInclude = "bool.h"},
                       commentChildren = []}})
               [
-                PeekByteOff (Idx 0) 0,
-                PeekByteOff (Idx 0) 1]),
+                PeekCField
+                  (HsStrLit "bools3_x")
+                  (Idx 0),
+                PeekCField
+                  (HsStrLit "bools3_y")
+                  (Idx 0)]),
           storablePoke = Lambda
             (NameHint "ptr")
             (Lambda
@@ -2037,10 +2187,13 @@
                 (Add 2)
                 (Seq
                   [
-                    PokeByteOff (Idx 3) 0 (Idx 0),
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit "bools3_x")
                       (Idx 3)
-                      1
+                      (Idx 0),
+                    PokeCField
+                      (HsStrLit "bools3_y")
+                      (Idx 3)
                       (Idx 1)])))},
       defineInstanceComment =
       Nothing},
@@ -2063,4 +2216,74 @@
         "@NsTypeConstr"
         "Bools3",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Bools3"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "bools3_x",
+          hasCFieldInstanceCFieldType =
+          HsTypRef
+            (Name "@NsTypeConstr" "BOOL"),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Bools3"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "bools3_x",
+          hasFieldInstanceFieldType =
+          HsTypRef
+            (Name "@NsTypeConstr" "BOOL"),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Bools3"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "bools3_y",
+          hasCFieldInstanceCFieldType =
+          HsTypRef
+            (Name "@NsTypeConstr" "BOOL"),
+          hasCFieldInstanceFieldOffset =
+          1},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Bools3"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "bools3_y",
+          hasFieldInstanceFieldType =
+          HsTypRef
+            (Name "@NsTypeConstr" "BOOL"),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
       Nothing}]

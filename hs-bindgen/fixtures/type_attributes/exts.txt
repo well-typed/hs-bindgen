@@ -1,6 +1,13 @@
+UndecidableInstances
+TypeFamilies
 DataKinds
 StandaloneDeriving
 DerivingStrategies
 DerivingVia
+FlexibleContexts
+MultiParamTypeClasses
+MagicHash
 EmptyDataDecls
 GeneralizedNewtypeDeriving
+TypeOperators
+TypeApplications

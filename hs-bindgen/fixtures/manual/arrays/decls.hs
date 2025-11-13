@@ -95,6 +95,47 @@
         "Triplet",
       deriveInstanceComment =
       Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Triplet"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Triplet",
+          hasFieldInstanceFieldType =
+          HsConstArray
+            3
+            (HsPrimType HsPrimCInt),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Triplet"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "un_Triplet",
+          hasCFieldInstanceCFieldType =
+          HsConstArray
+            3
+            (HsPrimType HsPrimCInt),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
   DeclNewtype
     Newtype {
       newtypeName = Name
@@ -203,6 +244,49 @@
         "@NsTypeConstr"
         "Matrix",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Matrix"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Matrix",
+          hasFieldInstanceFieldType =
+          HsConstArray
+            3
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Triplet")),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name "@NsTypeConstr" "Matrix"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "un_Matrix",
+          hasCFieldInstanceCFieldType =
+          HsConstArray
+            3
+            (HsTypRef
+              (Name
+                "@NsTypeConstr"
+                "Triplet")),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
@@ -315,6 +399,51 @@
         "@NsTypeConstr"
         "Triplet_ptrs",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Triplet_ptrs"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Triplet_ptrs",
+          hasFieldInstanceFieldType =
+          HsIncompleteArray
+            (HsPtr
+              (HsConstArray
+                3
+                (HsPrimType HsPrimCInt))),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Triplet_ptrs"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "un_Triplet_ptrs",
+          hasCFieldInstanceCFieldType =
+          HsIncompleteArray
+            (HsPtr
+              (HsConstArray
+                3
+                (HsPrimType HsPrimCInt))),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
       Nothing},
   DeclForeignImport
     ForeignImportDecl {

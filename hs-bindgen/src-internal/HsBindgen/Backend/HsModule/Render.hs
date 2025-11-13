@@ -278,12 +278,24 @@ instance Pretty SDecl where
         ]
 
     DInst Instance{..} ->
-      let inst = hsep $
-            ["instance", pretty (resolve instanceClass)]
-              ++ map (prettyPrec 1) instanceArgs
-              ++ ["where"]
-          typs = flip map instanceTypes $ \(g, typArg, typSyn) -> nest 2 $ fsep
-            [ "type" <+> ppUnqualBackendName (resolve g) <+> prettyPrec 1 typArg
+      let constraints =
+            [ hsep (pretty (resolve c) : (map (prettyPrec 1) ts))
+            | (c, ts) <- instanceSuperClasses
+            ]
+          -- @flist@ should either be @hlist@ or @vlist@
+          clsContext flist = flist '(' ')' constraints
+          clsHead = hsep (pretty (resolve instanceClass) : map (prettyPrec 1) instanceArgs)
+          cls flist =
+                "instance"
+            <+> (if null instanceSuperClasses
+                  then empty
+                  else clsContext flist <+> "=>")
+            <+> clsHead
+            <+> "where"
+
+          inst = ifFits (cls hlist) (cls hlist) (cls vlist)
+          typs = flip map instanceTypes $ \(g, typArgs, typSyn) -> nest 2 $ fsep
+            [ "type" <+> ppUnqualBackendName (resolve g) <+> hsep (map (prettyPrec 1) typArgs)
                 <+> char '='
             , nest 2 (pretty typSyn)
             ]
@@ -292,6 +304,7 @@ instance Pretty SDecl where
             , nest 2 (pretty expr)
             ]
           prettyTopLevelComment = maybe empty (pretty . TopLevelComment) instanceComment
+
       in  vsep $ prettyTopLevelComment : inst : typs ++ decs
 
     DRecord Record{..} ->
@@ -459,7 +472,9 @@ prettyType :: Env ctx CtxDoc -> Int -> SType ctx -> CtxDoc
 prettyType env prec = \case
     TGlobal g -> pretty $ resolve g
     TCon n -> pretty n
+    TFree var -> pretty var
     TLit n -> showToCtxDoc n
+    TStrLit s -> string (show s)
     TExt i _ctype -> pretty i
     TApp c x -> parensWhen (prec > 0) $
       prettyType env 1 c <+> prettyType env 1 x
@@ -603,6 +618,9 @@ prettyExpr env prec = \case
       let ds = prettyExpr env 0 <$> xs
           l  = hlist '[' ']' ds
       in  ifFits l l $ vlist '[' ']' ds
+
+    -- NOTE: the precedence is copied from the @EApp@ case above
+    ETypeApp f t -> parensWhen (prec > 3) $ prettyExpr env 3 f <+> "@" >< prettyPrec 4 t
 
 -- | Returns the unboxed @Addr#@ literal for the given 'ByteArray', together
 -- with its length.

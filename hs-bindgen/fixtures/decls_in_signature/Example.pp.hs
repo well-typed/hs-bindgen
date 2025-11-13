@@ -2,16 +2,28 @@
 {-# LANGUAGE DerivingStrategies #-}
 {-# LANGUAGE DerivingVia #-}
 {-# LANGUAGE EmptyDataDecls #-}
+{-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE MagicHash #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 {-# LANGUAGE StandaloneDeriving #-}
+{-# LANGUAGE TypeApplications #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE UndecidableInstances #-}
 
 module Example where
 
 import qualified Data.Array.Byte
+import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Ptr as Ptr
+import qualified GHC.Records
 import qualified HsBindgen.Runtime.ByteArray
+import qualified HsBindgen.Runtime.HasCField
 import qualified HsBindgen.Runtime.SizedByteArray
+import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), (>>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @opaque@
@@ -55,16 +67,40 @@ instance F.Storable Outside where
   peek =
     \ptr0 ->
           pure Outside
-      <*> F.peekByteOff ptr0 (0 :: Int)
-      <*> F.peekByteOff ptr0 (4 :: Int)
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"outside_x") ptr0
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"outside_y") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Outside outside_x2 outside_y3 ->
-               F.pokeByteOff ptr0 (0 :: Int) outside_x2
-            >> F.pokeByteOff ptr0 (4 :: Int) outside_y3
+               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"outside_x") ptr0 outside_x2
+            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"outside_y") ptr0 outside_y3
+
+instance HsBindgen.Runtime.HasCField.HasCField Outside "outside_x" where
+
+  type CFieldType Outside "outside_x" = FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Outside) "outside_x")
+         ) => GHC.Records.HasField "outside_x" (Ptr.Ptr Outside) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"outside_x")
+
+instance HsBindgen.Runtime.HasCField.HasCField Outside "outside_y" where
+
+  type CFieldType Outside "outside_y" = FC.CInt
+
+  offset# = \_ -> \_ -> 4
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Outside) "outside_y")
+         ) => GHC.Records.HasField "outside_y" (Ptr.Ptr Outside) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"outside_y")
 
 {-| Error cases
 
@@ -103,16 +139,42 @@ instance F.Storable Named_struct where
   peek =
     \ptr0 ->
           pure Named_struct
-      <*> F.peekByteOff ptr0 (0 :: Int)
-      <*> F.peekByteOff ptr0 (4 :: Int)
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"named_struct_x") ptr0
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"named_struct_y") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           Named_struct named_struct_x2 named_struct_y3 ->
-               F.pokeByteOff ptr0 (0 :: Int) named_struct_x2
-            >> F.pokeByteOff ptr0 (4 :: Int) named_struct_y3
+               HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"named_struct_x") ptr0 named_struct_x2
+            >> HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"named_struct_y") ptr0 named_struct_y3
+
+instance HsBindgen.Runtime.HasCField.HasCField Named_struct "named_struct_x" where
+
+  type CFieldType Named_struct "named_struct_x" =
+    FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Named_struct) "named_struct_x")
+         ) => GHC.Records.HasField "named_struct_x" (Ptr.Ptr Named_struct) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"named_struct_x")
+
+instance HsBindgen.Runtime.HasCField.HasCField Named_struct "named_struct_y" where
+
+  type CFieldType Named_struct "named_struct_y" =
+    FC.CInt
+
+  offset# = \_ -> \_ -> 4
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Named_struct) "named_struct_y")
+         ) => GHC.Records.HasField "named_struct_y" (Ptr.Ptr Named_struct) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"named_struct_y")
 
 {-| __C declaration:__ @named_union@
 
@@ -179,3 +241,28 @@ set_named_union_y ::
   -> Named_union
 set_named_union_y =
   HsBindgen.Runtime.ByteArray.setUnionPayload
+
+instance HsBindgen.Runtime.HasCField.HasCField Named_union "named_union_x" where
+
+  type CFieldType Named_union "named_union_x" = FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Named_union) "named_union_x")
+         ) => GHC.Records.HasField "named_union_x" (Ptr.Ptr Named_union) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"named_union_x")
+
+instance HsBindgen.Runtime.HasCField.HasCField Named_union "named_union_y" where
+
+  type CFieldType Named_union "named_union_y" =
+    FC.CChar
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Named_union) "named_union_y")
+         ) => GHC.Records.HasField "named_union_y" (Ptr.Ptr Named_union) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"named_union_y")

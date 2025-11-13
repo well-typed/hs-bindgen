@@ -129,7 +129,7 @@ srp6ServerSessionStep1 (ServerSession s) (Verifier verifier) groupId hashId (RNG
           bPtr
           bLenPtr
       bLen <- peek bLenPtr
-      B <$> HBR.peekArray (fromIntegral bLen) (HBR.isIncompleteArray bPtr)
+      B <$> HBR.peekArray (fromIntegral bLen) (HBR.toIncompleteArrayPtr bPtr)
 
 srp6ServerSessionStep2 ::
      ServerSession
@@ -150,7 +150,7 @@ srp6ServerSessionStep2 (ServerSession s) groupId (A a) =
           kPtr
           kLenPtr
       kLen <- peek kLenPtr
-      K <$> HBR.peekArray (fromIntegral kLen) (HBR.isIncompleteArray kPtr)
+      K <$> HBR.peekArray (fromIntegral kLen) (HBR.toIncompleteArrayPtr kPtr)
 
 srp6GenerateVerifier ::
      Username
@@ -180,7 +180,7 @@ srp6GenerateVerifier (Username user) (Password pw) (Salt salt) groupId hashId =
           verifierPtr
           verifierLenPtr
       verifierLen <- peek verifierLenPtr
-      Verifier <$> HBR.peekArray (fromIntegral verifierLen) (HBR.isIncompleteArray verifierPtr)
+      Verifier <$> HBR.peekArray (fromIntegral verifierLen) (HBR.toIncompleteArrayPtr verifierPtr)
 
 srp6ClientAgree ::
      Username
@@ -221,9 +221,9 @@ srp6ClientAgree (Username user) (Password pw) groupId hashId (Salt salt) (B b) (
           kPtr
           kLenPtr
       aLen <- peek aLenPtr
-      a <- A <$> HBR.peekArray (fromIntegral aLen) (HBR.isIncompleteArray aPtr)
+      a <- A <$> HBR.peekArray (fromIntegral aLen) (HBR.toIncompleteArrayPtr aPtr)
       kLen <- peek kLenPtr
-      k <- K <$> HBR.peekArray (fromIntegral kLen) (HBR.isIncompleteArray kPtr)
+      k <- K <$> HBR.peekArray (fromIntegral kLen) (HBR.toIncompleteArrayPtr kPtr)
       pure (a, k)
 
 srp6GroupSize :: GroupId -> IO CSize
@@ -272,7 +272,7 @@ rngGet :: RNG -> CSize -> IO (HBR.IncompleteArray Word8)
 rngGet (RNG rng) outLen = do
     allocaBytes (fromIntegral outLen) $ \outPtr -> do
       throwErrnoIfNegative "botan_rng_get" $ botan_rng_get rng outPtr outLen
-      HBR.peekArray (fromIntegral outLen) (HBR.isIncompleteArray outPtr)
+      HBR.peekArray (fromIntegral outLen) (HBR.toIncompleteArrayPtr outPtr)
 
 {-------------------------------------------------------------------------------
   Discrete logarithm group

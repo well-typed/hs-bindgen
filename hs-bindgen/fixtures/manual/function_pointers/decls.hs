@@ -166,6 +166,47 @@
             "fromInt2int"},
       defineInstanceComment =
       Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Int2int"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "un_Int2int",
+          hasFieldInstanceFieldType =
+          HsFun
+            (HsPrimType HsPrimCInt)
+            (HsIO (HsPrimType HsPrimCInt)),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Int2int"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "un_Int2int",
+          hasCFieldInstanceCFieldType =
+          HsFun
+            (HsPrimType HsPrimCInt)
+            (HsIO (HsPrimType HsPrimCInt)),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
   DeclData
     Struct {
       structName = Name
@@ -715,7 +756,11 @@
                           headerInclude =
                           "manual/function_pointers.h"},
                       commentChildren = []}})
-              [PeekByteOff (Idx 0) 0]),
+              [
+                PeekCField
+                  (HsStrLit
+                    "apply1Struct_apply1_nopointer_struct_field")
+                  (Idx 0)]),
           storablePoke =
           Lambda
             (NameHint "ptr")
@@ -908,9 +953,10 @@
                 (Add 1)
                 (Seq
                   [
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit
+                        "apply1Struct_apply1_nopointer_struct_field")
                       (Idx 2)
-                      0
                       (Idx 0)])))},
       defineInstanceComment =
       Nothing},
@@ -933,6 +979,65 @@
         "@NsTypeConstr"
         "Apply1Struct",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Apply1Struct"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "apply1Struct_apply1_nopointer_struct_field",
+          hasCFieldInstanceCFieldType =
+          HsFunPtr
+            (HsFun
+              (HsFunPtr
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "Int2int")))
+              (HsFun
+                (HsPrimType HsPrimCInt)
+                (HsIO
+                  (HsPrimType HsPrimCInt)))),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Apply1Struct"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "apply1Struct_apply1_nopointer_struct_field",
+          hasFieldInstanceFieldType =
+          HsFunPtr
+            (HsFun
+              (HsFunPtr
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "Int2int")))
+              (HsFun
+                (HsPrimType HsPrimCInt)
+                (HsIO
+                  (HsPrimType HsPrimCInt)))),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
       Nothing},
   DeclNewtype
     Newtype {
@@ -1129,6 +1234,65 @@
                 Bold [TextContent "See:"],
                 Identifier
                   "get_apply1Union_apply1_nopointer_union_field"]]}},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Apply1Union"),
+          hasCFieldInstanceFieldName =
+          Name
+            "@NsVar"
+            "apply1Union_apply1_nopointer_union_field",
+          hasCFieldInstanceCFieldType =
+          HsFunPtr
+            (HsFun
+              (HsFunPtr
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "Int2int")))
+              (HsFun
+                (HsPrimType HsPrimCInt)
+                (HsIO
+                  (HsPrimType HsPrimCInt)))),
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "Apply1Union"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "apply1Union_apply1_nopointer_union_field",
+          hasFieldInstanceFieldType =
+          HsFunPtr
+            (HsFun
+              (HsFunPtr
+                (HsTypRef
+                  (Name
+                    "@NsTypeConstr"
+                    "Int2int")))
+              (HsFun
+                (HsPrimType HsPrimCInt)
+                (HsIO
+                  (HsPrimType HsPrimCInt)))),
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
+      Nothing},
   DeclForeignImport
     ForeignImportDecl {
       foreignImportName = Name

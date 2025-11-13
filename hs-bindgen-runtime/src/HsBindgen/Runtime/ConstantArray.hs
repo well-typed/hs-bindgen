@@ -5,8 +5,8 @@ module HsBindgen.Runtime.ConstantArray (
   , fromVector
     -- * Pointers
     -- $pointers
-  , isConstantArray
-  , isFirstElem
+  , toConstantArrayPtr
+  , toFirstElemPtr
   , withPtr
     -- * Construction
   , repeat
@@ -26,6 +26,7 @@ import Foreign.ForeignPtr (mallocForeignPtrArray, withForeignPtr)
 import Foreign.Marshal.Utils (copyBytes)
 import Foreign.Ptr (Ptr, castPtr)
 import Foreign.Storable (Storable (..))
+import GHC.Records (HasField (..))
 import GHC.Stack (HasCallStack)
 import GHC.TypeNats (KnownNat, Nat, natVal)
 
@@ -97,33 +98,40 @@ fromVector _ xs
 --
 -- Functions like 'peek' require a @'Ptr' ('ConstantArray' n a)@ argument. If
 -- the user only has access to a @'Ptr' a@ but they know that is pointing to the
--- first element in an array, then they can use 'isConstantArray' to convert the
+-- first element in an array, then they can use 'toConstantArrayPtr' to convert the
 -- pointer before using 'peekArray' on it. Conversely, if the user has access to
 -- a @'Ptr' ('ConstantArray' n a)@ but they want to convert it to a @'Ptr' a@,
--- then they can use @'isFirstElem'@.
+-- then they can use @'toFirstElemPtr'@.
+--
+-- NOTE: with overloaded record dot syntax, syntax like @.toFirstElemPtr@ is
+-- also supported.
 --
 -- Relevant functions in this module also support pointers of newtypes around
 -- 'ConstantArray', hence the addition of 'Coercible' constraints in many
--- places. For example, we can use 'isConstantArray' at a 'ConstantArray' type
--- or we can use 'isConstantArray' at a newtype around a 'ConstantArray'.
+-- places. For example, we can use 'toConstantArrayPtr' at a 'ConstantArray' type
+-- or we can use 'toConstantArrayPtr' at a newtype around a 'ConstantArray'.
 --
 -- > newtype A n = A (ConstantArray n CInt)
--- > isConstantArray @(ConstantArray 3 CInt) ::
+-- > toConstantArrayPtr @(ConstantArray 3 CInt) ::
 -- >   Proxy 3 -> Ptr CInt -> Ptr (ConstantArray 3 CInt)
--- > isConstantArray @(A 3) ::
+-- > toConstantArrayPtr @(A 3) ::
 -- >   Proxy 3 -> Ptr CInt -> Ptr (A 3)
+
+-- | 'toFirstElemPtr' for overloaded record dot syntax
+instance HasField "toFirstElemPtr" (Ptr (ConstantArray n a)) (Ptr a) where
+  getField = snd . toFirstElemPtr
 
 -- | /( O(1) /): Use a pointer to the first element of an array as a pointer to the whole of
 -- said array.
 --
 -- NOTE: this function does not check that the pointer /is/ actually a pointer
 -- to the first element of an array.
-isConstantArray ::
+toConstantArrayPtr ::
      forall arrayLike n a. Coercible arrayLike (ConstantArray n a)
   => Proxy n
   -> Ptr a
   -> Ptr arrayLike
-isConstantArray _ = castPtr
+toConstantArrayPtr _ = castPtr
   where
     -- The 'Coercible' constraint is unused but that is intentional, so we
     -- circumvent the @-Wredundant-constraints@ warning by defining @_unused@.
@@ -134,11 +142,11 @@ isConstantArray _ = castPtr
 
 -- | /( O(1) /): Use a pointer to a whole array as a pointer to the first element of said
 -- array.
-isFirstElem ::
+toFirstElemPtr ::
      forall arrayLike n a. Coercible arrayLike (ConstantArray n a)
   => Ptr arrayLike
   -> (Proxy n, Ptr a)
-isFirstElem ptr = (Proxy @n, castPtr ptr)
+toFirstElemPtr ptr = (Proxy @n, castPtr ptr)
   where
     -- The 'Coercible' constraint is unused but that is intentional, so we
     -- circumvent the @-Wredundant-constraints@ warning by defining @_unused@.

@@ -77,6 +77,12 @@ newtype Tty
                       Real,
                       RealFloat,
                       RealFrac)
+instance TyEq ty (CFieldType Tty "un_Tty") =>
+         HasField "un_Tty" (Ptr Tty) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Tty")
+instance HasCField Tty "un_Tty"
+    where type CFieldType Tty "un_Tty" = MTy
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @UINT8_T@
 
     __defined at:__ @macro_types.h:11:9@
@@ -149,3 +155,9 @@ newtype Boolean_T
                       Ix,
                       Num,
                       Real)
+instance TyEq ty (CFieldType Boolean_T "un_Boolean_T") =>
+         HasField "un_Boolean_T" (Ptr Boolean_T) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Boolean_T")
+instance HasCField Boolean_T "un_Boolean_T"
+    where type CFieldType Boolean_T "un_Boolean_T" = BOOLEAN_T
+          offset# = \_ -> \_ -> 0

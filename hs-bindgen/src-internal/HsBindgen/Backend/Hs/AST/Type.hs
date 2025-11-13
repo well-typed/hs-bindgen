@@ -64,6 +64,7 @@ data HsType =
   | HsSizedByteArray Natural Natural
   | HsBlock HsType
   | HsComplexType HsPrimType
+  | HsStrLit String
   deriving stock (Generic, Show, Eq)
 
 -- | When translating a 'C.Type' there are C types which we

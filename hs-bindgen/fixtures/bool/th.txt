@@ -31,10 +31,22 @@ data Bools1
 instance Storable Bools1
     where sizeOf = \_ -> 2 :: Int
           alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> (pure Bools1 <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (1 :: Int)
+          peek = \ptr_0 -> (pure Bools1 <*> peekCField (Proxy @"bools1_x") ptr_0) <*> peekCField (Proxy @"bools1_y") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Bools1 bools1_x_3
-                                          bools1_y_4 -> pokeByteOff ptr_1 (0 :: Int) bools1_x_3 >> pokeByteOff ptr_1 (1 :: Int) bools1_y_4
+                                          bools1_y_4 -> pokeCField (Proxy @"bools1_x") ptr_1 bools1_x_3 >> pokeCField (Proxy @"bools1_y") ptr_1 bools1_y_4
+instance HasCField Bools1 "bools1_x"
+    where type CFieldType Bools1 "bools1_x" = CBool
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Bools1 "bools1_x") =>
+         HasField "bools1_x" (Ptr Bools1) (Ptr ty)
+    where getField = ptrToCField (Proxy @"bools1_x")
+instance HasCField Bools1 "bools1_y"
+    where type CFieldType Bools1 "bools1_y" = CBool
+          offset# = \_ -> \_ -> 1
+instance TyEq ty (CFieldType Bools1 "bools1_y") =>
+         HasField "bools1_y" (Ptr Bools1) (Ptr ty)
+    where getField = ptrToCField (Proxy @"bools1_y")
 {-| __C declaration:__ @bools2@
 
     __defined at:__ @bool.h:8:8@
@@ -66,10 +78,22 @@ data Bools2
 instance Storable Bools2
     where sizeOf = \_ -> 2 :: Int
           alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> (pure Bools2 <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (1 :: Int)
+          peek = \ptr_0 -> (pure Bools2 <*> peekCField (Proxy @"bools2_x") ptr_0) <*> peekCField (Proxy @"bools2_y") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Bools2 bools2_x_3
-                                          bools2_y_4 -> pokeByteOff ptr_1 (0 :: Int) bools2_x_3 >> pokeByteOff ptr_1 (1 :: Int) bools2_y_4
+                                          bools2_y_4 -> pokeCField (Proxy @"bools2_x") ptr_1 bools2_x_3 >> pokeCField (Proxy @"bools2_y") ptr_1 bools2_y_4
+instance HasCField Bools2 "bools2_x"
+    where type CFieldType Bools2 "bools2_x" = CBool
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Bools2 "bools2_x") =>
+         HasField "bools2_x" (Ptr Bools2) (Ptr ty)
+    where getField = ptrToCField (Proxy @"bools2_x")
+instance HasCField Bools2 "bools2_y"
+    where type CFieldType Bools2 "bools2_y" = CBool
+          offset# = \_ -> \_ -> 1
+instance TyEq ty (CFieldType Bools2 "bools2_y") =>
+         HasField "bools2_y" (Ptr Bools2) (Ptr ty)
+    where getField = ptrToCField (Proxy @"bools2_y")
 {-| __C declaration:__ @BOOL@
 
     __defined at:__ @bool.h:13:9@
@@ -125,7 +149,19 @@ data Bools3
 instance Storable Bools3
     where sizeOf = \_ -> 2 :: Int
           alignment = \_ -> 1 :: Int
-          peek = \ptr_0 -> (pure Bools3 <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (1 :: Int)
+          peek = \ptr_0 -> (pure Bools3 <*> peekCField (Proxy @"bools3_x") ptr_0) <*> peekCField (Proxy @"bools3_y") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Bools3 bools3_x_3
-                                          bools3_y_4 -> pokeByteOff ptr_1 (0 :: Int) bools3_x_3 >> pokeByteOff ptr_1 (1 :: Int) bools3_y_4
+                                          bools3_y_4 -> pokeCField (Proxy @"bools3_x") ptr_1 bools3_x_3 >> pokeCField (Proxy @"bools3_y") ptr_1 bools3_y_4
+instance HasCField Bools3 "bools3_x"
+    where type CFieldType Bools3 "bools3_x" = BOOL
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Bools3 "bools3_x") =>
+         HasField "bools3_x" (Ptr Bools3) (Ptr ty)
+    where getField = ptrToCField (Proxy @"bools3_x")
+instance HasCField Bools3 "bools3_y"
+    where type CFieldType Bools3 "bools3_y" = BOOL
+          offset# = \_ -> \_ -> 1
+instance TyEq ty (CFieldType Bools3 "bools3_y") =>
+         HasField "bools3_y" (Ptr Bools3) (Ptr ty)
+    where getField = ptrToCField (Proxy @"bools3_y")

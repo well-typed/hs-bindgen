@@ -278,6 +278,12 @@ newtype TC
                       Ix,
                       Num,
                       Real)
+instance TyEq ty (CFieldType TC "un_TC") =>
+         HasField "un_TC" (Ptr TC) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_TC")
+instance HasCField TC "un_TC"
+    where type CFieldType TC "un_TC" = CChar
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct1@
 
     __defined at:__ @macro_in_fundecl_vs_typedef.h:18:16@
@@ -302,9 +308,15 @@ data Struct1
 instance Storable Struct1
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure Struct1 <*> peekByteOff ptr_0 (0 :: Int)
+          peek = \ptr_0 -> pure Struct1 <*> peekCField (Proxy @"struct1_a") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Struct1 struct1_a_3 -> pokeByteOff ptr_1 (0 :: Int) struct1_a_3
+                                   Struct1 struct1_a_3 -> pokeCField (Proxy @"struct1_a") ptr_1 struct1_a_3
+instance HasCField Struct1 "struct1_a"
+    where type CFieldType Struct1 "struct1_a" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Struct1 "struct1_a") =>
+         HasField "struct1_a" (Ptr Struct1) (Ptr ty)
+    where getField = ptrToCField (Proxy @"struct1_a")
 {-| __defined at:__ @macro_in_fundecl_vs_typedef.h:19:9@
 
     __exported by:__ @macro_in_fundecl_vs_typedef.h@
@@ -325,9 +337,15 @@ data Struct2
 instance Storable Struct2
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure Struct2 <*> peekByteOff ptr_0 (0 :: Int)
+          peek = \ptr_0 -> pure Struct2 <*> peekCField (Proxy @"struct2_a") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Struct2 struct2_a_3 -> pokeByteOff ptr_1 (0 :: Int) struct2_a_3
+                                   Struct2 struct2_a_3 -> pokeCField (Proxy @"struct2_a") ptr_1 struct2_a_3
+instance HasCField Struct2 "struct2_a"
+    where type CFieldType Struct2 "struct2_a" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Struct2 "struct2_a") =>
+         HasField "struct2_a" (Ptr Struct2) (Ptr ty)
+    where getField = ptrToCField (Proxy @"struct2_a")
 {-| __C declaration:__ @struct3@
 
     __defined at:__ @macro_in_fundecl_vs_typedef.h:20:16@
@@ -352,9 +370,15 @@ data Struct3
 instance Storable Struct3
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure Struct3 <*> peekByteOff ptr_0 (0 :: Int)
+          peek = \ptr_0 -> pure Struct3 <*> peekCField (Proxy @"struct3_a") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Struct3 struct3_a_3 -> pokeByteOff ptr_1 (0 :: Int) struct3_a_3
+                                   Struct3 struct3_a_3 -> pokeCField (Proxy @"struct3_a") ptr_1 struct3_a_3
+instance HasCField Struct3 "struct3_a"
+    where type CFieldType Struct3 "struct3_a" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Struct3 "struct3_a") =>
+         HasField "struct3_a" (Ptr Struct3) (Ptr ty)
+    where getField = ptrToCField (Proxy @"struct3_a")
 {-| __C declaration:__ @struct3_t@
 
     __defined at:__ @macro_in_fundecl_vs_typedef.h:20:35@
@@ -371,6 +395,12 @@ newtype Struct3_t
       -}
     deriving stock (Eq, Show)
     deriving newtype Storable
+instance TyEq ty (CFieldType Struct3_t "un_Struct3_t") =>
+         HasField "un_Struct3_t" (Ptr Struct3_t) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Struct3_t")
+instance HasCField Struct3_t "un_Struct3_t"
+    where type CFieldType Struct3_t "un_Struct3_t" = Struct3
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @struct4@
 
     __defined at:__ @macro_in_fundecl_vs_typedef.h:21:16@
@@ -395,9 +425,15 @@ data Struct4
 instance Storable Struct4
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure Struct4 <*> peekByteOff ptr_0 (0 :: Int)
+          peek = \ptr_0 -> pure Struct4 <*> peekCField (Proxy @"struct4_a") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Struct4 struct4_a_3 -> pokeByteOff ptr_1 (0 :: Int) struct4_a_3
+                                   Struct4 struct4_a_3 -> pokeCField (Proxy @"struct4_a") ptr_1 struct4_a_3
+instance HasCField Struct4 "struct4_a"
+    where type CFieldType Struct4 "struct4_a" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Struct4 "struct4_a") =>
+         HasField "struct4_a" (Ptr Struct4) (Ptr ty)
+    where getField = ptrToCField (Proxy @"struct4_a")
 {-| __C declaration:__ @quux1@
 
     __defined at:__ @macro_in_fundecl_vs_typedef.h:8:6@

@@ -1,0 +1,705 @@
+-- addDependentFile musl-include/x86_64/bits/stdint.h
+-- addDependentFile musl-include/x86_64/bits/alltypes.h
+-- addDependentFile musl-include/x86_64/stdint.h
+-- addDependentFile examples/golden/manual/zero_copy.h
+-- #include <manual/zero_copy.h>
+-- signed int hs_bindgen_test_manualzero_copy_a617e0cb5d95cd52 (
+--   struct vector const *arg1,
+--   struct vector *arg2
+-- )
+-- {
+--   return reverse(arg1, arg2);
+-- }
+-- void hs_bindgen_test_manualzero_copy_f3d0c8dd1a83b3d0 (
+--   triplet *arg1,
+--   triplet *arg2
+-- )
+-- {
+--   transpose(arg1, arg2);
+-- }
+-- signed int hs_bindgen_test_manualzero_copy_ca203e332b4afe73 (
+--   struct vector const *arg1,
+--   struct vector *arg2
+-- )
+-- {
+--   return reverse(arg1, arg2);
+-- }
+-- void hs_bindgen_test_manualzero_copy_d7aa7016f1b951b2 (
+--   triplet *arg1,
+--   triplet *arg2
+-- )
+-- {
+--   transpose(arg1, arg2);
+-- }
+-- /* get_reverse_ptr */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_test_manualzero_copy_c3d266ec84fe0678 (void)) (
+--   struct vector const *arg1,
+--   struct vector *arg2
+-- )
+-- {
+--   return &reverse;
+-- }
+-- /* get_transpose_ptr */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_test_manualzero_copy_fc1dad225b555299 (void)) (
+--   matrix const arg1,
+--   matrix arg2
+-- )
+-- {
+--   return &transpose;
+-- }
+{-| __C declaration:__ @point@
+
+    __defined at:__ @manual\/zero_copy.h:12:8@
+
+    __exported by:__ @manual\/zero_copy.h@
+-}
+data Point
+    = Point {point_x :: CInt
+             {- ^ __C declaration:__ @x@
+
+                  __defined at:__ @manual\/zero_copy.h:13:7@
+
+                  __exported by:__ @manual\/zero_copy.h@
+             -},
+             point_y :: CInt
+             {- ^ __C declaration:__ @y@
+
+                  __defined at:__ @manual\/zero_copy.h:14:7@
+
+                  __exported by:__ @manual\/zero_copy.h@
+             -}}
+      {- ^ __C declaration:__ @point@
+
+           __defined at:__ @manual\/zero_copy.h:12:8@
+
+           __exported by:__ @manual\/zero_copy.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable Point
+    where sizeOf = \_ -> 8 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> (pure Point <*> peekCField (Proxy @"point_x") ptr_0) <*> peekCField (Proxy @"point_y") ptr_0
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Point point_x_3
+                                         point_y_4 -> pokeCField (Proxy @"point_x") ptr_1 point_x_3 >> pokeCField (Proxy @"point_y") ptr_1 point_y_4
+instance HasCField Point "point_x"
+    where type CFieldType Point "point_x" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Point "point_x") =>
+         HasField "point_x" (Ptr Point) (Ptr ty)
+    where getField = ptrToCField (Proxy @"point_x")
+instance HasCField Point "point_y"
+    where type CFieldType Point "point_y" = CInt
+          offset# = \_ -> \_ -> 4
+instance TyEq ty (CFieldType Point "point_y") =>
+         HasField "point_y" (Ptr Point) (Ptr ty)
+    where getField = ptrToCField (Proxy @"point_y")
+{-| __C declaration:__ @rectangle@
+
+    __defined at:__ @manual\/zero_copy.h:17:8@
+
+    __exported by:__ @manual\/zero_copy.h@
+-}
+data Rectangle
+    = Rectangle {rectangle_topleft :: Point
+                 {- ^ __C declaration:__ @topleft@
+
+                      __defined at:__ @manual\/zero_copy.h:18:16@
+
+                      __exported by:__ @manual\/zero_copy.h@
+                 -},
+                 rectangle_bottomright :: Point
+                 {- ^ __C declaration:__ @bottomright@
+
+                      __defined at:__ @manual\/zero_copy.h:19:16@
+
+                      __exported by:__ @manual\/zero_copy.h@
+                 -}}
+      {- ^ __C declaration:__ @rectangle@
+
+           __defined at:__ @manual\/zero_copy.h:17:8@
+
+           __exported by:__ @manual\/zero_copy.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable Rectangle
+    where sizeOf = \_ -> 16 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> (pure Rectangle <*> peekCField (Proxy @"rectangle_topleft") ptr_0) <*> peekCField (Proxy @"rectangle_bottomright") ptr_0
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Rectangle rectangle_topleft_3
+                                             rectangle_bottomright_4 -> pokeCField (Proxy @"rectangle_topleft") ptr_1 rectangle_topleft_3 >> pokeCField (Proxy @"rectangle_bottomright") ptr_1 rectangle_bottomright_4
+instance HasCField Rectangle "rectangle_topleft"
+    where type CFieldType Rectangle "rectangle_topleft" = Point
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Rectangle "rectangle_topleft") =>
+         HasField "rectangle_topleft" (Ptr Rectangle) (Ptr ty)
+    where getField = ptrToCField (Proxy @"rectangle_topleft")
+instance HasCField Rectangle "rectangle_bottomright"
+    where type CFieldType Rectangle "rectangle_bottomright" = Point
+          offset# = \_ -> \_ -> 8
+instance TyEq ty (CFieldType Rectangle "rectangle_bottomright") =>
+         HasField "rectangle_bottomright" (Ptr Rectangle) (Ptr ty)
+    where getField = ptrToCField (Proxy @"rectangle_bottomright")
+{-| __C declaration:__ @circle@
+
+    __defined at:__ @manual\/zero_copy.h:22:8@
+
+    __exported by:__ @manual\/zero_copy.h@
+-}
+data Circle
+    = Circle {circle_midpoint :: Point
+              {- ^ __C declaration:__ @midpoint@
+
+                   __defined at:__ @manual\/zero_copy.h:23:16@
+
+                   __exported by:__ @manual\/zero_copy.h@
+              -},
+              circle_radius :: CInt
+              {- ^ __C declaration:__ @radius@
+
+                   __defined at:__ @manual\/zero_copy.h:24:7@
+
+                   __exported by:__ @manual\/zero_copy.h@
+              -}}
+      {- ^ __C declaration:__ @circle@
+
+           __defined at:__ @manual\/zero_copy.h:22:8@
+
+           __exported by:__ @manual\/zero_copy.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable Circle
+    where sizeOf = \_ -> 12 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> (pure Circle <*> peekCField (Proxy @"circle_midpoint") ptr_0) <*> peekCField (Proxy @"circle_radius") ptr_0
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Circle circle_midpoint_3
+                                          circle_radius_4 -> pokeCField (Proxy @"circle_midpoint") ptr_1 circle_midpoint_3 >> pokeCField (Proxy @"circle_radius") ptr_1 circle_radius_4
+instance HasCField Circle "circle_midpoint"
+    where type CFieldType Circle "circle_midpoint" = Point
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Circle "circle_midpoint") =>
+         HasField "circle_midpoint" (Ptr Circle) (Ptr ty)
+    where getField = ptrToCField (Proxy @"circle_midpoint")
+instance HasCField Circle "circle_radius"
+    where type CFieldType Circle "circle_radius" = CInt
+          offset# = \_ -> \_ -> 8
+instance TyEq ty (CFieldType Circle "circle_radius") =>
+         HasField "circle_radius" (Ptr Circle) (Ptr ty)
+    where getField = ptrToCField (Proxy @"circle_radius")
+{-| __C declaration:__ @shape@
+
+    __defined at:__ @manual\/zero_copy.h:30:7@
+
+    __exported by:__ @manual\/zero_copy.h@
+-}
+newtype Shape
+    = Shape {un_Shape :: ByteArray}
+      {- ^ __C declaration:__ @shape@
+
+           __defined at:__ @manual\/zero_copy.h:30:7@
+
+           __exported by:__ @manual\/zero_copy.h@
+      -}
+deriving via (SizedByteArray 16 4) instance Storable Shape
+{-|
+
+  __See:__ 'set_shape_rectangle'
+
+__C declaration:__ @rectangle@
+
+__defined at:__ @manual\/zero_copy.h:31:20@
+
+__exported by:__ @manual\/zero_copy.h@
+-}
+get_shape_rectangle :: Shape -> Rectangle
+{-|
+
+  __See:__ 'set_shape_rectangle'
+
+__C declaration:__ @rectangle@
+
+__defined at:__ @manual\/zero_copy.h:31:20@
+
+__exported by:__ @manual\/zero_copy.h@
+-}
+get_shape_rectangle = getUnionPayload
+{-|
+
+  __See:__ 'get_shape_rectangle'
+
+-}
+set_shape_rectangle :: Rectangle -> Shape
+{-|
+
+  __See:__ 'get_shape_rectangle'
+
+-}
+set_shape_rectangle = setUnionPayload
+{-|
+
+  __See:__ 'set_shape_circle'
+
+__C declaration:__ @circle@
+
+__defined at:__ @manual\/zero_copy.h:32:17@
+
+__exported by:__ @manual\/zero_copy.h@
+-}
+get_shape_circle :: Shape -> Circle
+{-|
+
+  __See:__ 'set_shape_circle'
+
+__C declaration:__ @circle@
+
+__defined at:__ @manual\/zero_copy.h:32:17@
+
+__exported by:__ @manual\/zero_copy.h@
+-}
+get_shape_circle = getUnionPayload
+{-|
+
+  __See:__ 'get_shape_circle'
+
+-}
+set_shape_circle :: Circle -> Shape
+{-|
+
+  __See:__ 'get_shape_circle'
+
+-}
+set_shape_circle = setUnionPayload
+instance HasCField Shape "shape_rectangle"
+    where type CFieldType Shape "shape_rectangle" = Rectangle
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Shape "shape_rectangle") =>
+         HasField "shape_rectangle" (Ptr Shape) (Ptr ty)
+    where getField = ptrToCField (Proxy @"shape_rectangle")
+instance HasCField Shape "shape_circle"
+    where type CFieldType Shape "shape_circle" = Circle
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Shape "shape_circle") =>
+         HasField "shape_circle" (Ptr Shape) (Ptr ty)
+    where getField = ptrToCField (Proxy @"shape_circle")
+{-| __C declaration:__ @colour@
+
+    __defined at:__ @manual\/zero_copy.h:39:8@
+
+    __exported by:__ @manual\/zero_copy.h@
+-}
+data Colour
+    = Colour {colour_opacity :: CUInt
+              {- ^ __C declaration:__ @opacity@
+
+                   __defined at:__ @manual\/zero_copy.h:40:16@
+
+                   __exported by:__ @manual\/zero_copy.h@
+              -},
+              colour_brightness :: CUInt
+              {- ^ __C declaration:__ @brightness@
+
+                   __defined at:__ @manual\/zero_copy.h:41:16@
+
+                   __exported by:__ @manual\/zero_copy.h@
+              -},
+              colour_red :: CUInt
+              {- ^ __C declaration:__ @red@
+
+                   __defined at:__ @manual\/zero_copy.h:42:16@
+
+                   __exported by:__ @manual\/zero_copy.h@
+              -},
+              colour_green :: CUInt
+              {- ^ __C declaration:__ @green@
+
+                   __defined at:__ @manual\/zero_copy.h:43:16@
+
+                   __exported by:__ @manual\/zero_copy.h@
+              -},
+              colour_blue :: CUInt
+              {- ^ __C declaration:__ @blue@
+
+                   __defined at:__ @manual\/zero_copy.h:44:16@
+
+                   __exported by:__ @manual\/zero_copy.h@
+              -}}
+      {- ^ __C declaration:__ @colour@
+
+           __defined at:__ @manual\/zero_copy.h:39:8@
+
+           __exported by:__ @manual\/zero_copy.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable Colour
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> ((((pure Colour <*> peekCBitfield (Proxy @"colour_opacity") ptr_0) <*> peekCBitfield (Proxy @"colour_brightness") ptr_0) <*> peekCBitfield (Proxy @"colour_red") ptr_0) <*> peekCBitfield (Proxy @"colour_green") ptr_0) <*> peekCBitfield (Proxy @"colour_blue") ptr_0
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Colour colour_opacity_3
+                                          colour_brightness_4
+                                          colour_red_5
+                                          colour_green_6
+                                          colour_blue_7 -> pokeCBitfield (Proxy @"colour_opacity") ptr_1 colour_opacity_3 >> (pokeCBitfield (Proxy @"colour_brightness") ptr_1 colour_brightness_4 >> (pokeCBitfield (Proxy @"colour_red") ptr_1 colour_red_5 >> (pokeCBitfield (Proxy @"colour_green") ptr_1 colour_green_6 >> pokeCBitfield (Proxy @"colour_blue") ptr_1 colour_blue_7)))
+instance HasCBitfield Colour "colour_opacity"
+    where type CBitfieldType Colour "colour_opacity" = CUInt
+          bitOffset# = \_ -> \_ -> 0
+          bitWidth# = \_ -> \_ -> 2
+instance TyEq ty (CBitfieldType Colour "colour_opacity") =>
+         HasField "colour_opacity"
+                  (Ptr Colour)
+                  (BitfieldPtr Colour "colour_opacity")
+    where getField = ptrToCBitfield (Proxy @"colour_opacity")
+instance HasCBitfield Colour "colour_brightness"
+    where type CBitfieldType Colour "colour_brightness" = CUInt
+          bitOffset# = \_ -> \_ -> 2
+          bitWidth# = \_ -> \_ -> 3
+instance TyEq ty (CBitfieldType Colour "colour_brightness") =>
+         HasField "colour_brightness"
+                  (Ptr Colour)
+                  (BitfieldPtr Colour "colour_brightness")
+    where getField = ptrToCBitfield (Proxy @"colour_brightness")
+instance HasCBitfield Colour "colour_red"
+    where type CBitfieldType Colour "colour_red" = CUInt
+          bitOffset# = \_ -> \_ -> 5
+          bitWidth# = \_ -> \_ -> 8
+instance TyEq ty (CBitfieldType Colour "colour_red") =>
+         HasField "colour_red"
+                  (Ptr Colour)
+                  (BitfieldPtr Colour "colour_red")
+    where getField = ptrToCBitfield (Proxy @"colour_red")
+instance HasCBitfield Colour "colour_green"
+    where type CBitfieldType Colour "colour_green" = CUInt
+          bitOffset# = \_ -> \_ -> 13
+          bitWidth# = \_ -> \_ -> 8
+instance TyEq ty (CBitfieldType Colour "colour_green") =>
+         HasField "colour_green"
+                  (Ptr Colour)
+                  (BitfieldPtr Colour "colour_green")
+    where getField = ptrToCBitfield (Proxy @"colour_green")
+instance HasCBitfield Colour "colour_blue"
+    where type CBitfieldType Colour "colour_blue" = CUInt
+          bitOffset# = \_ -> \_ -> 21
+          bitWidth# = \_ -> \_ -> 8
+instance TyEq ty (CBitfieldType Colour "colour_blue") =>
+         HasField "colour_blue"
+                  (Ptr Colour)
+                  (BitfieldPtr Colour "colour_blue")
+    where getField = ptrToCBitfield (Proxy @"colour_blue")
+{-| __C declaration:__ @myInt@
+
+    __defined at:__ @manual\/zero_copy.h:50:13@
+
+    __exported by:__ @manual\/zero_copy.h@
+-}
+newtype MyInt
+    = MyInt {un_MyInt :: CInt}
+      {- ^ __C declaration:__ @myInt@
+
+           __defined at:__ @manual\/zero_copy.h:50:13@
+
+           __exported by:__ @manual\/zero_copy.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance TyEq ty (CFieldType MyInt "un_MyInt") =>
+         HasField "un_MyInt" (Ptr MyInt) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_MyInt")
+instance HasCField MyInt "un_MyInt"
+    where type CFieldType MyInt "un_MyInt" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @drawing@
+
+    __defined at:__ @manual\/zero_copy.h:55:16@
+
+    __exported by:__ @manual\/zero_copy.h@
+-}
+data Drawing
+    = Drawing {drawing_shape :: (Ptr Shape)
+               {- ^ __C declaration:__ @shape@
+
+                    __defined at:__ @manual\/zero_copy.h:56:16@
+
+                    __exported by:__ @manual\/zero_copy.h@
+               -},
+               drawing_colour :: (Ptr Colour)
+               {- ^ __C declaration:__ @colour@
+
+                    __defined at:__ @manual\/zero_copy.h:57:18@
+
+                    __exported by:__ @manual\/zero_copy.h@
+               -}}
+      {- ^ __C declaration:__ @drawing@
+
+           __defined at:__ @manual\/zero_copy.h:55:16@
+
+           __exported by:__ @manual\/zero_copy.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable Drawing
+    where sizeOf = \_ -> 16 :: Int
+          alignment = \_ -> 8 :: Int
+          peek = \ptr_0 -> (pure Drawing <*> peekCField (Proxy @"drawing_shape") ptr_0) <*> peekCField (Proxy @"drawing_colour") ptr_0
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Drawing drawing_shape_3
+                                           drawing_colour_4 -> pokeCField (Proxy @"drawing_shape") ptr_1 drawing_shape_3 >> pokeCField (Proxy @"drawing_colour") ptr_1 drawing_colour_4
+instance HasCField Drawing "drawing_shape"
+    where type CFieldType Drawing "drawing_shape" = Ptr Shape
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Drawing "drawing_shape") =>
+         HasField "drawing_shape" (Ptr Drawing) (Ptr ty)
+    where getField = ptrToCField (Proxy @"drawing_shape")
+instance HasCField Drawing "drawing_colour"
+    where type CFieldType Drawing "drawing_colour" = Ptr Colour
+          offset# = \_ -> \_ -> 8
+instance TyEq ty (CFieldType Drawing "drawing_colour") =>
+         HasField "drawing_colour" (Ptr Drawing) (Ptr ty)
+    where getField = ptrToCField (Proxy @"drawing_colour")
+{-| __C declaration:__ @tic_tac_toe@
+
+    __defined at:__ @manual\/zero_copy.h:63:16@
+
+    __exported by:__ @manual\/zero_copy.h@
+-}
+data Tic_tac_toe
+    = Tic_tac_toe {tic_tac_toe_row1 :: (ConstantArray 3 CInt)
+                   {- ^ __C declaration:__ @row1@
+
+                        __defined at:__ @manual\/zero_copy.h:64:7@
+
+                        __exported by:__ @manual\/zero_copy.h@
+                   -},
+                   tic_tac_toe_row2 :: (ConstantArray 3 CInt)
+                   {- ^ __C declaration:__ @row2@
+
+                        __defined at:__ @manual\/zero_copy.h:65:7@
+
+                        __exported by:__ @manual\/zero_copy.h@
+                   -},
+                   tic_tac_toe_row3 :: (ConstantArray 3 CInt)
+                   {- ^ __C declaration:__ @row3@
+
+                        __defined at:__ @manual\/zero_copy.h:66:7@
+
+                        __exported by:__ @manual\/zero_copy.h@
+                   -}}
+      {- ^ __C declaration:__ @tic_tac_toe@
+
+           __defined at:__ @manual\/zero_copy.h:63:16@
+
+           __exported by:__ @manual\/zero_copy.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable Tic_tac_toe
+    where sizeOf = \_ -> 36 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> ((pure Tic_tac_toe <*> peekCField (Proxy @"tic_tac_toe_row1") ptr_0) <*> peekCField (Proxy @"tic_tac_toe_row2") ptr_0) <*> peekCField (Proxy @"tic_tac_toe_row3") ptr_0
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Tic_tac_toe tic_tac_toe_row1_3
+                                               tic_tac_toe_row2_4
+                                               tic_tac_toe_row3_5 -> pokeCField (Proxy @"tic_tac_toe_row1") ptr_1 tic_tac_toe_row1_3 >> (pokeCField (Proxy @"tic_tac_toe_row2") ptr_1 tic_tac_toe_row2_4 >> pokeCField (Proxy @"tic_tac_toe_row3") ptr_1 tic_tac_toe_row3_5)
+instance HasCField Tic_tac_toe "tic_tac_toe_row1"
+    where type CFieldType Tic_tac_toe
+                          "tic_tac_toe_row1" = ConstantArray 3 CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Tic_tac_toe "tic_tac_toe_row1") =>
+         HasField "tic_tac_toe_row1" (Ptr Tic_tac_toe) (Ptr ty)
+    where getField = ptrToCField (Proxy @"tic_tac_toe_row1")
+instance HasCField Tic_tac_toe "tic_tac_toe_row2"
+    where type CFieldType Tic_tac_toe
+                          "tic_tac_toe_row2" = ConstantArray 3 CInt
+          offset# = \_ -> \_ -> 12
+instance TyEq ty (CFieldType Tic_tac_toe "tic_tac_toe_row2") =>
+         HasField "tic_tac_toe_row2" (Ptr Tic_tac_toe) (Ptr ty)
+    where getField = ptrToCField (Proxy @"tic_tac_toe_row2")
+instance HasCField Tic_tac_toe "tic_tac_toe_row3"
+    where type CFieldType Tic_tac_toe
+                          "tic_tac_toe_row3" = ConstantArray 3 CInt
+          offset# = \_ -> \_ -> 24
+instance TyEq ty (CFieldType Tic_tac_toe "tic_tac_toe_row3") =>
+         HasField "tic_tac_toe_row3" (Ptr Tic_tac_toe) (Ptr ty)
+    where getField = ptrToCField (Proxy @"tic_tac_toe_row3")
+{-| __C declaration:__ @vector@
+
+    __defined at:__ @manual\/zero_copy.h:72:8@
+
+    __exported by:__ @manual\/zero_copy.h@
+-}
+data Vector
+    = Vector {vector_len :: CInt
+              {- ^ __C declaration:__ @len@
+
+                   __defined at:__ @manual\/zero_copy.h:73:7@
+
+                   __exported by:__ @manual\/zero_copy.h@
+              -}}
+      {- ^ __C declaration:__ @vector@
+
+           __defined at:__ @manual\/zero_copy.h:72:8@
+
+           __exported by:__ @manual\/zero_copy.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable Vector
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure Vector <*> peekCField (Proxy @"vector_len") ptr_0
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Vector vector_len_3 -> pokeCField (Proxy @"vector_len") ptr_1 vector_len_3
+instance HasFlexibleArrayMember CChar Vector
+    where flexibleArrayMemberOffset = \_ty_0 -> 4
+instance HasCField Vector "vector_len"
+    where type CFieldType Vector "vector_len" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Vector "vector_len") =>
+         HasField "vector_len" (Ptr Vector) (Ptr ty)
+    where getField = ptrToCField (Proxy @"vector_len")
+{-| __C declaration:__ @triplet@
+
+    __defined at:__ @manual\/zero_copy.h:82:13@
+
+    __exported by:__ @manual\/zero_copy.h@
+-}
+newtype Triplet
+    = Triplet {un_Triplet :: (ConstantArray 3 CInt)}
+      {- ^ __C declaration:__ @triplet@
+
+           __defined at:__ @manual\/zero_copy.h:82:13@
+
+           __exported by:__ @manual\/zero_copy.h@
+      -}
+    deriving stock (Eq, Show)
+    deriving newtype Storable
+instance TyEq ty (CFieldType Triplet "un_Triplet") =>
+         HasField "un_Triplet" (Ptr Triplet) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Triplet")
+instance HasCField Triplet "un_Triplet"
+    where type CFieldType Triplet "un_Triplet" = ConstantArray 3 CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @matrix@
+
+    __defined at:__ @manual\/zero_copy.h:83:17@
+
+    __exported by:__ @manual\/zero_copy.h@
+-}
+newtype Matrix
+    = Matrix {un_Matrix :: (ConstantArray 3 Triplet)}
+      {- ^ __C declaration:__ @matrix@
+
+           __defined at:__ @manual\/zero_copy.h:83:17@
+
+           __exported by:__ @manual\/zero_copy.h@
+      -}
+    deriving stock (Eq, Show)
+    deriving newtype Storable
+instance TyEq ty (CFieldType Matrix "un_Matrix") =>
+         HasField "un_Matrix" (Ptr Matrix) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Matrix")
+instance HasCField Matrix "un_Matrix"
+    where type CFieldType Matrix "un_Matrix" = ConstantArray 3 Triplet
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @reverse@
+
+    __defined at:__ @manual\/zero_copy.h:77:5@
+
+    __exported by:__ @manual\/zero_copy.h@
+-}
+foreign import ccall safe "hs_bindgen_test_manualzero_copy_a617e0cb5d95cd52" reverse :: Ptr Vector ->
+                                                                                        Ptr Vector ->
+                                                                                        IO CInt
+{-| Pointer-based API for 'transpose'
+
+-}
+foreign import ccall safe "hs_bindgen_test_manualzero_copy_f3d0c8dd1a83b3d0" transpose_wrapper :: Ptr Triplet ->
+                                                                                                  Ptr Triplet ->
+                                                                                                  IO Unit
+{-| __C declaration:__ @transpose@
+
+    __defined at:__ @manual\/zero_copy.h:85:6@
+
+    __exported by:__ @manual\/zero_copy.h@
+-}
+transpose :: Matrix -> Ptr Triplet -> IO Unit
+{-| __C declaration:__ @transpose@
+
+    __defined at:__ @manual\/zero_copy.h:85:6@
+
+    __exported by:__ @manual\/zero_copy.h@
+-}
+transpose = \x_0 -> \x_1 -> withPtr x_0 (\ptr_2 -> transpose_wrapper ptr_2 x_1)
+{-| __C declaration:__ @reverse@
+
+    __defined at:__ @manual\/zero_copy.h:77:5@
+
+    __exported by:__ @manual\/zero_copy.h@
+-}
+foreign import ccall safe "hs_bindgen_test_manualzero_copy_ca203e332b4afe73" reverse :: Ptr Vector ->
+                                                                                        Ptr Vector ->
+                                                                                        IO CInt
+{-| Pointer-based API for 'transpose'
+
+-}
+foreign import ccall safe "hs_bindgen_test_manualzero_copy_d7aa7016f1b951b2" transpose_wrapper :: Ptr Triplet ->
+                                                                                                  Ptr Triplet ->
+                                                                                                  IO Unit
+{-| __C declaration:__ @transpose@
+
+    __defined at:__ @manual\/zero_copy.h:85:6@
+
+    __exported by:__ @manual\/zero_copy.h@
+-}
+transpose :: Matrix -> Ptr Triplet -> IO Unit
+{-| __C declaration:__ @transpose@
+
+    __defined at:__ @manual\/zero_copy.h:85:6@
+
+    __exported by:__ @manual\/zero_copy.h@
+-}
+transpose = \x_0 -> \x_1 -> withPtr x_0 (\ptr_2 -> transpose_wrapper ptr_2 x_1)
+foreign import ccall safe "hs_bindgen_test_manualzero_copy_c3d266ec84fe0678" hs_bindgen_test_manualzero_copy_c3d266ec84fe0678 :: IO (FunPtr (Ptr Vector ->
+                                                                                                                                             Ptr Vector ->
+                                                                                                                                             IO CInt))
+{-# NOINLINE reverse_ptr #-}
+{-| __C declaration:__ @reverse@
+
+    __defined at:__ @manual\/zero_copy.h:77:5@
+
+    __exported by:__ @manual\/zero_copy.h@
+-}
+reverse_ptr :: FunPtr (Ptr Vector -> Ptr Vector -> IO CInt)
+{-| __C declaration:__ @reverse@
+
+    __defined at:__ @manual\/zero_copy.h:77:5@
+
+    __exported by:__ @manual\/zero_copy.h@
+-}
+reverse_ptr = unsafePerformIO hs_bindgen_test_manualzero_copy_c3d266ec84fe0678
+foreign import ccall safe "hs_bindgen_test_manualzero_copy_fc1dad225b555299" hs_bindgen_test_manualzero_copy_fc1dad225b555299 :: IO (FunPtr (Matrix ->
+                                                                                                                                             Matrix ->
+                                                                                                                                             IO Unit))
+{-# NOINLINE transpose_ptr #-}
+{-| __C declaration:__ @transpose@
+
+    __defined at:__ @manual\/zero_copy.h:85:6@
+
+    __exported by:__ @manual\/zero_copy.h@
+-}
+transpose_ptr :: FunPtr (Matrix -> Matrix -> IO Unit)
+{-| __C declaration:__ @transpose@
+
+    __defined at:__ @manual\/zero_copy.h:85:6@
+
+    __exported by:__ @manual\/zero_copy.h@
+-}
+transpose_ptr = unsafePerformIO hs_bindgen_test_manualzero_copy_fc1dad225b555299

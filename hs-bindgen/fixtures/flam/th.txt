@@ -23,11 +23,17 @@ data Pascal
 instance Storable Pascal
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure Pascal <*> peekByteOff ptr_0 (0 :: Int)
+          peek = \ptr_0 -> pure Pascal <*> peekCField (Proxy @"pascal_len") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Pascal pascal_len_3 -> pokeByteOff ptr_1 (0 :: Int) pascal_len_3
+                                   Pascal pascal_len_3 -> pokeCField (Proxy @"pascal_len") ptr_1 pascal_len_3
 instance HasFlexibleArrayMember CChar Pascal
     where flexibleArrayMemberOffset = \_ty_0 -> 4
+instance HasCField Pascal "pascal_len"
+    where type CFieldType Pascal "pascal_len" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Pascal "pascal_len") =>
+         HasField "pascal_len" (Ptr Pascal) (Ptr ty)
+    where getField = ptrToCField (Proxy @"pascal_len")
 {-| __defined at:__ @flam.h:10:2@
 
     __exported by:__ @flam.h@
@@ -55,10 +61,22 @@ data Foo_bar
 instance Storable Foo_bar
     where sizeOf = \_ -> 8 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> (pure Foo_bar <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (4 :: Int)
+          peek = \ptr_0 -> (pure Foo_bar <*> peekCField (Proxy @"foo_bar_x") ptr_0) <*> peekCField (Proxy @"foo_bar_y") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Foo_bar foo_bar_x_3
-                                           foo_bar_y_4 -> pokeByteOff ptr_1 (0 :: Int) foo_bar_x_3 >> pokeByteOff ptr_1 (4 :: Int) foo_bar_y_4
+                                           foo_bar_y_4 -> pokeCField (Proxy @"foo_bar_x") ptr_1 foo_bar_x_3 >> pokeCField (Proxy @"foo_bar_y") ptr_1 foo_bar_y_4
+instance HasCField Foo_bar "foo_bar_x"
+    where type CFieldType Foo_bar "foo_bar_x" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Foo_bar "foo_bar_x") =>
+         HasField "foo_bar_x" (Ptr Foo_bar) (Ptr ty)
+    where getField = ptrToCField (Proxy @"foo_bar_x")
+instance HasCField Foo_bar "foo_bar_y"
+    where type CFieldType Foo_bar "foo_bar_y" = CInt
+          offset# = \_ -> \_ -> 4
+instance TyEq ty (CFieldType Foo_bar "foo_bar_y") =>
+         HasField "foo_bar_y" (Ptr Foo_bar) (Ptr ty)
+    where getField = ptrToCField (Proxy @"foo_bar_y")
 {-| __C declaration:__ @foo@
 
     __defined at:__ @flam.h:8:8@
@@ -83,11 +101,17 @@ data Foo
 instance Storable Foo
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure Foo <*> peekByteOff ptr_0 (0 :: Int)
+          peek = \ptr_0 -> pure Foo <*> peekCField (Proxy @"foo_len") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Foo foo_len_3 -> pokeByteOff ptr_1 (0 :: Int) foo_len_3
+                                   Foo foo_len_3 -> pokeCField (Proxy @"foo_len") ptr_1 foo_len_3
 instance HasFlexibleArrayMember Foo_bar Foo
     where flexibleArrayMemberOffset = \_ty_0 -> 4
+instance HasCField Foo "foo_len"
+    where type CFieldType Foo "foo_len" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Foo "foo_len") =>
+         HasField "foo_len" (Ptr Foo) (Ptr ty)
+    where getField = ptrToCField (Proxy @"foo_len")
 {-| __C declaration:__ @diff@
 
     __defined at:__ @flam.h:17:8@
@@ -119,12 +143,24 @@ data Diff
 instance Storable Diff
     where sizeOf = \_ -> 16 :: Int
           alignment = \_ -> 8 :: Int
-          peek = \ptr_0 -> (pure Diff <*> peekByteOff ptr_0 (0 :: Int)) <*> peekByteOff ptr_0 (8 :: Int)
+          peek = \ptr_0 -> (pure Diff <*> peekCField (Proxy @"diff_first") ptr_0) <*> peekCField (Proxy @"diff_second") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
                                    Diff diff_first_3
-                                        diff_second_4 -> pokeByteOff ptr_1 (0 :: Int) diff_first_3 >> pokeByteOff ptr_1 (8 :: Int) diff_second_4
+                                        diff_second_4 -> pokeCField (Proxy @"diff_first") ptr_1 diff_first_3 >> pokeCField (Proxy @"diff_second") ptr_1 diff_second_4
 instance HasFlexibleArrayMember CChar Diff
     where flexibleArrayMemberOffset = \_ty_0 -> 9
+instance HasCField Diff "diff_first"
+    where type CFieldType Diff "diff_first" = CLong
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Diff "diff_first") =>
+         HasField "diff_first" (Ptr Diff) (Ptr ty)
+    where getField = ptrToCField (Proxy @"diff_first")
+instance HasCField Diff "diff_second"
+    where type CFieldType Diff "diff_second" = CChar
+          offset# = \_ -> \_ -> 8
+instance TyEq ty (CFieldType Diff "diff_second") =>
+         HasField "diff_second" (Ptr Diff) (Ptr ty)
+    where getField = ptrToCField (Proxy @"diff_second")
 {-| The flexible array member is a multi-dimensional array of unknown size. In particular, it is a is an array of unknown size, where each element is of type length-3-array-of-int.
 
 __C declaration:__ @triplets@
@@ -153,8 +189,14 @@ data Triplets
 instance Storable Triplets
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure Triplets <*> peekByteOff ptr_0 (0 :: Int)
+          peek = \ptr_0 -> pure Triplets <*> peekCField (Proxy @"triplets_len") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   Triplets triplets_len_3 -> pokeByteOff ptr_1 (0 :: Int) triplets_len_3
+                                   Triplets triplets_len_3 -> pokeCField (Proxy @"triplets_len") ptr_1 triplets_len_3
 instance HasFlexibleArrayMember (ConstantArray 3 CInt) Triplets
     where flexibleArrayMemberOffset = \_ty_0 -> 4
+instance HasCField Triplets "triplets_len"
+    where type CFieldType Triplets "triplets_len" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Triplets "triplets_len") =>
+         HasField "triplets_len" (Ptr Triplets) (Ptr ty)
+    where getField = ptrToCField (Proxy @"triplets_len")

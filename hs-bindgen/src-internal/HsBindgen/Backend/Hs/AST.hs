@@ -45,8 +45,15 @@ module HsBindgen.Backend.Hs.AST (
   , FromFunPtrInstance(..)
     -- ** 'Storable'
   , StorableInstance(..)
-  , PeekByteOff(..)
-  , PokeByteOff(..)
+  , PeekCField(..)
+  , PokeCField(..)
+    -- ** 'HasCField'
+  , HasCFieldInstance(..)
+    -- ** 'HasCBitfield'
+  , HasCBitfieldInstance(..)
+    -- ** 'HasField'
+  , HasFieldInstance(..)
+  , HasFieldInstanceVia(..)
     -- ** Statements
   , Seq(..)
     -- ** Structs
@@ -222,6 +229,9 @@ data DefineInstance =
 type InstanceDecl :: Star
 data InstanceDecl where
     InstanceStorable :: Struct n -> StorableInstance -> InstanceDecl
+    InstanceHasCField :: HasCFieldInstance -> InstanceDecl
+    InstanceHasCBitfield :: HasCBitfieldInstance -> InstanceDecl
+    InstanceHasField :: HasFieldInstance -> InstanceDecl
     InstanceHasFLAM :: Struct n -> HsType -> Int -> InstanceDecl
     InstanceCEnum ::
          Struct (S Z)
@@ -341,27 +351,87 @@ type StorableInstance :: Star
 data StorableInstance = StorableInstance
     { storableSizeOf    :: Int
     , storableAlignment :: Int
-    , storablePeek      :: Lambda (Ap StructCon PeekByteOff) EmptyCtx
-    , storablePoke      :: Lambda (Lambda (ElimStruct (Seq PokeByteOff))) EmptyCtx
+    , storablePeek      :: Lambda (Ap StructCon PeekCField) EmptyCtx
+    , storablePoke      :: Lambda (Lambda (ElimStruct (Seq PokeCField))) EmptyCtx
     }
   deriving stock (Generic, Show)
 
--- | Call to 'peekByteOff'
---
--- <https://hackage.haskell.org/package/base/docs/Foreign-Storable.html#v:peekByteOff>
-type PeekByteOff :: Ctx -> Star
-data PeekByteOff ctx
-  = PeekByteOff (Idx ctx) Int
-  | PeekBitOffWidth (Idx ctx) Int Int
+-- | A call to 'peekCField', 'peekCBitfield', or 'peekByteOff'.
+type PeekCField :: Ctx -> Star
+data PeekCField ctx =
+    PeekCField HsType (Idx ctx)
+  | PeekCBitfield HsType (Idx ctx)
+  | PeekByteOff (Idx ctx) Int
   deriving stock (Generic, Show)
 
--- | Call to 'pokeByteOff'
---
--- <https://hackage.haskell.org/package/base/docs/Foreign-Storable.html#v:pokeByteOff>
-type PokeByteOff :: Ctx -> Star
-data PokeByteOff ctx
-  = PokeByteOff (Idx ctx) Int (Idx ctx)
-  | PokeBitOffWidth (Idx ctx) Int Int (Idx ctx)
+-- | A call to 'pokeCField', 'pokeCBitfield', or 'pokeByteOff'.
+type PokeCField :: Ctx -> Star
+data PokeCField ctx =
+    PokeCField HsType (Idx ctx) (Idx ctx)
+  | PokeCBitfield HsType (Idx ctx) (Idx ctx)
+  | PokeByteOff (Idx ctx) Int (Idx ctx)
+  deriving stock (Generic, Show)
+
+{-------------------------------------------------------------------------------
+  'HasCField'
+-------------------------------------------------------------------------------}
+
+-- | A 'HasCField' instance
+type HasCFieldInstance :: Star
+data HasCFieldInstance = HasCFieldInstance {
+      -- | The haskell type of the parent C object
+      hasCFieldInstanceParentType :: HsType
+      -- | The name of the field
+    , hasCFieldInstanceFieldName  :: Hs.Name Hs.NsVar
+      -- | The haskell type of the field
+    , hasCFieldInstanceCFieldType :: HsType
+      -- | The offset (in number of bytes) of the field with respect to the
+      -- parent object
+    , hasCFieldInstanceFieldOffset :: Int
+    }
+  deriving stock (Generic, Show)
+
+{-------------------------------------------------------------------------------
+  'HasCBitfield'
+-------------------------------------------------------------------------------}
+
+-- | A 'HasCBitfield' instance
+type HasCBitfieldInstance :: Star
+data HasCBitfieldInstance = HasCBitfieldInstance {
+      -- | The haskell type of the parent C object
+      hasCBitfieldInstanceParentType :: HsType
+      -- | The name of the bit-field
+    , hasCBitfieldInstanceFieldName :: Hs.Name Hs.NsVar
+      -- | The haskell type of the bit-field
+    , hasCBitfieldInstanceCBitfieldType :: HsType
+      -- | The offset (in number of bit) of the bit-field with respect to the
+      -- parent object
+    , hasCBitfieldInstanceBitOffset :: Int
+      -- | The width (in number of bits) of the bit-field.
+    , hasCBitfieldInstanceBitWidth :: Int
+    }
+  deriving stock (Generic, Show)
+
+{-------------------------------------------------------------------------------
+  'HasField'
+-------------------------------------------------------------------------------}
+
+-- | A 'HasField' instance (via a 'HasCField' or 'HasCBitfield' instance).
+type HasFieldInstance :: Star
+data HasFieldInstance = HasFieldInstance {
+      -- | The haskell type of the parent C object
+      hasFieldInstanceParentType :: HsType
+      -- | The name of the (bit-)field
+    , hasFieldInstanceFieldName :: Hs.Name Hs.NsVar
+      -- | The haskell type of the (bit-)field
+    , hasFieldInstanceFieldType :: HsType
+      -- | Implement the instance via a 'HasCField' or 'HasCBitfield' instance.
+    , hasFieldInstanceVia :: HasFieldInstanceVia
+    }
+  deriving stock (Generic, Show)
+
+-- | See 'hasFieldInstanceVia'
+data HasFieldInstanceVia = ViaHasCField | ViaHasCBitfield
   deriving stock (Generic, Show)
 
 {-------------------------------------------------------------------------------

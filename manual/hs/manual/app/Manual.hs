@@ -1,5 +1,6 @@
 {-# LANGUAGE CPP #-}
 {-# LANGUAGE DataKinds #-}
+{-# LANGUAGE OverloadedRecordDot #-}
 {-# OPTIONS_GHC -Wno-orphans #-}
 
 module Manual (main) where
@@ -8,7 +9,7 @@ import Control.Exception (bracket)
 import Control.Monad (forM_, when, (<=<), (>=>))
 import Data.Complex
 import Data.Vector.Storable qualified as VS
-import Foreign as F
+import Foreign as F hiding (void)
 import Foreign.C (castCCharToChar, withCString)
 import Foreign.C qualified as FC
 import GHC.TypeNats
@@ -57,6 +58,8 @@ import Structs
 
 import Callbacks
 import Callbacks.Safe
+
+import qualified Manual.ZeroCopy as ZeroCopy
 
 {-------------------------------------------------------------------------------
   Simple struct
@@ -153,18 +156,18 @@ main = do
 
 --------------------------------------------------------------------------------
     section "Macros"
+    do
+      buffer <- mallocForeignPtrBytes 8
+      (x :: Word32) <- withForeignPtr buffer $ \ptr -> do
+        poke (plusPtr ptr (fromIntegral fIELD_OFFSET)) (1234 :: Word32)
+        peek (pTR_TO_FIELD ptr)
+      print x
+      print (pTR_TO_FIELD (1 :: FC.CLong))
 
-    buffer <- mallocForeignPtrBytes 8
-    (x :: Word32) <- withForeignPtr buffer $ \ptr -> do
-      poke (plusPtr ptr (fromIntegral fIELD_OFFSET)) (1234 :: Word32)
-      peek (pTR_TO_FIELD ptr)
-    print x
-    print (pTR_TO_FIELD (1 :: FC.CLong))
-
-    year :: YEAR <- alloca $ \ptr -> do
-      poke ptr $ Date (YEAR 2025) (MONTH 12) (DAY 25)
-      getYear ptr
-    print year
+      year :: YEAR <- alloca $ \ptr -> do
+        poke ptr $ Date (YEAR 2025) (MONTH 12) (DAY 25)
+        getYear ptr
+      print year
 
 --------------------------------------------------------------------------------
     section "Unions"
@@ -321,7 +324,7 @@ main = do
       -- Complex example
       subsection "Complex example"
       ts <- IA.peekArray 2 Arrays.triplets_ptr
-      let tripletAddresses = [advancePtr (IA.isFirstElem Arrays.triplets_ptr) n | n <- [0..]]
+      let tripletAddresses = [advancePtr (IA.toFirstElemPtr Arrays.triplets_ptr) n | n <- [0..]]
       print (zip (IA.toList ts) tripletAddresses)
       print =<< IA.peekArray 3 Arrays.global_triplet_ptrs_ptr
       Arrays.pretty_print_triplets (castPtr Arrays.global_triplet_ptrs_ptr)
@@ -487,10 +490,9 @@ main = do
       putStrLn $ "  Expected: " <> show doubleArrayExpectedSum
       putStrLn $ "  Match: " <> show (complexEq 1e-12 doubleArraySum doubleArrayExpectedSum)
 
-    --
-    -- Callbacks
+
+--------------------------------------------------------------------------------
     section "Callbacks (Passing Haskell functions to C callbacks)"
-    --
     do
 
       withToFunPtr (FileOpenedNotification_Deref $ putStrLn "")
@@ -684,6 +686,9 @@ main = do
         finalMeasurement <- peek measurementPtr
         putStrLn $ "  Final measurement: " ++ show finalMeasurement
 
+--------------------------------------------------------------------------------
+    ZeroCopy.examples
+
 {-------------------------------------------------------------------------------
   Arrays
 -------------------------------------------------------------------------------}
@@ -702,7 +707,7 @@ reverseConstantArray ptr = do
 
 reverseConstantArrayElems :: (Storable a, Show a, KnownNat n) => Ptr (CA.ConstantArray n a) -> IO ()
 reverseConstantArrayElems ptr = do
-    let (p, ptr') = CA.isFirstElem ptr
+    let (p, ptr') = CA.toFirstElemPtr ptr
     -- Print the input contents
     xs <- F.peekArray (CA.intVal p) ptr'
     print xs
@@ -727,7 +732,7 @@ reverseIncompleteArray n ptr = do
 
 reverseIncompleteArrayElems :: (Storable a, Show a) => Int -> Ptr (IA.IncompleteArray a) -> IO ()
 reverseIncompleteArrayElems n ptr = do
-    let ptr' = IA.isFirstElem ptr
+    let ptr' = IA.toFirstElemPtr ptr
     -- Print the input contents
     xs <- F.peekArray n ptr'
     print xs
@@ -742,7 +747,7 @@ transposeMatrix :: Arrays.Matrix -> IO Arrays.Matrix
 transposeMatrix inputMatrix =
     CA.withPtr inputMatrix $ \inputPtr -> do
       F.alloca $ \(outputPtr :: Ptr Arrays.Matrix) -> do
-        Arrays.transpose_wrapper (inputPtr) (snd $ CA.isFirstElem outputPtr)
+        Arrays.transpose_wrapper (inputPtr) (snd $ CA.toFirstElemPtr outputPtr)
         peek outputPtr
 
 {-------------------------------------------------------------------------------

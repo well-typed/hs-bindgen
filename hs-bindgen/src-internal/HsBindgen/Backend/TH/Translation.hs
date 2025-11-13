@@ -1,5 +1,6 @@
 {-# LANGUAGE MagicHash #-}
 {-# LANGUAGE TemplateHaskellQuotes #-}
+{-# LANGUAGE UndecidableInstances #-}
 
 module HsBindgen.Backend.TH.Translation (
     mkDecl,
@@ -12,6 +13,7 @@ import Data.Ix qualified
 import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
 import Data.Maybe qualified
+import Data.Proxy qualified
 import Data.Text qualified as Text
 import Data.Void qualified
 import Foreign qualified
@@ -24,6 +26,7 @@ import GHC.Exts qualified as IsList (IsList (..))
 import GHC.Float (castDoubleToWord64, castFloatToWord32, castWord32ToFloat,
                   castWord64ToDouble)
 import GHC.Ptr (Ptr (Ptr))
+import GHC.Records qualified
 import Language.Haskell.TH (Quote)
 import Language.Haskell.TH qualified as TH
 import Language.Haskell.TH.Syntax qualified as TH
@@ -35,7 +38,6 @@ import C.Expr.HostPlatform qualified as CExpr.Runtime
 
 import C.Expr.Syntax qualified as CExpr.DSL
 
-import HsBindgen.Runtime.Bitfield qualified
 import HsBindgen.Runtime.Block qualified
 import HsBindgen.Runtime.ByteArray qualified
 import HsBindgen.Runtime.CAPI qualified
@@ -43,9 +45,11 @@ import HsBindgen.Runtime.CEnum qualified
 import HsBindgen.Runtime.ConstantArray qualified
 import HsBindgen.Runtime.FlexibleArrayMember qualified
 import HsBindgen.Runtime.FunPtr qualified
+import HsBindgen.Runtime.HasCField qualified
 import HsBindgen.Runtime.IncompleteArray qualified
 import HsBindgen.Runtime.Marshal qualified
 import HsBindgen.Runtime.SizedByteArray qualified
+import HsBindgen.Runtime.TypeEquality qualified
 
 import HsBindgen.Backend.Hs.AST qualified as Hs
 import HsBindgen.Backend.Hs.AST.Type
@@ -91,13 +95,12 @@ mkGlobal = \case
       Foreign_Ptr           -> ''Foreign.Ptr.Ptr
       Ptr_constructor       -> 'GHC.Ptr.Ptr
       Foreign_FunPtr        -> ''Foreign.Ptr.FunPtr
+      Foreign_plusPtr       -> 'Foreign.Ptr.plusPtr
       ConstantArray         -> ''HsBindgen.Runtime.ConstantArray.ConstantArray
       IncompleteArray       -> ''HsBindgen.Runtime.IncompleteArray.IncompleteArray
       IO_type               -> ''IO
       HasFlexibleArrayMember_class -> ''HsBindgen.Runtime.FlexibleArrayMember.HasFlexibleArrayMember
       HasFlexibleArrayMember_offset -> 'HsBindgen.Runtime.FlexibleArrayMember.flexibleArrayMemberOffset
-      Bitfield_peekBitOffWidth -> 'HsBindgen.Runtime.Bitfield.peekBitOffWidth
-      Bitfield_pokeBitOffWidth -> 'HsBindgen.Runtime.Bitfield.pokeBitOffWidth
       CharValue_tycon        -> ''CExpr.Runtime.CharValue
       CharValue_constructor  -> 'CExpr.Runtime.CharValue
       CharValue_fromAddr    -> 'CExpr.Runtime.charValueFromAddr
@@ -105,6 +108,32 @@ mkGlobal = \case
       CAPI_allocaAndPeek    -> 'HsBindgen.Runtime.CAPI.allocaAndPeek
       ConstantArray_withPtr -> 'HsBindgen.Runtime.ConstantArray.withPtr
       IncompleteArray_withPtr -> 'HsBindgen.Runtime.IncompleteArray.withPtr
+
+      -- HasCField
+      HasCField_class -> ''HsBindgen.Runtime.HasCField.HasCField
+      HasCField_CFieldType -> ''HsBindgen.Runtime.HasCField.CFieldType
+      HasCField_offset# -> 'HsBindgen.Runtime.HasCField.offset#
+      HasCField_ptrToCField -> 'HsBindgen.Runtime.HasCField.ptrToCField
+      HasCField_pokeCField -> 'HsBindgen.Runtime.HasCField.pokeCField
+      HasCField_peekCField -> 'HsBindgen.Runtime.HasCField.peekCField
+
+      -- HasCBitfield
+      HasCBitfield_class -> ''HsBindgen.Runtime.HasCField.HasCBitfield
+      HasCBitfield_CBitfieldType -> ''HsBindgen.Runtime.HasCField.CBitfieldType
+      HasCBitfield_bitOffset# -> 'HsBindgen.Runtime.HasCField.bitOffset#
+      HasCBitfield_bitWidth# -> 'HsBindgen.Runtime.HasCField.bitWidth#
+      HasCBitfield_ptrToCBitfield -> 'HsBindgen.Runtime.HasCField.ptrToCBitfield
+      HasCBitfield_pokeCBitfield -> 'HsBindgen.Runtime.HasCField.pokeCBitfield
+      HasCBitfield_peekCBitfield -> 'HsBindgen.Runtime.HasCField.peekCBitfield
+      HasCBitfield_BitfieldPtr -> ''HsBindgen.Runtime.HasCField.BitfieldPtr
+
+      -- HasField
+      HasField_class -> ''GHC.Records.HasField
+      HasField_getField -> 'GHC.Records.getField
+
+      -- Proxy
+      Proxy_type -> ''Data.Proxy.Proxy
+      Proxy_constructor -> 'Data.Proxy.Proxy
 
       -- Unsafe
       IO_unsafePerformIO -> 'System.IO.Unsafe.unsafePerformIO
@@ -131,7 +160,7 @@ mkGlobal = \case
       Show_class       -> ''Show
       Show_showsPrec   -> 'showsPrec
 
-      NomEq_class -> ''(~)
+      NomEq_class -> ''HsBindgen.Runtime.TypeEquality.TyEq
 
       Not_class             -> ''CExpr.Runtime.Not
       Not_not               ->  'CExpr.Runtime.not
@@ -288,13 +317,12 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     Foreign_Ptr           -> panicPure "type in expression"
     Ptr_constructor       -> TH.conE name
     Foreign_FunPtr        -> panicPure "type in expression"
+    Foreign_plusPtr       -> TH.varE name
     ConstantArray         -> panicPure "type in expression"
     IncompleteArray       -> panicPure "type in expression"
     IO_type               -> panicPure "type in expression"
     HasFlexibleArrayMember_class -> panicPure "class in expression"
     HasFlexibleArrayMember_offset -> TH.varE name
-    Bitfield_peekBitOffWidth -> TH.varE name
-    Bitfield_pokeBitOffWidth -> TH.varE name
     CharValue_tycon      -> panicPure "type in expression"
     CharValue_constructor -> TH.conE name
     CharValue_fromAddr   -> TH.varE name
@@ -304,6 +332,32 @@ mkGlobalExpr n = case n of -- in definition order, no wildcards
     CAPI_allocaAndPeek    -> TH.varE name
     ConstantArray_withPtr -> TH.varE name
     IncompleteArray_withPtr -> TH.varE name
+
+    -- HasCField
+    HasCField_class -> panicPure "class in expression"
+    HasCField_CFieldType -> panicPure "type in expression"
+    HasCField_offset# -> TH.varE name
+    HasCField_ptrToCField -> TH.varE name
+    HasCField_pokeCField -> TH.varE name
+    HasCField_peekCField -> TH.varE name
+
+    -- HasCBitfield
+    HasCBitfield_class -> panicPure "class in expression"
+    HasCBitfield_CBitfieldType -> panicPure "type in expression"
+    HasCBitfield_bitOffset# -> TH.varE name
+    HasCBitfield_bitWidth# -> TH.varE name
+    HasCBitfield_ptrToCBitfield -> TH.varE name
+    HasCBitfield_pokeCBitfield -> TH.varE name
+    HasCBitfield_peekCBitfield -> TH.varE name
+    HasCBitfield_BitfieldPtr -> TH.varE name
+
+    -- HasField
+    HasField_class -> panicPure "class in expression"
+    HasField_getField -> TH.varE name
+
+    -- Proxy
+    Proxy_type -> panicPure "type in expression"
+    Proxy_constructor -> TH.conE name
 
     -- Unsafe
     IO_unsafePerformIO -> TH.varE name
@@ -483,6 +537,8 @@ mkExpr env = \case
       ETup xs -> TH.tupE $ mkExpr env <$> xs
       EList xs -> TH.listE $ mkExpr env <$> xs
 
+      ETypeApp f t -> TH.appTypeE (mkExpr env f) (mkType EmptyEnv t)
+
 mkPat :: Quote q => PatExpr -> q TH.Pat
 mkPat = \case
     PEApps n xs -> hsConP n (map mkPat xs)
@@ -493,7 +549,9 @@ mkType env = \case
     TGlobal n -> TH.conT (mkGlobal n)
     TBound x  -> TH.varT (lookupEnv x env)
     TCon n    -> hsConT n
+    TFree n   -> hsVarT n
     TLit n    -> TH.litT (TH.numTyLit (toInteger n))
+    TStrLit s -> TH.litT (TH.strTyLit s)
     TFun a b  -> TH.arrowT `TH.appT` mkType env a `TH.appT` mkType env b
     TApp f t  -> TH.appT (mkType env f) (mkType env t)
     TForall hints add ctxt body -> do
@@ -525,22 +583,29 @@ mkDecl = \case
           ]
 
       DInst i  -> do
+        instanceDec <-
+          TH.instanceD
+            (return [])
+            (TH.forallT
+              []
+              (sequence [
+                  appsT (TH.conT $ mkGlobal g) (map (mkType EmptyEnv) ts)
+                | (g, ts) <- instanceSuperClasses i
+                ])
+              (appsT (TH.conT $ mkGlobal $ instanceClass i)
+                (map (mkType EmptyEnv) $ instanceArgs i)))
+            (concat [
+                map instTySyn (instanceTypes i)
+              , map (\(x, f) -> simpleDecl (mkGlobal x) f) (instanceDecs i)
+              ])
 
-        let instComment = instanceComment i
+        -- TODO: add haddock comment to the class head, see issue #976. We also
+        -- don't put the comments on any of the class members (type synonyms /
+        -- functions) because that leads to similar bugs as described in #976.
+        --
+        -- withDecDoc (instanceComment i) instanceDec
+        pure [instanceDec]
 
-        fmap singleton $
-          TH.instanceD (return [])
-                       (appsT (TH.conT $ mkGlobal $ instanceClass i)
-                           (map (mkType EmptyEnv) $ instanceArgs i))
-                       -- Workaround for issue #976
-                       ( ( (\case
-                              (h:t) -> withDecDoc instComment h : t
-                              x     -> x
-                           )
-                         $ map instTySyn (instanceTypes i)
-                         )
-                           ++ map (\(x, f) -> simpleDecl (mkGlobal x) f) (instanceDecs i)
-                         )
       DRecord d -> do
         let _fieldsAndDocs :: ([q TH.VarBangType], [(TH.DocLoc, Maybe HsDoc.Comment)])
             _fieldsAndDocs@(fields, docs) = unzip
@@ -690,12 +755,12 @@ mkDecl = \case
       simpleDecl :: TH.Name -> SExpr EmptyCtx -> q TH.Dec
       simpleDecl x f = TH.valD (TH.varP x) (TH.normalB $ mkExpr EmptyEnv f) []
 
-      instTySyn :: (Global, ClosedType, ClosedType) -> q TH.Dec
-      instTySyn (g, typArg, typSyn) =
+      instTySyn :: (Global, [ClosedType], ClosedType) -> q TH.Dec
+      instTySyn (g, typArgs, typSyn) =
         TH.TySynInstD
           <$> liftM2
                 (TH.TySynEqn Nothing)
-                (mkType EmptyEnv (TApp (TGlobal g) typArg))
+                (mkType EmptyEnv (foldl (\acc x -> acc `TApp` x) (TGlobal g) typArgs))
                 (mkType EmptyEnv typSyn)
 
 -- | Nested deriving clauses (part of a datatype declaration)
@@ -729,6 +794,9 @@ hsConP = TH.conP . hsNameToTH
 
 hsConT :: Quote m => Hs.Name Hs.NsTypeConstr -> m TH.Type
 hsConT = TH.conT . hsNameToTH
+
+hsVarT :: Quote m => Hs.Name Hs.NsVar -> m TH.Type
+hsVarT = TH.varT . hsNameToTH
 
 hsVarE :: Quote m => Hs.Name Hs.NsVar -> m TH.Exp
 hsVarE = TH.varE . hsNameToTH

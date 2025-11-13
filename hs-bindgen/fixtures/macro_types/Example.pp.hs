@@ -1,15 +1,27 @@
+{-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE MagicHash #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE TypeApplications #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE UndecidableInstances #-}
 
 module Example where
 
 import qualified Data.Bits as Bits
 import qualified Data.Ix as Ix
+import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
 import qualified GHC.Ptr as Ptr
+import qualified GHC.Records
+import qualified HsBindgen.Runtime.HasCField
 import Data.Bits (FiniteBits)
+import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude (Bounded, Enum, Eq, Floating, Fractional, Integral, Num, Ord, Read, Real, RealFloat, RealFrac, Show)
 
 {-| __C declaration:__ @PtrInt@
@@ -60,6 +72,18 @@ newtype Tty = Tty
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, Enum, Floating, Fractional, Num, Real, RealFloat, RealFrac)
 
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Tty) "un_Tty")
+         ) => GHC.Records.HasField "un_Tty" (Ptr.Ptr Tty) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Tty")
+
+instance HsBindgen.Runtime.HasCField.HasCField Tty "un_Tty" where
+
+  type CFieldType Tty "un_Tty" = MTy
+
+  offset# = \_ -> \_ -> 0
+
 {-| __C declaration:__ @UINT8_T@
 
     __defined at:__ @macro_types.h:11:9@
@@ -95,3 +119,15 @@ newtype Boolean_T = Boolean_T
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType Boolean_T) "un_Boolean_T")
+         ) => GHC.Records.HasField "un_Boolean_T" (Ptr.Ptr Boolean_T) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_Boolean_T")
+
+instance HsBindgen.Runtime.HasCField.HasCField Boolean_T "un_Boolean_T" where
+
+  type CFieldType Boolean_T "un_Boolean_T" = BOOLEAN_T
+
+  offset# = \_ -> \_ -> 0

@@ -1,3 +1,5 @@
+{-# LANGUAGE MagicHash #-}
+
 -- | Simplified HS abstract syntax tree
 module HsBindgen.Backend.SHs.AST (
 -- TODO: drop S prefix?
@@ -75,13 +77,12 @@ data Global =
   | Foreign_Ptr
   | Ptr_constructor
   | Foreign_FunPtr
+  | Foreign_plusPtr
   | ConstantArray
   | IncompleteArray
   | IO_type
   | HasFlexibleArrayMember_class
   | HasFlexibleArrayMember_offset
-  | Bitfield_peekBitOffWidth
-  | Bitfield_pokeBitOffWidth
   | CharValue_tycon
   | CharValue_constructor
   | CharValue_fromAddr
@@ -91,6 +92,32 @@ data Global =
   | CAPI_allocaAndPeek
   | ConstantArray_withPtr
   | IncompleteArray_withPtr
+
+    -- HasCField
+  | HasCField_class
+  | HasCField_CFieldType
+  | HasCField_offset#
+  | HasCField_ptrToCField
+  | HasCField_pokeCField
+  | HasCField_peekCField
+
+    -- HasCBitfield
+  | HasCBitfield_class
+  | HasCBitfield_CBitfieldType
+  | HasCBitfield_bitOffset#
+  | HasCBitfield_bitWidth#
+  | HasCBitfield_ptrToCBitfield
+  | HasCBitfield_pokeCBitfield
+  | HasCBitfield_peekCBitfield
+  | HasCBitfield_BitfieldPtr
+
+    -- HasField
+  | HasField_class
+  | HasField_getField
+
+    -- Proxy
+  | Proxy_type
+  | Proxy_constructor
 
     -- Unsafe
   | IO_unsafePerformIO
@@ -229,6 +256,8 @@ data SExpr ctx =
   | ECase (SExpr ctx) [SAlt ctx]
   | ETup [SExpr ctx]
   | EList [SExpr ctx]
+    -- | Type application using \@
+  | ETypeApp (SExpr ctx) ClosedType
   deriving stock (Show)
 
 -- | Pattern&Expressions
@@ -308,8 +337,10 @@ data SType ctx =
   | TCon (Hs.Name Hs.NsTypeConstr)
   | TFun (SType ctx) (SType ctx)
   | TLit Natural
+  | TStrLit String
   | TExt Hs.ExtRef BindingSpec.CTypeSpec
   | TBound (Idx ctx)
+  | TFree (Hs.Name Hs.NsVar)
   | TApp (SType ctx) (SType ctx)
   | forall n ctx'. TForall (Vec n NameHint) (Add n ctx ctx') [SType ctx'] (SType ctx')
 
@@ -328,10 +359,11 @@ data Var = Var {
     }
   deriving stock (Show)
 
-data Instance  = Instance {
+data Instance = Instance {
       instanceClass   :: Global
     , instanceArgs    :: [ClosedType]
-    , instanceTypes   :: [(Global, ClosedType, ClosedType)]
+    , instanceSuperClasses :: [(Global, [ClosedType])]
+    , instanceTypes   :: [(Global, [ClosedType], ClosedType)]
     , instanceDecs    :: [(Global, ClosedExpr)]
     , instanceComment :: Maybe HsDoc.Comment
     }

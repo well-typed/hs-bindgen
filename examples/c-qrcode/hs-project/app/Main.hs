@@ -21,7 +21,7 @@ fromPtr
 fromPtr len p = IA.peekArray len p'
   where
      p' :: F.Ptr (IA.IncompleteArray a)
-     p' = IA.isIncompleteArray p
+     p' = IA.toIncompleteArrayPtr p
 
 -- static void printQr(const uint8_t qrcode[]) {
 --  int size = qrcodegen_getSize(qrcode);

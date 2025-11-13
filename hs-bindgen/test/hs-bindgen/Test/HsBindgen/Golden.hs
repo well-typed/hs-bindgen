@@ -672,6 +672,7 @@ manualTestCases :: [TestCase]
 manualTestCases = [
       defaultTest "manual/arrays"
     , defaultTest "manual/function_pointers"
+    , defaultTest "manual/zero_copy"
     ]
 
 expectFromQualPrelimDeclId :: C.QualPrelimDeclId -> TraceExpectation Text

@@ -99,3 +99,9 @@ newtype Foo
                       Real,
                       RealFloat,
                       RealFrac)
+instance TyEq ty (CFieldType Foo "un_Foo") =>
+         HasField "un_Foo" (Ptr Foo) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Foo")
+instance HasCField Foo "un_Foo"
+    where type CFieldType Foo "un_Foo" = CDouble
+          offset# = \_ -> \_ -> 0

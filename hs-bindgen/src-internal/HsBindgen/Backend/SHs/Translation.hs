@@ -1,3 +1,5 @@
+{-# LANGUAGE MagicHash #-}
+
 -- | Simplified HS translation (from high level HS)
 module HsBindgen.Backend.SHs.Translation (
     translateDecls,
@@ -63,10 +65,14 @@ translateDefineInstanceDecl :: Hs.DefineInstance -> SDecl
 translateDefineInstanceDecl Hs.DefineInstance {..} =
   case defineInstanceDeclarations of
     Hs.InstanceStorable struct i -> DInst $ translateStorableInstance struct i defineInstanceComment
+    Hs.InstanceHasCField i -> DInst $ translateHasCFieldInstance i defineInstanceComment
+    Hs.InstanceHasCBitfield i -> DInst $ translateHasCBitfieldInstance i defineInstanceComment
+    Hs.InstanceHasField i -> DInst $ translateHasFieldInstance i defineInstanceComment
     Hs.InstanceHasFLAM struct fty i -> DInst
       Instance
         { instanceClass   = HasFlexibleArrayMember_class
         , instanceArgs    = [ translateType fty, TCon $ Hs.structName struct ]
+        , instanceSuperClasses = []
         , instanceTypes   = []
         , instanceDecs    = [(HasFlexibleArrayMember_offset, ELam "_ty" $ EIntegral (toInteger i) Nothing)]
         , instanceComment = defineInstanceComment
@@ -83,6 +89,7 @@ translateDefineInstanceDecl Hs.DefineInstance {..} =
       Instance
         { instanceClass   = ToFunPtr_class
         , instanceArgs    = [ translateType toFunPtrInstanceType ]
+        , instanceSuperClasses = []
         , instanceTypes   = []
         , instanceDecs    = [(ToFunPtr_toFunPtr, EFree toFunPtrInstanceBody)]
         , instanceComment = defineInstanceComment
@@ -91,6 +98,7 @@ translateDefineInstanceDecl Hs.DefineInstance {..} =
       Instance
         { instanceClass   = FromFunPtr_class
         , instanceArgs    = [ translateType fromFunPtrInstanceType ]
+        , instanceSuperClasses = []
         , instanceTypes   = []
         , instanceDecs    = [(FromFunPtr_fromFunPtr, EFree fromFunPtrInstanceBody)]
         , instanceComment = defineInstanceComment
@@ -238,6 +246,7 @@ translateType = \case
     Hs.HsSizedByteArray n m -> TGlobal SizedByteArray_type `TApp` TLit n `TApp` TLit m
     Hs.HsBlock t            -> TGlobal Block_type `TApp` translateType t
     Hs.HsComplexType t      -> TApp (TGlobal ComplexType) (translateType (HsPrimType t))
+    Hs.HsStrLit s           -> TStrLit s
 
 {-------------------------------------------------------------------------------
   'Storable'
@@ -249,11 +258,12 @@ translateStorableInstance ::
   -> Maybe HsDoc.Comment
   -> Instance
 translateStorableInstance struct Hs.StorableInstance{..} mbComment = do
-    let peek = lambda (idiom structCon translatePeekByteOff) storablePeek
-    let poke = lambda (lambda (translateElimStruct (doAll translatePokeByteOff))) storablePoke
+    let peek = lambda (idiom structCon translatePeekCField) storablePeek
+    let poke = lambda (lambda (translateElimStruct (doAll translatePokeCField))) storablePoke
     Instance
       { instanceClass = Storable_class
       , instanceArgs  = [TCon $ Hs.structName struct]
+      , instanceSuperClasses = []
       , instanceTypes = []
       , instanceDecs  = [
             (Storable_sizeOf    , EUnusedLam $ EInt storableSizeOf)
@@ -264,13 +274,113 @@ translateStorableInstance struct Hs.StorableInstance{..} mbComment = do
       , instanceComment = mbComment
       }
 
-translatePeekByteOff :: Hs.PeekByteOff ctx -> SExpr ctx
-translatePeekByteOff (Hs.PeekByteOff ptr i) = appMany Storable_peekByteOff [EBound ptr, EInt i]
-translatePeekByteOff (Hs.PeekBitOffWidth ptr i w) = appMany Bitfield_peekBitOffWidth [EBound ptr, EInt i, EInt w] -- TODO
+translatePeekCField :: Hs.PeekCField ctx -> SExpr ctx
+translatePeekCField (Hs.PeekCField field ptr) = appMany HasCField_peekCField [EGlobal Proxy_constructor `ETypeApp` translateType field, EBound ptr]
+translatePeekCField (Hs.PeekCBitfield field ptr) = appMany HasCBitfield_peekCBitfield [EGlobal Proxy_constructor `ETypeApp` translateType field, EBound ptr]
+translatePeekCField (Hs.PeekByteOff ptr i) = appMany Storable_peekByteOff [EBound ptr, EInt i]
 
-translatePokeByteOff :: Hs.PokeByteOff ctx -> SExpr ctx
-translatePokeByteOff (Hs.PokeByteOff ptr i x) = appMany Storable_pokeByteOff [EBound ptr, EInt i, EBound x]
-translatePokeByteOff (Hs.PokeBitOffWidth ptr i w x) = appMany Bitfield_pokeBitOffWidth [EBound ptr, EInt i, EInt w, EBound x] -- TODO
+translatePokeCField :: Hs.PokeCField ctx -> SExpr ctx
+translatePokeCField (Hs.PokeCField field ptr x) = appMany HasCField_pokeCField [EGlobal Proxy_constructor `ETypeApp` translateType field, EBound ptr, EBound x]
+translatePokeCField (Hs.PokeCBitfield field ptr x) = appMany HasCBitfield_pokeCBitfield [EGlobal Proxy_constructor `ETypeApp` translateType field, EBound ptr, EBound x]
+translatePokeCField (Hs.PokeByteOff ptr i x) = appMany Storable_pokeByteOff [EBound ptr, EInt i, EBound x]
+
+{-------------------------------------------------------------------------------
+  'HasCField'
+-------------------------------------------------------------------------------}
+
+translateHasCFieldInstance ::
+     Hs.HasCFieldInstance
+  -> Maybe HsDoc.Comment
+  -> Instance
+translateHasCFieldInstance Hs.HasCFieldInstance{..} mbComment = do
+    Instance {
+        instanceClass   = HasCField_class
+      , instanceArgs    = [parentType, fieldNameLitType]
+      , instanceSuperClasses = []
+      , instanceTypes   = [
+            (HasCField_CFieldType, [parentType, fieldNameLitType], fieldType)
+          ]
+      , instanceDecs    = [
+            (HasCField_offset#, EUnusedLam $ EUnusedLam $ EIntegral o Nothing)
+          ]
+      , instanceComment = mbComment
+      }
+  where
+    parentType = translateType hasCFieldInstanceParentType
+    fieldNameLitType = translateType $ HsStrLit $ T.unpack $ Hs.getName hasCFieldInstanceFieldName
+    fieldType = translateType hasCFieldInstanceCFieldType
+    o = fromIntegral hasCFieldInstanceFieldOffset
+
+{-------------------------------------------------------------------------------
+  'HasCBitfield'
+-------------------------------------------------------------------------------}
+
+translateHasCBitfieldInstance ::
+     Hs.HasCBitfieldInstance
+  -> Maybe HsDoc.Comment
+  -> Instance
+translateHasCBitfieldInstance Hs.HasCBitfieldInstance{..} mbComment = do
+    Instance
+      { instanceClass   = HasCBitfield_class
+      , instanceArgs    = [parentType, fieldNameLitType]
+      , instanceSuperClasses = []
+      , instanceTypes   = [
+            (HasCBitfield_CBitfieldType, [parentType, fieldNameLitType], fieldType)
+          ]
+      , instanceDecs    = [
+            (HasCBitfield_bitOffset#, EUnusedLam $ EUnusedLam $ EIntegral o Nothing )
+          , (HasCBitfield_bitWidth#, EUnusedLam $ EUnusedLam $ EIntegral w Nothing)
+          ]
+      , instanceComment = mbComment
+      }
+  where
+    parentType = translateType hasCBitfieldInstanceParentType
+    fieldNameLitType = translateType $ HsStrLit $ T.unpack $ Hs.getName hasCBitfieldInstanceFieldName
+    fieldType = translateType hasCBitfieldInstanceCBitfieldType
+    o = fromIntegral hasCBitfieldInstanceBitOffset
+    w = fromIntegral hasCBitfieldInstanceBitWidth
+
+translateHasFieldInstance ::
+     Hs.HasFieldInstance
+  -> Maybe HsDoc.Comment
+  -> Instance
+translateHasFieldInstance Hs.HasFieldInstance{..} mbComment = do
+    Instance {
+        instanceClass   = HasField_class
+      , instanceArgs    = [fieldNameLitType, parentPtr, tyPtr]
+      , instanceSuperClasses = [
+            (NomEq_class, [
+                tyTypeVar
+              , TGlobal fieldTypeGlobal `TApp` parentType `TApp` fieldNameLitType]
+              )
+          ]
+      , instanceTypes   = []
+      , instanceDecs    = [
+            (HasField_getField,
+              EGlobal ptrToFieldGlobal `EApp`
+              (EGlobal Proxy_constructor `ETypeApp` fieldNameLitType)
+            )
+          ]
+      , instanceComment = mbComment
+      }
+  where
+    (fieldTypeGlobal, ptrToFieldGlobal, tyPtr) = case hasFieldInstanceVia of
+      Hs.ViaHasCField    ->
+        ( HasCField_CFieldType
+        , HasCField_ptrToCField
+        , TGlobal Foreign_Ptr `TApp` tyTypeVar
+        )
+      Hs.ViaHasCBitfield ->
+        ( HasCBitfield_CBitfieldType
+        , HasCBitfield_ptrToCBitfield
+        , TGlobal HasCBitfield_BitfieldPtr `TApp` parentType `TApp` fieldNameLitType
+        )
+
+    parentType = translateType hasFieldInstanceParentType
+    parentPtr = TGlobal Foreign_Ptr `TApp` parentType
+    fieldNameLitType = translateType $ HsStrLit $ T.unpack $ Hs.getName hasFieldInstanceFieldName
+    -- TODO: this is not actually a free type variable. See issue #1287.
+    tyTypeVar = TFree $ Hs.Name "ty"
 
 {-------------------------------------------------------------------------------
   Structs
@@ -332,7 +442,8 @@ translateCEnumInstance ::
 translateCEnumInstance struct fTyp vMap isSequential mbComment = Instance {
       instanceClass = CEnum_class
     , instanceArgs  = [tcon]
-    , instanceTypes = [(CEnumZ_tycon, tcon, translateType fTyp)]
+    , instanceSuperClasses = []
+    , instanceTypes = [(CEnumZ_tycon, [tcon], translateType fTyp)]
     , instanceDecs  = [
           (CEnum_toCEnum, ECon (Hs.structConstr struct))
         , (CEnum_fromCEnum, EFree fname)
@@ -385,6 +496,7 @@ translateSequentialCEnum ::
 translateSequentialCEnum struct nameMin nameMax mbComment = Instance {
       instanceClass = SequentialCEnum_class
     , instanceArgs  = [tcon]
+    , instanceSuperClasses = []
     , instanceTypes = []
     , instanceDecs  = [
           (SequentialCEnum_minDeclaredValue, ECon nameMin)
@@ -403,6 +515,7 @@ translateCEnumInstanceShow ::
 translateCEnumInstanceShow struct mbComment = Instance {
       instanceClass = Show_class
     , instanceArgs  = [tcon]
+    , instanceSuperClasses = []
     , instanceTypes = []
     , instanceDecs  = [
           (Show_showsPrec, EGlobal CEnum_showsCEnum)
@@ -420,6 +533,7 @@ translateCEnumInstanceRead ::
 translateCEnumInstanceRead struct mbComment = Instance {
       instanceClass = Read_class
     , instanceArgs  = [tcon]
+    , instanceSuperClasses = []
     , instanceTypes = []
     , instanceDecs  = [
           (Read_readPrec, EGlobal CEnum_readPrecCEnum)

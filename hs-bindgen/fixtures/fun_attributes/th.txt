@@ -478,6 +478,12 @@ newtype Size_t
                       Ix,
                       Num,
                       Real)
+instance TyEq ty (CFieldType Size_t "un_Size_t") =>
+         HasField "un_Size_t" (Ptr Size_t) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Size_t")
+instance HasCField Size_t "un_Size_t"
+    where type CFieldType Size_t "un_Size_t" = CInt
+          offset# = \_ -> \_ -> 0
 {-| __C declaration:__ @__f1@
 
     __defined at:__ @fun_attributes.h:16:13@
