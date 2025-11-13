@@ -59,10 +59,25 @@ render = (++ "\n") . renderPretty (mkContext 80)
 instance Pretty HsModule where
   pretty HsModule{..} = vsep $
       vcat (map pretty hsModulePragmas)
-    : hsep ["module", string hsModuleName, "where"]
+    : renderModuleHeader hsModuleName hsModuleExports
     : vcat (map pretty hsModuleImports)
     : (renderWrappers hsModuleUserlandCapiWrappers)
     : map pretty hsModuleDecls
+
+-- | Render module header with optional export list
+renderModuleHeader :: String -> [ExportItem] -> CtxDoc
+renderModuleHeader moduleName [] =
+    -- No explicit exports - render implicit export list
+    hsep ["module", string moduleName, "where"]
+renderModuleHeader moduleName exports =
+    -- Explicit export list
+    vsep
+      [ hsep ["module", string moduleName]
+      , nest 2 $ vcat
+          [ vlist '(' ')' (map pretty exports)
+          , "where"
+          ]
+      ]
 
 {-------------------------------------------------------------------------------
   GhcPragma pretty-printing
@@ -70,6 +85,25 @@ instance Pretty HsModule where
 
 instance Pretty GhcPragma where
   pretty (GhcPragma ghcPragma) = hsep ["{-#", string ghcPragma, "#-}"]
+
+{-------------------------------------------------------------------------------
+  ExportItem pretty-printing
+-------------------------------------------------------------------------------}
+
+instance Pretty ExportItem where
+  pretty = \case
+    ExportType name ->
+      pretty name
+    ExportTypeWithConstructors name ->
+      pretty name >< "(..)"
+    ExportQualifiedType resolved ->
+      ppResolvedName resolved
+    ExportQualifiedTypeWithConstructors resolved ->
+      ppResolvedName resolved >< "(..)"
+    ExportValue name ->
+      pretty name
+    ExportPattern name ->
+      "pattern" <+> pretty name
 
 {-------------------------------------------------------------------------------
   Import pretty-printing
