@@ -125,6 +125,9 @@ data SelectMsg =
     -- | Information about selection status; issued for all available
     --declarations.
     SelectStatusInfo SelectStatus (C.Decl Select)
+    -- | When program slicing is disabled, users may forget to select all
+    -- | required transitive dependencies.
+  | UnselectedTransitiveDependency C.QualPrelimDeclId
     -- | The user has selected a declaration that is available but at least one
     -- of its transitive dependencies is _unavailable_.
   | TransitiveDependencyOfDeclarationUnavailable SelectReason UnavailabilityReason (C.Decl Select)
@@ -154,6 +157,12 @@ instance PrettyForTrace SelectMsg where
       prettyForTrace x >< "not selected"
     SelectStatusInfo (Selected r) x ->
       prettyForTrace x >< " selected (" >< prettyForTrace r >< ")"
+    UnselectedTransitiveDependency x -> PP.hcat [
+        "Transitive dependency "
+      , prettyForTrace x
+      , " required but not selected;"
+      , " (!) please select the declaration"
+      ]
     TransitiveDependencyOfDeclarationUnavailable s u x -> PP.hcat [
         prettyForTrace x
       , " selected ("
@@ -191,6 +200,7 @@ instance PrettyForTrace SelectMsg where
 instance IsTrace Level SelectMsg where
   getDefaultLogLevel = \case
     SelectStatusInfo{}                             -> Info
+    UnselectedTransitiveDependency{}               -> Error
     TransitiveDependencyOfDeclarationUnavailable{} -> Warning
     SelectDeclarationUnavailable{}                 -> Error
     SelectDeprecated{}                             -> Notice
@@ -202,6 +212,7 @@ instance IsTrace Level SelectMsg where
   getSource  = const HsBindgen
   getTraceId = \case
     SelectStatusInfo{}                             -> "select"
+    UnselectedTransitiveDependency{}               -> "select"
     TransitiveDependencyOfDeclarationUnavailable{} -> "select"
     SelectDeclarationUnavailable{}                 -> "select"
     SelectDeprecated{}                             -> "select"
