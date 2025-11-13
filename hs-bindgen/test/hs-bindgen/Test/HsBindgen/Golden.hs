@@ -307,9 +307,11 @@ testCases = manualTestCases ++ [
           Just $ Expected ()
         _otherwise ->
           Nothing
-    , failingTestSimple "declaration_unselected_b" $ \case
+    , failingTestCustom "declaration_unselected_b" ["select" :: String, "mangle"] $ \case
+        (TraceFrontend (FrontendSelect (UnselectedTransitiveDependency {}))) ->
+          Just $ Expected "select"
         TraceFrontend (FrontendMangleNames (MangleNamesMissingDeclaration {})) ->
-          Just $ Expected ()
+          Just $ Expected "mangle"
         _otherwise ->
           Nothing
     , failingTestSimple "redeclaration_different" $ \case
@@ -648,9 +650,11 @@ testCases = manualTestCases ++ [
               _otherwise -> Nothing
         }
     , (defaultFailingTest "selection_bad"){
-          testTracePredicate = singleTracePredicate $ \case
+          testTracePredicate = customTracePredicate ["size_t_select", "size_t_mangle"] $ \case
+            (TraceFrontend (FrontendSelect (UnselectedTransitiveDependency _))) ->
+              Just $ Expected "size_t_select"
             (TraceFrontend (FrontendMangleNames (MangleNamesMissingDeclaration _))) ->
-              Just $ Expected ()
+              Just $ Expected "size_t_mangle"
             _other -> Nothing
         }
     , (defaultTest "selection_foo"){

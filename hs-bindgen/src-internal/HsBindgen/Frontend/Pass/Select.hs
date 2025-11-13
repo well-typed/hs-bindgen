@@ -91,17 +91,34 @@ selectDecls
                    Set.insert qualPrelimDeclId xs
                  else xs
 
-        -- Identifiers of transitive dependencies (without roots), and all
-        -- selected declarations.
-        transIds, selectedIds :: Set DeclId
-        (transIds, selectedIds) = case selectConfigProgramSlicing of
+        -- Identifiers of transitive dependencies (with roots).
+        rootAndTransIds :: Set DeclId
+        rootAndTransIds =
+          UseDeclGraph.getTransitiveDeps useDeclGraph $
+            Set.toList rootIds
+
+        -- Identifiers of transitive dependencies (without roots).
+        transIds :: Set DeclId
+        transIds = rootAndTransIds \\ rootIds
+
+        -- | Identifiers of all selected declarations.
+        selectedIds :: Set DeclId
+        -- | Identifiers of all selected transitive dependencies.
+        selectedTransIds :: Set DeclId
+        -- | Messages for required but unselected transitive dependencies.
+        unselectedMsgs :: [Msg Select]
+        (selectedIds, selectedTransIds, unselectedMsgs) = case selectConfigProgramSlicing of
           DisableProgramSlicing ->
-            (Set.empty, rootIds)
+            let msgs = map UnselectedTransitiveDependency $
+                         Set.toList $
+                           -- Only report unselected transitive dependencies
+                           -- that we have parsed successfully. We report
+                           -- unavailable transitive dependencies separately via
+                           -- 'getTransitiveAvailability'.
+                           Set.intersection transIds (Map.keysSet index.succeeded)
+            in  (rootIds        , Set.empty, msgs)
           EnableProgramSlicing ->
-            let rootAndTransIds =
-                  UseDeclGraph.getTransitiveDeps useDeclGraph $
-                    Set.toList rootIds
-            in  (rootAndTransIds \\ rootIds, rootAndTransIds)
+                (rootAndTransIds, transIds , []  )
 
         availableDecls :: [Decl]
         availableDecls = map coercePass unit.unitDecls
@@ -116,7 +133,7 @@ selectDecls
           foldDecls
             getTransitiveAvailability
             rootIds
-            transIds
+            selectedTransIds
             availableDecls
 
         unitSelect :: C.TranslationUnit Select
@@ -130,6 +147,7 @@ selectDecls
        ,    selectStatusMsgs
          -- If there were no predicate matches we issue a warning to the user.
          -- Only warn if there were successfully parsed declarations to select from.
+         ++ unselectedMsgs
          ++ [ SelectNoDeclarationsMatched
             | Set.null rootIds
             , not (Map.null index.succeeded)
@@ -309,12 +327,12 @@ foldDecls getTransitiveAvailability rootIds transIds decls =
           selDecls' = decl : selDecls
           remaining' = Set.delete declId remaining
           -- We check three conditions:
-          isSelectionRoot        = Set.member declId rootIds
-          isTransitiveDependency = Set.member declId transIds
-          transitiveAvailability = getTransitiveAvailability declId
+          isSelectedRoot                 = Set.member declId rootIds
+          isSelectedTransitiveDependency = Set.member declId transIds
+          transitiveAvailability         = getTransitiveAvailability declId
       in
-      case ( isSelectionRoot
-           , isTransitiveDependency
+      case ( isSelectedRoot
+           , isSelectedTransitiveDependency
            , transitiveAvailability ) of
         -- Declaration is a selection root.
         (True, False, TransitivelyAvailable) ->
