@@ -1994,7 +1994,7 @@ instance Eq MacroTcError where
 
 pprTcMacroError :: MacroTcError -> Text
 pprTcMacroError tcMacroErr =
-  Text.intercalate "\n" . ( "Failed to typecheck macro:" : ) $
+  Text.intercalate "\n" $
     case tcMacroErr of
       TcErrors errs ->
         map ( \ ( err, _srcSpan ) -> pprTcError err ) ( NE.toList errs )

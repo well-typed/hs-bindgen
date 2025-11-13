@@ -47,20 +47,20 @@ data ResolveHeaderMsg =
 instance PrettyForTrace ResolveHeaderMsg where
   prettyForTrace = \case
     ResolveHeaderClang msg -> hang
-      "during header resolution:" 2 (prettyForTrace msg)
+      "During header resolution:" 2 (prettyForTrace msg)
     ResolveHeaderFound header path -> hsep [
-        "header"
+        "Header"
       , string $ getHashIncludeArg header
       , "resolved to"
       , string $ getSourcePath path
       ]
     ResolveHeaderNotFound header -> hsep [
-        "header"
+        "Header"
       , string $ getHashIncludeArg header
       , "could not be resolved (header not found)"
       ]
     ResolveHeaderNotAttempted header -> hsep [
-        "header"
+        "Header"
       , string $ getHashIncludeArg header
       , "not attempted to be resolved"
       ]

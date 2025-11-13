@@ -11,7 +11,7 @@ module HsBindgen.Frontend.Pass.Select.IsPass (
   ) where
 
 import Data.Default (Default (def))
-import Text.SimplePrettyPrint ((<+>), (><))
+import Text.SimplePrettyPrint (CtxDoc, (<+>), (><))
 import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.BindingSpec qualified as BindingSpec
@@ -161,25 +161,32 @@ instance PrettyForTrace SelectMsg where
       , ") but "
       , prettyForTrace u
       ]
-    SelectDeclarationUnavailable i ->
-        "Tried to select an unavailable declaration: " >< prettyForTrace i
-    SelectDeprecated x -> PP.hcat [
-        "Selected a deprecated declaration: "
-      , prettyForTrace x
-      , "; you may want to de-select it"
-      ]
-    SelectParseSuccess x ->
-      "During parse:" <+> prettyForTrace x
-    SelectParseNotAttempted x -> PP.vcat [
-      "Could not select declaration:" <+> prettyForTrace x
+    SelectDeclarationUnavailable i -> PP.hang
+        "Tried to select an unavailable declaration: " 2 $
+          prettyForTrace i
+    SelectDeprecated x -> PP.hang
+        "Selected a deprecated declaration: " 2 $ PP.vcat [
+          prettyForTrace x
+        , "; you may want to de-select it"
+        ]
+    SelectParseSuccess x -> PP.hang "During parse:" 2 (prettyForTrace x)
+    SelectParseNotAttempted x -> hangReason "parse not attempted" [
+        prettyForTrace x
       , "Consider changing the parse predicate"
       ]
-    SelectParseFailure x ->
-      "Could not select declaration; parse failure:" <+> prettyForTrace x
-    SelectMacroFailure x ->
-      "Could not select declaration; macro parse failure:" <+> prettyForTrace x
+    SelectParseFailure x -> hangReason "parse failure" [
+        prettyForTrace x
+      ]
+    SelectMacroFailure x -> hangReason "macro parse failure" [
+        prettyForTrace x
+      ]
     SelectNoDeclarationsMatched ->
       "No declarations matched the select predicate"
+    where
+      hangReason :: CtxDoc -> [CtxDoc] -> CtxDoc
+      hangReason x xs =
+        let header = "Could not select declaration (" >< x >< "):"
+        in  PP.hang header 2 $ PP.vcat xs
 
 instance IsTrace Level SelectMsg where
   getDefaultLogLevel = \case

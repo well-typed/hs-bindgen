@@ -109,6 +109,8 @@ data ParseTypeException =
     -- | Complex types can only be defined using primitive types, e.g.
     -- @double complex@. @struct Point complex@ is not allowed.
   | UnexpectedComplexType CXType
+
+  | UnsupportedUnderlyingType C.Name ParseTypeException
   deriving stock (Show, Eq, Ord)
 
 instance PrettyForTrace ParseTypeException where
@@ -122,13 +124,19 @@ instance PrettyForTrace ParseTypeException where
       UnexpectedTypeDecl (Left i) ->
           unexpected $ "type declaration " >< PP.showToCtxDoc i
       UnsupportedVariadicFunction ->
-          "Unsupported variadic (varargs) function."
+          "Unsupported variadic (varargs) function"
       UnsupportedLongDouble ->
-          "Unsupported long double."
+          "Unsupported long double"
       UnsupportedBuiltin name ->
           "Unsupported built-in " >< prettyForTrace name
       UnexpectedComplexType ty ->
           "Unexpected complex type " >< PP.showToCtxDoc ty
+      UnsupportedUnderlyingType name err -> PP.hcat [
+            "Unsupported underlying type of typedef "
+          , PP.showToCtxDoc name
+          , ": "
+          , prettyForTrace err
+          ]
     where
       unexpected :: PP.CtxDoc -> PP.CtxDoc
       unexpected msg = PP.vcat [
@@ -142,12 +150,13 @@ instance PrettyForTrace ParseTypeException where
 -- we can just skip generating bindings for that declaration.
 instance IsTrace Level ParseTypeException where
   getDefaultLogLevel = \case
-    UnexpectedTypeKind{}        -> Error
-    UnexpectedTypeDecl{}        -> Error
-    UnsupportedVariadicFunction -> Warning
-    UnsupportedLongDouble       -> Warning
-    UnsupportedBuiltin{}        -> Warning
-    UnexpectedComplexType{}     -> Error
+    UnexpectedTypeKind{}          -> Error
+    UnexpectedTypeDecl{}          -> Error
+    UnsupportedVariadicFunction   -> Warning
+    UnsupportedLongDouble         -> Warning
+    UnsupportedBuiltin{}          -> Warning
+    UnexpectedComplexType{}       -> Error
+    UnsupportedUnderlyingType _ x -> getDefaultLogLevel x
   getSource  = const HsBindgen
   getTraceId = const "parse-type-exception"
 

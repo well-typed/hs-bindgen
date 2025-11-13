@@ -185,7 +185,7 @@ vcat = \case
     ds -> CtxDoc $ \ctx -> foldl1 aux $ map (runCtxDoc ctx) ds
   where
     -- If there are empty spaces, aka newlines we won't create extra
-    -- unneded whitespaces
+    -- unneeded whitespaces
     aux :: PP.Doc -> PP.Doc -> PP.Doc
     aux dL dR
         | dL == "" && dR == "" = PP.nest (-100) dL PP.$+$ PP.nest (-100) dR
