@@ -323,7 +323,7 @@ data AttachedParseMsg a = AttachedParseMsg {
 
 instance PrettyForTrace a => PrettyForTrace (AttachedParseMsg a) where
   prettyForTrace (AttachedParseMsg i l _ x) =
-    prettyForTrace (C.Located l i) >< ":" <+> prettyForTrace x
+    PP.hang (prettyForTrace (C.Located l i) >< ":") 2 (prettyForTrace x)
 
 instance IsTrace Level a => IsTrace Level (AttachedParseMsg a) where
   getDefaultLogLevel = getDefaultLogLevel . msg
@@ -494,7 +494,7 @@ instance PrettyForTrace DelayedParseMsg where
         "unsupported function declared with a typedef type"
     where
       noBindingsGenerated :: CtxDoc -> CtxDoc
-      noBindingsGenerated reason = PP.hcat [ "no bindings generated: ", reason ]
+      noBindingsGenerated reason = PP.hsep ["No bindings generated:", reason]
 
 -- | Unsupported features are warnings, because we skip over them
 instance IsTrace Level DelayedParseMsg where

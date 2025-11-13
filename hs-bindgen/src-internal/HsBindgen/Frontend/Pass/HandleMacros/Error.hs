@@ -6,7 +6,6 @@ module HsBindgen.Frontend.Pass.HandleMacros.Error (
   , HandleMacrosReparseMsg(..)
   ) where
 
-import Text.SimplePrettyPrint ((<+>))
 import Text.SimplePrettyPrint qualified as PP
 
 import C.Expr.Parse.Infra qualified as CExpr.DSL
@@ -52,10 +51,14 @@ instance PrettyForTrace HandleMacrosError where
         , "nor as expression:"
         , PP.nest 2 $ prettyParseError errExpr
         ]
-      HandleMacrosErrorEmpty name ->
-          "Ignoring empty macro:" <+> prettyForTrace name
-      HandleMacrosErrorTc x ->
-          PP.textToCtxDoc $ CExpr.DSL.pprTcMacroError x
+      HandleMacrosErrorEmpty name -> PP.hsep [
+            "Ignoring empty macro:"
+          , prettyForTrace name
+          ]
+      HandleMacrosErrorTc x -> PP.hsep [
+            "Failed to typecheck macro:"
+          , PP.textToCtxDoc $ CExpr.DSL.pprTcMacroError x
+          ]
 
 prettyParseError :: CExpr.DSL.MacroParseError -> PP.CtxDoc
 prettyParseError err = PP.vcat [
