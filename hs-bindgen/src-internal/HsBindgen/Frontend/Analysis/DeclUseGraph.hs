@@ -74,7 +74,8 @@ data UseOfDecl =
 
 -- | Find direct or indirect use by a named declaration, if it exists
 findNamedUseOf ::
-     DeclIndex
+     HasCallStack
+  => DeclIndex
   -> DeclUseGraph
   -> C.QualPrelimDeclId
   -> Maybe UseOfDecl

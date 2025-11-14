@@ -140,7 +140,7 @@ instance PrettyForTrace ParseTypeException where
     where
       unexpected :: PP.CtxDoc -> PP.CtxDoc
       unexpected msg = PP.vcat [
-            "Unexpected " >< msg  >< "."
+            "Unexpected " >< msg
           , PP.string pleaseReport
           ]
 

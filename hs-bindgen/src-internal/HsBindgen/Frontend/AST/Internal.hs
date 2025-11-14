@@ -563,7 +563,8 @@ instance Id p ~ C.DeclId => PrettyForTrace (Decl p) where
   Helper functions
 -------------------------------------------------------------------------------}
 
-declQualPrelimDeclId :: Id p ~ C.PrelimDeclId => Decl p -> C.QualPrelimDeclId
+declQualPrelimDeclId :: HasCallStack =>
+    Id p ~ C.PrelimDeclId => Decl p -> C.QualPrelimDeclId
 declQualPrelimDeclId Decl{declInfo = DeclInfo{declId}, declKind} =
     C.qualPrelimDeclId declId (declKindNameKind declKind)
 

@@ -214,7 +214,7 @@ macroDefinition info = \curr -> do
           , declAnn  = NoAnn
           }
     decl <- mkDecl <$> getUnparsedMacro unit curr
-    foldContinueWith [ParseResultSuccess $ ParseSuccess decl []]
+    foldContinueWith [parseSucceed decl]
 
 structDecl :: C.DeclInfo Parse -> Parser
 structDecl info = \curr -> do
@@ -273,7 +273,7 @@ structDecl info = \curr -> do
               , declKind = C.DeclOpaque (C.NameKindTagged C.TagKindStruct)
               , declAnn  = NoAnn
               }
-        in  foldContinueWith [ParseResultSuccess $ ParseSuccess decl []]
+        in  foldContinueWith [parseSucceed decl]
       DefinitionElsewhere _ ->
         foldContinue
 

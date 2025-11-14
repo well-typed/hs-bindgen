@@ -27,7 +27,7 @@ module HsBindgen.Frontend.Pass.Parse.IsPass (
   ) where
 
 import Data.List.NonEmpty qualified as NonEmpty
-import Text.SimplePrettyPrint (CtxDoc, (<+>), (><))
+import Text.SimplePrettyPrint (CtxDoc, ($$), (<+>), (><))
 import Text.SimplePrettyPrint qualified as PP
 
 import Clang.Enum.Simple
@@ -145,8 +145,9 @@ getUnparsedMacro unit curr = do
 -------------------------------------------------------------------------------}
 
 data ParseSuccess = ParseSuccess {
-      psDecl         :: C.Decl Parse
-    , psAttachedMsgs :: [AttachedParseMsg DelayedParseMsg]
+      psQualPrelimDeclId :: C.QualPrelimDeclId
+    , psDecl             :: C.Decl Parse
+    , psAttachedMsgs     :: [AttachedParseMsg DelayedParseMsg]
     }
   deriving stock (Show, Generic)
 
@@ -216,7 +217,7 @@ getDecl = \case
 
 getQualPrelimDeclId :: ParseResult -> QualPrelimDeclId
 getQualPrelimDeclId = \case
-  ParseResultSuccess        ParseSuccess{..}      -> C.declQualPrelimDeclId psDecl
+  ParseResultSuccess        ParseSuccess{..}      -> psQualPrelimDeclId
   ParseResultNotAttempted   (ParseNotAttempted x) -> x.declId
   ParseResultFailure        (ParseFailure x)      -> x.declId
 
@@ -225,9 +226,11 @@ parseSucceed = parseSucceedWith []
 
 parseSucceedWith :: [DelayedParseMsg] -> C.Decl Parse -> ParseResult
 parseSucceedWith msgs decl =
-    ParseResultSuccess $ ParseSuccess decl $
-      map (AttachedParseMsg (C.declQualPrelimDeclId decl) declLoc declAvailability) msgs
-  where C.DeclInfo{..} = decl.declInfo
+    ParseResultSuccess $ ParseSuccess qualPrelimDeclId decl $
+      map (AttachedParseMsg qualPrelimDeclId declLoc declAvailability) msgs
+  where
+    qualPrelimDeclId = C.declQualPrelimDeclId decl
+    C.DeclInfo{..} = decl.declInfo
 
 parseDoNotAttempt ::
      C.DeclInfo Parse
@@ -303,8 +306,7 @@ instance PrettyForTrace ImmediateParseMsg where
       ParseOfDeclarationRequiredForScopingFailed info err -> PP.hsep [
           prettyForTrace info
         , "parse of declaration required for scoping failed:"
-        , prettyForTrace err
-        ]
+        ] $$ (PP.nest 2 $ prettyForTrace err)
 
 instance IsTrace Level ImmediateParseMsg where
   getDefaultLogLevel = \case
