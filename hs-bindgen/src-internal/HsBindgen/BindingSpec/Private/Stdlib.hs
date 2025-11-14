@@ -43,8 +43,10 @@ bindingSpec = BindingSpec.BindingSpec{..}
         C.QualName
         [(Set HashIncludeArg, Omittable BindingSpec.CTypeSpec)]
     bindingSpecTypes = Map.fromList [
+        -- Boolean types
+        mkT "bool"           "CBool"    intI $ mkH ["stdbool.h"]
         -- Integral types
-        mkT "int8_t"         "Int8"     intI inttypesH
+      , mkT "int8_t"         "Int8"     intI inttypesH
       , mkT "int16_t"        "Int16"    intI inttypesH
       , mkT "int32_t"        "Int32"    intI inttypesH
       , mkT "int64_t"        "Int64"    intI inttypesH
