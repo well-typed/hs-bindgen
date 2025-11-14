@@ -68,7 +68,8 @@ instance Semigroup TransitiveAvailability where
 -------------------------------------------------------------------------------}
 
 selectDecls ::
-     IsMainHeader
+     HasCallStack
+  => IsMainHeader
   -> IsInMainHeaderDir
   -> Config Select
   -> C.TranslationUnit ResolveBindingSpecs
@@ -83,9 +84,8 @@ selectDecls
         rootIds = Foldable.foldl' addMatch Set.empty index.succeeded
           where
            addMatch :: Set DeclId -> ParseSuccess -> Set DeclId
-           addMatch xs (ParseSuccess decl _) =
+           addMatch xs (ParseSuccess qualPrelimDeclId decl _) =
              let info = decl.declInfo
-                 qualPrelimDeclId = C.declQualPrelimDeclId decl
                  isSelected = match qualPrelimDeclId info.declLoc info.declAvailability
              in  if isSelected then
                    Set.insert qualPrelimDeclId xs

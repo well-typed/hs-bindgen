@@ -439,7 +439,7 @@ qualDeclIdName = declIdName . qualDeclId
 declIdToQualDeclId :: DeclId -> NameKind -> QualDeclId
 declIdToQualDeclId = QualDeclId
 
-qualDeclIdToQualPrelimDeclId :: QualDeclId -> QualPrelimDeclId
+qualDeclIdToQualPrelimDeclId :: HasCallStack => QualDeclId -> QualPrelimDeclId
 qualDeclIdToQualPrelimDeclId (QualDeclId declId kind) =
     case declId of
       DeclIdNamed name origin ->

@@ -114,7 +114,7 @@ data PartialIndex = PartialIndex{
     }
   deriving (Generic)
 
-fromParseResults :: [ParseResult] -> (DeclIndex, [DeclIndexError])
+fromParseResults :: HasCallStack => [ParseResult] -> (DeclIndex, [DeclIndexError])
 fromParseResults results =
       fromPartialIndex
     . flip execState (PartialIndex emptyIndex Map.empty)
