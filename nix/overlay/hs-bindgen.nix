@@ -17,6 +17,7 @@ let
   ];
   mkPkg = hpkgs: name: hpkgs.callCabal2nix name (./../../${name}) { };
   mkHsBindgenPkgs = hpkgs: lib.genAttrs hsBindgenPkgNames (mkPkg hpkgs);
+  rust-bindgen = final.callPackage ../rust-bindgen.nix { inherit (llvmPackages) clang; };
 in
 {
   haskell = prev.haskell // {
@@ -45,7 +46,7 @@ in
             final.hsBindgenHook
           ];
           testToolDepends = drv.testToolDepends or [ ] ++ [
-            final.rust-bindgen
+            rust-bindgen
           ];
         }) hsBindgenPkgs.hs-bindgen;
       };

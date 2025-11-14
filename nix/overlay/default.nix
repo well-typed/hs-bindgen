@@ -9,12 +9,10 @@ let
   };
   hsBindgen = import ./hs-bindgen.nix { inherit maybeLlvmPackages; };
   hsFixes = import ./overrides.nix;
-  rustBindgen = import ./rust-bindgen.nix { inherit maybeLlvmPackages; };
   default = lib.composeManyExtensions [
     libclangBindings
     hsBindgen
     hsFixes
-    rustBindgen
   ];
 in
 {
@@ -22,7 +20,6 @@ in
     libclangBindings
     hsBindgen
     hsFixes
-    rustBindgen
     default
     ;
 }
