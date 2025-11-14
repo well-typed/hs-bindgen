@@ -21,7 +21,22 @@ common lang
 executable run-manual
   import:          lang
   main-is:         Manual.hs
-  other-modules:   Manual.ZeroCopy
+  other-modules:
+    Manual.Arrays
+    Manual.BindingSpecifications
+    Manual.Callbacks
+    Manual.Complex
+    Manual.Enums
+    Manual.Functions
+    Manual.GeneratedNames
+    Manual.Globals
+    Manual.Macros
+    Manual.Structs
+    Manual.Tools
+    Manual.Typedefs
+    Manual.Unions
+    Manual.ZeroCopy
+
   ghc-options:     -main-is Manual
   hs-source-dirs:  app generated
   extra-libraries:
