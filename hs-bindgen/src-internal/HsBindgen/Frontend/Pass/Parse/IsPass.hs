@@ -167,7 +167,7 @@ parseDoNotAttempt ::
   -> ParseResult
 parseDoNotAttempt C.DeclInfo{..} kind reason =
     ParseResultNotAttempted $ ParseNotAttempted
-      (C.qualPrelimDeclIdSafe declId kind)
+      (C.qualPrelimDeclId declId kind)
       declLoc
       declAvailability
       reason
