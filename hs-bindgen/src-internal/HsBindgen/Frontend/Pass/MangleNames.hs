@@ -158,18 +158,14 @@ mangleDeclId declId@(C.DeclIdNamed cName nameOrigin) kinds = do
 
     case mapMaybe lookupKind kinds of
       hs:_ -> return $ mkNamePair hs
-      []   -> do
+      []   ->
         -- Name mangling failed
         --
         -- This can only happen if we did not register any declaration with the
         -- given ID. This is most likely because the user did not select the
         -- declaration. If the declaration was completely missing, Clang would
         -- have complained already.
-        modify (MangleNamesMissingDeclaration declId :)
-        return (
-            C.NamePair cName "MissingDeclaration" -- Use a fake Haskell ID.
-          , nameOrigin
-          )
+        panicPure $ "Missing declaration: " <> show declId
   where
     mkNamePair :: Hs.Identifier -> (C.NamePair, C.NameOrigin)
     mkNamePair hsName = (C.NamePair cName hsName, nameOrigin)

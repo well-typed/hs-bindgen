@@ -10,6 +10,7 @@ module Test.HsBindgen.Golden.TestCase (
   , defaultTest
   , defaultFailingTest
     -- ** Successful tests
+  , testVariant
   , testTrace
   , testTraceSimple
   , testTraceCustom
@@ -49,7 +50,7 @@ import HsBindgen.Util.Tracer
 -------------------------------------------------------------------------------}
 
 data TestCase = TestCase {
-      -- | Name of the test (in the tasty test tree)
+      -- | Name of the test (in the tasty test tree) and the input header
       testName :: TestName
 
       -- | Name of the header file, e.g., "foo.h"
@@ -150,6 +151,19 @@ defaultTest fp = TestCase{
     , testRustBindgen             = RustBindgenRun
     , testPathStyle               = Short
     }
+
+testVariant ::
+     String --  ^ Filename without the @.h@ extension
+  -> String --  ^ Variant suffix, appended to the output directory
+  -> TestCase
+testVariant filename suffix = defTest{
+        testName        = testName defTest      ++ "." ++ suffix
+      , testOutputDir   = testOutputDir defTest ++ "." ++ suffix
+        -- For variants, do not run `rust-bindgen` again.
+      , testRustBindgen = RustBindgenIgnore
+      }
+  where
+    defTest = defaultTest filename
 
 testTrace :: String -> TracePredicate TraceMsg -> TestCase
 testTrace filename trace =

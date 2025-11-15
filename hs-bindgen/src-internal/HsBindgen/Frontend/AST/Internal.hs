@@ -105,6 +105,7 @@ data TranslationUnit p = TranslationUnit{
       -- | Pass-specific annotation
     , unitAnn :: Ann "TranslationUnit" p
     }
+    deriving (Generic)
 
 data Decl p = Decl {
       declInfo :: DeclInfo p
@@ -553,11 +554,17 @@ instance PrettyForTrace (C.Located (Id p)) => PrettyForTrace (DeclInfo p) where
   prettyForTrace DeclInfo{declId, declLoc} =
     prettyForTrace $ C.Located declLoc declId
 
+instance Id p ~ C.DeclId => PrettyForTrace (Decl p) where
+  prettyForTrace decl =
+    let qualDeclId = declQualDeclId decl
+    in  prettyForTrace $ C.Located (decl.declInfo.declLoc) qualDeclId
+
 {-------------------------------------------------------------------------------
   Helper functions
 -------------------------------------------------------------------------------}
 
-declQualPrelimDeclId :: Id p ~ C.PrelimDeclId => Decl p -> C.QualPrelimDeclId
+declQualPrelimDeclId :: HasCallStack =>
+    Id p ~ C.PrelimDeclId => Decl p -> C.QualPrelimDeclId
 declQualPrelimDeclId Decl{declInfo = DeclInfo{declId}, declKind} =
     C.qualPrelimDeclId declId (declKindNameKind declKind)
 

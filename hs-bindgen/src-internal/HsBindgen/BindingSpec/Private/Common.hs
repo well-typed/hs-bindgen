@@ -156,16 +156,16 @@ instance PrettyForTrace BindingSpecResolveMsg where
   prettyForTrace = \case
     BindingSpecResolveExternalHeader x ->
       hang
-        "during resolution of external binding specification:"
+        "During resolution of external binding specification:"
         2
         (prettyForTrace x)
     BindingSpecResolvePrescriptiveHeader x ->
       hang
-        "during resolution of prescriptive binding specification:"
+        "During resolution of prescriptive binding specification:"
         2
         (prettyForTrace x)
     BindingSpecResolveTypeDropped cQualName ->
-      "type dropped: " >< textToCtxDoc (C.qualNameText cQualName)
+      "Type dropped: " >< textToCtxDoc (C.qualNameText cQualName)
 
 --------------------------------------------------------------------------------
 

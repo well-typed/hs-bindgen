@@ -88,7 +88,7 @@ data DeclPredicate =
 -- The parse predicate and the select predicate both allow matching against
 -- header paths but serve different purposes. The parse predicate dictates which
 -- declarations `hs-bindgen` reifies into `hs-bindgen`-specific data structures,
--- the selection predicate dictates which declarations `hs-bindgen` generates
+-- the select predicate dictates which declarations `hs-bindgen` generates
 -- bindings for. For details, please see the @hs-bindgen@ manual section on
 -- predicates and program slicing.
 data ParsePredicate =
@@ -106,7 +106,7 @@ instance Default ParsePredicate where
 -- The parse predicate and the select predicate both allow matching against
 -- header paths but serve different purposes. The parse predicate dictates which
 -- declarations `hs-bindgen` reifies into `hs-bindgen`-specific data structures,
--- the selection predicate dictates which declarations `hs-bindgen` generates
+-- the select predicate dictates which declarations `hs-bindgen` generates
 -- bindings for. For details, please see the @hs-bindgen@ manual section on
 -- predicates and program slicing.
 data SelectPredicate =

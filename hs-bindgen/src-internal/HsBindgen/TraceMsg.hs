@@ -10,7 +10,7 @@ module HsBindgen.TraceMsg (
   , DeclIndexError(..)
   , Diagnostic(..)
   , FrontendMsg(..)
-  , HandleMacrosMsg(..)
+  , HandleMacrosReparseMsg(..)
   , HandleTypedefsMsg(..)
   , HashIncludeArgMsg(..)
   , MangleNamesMsg(..)
@@ -41,7 +41,7 @@ import HsBindgen.Clang.BuiltinIncDir (BuiltinIncDirMsg (..))
 import HsBindgen.Frontend (FrontendMsg (..))
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndexError (..))
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass (ConstructTranslationUnitMsg (..))
-import HsBindgen.Frontend.Pass.HandleMacros.IsPass (HandleMacrosMsg (..))
+import HsBindgen.Frontend.Pass.HandleMacros.IsPass (HandleMacrosReparseMsg (..))
 import HsBindgen.Frontend.Pass.HandleTypedefs.IsPass (HandleTypedefsMsg (..))
 import HsBindgen.Frontend.Pass.MangleNames.IsPass (MangleNamesMsg (..))
 import HsBindgen.Frontend.Pass.NameAnon.IsPass (NameAnonMsg (..))
@@ -133,10 +133,10 @@ fromSetting = \case
     enableMacroWarnings = CustomLogLevel $ \case
         TraceFrontend (FrontendHandleMacros (HandleMacrosErrorReparse{}))
           -> const Warning
-        TraceFrontend (FrontendHandleMacros (HandleMacrosErrorTc{}))
-          -> const Warning
         -- Macros parsing requires declarations required for scoping.
         TraceFrontend (FrontendParse (ParseOfDeclarationRequiredForScopingFailed{}))
+          -> const Warning
+        TraceFrontend (FrontendSelect (SelectMacroFailure{}))
           -> const Warning
         _otherTrace
           -> id

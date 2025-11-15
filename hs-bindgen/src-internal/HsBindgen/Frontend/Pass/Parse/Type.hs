@@ -114,8 +114,9 @@ fromDecl ty = do
           ClangBuiltin "__builtin_va_list" | declId == C.PrelimDeclIdNamed "va_list" ->
             throwError UnsupportedVariadicFunction
           _ -> do
-            uTy <- cxtype =<< getUnderlyingCXType decl
-            n <- typedefName declId
+            n   <- typedefName declId
+            uTy <- liftIO $ handle (addTypedefContextHandler n) $
+                     run (cxtype =<< getUnderlyingCXType decl)
             pure (C.TypeTypedef $ OrigTypedefRef n uTy)
       kind                 -> throwError $ UnexpectedTypeDecl (Right kind)
   where
@@ -139,6 +140,12 @@ fromDecl ty = do
       uTy <- getUnderlyingCXType typedefCurr
       uDecl  <- clang_getTypeDeclaration uTy
       HighLevel.clang_getCursorSpelling uDecl
+
+    addTypedefContextHandler :: C.Name -> SomeException -> IO a
+    addTypedefContextHandler n e
+      | Just e' <- (fromException @ParseTypeException e) =
+          throwIO (UnsupportedUnderlyingType n e')
+      | otherwise = throwIO e
 
 function :: Bool -> CXType -> ParseType (C.Type Parse)
 function hasProto ty = do
