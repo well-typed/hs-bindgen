@@ -311,7 +311,10 @@
                           headerInclude =
                           "selection_fail.h"},
                       commentChildren = []}})
-              [PeekByteOff (Idx 0) 0]),
+              [
+                PeekCField
+                  (HsStrLit "okBefore_x")
+                  (Idx 0)]),
           storablePoke = Lambda
             (NameHint "ptr")
             (Lambda
@@ -421,9 +424,9 @@
                 (Add 1)
                 (Seq
                   [
-                    PokeByteOff
+                    PokeCField
+                      (HsStrLit "okBefore_x")
                       (Idx 2)
-                      0
                       (Idx 0)])))},
       defineInstanceComment =
       Nothing},
@@ -446,4 +449,41 @@
         "@NsTypeConstr"
         "OkBefore",
       deriveInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasCField
+        HasCFieldInstance {
+          hasCFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "OkBefore"),
+          hasCFieldInstanceFieldName =
+          Name "@NsVar" "okBefore_x",
+          hasCFieldInstanceCFieldType =
+          HsPrimType HsPrimCInt,
+          hasCFieldInstanceFieldOffset =
+          0},
+      defineInstanceComment =
+      Nothing},
+  DeclInstance
+    DefineInstance {
+      defineInstanceDeclarations =
+      InstanceHasField
+        HasFieldInstance {
+          hasFieldInstanceParentType =
+          HsTypRef
+            (Name
+              "@NsTypeConstr"
+              "OkBefore"),
+          hasFieldInstanceFieldName = Name
+            "@NsVar"
+            "okBefore_x",
+          hasFieldInstanceFieldType =
+          HsPrimType HsPrimCInt,
+          hasFieldInstanceVia =
+          ViaHasCField},
+      defineInstanceComment =
       Nothing}]

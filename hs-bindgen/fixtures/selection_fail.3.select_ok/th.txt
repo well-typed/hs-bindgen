@@ -23,6 +23,12 @@ data OkBefore
 instance Storable OkBefore
     where sizeOf = \_ -> 4 :: Int
           alignment = \_ -> 4 :: Int
-          peek = \ptr_0 -> pure OkBefore <*> peekByteOff ptr_0 (0 :: Int)
+          peek = \ptr_0 -> pure OkBefore <*> peekCField (Proxy @"okBefore_x") ptr_0
           poke = \ptr_1 -> \s_2 -> case s_2 of
-                                   OkBefore okBefore_x_3 -> pokeByteOff ptr_1 (0 :: Int) okBefore_x_3
+                                   OkBefore okBefore_x_3 -> pokeCField (Proxy @"okBefore_x") ptr_1 okBefore_x_3
+instance HasCField OkBefore "okBefore_x"
+    where type CFieldType OkBefore "okBefore_x" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType OkBefore "okBefore_x") =>
+         HasField "okBefore_x" (Ptr OkBefore) (Ptr ty)
+    where getField = ptrToCField (Proxy @"okBefore_x")

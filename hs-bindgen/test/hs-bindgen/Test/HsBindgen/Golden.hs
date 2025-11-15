@@ -307,11 +307,9 @@ testCases = manualTestCases ++ [
           Just $ Expected ()
         _otherwise ->
           Nothing
-    , failingTestCustom "declaration_unselected_b" ["select" :: String, "mangle"] $ \case
-        (TraceFrontend (FrontendSelect (UnselectedTransitiveDependency {}))) ->
+    , failingTestCustom "declaration_unselected_b" ["select" :: String] $ \case
+        (TraceFrontend (FrontendSelect (TransitiveDependencyOfDeclarationUnavailable _ (_, UnavailableNotSelected) _))) ->
           Just $ Expected "select"
-        TraceFrontend (FrontendMangleNames (MangleNamesMissingDeclaration {})) ->
-          Just $ Expected "mangle"
         _otherwise ->
           Nothing
     , failingTestSimple "redeclaration_different" $ \case
@@ -593,7 +591,7 @@ testCases = manualTestCases ++ [
         ] $ \case
           TraceFrontend (FrontendSelect (SelectParseFailure _)) ->
             Just $ Expected "Fail"
-          TraceFrontend (FrontendSelect (TransitiveDependencyOfDeclarationUnavailable _ (UnavailableParseFailed _) decl)) ->
+          TraceFrontend (FrontendSelect (TransitiveDependencyOfDeclarationUnavailable _ (_, UnavailableParseFailed) decl)) ->
             Just $ expectFromDeclSelect decl
           TraceFrontend (FrontendSelect (SelectStatusInfo (Selected SelectionRoot) decl)) ->
             Just $ expectFromDeclSelect decl
@@ -609,7 +607,7 @@ testCases = manualTestCases ++ [
             , "DependOnFailByReference"
             , "OkBefore", "OkAfter"
             ] $ \case
-              TraceFrontend (FrontendSelect (TransitiveDependencyOfDeclarationUnavailable _ (UnavailableParseFailed _) decl)) ->
+              TraceFrontend (FrontendSelect (TransitiveDependencyOfDeclarationUnavailable _ (_, UnavailableParseFailed) decl)) ->
                 Just $ expectFromDeclSelect decl
               TraceFrontend (FrontendSelect (SelectStatusInfo (Selected SelectionRoot) decl)) ->
                 Just $ expectFromDeclSelect decl
@@ -630,7 +628,7 @@ testCases = manualTestCases ++ [
             ] $ \case
               TraceFrontend (FrontendSelect (SelectDeclarationUnavailable i)) ->
                 Just $ expectFromQualPrelimDeclId i
-              TraceFrontend (FrontendSelect (TransitiveDependencyOfDeclarationUnavailable _ (UnavailableParseFailed _) decl)) ->
+              TraceFrontend (FrontendSelect (TransitiveDependencyOfDeclarationUnavailable _ (_, UnavailableParseFailed) decl)) ->
                 Just $ expectFromDeclSelect decl
               TraceFrontend (FrontendSelect (SelectStatusInfo (Selected SelectionRoot) decl)) ->
                 Just $ expectFromDeclSelect decl
@@ -650,11 +648,9 @@ testCases = manualTestCases ++ [
               _otherwise -> Nothing
         }
     , (defaultFailingTest "selection_bad"){
-          testTracePredicate = customTracePredicate ["size_t_select", "size_t_mangle"] $ \case
-            (TraceFrontend (FrontendSelect (UnselectedTransitiveDependency _))) ->
+          testTracePredicate = customTracePredicate ["size_t_select"] $ \case
+            (TraceFrontend (FrontendSelect (TransitiveDependencyOfDeclarationUnavailable SelectionRoot (_, UnavailableNotSelected) _))) ->
               Just $ Expected "size_t_select"
-            (TraceFrontend (FrontendMangleNames (MangleNamesMissingDeclaration _))) ->
-              Just $ Expected "size_t_mangle"
             _other -> Nothing
         }
     , (defaultTest "selection_foo"){

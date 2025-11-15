@@ -1,10 +1,23 @@
+{-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DerivingStrategies #-}
+{-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE MagicHash #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE TypeApplications #-}
+{-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE UndecidableInstances #-}
 
 module Example where
 
+import qualified Data.Proxy
 import qualified Foreign as F
 import qualified Foreign.C as FC
+import qualified GHC.Ptr as Ptr
+import qualified GHC.Records
+import qualified HsBindgen.Runtime.HasCField
+import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude ((<*>), Eq, Int, Show, pure)
 
 {-| __C declaration:__ @OkBefore@
@@ -33,14 +46,26 @@ instance F.Storable OkBefore where
   peek =
     \ptr0 ->
           pure OkBefore
-      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"okBefore_x") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           OkBefore okBefore_x2 ->
-            F.pokeByteOff ptr0 (0 :: Int) okBefore_x2
+            HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"okBefore_x") ptr0 okBefore_x2
+
+instance HsBindgen.Runtime.HasCField.HasCField OkBefore "okBefore_x" where
+
+  type CFieldType OkBefore "okBefore_x" = FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType OkBefore) "okBefore_x")
+         ) => GHC.Records.HasField "okBefore_x" (Ptr.Ptr OkBefore) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"okBefore_x")
 
 {-| __C declaration:__ @OkAfter@
 
@@ -68,11 +93,23 @@ instance F.Storable OkAfter where
   peek =
     \ptr0 ->
           pure OkAfter
-      <*> F.peekByteOff ptr0 (0 :: Int)
+      <*> HsBindgen.Runtime.HasCField.peekCField (Data.Proxy.Proxy @"okAfter_x") ptr0
 
   poke =
     \ptr0 ->
       \s1 ->
         case s1 of
           OkAfter okAfter_x2 ->
-            F.pokeByteOff ptr0 (0 :: Int) okAfter_x2
+            HsBindgen.Runtime.HasCField.pokeCField (Data.Proxy.Proxy @"okAfter_x") ptr0 okAfter_x2
+
+instance HsBindgen.Runtime.HasCField.HasCField OkAfter "okAfter_x" where
+
+  type CFieldType OkAfter "okAfter_x" = FC.CInt
+
+  offset# = \_ -> \_ -> 0
+
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType OkAfter) "okAfter_x")
+         ) => GHC.Records.HasField "okAfter_x" (Ptr.Ptr OkAfter) (Ptr.Ptr ty) where
+
+  getField =
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"okAfter_x")

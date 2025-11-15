@@ -11,7 +11,7 @@ module HsBindgen.Frontend.Pass.Select.IsPass (
   ) where
 
 import Data.Default (Default (def))
-import Text.SimplePrettyPrint (CtxDoc, (<+>), (><))
+import Text.SimplePrettyPrint (CtxDoc, (><))
 import Text.SimplePrettyPrint qualified as PP
 
 import HsBindgen.BindingSpec qualified as BindingSpec
@@ -97,40 +97,34 @@ data SelectStatus =
   deriving stock (Show)
 
 data UnavailabilityReason =
-    UnavailableParseNotAttempted  C.QualPrelimDeclId
-  | UnavailableParseFailed        C.QualPrelimDeclId
-  | UnavailableHandleMacrosFailed C.QualPrelimDeclId
+    UnavailableParseNotAttempted
+  | UnavailableParseFailed
+  | UnavailableHandleMacrosFailed
+  | UnavailableNotSelected
   deriving stock (Show, Eq, Ord)
 
 instance PrettyForTrace UnavailabilityReason where
-  prettyForTrace r = "unavailable" <+> case r of
-    UnavailableParseNotAttempted x -> PP.hcat [
-        "(parse of transitive dependency "
-      , prettyForTrace x
-      , " not attempted: (!) adjust parse predicate)"
-      ]
-    UnavailableParseFailed x -> PP.hcat [
-        "(parse of transitive dependency "
-      , prettyForTrace x
-      , " failed)"
-      ]
-    UnavailableHandleMacrosFailed x -> PP.hcat [
-        "(macro parsing or type-checking of transitive dependency "
-      , prettyForTrace x
-      , " failed)"
-      ]
+  prettyForTrace r = case r of
+    UnavailableParseNotAttempted ->
+      "parse of transitive dependency not attempted: (!) adjust parse predicate"
+    UnavailableParseFailed ->
+      "parse of transitive dependency failed"
+    UnavailableHandleMacrosFailed ->
+      "macro parsing or type-checking of transitive dependency failed"
+    UnavailableNotSelected ->
+      "transitive dependency not selected"
 
 -- | Select trace messages
 data SelectMsg =
     -- | Information about selection status; issued for all available
     --declarations.
     SelectStatusInfo SelectStatus (C.Decl Select)
-    -- | When program slicing is disabled, users may forget to select all
-    -- | required transitive dependencies.
-  | UnselectedTransitiveDependency C.QualPrelimDeclId
     -- | The user has selected a declaration that is available but at least one
     -- of its transitive dependencies is _unavailable_.
-  | TransitiveDependencyOfDeclarationUnavailable SelectReason UnavailabilityReason (C.Decl Select)
+  | TransitiveDependencyOfDeclarationUnavailable
+      SelectReason
+      (C.QualPrelimDeclId, UnavailabilityReason)
+      (C.Decl Select)
     -- | A declaration itself is unavailable.
   | SelectDeclarationUnavailable C.QualPrelimDeclId
     -- | The user has selected a deprecated declaration. Maybe they want to
@@ -157,17 +151,13 @@ instance PrettyForTrace SelectMsg where
       prettyForTrace x >< "not selected"
     SelectStatusInfo (Selected r) x ->
       prettyForTrace x >< " selected (" >< prettyForTrace r >< ")"
-    UnselectedTransitiveDependency x -> PP.hcat [
-        "Transitive dependency "
-      , prettyForTrace x
-      , " required but not selected;"
-      , " (!) please select the declaration"
-      ]
-    TransitiveDependencyOfDeclarationUnavailable s u x -> PP.hcat [
+    TransitiveDependencyOfDeclarationUnavailable s (i, u) x -> PP.hcat [
         prettyForTrace x
       , " selected ("
       , prettyForTrace s
       , ") but "
+      , prettyForTrace i
+      , " unavailable: "
       , prettyForTrace u
       ]
     SelectDeclarationUnavailable i -> PP.hang
@@ -200,7 +190,6 @@ instance PrettyForTrace SelectMsg where
 instance IsTrace Level SelectMsg where
   getDefaultLogLevel = \case
     SelectStatusInfo{}                             -> Info
-    UnselectedTransitiveDependency{}               -> Error
     TransitiveDependencyOfDeclarationUnavailable{} -> Warning
     SelectDeclarationUnavailable{}                 -> Error
     SelectDeprecated{}                             -> Notice
@@ -212,7 +201,6 @@ instance IsTrace Level SelectMsg where
   getSource  = const HsBindgen
   getTraceId = \case
     SelectStatusInfo{}                             -> "select"
-    UnselectedTransitiveDependency{}               -> "select"
     TransitiveDependencyOfDeclarationUnavailable{} -> "select"
     SelectDeclarationUnavailable{}                 -> "select"
     SelectDeprecated{}                             -> "select"
