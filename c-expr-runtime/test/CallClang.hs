@@ -54,7 +54,7 @@ import Clang.HighLevel qualified as Clang
   hiding ( clang_getCursorLocation )
 import Clang.HighLevel.Types qualified as Clang
 import Clang.LowLevel.Core qualified as Clang
-  hiding ( clang_visitChildren, clang_getCursorSpelling )
+  hiding ( clang_visitChildren )
 import Clang.Paths qualified as Paths
 
 -- c-expr
@@ -177,14 +177,12 @@ getExpansionTypeMapping clangArgs tys =
           Right kind
             | Clang.CXCursor_FunctionDecl <- kind
             -> do
-              mbFunNm <- liftIO $ Clang.clang_getCursorSpelling cursor
-              case mbFunNm of
-                Clang.UserProvided funNm
-                  | let ( nm, nb ) = Text.splitAt 6 funNm
-                  , nm == "testFn"
-                  , Just i <- readMaybe ( Text.unpack nb )
-                  -> Clang.foldRecursePureOpt ( getCanonicalType ( Just i ) ) listToMaybe
-                _ ->
+              funNm <- liftIO $ Clang.clang_getCursorSpelling cursor
+              let ( nm, nb ) = Text.splitAt 6 funNm
+              case readMaybe ( Text.unpack nb ) of
+                Just i | nm == "testFn" ->
+                  Clang.foldRecursePureOpt ( getCanonicalType ( Just i ) ) listToMaybe
+                _otherwise ->
                   Clang.foldContinue
             | Just nb <- inTestFunDecl
             , Clang.CXCursor_DeclRefExpr <- kind
@@ -275,7 +273,7 @@ queryClangForResultType clangArgs tys op =
             | Clang.CXCursor_FunctionDecl <- kind
             -> do
               funNm <- Clang.clang_getCursorSpelling cursor
-              if funNm == Clang.UserProvided "testFunction"
+              if funNm == "testFunction"
               then
                 Clang.foldRecursePureOpt ( extractType ( True, False ) ) listToMaybe
               else

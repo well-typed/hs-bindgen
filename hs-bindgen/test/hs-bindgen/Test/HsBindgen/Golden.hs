@@ -27,7 +27,8 @@ import HsBindgen.Config.Internal
 import HsBindgen.Frontend.Analysis.DeclIndex (Unusable (..))
 import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
-import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict
+import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict ()
+import HsBindgen.Frontend.Pass.ConstructTranslationUnit.Conflict as Conflict
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
@@ -288,6 +289,22 @@ test_edge_cases_duplicate = (defaultTest "edge-cases/duplicate") {
 
   }
 
+test_edge_cases_clang_generated_collision :: TestCase
+test_edge_cases_clang_generated_collision =
+  (defaultTest "edge-cases/clang_generated_collision") {
+    testClangVersion = Just (>= (16, 0, 0))
+  , testTracePredicate = customTracePredicate' ["foo"] $ \case
+      TraceFrontend (FrontendSelect (SelectConflict conflict)) ->
+        Just $ expectFromPrelimDeclId (Conflict.getDeclId conflict)
+      -- TODO <https://github.com/well-typed/hs-bindgen/issues/1389>
+      -- For now we report a collision between the two @struct foo@
+      -- declarations, but no collision between those and the typedef.
+      TraceFrontend (FrontendSelect (TransitiveDependencyOfDeclarationUnselectable{})) ->
+        Just Tolerated
+      _otherwise ->
+        Nothing
+  }
+
 test_edge_cases_distilled_lib_1 :: TestCase
 test_edge_cases_distilled_lib_1 = defaultTest "edge-cases/distilled_lib_1"
 
@@ -304,6 +321,14 @@ test_edge_cases_headers = (defaultTest "edge-cases/headers") {
 
 test_edge_cases_names :: TestCase
 test_edge_cases_names = defaultTest "edge-cases/names"
+
+test_edge_cases_ordinary_anon :: TestCase
+test_edge_cases_ordinary_anon =
+  (defaultTest "edge-cases/ordinary_anon_parent"){
+      testOnFrontendConfig = \cfg -> cfg{
+          frontendSelectPredicate = BTrue
+        }
+    }
 
 test_edge_cases_spec_examples :: TestCase
 test_edge_cases_spec_examples = defaultTest "edge-cases/spec_examples"
@@ -1212,6 +1237,7 @@ testCases = manualTestCases ++ [
     , test_documentation_doxygen_docs
     , test_edge_cases_adios
     , test_edge_cases_duplicate
+    , test_edge_cases_clang_generated_collision
     , test_edge_cases_distilled_lib_1
     , test_edge_cases_select_no_match
     , test_edge_cases_thread_local
@@ -1220,6 +1246,7 @@ testCases = manualTestCases ++ [
     , test_edge_cases_headers
     , test_edge_cases_iterator
     , test_edge_cases_names
+    , test_edge_cases_ordinary_anon
     , test_edge_cases_spec_examples
     , test_edge_cases_uses_utf8
     , test_functions_callbacks

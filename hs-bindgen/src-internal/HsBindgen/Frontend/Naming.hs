@@ -277,31 +277,50 @@ instance PrettyForTrace (Located PrelimDeclId) where
         PrelimDeclIdBuiltin n k ->
           prettyForTraceLoc (QualName n k) l
 
-getPrelimDeclId :: MonadIO m => CXCursor -> NameKind -> m PrelimDeclId
+getPrelimDeclId :: forall m. MonadIO m => CXCursor -> NameKind -> m PrelimDeclId
 getPrelimDeclId curr nameKind = do
-    -- TODO: <https://github.com/well-typed/hs-bindgen/pull/1292>
-    -- Update this comment.
-    --
-    -- This function distinguishes /anonymous/ and /named/ declarations, but the
-    -- Clang meaning of /anonymous/ is different from what we need.  We consider
-    -- a @struct@, @union@, or @enum@ declaration /anonymous/ if there is no
-    -- tag, even if there is a @typedef@ for the type.
-    --
-    -- See 'HighLevel.clang_getCursorLocation' for details.
-    --
-    -- Note that detection of user-provided names that are constructed via
-    -- macros only works with @clang >= 19.1.0@ due to a bug in earlier
-    -- versions.
-    spelling <- HighLevel.clang_getCursorSpelling curr
-    case spelling of
-      UserProvided name ->
-        return $ PrelimDeclIdNamed (Name name) nameKind
-      ClangGenerated _ -> do
-        anonId <- AnonId . multiLocExpansion
-                    <$> HighLevel.clang_getCursorLocation curr
-        return $ PrelimDeclIdAnon anonId nameKind
-      ClangBuiltin name ->
-        return $ PrelimDeclIdBuiltin (Name name) nameKind
+    spelling  <- clang_getCursorSpelling curr
+    isBuiltin <- checkIsBuiltin
+    case isBuiltin of
+      True ->
+        return $ PrelimDeclIdBuiltin (Name spelling) nameKind
+      False | Text.null spelling ->
+        -- clang-15 and older use an empty string for anon declarations
+       markAsAnon
+      False | Text.elem ' ' spelling ->
+        -- clang-16 and newer assign names such as
+        --
+        -- > struct (unnamed at ....)
+        --
+        -- /except/ in one case: when we have an anonymous struct inside a
+        -- typedef, such as
+        --
+        -- > typedef struct { .. } foo;
+        --
+        -- newer versions of clang will assign the name @foo@ to the typedef.
+        -- This means that in this case we will misclassify the struct as
+        -- not-anonymous (and this will then also depend on the clang version:
+        -- for older versions we /will/ classify it as anonymous). However,
+        -- since we squash structs with a single use site inside a typedef
+        -- anyway, this misclassification does not matter.
+        markAsAnon
+      _otherwise ->
+        return $ PrelimDeclIdNamed (Name spelling) nameKind
+  where
+    checkIsBuiltin :: m Bool
+    checkIsBuiltin = do
+        mRange <- clang_Cursor_getSpellingNameRange curr 0 0
+        case mRange of
+          Nothing    -> return False
+          Just range -> do
+            start <- clang_getRangeStart range
+            (file, _col, _line, _offset) <- clang_getExpansionLocation start
+            return $ isNullPtr file
+
+    markAsAnon :: m PrelimDeclId
+    markAsAnon = do
+        loc <- HighLevel.clang_getCursorLocation' curr
+        return $ PrelimDeclIdAnon (AnonId loc) nameKind
 
 {-------------------------------------------------------------------------------
   DeclId
