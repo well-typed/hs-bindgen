@@ -3,9 +3,7 @@ module HsBindgen.Frontend.Pass.Select (
   ) where
 
 import Data.Foldable qualified as Foldable
-import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
-import Data.Semigroup.Compat (Semigroup (..))
 import Data.Set ((\\))
 import Data.Set qualified as Set
 
@@ -14,7 +12,6 @@ import Clang.HighLevel.Types
 import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex (..))
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
-import HsBindgen.Frontend.Analysis.DeclUseGraph (DeclUseGraph)
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
@@ -54,14 +51,19 @@ type Match = DeclId -> SingleLoc -> C.Availability -> Bool
 -- @TransitiveAvailability@ deals with the second type.
 data TransitiveAvailability =
     TransitivelyAvailable
-  | TransitivelyUnavailable (NonEmpty UnavailabilityReason)
+    -- | For each transitive dependency, we try to give the root cause of
+    -- | unavailability.
+  | TransitivelyUnavailable (Map DeclId UnavailabilityReason)
   deriving stock (Show, Eq, Ord)
 
 instance Semigroup TransitiveAvailability where
-  TransitivelyAvailable      <> xs                    = xs
-  xs                         <> TransitivelyAvailable = xs
-  TransitivelyUnavailable xs <> TransitivelyUnavailable ys =
-    TransitivelyUnavailable $ xs <> ys
+  TransitivelyAvailable      <> x                    = x
+  x                         <> TransitivelyAvailable = x
+  TransitivelyUnavailable x <> TransitivelyUnavailable y =
+    TransitivelyUnavailable $ Map.unionWith min x y
+
+instance Monoid TransitiveAvailability where
+  mempty = TransitivelyAvailable
 
 {-------------------------------------------------------------------------------
   Select
@@ -98,27 +100,36 @@ selectDecls
             Set.toList rootIds
 
         -- Identifiers of transitive dependencies (without roots).
-        transIds :: Set DeclId
-        transIds = rootAndTransIds \\ rootIds
+        strictTransIds :: Set DeclId
+        strictTransIds = rootAndTransIds \\ rootIds
 
         -- | Identifiers of all selected declarations.
         selectedIds :: Set DeclId
         -- | Identifiers of all selected transitive dependencies.
-        selectedTransIds :: Set DeclId
-        -- | Messages for required but unselected transitive dependencies.
-        unselectedMsgs :: [Msg Select]
-        (selectedIds, selectedTransIds, unselectedMsgs) = case selectConfigProgramSlicing of
-          DisableProgramSlicing ->
-            let msgs = map UnselectedTransitiveDependency $
-                         Set.toList $
-                           -- Only report unselected transitive dependencies
-                           -- that we have parsed successfully. We report
-                           -- unavailable transitive dependencies separately via
-                           -- 'getTransitiveAvailability'.
-                           Set.intersection transIds (Map.keysSet index.succeeded)
-            in  (rootIds        , Set.empty, msgs)
-          EnableProgramSlicing ->
-                (rootAndTransIds, transIds , []  )
+        additionalSelectedTransIds :: Set DeclId
+        (selectedIds, additionalSelectedTransIds) = case selectConfigProgramSlicing of
+          DisableProgramSlicing -> (rootIds        , Set.empty)
+          EnableProgramSlicing  -> (rootAndTransIds, strictTransIds)
+
+        getTransitiveAvailability :: DeclId -> TransitiveAvailability
+        getTransitiveAvailability x = mconcat [
+              availabilityFromSet notAttemptedTransDeps UnavailableParseNotAttempted
+            , availabilityFromSet failedTransDeps       UnavailableParseFailed
+            , availabilityFromSet failedMacrosTransDeps UnavailableHandleMacrosFailed
+            , availabilityFromSet nonselectedTransDeps  UnavailableNotSelected
+            ]
+          where
+            transDeps = UseDeclGraph.getTransitiveDeps useDeclGraph [x]
+            notAttemptedTransDeps = Set.intersection transDeps notAttempted
+            failedTransDeps = Set.intersection transDeps failed
+            failedMacrosTransDeps = Set.intersection transDeps failedMacros
+            nonselectedTransDeps = transDeps \\ selectedIds
+            availabilityFromSet xs r =
+              if Set.null xs then
+                TransitivelyAvailable
+              else
+                TransitivelyUnavailable $
+                  Map.fromList [ (y, r) | y <- Set.toList xs ]
 
         availableDecls :: [Decl]
         availableDecls = map coercePass unit.unitDecls
@@ -133,7 +144,7 @@ selectDecls
           foldDecls
             getTransitiveAvailability
             rootIds
-            selectedTransIds
+            additionalSelectedTransIds
             availableDecls
 
         unitSelect :: C.TranslationUnit Select
@@ -143,93 +154,31 @@ selectDecls
               , C.unitAnn = unit.unitAnn
               }
 
-    in (    unitSelect
-       ,    selectStatusMsgs
-         -- If there were no predicate matches we issue a warning to the user.
-         -- Only warn if there were successfully parsed declarations to select from.
-         ++ unselectedMsgs
-         ++ [ SelectNoDeclarationsMatched
-            | Set.null rootIds
-            , not (Map.null index.succeeded)
-            ]
-         ++ getUnavailableMsgs       unavailableIds
-         ++ getDelayedParseMsgs      selectedIds index
-         ++ getParseNotAttemptedMsgs match index
-         ++ getParseFailureMsgs      match index
-         ++ getMacroFailureMsgs      match index
-       )
+    in  (    unitSelect
+        ,    selectStatusMsgs
+          -- If there were no predicate matches we issue a warning to the user.
+          -- Only warn if there were successfully parsed declarations to select from.
+          ++ [ SelectNoDeclarationsMatched
+             | Set.null rootIds
+             , not (Map.null index.succeeded)
+             ]
+          ++ getUnavailableMsgs       unavailableIds
+          ++ getDelayedParseMsgs      selectedIds index
+          ++ getParseNotAttemptedMsgs match index
+          ++ getParseFailureMsgs      match index
+          ++ getMacroFailureMsgs      match index
+        )
   where
-    getUseSitesTransitively :: Set DeclId -> Set DeclId
-    getUseSitesTransitively =
-      DeclUseGraph.getUseSitesTransitively declUseGraph . Set.toList
-
     notAttempted, failed, failedMacros :: Set DeclId
     notAttempted = Map.keysSet index.notAttempted
     failed       = Map.keysSet index.failed
     failedMacros = Map.keysSet index.failedMacros
-
-    -- | Identifiers of declarations that are unavailable because we did not
-    -- attempt to parse them or because they depend on declarations we did not
-    -- attempt to parse.
-    transitivelyUnavailableIdsNotAttemptedParses :: Set DeclId
-    transitivelyUnavailableIdsNotAttemptedParses =
-      getUseSitesTransitively notAttempted
-
-    -- | Identifiers of declarations that are unavailable because we failed to
-    -- parse them or because they depend on declarations we failed to parse.
-    transitivelyUnavailableIdsFailedParses :: Set DeclId
-    transitivelyUnavailableIdsFailedParses =
-        getUseSitesTransitively failed
-
-    -- | Identifiers of declarations that are unavailable because we failed to
-    -- parse or type-check the macros or because they depend on declarations for
-    -- which we failed to parse or type-check the macros.
-    transitivelyUnavailableIdsFailedMacros :: Set DeclId
-    transitivelyUnavailableIdsFailedMacros =
-        getUseSitesTransitively failedMacros
-
-    getUnavailableTransitiveDeps ::
-      Set DeclId -> Set DeclId -> DeclId -> Set DeclId
-    getUnavailableTransitiveDeps unavailableRoots unavailableTransitiveDependencies declId
-      | Set.member declId unavailableTransitiveDependencies =
-          let dependencies = UseDeclGraph.getTransitiveDeps useDeclGraph [declId]
-          in  dependencies `Set.intersection` unavailableRoots
-      | otherwise = Set.empty
-
-    getTransitiveAvailabilityWith ::
-         Set DeclId -> Set DeclId -> (DeclId -> UnavailabilityReason)
-      -> DeclId -> TransitiveAvailability
-    getTransitiveAvailabilityWith unavailableRoots unavailableTransitiveDependencies reason declId =
-      let roots = getUnavailableTransitiveDeps unavailableRoots unavailableTransitiveDependencies declId
-      in case NonEmpty.nonEmpty $ Set.toList roots of
-        Nothing -> TransitivelyAvailable
-        Just xs -> TransitivelyUnavailable $ fmap reason xs
-
-    getTransitiveAvailability :: DeclId -> TransitiveAvailability
-    getTransitiveAvailability x = sconcat $
-      getNotAttempted x :| [getParseFailed x , getMacroFailed x]
-      where
-        getNotAttempted = getTransitiveAvailabilityWith
-          notAttempted
-          transitivelyUnavailableIdsNotAttemptedParses
-          UnavailableParseNotAttempted
-        getParseFailed = getTransitiveAvailabilityWith
-          failed
-          transitivelyUnavailableIdsFailedParses
-          UnavailableParseFailed
-        getMacroFailed = getTransitiveAvailabilityWith
-          failedMacros
-          transitivelyUnavailableIdsFailedMacros
-          UnavailableHandleMacrosFailed
 
     getUnavailableMsgs :: Set DeclId -> [Msg Select]
     getUnavailableMsgs = map SelectDeclarationUnavailable . Set.toList
 
     index :: DeclIndex
     index = unit.unitAnn.declIndex
-
-    declUseGraph :: DeclUseGraph
-    declUseGraph = unit.unitAnn.declDeclUse
 
     useDeclGraph :: UseDeclGraph
     useDeclGraph = unit.unitAnn.declUseDecl
@@ -315,38 +264,45 @@ data Acc = Acc
 foldDecls ::
     (DeclId -> TransitiveAvailability)
   -> Set DeclId
+  -- | Additionally selected transitive dependencies when program slicing is
+  --   enabled.
   -> Set DeclId
   -> [Decl]
   -> Acc
-foldDecls getTransitiveAvailability rootIds transIds decls =
-    Foldable.foldl' aux (Acc [] (rootIds `Set.union` transIds) []) decls
+foldDecls getTransitiveAvailability rootIds additionalSelectedTransIds decls =
+    Foldable.foldl' aux (Acc [] selectedIds []) decls
   where
+    selectedIds :: Set DeclId
+    selectedIds = rootIds `Set.union` additionalSelectedTransIds
+
     aux :: Acc -> Decl -> Acc
     aux Acc{..} decl =
       let declId    = C.declOrigQualPrelimDeclId decl
           selDecls' = decl : selDecls
           remaining' = Set.delete declId remaining
           -- We check three conditions:
-          isSelectedRoot                 = Set.member declId rootIds
-          isSelectedTransitiveDependency = Set.member declId transIds
-          transitiveAvailability         = getTransitiveAvailability declId
+          isSelectedRoot = Set.member declId rootIds
+          -- These are also always strict transitive dependencies.
+          isAdditionalSelectedTransDep =
+            Set.member declId additionalSelectedTransIds
+          transitiveAvailability = getTransitiveAvailability declId
       in
       case ( isSelectedRoot
-           , isSelectedTransitiveDependency
+           , isAdditionalSelectedTransDep
            , transitiveAvailability ) of
         -- Declaration is a selection root.
         (True, False, TransitivelyAvailable) ->
            Acc selDecls' remaining' (getSelMsgs SelectionRoot decl ++ msgs)
         (True, False, TransitivelyUnavailable rs) ->
           let ms = [ TransitiveDependencyOfDeclarationUnavailable
-                       SelectionRoot r decl | r <- toList rs ]
+                       SelectionRoot r decl | r <- Map.toList rs ]
           in  Acc selDecls remaining' (ms ++ msgs)
-        -- Declaration is a transitive dependency.
+        -- Declaration is an additionally selected transitive dependency.
         (False, True, TransitivelyAvailable) ->
           Acc selDecls' remaining' (getSelMsgs TransitiveDependency decl ++ msgs)
         (False, True, TransitivelyUnavailable rs) ->
           let ms = [ TransitiveDependencyOfDeclarationUnavailable
-                       TransitiveDependency r decl | r <- toList rs ]
+                       TransitiveDependency r decl | r <- Map.toList rs ]
           in  Acc selDecls remaining' (ms ++ msgs)
         -- Declaration is not selected.
         (False, False, _) ->
