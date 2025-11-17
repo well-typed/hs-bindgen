@@ -1,0 +1,89 @@
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "forward_declaration.h:3:8",
+        declId = NamePair {
+          nameC = Name "S1_t",
+          nameHsIdent = Identifier
+            "S1_t"},
+        declOrigin =
+        NameOriginRenamedFrom
+          (Name "S1"),
+        declAliases = [Name "S1_t"],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "declarations/forward_declaration.h"],
+            headerInclude =
+            "declarations/forward_declaration.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "S1_t"),
+          structSizeof = 4,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "forward_declaration.h:4:7",
+                fieldName = NamePair {
+                  nameC = Name "a",
+                  nameHsIdent = Identifier
+                    "s1_t_a"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "forward_declaration.h:9:8",
+        declId = NamePair {
+          nameC = Name "S2",
+          nameHsIdent = Identifier "S2"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "declarations/forward_declaration.h"],
+            headerInclude =
+            "declarations/forward_declaration.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "S2"),
+          structSizeof = 4,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "forward_declaration.h:10:7",
+                fieldName = NamePair {
+                  nameC = Name "a",
+                  nameHsIdent = Identifier
+                    "s2_a"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}}],
+  unitDeps = [
+    "forward_declaration"]}

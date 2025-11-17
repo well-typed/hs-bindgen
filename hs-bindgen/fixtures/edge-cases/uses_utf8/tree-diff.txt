@@ -1,0 +1,54 @@
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "uses_utf8.h:4:6",
+        declId = NamePair {
+          nameC = Name "MyEnum",
+          nameHsIdent = Identifier
+            "MyEnum"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["edge-cases/uses_utf8.h"],
+            headerInclude =
+            "edge-cases/uses_utf8.h"},
+        declComment = Nothing},
+      declKind = DeclEnum
+        Enum {
+          enumNames = NewtypeNames {
+            newtypeConstr = Name
+              "@NsConstr"
+              "MyEnum",
+            newtypeField = Name
+              "@NsVar"
+              "un_MyEnum"},
+          enumType = TypePrim
+            (PrimIntegral PrimInt Unsigned),
+          enumSizeof = 4,
+          enumAlignment = 4,
+          enumConstants = [
+            EnumConstant {
+              enumConstantInfo = FieldInfo {
+                fieldLoc = "uses_utf8.h:5:9",
+                fieldName = NamePair {
+                  nameC = Name "Say\20320\22909",
+                  nameHsIdent = Identifier
+                    "Say\20320\22909"},
+                fieldComment = Nothing},
+              enumConstantValue = 0},
+            EnumConstant {
+              enumConstantInfo = FieldInfo {
+                fieldLoc = "uses_utf8.h:6:9",
+                fieldName = NamePair {
+                  nameC = Name "Say\25308\25308",
+                  nameHsIdent = Identifier
+                    "Say\25308\25308"},
+                fieldComment = Nothing},
+              enumConstantValue = 1}]},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}}],
+  unitDeps = ["uses_utf8"]}

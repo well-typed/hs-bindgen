@@ -1,0 +1,36 @@
+{-# LANGUAGE CApiFFI #-}
+{-# LANGUAGE NoImplicitPrelude #-}
+{-# LANGUAGE TemplateHaskell #-}
+{-# OPTIONS_HADDOCK prune #-}
+
+module Example.Safe where
+
+import qualified Foreign.C as FC
+import qualified HsBindgen.Runtime.Prelude
+import Prelude (IO)
+
+$(HsBindgen.Runtime.Prelude.addCSource (HsBindgen.Runtime.Prelude.unlines
+  [ "#include <edge-cases/asm.h>"
+  , "signed int hs_bindgen_test_edgecasesasm_b15fc0d2b3d7c9a1 ("
+  , "  signed int arg1,"
+  , "  signed int arg2"
+  , ")"
+  , "{"
+  , "  return asm_labeled_function(arg1, arg2);"
+  , "}"
+  ]))
+
+{-| __C declaration:__ @asm_labeled_function@
+
+    __defined at:__ @edge-cases\/asm.h:4:5@
+
+    __exported by:__ @edge-cases\/asm.h@
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesasm_b15fc0d2b3d7c9a1" asm_labeled_function ::
+     FC.CInt
+     {- ^ __C declaration:__ @x@
+     -}
+  -> FC.CInt
+     {- ^ __C declaration:__ @y@
+     -}
+  -> IO FC.CInt

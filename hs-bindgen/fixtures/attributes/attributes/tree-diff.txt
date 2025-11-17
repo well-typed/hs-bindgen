@@ -1,0 +1,281 @@
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "attributes.h:10:36",
+        declId = NamePair {
+          nameC = Name "foo",
+          nameHsIdent = Identifier "Foo"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["attributes/attributes.h"],
+            headerInclude =
+            "attributes/attributes.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "Foo"),
+          structSizeof = 5,
+          structAlignment = 1,
+          structFields = [
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "attributes.h:11:10",
+                fieldName = NamePair {
+                  nameC = Name "c",
+                  nameHsIdent = Identifier
+                    "foo_c"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "attributes.h:12:10",
+                fieldName = NamePair {
+                  nameC = Name "i",
+                  nameHsIdent = Identifier
+                    "foo_i"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 8,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "attributes.h:16:15",
+        declId = NamePair {
+          nameC = Name "bar",
+          nameHsIdent = Identifier "Bar"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["attributes/attributes.h"],
+            headerInclude =
+            "attributes/attributes.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "Bar"),
+          structSizeof = 5,
+          structAlignment = 1,
+          structFields = [
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "attributes.h:17:10",
+                fieldName = NamePair {
+                  nameC = Name "c",
+                  nameHsIdent = Identifier
+                    "bar_c"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "attributes.h:18:10",
+                fieldName = NamePair {
+                  nameC = Name "i",
+                  nameHsIdent = Identifier
+                    "bar_i"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 8,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "attributes.h:22:9",
+        declId = NamePair {
+          nameC = Name "baz",
+          nameHsIdent = Identifier "Baz"},
+        declOrigin = NameOriginGenerated
+          (AnonId "attributes.h:22:9"),
+        declAliases = [Name "baz"],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["attributes/attributes.h"],
+            headerInclude =
+            "attributes/attributes.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "Baz"),
+          structSizeof = 5,
+          structAlignment = 1,
+          structFields = [
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "attributes.h:23:10",
+                fieldName = NamePair {
+                  nameC = Name "c",
+                  nameHsIdent = Identifier
+                    "baz_c"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "attributes.h:24:10",
+                fieldName = NamePair {
+                  nameC = Name "i",
+                  nameHsIdent = Identifier
+                    "baz_i"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 8,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "attributes.h:28:9",
+        declId = NamePair {
+          nameC = Name "qux",
+          nameHsIdent = Identifier "Qux"},
+        declOrigin = NameOriginGenerated
+          (AnonId "attributes.h:28:9"),
+        declAliases = [Name "qux"],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["attributes/attributes.h"],
+            headerInclude =
+            "attributes/attributes.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "Qux"),
+          structSizeof = 5,
+          structAlignment = 1,
+          structFields = [
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "attributes.h:29:10",
+                fieldName = NamePair {
+                  nameC = Name "c",
+                  nameHsIdent = Identifier
+                    "qux_c"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "attributes.h:30:10",
+                fieldName = NamePair {
+                  nameC = Name "i",
+                  nameHsIdent = Identifier
+                    "qux_i"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 8,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "attributes.h:34:16",
+        declId = NamePair {
+          nameC = Name "FILE",
+          nameHsIdent = Identifier
+            "FILE"},
+        declOrigin =
+        NameOriginRenamedFrom
+          (Name "__sFILE"),
+        declAliases = [Name "FILE"],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["attributes/attributes.h"],
+            headerInclude =
+            "attributes/attributes.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "FILE"),
+          structSizeof = 16,
+          structAlignment = 8,
+          structFields = [
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "attributes.h:35:9",
+                fieldName = NamePair {
+                  nameC = Name "_r",
+                  nameHsIdent = Identifier
+                    "fILE__r"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "attributes.h:36:9",
+                fieldName = NamePair {
+                  nameC = Name "_w",
+                  nameHsIdent = Identifier
+                    "fILE__w"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 32,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "attributes.h:37:22",
+                fieldName = NamePair {
+                  nameC = Name "_close",
+                  nameHsIdent = Identifier
+                    "fILE__close"},
+                fieldComment = Nothing},
+              structFieldType = TypePointer
+                (TypeFun
+                  [TypePointer TypeVoid]
+                  (TypePrim
+                    (PrimIntegral PrimInt Signed))),
+              structFieldOffset = 64,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}}],
+  unitDeps = ["attributes"]}

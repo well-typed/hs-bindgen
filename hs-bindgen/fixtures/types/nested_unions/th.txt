@@ -1,0 +1,251 @@
+-- addDependentFile examples/golden/types/nested_unions.h
+{-| __C declaration:__ @unionA@
+
+    __defined at:__ @types\/nested_unions.h:2:15@
+
+    __exported by:__ @types\/nested_unions.h@
+-}
+newtype UnionA
+    = UnionA {un_UnionA :: ByteArray}
+      {- ^ __C declaration:__ @unionA@
+
+           __defined at:__ @types\/nested_unions.h:2:15@
+
+           __exported by:__ @types\/nested_unions.h@
+      -}
+deriving via (SizedByteArray 4 4) instance Storable UnionA
+{-|
+
+  __See:__ 'set_unionA_a'
+
+__C declaration:__ @a@
+
+__defined at:__ @types\/nested_unions.h:3:21@
+
+__exported by:__ @types\/nested_unions.h@
+-}
+get_unionA_a :: UnionA -> CInt
+{-|
+
+  __See:__ 'set_unionA_a'
+
+__C declaration:__ @a@
+
+__defined at:__ @types\/nested_unions.h:3:21@
+
+__exported by:__ @types\/nested_unions.h@
+-}
+get_unionA_a = getUnionPayload
+{-|
+
+  __See:__ 'get_unionA_a'
+
+-}
+set_unionA_a :: CInt -> UnionA
+{-|
+
+  __See:__ 'get_unionA_a'
+
+-}
+set_unionA_a = setUnionPayload
+{-|
+
+  __See:__ 'set_unionA_b'
+
+__C declaration:__ @b@
+
+__defined at:__ @types\/nested_unions.h:4:22@
+
+__exported by:__ @types\/nested_unions.h@
+-}
+get_unionA_b :: UnionA -> CChar
+{-|
+
+  __See:__ 'set_unionA_b'
+
+__C declaration:__ @b@
+
+__defined at:__ @types\/nested_unions.h:4:22@
+
+__exported by:__ @types\/nested_unions.h@
+-}
+get_unionA_b = getUnionPayload
+{-|
+
+  __See:__ 'get_unionA_b'
+
+-}
+set_unionA_b :: CChar -> UnionA
+{-|
+
+  __See:__ 'get_unionA_b'
+
+-}
+set_unionA_b = setUnionPayload
+instance HasCField UnionA "unionA_a"
+    where type CFieldType UnionA "unionA_a" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType UnionA "unionA_a") =>
+         HasField "unionA_a" (Ptr UnionA) (Ptr ty)
+    where getField = ptrToCField (Proxy @"unionA_a")
+instance HasCField UnionA "unionA_b"
+    where type CFieldType UnionA "unionA_b" = CChar
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType UnionA "unionA_b") =>
+         HasField "unionA_b" (Ptr UnionA) (Ptr ty)
+    where getField = ptrToCField (Proxy @"unionA_b")
+{-| __C declaration:__ @exA@
+
+    __defined at:__ @types\/nested_unions.h:1:8@
+
+    __exported by:__ @types\/nested_unions.h@
+-}
+data ExA
+    = ExA {exA_fieldA1 :: UnionA
+           {- ^ __C declaration:__ @fieldA1@
+
+                __defined at:__ @types\/nested_unions.h:5:11@
+
+                __exported by:__ @types\/nested_unions.h@
+           -}}
+      {- ^ __C declaration:__ @exA@
+
+           __defined at:__ @types\/nested_unions.h:1:8@
+
+           __exported by:__ @types\/nested_unions.h@
+      -}
+instance Storable ExA
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure ExA <*> peekCField (Proxy @"exA_fieldA1") ptr_0
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   ExA exA_fieldA1_3 -> pokeCField (Proxy @"exA_fieldA1") ptr_1 exA_fieldA1_3
+instance HasCField ExA "exA_fieldA1"
+    where type CFieldType ExA "exA_fieldA1" = UnionA
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType ExA "exA_fieldA1") =>
+         HasField "exA_fieldA1" (Ptr ExA) (Ptr ty)
+    where getField = ptrToCField (Proxy @"exA_fieldA1")
+{-| __defined at:__ @types\/nested_unions.h:9:9@
+
+    __exported by:__ @types\/nested_unions.h@
+-}
+newtype ExB_fieldB1
+    = ExB_fieldB1 {un_ExB_fieldB1 :: ByteArray}
+      {- ^ __defined at:__ @types\/nested_unions.h:9:9@
+
+           __exported by:__ @types\/nested_unions.h@
+      -}
+deriving via (SizedByteArray 4 4) instance Storable ExB_fieldB1
+{-|
+
+  __See:__ 'set_exB_fieldB1_a'
+
+__C declaration:__ @a@
+
+__defined at:__ @types\/nested_unions.h:10:21@
+
+__exported by:__ @types\/nested_unions.h@
+-}
+get_exB_fieldB1_a :: ExB_fieldB1 -> CInt
+{-|
+
+  __See:__ 'set_exB_fieldB1_a'
+
+__C declaration:__ @a@
+
+__defined at:__ @types\/nested_unions.h:10:21@
+
+__exported by:__ @types\/nested_unions.h@
+-}
+get_exB_fieldB1_a = getUnionPayload
+{-|
+
+  __See:__ 'get_exB_fieldB1_a'
+
+-}
+set_exB_fieldB1_a :: CInt -> ExB_fieldB1
+{-|
+
+  __See:__ 'get_exB_fieldB1_a'
+
+-}
+set_exB_fieldB1_a = setUnionPayload
+{-|
+
+  __See:__ 'set_exB_fieldB1_b'
+
+__C declaration:__ @b@
+
+__defined at:__ @types\/nested_unions.h:11:22@
+
+__exported by:__ @types\/nested_unions.h@
+-}
+get_exB_fieldB1_b :: ExB_fieldB1 -> CChar
+{-|
+
+  __See:__ 'set_exB_fieldB1_b'
+
+__C declaration:__ @b@
+
+__defined at:__ @types\/nested_unions.h:11:22@
+
+__exported by:__ @types\/nested_unions.h@
+-}
+get_exB_fieldB1_b = getUnionPayload
+{-|
+
+  __See:__ 'get_exB_fieldB1_b'
+
+-}
+set_exB_fieldB1_b :: CChar -> ExB_fieldB1
+{-|
+
+  __See:__ 'get_exB_fieldB1_b'
+
+-}
+set_exB_fieldB1_b = setUnionPayload
+instance HasCField ExB_fieldB1 "exB_fieldB1_a"
+    where type CFieldType ExB_fieldB1 "exB_fieldB1_a" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType ExB_fieldB1 "exB_fieldB1_a") =>
+         HasField "exB_fieldB1_a" (Ptr ExB_fieldB1) (Ptr ty)
+    where getField = ptrToCField (Proxy @"exB_fieldB1_a")
+instance HasCField ExB_fieldB1 "exB_fieldB1_b"
+    where type CFieldType ExB_fieldB1 "exB_fieldB1_b" = CChar
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType ExB_fieldB1 "exB_fieldB1_b") =>
+         HasField "exB_fieldB1_b" (Ptr ExB_fieldB1) (Ptr ty)
+    where getField = ptrToCField (Proxy @"exB_fieldB1_b")
+{-| __C declaration:__ @exB@
+
+    __defined at:__ @types\/nested_unions.h:8:8@
+
+    __exported by:__ @types\/nested_unions.h@
+-}
+data ExB
+    = ExB {exB_fieldB1 :: ExB_fieldB1
+           {- ^ __C declaration:__ @fieldB1@
+
+                __defined at:__ @types\/nested_unions.h:12:11@
+
+                __exported by:__ @types\/nested_unions.h@
+           -}}
+      {- ^ __C declaration:__ @exB@
+
+           __defined at:__ @types\/nested_unions.h:8:8@
+
+           __exported by:__ @types\/nested_unions.h@
+      -}
+instance Storable ExB
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure ExB <*> peekCField (Proxy @"exB_fieldB1") ptr_0
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   ExB exB_fieldB1_3 -> pokeCField (Proxy @"exB_fieldB1") ptr_1 exB_fieldB1_3
+instance HasCField ExB "exB_fieldB1"
+    where type CFieldType ExB "exB_fieldB1" = ExB_fieldB1
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType ExB "exB_fieldB1") =>
+         HasField "exB_fieldB1" (Ptr ExB) (Ptr ty)
+    where getField = ptrToCField (Proxy @"exB_fieldB1")

@@ -1,0 +1,78 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: macros/macro_typedef_scope.h
+  cname: T1
+  hsname: T1
+- headers: macros/macro_typedef_scope.h
+  cname: T2
+  hsname: T2
+- headers: macros/macro_typedef_scope.h
+  cname: T3
+  hsname: T3
+- headers: macros/macro_typedef_scope.h
+  cname: T4
+  hsname: T4
+hstypes:
+- hsname: T1
+  instances:
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Read
+  - Real
+  - Show
+  - Storable
+- hsname: T2
+  instances:
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Read
+  - Real
+  - Show
+  - Storable
+- hsname: T3
+  instances:
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Read
+  - Real
+  - Show
+  - Storable
+- hsname: T4
+  instances:
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Read
+  - Real
+  - Show
+  - Storable

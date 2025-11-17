@@ -1,0 +1,545 @@
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "simple_structs.h:2:8",
+        declId = NamePair {
+          nameC = Name "S1",
+          nameHsIdent = Identifier "S1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/simple_structs.h"],
+            headerInclude =
+            "types/simple_structs.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "S1"),
+          structSizeof = 8,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "simple_structs.h:3:9",
+                fieldName = NamePair {
+                  nameC = Name "a",
+                  nameHsIdent = Identifier
+                    "s1_a"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "simple_structs.h:4:10",
+                fieldName = NamePair {
+                  nameC = Name "b",
+                  nameHsIdent = Identifier
+                    "s1_b"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))),
+              structFieldOffset = 32,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "simple_structs.h:8:16",
+        declId = NamePair {
+          nameC = Name "S2_t",
+          nameHsIdent = Identifier
+            "S2_t"},
+        declOrigin =
+        NameOriginRenamedFrom
+          (Name "S2"),
+        declAliases = [Name "S2_t"],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/simple_structs.h"],
+            headerInclude =
+            "types/simple_structs.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "S2_t"),
+          structSizeof = 12,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "simple_structs.h:9:10",
+                fieldName = NamePair {
+                  nameC = Name "a",
+                  nameHsIdent = Identifier
+                    "s2_t_a"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "simple_structs.h:10:9",
+                fieldName = NamePair {
+                  nameC = Name "b",
+                  nameHsIdent = Identifier
+                    "s2_t_b"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 32,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "simple_structs.h:11:11",
+                fieldName = NamePair {
+                  nameC = Name "c",
+                  nameHsIdent = Identifier
+                    "s2_t_c"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimFloating PrimFloat),
+              structFieldOffset = 64,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "simple_structs.h:15:9",
+        declId = NamePair {
+          nameC = Name "S3_t",
+          nameHsIdent = Identifier
+            "S3_t"},
+        declOrigin = NameOriginGenerated
+          (AnonId
+            "simple_structs.h:15:9"),
+        declAliases = [Name "S3_t"],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/simple_structs.h"],
+            headerInclude =
+            "types/simple_structs.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "S3_t"),
+          structSizeof = 1,
+          structAlignment = 1,
+          structFields = [
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "simple_structs.h:16:10",
+                fieldName = NamePair {
+                  nameC = Name "a",
+                  nameHsIdent = Identifier
+                    "s3_t_a"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "simple_structs.h:19:8",
+        declId = NamePair {
+          nameC = Name "S4",
+          nameHsIdent = Identifier "S4"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/simple_structs.h"],
+            headerInclude =
+            "types/simple_structs.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "S4"),
+          structSizeof = 16,
+          structAlignment = 8,
+          structFields = [
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "simple_structs.h:20:10",
+                fieldName = NamePair {
+                  nameC = Name "b",
+                  nameHsIdent = Identifier
+                    "s4_b"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "simple_structs.h:21:9",
+                fieldName = NamePair {
+                  nameC = Name "a",
+                  nameHsIdent = Identifier
+                    "s4_a"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 32,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "simple_structs.h:22:10",
+                fieldName = NamePair {
+                  nameC = Name "c",
+                  nameHsIdent = Identifier
+                    "s4_c"},
+                fieldComment = Nothing},
+              structFieldType = TypePointer
+                (TypePrim
+                  (PrimIntegral PrimInt Signed)),
+              structFieldOffset = 64,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "simple_structs.h:26:16",
+        declId = NamePair {
+          nameC = Name "S5",
+          nameHsIdent = Identifier "S5"},
+        declOrigin = NameOriginInSource,
+        declAliases = [Name "S5"],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/simple_structs.h"],
+            headerInclude =
+            "types/simple_structs.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "S5"),
+          structSizeof = 8,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "simple_structs.h:27:10",
+                fieldName = NamePair {
+                  nameC = Name "a",
+                  nameHsIdent = Identifier
+                    "s5_a"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "simple_structs.h:28:9",
+                fieldName = NamePair {
+                  nameC = Name "b",
+                  nameHsIdent = Identifier
+                    "s5_b"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 32,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "simple_structs.h:31:8",
+        declId = NamePair {
+          nameC = Name "S6",
+          nameHsIdent = Identifier "S6"},
+        declOrigin = NameOriginInSource,
+        declAliases = [Name "S6"],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/simple_structs.h"],
+            headerInclude =
+            "types/simple_structs.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "S6"),
+          structSizeof = 8,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "simple_structs.h:31:18",
+                fieldName = NamePair {
+                  nameC = Name "a",
+                  nameHsIdent = Identifier
+                    "s6_a"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "simple_structs.h:31:25",
+                fieldName = NamePair {
+                  nameC = Name "b",
+                  nameHsIdent = Identifier
+                    "s6_b"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 32,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "simple_structs.h:34:9",
+        declId = NamePair {
+          nameC = Name "S7a_Deref",
+          nameHsIdent = Identifier
+            "S7a_Deref"},
+        declOrigin = NameOriginGenerated
+          (AnonId
+            "simple_structs.h:34:9"),
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/simple_structs.h"],
+            headerInclude =
+            "types/simple_structs.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "S7a_Deref"),
+          structSizeof = 8,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "simple_structs.h:34:23",
+                fieldName = NamePair {
+                  nameC = Name "a",
+                  nameHsIdent = Identifier
+                    "s7a_Deref_a"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "simple_structs.h:34:30",
+                fieldName = NamePair {
+                  nameC = Name "b",
+                  nameHsIdent = Identifier
+                    "s7a_Deref_b"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 32,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "simple_structs.h:34:36",
+        declId = NamePair {
+          nameC = Name "S7a",
+          nameHsIdent = Identifier "S7a"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/simple_structs.h"],
+            headerInclude =
+            "types/simple_structs.h"},
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = Name
+              "@NsConstr"
+              "S7a",
+            newtypeField = Name
+              "@NsVar"
+              "un_S7a"},
+          typedefType = TypePointer
+            (TypeStruct
+              NamePair {
+                nameC = Name "S7a_Deref",
+                nameHsIdent = Identifier
+                  "S7a_Deref"}
+              (NameOriginGenerated
+                (AnonId
+                  "simple_structs.h:34:9")))},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "simple_structs.h:35:9",
+        declId = NamePair {
+          nameC = Name "S7b_Deref",
+          nameHsIdent = Identifier
+            "S7b_Deref"},
+        declOrigin = NameOriginGenerated
+          (AnonId
+            "simple_structs.h:35:9"),
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/simple_structs.h"],
+            headerInclude =
+            "types/simple_structs.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "S7b_Deref"),
+          structSizeof = 8,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "simple_structs.h:35:23",
+                fieldName = NamePair {
+                  nameC = Name "a",
+                  nameHsIdent = Identifier
+                    "s7b_Deref_a"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimChar
+                  (PrimSignImplicit
+                    (Just Signed))),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "simple_structs.h:35:30",
+                fieldName = NamePair {
+                  nameC = Name "b",
+                  nameHsIdent = Identifier
+                    "s7b_Deref_b"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 32,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "simple_structs.h:35:38",
+        declId = NamePair {
+          nameC = Name "S7b",
+          nameHsIdent = Identifier "S7b"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/simple_structs.h"],
+            headerInclude =
+            "types/simple_structs.h"},
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = Name
+              "@NsConstr"
+              "S7b",
+            newtypeField = Name
+              "@NsVar"
+              "un_S7b"},
+          typedefType = TypePointer
+            (TypePointer
+              (TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "S7b_Deref",
+                    nameHsIdent = Identifier
+                      "S7b_Deref"}
+                  (NameOriginGenerated
+                    (AnonId
+                      "simple_structs.h:35:9")))))},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}}],
+  unitDeps = ["simple_structs"]}

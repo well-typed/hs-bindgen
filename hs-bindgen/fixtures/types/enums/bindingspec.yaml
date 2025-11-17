@@ -1,0 +1,96 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: types/enums.h
+  cname: enumA
+  hsname: EnumA
+- headers: types/enums.h
+  cname: enum enumB
+  hsname: EnumB
+- headers: types/enums.h
+  cname: enum enumC
+  hsname: EnumC
+- headers: types/enums.h
+  cname: enum enumD
+  hsname: EnumD_t
+- headers: types/enums.h
+  cname: enum first
+  hsname: First
+- headers: types/enums.h
+  cname: enum nonseq
+  hsname: Nonseq
+- headers: types/enums.h
+  cname: enum packed
+  hsname: Packed
+- headers: types/enums.h
+  cname: enum same
+  hsname: Same
+- headers: types/enums.h
+  cname: enum second
+  hsname: Second
+hstypes:
+- hsname: EnumA
+  instances:
+  - Eq
+  - Ord
+  - Read
+  - Show
+  - Storable
+- hsname: EnumB
+  instances:
+  - Eq
+  - Ord
+  - Read
+  - Show
+  - Storable
+- hsname: EnumC
+  instances:
+  - Eq
+  - Ord
+  - Read
+  - Show
+  - Storable
+- hsname: EnumD_t
+  instances:
+  - Eq
+  - Ord
+  - Read
+  - Show
+  - Storable
+- hsname: First
+  instances:
+  - Eq
+  - Ord
+  - Read
+  - Show
+  - Storable
+- hsname: Nonseq
+  instances:
+  - Eq
+  - Ord
+  - Read
+  - Show
+  - Storable
+- hsname: Packed
+  instances:
+  - Eq
+  - Ord
+  - Read
+  - Show
+  - Storable
+- hsname: Same
+  instances:
+  - Eq
+  - Ord
+  - Read
+  - Show
+  - Storable
+- hsname: Second
+  instances:
+  - Eq
+  - Ord
+  - Read
+  - Show
+  - Storable

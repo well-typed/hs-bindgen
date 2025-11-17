@@ -1,0 +1,470 @@
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "program_slicing_selection.h:7:6",
+        declId = NamePair {
+          nameC = Name
+            "FileOperationStatus",
+          nameHsIdent = Identifier
+            "FileOperationStatus"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "program-analysis/program_slicing_selection.h"],
+            headerInclude =
+            "program-analysis/program_slicing_selection.h"},
+        declComment = Nothing},
+      declKind = DeclEnum
+        Enum {
+          enumNames = NewtypeNames {
+            newtypeConstr = Name
+              "@NsConstr"
+              "FileOperationStatus",
+            newtypeField = Name
+              "@NsVar"
+              "un_FileOperationStatus"},
+          enumType = TypePrim
+            (PrimIntegral PrimInt Signed),
+          enumSizeof = 4,
+          enumAlignment = 4,
+          enumConstants = [
+            EnumConstant {
+              enumConstantInfo = FieldInfo {
+                fieldLoc =
+                "program_slicing_selection.h:8:3",
+                fieldName = NamePair {
+                  nameC = Name "SUCCESS",
+                  nameHsIdent = Identifier
+                    "SUCCESS"},
+                fieldComment = Nothing},
+              enumConstantValue = 0},
+            EnumConstant {
+              enumConstantInfo = FieldInfo {
+                fieldLoc =
+                "program_slicing_selection.h:9:3",
+                fieldName = NamePair {
+                  nameC = Name "NOT_FOUND",
+                  nameHsIdent = Identifier
+                    "NOT_FOUND"},
+                fieldComment = Nothing},
+              enumConstantValue = 2},
+            EnumConstant {
+              enumConstantInfo = FieldInfo {
+                fieldLoc =
+                "program_slicing_selection.h:10:3",
+                fieldName = NamePair {
+                  nameC = Name
+                    "PERMISSION_DENIED",
+                  nameHsIdent = Identifier
+                    "PERMISSION_DENIED"},
+                fieldComment = Nothing},
+              enumConstantValue = 13},
+            EnumConstant {
+              enumConstantInfo = FieldInfo {
+                fieldLoc =
+                "program_slicing_selection.h:11:3",
+                fieldName = NamePair {
+                  nameC = Name "INVALID_ARGUMENT",
+                  nameHsIdent = Identifier
+                    "INVALID_ARGUMENT"},
+                fieldComment = Nothing},
+              enumConstantValue = 22},
+            EnumConstant {
+              enumConstantInfo = FieldInfo {
+                fieldLoc =
+                "program_slicing_selection.h:12:3",
+                fieldName = NamePair {
+                  nameC = Name "OUT_OF_MEMORY",
+                  nameHsIdent = Identifier
+                    "OUT_OF_MEMORY"},
+                fieldComment = Nothing},
+              enumConstantValue = 12},
+            EnumConstant {
+              enumConstantInfo = FieldInfo {
+                fieldLoc =
+                "program_slicing_selection.h:13:3",
+                fieldName = NamePair {
+                  nameC = Name
+                    "CUSTOM_ERROR_OTHER",
+                  nameHsIdent = Identifier
+                    "CUSTOM_ERROR_OTHER"},
+                fieldComment = Nothing},
+              enumConstantValue = `-1`}]},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "program_slicing_selection.h:16:8",
+        declId = NamePair {
+          nameC = Name
+            "FileOperationRecord",
+          nameHsIdent = Identifier
+            "FileOperationRecord"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "program-analysis/program_slicing_selection.h"],
+            headerInclude =
+            "program-analysis/program_slicing_selection.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name
+              "@NsConstr"
+              "FileOperationRecord"),
+          structSizeof = 16,
+          structAlignment = 8,
+          structFields = [
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "program_slicing_selection.h:17:28",
+                fieldName = NamePair {
+                  nameC = Name "status",
+                  nameHsIdent = Identifier
+                    "fileOperationRecord_status"},
+                fieldComment = Nothing},
+              structFieldType = TypeEnum
+                NamePair {
+                  nameC = Name
+                    "FileOperationStatus",
+                  nameHsIdent = Identifier
+                    "FileOperationStatus"}
+                NameOriginInSource,
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "program_slicing_selection.h:18:10",
+                fieldName = NamePair {
+                  nameC = Name "bytes_processed",
+                  nameHsIdent = Identifier
+                    "fileOperationRecord_bytes_processed"},
+                fieldComment = Nothing},
+              structFieldType = TypeExtBinding
+                ResolvedExtBinding {
+                  extCName = QualName {
+                    qualNameName = Name "size_t",
+                    qualNameKind =
+                    NameKindOrdinary},
+                  extHsRef = ExtRef {
+                    extRefModule = ModuleName
+                      "HsBindgen.Runtime.Prelude",
+                    extRefIdentifier = Identifier
+                      "CSize"},
+                  extCSpec = CTypeSpec
+                    (Just (Identifier "CSize")),
+                  extHsSpec = Just
+                    (HsTypeSpec
+                      (Map.fromList
+                        [
+                          _×_
+                            Bits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Bounded
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Enum
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Eq
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            FiniteBits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Integral
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ix
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Num
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ord
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Read
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            ReadRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Real
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Show
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            StaticSize
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Storable
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            WriteRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = [
+                                  ]})]))},
+              structFieldOffset = 64,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "program_slicing_selection.h:21:26",
+        declId = NamePair {
+          nameC = Name "read_file_chunk",
+          nameHsIdent = Identifier
+            "read_file_chunk"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "program-analysis/program_slicing_selection.h"],
+            headerInclude =
+            "program-analysis/program_slicing_selection.h"},
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "file_ptr",
+                  nameHsIdent = Identifier
+                    "file_ptr"})
+              (TypePointer
+                (TypeExtBinding
+                  ResolvedExtBinding {
+                    extCName = QualName {
+                      qualNameName = Name "FILE",
+                      qualNameKind =
+                      NameKindOrdinary},
+                    extHsRef = ExtRef {
+                      extRefModule = ModuleName
+                        "HsBindgen.Runtime.Prelude",
+                      extRefIdentifier = Identifier
+                        "CFile"},
+                    extCSpec = CTypeSpec
+                      (Just (Identifier "CFile")),
+                    extHsSpec = Just
+                      (HsTypeSpec
+                        (Map.fromList []))})),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "buffer",
+                  nameHsIdent = Identifier
+                    "buffer"})
+              (TypePointer TypeVoid),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "bytes_to_read",
+                  nameHsIdent = Identifier
+                    "bytes_to_read"})
+              (TypeExtBinding
+                ResolvedExtBinding {
+                  extCName = QualName {
+                    qualNameName = Name "size_t",
+                    qualNameKind =
+                    NameKindOrdinary},
+                  extHsRef = ExtRef {
+                    extRefModule = ModuleName
+                      "HsBindgen.Runtime.Prelude",
+                    extRefIdentifier = Identifier
+                      "CSize"},
+                  extCSpec = CTypeSpec
+                    (Just (Identifier "CSize")),
+                  extHsSpec = Just
+                    (HsTypeSpec
+                      (Map.fromList
+                        [
+                          _×_
+                            Bits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Bounded
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Enum
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Eq
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            FiniteBits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Integral
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ix
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Num
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ord
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Read
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            ReadRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Real
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Show
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            StaticSize
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Storable
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            WriteRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = [
+                                  ]})]))})],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeEnum
+            NamePair {
+              nameC = Name
+                "FileOperationStatus",
+              nameHsIdent = Identifier
+                "FileOperationStatus"}
+            NameOriginInSource},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}}],
+  unitDeps = [
+    "stdint",
+    "alltypes",
+    "stdint",
+    "stddef",
+    "errno",
+    "features",
+    "time",
+    "stdio",
+    "errno",
+    "program_slicing_selection"]}

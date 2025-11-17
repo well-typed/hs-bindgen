@@ -1,0 +1,439 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: program-analysis/reparse.h
+  cname: A
+  hsname: A
+- headers: program-analysis/reparse.h
+  cname: BOOL
+  hsname: BOOL
+- headers: program-analysis/reparse.h
+  cname: INT
+  hsname: INT
+- headers: program-analysis/reparse.h
+  cname: INTCP
+  hsname: INTCP
+- headers: program-analysis/reparse.h
+  cname: INTP
+  hsname: INTP
+- headers: program-analysis/reparse.h
+  cname: arr_typedef1
+  hsname: Arr_typedef1
+- headers: program-analysis/reparse.h
+  cname: arr_typedef2
+  hsname: Arr_typedef2
+- headers: program-analysis/reparse.h
+  cname: arr_typedef3
+  hsname: Arr_typedef3
+- headers: program-analysis/reparse.h
+  cname: arr_typedef4
+  hsname: Arr_typedef4
+- headers: program-analysis/reparse.h
+  cname: comments2
+  hsname: Comments2
+- headers: program-analysis/reparse.h
+  cname: const_funptr1
+  hsname: Const_funptr1
+- headers: program-analysis/reparse.h
+  cname: const_funptr1_Deref
+  hsname: Const_funptr1_Deref
+- headers: program-analysis/reparse.h
+  cname: const_funptr2
+  hsname: Const_funptr2
+- headers: program-analysis/reparse.h
+  cname: const_funptr2_Deref
+  hsname: Const_funptr2_Deref
+- headers: program-analysis/reparse.h
+  cname: const_funptr3
+  hsname: Const_funptr3
+- headers: program-analysis/reparse.h
+  cname: const_funptr3_Deref
+  hsname: Const_funptr3_Deref
+- headers: program-analysis/reparse.h
+  cname: const_funptr4
+  hsname: Const_funptr4
+- headers: program-analysis/reparse.h
+  cname: const_funptr4_Deref
+  hsname: Const_funptr4_Deref
+- headers: program-analysis/reparse.h
+  cname: const_funptr5
+  hsname: Const_funptr5
+- headers: program-analysis/reparse.h
+  cname: const_funptr5_Deref
+  hsname: Const_funptr5_Deref
+- headers: program-analysis/reparse.h
+  cname: const_funptr6
+  hsname: Const_funptr6
+- headers: program-analysis/reparse.h
+  cname: const_funptr6_Deref
+  hsname: Const_funptr6_Deref
+- headers: program-analysis/reparse.h
+  cname: const_funptr7
+  hsname: Const_funptr7
+- headers: program-analysis/reparse.h
+  cname: const_funptr7_Deref
+  hsname: Const_funptr7_Deref
+- headers: program-analysis/reparse.h
+  cname: const_typedef1
+  hsname: Const_typedef1
+- headers: program-analysis/reparse.h
+  cname: const_typedef2
+  hsname: Const_typedef2
+- headers: program-analysis/reparse.h
+  cname: const_typedef3
+  hsname: Const_typedef3
+- headers: program-analysis/reparse.h
+  cname: const_typedef4
+  hsname: Const_typedef4
+- headers: program-analysis/reparse.h
+  cname: const_typedef5
+  hsname: Const_typedef5
+- headers: program-analysis/reparse.h
+  cname: const_typedef6
+  hsname: Const_typedef6
+- headers: program-analysis/reparse.h
+  cname: const_typedef7
+  hsname: Const_typedef7
+- headers: program-analysis/reparse.h
+  cname: struct example_struct
+  hsname: Example_struct
+- headers: program-analysis/reparse.h
+  cname: struct example_struct_with_const
+  hsname: Example_struct_with_const
+- headers: program-analysis/reparse.h
+  cname: funptr_typedef1
+  hsname: Funptr_typedef1
+- headers: program-analysis/reparse.h
+  cname: funptr_typedef1_Deref
+  hsname: Funptr_typedef1_Deref
+- headers: program-analysis/reparse.h
+  cname: funptr_typedef2
+  hsname: Funptr_typedef2
+- headers: program-analysis/reparse.h
+  cname: funptr_typedef2_Deref
+  hsname: Funptr_typedef2_Deref
+- headers: program-analysis/reparse.h
+  cname: funptr_typedef3
+  hsname: Funptr_typedef3
+- headers: program-analysis/reparse.h
+  cname: funptr_typedef3_Deref
+  hsname: Funptr_typedef3_Deref
+- headers: program-analysis/reparse.h
+  cname: funptr_typedef4
+  hsname: Funptr_typedef4
+- headers: program-analysis/reparse.h
+  cname: funptr_typedef4_Deref
+  hsname: Funptr_typedef4_Deref
+- headers: program-analysis/reparse.h
+  cname: funptr_typedef5
+  hsname: Funptr_typedef5
+- headers: program-analysis/reparse.h
+  cname: funptr_typedef5_Deref
+  hsname: Funptr_typedef5_Deref
+- headers: program-analysis/reparse.h
+  cname: enum some_enum
+  hsname: Some_enum
+- headers: program-analysis/reparse.h
+  cname: struct some_struct
+  hsname: Some_struct
+- headers: program-analysis/reparse.h
+  cname: union some_union
+  hsname: Some_union
+- headers: program-analysis/reparse.h
+  cname: typedef1
+  hsname: Typedef1
+- headers: program-analysis/reparse.h
+  cname: typedef2
+  hsname: Typedef2
+- headers: program-analysis/reparse.h
+  cname: typedef3
+  hsname: Typedef3
+hstypes:
+- hsname: A
+  instances:
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Read
+  - Real
+  - Show
+  - Storable
+- hsname: Arr_typedef1
+  instances:
+  - Eq
+  - Show
+- hsname: Arr_typedef2
+  instances:
+  - Eq
+  - Show
+- hsname: Arr_typedef3
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: Arr_typedef4
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: BOOL
+  instances:
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Read
+  - Real
+  - Show
+  - Storable
+- hsname: Comments2
+  instances:
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Read
+  - Real
+  - Show
+  - Storable
+- hsname: Const_funptr1
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- hsname: Const_funptr1_Deref
+- hsname: Const_funptr2
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- hsname: Const_funptr2_Deref
+- hsname: Const_funptr3
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- hsname: Const_funptr3_Deref
+- hsname: Const_funptr4
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- hsname: Const_funptr4_Deref
+- hsname: Const_funptr5
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- hsname: Const_funptr5_Deref
+- hsname: Const_funptr6
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- hsname: Const_funptr6_Deref
+- hsname: Const_funptr7
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- hsname: Const_funptr7_Deref
+- hsname: Const_typedef1
+  instances:
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Read
+  - Real
+  - Show
+  - Storable
+- hsname: Const_typedef2
+  instances:
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Read
+  - Real
+  - Show
+  - Storable
+- hsname: Const_typedef3
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- hsname: Const_typedef4
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- hsname: Const_typedef5
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- hsname: Const_typedef6
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- hsname: Const_typedef7
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- hsname: Example_struct
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: Example_struct_with_const
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: Funptr_typedef1
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- hsname: Funptr_typedef1_Deref
+- hsname: Funptr_typedef2
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- hsname: Funptr_typedef2_Deref
+- hsname: Funptr_typedef3
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- hsname: Funptr_typedef3_Deref
+- hsname: Funptr_typedef4
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- hsname: Funptr_typedef4_Deref
+- hsname: Funptr_typedef5
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- hsname: Funptr_typedef5_Deref
+- hsname: INT
+  instances:
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Read
+  - Real
+  - Show
+  - Storable
+- hsname: INTCP
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- hsname: INTP
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- hsname: Some_enum
+  instances:
+  - Eq
+  - Ord
+  - Read
+  - Show
+  - Storable
+- hsname: Some_struct
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: Some_union
+  instances:
+  - Storable
+- hsname: Typedef1
+  instances:
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Read
+  - Real
+  - Show
+  - Storable
+- hsname: Typedef2
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- hsname: Typedef3
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable

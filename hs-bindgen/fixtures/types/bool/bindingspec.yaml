@@ -1,0 +1,48 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: types/bool.h
+  cname: BOOL
+  hsname: BOOL
+- headers: types/bool.h
+  cname: struct bools1
+  hsname: Bools1
+- headers: types/bool.h
+  cname: struct bools2
+  hsname: Bools2
+- headers: types/bool.h
+  cname: struct bools3
+  hsname: Bools3
+hstypes:
+- hsname: BOOL
+  instances:
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Read
+  - Real
+  - Show
+  - Storable
+- hsname: Bools1
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: Bools2
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: Bools3
+  instances:
+  - Eq
+  - Show
+  - Storable

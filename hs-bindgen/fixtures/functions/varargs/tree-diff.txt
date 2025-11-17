@@ -1,0 +1,31 @@
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "varargs.h:8:6",
+        declId = NamePair {
+          nameC = Name "h",
+          nameHsIdent = Identifier "h"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["functions/varargs.h"],
+            headerInclude =
+            "functions/varargs.h"},
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}}],
+  unitDeps = [
+    "alltypes",
+    "stdarg",
+    "varargs"]}

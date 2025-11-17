@@ -31,7 +31,7 @@ tests testResources = testGroup "Integration.ExitCode" [
 --
 testSuccessCase :: IO TestResources -> TestTree
 testSuccessCase testResources = testCase "success does not throw" $ do
-  let test = defaultTest "simple_func"
+  let test = defaultTest "functions/simple_func"
       artefacts = FinalDecls :* Nil
       noReport = const $ pure ()
 
@@ -79,7 +79,7 @@ testSuccessCaseProcess :: IO TestResources -> TestTree
 testSuccessCaseProcess testResources = testCase "success returns exit code 0" $ do
   withSystemTempDirectory "hs-bindgen-test" $ \tmpDir -> do
     root <- getTestPackageRoot testResources
-    let headerPath = root </> "examples/golden/simple_func.h"
+    let headerPath = root </> "examples/golden/functions/simple_func.h"
     (exitCode, _, _) <- readProcessWithExitCode "hs-bindgen-cli"
                                                [ "preprocess"
                                                , "--hs-output-dir"

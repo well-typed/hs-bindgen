@@ -1,0 +1,67 @@
+-- addDependentFile examples/golden/declarations/forward_declaration.h
+{-| __C declaration:__ @S1_t@
+
+    __defined at:__ @declarations\/forward_declaration.h:3:8@
+
+    __exported by:__ @declarations\/forward_declaration.h@
+-}
+data S1_t
+    = S1_t {s1_t_a :: CInt
+            {- ^ __C declaration:__ @a@
+
+                 __defined at:__ @declarations\/forward_declaration.h:4:7@
+
+                 __exported by:__ @declarations\/forward_declaration.h@
+            -}}
+      {- ^ __C declaration:__ @S1_t@
+
+           __defined at:__ @declarations\/forward_declaration.h:3:8@
+
+           __exported by:__ @declarations\/forward_declaration.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable S1_t
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure S1_t <*> peekCField (Proxy @"s1_t_a") ptr_0
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   S1_t s1_t_a_3 -> pokeCField (Proxy @"s1_t_a") ptr_1 s1_t_a_3
+instance HasCField S1_t "s1_t_a"
+    where type CFieldType S1_t "s1_t_a" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType S1_t "s1_t_a") =>
+         HasField "s1_t_a" (Ptr S1_t) (Ptr ty)
+    where getField = ptrToCField (Proxy @"s1_t_a")
+{-| __C declaration:__ @S2@
+
+    __defined at:__ @declarations\/forward_declaration.h:9:8@
+
+    __exported by:__ @declarations\/forward_declaration.h@
+-}
+data S2
+    = S2 {s2_a :: CInt
+          {- ^ __C declaration:__ @a@
+
+               __defined at:__ @declarations\/forward_declaration.h:10:7@
+
+               __exported by:__ @declarations\/forward_declaration.h@
+          -}}
+      {- ^ __C declaration:__ @S2@
+
+           __defined at:__ @declarations\/forward_declaration.h:9:8@
+
+           __exported by:__ @declarations\/forward_declaration.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable S2
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure S2 <*> peekCField (Proxy @"s2_a") ptr_0
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   S2 s2_a_3 -> pokeCField (Proxy @"s2_a") ptr_1 s2_a_3
+instance HasCField S2 "s2_a"
+    where type CFieldType S2 "s2_a" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType S2 "s2_a") =>
+         HasField "s2_a" (Ptr S2) (Ptr ty)
+    where getField = ptrToCField (Proxy @"s2_a")

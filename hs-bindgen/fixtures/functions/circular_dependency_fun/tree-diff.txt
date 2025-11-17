@@ -1,0 +1,168 @@
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "circular_dependency_fun.h:3:16",
+        declId = NamePair {
+          nameC = Name "fun_ptr_Deref",
+          nameHsIdent = Identifier
+            "Fun_ptr_Deref"},
+        declOrigin = NameOriginGenerated
+          (AnonId
+            "circular_dependency_fun.h:3:16"),
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "functions/circular_dependency_fun.h"],
+            headerInclude =
+            "functions/circular_dependency_fun.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "Auxiliary type used by ",
+                  InlineRefCommand
+                    (ById
+                      NamePair {
+                        nameC = Name "fun_ptr",
+                        nameHsIdent = Identifier
+                          "Fun_ptr"})]])},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = Name
+              "@NsConstr"
+              "Fun_ptr_Deref",
+            newtypeField = Name
+              "@NsVar"
+              "un_Fun_ptr_Deref"},
+          typedefType = TypeFun
+            [
+              TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name
+                      "forward_declaration",
+                    nameHsIdent = Identifier
+                      "Forward_declaration"}
+                  NameOriginInSource)]
+            TypeVoid},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "circular_dependency_fun.h:3:16",
+        declId = NamePair {
+          nameC = Name "fun_ptr",
+          nameHsIdent = Identifier
+            "Fun_ptr"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "functions/circular_dependency_fun.h"],
+            headerInclude =
+            "functions/circular_dependency_fun.h"},
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = Name
+              "@NsConstr"
+              "Fun_ptr",
+            newtypeField = Name
+              "@NsVar"
+              "un_Fun_ptr"},
+          typedefType = TypePointer
+            (TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = Name "fun_ptr_Deref",
+                  nameHsIdent = Identifier
+                    "Fun_ptr_Deref"}
+                (TypeFun
+                  [
+                    TypePointer
+                      (TypeStruct
+                        NamePair {
+                          nameC = Name
+                            "forward_declaration",
+                          nameHsIdent = Identifier
+                            "Forward_declaration"}
+                        NameOriginInSource)]
+                  TypeVoid)))},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "circular_dependency_fun.h:5:8",
+        declId = NamePair {
+          nameC = Name
+            "forward_declaration",
+          nameHsIdent = Identifier
+            "Forward_declaration"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "functions/circular_dependency_fun.h"],
+            headerInclude =
+            "functions/circular_dependency_fun.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name
+              "@NsConstr"
+              "Forward_declaration"),
+          structSizeof = 8,
+          structAlignment = 8,
+          structFields = [
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "circular_dependency_fun.h:6:11",
+                fieldName = NamePair {
+                  nameC = Name "f",
+                  nameHsIdent = Identifier
+                    "forward_declaration_f"},
+                fieldComment = Nothing},
+              structFieldType = TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "fun_ptr",
+                    nameHsIdent = Identifier
+                      "Fun_ptr"}
+                  (TypePointer
+                    (TypeFun
+                      [
+                        TypePointer
+                          (TypeStruct
+                            NamePair {
+                              nameC = Name
+                                "forward_declaration",
+                              nameHsIdent = Identifier
+                                "Forward_declaration"}
+                            NameOriginInSource)]
+                      TypeVoid))),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}}],
+  unitDeps = [
+    "circular_dependency_fun"]}

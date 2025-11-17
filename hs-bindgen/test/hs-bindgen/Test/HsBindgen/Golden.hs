@@ -82,59 +82,59 @@ testCases = manualTestCases ++ [
       -- Standard test cases
       --
 
-      defaultTest "adios"
-    , defaultTest "anonymous"
-    , defaultTest "bitfields"
-    , defaultTest "bool"
-    , defaultTest "circular_dependency_fun"
-    , defaultTest "circular_dependency_struct"
-    , defaultTest "data_kind_pragma"
-    , defaultTest "declarations_required_for_scoping"
-    , defaultTest "callbacks"
-    , defaultTest "distilled_lib_1"
-    , defaultTest "enum_cpp_syntax"
-    , defaultTest "enums"
-    , defaultTest "fixedwidth"
-    , defaultTest "flam"
-    , defaultTest "forward_declaration"
-    , (defaultTest "headers") {
+      defaultTest "declarations/declarations_required_for_scoping"
+    , defaultTest "declarations/forward_declaration"
+    , defaultTest "declarations/opaque_declaration"
+    , defaultTest "declarations/redeclaration_identical"
+    , defaultTest "documentation/data_kind_pragma"
+    , defaultTest "edge-cases/adios"
+    , defaultTest "edge-cases/distilled_lib_1"
+    , defaultTest "edge-cases/flam"
+    , (defaultTest "edge-cases/headers") {
           testTracePredicate = singleTracePredicate $ \case
             TraceFrontend (FrontendSelect SelectNoDeclarationsMatched) ->
               Just (Expected ())
             _otherwise -> Nothing
         }
-    , defaultTest "hsb_complex_test"
-    , defaultTest "macro_functions"
-    , defaultTest "macro_typedef_scope"
-    , defaultTest "macro_typedef_struct"
-    , defaultTest "macro_types"
-    , defaultTest "macros"
-    , defaultTest "names"
-    , defaultTest "nested_enums"
-    , defaultTest "nested_types"
-    , defaultTest "nested_unions"
-    , defaultTest "opaque_declaration"
-    , defaultTest "primitive_types"
-    , defaultTest "recursive_struct"
-    , defaultTest "redeclaration_identical"
-    , defaultTest "simple_func"
-    , defaultTest "simple_structs"
-    , defaultTest "spec_examples"
-    , defaultTest "struct_arg"
-    , defaultTest "type_qualifiers"
-    , defaultTest "typedef_vs_macro"
-    , defaultTest "typenames"
-    , defaultTest "unions"
-    , defaultTest "uses_utf8"
-    , defaultTest "vector_test"
+    , defaultTest "edge-cases/names"
+    , defaultTest "edge-cases/spec_examples"
+    , defaultTest "edge-cases/uses_utf8"
+    , defaultTest "functions/callbacks"
+    , defaultTest "functions/circular_dependency_fun"
+    , defaultTest "functions/simple_func"
+    , defaultTest "macros/macro_functions"
+    , defaultTest "macros/macros"
+    , defaultTest "macros/macro_typedef_scope"
+    , defaultTest "macros/macro_typedef_struct"
+    , defaultTest "macros/macro_types"
+    , defaultTest "types/anonymous"
+    , defaultTest "types/bitfields"
+    , defaultTest "types/bool"
+    , defaultTest "types/circular_dependency_struct"
+    , defaultTest "types/enum_cpp_syntax"
+    , defaultTest "types/enums"
+    , defaultTest "types/fixedwidth"
+    , defaultTest "types/hsb_complex_test"
+    , defaultTest "types/nested_enums"
+    , defaultTest "types/nested_types"
+    , defaultTest "types/nested_unions"
+    , defaultTest "types/primitive_types"
+    , defaultTest "types/recursive_struct"
+    , defaultTest "types/simple_structs"
+    , defaultTest "types/struct_arg"
+    , defaultTest "types/typedef_vs_macro"
+    , defaultTest "types/typenames"
+    , defaultTest "types/type_qualifiers"
+    , defaultTest "types/unions"
+    , defaultTest "types/vector_test"
 
       --
       -- Clang diagnostics
       --
 
-    , testDiagnostic "attributes" $ \diag ->
+    , testDiagnostic "attributes/attributes" $ \diag ->
         diagnosticCategoryText diag == "Nullability Issue"
-    , testTraceSimple "unnamed-struct" $ \case
+    , testTraceSimple "types/unnamed-struct" $ \case
         TraceFrontend (FrontendClang (ClangDiagnostic diag))
           | diagnosticCategoryText diag == "Semantic Issue" ->
             Just $ Expected ()
@@ -146,7 +146,7 @@ testCases = manualTestCases ++ [
       -- Tests that require a trace predicate
       --
 
-    , testTraceCustom "decls_in_signature" ["f3", "f4", "f5"] $ \case
+    , testTraceCustom "functions/decls_in_signature" ["f3", "f4", "f5"] $ \case
         TraceFrontend (FrontendSelect (SelectParseFailure (ParseFailure
           (AttachedParseMsg i _ _ ParseUnexpectedAnonInSignature)))) ->
           Just $ expectFromQualPrelimDeclId i
@@ -154,7 +154,7 @@ testCases = manualTestCases ++ [
           Just Tolerated
         _otherwise ->
           Nothing
-    , testTraceCustom "definitions" ["foo", "n"] $ \case
+    , testTraceCustom "declarations/definitions" ["foo", "n"] $ \case
         TraceFrontend (FrontendSelect (SelectParseSuccess
           (AttachedParseMsg i _ _ (ParsePotentialDuplicateSymbol{})))) ->
           Just $ expectFromQualPrelimDeclId i
@@ -168,19 +168,19 @@ testCases = manualTestCases ++ [
             , "quux"
             , "wam"
             ]
-      in testTraceCustom "macro_in_fundecl" declsWithMsgs $ \case
+      in testTraceCustom "macros/macro_in_fundecl" declsWithMsgs $ \case
         TraceFrontend (FrontendSelect (SelectParseSuccess
           (AttachedParseMsg i _ _ ParsePotentialDuplicateSymbol{}))) ->
           Just $ expectFromQualPrelimDeclId i
         _otherwise ->
           Nothing
-    , testTraceCustom "macro_in_fundecl_vs_typedef" ["quux1", "quux2", "wam1", "wam2"] $ \case
+    , testTraceCustom "macros/macro_in_fundecl_vs_typedef" ["quux1", "quux2", "wam1", "wam2"] $ \case
         TraceFrontend (FrontendSelect (SelectParseSuccess
           (AttachedParseMsg i _ _ ParsePotentialDuplicateSymbol{}))) ->
           Just $ expectFromQualPrelimDeclId i
         _otherwise ->
           Nothing
-    , testTraceCustom "redeclaration" ["x", "n"] $ \case
+    , testTraceCustom "declarations/redeclaration" ["x", "n"] $ \case
         TraceFrontend (FrontendSelect (SelectParseSuccess
           (AttachedParseMsg i _ _ ParsePotentialDuplicateSymbol{}))) ->
           Just $ expectFromQualPrelimDeclId i
@@ -196,18 +196,18 @@ testCases = manualTestCases ++ [
               , C.QualPrelimDeclIdNamed "stdout" C.NameKindOrdinary
               , C.QualPrelimDeclIdNamed "stderr" C.NameKindOrdinary
               ]
-      in testTraceCustom "macro_redefines_global" declsWithMsgs $ \case
+      in testTraceCustom "macros/macro_redefines_global" declsWithMsgs $ \case
         TraceFrontend (FrontendConstructTranslationUnit (ConstructTranslationUnitErrorDeclIndex (Redeclaration {redeclarationId = x}))) ->
           Just $ Expected x
         _otherwise ->
           Nothing
-    , testTraceCustom "skip_over_long_double" ["fun1", "struct1"] $ \case
+    , testTraceCustom "types/skip_over_long_double" ["fun1", "struct1"] $ \case
         TraceFrontend (FrontendSelect (SelectParseFailure (ParseFailure
           (AttachedParseMsg i _ _ (ParseUnsupportedType UnsupportedLongDouble))))) ->
           Just $ expectFromQualPrelimDeclId i
         _otherwise ->
           Nothing
-    , testTraceCustom "tentative_definitions" ["i1", "i2", "i3", "i3"] $ \case
+    , testTraceCustom "declarations/tentative_definitions" ["i1", "i2", "i3", "i3"] $ \case
         TraceFrontend (FrontendSelect (SelectParseSuccess
           (AttachedParseMsg i _ _ ParsePotentialDuplicateSymbol{}))) ->
           Just $ expectFromQualPrelimDeclId i
@@ -242,20 +242,20 @@ testCases = manualTestCases ++ [
               , Labelled "Renamed"  "struct12"
               , Labelled "Squashed" "struct12_t"
               ]
-      in testTraceCustom "typedef_analysis" declsWithMsgs $ \case
+      in testTraceCustom "types/typedef_analysis" declsWithMsgs $ \case
         TraceFrontend (FrontendHandleTypedefs (HandleTypedefsSquashed info)) ->
           Just $ Expected $ Labelled "Squashed" $ C.declIdName (C.declId info)
         TraceFrontend (FrontendHandleTypedefs (HandleTypedefsRenamedTagged info _to)) ->
           Just $ Expected $ Labelled "Renamed"  $ C.declIdName (C.declId info)
         _otherwise ->
           Nothing
-    , testTraceCustom "typedefs" ["foo"] $ \case
+    , testTraceCustom "types/typedefs" ["foo"] $ \case
         TraceFrontend (FrontendSelect (SelectParseFailure (ParseFailure
           (AttachedParseMsg i _ _ ParseFunctionOfTypeTypedef)))) ->
           Just $ expectFromQualPrelimDeclId i
         _otherwise ->
           Nothing
-    , testTraceCustom "varargs" ["f", "g"] $ \case
+    , testTraceCustom "functions/varargs" ["f", "g"] $ \case
         TraceFrontend (FrontendSelect (SelectParseFailure (ParseFailure
           (AttachedParseMsg i _ _
           (ParseUnsupportedType UnsupportedVariadicFunction))))) ->
@@ -283,7 +283,7 @@ testCases = manualTestCases ++ [
             , "i20", "i21", "i22", "i23", "i24"
             , "i25", "i26", "i27", "i28", "i29"
             ]
-      in (defaultTest "visibility_attributes") {
+      in (defaultTest "attributes/visibility_attributes") {
           testOnFrontendConfig = \cfg -> cfg{
               frontendSelectPredicate =
                 BAnd
@@ -310,30 +310,30 @@ testCases = manualTestCases ++ [
       -- Failing tests
       --
 
-    , failingTestSimple "long_double" $ \case
+    , failingTestSimple "types/failing/long_double" $ \case
         TraceFrontend (FrontendSelect (SelectParseFailure (ParseFailure
           (AttachedParseMsg _ _ _ (ParseUnsupportedType UnsupportedLongDouble))))) ->
           Just $ Expected ()
         _otherwise ->
           Nothing
-    , failingTestSimple "implicit_fields_struct" $ \case
+    , failingTestSimple "types/failing/implicit_fields_struct" $ \case
         TraceFrontend (FrontendSelect (SelectParseFailure (ParseFailure
           (AttachedParseMsg _ _ _ ParseUnsupportedImplicitFields)))) ->
           Just $ Expected ()
         _otherwise ->
           Nothing
-    , failingTestSimple "implicit_fields_union" $ \case
+    , failingTestSimple "types/failing/implicit_fields_union" $ \case
         TraceFrontend (FrontendSelect (SelectParseFailure (ParseFailure
           (AttachedParseMsg _ _ _ ParseUnsupportedImplicitFields)))) ->
           Just $ Expected ()
         _otherwise ->
           Nothing
-    , failingTestCustom "declaration_unselected_b" ["select" :: String] $ \case
+    , failingTestCustom "declarations/failing/declaration_unselected_b" ["select" :: String] $ \case
         (TraceFrontend (FrontendSelect (TransitiveDependencyOfDeclarationUnavailable _ (_, UnavailableNotSelected) _))) ->
           Just $ Expected "select"
         _otherwise ->
           Nothing
-    , failingTestSimple "redeclaration_different" $ \case
+    , failingTestSimple "declarations/failing/redeclaration_different" $ \case
         TraceFrontend (FrontendConstructTranslationUnit (ConstructTranslationUnitErrorDeclIndex (Redeclaration {}))) ->
           Just (Expected ())
         TraceFrontend (FrontendClang (ClangDiagnostic x)) ->
@@ -344,7 +344,7 @@ testCases = manualTestCases ++ [
           Just Tolerated
         _otherwise ->
           Nothing
-    , failingTestCustom "tentative_definitions_linkage" [(), ()] $ \case
+    , failingTestCustom "declarations/failing/tentative_definitions_linkage" [(), ()] $ \case
         TraceFrontend (FrontendClang (ClangDiagnostic x)) ->
           if "non-static declaration of" `Text.isInfixOf` diagnosticSpelling x
             then Just (Expected ())
@@ -353,7 +353,7 @@ testCases = manualTestCases ++ [
           Just Tolerated
         _otherwise ->
           Nothing
-    , failingTestSimple "unsupported_builtin" $ \case
+    , failingTestSimple "edge-cases/failing/unsupported_builtin" $ \case
         TraceFrontend (FrontendSelect (SelectParseFailure (ParseFailure
           (AttachedParseMsg _ _ _
           (ParseUnsupportedType (UnsupportedBuiltin "__builtin_va_list")))))) ->
@@ -362,7 +362,7 @@ testCases = manualTestCases ++ [
           Nothing
 
       -- Arrays
-    , failingTestSimple "array_res_1" $ \case
+    , failingTestSimple "arrays/failing/array_res_1" $ \case
         TraceFrontend (FrontendClang (ClangDiagnostic x)) ->
           if "function cannot return array type" `Text.isInfixOf` diagnosticSpelling x
             then Just (Expected ())
@@ -373,7 +373,7 @@ testCases = manualTestCases ++ [
           Just Tolerated
         _otherwise ->
           Nothing
-    , failingTestSimple "array_res_2" $ \case
+    , failingTestSimple "arrays/failing/array_res_2" $ \case
         TraceFrontend (FrontendClang (ClangDiagnostic x)) ->
           if "function cannot return array type" `Text.isInfixOf` diagnosticSpelling x
             then Just (Expected ())
@@ -384,7 +384,7 @@ testCases = manualTestCases ++ [
           Just Tolerated
         _otherwise ->
           Nothing
-    , failingTestSimple "array_res_3" $ \case
+    , failingTestSimple "arrays/failing/array_res_3" $ \case
         TraceFrontend (FrontendClang (ClangDiagnostic x)) ->
           if "function cannot return array type" `Text.isInfixOf` diagnosticSpelling x
             then Just (Expected ())
@@ -395,7 +395,7 @@ testCases = manualTestCases ++ [
           Just Tolerated
         _otherwise ->
           Nothing
-    , failingTestSimple "array_res_4" $ \case
+    , failingTestSimple "arrays/failing/array_res_4" $ \case
         TraceFrontend (FrontendClang (ClangDiagnostic x)) ->
           if "function cannot return array type" `Text.isInfixOf` diagnosticSpelling x
             then Just (Expected ())
@@ -406,7 +406,7 @@ testCases = manualTestCases ++ [
           Just Tolerated
         _otherwise ->
           Nothing
-    , failingTestSimple "array_res_5" $ \case
+    , failingTestSimple "arrays/failing/array_res_5" $ \case
         TraceFrontend (FrontendClang (ClangDiagnostic x)) ->
           if "function cannot return array type" `Text.isInfixOf` diagnosticSpelling x
             then Just (Expected ())
@@ -417,7 +417,7 @@ testCases = manualTestCases ++ [
           Just Tolerated
         _otherwise ->
           Nothing
-    , failingTestSimple "array_res_6" $ \case
+    , failingTestSimple "arrays/failing/array_res_6" $ \case
         TraceFrontend (FrontendClang (ClangDiagnostic x)) ->
           if "function cannot return array type" `Text.isInfixOf` diagnosticSpelling x
             then Just (Expected ())
@@ -428,7 +428,7 @@ testCases = manualTestCases ++ [
           Just Tolerated
         _otherwise ->
           Nothing
-    , failingTestSimple "array_res_7" $ \case
+    , failingTestSimple "arrays/failing/array_res_7" $ \case
         TraceFrontend (FrontendClang (ClangDiagnostic x)) ->
           if "function cannot return array type" `Text.isInfixOf` diagnosticSpelling x
             then Just (Expected ())
@@ -439,7 +439,7 @@ testCases = manualTestCases ++ [
           Just Tolerated
         _otherwise ->
           Nothing
-    , failingTestSimple "array_res_8" $ \case
+    , failingTestSimple "arrays/failing/array_res_8" $ \case
         TraceFrontend (FrontendClang (ClangDiagnostic x)) ->
           if "function cannot return array type" `Text.isInfixOf` diagnosticSpelling x
             then Just (Expected ())
@@ -466,7 +466,7 @@ testCases = manualTestCases ++ [
             , "arr5"
             , "arr8"
             ]
-      in (defaultTest "array") {
+      in (defaultTest "arrays/array") {
           testClangVersion = Just (>= (19, 0, 0))
         , testTracePredicate = customTracePredicate' declsWithWarnings $ \case
             TraceFrontend (FrontendSelect (SelectParseSuccess
@@ -483,7 +483,7 @@ testCases = manualTestCases ++ [
             _otherwise ->
                Nothing
         }
-    , (defaultTest "delay_traces") {
+    , (defaultTest "program-analysis/delay_traces") {
           testOnFrontendConfig = \cfg -> cfg{
               frontendSelectPredicate =
                 BOr
@@ -508,27 +508,27 @@ testCases = manualTestCases ++ [
             _otherwise ->
                Nothing
         }
-    , (defaultTest "asm") {
+    , (defaultTest "edge-cases/asm") {
           testOnBootConfig = \cfg -> cfg {
               bootClangArgsConfig = (bootClangArgsConfig cfg) {
                   gnu = EnableGnu
                 }
             }
         }
-    , (defaultTest "binding_spec_simple"){
-          testPrescriptiveBindingSpec = Just "examples/golden/binding_spec_simple.yaml"
+    , (defaultTest "binding-specs/binding_spec_simple"){
+          testPrescriptiveBindingSpec = Just "examples/golden/binding-specs/binding_spec_simple.yaml"
         }
       -- Rust bindgen does not support non-float complex types.
-    , (defaultTest "complex_non_float_test") {
+    , (defaultTest "types/complex_non_float_test") {
           testRustBindgen = RustBindgenIgnore
       }
-    , (defaultTest "doxygen_docs") {
+    , (defaultTest "documentation/doxygen_docs") {
           testClangVersion = Just (>= (19, 0, 0))
         }
-    , (defaultTest "bool_c23") {
+    , (defaultTest "types/bool_c23") {
           testClangVersion = Just (>= (15, 0, 0))
         }
-    , (defaultTest "fun_attributes") {
+    , (defaultTest "functions/fun_attributes") {
           testClangVersion = Just (>= (15, 0, 0))
         , testTracePredicate = customTracePredicate' [
                 "my_printf"
@@ -555,7 +555,7 @@ testCases = manualTestCases ++ [
               Nothing
         , testRustBindgen = RustBindgenFail
         }
-    , (defaultTest "fun_attributes_conflict") {
+    , (defaultTest "functions/fun_attributes_conflict") {
           testTracePredicate = customTracePredicate [] $ \case
             TraceFrontend (FrontendClang (ClangDiagnostic Diagnostic {diagnosticOption = Just "-Wno-ignored-attributes"})) ->
               Just Tolerated
@@ -586,7 +586,7 @@ testCases = manualTestCases ++ [
                 -- Duplicate symbols
               , "classless"
               ]
-      in (defaultTest "globals") {
+      in (defaultTest "globals/globals") {
           -- Getting different output from (the same version of) rust-bindgen
           -- for this test on CI than locally. Unsure why, compiled against
           -- different llvm version? For now we just disable it.
@@ -601,7 +601,7 @@ testCases = manualTestCases ++ [
             _otherwise ->
               Nothing
         }
-    , (defaultTest "iterator") {
+    , (defaultTest "edge-cases/iterator") {
           testClangVersion     = Just (>= (15, 0, 0))
         , testOnBootConfig = \cfg -> cfg{
               bootClangArgsConfig = (bootClangArgsConfig cfg) {
@@ -609,13 +609,13 @@ testCases = manualTestCases ++ [
                 }
             }
         }
-    , (defaultTest "macro_strings"){
+    , (defaultTest "macros/macro_strings") {
           testRustBindgen = RustBindgenFail
         }
-    , (defaultTest "named_vs_anon"){
+    , (defaultTest "types/named_vs_anon"){
           testClangVersion = Just (>= (19, 1, 0))
         }
-    , (defaultTest "program_slicing_simple"){
+    , (defaultTest "program-analysis/program_slicing_simple"){
           -- Check that program slicing generates bindings for uint32_t and
           -- uint64_t if we only provide external binding specifications for
           -- uint64_t.
@@ -625,7 +625,7 @@ testCases = manualTestCases ++ [
             , frontendProgramSlicing  = EnableProgramSlicing
             }
         , testStdlibSpec = BindingSpec.DisableStdlibBindingSpec
-        , testExtBindingSpecs = [ "examples/golden/program_slicing_simple.yaml" ]
+        , testExtBindingSpecs = [ "examples/golden/program-analysis/program_slicing_simple.yaml" ]
         , testTracePredicate = customTracePredicate [
               "selected foo"
             , "selected uint32_t"
@@ -637,7 +637,7 @@ testCases = manualTestCases ++ [
             _otherwise ->
               Nothing
         }
-    , testTraceCustom "selection_fail" [
+    , testTraceCustom "program-analysis/selection_fail" [
           "Fail"
         , "DependOnFailByValue"
         , "DependOnFailByReference"
@@ -650,7 +650,7 @@ testCases = manualTestCases ++ [
           TraceFrontend (FrontendSelect (SelectStatusInfo (Selected SelectionRoot) decl)) ->
             Just $ expectFromDeclSelect decl
           _otherwise -> Nothing
-    , (testVariant "selection_fail" "1.exclude_failed"){
+    , (testVariant "program-analysis/selection_fail" "1.exclude_failed"){
           testOnFrontendConfig = \cfg -> cfg{
               frontendSelectPredicate = BAnd
                 (       BIf $ SelectHeader   FromMainHeaders)
@@ -667,7 +667,7 @@ testCases = manualTestCases ++ [
                 Just $ expectFromDeclSelect decl
               _otherwise -> Nothing
         }
-    , (testVariant "selection_fail" "2.program_slicing"){
+    , (testVariant "program-analysis/selection_fail" "2.program_slicing"){
           testOnFrontendConfig = \cfg -> cfg{
               frontendSelectPredicate = BAnd
                 (       BIf $ SelectHeader   FromMainHeaders)
@@ -686,7 +686,7 @@ testCases = manualTestCases ++ [
               _otherwise -> Nothing
         , testHasOutput = False
         }
-    , (testVariant "selection_fail" "3.select_ok"){
+    , (testVariant "program-analysis/selection_fail" "3.select_ok"){
           testOnFrontendConfig = \cfg -> cfg{
               frontendSelectPredicate = BAnd
                 (       BIf $ SelectDecl $ DeclNameMatches "struct OkBefore")
@@ -698,19 +698,19 @@ testCases = manualTestCases ++ [
                 Just $ expectFromDeclSelect decl
               _otherwise -> Nothing
         }
-    , (defaultFailingTest "selection_bad"){
+    , (defaultFailingTest "program-analysis/failing/selection_bad"){
           testTracePredicate = customTracePredicate ["size_t_select"] $ \case
             (TraceFrontend (FrontendSelect (TransitiveDependencyOfDeclarationUnavailable SelectionRoot (_, UnavailableNotSelected) _))) ->
               Just $ Expected "size_t_select"
             _other -> Nothing
         }
-    , (defaultTest "selection_foo"){
+    , (defaultTest "program-analysis/selection_foo"){
           testTracePredicate = customTracePredicate' ["f"] $ \case
             (TraceFrontend (FrontendSelect (SelectParseFailure (ParseFailure m)))) ->
               Just $ expectFromQualPrelimDeclId m.declId
             _other -> Nothing
         }
-    , (defaultTest "program_slicing_selection"){
+    , (defaultTest "program-analysis/program_slicing_selection"){
           testOnFrontendConfig = \cfg -> cfg{
               frontendParsePredicate  = BTrue
             , frontendSelectPredicate = BOr
@@ -742,14 +742,14 @@ testCases = manualTestCases ++ [
           -- https://github.com/well-typed/hs-bindgen/issues/907.
         , testRustBindgen = RustBindgenRun
         }
-    , (defaultTest "reparse") {
+    , (defaultTest "program-analysis/reparse") {
           testClangVersion   = Just (>= (15, 0, 0)) -- parse 'bool'
         , testTracePredicate = customTracePredicate [] $ \case
             -- We don't care about the trace messages in this test
             _anything ->
               Just Tolerated
         }
-    , (defaultTest "select_scoping") {
+    , (defaultTest "declarations/select_scoping") {
           testOnFrontendConfig = \cfg -> cfg {
             frontendParsePredicate = BIf (ParseHeader FromMainHeaders)
           , frontendSelectPredicate = BTrue
@@ -768,7 +768,7 @@ testCases = manualTestCases ++ [
                 Just $ Expected "ParsedAndSelected3"
             _otherwise -> Nothing
         }
-    , (defaultFailingTest "thread_local"){
+    , (defaultFailingTest "edge-cases/failing/thread_local"){
           testClangVersion   = Just (>= (16, 0, 0))
         , testTracePredicate = singleTracePredicate $ \case
             TraceFrontend (FrontendSelect (SelectParseFailure (ParseFailure
@@ -777,7 +777,7 @@ testCases = manualTestCases ++ [
             _otherwise ->
               Nothing
         }
-    , (defaultFailingTest "select_no_match") {
+    , (defaultFailingTest "edge-cases/failing/select_no_match") {
           testOnFrontendConfig = \cfg -> cfg {
               frontendSelectPredicate = BIf (SelectDecl (DeclNameMatches "this_pattern_will_never_match"))
             }
@@ -787,7 +787,7 @@ testCases = manualTestCases ++ [
             _otherwise ->
               Nothing
         }
-    , (defaultTest "type_attributes") {
+    , (defaultTest "attributes/type_attributes") {
           testRustBindgen = RustBindgenFail
         , testTracePredicate = singleTracePredicate $ \case
             TraceFrontend (FrontendSelect (SelectDeprecated _)) ->

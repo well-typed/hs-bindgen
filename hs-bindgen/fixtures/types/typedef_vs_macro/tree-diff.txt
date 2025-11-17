@@ -1,0 +1,341 @@
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "typedef_vs_macro.h:1:13",
+        declId = NamePair {
+          nameC = Name "T1",
+          nameHsIdent = Identifier "T1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/typedef_vs_macro.h"],
+            headerInclude =
+            "types/typedef_vs_macro.h"},
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = Name
+              "@NsConstr"
+              "T1",
+            newtypeField = Name
+              "@NsVar"
+              "un_T1"},
+          typedefType = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "typedef_vs_macro.h:2:14",
+        declId = NamePair {
+          nameC = Name "T2",
+          nameHsIdent = Identifier "T2"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/typedef_vs_macro.h"],
+            headerInclude =
+            "types/typedef_vs_macro.h"},
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = Name
+              "@NsConstr"
+              "T2",
+            newtypeField = Name
+              "@NsVar"
+              "un_T2"},
+          typedefType = TypePrim
+            (PrimChar
+              (PrimSignImplicit
+                (Just Signed)))},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "typedef_vs_macro.h:4:9",
+        declId = NamePair {
+          nameC = Name "M1",
+          nameHsIdent = Identifier "M1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/typedef_vs_macro.h"],
+            headerInclude =
+            "types/typedef_vs_macro.h"},
+        declComment = Nothing},
+      declKind = DeclMacro
+        (MacroType
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = Name
+                "@NsConstr"
+                "M1",
+              newtypeField = Name
+                "@NsVar"
+                "un_M1"},
+            macroType = TypePrim
+              (PrimIntegral PrimInt Signed)}),
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "typedef_vs_macro.h:5:9",
+        declId = NamePair {
+          nameC = Name "M2",
+          nameHsIdent = Identifier "M2"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/typedef_vs_macro.h"],
+            headerInclude =
+            "types/typedef_vs_macro.h"},
+        declComment = Nothing},
+      declKind = DeclMacro
+        (MacroType
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = Name
+                "@NsConstr"
+                "M2",
+              newtypeField = Name
+                "@NsVar"
+                "un_M2"},
+            macroType = TypePrim
+              (PrimChar
+                (PrimSignImplicit Nothing))}),
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "typedef_vs_macro.h:6:9",
+        declId = NamePair {
+          nameC = Name "M3",
+          nameHsIdent = Identifier "M3"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/typedef_vs_macro.h"],
+            headerInclude =
+            "types/typedef_vs_macro.h"},
+        declComment = Nothing},
+      declKind = DeclMacro
+        (MacroType
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = Name
+                "@NsConstr"
+                "M3",
+              newtypeField = Name
+                "@NsVar"
+                "un_M3"},
+            macroType = TypePointer
+              (TypePrim
+                (PrimIntegral
+                  PrimInt
+                  Signed))}),
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "typedef_vs_macro.h:8:8",
+        declId = NamePair {
+          nameC = Name "ExampleStruct",
+          nameHsIdent = Identifier
+            "ExampleStruct"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/typedef_vs_macro.h"],
+            headerInclude =
+            "types/typedef_vs_macro.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name
+              "@NsConstr"
+              "ExampleStruct"),
+          structSizeof = 16,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "typedef_vs_macro.h:9:6",
+                fieldName = NamePair {
+                  nameC = Name "t1",
+                  nameHsIdent = Identifier
+                    "exampleStruct_t1"},
+                fieldComment = Nothing},
+              structFieldType = TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "T1",
+                    nameHsIdent = Identifier "T1"}
+                  (TypePrim
+                    (PrimIntegral PrimInt Signed))),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "typedef_vs_macro.h:10:6",
+                fieldName = NamePair {
+                  nameC = Name "t2",
+                  nameHsIdent = Identifier
+                    "exampleStruct_t2"},
+                fieldComment = Nothing},
+              structFieldType = TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "T2",
+                    nameHsIdent = Identifier "T2"}
+                  (TypePrim
+                    (PrimChar
+                      (PrimSignImplicit
+                        (Just Signed))))),
+              structFieldOffset = 32,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "typedef_vs_macro.h:11:6",
+                fieldName = NamePair {
+                  nameC = Name "m1",
+                  nameHsIdent = Identifier
+                    "exampleStruct_m1"},
+                fieldComment = Nothing},
+              structFieldType =
+              TypeMacroTypedef
+                NamePair {
+                  nameC = Name "M1",
+                  nameHsIdent = Identifier "M1"}
+                NameOriginInSource,
+              structFieldOffset = 64,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "typedef_vs_macro.h:12:6",
+                fieldName = NamePair {
+                  nameC = Name "m2",
+                  nameHsIdent = Identifier
+                    "exampleStruct_m2"},
+                fieldComment = Nothing},
+              structFieldType =
+              TypeMacroTypedef
+                NamePair {
+                  nameC = Name "M2",
+                  nameHsIdent = Identifier "M2"}
+                NameOriginInSource,
+              structFieldOffset = 96,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "typedef_vs_macro.h:15:9",
+        declId = NamePair {
+          nameC = Name "uint64_t",
+          nameHsIdent = Identifier
+            "Uint64_t"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/typedef_vs_macro.h"],
+            headerInclude =
+            "types/typedef_vs_macro.h"},
+        declComment = Nothing},
+      declKind = DeclMacro
+        (MacroType
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = Name
+                "@NsConstr"
+                "Uint64_t",
+              newtypeField = Name
+                "@NsVar"
+                "un_Uint64_t"},
+            macroType = TypePrim
+              (PrimIntegral PrimInt Signed)}),
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "typedef_vs_macro.h:17:8",
+        declId = NamePair {
+          nameC = Name "foo",
+          nameHsIdent = Identifier "Foo"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/typedef_vs_macro.h"],
+            headerInclude =
+            "types/typedef_vs_macro.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "Foo"),
+          structSizeof = 8,
+          structAlignment = 8,
+          structFields = [
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "typedef_vs_macro.h:18:13",
+                fieldName = NamePair {
+                  nameC = Name "a",
+                  nameHsIdent = Identifier
+                    "foo_a"},
+                fieldComment = Nothing},
+              structFieldType = TypePointer
+                (TypeMacroTypedef
+                  NamePair {
+                    nameC = Name "uint64_t",
+                    nameHsIdent = Identifier
+                      "Uint64_t"}
+                  NameOriginInSource),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}}],
+  unitDeps = ["typedef_vs_macro"]}

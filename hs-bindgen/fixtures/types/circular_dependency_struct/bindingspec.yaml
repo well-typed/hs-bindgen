@@ -1,0 +1,22 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: types/circular_dependency_struct.h
+  cname: struct a
+  hsname: A
+- headers: types/circular_dependency_struct.h
+  cname: struct b
+  hsname: B
+hstypes:
+- hsname: A
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: B
+  instances:
+  - Eq
+  - Show
+  - Storable

@@ -1,0 +1,107 @@
+-- addDependentFile examples/golden/types/typenames.h
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @types\/typenames.h:19:16@
+
+    __exported by:__ @types\/typenames.h@
+-}
+newtype Foo
+    = Foo {un_Foo :: CUInt}
+      {- ^ __C declaration:__ @foo@
+
+           __defined at:__ @types\/typenames.h:19:16@
+
+           __exported by:__ @types\/typenames.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Enum,
+                      Floating,
+                      Fractional,
+                      Num,
+                      Real,
+                      RealFloat,
+                      RealFrac)
+instance Storable Foo
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure Foo <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Foo un_Foo_3 -> pokeByteOff ptr_1 (0 :: Int) un_Foo_3
+instance CEnum Foo
+    where type CEnumZ Foo = CUInt
+          toCEnum = Foo
+          fromCEnum = un_Foo
+          declaredValues = \_ -> declaredValuesFromList [(0,
+                                                          singleton "FOO1"),
+                                                         (1, singleton "FOO2")]
+          showsUndeclared = showsWrappedUndeclared "Foo"
+          readPrecUndeclared = readPrecWrappedUndeclared "Foo"
+          isDeclared = seqIsDeclared
+          mkDeclared = seqMkDeclared
+instance SequentialCEnum Foo
+    where minDeclaredValue = FOO1
+          maxDeclaredValue = FOO2
+instance Show Foo
+    where showsPrec = showsCEnum
+instance Read Foo
+    where readPrec = readPrecCEnum
+          readList = readListDefault
+          readListPrec = readListPrecDefault
+{-| __C declaration:__ @FOO1@
+
+    __defined at:__ @types\/typenames.h:15:2@
+
+    __exported by:__ @types\/typenames.h@
+-}
+pattern FOO1 :: Foo
+{-| __C declaration:__ @FOO1@
+
+    __defined at:__ @types\/typenames.h:15:2@
+
+    __exported by:__ @types\/typenames.h@
+-}
+pattern FOO1 = Foo 0
+{-| __C declaration:__ @FOO2@
+
+    __defined at:__ @types\/typenames.h:16:2@
+
+    __exported by:__ @types\/typenames.h@
+-}
+pattern FOO2 :: Foo
+{-| __C declaration:__ @FOO2@
+
+    __defined at:__ @types\/typenames.h:16:2@
+
+    __exported by:__ @types\/typenames.h@
+-}
+pattern FOO2 = Foo 1
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @types\/typenames.h:19:16@
+
+    __exported by:__ @types\/typenames.h@
+-}
+newtype Foo
+    = Foo {un_Foo :: CDouble}
+      {- ^ __C declaration:__ @foo@
+
+           __defined at:__ @types\/typenames.h:19:16@
+
+           __exported by:__ @types\/typenames.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Enum,
+                      Floating,
+                      Fractional,
+                      Num,
+                      Real,
+                      RealFloat,
+                      RealFrac)
+instance TyEq ty (CFieldType Foo "un_Foo") =>
+         HasField "un_Foo" (Ptr Foo) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Foo")
+instance HasCField Foo "un_Foo"
+    where type CFieldType Foo "un_Foo" = CDouble
+          offset# = \_ -> \_ -> 0

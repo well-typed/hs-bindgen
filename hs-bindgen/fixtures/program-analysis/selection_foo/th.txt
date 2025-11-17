@@ -1,0 +1,2 @@
+-- addDependentFile examples/golden/program-analysis/selection_foo_t.h
+-- addDependentFile examples/golden/program-analysis/selection_foo.h

@@ -1,0 +1,187 @@
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "adios.h:7:13",
+        declId = NamePair {
+          nameC = Name "adio\769s",
+          nameHsIdent = Identifier
+            "Adio'0301s"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["edge-cases/adios.h"],
+            headerInclude =
+            "edge-cases/adios.h"},
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = Name
+              "@NsConstr"
+              "Adio'0301s",
+            newtypeField = Name
+              "@NsVar"
+              "un_Adio'0301s"},
+          typedefType = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "adios.h:12:13",
+        declId = NamePair {
+          nameC = Name "\25968\23383",
+          nameHsIdent = Identifier
+            "C\25968\23383"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["edge-cases/adios.h"],
+            headerInclude =
+            "edge-cases/adios.h"},
+        declComment = Nothing},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = Name
+              "@NsConstr"
+              "C\25968\23383",
+            newtypeField = Name
+              "@NsVar"
+              "un_C\25968\23383"},
+          typedefType = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "adios.h:18:6",
+        declId = NamePair {
+          nameC = Name "\978",
+          nameHsIdent = Identifier
+            "c\978"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["edge-cases/adios.h"],
+            headerInclude =
+            "edge-cases/adios.h"},
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "adios.h:21:12",
+        declId = NamePair {
+          nameC = Name "\978\978",
+          nameHsIdent = Identifier
+            "c\978\978"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["edge-cases/adios.h"],
+            headerInclude =
+            "edge-cases/adios.h"},
+        declComment = Nothing},
+      declKind = DeclGlobal
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "adios.h:24:18",
+        declId = NamePair {
+          nameC = Name "\978\978\978",
+          nameHsIdent = Identifier
+            "c\978\978\978"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["edge-cases/adios.h"],
+            headerInclude =
+            "edge-cases/adios.h"},
+        declComment = Nothing},
+      declKind = DeclGlobal
+        (TypeQualified
+          TypeQualifierConst
+          (TypePrim
+            (PrimIntegral PrimInt Signed))),
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "adios.h:27:6",
+        declId = NamePair {
+          nameC = Name "\25308\25308",
+          nameHsIdent = Identifier
+            "\25308\25308"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["edge-cases/adios.h"],
+            headerInclude =
+            "edge-cases/adios.h"},
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "adios.h:31:6",
+        declId = NamePair {
+          nameC = Name "Say\25308\25308",
+          nameHsIdent = Identifier
+            "say\25308\25308"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["edge-cases/adios.h"],
+            headerInclude =
+            "edge-cases/adios.h"},
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeVoid},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}}],
+  unitDeps = ["adios"]}

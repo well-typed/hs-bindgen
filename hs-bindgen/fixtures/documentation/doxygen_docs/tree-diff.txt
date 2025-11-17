@@ -1,0 +1,4792 @@
+TranslationUnit {
+  unitDecls =
+  [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "doxygen_docs.h:39:9",
+        declId = NamePair {
+          nameC = Name "MAX_NAME_LENGTH",
+          nameHsIdent = Identifier
+            "mAX_NAME_LENGTH"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "documentation/doxygen_docs.h"],
+            headerInclude =
+            "documentation/doxygen_docs.h"},
+        declComment = Nothing},
+      declKind = DeclMacro
+        (MacroExpr
+          CheckedMacroExpr {
+            macroExprArgs = [],
+            macroExprBody = MTerm
+              (MInt
+                IntegerLiteral {
+                  integerLiteralText = "64",
+                  integerLiteralType = Int Signed,
+                  integerLiteralValue = 64}),
+            macroExprType =
+            "IntLike (CIntegralType (IntLike (Int Signed)))"}),
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "doxygen_docs.h:54:16",
+        declId = NamePair {
+          nameC = Name "size_type",
+          nameHsIdent = Identifier
+            "Size_type"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "documentation/doxygen_docs.h"],
+            headerInclude =
+            "documentation/doxygen_docs.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "This is the comment",
+                  InlineCommand {
+                    inlineCommandName = "b",
+                    inlineCommandRenderKind =
+                    CXCommentInlineCommandRenderKind_Bold,
+                    inlineCommandArgs = ["title"]},
+                  TextContent ""],
+              VerbatimLine "size_type",
+              Paragraph [TextContent ""],
+              BlockCommand {
+                blockCommandName = "brief",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Size type for this library"]}])},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = Name
+              "@NsConstr"
+              "Size_type",
+            newtypeField = Name
+              "@NsVar"
+              "un_Size_type"},
+          typedefType = TypeExtBinding
+            ResolvedExtBinding {
+              extCName = QualName {
+                qualNameName = Name "size_t",
+                qualNameKind =
+                NameKindOrdinary},
+              extHsRef = ExtRef {
+                extRefModule = ModuleName
+                  "HsBindgen.Runtime.Prelude",
+                extRefIdentifier = Identifier
+                  "CSize"},
+              extCSpec = CTypeSpec
+                (Just (Identifier "CSize")),
+              extHsSpec = Just
+                (HsTypeSpec
+                  (Map.fromList
+                    [
+                      _×_
+                        Bits
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Bounded
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Enum
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Eq
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        FiniteBits
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Integral
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Ix
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Num
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Ord
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Read
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        ReadRaw
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Real
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Show
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        StaticSize
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        Storable
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = []}),
+                      _×_
+                        WriteRaw
+                        (Require
+                          InstanceSpec {
+                            instanceSpecStrategy = Nothing,
+                            instanceSpecConstraints = [
+                              ]})]))}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo =
+      DeclInfo {
+        declLoc =
+        "doxygen_docs.h:61:12",
+        declId = NamePair {
+          nameC = Name "global_counter",
+          nameHsIdent = Identifier
+            "global_counter"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "documentation/doxygen_docs.h"],
+            headerInclude =
+            "documentation/doxygen_docs.h"},
+        declComment =
+        Just
+          (Comment
+            [
+              Paragraph [TextContent ""],
+              VerbatimLine
+                "extern int global_counter",
+              Paragraph [TextContent ""],
+              BlockCommand {
+                blockCommandName = "brief",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Global counter variable",
+                  TextContent ""]},
+              BlockCommand {
+                blockCommandName = "details",
+                blockCommandArgs = [],
+                blockCommandParagraph =
+                [
+                  TextContent
+                    "This variable tracks the number of operations performed."]}])},
+      declKind = DeclGlobal
+        (TypePrim
+          (PrimIntegral PrimInt Signed)),
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "doxygen_docs.h:67:20",
+        declId = NamePair {
+          nameC = Name "version_string",
+          nameHsIdent = Identifier
+            "version_string"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "documentation/doxygen_docs.h"],
+            headerInclude =
+            "documentation/doxygen_docs.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph [TextContent ""],
+              VerbatimLine
+                "extern const char* version_string",
+              Paragraph [TextContent ""],
+              BlockCommand {
+                blockCommandName = "brief",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Version string constant"]}])},
+      declKind = DeclGlobal
+        (TypePointer
+          (TypeQualified
+            TypeQualifierConst
+            (TypePrim
+              (PrimChar
+                (PrimSignImplicit
+                  (Just Signed)))))),
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "doxygen_docs.h:72:8",
+        declId = NamePair {
+          nameC = Name
+            "forward_declared_struct",
+          nameHsIdent = Identifier
+            "Forward_declared_struct"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "documentation/doxygen_docs.h"],
+            headerInclude =
+            "documentation/doxygen_docs.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "This is the comment",
+                  InlineCommand {
+                    inlineCommandName = "c",
+                    inlineCommandRenderKind =
+                    CXCommentInlineCommandRenderKind_Monospaced,
+                    inlineCommandArgs = ["title"]},
+                  TextContent ""],
+              BlockCommand {
+                blockCommandName = "brief",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Forward declaration with documentation"]}])},
+      declKind = DeclOpaque
+        (NameKindTagged TagKindStruct),
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "doxygen_docs.h:77:7",
+        declId = NamePair {
+          nameC = Name
+            "forward_declared_union",
+          nameHsIdent = Identifier
+            "Forward_declared_union"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "documentation/doxygen_docs.h"],
+            headerInclude =
+            "documentation/doxygen_docs.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph [TextContent ""],
+              BlockCommand {
+                blockCommandName = "brief",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Forward declaration of union"]}])},
+      declKind = DeclOpaque
+        (NameKindTagged TagKindUnion),
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "doxygen_docs.h:83:6",
+        declId = NamePair {
+          nameC = Name "color_enum",
+          nameHsIdent = Identifier
+            "Color_enum"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "documentation/doxygen_docs.h"],
+            headerInclude =
+            "documentation/doxygen_docs.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph [TextContent ""],
+              VerbatimLine "color_enum",
+              Paragraph [TextContent ""],
+              BlockCommand {
+                blockCommandName = "brief",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Color enumeration without typedef"]}])},
+      declKind = DeclEnum
+        Enum {
+          enumNames = NewtypeNames {
+            newtypeConstr = Name
+              "@NsConstr"
+              "Color_enum",
+            newtypeField = Name
+              "@NsVar"
+              "un_Color_enum"},
+          enumType = TypePrim
+            (PrimIntegral PrimInt Unsigned),
+          enumSizeof = 4,
+          enumAlignment = 4,
+          enumConstants = [
+            EnumConstant {
+              enumConstantInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:84:5",
+                fieldName = NamePair {
+                  nameC = Name "COLOR_RED",
+                  nameHsIdent = Identifier
+                    "COLOR_RED"},
+                fieldComment = Just
+                  (Comment
+                    [
+                      Paragraph
+                        [TextContent "Red color"]])},
+              enumConstantValue = 0},
+            EnumConstant {
+              enumConstantInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:85:5",
+                fieldName = NamePair {
+                  nameC = Name "COLOR_GREEN",
+                  nameHsIdent = Identifier
+                    "COLOR_GREEN"},
+                fieldComment = Just
+                  (Comment
+                    [
+                      Paragraph
+                        [TextContent "Green color"]])},
+              enumConstantValue = 1},
+            EnumConstant {
+              enumConstantInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:86:5",
+                fieldName = NamePair {
+                  nameC = Name "COLOR_BLUE",
+                  nameHsIdent = Identifier
+                    "COLOR_BLUE"},
+                fieldComment = Just
+                  (Comment
+                    [
+                      Paragraph
+                        [TextContent "Blue color"]])},
+              enumConstantValue = 2}]},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo =
+      DeclInfo {
+        declLoc =
+        "doxygen_docs.h:105:5",
+        declId = NamePair {
+          nameC = Name "process_data",
+          nameHsIdent = Identifier
+            "process_data"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "documentation/doxygen_docs.h"],
+            headerInclude =
+            "documentation/doxygen_docs.h"},
+        declComment =
+        Just
+          (Comment
+            [
+              Paragraph [TextContent ""],
+              BlockCommand {
+                blockCommandName = "brief",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Function with detailed parameter documentation"]},
+              Paragraph
+                [
+                  TextContent
+                    "This function shows different parameter directions and types."],
+              Paragraph [TextContent ""],
+              ParamCommand {
+                paramCommandName = "input_data",
+                paramCommandIndex = Just 0,
+                paramCommandDirection = Just
+                  CXCommentParamPassDirection_In,
+                paramCommandIsDirectionExplicit =
+                True,
+                paramCommandContent = [
+                  Paragraph
+                    [
+                      TextContent "Input data buffer",
+                      TextContent ""]]},
+              ParamCommand {
+                paramCommandName =
+                "output_data",
+                paramCommandIndex = Just 1,
+                paramCommandDirection = Just
+                  CXCommentParamPassDirection_Out,
+                paramCommandIsDirectionExplicit =
+                True,
+                paramCommandContent = [
+                  Paragraph
+                    [
+                      TextContent
+                        "Output data buffer",
+                      TextContent ""]]},
+              ParamCommand {
+                paramCommandName = "size",
+                paramCommandIndex = Just 2,
+                paramCommandDirection = Just
+                  CXCommentParamPassDirection_InOut,
+                paramCommandIsDirectionExplicit =
+                True,
+                paramCommandContent = [
+                  Paragraph
+                    [
+                      TextContent
+                        "Size of data, updated on return",
+                      TextContent ""]]},
+              BlockCommand {
+                blockCommandName = "return",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Status code (0 = success, -1 = error)"]}])},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "input_data",
+                  nameHsIdent = Identifier
+                    "input_data"})
+              (TypePointer
+                (TypeQualified
+                  TypeQualifierConst
+                  (TypeExtBinding
+                    ResolvedExtBinding {
+                      extCName = QualName {
+                        qualNameName = Name "uint8_t",
+                        qualNameKind =
+                        NameKindOrdinary},
+                      extHsRef = ExtRef {
+                        extRefModule = ModuleName
+                          "HsBindgen.Runtime.Prelude",
+                        extRefIdentifier = Identifier
+                          "Word8"},
+                      extCSpec = CTypeSpec
+                        (Just (Identifier "Word8")),
+                      extHsSpec = Just
+                        (HsTypeSpec
+                          (Map.fromList
+                            [
+                              _×_
+                                Bits
+                                (Require
+                                  InstanceSpec {
+                                    instanceSpecStrategy = Nothing,
+                                    instanceSpecConstraints = []}),
+                              _×_
+                                Bounded
+                                (Require
+                                  InstanceSpec {
+                                    instanceSpecStrategy = Nothing,
+                                    instanceSpecConstraints = []}),
+                              _×_
+                                Enum
+                                (Require
+                                  InstanceSpec {
+                                    instanceSpecStrategy = Nothing,
+                                    instanceSpecConstraints = []}),
+                              _×_
+                                Eq
+                                (Require
+                                  InstanceSpec {
+                                    instanceSpecStrategy = Nothing,
+                                    instanceSpecConstraints = []}),
+                              _×_
+                                FiniteBits
+                                (Require
+                                  InstanceSpec {
+                                    instanceSpecStrategy = Nothing,
+                                    instanceSpecConstraints = []}),
+                              _×_
+                                Integral
+                                (Require
+                                  InstanceSpec {
+                                    instanceSpecStrategy = Nothing,
+                                    instanceSpecConstraints = []}),
+                              _×_
+                                Ix
+                                (Require
+                                  InstanceSpec {
+                                    instanceSpecStrategy = Nothing,
+                                    instanceSpecConstraints = []}),
+                              _×_
+                                Num
+                                (Require
+                                  InstanceSpec {
+                                    instanceSpecStrategy = Nothing,
+                                    instanceSpecConstraints = []}),
+                              _×_
+                                Ord
+                                (Require
+                                  InstanceSpec {
+                                    instanceSpecStrategy = Nothing,
+                                    instanceSpecConstraints = []}),
+                              _×_
+                                Read
+                                (Require
+                                  InstanceSpec {
+                                    instanceSpecStrategy = Nothing,
+                                    instanceSpecConstraints = []}),
+                              _×_
+                                ReadRaw
+                                (Require
+                                  InstanceSpec {
+                                    instanceSpecStrategy = Nothing,
+                                    instanceSpecConstraints = []}),
+                              _×_
+                                Real
+                                (Require
+                                  InstanceSpec {
+                                    instanceSpecStrategy = Nothing,
+                                    instanceSpecConstraints = []}),
+                              _×_
+                                Show
+                                (Require
+                                  InstanceSpec {
+                                    instanceSpecStrategy = Nothing,
+                                    instanceSpecConstraints = []}),
+                              _×_
+                                StaticSize
+                                (Require
+                                  InstanceSpec {
+                                    instanceSpecStrategy = Nothing,
+                                    instanceSpecConstraints = []}),
+                              _×_
+                                Storable
+                                (Require
+                                  InstanceSpec {
+                                    instanceSpecStrategy = Nothing,
+                                    instanceSpecConstraints = []}),
+                              _×_
+                                WriteRaw
+                                (Require
+                                  InstanceSpec {
+                                    instanceSpecStrategy = Nothing,
+                                    instanceSpecConstraints = [
+                                      ]})]))}))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "output_data",
+                  nameHsIdent = Identifier
+                    "output_data"})
+              (TypePointer
+                (TypeExtBinding
+                  ResolvedExtBinding {
+                    extCName = QualName {
+                      qualNameName = Name "uint8_t",
+                      qualNameKind =
+                      NameKindOrdinary},
+                    extHsRef = ExtRef {
+                      extRefModule = ModuleName
+                        "HsBindgen.Runtime.Prelude",
+                      extRefIdentifier = Identifier
+                        "Word8"},
+                    extCSpec = CTypeSpec
+                      (Just (Identifier "Word8")),
+                    extHsSpec = Just
+                      (HsTypeSpec
+                        (Map.fromList
+                          [
+                            _×_
+                              Bits
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Bounded
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Enum
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Eq
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              FiniteBits
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Integral
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Ix
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Num
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Ord
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Read
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              ReadRaw
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Real
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Show
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              StaticSize
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Storable
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              WriteRaw
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = [
+                                    ]})]))})),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "size",
+                  nameHsIdent = Identifier
+                    "size"})
+              (TypePointer
+                (TypeExtBinding
+                  ResolvedExtBinding {
+                    extCName = QualName {
+                      qualNameName = Name "size_t",
+                      qualNameKind =
+                      NameKindOrdinary},
+                    extHsRef = ExtRef {
+                      extRefModule = ModuleName
+                        "HsBindgen.Runtime.Prelude",
+                      extRefIdentifier = Identifier
+                        "CSize"},
+                    extCSpec = CTypeSpec
+                      (Just (Identifier "CSize")),
+                    extHsSpec = Just
+                      (HsTypeSpec
+                        (Map.fromList
+                          [
+                            _×_
+                              Bits
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Bounded
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Enum
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Eq
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              FiniteBits
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Integral
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Ix
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Num
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Ord
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Read
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              ReadRaw
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Real
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Show
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              StaticSize
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Storable
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              WriteRaw
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = [
+                                    ]})]))}))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "doxygen_docs.h:116:6",
+        declId = NamePair {
+          nameC = Name "process_file",
+          nameHsIdent = Identifier
+            "process_file"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "documentation/doxygen_docs.h"],
+            headerInclude =
+            "documentation/doxygen_docs.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph [TextContent ""],
+              BlockCommand {
+                blockCommandName = "brief",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Function with inline commands and formatting"]},
+              Paragraph
+                [
+                  TextContent
+                    "This function uses",
+                  InlineCommand {
+                    inlineCommandName = "c",
+                    inlineCommandRenderKind =
+                    CXCommentInlineCommandRenderKind_Monospaced,
+                    inlineCommandArgs = ["inline"]},
+                  TextContent "",
+                  InlineCommand {
+                    inlineCommandName = "c",
+                    inlineCommandRenderKind =
+                    CXCommentInlineCommandRenderKind_Monospaced,
+                    inlineCommandArgs = ["code"]},
+                  TextContent "formatting and",
+                  InlineCommand {
+                    inlineCommandName = "b",
+                    inlineCommandRenderKind =
+                    CXCommentInlineCommandRenderKind_Bold,
+                    inlineCommandArgs = ["bold"]},
+                  TextContent "text.",
+                  TextContent
+                    "It also demonstrates",
+                  InlineCommand {
+                    inlineCommandName = "e",
+                    inlineCommandRenderKind =
+                    CXCommentInlineCommandRenderKind_Emphasized,
+                    inlineCommandArgs = [
+                      "emphasized"]},
+                  TextContent "text."],
+              Paragraph [TextContent ""],
+              ParamCommand {
+                paramCommandName = "filename",
+                paramCommandIndex = Just 0,
+                paramCommandDirection = Just
+                  CXCommentParamPassDirection_In,
+                paramCommandIsDirectionExplicit =
+                False,
+                paramCommandContent = [
+                  Paragraph
+                    [
+                      TextContent "The",
+                      InlineCommand {
+                        inlineCommandName = "c",
+                        inlineCommandRenderKind =
+                        CXCommentInlineCommandRenderKind_Monospaced,
+                        inlineCommandArgs = ["char*"]},
+                      TextContent
+                        "filename to process",
+                      TextContent ""]]},
+              BlockCommand {
+                blockCommandName = "return",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent "",
+                  InlineCommand {
+                    inlineCommandName = "c",
+                    inlineCommandRenderKind =
+                    CXCommentInlineCommandRenderKind_Monospaced,
+                    inlineCommandArgs = ["true"]},
+                  TextContent "if successful,",
+                  InlineCommand {
+                    inlineCommandName = "c",
+                    inlineCommandRenderKind =
+                    CXCommentInlineCommandRenderKind_Monospaced,
+                    inlineCommandArgs = ["false"]},
+                  TextContent "otherwise"]}])},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "filename",
+                  nameHsIdent = Identifier
+                    "filename"})
+              (TypePointer
+                (TypeQualified
+                  TypeQualifierConst
+                  (TypePrim
+                    (PrimChar
+                      (PrimSignImplicit Nothing)))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            PrimBool},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "doxygen_docs.h:131:5",
+        declId = NamePair {
+          nameC = Name "calculate_value",
+          nameHsIdent = Identifier
+            "calculate_value"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "documentation/doxygen_docs.h"],
+            headerInclude =
+            "documentation/doxygen_docs.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph [TextContent ""],
+              BlockCommand {
+                blockCommandName = "brief",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Function with verbatim code blocks"]},
+              Paragraph
+                [
+                  TextContent "Example usage:",
+                  TextContent ""],
+              VerbatimBlockCommand
+                [
+                  "int result = calculate_value(10, 20);",
+                  "printf(\"Result: %d@n\", result);"],
+              Paragraph [TextContent ""],
+              ParamCommand {
+                paramCommandName = "base",
+                paramCommandIndex = Just 0,
+                paramCommandDirection = Just
+                  CXCommentParamPassDirection_In,
+                paramCommandIsDirectionExplicit =
+                False,
+                paramCommandContent = [
+                  Paragraph
+                    [
+                      TextContent "Base value",
+                      TextContent ""]]},
+              ParamCommand {
+                paramCommandName = "multiplier",
+                paramCommandIndex = Just 1,
+                paramCommandDirection = Just
+                  CXCommentParamPassDirection_In,
+                paramCommandIsDirectionExplicit =
+                False,
+                paramCommandContent = [
+                  Paragraph
+                    [
+                      TextContent "Multiplier value",
+                      TextContent ""]]},
+              BlockCommand {
+                blockCommandName = "return",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Calculated result"]}])},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "base",
+                  nameHsIdent = Identifier
+                    "base"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "multiplier",
+                  nameHsIdent = Identifier
+                    "multiplier"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "doxygen_docs.h:148:6",
+        declId = NamePair {
+          nameC = Name "html_example",
+          nameHsIdent = Identifier
+            "html_example"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "documentation/doxygen_docs.h"],
+            headerInclude =
+            "documentation/doxygen_docs.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph [TextContent ""],
+              BlockCommand {
+                blockCommandName = "brief",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Function with HTML formatting"]},
+              Paragraph
+                [
+                  TextContent
+                    "This function demonstrates",
+                  HtmlStartTag {
+                    htmlStartTagName = "b",
+                    htmlStartTagIsSelfClosing =
+                    False,
+                    htmlStartTagAttributes = []},
+                  TextContent "HTML bold",
+                  HtmlEndTag "b",
+                  TextContent "and",
+                  HtmlStartTag {
+                    htmlStartTagName = "i",
+                    htmlStartTagIsSelfClosing =
+                    False,
+                    htmlStartTagAttributes = []},
+                  TextContent "italic",
+                  HtmlEndTag "i",
+                  TextContent "text.",
+                  TextContent "It also shows",
+                  HtmlStartTag {
+                    htmlStartTagName = "code",
+                    htmlStartTagIsSelfClosing =
+                    False,
+                    htmlStartTagAttributes = []},
+                  TextContent "HTML code",
+                  HtmlEndTag "code",
+                  TextContent "formatting."],
+              Paragraph
+                [
+                  TextContent "",
+                  HtmlStartTag {
+                    htmlStartTagName = "table",
+                    htmlStartTagIsSelfClosing =
+                    False,
+                    htmlStartTagAttributes = []},
+                  TextContent "",
+                  HtmlStartTag {
+                    htmlStartTagName = "tr",
+                    htmlStartTagIsSelfClosing =
+                    False,
+                    htmlStartTagAttributes = []},
+                  HtmlStartTag {
+                    htmlStartTagName = "th",
+                    htmlStartTagIsSelfClosing =
+                    False,
+                    htmlStartTagAttributes = []},
+                  TextContent "Input",
+                  HtmlEndTag "th",
+                  HtmlStartTag {
+                    htmlStartTagName = "th",
+                    htmlStartTagIsSelfClosing =
+                    False,
+                    htmlStartTagAttributes = []},
+                  TextContent "Output",
+                  HtmlEndTag "th",
+                  HtmlEndTag "tr",
+                  TextContent "",
+                  HtmlStartTag {
+                    htmlStartTagName = "tr",
+                    htmlStartTagIsSelfClosing =
+                    False,
+                    htmlStartTagAttributes = []},
+                  HtmlStartTag {
+                    htmlStartTagName = "td",
+                    htmlStartTagIsSelfClosing =
+                    False,
+                    htmlStartTagAttributes = []},
+                  TextContent "0",
+                  HtmlEndTag "td",
+                  HtmlStartTag {
+                    htmlStartTagName = "td",
+                    htmlStartTagIsSelfClosing =
+                    False,
+                    htmlStartTagAttributes = []},
+                  TextContent "false",
+                  HtmlEndTag "td",
+                  HtmlEndTag "tr",
+                  TextContent "",
+                  HtmlStartTag {
+                    htmlStartTagName = "tr",
+                    htmlStartTagIsSelfClosing =
+                    False,
+                    htmlStartTagAttributes = []},
+                  HtmlStartTag {
+                    htmlStartTagName = "td",
+                    htmlStartTagIsSelfClosing =
+                    False,
+                    htmlStartTagAttributes = []},
+                  TextContent "1",
+                  HtmlEndTag "td",
+                  HtmlStartTag {
+                    htmlStartTagName = "td",
+                    htmlStartTagIsSelfClosing =
+                    False,
+                    htmlStartTagAttributes = []},
+                  TextContent "true",
+                  HtmlEndTag "td",
+                  HtmlEndTag "tr",
+                  TextContent "",
+                  HtmlEndTag "table"],
+              Paragraph [TextContent ""],
+              ParamCommand {
+                paramCommandName = "value",
+                paramCommandIndex = Just 0,
+                paramCommandDirection = Just
+                  CXCommentParamPassDirection_In,
+                paramCommandIsDirectionExplicit =
+                False,
+                paramCommandContent = [
+                  Paragraph
+                    [
+                      TextContent "Input value",
+                      TextContent ""]]},
+              BlockCommand {
+                blockCommandName = "return",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Boolean result"]}])},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "value",
+                  nameHsIdent = Identifier
+                    "value"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            PrimBool},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "doxygen_docs.h:174:6",
+        declId = NamePair {
+          nameC = Name "list_example",
+          nameHsIdent = Identifier
+            "list_example"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "documentation/doxygen_docs.h"],
+            headerInclude =
+            "documentation/doxygen_docs.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph [TextContent ""],
+              BlockCommand {
+                blockCommandName = "brief",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Function with lists and special formatting"]},
+              Paragraph
+                [
+                  TextContent
+                    "This function demonstrates:",
+                  TextContent
+                    "- Bullet point lists",
+                  TextContent
+                    "* Nested list item 1",
+                  TextContent
+                    "* Nested list item 2",
+                  TextContent "- Multiple items",
+                  TextContent
+                    "- Nested formatting"],
+              Paragraph
+                [
+                  TextContent "Numbered list:",
+                  TextContent "1. First",
+                  InlineCommand {
+                    inlineCommandName = "c",
+                    inlineCommandRenderKind =
+                    CXCommentInlineCommandRenderKind_Monospaced,
+                    inlineCommandArgs = ["item"]},
+                  TextContent "1. item",
+                  TextContent "2. Second",
+                  InlineCommand {
+                    inlineCommandName = "b",
+                    inlineCommandRenderKind =
+                    CXCommentInlineCommandRenderKind_Bold,
+                    inlineCommandArgs = ["item"]},
+                  TextContent "3. Third item"],
+              Paragraph
+                [
+                  TextContent
+                    "Other numbered list:",
+                  TextContent "-# A",
+                  TextContent "-# B",
+                  TextContent "-# C"],
+              Paragraph [TextContent ""],
+              ParamCommand {
+                paramCommandName = "items",
+                paramCommandIndex = Just 0,
+                paramCommandDirection = Just
+                  CXCommentParamPassDirection_In,
+                paramCommandIsDirectionExplicit =
+                False,
+                paramCommandContent = [
+                  Paragraph
+                    [
+                      TextContent "Array of items",
+                      TextContent ""]]},
+              ParamCommand {
+                paramCommandName = "count",
+                paramCommandIndex = Just 1,
+                paramCommandDirection = Just
+                  CXCommentParamPassDirection_In,
+                paramCommandIsDirectionExplicit =
+                False,
+                paramCommandContent = [
+                  Paragraph
+                    [
+                      TextContent "Number of items",
+                      TextContent ""]]},
+              BlockCommand {
+                blockCommandName = "return",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Success status"]}])},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "items",
+                  nameHsIdent = Identifier
+                    "items"})
+              (TypePointer
+                (TypePointer
+                  (TypeQualified
+                    TypeQualifierConst
+                    (TypePrim
+                      (PrimChar
+                        (PrimSignImplicit Nothing)))))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "count",
+                  nameHsIdent = Identifier
+                    "count"})
+              (TypeExtBinding
+                ResolvedExtBinding {
+                  extCName = QualName {
+                    qualNameName = Name "size_t",
+                    qualNameKind =
+                    NameKindOrdinary},
+                  extHsRef = ExtRef {
+                    extRefModule = ModuleName
+                      "HsBindgen.Runtime.Prelude",
+                    extRefIdentifier = Identifier
+                      "CSize"},
+                  extCSpec = CTypeSpec
+                    (Just (Identifier "CSize")),
+                  extHsSpec = Just
+                    (HsTypeSpec
+                      (Map.fromList
+                        [
+                          _×_
+                            Bits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Bounded
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Enum
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Eq
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            FiniteBits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Integral
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ix
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Num
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ord
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Read
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            ReadRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Real
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Show
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            StaticSize
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Storable
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            WriteRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = [
+                                  ]})]))})],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            PrimBool},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "doxygen_docs.h:186:7",
+        declId = NamePair {
+          nameC = Name
+            "dangerous_function",
+          nameHsIdent = Identifier
+            "dangerous_function"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "documentation/doxygen_docs.h"],
+            headerInclude =
+            "documentation/doxygen_docs.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph [TextContent ""],
+              BlockCommand {
+                blockCommandName = "brief",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Function with warnings and notes"]},
+              Paragraph [TextContent ""],
+              BlockCommand {
+                blockCommandName = "warning",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "This function may cause side effects",
+                  TextContent ""]},
+              BlockCommand {
+                blockCommandName = "note",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Use with caution in multithreaded environments",
+                  TextContent ""]},
+              BlockCommand {
+                blockCommandName = "see",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "related_function() for similar functionality"]},
+              Paragraph [TextContent ""],
+              ParamCommand {
+                paramCommandName = "ptr",
+                paramCommandIndex = Just 0,
+                paramCommandDirection = Just
+                  CXCommentParamPassDirection_In,
+                paramCommandIsDirectionExplicit =
+                False,
+                paramCommandContent = [
+                  Paragraph
+                    [
+                      TextContent "Pointer to data",
+                      TextContent ""]]},
+              BlockCommand {
+                blockCommandName = "return",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Modified pointer"]}])},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "ptr",
+                  nameHsIdent = Identifier "ptr"})
+              (TypePointer TypeVoid)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            TypeVoid},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "doxygen_docs.h:197:5",
+        declId = NamePair {
+          nameC = Name
+            "detailed_return_codes",
+          nameHsIdent = Identifier
+            "detailed_return_codes"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "documentation/doxygen_docs.h"],
+            headerInclude =
+            "documentation/doxygen_docs.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph [TextContent ""],
+              BlockCommand {
+                blockCommandName = "brief",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Function with return value details"]},
+              Paragraph [TextContent ""],
+              ParamCommand {
+                paramCommandName = "input",
+                paramCommandIndex = Just 0,
+                paramCommandDirection = Just
+                  CXCommentParamPassDirection_In,
+                paramCommandIsDirectionExplicit =
+                False,
+                paramCommandContent = [
+                  Paragraph
+                    [
+                      TextContent "Input string",
+                      TextContent ""]]},
+              BlockCommand {
+                blockCommandName = "retval",
+                blockCommandArgs = ["0"],
+                blockCommandParagraph = [
+                  TextContent "Success",
+                  TextContent ""]},
+              BlockCommand {
+                blockCommandName = "retval",
+                blockCommandArgs = ["-1"],
+                blockCommandParagraph = [
+                  TextContent "Invalid input",
+                  TextContent ""]},
+              BlockCommand {
+                blockCommandName = "retval",
+                blockCommandArgs = ["-2"],
+                blockCommandParagraph = [
+                  TextContent
+                    "Memory allocation failed",
+                  TextContent ""]},
+              BlockCommand {
+                blockCommandName = "retval",
+                blockCommandArgs = ["-3"],
+                blockCommandParagraph = [
+                  TextContent
+                    "Processing error"]}])},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "input",
+                  nameHsIdent = Identifier
+                    "input"})
+              (TypePointer
+                (TypeQualified
+                  TypeQualifierConst
+                  (TypePrim
+                    (PrimChar
+                      (PrimSignImplicit
+                        (Just Signed))))))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "doxygen_docs.h:206:5",
+        declId = NamePair {
+          nameC = Name "old_function",
+          nameHsIdent = Identifier
+            "old_function"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "documentation/doxygen_docs.h"],
+            headerInclude =
+            "documentation/doxygen_docs.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph [TextContent ""],
+              BlockCommand {
+                blockCommandName = "brief",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Function with deprecated annotation"]},
+              Paragraph [TextContent ""],
+              BlockCommand {
+                blockCommandName = "deprecated",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Use new_function() instead",
+                  TextContent ""]},
+              ParamCommand {
+                paramCommandName = "old_param",
+                paramCommandIndex = Just 0,
+                paramCommandDirection = Just
+                  CXCommentParamPassDirection_In,
+                paramCommandIsDirectionExplicit =
+                False,
+                paramCommandContent = [
+                  Paragraph
+                    [
+                      TextContent "Legacy parameter",
+                      TextContent ""]]},
+              BlockCommand {
+                blockCommandName = "return",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Legacy result"]}])},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "old_param",
+                  nameHsIdent = Identifier
+                    "old_param"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "doxygen_docs.h:216:5",
+        declId = NamePair {
+          nameC = Name
+            "versioned_function",
+          nameHsIdent = Identifier
+            "versioned_function"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "documentation/doxygen_docs.h"],
+            headerInclude =
+            "documentation/doxygen_docs.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph [TextContent ""],
+              BlockCommand {
+                blockCommandName = "brief",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Function with version information"]},
+              Paragraph [TextContent ""],
+              BlockCommand {
+                blockCommandName = "since",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent "1.0",
+                  TextContent ""]},
+              BlockCommand {
+                blockCommandName = "version",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent "1.2",
+                  TextContent ""]},
+              ParamCommand {
+                paramCommandName = "data",
+                paramCommandIndex = Just 0,
+                paramCommandDirection = Just
+                  CXCommentParamPassDirection_In,
+                paramCommandIsDirectionExplicit =
+                False,
+                paramCommandContent = [
+                  Paragraph
+                    [
+                      TextContent "Input data",
+                      TextContent ""]]},
+              BlockCommand {
+                blockCommandName = "return",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Processed data"]}])},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "data",
+                  nameHsIdent = Identifier
+                    "data'"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "doxygen_docs.h:225:15",
+        declId = NamePair {
+          nameC = Name
+            "event_callback_t_Deref",
+          nameHsIdent = Identifier
+            "Event_callback_t_Deref"},
+        declOrigin = NameOriginGenerated
+          (AnonId
+            "doxygen_docs.h:225:15"),
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "documentation/doxygen_docs.h"],
+            headerInclude =
+            "documentation/doxygen_docs.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "Auxiliary type used by ",
+                  InlineRefCommand
+                    (ById
+                      NamePair {
+                        nameC = Name "event_callback_t",
+                        nameHsIdent = Identifier
+                          "Event_callback_t"})]])},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = Name
+              "@NsConstr"
+              "Event_callback_t_Deref",
+            newtypeField = Name
+              "@NsVar"
+              "un_Event_callback_t_Deref"},
+          typedefType = TypeFun
+            [
+              TypePrim
+                (PrimIntegral PrimInt Signed),
+              TypePointer TypeVoid]
+            (TypePrim
+              (PrimIntegral PrimInt Signed))},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "doxygen_docs.h:225:15",
+        declId = NamePair {
+          nameC = Name "event_callback_t",
+          nameHsIdent = Identifier
+            "Event_callback_t"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "documentation/doxygen_docs.h"],
+            headerInclude =
+            "documentation/doxygen_docs.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph [TextContent ""],
+              BlockCommand {
+                blockCommandName = "brief",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Callback function type"]},
+              Paragraph [TextContent ""],
+              ParamCommand {
+                paramCommandName = "event_type",
+                paramCommandIndex = Just 0,
+                paramCommandDirection = Just
+                  CXCommentParamPassDirection_In,
+                paramCommandIsDirectionExplicit =
+                False,
+                paramCommandContent = [
+                  Paragraph
+                    [
+                      TextContent "Type of event",
+                      TextContent ""]]},
+              ParamCommand {
+                paramCommandName = "user_data",
+                paramCommandIndex = Just 1,
+                paramCommandDirection = Just
+                  CXCommentParamPassDirection_In,
+                paramCommandIsDirectionExplicit =
+                False,
+                paramCommandContent = [
+                  Paragraph
+                    [
+                      TextContent
+                        "User-provided data",
+                      TextContent ""]]},
+              BlockCommand {
+                blockCommandName = "return",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Handling result"]}])},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = Name
+              "@NsConstr"
+              "Event_callback_t",
+            newtypeField = Name
+              "@NsVar"
+              "un_Event_callback_t"},
+          typedefType = TypePointer
+            (TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = Name
+                    "event_callback_t_Deref",
+                  nameHsIdent = Identifier
+                    "Event_callback_t_Deref"}
+                (TypeFun
+                  [
+                    TypePrim
+                      (PrimIntegral PrimInt Signed),
+                    TypePointer TypeVoid]
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed)))))},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "doxygen_docs.h:232:9",
+        declId = NamePair {
+          nameC = Name "config_t",
+          nameHsIdent = Identifier
+            "Config_t"},
+        declOrigin = NameOriginGenerated
+          (AnonId "doxygen_docs.h:232:9"),
+        declAliases = [Name "config_t"],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "documentation/doxygen_docs.h"],
+            headerInclude =
+            "documentation/doxygen_docs.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph [TextContent ""],
+              BlockCommand {
+                blockCommandName = "brief",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Structure with documented fields"]},
+              Paragraph
+                [
+                  TextContent
+                    "This structure demonstrates field documentation."]])},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "Config_t"),
+          structSizeof = 88,
+          structAlignment = 8,
+          structFields = [
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:234:14",
+                fieldName = NamePair {
+                  nameC = Name "id",
+                  nameHsIdent = Identifier
+                    "config_t_id"},
+                fieldComment = Just
+                  (Comment
+                    [
+                      Paragraph [TextContent ""],
+                      BlockCommand {
+                        blockCommandName = "brief",
+                        blockCommandArgs = [],
+                        blockCommandParagraph = [
+                          TextContent
+                            "Unique identifier"]}])},
+              structFieldType = TypeExtBinding
+                ResolvedExtBinding {
+                  extCName = QualName {
+                    qualNameName = Name "uint32_t",
+                    qualNameKind =
+                    NameKindOrdinary},
+                  extHsRef = ExtRef {
+                    extRefModule = ModuleName
+                      "HsBindgen.Runtime.Prelude",
+                    extRefIdentifier = Identifier
+                      "Word32"},
+                  extCSpec = CTypeSpec
+                    (Just (Identifier "Word32")),
+                  extHsSpec = Just
+                    (HsTypeSpec
+                      (Map.fromList
+                        [
+                          _×_
+                            Bits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Bounded
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Enum
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Eq
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            FiniteBits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Integral
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ix
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Num
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ord
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Read
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            ReadRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Real
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Show
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            StaticSize
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Storable
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            WriteRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = [
+                                  ]})]))},
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:237:10",
+                fieldName = NamePair {
+                  nameC = Name "name",
+                  nameHsIdent = Identifier
+                    "config_t_name"},
+                fieldComment = Just
+                  (Comment
+                    [
+                      Paragraph [TextContent ""],
+                      BlockCommand {
+                        blockCommandName = "brief",
+                        blockCommandArgs = [],
+                        blockCommandParagraph = [
+                          TextContent
+                            "Human-readable name"]}])},
+              structFieldType = TypeConstArray
+                64
+                (TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed)))),
+              structFieldOffset = 32,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:240:14",
+                fieldName = NamePair {
+                  nameC = Name "flags",
+                  nameHsIdent = Identifier
+                    "config_t_flags"},
+                fieldComment = Just
+                  (Comment
+                    [
+                      Paragraph [TextContent ""],
+                      BlockCommand {
+                        blockCommandName = "brief",
+                        blockCommandArgs = [],
+                        blockCommandParagraph = [
+                          TextContent
+                            "Configuration flags"]}])},
+              structFieldType = TypeExtBinding
+                ResolvedExtBinding {
+                  extCName = QualName {
+                    qualNameName = Name "uint32_t",
+                    qualNameKind =
+                    NameKindOrdinary},
+                  extHsRef = ExtRef {
+                    extRefModule = ModuleName
+                      "HsBindgen.Runtime.Prelude",
+                    extRefIdentifier = Identifier
+                      "Word32"},
+                  extCSpec = CTypeSpec
+                    (Just (Identifier "Word32")),
+                  extHsSpec = Just
+                    (HsTypeSpec
+                      (Map.fromList
+                        [
+                          _×_
+                            Bits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Bounded
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Enum
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Eq
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            FiniteBits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Integral
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ix
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Num
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ord
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Read
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            ReadRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Real
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Show
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            StaticSize
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Storable
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            WriteRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = [
+                                  ]})]))},
+              structFieldOffset = 544,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:247:22",
+                fieldName = NamePair {
+                  nameC = Name "callback",
+                  nameHsIdent = Identifier
+                    "config_t_callback"},
+                fieldComment = Just
+                  (Comment
+                    [
+                      Paragraph [TextContent ""],
+                      BlockCommand {
+                        blockCommandName = "brief",
+                        blockCommandArgs = [],
+                        blockCommandParagraph = [
+                          TextContent
+                            "Optional callback function"]},
+                      Paragraph
+                        [
+                          TextContent "See also:",
+                          InlineRefCommand
+                            (ById
+                              NamePair {
+                                nameC = Name "event_callback_t",
+                                nameHsIdent = Identifier
+                                  "Event_callback_t"})],
+                      Paragraph [TextContent ""]])},
+              structFieldType = TypeTypedef
+                (TypedefRegular
+                  NamePair {
+                    nameC = Name "event_callback_t",
+                    nameHsIdent = Identifier
+                      "Event_callback_t"}
+                  (TypePointer
+                    (TypeFun
+                      [
+                        TypePrim
+                          (PrimIntegral PrimInt Signed),
+                        TypePointer TypeVoid]
+                      (TypePrim
+                        (PrimIntegral
+                          PrimInt
+                          Signed))))),
+              structFieldOffset = 576,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:250:11",
+                fieldName = NamePair {
+                  nameC = Name "user_data",
+                  nameHsIdent = Identifier
+                    "config_t_user_data"},
+                fieldComment = Just
+                  (Comment
+                    [
+                      Paragraph [TextContent ""],
+                      BlockCommand {
+                        blockCommandName = "brief",
+                        blockCommandArgs = [],
+                        blockCommandParagraph = [
+                          TextContent
+                            "User data for callback"]}])},
+              structFieldType = TypePointer
+                TypeVoid,
+              structFieldOffset = 640,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "doxygen_docs.h:258:9",
+        declId = NamePair {
+          nameC = Name "status_code_t",
+          nameHsIdent = Identifier
+            "Status_code_t"},
+        declOrigin = NameOriginGenerated
+          (AnonId "doxygen_docs.h:258:9"),
+        declAliases = [
+          Name "status_code_t"],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "documentation/doxygen_docs.h"],
+            headerInclude =
+            "documentation/doxygen_docs.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph [TextContent ""],
+              BlockCommand {
+                blockCommandName = "brief",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Enumeration with documented values"]},
+              Paragraph
+                [
+                  TextContent
+                    "This enum shows different status codes."]])},
+      declKind = DeclEnum
+        Enum {
+          enumNames = NewtypeNames {
+            newtypeConstr = Name
+              "@NsConstr"
+              "Status_code_t",
+            newtypeField = Name
+              "@NsVar"
+              "un_Status_code_t"},
+          enumType = TypePrim
+            (PrimIntegral PrimInt Signed),
+          enumSizeof = 4,
+          enumAlignment = 4,
+          enumConstants = [
+            EnumConstant {
+              enumConstantInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:260:5",
+                fieldName = NamePair {
+                  nameC = Name "STATUS_OK",
+                  nameHsIdent = Identifier
+                    "STATUS_OK"},
+                fieldComment = Just
+                  (Comment
+                    [
+                      Paragraph [TextContent ""],
+                      BlockCommand {
+                        blockCommandName = "brief",
+                        blockCommandArgs = [],
+                        blockCommandParagraph = [
+                          TextContent
+                            "Operation successful"]}])},
+              enumConstantValue = 0},
+            EnumConstant {
+              enumConstantInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:263:5",
+                fieldName = NamePair {
+                  nameC = Name
+                    "STATUS_INVALID_PARAM",
+                  nameHsIdent = Identifier
+                    "STATUS_INVALID_PARAM"},
+                fieldComment = Just
+                  (Comment
+                    [
+                      Paragraph [TextContent ""],
+                      BlockCommand {
+                        blockCommandName = "brief",
+                        blockCommandArgs = [],
+                        blockCommandParagraph = [
+                          TextContent
+                            "Invalid parameter provided"]}])},
+              enumConstantValue = `-1`},
+            EnumConstant {
+              enumConstantInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:266:5",
+                fieldName = NamePair {
+                  nameC = Name "STATUS_NO_MEMORY",
+                  nameHsIdent = Identifier
+                    "STATUS_NO_MEMORY"},
+                fieldComment = Just
+                  (Comment
+                    [
+                      Paragraph [TextContent ""],
+                      BlockCommand {
+                        blockCommandName = "brief",
+                        blockCommandArgs = [],
+                        blockCommandParagraph = [
+                          TextContent
+                            "Memory allocation failed"]}])},
+              enumConstantValue = `-2`},
+            EnumConstant {
+              enumConstantInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:269:5",
+                fieldName = NamePair {
+                  nameC = Name "STATUS_TIMEOUT",
+                  nameHsIdent = Identifier
+                    "STATUS_TIMEOUT"},
+                fieldComment = Just
+                  (Comment
+                    [
+                      Paragraph [TextContent ""],
+                      BlockCommand {
+                        blockCommandName = "brief",
+                        blockCommandArgs = [],
+                        blockCommandParagraph = [
+                          TextContent
+                            "Operation timed out"]}])},
+              enumConstantValue = `-3`},
+            EnumConstant {
+              enumConstantInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:272:5",
+                fieldName = NamePair {
+                  nameC = Name "STATUS_ERROR",
+                  nameHsIdent = Identifier
+                    "STATUS_ERROR"},
+                fieldComment = Just
+                  (Comment
+                    [
+                      Paragraph [TextContent ""],
+                      BlockCommand {
+                        blockCommandName = "brief",
+                        blockCommandArgs = [],
+                        blockCommandParagraph = [
+                          TextContent
+                            "Generic error"]}])},
+              enumConstantValue = `-99`}]},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "doxygen_docs.h:290:5",
+        declId = NamePair {
+          nameC = Name
+            "data_union_t_as_parts",
+          nameHsIdent = Identifier
+            "Data_union_t_as_parts"},
+        declOrigin = NameOriginGenerated
+          (AnonId "doxygen_docs.h:290:5"),
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "documentation/doxygen_docs.h"],
+            headerInclude =
+            "documentation/doxygen_docs.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph [TextContent ""],
+              BlockCommand {
+                blockCommandName = "brief",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Structured representation",
+                  TextContent ""]},
+              BlockCommand {
+                blockCommandName = "details",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Allows access to high and low parts separately"]}])},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name
+              "@NsConstr"
+              "Data_union_t_as_parts"),
+          structSizeof = 4,
+          structAlignment = 2,
+          structFields = [
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:291:18",
+                fieldName = NamePair {
+                  nameC = Name "low",
+                  nameHsIdent = Identifier
+                    "data_union_t_as_parts_low"},
+                fieldComment = Just
+                  (Comment
+                    [
+                      Paragraph [TextContent ""],
+                      BlockCommand {
+                        blockCommandName = "brief",
+                        blockCommandArgs = [],
+                        blockCommandParagraph = [
+                          TextContent "Low 16 bits"]}])},
+              structFieldType = TypeExtBinding
+                ResolvedExtBinding {
+                  extCName = QualName {
+                    qualNameName = Name "uint16_t",
+                    qualNameKind =
+                    NameKindOrdinary},
+                  extHsRef = ExtRef {
+                    extRefModule = ModuleName
+                      "HsBindgen.Runtime.Prelude",
+                    extRefIdentifier = Identifier
+                      "Word16"},
+                  extCSpec = CTypeSpec
+                    (Just (Identifier "Word16")),
+                  extHsSpec = Just
+                    (HsTypeSpec
+                      (Map.fromList
+                        [
+                          _×_
+                            Bits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Bounded
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Enum
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Eq
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            FiniteBits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Integral
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ix
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Num
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ord
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Read
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            ReadRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Real
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Show
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            StaticSize
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Storable
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            WriteRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = [
+                                  ]})]))},
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:292:18",
+                fieldName = NamePair {
+                  nameC = Name "high",
+                  nameHsIdent = Identifier
+                    "data_union_t_as_parts_high"},
+                fieldComment = Just
+                  (Comment
+                    [
+                      Paragraph [TextContent ""],
+                      BlockCommand {
+                        blockCommandName = "brief",
+                        blockCommandArgs = [],
+                        blockCommandParagraph = [
+                          TextContent "High 16 bits"]}])},
+              structFieldType = TypeExtBinding
+                ResolvedExtBinding {
+                  extCName = QualName {
+                    qualNameName = Name "uint16_t",
+                    qualNameKind =
+                    NameKindOrdinary},
+                  extHsRef = ExtRef {
+                    extRefModule = ModuleName
+                      "HsBindgen.Runtime.Prelude",
+                    extRefIdentifier = Identifier
+                      "Word16"},
+                  extCSpec = CTypeSpec
+                    (Just (Identifier "Word16")),
+                  extHsSpec = Just
+                    (HsTypeSpec
+                      (Map.fromList
+                        [
+                          _×_
+                            Bits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Bounded
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Enum
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Eq
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            FiniteBits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Integral
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ix
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Num
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ord
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Read
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            ReadRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Real
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Show
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            StaticSize
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Storable
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            WriteRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = [
+                                  ]})]))},
+              structFieldOffset = 16,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo =
+      DeclInfo {
+        declLoc =
+        "doxygen_docs.h:281:9",
+        declId = NamePair {
+          nameC = Name "data_union_t",
+          nameHsIdent = Identifier
+            "Data_union_t"},
+        declOrigin = NameOriginGenerated
+          (AnonId "doxygen_docs.h:281:9"),
+        declAliases = [
+          Name "data_union_t"],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "documentation/doxygen_docs.h"],
+            headerInclude =
+            "documentation/doxygen_docs.h"},
+        declComment =
+        Just
+          (Comment
+            [
+              Paragraph [TextContent ""],
+              VerbatimLine "data_union_t",
+              Paragraph [TextContent ""],
+              BlockCommand {
+                blockCommandName = "brief",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Union with documented fields"]},
+              Paragraph
+                [
+                  TextContent
+                    "This union demonstrates different data representations."]])},
+      declKind = DeclUnion
+        Union {
+          unionNames = NewtypeNames {
+            newtypeConstr = Name
+              "@NsConstr"
+              "Data_union_t",
+            newtypeField = Name
+              "@NsVar"
+              "un_Data_union_t"},
+          unionSizeof = 4,
+          unionAlignment = 4,
+          unionFields = [
+            UnionField {
+              unionFieldInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:282:13",
+                fieldName = NamePair {
+                  nameC = Name "as_int",
+                  nameHsIdent = Identifier
+                    "data_union_t_as_int"},
+                fieldComment = Just
+                  (Comment
+                    [
+                      Paragraph [TextContent ""],
+                      BlockCommand {
+                        blockCommandName = "brief",
+                        blockCommandArgs = [],
+                        blockCommandParagraph = [
+                          TextContent
+                            "Integer representation"]}])},
+              unionFieldType = TypeExtBinding
+                ResolvedExtBinding {
+                  extCName = QualName {
+                    qualNameName = Name "int32_t",
+                    qualNameKind =
+                    NameKindOrdinary},
+                  extHsRef = ExtRef {
+                    extRefModule = ModuleName
+                      "HsBindgen.Runtime.Prelude",
+                    extRefIdentifier = Identifier
+                      "Int32"},
+                  extCSpec = CTypeSpec
+                    (Just (Identifier "Int32")),
+                  extHsSpec = Just
+                    (HsTypeSpec
+                      (Map.fromList
+                        [
+                          _×_
+                            Bits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Bounded
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Enum
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Eq
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            FiniteBits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Integral
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ix
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Num
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ord
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Read
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            ReadRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Real
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Show
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            StaticSize
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Storable
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            WriteRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = [
+                                  ]})]))}},
+            UnionField {
+              unionFieldInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:283:11",
+                fieldName = NamePair {
+                  nameC = Name "as_float",
+                  nameHsIdent = Identifier
+                    "data_union_t_as_float"},
+                fieldComment = Just
+                  (Comment
+                    [
+                      Paragraph [TextContent ""],
+                      BlockCommand {
+                        blockCommandName = "brief",
+                        blockCommandArgs = [],
+                        blockCommandParagraph = [
+                          TextContent
+                            "Float representation"]}])},
+              unionFieldType = TypePrim
+                (PrimFloating PrimFloat)},
+            UnionField {
+              unionFieldInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:284:13",
+                fieldName = NamePair {
+                  nameC = Name "as_bytes",
+                  nameHsIdent = Identifier
+                    "data_union_t_as_bytes"},
+                fieldComment = Just
+                  (Comment
+                    [
+                      Paragraph [TextContent ""],
+                      BlockCommand {
+                        blockCommandName = "brief",
+                        blockCommandArgs = [],
+                        blockCommandParagraph = [
+                          TextContent
+                            "Byte array representation"]}])},
+              unionFieldType = TypeConstArray
+                4
+                (TypeExtBinding
+                  ResolvedExtBinding {
+                    extCName = QualName {
+                      qualNameName = Name "uint8_t",
+                      qualNameKind =
+                      NameKindOrdinary},
+                    extHsRef = ExtRef {
+                      extRefModule = ModuleName
+                        "HsBindgen.Runtime.Prelude",
+                      extRefIdentifier = Identifier
+                        "Word8"},
+                    extCSpec = CTypeSpec
+                      (Just (Identifier "Word8")),
+                    extHsSpec = Just
+                      (HsTypeSpec
+                        (Map.fromList
+                          [
+                            _×_
+                              Bits
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Bounded
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Enum
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Eq
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              FiniteBits
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Integral
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Ix
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Num
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Ord
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Read
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              ReadRaw
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Real
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Show
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              StaticSize
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              Storable
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = []}),
+                            _×_
+                              WriteRaw
+                              (Require
+                                InstanceSpec {
+                                  instanceSpecStrategy = Nothing,
+                                  instanceSpecConstraints = [
+                                    ]})]))})},
+            UnionField {
+              unionFieldInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:293:30",
+                fieldName = NamePair {
+                  nameC = Name "as_parts",
+                  nameHsIdent = Identifier
+                    "data_union_t_as_parts"},
+                fieldComment = Just
+                  (Comment
+                    [
+                      Paragraph
+                        [
+                          TextContent
+                            "As Parts Struct"]])},
+              unionFieldType = TypeStruct
+                NamePair {
+                  nameC = Name
+                    "data_union_t_as_parts",
+                  nameHsIdent = Identifier
+                    "Data_union_t_as_parts"}
+                (NameOriginGenerated
+                  (AnonId
+                    "doxygen_docs.h:290:5"))}]},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "doxygen_docs.h:302:9",
+        declId = NamePair {
+          nameC = Name "bitfield_t",
+          nameHsIdent = Identifier
+            "Bitfield_t"},
+        declOrigin = NameOriginGenerated
+          (AnonId "doxygen_docs.h:302:9"),
+        declAliases = [
+          Name "bitfield_t"],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "documentation/doxygen_docs.h"],
+            headerInclude =
+            "documentation/doxygen_docs.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph [TextContent ""],
+              VerbatimLine "bitfield_t",
+              Paragraph [TextContent ""],
+              BlockCommand {
+                blockCommandName = "brief",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Bit field structure"]},
+              Paragraph
+                [
+                  TextContent
+                    "Demonstrates bit field documentation."]])},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "Bitfield_t"),
+          structSizeof = 4,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:303:14",
+                fieldName = NamePair {
+                  nameC = Name "flag1",
+                  nameHsIdent = Identifier
+                    "bitfield_t_flag1"},
+                fieldComment = Just
+                  (Comment
+                    [
+                      Paragraph [TextContent ""],
+                      BlockCommand {
+                        blockCommandName = "brief",
+                        blockCommandArgs = [],
+                        blockCommandParagraph = [
+                          TextContent
+                            "First flag (1 bit)"]}])},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Unsigned),
+              structFieldOffset = 0,
+              structFieldWidth = Just 1},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:304:14",
+                fieldName = NamePair {
+                  nameC = Name "flag2",
+                  nameHsIdent = Identifier
+                    "bitfield_t_flag2"},
+                fieldComment = Just
+                  (Comment
+                    [
+                      Paragraph [TextContent ""],
+                      BlockCommand {
+                        blockCommandName = "brief",
+                        blockCommandArgs = [],
+                        blockCommandParagraph = [
+                          TextContent
+                            "Second flag (1 bit)"]}])},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Unsigned),
+              structFieldOffset = 1,
+              structFieldWidth = Just 1},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:305:14",
+                fieldName = NamePair {
+                  nameC = Name "counter",
+                  nameHsIdent = Identifier
+                    "bitfield_t_counter"},
+                fieldComment = Just
+                  (Comment
+                    [
+                      Paragraph [TextContent ""],
+                      BlockCommand {
+                        blockCommandName = "brief",
+                        blockCommandArgs = [],
+                        blockCommandParagraph = [
+                          TextContent
+                            "Counter value (6 bits)"]}])},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Unsigned),
+              structFieldOffset = 2,
+              structFieldWidth = Just 6},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:306:14",
+                fieldName = NamePair {
+                  nameC = Name "reserved",
+                  nameHsIdent = Identifier
+                    "bitfield_t_reserved"},
+                fieldComment = Just
+                  (Comment
+                    [
+                      Paragraph [TextContent ""],
+                      BlockCommand {
+                        blockCommandName = "brief",
+                        blockCommandArgs = [],
+                        blockCommandParagraph = [
+                          TextContent
+                            "Reserved bits (24 bits)"]}])},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Unsigned),
+              structFieldOffset = 8,
+              structFieldWidth = Just 24}],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "doxygen_docs.h:317:15",
+        declId = NamePair {
+          nameC = Name
+            "processor_fn_t_Deref",
+          nameHsIdent = Identifier
+            "Processor_fn_t_Deref"},
+        declOrigin = NameOriginGenerated
+          (AnonId
+            "doxygen_docs.h:317:15"),
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "documentation/doxygen_docs.h"],
+            headerInclude =
+            "documentation/doxygen_docs.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph
+                [
+                  TextContent
+                    "Auxiliary type used by ",
+                  InlineRefCommand
+                    (ById
+                      NamePair {
+                        nameC = Name "processor_fn_t",
+                        nameHsIdent = Identifier
+                          "Processor_fn_t"})]])},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = Name
+              "@NsConstr"
+              "Processor_fn_t_Deref",
+            newtypeField = Name
+              "@NsVar"
+              "un_Processor_fn_t_Deref"},
+          typedefType = TypeFun
+            [
+              TypePrim
+                (PrimIntegral PrimInt Signed),
+              TypePointer TypeVoid]
+            (TypePrim
+              (PrimIntegral PrimInt Signed))},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "doxygen_docs.h:317:15",
+        declId = NamePair {
+          nameC = Name "processor_fn_t",
+          nameHsIdent = Identifier
+            "Processor_fn_t"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "documentation/doxygen_docs.h"],
+            headerInclude =
+            "documentation/doxygen_docs.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph [TextContent ""],
+              VerbatimLine "processor_fn_t",
+              Paragraph [TextContent ""],
+              BlockCommand {
+                blockCommandName = "brief",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Function pointer typedef"]},
+              Paragraph [TextContent ""],
+              ParamCommand {
+                paramCommandName = "input",
+                paramCommandIndex = Just 0,
+                paramCommandDirection = Just
+                  CXCommentParamPassDirection_In,
+                paramCommandIsDirectionExplicit =
+                False,
+                paramCommandContent = [
+                  Paragraph
+                    [
+                      TextContent "Input value",
+                      TextContent ""]]},
+              ParamCommand {
+                paramCommandName = "context",
+                paramCommandIndex = Just 1,
+                paramCommandDirection = Just
+                  CXCommentParamPassDirection_In,
+                paramCommandIsDirectionExplicit =
+                False,
+                paramCommandContent = [
+                  Paragraph
+                    [
+                      TextContent "Context pointer",
+                      TextContent ""]]},
+              BlockCommand {
+                blockCommandName = "return",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Processed value"]}])},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = Name
+              "@NsConstr"
+              "Processor_fn_t",
+            newtypeField = Name
+              "@NsVar"
+              "un_Processor_fn_t"},
+          typedefType = TypePointer
+            (TypeTypedef
+              (TypedefRegular
+                NamePair {
+                  nameC = Name
+                    "processor_fn_t_Deref",
+                  nameHsIdent = Identifier
+                    "Processor_fn_t_Deref"}
+                (TypeFun
+                  [
+                    TypePrim
+                      (PrimIntegral PrimInt Signed),
+                    TypePointer TypeVoid]
+                  (TypePrim
+                    (PrimIntegral
+                      PrimInt
+                      Signed)))))},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "doxygen_docs.h:323:14",
+        declId = NamePair {
+          nameC = Name "filename_t",
+          nameHsIdent = Identifier
+            "Filename_t"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "documentation/doxygen_docs.h"],
+            headerInclude =
+            "documentation/doxygen_docs.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph [TextContent ""],
+              VerbatimLine "filename_t",
+              Paragraph [TextContent ""],
+              BlockCommand {
+                blockCommandName = "brief",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Array typedef with size"]}])},
+      declKind = DeclTypedef
+        Typedef {
+          typedefNames = NewtypeNames {
+            newtypeConstr = Name
+              "@NsConstr"
+              "Filename_t",
+            newtypeField = Name
+              "@NsVar"
+              "un_Filename_t"},
+          typedefType = TypeConstArray
+            256
+            (TypePrim
+              (PrimChar
+                (PrimSignImplicit
+                  (Just Signed))))},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "doxygen_docs.h:332:5",
+        declId = NamePair {
+          nameC = Name "process_buffer",
+          nameHsIdent = Identifier
+            "process_buffer"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "documentation/doxygen_docs.h"],
+            headerInclude =
+            "documentation/doxygen_docs.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph [TextContent ""],
+              BlockCommand {
+                blockCommandName = "brief",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Static array parameter"]},
+              Paragraph [TextContent ""],
+              ParamCommand {
+                paramCommandName = "buffer",
+                paramCommandIndex = Just 0,
+                paramCommandDirection = Just
+                  CXCommentParamPassDirection_In,
+                paramCommandIsDirectionExplicit =
+                False,
+                paramCommandContent = [
+                  Paragraph
+                    [
+                      TextContent
+                        "Buffer with minimum size",
+                      TextContent ""]]},
+              ParamCommand {
+                paramCommandName = "size",
+                paramCommandIndex = Just 1,
+                paramCommandDirection = Just
+                  CXCommentParamPassDirection_In,
+                paramCommandIsDirectionExplicit =
+                False,
+                paramCommandContent = [
+                  Paragraph
+                    [
+                      TextContent
+                        "Actual buffer size",
+                      TextContent ""]]},
+              BlockCommand {
+                blockCommandName = "return",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Number of bytes written"]}])},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "buffer",
+                  nameHsIdent = Identifier
+                    "buffer"})
+              (TypeConstArray
+                64
+                (TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed))))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "size",
+                  nameHsIdent = Identifier
+                    "size"})
+              (TypeExtBinding
+                ResolvedExtBinding {
+                  extCName = QualName {
+                    qualNameName = Name "size_t",
+                    qualNameKind =
+                    NameKindOrdinary},
+                  extHsRef = ExtRef {
+                    extRefModule = ModuleName
+                      "HsBindgen.Runtime.Prelude",
+                    extRefIdentifier = Identifier
+                      "CSize"},
+                  extCSpec = CTypeSpec
+                    (Just (Identifier "CSize")),
+                  extHsSpec = Just
+                    (HsTypeSpec
+                      (Map.fromList
+                        [
+                          _×_
+                            Bits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Bounded
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Enum
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Eq
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            FiniteBits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Integral
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ix
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Num
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ord
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Read
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            ReadRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Real
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Show
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            StaticSize
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Storable
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            WriteRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = [
+                                  ]})]))})],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "doxygen_docs.h:342:7",
+        declId = NamePair {
+          nameC = Name "my_memcpy",
+          nameHsIdent = Identifier
+            "my_memcpy"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "documentation/doxygen_docs.h"],
+            headerInclude =
+            "documentation/doxygen_docs.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph [TextContent ""],
+              BlockCommand {
+                blockCommandName = "brief",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Function with restrict pointers"]},
+              Paragraph [TextContent ""],
+              ParamCommand {
+                paramCommandName = "dest",
+                paramCommandIndex = Just 0,
+                paramCommandDirection = Just
+                  CXCommentParamPassDirection_In,
+                paramCommandIsDirectionExplicit =
+                False,
+                paramCommandContent = [
+                  Paragraph
+                    [
+                      TextContent
+                        "Destination buffer (restrict)",
+                      TextContent ""]]},
+              ParamCommand {
+                paramCommandName = "src",
+                paramCommandIndex = Just 1,
+                paramCommandDirection = Just
+                  CXCommentParamPassDirection_In,
+                paramCommandIsDirectionExplicit =
+                False,
+                paramCommandContent = [
+                  Paragraph
+                    [
+                      TextContent
+                        "Source buffer (restrict)",
+                      TextContent ""]]},
+              ParamCommand {
+                paramCommandName = "n",
+                paramCommandIndex = Just 2,
+                paramCommandDirection = Just
+                  CXCommentParamPassDirection_In,
+                paramCommandIsDirectionExplicit =
+                False,
+                paramCommandContent = [
+                  Paragraph
+                    [
+                      TextContent "Number of bytes",
+                      TextContent ""]]},
+              BlockCommand {
+                blockCommandName = "return",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Destination pointer"]}])},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "dest",
+                  nameHsIdent = Identifier
+                    "dest"})
+              (TypePointer TypeVoid),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "src",
+                  nameHsIdent = Identifier "src"})
+              (TypePointer
+                (TypeQualified
+                  TypeQualifierConst
+                  TypeVoid)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "n",
+                  nameHsIdent = Identifier "n"})
+              (TypeExtBinding
+                ResolvedExtBinding {
+                  extCName = QualName {
+                    qualNameName = Name "size_t",
+                    qualNameKind =
+                    NameKindOrdinary},
+                  extHsRef = ExtRef {
+                    extRefModule = ModuleName
+                      "HsBindgen.Runtime.Prelude",
+                    extRefIdentifier = Identifier
+                      "CSize"},
+                  extCSpec = CTypeSpec
+                    (Just (Identifier "CSize")),
+                  extHsSpec = Just
+                    (HsTypeSpec
+                      (Map.fromList
+                        [
+                          _×_
+                            Bits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Bounded
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Enum
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Eq
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            FiniteBits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Integral
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ix
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Num
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ord
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Read
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            ReadRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Real
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Show
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            StaticSize
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Storable
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            WriteRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = [
+                                  ]})]))})],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePointer
+            TypeVoid},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "doxygen_docs.h:350:19",
+        declId = NamePair {
+          nameC = Name "double_value",
+          nameHsIdent = Identifier
+            "double_value"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "documentation/doxygen_docs.h"],
+            headerInclude =
+            "documentation/doxygen_docs.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph [TextContent ""],
+              BlockCommand {
+                blockCommandName = "brief",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent "Inline function"]},
+              Paragraph [TextContent ""],
+              ParamCommand {
+                paramCommandName = "x",
+                paramCommandIndex = Just 0,
+                paramCommandDirection = Just
+                  CXCommentParamPassDirection_In,
+                paramCommandIsDirectionExplicit =
+                False,
+                paramCommandContent = [
+                  Paragraph
+                    [
+                      TextContent "Input value",
+                      TextContent ""]]},
+              BlockCommand {
+                blockCommandName = "return",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Doubled value"]}])},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = Identifier "x"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "doxygen_docs.h:360:8",
+        declId = NamePair {
+          nameC = Name "flexible_array",
+          nameHsIdent = Identifier
+            "Flexible_array"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "documentation/doxygen_docs.h"],
+            headerInclude =
+            "documentation/doxygen_docs.h"},
+        declComment = Just
+          (Comment
+            [
+              Paragraph [TextContent ""],
+              BlockCommand {
+                blockCommandName = "brief",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Function with flexible array member"]},
+              Paragraph [TextContent ""],
+              ParamCommand {
+                paramCommandName = "count",
+                paramCommandIndex = Nothing,
+                paramCommandDirection = Just
+                  CXCommentParamPassDirection_In,
+                paramCommandIsDirectionExplicit =
+                False,
+                paramCommandContent = [
+                  Paragraph
+                    [
+                      TextContent
+                        "Number of elements",
+                      TextContent ""]]},
+              BlockCommand {
+                blockCommandName = "return",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Allocated structure"]}])},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name
+              "@NsConstr"
+              "Flexible_array"),
+          structSizeof = 8,
+          structAlignment = 8,
+          structFields = [
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:361:12",
+                fieldName = NamePair {
+                  nameC = Name "count",
+                  nameHsIdent = Identifier
+                    "flexible_array_count"},
+                fieldComment = Just
+                  (Comment
+                    [
+                      Paragraph [TextContent ""],
+                      BlockCommand {
+                        blockCommandName = "brief",
+                        blockCommandArgs = [],
+                        blockCommandParagraph = [
+                          TextContent
+                            "Number of elements"]}])},
+              structFieldType = TypeExtBinding
+                ResolvedExtBinding {
+                  extCName = QualName {
+                    qualNameName = Name "size_t",
+                    qualNameKind =
+                    NameKindOrdinary},
+                  extHsRef = ExtRef {
+                    extRefModule = ModuleName
+                      "HsBindgen.Runtime.Prelude",
+                    extRefIdentifier = Identifier
+                      "CSize"},
+                  extCSpec = CTypeSpec
+                    (Just (Identifier "CSize")),
+                  extHsSpec = Just
+                    (HsTypeSpec
+                      (Map.fromList
+                        [
+                          _×_
+                            Bits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Bounded
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Enum
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Eq
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            FiniteBits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Integral
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ix
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Num
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ord
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Read
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            ReadRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Real
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Show
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            StaticSize
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Storable
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            WriteRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = [
+                                  ]})]))},
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}],
+          structFlam = Just
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "doxygen_docs.h:362:9",
+                fieldName = NamePair {
+                  nameC = Name "data",
+                  nameHsIdent = Identifier
+                    "flexible_array_data"},
+                fieldComment = Just
+                  (Comment
+                    [
+                      Paragraph [TextContent ""],
+                      BlockCommand {
+                        blockCommandName = "brief",
+                        blockCommandArgs = [],
+                        blockCommandParagraph = [
+                          TextContent
+                            "Flexible array member"]}])},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 64,
+              structFieldWidth = Nothing}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo =
+      DeclInfo {
+        declLoc =
+        "doxygen_docs.h:423:15",
+        declId = NamePair {
+          nameC = Name "complex_function",
+          nameHsIdent = Identifier
+            "complex_function"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "documentation/doxygen_docs.h"],
+            headerInclude =
+            "documentation/doxygen_docs.h"},
+        declComment =
+        Just
+          (Comment
+            [
+              Paragraph [TextContent ""],
+              BlockCommand {
+                blockCommandName = "brief",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Function with complex documentation"]},
+              Paragraph
+                [
+                  TextContent
+                    "This function demonstrates multiple documentation features:"],
+              Paragraph [TextContent ""],
+              BlockCommand {
+                blockCommandName = "par",
+                blockCommandArgs = [
+                  "Description:"],
+                blockCommandParagraph = [
+                  TextContent
+                    "Performs complex data processing with multiple steps."]},
+              Paragraph [TextContent ""],
+              BlockCommand {
+                blockCommandName = "par",
+                blockCommandArgs = [
+                  "Algorithm:"],
+                blockCommandParagraph = [
+                  TextContent
+                    "10. Validate input parameters",
+                  TextContent
+                    "200. Allocate temporary buffers",
+                  TextContent
+                    "3000. Process data in chunks",
+                  TextContent
+                    "41235. Clean up resources"]},
+              Paragraph [TextContent ""],
+              BlockCommand {
+                blockCommandName = "par",
+                blockCommandArgs = [
+                  "Algorithm2:"],
+                blockCommandParagraph = [
+                  TextContent ""]},
+              BlockCommand {
+                blockCommandName = "li",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Validate input parameters",
+                  TextContent ""]},
+              BlockCommand {
+                blockCommandName = "li",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Allocate temporary buffers",
+                  TextContent ""]},
+              BlockCommand {
+                blockCommandName = "li",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Process data in chunks",
+                  TextContent ""]},
+              BlockCommand {
+                blockCommandName = "li",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Clean up resources"]},
+              Paragraph [TextContent ""],
+              BlockCommand {
+                blockCommandName = "par",
+                blockCommandArgs = ["Example:"],
+                blockCommandParagraph = [
+                  TextContent ""]},
+              VerbatimBlockCommand
+                [
+                  "config_t cfg = {",
+                  ".id = 1,",
+                  ".name = \"test\",",
+                  ".flags = 0,",
+                  ".callback = my_callback,",
+                  ".user_data = NULL",
+                  "};",
+                  "",
+                  "status_code_t result = complex_function(&cfg, data, size);",
+                  "if (result != STATUS_OK) {",
+                  "handle_error(result);",
+                  "}"],
+              Paragraph [TextContent ""],
+              ParamCommand {
+                paramCommandName = "config",
+                paramCommandIndex = Just 0,
+                paramCommandDirection = Just
+                  CXCommentParamPassDirection_In,
+                paramCommandIsDirectionExplicit =
+                False,
+                paramCommandContent = [
+                  Paragraph
+                    [
+                      TextContent
+                        "Configuration structure (see",
+                      InlineRefCommand
+                        (ById
+                          NamePair {
+                            nameC = Name "config_t",
+                            nameHsIdent = Identifier
+                              "Config_t"}),
+                      TextContent ")",
+                      TextContent ""]]},
+              ParamCommand {
+                paramCommandName = "data",
+                paramCommandIndex = Just 1,
+                paramCommandDirection = Just
+                  CXCommentParamPassDirection_In,
+                paramCommandIsDirectionExplicit =
+                False,
+                paramCommandContent = [
+                  Paragraph
+                    [
+                      TextContent "Input data buffer",
+                      TextContent ""]]},
+              ParamCommand {
+                paramCommandName = "size",
+                paramCommandIndex = Just 2,
+                paramCommandDirection = Just
+                  CXCommentParamPassDirection_In,
+                paramCommandIsDirectionExplicit =
+                False,
+                paramCommandContent = [
+                  Paragraph
+                    [
+                      TextContent
+                        "Size of input data",
+                      TextContent ""]]},
+              BlockCommand {
+                blockCommandName = "return",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Status code indicating success or failure"]},
+              Paragraph [TextContent ""],
+              BlockCommand {
+                blockCommandName = "pre",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "config must not be NULL",
+                  TextContent ""]},
+              BlockCommand {
+                blockCommandName = "pre",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "data must not be NULL if size > 0",
+                  TextContent ""]},
+              BlockCommand {
+                blockCommandName = "post",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Output data is written to config->user_data"]},
+              Paragraph [TextContent ""],
+              BlockCommand {
+                blockCommandName = "warning",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "May return NULL if memory allocation fails",
+                  TextContent ""]},
+              BlockCommand {
+                blockCommandName = "warning",
+                blockCommandArgs = [],
+                blockCommandParagraph = [
+                  TextContent
+                    "Sets errno to EINVAL if parameters are invalid"]}])},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "config",
+                  nameHsIdent = Identifier
+                    "config"})
+              (TypePointer
+                (TypeTypedef
+                  (TypedefSquashed
+                    (Name "config_t")
+                    (TypeStruct
+                      NamePair {
+                        nameC = Name "config_t",
+                        nameHsIdent = Identifier
+                          "Config_t"}
+                      (NameOriginGenerated
+                        (AnonId
+                          "doxygen_docs.h:232:9")))))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "data",
+                  nameHsIdent = Identifier
+                    "data'"})
+              (TypePointer
+                (TypeQualified
+                  TypeQualifierConst
+                  (TypeExtBinding
+                    ResolvedExtBinding {
+                      extCName = QualName {
+                        qualNameName = Name "uint8_t",
+                        qualNameKind =
+                        NameKindOrdinary},
+                      extHsRef = ExtRef {
+                        extRefModule = ModuleName
+                          "HsBindgen.Runtime.Prelude",
+                        extRefIdentifier = Identifier
+                          "Word8"},
+                      extCSpec = CTypeSpec
+                        (Just (Identifier "Word8")),
+                      extHsSpec = Just
+                        (HsTypeSpec
+                          (Map.fromList
+                            [
+                              _×_
+                                Bits
+                                (Require
+                                  InstanceSpec {
+                                    instanceSpecStrategy = Nothing,
+                                    instanceSpecConstraints = []}),
+                              _×_
+                                Bounded
+                                (Require
+                                  InstanceSpec {
+                                    instanceSpecStrategy = Nothing,
+                                    instanceSpecConstraints = []}),
+                              _×_
+                                Enum
+                                (Require
+                                  InstanceSpec {
+                                    instanceSpecStrategy = Nothing,
+                                    instanceSpecConstraints = []}),
+                              _×_
+                                Eq
+                                (Require
+                                  InstanceSpec {
+                                    instanceSpecStrategy = Nothing,
+                                    instanceSpecConstraints = []}),
+                              _×_
+                                FiniteBits
+                                (Require
+                                  InstanceSpec {
+                                    instanceSpecStrategy = Nothing,
+                                    instanceSpecConstraints = []}),
+                              _×_
+                                Integral
+                                (Require
+                                  InstanceSpec {
+                                    instanceSpecStrategy = Nothing,
+                                    instanceSpecConstraints = []}),
+                              _×_
+                                Ix
+                                (Require
+                                  InstanceSpec {
+                                    instanceSpecStrategy = Nothing,
+                                    instanceSpecConstraints = []}),
+                              _×_
+                                Num
+                                (Require
+                                  InstanceSpec {
+                                    instanceSpecStrategy = Nothing,
+                                    instanceSpecConstraints = []}),
+                              _×_
+                                Ord
+                                (Require
+                                  InstanceSpec {
+                                    instanceSpecStrategy = Nothing,
+                                    instanceSpecConstraints = []}),
+                              _×_
+                                Read
+                                (Require
+                                  InstanceSpec {
+                                    instanceSpecStrategy = Nothing,
+                                    instanceSpecConstraints = []}),
+                              _×_
+                                ReadRaw
+                                (Require
+                                  InstanceSpec {
+                                    instanceSpecStrategy = Nothing,
+                                    instanceSpecConstraints = []}),
+                              _×_
+                                Real
+                                (Require
+                                  InstanceSpec {
+                                    instanceSpecStrategy = Nothing,
+                                    instanceSpecConstraints = []}),
+                              _×_
+                                Show
+                                (Require
+                                  InstanceSpec {
+                                    instanceSpecStrategy = Nothing,
+                                    instanceSpecConstraints = []}),
+                              _×_
+                                StaticSize
+                                (Require
+                                  InstanceSpec {
+                                    instanceSpecStrategy = Nothing,
+                                    instanceSpecConstraints = []}),
+                              _×_
+                                Storable
+                                (Require
+                                  InstanceSpec {
+                                    instanceSpecStrategy = Nothing,
+                                    instanceSpecConstraints = []}),
+                              _×_
+                                WriteRaw
+                                (Require
+                                  InstanceSpec {
+                                    instanceSpecStrategy = Nothing,
+                                    instanceSpecConstraints = [
+                                      ]})]))}))),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "size",
+                  nameHsIdent = Identifier
+                    "size"})
+              (TypeExtBinding
+                ResolvedExtBinding {
+                  extCName = QualName {
+                    qualNameName = Name "size_t",
+                    qualNameKind =
+                    NameKindOrdinary},
+                  extHsRef = ExtRef {
+                    extRefModule = ModuleName
+                      "HsBindgen.Runtime.Prelude",
+                    extRefIdentifier = Identifier
+                      "CSize"},
+                  extCSpec = CTypeSpec
+                    (Just (Identifier "CSize")),
+                  extHsSpec = Just
+                    (HsTypeSpec
+                      (Map.fromList
+                        [
+                          _×_
+                            Bits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Bounded
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Enum
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Eq
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            FiniteBits
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Integral
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ix
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Num
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Ord
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Read
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            ReadRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Real
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Show
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            StaticSize
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            Storable
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = []}),
+                          _×_
+                            WriteRaw
+                            (Require
+                              InstanceSpec {
+                                instanceSpecStrategy = Nothing,
+                                instanceSpecConstraints = [
+                                  ]})]))})],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeTypedef
+            (TypedefSquashed
+              (Name "status_code_t")
+              (TypeEnum
+                NamePair {
+                  nameC = Name "status_code_t",
+                  nameHsIdent = Identifier
+                    "Status_code_t"}
+                (NameOriginGenerated
+                  (AnonId
+                    "doxygen_docs.h:258:9"))))},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "doxygen_docs.h:427:5",
+        declId = NamePair {
+          nameC = Name "hash",
+          nameHsIdent = Identifier
+            "hash"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "documentation/doxygen_docs.h"],
+            headerInclude =
+            "documentation/doxygen_docs.h"},
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "s",
+                  nameHsIdent = Identifier "s"})
+              (TypePointer
+                (TypePrim
+                  (PrimChar
+                    (PrimSignImplicit
+                      (Just Signed)))))],
+          functionAttrs =
+          FunctionAttributes
+            CPureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "doxygen_docs.h:429:5",
+        declId = NamePair {
+          nameC = Name "square",
+          nameHsIdent = Identifier
+            "square"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "documentation/doxygen_docs.h"],
+            headerInclude =
+            "documentation/doxygen_docs.h"},
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = Identifier "x"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            HaskellPureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}}],
+  unitDeps = [
+    "stdbool",
+    "stdint",
+    "alltypes",
+    "stddef",
+    "stdint",
+    "doxygen_docs"]}

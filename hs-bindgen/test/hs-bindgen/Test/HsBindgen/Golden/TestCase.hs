@@ -202,7 +202,7 @@ testDiagnostic filename p =
 defaultFailingTest :: String -> TestCase
 defaultFailingTest filename = (defaultTest filename){
       testHasOutput = False
-    , testInputDir  = "examples/failing"
+    , testInputDir  = "examples/golden"
     }
 
 failingTestTrace :: String -> TracePredicate TraceMsg -> TestCase

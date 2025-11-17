@@ -1,0 +1,48 @@
+-- addDependentFile musl-include/x86_64/bits/alltypes.h
+-- addDependentFile musl-include/x86_64/stdarg.h
+-- addDependentFile examples/golden/functions/varargs.h
+-- #include <functions/varargs.h>
+-- void hs_bindgen_test_functionsvarargs_a17c4f0272bbe42a (void)
+-- {
+--   h();
+-- }
+-- void hs_bindgen_test_functionsvarargs_ec9e8ecfd27bead3 (void)
+-- {
+--   h();
+-- }
+-- /* get_h_ptr */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_test_functionsvarargs_6344539fe0b25338 (void)) (void)
+-- {
+--   return &h;
+-- }
+{-| __C declaration:__ @h@
+
+    __defined at:__ @functions\/varargs.h:8:6@
+
+    __exported by:__ @functions\/varargs.h@
+-}
+foreign import ccall safe "hs_bindgen_test_functionsvarargs_a17c4f0272bbe42a" h :: IO Unit
+{-| __C declaration:__ @h@
+
+    __defined at:__ @functions\/varargs.h:8:6@
+
+    __exported by:__ @functions\/varargs.h@
+-}
+foreign import ccall safe "hs_bindgen_test_functionsvarargs_ec9e8ecfd27bead3" h :: IO Unit
+foreign import ccall safe "hs_bindgen_test_functionsvarargs_6344539fe0b25338" hs_bindgen_test_functionsvarargs_6344539fe0b25338 :: IO (FunPtr (IO Unit))
+{-# NOINLINE h_ptr #-}
+{-| __C declaration:__ @h@
+
+    __defined at:__ @functions\/varargs.h:8:6@
+
+    __exported by:__ @functions\/varargs.h@
+-}
+h_ptr :: FunPtr (IO Unit)
+{-| __C declaration:__ @h@
+
+    __defined at:__ @functions\/varargs.h:8:6@
+
+    __exported by:__ @functions\/varargs.h@
+-}
+h_ptr = unsafePerformIO hs_bindgen_test_functionsvarargs_6344539fe0b25338

@@ -1,0 +1,337 @@
+-- addDependentFile examples/golden/edge-cases/spec_examples.h
+-- #include <edge-cases/spec_examples.h>
+-- void hs_bindgen_test_edgecasesspec_examples_7d4128962cfce15d (
+--   int32_T *arg1,
+--   cint16_T *arg2,
+--   int64_T arg3,
+--   int64_T arg4,
+--   cint16_T *arg5
+-- )
+-- {
+--   resample(arg1, arg2, arg3, arg4, arg5);
+-- }
+-- void hs_bindgen_test_edgecasesspec_examples_f31d4400b3244637 (
+--   int32_T *arg1,
+--   cint16_T *arg2,
+--   int64_T arg3,
+--   int64_T arg4,
+--   cint16_T *arg5
+-- )
+-- {
+--   resample(arg1, arg2, arg3, arg4, arg5);
+-- }
+-- /* get_resample_ptr */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_test_edgecasesspec_examples_46b04422dcd0bbd5 (void)) (
+--   int32_T *arg1,
+--   cint16_T arg2[30720000],
+--   int64_T arg3,
+--   int64_T arg4,
+--   cint16_T arg5[30720000]
+-- )
+-- {
+--   return &resample;
+-- }
+{-| Examples from the initial specification
+
+__C declaration:__ @int16_T@
+
+__defined at:__ @edge-cases\/spec_examples.h:10:15@
+
+__exported by:__ @edge-cases\/spec_examples.h@
+-}
+newtype Int16_T
+    = Int16_T {un_Int16_T :: CShort}
+      {- ^ Examples from the initial specification
+
+      __C declaration:__ @int16_T@
+
+      __defined at:__ @edge-cases\/spec_examples.h:10:15@
+
+      __exported by:__ @edge-cases\/spec_examples.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance TyEq ty (CFieldType Int16_T "un_Int16_T") =>
+         HasField "un_Int16_T" (Ptr Int16_T) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Int16_T")
+instance HasCField Int16_T "un_Int16_T"
+    where type CFieldType Int16_T "un_Int16_T" = CShort
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @int32_T@
+
+    __defined at:__ @edge-cases\/spec_examples.h:11:13@
+
+    __exported by:__ @edge-cases\/spec_examples.h@
+-}
+newtype Int32_T
+    = Int32_T {un_Int32_T :: CInt}
+      {- ^ __C declaration:__ @int32_T@
+
+           __defined at:__ @edge-cases\/spec_examples.h:11:13@
+
+           __exported by:__ @edge-cases\/spec_examples.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance TyEq ty (CFieldType Int32_T "un_Int32_T") =>
+         HasField "un_Int32_T" (Ptr Int32_T) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Int32_T")
+instance HasCField Int32_T "un_Int32_T"
+    where type CFieldType Int32_T "un_Int32_T" = CInt
+          offset# = \_ -> \_ -> 0
+{-| __C declaration:__ @int64_T@
+
+    __defined at:__ @edge-cases\/spec_examples.h:12:19@
+
+    __exported by:__ @edge-cases\/spec_examples.h@
+-}
+newtype Int64_T
+    = Int64_T {un_Int64_T :: CLLong}
+      {- ^ __C declaration:__ @int64_T@
+
+           __defined at:__ @edge-cases\/spec_examples.h:12:19@
+
+           __exported by:__ @edge-cases\/spec_examples.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+instance TyEq ty (CFieldType Int64_T "un_Int64_T") =>
+         HasField "un_Int64_T" (Ptr Int64_T) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_Int64_T")
+instance HasCField Int64_T "un_Int64_T"
+    where type CFieldType Int64_T "un_Int64_T" = CLLong
+          offset# = \_ -> \_ -> 0
+{-| __defined at:__ @edge-cases\/spec_examples.h:14:9@
+
+    __exported by:__ @edge-cases\/spec_examples.h@
+-}
+data Cint16_T
+    = Cint16_T {cint16_T_re :: Int16_T
+                {- ^ __C declaration:__ @re@
+
+                     __defined at:__ @edge-cases\/spec_examples.h:15:11@
+
+                     __exported by:__ @edge-cases\/spec_examples.h@
+                -},
+                cint16_T_im :: Int16_T
+                {- ^ __C declaration:__ @im@
+
+                     __defined at:__ @edge-cases\/spec_examples.h:16:11@
+
+                     __exported by:__ @edge-cases\/spec_examples.h@
+                -}}
+      {- ^ __defined at:__ @edge-cases\/spec_examples.h:14:9@
+
+           __exported by:__ @edge-cases\/spec_examples.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable Cint16_T
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 2 :: Int
+          peek = \ptr_0 -> (pure Cint16_T <*> peekCField (Proxy @"cint16_T_re") ptr_0) <*> peekCField (Proxy @"cint16_T_im") ptr_0
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Cint16_T cint16_T_re_3
+                                            cint16_T_im_4 -> pokeCField (Proxy @"cint16_T_re") ptr_1 cint16_T_re_3 >> pokeCField (Proxy @"cint16_T_im") ptr_1 cint16_T_im_4
+instance HasCField Cint16_T "cint16_T_re"
+    where type CFieldType Cint16_T "cint16_T_re" = Int16_T
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Cint16_T "cint16_T_re") =>
+         HasField "cint16_T_re" (Ptr Cint16_T) (Ptr ty)
+    where getField = ptrToCField (Proxy @"cint16_T_re")
+instance HasCField Cint16_T "cint16_T_im"
+    where type CFieldType Cint16_T "cint16_T_im" = Int16_T
+          offset# = \_ -> \_ -> 2
+instance TyEq ty (CFieldType Cint16_T "cint16_T_im") =>
+         HasField "cint16_T_im" (Ptr Cint16_T) (Ptr ty)
+    where getField = ptrToCField (Proxy @"cint16_T_im")
+{-| __C declaration:__ @B@
+
+    __defined at:__ @edge-cases\/spec_examples.h:19:8@
+
+    __exported by:__ @edge-cases\/spec_examples.h@
+-}
+data B
+    = B {}
+      {- ^ __C declaration:__ @B@
+
+           __defined at:__ @edge-cases\/spec_examples.h:19:8@
+
+           __exported by:__ @edge-cases\/spec_examples.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable B
+    where sizeOf = \_ -> 0 :: Int
+          alignment = \_ -> 1 :: Int
+          peek = \ptr_0 -> pure B
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   B -> return ()
+{-| __C declaration:__ @A@
+
+    __defined at:__ @edge-cases\/spec_examples.h:23:8@
+
+    __exported by:__ @edge-cases\/spec_examples.h@
+-}
+data A
+    = A {a_x :: CDouble
+         {- ^ __C declaration:__ @x@
+
+              __defined at:__ @edge-cases\/spec_examples.h:24:10@
+
+              __exported by:__ @edge-cases\/spec_examples.h@
+         -},
+         a_label :: (Ptr CChar)
+         {- ^ __C declaration:__ @label@
+
+              __defined at:__ @edge-cases\/spec_examples.h:25:9@
+
+              __exported by:__ @edge-cases\/spec_examples.h@
+         -},
+         a_samples :: (ConstantArray 128 CChar)
+         {- ^ __C declaration:__ @samples@
+
+              __defined at:__ @edge-cases\/spec_examples.h:26:8@
+
+              __exported by:__ @edge-cases\/spec_examples.h@
+         -},
+         a_b :: B
+         {- ^ __C declaration:__ @b@
+
+              __defined at:__ @edge-cases\/spec_examples.h:27:12@
+
+              __exported by:__ @edge-cases\/spec_examples.h@
+         -},
+         a_c :: (Ptr C)
+         {- ^ __C declaration:__ @c@
+
+              __defined at:__ @edge-cases\/spec_examples.h:28:13@
+
+              __exported by:__ @edge-cases\/spec_examples.h@
+         -}}
+      {- ^ __C declaration:__ @A@
+
+           __defined at:__ @edge-cases\/spec_examples.h:23:8@
+
+           __exported by:__ @edge-cases\/spec_examples.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable A
+    where sizeOf = \_ -> 152 :: Int
+          alignment = \_ -> 8 :: Int
+          peek = \ptr_0 -> ((((pure A <*> peekCField (Proxy @"a_x") ptr_0) <*> peekCField (Proxy @"a_label") ptr_0) <*> peekCField (Proxy @"a_samples") ptr_0) <*> peekCField (Proxy @"a_b") ptr_0) <*> peekCField (Proxy @"a_c") ptr_0
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   A a_x_3
+                                     a_label_4
+                                     a_samples_5
+                                     a_b_6
+                                     a_c_7 -> pokeCField (Proxy @"a_x") ptr_1 a_x_3 >> (pokeCField (Proxy @"a_label") ptr_1 a_label_4 >> (pokeCField (Proxy @"a_samples") ptr_1 a_samples_5 >> (pokeCField (Proxy @"a_b") ptr_1 a_b_6 >> pokeCField (Proxy @"a_c") ptr_1 a_c_7)))
+instance HasCField A "a_x"
+    where type CFieldType A "a_x" = CDouble
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType A "a_x") =>
+         HasField "a_x" (Ptr A) (Ptr ty)
+    where getField = ptrToCField (Proxy @"a_x")
+instance HasCField A "a_label"
+    where type CFieldType A "a_label" = Ptr CChar
+          offset# = \_ -> \_ -> 8
+instance TyEq ty (CFieldType A "a_label") =>
+         HasField "a_label" (Ptr A) (Ptr ty)
+    where getField = ptrToCField (Proxy @"a_label")
+instance HasCField A "a_samples"
+    where type CFieldType A "a_samples" = ConstantArray 128 CChar
+          offset# = \_ -> \_ -> 16
+instance TyEq ty (CFieldType A "a_samples") =>
+         HasField "a_samples" (Ptr A) (Ptr ty)
+    where getField = ptrToCField (Proxy @"a_samples")
+instance HasCField A "a_b"
+    where type CFieldType A "a_b" = B
+          offset# = \_ -> \_ -> 144
+instance TyEq ty (CFieldType A "a_b") =>
+         HasField "a_b" (Ptr A) (Ptr ty)
+    where getField = ptrToCField (Proxy @"a_b")
+instance HasCField A "a_c"
+    where type CFieldType A "a_c" = Ptr C
+          offset# = \_ -> \_ -> 144
+instance TyEq ty (CFieldType A "a_c") =>
+         HasField "a_c" (Ptr A) (Ptr ty)
+    where getField = ptrToCField (Proxy @"a_c")
+{-| __C declaration:__ @C@
+
+    __defined at:__ @edge-cases\/spec_examples.h:28:10@
+
+    __exported by:__ @edge-cases\/spec_examples.h@
+-}
+data C
+{-| __C declaration:__ @resample@
+
+    __defined at:__ @edge-cases\/spec_examples.h:31:6@
+
+    __exported by:__ @edge-cases\/spec_examples.h@
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesspec_examples_7d4128962cfce15d" resample :: Ptr Int32_T ->
+                                                                                                Ptr Cint16_T ->
+                                                                                                Int64_T ->
+                                                                                                Int64_T ->
+                                                                                                Ptr Cint16_T ->
+                                                                                                IO Unit
+{-| __C declaration:__ @resample@
+
+    __defined at:__ @edge-cases\/spec_examples.h:31:6@
+
+    __exported by:__ @edge-cases\/spec_examples.h@
+-}
+foreign import ccall safe "hs_bindgen_test_edgecasesspec_examples_f31d4400b3244637" resample :: Ptr Int32_T ->
+                                                                                                Ptr Cint16_T ->
+                                                                                                Int64_T ->
+                                                                                                Int64_T ->
+                                                                                                Ptr Cint16_T ->
+                                                                                                IO Unit
+foreign import ccall safe "hs_bindgen_test_edgecasesspec_examples_46b04422dcd0bbd5" hs_bindgen_test_edgecasesspec_examples_46b04422dcd0bbd5 :: IO (FunPtr (Ptr Int32_T ->
+                                                                                                                                                           ConstantArray 30720000
+                                                                                                                                                                         Cint16_T ->
+                                                                                                                                                           Int64_T ->
+                                                                                                                                                           Int64_T ->
+                                                                                                                                                           ConstantArray 30720000
+                                                                                                                                                                         Cint16_T ->
+                                                                                                                                                           IO Unit))
+{-# NOINLINE resample_ptr #-}
+{-| __C declaration:__ @resample@
+
+    __defined at:__ @edge-cases\/spec_examples.h:31:6@
+
+    __exported by:__ @edge-cases\/spec_examples.h@
+-}
+resample_ptr :: FunPtr (Ptr Int32_T ->
+                        ConstantArray 30720000 Cint16_T ->
+                        Int64_T -> Int64_T -> ConstantArray 30720000 Cint16_T -> IO Unit)
+{-| __C declaration:__ @resample@
+
+    __defined at:__ @edge-cases\/spec_examples.h:31:6@
+
+    __exported by:__ @edge-cases\/spec_examples.h@
+-}
+resample_ptr = unsafePerformIO hs_bindgen_test_edgecasesspec_examples_46b04422dcd0bbd5

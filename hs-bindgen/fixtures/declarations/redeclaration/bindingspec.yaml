@@ -1,0 +1,39 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: declarations/redeclaration.h
+  cname: struct X
+  hsname: X
+- headers: declarations/redeclaration.h
+  cname: union Y
+  hsname: 'Y'
+- headers: declarations/redeclaration.h
+  cname: int_t
+  hsname: Int_t
+- headers: declarations/redeclaration.h
+  cname: union y
+  hsname: 'Y'
+hstypes:
+- hsname: Int_t
+  instances:
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Read
+  - Real
+  - Show
+  - Storable
+- hsname: X
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: 'Y'

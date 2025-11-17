@@ -1,0 +1,9 @@
+UndecidableInstances
+TypeFamilies
+DataKinds
+DerivingStrategies
+FlexibleContexts
+MultiParamTypeClasses
+MagicHash
+TypeOperators
+TypeApplications

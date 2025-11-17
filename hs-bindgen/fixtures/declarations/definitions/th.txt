@@ -1,0 +1,205 @@
+-- addDependentFile examples/golden/declarations/definitions.h
+-- #include <declarations/definitions.h>
+-- signed int hs_bindgen_test_declarationsdefinitions_5a514c66396155ff (
+--   double arg1
+-- )
+-- {
+--   return foo(arg1);
+-- }
+-- signed int hs_bindgen_test_declarationsdefinitions_84e4eb047d6694cd (
+--   double arg1
+-- )
+-- {
+--   return foo(arg1);
+-- }
+-- /* get_foo_ptr */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_test_declarationsdefinitions_32925a42980e81cd (void)) (
+--   double arg1
+-- )
+-- {
+--   return &foo;
+-- }
+-- /* get_n_ptr */
+-- __attribute__ ((const))
+-- signed int *hs_bindgen_test_declarationsdefinitions_cfec0f95f22bb37c (void)
+-- {
+--   return &n;
+-- }
+{-| __C declaration:__ @X@
+
+    __defined at:__ @declarations\/definitions.h:23:8@
+
+    __exported by:__ @declarations\/definitions.h@
+-}
+data X
+    = X {x_n :: CInt
+         {- ^ __C declaration:__ @n@
+
+              __defined at:__ @declarations\/definitions.h:23:16@
+
+              __exported by:__ @declarations\/definitions.h@
+         -}}
+      {- ^ __C declaration:__ @X@
+
+           __defined at:__ @declarations\/definitions.h:23:8@
+
+           __exported by:__ @declarations\/definitions.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable X
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure X <*> peekCField (Proxy @"x_n") ptr_0
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   X x_n_3 -> pokeCField (Proxy @"x_n") ptr_1 x_n_3
+instance HasCField X "x_n"
+    where type CFieldType X "x_n" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType X "x_n") =>
+         HasField "x_n" (Ptr X) (Ptr ty)
+    where getField = ptrToCField (Proxy @"x_n")
+{-| __C declaration:__ @Y@
+
+    __defined at:__ @declarations\/definitions.h:26:7@
+
+    __exported by:__ @declarations\/definitions.h@
+-}
+newtype Y
+    = Y {un_Y :: ByteArray}
+      {- ^ __C declaration:__ @Y@
+
+           __defined at:__ @declarations\/definitions.h:26:7@
+
+           __exported by:__ @declarations\/definitions.h@
+      -}
+deriving via (SizedByteArray 4 4) instance Storable Y
+{-|
+
+  __See:__ 'set_y_m'
+
+__C declaration:__ @m@
+
+__defined at:__ @declarations\/definitions.h:26:15@
+
+__exported by:__ @declarations\/definitions.h@
+-}
+get_y_m :: Y -> CInt
+{-|
+
+  __See:__ 'set_y_m'
+
+__C declaration:__ @m@
+
+__defined at:__ @declarations\/definitions.h:26:15@
+
+__exported by:__ @declarations\/definitions.h@
+-}
+get_y_m = getUnionPayload
+{-|
+
+  __See:__ 'get_y_m'
+
+-}
+set_y_m :: CInt -> Y
+{-|
+
+  __See:__ 'get_y_m'
+
+-}
+set_y_m = setUnionPayload
+{-|
+
+  __See:__ 'set_y_o'
+
+__C declaration:__ @o@
+
+__defined at:__ @declarations\/definitions.h:26:22@
+
+__exported by:__ @declarations\/definitions.h@
+-}
+get_y_o :: Y -> CInt
+{-|
+
+  __See:__ 'set_y_o'
+
+__C declaration:__ @o@
+
+__defined at:__ @declarations\/definitions.h:26:22@
+
+__exported by:__ @declarations\/definitions.h@
+-}
+get_y_o = getUnionPayload
+{-|
+
+  __See:__ 'get_y_o'
+
+-}
+set_y_o :: CInt -> Y
+{-|
+
+  __See:__ 'get_y_o'
+
+-}
+set_y_o = setUnionPayload
+instance HasCField Y "y_m"
+    where type CFieldType Y "y_m" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Y "y_m") =>
+         HasField "y_m" (Ptr Y) (Ptr ty)
+    where getField = ptrToCField (Proxy @"y_m")
+instance HasCField Y "y_o"
+    where type CFieldType Y "y_o" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Y "y_o") =>
+         HasField "y_o" (Ptr Y) (Ptr ty)
+    where getField = ptrToCField (Proxy @"y_o")
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @declarations\/definitions.h:13:5@
+
+    __exported by:__ @declarations\/definitions.h@
+-}
+foreign import ccall safe "hs_bindgen_test_declarationsdefinitions_5a514c66396155ff" foo :: CDouble ->
+                                                                                            IO CInt
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @declarations\/definitions.h:13:5@
+
+    __exported by:__ @declarations\/definitions.h@
+-}
+foreign import ccall safe "hs_bindgen_test_declarationsdefinitions_84e4eb047d6694cd" foo :: CDouble ->
+                                                                                            IO CInt
+foreign import ccall safe "hs_bindgen_test_declarationsdefinitions_32925a42980e81cd" hs_bindgen_test_declarationsdefinitions_32925a42980e81cd :: IO (FunPtr (CDouble ->
+                                                                                                                                                             IO CInt))
+{-# NOINLINE foo_ptr #-}
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @declarations\/definitions.h:13:5@
+
+    __exported by:__ @declarations\/definitions.h@
+-}
+foo_ptr :: FunPtr (CDouble -> IO CInt)
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @declarations\/definitions.h:13:5@
+
+    __exported by:__ @declarations\/definitions.h@
+-}
+foo_ptr = unsafePerformIO hs_bindgen_test_declarationsdefinitions_32925a42980e81cd
+foreign import ccall safe "hs_bindgen_test_declarationsdefinitions_cfec0f95f22bb37c" hs_bindgen_test_declarationsdefinitions_cfec0f95f22bb37c :: IO (Ptr CInt)
+{-# NOINLINE n_ptr #-}
+{-| __C declaration:__ @n@
+
+    __defined at:__ @declarations\/definitions.h:18:5@
+
+    __exported by:__ @declarations\/definitions.h@
+-}
+n_ptr :: Ptr CInt
+{-| __C declaration:__ @n@
+
+    __defined at:__ @declarations\/definitions.h:18:5@
+
+    __exported by:__ @declarations\/definitions.h@
+-}
+n_ptr = unsafePerformIO hs_bindgen_test_declarationsdefinitions_cfec0f95f22bb37c

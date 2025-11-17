@@ -1,0 +1,161 @@
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "opaque_declaration.h:1:8",
+        declId = NamePair {
+          nameC = Name "foo",
+          nameHsIdent = Identifier "Foo"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "declarations/opaque_declaration.h"],
+            headerInclude =
+            "declarations/opaque_declaration.h"},
+        declComment = Nothing},
+      declKind = DeclOpaque
+        (NameKindTagged TagKindStruct),
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "opaque_declaration.h:4:8",
+        declId = NamePair {
+          nameC = Name "bar",
+          nameHsIdent = Identifier "Bar"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "declarations/opaque_declaration.h"],
+            headerInclude =
+            "declarations/opaque_declaration.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "Bar"),
+          structSizeof = 16,
+          structAlignment = 8,
+          structFields = [
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "opaque_declaration.h:5:17",
+                fieldName = NamePair {
+                  nameC = Name "ptrA",
+                  nameHsIdent = Identifier
+                    "bar_ptrA"},
+                fieldComment = Nothing},
+              structFieldType = TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "foo",
+                    nameHsIdent = Identifier "Foo"}
+                  NameOriginInSource),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc =
+                "opaque_declaration.h:6:17",
+                fieldName = NamePair {
+                  nameC = Name "ptrB",
+                  nameHsIdent = Identifier
+                    "bar_ptrB"},
+                fieldComment = Nothing},
+              structFieldType = TypePointer
+                (TypeStruct
+                  NamePair {
+                    nameC = Name "bar",
+                    nameHsIdent = Identifier "Bar"}
+                  NameOriginInSource),
+              structFieldOffset = 64,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "opaque_declaration.h:9:8",
+        declId = NamePair {
+          nameC = Name "baz",
+          nameHsIdent = Identifier "Baz"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "declarations/opaque_declaration.h"],
+            headerInclude =
+            "declarations/opaque_declaration.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "Baz"),
+          structSizeof = 0,
+          structAlignment = 1,
+          structFields = [],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "opaque_declaration.h:11:6",
+        declId = NamePair {
+          nameC = Name "quu",
+          nameHsIdent = Identifier "Quu"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "declarations/opaque_declaration.h"],
+            headerInclude =
+            "declarations/opaque_declaration.h"},
+        declComment = Nothing},
+      declKind = DeclOpaque
+        (NameKindTagged TagKindEnum),
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "opaque_declaration.h:13:7",
+        declId = NamePair {
+          nameC = Name "opaque_union",
+          nameHsIdent = Identifier
+            "Opaque_union"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              [
+                "declarations/opaque_declaration.h"],
+            headerInclude =
+            "declarations/opaque_declaration.h"},
+        declComment = Nothing},
+      declKind = DeclOpaque
+        (NameKindTagged TagKindUnion),
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}}],
+  unitDeps = [
+    "opaque_declaration"]}

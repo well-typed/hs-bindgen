@@ -1,0 +1,81 @@
+-- addDependentFile musl-include/x86_64/bits/alltypes.h
+-- addDependentFile musl-include/x86_64/stddef.h
+-- addDependentFile examples/golden/declarations/declarations_required_for_scoping.h
+-- #include <declarations/declarations_required_for_scoping.h>
+-- void hs_bindgen_test_declarationsdeclarations_requ_fcce70013c76ce8b (
+--   A arg1
+-- )
+-- {
+--   f(arg1);
+-- }
+-- void hs_bindgen_test_declarationsdeclarations_requ_b68b2cffacc97c1d (
+--   A arg1
+-- )
+-- {
+--   f(arg1);
+-- }
+-- /* get_f_ptr */
+-- __attribute__ ((const))
+-- void (*hs_bindgen_test_declarationsdeclarations_requ_c34fd33eedc1490d (void)) (
+--   A arg1
+-- )
+-- {
+--   return &f;
+-- }
+{-| __C declaration:__ @A@
+
+    __defined at:__ @declarations\/declarations_required_for_scoping.h:5:9@
+
+    __exported by:__ @declarations\/declarations_required_for_scoping.h@
+-}
+newtype A
+    = A {un_A :: HsBindgen.Runtime.Prelude.CSize}
+      {- ^ __C declaration:__ @A@
+
+           __defined at:__ @declarations\/declarations_required_for_scoping.h:5:9@
+
+           __exported by:__ @declarations\/declarations_required_for_scoping.h@
+      -}
+    deriving stock (Eq, Ord, Read, Show)
+    deriving newtype (Storable,
+                      Bits,
+                      Bounded,
+                      Enum,
+                      FiniteBits,
+                      Integral,
+                      Ix,
+                      Num,
+                      Real)
+{-| __C declaration:__ @f@
+
+    __defined at:__ @declarations\/declarations_required_for_scoping.h:7:6@
+
+    __exported by:__ @declarations\/declarations_required_for_scoping.h@
+-}
+foreign import ccall safe "hs_bindgen_test_declarationsdeclarations_requ_fcce70013c76ce8b" f :: A ->
+                                                                                                IO Unit
+{-| __C declaration:__ @f@
+
+    __defined at:__ @declarations\/declarations_required_for_scoping.h:7:6@
+
+    __exported by:__ @declarations\/declarations_required_for_scoping.h@
+-}
+foreign import ccall safe "hs_bindgen_test_declarationsdeclarations_requ_b68b2cffacc97c1d" f :: A ->
+                                                                                                IO Unit
+foreign import ccall safe "hs_bindgen_test_declarationsdeclarations_requ_c34fd33eedc1490d" hs_bindgen_test_declarationsdeclarations_requ_c34fd33eedc1490d :: IO (FunPtr (A ->
+                                                                                                                                                                         IO Unit))
+{-# NOINLINE f_ptr #-}
+{-| __C declaration:__ @f@
+
+    __defined at:__ @declarations\/declarations_required_for_scoping.h:7:6@
+
+    __exported by:__ @declarations\/declarations_required_for_scoping.h@
+-}
+f_ptr :: FunPtr (A -> IO Unit)
+{-| __C declaration:__ @f@
+
+    __defined at:__ @declarations\/declarations_required_for_scoping.h:7:6@
+
+    __exported by:__ @declarations\/declarations_required_for_scoping.h@
+-}
+f_ptr = unsafePerformIO hs_bindgen_test_declarationsdeclarations_requ_c34fd33eedc1490d

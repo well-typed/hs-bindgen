@@ -1,0 +1,657 @@
+-- addDependentFile examples/golden/types/enums.h
+{-| __C declaration:__ @first@
+
+    __defined at:__ @types\/enums.h:4:6@
+
+    __exported by:__ @types\/enums.h@
+-}
+newtype First
+    = First {un_First :: CUInt}
+      {- ^ __C declaration:__ @first@
+
+           __defined at:__ @types\/enums.h:4:6@
+
+           __exported by:__ @types\/enums.h@
+      -}
+    deriving stock (Eq, Ord)
+instance Storable First
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure First <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   First un_First_3 -> pokeByteOff ptr_1 (0 :: Int) un_First_3
+instance CEnum First
+    where type CEnumZ First = CUInt
+          toCEnum = First
+          fromCEnum = un_First
+          declaredValues = \_ -> declaredValuesFromList [(0,
+                                                          singleton "FIRST1"),
+                                                         (1, singleton "FIRST2")]
+          showsUndeclared = showsWrappedUndeclared "First"
+          readPrecUndeclared = readPrecWrappedUndeclared "First"
+          isDeclared = seqIsDeclared
+          mkDeclared = seqMkDeclared
+instance SequentialCEnum First
+    where minDeclaredValue = FIRST1
+          maxDeclaredValue = FIRST2
+instance Show First
+    where showsPrec = showsCEnum
+instance Read First
+    where readPrec = readPrecCEnum
+          readList = readListDefault
+          readListPrec = readListPrecDefault
+{-| __C declaration:__ @FIRST1@
+
+    __defined at:__ @types\/enums.h:5:5@
+
+    __exported by:__ @types\/enums.h@
+-}
+pattern FIRST1 :: First
+{-| __C declaration:__ @FIRST1@
+
+    __defined at:__ @types\/enums.h:5:5@
+
+    __exported by:__ @types\/enums.h@
+-}
+pattern FIRST1 = First 0
+{-| __C declaration:__ @FIRST2@
+
+    __defined at:__ @types\/enums.h:6:5@
+
+    __exported by:__ @types\/enums.h@
+-}
+pattern FIRST2 :: First
+{-| __C declaration:__ @FIRST2@
+
+    __defined at:__ @types\/enums.h:6:5@
+
+    __exported by:__ @types\/enums.h@
+-}
+pattern FIRST2 = First 1
+{-| __C declaration:__ @second@
+
+    __defined at:__ @types\/enums.h:9:6@
+
+    __exported by:__ @types\/enums.h@
+-}
+newtype Second
+    = Second {un_Second :: CInt}
+      {- ^ __C declaration:__ @second@
+
+           __defined at:__ @types\/enums.h:9:6@
+
+           __exported by:__ @types\/enums.h@
+      -}
+    deriving stock (Eq, Ord)
+instance Storable Second
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure Second <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Second un_Second_3 -> pokeByteOff ptr_1 (0 :: Int) un_Second_3
+instance CEnum Second
+    where type CEnumZ Second = CInt
+          toCEnum = Second
+          fromCEnum = un_Second
+          declaredValues = \_ -> declaredValuesFromList [(-1,
+                                                          singleton "SECOND_A"),
+                                                         (0, singleton "SECOND_B"),
+                                                         (1, singleton "SECOND_C")]
+          showsUndeclared = showsWrappedUndeclared "Second"
+          readPrecUndeclared = readPrecWrappedUndeclared "Second"
+          isDeclared = seqIsDeclared
+          mkDeclared = seqMkDeclared
+instance SequentialCEnum Second
+    where minDeclaredValue = SECOND_A
+          maxDeclaredValue = SECOND_C
+instance Show Second
+    where showsPrec = showsCEnum
+instance Read Second
+    where readPrec = readPrecCEnum
+          readList = readListDefault
+          readListPrec = readListPrecDefault
+{-| __C declaration:__ @SECOND_A@
+
+    __defined at:__ @types\/enums.h:10:5@
+
+    __exported by:__ @types\/enums.h@
+-}
+pattern SECOND_A :: Second
+{-| __C declaration:__ @SECOND_A@
+
+    __defined at:__ @types\/enums.h:10:5@
+
+    __exported by:__ @types\/enums.h@
+-}
+pattern SECOND_A = Second (-1)
+{-| __C declaration:__ @SECOND_B@
+
+    __defined at:__ @types\/enums.h:11:5@
+
+    __exported by:__ @types\/enums.h@
+-}
+pattern SECOND_B :: Second
+{-| __C declaration:__ @SECOND_B@
+
+    __defined at:__ @types\/enums.h:11:5@
+
+    __exported by:__ @types\/enums.h@
+-}
+pattern SECOND_B = Second 0
+{-| __C declaration:__ @SECOND_C@
+
+    __defined at:__ @types\/enums.h:12:5@
+
+    __exported by:__ @types\/enums.h@
+-}
+pattern SECOND_C :: Second
+{-| __C declaration:__ @SECOND_C@
+
+    __defined at:__ @types\/enums.h:12:5@
+
+    __exported by:__ @types\/enums.h@
+-}
+pattern SECOND_C = Second 1
+{-| __C declaration:__ @same@
+
+    __defined at:__ @types\/enums.h:15:6@
+
+    __exported by:__ @types\/enums.h@
+-}
+newtype Same
+    = Same {un_Same :: CUInt}
+      {- ^ __C declaration:__ @same@
+
+           __defined at:__ @types\/enums.h:15:6@
+
+           __exported by:__ @types\/enums.h@
+      -}
+    deriving stock (Eq, Ord)
+instance Storable Same
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure Same <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Same un_Same_3 -> pokeByteOff ptr_1 (0 :: Int) un_Same_3
+instance CEnum Same
+    where type CEnumZ Same = CUInt
+          toCEnum = Same
+          fromCEnum = un_Same
+          declaredValues = \_ -> declaredValuesFromList [(1,
+                                                          "SAME_A" :| ["SAME_B"])]
+          showsUndeclared = showsWrappedUndeclared "Same"
+          readPrecUndeclared = readPrecWrappedUndeclared "Same"
+          isDeclared = seqIsDeclared
+          mkDeclared = seqMkDeclared
+instance SequentialCEnum Same
+    where minDeclaredValue = SAME_A
+          maxDeclaredValue = SAME_A
+instance Show Same
+    where showsPrec = showsCEnum
+instance Read Same
+    where readPrec = readPrecCEnum
+          readList = readListDefault
+          readListPrec = readListPrecDefault
+{-| __C declaration:__ @SAME_A@
+
+    __defined at:__ @types\/enums.h:16:5@
+
+    __exported by:__ @types\/enums.h@
+-}
+pattern SAME_A :: Same
+{-| __C declaration:__ @SAME_A@
+
+    __defined at:__ @types\/enums.h:16:5@
+
+    __exported by:__ @types\/enums.h@
+-}
+pattern SAME_A = Same 1
+{-| __C declaration:__ @SAME_B@
+
+    __defined at:__ @types\/enums.h:17:5@
+
+    __exported by:__ @types\/enums.h@
+-}
+pattern SAME_B :: Same
+{-| __C declaration:__ @SAME_B@
+
+    __defined at:__ @types\/enums.h:17:5@
+
+    __exported by:__ @types\/enums.h@
+-}
+pattern SAME_B = Same 1
+{-| __C declaration:__ @nonseq@
+
+    __defined at:__ @types\/enums.h:20:6@
+
+    __exported by:__ @types\/enums.h@
+-}
+newtype Nonseq
+    = Nonseq {un_Nonseq :: CUInt}
+      {- ^ __C declaration:__ @nonseq@
+
+           __defined at:__ @types\/enums.h:20:6@
+
+           __exported by:__ @types\/enums.h@
+      -}
+    deriving stock (Eq, Ord)
+instance Storable Nonseq
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure Nonseq <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Nonseq un_Nonseq_3 -> pokeByteOff ptr_1 (0 :: Int) un_Nonseq_3
+instance CEnum Nonseq
+    where type CEnumZ Nonseq = CUInt
+          toCEnum = Nonseq
+          fromCEnum = un_Nonseq
+          declaredValues = \_ -> declaredValuesFromList [(200,
+                                                          singleton "NONSEQ_A"),
+                                                         (301, singleton "NONSEQ_B"),
+                                                         (404, singleton "NONSEQ_C")]
+          showsUndeclared = showsWrappedUndeclared "Nonseq"
+          readPrecUndeclared = readPrecWrappedUndeclared "Nonseq"
+instance Show Nonseq
+    where showsPrec = showsCEnum
+instance Read Nonseq
+    where readPrec = readPrecCEnum
+          readList = readListDefault
+          readListPrec = readListPrecDefault
+{-| __C declaration:__ @NONSEQ_A@
+
+    __defined at:__ @types\/enums.h:21:5@
+
+    __exported by:__ @types\/enums.h@
+-}
+pattern NONSEQ_A :: Nonseq
+{-| __C declaration:__ @NONSEQ_A@
+
+    __defined at:__ @types\/enums.h:21:5@
+
+    __exported by:__ @types\/enums.h@
+-}
+pattern NONSEQ_A = Nonseq 200
+{-| __C declaration:__ @NONSEQ_B@
+
+    __defined at:__ @types\/enums.h:22:5@
+
+    __exported by:__ @types\/enums.h@
+-}
+pattern NONSEQ_B :: Nonseq
+{-| __C declaration:__ @NONSEQ_B@
+
+    __defined at:__ @types\/enums.h:22:5@
+
+    __exported by:__ @types\/enums.h@
+-}
+pattern NONSEQ_B = Nonseq 301
+{-| __C declaration:__ @NONSEQ_C@
+
+    __defined at:__ @types\/enums.h:23:5@
+
+    __exported by:__ @types\/enums.h@
+-}
+pattern NONSEQ_C :: Nonseq
+{-| __C declaration:__ @NONSEQ_C@
+
+    __defined at:__ @types\/enums.h:23:5@
+
+    __exported by:__ @types\/enums.h@
+-}
+pattern NONSEQ_C = Nonseq 404
+{-| __C declaration:__ @packed@
+
+    __defined at:__ @types\/enums.h:26:6@
+
+    __exported by:__ @types\/enums.h@
+-}
+newtype Packed
+    = Packed {un_Packed :: CUChar}
+      {- ^ __C declaration:__ @packed@
+
+           __defined at:__ @types\/enums.h:26:6@
+
+           __exported by:__ @types\/enums.h@
+      -}
+    deriving stock (Eq, Ord)
+instance Storable Packed
+    where sizeOf = \_ -> 1 :: Int
+          alignment = \_ -> 1 :: Int
+          peek = \ptr_0 -> pure Packed <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Packed un_Packed_3 -> pokeByteOff ptr_1 (0 :: Int) un_Packed_3
+instance CEnum Packed
+    where type CEnumZ Packed = CUChar
+          toCEnum = Packed
+          fromCEnum = un_Packed
+          declaredValues = \_ -> declaredValuesFromList [(0,
+                                                          singleton "PACKED_A"),
+                                                         (1, singleton "PACKED_B"),
+                                                         (2, singleton "PACKED_C")]
+          showsUndeclared = showsWrappedUndeclared "Packed"
+          readPrecUndeclared = readPrecWrappedUndeclared "Packed"
+          isDeclared = seqIsDeclared
+          mkDeclared = seqMkDeclared
+instance SequentialCEnum Packed
+    where minDeclaredValue = PACKED_A
+          maxDeclaredValue = PACKED_C
+instance Show Packed
+    where showsPrec = showsCEnum
+instance Read Packed
+    where readPrec = readPrecCEnum
+          readList = readListDefault
+          readListPrec = readListPrecDefault
+{-| __C declaration:__ @PACKED_A@
+
+    __defined at:__ @types\/enums.h:27:5@
+
+    __exported by:__ @types\/enums.h@
+-}
+pattern PACKED_A :: Packed
+{-| __C declaration:__ @PACKED_A@
+
+    __defined at:__ @types\/enums.h:27:5@
+
+    __exported by:__ @types\/enums.h@
+-}
+pattern PACKED_A = Packed 0
+{-| __C declaration:__ @PACKED_B@
+
+    __defined at:__ @types\/enums.h:27:15@
+
+    __exported by:__ @types\/enums.h@
+-}
+pattern PACKED_B :: Packed
+{-| __C declaration:__ @PACKED_B@
+
+    __defined at:__ @types\/enums.h:27:15@
+
+    __exported by:__ @types\/enums.h@
+-}
+pattern PACKED_B = Packed 1
+{-| __C declaration:__ @PACKED_C@
+
+    __defined at:__ @types\/enums.h:27:25@
+
+    __exported by:__ @types\/enums.h@
+-}
+pattern PACKED_C :: Packed
+{-| __C declaration:__ @PACKED_C@
+
+    __defined at:__ @types\/enums.h:27:25@
+
+    __exported by:__ @types\/enums.h@
+-}
+pattern PACKED_C = Packed 2
+{-| __defined at:__ @types\/enums.h:30:9@
+
+    __exported by:__ @types\/enums.h@
+-}
+newtype EnumA
+    = EnumA {un_EnumA :: CUInt}
+      {- ^ __defined at:__ @types\/enums.h:30:9@
+
+           __exported by:__ @types\/enums.h@
+      -}
+    deriving stock (Eq, Ord)
+instance Storable EnumA
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure EnumA <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   EnumA un_EnumA_3 -> pokeByteOff ptr_1 (0 :: Int) un_EnumA_3
+instance CEnum EnumA
+    where type CEnumZ EnumA = CUInt
+          toCEnum = EnumA
+          fromCEnum = un_EnumA
+          declaredValues = \_ -> declaredValuesFromList [(0,
+                                                          singleton "A_FOO"),
+                                                         (1, singleton "A_BAR")]
+          showsUndeclared = showsWrappedUndeclared "EnumA"
+          readPrecUndeclared = readPrecWrappedUndeclared "EnumA"
+          isDeclared = seqIsDeclared
+          mkDeclared = seqMkDeclared
+instance SequentialCEnum EnumA
+    where minDeclaredValue = A_FOO
+          maxDeclaredValue = A_BAR
+instance Show EnumA
+    where showsPrec = showsCEnum
+instance Read EnumA
+    where readPrec = readPrecCEnum
+          readList = readListDefault
+          readListPrec = readListPrecDefault
+{-| __C declaration:__ @A_FOO@
+
+    __defined at:__ @types\/enums.h:30:16@
+
+    __exported by:__ @types\/enums.h@
+-}
+pattern A_FOO :: EnumA
+{-| __C declaration:__ @A_FOO@
+
+    __defined at:__ @types\/enums.h:30:16@
+
+    __exported by:__ @types\/enums.h@
+-}
+pattern A_FOO = EnumA 0
+{-| __C declaration:__ @A_BAR@
+
+    __defined at:__ @types\/enums.h:30:23@
+
+    __exported by:__ @types\/enums.h@
+-}
+pattern A_BAR :: EnumA
+{-| __C declaration:__ @A_BAR@
+
+    __defined at:__ @types\/enums.h:30:23@
+
+    __exported by:__ @types\/enums.h@
+-}
+pattern A_BAR = EnumA 1
+{-| __C declaration:__ @enumB@
+
+    __defined at:__ @types\/enums.h:32:14@
+
+    __exported by:__ @types\/enums.h@
+-}
+newtype EnumB
+    = EnumB {un_EnumB :: CUInt}
+      {- ^ __C declaration:__ @enumB@
+
+           __defined at:__ @types\/enums.h:32:14@
+
+           __exported by:__ @types\/enums.h@
+      -}
+    deriving stock (Eq, Ord)
+instance Storable EnumB
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure EnumB <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   EnumB un_EnumB_3 -> pokeByteOff ptr_1 (0 :: Int) un_EnumB_3
+instance CEnum EnumB
+    where type CEnumZ EnumB = CUInt
+          toCEnum = EnumB
+          fromCEnum = un_EnumB
+          declaredValues = \_ -> declaredValuesFromList [(0,
+                                                          singleton "B_FOO"),
+                                                         (1, singleton "B_BAR")]
+          showsUndeclared = showsWrappedUndeclared "EnumB"
+          readPrecUndeclared = readPrecWrappedUndeclared "EnumB"
+          isDeclared = seqIsDeclared
+          mkDeclared = seqMkDeclared
+instance SequentialCEnum EnumB
+    where minDeclaredValue = B_FOO
+          maxDeclaredValue = B_BAR
+instance Show EnumB
+    where showsPrec = showsCEnum
+instance Read EnumB
+    where readPrec = readPrecCEnum
+          readList = readListDefault
+          readListPrec = readListPrecDefault
+{-| __C declaration:__ @B_FOO@
+
+    __defined at:__ @types\/enums.h:32:22@
+
+    __exported by:__ @types\/enums.h@
+-}
+pattern B_FOO :: EnumB
+{-| __C declaration:__ @B_FOO@
+
+    __defined at:__ @types\/enums.h:32:22@
+
+    __exported by:__ @types\/enums.h@
+-}
+pattern B_FOO = EnumB 0
+{-| __C declaration:__ @B_BAR@
+
+    __defined at:__ @types\/enums.h:32:29@
+
+    __exported by:__ @types\/enums.h@
+-}
+pattern B_BAR :: EnumB
+{-| __C declaration:__ @B_BAR@
+
+    __defined at:__ @types\/enums.h:32:29@
+
+    __exported by:__ @types\/enums.h@
+-}
+pattern B_BAR = EnumB 1
+{-| __C declaration:__ @enumC@
+
+    __defined at:__ @types\/enums.h:34:6@
+
+    __exported by:__ @types\/enums.h@
+-}
+newtype EnumC
+    = EnumC {un_EnumC :: CUInt}
+      {- ^ __C declaration:__ @enumC@
+
+           __defined at:__ @types\/enums.h:34:6@
+
+           __exported by:__ @types\/enums.h@
+      -}
+    deriving stock (Eq, Ord)
+instance Storable EnumC
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure EnumC <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   EnumC un_EnumC_3 -> pokeByteOff ptr_1 (0 :: Int) un_EnumC_3
+instance CEnum EnumC
+    where type CEnumZ EnumC = CUInt
+          toCEnum = EnumC
+          fromCEnum = un_EnumC
+          declaredValues = \_ -> declaredValuesFromList [(0,
+                                                          singleton "C_FOO"),
+                                                         (1, singleton "C_BAR")]
+          showsUndeclared = showsWrappedUndeclared "EnumC"
+          readPrecUndeclared = readPrecWrappedUndeclared "EnumC"
+          isDeclared = seqIsDeclared
+          mkDeclared = seqMkDeclared
+instance SequentialCEnum EnumC
+    where minDeclaredValue = C_FOO
+          maxDeclaredValue = C_BAR
+instance Show EnumC
+    where showsPrec = showsCEnum
+instance Read EnumC
+    where readPrec = readPrecCEnum
+          readList = readListDefault
+          readListPrec = readListPrecDefault
+{-| __C declaration:__ @C_FOO@
+
+    __defined at:__ @types\/enums.h:34:14@
+
+    __exported by:__ @types\/enums.h@
+-}
+pattern C_FOO :: EnumC
+{-| __C declaration:__ @C_FOO@
+
+    __defined at:__ @types\/enums.h:34:14@
+
+    __exported by:__ @types\/enums.h@
+-}
+pattern C_FOO = EnumC 0
+{-| __C declaration:__ @C_BAR@
+
+    __defined at:__ @types\/enums.h:34:21@
+
+    __exported by:__ @types\/enums.h@
+-}
+pattern C_BAR :: EnumC
+{-| __C declaration:__ @C_BAR@
+
+    __defined at:__ @types\/enums.h:34:21@
+
+    __exported by:__ @types\/enums.h@
+-}
+pattern C_BAR = EnumC 1
+{-| __C declaration:__ @enumD_t@
+
+    __defined at:__ @types\/enums.h:37:6@
+
+    __exported by:__ @types\/enums.h@
+-}
+newtype EnumD_t
+    = EnumD_t {un_EnumD_t :: CUInt}
+      {- ^ __C declaration:__ @enumD_t@
+
+           __defined at:__ @types\/enums.h:37:6@
+
+           __exported by:__ @types\/enums.h@
+      -}
+    deriving stock (Eq, Ord)
+instance Storable EnumD_t
+    where sizeOf = \_ -> 4 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> pure EnumD_t <*> peekByteOff ptr_0 (0 :: Int)
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   EnumD_t un_EnumD_t_3 -> pokeByteOff ptr_1 (0 :: Int) un_EnumD_t_3
+instance CEnum EnumD_t
+    where type CEnumZ EnumD_t = CUInt
+          toCEnum = EnumD_t
+          fromCEnum = un_EnumD_t
+          declaredValues = \_ -> declaredValuesFromList [(0,
+                                                          singleton "D_FOO"),
+                                                         (1, singleton "D_BAR")]
+          showsUndeclared = showsWrappedUndeclared "EnumD_t"
+          readPrecUndeclared = readPrecWrappedUndeclared "EnumD_t"
+          isDeclared = seqIsDeclared
+          mkDeclared = seqMkDeclared
+instance SequentialCEnum EnumD_t
+    where minDeclaredValue = D_FOO
+          maxDeclaredValue = D_BAR
+instance Show EnumD_t
+    where showsPrec = showsCEnum
+instance Read EnumD_t
+    where readPrec = readPrecCEnum
+          readList = readListDefault
+          readListPrec = readListPrecDefault
+{-| __C declaration:__ @D_FOO@
+
+    __defined at:__ @types\/enums.h:37:14@
+
+    __exported by:__ @types\/enums.h@
+-}
+pattern D_FOO :: EnumD_t
+{-| __C declaration:__ @D_FOO@
+
+    __defined at:__ @types\/enums.h:37:14@
+
+    __exported by:__ @types\/enums.h@
+-}
+pattern D_FOO = EnumD_t 0
+{-| __C declaration:__ @D_BAR@
+
+    __defined at:__ @types\/enums.h:37:21@
+
+    __exported by:__ @types\/enums.h@
+-}
+pattern D_BAR :: EnumD_t
+{-| __C declaration:__ @D_BAR@
+
+    __defined at:__ @types\/enums.h:37:21@
+
+    __exported by:__ @types\/enums.h@
+-}
+pattern D_BAR = EnumD_t 1

@@ -1,0 +1,449 @@
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "named_vs_anon.h:15:8",
+        declId = NamePair {
+          nameC = Name "a",
+          nameHsIdent = Identifier "A"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/named_vs_anon.h"],
+            headerInclude =
+            "types/named_vs_anon.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "A"),
+          structSizeof = 0,
+          structAlignment = 1,
+          structFields = [],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "named_vs_anon.h:16:8",
+        declId = NamePair {
+          nameC = Name "struct1",
+          nameHsIdent = Identifier
+            "Struct1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/named_vs_anon.h"],
+            headerInclude =
+            "types/named_vs_anon.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "Struct1"),
+          structSizeof = 0,
+          structAlignment = 1,
+          structFields = [],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "named_vs_anon.h:19:8",
+        declId = NamePair {
+          nameC = Name "b_s",
+          nameHsIdent = Identifier "B_s"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/named_vs_anon.h"],
+            headerInclude =
+            "types/named_vs_anon.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "B_s"),
+          structSizeof = 0,
+          structAlignment = 1,
+          structFields = [],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "named_vs_anon.h:20:8",
+        declId = NamePair {
+          nameC = Name "struct2_s",
+          nameHsIdent = Identifier
+            "Struct2_s"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/named_vs_anon.h"],
+            headerInclude =
+            "types/named_vs_anon.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "Struct2_s"),
+          structSizeof = 0,
+          structAlignment = 1,
+          structFields = [],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "named_vs_anon.h:23:36",
+        declId = NamePair {
+          nameC = Name "c",
+          nameHsIdent = Identifier "C"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/named_vs_anon.h"],
+            headerInclude =
+            "types/named_vs_anon.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "C"),
+          structSizeof = 0,
+          structAlignment = 1,
+          structFields = [],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "named_vs_anon.h:24:36",
+        declId = NamePair {
+          nameC = Name "struct3",
+          nameHsIdent = Identifier
+            "Struct3"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/named_vs_anon.h"],
+            headerInclude =
+            "types/named_vs_anon.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "Struct3"),
+          structSizeof = 0,
+          structAlignment = 1,
+          structFields = [],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "named_vs_anon.h:27:15",
+        declId = NamePair {
+          nameC = Name "d",
+          nameHsIdent = Identifier "D"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/named_vs_anon.h"],
+            headerInclude =
+            "types/named_vs_anon.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "D"),
+          structSizeof = 0,
+          structAlignment = 1,
+          structFields = [],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "named_vs_anon.h:28:15",
+        declId = NamePair {
+          nameC = Name "struct4",
+          nameHsIdent = Identifier
+            "Struct4"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/named_vs_anon.h"],
+            headerInclude =
+            "types/named_vs_anon.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "Struct4"),
+          structSizeof = 0,
+          structAlignment = 1,
+          structFields = [],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "named_vs_anon.h:31:15",
+        declId = NamePair {
+          nameC = Name "e_s",
+          nameHsIdent = Identifier "E_s"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/named_vs_anon.h"],
+            headerInclude =
+            "types/named_vs_anon.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "E_s"),
+          structSizeof = 0,
+          structAlignment = 1,
+          structFields = [],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "named_vs_anon.h:32:15",
+        declId = NamePair {
+          nameC = Name "struct5_s",
+          nameHsIdent = Identifier
+            "Struct5_s"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/named_vs_anon.h"],
+            headerInclude =
+            "types/named_vs_anon.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "Struct5_s"),
+          structSizeof = 0,
+          structAlignment = 1,
+          structFields = [],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "named_vs_anon.h:35:9",
+        declId = NamePair {
+          nameC = Name "f",
+          nameHsIdent = Identifier "F"},
+        declOrigin = NameOriginGenerated
+          (AnonId "named_vs_anon.h:35:9"),
+        declAliases = [Name "f"],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/named_vs_anon.h"],
+            headerInclude =
+            "types/named_vs_anon.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "F"),
+          structSizeof = 0,
+          structAlignment = 1,
+          structFields = [],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "named_vs_anon.h:36:9",
+        declId = NamePair {
+          nameC = Name "typedef1",
+          nameHsIdent = Identifier
+            "Typedef1"},
+        declOrigin = NameOriginGenerated
+          (AnonId "named_vs_anon.h:36:9"),
+        declAliases = [Name "typedef1"],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/named_vs_anon.h"],
+            headerInclude =
+            "types/named_vs_anon.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "Typedef1"),
+          structSizeof = 0,
+          structAlignment = 1,
+          structFields = [],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "named_vs_anon.h:39:9",
+        declId = NamePair {
+          nameC = Name "g",
+          nameHsIdent = Identifier "G"},
+        declOrigin = NameOriginGenerated
+          (AnonId "named_vs_anon.h:39:9"),
+        declAliases = [Name "g"],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/named_vs_anon.h"],
+            headerInclude =
+            "types/named_vs_anon.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "G"),
+          structSizeof = 0,
+          structAlignment = 1,
+          structFields = [],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "named_vs_anon.h:40:9",
+        declId = NamePair {
+          nameC = Name "typedef2",
+          nameHsIdent = Identifier
+            "Typedef2"},
+        declOrigin = NameOriginGenerated
+          (AnonId "named_vs_anon.h:40:9"),
+        declAliases = [Name "typedef2"],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/named_vs_anon.h"],
+            headerInclude =
+            "types/named_vs_anon.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "Typedef2"),
+          structSizeof = 0,
+          structAlignment = 1,
+          structFields = [],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "named_vs_anon.h:43:9",
+        declId = NamePair {
+          nameC = Name "h",
+          nameHsIdent = Identifier "H"},
+        declOrigin = NameOriginGenerated
+          (AnonId "named_vs_anon.h:43:9"),
+        declAliases = [Name "h"],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/named_vs_anon.h"],
+            headerInclude =
+            "types/named_vs_anon.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "H"),
+          structSizeof = 0,
+          structAlignment = 1,
+          structFields = [],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "named_vs_anon.h:44:9",
+        declId = NamePair {
+          nameC = Name "typedef3",
+          nameHsIdent = Identifier
+            "Typedef3"},
+        declOrigin = NameOriginGenerated
+          (AnonId "named_vs_anon.h:44:9"),
+        declAliases = [Name "typedef3"],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/named_vs_anon.h"],
+            headerInclude =
+            "types/named_vs_anon.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "Typedef3"),
+          structSizeof = 0,
+          structAlignment = 1,
+          structFields = [],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}}],
+  unitDeps = ["named_vs_anon"]}
