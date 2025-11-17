@@ -99,11 +99,9 @@ TranslationUnit {
               structFieldOffset = 24,
               structFieldWidth = Just 2}],
           structFlam = Nothing},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "bitfields.h:12:8",
@@ -163,11 +161,9 @@ TranslationUnit {
               structFieldOffset = 64,
               structFieldWidth = Just 17}],
           structFlam = Nothing},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "bitfields.h:18:8",
@@ -229,11 +225,9 @@ TranslationUnit {
               structFieldOffset = 34,
               structFieldWidth = Just 17}],
           structFlam = Nothing},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "bitfields.h:24:8",
@@ -295,11 +289,9 @@ TranslationUnit {
               structFieldOffset = 64,
               structFieldWidth = Just 17}],
           structFlam = Nothing},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "bitfields.h:30:8",
@@ -347,11 +339,9 @@ TranslationUnit {
               structFieldOffset = 64,
               structFieldWidth = Just 33}],
           structFlam = Nothing},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "bitfields.h:36:8",
@@ -400,11 +390,9 @@ TranslationUnit {
               structFieldOffset = 1,
               structFieldWidth = Just 10}],
           structFlam = Nothing},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "bitfields.h:41:8",
@@ -453,9 +441,7 @@ TranslationUnit {
               structFieldOffset = 32,
               structFieldWidth = Just 31}],
           structFlam = Nothing},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}}],
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}}],
   unitDeps = ["bitfields"]}

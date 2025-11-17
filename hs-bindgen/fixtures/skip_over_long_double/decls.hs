@@ -80,11 +80,9 @@
                   structFieldOffset = 0,
                   structFieldWidth = Nothing}],
               structFlam = Nothing},
-          declSpec = DeclSpec
-            CTypeSpec {
-              cTypeSpecIdentifier = Nothing,
-              cTypeSpecInstances =
-              Map.fromList []}},
+          declSpec = DeclSpec {
+            declSpecC = Nothing,
+            declSpecHs = Nothing}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
@@ -184,11 +182,9 @@
                       structFieldOffset = 0,
                       structFieldWidth = Nothing}],
                   structFlam = Nothing},
-              declSpec = DeclSpec
-                CTypeSpec {
-                  cTypeSpecIdentifier = Nothing,
-                  cTypeSpecInstances =
-                  Map.fromList []}},
+              declSpec = DeclSpec {
+                declSpecC = Nothing,
+                declSpecHs = Nothing}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
@@ -291,11 +287,9 @@
                               structFieldOffset = 0,
                               structFieldWidth = Nothing}],
                           structFlam = Nothing},
-                      declSpec = DeclSpec
-                        CTypeSpec {
-                          cTypeSpecIdentifier = Nothing,
-                          cTypeSpecInstances =
-                          Map.fromList []}},
+                      declSpec = DeclSpec {
+                        declSpecC = Nothing,
+                        declSpecHs = Nothing}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
@@ -401,11 +395,9 @@
                               structFieldOffset = 0,
                               structFieldWidth = Nothing}],
                           structFlam = Nothing},
-                      declSpec = DeclSpec
-                        CTypeSpec {
-                          cTypeSpecIdentifier = Nothing,
-                          cTypeSpecInstances =
-                          Map.fromList []}},
+                      declSpec = DeclSpec {
+                        declSpecC = Nothing,
+                        declSpecHs = Nothing}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just

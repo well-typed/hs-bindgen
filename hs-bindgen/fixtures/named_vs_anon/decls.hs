@@ -33,11 +33,9 @@
               structAlignment = 1,
               structFields = [],
               structFlam = Nothing},
-          declSpec = DeclSpec
-            CTypeSpec {
-              cTypeSpecIdentifier = Nothing,
-              cTypeSpecInstances =
-              Map.fromList []}},
+          declSpec = DeclSpec {
+            declSpecC = Nothing,
+            declSpecHs = Nothing}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
@@ -90,11 +88,9 @@
                   structAlignment = 1,
                   structFields = [],
                   structFlam = Nothing},
-              declSpec = DeclSpec
-                CTypeSpec {
-                  cTypeSpecIdentifier = Nothing,
-                  cTypeSpecInstances =
-                  Map.fromList []}},
+              declSpec = DeclSpec {
+                declSpecC = Nothing,
+                declSpecHs = Nothing}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
@@ -150,11 +146,9 @@
                           structAlignment = 1,
                           structFields = [],
                           structFlam = Nothing},
-                      declSpec = DeclSpec
-                        CTypeSpec {
-                          cTypeSpecIdentifier = Nothing,
-                          cTypeSpecInstances =
-                          Map.fromList []}},
+                      declSpec = DeclSpec {
+                        declSpecC = Nothing,
+                        declSpecHs = Nothing}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
@@ -210,11 +204,9 @@
                           structAlignment = 1,
                           structFields = [],
                           structFlam = Nothing},
-                      declSpec = DeclSpec
-                        CTypeSpec {
-                          cTypeSpecIdentifier = Nothing,
-                          cTypeSpecInstances =
-                          Map.fromList []}},
+                      declSpec = DeclSpec {
+                        declSpecC = Nothing,
+                        declSpecHs = Nothing}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
@@ -289,11 +281,9 @@
               structAlignment = 1,
               structFields = [],
               structFlam = Nothing},
-          declSpec = DeclSpec
-            CTypeSpec {
-              cTypeSpecIdentifier = Nothing,
-              cTypeSpecInstances =
-              Map.fromList []}},
+          declSpec = DeclSpec {
+            declSpecC = Nothing,
+            declSpecHs = Nothing}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
@@ -347,11 +337,9 @@
                   structAlignment = 1,
                   structFields = [],
                   structFlam = Nothing},
-              declSpec = DeclSpec
-                CTypeSpec {
-                  cTypeSpecIdentifier = Nothing,
-                  cTypeSpecInstances =
-                  Map.fromList []}},
+              declSpec = DeclSpec {
+                declSpecC = Nothing,
+                declSpecHs = Nothing}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
@@ -408,11 +396,9 @@
                           structAlignment = 1,
                           structFields = [],
                           structFlam = Nothing},
-                      declSpec = DeclSpec
-                        CTypeSpec {
-                          cTypeSpecIdentifier = Nothing,
-                          cTypeSpecInstances =
-                          Map.fromList []}},
+                      declSpec = DeclSpec {
+                        declSpecC = Nothing,
+                        declSpecHs = Nothing}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
@@ -469,11 +455,9 @@
                           structAlignment = 1,
                           structFields = [],
                           structFlam = Nothing},
-                      declSpec = DeclSpec
-                        CTypeSpec {
-                          cTypeSpecIdentifier = Nothing,
-                          cTypeSpecInstances =
-                          Map.fromList []}},
+                      declSpec = DeclSpec {
+                        declSpecC = Nothing,
+                        declSpecHs = Nothing}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
@@ -547,11 +531,9 @@
               structAlignment = 1,
               structFields = [],
               structFlam = Nothing},
-          declSpec = DeclSpec
-            CTypeSpec {
-              cTypeSpecIdentifier = Nothing,
-              cTypeSpecInstances =
-              Map.fromList []}},
+          declSpec = DeclSpec {
+            declSpecC = Nothing,
+            declSpecHs = Nothing}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
@@ -604,11 +586,9 @@
                   structAlignment = 1,
                   structFields = [],
                   structFlam = Nothing},
-              declSpec = DeclSpec
-                CTypeSpec {
-                  cTypeSpecIdentifier = Nothing,
-                  cTypeSpecInstances =
-                  Map.fromList []}},
+              declSpec = DeclSpec {
+                declSpecC = Nothing,
+                declSpecHs = Nothing}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
@@ -664,11 +644,9 @@
                           structAlignment = 1,
                           structFields = [],
                           structFlam = Nothing},
-                      declSpec = DeclSpec
-                        CTypeSpec {
-                          cTypeSpecIdentifier = Nothing,
-                          cTypeSpecInstances =
-                          Map.fromList []}},
+                      declSpec = DeclSpec {
+                        declSpecC = Nothing,
+                        declSpecHs = Nothing}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
@@ -724,11 +702,9 @@
                           structAlignment = 1,
                           structFields = [],
                           structFlam = Nothing},
-                      declSpec = DeclSpec
-                        CTypeSpec {
-                          cTypeSpecIdentifier = Nothing,
-                          cTypeSpecInstances =
-                          Map.fromList []}},
+                      declSpec = DeclSpec {
+                        declSpecC = Nothing,
+                        declSpecHs = Nothing}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
@@ -803,11 +779,9 @@
               structAlignment = 1,
               structFields = [],
               structFlam = Nothing},
-          declSpec = DeclSpec
-            CTypeSpec {
-              cTypeSpecIdentifier = Nothing,
-              cTypeSpecInstances =
-              Map.fromList []}},
+          declSpec = DeclSpec {
+            declSpecC = Nothing,
+            declSpecHs = Nothing}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
@@ -862,11 +836,9 @@
                   structAlignment = 1,
                   structFields = [],
                   structFlam = Nothing},
-              declSpec = DeclSpec
-                CTypeSpec {
-                  cTypeSpecIdentifier = Nothing,
-                  cTypeSpecInstances =
-                  Map.fromList []}},
+              declSpec = DeclSpec {
+                declSpecC = Nothing,
+                declSpecHs = Nothing}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
@@ -924,11 +896,9 @@
                           structAlignment = 1,
                           structFields = [],
                           structFlam = Nothing},
-                      declSpec = DeclSpec
-                        CTypeSpec {
-                          cTypeSpecIdentifier = Nothing,
-                          cTypeSpecInstances =
-                          Map.fromList []}},
+                      declSpec = DeclSpec {
+                        declSpecC = Nothing,
+                        declSpecHs = Nothing}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
@@ -986,11 +956,9 @@
                           structAlignment = 1,
                           structFields = [],
                           structFlam = Nothing},
-                      declSpec = DeclSpec
-                        CTypeSpec {
-                          cTypeSpecIdentifier = Nothing,
-                          cTypeSpecInstances =
-                          Map.fromList []}},
+                      declSpec = DeclSpec {
+                        declSpecC = Nothing,
+                        declSpecHs = Nothing}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
@@ -1065,11 +1033,9 @@
               structAlignment = 1,
               structFields = [],
               structFlam = Nothing},
-          declSpec = DeclSpec
-            CTypeSpec {
-              cTypeSpecIdentifier = Nothing,
-              cTypeSpecInstances =
-              Map.fromList []}},
+          declSpec = DeclSpec {
+            declSpecC = Nothing,
+            declSpecHs = Nothing}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
@@ -1122,11 +1088,9 @@
                   structAlignment = 1,
                   structFields = [],
                   structFlam = Nothing},
-              declSpec = DeclSpec
-                CTypeSpec {
-                  cTypeSpecIdentifier = Nothing,
-                  cTypeSpecInstances =
-                  Map.fromList []}},
+              declSpec = DeclSpec {
+                declSpecC = Nothing,
+                declSpecHs = Nothing}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
@@ -1182,11 +1146,9 @@
                           structAlignment = 1,
                           structFields = [],
                           structFlam = Nothing},
-                      declSpec = DeclSpec
-                        CTypeSpec {
-                          cTypeSpecIdentifier = Nothing,
-                          cTypeSpecInstances =
-                          Map.fromList []}},
+                      declSpec = DeclSpec {
+                        declSpecC = Nothing,
+                        declSpecHs = Nothing}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
@@ -1242,11 +1204,9 @@
                           structAlignment = 1,
                           structFields = [],
                           structFlam = Nothing},
-                      declSpec = DeclSpec
-                        CTypeSpec {
-                          cTypeSpecIdentifier = Nothing,
-                          cTypeSpecInstances =
-                          Map.fromList []}},
+                      declSpec = DeclSpec {
+                        declSpecC = Nothing,
+                        declSpecHs = Nothing}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
@@ -1321,11 +1281,9 @@
               structAlignment = 1,
               structFields = [],
               structFlam = Nothing},
-          declSpec = DeclSpec
-            CTypeSpec {
-              cTypeSpecIdentifier = Nothing,
-              cTypeSpecInstances =
-              Map.fromList []}},
+          declSpec = DeclSpec {
+            declSpecC = Nothing,
+            declSpecHs = Nothing}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
@@ -1379,11 +1337,9 @@
                   structAlignment = 1,
                   structFields = [],
                   structFlam = Nothing},
-              declSpec = DeclSpec
-                CTypeSpec {
-                  cTypeSpecIdentifier = Nothing,
-                  cTypeSpecInstances =
-                  Map.fromList []}},
+              declSpec = DeclSpec {
+                declSpecC = Nothing,
+                declSpecHs = Nothing}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
@@ -1440,11 +1396,9 @@
                           structAlignment = 1,
                           structFields = [],
                           structFlam = Nothing},
-                      declSpec = DeclSpec
-                        CTypeSpec {
-                          cTypeSpecIdentifier = Nothing,
-                          cTypeSpecInstances =
-                          Map.fromList []}},
+                      declSpec = DeclSpec {
+                        declSpecC = Nothing,
+                        declSpecHs = Nothing}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
@@ -1501,11 +1455,9 @@
                           structAlignment = 1,
                           structFields = [],
                           structFlam = Nothing},
-                      declSpec = DeclSpec
-                        CTypeSpec {
-                          cTypeSpecIdentifier = Nothing,
-                          cTypeSpecInstances =
-                          Map.fromList []}},
+                      declSpec = DeclSpec {
+                        declSpecC = Nothing,
+                        declSpecHs = Nothing}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
@@ -1579,11 +1531,9 @@
               structAlignment = 1,
               structFields = [],
               structFlam = Nothing},
-          declSpec = DeclSpec
-            CTypeSpec {
-              cTypeSpecIdentifier = Nothing,
-              cTypeSpecInstances =
-              Map.fromList []}},
+          declSpec = DeclSpec {
+            declSpecC = Nothing,
+            declSpecHs = Nothing}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
@@ -1636,11 +1586,9 @@
                   structAlignment = 1,
                   structFields = [],
                   structFlam = Nothing},
-              declSpec = DeclSpec
-                CTypeSpec {
-                  cTypeSpecIdentifier = Nothing,
-                  cTypeSpecInstances =
-                  Map.fromList []}},
+              declSpec = DeclSpec {
+                declSpecC = Nothing,
+                declSpecHs = Nothing}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
@@ -1696,11 +1644,9 @@
                           structAlignment = 1,
                           structFields = [],
                           structFlam = Nothing},
-                      declSpec = DeclSpec
-                        CTypeSpec {
-                          cTypeSpecIdentifier = Nothing,
-                          cTypeSpecInstances =
-                          Map.fromList []}},
+                      declSpec = DeclSpec {
+                        declSpecC = Nothing,
+                        declSpecHs = Nothing}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
@@ -1756,11 +1702,9 @@
                           structAlignment = 1,
                           structFields = [],
                           structFlam = Nothing},
-                      declSpec = DeclSpec
-                        CTypeSpec {
-                          cTypeSpecIdentifier = Nothing,
-                          cTypeSpecInstances =
-                          Map.fromList []}},
+                      declSpec = DeclSpec {
+                        declSpecC = Nothing,
+                        declSpecHs = Nothing}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
@@ -1835,11 +1779,9 @@
               structAlignment = 1,
               structFields = [],
               structFlam = Nothing},
-          declSpec = DeclSpec
-            CTypeSpec {
-              cTypeSpecIdentifier = Nothing,
-              cTypeSpecInstances =
-              Map.fromList []}},
+          declSpec = DeclSpec {
+            declSpecC = Nothing,
+            declSpecHs = Nothing}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
@@ -1893,11 +1835,9 @@
                   structAlignment = 1,
                   structFields = [],
                   structFlam = Nothing},
-              declSpec = DeclSpec
-                CTypeSpec {
-                  cTypeSpecIdentifier = Nothing,
-                  cTypeSpecInstances =
-                  Map.fromList []}},
+              declSpec = DeclSpec {
+                declSpecC = Nothing,
+                declSpecHs = Nothing}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
@@ -1954,11 +1894,9 @@
                           structAlignment = 1,
                           structFields = [],
                           structFlam = Nothing},
-                      declSpec = DeclSpec
-                        CTypeSpec {
-                          cTypeSpecIdentifier = Nothing,
-                          cTypeSpecInstances =
-                          Map.fromList []}},
+                      declSpec = DeclSpec {
+                        declSpecC = Nothing,
+                        declSpecHs = Nothing}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
@@ -2015,11 +1953,9 @@
                           structAlignment = 1,
                           structFields = [],
                           structFlam = Nothing},
-                      declSpec = DeclSpec
-                        CTypeSpec {
-                          cTypeSpecIdentifier = Nothing,
-                          cTypeSpecInstances =
-                          Map.fromList []}},
+                      declSpec = DeclSpec {
+                        declSpecC = Nothing,
+                        declSpecHs = Nothing}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
@@ -2093,11 +2029,9 @@
               structAlignment = 1,
               structFields = [],
               structFlam = Nothing},
-          declSpec = DeclSpec
-            CTypeSpec {
-              cTypeSpecIdentifier = Nothing,
-              cTypeSpecInstances =
-              Map.fromList []}},
+          declSpec = DeclSpec {
+            declSpecC = Nothing,
+            declSpecHs = Nothing}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
@@ -2150,11 +2084,9 @@
                   structAlignment = 1,
                   structFields = [],
                   structFlam = Nothing},
-              declSpec = DeclSpec
-                CTypeSpec {
-                  cTypeSpecIdentifier = Nothing,
-                  cTypeSpecInstances =
-                  Map.fromList []}},
+              declSpec = DeclSpec {
+                declSpecC = Nothing,
+                declSpecHs = Nothing}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
@@ -2210,11 +2142,9 @@
                           structAlignment = 1,
                           structFields = [],
                           structFlam = Nothing},
-                      declSpec = DeclSpec
-                        CTypeSpec {
-                          cTypeSpecIdentifier = Nothing,
-                          cTypeSpecInstances =
-                          Map.fromList []}},
+                      declSpec = DeclSpec {
+                        declSpecC = Nothing,
+                        declSpecHs = Nothing}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
@@ -2270,11 +2200,9 @@
                           structAlignment = 1,
                           structFields = [],
                           structFlam = Nothing},
-                      declSpec = DeclSpec
-                        CTypeSpec {
-                          cTypeSpecIdentifier = Nothing,
-                          cTypeSpecInstances =
-                          Map.fromList []}},
+                      declSpec = DeclSpec {
+                        declSpecC = Nothing,
+                        declSpecHs = Nothing}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
@@ -2349,11 +2277,9 @@
               structAlignment = 1,
               structFields = [],
               structFlam = Nothing},
-          declSpec = DeclSpec
-            CTypeSpec {
-              cTypeSpecIdentifier = Nothing,
-              cTypeSpecInstances =
-              Map.fromList []}},
+          declSpec = DeclSpec {
+            declSpecC = Nothing,
+            declSpecHs = Nothing}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
@@ -2408,11 +2334,9 @@
                   structAlignment = 1,
                   structFields = [],
                   structFlam = Nothing},
-              declSpec = DeclSpec
-                CTypeSpec {
-                  cTypeSpecIdentifier = Nothing,
-                  cTypeSpecInstances =
-                  Map.fromList []}},
+              declSpec = DeclSpec {
+                declSpecC = Nothing,
+                declSpecHs = Nothing}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
@@ -2470,11 +2394,9 @@
                           structAlignment = 1,
                           structFields = [],
                           structFlam = Nothing},
-                      declSpec = DeclSpec
-                        CTypeSpec {
-                          cTypeSpecIdentifier = Nothing,
-                          cTypeSpecInstances =
-                          Map.fromList []}},
+                      declSpec = DeclSpec {
+                        declSpecC = Nothing,
+                        declSpecHs = Nothing}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
@@ -2532,11 +2454,9 @@
                           structAlignment = 1,
                           structFields = [],
                           structFlam = Nothing},
-                      declSpec = DeclSpec
-                        CTypeSpec {
-                          cTypeSpecIdentifier = Nothing,
-                          cTypeSpecInstances =
-                          Map.fromList []}},
+                      declSpec = DeclSpec {
+                        declSpecC = Nothing,
+                        declSpecHs = Nothing}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
@@ -2612,11 +2532,9 @@
               structAlignment = 1,
               structFields = [],
               structFlam = Nothing},
-          declSpec = DeclSpec
-            CTypeSpec {
-              cTypeSpecIdentifier = Nothing,
-              cTypeSpecInstances =
-              Map.fromList []}},
+          declSpec = DeclSpec {
+            declSpecC = Nothing,
+            declSpecHs = Nothing}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
@@ -2670,11 +2588,9 @@
                   structAlignment = 1,
                   structFields = [],
                   structFlam = Nothing},
-              declSpec = DeclSpec
-                CTypeSpec {
-                  cTypeSpecIdentifier = Nothing,
-                  cTypeSpecInstances =
-                  Map.fromList []}},
+              declSpec = DeclSpec {
+                declSpecC = Nothing,
+                declSpecHs = Nothing}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
@@ -2731,11 +2647,9 @@
                           structAlignment = 1,
                           structFields = [],
                           structFlam = Nothing},
-                      declSpec = DeclSpec
-                        CTypeSpec {
-                          cTypeSpecIdentifier = Nothing,
-                          cTypeSpecInstances =
-                          Map.fromList []}},
+                      declSpec = DeclSpec {
+                        declSpecC = Nothing,
+                        declSpecHs = Nothing}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
@@ -2792,11 +2706,9 @@
                           structAlignment = 1,
                           structFields = [],
                           structFlam = Nothing},
-                      declSpec = DeclSpec
-                        CTypeSpec {
-                          cTypeSpecIdentifier = Nothing,
-                          cTypeSpecInstances =
-                          Map.fromList []}},
+                      declSpec = DeclSpec {
+                        declSpecC = Nothing,
+                        declSpecHs = Nothing}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
@@ -2872,11 +2784,9 @@
               structAlignment = 1,
               structFields = [],
               structFlam = Nothing},
-          declSpec = DeclSpec
-            CTypeSpec {
-              cTypeSpecIdentifier = Nothing,
-              cTypeSpecInstances =
-              Map.fromList []}},
+          declSpec = DeclSpec {
+            declSpecC = Nothing,
+            declSpecHs = Nothing}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
@@ -2931,11 +2841,9 @@
                   structAlignment = 1,
                   structFields = [],
                   structFlam = Nothing},
-              declSpec = DeclSpec
-                CTypeSpec {
-                  cTypeSpecIdentifier = Nothing,
-                  cTypeSpecInstances =
-                  Map.fromList []}},
+              declSpec = DeclSpec {
+                declSpecC = Nothing,
+                declSpecHs = Nothing}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
@@ -2993,11 +2901,9 @@
                           structAlignment = 1,
                           structFields = [],
                           structFlam = Nothing},
-                      declSpec = DeclSpec
-                        CTypeSpec {
-                          cTypeSpecIdentifier = Nothing,
-                          cTypeSpecInstances =
-                          Map.fromList []}},
+                      declSpec = DeclSpec {
+                        declSpecC = Nothing,
+                        declSpecHs = Nothing}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
@@ -3055,11 +2961,9 @@
                           structAlignment = 1,
                           structFields = [],
                           structFlam = Nothing},
-                      declSpec = DeclSpec
-                        CTypeSpec {
-                          cTypeSpecIdentifier = Nothing,
-                          cTypeSpecInstances =
-                          Map.fromList []}},
+                      declSpec = DeclSpec {
+                        declSpecC = Nothing,
+                        declSpecHs = Nothing}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
@@ -3134,11 +3038,9 @@
               structAlignment = 1,
               structFields = [],
               structFlam = Nothing},
-          declSpec = DeclSpec
-            CTypeSpec {
-              cTypeSpecIdentifier = Nothing,
-              cTypeSpecInstances =
-              Map.fromList []}},
+          declSpec = DeclSpec {
+            declSpecC = Nothing,
+            declSpecHs = Nothing}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
@@ -3192,11 +3094,9 @@
                   structAlignment = 1,
                   structFields = [],
                   structFlam = Nothing},
-              declSpec = DeclSpec
-                CTypeSpec {
-                  cTypeSpecIdentifier = Nothing,
-                  cTypeSpecInstances =
-                  Map.fromList []}},
+              declSpec = DeclSpec {
+                declSpecC = Nothing,
+                declSpecHs = Nothing}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
@@ -3253,11 +3153,9 @@
                           structAlignment = 1,
                           structFields = [],
                           structFlam = Nothing},
-                      declSpec = DeclSpec
-                        CTypeSpec {
-                          cTypeSpecIdentifier = Nothing,
-                          cTypeSpecInstances =
-                          Map.fromList []}},
+                      declSpec = DeclSpec {
+                        declSpecC = Nothing,
+                        declSpecHs = Nothing}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
@@ -3314,11 +3212,9 @@
                           structAlignment = 1,
                           structFields = [],
                           structFlam = Nothing},
-                      declSpec = DeclSpec
-                        CTypeSpec {
-                          cTypeSpecIdentifier = Nothing,
-                          cTypeSpecInstances =
-                          Map.fromList []}},
+                      declSpec = DeclSpec {
+                        declSpecC = Nothing,
+                        declSpecHs = Nothing}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
@@ -3394,11 +3290,9 @@
               structAlignment = 1,
               structFields = [],
               structFlam = Nothing},
-          declSpec = DeclSpec
-            CTypeSpec {
-              cTypeSpecIdentifier = Nothing,
-              cTypeSpecInstances =
-              Map.fromList []}},
+          declSpec = DeclSpec {
+            declSpecC = Nothing,
+            declSpecHs = Nothing}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
@@ -3453,11 +3347,9 @@
                   structAlignment = 1,
                   structFields = [],
                   structFlam = Nothing},
-              declSpec = DeclSpec
-                CTypeSpec {
-                  cTypeSpecIdentifier = Nothing,
-                  cTypeSpecInstances =
-                  Map.fromList []}},
+              declSpec = DeclSpec {
+                declSpecC = Nothing,
+                declSpecHs = Nothing}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
@@ -3515,11 +3407,9 @@
                           structAlignment = 1,
                           structFields = [],
                           structFlam = Nothing},
-                      declSpec = DeclSpec
-                        CTypeSpec {
-                          cTypeSpecIdentifier = Nothing,
-                          cTypeSpecInstances =
-                          Map.fromList []}},
+                      declSpec = DeclSpec {
+                        declSpecC = Nothing,
+                        declSpecHs = Nothing}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
@@ -3577,11 +3467,9 @@
                           structAlignment = 1,
                           structFields = [],
                           structFlam = Nothing},
-                      declSpec = DeclSpec
-                        CTypeSpec {
-                          cTypeSpecIdentifier = Nothing,
-                          cTypeSpecInstances =
-                          Map.fromList []}},
+                      declSpec = DeclSpec {
+                        declSpecC = Nothing,
+                        declSpecHs = Nothing}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
@@ -3656,11 +3544,9 @@
               structAlignment = 1,
               structFields = [],
               structFlam = Nothing},
-          declSpec = DeclSpec
-            CTypeSpec {
-              cTypeSpecIdentifier = Nothing,
-              cTypeSpecInstances =
-              Map.fromList []}},
+          declSpec = DeclSpec {
+            declSpecC = Nothing,
+            declSpecHs = Nothing}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
@@ -3714,11 +3600,9 @@
                   structAlignment = 1,
                   structFields = [],
                   structFlam = Nothing},
-              declSpec = DeclSpec
-                CTypeSpec {
-                  cTypeSpecIdentifier = Nothing,
-                  cTypeSpecInstances =
-                  Map.fromList []}},
+              declSpec = DeclSpec {
+                declSpecC = Nothing,
+                declSpecHs = Nothing}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
@@ -3775,11 +3659,9 @@
                           structAlignment = 1,
                           structFields = [],
                           structFlam = Nothing},
-                      declSpec = DeclSpec
-                        CTypeSpec {
-                          cTypeSpecIdentifier = Nothing,
-                          cTypeSpecInstances =
-                          Map.fromList []}},
+                      declSpec = DeclSpec {
+                        declSpecC = Nothing,
+                        declSpecHs = Nothing}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
@@ -3836,11 +3718,9 @@
                           structAlignment = 1,
                           structFields = [],
                           structFlam = Nothing},
-                      declSpec = DeclSpec
-                        CTypeSpec {
-                          cTypeSpecIdentifier = Nothing,
-                          cTypeSpecInstances =
-                          Map.fromList []}},
+                      declSpec = DeclSpec {
+                        declSpecC = Nothing,
+                        declSpecHs = Nothing}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
@@ -3916,11 +3796,9 @@
               structAlignment = 1,
               structFields = [],
               structFlam = Nothing},
-          declSpec = DeclSpec
-            CTypeSpec {
-              cTypeSpecIdentifier = Nothing,
-              cTypeSpecInstances =
-              Map.fromList []}},
+          declSpec = DeclSpec {
+            declSpecC = Nothing,
+            declSpecHs = Nothing}},
       structInstances = Set.fromList
         [Eq, Show, Storable],
       structComment = Just
@@ -3975,11 +3853,9 @@
                   structAlignment = 1,
                   structFields = [],
                   structFlam = Nothing},
-              declSpec = DeclSpec
-                CTypeSpec {
-                  cTypeSpecIdentifier = Nothing,
-                  cTypeSpecInstances =
-                  Map.fromList []}},
+              declSpec = DeclSpec {
+                declSpecC = Nothing,
+                declSpecHs = Nothing}},
           structInstances = Set.fromList
             [Eq, Show, Storable],
           structComment = Just
@@ -4037,11 +3913,9 @@
                           structAlignment = 1,
                           structFields = [],
                           structFlam = Nothing},
-                      declSpec = DeclSpec
-                        CTypeSpec {
-                          cTypeSpecIdentifier = Nothing,
-                          cTypeSpecInstances =
-                          Map.fromList []}},
+                      declSpec = DeclSpec {
+                        declSpecC = Nothing,
+                        declSpecHs = Nothing}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just
@@ -4099,11 +3973,9 @@
                           structAlignment = 1,
                           structFields = [],
                           structFlam = Nothing},
-                      declSpec = DeclSpec
-                        CTypeSpec {
-                          cTypeSpecIdentifier = Nothing,
-                          cTypeSpecInstances =
-                          Map.fromList []}},
+                      declSpec = DeclSpec {
+                        declSpecC = Nothing,
+                        declSpecHs = Nothing}},
                   structInstances = Set.fromList
                     [Eq, Show, Storable],
                   structComment = Just

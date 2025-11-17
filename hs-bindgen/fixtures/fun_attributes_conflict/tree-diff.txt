@@ -45,11 +45,9 @@ TranslationUnit {
             HaskellPureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -82,11 +80,9 @@ TranslationUnit {
             HaskellPureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -119,11 +115,9 @@ TranslationUnit {
             HaskellPureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -156,10 +150,8 @@ TranslationUnit {
             CPureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}}],
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}}],
   unitDeps = [
     "fun_attributes_conflict"]}

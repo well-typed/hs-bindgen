@@ -24,11 +24,9 @@ TranslationUnit {
           structAlignment = 1,
           structFields = [],
           structFlam = Nothing},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -54,11 +52,9 @@ TranslationUnit {
           structAlignment = 1,
           structFields = [],
           structFlam = Nothing},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -83,11 +79,9 @@ TranslationUnit {
           structAlignment = 1,
           structFields = [],
           structFlam = Nothing},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -113,11 +107,9 @@ TranslationUnit {
           structAlignment = 1,
           structFields = [],
           structFlam = Nothing},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -142,11 +134,9 @@ TranslationUnit {
           structAlignment = 1,
           structFields = [],
           structFlam = Nothing},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -172,11 +162,9 @@ TranslationUnit {
           structAlignment = 1,
           structFields = [],
           structFlam = Nothing},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -201,11 +189,9 @@ TranslationUnit {
           structAlignment = 1,
           structFields = [],
           structFlam = Nothing},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -231,11 +217,9 @@ TranslationUnit {
           structAlignment = 1,
           structFields = [],
           structFlam = Nothing},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -260,11 +244,9 @@ TranslationUnit {
           structAlignment = 1,
           structFields = [],
           structFlam = Nothing},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -290,11 +272,9 @@ TranslationUnit {
           structAlignment = 1,
           structFields = [],
           structFlam = Nothing},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -320,11 +300,9 @@ TranslationUnit {
           structAlignment = 1,
           structFields = [],
           structFlam = Nothing},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -351,11 +329,9 @@ TranslationUnit {
           structAlignment = 1,
           structFields = [],
           structFlam = Nothing},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -381,11 +357,9 @@ TranslationUnit {
           structAlignment = 1,
           structFields = [],
           structFlam = Nothing},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -412,11 +386,9 @@ TranslationUnit {
           structAlignment = 1,
           structFields = [],
           structFlam = Nothing},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -442,11 +414,9 @@ TranslationUnit {
           structAlignment = 1,
           structFields = [],
           structFlam = Nothing},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -473,9 +443,7 @@ TranslationUnit {
           structAlignment = 1,
           structFields = [],
           structFlam = Nothing},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}}],
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}}],
   unitDeps = ["named_vs_anon"]}

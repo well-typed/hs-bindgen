@@ -2,57 +2,67 @@ version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
 hsmodule: Example
-types:
+ctypes:
 - headers: unions.h
   cname: union AnonA
   hsname: AnonA
-  instances:
-  - Storable
 - headers: unions.h
   cname: AnonA_polar
   hsname: AnonA_polar
-  instances:
-  - Eq
-  - Show
-  - Storable
 - headers: unions.h
   cname: AnonA_xy
   hsname: AnonA_xy
-  instances:
-  - Eq
-  - Show
-  - Storable
 - headers: unions.h
   cname: struct Dim
   hsname: Dim
-  instances:
-  - Storable
 - headers: unions.h
   cname: struct Dim2
   hsname: Dim2
-  instances:
-  - Eq
-  - Show
-  - Storable
 - headers: unions.h
   cname: struct Dim3
   hsname: Dim3
+- headers: unions.h
+  cname: struct DimB
+  hsname: DimB
+- headers: unions.h
+  cname: union DimPayload
+  hsname: DimPayload
+- headers: unions.h
+  cname: union DimPayloadB
+  hsname: DimPayloadB
+hstypes:
+- hsname: AnonA
+  instances:
+  - Storable
+- hsname: AnonA_polar
   instances:
   - Eq
   - Show
   - Storable
-- headers: unions.h
-  cname: struct DimB
-  hsname: DimB
+- hsname: AnonA_xy
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: Dim
   instances:
   - Storable
-- headers: unions.h
-  cname: union DimPayload
-  hsname: DimPayload
+- hsname: Dim2
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: Dim3
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: DimB
   instances:
   - Storable
-- headers: unions.h
-  cname: union DimPayloadB
-  hsname: DimPayloadB
+- hsname: DimPayload
+  instances:
+  - Storable
+- hsname: DimPayloadB
   instances:
   - Storable

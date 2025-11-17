@@ -26,11 +26,9 @@ TranslationUnit {
           3
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:14:5",
@@ -57,11 +55,9 @@ TranslationUnit {
           3
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:17:12",
@@ -88,11 +84,9 @@ TranslationUnit {
           3
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:20:12",
@@ -119,11 +113,9 @@ TranslationUnit {
           3
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:29:5",
@@ -150,11 +142,9 @@ TranslationUnit {
           1
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:32:12",
@@ -180,11 +170,9 @@ TranslationUnit {
         (TypeIncompleteArray
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:41:13",
@@ -213,11 +201,9 @@ TranslationUnit {
             3
             (TypePrim
               (PrimIntegral PrimInt Signed))},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:43:13",
@@ -246,11 +232,9 @@ TranslationUnit {
           TypeIncompleteArray
             (TypePrim
               (PrimIntegral PrimInt Signed))},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:45:13",
@@ -283,11 +267,9 @@ TranslationUnit {
                 (PrimIntegral
                   PrimInt
                   Signed)))},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:47:13",
@@ -320,11 +302,9 @@ TranslationUnit {
                 (PrimIntegral
                   PrimInt
                   Signed)))},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:49:8",
@@ -378,11 +358,9 @@ TranslationUnit {
               structFieldOffset = 96,
               structFieldWidth = Nothing}],
           structFlam = Nothing},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:55:17",
@@ -427,11 +405,9 @@ TranslationUnit {
                     (PrimIntegral
                       PrimInt
                       Signed)))))},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:62:12",
@@ -458,11 +434,9 @@ TranslationUnit {
           3
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:65:16",
@@ -497,11 +471,9 @@ TranslationUnit {
                 (PrimIntegral
                   PrimInt
                   Signed))))),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:68:12",
@@ -527,11 +499,9 @@ TranslationUnit {
         (TypeIncompleteArray
           (TypePrim
             (PrimIntegral PrimInt Signed))),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:71:13",
@@ -564,11 +534,9 @@ TranslationUnit {
                 (PrimIntegral
                   PrimInt
                   Signed))))),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:74:12",
@@ -599,11 +567,9 @@ TranslationUnit {
               (PrimIntegral
                 PrimInt
                 Signed)))),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:77:15",
@@ -640,11 +606,9 @@ TranslationUnit {
                   (PrimIntegral
                     PrimInt
                     Signed)))))),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:80:12",
@@ -674,11 +638,9 @@ TranslationUnit {
               (PrimIntegral
                 PrimInt
                 Signed)))),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:83:20",
@@ -714,11 +676,9 @@ TranslationUnit {
                   (PrimIntegral
                     PrimInt
                     Signed)))))),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:90:18",
@@ -749,11 +709,9 @@ TranslationUnit {
               (PrimIntegral
                 PrimInt
                 Signed)))),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:93:22",
@@ -790,11 +748,9 @@ TranslationUnit {
                   (PrimIntegral
                     PrimInt
                     Signed)))))),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:96:18",
@@ -824,11 +780,9 @@ TranslationUnit {
               (PrimIntegral
                 PrimInt
                 Signed)))),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:99:19",
@@ -863,11 +817,9 @@ TranslationUnit {
                   (PrimIntegral
                     PrimInt
                     Signed)))))),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:102:18",
@@ -900,11 +852,9 @@ TranslationUnit {
                 (PrimIntegral
                   PrimInt
                   Signed))))),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:105:21",
@@ -943,11 +893,9 @@ TranslationUnit {
                     (PrimIntegral
                       PrimInt
                       Signed))))))),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:108:18",
@@ -979,11 +927,9 @@ TranslationUnit {
                 (PrimIntegral
                   PrimInt
                   Signed))))),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:111:26",
@@ -1021,11 +967,9 @@ TranslationUnit {
                     (PrimIntegral
                       PrimInt
                       Signed))))))),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:118:5",
@@ -1073,11 +1017,9 @@ TranslationUnit {
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:121:5",
@@ -1124,11 +1066,9 @@ TranslationUnit {
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:124:5",
@@ -1168,11 +1108,9 @@ TranslationUnit {
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:127:5",
@@ -1217,11 +1155,9 @@ TranslationUnit {
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:130:5",
@@ -1264,11 +1200,9 @@ TranslationUnit {
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:133:5",
@@ -1317,11 +1251,9 @@ TranslationUnit {
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:136:5",
@@ -1363,11 +1295,9 @@ TranslationUnit {
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:139:5",
@@ -1415,11 +1345,9 @@ TranslationUnit {
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:142:5",
@@ -1474,11 +1402,9 @@ TranslationUnit {
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:149:5",
@@ -1537,11 +1463,9 @@ TranslationUnit {
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:152:5",
@@ -1607,11 +1531,9 @@ TranslationUnit {
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:155:5",
@@ -1661,11 +1583,9 @@ TranslationUnit {
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:158:5",
@@ -1727,11 +1647,9 @@ TranslationUnit {
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:161:5",
@@ -1789,11 +1707,9 @@ TranslationUnit {
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:164:5",
@@ -1863,11 +1779,9 @@ TranslationUnit {
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:167:5",
@@ -1923,11 +1837,9 @@ TranslationUnit {
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:170:5",
@@ -1995,11 +1907,9 @@ TranslationUnit {
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:173:5",
@@ -2081,11 +1991,9 @@ TranslationUnit {
             ImpureFunction,
           functionRes = TypePrim
             (PrimIntegral PrimInt Signed)},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:185:7",
@@ -2120,11 +2028,9 @@ TranslationUnit {
                 (PrimIntegral
                   PrimInt
                   Signed)))},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:188:10",
@@ -2165,11 +2071,9 @@ TranslationUnit {
                     (PrimIntegral
                       PrimInt
                       Signed)))))},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:191:7",
@@ -2203,11 +2107,9 @@ TranslationUnit {
                 (PrimIntegral
                   PrimInt
                   Signed)))},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:194:7",
@@ -2246,11 +2148,9 @@ TranslationUnit {
                     (PrimIntegral
                       PrimInt
                       Signed)))))},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:197:7",
@@ -2287,11 +2187,9 @@ TranslationUnit {
                   (PrimIntegral
                     PrimInt
                     Signed))))},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:200:9",
@@ -2334,11 +2232,9 @@ TranslationUnit {
                       (PrimIntegral
                         PrimInt
                         Signed))))))},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:203:7",
@@ -2374,11 +2270,9 @@ TranslationUnit {
                   (PrimIntegral
                     PrimInt
                     Signed))))},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:206:14",
@@ -2420,11 +2314,9 @@ TranslationUnit {
                       (PrimIntegral
                         PrimInt
                         Signed))))))},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "array.h:209:10",
@@ -2473,9 +2365,7 @@ TranslationUnit {
                           (PrimIntegral
                             PrimInt
                             Signed))))))))},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}}],
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}}],
   unitDeps = ["array"]}

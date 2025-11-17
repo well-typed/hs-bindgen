@@ -2,10 +2,12 @@ version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
 hsmodule: Example
-types:
+ctypes:
 - headers: hsb_complex_test.h
   cname: complex_object_t
   hsname: Complex_object_t
+hstypes:
+- hsname: Complex_object_t
   instances:
   - Eq
   - Show

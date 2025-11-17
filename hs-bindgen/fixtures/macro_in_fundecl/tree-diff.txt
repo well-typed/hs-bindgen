@@ -28,11 +28,9 @@ TranslationUnit {
                 "un_I"},
             macroType = TypePrim
               (PrimIntegral PrimInt Signed)}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -62,11 +60,9 @@ TranslationUnit {
             macroType = TypePrim
               (PrimChar
                 (PrimSignImplicit Nothing))}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -95,11 +91,9 @@ TranslationUnit {
                 "un_F"},
             macroType = TypePrim
               (PrimFloating PrimFloat)}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -130,11 +124,9 @@ TranslationUnit {
               (PrimIntegral
                 PrimLong
                 Signed)}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -165,11 +157,9 @@ TranslationUnit {
               (PrimIntegral
                 PrimShort
                 Signed)}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -214,11 +204,9 @@ TranslationUnit {
           functionRes = TypePrim
             (PrimChar
               (PrimSignImplicit Nothing))},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -265,11 +253,9 @@ TranslationUnit {
                 nameC = Name "C",
                 nameHsIdent = Identifier "C"}
               NameOriginInSource)},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -319,11 +305,9 @@ TranslationUnit {
               (PrimChar
                 (PrimSignImplicit
                   (Just Signed))))},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -375,11 +359,9 @@ TranslationUnit {
             (TypePrim
               (PrimChar
                 (PrimSignImplicit Nothing)))},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -430,11 +412,9 @@ TranslationUnit {
                 nameC = Name "C",
                 nameHsIdent = Identifier "C"}
               NameOriginInSource)},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -476,11 +456,9 @@ TranslationUnit {
                 (PrimIntegral
                   PrimInt
                   Signed)))},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -523,11 +501,9 @@ TranslationUnit {
                 (PrimIntegral
                   PrimInt
                   Signed)))},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -572,11 +548,9 @@ TranslationUnit {
                 (PrimIntegral
                   PrimInt
                   Signed)))},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -619,11 +593,9 @@ TranslationUnit {
                   nameC = Name "I",
                   nameHsIdent = Identifier "I"}
                 NameOriginInSource))},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -667,11 +639,9 @@ TranslationUnit {
                   (PrimIntegral
                     PrimInt
                     Signed))))},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -716,11 +686,9 @@ TranslationUnit {
                   (PrimIntegral
                     PrimInt
                     Signed))))},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -765,11 +733,9 @@ TranslationUnit {
                     nameC = Name "I",
                     nameHsIdent = Identifier "I"}
                   NameOriginInSource)))},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -798,9 +764,7 @@ TranslationUnit {
               nameC = Name "I",
               nameHsIdent = Identifier "I"}
             NameOriginInSource},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}}],
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}}],
   unitDeps = ["macro_in_fundecl"]}

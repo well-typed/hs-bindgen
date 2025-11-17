@@ -2,10 +2,15 @@ version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
 hsmodule: Example
-types:
+ctypes:
 - headers: adios.h
   cname: adiós
   hsname: Adio'0301s
+- headers: adios.h
+  cname: 数字
+  hsname: C数字
+hstypes:
+- hsname: Adio'0301s
   instances:
   - Bits
   - Bounded
@@ -20,9 +25,7 @@ types:
   - Real
   - Show
   - Storable
-- headers: adios.h
-  cname: 数字
-  hsname: C数字
+- hsname: C数字
   instances:
   - Bits
   - Bounded

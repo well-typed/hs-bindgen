@@ -2,33 +2,38 @@ version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
 hsmodule: Example
-types:
+ctypes:
 - headers: nested_enums.h
   cname: enum enumA
   hsname: EnumA
+- headers: nested_enums.h
+  cname: struct exA
+  hsname: ExA
+- headers: nested_enums.h
+  cname: struct exB
+  hsname: ExB
+- headers: nested_enums.h
+  cname: exB_fieldB1
+  hsname: ExB_fieldB1
+hstypes:
+- hsname: EnumA
   instances:
   - Eq
   - Ord
   - Read
   - Show
   - Storable
-- headers: nested_enums.h
-  cname: struct exA
-  hsname: ExA
+- hsname: ExA
   instances:
   - Eq
   - Show
   - Storable
-- headers: nested_enums.h
-  cname: struct exB
-  hsname: ExB
+- hsname: ExB
   instances:
   - Eq
   - Show
   - Storable
-- headers: nested_enums.h
-  cname: exB_fieldB1
-  hsname: ExB_fieldB1
+- hsname: ExB_fieldB1
   instances:
   - Eq
   - Ord

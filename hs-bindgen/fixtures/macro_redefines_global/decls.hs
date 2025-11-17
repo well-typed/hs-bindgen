@@ -43,11 +43,9 @@
                 "un_FILE"},
             typedefType = TypePrim
               (PrimIntegral PrimInt Signed)},
-        declSpec = DeclSpec
-          CTypeSpec {
-            cTypeSpecIdentifier = Nothing,
-            cTypeSpecInstances =
-            Map.fromList []}},
+        declSpec = DeclSpec {
+          declSpecC = Nothing,
+          declSpecHs = Nothing}},
       newtypeInstances = Set.fromList
         [
           Bits,

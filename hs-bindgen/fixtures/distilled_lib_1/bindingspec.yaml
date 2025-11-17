@@ -2,10 +2,33 @@ version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
 hsmodule: Example
-types:
+ctypes:
 - headers: distilled_lib_1.h
   cname: a_type_t
   hsname: A_type_t
+- headers: distilled_lib_1.h
+  cname: a_typedef_enum_e
+  hsname: A_typedef_enum_e
+- headers: distilled_lib_1.h
+  cname: struct a_typedef_struct
+  hsname: A_typedef_struct_t
+- headers: distilled_lib_1.h
+  cname: another_typedef_enum_e
+  hsname: Another_typedef_enum_e
+- headers: distilled_lib_1.h
+  cname: another_typedef_struct_t
+  hsname: Another_typedef_struct_t
+- headers: distilled_lib_1.h
+  cname: callback_t
+  hsname: Callback_t
+- headers: distilled_lib_1.h
+  cname: callback_t_Deref
+  hsname: Callback_t_Deref
+- headers: distilled_lib_1.h
+  cname: var_t
+  hsname: Var_t
+hstypes:
+- hsname: A_type_t
   instances:
   - Bits
   - Bounded
@@ -20,52 +43,38 @@ types:
   - Real
   - Show
   - Storable
-- headers: distilled_lib_1.h
-  cname: a_typedef_enum_e
-  hsname: A_typedef_enum_e
+- hsname: A_typedef_enum_e
   instances:
   - Eq
   - Ord
   - Read
   - Show
   - Storable
-- headers: distilled_lib_1.h
-  cname: struct a_typedef_struct
-  hsname: A_typedef_struct_t
+- hsname: A_typedef_struct_t
   instances:
   - Eq
   - Show
   - Storable
-- headers: distilled_lib_1.h
-  cname: another_typedef_enum_e
-  hsname: Another_typedef_enum_e
+- hsname: Another_typedef_enum_e
   instances:
   - Eq
   - Ord
   - Read
   - Show
   - Storable
-- headers: distilled_lib_1.h
-  cname: another_typedef_struct_t
-  hsname: Another_typedef_struct_t
+- hsname: Another_typedef_struct_t
   instances:
   - Eq
   - Show
   - Storable
-- headers: distilled_lib_1.h
-  cname: callback_t
-  hsname: Callback_t
+- hsname: Callback_t
   instances:
   - Eq
   - Ord
   - Show
   - Storable
-- headers: distilled_lib_1.h
-  cname: callback_t_Deref
-  hsname: Callback_t_Deref
-- headers: distilled_lib_1.h
-  cname: var_t
-  hsname: Var_t
+- hsname: Callback_t_Deref
+- hsname: Var_t
   instances:
   - Bits
   - Bounded

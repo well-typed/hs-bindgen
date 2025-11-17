@@ -2,67 +2,34 @@ version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
 hsmodule: Example
-types:
+ctypes:
 - headers: doxygen_docs.h
   cname: bitfield_t
   hsname: Bitfield_t
-  instances:
-  - Eq
-  - Show
-  - Storable
 - headers: doxygen_docs.h
   cname: enum color_enum
   hsname: Color_enum
-  instances:
-  - Eq
-  - Ord
-  - Read
-  - Show
-  - Storable
 - headers: doxygen_docs.h
   cname: config_t
   hsname: Config_t
-  instances:
-  - Eq
-  - Show
-  - Storable
 - headers: doxygen_docs.h
   cname: data_union_t
   hsname: Data_union_t
-  instances:
-  - Storable
 - headers: doxygen_docs.h
   cname: data_union_t_as_parts
   hsname: Data_union_t_as_parts
-  instances:
-  - Eq
-  - Show
-  - Storable
 - headers: doxygen_docs.h
   cname: event_callback_t
   hsname: Event_callback_t
-  instances:
-  - Eq
-  - Ord
-  - Show
-  - Storable
 - headers: doxygen_docs.h
   cname: event_callback_t_Deref
   hsname: Event_callback_t_Deref
 - headers: doxygen_docs.h
   cname: filename_t
   hsname: Filename_t
-  instances:
-  - Eq
-  - Show
-  - Storable
 - headers: doxygen_docs.h
   cname: struct flexible_array
   hsname: Flexible_array
-  instances:
-  - Eq
-  - Show
-  - Storable
 - headers: doxygen_docs.h
   cname: struct forward_declared_struct
   hsname: Forward_declared_struct
@@ -72,17 +39,68 @@ types:
 - headers: doxygen_docs.h
   cname: processor_fn_t
   hsname: Processor_fn_t
-  instances:
-  - Eq
-  - Ord
-  - Show
-  - Storable
 - headers: doxygen_docs.h
   cname: processor_fn_t_Deref
   hsname: Processor_fn_t_Deref
 - headers: doxygen_docs.h
   cname: size_type
   hsname: Size_type
+- headers: doxygen_docs.h
+  cname: status_code_t
+  hsname: Status_code_t
+hstypes:
+- hsname: Bitfield_t
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: Color_enum
+  instances:
+  - Eq
+  - Ord
+  - Read
+  - Show
+  - Storable
+- hsname: Config_t
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: Data_union_t
+  instances:
+  - Storable
+- hsname: Data_union_t_as_parts
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: Event_callback_t
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- hsname: Event_callback_t_Deref
+- hsname: Filename_t
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: Flexible_array
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: Forward_declared_struct
+- hsname: Forward_declared_union
+- hsname: Processor_fn_t
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- hsname: Processor_fn_t_Deref
+- hsname: Size_type
   instances:
   - Bits
   - Bounded
@@ -97,9 +115,7 @@ types:
   - Real
   - Show
   - Storable
-- headers: doxygen_docs.h
-  cname: status_code_t
-  hsname: Status_code_t
+- hsname: Status_code_t
   instances:
   - Eq
   - Ord

@@ -2,38 +2,44 @@ version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
 hsmodule: Example
-types:
+ctypes:
 - headers: flam.h
   cname: struct diff
   hsname: Diff
-  instances:
-  - Eq
-  - Show
-  - Storable
 - headers: flam.h
   cname: struct foo
   hsname: Foo
-  instances:
-  - Eq
-  - Show
-  - Storable
 - headers: flam.h
   cname: foo_bar
   hsname: Foo_bar
-  instances:
-  - Eq
-  - Show
-  - Storable
 - headers: flam.h
   cname: struct pascal
   hsname: Pascal
+- headers: flam.h
+  cname: struct triplets
+  hsname: Triplets
+hstypes:
+- hsname: Diff
   instances:
   - Eq
   - Show
   - Storable
-- headers: flam.h
-  cname: struct triplets
-  hsname: Triplets
+- hsname: Foo
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: Foo_bar
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: Pascal
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: Triplets
   instances:
   - Eq
   - Show

@@ -26,11 +26,9 @@ TranslationUnit {
               "un_Myint"},
           typedefType = TypePrim
             (PrimIntegral PrimInt Signed)},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "typedefs.h:2:15",
@@ -58,11 +56,9 @@ TranslationUnit {
           typedefType = TypePointer
             (TypePrim
               (PrimIntegral PrimInt Signed))},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "typedefs.h:5:13",
@@ -93,11 +89,9 @@ TranslationUnit {
                 (PrimIntegral PrimInt Signed)]
             (TypePrim
               (PrimIntegral PrimInt Signed))},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "typedefs.h:8:16",
@@ -140,11 +134,9 @@ TranslationUnit {
           typedefType = TypeFun
             []
             TypeVoid},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "typedefs.h:8:16",
@@ -179,11 +171,9 @@ TranslationUnit {
                   nameHsIdent = Identifier
                     "FunctionPointer_Function_Deref"}
                 (TypeFun [] TypeVoid)))},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "typedefs.h:9:14",
@@ -215,11 +205,9 @@ TranslationUnit {
                 (PrimIntegral PrimInt Signed)]
             (TypePrim
               (PrimIntegral PrimInt Signed))},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "typedefs.h:11:16",
@@ -260,11 +248,9 @@ TranslationUnit {
           typedefType = TypeFun
             []
             TypeVoid},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "typedefs.h:11:16",
@@ -296,11 +282,9 @@ TranslationUnit {
                   nameHsIdent = Identifier
                     "F1_Deref"}
                 (TypeFun [] TypeVoid)))},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "typedefs.h:13:14",
@@ -327,11 +311,9 @@ TranslationUnit {
           typedefType = TypeFun
             []
             TypeVoid},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "typedefs.h:14:14",
@@ -362,11 +344,9 @@ TranslationUnit {
                   nameC = Name "g1",
                   nameHsIdent = Identifier "G1"}
                 (TypeFun [] TypeVoid)))},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "typedefs.h:16:14",
@@ -393,11 +373,9 @@ TranslationUnit {
           typedefType = TypeFun
             []
             TypeVoid},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "typedefs.h:17:12",
@@ -427,11 +405,9 @@ TranslationUnit {
                 nameC = Name "h1",
                 nameHsIdent = Identifier "H1"}
               (TypeFun [] TypeVoid))},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "typedefs.h:18:14",
@@ -467,9 +443,7 @@ TranslationUnit {
                       nameC = Name "h1",
                       nameHsIdent = Identifier "H1"}
                     (TypeFun [] TypeVoid)))))},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}}],
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}}],
   unitDeps = ["typedefs"]}

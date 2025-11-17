@@ -50,7 +50,7 @@ instance Finalize Int.Decl where
   finalize decl = Ext.Decl{
         declInfo = finalize declInfo
       , declKind = finalize declKind
-      , declSpec = Ext.DeclSpec declAnn
+      , declSpec = uncurry Ext.DeclSpec declAnn
       }
     where
       Int.Decl {

@@ -19,11 +19,9 @@ TranslationUnit {
       declKind = DeclGlobal
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -43,11 +41,9 @@ TranslationUnit {
       declKind = DeclGlobal
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -67,10 +63,8 @@ TranslationUnit {
       declKind = DeclGlobal
         (TypePrim
           (PrimIntegral PrimInt Signed)),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}}],
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}}],
   unitDeps = [
     "tentative_definitions"]}

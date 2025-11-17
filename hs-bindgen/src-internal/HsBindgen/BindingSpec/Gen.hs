@@ -73,8 +73,6 @@ genBindingSpecYaml hsModuleName getMainHeaders omitTypes =
   Auxiliary functions
 -------------------------------------------------------------------------------}
 
-type CTypeSpec = (C.QualName, Set HashIncludeArg, BindingSpec.CTypeSpec)
-
 -- TODO aliases
 genBindingSpec' ::
      Hs.ModuleName
@@ -87,10 +85,11 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes = foldr aux omitSpec
     omitSpec :: UnresolvedBindingSpec
     omitSpec = BindingSpec.BindingSpec {
         BindingSpec.bindingSpecModule = hsModuleName
-      , BindingSpec.bindingSpecTypes = Map.fromListWith (++) [
+      , BindingSpec.bindingSpecCTypes = Map.fromListWith (++) [
             (cQualName, [(getMainHeaders' path, Omit)])
           | (cQualName, path) <- omitTypes
           ]
+      , BindingSpec.bindingSpecHsTypes = Map.empty
       }
 
     getMainHeaders' :: SourcePath -> Set HashIncludeArg
@@ -118,14 +117,26 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes = foldr aux omitSpec
       Hs.DeclUnionSetter{}    -> id
       Hs.DeclSimple{}         -> id
 
-    insertType :: CTypeSpec -> UnresolvedBindingSpec -> UnresolvedBindingSpec
-    insertType (cQualName, headers, typeSpec) spec = spec {
-        BindingSpec.bindingSpecTypes =
-          Map.insertWith (++) cQualName [(headers, Require typeSpec)] $
-            BindingSpec.bindingSpecTypes spec
-      }
+    insertType ::
+         ( (C.QualName, Set HashIncludeArg, BindingSpec.CTypeSpec)
+         , (Hs.Identifier, BindingSpec.HsTypeSpec)
+         )
+      -> UnresolvedBindingSpec
+      -> UnresolvedBindingSpec
+    insertType ((cQualName, headers, cTypeSpec), (hsId, hsTypeSpec)) spec =
+      spec {
+          BindingSpec.bindingSpecCTypes =
+            Map.insertWith (++) cQualName [(headers, Require cTypeSpec)] $
+              BindingSpec.bindingSpecCTypes spec
+        , BindingSpec.bindingSpecHsTypes =
+            Map.insert hsId hsTypeSpec $ BindingSpec.bindingSpecHsTypes spec
+        }
 
-    auxStruct :: Hs.Struct n -> CTypeSpec
+    auxStruct ::
+         Hs.Struct n
+      -> ( (C.QualName, Set HashIncludeArg, BindingSpec.CTypeSpec)
+         , (Hs.Identifier, BindingSpec.HsTypeSpec)
+         )
     auxStruct hsStruct = case Hs.structOrigin hsStruct of
       Nothing -> panicPure "auxStruct: structOrigin is Nothing"
       Just originDecl ->
@@ -134,16 +145,27 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes = foldr aux omitSpec
               case HsOrigin.declKind originDecl of
                 HsOrigin.Struct{} -> C.NameKindTagged C.TagKindStruct
             hsIdentifier = Hs.Identifier $ Hs.getName (Hs.structName hsStruct)
-            C.DeclSpec typeSpec' = HsOrigin.declSpec originDecl
-            typeSpec = BindingSpec.CTypeSpec {
+            cTypeSpec = BindingSpec.CTypeSpec {
                 cTypeSpecIdentifier = Just hsIdentifier
-              , cTypeSpecInstances  =
-                  BindingSpec.cTypeSpecInstances typeSpec'
-                    <> mkInstSpecs (Hs.structInstances hsStruct)
               }
-        in  (cQualName, getHeaders declInfo, typeSpec)
+            hsTypeSpec = BindingSpec.HsTypeSpec {
+                hsTypeSpecInstances =
+                  mkInstSpecs
+                    ( maybe Map.empty BindingSpec.hsTypeSpecInstances
+                    . C.declSpecHs
+                    $ HsOrigin.declSpec originDecl
+                    )
+                    (Hs.structInstances hsStruct)
+              }
+        in  ( (cQualName, getHeaders declInfo, cTypeSpec)
+            , (hsIdentifier, hsTypeSpec)
+            )
 
-    auxEmptyData :: Hs.EmptyData -> CTypeSpec
+    auxEmptyData ::
+         Hs.EmptyData
+      -> ( (C.QualName, Set HashIncludeArg, BindingSpec.CTypeSpec)
+         , (Hs.Identifier, BindingSpec.HsTypeSpec)
+         )
     auxEmptyData edata =
       let originDecl = Hs.emptyDataOrigin edata
           declInfo = HsOrigin.declInfo originDecl
@@ -151,13 +173,19 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes = foldr aux omitSpec
             case HsOrigin.declKind originDecl of
               HsOrigin.Opaque cNameKind -> cNameKind
           hsIdentifier = Hs.Identifier $ Hs.getName (Hs.emptyDataName edata)
-          typeSpec = BindingSpec.CTypeSpec {
+          cTypeSpec = BindingSpec.CTypeSpec {
               cTypeSpecIdentifier = Just hsIdentifier
-            , cTypeSpecInstances  = Map.empty
             }
-      in  (cQualName, getHeaders declInfo, typeSpec)
+          hsTypeSpec = def
+      in  ( (cQualName, getHeaders declInfo, cTypeSpec)
+          , (hsIdentifier, hsTypeSpec)
+          )
 
-    auxNewtype :: Hs.Newtype -> CTypeSpec
+    auxNewtype ::
+         Hs.Newtype
+      -> ( (C.QualName, Set HashIncludeArg, BindingSpec.CTypeSpec)
+         , (Hs.Identifier, BindingSpec.HsTypeSpec)
+         )
     auxNewtype hsNewtype =
       let originDecl = Hs.newtypeOrigin hsNewtype
           declInfo = HsOrigin.declInfo originDecl
@@ -168,14 +196,21 @@ genBindingSpec' hsModuleName getMainHeaders omitTypes = foldr aux omitSpec
               HsOrigin.Union{}   -> C.NameKindTagged C.TagKindUnion
               HsOrigin.Macro{}   -> C.NameKindOrdinary
           hsIdentifier = Hs.Identifier $ Hs.getName (Hs.newtypeName hsNewtype)
-          C.DeclSpec typeSpec' = HsOrigin.declSpec originDecl
-          typeSpec = BindingSpec.CTypeSpec {
+          cTypeSpec = BindingSpec.CTypeSpec {
               cTypeSpecIdentifier = Just hsIdentifier
-            , cTypeSpecInstances  =
-                BindingSpec.cTypeSpecInstances typeSpec'
-                  <> mkInstSpecs (Hs.newtypeInstances hsNewtype)
             }
-      in  (cQualName, getHeaders declInfo, typeSpec)
+          hsTypeSpec = BindingSpec.HsTypeSpec {
+              hsTypeSpecInstances =
+                mkInstSpecs
+                  ( maybe Map.empty BindingSpec.hsTypeSpecInstances
+                  . C.declSpecHs
+                  $ HsOrigin.declSpec originDecl
+                  )
+                  (Hs.newtypeInstances hsNewtype)
+            }
+      in  ( (cQualName, getHeaders declInfo, cTypeSpec)
+          , (hsIdentifier, hsTypeSpec)
+          )
 
     getHeaders :: C.DeclInfo -> Set HashIncludeArg
     getHeaders = getMainHeaders' . singleLocPath . C.declLoc
@@ -191,13 +226,17 @@ getCQualName declInfo cNameKind = case C.declOrigin declInfo of
     cName :: C.Name
     cName = C.nameC (C.declId declInfo)
 
+-- TODO strategy
+-- TODO constraints
 mkInstSpecs ::
-     Set Hs.TypeClass
+     Map Hs.TypeClass (Omittable BindingSpec.InstanceSpec)
+  -> Set Hs.TypeClass
   -> Map Hs.TypeClass (Omittable BindingSpec.InstanceSpec)
-mkInstSpecs = Map.fromAscList . map (, oInstSpec) . Set.toAscList
-  where
-    oInstSpec :: Omittable BindingSpec.InstanceSpec
-    oInstSpec = Require BindingSpec.InstanceSpec {
-        instanceSpecStrategy    = Nothing -- TODO strategy?
-      , instanceSpecConstraints = []      -- TODO constraints
-      }
+mkInstSpecs specMap insts = Map.fromList $
+    [ (cls, Require def)
+    | cls <- Set.toList insts
+    ]
+    ++
+    [ (cls, Omit)
+    | (cls, Omit) <- Map.toList specMap
+    ]

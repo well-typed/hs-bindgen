@@ -2,75 +2,86 @@ version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
 hsmodule: Example
-types:
+ctypes:
 - headers: simple_structs.h
   cname: struct S1
   hsname: S1
-  instances:
-  - Eq
-  - Show
-  - Storable
 - headers: simple_structs.h
   cname: struct S2
   hsname: S2_t
-  instances:
-  - Eq
-  - Show
-  - Storable
 - headers: simple_structs.h
   cname: S3_t
   hsname: S3_t
-  instances:
-  - Eq
-  - Show
-  - Storable
 - headers: simple_structs.h
   cname: struct S4
   hsname: S4
-  instances:
-  - Eq
-  - Show
-  - Storable
 - headers: simple_structs.h
   cname: struct S5
   hsname: S5
-  instances:
-  - Eq
-  - Show
-  - Storable
 - headers: simple_structs.h
   cname: struct S6
   hsname: S6
-  instances:
-  - Eq
-  - Show
-  - Storable
 - headers: simple_structs.h
   cname: S7a
   hsname: S7a
-  instances:
-  - Eq
-  - Ord
-  - Show
-  - Storable
 - headers: simple_structs.h
   cname: S7a_Deref
   hsname: S7a_Deref
+- headers: simple_structs.h
+  cname: S7b
+  hsname: S7b
+- headers: simple_structs.h
+  cname: S7b_Deref
+  hsname: S7b_Deref
+hstypes:
+- hsname: S1
   instances:
   - Eq
   - Show
   - Storable
-- headers: simple_structs.h
-  cname: S7b
-  hsname: S7b
+- hsname: S2_t
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: S3_t
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: S4
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: S5
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: S6
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: S7a
   instances:
   - Eq
   - Ord
   - Show
   - Storable
-- headers: simple_structs.h
-  cname: S7b_Deref
-  hsname: S7b_Deref
+- hsname: S7a_Deref
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: S7b
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- hsname: S7b_Deref
   instances:
   - Eq
   - Show

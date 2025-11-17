@@ -41,11 +41,9 @@
                 "un_Myint"},
             typedefType = TypePrim
               (PrimIntegral PrimInt Signed)},
-        declSpec = DeclSpec
-          CTypeSpec {
-            cTypeSpecIdentifier = Nothing,
-            cTypeSpecInstances =
-            Map.fromList []}},
+        declSpec = DeclSpec {
+          declSpecC = Nothing,
+          declSpecHs = Nothing}},
       newtypeInstances = Set.fromList
         [
           Bits,
@@ -280,11 +278,9 @@
             typedefType = TypePointer
               (TypePrim
                 (PrimIntegral PrimInt Signed))},
-        declSpec = DeclSpec
-          CTypeSpec {
-            cTypeSpecIdentifier = Nothing,
-            cTypeSpecInstances =
-            Map.fromList []}},
+        declSpec = DeclSpec {
+          declSpecC = Nothing,
+          declSpecHs = Nothing}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Show, Storable],
       newtypeComment = Just
@@ -419,11 +415,9 @@
                   (PrimIntegral PrimInt Signed)]
               (TypePrim
                 (PrimIntegral PrimInt Signed))},
-        declSpec = DeclSpec
-          CTypeSpec {
-            cTypeSpecIdentifier = Nothing,
-            cTypeSpecInstances =
-            Map.fromList []}},
+        declSpec = DeclSpec {
+          declSpecC = Nothing,
+          declSpecHs = Nothing}},
       newtypeInstances = Set.fromList
         [],
       newtypeComment = Just
@@ -635,11 +629,9 @@
             typedefType = TypeFun
               []
               TypeVoid},
-        declSpec = DeclSpec
-          CTypeSpec {
-            cTypeSpecIdentifier = Nothing,
-            cTypeSpecInstances =
-            Map.fromList []}},
+        declSpec = DeclSpec {
+          declSpecC = Nothing,
+          declSpecHs = Nothing}},
       newtypeInstances = Set.fromList
         [],
       newtypeComment = Just
@@ -839,11 +831,9 @@
                     nameHsIdent = Identifier
                       "FunctionPointer_Function_Deref"}
                   (TypeFun [] TypeVoid)))},
-        declSpec = DeclSpec
-          CTypeSpec {
-            cTypeSpecIdentifier = Nothing,
-            cTypeSpecInstances =
-            Map.fromList []}},
+        declSpec = DeclSpec {
+          declSpecC = Nothing,
+          declSpecHs = Nothing}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Show, Storable],
       newtypeComment = Just
@@ -994,11 +984,9 @@
                   (PrimIntegral PrimInt Signed)]
               (TypePrim
                 (PrimIntegral PrimInt Signed))},
-        declSpec = DeclSpec
-          CTypeSpec {
-            cTypeSpecIdentifier = Nothing,
-            cTypeSpecInstances =
-            Map.fromList []}},
+        declSpec = DeclSpec {
+          declSpecC = Nothing,
+          declSpecHs = Nothing}},
       newtypeInstances = Set.fromList
         [],
       newtypeComment = Just
@@ -1211,11 +1199,9 @@
             typedefType = TypeFun
               []
               TypeVoid},
-        declSpec = DeclSpec
-          CTypeSpec {
-            cTypeSpecIdentifier = Nothing,
-            cTypeSpecInstances =
-            Map.fromList []}},
+        declSpec = DeclSpec {
+          declSpecC = Nothing,
+          declSpecHs = Nothing}},
       newtypeInstances = Set.fromList
         [],
       newtypeComment = Just
@@ -1409,11 +1395,9 @@
                     nameHsIdent = Identifier
                       "F1_Deref"}
                   (TypeFun [] TypeVoid)))},
-        declSpec = DeclSpec
-          CTypeSpec {
-            cTypeSpecIdentifier = Nothing,
-            cTypeSpecInstances =
-            Map.fromList []}},
+        declSpec = DeclSpec {
+          declSpecC = Nothing,
+          declSpecHs = Nothing}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Show, Storable],
       newtypeComment = Just
@@ -1551,11 +1535,9 @@
             typedefType = TypeFun
               []
               TypeVoid},
-        declSpec = DeclSpec
-          CTypeSpec {
-            cTypeSpecIdentifier = Nothing,
-            cTypeSpecInstances =
-            Map.fromList []}},
+        declSpec = DeclSpec {
+          declSpecC = Nothing,
+          declSpecHs = Nothing}},
       newtypeInstances = Set.fromList
         [],
       newtypeComment = Just
@@ -1726,11 +1708,9 @@
                     nameC = Name "g1",
                     nameHsIdent = Identifier "G1"}
                   (TypeFun [] TypeVoid)))},
-        declSpec = DeclSpec
-          CTypeSpec {
-            cTypeSpecIdentifier = Nothing,
-            cTypeSpecInstances =
-            Map.fromList []}},
+        declSpec = DeclSpec {
+          declSpecC = Nothing,
+          declSpecHs = Nothing}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Show, Storable],
       newtypeComment = Just
@@ -1864,11 +1844,9 @@
             typedefType = TypeFun
               []
               TypeVoid},
-        declSpec = DeclSpec
-          CTypeSpec {
-            cTypeSpecIdentifier = Nothing,
-            cTypeSpecInstances =
-            Map.fromList []}},
+        declSpec = DeclSpec {
+          declSpecC = Nothing,
+          declSpecHs = Nothing}},
       newtypeInstances = Set.fromList
         [],
       newtypeComment = Just
@@ -2037,11 +2015,9 @@
                   nameC = Name "h1",
                   nameHsIdent = Identifier "H1"}
                 (TypeFun [] TypeVoid))},
-        declSpec = DeclSpec
-          CTypeSpec {
-            cTypeSpecIdentifier = Nothing,
-            cTypeSpecInstances =
-            Map.fromList []}},
+        declSpec = DeclSpec {
+          declSpecC = Nothing,
+          declSpecHs = Nothing}},
       newtypeInstances = Set.fromList
         [],
       newtypeComment = Just
@@ -2143,11 +2119,9 @@
                         nameC = Name "h1",
                         nameHsIdent = Identifier "H1"}
                       (TypeFun [] TypeVoid)))))},
-        declSpec = DeclSpec
-          CTypeSpec {
-            cTypeSpecIdentifier = Nothing,
-            cTypeSpecInstances =
-            Map.fromList []}},
+        declSpec = DeclSpec {
+          declSpecC = Nothing,
+          declSpecHs = Nothing}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Show, Storable],
       newtypeComment = Just

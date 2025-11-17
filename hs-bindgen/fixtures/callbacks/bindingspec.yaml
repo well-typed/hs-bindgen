@@ -2,66 +2,34 @@ version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
 hsmodule: Example
-types:
+ctypes:
 - headers: callbacks.h
   cname: struct DataPipeline
   hsname: DataPipeline
-  instances:
-  - Eq
-  - Show
-  - Storable
 - headers: callbacks.h
   cname: DataValidator
   hsname: DataValidator
-  instances:
-  - Eq
-  - Ord
-  - Show
-  - Storable
 - headers: callbacks.h
   cname: DataValidator_Deref
   hsname: DataValidator_Deref
 - headers: callbacks.h
   cname: FileOpenedNotification
   hsname: FileOpenedNotification
-  instances:
-  - Eq
-  - Ord
-  - Show
-  - Storable
 - headers: callbacks.h
   cname: FileOpenedNotification_Deref
   hsname: FileOpenedNotification_Deref
 - headers: callbacks.h
   cname: struct Measurement
   hsname: Measurement
-  instances:
-  - Eq
-  - Show
-  - Storable
 - headers: callbacks.h
   cname: struct MeasurementHandler
   hsname: MeasurementHandler
-  instances:
-  - Eq
-  - Show
-  - Storable
 - headers: callbacks.h
   cname: MeasurementReceived
   hsname: MeasurementReceived
-  instances:
-  - Eq
-  - Ord
-  - Show
-  - Storable
 - headers: callbacks.h
   cname: MeasurementReceived2
   hsname: MeasurementReceived2
-  instances:
-  - Eq
-  - Ord
-  - Show
-  - Storable
 - headers: callbacks.h
   cname: MeasurementReceived2_Deref
   hsname: MeasurementReceived2_Deref
@@ -71,64 +39,51 @@ types:
 - headers: callbacks.h
   cname: struct Processor
   hsname: Processor
-  instances:
-  - Storable
 - headers: callbacks.h
   cname: union ProcessorCallback
   hsname: ProcessorCallback
-  instances:
-  - Storable
 - headers: callbacks.h
   cname: Processor_mode
   hsname: Processor_mode
-  instances:
-  - Eq
-  - Ord
-  - Read
-  - Show
-  - Storable
 - headers: callbacks.h
   cname: ProgressUpdate
   hsname: ProgressUpdate
-  instances:
-  - Eq
-  - Ord
-  - Show
-  - Storable
 - headers: callbacks.h
   cname: ProgressUpdate_Deref
   hsname: ProgressUpdate_Deref
 - headers: callbacks.h
   cname: SampleBufferFull
   hsname: SampleBufferFull
-  instances:
-  - Eq
-  - Ord
-  - Show
-  - Storable
 - headers: callbacks.h
   cname: SampleBufferFull_Deref
   hsname: SampleBufferFull_Deref
 - headers: callbacks.h
   cname: foo
   hsname: Foo
-  instances:
-  - Bits
-  - Bounded
-  - Enum
-  - Eq
-  - FiniteBits
-  - Integral
-  - Ix
-  - Num
-  - Ord
-  - Read
-  - Real
-  - Show
-  - Storable
 - headers: callbacks.h
   cname: foo2
   hsname: Foo2
+hstypes:
+- hsname: DataPipeline
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: DataValidator
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- hsname: DataValidator_Deref
+- hsname: FileOpenedNotification
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- hsname: FileOpenedNotification_Deref
+- hsname: Foo
   instances:
   - Bits
   - Bounded
@@ -143,3 +98,69 @@ types:
   - Real
   - Show
   - Storable
+- hsname: Foo2
+  instances:
+  - Bits
+  - Bounded
+  - Enum
+  - Eq
+  - FiniteBits
+  - Integral
+  - Ix
+  - Num
+  - Ord
+  - Read
+  - Real
+  - Show
+  - Storable
+- hsname: Measurement
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: MeasurementHandler
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: MeasurementReceived
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- hsname: MeasurementReceived2
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- hsname: MeasurementReceived2_Deref
+- hsname: MeasurementReceived_Deref
+- hsname: Processor
+  instances:
+  - Storable
+- hsname: ProcessorCallback
+  instances:
+  - Storable
+- hsname: Processor_mode
+  instances:
+  - Eq
+  - Ord
+  - Read
+  - Show
+  - Storable
+- hsname: ProgressUpdate
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- hsname: ProgressUpdate_Deref
+- hsname: SampleBufferFull
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- hsname: SampleBufferFull_Deref

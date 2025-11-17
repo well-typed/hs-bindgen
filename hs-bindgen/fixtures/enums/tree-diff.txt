@@ -47,11 +47,9 @@ TranslationUnit {
                     "FIRST2"},
                 fieldComment = Nothing},
               enumConstantValue = 1}]},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "enums.h:9:6",
@@ -108,11 +106,9 @@ TranslationUnit {
                     "SECOND_C"},
                 fieldComment = Nothing},
               enumConstantValue = 1}]},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "enums.h:15:6",
@@ -160,11 +156,9 @@ TranslationUnit {
                     "SAME_B"},
                 fieldComment = Nothing},
               enumConstantValue = 1}]},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "enums.h:20:6",
@@ -221,11 +215,9 @@ TranslationUnit {
                     "NONSEQ_C"},
                 fieldComment = Nothing},
               enumConstantValue = 404}]},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "enums.h:26:6",
@@ -283,11 +275,9 @@ TranslationUnit {
                     "PACKED_C"},
                 fieldComment = Nothing},
               enumConstantValue = 2}]},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "enums.h:30:9",
@@ -336,11 +326,9 @@ TranslationUnit {
                     "A_BAR"},
                 fieldComment = Nothing},
               enumConstantValue = 1}]},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "enums.h:32:14",
@@ -388,11 +376,9 @@ TranslationUnit {
                     "B_BAR"},
                 fieldComment = Nothing},
               enumConstantValue = 1}]},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "enums.h:34:6",
@@ -440,11 +426,9 @@ TranslationUnit {
                     "C_BAR"},
                 fieldComment = Nothing},
               enumConstantValue = 1}]},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "enums.h:37:6",
@@ -494,9 +478,7 @@ TranslationUnit {
                     "D_BAR"},
                 fieldComment = Nothing},
               enumConstantValue = 1}]},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}}],
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}}],
   unitDeps = ["enums"]}

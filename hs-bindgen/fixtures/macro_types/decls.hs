@@ -43,11 +43,9 @@
             macroType = TypePointer
               (TypePrim
                 (PrimIntegral PrimInt Signed))},
-        declSpec = DeclSpec
-          CTypeSpec {
-            cTypeSpecIdentifier = Nothing,
-            cTypeSpecInstances =
-            Map.fromList []}},
+        declSpec = DeclSpec {
+          declSpecC = Nothing,
+          declSpecHs = Nothing}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Show, Storable],
       newtypeComment = Just
@@ -150,11 +148,9 @@
                 (TypePrim
                   (PrimChar
                     (PrimSignImplicit Nothing))))},
-        declSpec = DeclSpec
-          CTypeSpec {
-            cTypeSpecIdentifier = Nothing,
-            cTypeSpecInstances =
-            Map.fromList []}},
+        declSpec = DeclSpec {
+          declSpecC = Nothing,
+          declSpecHs = Nothing}},
       newtypeInstances = Set.fromList
         [Eq, Ord, Show, Storable],
       newtypeComment = Just
@@ -253,11 +249,9 @@
                 "un_MTy"},
             macroType = TypePrim
               (PrimFloating PrimFloat)},
-        declSpec = DeclSpec
-          CTypeSpec {
-            cTypeSpecIdentifier = Nothing,
-            cTypeSpecInstances =
-            Map.fromList []}},
+        declSpec = DeclSpec {
+          declSpecC = Nothing,
+          declSpecHs = Nothing}},
       newtypeInstances = Set.fromList
         [
           Enum,
@@ -451,11 +445,9 @@
                 nameC = Name "MTy",
                 nameHsIdent = Identifier "MTy"}
               NameOriginInSource},
-        declSpec = DeclSpec
-          CTypeSpec {
-            cTypeSpecIdentifier = Nothing,
-            cTypeSpecInstances =
-            Map.fromList []}},
+        declSpec = DeclSpec {
+          declSpecC = Nothing,
+          declSpecHs = Nothing}},
       newtypeInstances = Set.fromList
         [
           Enum,
@@ -683,11 +675,9 @@
             macroType = TypePrim
               (PrimChar
                 (PrimSignExplicit Unsigned))},
-        declSpec = DeclSpec
-          CTypeSpec {
-            cTypeSpecIdentifier = Nothing,
-            cTypeSpecInstances =
-            Map.fromList []}},
+        declSpec = DeclSpec {
+          declSpecC = Nothing,
+          declSpecHs = Nothing}},
       newtypeInstances = Set.fromList
         [
           Bits,
@@ -896,11 +886,9 @@
                 nameHsIdent = Identifier
                   "UINT8_T"}
               NameOriginInSource},
-        declSpec = DeclSpec
-          CTypeSpec {
-            cTypeSpecIdentifier = Nothing,
-            cTypeSpecInstances =
-            Map.fromList []}},
+        declSpec = DeclSpec {
+          declSpecC = Nothing,
+          declSpecHs = Nothing}},
       newtypeInstances = Set.fromList
         [
           Bits,
@@ -1110,11 +1098,9 @@
                 nameHsIdent = Identifier
                   "BOOLEAN_T"}
               NameOriginInSource},
-        declSpec = DeclSpec
-          CTypeSpec {
-            cTypeSpecIdentifier = Nothing,
-            cTypeSpecInstances =
-            Map.fromList []}},
+        declSpec = DeclSpec {
+          declSpecC = Nothing,
+          declSpecHs = Nothing}},
       newtypeInstances = Set.fromList
         [
           Bits,

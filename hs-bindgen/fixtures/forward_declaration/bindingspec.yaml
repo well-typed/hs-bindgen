@@ -2,17 +2,20 @@ version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
 hsmodule: Example
-types:
+ctypes:
 - headers: forward_declaration.h
   cname: struct S1
   hsname: S1_t
+- headers: forward_declaration.h
+  cname: struct S2
+  hsname: S2
+hstypes:
+- hsname: S1_t
   instances:
   - Eq
   - Show
   - Storable
-- headers: forward_declaration.h
-  cname: struct S2
-  hsname: S2
+- hsname: S2
   instances:
   - Eq
   - Show

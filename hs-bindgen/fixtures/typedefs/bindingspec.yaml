@@ -2,15 +2,10 @@ version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
 hsmodule: Example
-types:
+ctypes:
 - headers: typedefs.h
   cname: FunctionPointer_Function
   hsname: FunctionPointer_Function
-  instances:
-  - Eq
-  - Ord
-  - Show
-  - Storable
 - headers: typedefs.h
   cname: FunctionPointer_Function_Deref
   hsname: FunctionPointer_Function_Deref
@@ -20,11 +15,6 @@ types:
 - headers: typedefs.h
   cname: f1
   hsname: F1
-  instances:
-  - Eq
-  - Ord
-  - Show
-  - Storable
 - headers: typedefs.h
   cname: f1_Deref
   hsname: F1_Deref
@@ -34,11 +24,6 @@ types:
 - headers: typedefs.h
   cname: g2
   hsname: G2
-  instances:
-  - Eq
-  - Ord
-  - Show
-  - Storable
 - headers: typedefs.h
   cname: h1
   hsname: H1
@@ -48,25 +33,53 @@ types:
 - headers: typedefs.h
   cname: h3
   hsname: H3
-  instances:
-  - Eq
-  - Ord
-  - Show
-  - Storable
 - headers: typedefs.h
   cname: int2int
   hsname: Int2int
 - headers: typedefs.h
   cname: intptr
   hsname: Intptr
+- headers: typedefs.h
+  cname: myint
+  hsname: Myint
+hstypes:
+- hsname: F1
   instances:
   - Eq
   - Ord
   - Show
   - Storable
-- headers: typedefs.h
-  cname: myint
-  hsname: Myint
+- hsname: F1_Deref
+- hsname: FunctionPointer_Function
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- hsname: FunctionPointer_Function_Deref
+- hsname: G1
+- hsname: G2
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- hsname: H1
+- hsname: H2
+- hsname: H3
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- hsname: Int2int
+- hsname: Intptr
+  instances:
+  - Eq
+  - Ord
+  - Show
+  - Storable
+- hsname: Myint
   instances:
   - Bits
   - Bounded
@@ -81,3 +94,4 @@ types:
   - Real
   - Show
   - Storable
+- hsname: NonFunctionPointer_Function

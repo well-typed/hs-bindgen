@@ -47,6 +47,7 @@ import HsBindgen.BindingSpec.Private.Version
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
+import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.Resolve (ResolveHeaderMsg)
 import HsBindgen.Util.Tracer
 
@@ -62,7 +63,9 @@ data BindingSpecReadMsg =
   | BindingSpecReadParseVersion FilePath AVersion
   | BindingSpecReadIncompatibleVersion FilePath AVersion
   | BindingSpecReadInvalidCName FilePath Text
-  | BindingSpecReadConflict FilePath C.QualName HashIncludeArg
+  | BindingSpecReadCTypeConflict FilePath C.QualName HashIncludeArg
+  | BindingSpecReadHsIdentifierNoRef FilePath Hs.Identifier
+  | BindingSpecReadHsTypeConflict FilePath Hs.Identifier
   | BindingSpecReadHashIncludeArg FilePath HashIncludeArgMsg
   | BindingSpecReadConvertVersion FilePath BindingSpecVersion BindingSpecVersion
   deriving stock (Show)
@@ -75,7 +78,9 @@ instance IsTrace Level BindingSpecReadMsg where
     BindingSpecReadParseVersion{}        -> Debug
     BindingSpecReadIncompatibleVersion{} -> Error
     BindingSpecReadInvalidCName{}        -> Error
-    BindingSpecReadConflict{}            -> Error
+    BindingSpecReadCTypeConflict{}       -> Error
+    BindingSpecReadHsIdentifierNoRef{}   -> Error
+    BindingSpecReadHsTypeConflict{}      -> Error
     BindingSpecReadHashIncludeArg _ x    -> getDefaultLogLevel x
     BindingSpecReadConvertVersion _ f t
       | f <= t                           -> Info
@@ -110,10 +115,16 @@ instance PrettyForTrace BindingSpecReadMsg where
         ]
     BindingSpecReadInvalidCName path t ->
       "invalid C name in " >< string path >< ": " >< textToCtxDoc t
-    BindingSpecReadConflict path cQualName header ->
+    BindingSpecReadCTypeConflict path cQualName header ->
       "multiple entries in " >< string path >< " for C type: "
         >< textToCtxDoc (C.qualNameText cQualName)
         >< " (" >< string (getHashIncludeArg header) >< ")"
+    BindingSpecReadHsIdentifierNoRef path hsIdentifier ->
+      "Haskell identifier in " >< string path >< " not referenced by C type: "
+        >< textToCtxDoc (Hs.getIdentifier hsIdentifier)
+    BindingSpecReadHsTypeConflict path hsIdentifier ->
+      "multiple entries in " >< string path >< " for Haskell type: "
+        >< textToCtxDoc (Hs.getIdentifier hsIdentifier)
     BindingSpecReadHashIncludeArg path msg ->
       prettyForTrace msg >< " in " >< string path
     BindingSpecReadConvertVersion path versionFrom versionTo ->

@@ -2,17 +2,20 @@ version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
 hsmodule: Example
-types:
+ctypes:
 - headers: recursive_struct.h
   cname: struct linked_list_A_s
   hsname: Linked_list_A_t
+- headers: recursive_struct.h
+  cname: struct linked_list_B_t
+  hsname: Linked_list_B_t
+hstypes:
+- hsname: Linked_list_A_t
   instances:
   - Eq
   - Show
   - Storable
-- headers: recursive_struct.h
-  cname: struct linked_list_B_t
-  hsname: Linked_list_B_t
+- hsname: Linked_list_B_t
   instances:
   - Eq
   - Show

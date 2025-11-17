@@ -254,8 +254,10 @@ getInstances instanceMap name = aux
           HsFunPtr{} -> aux (acc /\ ptrInsts) hsTypes
           HsIO{} -> Set.empty
           HsFun{} -> Set.empty
-          HsExtBinding _ref cTypeSpec ->
-            let acc' = acc /\ cTypeSpecInsts cTypeSpec
+          HsExtBinding _ref _cTypeSpec mHsTypeSpec ->
+            let acc' = case mHsTypeSpec of
+                  Just hsTypeSpec -> acc /\ hsTypeSpecInsts hsTypeSpec
+                  Nothing         -> acc
             in  aux acc' hsTypes
           HsByteArray{} ->
             let acc' = acc /\ Set.fromList [Hs.Eq, Hs.Ord, Hs.Show]
@@ -372,11 +374,11 @@ getInstances instanceMap name = aux
       , Hs.Show
       ]
 
-    cTypeSpecInsts :: BindingSpec.CTypeSpec -> Set Hs.TypeClass
-    cTypeSpecInsts cTypeSpec = Set.fromAscList [
+    hsTypeSpecInsts :: BindingSpec.HsTypeSpec -> Set Hs.TypeClass
+    hsTypeSpecInsts hsTypeSpec = Set.fromAscList [
         cls
       | (cls, BindingSpec.Require{}) <-
-           Map.toAscList (BindingSpec.cTypeSpecInstances cTypeSpec)
+           Map.toAscList (BindingSpec.hsTypeSpecInstances hsTypeSpec)
       ]
 
 {-------------------------------------------------------------------------------
@@ -1364,7 +1366,7 @@ typ' ctx = go ctx
     go _ (C.TypeBlock ty) =
         HsBlock $ go CTop ty
     go _ (C.TypeExtBinding ext) =
-        Hs.HsExtBinding (C.extHsRef ext) (C.extHsSpec ext)
+        Hs.HsExtBinding (C.extHsRef ext) (C.extCSpec ext) (C.extHsSpec ext)
     go c (C.TypeQualified C.TypeQualifierConst ty) =
         go c ty
     go _ (C.TypeComplex p) =

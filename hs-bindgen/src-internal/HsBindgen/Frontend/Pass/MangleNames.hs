@@ -69,7 +69,7 @@ nameForDecl ::
   -> C.Decl HandleTypedefs
   -> ((C.QualName, Hs.Identifier), Maybe (Msg MangleNames))
 nameForDecl fc decl =
-    case cTypeSpecIdentifier of
+    case BindingSpec.cTypeSpecIdentifier =<< fst declAnn of
       Just hsName -> (choose hsName, Nothing)
       Nothing     -> withDeclNamespace declKind $ \ns ->
                        first choose $ fromCName fc ns cName
@@ -79,7 +79,6 @@ nameForDecl fc decl =
       , declKind
       , declAnn
       } = decl
-    BindingSpec.CTypeSpec{cTypeSpecIdentifier} = declAnn
 
     cName :: C.Name
     cName = C.declIdName declId

@@ -475,7 +475,7 @@ prettyType env prec = \case
     TFree var -> pretty var
     TLit n -> showToCtxDoc n
     TStrLit s -> string (show s)
-    TExt i _ctype -> pretty i
+    TExt i _cTypeSpec _hsTypeSpec -> pretty i
     TApp c x -> parensWhen (prec > 0) $
       prettyType env 1 c <+> prettyType env 1 x
     TFun a b -> parensWhen (prec > 0) $

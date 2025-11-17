@@ -2,44 +2,51 @@ version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
 hsmodule: Example
-types:
+ctypes:
 - headers: array.h
   cname: struct Example
   hsname: Example
-  instances:
-  - Eq
-  - Show
-  - Storable
 - headers: array.h
   cname: list
   hsname: List
-  instances:
-  - Eq
-  - Show
 - headers: array.h
   cname: matrix
   hsname: Matrix
-  instances:
-  - Eq
-  - Show
-  - Storable
 - headers: array.h
   cname: sudoku
   hsname: Sudoku
-  instances:
-  - Eq
-  - Show
-  - Storable
 - headers: array.h
   cname: triplet
   hsname: Triplet
+- headers: array.h
+  cname: tripletlist
+  hsname: Tripletlist
+hstypes:
+- hsname: Example
   instances:
   - Eq
   - Show
   - Storable
-- headers: array.h
-  cname: tripletlist
-  hsname: Tripletlist
+- hsname: List
+  instances:
+  - Eq
+  - Show
+- hsname: Matrix
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: Sudoku
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: Triplet
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: Tripletlist
   instances:
   - Eq
   - Show

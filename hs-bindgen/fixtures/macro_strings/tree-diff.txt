@@ -29,11 +29,9 @@ TranslationUnit {
                     Prim.byteArrayFromList [97],
                     unicodeCodePoint = Just 'a'}}),
             macroExprType = "CharLit"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "macro_strings.h:5:9",
@@ -63,11 +61,9 @@ TranslationUnit {
                     unicodeCodePoint = Just
                       `'"'`}}),
             macroExprType = "CharLit"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "macro_strings.h:6:9",
@@ -96,11 +92,9 @@ TranslationUnit {
                     Prim.byteArrayFromList [9],
                     unicodeCodePoint = Just '\t'}}),
             macroExprType = "CharLit"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "macro_strings.h:7:9",
@@ -130,11 +124,9 @@ TranslationUnit {
                     unicodeCodePoint = Just
                       '\NUL'}}),
             macroExprType = "CharLit"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "macro_strings.h:8:9",
@@ -163,11 +155,9 @@ TranslationUnit {
                     Prim.byteArrayFromList [39],
                     unicodeCodePoint = Just '\''}}),
             macroExprType = "CharLit"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "macro_strings.h:9:9",
@@ -196,11 +186,9 @@ TranslationUnit {
                     Prim.byteArrayFromList [63],
                     unicodeCodePoint = Just '?'}}),
             macroExprType = "CharLit"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -230,11 +218,9 @@ TranslationUnit {
                     Prim.byteArrayFromList [83],
                     unicodeCodePoint = Nothing}}),
             macroExprType = "CharLit"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -264,11 +250,9 @@ TranslationUnit {
                     Prim.byteArrayFromList [83],
                     unicodeCodePoint = Nothing}}),
             macroExprType = "CharLit"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -298,11 +282,9 @@ TranslationUnit {
                     Prim.byteArrayFromList [1, 255],
                     unicodeCodePoint = Nothing}}),
             macroExprType = "CharLit"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -334,11 +316,9 @@ TranslationUnit {
                     unicodeCodePoint = Just
                       '\12354'}}),
             macroExprType = "CharLit"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -370,11 +350,9 @@ TranslationUnit {
                     unicodeCodePoint = Just
                       '\12354'}}),
             macroExprType = "CharLit"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -406,11 +384,9 @@ TranslationUnit {
                       [227, 129, 130],
                     unicodeCodePoint = Nothing}}),
             macroExprType = "CharLit"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -443,11 +419,9 @@ TranslationUnit {
                       unicodeCodePoint = Just 'a'}]}),
             macroExprType =
             "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -481,11 +455,9 @@ TranslationUnit {
                         '\''}]}),
             macroExprType =
             "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -519,11 +491,9 @@ TranslationUnit {
                         '\t'}]}),
             macroExprType =
             "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -557,11 +527,9 @@ TranslationUnit {
                         '\NUL'}]}),
             macroExprType =
             "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -595,11 +563,9 @@ TranslationUnit {
                         '\''}]}),
             macroExprType =
             "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -632,11 +598,9 @@ TranslationUnit {
                       unicodeCodePoint = Just '?'}]}),
             macroExprType =
             "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -669,11 +633,9 @@ TranslationUnit {
                       unicodeCodePoint = Nothing}]}),
             macroExprType =
             "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -706,11 +668,9 @@ TranslationUnit {
                       unicodeCodePoint = Nothing}]}),
             macroExprType =
             "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -746,11 +706,9 @@ TranslationUnit {
                         '\12354'}]}),
             macroExprType =
             "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -786,11 +744,9 @@ TranslationUnit {
                         '\12354'}]}),
             macroExprType =
             "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -832,11 +788,9 @@ TranslationUnit {
                       unicodeCodePoint = Nothing}]}),
             macroExprType =
             "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -882,11 +836,9 @@ TranslationUnit {
                       unicodeCodePoint = Nothing}]}),
             macroExprType =
             "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -940,11 +892,9 @@ TranslationUnit {
                       unicodeCodePoint = Nothing}]}),
             macroExprType =
             "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -991,11 +941,9 @@ TranslationUnit {
                         '\NUL'}]}),
             macroExprType =
             "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc =
@@ -1061,9 +1009,7 @@ TranslationUnit {
                       unicodeCodePoint = Just 'g'}]}),
             macroExprType =
             "Tuple2 (Ptr (IntLike (CIntegralType (CharLike Char)))) (IntLike HsIntType)"}),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}}],
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}}],
   unitDeps = ["macro_strings"]}

@@ -100,6 +100,7 @@ instance ToExpr C.Union
 instance ToExpr C.UnionField
 
 instance ToExpr BindingSpec.CTypeSpec
+instance ToExpr BindingSpec.HsTypeSpec
 instance ToExpr BindingSpec.InstanceSpec
 instance ToExpr BindingSpec.StrategySpec
 instance ToExpr BindingSpec.ConstraintSpec

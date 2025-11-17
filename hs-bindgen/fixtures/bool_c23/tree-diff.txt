@@ -16,9 +16,7 @@ TranslationUnit {
         declComment = Nothing},
       declKind = DeclGlobal
         (TypePrim PrimBool),
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}}],
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}}],
   unitDeps = ["bool_c23"]}

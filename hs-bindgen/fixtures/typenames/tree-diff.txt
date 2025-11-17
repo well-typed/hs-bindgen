@@ -46,11 +46,9 @@ TranslationUnit {
                     "FOO2"},
                 fieldComment = Nothing},
               enumConstantValue = 1}]},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
     Decl {
       declInfo = DeclInfo {
         declLoc = "typenames.h:19:16",
@@ -76,9 +74,7 @@ TranslationUnit {
               "un_Foo"},
           typedefType = TypePrim
             (PrimFloating PrimDouble)},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}}],
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}}],
   unitDeps = ["typenames"]}

@@ -30,9 +30,7 @@ TranslationUnit {
             3
             (TypePrim
               (PrimIntegral PrimInt Signed))},
-      declSpec = DeclSpec
-        CTypeSpec {
-          cTypeSpecIdentifier = Nothing,
-          cTypeSpecInstances =
-          Map.fromList []}}],
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}}],
   unitDeps = ["data_kind_pragma"]}

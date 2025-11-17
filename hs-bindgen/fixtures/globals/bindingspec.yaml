@@ -2,10 +2,38 @@ version:
   hs_bindgen: 0.1.0
   binding_specification: '1.0'
 hsmodule: Example
-types:
+ctypes:
 - headers: globals.h
   cname: ConstInt
   hsname: ConstInt
+- headers: globals.h
+  cname: ConstIntArray
+  hsname: ConstIntArray
+- headers: globals.h
+  cname: struct config
+  hsname: Config
+- headers: globals.h
+  cname: struct inline_struct
+  hsname: Inline_struct
+- headers: globals.h
+  cname: struct1_t
+  hsname: Struct1_t
+- headers: globals.h
+  cname: struct2_t
+  hsname: Struct2_t
+- headers: globals.h
+  cname: struct tuple
+  hsname: Tuple
+- headers: globals.h
+  cname: version_t
+  hsname: Version_t
+hstypes:
+- hsname: Config
+  instances:
+  - Eq
+  - Show
+  - Storable
+- hsname: ConstInt
   instances:
   - Bits
   - Bounded
@@ -20,50 +48,31 @@ types:
   - Real
   - Show
   - Storable
-- headers: globals.h
-  cname: ConstIntArray
-  hsname: ConstIntArray
+- hsname: ConstIntArray
   instances:
   - Eq
   - Show
-- headers: globals.h
-  cname: struct config
-  hsname: Config
+- hsname: Inline_struct
   instances:
   - Eq
   - Show
   - Storable
-- headers: globals.h
-  cname: struct inline_struct
-  hsname: Inline_struct
+- hsname: Struct1_t
   instances:
   - Eq
   - Show
   - Storable
-- headers: globals.h
-  cname: struct1_t
-  hsname: Struct1_t
+- hsname: Struct2_t
   instances:
   - Eq
   - Show
   - Storable
-- headers: globals.h
-  cname: struct2_t
-  hsname: Struct2_t
+- hsname: Tuple
   instances:
   - Eq
   - Show
   - Storable
-- headers: globals.h
-  cname: struct tuple
-  hsname: Tuple
-  instances:
-  - Eq
-  - Show
-  - Storable
-- headers: globals.h
-  cname: version_t
-  hsname: Version_t
+- hsname: Version_t
   instances:
   - Eq
   - Show
