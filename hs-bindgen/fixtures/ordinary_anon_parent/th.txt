@@ -1,0 +1,56 @@
+-- addDependentFile examples/golden/ordinary_anon_child.h
+-- addDependentFile examples/golden/ordinary_anon_parent.h
+-- #include <ordinary_anon_parent.h>
+-- double hs_bindgen_test_ordinary_anon_parent_49d2dc050c5f231a (
+--   double arg1
+-- )
+-- {
+--   return _acos(arg1);
+-- }
+-- double hs_bindgen_test_ordinary_anon_parent_faad0266dab4d429 (
+--   double arg1
+-- )
+-- {
+--   return _acos(arg1);
+-- }
+-- /* get__acos_ptr */
+-- __attribute__ ((const))
+-- double (*hs_bindgen_test_ordinary_anon_parent_c6a8256d628dc56b (void)) (
+--   double arg1
+-- )
+-- {
+--   return &_acos;
+-- }
+{-| __C declaration:__ @_acos@
+
+    __defined at:__ @ordinary_anon_child.h:4:1@
+
+    __exported by:__ @ordinary_anon_parent.h@
+-}
+foreign import ccall safe "hs_bindgen_test_ordinary_anon_parent_49d2dc050c5f231a" _acos :: CDouble ->
+                                                                                           IO CDouble
+{-| __C declaration:__ @_acos@
+
+    __defined at:__ @ordinary_anon_child.h:4:1@
+
+    __exported by:__ @ordinary_anon_parent.h@
+-}
+foreign import ccall safe "hs_bindgen_test_ordinary_anon_parent_faad0266dab4d429" _acos :: CDouble ->
+                                                                                           IO CDouble
+foreign import ccall safe "hs_bindgen_test_ordinary_anon_parent_c6a8256d628dc56b" hs_bindgen_test_ordinary_anon_parent_c6a8256d628dc56b :: IO (FunPtr (CDouble ->
+                                                                                                                                                       IO CDouble))
+{-# NOINLINE _acos_ptr #-}
+{-| __C declaration:__ @_acos@
+
+    __defined at:__ @ordinary_anon_child.h:4:1@
+
+    __exported by:__ @ordinary_anon_parent.h@
+-}
+_acos_ptr :: FunPtr (CDouble -> IO CDouble)
+{-| __C declaration:__ @_acos@
+
+    __defined at:__ @ordinary_anon_child.h:4:1@
+
+    __exported by:__ @ordinary_anon_parent.h@
+-}
+_acos_ptr = unsafePerformIO hs_bindgen_test_ordinary_anon_parent_c6a8256d628dc56b

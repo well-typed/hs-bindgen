@@ -194,6 +194,7 @@ testCases = manualTestCases ++ [
           Just $ Expected x
         _otherwise ->
           Nothing
+
     , testTraceCustom "skip_over_long_double" ["fun1", "struct1"] $ \case
         TraceFrontend (FrontendSelect (SelectParseFailure (AttachedParseMsg i (ParseUnsupportedType UnsupportedLongDouble)))) ->
           Just $ expectFromDeclInfoParse i
@@ -560,6 +561,11 @@ testCases = manualTestCases ++ [
         }
     , (defaultTest "named_vs_anon"){
           testClangVersion = Just (>= (19, 1, 0))
+        }
+    , (defaultTest "ordinary_anon_parent"){
+          testOnFrontendConfig = \cfg -> cfg{
+              frontendSelectPredicate = BTrue
+            }
         }
     , (defaultTest "program_slicing_simple"){
           -- Check that program slicing generates bindings for uint32_t and

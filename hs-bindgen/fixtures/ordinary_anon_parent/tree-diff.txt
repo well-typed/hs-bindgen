@@ -1,0 +1,42 @@
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc =
+        "ordinary_anon_child.h:4:1",
+        declId = NamePair {
+          nameC = Name "_acos",
+          nameHsIdent = Identifier
+            "_acos"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["ordinary_anon_parent.h"],
+            headerInclude =
+            "ordinary_anon_child.h"},
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = Identifier "x"})
+              (TypePrim
+                (PrimFloating PrimDouble))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimFloating PrimDouble)},
+      declSpec = DeclSpec
+        CTypeSpec {
+          cTypeSpecIdentifier = Nothing,
+          cTypeSpecInstances =
+          Map.fromList []}}],
+  unitDeps = [
+    "ordinary_anon_child",
+    "ordinary_anon_parent"]}
