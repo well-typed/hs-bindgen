@@ -22,10 +22,10 @@ extra-source-files:
   bootstrap/*.h
   examples/**/*.h
   examples/**/*.yaml
-  fixtures/*.hs
-  fixtures/*.rs
-  fixtures/*.txt
-  fixtures/*.yaml
+  fixtures/**/*.hs
+  fixtures/**/*.rs
+  fixtures/**/*.txt
+  fixtures/**/*.yaml
   musl-include/**/*.h
 
 flag dev
