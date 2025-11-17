@@ -18,7 +18,6 @@ module HsBindgen.Frontend.Pass.Parse.IsPass (
   , parseSucceedWith
   , parseDoNotAttempt
   , parseFail
-  , parseFailWith
   , RequiredForScoping(..)
   , ParseTypeExceptionContext(..)
   , ImmediateParseMsg(..)
@@ -26,7 +25,6 @@ module HsBindgen.Frontend.Pass.Parse.IsPass (
   , DelayedParseMsg(..)
   ) where
 
-import Data.List.NonEmpty qualified as NonEmpty
 import Text.SimplePrettyPrint (CtxDoc, ($$), (<+>), (><))
 import Text.SimplePrettyPrint qualified as PP
 
@@ -188,9 +186,9 @@ instance PrettyForTrace ParseNotAttemptedReason where
 -- We need this information when selecting declarations: Does the user want to
 -- select declarations we did not attempt to parse?
 newtype ParseNotAttempted = ParseNotAttempted {
-      unParseNotAttempted :: (AttachedParseMsg ParseNotAttemptedReason)
+      unParseNotAttempted :: AttachedParseMsg ParseNotAttemptedReason
     }
-  deriving stock    (Show, Generic)
+  deriving stock    (Eq, Show, Generic)
   deriving anyclass (PrettyForTrace)
 
 -- | Declarations that match the parse predicate but that we fail to parse and
@@ -199,10 +197,10 @@ newtype ParseNotAttempted = ParseNotAttempted {
 -- We need this information when selecting declarations: Does the user want to
 -- select declarations, we have failed to parse?
 newtype ParseFailure = ParseFailure {
-      unParseFailure :: (AttachedParseMsg DelayedParseMsg)
+      unParseFailure :: AttachedParseMsg DelayedParseMsg
     }
-  deriving stock    (Show, Generic)
-  deriving anyclass (PrettyForTrace)
+  deriving stock    (Eq, Show, Generic)
+  deriving anyclass (PrettyForTrace, IsTrace Level)
 
 data ParseResult =
     ParseResultSuccess      ParseSuccess
@@ -247,25 +245,13 @@ parseDoNotAttempt C.DeclInfo{..} kind reason =
           reason
 
 parseFail ::
-  C.DeclInfo Parse -> C.NameKind -> DelayedParseMsg -> [ParseResult]
-parseFail info kind msg = parseFailWith info kind (NonEmpty.singleton msg)
-
-parseFailWith ::
-     HasCallStack
-  => C.DeclInfo Parse
-  -> C.NameKind
-  -> NonEmpty DelayedParseMsg
-  -> [ParseResult]
-parseFailWith C.DeclInfo{..} kind msgs =
-    [ ParseResultFailure $ ParseFailure $
-        AttachedParseMsg
-          (C.qualPrelimDeclId declId kind)
-          declLoc
-          declAvailability
-          m
-    | m <- NonEmpty.toList msgs
-    ]
-
+  C.DeclInfo Parse -> C.NameKind -> DelayedParseMsg -> ParseResult
+parseFail info kind msg = ParseResultFailure $ ParseFailure $
+      AttachedParseMsg
+        (C.qualPrelimDeclId info.declId kind)
+        info.declLoc
+        info.declAvailability
+        msg
 
 -- | We always need to parse declarations required for scoping
 data RequiredForScoping = RequiredForScoping | NotRequiredForScoping
@@ -321,7 +307,7 @@ data AttachedParseMsg a = AttachedParseMsg {
   , availability :: C.Availability
   , msg          :: a
   }
-  deriving stock (Show, Generic)
+  deriving stock (Eq, Show, Generic)
 
 instance PrettyForTrace a => PrettyForTrace (AttachedParseMsg a) where
   prettyForTrace (AttachedParseMsg i l _ x) =

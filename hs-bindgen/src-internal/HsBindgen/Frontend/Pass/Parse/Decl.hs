@@ -49,8 +49,8 @@ topLevelDecl = foldWithHandler handleTypeException parseDecl
           recordImmediateTrace $
             ParseOfDeclarationRequiredForScopingFailed info (parseException err)
         pure $ Just $
-          parseFail info contextNameKind $
-            ParseUnsupportedType (parseException err)
+          [ parseFail info contextNameKind $
+              ParseUnsupportedType (parseException err) ]
       where
         ParseTypeExceptionContext{..} = parseContext err
 
@@ -264,8 +264,8 @@ structDecl info = \curr -> do
               map parseSucceed $ decls ++ [mkStruct fields]
             Nothing ->
               -- If the struct has implicit fields, don't generate anything.
-              parseFail info (NameKindTagged TagKindStruct) $
-                ParseUnsupportedImplicitFields
+              [ parseFail info (NameKindTagged TagKindStruct) $
+                  ParseUnsupportedImplicitFields ]
       DefinitionUnavailable ->
         let decl :: C.Decl Parse
             decl = C.Decl{
@@ -325,8 +325,8 @@ unionDecl info = \curr -> do
               map parseSucceed $ decls ++ [mkUnion fields]
             Nothing ->
               -- If the struct has implicit fields, don't generate anything.
-              parseFail info (NameKindTagged TagKindUnion) $
-                ParseUnsupportedImplicitFields
+              [ parseFail info (NameKindTagged TagKindUnion) $
+                ParseUnsupportedImplicitFields ]
       DefinitionUnavailable -> do
         let decl :: C.Decl Parse
             decl = C.Decl{
@@ -526,7 +526,7 @@ functionDecl info = \curr -> do
 
             pure $ (fails ++) $
               if not (null anonDecls) then
-                parseFail info NameKindOrdinary ParseUnexpectedAnonInSignature
+                [ parseFail info NameKindOrdinary ParseUnexpectedAnonInSignature ]
               else
                 let nonPublicVisibility = [
                         ParseNonPublicVisibility
@@ -560,7 +560,7 @@ functionDecl info = \curr -> do
               return (mbArgName, argCType)
             pure $ Right (args', res)
           C.TypeTypedef{} ->
-            pure $ Left $ parseFail info NameKindOrdinary ParseFunctionOfTypeTypedef
+            pure $ Left $ [ parseFail info NameKindOrdinary ParseFunctionOfTypeTypedef ]
           otherType ->
             panicIO $ "expected function type, but got " <> show otherType
 
@@ -649,7 +649,7 @@ varDecl info = \curr -> do
 
         pure $ (fails ++) $
           if not (null anonDecls) then
-            parseFail info NameKindOrdinary ParseUnexpectedAnonInExtern
+            [parseFail info NameKindOrdinary ParseUnexpectedAnonInExtern]
           else (map parseSucceed otherDecls ++) $
             let nonPublicVisibility = [
                     ParseNonPublicVisibility
@@ -660,7 +660,7 @@ varDecl info = \curr -> do
                   | isDefn && linkage == ExternalLinkage
                   ]
                 msgs = nonPublicVisibility ++ potentialDuplicate
-                parseFailWith' = parseFailWith info NameKindOrdinary
+                parseFail' = parseFail info NameKindOrdinary
 
             in  case cls of
               VarGlobal ->
@@ -670,9 +670,9 @@ varDecl info = \curr -> do
                 singleton $
                   parseSucceedWith msgs (mkDecl $ C.DeclGlobal typ)
               VarThreadLocal ->
-                  parseFailWith' $ ParseUnsupportedTLS :| msgs
+                  [parseFail' ParseUnsupportedTLS]
               VarUnsupported storage ->
-                  parseFailWith' $ ParseUnknownStorageClass storage :| msgs
+                  [parseFail' $ ParseUnknownStorageClass storage]
   where
     -- Look for nested declarations inside the global variable type
     nestedDecl :: Fold ParseDecl [ParseResult]

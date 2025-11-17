@@ -16,13 +16,16 @@ module HsBindgen.Frontend.Analysis.DeclIndex (
   , (!)
   , lookupAttachedParseMsgs
   , getDecls
+  , keysSet
+    -- * Support for selection
+  , Match
+  , selectDeclIndex
   ) where
 
 import Prelude hiding (lookup)
 
 import Control.Monad.State
 import Data.Function
-import Data.List.NonEmpty ((<|))
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 import Optics.Core (over, set, (%))
@@ -88,8 +91,8 @@ import HsBindgen.Util.Tracer
 -- - 'omitted' and 'external' store binding specifications.
 data DeclIndex = DeclIndex {
       succeeded    :: !(Map C.QualPrelimDeclId ParseSuccess)
-    , notAttempted :: !(Map C.QualPrelimDeclId (NonEmpty ParseNotAttempted))
-    , failed       :: !(Map C.QualPrelimDeclId (NonEmpty ParseFailure))
+    , notAttempted :: !(Map C.QualPrelimDeclId ParseNotAttempted)
+    , failed       :: !(Map C.QualPrelimDeclId ParseFailure)
     , failedMacros :: !(Map C.QualPrelimDeclId HandleMacrosParseMsg)
     , omitted      :: !(Map C.QualPrelimDeclId (C.QualName, SourcePath))
       -- TODO https://github.com/well-typed/hs-bindgen/issues/1273: Attach
@@ -167,11 +170,20 @@ fromParseResults results =
         qualPrelimDeclId :: C.QualPrelimDeclId
         qualPrelimDeclId = getQualPrelimDeclId parse
 
-    alter :: Ord k => k -> a -> Map k (NonEmpty a) -> Map k (NonEmpty a)
+    alter :: (Ord k, Show a, Eq a) => k -> a -> Map k a -> Map k a
     alter key x =
-      Map.alter (\case
-        Nothing -> Just $ x :| []
-        Just xs -> Just $ x <| xs) key
+      Map.alter ( \case
+        Nothing -> Just x
+        Just x'
+          -- TODO https://github.com/well-typed/hs-bindgen/issues/1283: We parse
+          -- declarations multiple times.
+          | x == x'   -> Just x
+          -- TODO_PR: We also encounter conflicting values. In particular for
+          -- the `hsb_complex_test`, `cimag` is defined twice (function and
+          -- macro).
+          -- | otherwise -> panicPure $ "conflicting values: " <> show (x, x')
+          | otherwise -> traceShow ("conflicting values: " <> show (x,x')) $ Just x
+        ) key
 
     insert ::
          ParseSuccess
@@ -280,3 +292,46 @@ lookupAttachedParseMsgs qualPrelimDeclId =
 
 getDecls :: DeclIndex -> [C.Decl Parse]
 getDecls = map psDecl . Map.elems . succeeded
+
+keysSet :: DeclIndex -> Set C.QualPrelimDeclId
+keysSet DeclIndex{..} = Set.unions [
+      Map.keysSet succeeded
+    , Map.keysSet notAttempted
+    , Map.keysSet failed
+    , Map.keysSet failedMacros
+    -- TODO https://github.com/well-typed/hs-bindgen/issues/799: Also add
+    -- 'omitted' here and deal with the 'omitted' case in selection.
+    ]
+
+{-------------------------------------------------------------------------------
+  Support for selection
+-------------------------------------------------------------------------------}
+
+-- Match function to find selection roots.
+type Match = C.QualPrelimDeclId -> SingleLoc -> C.Availability -> Bool
+
+selectDeclIndex :: Match -> DeclIndex -> DeclIndex
+selectDeclIndex p DeclIndex{..} = DeclIndex {
+      succeeded    = Map.filter matchSuccess      succeeded
+    , notAttempted = Map.filter matchNotAttempted notAttempted
+    , failed       = Map.filter matchFailed       failed
+    , failedMacros = Map.filter matchFailedMacros failedMacros
+    , omitted
+    , external
+    }
+  where
+    matchMsg :: AttachedParseMsg a -> Bool
+    matchMsg m = p m.declId m.loc m.availability
+
+    matchSuccess :: ParseSuccess -> Bool
+    matchSuccess (ParseSuccess i d _) =
+      p i d.declInfo.declLoc d.declInfo.declAvailability
+
+    matchNotAttempted :: ParseNotAttempted -> Bool
+    matchNotAttempted (ParseNotAttempted m) = matchMsg m
+
+    matchFailed :: ParseFailure -> Bool
+    matchFailed (ParseFailure m) = matchMsg m
+
+    matchFailedMacros :: HandleMacrosParseMsg -> Bool
+    matchFailedMacros (HandleMacrosParseMsg m) = matchMsg m

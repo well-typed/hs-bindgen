@@ -2,7 +2,6 @@ module HsBindgen.Frontend.Pass.Select (
     selectDecls
   ) where
 
-import Data.Foldable qualified as Foldable
 import Data.Map.Strict qualified as Map
 import Data.Set ((\\))
 import Data.Set qualified as Set
@@ -10,7 +9,8 @@ import Data.Set qualified as Set
 import Clang.HighLevel.Types
 
 import HsBindgen.Errors (panicPure)
-import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex (..))
+import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex (..), Match,
+                                              selectDeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
@@ -20,7 +20,6 @@ import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
-import HsBindgen.Frontend.Pass.HandleMacros.Error
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.Select.IsPass
@@ -37,13 +36,10 @@ type DeclId = C.QualPrelimDeclId
 -- Declaration itself.
 type Decl = C.Decl Select
 
--- Match function to find selection roots.
-type Match = DeclId -> SingleLoc -> C.Availability -> Bool
-
 -- | We have to treat with two notions of availability here:
 --
 -- 1. A declaration can be available because it is in the list of declarations
---    in the translation unit.
+--    attached to the translation unit.
 --
 -- 2. A declaration is available if the declaration itself and all of its
 --    transitive dependencies are available.
@@ -52,7 +48,9 @@ type Match = DeclId -> SingleLoc -> C.Availability -> Bool
 data TransitiveAvailability =
     TransitivelyAvailable
     -- | For each transitive dependency, we try to give the root cause of
-    -- | unavailability.
+    -- unavailability.
+    --
+    -- We should use a "non-empty" map here.
   | TransitivelyUnavailable (Map DeclId UnavailabilityReason)
   deriving stock (Show, Eq, Ord)
 
@@ -80,32 +78,32 @@ selectDecls
   isMainHeader
   isInMainHeaderDir
   SelectConfig{..}
-  unit =
-    let -- Identifiers of selection roots.
-        rootIds :: Set DeclId
-        rootIds = Foldable.foldl' addMatch Set.empty index.succeeded
-          where
-           addMatch :: Set DeclId -> ParseSuccess -> Set DeclId
-           addMatch xs (ParseSuccess qualPrelimDeclId decl _) =
-             let info = decl.declInfo
-                 isSelected = match qualPrelimDeclId info.declLoc info.declAvailability
-             in  if isSelected then
-                   Set.insert qualPrelimDeclId xs
-                 else xs
+  C.TranslationUnit{..} =
+    let -- | Directly match the select predicate on the 'DeclIndex', obtaining
+        -- information about succeeded _and failed_ selection roots.
+        selectedIndex :: DeclIndex
+        selectedIndex = selectDeclIndex match index
 
-        -- Identifiers of transitive dependencies (with roots).
+        -- | Identifiers of selection roots. Some of them may be unavailable
+        -- (i.e., not in the 'succeeded' map, and hence, not in the list of
+        -- declarations attached to the translation unit).
+        rootIds :: Set DeclId
+        rootIds = DeclIndex.keysSet selectedIndex
+
+        -- | Identifiers of transitive dependencies including selection roots.
         rootAndTransIds :: Set DeclId
         rootAndTransIds =
           UseDeclGraph.getTransitiveDeps useDeclGraph $
             Set.toList rootIds
 
-        -- Identifiers of transitive dependencies (without roots).
+        -- | Identifiers of transitive dependencies excluding selection roots.
         strictTransIds :: Set DeclId
         strictTransIds = rootAndTransIds \\ rootIds
 
         -- | Identifiers of all selected declarations.
         selectedIds :: Set DeclId
-        -- | Identifiers of all selected transitive dependencies.
+        -- | Identifiers of (additional) transitive dependencies selected due to
+        -- | program slicing.
         additionalSelectedTransIds :: Set DeclId
         (selectedIds, additionalSelectedTransIds) = case selectConfigProgramSlicing of
           DisableProgramSlicing -> (rootIds        , Set.empty)
@@ -119,54 +117,57 @@ selectDecls
             , availabilityFromSet nonselectedTransDeps  UnavailableNotSelected
             ]
           where
+            -- We only check the transitive availability of declarations in the
+            -- list of declarations attached to the translation unit. That is,
+            -- there is no need to process strict transitive dependencies only
+            -- (i.e., to remove 'x' from 'transDeps').
+            transDeps :: Set DeclId
             transDeps = UseDeclGraph.getTransitiveDeps useDeclGraph [x]
+
+            notAttemptedTransDeps, failedTransDeps :: Set DeclId
+            failedMacrosTransDeps, nonselectedTransDeps :: Set DeclId
             notAttemptedTransDeps = Set.intersection transDeps notAttempted
-            failedTransDeps = Set.intersection transDeps failed
+            failedTransDeps       = Set.intersection transDeps failed
             failedMacrosTransDeps = Set.intersection transDeps failedMacros
-            nonselectedTransDeps = transDeps \\ selectedIds
+            nonselectedTransDeps  = transDeps \\ selectedIds
+
+            availabilityFromSet ::
+                     Set DeclId
+                  -> UnavailabilityReason
+                  -> TransitiveAvailability
             availabilityFromSet xs r =
               if Set.null xs then
                 TransitivelyAvailable
               else
-                TransitivelyUnavailable $
-                  Map.fromList [ (y, r) | y <- Set.toList xs ]
+                TransitivelyUnavailable $ Map.fromSet (const r) xs
+
+        selectDecl :: Decl -> (Maybe Decl, [Msg Select])
+        selectDecl =
+          selectDeclWith getTransitiveAvailability rootIds additionalSelectedTransIds
 
         availableDecls :: [Decl]
-        availableDecls = map coercePass unit.unitDecls
+        availableDecls = map coercePass unitDecls
 
         -- Fold available declarations and collect selected declarations and
         -- trace messages.
-        Acc {
-            selDecls  = selDeclsReversed
-          , remaining = unavailableIds
-          , msgs      = selectStatusMsgs
-          } =
-          foldDecls
-            getTransitiveAvailability
-            rootIds
-            additionalSelectedTransIds
-            availableDecls
+        unitDecls'  :: [Decl]
+        selectMsgs :: [Msg Select]
+        (unitDecls', selectMsgs) =
+          bimap catMaybes concat $ unzip $
+            map selectDecl availableDecls
 
         unitSelect :: C.TranslationUnit Select
         unitSelect = C.TranslationUnit {
-                C.unitDecls = reverse selDeclsReversed
-              , C.unitIncludeGraph = unit.unitIncludeGraph
-              , C.unitAnn = unit.unitAnn
+                C.unitDecls = unitDecls'
+              , C.unitIncludeGraph = unitIncludeGraph
+              , C.unitAnn = unitAnn
               }
 
     in  (    unitSelect
-        ,    selectStatusMsgs
+        ,    selectMsgs
           -- If there were no predicate matches we issue a warning to the user.
-          -- Only warn if there were successfully parsed declarations to select from.
-          ++ [ SelectNoDeclarationsMatched
-             | Set.null rootIds
-             , not (Map.null index.succeeded)
-             ]
-          ++ getUnavailableMsgs       unavailableIds
-          ++ getDelayedParseMsgs      selectedIds index
-          ++ getParseNotAttemptedMsgs match index
-          ++ getParseFailureMsgs      match index
-          ++ getMacroFailureMsgs      match index
+          ++ [ SelectNoDeclarationsMatched | Set.null rootIds ]
+          ++ getDelayedMsgs      selectedIndex
         )
   where
     notAttempted, failed, failedMacros :: Set DeclId
@@ -174,14 +175,11 @@ selectDecls
     failed       = Map.keysSet index.failed
     failedMacros = Map.keysSet index.failedMacros
 
-    getUnavailableMsgs :: Set DeclId -> [Msg Select]
-    getUnavailableMsgs = map SelectDeclarationUnavailable . Set.toList
-
     index :: DeclIndex
-    index = unit.unitAnn.declIndex
+    index = unitAnn.declIndex
 
     useDeclGraph :: UseDeclGraph
-    useDeclGraph = unit.unitAnn.declUseDecl
+    useDeclGraph = unitAnn.declUseDecl
 
     match :: Match
     match = \declId -> go declId declId
@@ -218,7 +216,7 @@ selectDecls
 
         matchAnon :: DeclId -> DeclId -> Bool
         matchAnon origDeclId anon =
-          case DeclUseGraph.getUseSites unit.unitAnn.declDeclUse anon of
+          case DeclUseGraph.getUseSites unitAnn.declDeclUse anon of
             [(declId, _)] -> matchUseSite origDeclId declId
             -- Unused anonymous declarations are removed in the @NameAnon@
             -- pass. Here we are using the decl-use graph to find use sites,
@@ -248,77 +246,56 @@ selectDecls
   Fold declarations
 -------------------------------------------------------------------------------}
 
-data Acc = Acc
-  { -- | Selected declarations that are transitively available.
-    selDecls :: [Decl],
-    -- | Identifiers of declarations yet to be selected. After the fold, this
-    -- set contains identifiers that were _not_ found in the list of
-    -- declarations of the translation unit. These declarations are
-    -- _unvailable_, and lead to error traces.
-    remaining :: Set DeclId,
-    -- | Trace messages.
-    msgs :: [Msg Select]
-  }
-
--- | Fold over the list of declarations in the translation unit (see @Acc@).
-foldDecls ::
+selectDeclWith ::
     (DeclId -> TransitiveAvailability)
+  -- | Selection roots.
   -> Set DeclId
-  -- | Additionally selected transitive dependencies when program slicing is
-  --   enabled.
+  -- | Additionally selected transitive dependencies (non-empty when program
+  --   slicing is enabled).
   -> Set DeclId
-  -> [Decl]
-  -> Acc
-foldDecls getTransitiveAvailability rootIds additionalSelectedTransIds decls =
-    Foldable.foldl' aux (Acc [] selectedIds []) decls
+  -> Decl
+  -> (Maybe Decl, [Msg Select])
+selectDeclWith getTransitiveAvailability rootIds additionalSelectedTransIds decl =
+    case ( isSelectedRoot
+         , isAdditionalSelectedTransDep
+         , transitiveAvailability ) of
+      -- Declaration is a selection root.
+      (True, False, TransitivelyAvailable) ->
+        (Just decl, getSelMsgs SelectionRoot)
+      (True, False, TransitivelyUnavailable rs) ->
+        (Nothing, getUnavailMsgs SelectionRoot rs)
+      -- Declaration is an additionally selected transitive dependency.
+      (False, True, TransitivelyAvailable) ->
+        (Just decl, getSelMsgs TransitiveDependency)
+      (False, True, TransitivelyUnavailable rs) ->
+        (Nothing, getUnavailMsgs TransitiveDependency rs)
+      -- Declaration is not selected.
+      (False, False, _) ->
+        (Nothing, [SelectStatusInfo NotSelected decl])
+      -- Declaration is a selection root and a transitive dependency. This
+      -- should be impossible and we consider it a bug.
+      (True, True, _) ->
+        panicPure $
+          "Declaration is selection root and transitive dependency: "
+          ++ show decl.declInfo
   where
-    selectedIds :: Set DeclId
-    selectedIds = rootIds `Set.union` additionalSelectedTransIds
+    declId    = C.declOrigQualPrelimDeclId decl
+    -- We check three conditions:
+    isSelectedRoot = Set.member declId rootIds
+    -- These are also always strict transitive dependencies.
+    isAdditionalSelectedTransDep =
+      Set.member declId additionalSelectedTransIds
+    transitiveAvailability = getTransitiveAvailability declId
 
-    aux :: Acc -> Decl -> Acc
-    aux Acc{..} decl =
-      let declId    = C.declOrigQualPrelimDeclId decl
-          selDecls' = decl : selDecls
-          remaining' = Set.delete declId remaining
-          -- We check three conditions:
-          isSelectedRoot = Set.member declId rootIds
-          -- These are also always strict transitive dependencies.
-          isAdditionalSelectedTransDep =
-            Set.member declId additionalSelectedTransIds
-          transitiveAvailability = getTransitiveAvailability declId
-      in
-      case ( isSelectedRoot
-           , isAdditionalSelectedTransDep
-           , transitiveAvailability ) of
-        -- Declaration is a selection root.
-        (True, False, TransitivelyAvailable) ->
-           Acc selDecls' remaining' (getSelMsgs SelectionRoot decl ++ msgs)
-        (True, False, TransitivelyUnavailable rs) ->
-          let ms = [ TransitiveDependencyOfDeclarationUnavailable
-                       SelectionRoot r decl | r <- Map.toList rs ]
-          in  Acc selDecls remaining' (ms ++ msgs)
-        -- Declaration is an additionally selected transitive dependency.
-        (False, True, TransitivelyAvailable) ->
-          Acc selDecls' remaining' (getSelMsgs TransitiveDependency decl ++ msgs)
-        (False, True, TransitivelyUnavailable rs) ->
-          let ms = [ TransitiveDependencyOfDeclarationUnavailable
-                       TransitiveDependency r decl | r <- Map.toList rs ]
-          in  Acc selDecls remaining' (ms ++ msgs)
-        -- Declaration is not selected.
-        (False, False, _) ->
-          let msg = SelectStatusInfo NotSelected decl
-          in  Acc selDecls remaining' (msg : msgs)
-        -- Declaration is a selection root and a transitive dependency. This
-        -- should be impossible and we consider it a bug.
-        (True, True, _) ->
-          panicPure $
-            "Declaration is selection root and transitive dependency: "
-            ++ show decl.declInfo
-
-    getSelMsgs :: SelectReason -> C.Decl Select -> [Msg Select]
-    getSelMsgs selectReason decl =
+    getSelMsgs :: SelectReason -> [Msg Select]
+    getSelMsgs selectReason =
       let selectDepr   = [ SelectDeprecated decl | isDeprecated decl.declInfo ]
       in  SelectStatusInfo (Selected selectReason) decl : selectDepr
+
+    getUnavailMsgs :: SelectReason -> Map DeclId UnavailabilityReason -> [Msg Select]
+    getUnavailMsgs selectReason unavailReason =
+      [ TransitiveDependencyOfDeclarationUnavailable selectReason r decl
+      | r <- Map.toList unavailReason ]
 
     isDeprecated :: C.DeclInfo Select -> Bool
     isDeprecated info = case C.declAvailability info of
@@ -329,38 +306,16 @@ foldDecls getTransitiveAvailability rootIds additionalSelectedTransIds decls =
   Parse trace messages
 -------------------------------------------------------------------------------}
 
-getDelayedParseMsgs :: Set DeclId -> DeclIndex -> [Msg Select]
-getDelayedParseMsgs selIds index = concatMap getMsgs $ Set.toList selIds
+getDelayedMsgs :: DeclIndex -> [Msg Select]
+getDelayedMsgs DeclIndex{..} = concat [
+    getMsgss (map SelectParseSuccess . psAttachedMsgs) succeeded
+  , getMsgs   SelectParseNotAttempted                  notAttempted
+  , getMsgs   SelectParseFailure                       failed
+  , getMsgs   SelectMacroFailure                       failedMacros
+  ]
   where
-    getMsgs :: DeclId -> [Msg Select]
-    getMsgs k = map SelectParseSuccess $ DeclIndex.lookupAttachedParseMsgs k index
+    getMsgs :: (a -> b) -> Map k a -> [b]
+    getMsgs f = map f . Map.elems
 
-matchMsg :: Match -> AttachedParseMsg a -> Bool
-matchMsg p m = p m.declId m.loc m.availability
-
-getParseNotAttemptedMsgs :: Match -> DeclIndex -> [Msg Select]
-getParseNotAttemptedMsgs p =
-  Foldable.foldl' (Foldable.foldl' addMsg) [] . notAttempted
-  where
-    addMsg :: [SelectMsg] -> ParseNotAttempted -> [SelectMsg]
-    addMsg xs (ParseNotAttempted m)
-      | matchMsg p m = SelectParseNotAttempted m : xs
-      | otherwise   = xs
-
-getParseFailureMsgs :: Match -> DeclIndex -> [Msg Select]
-getParseFailureMsgs p =
-  Foldable.foldl' (Foldable.foldl' addMsg) [] . failed
-  where
-    addMsg :: [SelectMsg] -> ParseFailure -> [SelectMsg]
-    addMsg xs (ParseFailure m)
-      | matchMsg p m = SelectParseFailure m : xs
-      | otherwise   = xs
-
-getMacroFailureMsgs :: Match -> DeclIndex -> [Msg Select]
-getMacroFailureMsgs p =
-  (Foldable.foldl' addMsg) [] . failedMacros
-  where
-    addMsg :: [SelectMsg] -> HandleMacrosParseMsg -> [SelectMsg]
-    addMsg xs (HandleMacrosParseMsg m)
-      | matchMsg p m = SelectMacroFailure m : xs
-      | otherwise   = xs
+    getMsgss :: (a -> [b]) -> Map k a -> [b]
+    getMsgss f = concatMap f . Map.elems

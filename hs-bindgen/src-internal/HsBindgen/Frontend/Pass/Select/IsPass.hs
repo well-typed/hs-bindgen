@@ -21,7 +21,7 @@ import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
-import HsBindgen.Frontend.Pass.HandleMacros.Error (HandleMacrosError)
+import HsBindgen.Frontend.Pass.HandleMacros.Error (HandleMacrosParseMsg)
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Predicate
@@ -96,11 +96,17 @@ data SelectStatus =
   | Selected SelectReason
   deriving stock (Show)
 
+-- | The order is important, the most "natural" cause of unavailability comes
+-- first.
+--
+-- For example, if something fails to parse, but was not selected, we should say
+-- that it was not selected, rather than it failed to parse (why would we parse
+-- it, if it was not selected).
 data UnavailabilityReason =
     UnavailableParseNotAttempted
+  | UnavailableNotSelected
   | UnavailableParseFailed
   | UnavailableHandleMacrosFailed
-  | UnavailableNotSelected
   deriving stock (Show, Eq, Ord)
 
 instance PrettyForTrace UnavailabilityReason where
@@ -125,8 +131,6 @@ data SelectMsg =
       SelectReason
       (C.QualPrelimDeclId, UnavailabilityReason)
       (C.Decl Select)
-    -- | A declaration itself is unavailable.
-  | SelectDeclarationUnavailable C.QualPrelimDeclId
     -- | The user has selected a deprecated declaration. Maybe they want to
     -- de-select deprecated declaration?
   | SelectDeprecated (C.Decl Select)
@@ -134,13 +138,13 @@ data SelectMsg =
   | SelectParseSuccess (AttachedParseMsg DelayedParseMsg)
     -- | Delayed parse message for declarations the user wants to select
     -- directly, but we have not attempted to parse.
-  | SelectParseNotAttempted (AttachedParseMsg ParseNotAttemptedReason)
+  | SelectParseNotAttempted ParseNotAttempted
     -- | Delayed parse message for declarations the user wants to select
     -- directly, but we have failed to parse.
-  | SelectParseFailure (AttachedParseMsg DelayedParseMsg)
+  | SelectParseFailure ParseFailure
     -- | Delayed handle macros message for macros the user wants to select
     -- | directly, but we have failed to parse.
-  | SelectMacroFailure (AttachedParseMsg HandleMacrosError)
+  | SelectMacroFailure HandleMacrosParseMsg
     -- | Inform the user that no declarations matched the select predicate.
   | SelectNoDeclarationsMatched
   deriving stock (Show)
@@ -155,18 +159,15 @@ instance PrettyForTrace SelectMsg where
         prettyForTrace x
       , " selected ("
       , prettyForTrace s
-      , ") but "
+      , ") but depends on "
       , prettyForTrace i
-      , " unavailable: "
+      , ", which is unavailable: "
       , prettyForTrace u
       ]
-    SelectDeclarationUnavailable i -> PP.hang
-        "Tried to select an unavailable declaration: " 2 $
-          prettyForTrace i
     SelectDeprecated x -> PP.hang
         "Selected a deprecated declaration: " 2 $ PP.vcat [
           prettyForTrace x
-        , "; you may want to de-select it"
+        , "You may want to de-select it"
         ]
     SelectParseSuccess x -> PP.hang "During parse:" 2 (prettyForTrace x)
     SelectParseNotAttempted x -> hangReason "parse not attempted" [
@@ -191,7 +192,6 @@ instance IsTrace Level SelectMsg where
   getDefaultLogLevel = \case
     SelectStatusInfo{}                             -> Info
     TransitiveDependencyOfDeclarationUnavailable{} -> Warning
-    SelectDeclarationUnavailable{}                 -> Error
     SelectDeprecated{}                             -> Notice
     SelectParseSuccess x                           -> getDefaultLogLevel x
     SelectParseNotAttempted{}                      -> Warning
@@ -202,7 +202,6 @@ instance IsTrace Level SelectMsg where
   getTraceId = \case
     SelectStatusInfo{}                             -> "select"
     TransitiveDependencyOfDeclarationUnavailable{} -> "select"
-    SelectDeclarationUnavailable{}                 -> "select"
     SelectDeprecated{}                             -> "select"
     SelectParseSuccess x                           -> "select-" <> getTraceId x
     SelectParseNotAttempted{}                      -> "select-parse"

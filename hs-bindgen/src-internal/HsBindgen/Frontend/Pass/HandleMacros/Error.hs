@@ -28,7 +28,7 @@ newtype HandleMacrosParseMsg = HandleMacrosParseMsg {
     unHandleMacrosParseMsg :: AttachedParseMsg HandleMacrosError
   }
   deriving stock    (Show, Generic)
-  deriving anyclass (PrettyForTrace)
+  deriving anyclass (PrettyForTrace, IsTrace Level)
 
 data HandleMacrosError =
     -- | We could not parse the macro (macro def sites)

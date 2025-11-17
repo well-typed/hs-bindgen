@@ -9,7 +9,6 @@ import Control.Monad.Reader (MonadReader, ReaderT, runReaderT)
 import Control.Monad.Reader qualified as Reader
 import Control.Monad.State (MonadState, State, runState)
 import Control.Monad.State qualified as State
-import Data.List.NonEmpty qualified as NonEmpty
 import Data.Map.Strict qualified as Map
 import Data.Set qualified as Set
 
@@ -531,9 +530,7 @@ resolveExtBinding cQualName cQualPrelimDeclId declPaths  = do
 -- For a given declaration ID, look up the source locations of "not attempted"
 -- or "failed" parses.
 lookupMissing :: C.QualPrelimDeclId -> DeclIndex -> [SingleLoc]
-lookupMissing qualPrelimDeclId index =
-  (maybe [] (map (loc . unParseNotAttempted) . NonEmpty.toList) $
-    Map.lookup qualPrelimDeclId $ index.notAttempted)
-  ++
-  (maybe [] (map (loc . unParseFailure) . NonEmpty.toList) $
-    Map.lookup qualPrelimDeclId $ index.failed)
+lookupMissing qualPrelimDeclId index = catMaybes $ [
+    loc . unParseNotAttempted <$> Map.lookup qualPrelimDeclId index.notAttempted
+  , loc . unParseFailure      <$> Map.lookup qualPrelimDeclId index.failed
+  ]
