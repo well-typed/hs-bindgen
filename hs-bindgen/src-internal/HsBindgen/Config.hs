@@ -26,6 +26,8 @@ import HsBindgen.Config.Internal
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
+import HsBindgen.TraceMsg
+import HsBindgen.Util.Tracer
 
 {-------------------------------------------------------------------------------
   Common
@@ -114,6 +116,20 @@ data ConfigTH = ConfigTH {
     -- >>> def :: Safety
     -- Safe
     safety :: Safety
+
+    -- | Show trace messages of the provided 'Level' or higher.
+    --
+    -- Default:
+    --
+    -- >>> def :: Verbosity
+    -- Notice
+  , verbosity :: Verbosity
+
+    -- | Custom log level settings
+    --
+    -- For example, use 'EnableMacroWarnings' to warn on macro parse/reparse
+    -- errors.
+  , customLogLevelSettings :: [CustomLogLevelSetting]
   }
   deriving stock (Show, Eq, Generic)
-  deriving anyclass (Default)
+  deriving anyclass Default

@@ -18,4 +18,5 @@ let cfg :: Config
     cfg = def & #clang % #extraIncludeDirs .~ [
               Pkg "examples"
             ]
- in withHsBindgen cfg def $ hashInclude "test_02.h"
+ in withHsBindgen cfg def $
+      hashInclude "test_02.h"

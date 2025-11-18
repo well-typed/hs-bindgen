@@ -46,6 +46,11 @@ module HsBindgen.TH (
     -- ** Safety
   , Safety.Safety(..)
 
+    -- ** Tracer
+  , Tracer.Verbosity(..)
+  , Tracer.Level(..)
+  , TraceMsg.CustomLogLevelSetting(..)
+
    -- * Re-exports
   , Default.Default(..)
   ) where
@@ -60,3 +65,5 @@ import HsBindgen.Config.ClangArgs qualified as ClangArgs
 import HsBindgen.Frontend.Pass.Select.IsPass qualified as Select
 import HsBindgen.Frontend.Predicate qualified as Predicate
 import HsBindgen.TH.Internal qualified as TH
+import HsBindgen.TraceMsg as TraceMsg
+import HsBindgen.Util.Tracer as Tracer

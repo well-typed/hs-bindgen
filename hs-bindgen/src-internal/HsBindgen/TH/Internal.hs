@@ -34,6 +34,7 @@ import HsBindgen.Errors
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Guasi
 import HsBindgen.Imports
+import HsBindgen.TraceMsg
 import HsBindgen.Util.TH
 import HsBindgen.Util.Tracer
 
@@ -71,7 +72,13 @@ withHsBindgen config ConfigTH{..} hashIncludes = do
 
     hsModuleName <- fromString . TH.loc_module <$> TH.location
 
-    let -- Traverse #include directives.
+    let tracerConfig :: TracerConfig IO Level TraceMsg
+        tracerConfig =
+          tracerConfigDefTH
+            & #tVerbosity .~ verbosity
+            & #tCustomLogLevel .~ getCustomLogLevel customLogLevelSettings
+
+        -- Traverse #include directives.
         bindgenState :: BindgenState
         bindgenState = execState hashIncludes (BindgenState [])
 
@@ -84,7 +91,7 @@ withHsBindgen config ConfigTH{..} hashIncludes = do
 
     (I deps :* I decls' :* Nil) <- liftIO $
       hsBindgen
-        tracerConfigDefTH
+        tracerConfig
         bindgenConfig
         hsModuleName
         uncheckedHashIncludeArgs
