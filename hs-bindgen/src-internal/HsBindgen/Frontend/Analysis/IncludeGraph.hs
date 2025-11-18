@@ -15,6 +15,7 @@ module HsBindgen.Frontend.Analysis.IncludeGraph (
     -- * Query
   , reaches
   , toSortedList
+  , toOrderMap
   , getIncludes
     -- * Debugging
   , Predicate
@@ -24,12 +25,13 @@ module HsBindgen.Frontend.Analysis.IncludeGraph (
 import Data.DynGraph.Labelled (DynGraph)
 import Data.DynGraph.Labelled qualified as DynGraph
 import Data.List qualified as List
-import Data.Set (Set)
+import Data.Map.Strict qualified as Map
 
 import Clang.Paths
 
 import HsBindgen.Frontend.RootHeader (HashIncludeArg (getHashIncludeArg))
 import HsBindgen.Frontend.RootHeader qualified as RootHeader
+import HsBindgen.Imports
 
 {-------------------------------------------------------------------------------
   Definition
@@ -90,6 +92,9 @@ reaches (IncludeGraph graph) = DynGraph.reaches graph . List.singleton
 toSortedList :: IncludeGraph -> [SourcePath]
 toSortedList (IncludeGraph graph) =
     List.delete RootHeader.name $ DynGraph.topSort graph
+
+toOrderMap :: IncludeGraph -> Map SourcePath Int
+toOrderMap graph = Map.fromList (zip (toSortedList graph) [0..])
 
 getIncludes ::
      IncludeGraph

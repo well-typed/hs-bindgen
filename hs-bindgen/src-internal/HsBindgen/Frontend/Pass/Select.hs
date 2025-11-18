@@ -2,17 +2,22 @@ module HsBindgen.Frontend.Pass.Select (
     selectDecls
   ) where
 
+import Data.List (sortBy)
 import Data.Map.Strict qualified as Map
+import Data.Ord (comparing)
 import Data.Set ((\\))
 import Data.Set qualified as Set
 
 import Clang.HighLevel.Types
+import Clang.Paths
 
 import HsBindgen.Errors (panicPure)
 import HsBindgen.Frontend.Analysis.DeclIndex (DeclIndex (..), Match,
                                               selectDeclIndex)
 import HsBindgen.Frontend.Analysis.DeclIndex qualified as DeclIndex
 import HsBindgen.Frontend.Analysis.DeclUseGraph qualified as DeclUseGraph
+import HsBindgen.Frontend.Analysis.IncludeGraph (IncludeGraph)
+import HsBindgen.Frontend.Analysis.IncludeGraph qualified as IncludeGraph
 import HsBindgen.Frontend.Analysis.UseDeclGraph (UseDeclGraph)
 import HsBindgen.Frontend.Analysis.UseDeclGraph qualified as UseDeclGraph
 import HsBindgen.Frontend.AST.Coerce (CoercePass (coercePass))
@@ -20,6 +25,7 @@ import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
+import HsBindgen.Frontend.Pass.HandleMacros.Error
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Pass.Select.IsPass
@@ -164,11 +170,15 @@ selectDecls
               , C.unitAnn = unitAnn
               }
 
-    in  (    unitSelect
-        ,    selectMsgs
+        msgs :: [Msg Select]
+        msgs =
+             selectMsgs
+          ++ getDelayedMsgs selectedIndex
           -- If there were no predicate matches we issue a warning to the user.
           ++ [ SelectNoDeclarationsMatched | Set.null rootIds ]
-          ++ getDelayedMsgs      selectedIndex
+
+    in  ( unitSelect
+        , sortSelectMsgs unitIncludeGraph msgs
         )
   where
     notAttempted, failed, failedMacros :: Set DeclId
@@ -320,3 +330,56 @@ getDelayedMsgs DeclIndex{..} = concat [
 
     getMsgss :: (a -> [b]) -> Map k a -> [b]
     getMsgss f = concatMap f . Map.elems
+
+{-------------------------------------------------------------------------------
+  Sort messages
+-------------------------------------------------------------------------------}
+
+compareByOrder :: Map SourcePath Int -> SourcePath -> SourcePath -> Ordering
+compareByOrder xs x y =
+  let ix = lookupUnsafe x
+      iy = lookupUnsafe y
+  in  compare ix iy
+  where
+    lookupUnsafe z = case Map.lookup z xs of
+      Nothing -> panicPure $ "unknown source path: " <> show z
+      Just v  -> v
+
+compareSingleLocs :: Map SourcePath Int -> SingleLoc -> SingleLoc -> Ordering
+compareSingleLocs xs x y =
+    case compareByOrder xs (singleLocPath x) (singleLocPath y) of
+      LT -> LT
+      EQ -> comparing getLineCol x y
+      GT -> GT
+  where
+    getLineCol :: SingleLoc -> (Int, Int)
+    getLineCol z = (singleLocLine z, singleLocColumn z)
+
+getSingleLoc :: Msg Select -> Maybe SingleLoc
+getSingleLoc = \case
+  SelectStatusInfo _ d                               -> fromD d
+  TransitiveDependencyOfDeclarationUnavailable _ _ d -> fromD d
+  SelectDeprecated d                                 -> fromD d
+  SelectParseSuccess m                               -> fromM m
+  SelectParseNotAttempted (ParseNotAttempted    m)   -> fromM m
+  SelectParseFailure      (ParseFailure         m)   -> fromM m
+  SelectMacroFailure      (HandleMacrosParseMsg m)   -> fromM m
+  SelectNoDeclarationsMatched                        -> Nothing
+  where
+    fromD = Just . C.declLoc . C.declInfo
+    fromM = Just . loc
+
+compareMsgs :: Map SourcePath Int -> Msg Select -> Msg Select -> Ordering
+compareMsgs orderMap x y =
+  case (getSingleLoc x, getSingleLoc y) of
+    (Just lx, Just ly) -> compareSingleLocs orderMap lx ly
+    -- Sort messages not attached to a declaration to the back.
+    (Nothing, _      ) -> GT
+    (_      , Nothing) -> LT
+
+sortSelectMsgs :: IncludeGraph -> [Msg Select] -> [Msg Select]
+sortSelectMsgs includeGraph = sortBy (compareMsgs orderMap)
+  where
+    -- Compute the order map once.
+    orderMap :: Map SourcePath Int
+    orderMap = IncludeGraph.toOrderMap includeGraph
