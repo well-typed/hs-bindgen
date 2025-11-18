@@ -15,7 +15,7 @@ module HsBindgen.TH.Internal (
 import Control.Monad.State (State, execState, modify)
 import Data.Set qualified as Set
 import Language.Haskell.TH qualified as TH
-import Optics.Core ((%), (&), (.~))
+import Optics.Core ((&), (.~))
 import System.FilePath ((</>))
 
 import Clang.Paths
@@ -23,7 +23,6 @@ import Clang.Paths
 import HsBindgen
 import HsBindgen.Backend.Extensions
 import HsBindgen.Backend.Hs.CallConv
-import HsBindgen.Backend.Hs.Translation
 import HsBindgen.Backend.HsModule.Translation
 import HsBindgen.Backend.SHs.AST qualified as SHs
 import HsBindgen.Backend.TH.Translation
@@ -70,8 +69,6 @@ withHsBindgen config ConfigTH{..} hashIncludes = do
 
     bindgenConfig <- toBindgenConfigTH config
 
-    hsModuleName <- fromString . TH.loc_module <$> TH.location
-
     let tracerConfig :: TracerConfig IO Level TraceMsg
         tracerConfig =
           tracerConfigDefTH
@@ -93,7 +90,6 @@ withHsBindgen config ConfigTH{..} hashIncludes = do
       hsBindgen
         tracerConfig
         bindgenConfig
-        hsModuleName
         uncheckedHashIncludeArgs
         artefacts
     let decls = mergeDecls safety decls'
@@ -215,11 +211,15 @@ checkLanguageExtensions requiredExts = do
 toBindgenConfigTH :: Config -> TH.Q BindgenConfig
 toBindgenConfigTH config = do
     packageRoot <- getPackageRoot
+    uniqueId <- getUniqueId
+    hsModuleName <- fromString . TH.loc_module <$> TH.location
     let bindgenConfig :: BindgenConfig
         bindgenConfig =
-          toBindgenConfig $ toFilePath packageRoot <$> config
-    uniqueId <- getUniqueId
-    pure $ bindgenConfig & setUniqueId uniqueId
+          toBindgenConfig
+            (toFilePath packageRoot <$> config)
+            uniqueId
+            hsModuleName
+    pure bindgenConfig
   where
     toFilePath :: FilePath -> IncludeDir -> FilePath
     toFilePath root (Pkg x) = root </> x
@@ -227,8 +227,3 @@ toBindgenConfigTH config = do
 
     getUniqueId :: TH.Q UniqueId
     getUniqueId = UniqueId . TH.loc_package <$> TH.location
-
-    setUniqueId :: UniqueId -> BindgenConfig -> BindgenConfig
-    setUniqueId uniqueId =
-      #bindgenBackendConfig % #backendTranslationOpts % #translationUniqueId
-        .~ uniqueId

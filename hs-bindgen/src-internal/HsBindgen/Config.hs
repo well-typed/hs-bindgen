@@ -5,16 +5,13 @@ module HsBindgen.Config (
     Config_(..)
   , toBindgenConfig
 
-    -- * Preprocessor
-  , ConfigPP(..)
-  , toBindgenConfigPP
+    -- * Client
+  , OutputDirPolicy(..)
 
     -- * Template Haskell
   , ConfigTH(..)
   )
 where
-
-import Optics.Core ((%), (&), (.~))
 
 import HsBindgen.Backend.Hs.Haddock.Config
 import HsBindgen.Backend.Hs.Translation
@@ -26,6 +23,7 @@ import HsBindgen.Config.Internal
 import HsBindgen.Frontend.Pass.Select.IsPass
 import HsBindgen.Frontend.Predicate
 import HsBindgen.Imports
+import HsBindgen.Language.Haskell qualified as Hs
 import HsBindgen.TraceMsg
 import HsBindgen.Util.Tracer
 
@@ -35,8 +33,8 @@ import HsBindgen.Util.Tracer
 
 -- NOTE: Stable public API.
 
--- | Configuration shared between preprocessor (e.g., the @hs-bindgen@ client:
--- @hs-bindgen-cli@) and Template-Haskell modes
+-- | User-provided configuration shared between client commands and
+--   Template-Haskell mode
 data Config_ path = Config {
     -- * Boot
     clang       :: ClangArgsConfig path
@@ -49,16 +47,21 @@ data Config_ path = Config {
 
     -- * Backend
   , haddockPathStyle :: PathStyle
+
+    -- * Binding specifications
+  , outputBindingSpec :: Maybe path
   }
   deriving stock (Show, Eq, Generic)
   deriving stock (Functor, Foldable, Traversable)
   deriving anyclass (Default)
 
-toBindgenConfig :: Config_ FilePath -> BindgenConfig
-toBindgenConfig Config{..} = BindgenConfig bootConfig frontendConfig backendConfig
+toBindgenConfig :: Config_ FilePath -> UniqueId -> Hs.ModuleName -> BindgenConfig
+toBindgenConfig Config{..} uniqueId hsModuleName =
+    BindgenConfig bootConfig frontendConfig backendConfig
   where
     bootConfig = BootConfig {
         bootClangArgsConfig   = clang
+      , bootHsModuleName      = hsModuleName
       , bootBindingSpecConfig = bindingSpec
       }
     frontendConfig = FrontendConfig {
@@ -67,36 +70,28 @@ toBindgenConfig Config{..} = BindgenConfig bootConfig frontendConfig backendConf
         , frontendProgramSlicing  = programSlicing
       }
     backendConfig :: BackendConfig
-    backendConfig = def {
-        backendHaddockConfig = HaddockConfig {
+    backendConfig = BackendConfig {
+        backendTranslationOpts = def {
+            translationUniqueId = uniqueId
+          }
+      , backendHaddockConfig = HaddockConfig {
             pathStyle = haddockPathStyle
           }
       }
 
 {-------------------------------------------------------------------------------
-  Preprocessor
+  Client
 -------------------------------------------------------------------------------}
 
 -- NOTE: Stable public API.
 
--- | Configuration specific to preprocessor mode
-data ConfigPP = ConfigPP {
-    uniqueId :: Maybe UniqueId
-  }
-  deriving stock (Show, Eq, Generic)
+data OutputDirPolicy
+  = CreateDirStructure
+  | DoNotCreateDirStructure
+  deriving (Show, Eq)
 
-instance Default ConfigPP where
-  def = ConfigPP {
-      uniqueId   = def
-    }
-
-toBindgenConfigPP :: Config_ FilePath -> ConfigPP -> BindgenConfig
-toBindgenConfigPP config ConfigPP{..} = bindgenConfig & setUniqueId
-  where
-    bindgenConfig = toBindgenConfig config
-    setUniqueId =
-      #bindgenBackendConfig % #backendTranslationOpts % #translationUniqueId
-        .~ (fromMaybe def uniqueId)
+instance Default OutputDirPolicy where
+  def = DoNotCreateDirStructure
 
 {-------------------------------------------------------------------------------
   Template Haskell

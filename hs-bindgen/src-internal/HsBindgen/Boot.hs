@@ -32,13 +32,11 @@ import HsBindgen.Util.Tracer
 boot ::
      Tracer IO BootMsg
   -> BindgenConfig
-  -> Hs.ModuleName
   -> [UncheckedHashIncludeArg]
   -> IO BootArtefact
 boot
   tracer
   bindgenConfig@BindgenConfig{..}
-  hsModuleName
   uncheckedHashIncludeArgs = do
     traceStatus $ BootStatusStart bindgenConfig
 
@@ -78,6 +76,9 @@ boot
   where
     clangArgsConfig :: ClangArgsConfig FilePath
     clangArgsConfig = bindgenBootConfig.bootClangArgsConfig
+
+    hsModuleName :: Hs.ModuleName
+    hsModuleName = bindgenBootConfig.bootHsModuleName
 
     tracerBootStatus :: Tracer IO BootStatusMsg
     tracerBootStatus = contramap BootStatus tracer

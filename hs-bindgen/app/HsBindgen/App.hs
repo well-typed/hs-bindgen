@@ -11,13 +11,13 @@ module HsBindgen.App (
     -- ** Bindgen configuration
   , Config
   , parseConfig
-  , parseConfigPP
     -- ** Clang arguments
   , parseClangArgsConfig
+    -- ** Translation option
+  , parseUniqueId
     -- ** Module option
   , parseHsModuleName
     -- ** Output options
-  , OutputDirPolicy(..)
   , parseHsOutputDir
   , parseOutputDirPolicy
   , parseGenBindingSpec
@@ -161,9 +161,7 @@ parseConfig = Config
     <*> parseSelectPredicate
     <*> parseProgramSlicing
     <*> parsePathStyle
-
-parseConfigPP :: Parser ConfigPP
-parseConfigPP = ConfigPP <$> optional parseUniqueId
+    <*> optional parseGenBindingSpec
 
 {-------------------------------------------------------------------------------
   Binding specifications
@@ -473,6 +471,7 @@ parseUniqueId :: Parser UniqueId
 parseUniqueId = fmap UniqueId . strOption $ mconcat [
       long "unique-id"
     , metavar "ID"
+    , value ""
     , help $ concat [
           "Use unique ID to discriminate global C identifiers"
         , " (default: empty string)"
@@ -488,7 +487,7 @@ parseHsModuleName = strOption $ mconcat [
       long "module"
     , metavar "NAME"
     , showDefault
-    , value defModuleName
+    , value defHsModuleName
     , help "Base name of the generated Haskell modules"
     ]
 
@@ -502,11 +501,6 @@ parseHsOutputDir = strOption $ mconcat [
     , metavar "PATH"
     , help "Output directory of generated Haskell modules"
     ]
-
-data OutputDirPolicy
-  = CreateDirStructure
-  | DoNotCreateDirStructure
-  deriving (Show, Eq)
 
 parseOutputDirPolicy :: Parser OutputDirPolicy
 parseOutputDirPolicy = flag DoNotCreateDirStructure CreateDirStructure $ mconcat [

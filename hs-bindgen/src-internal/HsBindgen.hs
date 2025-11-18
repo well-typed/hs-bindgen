@@ -52,14 +52,12 @@ import HsBindgen.Util.Tracer
 hsBindgen ::
      TracerConfig IO Level TraceMsg
   -> BindgenConfig
-  -> Hs.ModuleName
   -> [UncheckedHashIncludeArg]
   -> Artefacts as
   -> IO (NP I as)
 hsBindgen
   tracerConfig
   bindgenConfig@BindgenConfig{..}
-  hsModuleName
   uncheckedHashIncludeArgs
   artefacts = do
     result <- fmap join $ withTracer tracerConfig $ \tracer tracerUnsafeRef -> do
@@ -70,7 +68,7 @@ hsBindgen
           tracerBoot = contramap TraceBoot tracer
       -- 1. Boot.
       bootArtefact <-
-        boot tracerBoot bindgenConfig hsModuleName uncheckedHashIncludeArgs
+        boot tracerBoot bindgenConfig uncheckedHashIncludeArgs
       -- 2. Frontend.
       frontendArtefact <-
         frontend tracerFrontend bindgenFrontendConfig bootArtefact

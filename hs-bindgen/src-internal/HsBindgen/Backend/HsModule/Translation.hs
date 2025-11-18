@@ -8,7 +8,7 @@ module HsBindgen.Backend.HsModule.Translation (
     -- * HsModule
   , HsModule(..)
     -- * Translation
-  , defModuleName
+  , defHsModuleName
   , translateModuleMultiple
   , translateModuleSingle
   , mergeDecls
@@ -69,8 +69,8 @@ data HsModule = HsModule {
   Translation
 -------------------------------------------------------------------------------}
 
-defModuleName :: Hs.ModuleName
-defModuleName = "Generated"
+defHsModuleName :: Hs.ModuleName
+defHsModuleName = "Generated"
 
 translateModuleMultiple ::
      Hs.ModuleName

@@ -17,6 +17,7 @@ import Options.Applicative hiding (info)
 
 import HsBindgen
 import HsBindgen.App
+import HsBindgen.Backend.UniqueId
 import HsBindgen.Config
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Imports
@@ -35,7 +36,7 @@ info = progDesc "Output the include graph"
 
 data Opts = Opts {
       config       :: Config
-    , configPP     :: ConfigPP
+    , uniqueId     :: UniqueId
     , hsModuleName :: Hs.ModuleName
     , output       :: Maybe FilePath
     , inputs       :: [UncheckedHashIncludeArg]
@@ -45,7 +46,7 @@ parseOpts :: Parser Opts
 parseOpts =
     Opts
       <$> parseConfig
-      <*> parseConfigPP
+      <*> parseUniqueId
       <*> parseHsModuleName
       <*> optional parseOutput'
       <*> parseInputs
@@ -65,5 +66,5 @@ parseOutput' = strOption $ mconcat [
 exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} = do
     let artefacts = writeIncludeGraph output :* Nil
-        bindgenConfig = toBindgenConfigPP config configPP
-    void $ hsBindgen tracerConfig bindgenConfig hsModuleName inputs artefacts
+        bindgenConfig = toBindgenConfig config uniqueId hsModuleName
+    void $ hsBindgen tracerConfig bindgenConfig inputs artefacts

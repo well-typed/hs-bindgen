@@ -18,6 +18,8 @@ import Options.Applicative hiding (info)
 
 import HsBindgen
 import HsBindgen.App
+import HsBindgen.Backend.HsModule.Translation
+import HsBindgen.Backend.UniqueId
 import HsBindgen.Config
 import HsBindgen.Frontend.RootHeader
 import HsBindgen.Language.Haskell qualified as Hs
@@ -35,7 +37,7 @@ info = progDesc "Generate tests for generated Haskell code"
 
 data Opts = Opts {
       config       :: Config
-    , configPP     :: ConfigPP
+    , uniqueId     :: UniqueId
     , hsModuleName :: Hs.ModuleName
     , output       :: FilePath
     , inputs       :: [UncheckedHashIncludeArg]
@@ -45,7 +47,7 @@ parseOpts :: Parser Opts
 parseOpts =
     Opts
       <$> parseConfig
-      <*> parseConfigPP
+      <*> parseUniqueId
       <*> parseHsModuleName
       <*> parseGenTestsOutput
       <*> parseInputs
@@ -57,5 +59,5 @@ parseOpts =
 exec :: GlobalOpts -> Opts -> IO ()
 exec GlobalOpts{..} Opts{..} = do
     let artefacts = writeTests output :* Nil
-        bindgenConfig = toBindgenConfigPP config configPP
-    void $ hsBindgen tracerConfig bindgenConfig hsModuleName inputs artefacts
+        bindgenConfig = toBindgenConfig config uniqueId defHsModuleName
+    void $ hsBindgen tracerConfig bindgenConfig inputs artefacts

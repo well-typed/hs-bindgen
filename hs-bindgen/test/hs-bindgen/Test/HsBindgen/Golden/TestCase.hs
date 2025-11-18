@@ -211,6 +211,7 @@ getTestBootConfig testResources TestCase{..} = do
         bootClangArgsConfig = clangArgsConfig {
             builtinIncDir = BuiltinIncDirDisable
           }
+      , bootHsModuleName = "Example"
       , bootBindingSpecConfig = BindingSpecConfig {
             stdlibSpec              = testStdlibSpec
           , compatibility           = BindingSpecStrict
@@ -261,6 +262,5 @@ runTestHsBindgen' report testResources test artefacts = do
       hsBindgen
         traceConfig
         bindgenConfig
-        "Example"
         [testInputInclude test]
         artefacts

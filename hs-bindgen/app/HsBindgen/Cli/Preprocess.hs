@@ -23,6 +23,7 @@ import System.Directory (createDirectoryIfMissing, doesDirectoryExist)
 import HsBindgen
 import HsBindgen.App
 import HsBindgen.Artefact
+import HsBindgen.Backend.UniqueId
 import HsBindgen.Config
 import HsBindgen.Config.Internal
 import HsBindgen.Errors
@@ -41,14 +42,13 @@ info = progDesc "Generate Haskell module from C headers"
 -------------------------------------------------------------------------------}
 
 data Opts = Opts {
-      config            :: Config
-    , configPP          :: ConfigPP
-    , hsModuleName      :: Hs.ModuleName
-    , hsOutputDir       :: FilePath
-    , outputDirPolicy   :: OutputDirPolicy
-    , outputBindingSpec :: Maybe FilePath
-    , inputs            :: [UncheckedHashIncludeArg]
-    -- NOTE inputs (arguments) must be last, options must go before it
+      config          :: Config
+    , uniqueId        :: UniqueId
+    , hsModuleName    :: Hs.ModuleName
+    , hsOutputDir     :: FilePath
+    , outputDirPolicy :: OutputDirPolicy
+    -- NOTE: Inputs (arguments) must be last, options must go before it.
+    , inputs          :: [UncheckedHashIncludeArg]
     }
   deriving (Generic)
 
@@ -56,11 +56,10 @@ parseOpts :: Parser Opts
 parseOpts =
     Opts
       <$> parseConfig
-      <*> parseConfigPP
+      <*> parseUniqueId
       <*> parseHsModuleName
       <*> parseHsOutputDir
       <*> parseOutputDirPolicy
-      <*> optional parseGenBindingSpec
       <*> parseInputs
 
 {-------------------------------------------------------------------------------
@@ -81,15 +80,15 @@ exec GlobalOpts{..} Opts{..} = do
     void $ run $ (sequenceArtefacts artefacts) :* Nil
   where
     bindgenConfig :: BindgenConfig
-    bindgenConfig = toBindgenConfigPP config configPP
+    bindgenConfig = toBindgenConfig config uniqueId hsModuleName
 
     run :: Artefacts as -> IO (NP I as)
-    run = hsBindgen tracerConfig bindgenConfig hsModuleName inputs
+    run = hsBindgen tracerConfig bindgenConfig inputs
 
     artefacts :: [Artefact ()]
     artefacts =
           writeBindingsMultiple hsOutputDir
-      : [ writeBindingSpec file | file <- maybeToList outputBindingSpec ]
+      : [ writeBindingSpec file | file <- maybeToList config.outputBindingSpec ]
 
 {-------------------------------------------------------------------------------
   Exception
