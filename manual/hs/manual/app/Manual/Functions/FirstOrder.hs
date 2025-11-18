@@ -1,6 +1,6 @@
 {-# OPTIONS_GHC -Wno-orphans #-}
 
-module Manual.Functions (examples) where
+module Manual.Functions.FirstOrder (examples) where
 
 import Control.Monad ((<=<))
 import Foreign as F

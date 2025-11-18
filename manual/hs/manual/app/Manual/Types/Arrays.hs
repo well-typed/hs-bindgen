@@ -1,6 +1,6 @@
 {-# LANGUAGE DataKinds #-}
 
-module Manual.Arrays (examples) where
+module Manual.Types.Arrays (examples) where
 
 import Foreign as F
 import GHC.TypeNats

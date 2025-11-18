@@ -1,4 +1,4 @@
-module Manual.Typedefs (examples) where
+module Manual.Types.Typedefs (examples) where
 
 import Foreign as F
 import System.IO.Unsafe

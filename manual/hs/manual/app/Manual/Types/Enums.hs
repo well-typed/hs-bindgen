@@ -1,6 +1,6 @@
 {-# OPTIONS_GHC -Wno-orphans #-}
 
-module Manual.Enums (examples) where
+module Manual.Types.Enums (examples) where
 
 import Foreign as F
 import Foreign.C qualified as FC

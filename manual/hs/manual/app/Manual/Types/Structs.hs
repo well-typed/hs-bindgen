@@ -1,7 +1,7 @@
 {-# LANGUAGE OverloadedRecordDot #-}
 {-# OPTIONS_GHC -Wno-orphans #-}
 
-module Manual.Structs (examples) where
+module Manual.Types.Structs (examples) where
 
 import Control.Exception (bracket)
 import Data.Vector.Storable qualified as VS

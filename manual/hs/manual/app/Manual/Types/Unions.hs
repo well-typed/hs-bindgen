@@ -1,4 +1,4 @@
-module Manual.Unions (examples) where
+module Manual.Types.Unions (examples) where
 
 import Foreign as F
 

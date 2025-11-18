@@ -6,18 +6,23 @@ Main executable for the hs-bindgen manual.
 This module orchestrates all the examples from the manual, which are organized
 into separate modules corresponding to the manual's structure:
 
-* 'Manual.Structs' - Examples for struct bindings
-* 'Manual.Enums' - Examples for enum bindings
-* 'Manual.Typedefs' - Examples for typedef bindings
+== Type System
+* 'Manual.Types.Structs' - Examples for struct bindings
+* 'Manual.Types.Enums' - Examples for enum bindings
+* 'Manual.Types.Typedefs' - Examples for typedef bindings
+* 'Manual.Types.Unions' - Examples for union bindings
+* 'Manual.Types.Arrays' - Examples for array bindings
+* 'Manual.Types.Complex' - Examples for complex number types
+
+== Functions
+* 'Manual.Functions.FirstOrder' - Examples for functions and function pointers
+* 'Manual.Functions.HigherOrder' - Examples for callbacks (passing Haskell functions to C)
+
+== Other
 * 'Manual.Macros' - Examples for macro bindings
-* 'Manual.Unions' - Examples for union bindings
 * 'Manual.GeneratedNames' - Examples for name generation (awkward names)
 * 'Manual.BindingSpecifications' - Examples for external binding specifications
 * 'Manual.Globals' - Examples for global variables and constants
-* 'Manual.Arrays' - Examples for array bindings
-* 'Manual.Functions' - Examples for functions and function pointers
-* 'Manual.Complex' - Examples for complex number types
-* 'Manual.Callbacks' - Examples for callbacks (passing Haskell functions to C)
 * 'Manual.ZeroCopy' - Examples for zero-copy bindings
 -}
 module Manual (main) where
@@ -27,18 +32,18 @@ import System.IO.Unsafe
 import Example.Unsafe
 import Example
 
-import qualified Manual.Arrays
 import qualified Manual.BindingSpecifications
-import qualified Manual.Callbacks
-import qualified Manual.Complex
-import qualified Manual.Enums
-import qualified Manual.Functions
+import qualified Manual.Functions.FirstOrder
+import qualified Manual.Functions.HigherOrder
 import qualified Manual.GeneratedNames
 import qualified Manual.Globals
 import qualified Manual.Macros
-import qualified Manual.Structs
-import qualified Manual.Typedefs
-import qualified Manual.Unions
+import qualified Manual.Types.Arrays
+import qualified Manual.Types.Complex
+import qualified Manual.Types.Enums
+import qualified Manual.Types.Structs
+import qualified Manual.Types.Typedefs
+import qualified Manual.Types.Unions
 import qualified Manual.ZeroCopy
 
 import Foreign
@@ -53,18 +58,18 @@ main = do
     let triple = mkTriple 1 2 3
 
     -- Run all manual examples in the order they appear in the manual
-    Manual.Structs.examples
-    Manual.Enums.examples triple
-    Manual.Typedefs.examples triple
+    Manual.Types.Structs.examples
+    Manual.Types.Enums.examples triple
+    Manual.Types.Typedefs.examples triple
     Manual.Macros.examples
-    Manual.Unions.examples
+    Manual.Types.Unions.examples
     Manual.GeneratedNames.examples
     Manual.BindingSpecifications.examples
     Manual.Globals.examples
-    Manual.Arrays.examples
-    Manual.Functions.examples
-    Manual.Complex.examples
-    Manual.Callbacks.examples
+    Manual.Types.Arrays.examples
+    Manual.Functions.FirstOrder.examples
+    Manual.Types.Complex.examples
+    Manual.Functions.HigherOrder.examples
     Manual.ZeroCopy.examples
 
 {-------------------------------------------------------------------------------

@@ -1,4 +1,4 @@
-module Manual.Complex (examples) where
+module Manual.Types.Complex (examples) where
 
 import Control.Monad (forM_)
 import Data.Complex
