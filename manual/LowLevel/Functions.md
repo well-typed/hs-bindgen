@@ -193,6 +193,162 @@ apply1_union :: Apply1Union
 [creference:fun-decl]: https://en.cppreference.com/w/c/language/function_declaration.html#Explanation
 [creference:fun-ptr-conv]: https://en.cppreference.com/w/c/language/conversion.html#Function_to_pointer_conversion
 
+## Wrapping and unwrapping function pointers
+
+Beyond generating type definitions for function pointers and handling implicit
+conversions, `hs-bindgen` generates the additional FFI imports needed to
+convert between Haskell functions and C function pointers in both directions.
+
+### Auxiliary `_Deref` types
+
+For each typedef function pointer type in the C API, `hs-bindgen` generates
+two related types. Given:
+
+```c
+typedef void (*ProgressUpdate)(int percentComplete);
+```
+
+We generate:
+
+```hs
+newtype ProgressUpdate_Deref = ProgressUpdate_Deref
+  { un_ProgressUpdate_Deref :: CInt -> IO ()
+  }
+
+newtype ProgressUpdate = ProgressUpdate
+  { un_ProgressUpdate :: FunPtr ProgressUpdate_Deref
+  }
+```
+
+The `_Deref` auxiliary type represents the Haskell function signature, while
+the main type wraps the `FunPtr` to that signature. This separation mirrors
+how C distinguishes between a function pointer and the function it points to.
+
+### Wrapper and dynamic imports
+
+For function pointer types that are actually used by the C API, `hs-bindgen`
+generates both `"wrapper"` and `"dynamic"` foreign import stubs. These provide
+bidirectional conversion between Haskell functions and C function pointers:
+
+```hs
+-- Create a C-callable function pointer from a Haskell function
+foreign import ccall "wrapper" toProgressUpdate_Deref ::
+     ProgressUpdate_Deref
+  -> IO (FunPtr ProgressUpdate_Deref)
+
+-- Convert a C function pointer back to a Haskell function
+foreign import ccall "dynamic" fromProgressUpdate_Deref ::
+     FunPtr ProgressUpdate_Deref
+  -> ProgressUpdate_Deref
+```
+
+These stubs are abstracted over two type classes in order to offer a better
+API to the end user. The following instances are also generated:
+
+```hs
+instance ToFunPtr ProgressUpdate_Deref where
+  toFunPtr = toProgressUpdate_Deref
+
+instance FromFunPtr ProgressUpdate_Deref where
+  fromFunPtr = fromProgressUpdate_Deref
+```
+
+> [!NOTE]
+> The `hs-bindgen-runtime` library provides Template Haskell utilities for
+> generating these instances manually when needed. See
+> `HsBindgen.Runtime.TH.Instances` for details. This can be useful when
+> working with function pointer types that `hs-bindgen` doesn't automatically
+> generate instances for, or when writing custom high-level bindings.
+
+Not every function pointer type receives these imports. `hs-bindgen` analyzes
+how each function pointer type is used in the API:
+
+- Types appearing as function parameters receive `"wrapper"` imports (you need
+  to create function pointers to pass as arguments)
+- Types for function pointer values receive `"dynamic"` imports (you
+  need to call returned function pointers)
+- Types appearing in struct or union fields receive both (they may flow in
+  either direction)
+
+This keeps the generated code focused on what the API actually needs.
+
+#### Wrapping Haskell functions
+
+To pass a Haskell function as a callback to C, use `toFunPtr` or the
+`withToFunPtr` bracket combinator:
+
+```hs
+import HsBindgen.Runtime.FunPtr (withToFunPtr)
+
+myCallback :: ProgressUpdate_Deref
+myCallback = ProgressUpdate_Deref $ \progress ->
+  putStrLn $ "Progress: " ++ show progress ++ "%"
+
+-- Preferred: automatic cleanup with withToFunPtr
+withToFunPtr myCallback $ \funPtr -> do
+  onProgressChanged (ProgressUpdate funPtr)
+
+-- Or manually manage the function pointer lifetime
+do
+  funPtr <- toFunPtr myCallback
+  onProgressChanged (ProgressUpdate funPtr)
+  freeHaskellFunPtr (un_ProgressUpdate funPtr)
+```
+
+#### Unwrapping function pointers
+
+To call a function pointer returned from C, use `fromFunPtr`:
+
+```hs
+do
+  validatorFunPtr <- getValidator
+  -- validatorFunPtr :: DataValidator
+
+  -- Extract the FunPtr and convert to Haskell function
+  let validator = fromFunPtr (un_DataValidator validatorFunPtr)
+  result <- un_DataValidator_Deref validator 42
+```
+
+### Example: struct with function pointer fields
+
+Function pointers frequently appear as struct fields for registering handlers:
+
+```c
+struct MeasurementHandler {
+  void (*onReceived)(struct Measurement *data);
+  int (*validate)(struct Measurement *data);
+  void (*onError)(int errorCode);
+};
+
+void registerHandler(struct MeasurementHandler *handler);
+```
+
+Since these function pointer types appear in struct fields, they receive both
+wrapper and dynamic imports. This allows you to populate the struct with
+Haskell callbacks:
+
+```hs
+alloca $ \handlerPtr -> do
+  onReceivedPtr <- toFunPtr $ OnReceived_Deref $ \dataPtr -> do
+    measurement <- peek dataPtr
+    print measurement
+
+  validatePtr <- toFunPtr $ Validate_Deref $ \dataPtr -> do
+    -- validation logic
+    return 1
+
+  onErrorPtr <- toFunPtr $ OnError_Deref $ \errorCode ->
+    putStrLn $ "Error: " ++ show errorCode
+
+  poke handlerPtr $ MeasurementHandler
+    { measurementHandler_onReceived = onReceivedPtr
+    , measurementHandler_validate = validatePtr
+    , measurementHandler_onError = onErrorPtr
+    }
+
+  registerHandler handlerPtr
+```
+
 ## Userland CAPI
 
 TODO
