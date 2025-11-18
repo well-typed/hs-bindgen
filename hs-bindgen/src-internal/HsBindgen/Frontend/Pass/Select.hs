@@ -79,31 +79,32 @@ selectDecls
   isInMainHeaderDir
   SelectConfig{..}
   C.TranslationUnit{..} =
-    let -- | Directly match the select predicate on the 'DeclIndex', obtaining
+    let -- Directly match the select predicate on the 'DeclIndex', obtaining
         -- information about succeeded _and failed_ selection roots.
         selectedIndex :: DeclIndex
         selectedIndex = selectDeclIndex match index
 
-        -- | Identifiers of selection roots. Some of them may be unavailable
+        -- Identifiers of selection roots. Some of them may be unavailable
         -- (i.e., not in the 'succeeded' map, and hence, not in the list of
         -- declarations attached to the translation unit).
         rootIds :: Set DeclId
         rootIds = DeclIndex.keysSet selectedIndex
 
-        -- | Identifiers of transitive dependencies including selection roots.
+        -- Identifiers of transitive dependencies including selection roots.
         rootAndTransIds :: Set DeclId
         rootAndTransIds =
           UseDeclGraph.getTransitiveDeps useDeclGraph $
             Set.toList rootIds
 
-        -- | Identifiers of transitive dependencies excluding selection roots.
+        -- Identifiers of transitive dependencies excluding selection roots.
         strictTransIds :: Set DeclId
         strictTransIds = rootAndTransIds \\ rootIds
 
-        -- | Identifiers of all selected declarations.
+        -- Identifiers of all selected declarations.
         selectedIds :: Set DeclId
-        -- | Identifiers of (additional) transitive dependencies selected due to
-        -- | program slicing.
+        -- Identifiers of (additional) transitive dependencies selected due to
+        -- program slicing. This is the only point where we differentiate
+        -- between selection with or without program slicing.
         additionalSelectedTransIds :: Set DeclId
         (selectedIds, additionalSelectedTransIds) = case selectConfigProgramSlicing of
           DisableProgramSlicing -> (rootIds        , Set.empty)

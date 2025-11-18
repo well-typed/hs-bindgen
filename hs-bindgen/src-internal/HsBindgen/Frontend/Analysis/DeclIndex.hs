@@ -159,31 +159,16 @@ fromParseResults results =
           ParseResultNotAttempted x ->
             over
               ( #index % #notAttempted )
-              ( alter qualPrelimDeclId x )
+              ( insertFailure qualPrelimDeclId x )
               oldIndex
           ParseResultFailure x ->
             over
               ( #index % #failed )
-              ( alter qualPrelimDeclId x )
+              ( insertFailure qualPrelimDeclId x )
               oldIndex
       where
         qualPrelimDeclId :: C.QualPrelimDeclId
         qualPrelimDeclId = getQualPrelimDeclId parse
-
-    alter :: (Ord k, Show a, Eq a) => k -> a -> Map k a -> Map k a
-    alter key x =
-      Map.alter ( \case
-        Nothing -> Just x
-        Just x'
-          -- TODO https://github.com/well-typed/hs-bindgen/issues/1283: We parse
-          -- declarations multiple times.
-          | x == x'   -> Just x
-          -- TODO_PR: We also encounter conflicting values. In particular for
-          -- the `hsb_complex_test`, `cimag` is defined twice (function and
-          -- macro).
-          -- | otherwise -> panicPure $ "conflicting values: " <> show (x, x')
-          | otherwise -> traceShow ("conflicting values: " <> show (x,x')) $ Just x
-        ) key
 
     insert ::
          ParseSuccess
@@ -231,6 +216,14 @@ fromParseResults results =
        -- In case of an error, /remove/ the value from the map
        failure :: e -> (Maybe a, Maybe e)
        failure err = (Nothing, Just err)
+
+    -- For failures, we just stick with the first failure.
+    insertFailure :: Ord k => k -> a -> Map k a -> Map k a
+    insertFailure key x =
+      Map.alter ( \case
+        Nothing -> Just x
+        Just x' -> Just x'
+        ) key
 
 sameDefinition :: C.DeclKind Parse -> C.DeclKind Parse -> Bool
 sameDefinition a b =
@@ -299,7 +292,7 @@ keysSet DeclIndex{..} = Set.unions [
     , Map.keysSet notAttempted
     , Map.keysSet failed
     , Map.keysSet failedMacros
-    -- TODO https://github.com/well-typed/hs-bindgen/issues/799: Also add
+    -- TODO https://github.com/well-typed/hs-bindgen/issues/1301: Also add
     -- 'omitted' here and deal with the 'omitted' case in selection.
     ]
 
