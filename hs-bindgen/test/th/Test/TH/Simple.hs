@@ -22,7 +22,9 @@ let cfg :: Config
               Pkg "examples"
             ]
     cfgTH :: ConfigTH
-    cfgTH = def & #verbosity .~ Verbosity Warning
+    cfgTH = def
+              & #verbosity .~ Verbosity Warning
+              & #customLogLevelSettings .~ [EnableMacroWarnings]
  in withHsBindgen cfg cfgTH $
       hashInclude "simple.h"
 

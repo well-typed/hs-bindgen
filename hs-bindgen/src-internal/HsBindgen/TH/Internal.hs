@@ -73,7 +73,10 @@ withHsBindgen config ConfigTH{..} hashIncludes = do
     hsModuleName <- fromString . TH.loc_module <$> TH.location
 
     let tracerConfig :: TracerConfig IO Level TraceMsg
-        tracerConfig = tracerConfigDefTH & #tVerbosity .~ verbosity
+        tracerConfig =
+          tracerConfigDefTH
+            & #tVerbosity .~ verbosity
+            & #tCustomLogLevel .~ getCustomLogLevel customLogLevelSettings
 
         -- Traverse #include directives.
         bindgenState :: BindgenState
