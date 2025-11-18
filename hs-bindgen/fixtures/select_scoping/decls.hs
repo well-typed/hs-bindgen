@@ -3,14 +3,14 @@
     Newtype {
       newtypeName = Name
         "@NsTypeConstr"
-        "ParsedAndSelected",
+        "ParsedAndSelected1",
       newtypeConstr = Name
         "@NsConstr"
-        "ParsedAndSelected",
+        "ParsedAndSelected1",
       newtypeField = Field {
         fieldName = Name
           "@NsVar"
-          "un_ParsedAndSelected",
+          "un_ParsedAndSelected1",
         fieldType = HsPrimType
           HsPrimCInt,
         fieldOrigin = GeneratedField,
@@ -21,9 +21,9 @@
           "select_scoping.h:6:13",
           declId = NamePair {
             nameC = Name
-              "ParsedAndSelected",
+              "ParsedAndSelected1",
             nameHsIdent = Identifier
-              "ParsedAndSelected"},
+              "ParsedAndSelected1"},
           declOrigin = NameOriginInSource,
           declAliases = [],
           declHeaderInfo = Just
@@ -38,10 +38,10 @@
             typedefNames = NewtypeNames {
               newtypeConstr = Name
                 "@NsConstr"
-                "ParsedAndSelected",
+                "ParsedAndSelected1",
               newtypeField = Name
                 "@NsVar"
-                "un_ParsedAndSelected"},
+                "un_ParsedAndSelected1"},
             typedefType = TypePrim
               (PrimIntegral PrimInt Signed)},
         declSpec = DeclSpec
@@ -68,7 +68,7 @@
         Comment {
           commentTitle = Nothing,
           commentOrigin = Just
-            "ParsedAndSelected",
+            "ParsedAndSelected1",
           commentLocation = Just
             "select_scoping.h:6:13",
           commentHeaderInfo = Just
@@ -85,7 +85,7 @@
       deriveInstanceClass = Storable,
       deriveInstanceName = Name
         "@NsTypeConstr"
-        "ParsedAndSelected",
+        "ParsedAndSelected1",
       deriveInstanceComment =
       Nothing},
   DeclNewtypeInstance
@@ -95,7 +95,7 @@
       deriveInstanceClass = Eq,
       deriveInstanceName = Name
         "@NsTypeConstr"
-        "ParsedAndSelected",
+        "ParsedAndSelected1",
       deriveInstanceComment =
       Nothing},
   DeclNewtypeInstance
@@ -105,7 +105,7 @@
       deriveInstanceClass = Ord,
       deriveInstanceName = Name
         "@NsTypeConstr"
-        "ParsedAndSelected",
+        "ParsedAndSelected1",
       deriveInstanceComment =
       Nothing},
   DeclNewtypeInstance
@@ -115,7 +115,7 @@
       deriveInstanceClass = Read,
       deriveInstanceName = Name
         "@NsTypeConstr"
-        "ParsedAndSelected",
+        "ParsedAndSelected1",
       deriveInstanceComment =
       Nothing},
   DeclNewtypeInstance
@@ -125,7 +125,7 @@
       deriveInstanceClass = Show,
       deriveInstanceName = Name
         "@NsTypeConstr"
-        "ParsedAndSelected",
+        "ParsedAndSelected1",
       deriveInstanceComment =
       Nothing},
   DeclNewtypeInstance
@@ -135,7 +135,7 @@
       deriveInstanceClass = Enum,
       deriveInstanceName = Name
         "@NsTypeConstr"
-        "ParsedAndSelected",
+        "ParsedAndSelected1",
       deriveInstanceComment =
       Nothing},
   DeclNewtypeInstance
@@ -145,7 +145,7 @@
       deriveInstanceClass = Ix,
       deriveInstanceName = Name
         "@NsTypeConstr"
-        "ParsedAndSelected",
+        "ParsedAndSelected1",
       deriveInstanceComment =
       Nothing},
   DeclNewtypeInstance
@@ -155,7 +155,7 @@
       deriveInstanceClass = Bounded,
       deriveInstanceName = Name
         "@NsTypeConstr"
-        "ParsedAndSelected",
+        "ParsedAndSelected1",
       deriveInstanceComment =
       Nothing},
   DeclNewtypeInstance
@@ -165,7 +165,7 @@
       deriveInstanceClass = Bits,
       deriveInstanceName = Name
         "@NsTypeConstr"
-        "ParsedAndSelected",
+        "ParsedAndSelected1",
       deriveInstanceComment =
       Nothing},
   DeclNewtypeInstance
@@ -176,7 +176,7 @@
       FiniteBits,
       deriveInstanceName = Name
         "@NsTypeConstr"
-        "ParsedAndSelected",
+        "ParsedAndSelected1",
       deriveInstanceComment =
       Nothing},
   DeclNewtypeInstance
@@ -186,7 +186,7 @@
       deriveInstanceClass = Integral,
       deriveInstanceName = Name
         "@NsTypeConstr"
-        "ParsedAndSelected",
+        "ParsedAndSelected1",
       deriveInstanceComment =
       Nothing},
   DeclNewtypeInstance
@@ -196,7 +196,7 @@
       deriveInstanceClass = Num,
       deriveInstanceName = Name
         "@NsTypeConstr"
-        "ParsedAndSelected",
+        "ParsedAndSelected1",
       deriveInstanceComment =
       Nothing},
   DeclNewtypeInstance
@@ -206,7 +206,7 @@
       deriveInstanceClass = Real,
       deriveInstanceName = Name
         "@NsTypeConstr"
-        "ParsedAndSelected",
+        "ParsedAndSelected1",
       deriveInstanceComment =
       Nothing},
   DeclInstance
@@ -218,10 +218,10 @@
           HsTypRef
             (Name
               "@NsTypeConstr"
-              "ParsedAndSelected"),
+              "ParsedAndSelected1"),
           hasFieldInstanceFieldName = Name
             "@NsVar"
-            "un_ParsedAndSelected",
+            "un_ParsedAndSelected1",
           hasFieldInstanceFieldType =
           HsPrimType HsPrimCInt,
           hasFieldInstanceVia =
@@ -237,11 +237,11 @@
           HsTypRef
             (Name
               "@NsTypeConstr"
-              "ParsedAndSelected"),
+              "ParsedAndSelected1"),
           hasCFieldInstanceFieldName =
           Name
             "@NsVar"
-            "un_ParsedAndSelected",
+            "un_ParsedAndSelected1",
           hasCFieldInstanceCFieldType =
           HsPrimType HsPrimCInt,
           hasCFieldInstanceFieldOffset =

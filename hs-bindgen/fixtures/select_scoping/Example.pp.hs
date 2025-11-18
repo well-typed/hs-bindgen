@@ -24,27 +24,27 @@ import Data.Bits (FiniteBits)
 import HsBindgen.Runtime.TypeEquality (TyEq)
 import Prelude (Bounded, Enum, Eq, Integral, Num, Ord, Read, Real, Show)
 
-{-| __C declaration:__ @ParsedAndSelected@
+{-| __C declaration:__ @ParsedAndSelected1@
 
     __defined at:__ @select_scoping.h:6:13@
 
     __exported by:__ @select_scoping.h@
 -}
-newtype ParsedAndSelected = ParsedAndSelected
-  { un_ParsedAndSelected :: FC.CInt
+newtype ParsedAndSelected1 = ParsedAndSelected1
+  { un_ParsedAndSelected1 :: FC.CInt
   }
   deriving stock (Eq, Ord, Read, Show)
   deriving newtype (F.Storable, Bits.Bits, Bounded, Enum, FiniteBits, Integral, Ix.Ix, Num, Real)
 
-instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ParsedAndSelected) "un_ParsedAndSelected")
-         ) => GHC.Records.HasField "un_ParsedAndSelected" (Ptr.Ptr ParsedAndSelected) (Ptr.Ptr ty) where
+instance ( TyEq ty ((HsBindgen.Runtime.HasCField.CFieldType ParsedAndSelected1) "un_ParsedAndSelected1")
+         ) => GHC.Records.HasField "un_ParsedAndSelected1" (Ptr.Ptr ParsedAndSelected1) (Ptr.Ptr ty) where
 
   getField =
-    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_ParsedAndSelected")
+    HsBindgen.Runtime.HasCField.ptrToCField (Data.Proxy.Proxy @"un_ParsedAndSelected1")
 
-instance HsBindgen.Runtime.HasCField.HasCField ParsedAndSelected "un_ParsedAndSelected" where
+instance HsBindgen.Runtime.HasCField.HasCField ParsedAndSelected1 "un_ParsedAndSelected1" where
 
-  type CFieldType ParsedAndSelected "un_ParsedAndSelected" =
+  type CFieldType ParsedAndSelected1 "un_ParsedAndSelected1" =
     FC.CInt
 
   offset# = \_ -> \_ -> 0

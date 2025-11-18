@@ -5,15 +5,14 @@ module HsBindgen.Frontend.Pass.Select.IsPass (
   , SelectConfig(..)
     -- * Trace messages
   , SelectReason(..)
+  , UnavailabilityReason(..)
   , SelectStatus(..)
   , SelectMsg(..)
   ) where
 
 import Data.Default (Default (def))
-import Text.SimplePrettyPrint (CtxDoc, (<+>), (><))
+import Text.SimplePrettyPrint (CtxDoc, (><))
 import Text.SimplePrettyPrint qualified as PP
-
-import Clang.HighLevel.Types (SingleLoc)
 
 import HsBindgen.BindingSpec qualified as BindingSpec
 import HsBindgen.Frontend.AST.Coerce (CoercePass (coercePass))
@@ -22,6 +21,7 @@ import HsBindgen.Frontend.AST.Internal qualified as C
 import HsBindgen.Frontend.Naming qualified as C
 import HsBindgen.Frontend.Pass
 import HsBindgen.Frontend.Pass.ConstructTranslationUnit.IsPass
+import HsBindgen.Frontend.Pass.HandleMacros.Error (HandleMacrosParseMsg)
 import HsBindgen.Frontend.Pass.Parse.IsPass
 import HsBindgen.Frontend.Pass.ResolveBindingSpecs.IsPass
 import HsBindgen.Frontend.Predicate
@@ -57,8 +57,8 @@ instance IsPass Select where
 
 -- | Select transitive dependencies?
 data ProgramSlicing =
-    -- | Select declarations using the selection predicate /and/ their
-    -- transitive dependencies.
+    -- | Select declarations using the select predicate /and/ their transitive
+    -- dependencies.
     EnableProgramSlicing
   | DisableProgramSlicing
   deriving stock (Show, Eq)
@@ -88,7 +88,7 @@ data SelectReason =
 
 instance PrettyForTrace SelectReason where
   prettyForTrace = \case
-    SelectionRoot        -> "selection root; direct select predicate match"
+    SelectionRoot        -> "direct select predicate match"
     TransitiveDependency -> "transitive dependency"
 
 data SelectStatus =
@@ -96,76 +96,118 @@ data SelectStatus =
   | Selected SelectReason
   deriving stock (Show)
 
+-- | The order is important, the most "natural" cause of unavailability comes
+-- first.
+--
+-- For example, if something fails to parse, but was not selected, we should say
+-- that it was not selected, rather than it failed to parse (why would we parse
+-- it, if it was not selected).
+data UnavailabilityReason =
+    UnavailableParseNotAttempted
+  | UnavailableNotSelected
+  | UnavailableParseFailed
+  | UnavailableHandleMacrosFailed
+  deriving stock (Show, Eq, Ord)
+
+instance PrettyForTrace UnavailabilityReason where
+  prettyForTrace r = case r of
+    UnavailableParseNotAttempted ->
+      "parse of transitive dependency not attempted: (!) adjust parse predicate"
+    UnavailableParseFailed ->
+      "parse of transitive dependency failed"
+    UnavailableHandleMacrosFailed ->
+      "macro parsing or type-checking of transitive dependency failed"
+    UnavailableNotSelected ->
+      "transitive dependency not selected"
+
 -- | Select trace messages
 data SelectMsg =
-    SelectSelectStatus SelectStatus (C.DeclInfo Select)
-  | SelectUnavailableDeclaration C.QualPrelimDeclId
-    -- | Inform the user that they select a deprecated declaration. Maybe they
-    -- want to de-select deprecated declaration?
-  | SelectDeprecated (C.DeclInfo Select)
+    -- | Information about selection status; issued for all available
+    --declarations.
+    SelectStatusInfo SelectStatus (C.Decl Select)
+    -- | The user has selected a declaration that is available but at least one
+    -- of its transitive dependencies is _unavailable_.
+  | TransitiveDependencyOfDeclarationUnavailable
+      SelectReason
+      (C.QualPrelimDeclId, UnavailabilityReason)
+      (C.Decl Select)
+    -- | The user has selected a deprecated declaration. Maybe they want to
+    -- de-select deprecated declaration?
+  | SelectDeprecated (C.Decl Select)
     -- | Delayed parse message for actually selected declarations.
-  | SelectParseSuccess AttachedParseMsg
-    -- | Delayred parse message for declarations the user wants to select, but
-    -- we have not attempted to parse.
-  | SelectParseNotAttempted C.QualPrelimDeclId SingleLoc ParseNotAttemptedReason
-    -- | Delayed parse message for declarations the user wants to select, but
-    -- we have failed to parse.
-  | SelectParseFailure AttachedParseMsg
+  | SelectParseSuccess (AttachedParseMsg DelayedParseMsg)
+    -- | Delayed parse message for declarations the user wants to select
+    -- directly, but we have not attempted to parse.
+  | SelectParseNotAttempted ParseNotAttempted
+    -- | Delayed parse message for declarations the user wants to select
+    -- directly, but we have failed to parse.
+  | SelectParseFailure ParseFailure
+    -- | Delayed handle macros message for macros the user wants to select
+    -- | directly, but we have failed to parse.
+  | SelectMacroFailure HandleMacrosParseMsg
     -- | Inform the user that no declarations matched the select predicate.
   | SelectNoDeclarationsMatched
   deriving stock (Show)
 
 instance PrettyForTrace SelectMsg where
   prettyForTrace = \case
-    SelectSelectStatus NotSelected info ->
-      prettyForTrace info >< " not selected"
-    SelectSelectStatus (Selected reason) info ->
-      prettyForTrace info >< " selected (" >< prettyForTrace reason >< ")"
-    SelectUnavailableDeclaration i -> PP.vcat [
-        prettyForTrace i >< " selected but unavailable"
-      , "This may be a bug and is an indication that declarations have been removed after parse."
+    SelectStatusInfo NotSelected x ->
+      prettyForTrace x >< "not selected"
+    SelectStatusInfo (Selected r) x ->
+      prettyForTrace x >< " selected (" >< prettyForTrace r >< ")"
+    TransitiveDependencyOfDeclarationUnavailable s (i, u) x -> PP.hcat [
+        prettyForTrace x
+      , " selected ("
+      , prettyForTrace s
+      , ") but depends on "
+      , prettyForTrace i
+      , ", which is unavailable: "
+      , prettyForTrace u
       ]
-    SelectDeprecated info -> PP.hcat [
-        "Selected a deprecated declaration: "
-      , prettyForTrace info
-      , "; you may want to de-select it"
+    SelectDeprecated x -> PP.hang
+        "Selected a deprecated declaration: " 2 $ PP.vcat [
+          prettyForTrace x
+        , "You may want to de-select it"
+        ]
+    SelectParseSuccess x -> PP.hang "During parse:" 2 (prettyForTrace x)
+    SelectParseNotAttempted x -> hangReason "parse not attempted" [
+        prettyForTrace x
+      , "Consider changing the parse predicate"
       ]
-    SelectParseSuccess x ->
-      "During parse:" <+> prettyForTrace x
-    SelectParseNotAttempted n l r -> PP.vcat [
-      "Failed to select declaration:" <+> prettyInfo n l
-      , "Parse not attempted:" <+> prettyForTrace r
+    SelectParseFailure x -> hangReason "parse failure" [
+        prettyForTrace x
       ]
-    SelectParseFailure x ->
-      "Failed to select declaration; during parse:" <+> prettyForTrace x
+    SelectMacroFailure x -> hangReason "macro parse failure" [
+        prettyForTrace x
+      ]
     SelectNoDeclarationsMatched ->
       "No declarations matched the select predicate"
     where
-      prettyInfo :: C.QualPrelimDeclId -> SingleLoc -> CtxDoc
-      prettyInfo n l = PP.hsep [
-          prettyForTrace n
-        , "at"
-        , PP.showToCtxDoc l
-        ] >< ":"
+      hangReason :: CtxDoc -> [CtxDoc] -> CtxDoc
+      hangReason x xs =
+        let header = "Could not select declaration (" >< x >< "):"
+        in  PP.hang header 2 $ PP.vcat xs
 
 instance IsTrace Level SelectMsg where
   getDefaultLogLevel = \case
-    SelectSelectStatus{}           -> Info
-    SelectUnavailableDeclaration{} -> Warning
-    SelectDeprecated{}             -> Notice
-    SelectParseSuccess x           -> getDefaultLogLevel x
-    SelectParseNotAttempted{}      -> Warning
-    SelectParseFailure x           -> getDefaultLogLevel x
-    SelectNoDeclarationsMatched    -> Warning
+    SelectStatusInfo{}                             -> Info
+    TransitiveDependencyOfDeclarationUnavailable{} -> Warning
+    SelectDeprecated{}                             -> Notice
+    SelectParseSuccess x                           -> getDefaultLogLevel x
+    SelectParseNotAttempted{}                      -> Warning
+    SelectParseFailure x                           -> getDefaultLogLevel x
+    SelectMacroFailure x                           -> getDefaultLogLevel x
+    SelectNoDeclarationsMatched                    -> Warning
   getSource  = const HsBindgen
   getTraceId = \case
-    SelectSelectStatus{}           -> "select"
-    SelectUnavailableDeclaration{} -> "select"
-    SelectDeprecated{}             -> "select"
-    SelectParseSuccess x           -> "select-" <> getTraceId x
-    SelectParseNotAttempted{}      -> "select-parse"
-    SelectParseFailure x           -> "select-" <> getTraceId x
-    SelectNoDeclarationsMatched    -> "select"
+    SelectStatusInfo{}                             -> "select"
+    TransitiveDependencyOfDeclarationUnavailable{} -> "select"
+    SelectDeprecated{}                             -> "select"
+    SelectParseSuccess x                           -> "select-" <> getTraceId x
+    SelectParseNotAttempted{}                      -> "select-parse"
+    SelectParseFailure x                           -> "select-" <> getTraceId x
+    SelectMacroFailure x                           -> "select-" <> getTraceId x
+    SelectNoDeclarationsMatched                    -> "select"
 
 {-------------------------------------------------------------------------------
   CoercePass

@@ -134,10 +134,12 @@ withTraceConfigPredicate report (TracePredicate predicate) action = do
   tracesRef <- newIORef []
   let writer :: Report IO a
       writer _ trace _ = modifyIORef' tracesRef ((:) trace)
-  (action $ def {
-      tVerbosity    = Verbosity Info
-    , tOutputConfig = OutputCustom writer DisableAnsiColor
-    }) `finally` do
+      tracerConfig :: TracerConfig IO l a
+      tracerConfig = def {
+          tVerbosity      = Verbosity Info
+        , tOutputConfig   = OutputCustom writer DisableAnsiColor
+        }
+  (action tracerConfig) `finally` do
       traces <- readIORef tracesRef
       mapM_ (report . show . prettyForTrace) traces
       case runExcept (predicate traces) of
@@ -160,11 +162,13 @@ instance (IsTrace l a, Show a) => Show (TraceExpectationException a) where
                then []
                else "Unexpected traces:"
                   : map reportTrace unexpectedTraces
+                  ++ [""]
            )
         ++ ( if null expectedTracesWithWrongCounts
                then []
                else "Expected traces with wrong counts:"
                   : expectedTracesWithWrongCounts
+                  ++ [""]
            )
 
 

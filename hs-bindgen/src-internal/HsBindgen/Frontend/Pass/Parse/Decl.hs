@@ -48,9 +48,9 @@ topLevelDecl = foldWithHandler handleTypeException parseDecl
         when (contextRequiredForScoping == RequiredForScoping) $
           recordImmediateTrace $
             ParseOfDeclarationRequiredForScopingFailed info (parseException err)
-        pure $ Just $ singleton $
-          parseFail info contextNameKind $
-            ParseUnsupportedType (parseException err)
+        pure $ Just $
+          [ parseFail info contextNameKind $
+              ParseUnsupportedType (parseException err) ]
       where
         ParseTypeExceptionContext{..} = parseContext err
 
@@ -185,7 +185,7 @@ parseDecl = \curr -> do
       CXCursor_EnumDecl ->
         parseWith enumDecl   NotRequiredForScoping (C.NameKindTagged C.TagKindEnum)
 
-      -- Process macro expansions independent of any selection predicates
+      -- Process macro expansions independent of any select predicates
       CXCursor_MacroExpansion -> macroExpansion curr
 
       -- Kinds that we skip over
@@ -214,7 +214,7 @@ macroDefinition info = \curr -> do
           , declAnn  = NoAnn
           }
     decl <- mkDecl <$> getUnparsedMacro unit curr
-    foldContinueWith [ParseResultSuccess $ ParseSuccess decl []]
+    foldContinueWith [parseSucceed decl]
 
 structDecl :: C.DeclInfo Parse -> Parser
 structDecl info = \curr -> do
@@ -264,8 +264,8 @@ structDecl info = \curr -> do
               map parseSucceed $ decls ++ [mkStruct fields]
             Nothing ->
               -- If the struct has implicit fields, don't generate anything.
-              singleton $ parseFail info (NameKindTagged TagKindStruct) $
-                ParseUnsupportedImplicitFields
+              [ parseFail info (NameKindTagged TagKindStruct) $
+                  ParseUnsupportedImplicitFields ]
       DefinitionUnavailable ->
         let decl :: C.Decl Parse
             decl = C.Decl{
@@ -273,7 +273,7 @@ structDecl info = \curr -> do
               , declKind = C.DeclOpaque (C.NameKindTagged C.TagKindStruct)
               , declAnn  = NoAnn
               }
-        in  foldContinueWith [ParseResultSuccess $ ParseSuccess decl []]
+        in  foldContinueWith [parseSucceed decl]
       DefinitionElsewhere _ ->
         foldContinue
 
@@ -325,8 +325,8 @@ unionDecl info = \curr -> do
               map parseSucceed $ decls ++ [mkUnion fields]
             Nothing ->
               -- If the struct has implicit fields, don't generate anything.
-              singleton $ parseFail info (NameKindTagged TagKindUnion) $
-                ParseUnsupportedImplicitFields
+              [ parseFail info (NameKindTagged TagKindUnion) $
+                ParseUnsupportedImplicitFields ]
       DefinitionUnavailable -> do
         let decl :: C.Decl Parse
             decl = C.Decl{
@@ -493,7 +493,7 @@ functionDecl info = \curr -> do
                   NotRequiredForScoping
       in  fromCXType' ctx =<< clang_getCursorType curr
     guardTypeFunction curr typ >>= \case
-      Left rs -> foldContinueWith [rs]
+      Left rs -> foldContinueWith rs
       Right (functionArgs, functionRes) -> do
         functionAnn <- getReparseInfo curr
         let mkDecl :: C.FunctionPurity -> C.Decl Parse
@@ -525,10 +525,8 @@ functionDecl info = \curr -> do
             let isDefn = declCls == Definition
 
             pure $ (fails ++) $
-              if not (null anonDecls)
-              then
-                singleton $
-                  parseFail info NameKindOrdinary ParseUnexpectedAnonInSignature
+              if not (null anonDecls) then
+                [ parseFail info NameKindOrdinary ParseUnexpectedAnonInSignature ]
               else
                 let nonPublicVisibility = [
                         ParseNonPublicVisibility
@@ -546,7 +544,7 @@ functionDecl info = \curr -> do
     guardTypeFunction ::
          CXCursor
       -> C.Type Parse
-      -> ParseDecl (Either ParseResult ([(Maybe C.Name, C.Type Parse)], C.Type Parse))
+      -> ParseDecl (Either [ParseResult] ([(Maybe C.Name, C.Type Parse)], C.Type Parse))
     guardTypeFunction curr ty =
         case ty of
           C.TypeFun args res -> do
@@ -562,7 +560,7 @@ functionDecl info = \curr -> do
               return (mbArgName, argCType)
             pure $ Right (args', res)
           C.TypeTypedef{} ->
-            pure $ Left $ parseFail info NameKindOrdinary ParseFunctionOfTypeTypedef
+            pure $ Left $ [ parseFail info NameKindOrdinary ParseFunctionOfTypeTypedef ]
           otherType ->
             panicIO $ "expected function type, but got " <> show otherType
 
@@ -650,9 +648,8 @@ varDecl info = \curr -> do
                    || (isTentative && declCls == DefinitionUnavailable)
 
         pure $ (fails ++) $
-          if not (null anonDecls)
-          then singleton $
-                 parseFail info NameKindOrdinary ParseUnexpectedAnonInExtern
+          if not (null anonDecls) then
+            [parseFail info NameKindOrdinary ParseUnexpectedAnonInExtern]
           else (map parseSucceed otherDecls ++) $
             let nonPublicVisibility = [
                     ParseNonPublicVisibility
@@ -663,7 +660,7 @@ varDecl info = \curr -> do
                   | isDefn && linkage == ExternalLinkage
                   ]
                 msgs = nonPublicVisibility ++ potentialDuplicate
-                parseFailWith' = parseFailWith info NameKindOrdinary
+                parseFail' = parseFail info NameKindOrdinary
 
             in  case cls of
               VarGlobal ->
@@ -673,11 +670,9 @@ varDecl info = \curr -> do
                 singleton $
                   parseSucceedWith msgs (mkDecl $ C.DeclGlobal typ)
               VarThreadLocal ->
-                singleton $
-                  parseFailWith' $ ParseUnsupportedTLS :| msgs
+                  [parseFail' ParseUnsupportedTLS]
               VarUnsupported storage ->
-                singleton $
-                  parseFailWith' $ ParseUnknownStorageClass storage :| msgs
+                  [parseFail' $ ParseUnknownStorageClass storage]
   where
     -- Look for nested declarations inside the global variable type
     nestedDecl :: Fold ParseDecl [ParseResult]

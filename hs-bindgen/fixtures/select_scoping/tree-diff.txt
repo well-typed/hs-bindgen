@@ -6,9 +6,9 @@ TranslationUnit {
         "select_scoping.h:6:13",
         declId = NamePair {
           nameC = Name
-            "ParsedAndSelected",
+            "ParsedAndSelected1",
           nameHsIdent = Identifier
-            "ParsedAndSelected"},
+            "ParsedAndSelected1"},
         declOrigin = NameOriginInSource,
         declAliases = [],
         declHeaderInfo = Just
@@ -23,10 +23,10 @@ TranslationUnit {
           typedefNames = NewtypeNames {
             newtypeConstr = Name
               "@NsConstr"
-              "ParsedAndSelected",
+              "ParsedAndSelected1",
             newtypeField = Name
               "@NsVar"
-              "un_ParsedAndSelected"},
+              "un_ParsedAndSelected1"},
           typedefType = TypePrim
             (PrimIntegral PrimInt Signed)},
       declSpec = DeclSpec
