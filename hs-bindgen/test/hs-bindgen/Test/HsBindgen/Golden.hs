@@ -754,6 +754,19 @@ testCases = manualTestCases ++ [
             frontendParsePredicate = BIf (ParseHeader FromMainHeaders)
           , frontendSelectPredicate = BTrue
           }
+        , testTracePredicate = customTracePredicate [
+            "ParsedAndSelected2"
+          , "ParsedAndSelected3"
+          ] $ \case
+            (TraceFrontend (FrontendSelect
+              (TransitiveDependencyOfDeclarationUnavailable _
+                (_, UnavailableNotSelected) _))) ->
+                Just $ Expected "ParsedAndSelected2"
+            (TraceFrontend (FrontendSelect
+              (TransitiveDependencyOfDeclarationUnavailable _
+                (_, UnavailableParseNotAttempted) _))) ->
+                Just $ Expected "ParsedAndSelected3"
+            _otherwise -> Nothing
         }
     , (defaultFailingTest "thread_local"){
           testClangVersion   = Just (>= (16, 0, 0))

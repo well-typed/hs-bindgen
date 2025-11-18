@@ -1,14 +1,14 @@
 -- addDependentFile examples/golden/select_scoping_header.h
 -- addDependentFile examples/golden/select_scoping.h
-{-| __C declaration:__ @ParsedAndSelected@
+{-| __C declaration:__ @ParsedAndSelected1@
 
     __defined at:__ @select_scoping.h:6:13@
 
     __exported by:__ @select_scoping.h@
 -}
-newtype ParsedAndSelected
-    = ParsedAndSelected {un_ParsedAndSelected :: CInt}
-      {- ^ __C declaration:__ @ParsedAndSelected@
+newtype ParsedAndSelected1
+    = ParsedAndSelected1 {un_ParsedAndSelected1 :: CInt}
+      {- ^ __C declaration:__ @ParsedAndSelected1@
 
            __defined at:__ @select_scoping.h:6:13@
 
@@ -25,10 +25,10 @@ newtype ParsedAndSelected
                       Num,
                       Real)
 instance TyEq ty
-              (CFieldType ParsedAndSelected "un_ParsedAndSelected") =>
-         HasField "un_ParsedAndSelected" (Ptr ParsedAndSelected) (Ptr ty)
-    where getField = ptrToCField (Proxy @"un_ParsedAndSelected")
-instance HasCField ParsedAndSelected "un_ParsedAndSelected"
-    where type CFieldType ParsedAndSelected
-                          "un_ParsedAndSelected" = CInt
+              (CFieldType ParsedAndSelected1 "un_ParsedAndSelected1") =>
+         HasField "un_ParsedAndSelected1" (Ptr ParsedAndSelected1) (Ptr ty)
+    where getField = ptrToCField (Proxy @"un_ParsedAndSelected1")
+instance HasCField ParsedAndSelected1 "un_ParsedAndSelected1"
+    where type CFieldType ParsedAndSelected1
+                          "un_ParsedAndSelected1" = CInt
           offset# = \_ -> \_ -> 0

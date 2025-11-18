@@ -4,8 +4,8 @@ version:
 hsmodule: Example
 types:
 - headers: select_scoping.h
-  cname: ParsedAndSelected
-  hsname: ParsedAndSelected
+  cname: ParsedAndSelected1
+  hsname: ParsedAndSelected1
   instances:
   - Bits
   - Bounded
