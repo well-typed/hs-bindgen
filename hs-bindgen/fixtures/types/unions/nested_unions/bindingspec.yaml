@@ -1,0 +1,30 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: types/unions/nested_unions.h
+  cname: struct exA
+  hsname: ExA
+- headers: types/unions/nested_unions.h
+  cname: struct exB
+  hsname: ExB
+- headers: types/unions/nested_unions.h
+  cname: exB_fieldB1
+  hsname: ExB_fieldB1
+- headers: types/unions/nested_unions.h
+  cname: union unionA
+  hsname: UnionA
+hstypes:
+- hsname: ExA
+  instances:
+  - Storable
+- hsname: ExB
+  instances:
+  - Storable
+- hsname: ExB_fieldB1
+  instances:
+  - Storable
+- hsname: UnionA
+  instances:
+  - Storable

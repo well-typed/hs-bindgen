@@ -1,0 +1,281 @@
+-- addDependentFile examples/golden/types/nested/nested_types.h
+{-| __C declaration:__ @foo@
+
+    __defined at:__ @types\/nested\/nested_types.h:1:8@
+
+    __exported by:__ @types\/nested\/nested_types.h@
+-}
+data Foo
+    = Foo {foo_i :: CInt
+           {- ^ __C declaration:__ @i@
+
+                __defined at:__ @types\/nested\/nested_types.h:2:9@
+
+                __exported by:__ @types\/nested\/nested_types.h@
+           -},
+           foo_c :: CChar
+           {- ^ __C declaration:__ @c@
+
+                __defined at:__ @types\/nested\/nested_types.h:3:10@
+
+                __exported by:__ @types\/nested\/nested_types.h@
+           -}}
+      {- ^ __C declaration:__ @foo@
+
+           __defined at:__ @types\/nested\/nested_types.h:1:8@
+
+           __exported by:__ @types\/nested\/nested_types.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable Foo
+    where sizeOf = \_ -> 8 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> (pure Foo <*> peekCField (Proxy @"foo_i") ptr_0) <*> peekCField (Proxy @"foo_c") ptr_0
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Foo foo_i_3
+                                       foo_c_4 -> pokeCField (Proxy @"foo_i") ptr_1 foo_i_3 >> pokeCField (Proxy @"foo_c") ptr_1 foo_c_4
+instance HasCField Foo "foo_i"
+    where type CFieldType Foo "foo_i" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Foo "foo_i") =>
+         HasField "foo_i" (Ptr Foo) (Ptr ty)
+    where getField = ptrToCField (Proxy @"foo_i")
+instance HasCField Foo "foo_c"
+    where type CFieldType Foo "foo_c" = CChar
+          offset# = \_ -> \_ -> 4
+instance TyEq ty (CFieldType Foo "foo_c") =>
+         HasField "foo_c" (Ptr Foo) (Ptr ty)
+    where getField = ptrToCField (Proxy @"foo_c")
+{-| __C declaration:__ @bar@
+
+    __defined at:__ @types\/nested\/nested_types.h:6:8@
+
+    __exported by:__ @types\/nested\/nested_types.h@
+-}
+data Bar
+    = Bar {bar_foo1 :: Foo
+           {- ^ __C declaration:__ @foo1@
+
+                __defined at:__ @types\/nested\/nested_types.h:7:16@
+
+                __exported by:__ @types\/nested\/nested_types.h@
+           -},
+           bar_foo2 :: Foo
+           {- ^ __C declaration:__ @foo2@
+
+                __defined at:__ @types\/nested\/nested_types.h:8:16@
+
+                __exported by:__ @types\/nested\/nested_types.h@
+           -}}
+      {- ^ __C declaration:__ @bar@
+
+           __defined at:__ @types\/nested\/nested_types.h:6:8@
+
+           __exported by:__ @types\/nested\/nested_types.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable Bar
+    where sizeOf = \_ -> 16 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> (pure Bar <*> peekCField (Proxy @"bar_foo1") ptr_0) <*> peekCField (Proxy @"bar_foo2") ptr_0
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Bar bar_foo1_3
+                                       bar_foo2_4 -> pokeCField (Proxy @"bar_foo1") ptr_1 bar_foo1_3 >> pokeCField (Proxy @"bar_foo2") ptr_1 bar_foo2_4
+instance HasCField Bar "bar_foo1"
+    where type CFieldType Bar "bar_foo1" = Foo
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Bar "bar_foo1") =>
+         HasField "bar_foo1" (Ptr Bar) (Ptr ty)
+    where getField = ptrToCField (Proxy @"bar_foo1")
+instance HasCField Bar "bar_foo2"
+    where type CFieldType Bar "bar_foo2" = Foo
+          offset# = \_ -> \_ -> 8
+instance TyEq ty (CFieldType Bar "bar_foo2") =>
+         HasField "bar_foo2" (Ptr Bar) (Ptr ty)
+    where getField = ptrToCField (Proxy @"bar_foo2")
+{-| __defined at:__ @types\/nested\/nested_types.h:12:5@
+
+    __exported by:__ @types\/nested\/nested_types.h@
+-}
+data Ex3_ex3_struct
+    = Ex3_ex3_struct {ex3_ex3_struct_ex3_a :: CInt
+                      {- ^ __C declaration:__ @ex3_a@
+
+                           __defined at:__ @types\/nested\/nested_types.h:13:13@
+
+                           __exported by:__ @types\/nested\/nested_types.h@
+                      -},
+                      ex3_ex3_struct_ex3_b :: CChar
+                      {- ^ __C declaration:__ @ex3_b@
+
+                           __defined at:__ @types\/nested\/nested_types.h:14:14@
+
+                           __exported by:__ @types\/nested\/nested_types.h@
+                      -}}
+      {- ^ __defined at:__ @types\/nested\/nested_types.h:12:5@
+
+           __exported by:__ @types\/nested\/nested_types.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable Ex3_ex3_struct
+    where sizeOf = \_ -> 8 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> (pure Ex3_ex3_struct <*> peekCField (Proxy @"ex3_ex3_struct_ex3_a") ptr_0) <*> peekCField (Proxy @"ex3_ex3_struct_ex3_b") ptr_0
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Ex3_ex3_struct ex3_ex3_struct_ex3_a_3
+                                                  ex3_ex3_struct_ex3_b_4 -> pokeCField (Proxy @"ex3_ex3_struct_ex3_a") ptr_1 ex3_ex3_struct_ex3_a_3 >> pokeCField (Proxy @"ex3_ex3_struct_ex3_b") ptr_1 ex3_ex3_struct_ex3_b_4
+instance HasCField Ex3_ex3_struct "ex3_ex3_struct_ex3_a"
+    where type CFieldType Ex3_ex3_struct "ex3_ex3_struct_ex3_a" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty
+              (CFieldType Ex3_ex3_struct "ex3_ex3_struct_ex3_a") =>
+         HasField "ex3_ex3_struct_ex3_a" (Ptr Ex3_ex3_struct) (Ptr ty)
+    where getField = ptrToCField (Proxy @"ex3_ex3_struct_ex3_a")
+instance HasCField Ex3_ex3_struct "ex3_ex3_struct_ex3_b"
+    where type CFieldType Ex3_ex3_struct "ex3_ex3_struct_ex3_b" = CChar
+          offset# = \_ -> \_ -> 4
+instance TyEq ty
+              (CFieldType Ex3_ex3_struct "ex3_ex3_struct_ex3_b") =>
+         HasField "ex3_ex3_struct_ex3_b" (Ptr Ex3_ex3_struct) (Ptr ty)
+    where getField = ptrToCField (Proxy @"ex3_ex3_struct_ex3_b")
+{-| __C declaration:__ @ex3@
+
+    __defined at:__ @types\/nested\/nested_types.h:11:8@
+
+    __exported by:__ @types\/nested\/nested_types.h@
+-}
+data Ex3
+    = Ex3 {ex3_ex3_struct :: Ex3_ex3_struct
+           {- ^ __C declaration:__ @ex3_struct@
+
+                __defined at:__ @types\/nested\/nested_types.h:15:7@
+
+                __exported by:__ @types\/nested\/nested_types.h@
+           -},
+           ex3_ex3_c :: CFloat
+           {- ^ __C declaration:__ @ex3_c@
+
+                __defined at:__ @types\/nested\/nested_types.h:16:11@
+
+                __exported by:__ @types\/nested\/nested_types.h@
+           -}}
+      {- ^ __C declaration:__ @ex3@
+
+           __defined at:__ @types\/nested\/nested_types.h:11:8@
+
+           __exported by:__ @types\/nested\/nested_types.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable Ex3
+    where sizeOf = \_ -> 12 :: Int
+          alignment = \_ -> 4 :: Int
+          peek = \ptr_0 -> (pure Ex3 <*> peekCField (Proxy @"ex3_ex3_struct") ptr_0) <*> peekCField (Proxy @"ex3_ex3_c") ptr_0
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Ex3 ex3_ex3_struct_3
+                                       ex3_ex3_c_4 -> pokeCField (Proxy @"ex3_ex3_struct") ptr_1 ex3_ex3_struct_3 >> pokeCField (Proxy @"ex3_ex3_c") ptr_1 ex3_ex3_c_4
+instance HasCField Ex3 "ex3_ex3_struct"
+    where type CFieldType Ex3 "ex3_ex3_struct" = Ex3_ex3_struct
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Ex3 "ex3_ex3_struct") =>
+         HasField "ex3_ex3_struct" (Ptr Ex3) (Ptr ty)
+    where getField = ptrToCField (Proxy @"ex3_ex3_struct")
+instance HasCField Ex3 "ex3_ex3_c"
+    where type CFieldType Ex3 "ex3_ex3_c" = CFloat
+          offset# = \_ -> \_ -> 8
+instance TyEq ty (CFieldType Ex3 "ex3_ex3_c") =>
+         HasField "ex3_ex3_c" (Ptr Ex3) (Ptr ty)
+    where getField = ptrToCField (Proxy @"ex3_ex3_c")
+{-| __C declaration:__ @ex4_odd@
+
+    __defined at:__ @types\/nested\/nested_types.h:22:8@
+
+    __exported by:__ @types\/nested\/nested_types.h@
+-}
+data Ex4_odd
+    = Ex4_odd {ex4_odd_value :: CInt
+               {- ^ __C declaration:__ @value@
+
+                    __defined at:__ @types\/nested\/nested_types.h:23:9@
+
+                    __exported by:__ @types\/nested\/nested_types.h@
+               -},
+               ex4_odd_next :: (Ptr Ex4_even)
+               {- ^ __C declaration:__ @next@
+
+                    __defined at:__ @types\/nested\/nested_types.h:27:8@
+
+                    __exported by:__ @types\/nested\/nested_types.h@
+               -}}
+      {- ^ __C declaration:__ @ex4_odd@
+
+           __defined at:__ @types\/nested\/nested_types.h:22:8@
+
+           __exported by:__ @types\/nested\/nested_types.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable Ex4_odd
+    where sizeOf = \_ -> 16 :: Int
+          alignment = \_ -> 8 :: Int
+          peek = \ptr_0 -> (pure Ex4_odd <*> peekCField (Proxy @"ex4_odd_value") ptr_0) <*> peekCField (Proxy @"ex4_odd_next") ptr_0
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Ex4_odd ex4_odd_value_3
+                                           ex4_odd_next_4 -> pokeCField (Proxy @"ex4_odd_value") ptr_1 ex4_odd_value_3 >> pokeCField (Proxy @"ex4_odd_next") ptr_1 ex4_odd_next_4
+instance HasCField Ex4_odd "ex4_odd_value"
+    where type CFieldType Ex4_odd "ex4_odd_value" = CInt
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Ex4_odd "ex4_odd_value") =>
+         HasField "ex4_odd_value" (Ptr Ex4_odd) (Ptr ty)
+    where getField = ptrToCField (Proxy @"ex4_odd_value")
+instance HasCField Ex4_odd "ex4_odd_next"
+    where type CFieldType Ex4_odd "ex4_odd_next" = Ptr Ex4_even
+          offset# = \_ -> \_ -> 8
+instance TyEq ty (CFieldType Ex4_odd "ex4_odd_next") =>
+         HasField "ex4_odd_next" (Ptr Ex4_odd) (Ptr ty)
+    where getField = ptrToCField (Proxy @"ex4_odd_next")
+{-| __C declaration:__ @ex4_even@
+
+    __defined at:__ @types\/nested\/nested_types.h:24:12@
+
+    __exported by:__ @types\/nested\/nested_types.h@
+-}
+data Ex4_even
+    = Ex4_even {ex4_even_value :: CDouble
+                {- ^ __C declaration:__ @value@
+
+                     __defined at:__ @types\/nested\/nested_types.h:25:16@
+
+                     __exported by:__ @types\/nested\/nested_types.h@
+                -},
+                ex4_even_next :: (Ptr Ex4_odd)
+                {- ^ __C declaration:__ @next@
+
+                     __defined at:__ @types\/nested\/nested_types.h:26:25@
+
+                     __exported by:__ @types\/nested\/nested_types.h@
+                -}}
+      {- ^ __C declaration:__ @ex4_even@
+
+           __defined at:__ @types\/nested\/nested_types.h:24:12@
+
+           __exported by:__ @types\/nested\/nested_types.h@
+      -}
+    deriving stock (Eq, Show)
+instance Storable Ex4_even
+    where sizeOf = \_ -> 16 :: Int
+          alignment = \_ -> 8 :: Int
+          peek = \ptr_0 -> (pure Ex4_even <*> peekCField (Proxy @"ex4_even_value") ptr_0) <*> peekCField (Proxy @"ex4_even_next") ptr_0
+          poke = \ptr_1 -> \s_2 -> case s_2 of
+                                   Ex4_even ex4_even_value_3
+                                            ex4_even_next_4 -> pokeCField (Proxy @"ex4_even_value") ptr_1 ex4_even_value_3 >> pokeCField (Proxy @"ex4_even_next") ptr_1 ex4_even_next_4
+instance HasCField Ex4_even "ex4_even_value"
+    where type CFieldType Ex4_even "ex4_even_value" = CDouble
+          offset# = \_ -> \_ -> 0
+instance TyEq ty (CFieldType Ex4_even "ex4_even_value") =>
+         HasField "ex4_even_value" (Ptr Ex4_even) (Ptr ty)
+    where getField = ptrToCField (Proxy @"ex4_even_value")
+instance HasCField Ex4_even "ex4_even_next"
+    where type CFieldType Ex4_even "ex4_even_next" = Ptr Ex4_odd
+          offset# = \_ -> \_ -> 8
+instance TyEq ty (CFieldType Ex4_even "ex4_even_next") =>
+         HasField "ex4_even_next" (Ptr Ex4_even) (Ptr ty)
+    where getField = ptrToCField (Proxy @"ex4_even_next")

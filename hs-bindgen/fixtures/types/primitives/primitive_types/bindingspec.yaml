@@ -1,0 +1,14 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Example
+ctypes:
+- headers: types/primitives/primitive_types.h
+  cname: struct primitive
+  hsname: Primitive
+hstypes:
+- hsname: Primitive
+  instances:
+  - Eq
+  - Show
+  - Storable

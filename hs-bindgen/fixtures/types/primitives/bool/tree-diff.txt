@@ -1,0 +1,194 @@
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "bool.h:1:8",
+        declId = NamePair {
+          nameC = Name "bools1",
+          nameHsIdent = Identifier
+            "Bools1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/primitives/bool.h"],
+            headerInclude =
+            "types/primitives/bool.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "Bools1"),
+          structSizeof = 2,
+          structAlignment = 1,
+          structFields = [
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "bool.h:2:11",
+                fieldName = NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = Identifier
+                    "bools1_x"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                PrimBool,
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "bool.h:3:11",
+                fieldName = NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = Identifier
+                    "bools1_y"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                PrimBool,
+              structFieldOffset = 8,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "bool.h:8:8",
+        declId = NamePair {
+          nameC = Name "bools2",
+          nameHsIdent = Identifier
+            "Bools2"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/primitives/bool.h"],
+            headerInclude =
+            "types/primitives/bool.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "Bools2"),
+          structSizeof = 2,
+          structAlignment = 1,
+          structFields = [
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "bool.h:9:10",
+                fieldName = NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = Identifier
+                    "bools2_x"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                PrimBool,
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "bool.h:10:10",
+                fieldName = NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = Identifier
+                    "bools2_y"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                PrimBool,
+              structFieldOffset = 8,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "bool.h:13:9",
+        declId = NamePair {
+          nameC = Name "BOOL",
+          nameHsIdent = Identifier
+            "BOOL"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/primitives/bool.h"],
+            headerInclude =
+            "types/primitives/bool.h"},
+        declComment = Nothing},
+      declKind = DeclMacro
+        (MacroType
+          CheckedMacroType {
+            macroTypeNames = NewtypeNames {
+              newtypeConstr = Name
+                "@NsConstr"
+                "BOOL",
+              newtypeField = Name
+                "@NsVar"
+                "un_BOOL"},
+            macroType = TypePrim PrimBool}),
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "bool.h:15:8",
+        declId = NamePair {
+          nameC = Name "bools3",
+          nameHsIdent = Identifier
+            "Bools3"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/primitives/bool.h"],
+            headerInclude =
+            "types/primitives/bool.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "Bools3"),
+          structSizeof = 2,
+          structAlignment = 1,
+          structFields = [
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "bool.h:16:10",
+                fieldName = NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = Identifier
+                    "bools3_x"},
+                fieldComment = Nothing},
+              structFieldType =
+              TypeMacroTypedef
+                NamePair {
+                  nameC = Name "BOOL",
+                  nameHsIdent = Identifier "BOOL"}
+                NameOriginInSource,
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "bool.h:17:10",
+                fieldName = NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = Identifier
+                    "bools3_y"},
+                fieldComment = Nothing},
+              structFieldType =
+              TypeMacroTypedef
+                NamePair {
+                  nameC = Name "BOOL",
+                  nameHsIdent = Identifier "BOOL"}
+                NameOriginInSource,
+              structFieldOffset = 8,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}}],
+  unitDeps = ["stdbool", "bool"]}

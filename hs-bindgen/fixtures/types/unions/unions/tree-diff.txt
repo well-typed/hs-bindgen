@@ -1,0 +1,511 @@
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "unions.h:1:8",
+        declId = NamePair {
+          nameC = Name "Dim2",
+          nameHsIdent = Identifier
+            "Dim2"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/unions/unions.h"],
+            headerInclude =
+            "types/unions/unions.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "Dim2"),
+          structSizeof = 8,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "unions.h:2:9",
+                fieldName = NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = Identifier
+                    "dim2_x"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "unions.h:3:9",
+                fieldName = NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = Identifier
+                    "dim2_y"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 32,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "unions.h:6:8",
+        declId = NamePair {
+          nameC = Name "Dim3",
+          nameHsIdent = Identifier
+            "Dim3"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/unions/unions.h"],
+            headerInclude =
+            "types/unions/unions.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "Dim3"),
+          structSizeof = 12,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "unions.h:7:9",
+                fieldName = NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = Identifier
+                    "dim3_x"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "unions.h:8:9",
+                fieldName = NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = Identifier
+                    "dim3_y"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 32,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "unions.h:9:9",
+                fieldName = NamePair {
+                  nameC = Name "z",
+                  nameHsIdent = Identifier
+                    "dim3_z"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 64,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "unions.h:12:7",
+        declId = NamePair {
+          nameC = Name "DimPayload",
+          nameHsIdent = Identifier
+            "DimPayload"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/unions/unions.h"],
+            headerInclude =
+            "types/unions/unions.h"},
+        declComment = Nothing},
+      declKind = DeclUnion
+        Union {
+          unionNames = NewtypeNames {
+            newtypeConstr = Name
+              "@NsConstr"
+              "DimPayload",
+            newtypeField = Name
+              "@NsVar"
+              "un_DimPayload"},
+          unionSizeof = 8,
+          unionAlignment = 4,
+          unionFields = [
+            UnionField {
+              unionFieldInfo = FieldInfo {
+                fieldLoc = "unions.h:13:17",
+                fieldName = NamePair {
+                  nameC = Name "dim2",
+                  nameHsIdent = Identifier
+                    "dimPayload_dim2"},
+                fieldComment = Nothing},
+              unionFieldType = TypeStruct
+                NamePair {
+                  nameC = Name "Dim2",
+                  nameHsIdent = Identifier "Dim2"}
+                NameOriginInSource},
+            UnionField {
+              unionFieldInfo = FieldInfo {
+                fieldLoc = "unions.h:14:17",
+                fieldName = NamePair {
+                  nameC = Name "dim3",
+                  nameHsIdent = Identifier
+                    "dimPayload_dim3"},
+                fieldComment = Nothing},
+              unionFieldType = TypeStruct
+                NamePair {
+                  nameC = Name "Dim2",
+                  nameHsIdent = Identifier "Dim2"}
+                NameOriginInSource}]},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "unions.h:17:8",
+        declId = NamePair {
+          nameC = Name "Dim",
+          nameHsIdent = Identifier "Dim"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/unions/unions.h"],
+            headerInclude =
+            "types/unions/unions.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "Dim"),
+          structSizeof = 12,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "unions.h:18:9",
+                fieldName = NamePair {
+                  nameC = Name "tag",
+                  nameHsIdent = Identifier
+                    "dim_tag"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "unions.h:19:22",
+                fieldName = NamePair {
+                  nameC = Name "payload",
+                  nameHsIdent = Identifier
+                    "dim_payload"},
+                fieldComment = Nothing},
+              structFieldType = TypeUnion
+                NamePair {
+                  nameC = Name "DimPayload",
+                  nameHsIdent = Identifier
+                    "DimPayload"}
+                NameOriginInSource,
+              structFieldOffset = 32,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "unions.h:23:15",
+        declId = NamePair {
+          nameC = Name "DimPayloadB",
+          nameHsIdent = Identifier
+            "DimPayloadB"},
+        declOrigin = NameOriginInSource,
+        declAliases = [
+          Name "DimPayloadB"],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/unions/unions.h"],
+            headerInclude =
+            "types/unions/unions.h"},
+        declComment = Nothing},
+      declKind = DeclUnion
+        Union {
+          unionNames = NewtypeNames {
+            newtypeConstr = Name
+              "@NsConstr"
+              "DimPayloadB",
+            newtypeField = Name
+              "@NsVar"
+              "un_DimPayloadB"},
+          unionSizeof = 8,
+          unionAlignment = 4,
+          unionFields = [
+            UnionField {
+              unionFieldInfo = FieldInfo {
+                fieldLoc = "unions.h:24:17",
+                fieldName = NamePair {
+                  nameC = Name "dim2",
+                  nameHsIdent = Identifier
+                    "dimPayloadB_dim2"},
+                fieldComment = Nothing},
+              unionFieldType = TypeStruct
+                NamePair {
+                  nameC = Name "Dim2",
+                  nameHsIdent = Identifier "Dim2"}
+                NameOriginInSource},
+            UnionField {
+              unionFieldInfo = FieldInfo {
+                fieldLoc = "unions.h:25:17",
+                fieldName = NamePair {
+                  nameC = Name "dim3",
+                  nameHsIdent = Identifier
+                    "dimPayloadB_dim3"},
+                fieldComment = Nothing},
+              unionFieldType = TypeStruct
+                NamePair {
+                  nameC = Name "Dim2",
+                  nameHsIdent = Identifier "Dim2"}
+                NameOriginInSource}]},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "unions.h:28:8",
+        declId = NamePair {
+          nameC = Name "DimB",
+          nameHsIdent = Identifier
+            "DimB"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/unions/unions.h"],
+            headerInclude =
+            "types/unions/unions.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "DimB"),
+          structSizeof = 12,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "unions.h:29:9",
+                fieldName = NamePair {
+                  nameC = Name "tag",
+                  nameHsIdent = Identifier
+                    "dimB_tag"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "unions.h:30:17",
+                fieldName = NamePair {
+                  nameC = Name "payload",
+                  nameHsIdent = Identifier
+                    "dimB_payload"},
+                fieldComment = Nothing},
+              structFieldType = TypeTypedef
+                (TypedefSquashed
+                  (Name "DimPayloadB")
+                  (TypeUnion
+                    NamePair {
+                      nameC = Name "DimPayloadB",
+                      nameHsIdent = Identifier
+                        "DimPayloadB"}
+                    NameOriginInSource)),
+              structFieldOffset = 32,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "unions.h:35:5",
+        declId = NamePair {
+          nameC = Name "AnonA_xy",
+          nameHsIdent = Identifier
+            "AnonA_xy"},
+        declOrigin = NameOriginGenerated
+          (AnonId "unions.h:35:5"),
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/unions/unions.h"],
+            headerInclude =
+            "types/unions/unions.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "AnonA_xy"),
+          structSizeof = 16,
+          structAlignment = 8,
+          structFields = [
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "unions.h:35:21",
+                fieldName = NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = Identifier
+                    "anonA_xy_x"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimFloating PrimDouble),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "unions.h:35:31",
+                fieldName = NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = Identifier
+                    "anonA_xy_y"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimFloating PrimDouble),
+              structFieldOffset = 64,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "unions.h:36:5",
+        declId = NamePair {
+          nameC = Name "AnonA_polar",
+          nameHsIdent = Identifier
+            "AnonA_polar"},
+        declOrigin = NameOriginGenerated
+          (AnonId "unions.h:36:5"),
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/unions/unions.h"],
+            headerInclude =
+            "types/unions/unions.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name
+              "@NsConstr"
+              "AnonA_polar"),
+          structSizeof = 16,
+          structAlignment = 8,
+          structFields = [
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "unions.h:36:21",
+                fieldName = NamePair {
+                  nameC = Name "r",
+                  nameHsIdent = Identifier
+                    "anonA_polar_r"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimFloating PrimDouble),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing},
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "unions.h:36:31",
+                fieldName = NamePair {
+                  nameC = Name "p",
+                  nameHsIdent = Identifier
+                    "anonA_polar_p"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimFloating PrimDouble),
+              structFieldOffset = 64,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "unions.h:34:7",
+        declId = NamePair {
+          nameC = Name "AnonA",
+          nameHsIdent = Identifier
+            "AnonA"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/unions/unions.h"],
+            headerInclude =
+            "types/unions/unions.h"},
+        declComment = Nothing},
+      declKind = DeclUnion
+        Union {
+          unionNames = NewtypeNames {
+            newtypeConstr = Name
+              "@NsConstr"
+              "AnonA",
+            newtypeField = Name
+              "@NsVar"
+              "un_AnonA"},
+          unionSizeof = 16,
+          unionAlignment = 8,
+          unionFields = [
+            UnionField {
+              unionFieldInfo = FieldInfo {
+                fieldLoc = "unions.h:35:36",
+                fieldName = NamePair {
+                  nameC = Name "xy",
+                  nameHsIdent = Identifier
+                    "anonA_xy"},
+                fieldComment = Nothing},
+              unionFieldType = TypeStruct
+                NamePair {
+                  nameC = Name "AnonA_xy",
+                  nameHsIdent = Identifier
+                    "AnonA_xy"}
+                (NameOriginGenerated
+                  (AnonId "unions.h:35:5"))},
+            UnionField {
+              unionFieldInfo = FieldInfo {
+                fieldLoc = "unions.h:36:36",
+                fieldName = NamePair {
+                  nameC = Name "polar",
+                  nameHsIdent = Identifier
+                    "anonA_polar"},
+                fieldComment = Nothing},
+              unionFieldType = TypeStruct
+                NamePair {
+                  nameC = Name "AnonA_polar",
+                  nameHsIdent = Identifier
+                    "AnonA_polar"}
+                (NameOriginGenerated
+                  (AnonId "unions.h:36:5"))}]},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}}],
+  unitDeps = ["unions"]}

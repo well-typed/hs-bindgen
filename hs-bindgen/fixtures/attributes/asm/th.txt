@@ -1,0 +1,83 @@
+-- addDependentFile examples/golden/attributes/asm.h
+-- #include <attributes/asm.h>
+-- signed int hs_bindgen_test_attributesasm_b15fc0d2b3d7c9a1 (
+--   signed int arg1,
+--   signed int arg2
+-- )
+-- {
+--   return asm_labeled_function(arg1, arg2);
+-- }
+-- signed int hs_bindgen_test_attributesasm_289cb83358beadc0 (
+--   signed int arg1,
+--   signed int arg2
+-- )
+-- {
+--   return asm_labeled_function(arg1, arg2);
+-- }
+-- /* get_asm_labeled_function_ptr */
+-- __attribute__ ((const))
+-- signed int (*hs_bindgen_test_attributesasm_b6d695e6a1f2622e (void)) (
+--   signed int arg1,
+--   signed int arg2
+-- )
+-- {
+--   return &asm_labeled_function;
+-- }
+-- /* get_asm_labeled_variable_ptr */
+-- __attribute__ ((const))
+-- signed int *hs_bindgen_test_attributesasm_f13c50d1f1661525 (void)
+-- {
+--   return &asm_labeled_variable;
+-- }
+{-| __C declaration:__ @asm_labeled_function@
+
+    __defined at:__ @attributes\/asm.h:4:5@
+
+    __exported by:__ @attributes\/asm.h@
+-}
+foreign import ccall safe "hs_bindgen_test_attributesasm_b15fc0d2b3d7c9a1" asm_labeled_function :: CInt ->
+                                                                                                   CInt ->
+                                                                                                   IO CInt
+{-| __C declaration:__ @asm_labeled_function@
+
+    __defined at:__ @attributes\/asm.h:4:5@
+
+    __exported by:__ @attributes\/asm.h@
+-}
+foreign import ccall safe "hs_bindgen_test_attributesasm_289cb83358beadc0" asm_labeled_function :: CInt ->
+                                                                                                   CInt ->
+                                                                                                   IO CInt
+foreign import ccall safe "hs_bindgen_test_attributesasm_b6d695e6a1f2622e" hs_bindgen_test_attributesasm_b6d695e6a1f2622e :: IO (FunPtr (CInt ->
+                                                                                                                                         CInt ->
+                                                                                                                                         IO CInt))
+{-# NOINLINE asm_labeled_function_ptr #-}
+{-| __C declaration:__ @asm_labeled_function@
+
+    __defined at:__ @attributes\/asm.h:4:5@
+
+    __exported by:__ @attributes\/asm.h@
+-}
+asm_labeled_function_ptr :: FunPtr (CInt -> CInt -> IO CInt)
+{-| __C declaration:__ @asm_labeled_function@
+
+    __defined at:__ @attributes\/asm.h:4:5@
+
+    __exported by:__ @attributes\/asm.h@
+-}
+asm_labeled_function_ptr = unsafePerformIO hs_bindgen_test_attributesasm_b6d695e6a1f2622e
+foreign import ccall safe "hs_bindgen_test_attributesasm_f13c50d1f1661525" hs_bindgen_test_attributesasm_f13c50d1f1661525 :: IO (Ptr CInt)
+{-# NOINLINE asm_labeled_variable_ptr #-}
+{-| __C declaration:__ @asm_labeled_variable@
+
+    __defined at:__ @attributes\/asm.h:2:12@
+
+    __exported by:__ @attributes\/asm.h@
+-}
+asm_labeled_variable_ptr :: Ptr CInt
+{-| __C declaration:__ @asm_labeled_variable@
+
+    __defined at:__ @attributes\/asm.h:2:12@
+
+    __exported by:__ @attributes\/asm.h@
+-}
+asm_labeled_variable_ptr = unsafePerformIO hs_bindgen_test_attributesasm_f13c50d1f1661525

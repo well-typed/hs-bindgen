@@ -24,7 +24,7 @@ KNOWN_FAILURES=(
     edge-cases/iterator          # Makes use of Apple block extension which would require clang (see #913)
     functions/decls_in_signature # Unusable struct (see #1128)
     declarations/redeclaration   # Multiple declarations (intentional test case)
-    types/typenames              # Multiple declarations (hs-bindgen namespace possible bug/feature)
+    types/typedefs/typenames     # Multiple declarations (hs-bindgen namespace possible bug/feature)
 )
 
 # Default options

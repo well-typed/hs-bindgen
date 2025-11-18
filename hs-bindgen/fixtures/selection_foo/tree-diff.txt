@@ -1,5 +1,0 @@
-TranslationUnit {
-  unitDecls = [],
-  unitDeps = [
-    "selection_foo_t",
-    "selection_foo"]}

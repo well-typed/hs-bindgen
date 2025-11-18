@@ -1,0 +1,228 @@
+TranslationUnit {
+  unitDecls = [
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "struct_arg.h:2:8",
+        declId = NamePair {
+          nameC = Name "thing",
+          nameHsIdent = Identifier
+            "Thing"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/structs/struct_arg.h"],
+            headerInclude =
+            "types/structs/struct_arg.h"},
+        declComment = Nothing},
+      declKind = DeclStruct
+        Struct {
+          structNames = RecordNames
+            (Name "@NsConstr" "Thing"),
+          structSizeof = 4,
+          structAlignment = 4,
+          structFields = [
+            StructField {
+              structFieldInfo = FieldInfo {
+                fieldLoc = "struct_arg.h:3:9",
+                fieldName = NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = Identifier
+                    "thing_x"},
+                fieldComment = Nothing},
+              structFieldType = TypePrim
+                (PrimIntegral PrimInt Signed),
+              structFieldOffset = 0,
+              structFieldWidth = Nothing}],
+          structFlam = Nothing},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "struct_arg.h:6:5",
+        declId = NamePair {
+          nameC = Name "thing_fun_1",
+          nameHsIdent = Identifier
+            "thing_fun_1"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/structs/struct_arg.h"],
+            headerInclude =
+            "types/structs/struct_arg.h"},
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = Identifier "x"})
+              (TypeStruct
+                NamePair {
+                  nameC = Name "thing",
+                  nameHsIdent = Identifier
+                    "Thing"}
+                NameOriginInSource)],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimIntegral PrimInt Signed)},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "struct_arg.h:7:14",
+        declId = NamePair {
+          nameC = Name "thing_fun_2",
+          nameHsIdent = Identifier
+            "thing_fun_2"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/structs/struct_arg.h"],
+            headerInclude =
+            "types/structs/struct_arg.h"},
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = Identifier "x"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeStruct
+            NamePair {
+              nameC = Name "thing",
+              nameHsIdent = Identifier
+                "Thing"}
+            NameOriginInSource},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "struct_arg.h:9:14",
+        declId = NamePair {
+          nameC = Name "thing_fun_3a",
+          nameHsIdent = Identifier
+            "thing_fun_3a"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/structs/struct_arg.h"],
+            headerInclude =
+            "types/structs/struct_arg.h"},
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = Identifier "x"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = Identifier "y"})
+              (TypeStruct
+                NamePair {
+                  nameC = Name "thing",
+                  nameHsIdent = Identifier
+                    "Thing"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "z",
+                  nameHsIdent = Identifier "z"})
+              (TypePrim
+                (PrimFloating PrimDouble))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypeStruct
+            NamePair {
+              nameC = Name "thing",
+              nameHsIdent = Identifier
+                "Thing"}
+            NameOriginInSource},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}},
+    Decl {
+      declInfo = DeclInfo {
+        declLoc = "struct_arg.h:10:6",
+        declId = NamePair {
+          nameC = Name "thing_fun_3b",
+          nameHsIdent = Identifier
+            "thing_fun_3b"},
+        declOrigin = NameOriginInSource,
+        declAliases = [],
+        declHeaderInfo = Just
+          HeaderInfo {
+            headerMainHeaders = NE.fromList
+              ["types/structs/struct_arg.h"],
+            headerInclude =
+            "types/structs/struct_arg.h"},
+        declComment = Nothing},
+      declKind = DeclFunction
+        Function {
+          functionArgs = [
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "x",
+                  nameHsIdent = Identifier "x"})
+              (TypePrim
+                (PrimIntegral PrimInt Signed)),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "y",
+                  nameHsIdent = Identifier "y"})
+              (TypeStruct
+                NamePair {
+                  nameC = Name "thing",
+                  nameHsIdent = Identifier
+                    "Thing"}
+                NameOriginInSource),
+            _×_
+              (Just
+                NamePair {
+                  nameC = Name "z",
+                  nameHsIdent = Identifier "z"})
+              (TypePrim
+                (PrimFloating PrimDouble))],
+          functionAttrs =
+          FunctionAttributes
+            ImpureFunction,
+          functionRes = TypePrim
+            (PrimChar
+              (PrimSignImplicit
+                (Just Signed)))},
+      declSpec = DeclSpec {
+        declSpecC = Nothing,
+        declSpecHs = Nothing}}],
+  unitDeps = ["struct_arg"]}
