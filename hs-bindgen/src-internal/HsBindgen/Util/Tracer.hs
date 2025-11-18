@@ -174,6 +174,9 @@ data Level =
   | Error
   deriving stock (Show, Eq, Ord, Bounded, Enum, Generic)
 
+instance Default Level where
+  def = Notice
+
 alignLevel :: Level -> String
 alignLevel = \case
   Debug   -> "Debug  "
@@ -281,6 +284,7 @@ gGetTraceId' = gGetTraceId . GHC.from
 
 newtype Verbosity = Verbosity { unwrapVerbosity :: Level }
   deriving stock (Show, Eq)
+  deriving Default via Level
 
 -- | User requested status
 --
@@ -402,7 +406,7 @@ instance Contravariant (TracerConfig m l) where
 
 instance Default (TracerConfig m l a) where
   def = TracerConfig
-    { tVerbosity      = Verbosity Notice
+    { tVerbosity      = def
     , tOutputConfig   = def
     , tCustomLogLevel = mempty
     , tShowTimeStamp  = DisableTimeStamp

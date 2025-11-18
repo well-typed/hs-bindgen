@@ -21,7 +21,10 @@ let cfg :: Config
     cfg = def & #clang % #extraIncludeDirs .~ [
               Pkg "examples"
             ]
- in withHsBindgen cfg def $ hashInclude "simple.h"
+    cfgTH :: ConfigTH
+    cfgTH = def & #verbosity .~ Verbosity Warning
+ in withHsBindgen cfg cfgTH $
+      hashInclude "simple.h"
 
 x :: Simple
 x = Simple { simple_n = 10 }
