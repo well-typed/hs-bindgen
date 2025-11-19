@@ -22,7 +22,6 @@ import System.Directory (createDirectoryIfMissing, doesDirectoryExist)
 
 import HsBindgen
 import HsBindgen.App
-import HsBindgen.Artefact
 import HsBindgen.Backend.UniqueId
 import HsBindgen.Config
 import HsBindgen.Config.Internal
@@ -77,7 +76,7 @@ exec GlobalOpts{..} Opts{..} = do
         unless exists $
           throwIO (OutputDirectoryMissingException hsOutputDir)
 
-    void $ run $ (sequenceArtefacts artefacts) :* Nil
+    void $ run $ (sequence_ artefacts) :* Nil
   where
     bindgenConfig :: BindgenConfig
     bindgenConfig = toBindgenConfig config uniqueId hsModuleName

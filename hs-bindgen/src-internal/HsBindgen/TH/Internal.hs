@@ -47,12 +47,20 @@ import HsBindgen.Util.Tracer
 -- 'IncludeDir' data constructor 'Pkg').
 type Config = Config_ IncludeDir
 
+-- TODO_PR: We use this now also for binding specifications; so, technically
+-- speaking this is not an include directory anymore, but a file path possibly
+-- relative to the package root.
+
 -- | C include directory added to the C include search path
 data IncludeDir =
     Dir FilePath
     -- | Include directory relative to package root
   | Pkg FilePath
   deriving stock (Eq, Show, Generic)
+
+toFilePath :: FilePath -> IncludeDir -> FilePath
+toFilePath root (Pkg x) = root </> x
+toFilePath _    (Dir x) = x
 
 -- | Generate bindings for given C headers at compile-time
 --
@@ -66,8 +74,9 @@ data IncludeDir =
 withHsBindgen :: Config -> ConfigTH -> BindgenM -> TH.Q [TH.Dec]
 withHsBindgen config ConfigTH{..} hashIncludes = do
     checkHsBindgenRuntimePreludeIsInScope
+    packageRoot <- getPackageRoot
 
-    bindgenConfig <- toBindgenConfigTH config
+    bindgenConfig <- toBindgenConfigTH packageRoot config
 
     let tracerConfig :: TracerConfig IO Level TraceMsg
         tracerConfig =
@@ -84,9 +93,14 @@ withHsBindgen config ConfigTH{..} hashIncludes = do
         uncheckedHashIncludeArgs =
           reverse $ bindgenStateUncheckedHashIncludeArgs bindgenState
 
-        artefacts = Dependencies :* FinalDecls :* Nil
+        aWriteBindingSpec :: Artefact ()
+        aWriteBindingSpec = case config.outputBindingSpec of
+              Nothing  -> pure ()
+              Just rfp -> writeBindingSpec (toFilePath packageRoot rfp)
 
-    (I deps :* I decls' :* Nil) <- liftIO $
+        artefacts = Dependencies :* FinalDecls :* aWriteBindingSpec :* Nil
+
+    (I deps :* I decls' :* _ :* Nil) <- liftIO $
       hsBindgen
         tracerConfig
         bindgenConfig
@@ -208,9 +222,8 @@ checkLanguageExtensions requiredExts = do
         "Missing language extension(s): " :
           (map (("    - " ++) . show) (toList missingExts))
 
-toBindgenConfigTH :: Config -> TH.Q BindgenConfig
-toBindgenConfigTH config = do
-    packageRoot <- getPackageRoot
+toBindgenConfigTH :: FilePath -> Config -> TH.Q BindgenConfig
+toBindgenConfigTH packageRoot config = do
     uniqueId <- getUniqueId
     hsModuleName <- fromString . TH.loc_module <$> TH.location
     let bindgenConfig :: BindgenConfig
@@ -221,9 +234,5 @@ toBindgenConfigTH config = do
             hsModuleName
     pure bindgenConfig
   where
-    toFilePath :: FilePath -> IncludeDir -> FilePath
-    toFilePath root (Pkg x) = root </> x
-    toFilePath _    (Dir x) = x
-
     getUniqueId :: TH.Q UniqueId
     getUniqueId = UniqueId . TH.loc_package <$> TH.location

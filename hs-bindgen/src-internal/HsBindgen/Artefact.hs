@@ -4,7 +4,6 @@ module HsBindgen.Artefact (
   , ArtefactM
   , ArtefactEnv(..)
   , runArtefacts
-  , sequenceArtefacts
   , ArtefactMsg(..)
 
     -- * Re-exports
@@ -66,11 +65,24 @@ data Artefact (a :: Star) where
   FinalModuleSafe     :: Artefact HsModule
   FinalModuleUnsafe   :: Artefact HsModule
   FinalModules        :: Artefact (ByCategory HsModule)
-  -- * Lift and sequence
+  -- * Sequence artefacts
   Lift                :: Artefacts as -> (NP I as -> ArtefactM b) -> Artefact b
+  Bind                :: Artefact b   -> (b -> Artefact c)        -> Artefact c
 
 instance Functor Artefact where
+  fmap :: (a -> b) -> Artefact a -> Artefact b
   fmap f x = Lift (x :* Nil) (\(I r :* Nil) -> pure (f r))
+
+instance Applicative Artefact where
+  pure :: a -> Artefact a
+  pure x = Lift Nil (\Nil -> pure x)
+
+  liftA2 :: (a -> b -> c) -> Artefact a -> Artefact b -> Artefact c
+  liftA2 f x y = Lift (x :* y :* Nil) (\(I l :* I r :* Nil) -> pure (f l r))
+
+instance Monad Artefact where
+  (>>=) :: Artefact a -> (a -> Artefact b) -> Artefact b
+  (>>=) = Bind
 
 -- | A list of 'Artefact's.
 type Artefacts as = NP Artefact as
@@ -142,32 +154,8 @@ runArtefacts
       FinalModuleUnsafe   -> liftIO backendFinalModuleUnsafe
       FinalModules        -> liftIO backendFinalModules
       -- Lift and sequence.
-      (Lift as' f)        -> go as' >>= lift . f
-
--- | Courtesy of Edsko :-).
---
--- Another implementation for `sequenceArtefacts` which has the drawback of
--- creating deeply nested @(Lift .. (Lift .. ( .. )))@ structures.
---
--- @
--- import Data.Semigroup (Semigroup (..))
--- import Generics.SOP (unI)
---
--- instance Semigroup a => Semigroup (Artefact a) where
---   l <> r = Lift (l :* r :* Nil) (\(r1 :* r2 :* Nil) -> pure (unI r1 <> unI r2))
---
--- instance Monoid a => Monoid (Artefact a) where
---   mempty = Lift Nil (\_result -> return mempty)
---
--- sequenceArtefacts' :: [Artefact ()] -> Artefact ()
--- sequenceArtefacts' = mconcat
--- @
-sequenceArtefacts :: [Artefact ()] -> Artefact ()
-sequenceArtefacts = go Nil . reverse
-  where
-    go :: Artefacts as -> [Artefact ()] -> Artefact ()
-    go acc []     = Lift acc $ \_results -> pure ()
-    go acc (a:as) = go (a :* acc) as
+      (Lift as' f)        -> go as'        >>= lift . f
+      (Bind x   f)        -> runArtefact x >>= runArtefact . f
 
 {-------------------------------------------------------------------------------
   Traces

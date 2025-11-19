@@ -1,0 +1,14 @@
+version:
+  hs_bindgen: 0.1.0
+  binding_specification: '1.0'
+hsmodule: Test.TH.Simple
+ctypes:
+- headers: simple.h
+  cname: struct simple
+  hsname: Simple
+hstypes:
+- hsname: Simple
+  instances:
+  - Eq
+  - Show
+  - Storable
